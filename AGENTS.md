@@ -14,7 +14,9 @@ keep it untracked and do not copy its contents into shared documentation.
 ## Agent responsibilities and orientation
 
 - Claude Code is the primary implementation harness. It owns coding, test
-  execution, implementation review, and integration work.
+  execution, implementation review, and integration work. Implementation
+  follows `docs/development.md` (stages, task records, guardrails) and
+  `docs/review.md` (the independent `code-reviewer` gate).
 - Codex is optional for discussion, research, proposals, design decisions, and
   their documentation. Reading code for design context is allowed; it does not
   take over implementation or provide the implementation test/review verdict.
@@ -31,7 +33,7 @@ keep it untracked and do not copy its contents into shared documentation.
   orientation, inspect proposal metadata and surface pending owner decisions
   with a brief recommendation and link; distinguish approved work still awaiting
   application. Check applicable decisions before acting. The tracking convention
-  is active; tracked development/review proposals are not thereby approved.
+  is active; a tracked proposal is not thereby approved.
 - This development system is experimental. Notice concrete friction, missing
   guidance, and useful improvements as work proceeds. Record a brief observation
   in the active work record (or current design proposal), with its consequence
@@ -104,6 +106,8 @@ Full text in `docs/constitution.md`. The short list:
 | `docs/constitution.md` | Before anything irreversible |
 | `docs/framework-gaps.md` | Before planning framework work, and after any bypass of a component or template |
 | `docs/conventions.md` | Before writing code, docs or a commit message |
+| `docs/development.md` | Starting, resuming or handing off a task: stages, the task record under `docs/work/<id>/`, guardrails |
+| `docs/review.md` | Requesting, performing or recording an independent review; the `code-reviewer` subagent follows it |
 | `docs/proposals/README.md` | Proposal states, owner decisions, and orientation of pending/approved work |
 | `docs/proposals/trello-free-trial.md` | Authorized two-task Trello Free trial: scope, temporary task records, execution evidence and adoption decision |
 | `docs/git-workflow.md` | Agent-owned Git, direct pushes, feature branches, integration and tags |
@@ -117,10 +121,12 @@ Full text in `docs/constitution.md`. The short list:
 | `docs/decisions/` | Why things are the way they are (ADRs) |
 | `docs/history.md` | How the project got here |
 
-## Skills
+## Skills and agents
 
 `.claude/skills/new-cv`, `verify-cv`, `new-theme`. Each is a short checklist
 that names the files to copy, the commands to run and the evidence to report.
+`.claude/agents/code-reviewer.md` is the independent reviewer; it holds no
+rules of its own and defers to `docs/review.md`.
 
 ## Working agreement for agents
 
@@ -133,8 +139,10 @@ that names the files to copy, the commands to run and the evidence to report.
   No module is migrated yet, so a new component matches the order already
   used by its file. Deck and engine are never separate templates
   (constitution section 7).
-- Every non-trivial change ends with `python tests/run.py` passing and the
-  evidence path reported. A visual change also needs a rendered page.
+- Every non-trivial change ends with `python tests/run.py` passing, the
+  evidence path reported, and a fresh `code-reviewer` round under
+  `docs/review.md` with the report stored in the task's `reviews/` folder.
+  A visual change also needs a rendered page.
 - If you had to go around a component, template or the contract to deliver
   what the owner wanted, add an entry to `docs/framework-gaps.md` before
   reporting done. A bypass is a lesson, not a fault.
