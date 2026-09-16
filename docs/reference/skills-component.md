@@ -5,7 +5,7 @@ It is exported from `packages/cv-engine/lib.typ` and is not part of the locked `
 template.
 
 ```typst
-// From examples/. From private/<folder>/ the paths are ../../lib.typ and ../../themes/.
+// From examples/flagship/ or private/<folder>/ (both two levels below the root).
 #import "../../packages/cv-engine/lib.typ": skills-section, skills-layout
 #import "../../packages/cv-engine/templates/flagship/themes/golden-blue.typ": theme
 

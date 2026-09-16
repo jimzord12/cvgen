@@ -20,7 +20,7 @@ __pycache__/
 Thumbs.db
 
 # Local scratch renders from earlier sessions. Tracked deliverables are only
-# the three named PDFs directly under exports/.
+# the named PDFs directly under exports/.
 previews/
 exports/prototypes/
 exports/review/

@@ -4,7 +4,7 @@
 #let facts = json("../../examples/candidates/engineer-example.json")
 #assert.eq(normalize-candidate(facts).copy, (:))
 #assert.eq(normalize-candidate(to-flagship-input(facts)).copy, flagship-copy)
-#assert.eq(to-flagship-input((..facts, copy: (brand: "RECORD")), copy: (experience: "Sea service")).copy,
+#assert.eq(to-flagship-input((..facts, copy: (brand: "RECORD", experience: "Record heading")), copy: (experience: "Sea service")).copy,
   (..flagship-copy, brand: "RECORD", experience: "Sea service"))
 #for months in (0, 1, 11, 12, 13, 138) {
   let parts = duration-parts(months)

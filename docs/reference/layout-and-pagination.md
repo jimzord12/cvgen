@@ -16,7 +16,7 @@ receive only their own slice. Change a value here and every example follows.
 For one CV, prefer a small override in the entry point over a new file:
 
 ```typst
-#import "../layouts/flagship-v11.typ": layout as base
+#import "../../packages/cv-engine/templates/flagship/layouts/flagship-v11.typ": layout as base
 #let layout = (..base, pages: (
   (companies: (0, 1, 2)),
   (companies: (3, 4)),

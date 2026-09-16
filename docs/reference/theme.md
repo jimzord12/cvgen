@@ -34,7 +34,7 @@ minimal override pattern: spread the base theme, replace what differs.
 | `colors.plate` | yes | Identity plate background |
 | `colors.rule` | yes | Table row rules |
 | `colors.on-hero` | yes | Text on hero-coloured areas |
-| `fonts.body`, `fonts.display` | yes | One of the three bundled family strings: `Source Sans 3`, `Barlow`, `Cormorant Garamond`. The Barlow Condensed file registers as `Barlow`. Confirm with `typst fonts --font-path fonts`; an unknown name prints `warning: unknown font family` and substitutes |
+| `fonts.body`, `fonts.display` | yes | One of the three bundled family strings: `Source Sans 3`, `Barlow`, `Cormorant Garamond`. The Barlow Condensed file registers as `Barlow`. Confirm with `typst fonts --font-path packages/cv-engine/fonts`; an unknown name prints `warning: unknown font family` and substitutes |
 | `sizes.*` | yes | One entry per text role. See `golden-blue.typ` for the full list. `skill` is optional and defaults to 10pt |
 | `tracking.label`, `tracking.rank` | yes | Letter spacing for uppercase labels and the rank line |
 | `leading.initial`, `leading.body`, `leading.duration` | yes | Line spacing before the body, in the body, and inside the two-line company duration |

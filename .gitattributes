@@ -15,4 +15,4 @@
 *.png binary
 *.jpg binary
 *.ttf binary
-licenses/* -whitespace
+packages/cv-engine/licenses/* -whitespace

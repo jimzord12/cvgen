@@ -15,7 +15,7 @@ Follow `docs/guides/build-a-cv.md`. This skill is the checklist.
   where the evidence is, and `reference.pdf` once a render is approved.
   Never under `examples/`.
 - New public example: fictional data under `examples/candidates/<name>-example.json`,
-  entry under `examples/<name>.typ`, and add it to `scripts/build.ps1` and
+  entry under `examples/flagship/<name>.typ`, and add it to `scripts/build.ps1` and
   the compile list in `tests/run.py`.
 
 ## Steps
@@ -38,7 +38,7 @@ Follow `docs/guides/build-a-cv.md`. This skill is the checklist.
    custom-composition path in guide section 7, record the reason in the
    folder's `README.md`, and add an entry to `docs/framework-gaps.md`.
 4. Compile to a new file under `builds/`:
-   `typst compile --root . --font-path fonts <entry> builds/<name>-01.pdf`.
+   `typst compile --root . --font-path packages/cv-engine/fonts <entry> builds/<name>-01.pdf`.
 5. On a fit or overflow error, apply the fix the message names. Page plan
    changes go in the entry point as a layout override, see
    `docs/reference/layout-and-pagination.md`. Never shrink body fonts.

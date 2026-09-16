@@ -10,7 +10,7 @@ Top-level shape. Required keys are `identity` and `companies`.
 ```json
 {
   "identity":          { "name": "ALEX MORGAN", "rank": "SECOND ENGINEER",
-                         "portrait": "/assets/fictional-engineer.png",
+                         "portrait": "/examples/candidates/fictional-engineer.png",
                          "portrait-alt": "AI-generated portrait" },
   "contacts":          { "left":  [ { "label": "Based in", "value": "Rotterdam, Netherlands" } ],
                          "right": [ { "label": "Email", "value": "a@example.com", "href": "mailto:a@example.com" } ] },
@@ -24,10 +24,14 @@ Top-level shape. Required keys are `identity` and `companies`.
   "education_entries": [ { "qualification": "Diploma in Marine Engineering",
                            "institution": "Merchant Marine Academy", "note": "optional" } ],
   "language_entries":  [ { "name": "Greek", "level": "Native" } ],
-  "disclosure":        "optional footer text",
-  "copy":              { "optional": "heading and caption overrides, see below" }
+  "disclosure":        "optional footer text"
 }
 ```
+
+This is the candidate-facts record: what is true about the person, with no
+template wording. The Flagship template reads a slightly wider shape, the
+Flagship input, which is the same record plus an optional `copy` key; its
+adapter produces it (see "Flagship wording" below).
 
 ## Field notes
 
@@ -59,7 +63,11 @@ Top-level shape. Required keys are `identity` and `companies`.
   scope, issued, review, or an object with those keys.
 - **education_entries[].note** is optional and renders small under the
   institution.
-- **copy** overrides heading text. Keys and defaults:
+## Flagship wording
+
+Headings, captions and the footer brand are Flagship input, not candidate
+facts. Their defaults live in
+`packages/cv-engine/templates/flagship/adapter/adapter.typ` (`flagship-copy`):
 
 ```text
 experience            "Experience"
@@ -79,8 +87,12 @@ page-caption          "EXPERIENCE / CREDENTIALS"
 brand                 "FLAGSHIP"
 ```
 
-When `copy` is given it replaces the whole dictionary, so include every key
-you still want.
+To change any of them, pass only the keys you change; the adapter merges
+them over the defaults. Preferred: the `copy` argument of `flagship`, for
+example `flagship.with(..., copy: (brand: "GOLDEN BLUE"))`. Legacy: a `copy`
+key inside the record, which the adapter also merges, but such a record only
+validates against `flagship-input.schema.json`, not the facts contract.
+Merge order is defaults, then the record's `copy`, then the argument.
 
 ## Errors you will see
 

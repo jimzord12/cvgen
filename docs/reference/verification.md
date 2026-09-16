@@ -27,15 +27,21 @@ and per-check folders with `result.json` and, on a raster mismatch, a
    text.
 4. **Captain examples.** Both compile to two pages; silver and classic have
    identical text; no "Engineer" wording appears.
-5. **Every PDF.** Expected page count, no empty page, all fonts embedded, no
+5. **Chief Officer example.** Compiles to two pages without a portrait; the
+   name, first and last company, total, disclosure, certificate heading and
+   the default `FLAGSHIP` brand all appear. Rendered again with
+   `brand=SILVER BRIDGE`, the new brand replaces the default and every other
+   word keeps its position, which proves the `copy` argument reaches the page
+   through the adapter and nothing else moves.
+6. **Every PDF.** Expected page count, no empty page, all fonts embedded, no
    text outside the page.
-6. **Fixtures under `tests/fixtures/`:**
+7. **Fixtures under `tests/fixtures/`:**
 
 | Fixture | Cases |
 |---|---|
 | `configuration.typ` | Theme validates; frozen geometry constants (hero 77mm, page-two bottom margin 11mm, backdrop 94mm) |
 | `content.typ` | Experience, synopsis, certificates and education compose on one page |
-| `data.typ` | Duration parts, totals 138 months / 23 vessels / 6 companies, vessel dedup, company-only months; rejects missing months, mismatched totals, negative months |
+| `data.typ` | The core leaves `copy` empty and the Flagship adapter fills it, merging record and argument overrides in that order; duration parts, totals 138 months / 23 vessels / 6 companies, vessel dedup, company-only months; rejects missing months, mismatched totals, negative months |
 | `components.typ` | Hero renders with and without portrait or contacts; rejects a name or email that does not fit |
 | `options.typ` | Company-only months, all optional fields empty, a long vessel name whose duration wraps, with and without durations |
 | `pagination.typ` | Three pages with a company split across pages; rejects overflow and duplicate allocation |
