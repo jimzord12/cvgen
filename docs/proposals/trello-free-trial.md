@@ -132,8 +132,8 @@ Checked 2026-09-16:
 
 2026-09-16, Claude Code, skill at `.claude/skills/trello/` (commit `c39ca1e`):
 
-- **Access:** key and token are user-scope environment variables on the
-  owner's machine; the helper reads them and never prints them. Workspace
+- **Access:** key and token are environment variables exported by the
+  owner's PowerShell profile; the helper reads them and never prints them. Workspace
   "Jimzord12 Projects" is Free (feature list has no Custom Fields; 5 of 10
   boards were in use).
 - **Board:** [Marine CV trial](https://trello.com/b/IPsBxAwf/marine-cv-trial),
@@ -164,8 +164,6 @@ Checked 2026-09-16:
   actions: label add/remove (Trello does not emit them). Recovery: no import
   exists, but every field needed to recreate the board is present; a script
   replaying the JSON through the same helper is roughly an hour of work.
-- **Phone verdict:** pending from the owner.
-
 ### Review of the skill
 
 Round 1 on `ec5c23d..045f68d`, in-session `code-reviewer`, lead lenses 4
@@ -208,7 +206,21 @@ Round 4 on `ea4459b..8d231af`, lead lenses 4 and 6:
 | T4-01 Material: `-ErrorVariable` receives the record with the Authorization header; malformed token surfaces the raw header | Fixed: the catch block removes the Authorization header from the shared request object (one instance behind `$Error`, `-ErrorVariable` and the response), and both credentials are validated against `^[A-Za-z0-9_-]+$` before any request. Verified live: after a 400 and a 404 with `-ErrorVariable`, `Get-Error`, `Format-List * -Force` and `.TargetObject.Headers` dumps (20 KB) contain neither value; a token with a quote exits 2 with an empty error variable. |
 | T4-02 Note: SKILL.md diagnostics sentence | Fixed: states that `$Error`/`Get-Error` are empty by design and `-ErrorVariable` carries a scrubbed record. |
 
-Remaining before the endpoint: the owner's phone verdict and the credential
-rotation. Recommendation so
+Round 5 on `8d231af..cddd379`, lead lenses 4 and 6:
+[reviews/05.md](../work/trello-trial/reviews/05.md). Verdict **FINDINGS**;
+the reviewer states the credential-exposure class closed for well-formed
+values, with one malformed-value path left.
+
+| Finding | Disposition |
+|---|---|
+| T5-01 Material: a value ending in LF passes the guard (`$` tolerates a final newline) | Fixed: anchor changed to `\z`. Verified live: an LF-tailed token exits 2 with an empty `-ErrorVariable` and `$Error`; the real values still pass. |
+| T5-02 Minor: caller `Set-StrictMode` breaks the no-response branch | Fixed: status is read only when the exception is an `HttpResponseException`. Verified in a strict-mode child shell: transport failure and HTTP 400 both give the designed message, exit 1, `$Error` 0. |
+| T5-03 Note: "user-scope" wording | Fixed: the values are exported by the owner's PowerShell profile (confirmed: user and machine scopes are empty); helper messages and SKILL.md now say so. |
+
+- **Phone verdict (owner, 2026-09-16):** the new board and both cards are
+  visible on the phone; the Done card shows its checklist with all three
+  items checked. No usability complaint raised.
+
+Remaining before the endpoint: the credential rotation. Recommendation so
 far: adopt for the migration task; the Free tier covered every operation the
 protocol needs.

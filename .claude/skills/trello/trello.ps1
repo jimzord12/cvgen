@@ -41,12 +41,12 @@ function Fail([string]$Message, [int]$Code) {
 }
 
 if (-not $key -or -not $token) {
-    Fail 'Set TRELLO_API_KEY and TRELLO_API_TOKEN as environment variables (user scope), then start a new shell.' 2
+    Fail 'TRELLO_API_KEY and TRELLO_API_TOKEN are not set in this shell; the owner exports them from his PowerShell profile. Start a shell that loads the profile.' 2
 }
 # A malformed value would make .NET reject the header with a message that
 # quotes it; refuse before any request exists.
 foreach ($v in @($key, $token)) {
-    if ($v -notmatch '^[A-Za-z0-9_-]+$') { Fail 'TRELLO_API_KEY or TRELLO_API_TOKEN contains unexpected characters (whitespace or quotes?); fix the variable and start a new shell.' 2 }
+    if ($v -notmatch '^[A-Za-z0-9_-]+\z') { Fail 'TRELLO_API_KEY or TRELLO_API_TOKEN contains unexpected characters (whitespace or quotes?); fix the value where it is exported and start a new shell.' 2 }
 }
 
 function Invoke-Trello([string]$Method, [string]$Path, [hashtable]$Query, [hashtable]$Body) {
@@ -73,7 +73,8 @@ function Invoke-Trello([string]$Method, [string]$Path, [hashtable]$Query, [hasht
         # to print. Drop our record and scrub the shared request object.
         if ($Error.Count) { $Error.RemoveAt(0) }
         if ($_.TargetObject -is [System.Net.Http.HttpRequestMessage]) { $null = $_.TargetObject.Headers.Remove('Authorization') }
-        $status = $_.Exception.Response.StatusCode.value__
+        # -is guard: a transport failure has no Response, and a caller's strict mode would throw on the missing property.
+        $status = if ($_.Exception -is [Microsoft.PowerShell.Commands.HttpResponseException]) { $_.Exception.Response.StatusCode.value__ }
         $detail = if ($status) { $_.ErrorDetails.Message } else { 'no response (timeout or connection failure): ' + $_.Exception.Message }
         Fail "Trello $Method /$Path failed: HTTP $status $detail" 1
     }
