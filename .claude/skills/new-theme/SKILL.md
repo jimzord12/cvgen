@@ -18,7 +18,7 @@ Read `docs/reference/theme.md` or `docs/reference/artwork-pack.md` first.
    `warning: unknown font family` and substitutes; the suite does not catch it.
 3. If the theme changes secondary SVG hues, add the hex values to
    `art-colors`.
-4. Add an example under `examples/` that differs from an existing one by the
+4. Add an example under `examples/flagship/` that differs from an existing one by the
    theme import only. Add it to `scripts/build.ps1` and `tests/run.py`.
 
 ## Artwork pack

@@ -16,7 +16,7 @@ permission. It does not approve a pending design or bypass safety checkpoints.
 
 ## Branches
 
-- `main` is always releasable: the suite passes and the three PDFs in
+- `main` is always releasable: the suite passes and the PDFs in
   `exports/` match the code.
 - Small, low-risk, verified fixes and documentation can go directly to `main`.
   Choose a feature branch for new features, migrations, significant changes,
@@ -87,7 +87,7 @@ branch structure is a proportionate choice for this small project.
 |---|---|
 | Source, themes, artwork, layouts, examples, fictional JSON | `private/` with real candidate data |
 | Bundled fonts and licence notices | `builds/` with every build and test output |
-| The three current deliverable PDFs in `exports/` | Scratch PDFs and PNGs at the repo root |
+| The current deliverable PDFs in `exports/` | Scratch PDFs and PNGs at the repo root |
 | The frozen reference PDF and hash manifest | `__pycache__/` |
 | Design studies with their review renders | Anything under `previews/` or `exports/review/` from earlier sessions |
 | Preview PNGs used by the README | |

@@ -31,7 +31,7 @@ a role's identity lives visually.
 
 | Key | Meaning |
 |---|---|
-| `source` | Path from the project root, `/assets/...` |
+| `source` | Path from the project root, `/packages/cv-engine/templates/flagship/assets/...` |
 | `width` | Rendered width. Backgrounds fill the page and `profile-illustration` uses `layout.profile.image-width`; both ignore it |
 | `x`, `y` | Offset from the slot's anchor, hero slots only |
 | `opacity` | 0 to 1, wraps the SVG in a group with that opacity |
@@ -53,5 +53,5 @@ Any descriptor also works as the `bullet` of the skills section.
 ## Checks
 
 The captain pack is compiled by `python tests/run.py` on both pages. A new
-pack should get its own example under `examples/` and be added to the build
+pack should get its own example under `examples/flagship/` and be added to the build
 script and to the runner's compile list.

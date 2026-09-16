@@ -36,7 +36,7 @@ them. These evolve; the rules that do not are in `constitution.md`.
   second template.
 - **Related pieces stay together.** Hero and its five helpers are one file.
   A new file is justified by a new responsibility, not by line count.
-- **Paths from the project root** for assets: `/assets/...`. Compile with
+- **Paths from the project root** for assets: `/packages/cv-engine/templates/flagship/assets/...`. Compile with
   `--root .`.
 - **Naming:** kebab-case for functions, keys and files. Templates are named
   after the design, `flagship`, never after a role. Themes and artwork
