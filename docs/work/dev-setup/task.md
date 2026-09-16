@@ -1,6 +1,6 @@
 # dev-setup: Activate the development protocol and the independent reviewer
 
-Status: Ready
+Status: Done
 Owner: Claude Code (implementation session of 2026-09-16)
 Branch/worktree: `docs/product-direction`, main checkout
 Integration target: `main`
@@ -108,8 +108,11 @@ round was requested.
 
 ## Handoff
 
-Current state: setup written, validated, reviewed (PASS) and the three
-proposals carry their application entries.
+Current state: Done. Integrated into `main` on 2026-09-16 as merge commit
+`145ff40` (tree identical to the reviewed `cfd1b56`; remote `main` had an
+older PR merge of this branch, hence the ordinary merge). CI for `145ff40`
+succeeded. The owner scoped his global no-merge rule to the ICS VCR product
+repositories the same day, so this repository's own Git policy applies.
 Next action: at the start of the next session (after restart), invoke
 `code-reviewer` once through the Agent tool with a two-line brief to confirm
 in-session discovery, note the result here, then open the `trello-trial`
