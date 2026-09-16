@@ -26,10 +26,7 @@ def render_revision(workspace, typst='typst', pages=2, inputs=None):
         raise WorkflowError(f'Typst compiler not found: {typst!r}; pass --typst path/to/typst')
     # Everything that can be refused is checked before the revision folder exists,
     # so a refusal leaves nothing behind.
-    try:
-        record = read_json(ws.record)
-    except ValueError as error:
-        raise WorkflowError(f'{ws.record} is not valid JSON: {error}')
+    record = read_json(ws.record)
     if not isinstance(record, dict):
         raise WorkflowError(f'{ws.record} must hold a JSON object')
     portrait = (record.get('identity') or {}).get('portrait')
@@ -99,9 +96,9 @@ def render_revision(workspace, typst='typst', pages=2, inputs=None):
 def engine_state():
     """Engine commit plus whether packages/cv-engine has uncommitted edits (then the run is not reproducible)."""
     try:
-        commit = subprocess.run(['git', 'rev-parse', 'HEAD'], cwd=ROOT, capture_output=True, text=True, check=True).stdout.strip()
+        commit = subprocess.run(['git', 'rev-parse', 'HEAD'], cwd=ROOT, capture_output=True, **TEXT, check=True).stdout.strip()
         dirty = subprocess.run(['git', 'status', '--porcelain', '--', str(ENGINE)], cwd=ROOT, capture_output=True,
-                               text=True, check=True).stdout.strip()
+                               **TEXT, check=True).stdout.strip()
         return {'package': 'packages/cv-engine', 'commit': commit, 'uncommitted_changes': bool(dirty)}
     except (OSError, subprocess.CalledProcessError):
         return {'package': 'packages/cv-engine', 'commit': None, 'uncommitted_changes': None}

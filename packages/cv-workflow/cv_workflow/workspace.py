@@ -44,7 +44,10 @@ def write_json(path, data):
 
 
 def read_json(path):
-    return json.loads(Path(path).read_text(encoding='utf-8'))
+    try:
+        return json.loads(Path(path).read_text(encoding='utf-8'))
+    except ValueError as error:
+        raise WorkflowError(f'{path} is not valid JSON: {error}')
 
 
 def hash_matches(reviewed, actual):
@@ -170,6 +173,17 @@ class Revision:
         """A one-word state for listings; never a proof of anything."""
         if not self.render_record.is_file():
             return 'incomplete'
+        try:
+            # A record that is not JSON is 'corrupt', never mistaken for a failed check or a missing approval.
+            for record in (self.render_record, self.checks_record, self.approval_record):
+                if record.is_file():
+                    read_json(record)
+            return self.describe()
+        except (OSError, WorkflowError):
+            return 'corrupt'
+
+    def describe(self):
+        """The state of a revision whose records all parse."""
         render = read_json(self.render_record)
         if render.get('status') != 'success':
             return 'failed'
@@ -189,6 +203,6 @@ class Revision:
         pdf, receipt = self.export / 'cv.pdf', self.export / 'cv.approval.json'
         try:
             complete = pdf.is_file() and sha256_file(pdf) == sha256 and read_json(receipt) == approval
-        except (OSError, ValueError):
+        except (OSError, WorkflowError):
             complete = False
         return 'exported' if complete else 'export-conflict'

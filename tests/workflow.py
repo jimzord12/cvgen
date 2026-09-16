@@ -128,6 +128,9 @@ def run_workflow(out, typst):
     stale['pdf_sha256'] = '0' * 64
     checks_path.write_text(json.dumps(stale), encoding='utf-8')
     assert 'stale' in cv('approve', workspace, rid3, '--approver', 'suite', '--sha256', third['sha256'], '--test-only', expect=2)
+    checks_path.write_text('{not json', encoding='utf-8')
+    assert 'not valid JSON' in cv('approve', workspace, rid3, '--approver', 'suite', '--sha256', third['sha256'], '--test-only', expect=2)
+    assert [r['state'] for r in cv('status', workspace)['revisions'] if r['revision'] == rid3] == ['corrupt']
     checks_path.write_text(original, encoding='utf-8')
     (workspace / 'cv.typ').write_text(ENTRY.replace('flagship.with', 'flagship.wit'), encoding='utf-8')
     broken = cv('render', workspace, '--typst', typst, expect=1)
