@@ -130,5 +130,42 @@ Checked 2026-09-16:
 
 ## Execution evidence
 
-No board, connector, API operation or export has been tested in this task.
-The authorized trial is awaiting Claude setup; no execution outcome is claimed.
+2026-09-16, Claude Code, skill at `.claude/skills/trello/` (commit `c39ca1e`):
+
+- **Access:** key and token are user-scope environment variables on the
+  owner's machine; the helper reads them and never prints them. Workspace
+  "Jimzord12 Projects" is Free (feature list has no Custom Fields; 5 of 10
+  boards were in use).
+- **Board:** [Marine CV trial](https://trello.com/b/IPsBxAwf/marine-cv-trial),
+  private, lists Queued/Active/Review/Ready/Done, label Blocked (red), all
+  created through the API.
+- **Operations, each verified by reading the result back:** create board,
+  lists, label; create two fictional cards with Markdown descriptions
+  (headings, bullets, double and single quotes, backslash, percent, multi-line
+  block quote: byte-identical on read-back); checklists with items; tick
+  items; edit description; move `trial-a` through all five stages; `trial-b`
+  created Blocked with reason and a dependency attachment to `trial-a`, label
+  removed and card moved to Active after `trial-a` reached Done, resolution
+  recorded in its description. Cards:
+  [trial-a](https://trello.com/c/SzIhlEhJ) (Done, 3/3),
+  [trial-b](https://trello.com/c/6bqw9sW8) (Active, 0/2).
+- **Fresh session, separate worktree:** a headless `claude -p` in a detached
+  worktree of `c39ca1e`, given only the skill, reported both cards' stage,
+  labels, checklist progress and urls correctly and quoted `trial-b`'s Blocked
+  section verbatim. It also noticed the section was stale after unblocking,
+  which was then corrected. No duplicate cards or local ledger were needed.
+- **Uncertain-create handling:** documented in the skill (list cards by name
+  before retrying); no timeout occurred during the trial, so untested live.
+- **Export:** `GET boards/<id>` with cards, lists, labels, checklists,
+  attachments and actions, saved as `builds/trello-20260916-154302/board.json`
+  (55 KB, local). Contains both titles, full descriptions, both checklists
+  with item states, current lists, labels, the dependency attachment and 22
+  actions (creates, 7 card updates, 3 check-item updates). Not recorded as
+  actions: label add/remove (Trello does not emit them). Recovery: no import
+  exists, but every field needed to recreate the board is present; a script
+  replaying the JSON through the same helper is roughly an hour of work.
+- **Phone verdict:** pending from the owner.
+
+Remaining before the endpoint: the owner's phone verdict. Recommendation so
+far: adopt for the migration task; the Free tier covered every operation the
+protocol needs.
