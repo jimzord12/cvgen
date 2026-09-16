@@ -1,6 +1,6 @@
 ---
 kind: proposal
-status: trial
+status: pending
 revision: 2
 ---
 
@@ -217,10 +217,40 @@ values, with one malformed-value path left.
 | T5-02 Minor: caller `Set-StrictMode` breaks the no-response branch | Fixed: status is read only when the exception is an `HttpResponseException`. Verified in a strict-mode child shell: transport failure and HTTP 400 both give the designed message, exit 1, `$Error` 0. |
 | T5-03 Note: "user-scope" wording | Fixed: the values are exported by the owner's PowerShell profile (confirmed: user and machine scopes are empty); helper messages and SKILL.md now say so. |
 
+Round 6 on `cddd379..6df9343`, lead lenses 4 and 6:
+[reviews/06.md](../work/trello-trial/reviews/06.md). Verdict **PASS**; the
+reviewer considers the credential-exposure class closed for the helper as
+designed, including malformed values.
+
+| Finding | Disposition |
+|---|---|
+| T6-01 Minor: strict-mode caller plus an empty-body HTTP error loses the designed message | Deferred: no exposure (record already dropped and scrubbed); needs a strict-mode caller and a bodyless edge error. Apply `[string]$_.ErrorDetails` when the helper next changes. |
+| T6-02 Note: Unicode case-equivalents pass the case-insensitive guard | Deferred: .NET refuses the header without quoting it; `-cnotmatch` when the helper next changes. |
+| T6-03 Note: whitespace-only value mangles the usage message | Deferred: cosmetic, exit 2, nothing leaks. |
+
 - **Phone verdict (owner, 2026-09-16):** the new board and both cards are
   visible on the phone; the Done card shows its checklist with all three
   items checked. No usability complaint raised.
 
-Remaining before the endpoint: the credential rotation. Recommendation so
+### Trial endpoint and recommendation
+
+2026-09-16: every check in "Two-task trial" is done on the two cards. The
+Free tier covered every operation the protocol needs; nothing required a
+paid feature. Cost of the trial: a 120-line helper, six review rounds (five
+of them on credential-handling paths in PowerShell diagnostics, all closed),
+no MCP server, no SDK.
+
+**Recommendation: adopt** Trello as the task store for this repository,
+with the skill as the integration, and create the migration card as the
+first real task. Adoption would also need one line in `AGENTS.md`
+orientation pointing at the board (T1-06) and the retirement of
+`docs/work/<id>/task.md` as the default brief (review reports stay under
+`docs/work/<id>/reviews/`). Reject would mean archiving the trial board and
+keeping `task.md` records; the skill could stay as a tool.
+
+Owner actions outstanding regardless of the decision: rotate the Trello API
+key and token exposed during review rounds 1 and 2 (revoke the token at
+trello.com/my/account, Applications; regenerate the key at
+trello.com/power-ups/admin; update the two lines in the PowerShell profile). Recommendation so
 far: adopt for the migration task; the Free tier covered every operation the
 protocol needs.
