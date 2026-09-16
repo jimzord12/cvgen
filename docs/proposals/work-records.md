@@ -10,6 +10,11 @@ Companion to the
 not a new task-tracking application.
 Approval is included in the development proposal's scope.
 
+For the authorized [Trello Free trial](trello-free-trial.md), put these sections
+on each trial card and link the existing decision/review records. Do not create
+`docs/work/<id>/task.md` for a card already owning that information. This is a
+temporary variation for two fictional tasks, not a permanent store migration.
+
 ## Generate current state on demand
 
 Read the vision, decisions, authoritative tasks, repository state, and relevant

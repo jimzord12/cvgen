@@ -105,6 +105,7 @@ Full text in `docs/constitution.md`. The short list:
 | `docs/framework-gaps.md` | Before planning framework work, and after any bypass of a component or template |
 | `docs/conventions.md` | Before writing code, docs or a commit message |
 | `docs/proposals/README.md` | Proposal states, owner decisions, and orientation of pending/approved work |
+| `docs/proposals/trello-free-trial.md` | Authorized two-task Trello Free trial: scope, temporary task records, execution evidence and adoption decision |
 | `docs/git-workflow.md` | Agent-owned Git, direct pushes, feature branches, integration and tags |
 | `docs/reference/candidate-schema.md` | Editing a candidate JSON |
 | `docs/reference/theme.md` | Creating or editing a theme |

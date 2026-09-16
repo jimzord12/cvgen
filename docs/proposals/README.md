@@ -41,7 +41,7 @@ scope. The README is the tracking convention, not a pending proposal.
 | Status | Meaning | Who moves it onward |
 |---|---|---|
 | `pending` | Ready for an owner decision, including a completed trial. | Owner approves, rejects, defers, or authorizes a trial. |
-| `trial` | A scoped experiment is authorized and running. | Agent records its result and returns it to `pending` at its endpoint. |
+| `trial` | A scoped experiment is authorized; its record distinguishes awaiting setup from execution. | Agent records its result and returns it to `pending` at its endpoint. |
 | `approved` | Owner accepted this revision; applying it remains outstanding. | Responsible agent applies and verifies the authorized change. |
 | `applied` | The approved change is in effect, with evidence linked. | Closed; a later change needs a new proposal. |
 | `rejected` | Owner declined it; file and reason live in `rejected/`. | Closed unless the owner explicitly reopens it as `pending`. |

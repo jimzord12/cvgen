@@ -21,6 +21,14 @@ revision 2 and its review/work-record specifications as recorded at commit
 `1ae2ed5d2448d356ce190d9935ae741528a1baae`. Tool selection, installation and integration
 are not included. This records approval, not completion of Claude's setup work.
 
+### Authorized trial amendment
+
+2026-09-16: the owner subsequently authorized the [Trello Free trial](trello-free-trial.md).
+Its two fictional tasks use Trello cards as the authoritative brief/status store,
+with existing decision/review evidence linked. This temporary amendment takes
+precedence over the file-task options below for those cards only. The baseline
+approval remains unchanged; permanent task-tool adoption still needs a decision.
+
 ## The recommendation
 
 Use a Kanban-style flow [work moves through explicit stages], one active

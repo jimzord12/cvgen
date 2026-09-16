@@ -4,8 +4,10 @@ kind: reference
 
 # Kanban tooling: first trial
 
-Status: Research and recommendation, 2026-09-15. No tool selected, installed,
-or run. Companion to the [development protocol](development-protocol.md).
+Historical research and recommendation, 2026-09-15. The owner subsequently chose
+the [Trello Free trial](trello-free-trial.md) on 2026-09-16. That decision supersedes
+the first-trial recommendation below; retain this comparison as dated background.
+No installation or trial outcome is established by this research note.
 The trial is optional follow-up work, not a prerequisite for the next CV task.
 Recheck time-sensitive tooling facts if this research is used later.
 
