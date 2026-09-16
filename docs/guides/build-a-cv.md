@@ -13,19 +13,22 @@ private/jane-doe-second-engineer/
   candidate.json         candidate data
   cv.typ                 entry point
   portrait.<ext>         authorised photograph, jpg or png
-  reference.pdf          the approved render, once there is one
-  presentation.json      only for the custom path in section 7: data the schema cannot hold
+  presentation.json      only for the custom path in section 8: data the schema cannot hold
+  revisions/             one folder per render, written by scripts/cv.py (section 3)
+  exports/               one folder per exported revision, written by scripts/cv.py (section 6)
 ```
 
-`cv.typ`. The shipped layout's page plan assumes the example's six
+`cv.typ`. Import the engine by root-absolute path (a leading `/` means the
+repository root), so the copy the workflow keeps with each revision compiles
+on its own. The shipped layout's page plan assumes the example's six
 companies, so a real candidate always overrides `pages` with their own
 company indices, zero-based, in JSON order:
 
 ```typst
-#import "../../packages/cv-engine/lib.typ": flagship
-#import "../../packages/cv-engine/templates/flagship/themes/golden-blue.typ": theme
-#import "../../packages/cv-engine/templates/flagship/artwork/engineer.typ": artwork
-#import "../../packages/cv-engine/templates/flagship/layouts/flagship-v11.typ": layout as base
+#import "/packages/cv-engine/lib.typ": flagship
+#import "/packages/cv-engine/templates/flagship/themes/golden-blue.typ": theme
+#import "/packages/cv-engine/templates/flagship/artwork/engineer.typ": artwork
+#import "/packages/cv-engine/templates/flagship/layouts/flagship-v11.typ": layout as base
 #let layout = (..base, pages: (
   (companies: (0, 1)),
   (companies: (2,), synopsis: true, certificates: true, education: true),
@@ -45,22 +48,37 @@ render. Splitting one large company across pages is shown in
 Copy `examples/candidates/engineer-example.json` or `examples/candidates/captain-example.json` and
 replace every value. Field meanings and error messages are in
 `../reference/candidate-schema.md`. Set `identity.portrait` to
-`/private/jane-doe-second-engineer/portrait.<ext>` or `null`.
+`portrait.<ext>` (relative to the workspace folder), to
+`/private/jane-doe-second-engineer/portrait.<ext>`, or to `null`.
 
 If you do not know months per vessel, set `show-vessel-durations: false` and
 give each company a `service-months` total instead.
 
-## 3. Compile
+## 3. Render a revision
+
+Every render is a new folder under `revisions/`, named by timestamp plus a
+random suffix, holding a snapshot of the inputs, the compiler log, the PDF
+and its checks. Nothing in an existing revision is ever rewritten.
 
 ```powershell
-typst compile --root . --font-path packages/cv-engine/fonts private/jane-doe-second-engineer/cv.typ builds/jane-doe-01.pdf
+python scripts/cv.py render private/jane-doe-second-engineer            # --pages 3 for a three-page plan
 ```
 
-Use a new file name each time. For live editing:
+The command prints the revision id, the PDF's SHA-256 and whether the
+automated checks passed (page count, no empty page, fonts embedded, text
+inside the page). Exit code 1 means the compiler or a check failed; the
+revision stays, with the error in its `render.log` or `checks.json`, and the
+fix is a new revision. Needs Python with `pymupdf` like the test suite.
+
+For live editing while you adjust the page plan, the compiler still works
+directly; write to a fresh name under `builds/`:
 
 ```powershell
 typst watch --root . --font-path packages/cv-engine/fonts private/jane-doe-second-engineer/cv.typ builds/jane-doe-preview.pdf
 ```
+
+A preview is not a revision: what you approve and export is always a
+`revisions/<id>/cv.pdf`.
 
 ## 4. Fix what does not fit
 
@@ -75,17 +93,46 @@ Every failure names the fix. The common ones:
 
 ## 5. Look at every page
 
-Open the PDF. Check the hero, the split between pages, the synopsis
-position, and that education sits where you want it. Check the text is
-selectable and the reading order makes sense for the portal you will submit
-to.
+Open `revisions/<id>/cv.pdf`. Check the hero, the split between pages, the
+synopsis position, and that education sits where you want it. Check the
+text is selectable and the reading order makes sense for the portal you
+will submit to. Anything to change means editing the inputs and rendering a
+new revision; the one you looked at is never modified.
 
-## 6. Keep it private
+## 6. Approve and export
 
-Nothing under `private/` is tracked. Do not copy renders into `exports/`.
+Approval is the owner's explicit act on the exact bytes reviewed. It writes
+`cv.approval.json` beside the PDF, bound to the revision id and the hash;
+the command refuses if the bytes changed since the render, if the checks
+failed or are stale, or if the hash you pass does not match:
+
+```powershell
+python scripts/cv.py approve private/jane-doe-second-engineer <revision-id> --approver "Jim" --sha256 <first 12+ characters of the hash you reviewed>
+```
+
+Export copies the approved bytes and the receipt into
+`exports/<revision-id>/` after verifying render, checks and approval, then
+verifies the copy. It never compiles. Running it again on a finished export
+verifies and returns the same bundle; a folder with different content is
+never overwritten.
+
+```powershell
+python scripts/cv.py export private/jane-doe-second-engineer <revision-id>
+python scripts/cv.py status private/jane-doe-second-engineer               # every revision and its state
+```
+
+Export means ready to deliver; sending the PDF is a separate, manual act.
+A new revision, for any reason, inherits no approval: review, approve and
+export it again. The lifecycle and the records are specified in
+`../pdf-workflow.md`.
+
+## 7. Keep it private
+
+Nothing under `private/` is tracked, revisions and exports included. Do not
+copy renders into the root `exports/`, which is the public fictional gallery.
 Do not commit certificate numbers, scans or passport details anywhere.
 
-## 7. When the template does not fit
+## 8. When the template does not fit
 
 Some real CVs cannot go through `flagship` yet. The known causes are
 recorded in `../framework-gaps.md`: a career recorded as contract periods
@@ -96,13 +143,13 @@ slot for. Until the template supports these, compose the page by hand from
 the same public exports:
 
 ```typst
-#import "../../packages/cv-engine/lib.typ": (document-shell, page-header, hero, profile-summary,
+#import "/packages/cv-engine/lib.typ": (document-shell, page-header, hero, profile-summary,
   section-heading, skills-section)
 // then place the hero, the sections and your own table below
 ```
 
-The skills block is documented in `../reference/skills-component.md`. From a
-private workspace folder the library is `../../packages/cv-engine/lib.typ`.
+The skills block is documented in `../reference/skills-component.md`. The
+root-absolute import works from any workspace folder.
 
 Rules for this path:
 
@@ -110,9 +157,10 @@ Rules for this path:
 - Keep the candidate JSON valid against the schema. Put data the schema
   cannot hold, such as contract periods, in a separate `presentation.json`
   beside it. Never invent months from calendar periods.
-- Keep the approved render as `reference.pdf` in the folder and record in
+- Approve and export the hand-composed render through the same workflow
+  (sections 3 and 6): its entry point is still `cv.typ`. Record in
   the folder's `README.md` why the custom composition exists and what it
   matched. Once the template can express the data, the entry point is
-  rewritten to use `flagship` and compared against that reference.
+  rewritten to use `flagship` and compared against the approved revision.
 - Add an entry to `docs/framework-gaps.md` saying what you needed, what
   you went around and what you built. That is how the gap gets closed.

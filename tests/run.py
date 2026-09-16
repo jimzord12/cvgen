@@ -8,6 +8,7 @@ import subprocess
 
 import pymupdf as fitz
 from verify import ROOT, FONTS, FLAGSHIP, verify, check_frozen
+from workflow import run_workflow
 
 
 def main():
@@ -117,6 +118,9 @@ def main():
     with fitz.open(certs) as doc:
         assert len(doc) == 2
         assert all('Scope / record' in p.get_text() for p in doc)
+    # The candidate workflow, end to end and every refusal, in a fresh fictional workspace.
+    for check in run_workflow(out, args.typst):
+        results.append({'case': 'workflow-' + check, 'passed': True})
     check_frozen()
     report = {'passed': True, 'cases': results, 'exact_reference': result, 'output': str(out)}
     (out / 'report.json').write_text(json.dumps(report, indent=2), encoding='utf-8')

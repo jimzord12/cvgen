@@ -3,7 +3,8 @@
 Date: 2026-09-15
 Status: Accepted. Amends 0005's target folder organization and 0007's ownership,
 schema, and folder-split decisions. Engine layout implemented 2026-09-16
-(`packages/cv-engine/`, `examples/`, `archive/`); workflow package pending.
+(`packages/cv-engine/`, `examples/`, `archive/`); local workflow implemented
+2026-09-16 (`packages/cv-workflow/`, `scripts/cv.py`); `apps/web/` pending.
 
 ## Context
 

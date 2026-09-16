@@ -74,16 +74,17 @@ Layout per ADR 0010 (`docs/pdf-workflow.md`). `E` below stands for
 | `E/typst.toml` | Package manifest for the engine | Releasing |
 | `examples/candidates/` | Fictional candidate records (engineer, captain, chief officer) and the one fictional portrait | Changing example data |
 | `examples/flagship/` | Seven-line entry points that wire the five inputs together | Adding an example |
-| `tests/` | `run.py` runner, `verify.py` PDF checks, `baseline.json` hash manifest, `fixtures/*.typ` compile cases | Changing behaviour |
+| `packages/cv-workflow/` | Python package: fresh revisions (snapshot, compile, `render.json`, `checks.json`), explicit approval (`cv.approval.json` bound to the SHA-256), verified export. Never sends anything | Changing how a candidate PDF is produced, approved or exported |
+| `tests/` | `run.py` runner, `verify.py` PDF checks, `workflow.py` end-to-end workflow case, `baseline.json` hash manifest, `fixtures/*.typ` compile cases | Changing behaviour |
 | `archive/design-studies/` | Four frozen, evaluated design studies with their renders | Reading for inspiration only |
 | `exports/` | The four current deliverable PDFs | Releasing a new version |
 | `docs/` | Governance and reference documentation, see below | Recording a decision |
 | `scripts/build.ps1` | Builds the four examples into a new `builds/` folder | Rarely |
+| `scripts/cv.py` | `render`, `approve`, `export`, `status` for one candidate workspace, calling `packages/cv-workflow` | Producing a real CV |
 | `builds/` | Ignored. Every build and test run writes to a new timestamped folder here | Reading evidence |
-| `private/` | Ignored. Real candidate workspaces | Producing a real CV |
+| `private/` | Ignored. Real candidate workspaces: `candidate.json`, `cv.typ`, `revisions/`, `exports/` | Producing a real CV |
 
-`packages/cv-workflow/`, `scripts/` workflow commands and `apps/web/` from the
-target tree are not implemented yet; see the Trello board.
+`apps/web/` from the target tree is not implemented; see the Trello board.
 
 ## Commands
 
@@ -92,10 +93,16 @@ target tree are not implemented yet; see the Trello board.
 ./scripts/build.ps1 -HideVesselDurations
 python tests/run.py                     # full suite, evidence into builds/tests-<timestamp>/
 typst compile --root . --font-path packages/cv-engine/fonts examples/flagship/engineer.typ builds/scratch.pdf
+python scripts/cv.py render private/<candidate>            # new revision: snapshot, PDF, log, checks
+python scripts/cv.py approve private/<candidate> <revision> --approver "<name>" --sha256 <reviewed hash>
+python scripts/cv.py export private/<candidate> <revision>  # verified copy into exports/<revision>/
 ```
 
-`tests/run.py` needs Typst 0.15.1 on PATH plus Python with `pymupdf` and
-`pillow`. Building a CV needs only Typst.
+`tests/run.py` and `scripts/cv.py render` need Typst 0.15.1 on PATH plus
+Python with `pymupdf` (the suite also `pillow`). Compiling an example needs
+only Typst. Approval is the owner's act: an agent never runs `approve` on a
+real candidate; `--test-only` exists for fictional fixtures and is refused
+under `private/`.
 
 ## Rules that never change
 
@@ -115,7 +122,7 @@ Full text in `docs/constitution.md`. The short list:
 | `docs/preferences.md` | Before every reply to the owner: who he is, how to talk to him, what he decides |
 | `docs/vision.md` | Deciding whether a feature belongs here |
 | `docs/architecture.md` | Before changing any module |
-| `docs/pdf-workflow.md` | Target monorepo (engine part implemented 2026-09-16) and the PDF lifecycle (workflow part pending); read before structural or workflow changes (ADR 0010). |
+| `docs/pdf-workflow.md` | Target monorepo and the PDF lifecycle, both implemented 2026-09-16 except `apps/web/`; read before structural or workflow changes (ADR 0010). |
 | `docs/tech-stack.md` | Setting up a machine, or asking "why Typst" |
 | `docs/constitution.md` | Before anything irreversible |
 | `docs/framework-gaps.md` | Before planning framework work, and after any bypass of a component or template |

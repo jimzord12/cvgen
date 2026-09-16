@@ -4,8 +4,10 @@ Read when discussing the monorepo boundaries or where a candidate PDF lives.
 Status: Approved by the owner in conversation on 2026-09-15; recorded in
 [ADR 0010](decisions/0010-public-monorepo-and-pdf-workflow.md). The source
 tree below is implemented for the engine (`packages/cv-engine/`, `examples/`,
-`archive/`) since 2026-09-16; `packages/cv-workflow/`, the `scripts/` workflow
-commands and `apps/web/` are not implemented yet.
+`archive/`) and for the local workflow (`packages/cv-workflow/`,
+`scripts/cv.py`) since 2026-09-16; `apps/web/` is not implemented.
+The commands are in `docs/guides/build-a-cv.md`; the package's own README
+describes the records it writes.
 
 ## Ownership
 
@@ -56,10 +58,12 @@ This schematic candidate name does not identify a real person:
 ```text
 private/<candidate>/
   candidate.json                # Working candidate record
+  cv.typ                        # Entry point: template, theme, artwork, layout, page plan
   sources/                      # Original documents and correspondence
   assets/                       # Prepared portrait and other rendering assets
   revisions/<revision-id>/       # Fresh timestamp + unique suffix for each run
     inputs/
+      cv.typ                    # Entry point as it was, verbatim
       candidate.json            # Snapshot used by this revision
       assets/                   # Copies of candidate assets actually used
     render.json                 # Selection, effective settings, versions, PDF hash
@@ -72,10 +76,15 @@ private/<candidate>/
     cv.approval.json            # Copy of the approval receipt for internal use
 ```
 
-The revision snapshot is fixed before compilation. Rendering never rewrites an
-existing revision PDF. A failed or corrected run gets a new revision folder.
-Record the engine revision, compiler version, template/theme/layout selection,
-and effective settings. Flag uncommitted engine changes; recording a version
+The revision snapshot is fixed before compilation and compiles on its own:
+the entry point imports the engine by root-absolute path
+(`/packages/cv-engine/...`), and the snapshot record's `identity.portrait`
+points at the copied asset under `inputs/assets/`, which `render.json`
+records next to the original path and the working record's hash. Rendering
+never rewrites an existing revision PDF. A failed or corrected run gets a new
+revision folder. `render.json` records the engine commit, the compiler
+version, the entry point's imports (template, theme, artwork, layout) and the
+compiler inputs, and flags uncommitted engine changes; recording a version
 alone is not a guarantee that such a development run can be reproduced.
 
 ## Lifecycle
@@ -127,9 +136,12 @@ Root `exports/` remains a public fictional gallery; candidate exports stay in
 `private/`. A template's `tests/approved/` protects its design against unintended
 changes; a candidate's approval sidecar records authorization to deliver that PDF.
 
-ADR 0010 approves a change to output locations: candidate runs will use fresh
+ADR 0010 approves a change to output locations: candidate runs use fresh
 private revision folders, while public tests/examples retain fresh build folders.
 The engine migration (imports, package manifest, documentation and the
 frozen-reference path, with the frozen PDF bytes preserved and the suite
-passing) landed on 2026-09-16. The revision workflow itself is still to be
-implemented; approval of this design does not grant candidate PDF approval.
+passing) and the local revision workflow (`packages/cv-workflow/`,
+`scripts/cv.py`, exercised end to end by the suite on a fictional workspace)
+both landed on 2026-09-16. Approval of this design does not grant candidate
+PDF approval; only `scripts/cv.py approve`, run by the owner on a reviewed
+revision, does.

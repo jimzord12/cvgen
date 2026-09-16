@@ -48,6 +48,18 @@ and per-check folders with `result.json` and, on a raster mismatch, a
 | `certificate-continuation.typ` | Fifty rows, header repeats on page two |
 | `skills.typ` | Titles, one to three columns, wrapping, two themes, SVG and plain bullets |
 
+8. **Candidate workflow** (`tests/workflow.py`). A fresh fictional workspace
+   under the run's `workflow/` folder is driven through the real
+   `scripts/cv.py`: render (the revision's PDF must equal the frozen v11
+   reference, the snapshot must be self-contained, `checks.json` bound to
+   the hash), approval only with the reviewed hash and a name, test-only
+   approval refused under `private/`, export with no compiler on PATH,
+   repeated export untouched, a later revision without approval, a copied
+   receipt, bytes changed after approval, failing and stale checks, a
+   failed compile kept with its log, a revision without `render.json`, a
+   leftover partial export and a conflicting destination. `commands.log`
+   holds every command with its output and exit code.
+
 Negative cases assert on the exact error text so a message change is a test
 change.
 

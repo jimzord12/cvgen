@@ -5,9 +5,9 @@ Read this before changing any module under `packages/cv-engine/`.
 This page describes the current implementation, laid out per
 [ADR 0010](decisions/0010-public-monorepo-and-pdf-workflow.md) and
 [PDF workflow and storage](pdf-workflow.md) since 2026-09-16. The engine
-package exists; the workflow package (`packages/cv-workflow/`) and the web app
-do not yet. Paths below are relative to `packages/cv-engine/` unless they
-start with `examples/` or `tests/`.
+package and the workflow package exist; the web app does not. Paths below
+are relative to `packages/cv-engine/` unless they start with `packages/`,
+`examples/`, `scripts/` or `tests/`.
 
 ## The one-paragraph version
 
@@ -99,7 +99,20 @@ templates/flagship/
   themes/  artwork/  assets/  layouts/  the four presentation inputs
   tests/approved/                       the frozen v11 reference PDF
 fonts/  licenses/                       bundled OFL fonts and their notices
+
+packages/cv-workflow/cv_workflow/       Python; owns everything around a candidate render
+  workspace.py                          workspace and revision paths, ids, hashes, records, the refusal rules
+  render.py                             snapshot inputs, compile, render.json + render.log, then checks
+  checks.py                             page count, empty page, fonts, bounds; bound to the PDF hash
+  approve.py                            explicit approval receipt, bound to revision id and hash
+  export.py                             verify, copy into a .partial- folder, verify, rename into place
+scripts/cv.py                           the four local commands calling that package
 ```
+
+The engine renders from its inputs and knows nothing about revisions or
+approval; the workflow calls the compiler like any other user of the engine
+(`typst compile --root <repo> --font-path <fonts>` on the snapshot's `cv.typ`).
+The future web backend calls the same package functions.
 
 ## Composition tree
 
@@ -149,5 +162,6 @@ instead of spilling onto an unplanned page.
 `tests/run.py` compiles the fixtures and the examples, checks fonts, text
 bounds and page counts, and compares the engineer example to the frozen v11
 PDF at 144 dpi plus normalised text. `tests/baseline.json` pins the hashes of
-every frozen input so the comparison stays meaningful. See
-`docs/reference/verification.md`.
+every frozen input so the comparison stays meaningful. `tests/workflow.py`
+drives `scripts/cv.py` through a fictional workspace end to end, including
+every refusal. See `docs/reference/verification.md`.

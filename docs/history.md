@@ -134,3 +134,20 @@ defaults moved from the core into the adapter. Every frozen hash carried
 over; the engineer example stayed pixel-identical. A third fictional
 dataset, a Chief Officer without a portrait, joined the gallery. The
 pre-migration tree is tagged `archive/pre-monorepo`.
+
+## 2026-09-16 — local PDF revision, approval and export workflow
+
+The workflow half of ADR 0010 landed as a small Python package,
+`packages/cv-workflow`, behind `scripts/cv.py`. A render snapshots the
+candidate's entry point, record and portrait into a fresh
+`revisions/<id>/` folder that compiles on its own, keeps the compiler log,
+records the engine commit, compiler version, imports and PDF hash, and
+runs the page checks against that hash. Approval is a separate explicit
+command that needs the reviewed hash and an approver and writes a receipt
+bound to the revision and its bytes; export verifies render, checks and
+receipt, copies the bytes into `exports/<id>/` through a partial folder,
+verifies the copy and never compiles. The suite drives the whole lifecycle
+and every refusal through the real commands on a fictional workspace; the
+workflow's own render of the fictional engineer equals the frozen v11
+reference pixel for pixel. Entry points now import the engine by
+root-absolute path. No web app, database or job service was built.

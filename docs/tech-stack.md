@@ -10,6 +10,7 @@ Read this when setting up a machine or asking why a tool was chosen.
 | Fonts | Source Sans 3, Barlow Condensed (family string `Barlow`), Cormorant Garamond | bundled, OFL | Reproducible renders on any machine. Passed with `--font-path packages/cv-engine/fonts` |
 | Build | PowerShell script `scripts/build.ps1` | PowerShell 7 | The owner works on Windows. The script is thirty lines and calls the compiler |
 | Verification | Python 3.11 with `pymupdf` 1.28 and `pillow` | development only | Render pages to pixels, extract text, check embedded fonts and bounds, hash frozen inputs |
+| Candidate workflow | Python package `packages/cv-workflow` behind `scripts/cv.py` | `pymupdf` for the render checks; standard library otherwise | Revisions, checks, approval receipts and verified exports without a web stack, database or job service; the future web backend calls the same functions |
 | CI | GitHub Actions, `.github/workflows/verify.yml` | | Runs `tests/run.py` on every push and pull request |
 | Agents | `AGENTS.md`, `CLAUDE.md`, `.claude/skills/` | | Entry map, invariants and repeatable checklists for coding agents |
 
@@ -17,7 +18,7 @@ Read this when setting up a machine or asking why a tool was chosen.
 
 ```powershell
 winget install --id Typst.Typst --exact        # Windows
-pip install pymupdf pillow                      # only for tests/run.py
+pip install pymupdf pillow                      # tests/run.py and scripts/cv.py render
 typst --version                                 # expect 0.15.1
 ```
 
