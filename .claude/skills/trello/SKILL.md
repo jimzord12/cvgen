@@ -47,8 +47,11 @@ descriptions pass through unchanged; build long descriptions in a PowerShell
 here-string. Output is compact JSON on stdout. Failures print one line
 straight to the console's stderr and exit 1 (API or board lookup) or 2
 (usage or missing credentials); that line bypasses PowerShell's error
-stream, so `2>$null`, `2>&1` and `try/catch` do not see it. Test success
-with `$?` right after the call; `$LASTEXITCODE` also holds the code. Recipes
+stream, so `2>$null`, `2>&1` and `try/catch` do not see it, `$Error` and
+`Get-Error` stay empty by design, and `-ErrorVariable` receives the record
+with its Authorization header removed. There is nothing more to dig for:
+the stderr line is the whole diagnosis. Test success with `$?` right after
+the call; `$LASTEXITCODE` also holds the code. Recipes
 for cards, checklists, labels, moves and export are in
 [recipes.md](recipes.md); load it only when you need one.
 

@@ -200,6 +200,14 @@ Round 3 on `eeeb24d..ea4459b`, lead lenses 4 and 6:
 | T3-02 Note: `Set-PSDebug -Trace 2` traces every script's secrets | Accepted as stated; not countered in the helper. |
 | T3-03 Note: forced `-Debug` via `$PSDefaultParameterValues` in an interactive session | Fixed: `Debug = $false` passed explicitly on the request. |
 
+Round 4 on `ea4459b..8d231af`, lead lenses 4 and 6:
+[reviews/04.md](../work/trello-trial/reviews/04.md). Verdict **FINDINGS**.
+
+| Finding | Disposition |
+|---|---|
+| T4-01 Material: `-ErrorVariable` receives the record with the Authorization header; malformed token surfaces the raw header | Fixed: the catch block removes the Authorization header from the shared request object (one instance behind `$Error`, `-ErrorVariable` and the response), and both credentials are validated against `^[A-Za-z0-9_-]+$` before any request. Verified live: after a 400 and a 404 with `-ErrorVariable`, `Get-Error`, `Format-List * -Force` and `.TargetObject.Headers` dumps (20 KB) contain neither value; a token with a quote exits 2 with an empty error variable. |
+| T4-02 Note: SKILL.md diagnostics sentence | Fixed: states that `$Error`/`Get-Error` are empty by design and `-ErrorVariable` carries a scrubbed record. |
+
 Remaining before the endpoint: the owner's phone verdict and the credential
 rotation. Recommendation so
 far: adopt for the migration task; the Free tier covered every operation the
