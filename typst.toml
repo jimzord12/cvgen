@@ -6,4 +6,4 @@ authors = ["Dimitrios Stamatakis"]
 license = "MIT"
 description = "Composable Typst CV library for maritime roles: a family of templates over independent candidate data, theme, artwork pack and layout profile."
 compiler = "0.15.1"
-exclude = ["private", "exports", "reference", "designs", "builds", "docs", "tests", "scripts", ".claude", ".github"]
+exclude = ["private", "exports", "reference", "designs", "builds", "docs", "tests", "scripts", ".claude", ".github", ".local"]

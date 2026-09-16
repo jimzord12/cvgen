@@ -90,3 +90,28 @@ fictional-content, no-shrinking or totals rules (ADR 0009, constitution
 section 10). The log opened with the three bypasses found in the real CVs.
 `docs/preferences.md` was added to tell every agent how the owner wants to
 be briefed.
+
+## 2026-09-15 — monorepo and PDF workflow approved
+
+The owner approved the public monorepo and candidate PDF lifecycle in ADR 0010.
+The detailed document moved from proposals to `docs/pdf-workflow.md` and is
+marked approved with implementation pending. Templates own their presentation
+and input contracts; candidate facts retain a common contract. The CV engine
+renders documents, while a separate workflow manages private revisions,
+hash-based owner approval, export, and eventual web delivery.
+
+The existing folder tree and runtime remain unchanged. Earlier historical
+statements about the next code task are not the current sequencing: the owner
+has opened discussion of a common development protocol for Codex and Claude
+Code, followed by migration planning. No new development protocol has been
+adopted in this documentation update.
+
+## 2026-09-16 — agent-managed Git without pull requests
+
+The owner assigned routine Git decisions to the working agent, except when the
+owner explicitly takes Git management over for a session. Mandatory PRs and
+per-merge owner approval were replaced with direct pushes for small verified
+changes and branches for substantial work. Existing destructive-operation
+checkpoints and product/design approvals remain. Longer feature branches are
+available where useful; short topic branches and limited child branching are
+the recommended default. The broader development protocol remains pending.

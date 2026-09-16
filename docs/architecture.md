@@ -2,6 +2,11 @@
 
 Read this before changing any module under `src/`.
 
+This page describes the current implementation. The approved target monorepo
+layout and candidate PDF lifecycle are in [PDF workflow and storage](pdf-workflow.md)
+and [ADR 0010](decisions/0010-public-monorepo-and-pdf-workflow.md); implementation
+is pending. Use that target when planning structural or workflow changes.
+
 ## The one-paragraph version
 
 `examples/engineer.typ` loads a candidate JSON and passes it, together with a

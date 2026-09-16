@@ -4,6 +4,12 @@ Rules that do not change without the product owner saying so in writing.
 Read before anything irreversible. Conventions, which do evolve, are in
 `conventions.md`.
 
+Path references below describe the current implementation. The owner-approved
+[ADR 0010](decisions/0010-public-monorepo-and-pdf-workflow.md) establishes the
+target monorepo layout and fresh private candidate revision folders. Migration
+is pending; frozen content, evidence requirements, and safety checkpoints hold
+throughout the move.
+
 ## 1. Frozen references are contracts
 
 - Every approved template has a frozen reference render under `reference/`

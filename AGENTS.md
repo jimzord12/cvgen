@@ -7,6 +7,47 @@ templates on one shared core, each rendering deck and engine candidates
 (`docs/vision.md`, ADR 0007). Read this file and `docs/preferences.md`, then
 open only what your task needs.
 
+If `.local/preferences/user-profile.md` exists, read it alongside
+`docs/preferences.md` before replying. It contains local user preferences;
+keep it untracked and do not copy its contents into shared documentation.
+
+## Agent responsibilities and orientation
+
+- Claude Code is the primary implementation harness. It owns coding, test
+  execution, implementation review, and integration work.
+- Codex is optional for discussion, research, proposals, design decisions, and
+  their documentation. Reading code for design context is allowed; it does not
+  take over implementation or provide the implementation test/review verdict.
+- On a fresh or resumed session, derive a brief Goal / Now / Next / You report
+  from the vision, relevant decisions/proposals, authoritative task records when
+  available, Git state, and evidence for the examined revision. Distinguish an
+  approved design from implemented behavior, and historical checks from current
+  proof. Do not use `docs/now.md`; it is a retired historical snapshot.
+- State reporting is read-only and repeatable: unchanged inputs yield the same
+  factual state. No dedicated reporting command exists yet; inspect the sources
+  directly. Do not maintain a second status file or backlog. In proposals and
+  protocols, prefer derived views over manually synchronized summaries.
+- Use `docs/proposals/README.md` for proposal states and decision handling. At
+  orientation, inspect proposal metadata and surface pending owner decisions
+  with a brief recommendation and link; distinguish approved work still awaiting
+  application. Check applicable decisions before acting. The tracking convention
+  is active; tracked development/review proposals are not thereby approved.
+- This development system is experimental. Notice concrete friction, missing
+  guidance, and useful improvements as work proceeds. Record a brief observation
+  in the active work record (or current design proposal), with its consequence
+  and a suggested next step. Check for duplicates; do not manufacture findings
+  or silently change active rules. Track decision-ready changes using
+  `docs/proposals/README.md`. Broader process/package ideas remain deferred in
+  `docs/proposals/process-evolution.md`.
+- Keep process work proportional: enough to support the next CV task. Package
+  extraction and tooling are optional future work, not prerequisites for delivery.
+- The working agent owns routine Git management by default: choose when to
+  commit, push, branch, and integrate authorized work. This includes Codex's own
+  design/documentation work without taking over Claude's implementation role.
+  Only an explicit session instruction that the owner will handle Git suspends
+  this responsibility. Follow `docs/git-workflow.md`: no PRs for now; small,
+  verified changes may go directly to `main`, and substantial work uses branches.
+
 ## Where things are
 
 | Path | Role | Touch it when |
@@ -58,11 +99,13 @@ Full text in `docs/constitution.md`. The short list:
 | `docs/preferences.md` | Before every reply to the owner: who he is, how to talk to him, what he decides |
 | `docs/vision.md` | Deciding whether a feature belongs here |
 | `docs/architecture.md` | Before changing any module |
+| `docs/pdf-workflow.md` | Approved target monorepo and PDF lifecycle; read before planning structural or workflow changes. Implementation pending (ADR 0010). |
 | `docs/tech-stack.md` | Setting up a machine, or asking "why Typst" |
 | `docs/constitution.md` | Before anything irreversible |
 | `docs/framework-gaps.md` | Before planning framework work, and after any bypass of a component or template |
 | `docs/conventions.md` | Before writing code, docs or a commit message |
-| `docs/git-workflow.md` | Branching, commits, PRs, tags, what gets committed |
+| `docs/proposals/README.md` | Proposal states, owner decisions, and orientation of pending/approved work |
+| `docs/git-workflow.md` | Agent-owned Git, direct pushes, feature branches, integration and tags |
 | `docs/reference/candidate-schema.md` | Editing a candidate JSON |
 | `docs/reference/theme.md` | Creating or editing a theme |
 | `docs/reference/artwork-pack.md` | Creating or editing an artwork pack |
@@ -94,5 +137,7 @@ that names the files to copy, the commands to run and the evidence to report.
 - If you had to go around a component, template or the contract to deliver
   what the owner wanted, add an entry to `docs/framework-gaps.md` before
   reporting done. A bypass is a lesson, not a fault.
-- Commit and push on the working branch freely. Never merge to `main`
-  without explicit approval in the conversation.
+- Routine commits, pushes and non-destructive merges, including to `main`, are
+  authorized for agreed work under `docs/git-workflow.md`. This replaces the old
+  per-merge approval rule. Product/design decisions and the explicit destructive
+  operation checkpoints remain with the owner.

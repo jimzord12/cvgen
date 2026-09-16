@@ -1,7 +1,7 @@
 # 0007. A family of templates over one shared core
 
 Date: 2026-09-12
-Status: Accepted. Amends 0002: the five inputs stand, "one template" does not.
+Status: Amended by 0010 for ownership, schemas, and folder migration. Its amendment of 0002 and deck/engine variations remain valid.
 
 ## Context
 

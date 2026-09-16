@@ -1,7 +1,20 @@
 # Vision
 
 Read this when deciding whether a feature belongs in the project. Owned by
-the product owner; last confirmed 2026-09-12.
+the product owner; last confirmed 2026-09-15.
+
+## Approved next architecture
+
+The owner approved a public monorepo with a locally usable CV engine, a separate
+PDF workflow, and a future web application after the core is stable. Candidate
+facts have a common contract; templates own their input schemas, adapters, and
+presentation. The PDF workflow binds explicit owner approval to an exact PDF.
+See [PDF workflow and storage](pdf-workflow.md) and
+[ADR 0010](decisions/0010-public-monorepo-and-pdf-workflow.md).
+
+Implementation is pending. This decision takes precedence over earlier folder
+and sharing assumptions below. Development protocol and migration sequencing
+are the next planning topics; this document does not start those code changes.
 
 ## What this is
 
@@ -20,8 +33,9 @@ contract, then freezes an approved render.
 
 - Not a general resume framework. Maritime roles only. Two pages by
   default, one page for cadets.
-- Not an online service. Everything builds locally with one compiler. Real
-  candidate data never leaves the machine.
+- The engine remains locally usable with one compiler. The approved future web
+  application adds hosted intake, review, and delivery, with real candidate
+  data in private storage outside the public source repository.
 - Not an automatic layout engine. Pagination is explicit and reviewed by a
   human. The system refuses to shrink fonts to make content fit.
 - Not a store of real people. Public content stays fictional.
@@ -68,10 +82,11 @@ started on an agent's initiative.
 2. **The component contract.** Migrate the Flagship modules to the shape in
    ADR 0008, one module per commit under the pixel gate.
 3. **A second template.** A named design with its own sections and frozen
-   reference, likely grown from one of the studies under `designs/`. This
-   is when `src/core/` appears and `src/templates/flagship.typ` becomes a
-   folder.
+   reference, likely grown from one of the studies under `designs/`. Its
+   ownership follows the approved template layout in ADR 0010.
 4. **Cadet layout.** A one-page layout profile for cadets and short
    careers, for every template.
 5. **More themes.** Two to four per template.
-6. **A private-repo workflow** that uses this library as a Typst package.
+6. **The hosted workflow** in the public monorepo: candidate intake, background
+   rendering, owner review and approval, then delivery of the approved PDF.
+   Build it after the core is stable; local operation remains supported.

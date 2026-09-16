@@ -1,7 +1,7 @@
 # 0005. Restructure the repository for coding agents
 
 Date: 2026-09-12
-Status: Accepted
+Status: Amended by 0010 for the next repository layout. The historical cleanup remains valid.
 
 ## Context
 
