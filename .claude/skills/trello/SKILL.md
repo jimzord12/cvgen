@@ -30,9 +30,12 @@ values; test in a fresh `pwsh` child.
 ## The board
 
 Board: **Marine CV** (`https://trello.com/b/IPsBxAwf`), workspace
-"Jimzord12 Projects" (Free). Lists in order: Queued, Active, Review, Ready,
-Done. One label: **Blocked** (red). Always resolve ids by name, never hard-code
-them in a card or a doc:
+"Jimzord12 Projects" (Free). Lists in order: Handoff, Queued, Active,
+Review, Ready, Done. One label: **Blocked** (red). The Handoff list holds
+one card, `session-handoff`, read first on a fresh session and rewritten in
+place at the end of one (`docs/development.md`); it is never moved,
+duplicated or deleted. Always resolve ids by name, never hard-code them in
+a card or a doc:
 
 ```powershell
 ./.claude/skills/trello/trello.ps1 -Lists 'Marine CV'   # board id, url, list name -> id
@@ -70,6 +73,9 @@ for cards, checklists, labels, moves and export are in
   create a second one.
 - Card names start with the task id (`monorepo-migration: ...`). The two
   `trial-*` cards are fictional history from the trial; leave them alone.
+- The `session-handoff` card is rewritten with `PUT ... desc`, never
+  recreated; after writing, read the description back and confirm the date
+  line is yours (recipe in [recipes.md](recipes.md)).
 - Keep real candidate data and credentials out of cards and exports.
 - Links on cards must open on a phone: GitHub blob/commit URLs and CI run
   URLs, never local Windows paths.

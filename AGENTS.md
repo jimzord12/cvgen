@@ -20,13 +20,16 @@ keep it untracked and do not copy its contents into shared documentation.
 - Codex is optional for discussion, research, proposals, design decisions, and
   their documentation. Reading code for design context is allowed; it does not
   take over implementation or provide the implementation test/review verdict.
-- On a fresh or resumed session, derive a brief Goal / Now / Next / You report
-  from the vision, relevant decisions/proposals, the Trello board "Marine CV"
-  read through the trello skill (the authoritative task records), Git state,
-  and evidence for the examined revision. If the board cannot be read, say
-  so rather than inferring state from an export. Distinguish an
-  approved design from implemented behavior, and historical checks from current
-  proof. Do not use `docs/now.md`; it is a retired historical snapshot.
+- On a fresh or resumed session, read the `session-handoff` card first (list
+  Handoff on the Trello board "Marine CV", through the trello skill), then
+  derive a brief Goal / Now / Next / You report from the vision, relevant
+  decisions/proposals, the task cards (the authoritative task records), Git
+  state, and evidence for the examined revision. If the board cannot be
+  read, say so rather than inferring state from an export. Distinguish an
+  approved design from implemented behavior, and historical checks from
+  current proof. Before stopping, rewrite the handoff card
+  (`docs/development.md`, "Ending a session"). Do not use `docs/now.md`; it
+  is a retired historical snapshot.
 - State reporting is read-only and repeatable: unchanged inputs yield the same
   factual state. No dedicated reporting command exists yet; inspect the sources
   directly. Do not maintain a second status file or backlog. In proposals and

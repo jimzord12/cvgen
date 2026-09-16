@@ -30,10 +30,13 @@ and record the reason.
 ## A fresh session
 
 1. Read `AGENTS.md`, `docs/preferences.md` and the local profile if present.
-2. Derive state from the vision, relevant decisions/proposals, the board
-   (read through the trello skill), Git state and evidence for the examined
-   revision. Flag missing
-   or conflicting evidence rather than inventing certainty. Orientation is
+2. Read the **session-handoff** card (list **Handoff** on the board, through
+   the trello skill): the previous session's resume point, parked owner
+   decisions and pitfalls. Then derive state from the vision, relevant
+   decisions/proposals, the task cards, Git state and evidence for the
+   examined revision. The handoff card orients; the task cards, Git and
+   evidence are the authority when they disagree. Flag missing or
+   conflicting evidence rather than inventing certainty. Orientation is
    read-only and repeatable.
 3. Give the four-line briefing, then continue within authorized scope:
 
@@ -48,6 +51,17 @@ Use the briefing on fresh or resumed sessions and on status requests.
 Otherwise answer briefly in everyday language, following the local
 communication profile.
 
+## Ending a session
+
+Rewrite the session-handoff card's description in place (one card, never a
+new one, never deleted; Trello keeps its history): the date, where things
+stand, the next step in order, parked owner decisions, pitfalls that cost
+time, constraints in force. Keep only what no task card owns; a task's own
+state goes in its card's Handoff section. Any local handoff file is a
+mirror of the card, not a second source. An agent that stops without
+rewriting the card leaves the next session to reconstruct the state from
+the task cards and Git, which is slower but always possible.
+
 ## Where the information belongs
 
 One authoritative home per task, decision and rule. Status is generated on
@@ -58,6 +72,7 @@ CLAUDE.md, AGENTS.md              # Entry, roles, routing, essential constraints
 docs/development.md               # This protocol
 docs/review.md                    # Review protocol
 Trello board "Marine CV"          # One authoritative brief and status per task (a card)
+  list Handoff, session-handoff   # Cross-session resume point, rewritten at the end of each session
 docs/work/<id>/reviews/NN.md      # Review reports, created only when review runs
 docs/decisions/                   # Accepted architecture decisions
 docs/proposals/                   # Proposals with status; rejected/ keeps declined ones
