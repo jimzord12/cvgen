@@ -25,6 +25,8 @@ param(
 )
 
 $ErrorActionPreference = 'Stop'
+# -Debug would make Invoke-RestMethod trace every header, credentials included.
+$DebugPreference = 'SilentlyContinue'
 $key = $env:TRELLO_API_KEY
 $token = $env:TRELLO_API_TOKEN
 
@@ -105,3 +107,4 @@ switch ($PSCmdlet.ParameterSetName) {
         Out-Result (Invoke-Trello $Method $Path $Query $Body)
     }
 }
+exit 0

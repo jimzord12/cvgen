@@ -44,8 +44,12 @@ with `GET cards/<id> -Query @{ fields = 'name,desc,idList,labels'; checklists = 
 
 `-Body` is sent as JSON, so Markdown, quotes, backslashes and multi-line
 descriptions pass through unchanged; build long descriptions in a PowerShell
-here-string. Output is compact JSON; failures print `HTTP <status> <message>`
-and exit 1. Recipes for cards, checklists, labels, moves and export are in
+here-string. Output is compact JSON on stdout. Failures print one line
+straight to the console's stderr and exit 1 (API or board lookup) or 2
+(usage or missing credentials); that line bypasses PowerShell's error
+stream, so `2>$null`, `2>&1` and `try/catch` do not see it. Test success
+with `$?` right after the call; `$LASTEXITCODE` also holds the code. Recipes
+for cards, checklists, labels, moves and export are in
 [recipes.md](recipes.md); load it only when you need one.
 
 ## Rules of use

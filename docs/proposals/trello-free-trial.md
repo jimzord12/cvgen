@@ -181,6 +181,16 @@ Verdict **FINDINGS**.
 | T1-05 Note: store the report | Accepted: stored at the path above and linked here. |
 | T1-06 Note: orientation bullet after adoption | Deferred to the adoption decision. |
 
+Round 2 on `045f68d..eeeb24d`, lead lenses 4 and 6:
+[reviews/02.md](../work/trello-trial/reviews/02.md). Verdict **FINDINGS**.
+
+| Finding | Disposition |
+|---|---|
+| T2-01 Material: `-Debug` traces the Authorization header | Fixed: `$DebugPreference = 'SilentlyContinue'` in the helper. Verified: `GET members/me -Debug` with streams 4 and 5 captured yields 60 bytes containing neither value. The reviewer's capture file `builds/review-trello-r2-20260916-160037/debug.txt` was deleted; a sweep of `builds/` finds the token nowhere else. Rotation still requested from the owner. |
+| T2-02 Minor: `$LASTEXITCODE` not reset on success; exit 2 undocumented | Fixed: `exit 0` at the end; SKILL.md documents exit 1/2 and recommends `$?`. |
+| T2-03 Minor: export recipe writes an empty file on failure | Fixed: recipe captures the JSON, checks `$?`, and only then creates the folder and writes. |
+| T2-04 Note: failure line bypasses PowerShell redirection | Fixed: one sentence in SKILL.md. |
+
 Remaining before the endpoint: the owner's phone verdict and the credential
 rotation. Recommendation so
 far: adopt for the migration task; the Free tier covered every operation the
