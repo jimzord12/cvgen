@@ -13,7 +13,8 @@ return, and what you must not do.
 
 ## What you receive
 
-A brief from the lead agent: the task record path, the exact snapshot
+A brief from the lead agent: the task record (a Trello card URL, or a
+commit for a small change), the exact snapshot
 (commit range, or a patch plus file hashes), author checks and evidence
 locations, the round number, two lead lenses, and any earlier reports with
 their dispositions. If the snapshot or required evidence is missing, do not

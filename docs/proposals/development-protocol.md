@@ -31,6 +31,10 @@ with existing decision/review evidence linked. This temporary amendment takes
 precedence over the file-task options below for those cards only. The baseline
 approval remains unchanged; permanent task-tool adoption still needs a decision.
 
+2026-09-16, later: the owner adopted Trello after the trial; the board is now
+the task store and `docs/work/<id>/task.md` is no longer created. See the
+trial proposal's "Owner decision and application" and `docs/development.md`.
+
 ### Application
 
 2026-09-16: Claude Code established the minimum setup under task

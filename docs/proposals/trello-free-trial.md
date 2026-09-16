@@ -271,6 +271,7 @@ mismatch as "invalid key".
   `docs/work/<id>/task.md` is no longer created for new tasks, review reports
   stay under `docs/work/<id>/reviews/`. `AGENTS.md` orientation reads the
   board through the skill. `dev-setup` keeps its `task.md` as history.
-- The skill's trial-scope wording is removed. Recommendation so
-far: adopt for the migration task; the Free tier covered every operation the
-protocol needs.
+- The skill's trial-scope wording is removed.
+- Review of this application: [docs/work/trello-adoption/reviews/01.md](../work/trello-adoption/reviews/01.md),
+  verdict PASS; five Minor/Note wording items fixed in the same commit
+  (A1-A4, A7), trial-b left in Active as history (A5).

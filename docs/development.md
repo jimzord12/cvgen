@@ -30,8 +30,9 @@ and record the reason.
 ## A fresh session
 
 1. Read `AGENTS.md`, `docs/preferences.md` and the local profile if present.
-2. Derive state from the vision, relevant decisions/proposals, the active
-   task record, Git state and evidence for the examined revision. Flag missing
+2. Derive state from the vision, relevant decisions/proposals, the board
+   (read through the trello skill), Git state and evidence for the examined
+   revision. Flag missing
    or conflicting evidence rather than inventing certainty. Orientation is
    read-only and repeatable.
 3. Give the four-line briefing, then continue within authorized scope:
@@ -68,8 +69,11 @@ Task ids are short kebab-case slugs (`dev-setup`, `monorepo-migration`) and
 start the card name. The board (adopted 2026-09-16 under
 [trello-free-trial](proposals/trello-free-trial.md)) is the task store:
 its lists are the five stages, a card's description holds the sections
-below, its checklist holds the acceptance items, and the red **Blocked**
-label marks a blocked card. Read and write it only through the trello skill.
+below, its checklist holds the acceptance items, and the list plus the red
+**Blocked** label are its status: a blocked card keeps its stage, gains the
+label and a `## Blocked` section with the reason, the dependency card link
+and the unblock condition, and loses the label only when that condition is
+met. Read and write the board only through the trello skill.
 `docs/work/<id>/task.md` is no longer created; the one that exists
 (`dev-setup`) is history. Review reports stay in the repository and are
 linked from the card. A card reaching Done proves nothing by itself.
@@ -82,7 +86,6 @@ commit body; multi-session work, contract changes and migrations get a card.
 ```markdown
 # <id>: <Outcome>
 
-Status: Queued | Active | Review | Ready | Done | Blocked | Cancelled
 Owner: <Claude session or agent responsible>
 Branch/worktree: <location>
 Integration target: <main or the named parent feature branch>
