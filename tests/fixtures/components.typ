@@ -1,10 +1,10 @@
-#import "../../themes/golden-blue.typ": theme
-#import "../../artwork/engineer.typ": artwork
-#import "../../layouts/flagship-v11.typ": layout
-#import "../../src/data.typ": normalize-candidate
-#import "../../src/hero.typ": hero
-#import "../../src/primitives.typ": decoration
-#let d = normalize-candidate(json("../../content/engineer-example.json"))
+#import "../../packages/cv-engine/templates/flagship/themes/golden-blue.typ": theme
+#import "../../packages/cv-engine/templates/flagship/artwork/engineer.typ": artwork
+#import "../../packages/cv-engine/templates/flagship/layouts/flagship-v11.typ": layout
+#import "../../packages/cv-engine/core/data.typ": normalize-candidate
+#import "../../packages/cv-engine/templates/flagship/components/hero.typ": hero
+#import "../../packages/cv-engine/core/primitives.typ": decoration
+#let d = normalize-candidate(json("../../examples/candidates/engineer-example.json"))
 #set text(font: theme.fonts.body, size: theme.sizes.body, fill: theme.colors.ink, lang: "en")
 #set par(leading: theme.leading.initial)
 #set page(paper: "a4", margin: layout.opening-margin, background: {

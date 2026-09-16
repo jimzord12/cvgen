@@ -7,7 +7,7 @@ import shutil
 import subprocess
 
 import pymupdf as fitz
-from verify import ROOT, verify, check_frozen
+from verify import ROOT, FONTS, FLAGSHIP, verify, check_frozen
 
 
 def main():
@@ -23,7 +23,7 @@ def main():
 
     def compile_case(name, source, inputs=None, error=None):
         pdf = out / (name + '.pdf')
-        command = [args.typst, 'compile', '--root', str(ROOT), '--font-path', str(ROOT / 'fonts')]
+        command = [args.typst, 'compile', '--root', str(ROOT), '--font-path', str(ROOT / FONTS)]
         for key, value in (inputs or {}).items():
             command.extend(['--input', key + '=' + value])
         command.extend([str(ROOT / source), str(pdf)])
@@ -50,26 +50,43 @@ def main():
         text = ' '.join(doc[0].get_text().split())
         for phrase in ['Professional Skills', 'Technical Skills', 'Three columns', 'Navigation', 'Plain bullet', 'Third']:
             assert text.count(phrase) == 1, phrase
-    engineer = compile_case('engineer', 'examples/engineer.typ')
-    result = verify(engineer, ROOT / 'reference/Marine-Engineer-CV-v11.pdf', output=out / 'exact')
+    engineer = compile_case('engineer', 'examples/flagship/engineer.typ')
+    result = verify(engineer, ROOT / FLAGSHIP / 'tests/approved/Marine-Engineer-CV-v11.pdf', output=out / 'exact')
     assert result['passed'], result
-    hidden = compile_case('engineer-hidden', 'examples/engineer.typ', {'vessel-durations': 'false'})
+    hidden = compile_case('engineer-hidden', 'examples/flagship/engineer.typ', {'vessel-durations': 'false'})
     with fitz.open(engineer) as a, fitz.open(hidden) as b:
         assert len(a) == len(b) == 2
-        data = json.loads((ROOT / 'content/engineer-example.json').read_text())
+        data = json.loads((ROOT / 'examples/candidates/engineer-example.json').read_text())
         names = [s['name'] for c in data['companies'] for g in c['groups'] for s in g['ships']]
         names += ['Second Engineer', 'Third Engineer', 'Fourth Engineer', 'Engineering Cadet']
         for pa, pb in zip(a, b):
             for name in names:
                 assert pa.search_for(name) == pb.search_for(name), name
         assert '8 months' not in ' '.join(p.get_text() for p in b)
-    classic = compile_case('captain', 'examples/captain.typ')
-    silver = compile_case('captain-silver', 'examples/captain-silver.typ')
+    classic = compile_case('captain', 'examples/flagship/captain.typ')
+    silver = compile_case('captain-silver', 'examples/flagship/captain-silver.typ')
     for pdf in [hidden, classic, silver]:
         assert verify(pdf, output=out / (pdf.stem + '-check'))['passed']
     with fitz.open(classic) as a, fitz.open(silver) as b:
         assert [' '.join(p.get_text().split()) for p in a] == [' '.join(p.get_text().split()) for p in b]
         assert 'Engineer' not in ''.join(p.get_text() for p in a)
+    # Third dataset: deck officer without a portrait, on the same page plan.
+    officer = compile_case('chief-officer', 'examples/flagship/chief-officer.typ')
+    assert verify(officer, output=out / 'chief-officer-check')['passed']
+    with fitz.open(officer) as doc:
+        text = ' '.join(' '.join(p.get_text().split()) for p in doc)
+        for phrase in ['ELENI MARKOU', 'Boreal Gas Carriers', 'Aegean Coastal Shipping', '10 years 9 months',
+                       'FICTIONAL CANDIDATE / DESIGN STUDY', 'Certificates & endorsements', 'FLAGSHIP']:
+            assert phrase in text, phrase
+        assert 'AI PORTRAIT' not in text and not doc[0].get_images()
+    # Copy overrides reach the page through the adapter, and nothing else moves.
+    branded = compile_case('chief-officer-copy', 'examples/flagship/chief-officer.typ', {'brand': 'SILVER BRIDGE'})
+    with fitz.open(officer) as a, fitz.open(branded) as b:
+        assert 'SILVER BRIDGE' in b[1].get_text() and 'FLAGSHIP' not in b[1].get_text()
+        brand = {'FLAGSHIP', 'SILVER', 'BRIDGE'}
+        for pa, pb in zip(a, b):
+            keep = lambda page: [w for w in page.get_text('words') if w[4] not in brand]
+            assert keep(pa) == keep(pb)
     compile_case('data-valid', 'tests/fixtures/data.typ')
     for mode, message in [('missing-visible', 'Visible vessel durations'), ('mismatch', 'does not match'), ('negative', 'non-negative integer')]:
         compile_case('data-' + mode, 'tests/fixtures/data.typ', {'case': mode}, error=message)

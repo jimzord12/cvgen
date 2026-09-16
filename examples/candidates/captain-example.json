@@ -1,9 +1,9 @@
 {
-  "profile": "Second Engineer with a maritime background spanning tanker, bulk carrier, container and passenger fleets. International experience across six shipping companies.",
+  "profile": "Master Mariner with a maritime background spanning tanker, bulk carrier, container and passenger fleets. International experience across six shipping companies.",
   "certificates": [
     [
       "Certificate of Competency",
-      "Second Engineer / III/2",
+      "Master / II/2",
       "15 Jul 2024",
       "14 Jul 2029"
     ],
@@ -32,14 +32,14 @@
       "Review flag rules"
     ],
     [
-      "Engine-room resource management",
+      "Bridge resource management",
       "Management-level training",
       "07 Jun 2024",
       "As required"
     ],
     [
-      "Oil / chemical tanker training",
-      "Basic training record",
+      "GMDSS General Operator",
+      "Illustrative GOC record",
       "12 Sep 2024",
       "Verify endorsement"
     ],
@@ -61,25 +61,25 @@
             {
               "id": "meridian",
               "name": "MV Meridian",
-              "rank": "Second Engineer",
+              "rank": "Master",
               "months": 8
             },
             {
               "id": "aurora",
               "name": "MV Aurora",
-              "rank": "Second Engineer",
+              "rank": "Master",
               "months": 7
             },
             {
               "id": "atlas",
               "name": "MV Atlas",
-              "rank": "Second Engineer",
+              "rank": "Master",
               "months": 6
             },
             {
               "id": "polaris",
               "name": "MV Polaris",
-              "rank": "Second Engineer",
+              "rank": "Master",
               "months": 6
             }
           ]
@@ -90,13 +90,13 @@
             {
               "id": "silver-tide",
               "name": "MV Silver Tide",
-              "rank": "Second Engineer",
+              "rank": "Master",
               "months": 5
             },
             {
               "id": "caspian",
               "name": "MV Caspian",
-              "rank": "Second Engineer",
+              "rank": "Master",
               "months": 4
             }
           ]
@@ -114,25 +114,25 @@
             {
               "id": "north-passage",
               "name": "MV North Passage",
-              "rank": "Third Engineer",
+              "rank": "Chief Officer",
               "months": 8
             },
             {
               "id": "ocean-crest",
               "name": "MV Ocean Crest",
-              "rank": "Third Engineer",
+              "rank": "Chief Officer",
               "months": 7
             },
             {
               "id": "pacific-star",
               "name": "MV Pacific Star",
-              "rank": "Third Engineer",
+              "rank": "Chief Officer",
               "months": 6
             },
             {
               "id": "iron-cape",
               "name": "MV Iron Cape",
-              "rank": "Third Engineer",
+              "rank": "Chief Officer",
               "months": 5
             }
           ]
@@ -150,19 +150,19 @@
             {
               "id": "solstice",
               "name": "MV Solstice",
-              "rank": "Third Engineer",
+              "rank": "Chief Officer",
               "months": 6
             },
             {
               "id": "horizon",
               "name": "MV Horizon",
-              "rank": "Third Engineer",
+              "rank": "Chief Officer",
               "months": 6
             },
             {
               "id": "aegean-dawn",
               "name": "MV Aegean Dawn",
-              "rank": "Third Engineer",
+              "rank": "Chief Officer",
               "months": 5
             }
           ]
@@ -180,25 +180,25 @@
             {
               "id": "atlantic-bridge",
               "name": "MV Atlantic Bridge",
-              "rank": "Third Engineer",
+              "rank": "Chief Officer",
               "months": 7
             },
             {
               "id": "eastern-bay",
               "name": "MV Eastern Bay",
-              "rank": "Third Engineer",
+              "rank": "Chief Officer",
               "months": 6
             },
             {
               "id": "coral-express",
               "name": "MV Coral Express",
-              "rank": "Third Engineer",
+              "rank": "Chief Officer",
               "months": 5
             },
             {
               "id": "baltic-crown",
               "name": "MV Baltic Crown",
-              "rank": "Third Engineer",
+              "rank": "Chief Officer",
               "months": 4
             }
           ]
@@ -216,19 +216,19 @@
             {
               "id": "ocean-pioneer",
               "name": "MV Ocean Pioneer",
-              "rank": "Fourth Engineer",
+              "rank": "Second Officer",
               "months": 6
             },
             {
               "id": "cape-victory",
               "name": "MV Cape Victory",
-              "rank": "Fourth Engineer",
+              "rank": "Second Officer",
               "months": 5
             },
             {
               "id": "western-light",
               "name": "MV Western Light",
-              "rank": "Fourth Engineer",
+              "rank": "Second Officer",
               "months": 5
             }
           ]
@@ -246,19 +246,19 @@
             {
               "id": "island-star",
               "name": "MV Island Star",
-              "rank": "Engineering Cadet",
+              "rank": "Deck Cadet",
               "months": 6
             },
             {
               "id": "sea-pearl",
               "name": "MV Sea Pearl",
-              "rank": "Engineering Cadet",
+              "rank": "Deck Cadet",
               "months": 8
             },
             {
               "id": "summer-wind",
               "name": "MV Summer Wind",
-              "rank": "Engineering Cadet",
+              "rank": "Deck Cadet",
               "months": 7
             }
           ]
@@ -269,8 +269,8 @@
   ],
   "education_entries": [
     {
-      "qualification": "Diploma in Marine Engineering",
-      "institution": "Merchant Marine Academy of Aspropyrgos",
+      "qualification": "Diploma in Nautical Science",
+      "institution": "Example Maritime Academy",
       "note": "Illustrative education entry"
     }
   ],
@@ -285,9 +285,9 @@
     }
   ],
   "identity": {
-    "name": "ALEX MORGAN",
-    "rank": "SECOND ENGINEER",
-    "portrait": "/assets/fictional-engineer.png",
+    "name": "DANIEL REED",
+    "rank": "MASTER MARINER",
+    "portrait": "/examples/candidates/fictional-engineer.png",
     "portrait-alt": "AI-generated portrait of the fictional candidate"
   },
   "contacts": {
@@ -308,16 +308,16 @@
     "right": [
       {
         "label": "Email",
-        "value": "alex.morgan@example.com",
-        "href": "mailto:alex.morgan@example.com"
+        "value": "daniel.reed@example.com",
+        "href": "mailto:daniel.reed@example.com"
       },
       {
         "label": "Discipline",
-        "value": "Marine / mechanical"
+        "value": "Deck / navigation"
       },
       {
         "label": "Rank",
-        "value": "Second Engineer"
+        "value": "Master"
       }
     ]
   }

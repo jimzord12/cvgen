@@ -8,6 +8,10 @@ import pymupdf as fitz
 from PIL import Image, ImageChops
 
 ROOT = Path(__file__).resolve().parents[1]
+# The engine package and the Flagship template inside it (ADR 0010 layout).
+ENGINE = Path('packages/cv-engine')
+FONTS = ENGINE / 'fonts'
+FLAGSHIP = ENGINE / 'templates/flagship'
 
 
 def check_frozen():

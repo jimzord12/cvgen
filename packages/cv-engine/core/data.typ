@@ -42,13 +42,9 @@
     certificates: certificates, education: raw.at("education_entries", default: ()),
     languages: raw.at("language_entries", default: ()),
     disclosure: raw.at("disclosure", default: "FICTIONAL CANDIDATE & AI PORTRAIT / DESIGN STUDY"),
-    copy: raw.at("copy", default: (experience: "Experience", experience-subtitle: "Company / vessel type / vessel",
-      continuation: "Continued / earlier companies", combined: "Combined service", total: "Total experience",
-      vessels: "Vessels", companies: "Companies", certificates: "Certificates & endorsements",
-      certificates-subtitle: "Illustrative register - dates and credentials are fictional",
-      certificate-columns: ("Certificate", "Scope / record", "Issued", "Expires / review"),
-      education-languages: "Education & languages", education: "Education", languages: "Languages",
-      page-caption: "EXPERIENCE / CREDENTIALS", brand: "FLAGSHIP")))
+    // Presentation wording is a template input, not a candidate fact: a
+    // template's adapter supplies it (see templates/flagship/adapter).
+    copy: raw.at("copy", default: (:)))
 }
 
 #let required-text(value, field) = assert(type(value) == str and value.trim() != "", message: "Required text: " + field)

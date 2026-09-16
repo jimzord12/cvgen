@@ -1,0 +1,255 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/jimzord12/marine-engineer-cv/packages/cv-engine/schema/candidate.schema.json",
+  "title": "Marine CV candidate facts",
+  "description": "Portable facts about one candidate: identity, contacts, profile, service history, certificates, education and languages. Carries no template wording; a template adapter (for example templates/flagship/adapter) turns this record into that template input.",
+  "type": "object",
+  "required": [
+    "identity",
+    "companies"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "identity": {
+      "type": "object",
+      "required": [
+        "name",
+        "rank"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "$ref": "#/$defs/text"
+        },
+        "rank": {
+          "$ref": "#/$defs/text"
+        },
+        "portrait": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "Path from the project root, e.g. /private/portrait.png, or null for no photo."
+        },
+        "portrait-alt": {
+          "type": "string"
+        }
+      }
+    },
+    "contacts": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "left": {
+          "$ref": "#/$defs/contactList"
+        },
+        "right": {
+          "$ref": "#/$defs/contactList"
+        }
+      }
+    },
+    "profile": {
+      "type": "string",
+      "description": "Short paragraph shown beside the profile illustration on page one."
+    },
+    "companies": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/company"
+      }
+    },
+    "certificates": {
+      "type": "array",
+      "items": {
+        "oneOf": [
+          {
+            "type": "array",
+            "description": "title, scope, issued, review",
+            "minItems": 4,
+            "maxItems": 4,
+            "items": {
+              "$ref": "#/$defs/text"
+            }
+          },
+          {
+            "type": "object",
+            "required": [
+              "title",
+              "scope",
+              "issued",
+              "review"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "title": {
+                "$ref": "#/$defs/text"
+              },
+              "scope": {
+                "$ref": "#/$defs/text"
+              },
+              "issued": {
+                "$ref": "#/$defs/text"
+              },
+              "review": {
+                "$ref": "#/$defs/text"
+              }
+            }
+          }
+        ]
+      }
+    },
+    "education_entries": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "qualification",
+          "institution"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "qualification": {
+            "$ref": "#/$defs/text"
+          },
+          "institution": {
+            "$ref": "#/$defs/text"
+          },
+          "note": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "language_entries": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "name",
+          "level"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "name": {
+            "$ref": "#/$defs/text"
+          },
+          "level": {
+            "$ref": "#/$defs/text"
+          }
+        }
+      }
+    },
+    "disclosure": {
+      "type": "string",
+      "description": "Footer text. Defaults to the fictional-candidate notice."
+    }
+  },
+  "$defs": {
+    "text": {
+      "type": "string",
+      "minLength": 1,
+      "pattern": "\\S"
+    },
+    "months": {
+      "type": "integer",
+      "minimum": 0,
+      "description": "Whole service months, never a calendar difference."
+    },
+    "contactList": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "label",
+          "value"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "label": {
+            "$ref": "#/$defs/text"
+          },
+          "value": {
+            "$ref": "#/$defs/text"
+          },
+          "href": {
+            "$ref": "#/$defs/text"
+          }
+        }
+      }
+    },
+    "company": {
+      "type": "object",
+      "required": [
+        "name",
+        "period",
+        "groups"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/text",
+          "description": "Unique. Defaults to the lower-cased name with hyphens."
+        },
+        "name": {
+          "$ref": "#/$defs/text"
+        },
+        "period": {
+          "$ref": "#/$defs/text",
+          "description": "Display text only, e.g. 2022 - 2026. Never parsed."
+        },
+        "service-months": {
+          "$ref": "#/$defs/months",
+          "description": "Company total when vessel months are unknown. Must equal the sum when all vessel months are present."
+        },
+        "groups": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "required": [
+              "type",
+              "ships"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "type": {
+                "$ref": "#/$defs/text",
+                "description": "Vessel type label, e.g. Product tankers."
+              },
+              "ships": {
+                "type": "array",
+                "minItems": 1,
+                "items": {
+                  "type": "object",
+                  "required": [
+                    "id",
+                    "name",
+                    "rank"
+                  ],
+                  "additionalProperties": false,
+                  "properties": {
+                    "id": {
+                      "$ref": "#/$defs/text",
+                      "description": "Stable across repeat service on the same vessel."
+                    },
+                    "name": {
+                      "$ref": "#/$defs/text"
+                    },
+                    "rank": {
+                      "$ref": "#/$defs/text"
+                    },
+                    "months": {
+                      "$ref": "#/$defs/months",
+                      "description": "Required when durations are shown."
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

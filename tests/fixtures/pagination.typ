@@ -1,8 +1,8 @@
-#import "../../lib.typ": flagship
-#import "../../themes/golden-blue.typ": theme
-#import "../../artwork/engineer.typ": artwork
-#import "../../layouts/flagship-v11.typ": layout as base
-#let raw = json("../../content/engineer-example.json")
+#import "../../packages/cv-engine/lib.typ": flagship
+#import "../../packages/cv-engine/templates/flagship/themes/golden-blue.typ": theme
+#import "../../packages/cv-engine/templates/flagship/artwork/engineer.typ": artwork
+#import "../../packages/cv-engine/templates/flagship/layouts/flagship-v11.typ": layout as base
+#let raw = json("../../examples/candidates/engineer-example.json")
 #let companies = raw.companies
 #let first = companies.first()
 #let extra = (type: "Additional tanker fleet", ships: range(8).map(i => (id: "extra-" + str(i), name: "MV Test Vessel " + str(i+1), rank: "Second Engineer", months: 3)))

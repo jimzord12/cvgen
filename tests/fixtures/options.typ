@@ -1,9 +1,9 @@
-#import "../../lib.typ": flagship, normalize-candidate
-#import "../../src/data.typ": company-months
-#import "../../themes/golden-blue.typ": theme
-#import "../../artwork/engineer.typ": artwork as original-art
-#import "../../layouts/flagship-v11.typ": layout
-#let d = normalize-candidate(json("../../content/engineer-example.json"))
+#import "../../packages/cv-engine/lib.typ": flagship, normalize-candidate
+#import "../../packages/cv-engine/core/data.typ": company-months
+#import "../../packages/cv-engine/templates/flagship/themes/golden-blue.typ": theme
+#import "../../packages/cv-engine/templates/flagship/artwork/engineer.typ": artwork as original-art
+#import "../../packages/cv-engine/templates/flagship/layouts/flagship-v11.typ": layout
+#let d = normalize-candidate(json("../../examples/candidates/engineer-example.json"))
 #let mode = sys.inputs.at("case", default: "missing-months")
 #let candidate = if mode == "missing-months" {
   (..d, companies: d.companies.map(c => (..c, service-months: company-months(c),

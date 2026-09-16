@@ -1,17 +1,20 @@
-#import "../data.typ": normalize-candidate, validate-candidate, experience-totals
-#import "../theme.typ": validate-theme
-#import "../hero.typ": hero
-#import "../experience.typ": experience-section
-#import "../sections.typ": profile-summary, section-heading, synopsis
-#import "../certificates.typ": certificates-section
-#import "../education.typ": education-languages-section
-#import "../page.typ": document-shell, page-header
-#import "../pagination.typ": validate-pages, company-fragment
+// The Flagship composition: page loop, section order, overflow check.
+#import "../../core/data.typ": normalize-candidate, validate-candidate, experience-totals
+#import "../../core/theme.typ": validate-theme
+#import "../../core/page.typ": document-shell, page-header
+#import "../../core/pagination.typ": validate-pages, company-fragment
+#import "adapter/adapter.typ": to-flagship-input
+#import "components/hero.typ": hero
+#import "components/experience.typ": experience-section
+#import "components/sections.typ": profile-summary, section-heading, synopsis
+#import "components/certificates.typ": certificates-section
+#import "components/education.typ": education-languages-section
 
-#let flagship(body, candidate: none, theme: none, artwork: none, layout: none, show-vessel-durations: true) = {
+// `candidate` is a candidate-facts record; the adapter turns it into Flagship input.
+#let flagship(body, candidate: none, theme: none, artwork: none, layout: none, show-vessel-durations: true, copy: (:)) = {
   assert(candidate != none and theme != none and artwork != none and layout != none,
     message: "flagship requires candidate, theme, artwork and layout")
-  let d = normalize-candidate(candidate)
+  let d = normalize-candidate(to-flagship-input(candidate, copy: copy))
   validate-theme(theme)
   validate-candidate(d, show-vessel-durations)
   validate-pages(layout.pages, d)

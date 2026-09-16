@@ -1,4 +1,4 @@
-#import "primitives.typ": decoration, metric, duration-value
+#import "../../../core/primitives.typ": decoration, metric, duration-value
 
 #let section-heading(number, title, theme, geometry, spacing, subtitle: none) = block(above: spacing.above, below: spacing.below)[
   #grid(columns: (geometry.number-width, 1fr), align: horizon,

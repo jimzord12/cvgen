@@ -1,7 +1,7 @@
-#import "../../themes/golden-blue.typ": theme
-#import "../../layouts/flagship-v11.typ": layout
-#import "../../artwork/engineer.typ": artwork
-#import "../../src/theme.typ": validate-theme
+#import "../../packages/cv-engine/templates/flagship/themes/golden-blue.typ": theme
+#import "../../packages/cv-engine/templates/flagship/layouts/flagship-v11.typ": layout
+#import "../../packages/cv-engine/templates/flagship/artwork/engineer.typ": artwork
+#import "../../packages/cv-engine/core/theme.typ": validate-theme
 #validate-theme(theme)
 #assert.eq(layout.hero.height, 77mm)
 #assert.eq(layout.continuation-margin.bottom, 11mm)

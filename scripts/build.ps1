@@ -13,14 +13,14 @@ try {
     $compiler = Get-Command $TypstExecutable -ErrorAction Stop
     New-Item -ItemType Directory -Path $OutputDirectory | Out-Null
     $examples = @(
-        @{ Source = 'examples/engineer.typ'; Name = 'Marine-Engineer-CV-v12.pdf' },
-        @{ Source = 'examples/captain.typ'; Name = 'Marine-Captain-CV-Classic-v01.pdf' },
-        @{ Source = 'examples/captain-silver.typ'; Name = 'Marine-Captain-CV-Silver-v01.pdf' }
+        @{ Source = 'examples/flagship/engineer.typ'; Name = 'Marine-Engineer-CV-v12.pdf' },
+        @{ Source = 'examples/flagship/captain.typ'; Name = 'Marine-Captain-CV-Classic-v01.pdf' },
+        @{ Source = 'examples/flagship/captain-silver.typ'; Name = 'Marine-Captain-CV-Silver-v01.pdf' }
     )
     $durationMode = if ($HideVesselDurations) { 'false' } else { 'true' }
     foreach ($example in $examples) {
         $destination = Join-Path $OutputDirectory $example.Name
-        & $compiler.Source compile --root . --font-path fonts --input "vessel-durations=$durationMode" $example.Source $destination
+        & $compiler.Source compile --root . --font-path packages/cv-engine/fonts --input "vessel-durations=$durationMode" $example.Source $destination
         if ($LASTEXITCODE -ne 0) { throw "Compilation failed: $($example.Source)" }
     }
     Write-Host "Three CVs created in $OutputDirectory"

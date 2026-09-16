@@ -1,0 +1,319 @@
+{
+  "profile": "Chief Officer with LNG, crude tanker and container experience across six operators, moving from cadet to management level with a cargo and ballast focus. All details fictional.",
+  "certificates": [
+    [
+      "Certificate of Competency",
+      "Chief Mate / II/2",
+      "03 Mar 2025",
+      "02 Mar 2030"
+    ],
+    [
+      "Basic safety training",
+      "STCW training record",
+      "11 Apr 2024",
+      "See modules"
+    ],
+    [
+      "Advanced firefighting",
+      "Refresher record",
+      "14 Apr 2024",
+      "13 Apr 2029"
+    ],
+    [
+      "Survival craft & rescue boats",
+      "Refresher record",
+      "16 Apr 2024",
+      "15 Apr 2029"
+    ],
+    [
+      "Advanced liquefied gas tanker cargo",
+      "Illustrative endorsement",
+      "09 Oct 2023",
+      "Verify endorsement"
+    ],
+    [
+      "Bridge resource management",
+      "Management-level training",
+      "22 May 2024",
+      "As required"
+    ],
+    [
+      "GMDSS General Operator",
+      "Illustrative GOC record",
+      "30 Jan 2025",
+      "Verify endorsement"
+    ],
+    [
+      "Seafarer medical",
+      "ENG1 example",
+      "12 Feb 2026",
+      "11 Feb 2028"
+    ]
+  ],
+  "companies": [
+    {
+      "name": "Boreal Gas Carriers",
+      "period": "2023 - 2026",
+      "groups": [
+        {
+          "type": "LNG carriers",
+          "ships": [
+            {
+              "id": "arctic-flame",
+              "name": "MV Arctic Flame",
+              "rank": "Chief Officer",
+              "months": 6
+            },
+            {
+              "id": "northern-frost",
+              "name": "MV Northern Frost",
+              "rank": "Chief Officer",
+              "months": 6
+            },
+            {
+              "id": "glacier-bay",
+              "name": "MV Glacier Bay",
+              "rank": "Chief Officer",
+              "months": 5
+            }
+          ]
+        },
+        {
+          "type": "LPG carriers",
+          "ships": [
+            {
+              "id": "amber-gas",
+              "name": "MV Amber Gas",
+              "rank": "Chief Officer",
+              "months": 5
+            },
+            {
+              "id": "tidal-spirit",
+              "name": "MV Tidal Spirit",
+              "rank": "Chief Officer",
+              "months": 4
+            }
+          ]
+        }
+      ],
+      "id": "boreal-gas-carriers"
+    },
+    {
+      "name": "Meridian Tankers",
+      "period": "2020 - 2023",
+      "groups": [
+        {
+          "type": "Crude oil tankers",
+          "ships": [
+            {
+              "id": "ionian-pride",
+              "name": "MV Ionian Pride",
+              "rank": "Second Officer",
+              "months": 7
+            },
+            {
+              "id": "gulf-emerald",
+              "name": "MV Gulf Emerald",
+              "rank": "Second Officer",
+              "months": 6
+            },
+            {
+              "id": "desert-rose",
+              "name": "MV Desert Rose",
+              "rank": "Second Officer",
+              "months": 6
+            },
+            {
+              "id": "black-pearl-ii",
+              "name": "MV Black Pearl II",
+              "rank": "Second Officer",
+              "months": 5
+            }
+          ]
+        }
+      ],
+      "id": "meridian-tankers"
+    },
+    {
+      "name": "Harbour Line Containers",
+      "period": "2017 - 2020",
+      "groups": [
+        {
+          "type": "Container vessels",
+          "ships": [
+            {
+              "id": "lisbon-trader",
+              "name": "MV Lisbon Trader",
+              "rank": "Second Officer",
+              "months": 7
+            },
+            {
+              "id": "hanseatic-link",
+              "name": "MV Hanseatic Link",
+              "rank": "Second Officer",
+              "months": 6
+            },
+            {
+              "id": "adriatic-express",
+              "name": "MV Adriatic Express",
+              "rank": "Third Officer",
+              "months": 7
+            }
+          ]
+        }
+      ],
+      "id": "harbour-line-containers"
+    },
+    {
+      "name": "Cyclades Ferries",
+      "period": "2014 - 2017",
+      "groups": [
+        {
+          "type": "Ro-Pax ferries",
+          "ships": [
+            {
+              "id": "naxos-wind",
+              "name": "MV Naxos Wind",
+              "rank": "Third Officer",
+              "months": 7
+            },
+            {
+              "id": "paros-light",
+              "name": "MV Paros Light",
+              "rank": "Third Officer",
+              "months": 6
+            },
+            {
+              "id": "syros-queen",
+              "name": "MV Syros Queen",
+              "rank": "Third Officer",
+              "months": 6
+            },
+            {
+              "id": "tinos-dawn",
+              "name": "MV Tinos Dawn",
+              "rank": "Third Officer",
+              "months": 5
+            }
+          ]
+        }
+      ],
+      "id": "cyclades-ferries"
+    },
+    {
+      "name": "Western Bulk Partners",
+      "period": "2012 - 2014",
+      "groups": [
+        {
+          "type": "Bulk carriers",
+          "ships": [
+            {
+              "id": "prairie-gold",
+              "name": "MV Prairie Gold",
+              "rank": "Third Officer",
+              "months": 6
+            },
+            {
+              "id": "iron-duke",
+              "name": "MV Iron Duke",
+              "rank": "Third Officer",
+              "months": 5
+            },
+            {
+              "id": "cape-reliance",
+              "name": "MV Cape Reliance",
+              "rank": "Third Officer",
+              "months": 5
+            }
+          ]
+        }
+      ],
+      "id": "western-bulk-partners"
+    },
+    {
+      "name": "Aegean Coastal Shipping",
+      "period": "2010 - 2012",
+      "groups": [
+        {
+          "type": "General cargo",
+          "ships": [
+            {
+              "id": "lemnos-star",
+              "name": "MV Lemnos Star",
+              "rank": "Deck Cadet",
+              "months": 7
+            },
+            {
+              "id": "kea-breeze",
+              "name": "MV Kea Breeze",
+              "rank": "Deck Cadet",
+              "months": 6
+            },
+            {
+              "id": "andros-hope",
+              "name": "MV Andros Hope",
+              "rank": "Deck Cadet",
+              "months": 6
+            }
+          ]
+        }
+      ],
+      "id": "aegean-coastal-shipping"
+    }
+  ],
+  "education_entries": [
+    {
+      "qualification": "BSc Nautical Studies",
+      "institution": "Example Merchant Marine Academy",
+      "note": "Illustrative education entry"
+    }
+  ],
+  "language_entries": [
+    {
+      "name": "Greek",
+      "level": "Native"
+    },
+    {
+      "name": "English",
+      "level": "Professional working proficiency"
+    }
+  ],
+  "disclosure": "FICTIONAL CANDIDATE / DESIGN STUDY",
+  "identity": {
+    "name": "ELENI MARKOU",
+    "rank": "CHIEF OFFICER",
+    "portrait": null,
+    "portrait-alt": "No portrait supplied for this fictional candidate"
+  },
+  "contacts": {
+    "left": [
+      {
+        "label": "Based in",
+        "value": "Piraeus, Greece"
+      },
+      {
+        "label": "Telephone",
+        "value": "+00 000 000 000"
+      },
+      {
+        "label": "Nationality",
+        "value": "EU citizen / fictional profile"
+      }
+    ],
+    "right": [
+      {
+        "label": "Email",
+        "value": "eleni.markou@example.com",
+        "href": "mailto:eleni.markou@example.com"
+      },
+      {
+        "label": "Discipline",
+        "value": "Deck / cargo operations"
+      },
+      {
+        "label": "Rank",
+        "value": "Chief Mate"
+      }
+    ]
+  }
+}
