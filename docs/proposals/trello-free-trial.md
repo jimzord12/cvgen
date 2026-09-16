@@ -191,6 +191,15 @@ Round 2 on `045f68d..eeeb24d`, lead lenses 4 and 6:
 | T2-03 Minor: export recipe writes an empty file on failure | Fixed: recipe captures the JSON, checks `$?`, and only then creates the folder and writes. |
 | T2-04 Note: failure line bypasses PowerShell redirection | Fixed: one sentence in SKILL.md. |
 
+Round 3 on `eeeb24d..ea4459b`, lead lenses 4 and 6:
+[reviews/03.md](../work/trello-trial/reviews/03.md). Verdict **FINDINGS**.
+
+| Finding | Disposition |
+|---|---|
+| T3-01 Material: failed request stays in `$Error` with its header; `Get-Error` prints it | Fixed: the catch block removes its own record from `$Error` before reporting. Verified live: after a 400 and a 404, `$Error.Count` is 0 and `Get-Error` prints nothing; exit codes and messages unchanged. |
+| T3-02 Note: `Set-PSDebug -Trace 2` traces every script's secrets | Accepted as stated; not countered in the helper. |
+| T3-03 Note: forced `-Debug` via `$PSDefaultParameterValues` in an interactive session | Fixed: `Debug = $false` passed explicitly on the request. |
+
 Remaining before the endpoint: the owner's phone verdict and the credential
 rotation. Recommendation so
 far: adopt for the migration task; the Free tier covered every operation the

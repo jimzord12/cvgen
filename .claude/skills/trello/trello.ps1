@@ -52,7 +52,7 @@ function Invoke-Trello([string]$Method, [string]$Path, [hashtable]$Query, [hasht
     # Credentials travel in a header, not the URL: Trello's 404 body repeats
     # the URL verbatim, which would print them into the session log.
     $req = @{
-        Method     = $Method; Uri = $uri; TimeoutSec = 30
+        Method     = $Method; Uri = $uri; TimeoutSec = 30; Debug = $false
         Headers    = @{ Authorization = "OAuth oauth_consumer_key=`"$key`", oauth_token=`"$token`"" }
     }
     if ($Body) {
@@ -63,6 +63,9 @@ function Invoke-Trello([string]$Method, [string]$Path, [hashtable]$Query, [hasht
         # Comma keeps a JSON array as one object so callers can foreach over it.
         return ,(Invoke-RestMethod @req)
     } catch {
+        # The error record carries the whole request, header included, and
+        # would survive in the caller's $Error for Get-Error to print.
+        if ($Error.Count) { $Error.RemoveAt(0) }
         $status = $_.Exception.Response.StatusCode.value__
         $detail = if ($status) { $_.ErrorDetails.Message } else { 'no response (timeout or connection failure): ' + $_.Exception.Message }
         Fail "Trello $Method /$Path failed: HTTP $status $detail" 1
