@@ -25,7 +25,7 @@ them. These evolve; the rules that do not are in `constitution.md`.
   outer `v()` inside a component. A component reads its own slice,
   `ctx.layout.hero`, never a sibling's.
 - **Tokens in themes, geometry in layouts, pictures in artwork.** A number
-  with a unit inside `src/` is a smell unless it is a structural constant
+  with a unit inside `packages/cv-engine/core/` or a template's `components/` is a smell unless it is a structural constant
   such as a 2pt rule.
 - **Assert with a fix in the message.** `assert(..., message: "Name exceeds
   identity plate: adjust theme.sizes.name or hero.plate-width")`. The reader
@@ -50,7 +50,7 @@ them. These evolve; the rules that do not are in `constitution.md`.
 
 - Nested schema only: `identity`, `contacts`, `companies`, `certificates`,
   `education_entries`, `language_entries`, optional `profile`, `disclosure`,
-  `copy`. Validate against `schema/candidate.schema.json`.
+  `copy`. Validate a candidate record against `packages/cv-engine/schema/candidate.schema.json` (facts) and, with `copy`, against `packages/cv-engine/templates/flagship/schema/flagship-input.schema.json`.
 - Stable ids for companies and vessels. Whole service months.
 - Display text is display text. Never encode data in a label.
 

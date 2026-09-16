@@ -1,9 +1,9 @@
 # Theme
 
-Read this when creating or editing a file under `themes/`. A theme is visual
+Read this when creating or editing a file under `packages/cv-engine/templates/flagship/themes/`. A theme is visual
 tokens only. Geometry belongs to the layout, pictures to the artwork pack.
 
-Copy `themes/golden-blue.typ` to start. `themes/silver-bridge.typ` shows the
+Copy `golden-blue.typ` in that folder to start. `silver-bridge.typ` shows the
 minimal override pattern: spread the base theme, replace what differs.
 
 ```typst
@@ -40,12 +40,12 @@ minimal override pattern: spread the base theme, replace what differs.
 | `leading.initial`, `leading.body`, `leading.duration` | yes | Line spacing before the body, in the body, and inside the two-line company duration |
 | `art-colors` | no | Map of hex strings found in legacy SVGs to theme colours |
 
-`validate-theme` in `src/theme.typ` checks the colour and font keys exist and
+`validate-theme` in `packages/cv-engine/core/theme.typ` checks the colour and font keys exist and
 have the right type. Missing sizes fail at the point of use.
 
 ## How SVG recolouring works
 
-`decoration` in `src/primitives.typ` reads the SVG source and replaces the
+`decoration` in `packages/cv-engine/core/primitives.typ` reads the SVG source and replaces the
 four Golden Blue hex values (`#102f3a`, `#236a70`, `#c8a579`, `#546870`) and
 the placeholders `{{ink}}`, `{{accent}}`, `{{metal}}` with the theme's
 colours, then applies `art-colors` for any other hex the SVG uses. New SVGs

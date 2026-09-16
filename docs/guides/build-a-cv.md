@@ -22,10 +22,10 @@ companies, so a real candidate always overrides `pages` with their own
 company indices, zero-based, in JSON order:
 
 ```typst
-#import "../../lib.typ": flagship
-#import "../../themes/golden-blue.typ": theme
-#import "../../artwork/engineer.typ": artwork
-#import "../../layouts/flagship-v11.typ": layout as base
+#import "../../packages/cv-engine/lib.typ": flagship
+#import "../../packages/cv-engine/templates/flagship/themes/golden-blue.typ": theme
+#import "../../packages/cv-engine/templates/flagship/artwork/engineer.typ": artwork
+#import "../../packages/cv-engine/templates/flagship/layouts/flagship-v11.typ": layout as base
 #let layout = (..base, pages: (
   (companies: (0, 1)),
   (companies: (2,), synopsis: true, certificates: true, education: true),
@@ -42,7 +42,7 @@ render. Splitting one large company across pages is shown in
 
 ## 2. Fill the data
 
-Copy `content/engineer-example.json` or `content/captain-example.json` and
+Copy `examples/candidates/engineer-example.json` or `examples/candidates/captain-example.json` and
 replace every value. Field meanings and error messages are in
 `../reference/candidate-schema.md`. Set `identity.portrait` to
 `/private/jane-doe-second-engineer/portrait.<ext>` or `null`.
@@ -53,13 +53,13 @@ give each company a `service-months` total instead.
 ## 3. Compile
 
 ```powershell
-typst compile --root . --font-path fonts private/jane-doe-second-engineer/cv.typ builds/jane-doe-01.pdf
+typst compile --root . --font-path packages/cv-engine/fonts private/jane-doe-second-engineer/cv.typ builds/jane-doe-01.pdf
 ```
 
 Use a new file name each time. For live editing:
 
 ```powershell
-typst watch --root . --font-path fonts private/jane-doe-second-engineer/cv.typ builds/jane-doe-preview.pdf
+typst watch --root . --font-path packages/cv-engine/fonts private/jane-doe-second-engineer/cv.typ builds/jane-doe-preview.pdf
 ```
 
 ## 4. Fix what does not fit
@@ -96,18 +96,17 @@ slot for. Until the template supports these, compose the page by hand from
 the same public exports:
 
 ```typst
-#import "../../lib.typ": (document-shell, page-header, hero, profile-summary,
+#import "../../packages/cv-engine/lib.typ": (document-shell, page-header, hero, profile-summary,
   section-heading, skills-section)
 // then place the hero, the sections and your own table below
 ```
 
-The skills block is documented in `../reference/skills-component.md`; its
-example imports `../lib.typ` because it sits under `examples/`, so use
-`../../lib.typ` from a private folder.
+The skills block is documented in `../reference/skills-component.md`. From a
+private workspace folder the library is `../../packages/cv-engine/lib.typ`.
 
 Rules for this path:
 
-- Import from `lib.typ`; never copy library code into the workspace.
+- Import from `packages/cv-engine/lib.typ`; never copy library code into the workspace.
 - Keep the candidate JSON valid against the schema. Put data the schema
   cannot hold, such as contract periods, in a separate `presentation.json`
   beside it. Never invent months from calendar periods.

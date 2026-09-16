@@ -2,12 +2,12 @@
 
 Read this when a page is out of balance, content overflows, or a new
 candidate needs a different page split. The geometry lives in
-`layouts/flagship-v11.typ`, page plan validation in `src/pagination.typ`,
-and the overflow check in the page loop of `src/templates/flagship.typ`.
+`packages/cv-engine/templates/flagship/layouts/flagship-v11.typ`, page plan validation in `packages/cv-engine/core/pagination.typ`,
+and the overflow check in the page loop of `packages/cv-engine/templates/flagship/flagship.typ`.
 
 ## The layout profile
 
-`layouts/flagship-v11.typ` holds every geometric decision of the approved
+`flagship-v11.typ` holds every geometric decision of the approved
 design: paper size, opening and continuation margins, a spacing scale, and a
 dictionary per component (`hero`, `experience`, `headings`, `profile`,
 `synopsis`, `certificates`, `education`, `footer`, `header`). Components

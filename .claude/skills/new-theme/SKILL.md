@@ -1,6 +1,6 @@
 ---
 name: new-theme
-description: Create a new visual theme or artwork pack for the marine-cv library. Use when asked for a new look, colour scheme, typography variant, or a new role's illustrations. Keeps tokens in themes/, pictures in artwork/, and proves the engineer reference is untouched.
+description: Create a new visual theme or artwork pack for the marine-cv library. Use when asked for a new look, colour scheme, typography variant, or a new role's illustrations. Keeps tokens in the template's themes/, pictures in its artwork/ and assets/, and proves the engineer reference is untouched.
 ---
 
 # New theme or artwork pack
@@ -9,7 +9,7 @@ Read `docs/reference/theme.md` or `docs/reference/artwork-pack.md` first.
 
 ## Theme
 
-1. Copy `themes/silver-bridge.typ` as the pattern: spread `golden-blue`'s
+1. Copy `packages/cv-engine/templates/flagship/themes/silver-bridge.typ` as the pattern: spread `golden-blue`'s
    theme, set `name`, replace `colors`, `fonts` and any `sizes`.
 2. Every colour key must exist; `validate-theme` fails otherwise. Fonts must
    be one of the bundled family strings `Source Sans 3`, `Barlow` or
@@ -23,7 +23,7 @@ Read `docs/reference/theme.md` or `docs/reference/artwork-pack.md` first.
 
 ## Artwork pack
 
-1. Copy `artwork/captain.typ`. Draw SVGs under `assets/<role>/` using
+1. Copy `packages/cv-engine/templates/flagship/artwork/captain.typ`. Draw SVGs under `packages/cv-engine/templates/flagship/assets/<role>/` using
    `{{ink}}`, `{{accent}}`, `{{metal}}` for colours. Vector only.
 2. Fill the required slots `background-first` and `background-continuation`;
    others may be `none`.
@@ -37,7 +37,7 @@ python tests/run.py
 ```
 
 The engineer example must still match v11. A new theme or pack never
-changes that comparison; if it does, the change leaked into `src/`.
+changes that comparison; if it does, the change leaked into the core or the components.
 
 ## Report
 

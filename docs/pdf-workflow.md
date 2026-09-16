@@ -1,8 +1,11 @@
 # PDF workflow and storage
 
 Read when discussing the monorepo boundaries or where a candidate PDF lives.
-Status: Approved by the owner in conversation on 2026-09-15; implementation
-pending. Recorded in [ADR 0010](decisions/0010-public-monorepo-and-pdf-workflow.md).
+Status: Approved by the owner in conversation on 2026-09-15; recorded in
+[ADR 0010](decisions/0010-public-monorepo-and-pdf-workflow.md). The source
+tree below is implemented for the engine (`packages/cv-engine/`, `examples/`,
+`archive/`) since 2026-09-16; `packages/cv-workflow/`, the `scripts/` workflow
+commands and `apps/web/` are not implemented yet.
 
 ## Ownership
 
@@ -126,8 +129,7 @@ changes; a candidate's approval sidecar records authorization to deliver that PD
 
 ADR 0010 approves a change to output locations: candidate runs will use fresh
 private revision folders, while public tests/examples retain fresh build folders.
-Current scripts still use the existing layout until migration. Implementation
-must update imports, package exclusions, documentation, and frozen-reference
-paths together, preserve the frozen PDF bytes, and pass the suite. Approval of
-this design does not mean that migration, cleanup, or the workflow has been
-implemented.
+The engine migration (imports, package manifest, documentation and the
+frozen-reference path, with the frozen PDF bytes preserved and the suite
+passing) landed on 2026-09-16. The revision workflow itself is still to be
+implemented; approval of this design does not grant candidate PDF approval.

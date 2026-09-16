@@ -115,3 +115,22 @@ changes and branches for substantial work. Existing destructive-operation
 checkpoints and product/design approvals remain. Longer feature branches are
 available where useful; short topic branches and limited child branching are
 the recommended default. The broader development protocol remains pending.
+
+## 2026-09-16 — development protocol, Trello board, engine migration
+
+Three things landed the same day. The approved development and review
+protocols became `docs/development.md` and `docs/review.md`, with a
+fresh-context `code-reviewer` subagent that follows them; its first job was
+its own validation. A two-card Trello Free trial passed every check, the
+owner adopted the board "Marine CV" as the task store, and the `trello`
+skill became the integration (six review rounds, five of them closing
+credential-handling paths in PowerShell diagnostics). Then the engine moved
+into `packages/cv-engine/` per ADR 0010: shared core under `core/`, Flagship
+with its components, presentation inputs, schema, adapter and frozen
+reference under `templates/flagship/`, fictional records and entry points
+under `examples/`, the design studies under `archive/`. The candidate-facts
+contract was separated from the Flagship input contract; Flagship's wording
+defaults moved from the core into the adapter. Every frozen hash carried
+over; the engineer example stayed pixel-identical. A third fictional
+dataset, a Chief Officer without a portrait, joined the gallery. The
+pre-migration tree is tagged `archive/pre-monorepo`.

@@ -1,34 +1,45 @@
 # Architecture
 
-Read this before changing any module under `src/`.
+Read this before changing any module under `packages/cv-engine/`.
 
-This page describes the current implementation. The approved target monorepo
-layout and candidate PDF lifecycle are in [PDF workflow and storage](pdf-workflow.md)
-and [ADR 0010](decisions/0010-public-monorepo-and-pdf-workflow.md); implementation
-is pending. Use that target when planning structural or workflow changes.
+This page describes the current implementation, laid out per
+[ADR 0010](decisions/0010-public-monorepo-and-pdf-workflow.md) and
+[PDF workflow and storage](pdf-workflow.md) since 2026-09-16. The engine
+package exists; the workflow package (`packages/cv-workflow/`) and the web app
+do not yet. Paths below are relative to `packages/cv-engine/` unless they
+start with `examples/` or `tests/`.
 
 ## The one-paragraph version
 
-`examples/engineer.typ` loads a candidate JSON and passes it, together with a
-theme, an artwork pack and a layout profile, to `flagship` in
-`src/templates/flagship.typ`. The template normalises and validates the data,
-validates the page plan, then walks the plan page by page, calling section
-functions that return Typst content. Section functions never read files and
-never branch on the candidate's role. Everything visual comes from the theme,
-everything geometric from the layout, every picture from the artwork pack.
+`examples/flagship/engineer.typ` loads a candidate-facts JSON and passes it,
+together with a theme, an artwork pack and a layout profile, to `flagship` in
+`templates/flagship/flagship.typ`. The template runs the facts through its
+adapter (`templates/flagship/adapter/adapter.typ`), which adds Flagship's
+wording, then normalises and validates the data, validates the page plan, and
+walks the plan page by page, calling section functions that return Typst
+content. Section functions never read files and never branch on the
+candidate's role. Everything visual comes from the theme, everything
+geometric from the layout, every picture from the artwork pack.
 
 ## The five inputs
 
 | Input | File | Owns |
 |---|---|---|
-| Candidate | `content/*.json` | Facts and display text: identity, contacts, companies, vessels, certificates, education, languages, optional copy overrides |
-| Theme | `themes/*.typ` | Colours, fonts, sizes, tracking, leading, and a map from legacy SVG hex colours to theme colours |
-| Artwork | `artwork/*.typ` | Which SVG fills each named slot, with optional width, x, y and opacity |
-| Layout | `layouts/*.typ` | Margins, hero geometry, column widths, gaps, spacing scale, page plan, `anchor-education` |
+| Candidate facts | `examples/candidates/*.json` (contract: `schema/candidate.schema.json`) | Identity, contacts, profile, companies, vessels, certificates, education, languages, disclosure. No template wording |
+| Theme | `templates/flagship/themes/*.typ` | Colours, fonts, sizes, tracking, leading, and a map from legacy SVG hex colours to theme colours |
+| Artwork | `templates/flagship/artwork/*.typ` | Which SVG under `templates/flagship/assets/` fills each named slot, with optional width, x, y and opacity |
+| Layout | `templates/flagship/layouts/*.typ` | Margins, hero geometry, column widths, gaps, spacing scale, page plan, `anchor-education` |
 | Display switch | `show-vessel-durations` on `flagship` | Show or hide every vessel duration at once without moving columns |
 
-The template is the only place that sees all five. Children receive only the
-slice they need, so a hero function gets `layout.hero`, not `layout`. Once
+A sixth, optional input is `copy` on `flagship`: overrides for Flagship's
+wording. The adapter merges template defaults, then a `copy` key inside the
+record (legacy), then the argument, and the result is the Flagship input
+(contract: `templates/flagship/schema/flagship-input.schema.json`). The two
+contracts differ only by that key today; keeping them apart is what lets a
+second template read the same facts with its own wording.
+
+The template is the only place that sees all inputs. Children receive only
+the slice they need, so a hero function gets `layout.hero`, not `layout`. Once
 the ADR 0008 migration starts, the template will build one `ctx` dictionary
 from theme, layout, copy and options and pass that down instead; see below.
 
@@ -38,7 +49,7 @@ Every component will take the same shape, decided in ADR 0008: `ctx` first,
 the data it renders second, named props with defaults, content slots last.
 Inside, in order: validation with a fix in every message, the style block of
 `set` and `show` rules, one layout construct, composition of smaller
-components. Helpers will live in `src/component.typ` once migration starts.
+components. Helpers will live in `core/component.typ` once migration starts.
 Modules are migrated to this shape one per commit; an unmigrated module
 keeps the older order (data, theme, geometry slice) until its turn. As of
 this writing no module has been migrated.
@@ -52,36 +63,42 @@ what is per template:
 |---|---|
 | Candidate contract and schema, normalisation, totals (`data.typ`) | Section components: hero, experience, synopsis, certificates, education, skills |
 | Page shell, header, footer, backgrounds (`page.typ`) | Layout profiles and page plans |
-| Page plan validation (`pagination.typ`) | The page loop with its overflow assertion, today in `templates/flagship.typ` |
+| Page plan validation (`pagination.typ`) | The page loop with its overflow assertion, in `templates/flagship/flagship.typ` |
 | The verification runner and its checks | Frozen reference render and its pixel gate |
 | SVG recolouring and primitives | Artwork slot names the template expects |
-| Component helpers, theme validation | Copy defaults |
+| Component helpers, theme validation | The adapter: input contract and copy defaults |
 
 Deck and engine are never separate templates. A section that must differ is
 a slot or a data-selected variant. A section is promoted from a template to
-the core when a third template needs it unchanged. Today `src/` holds the
-shared core and Flagship's sections side by side, with the Flagship
-composition already under `src/templates/flagship.typ`. The second template
-adds `src/core/` and turns `src/templates/flagship.typ` into
-`src/templates/flagship/`. Not before.
+the core when a third template needs it unchanged. The shared core lives in
+`core/`; everything Flagship owns lives under `templates/flagship/`. A
+second template gets its own folder beside it and its own adapter.
 
 ## Module map
 
 ```text
-lib.typ                     public exports, no side effects
-src/
-  data.typ                  normalise raw JSON, validate, pure totals, duration parts
-  theme.typ                 validate-theme: required colours and fonts
-  primitives.typ            label, rule, decoration (SVG recolour), duration, metric
-  hero.typ                  portrait, frame, backdrop, contact groups, identity plate, hero
-  experience.typ            company-period, vessel-row, vessel-type-group, company-experience, experience-section
-  sections.typ              section-heading, profile-summary, synopsis
-  certificates.typ          certificate-table, certificates-section
-  education.typ             education-entry, language-entry, education-languages-section
-  skills.typ                optional skills-section with themed bullets (not in the locked template)
-  page.typ                  page-header, page-footer, page-background, document-shell
-  pagination.typ            validate-pages, company-fragment
-  templates/flagship.typ    the composition: page loop, section order, overflow check
+lib.typ                                 public exports, no side effects
+typst.toml                              package manifest
+schema/candidate.schema.json            candidate-facts contract
+core/
+  data.typ                              normalise raw JSON, validate, pure totals, duration parts
+  theme.typ                             validate-theme: required colours and fonts
+  primitives.typ                        label, rule, decoration (SVG recolour), duration, metric
+  page.typ                              page-header, page-footer, page-background, document-shell
+  pagination.typ                        validate-pages, company-fragment
+templates/flagship/
+  flagship.typ                          the composition: page loop, section order, overflow check
+  adapter/adapter.typ                   flagship-copy defaults, to-flagship-input
+  schema/flagship-input.schema.json     Flagship input contract (facts + copy)
+  components/hero.typ                   portrait, frame, backdrop, contact groups, identity plate, hero
+  components/experience.typ             company-period, vessel-row, vessel-type-group, company-experience, experience-section
+  components/sections.typ               section-heading, profile-summary, synopsis
+  components/certificates.typ           certificate-table, certificates-section
+  components/education.typ              education-entry, language-entry, education-languages-section
+  components/skills.typ                 optional skills-section with themed bullets (not in the locked template)
+  themes/  artwork/  assets/  layouts/  the four presentation inputs
+  tests/approved/                       the frozen v11 reference PDF
+fonts/  licenses/                       bundled OFL fonts and their notices
 ```
 
 ## Composition tree

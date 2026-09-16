@@ -12,16 +12,19 @@ throughout the move.
 
 ## 1. Frozen references are contracts
 
-- Every approved template has a frozen reference render under `reference/`
+- Every approved template has a frozen reference render under its own
+  `tests/approved/` folder (ADR 0010; before 2026-09-16 that was root `reference/`)
   and a public example that must render pixel-identical to it at 144 dpi
   with identical normalised text on every page. `tests/run.py` enforces
-  this. Today that is Flagship: `reference/Marine-Engineer-CV-v11.pdf` and
-  `examples/engineer.typ`.
+  this. Today that is Flagship:
+  `packages/cv-engine/templates/flagship/tests/approved/Marine-Engineer-CV-v11.pdf`
+  and `examples/flagship/engineer.typ`.
 - `tests/baseline.json` pins the SHA-256 of every asset, font, example JSON,
   design study and the reference PDF, whether or not the engineer comparison
   uses it. Changing any of them is a design decision, recorded as an ADR in `docs/decisions/`, with a
   new frozen reference and a version bump on the PDF name.
-- The four numbered studies and `shared.typ` under `designs/` are frozen.
+- The four numbered studies and `shared.typ` under `archive/design-studies/`
+  are frozen.
   Copy ideas out of them; do not edit them. Path-only updates during a move
   are not edits.
 
@@ -29,7 +32,7 @@ throughout the move.
 
 Every script and test writes into a new timestamped folder under `builds/`
 and refuses to run if the folder exists. Review renders in `exports/`,
-`reference/` and `designs/review/` are replaced only by a deliberate release
+the frozen reference and `archive/design-studies/review/` are replaced only by a deliberate release
 commit with a new version number.
 
 ## 3. Public content is fictional
@@ -37,8 +40,8 @@ commit with a new version number.
 Names, employers, vessels, dates, certificates and the portrait are invented.
 Real candidate data lives in `private/`, which git ignores, one folder per
 candidate with its own entry point. New entry points import
-`../../lib.typ`; two older ones import modules under `src/` directly and
-are migrated when next touched. Certificate numbers, scans and passport details
+`packages/cv-engine/lib.typ`; two older ones import modules by their
+pre-migration paths and are migrated when next touched. Certificate numbers, scans and passport details
 never enter this repository.
 
 ## 4. The system does not lie to fit
@@ -70,7 +73,7 @@ two is a slot or a data-selected variant of the same template (ADR 0007).
 
 ## 8. Licences travel with their files
 
-Every bundled font keeps its OFL notice in `licenses/`. Adapted code keeps
+Every bundled font keeps its OFL notice in `packages/cv-engine/licenses/`. Adapted code keeps
 its original notice. Original artwork is MIT with the project.
 
 ## 9. Delivery bar

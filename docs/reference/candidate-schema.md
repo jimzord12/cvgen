@@ -1,8 +1,9 @@
 # Candidate schema
 
 Read this when editing a candidate JSON. Machine-checkable version:
-`schema/candidate.schema.json`. Runtime checks: `validate-candidate` in
-`src/data.typ`.
+`packages/cv-engine/schema/candidate.schema.json` (candidate facts; the Flagship input adds
+`copy`, see `packages/cv-engine/templates/flagship/schema/flagship-input.schema.json`).
+Runtime checks: `validate-candidate` in `packages/cv-engine/core/data.typ`.
 
 Top-level shape. Required keys are `identity` and `companies`.
 

@@ -15,7 +15,8 @@ try {
     $examples = @(
         @{ Source = 'examples/flagship/engineer.typ'; Name = 'Marine-Engineer-CV-v12.pdf' },
         @{ Source = 'examples/flagship/captain.typ'; Name = 'Marine-Captain-CV-Classic-v01.pdf' },
-        @{ Source = 'examples/flagship/captain-silver.typ'; Name = 'Marine-Captain-CV-Silver-v01.pdf' }
+        @{ Source = 'examples/flagship/captain-silver.typ'; Name = 'Marine-Captain-CV-Silver-v01.pdf' },
+        @{ Source = 'examples/flagship/chief-officer.typ'; Name = 'Marine-Chief-Officer-CV-Silver-v01.pdf' }
     )
     $durationMode = if ($HideVesselDurations) { 'false' } else { 'true' }
     foreach ($example in $examples) {
@@ -23,7 +24,7 @@ try {
         & $compiler.Source compile --root . --font-path packages/cv-engine/fonts --input "vessel-durations=$durationMode" $example.Source $destination
         if ($LASTEXITCODE -ne 0) { throw "Compilation failed: $($example.Source)" }
     }
-    Write-Host "Three CVs created in $OutputDirectory"
+    Write-Host "Four CVs created in $OutputDirectory"
 }
 finally {
     Pop-Location

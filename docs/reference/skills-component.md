@@ -1,19 +1,19 @@
 # Skills component
 
 Read this when adding a professional skills block to a custom composition.
-It is exported from `lib.typ` and is not part of the locked `flagship`
+It is exported from `packages/cv-engine/lib.typ` and is not part of the locked `flagship`
 template.
 
 ```typst
 // From examples/. From private/<folder>/ the paths are ../../lib.typ and ../../themes/.
-#import "../lib.typ": skills-section, skills-layout
-#import "../themes/golden-blue.typ": theme
+#import "../../packages/cv-engine/lib.typ": skills-section, skills-layout
+#import "../../packages/cv-engine/templates/flagship/themes/golden-blue.typ": theme
 
 #skills-section(
   (("Navigation", "GMDSS"), ("Cargo handling", "Safety")),
   theme,
   title: "Professional Skills",
-  bullet: (source: "/assets/captain/compass-bullet.svg"),
+  bullet: (source: "/packages/cv-engine/templates/flagship/assets/captain/compass-bullet.svg"),
   geometry: (..skills-layout, column-gap: 8mm),
 )
 ```

@@ -1,6 +1,6 @@
 # Artwork pack
 
-Read this when creating or editing a file under `artwork/`. A pack maps
+Read this when creating or editing a file under `packages/cv-engine/templates/flagship/artwork/`. A pack maps
 named slots to SVG files with optional placement tweaks. It is the only place
 a role's identity lives visually.
 
@@ -41,7 +41,7 @@ Any descriptor also works as the `bullet` of the skills section.
 ## Drawing new SVGs
 
 - Use `{{ink}}`, `{{accent}}` and `{{metal}}` for colours so every theme
-  recolours the file. See `assets/captain/*.svg`.
+  recolours the file. See `packages/cv-engine/templates/flagship/assets/captain/*.svg`.
 - Keep the file small and vector only. Backgrounds are drawn at low opacity
   so faint detail reads as texture, not clutter.
 - Everything placed through a pack is tagged as a PDF artifact, so it does

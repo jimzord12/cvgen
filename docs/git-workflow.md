@@ -79,7 +79,7 @@ branch structure is a proportionate choice for this small project.
   from the tree remain reachable there.
 - `reference/v11` style tags mark the commit that produced a frozen
   reference render.
-- Release tags follow `vMAJOR.MINOR.PATCH` and match `typst.toml`.
+- Release tags follow `vMAJOR.MINOR.PATCH` and match `packages/cv-engine/typst.toml`.
 
 ## What is committed
 

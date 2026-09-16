@@ -82,7 +82,7 @@ started on an agent's initiative.
 2. **The component contract.** Migrate the Flagship modules to the shape in
    ADR 0008, one module per commit under the pixel gate.
 3. **A second template.** A named design with its own sections and frozen
-   reference, likely grown from one of the studies under `designs/`. Its
+   reference, likely grown from one of the studies under `archive/design-studies/`. Its
    ownership follows the approved template layout in ADR 0010.
 4. **Cadet layout.** A one-page layout profile for cadets and short
    careers, for every template.

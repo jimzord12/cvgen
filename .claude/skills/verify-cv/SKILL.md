@@ -1,6 +1,6 @@
 ---
 name: verify-cv
-description: Run the marine-cv regression suite and produce readable evidence. Use after any change under src/, themes/, artwork/, layouts/, content/, examples/ or tests/, and before publishing those changes to main or reporting them as done.
+description: Run the marine-cv regression suite and produce readable evidence. Use after any change under packages/, examples/ or tests/, and before publishing those changes to main or reporting them as done.
 ---
 
 # Verify

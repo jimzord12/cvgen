@@ -54,32 +54,44 @@ keep it untracked and do not copy its contents into shared documentation.
 
 ## Where things are
 
+Layout per ADR 0010 (`docs/pdf-workflow.md`). `E` below stands for
+`packages/cv-engine`, the engine package; `F` for `E/templates/flagship`.
+
 | Path | Role | Touch it when |
 |---|---|---|
-| `lib.typ` | Public import surface, no side effects | Adding or renaming an exported function |
-| `src/` | Library modules: data, theme check, primitives, hero, experience, sections, certificates, education, skills, page, pagination, `templates/flagship.typ` | Changing how anything renders |
-| `themes/` | Visual tokens only: colours, fonts, sizes, tracking, leading, SVG colour map | Adding a look |
-| `artwork/` | Artwork packs: which SVG goes in which slot, plus offsets | Adding a role's illustrations |
-| `layouts/` | Geometry and page plan: margins, gaps, widths, which companies go on which page | Fixing page balance |
-| `content/` | Fictional candidate JSON, one per candidate | Changing example data |
-| `examples/` | Seven-line entry points that wire the five inputs together | Adding an example |
-| `assets/`, `fonts/`, `licenses/` | Original SVG artwork, bundled OFL fonts, licence notices | Adding art or a font |
+| `E/lib.typ` | Public import surface, no side effects | Adding or renaming an exported function |
+| `E/core/` | Shared core: `data` (normalise, totals), `theme` check, `primitives`, `page` shell, `pagination` | Changing behaviour every template shares |
+| `E/schema/candidate.schema.json` | Candidate-facts contract: what a record may contain, no template wording | Changing the data contract |
+| `F/flagship.typ` | The Flagship composition: page loop, section order, overflow check | Changing what Flagship renders |
+| `F/adapter/` | Candidate facts -> Flagship input: adds Flagship wording (`copy`) and merges overrides | Changing Flagship's input shape |
+| `F/schema/flagship-input.schema.json` | Flagship input contract: facts plus `copy` | Same |
+| `F/components/` | Flagship sections: hero, experience, sections, certificates, education, skills | Changing how a section renders |
+| `F/themes/` | Visual tokens only: colours, fonts, sizes, tracking, leading, SVG colour map | Adding a look |
+| `F/artwork/`, `F/assets/` | Artwork packs (which SVG in which slot, offsets) and the SVG files | Adding a role's illustrations |
+| `F/layouts/` | Geometry and page plan: margins, gaps, widths, which companies go on which page | Fixing page balance |
+| `F/tests/approved/` | Frozen v11 PDF that the engineer example must match pixel for pixel | Never |
+| `E/fonts/`, `E/licenses/` | Bundled OFL fonts, licence notices | Adding a font |
+| `E/typst.toml` | Package manifest for the engine | Releasing |
+| `examples/candidates/` | Fictional candidate records (engineer, captain, chief officer) and the one fictional portrait | Changing example data |
+| `examples/flagship/` | Seven-line entry points that wire the five inputs together | Adding an example |
 | `tests/` | `run.py` runner, `verify.py` PDF checks, `baseline.json` hash manifest, `fixtures/*.typ` compile cases | Changing behaviour |
-| `reference/` | Frozen v11 PDF that the engineer example must match pixel for pixel | Never |
-| `designs/` | Four frozen, evaluated design studies as worked examples | Reading for inspiration only |
-| `exports/` | The three current deliverable PDFs | Releasing a new version |
-| `schema/` | JSON Schema for candidate files | Changing the data contract |
+| `archive/design-studies/` | Four frozen, evaluated design studies with their renders | Reading for inspiration only |
+| `exports/` | The four current deliverable PDFs | Releasing a new version |
 | `docs/` | Governance and reference documentation, see below | Recording a decision |
-| `scripts/build.ps1` | Builds the three examples into a new `builds/` folder | Rarely |
+| `scripts/build.ps1` | Builds the four examples into a new `builds/` folder | Rarely |
 | `builds/` | Ignored. Every build and test run writes to a new timestamped folder here | Reading evidence |
+| `private/` | Ignored. Real candidate workspaces | Producing a real CV |
+
+`packages/cv-workflow/`, `scripts/` workflow commands and `apps/web/` from the
+target tree are not implemented yet; see the Trello board.
 
 ## Commands
 
 ```powershell
-./scripts/build.ps1                     # three PDFs into builds/library-<timestamp>/
+./scripts/build.ps1                     # four PDFs into builds/library-<timestamp>/
 ./scripts/build.ps1 -HideVesselDurations
 python tests/run.py                     # full suite, evidence into builds/tests-<timestamp>/
-typst compile --root . --font-path fonts examples/engineer.typ builds/scratch.pdf
+typst compile --root . --font-path packages/cv-engine/fonts examples/flagship/engineer.typ builds/scratch.pdf
 ```
 
 `tests/run.py` needs Typst 0.15.1 on PATH plus Python with `pymupdf` and
@@ -89,7 +101,7 @@ typst compile --root . --font-path fonts examples/engineer.typ builds/scratch.pd
 
 Full text in `docs/constitution.md`. The short list:
 
-1. Every approved template has a frozen reference under `reference/` and a public example that must render pixel-identical to it; the hashes in `tests/baseline.json` are frozen with it. Today: `reference/Marine-Engineer-CV-v11.pdf` and `examples/engineer.typ`. A change that breaks this needs a new frozen reference and an ADR.
+1. Every approved template has a frozen reference under its `tests/approved/` folder and a public example that must render pixel-identical to it; the hashes in `tests/baseline.json` are frozen with it. Today: `packages/cv-engine/templates/flagship/tests/approved/Marine-Engineer-CV-v11.pdf` and `examples/flagship/engineer.typ`. A change that breaks this needs a new frozen reference and an ADR.
 2. Every output goes to a new folder. Scripts refuse to overwrite.
 3. Public content is fictional. Real candidate data lives in `private/`, which is ignored.
 4. No automatic font shrinking. Overflow fails loudly and the page plan is changed by hand.
@@ -103,7 +115,7 @@ Full text in `docs/constitution.md`. The short list:
 | `docs/preferences.md` | Before every reply to the owner: who he is, how to talk to him, what he decides |
 | `docs/vision.md` | Deciding whether a feature belongs here |
 | `docs/architecture.md` | Before changing any module |
-| `docs/pdf-workflow.md` | Approved target monorepo and PDF lifecycle; read before planning structural or workflow changes. Implementation pending (ADR 0010). |
+| `docs/pdf-workflow.md` | Target monorepo (engine part implemented 2026-09-16) and the PDF lifecycle (workflow part pending); read before structural or workflow changes (ADR 0010). |
 | `docs/tech-stack.md` | Setting up a machine, or asking "why Typst" |
 | `docs/constitution.md` | Before anything irreversible |
 | `docs/framework-gaps.md` | Before planning framework work, and after any bypass of a component or template |

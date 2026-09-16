@@ -2,7 +2,8 @@
 
 Date: 2026-09-15
 Status: Accepted. Amends 0005's target folder organization and 0007's ownership,
-schema, and folder-split decisions. Implementation is pending.
+schema, and folder-split decisions. Engine layout implemented 2026-09-16
+(`packages/cv-engine/`, `examples/`, `archive/`); workflow package pending.
 
 ## Context
 
