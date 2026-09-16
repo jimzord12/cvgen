@@ -43,6 +43,10 @@ Next: <One recommended step within the agreed priorities.>
 You: <A ready decision and recommendation, or nothing needed.>
 ```
 
+Use the briefing on fresh or resumed sessions and on status requests.
+Otherwise answer briefly in everyday language, following the local
+communication profile.
+
 ## Where the information belongs
 
 One authoritative home per task, decision and rule. Status is generated on
@@ -104,8 +108,12 @@ authorization already given with its scope.>
 Acceptance describes product behaviour, not functions to write. A material
 scope change records its decision and reason so acceptance cannot quietly
 shrink around unfinished work. Out-of-scope observations get a short item in
-the record with a link back. Build artifacts under `builds/` are local and
+the record with a link back. Process authorization records stay separate
+from task progress. A saved status report, when explicitly useful, is a dated
+snapshot, never an authority. Build artifacts under `builds/` are local and
 ignored: name them honestly, and treat a missing old artifact as no proof.
+Cleanup preserves the evidence still needed by active work or deliberate
+milestones and follows the existing confirmation checkpoint.
 
 Ready is not Done. Ready means implementation, verification and review are
 complete. Done means the change reached its integration branch, the push and

@@ -1,6 +1,6 @@
 # dev-setup: Activate the development protocol and the independent reviewer
 
-Status: Active
+Status: Ready
 Owner: Claude Code (implementation session of 2026-09-16)
 Branch/worktree: `docs/product-direction`, main checkout
 Integration target: `main`
@@ -28,10 +28,11 @@ package or CLI is installed; the Trello trial is a separate task.
   Evidence: against an isolated fictional fixture it reports the planted
   defect and returns INCOMPLETE/FINDINGS when evidence is missing; against a
   satisfactory fixture it returns PASS; it edits nothing.
-- [ ] This task itself passes a `code-reviewer` round whose report is stored
+- [x] This task itself passes a `code-reviewer` round whose report is stored
   under `reviews/`.
-- [ ] The three proposals record the application with links to this record
-  and move to `applied`.
+- [x] The three proposals record the application with links to this record;
+  the development proposal is `applied` (its companions are references
+  without their own status).
 
 ## Plan
 
@@ -89,15 +90,30 @@ Observations (process friction, for later triage under proposal tracking):
 
 ## Review
 
-_Round 1 pending: to be run against the commit that carries this record._
+Round 1 on `4db3583`, headless `code-reviewer`, lead lenses 8 and 1:
+[reviews/01.md](reviews/01.md). Verdict **PASS**, no Blocking or Material.
+
+| Finding | Disposition |
+|---|---|
+| F1 Minor: four approved sentences had no active home | Fixed: added to `docs/development.md` (status-request trigger; authorization records separate from progress; dated snapshot; cleanup preserves evidence). |
+| F2 Minor: `AGENTS.md` suite rule read as covering docs-only changes | Fixed: suite scoped to code, fixtures and inputs; review required for any non-trivial change. |
+| F3 Minor: wrapper pins Opus/max effort invisibly | Fixed: stated in `docs/review.md` Reviewer boundaries. |
+| F4 Minor: acceptance box 3 ticked while in-session invocation unconfirmed | Declined as stated: the reviewer assumed it ran in-session; it ran headlessly. Box 3 stays ticked for discovery and fresh-context invocation, which the headless path proves; the in-session path stays an open item in Handoff. |
+| F5 Note: "enforced by" wording | Fixed: reworded to "relied on". |
+| F6 Note: sandbox rejects compound commands | Kept as observation O1. |
+
+The fixes touch only wording in the reviewed documents, not the wrapper's
+tools or the review boundaries, so per the reviewer's own note no further
+round was requested.
 
 ## Handoff
 
-Current state: setup written and validated headlessly; awaiting review round 1
-and the proposal application entries.
-Next action: after the next session restart, invoke `code-reviewer` through
-the Agent tool once (any small brief) to confirm in-session discovery, and
-note the result here.
+Current state: setup written, validated, reviewed (PASS) and the three
+proposals carry their application entries.
+Next action: at the start of the next session (after restart), invoke
+`code-reviewer` once through the Agent tool with a two-line brief to confirm
+in-session discovery, note the result here, then open the `trello-trial`
+record.
 Owner authorization in effect: the handoff of 2026-09-16 authorizes all four
 milestones; routine Git under `docs/git-workflow.md`; no deletion or
 destructive Git without an explicit checkpoint.

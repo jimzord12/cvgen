@@ -1,12 +1,14 @@
 ---
 kind: proposal
-status: approved
+status: applied
 revision: 2
 ---
 
 # Development protocol
 
-Approved 2026-09-16; application/setup by Claude Code remains outstanding.
+Approved 2026-09-16; applied 2026-09-16 (see the application entry below).
+The active rules now live in `docs/development.md` and `docs/review.md`;
+this file is their specification history.
 Claude Code implements; Codex optionally supports discussion and design.
 Decision scope includes the linked review protocol and work-record conventions.
 It excludes installing task tooling or implementing a governance package.
@@ -28,6 +30,20 @@ Its two fictional tasks use Trello cards as the authoritative brief/status store
 with existing decision/review evidence linked. This temporary amendment takes
 precedence over the file-task options below for those cards only. The baseline
 approval remains unchanged; permanent task-tool adoption still needs a decision.
+
+### Application
+
+2026-09-16: Claude Code established the minimum setup under task
+[dev-setup](../work/dev-setup/task.md): [`docs/development.md`](../development.md),
+[`docs/review.md`](../review.md) and `.claude/agents/code-reviewer.md`, with
+`AGENTS.md` routing to them. The reviewer was validated against two fictional
+fixtures (defect and evidence gap detected; clean case passed; no file
+modified) and the setup itself passed review round 1; reports and hashes are
+linked from the task record. Evidence so far comes from a fresh headless
+invocation (`claude -p --agent code-reviewer`); the in-session Agent-tool path
+awaits a session restart and is noted in the task record. Task tooling remains
+with the [Trello trial](trello-free-trial.md); no governance package or CLI
+was installed.
 
 ## The recommendation
 

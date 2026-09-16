@@ -139,10 +139,11 @@ rules of its own and defers to `docs/review.md`.
   No module is migrated yet, so a new component matches the order already
   used by its file. Deck and engine are never separate templates
   (constitution section 7).
-- Every non-trivial change ends with `python tests/run.py` passing, the
-  evidence path reported, and a fresh `code-reviewer` round under
-  `docs/review.md` with the report stored in the task's `reviews/` folder.
-  A visual change also needs a rendered page.
+- Every non-trivial change to code, fixtures or inputs ends with
+  `python tests/run.py` passing and the evidence path reported; a visual
+  change also needs a rendered page. Every non-trivial change of any kind
+  ends with a fresh `code-reviewer` round under `docs/review.md`, the report
+  stored in the task's `reviews/` folder.
 - If you had to go around a component, template or the contract to deliver
   what the owner wanted, add an entry to `docs/framework-gaps.md` before
   reporting done. A bypass is a lesson, not a fault.

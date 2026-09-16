@@ -88,10 +88,12 @@ existing outputs, modify candidate workspaces or touch external systems.
 
 The subagent definition exposes `Read`, `Grep`, `Glob`, `Bash` and
 `PowerShell` only: no editing tools and no `Agent` tool, so it cannot spawn
-nested agents. Shell access can still write, so this tool list is a
-convention enforced by the reviewer's instructions and by review of its
-report, not a security sandbox. Verified on 2026-09-16 against fictional
-fixtures; see `docs/work/dev-setup/task.md`.
+nested agents. It pins Opus at maximum effort, the owner's standing
+preference for reviewers; the protocol itself mandates no model. Shell
+access can still write, so the tool list is relied on together with the
+reviewer's instructions and a read of its report; it is not a security
+sandbox. Verified on 2026-09-16 against fictional fixtures; see
+`docs/work/dev-setup/task.md`.
 
 Current non-trivial implementation changes still require the full repository
 suite. Reviewers may rerun focused checks against the exact reviewed snapshot

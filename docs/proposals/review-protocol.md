@@ -4,7 +4,10 @@ kind: reference
 
 # Review protocol: eight lenses, bounded rounds
 
-Approved with the development protocol on 2026-09-16; Claude setup remains pending.
+Approved with the development protocol on 2026-09-16 and applied the same day:
+the active protocol is [`docs/review.md`](../review.md), the Claude wrapper is
+`.claude/agents/code-reviewer.md`, and the validation evidence is under
+[dev-setup](../work/dev-setup/task.md). This file is the specification history.
 Implementation reviews run in Claude Code.
 Codex may critique design proposals; that does not satisfy a code review gate.
 Companion to the [development protocol](development-protocol.md).

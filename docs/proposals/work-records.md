@@ -4,8 +4,11 @@ kind: reference
 
 # Small work records
 
-Approved with the development protocol on 2026-09-16; application remains pending.
-Companion to the
+Approved with the development protocol on 2026-09-16 and applied the same day:
+the template and rules now live in [`docs/development.md`](../development.md)
+(sections "Where the information belongs" and "The task record"); the first
+record is [dev-setup](../work/dev-setup/task.md). This file is the
+specification history. Companion to the
 [development protocol](development-protocol.md). These are Markdown records,
 not a new task-tracking application.
 Approval is included in the development proposal's scope.
