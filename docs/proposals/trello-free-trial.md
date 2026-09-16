@@ -248,9 +248,13 @@ orientation pointing at the board (T1-06) and the retirement of
 `docs/work/<id>/reviews/`). Reject would mean archiving the trial board and
 keeping `task.md` records; the skill could stay as a tool.
 
-Owner actions outstanding regardless of the decision: rotate the Trello API
-key and token exposed during review rounds 1 and 2 (revoke the token at
-trello.com/my/account, Applications; regenerate the key at
-trello.com/power-ups/admin; update the two lines in the PowerShell profile). Recommendation so
+Credentials exposed during review rounds 1 and 2 were rotated by the owner on
+2026-09-16 (new Power-Up, new key and token; Trello offers no key reset, so
+the old Power-Up was deleted). Verified afterwards: the helper reads the
+account and both trial cards with the new values. Lesson for the skill: a
+token is bound to the key it was generated from, and Trello reports the
+mismatch as "invalid key".
+
+Owner action outstanding: the adoption decision. Recommendation so
 far: adopt for the migration task; the Free tier covered every operation the
 protocol needs.

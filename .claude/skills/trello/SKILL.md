@@ -20,7 +20,12 @@ and refuses to run without them. Never paste them into a card, a commit, a
 log or the chat, and never copy them into a PowerShell variable in a tool
 call: variable names are case-insensitive, so `$t` silently overwrites `$T`
 and the shell prints the value in its error. If they are missing, ask the
-owner to check his profile; do not ask for the values.
+owner to check his profile; do not ask for the values. After a rotation:
+Trello cannot reset a key, so a new Power-Up is created; the token must be
+generated from that Power-Up's own API key page (a token bound to another
+key fails as `HTTP 401 invalid key`, while the key alone answers
+`invalid token`). Shells started before the profile change keep the old
+values; test in a fresh `pwsh` child.
 
 ## The board
 
