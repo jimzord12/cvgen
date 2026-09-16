@@ -1,13 +1,13 @@
 ---
 name: trello
-description: Read and update this project's Trello board through the REST API with the bundled helper. Use when a task record lives on a Trello card - orientation from the board, creating or editing a card, moving it between the five stages, checklists, the Blocked label, or exporting the board. Trial scope only until adoption is decided.
+description: Read and update this project's Trello board "Marine CV" through the REST API with the bundled helper. Every task's record is a card there. Use it for session orientation, creating or editing a card, moving it between the five stages, checklists, the Blocked label, or exporting the board.
 ---
 
 # Trello
 
 Direct HTTP through `trello.ps1` in this folder. No MCP server, no SDK.
 Workflow rules (stages, what a card may and may not prove) are in
-`docs/proposals/trello-free-trial.md`; this skill only covers mechanics.
+`docs/development.md`; this skill only covers mechanics.
 
 ## Credentials
 
@@ -29,14 +29,14 @@ values; test in a fresh `pwsh` child.
 
 ## The board
 
-Trial board: **Marine CV trial** (`https://trello.com/b/IPsBxAwf`), workspace
+Board: **Marine CV** (`https://trello.com/b/IPsBxAwf`), workspace
 "Jimzord12 Projects" (Free). Lists in order: Queued, Active, Review, Ready,
 Done. One label: **Blocked** (red). Always resolve ids by name, never hard-code
 them in a card or a doc:
 
 ```powershell
-./.claude/skills/trello/trello.ps1 -Lists 'Marine CV trial'   # board id, url, list name -> id
-./.claude/skills/trello/trello.ps1 -Cards 'Marine CV trial'   # id, name, list, labels, n/m checklist, url
+./.claude/skills/trello/trello.ps1 -Lists 'Marine CV'   # board id, url, list name -> id
+./.claude/skills/trello/trello.ps1 -Cards 'Marine CV'   # id, name, list, labels, n/m checklist, url
 ```
 
 Board orientation is those two calls; no board dump. Read a single card fully
@@ -68,8 +68,8 @@ for cards, checklists, labels, moves and export are in
 - **Uncertain create** (timeout, no body): before retrying, run `-Cards` and
   look for the name you tried to create. Reuse the existing card; never
   create a second one.
-- Card names start with the task id (`trial-a: ...`). Fictional trial cards
-  say so in name and description.
+- Card names start with the task id (`monorepo-migration: ...`). The two
+  `trial-*` cards are fictional history from the trial; leave them alone.
 - Keep real candidate data and credentials out of cards and exports.
 - Links on cards must open on a phone: GitHub blob/commit URLs and CI run
   URLs, never local Windows paths.

@@ -56,24 +56,28 @@ demand from those sources; no second status page, dashboard or backlog.
 CLAUDE.md, AGENTS.md              # Entry, roles, routing, essential constraints
 docs/development.md               # This protocol
 docs/review.md                    # Review protocol
-docs/work/<id>/task.md            # One authoritative brief and result per task
+Trello board "Marine CV"          # One authoritative brief and status per task (a card)
 docs/work/<id>/reviews/NN.md      # Review reports, created only when review runs
 docs/decisions/                   # Accepted architecture decisions
 docs/proposals/                   # Proposals with status; rejected/ keeps declined ones
 .claude/agents/code-reviewer.md   # Thin wrapper around docs/review.md
+.claude/skills/trello/            # How agents read and update the board
 ```
 
-Task ids are short kebab-case slugs (`dev-setup`, `monorepo-migration`).
-During the authorized [Trello Free trial](proposals/trello-free-trial.md) the
-two trial cards own their brief and status instead of a `task.md`; review
-reports still live under `docs/work/<id>/reviews/` and are linked from the
-card. When task authority changes, retire the old record explicitly rather
-than keeping two ledgers in sync.
+Task ids are short kebab-case slugs (`dev-setup`, `monorepo-migration`) and
+start the card name. The board (adopted 2026-09-16 under
+[trello-free-trial](proposals/trello-free-trial.md)) is the task store:
+its lists are the five stages, a card's description holds the sections
+below, its checklist holds the acceptance items, and the red **Blocked**
+label marks a blocked card. Read and write it only through the trello skill.
+`docs/work/<id>/task.md` is no longer created; the one that exists
+(`dev-setup`) is history. Review reports stay in the repository and are
+linked from the card. A card reaching Done proves nothing by itself.
 
 ## The task record
 
-Keep the brief and result together. Small fixes can use the commit body;
-multi-session work, contract changes and migrations get a persistent file.
+Keep the brief and result together on the card. Small fixes can use the
+commit body; multi-session work, contract changes and migrations get a card.
 
 ```markdown
 # <id>: <Outcome>
@@ -132,5 +136,5 @@ feature branch is not the whole feature reaching `main`.
   owner to re-approve accepted designs or routine choices.
 - Record out-of-scope discoveries. Escalate boundary changes; log bypasses in
   [framework-gaps.md](framework-gaps.md).
-- At handoff, update the owning records and the task record; do not create a
-  second mandatory handoff document when the task record holds the state.
+- At handoff, update the owning records and the card; do not create a
+  second mandatory handoff document when the card holds the state.

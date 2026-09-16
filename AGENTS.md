@@ -21,8 +21,10 @@ keep it untracked and do not copy its contents into shared documentation.
   their documentation. Reading code for design context is allowed; it does not
   take over implementation or provide the implementation test/review verdict.
 - On a fresh or resumed session, derive a brief Goal / Now / Next / You report
-  from the vision, relevant decisions/proposals, authoritative task records when
-  available, Git state, and evidence for the examined revision. Distinguish an
+  from the vision, relevant decisions/proposals, the Trello board "Marine CV"
+  read through the trello skill (the authoritative task records), Git state,
+  and evidence for the examined revision. If the board cannot be read, say
+  so rather than inferring state from an export. Distinguish an
   approved design from implemented behavior, and historical checks from current
   proof. Do not use `docs/now.md`; it is a retired historical snapshot.
 - State reporting is read-only and repeatable: unchanged inputs yield the same
@@ -106,10 +108,10 @@ Full text in `docs/constitution.md`. The short list:
 | `docs/constitution.md` | Before anything irreversible |
 | `docs/framework-gaps.md` | Before planning framework work, and after any bypass of a component or template |
 | `docs/conventions.md` | Before writing code, docs or a commit message |
-| `docs/development.md` | Starting, resuming or handing off a task: stages, the task record under `docs/work/<id>/`, guardrails |
+| `docs/development.md` | Starting, resuming or handing off a task: stages, the card as task record, review reports under `docs/work/<id>/reviews/`, guardrails |
 | `docs/review.md` | Requesting, performing or recording an independent review; the `code-reviewer` subagent follows it |
 | `docs/proposals/README.md` | Proposal states, owner decisions, and orientation of pending/approved work |
-| `docs/proposals/trello-free-trial.md` | Authorized two-task Trello Free trial: scope, temporary task records, execution evidence and adoption decision |
+| `docs/proposals/trello-free-trial.md` | Why Trello is the task store: the trial, its evidence, the adoption decision |
 | `docs/git-workflow.md` | Agent-owned Git, direct pushes, feature branches, integration and tags |
 | `docs/reference/candidate-schema.md` | Editing a candidate JSON |
 | `docs/reference/theme.md` | Creating or editing a theme |
@@ -125,9 +127,9 @@ Full text in `docs/constitution.md`. The short list:
 
 `.claude/skills/new-cv`, `verify-cv`, `new-theme`. Each is a short checklist
 that names the files to copy, the commands to run and the evidence to report.
-`.claude/skills/trello` reads and updates the Trello board through the REST
-API; use it whenever a task's record is a Trello card (trial scope, see
-`docs/proposals/trello-free-trial.md`).
+`.claude/skills/trello` reads and updates the Trello board "Marine CV"
+through the REST API; every task's record is a card there, so use it for
+orientation and for any task state change.
 `.claude/agents/code-reviewer.md` is the independent reviewer; it holds no
 rules of its own and defers to `docs/review.md`.
 

@@ -1,6 +1,6 @@
 ---
 kind: proposal
-status: pending
+status: applied
 revision: 2
 ---
 
@@ -255,6 +255,22 @@ account and both trial cards with the new values. Lesson for the skill: a
 token is bound to the key it was generated from, and Trello reports the
 mismatch as "invalid key".
 
-Owner action outstanding: the adoption decision. Recommendation so
+### Owner decision and application
+
+2026-09-16: the owner decided **adopt**. Applied the same day:
+
+- Board renamed to **Marine CV** (`https://trello.com/b/IPsBxAwf`), same
+  lists and label. The two fictional trial cards remain on it as history.
+- Real cards created: [monorepo-migration](https://trello.com/c/Z0CTAVrT)
+  (Queued, nine acceptance items), [pdf-workflow](https://trello.com/c/iG8cLU6L)
+  (Queued, Blocked on the migration), and at the owner's request a conditional
+  reminder [trello-cli](https://trello.com/c/1BB8s9M0): build a project CLI on
+  a generated OpenAPI client once real use shows friction; triggers are on the
+  card. It is a reminder, not authorised work.
+- `docs/development.md` now names the board as the task store; a
+  `docs/work/<id>/task.md` is no longer created for new tasks, review reports
+  stay under `docs/work/<id>/reviews/`. `AGENTS.md` orientation reads the
+  board through the skill. `dev-setup` keeps its `task.md` as history.
+- The skill's trial-scope wording is removed. Recommendation so
 far: adopt for the migration task; the Free tier covered every operation the
 protocol needs.

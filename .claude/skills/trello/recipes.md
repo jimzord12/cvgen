@@ -15,7 +15,7 @@ $card = & $T POST cards -Body @{ idList = $listId; name = 'id: outcome'; desc = 
 # move between stages
 & $T PUT "cards/$($card.id)" -Body @{ idList = $targetListId }
 # link another card or evidence (shows under Attachments; opens on a phone)
-& $T POST "cards/$($card.id)/attachments" -Body @{ url = 'https://trello.com/c/xxxx'; name = 'Depends on trial-a' }
+& $T POST "cards/$($card.id)/attachments" -Body @{ url = 'https://trello.com/c/xxxx'; name = 'Depends on monorepo-migration' }
 ```
 
 ## Checklists
@@ -39,10 +39,10 @@ Blocked convention: keep the card in its stage, add the label, and put a
 `## Blocked` section in the description with the reason, the dependency card
 link and the unblock condition.
 
-## Board setup (done once for the trial)
+## Board setup (done once; kept for a future board)
 
 ```powershell
-$b = & $T POST boards -Body @{ name = 'Marine CV trial'; idOrganization = $orgId; defaultLists = $false; prefs_permissionLevel = 'private' } | ConvertFrom-Json
+$b = & $T POST boards -Body @{ name = 'Marine CV'; idOrganization = $orgId; defaultLists = $false; prefs_permissionLevel = 'private' } | ConvertFrom-Json
 foreach ($n in 'Queued','Active','Review','Ready','Done') { & $T POST lists -Body @{ name = $n; idBoard = $b.id; pos = 'bottom' } }
 ```
 
