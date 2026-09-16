@@ -4,7 +4,8 @@ kind: reference
 
 # Review protocol: eight lenses, bounded rounds
 
-Status: Proposal, 2026-09-15. Implementation reviews run in Claude Code.
+Approved with the development protocol on 2026-09-16; Claude setup remains pending.
+Implementation reviews run in Claude Code.
 Codex may critique design proposals; that does not satisfy a code review gate.
 Companion to the [development protocol](development-protocol.md).
 Approval is included in that proposal's scope; this is not a separate decision item.

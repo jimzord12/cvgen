@@ -4,7 +4,8 @@ kind: reference
 
 # Small work records
 
-Status: Proposal, 2026-09-15. Companion to the
+Approved with the development protocol on 2026-09-16; application remains pending.
+Companion to the
 [development protocol](development-protocol.md). These are Markdown records,
 not a new task-tracking application.
 Approval is included in the development proposal's scope.

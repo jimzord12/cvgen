@@ -1,17 +1,25 @@
 ---
 kind: proposal
-status: pending
+status: approved
 revision: 2
 ---
 
 # Development protocol
 
-Status: Proposal, 2026-09-15. Harness roles are decided: Claude Code implements;
-Codex optionally supports discussion and design. This process is not yet adopted.
+Approved 2026-09-16; application/setup by Claude Code remains outstanding.
+Claude Code implements; Codex optionally supports discussion and design.
 Decision scope includes the linked review protocol and work-record conventions.
 It excludes installing task tooling or implementing a governance package.
 Revision 2, 2026-09-16: align with the owner's active agent-managed Git and no-PR
-policy. The remaining development/review proposal still awaits approval.
+policy.
+
+## Owner decision
+
+2026-09-16: the owner agreed with the remaining protocol while requesting separate
+Kanban-tool research and a later discussion of the tool choice. Approval covers
+revision 2 and its review/work-record specifications as recorded at commit
+`1ae2ed5d2448d356ce190d9935ae741528a1baae`. Tool selection, installation and integration
+are not included. This records approval, not completion of Claude's setup work.
 
 ## The recommendation
 
