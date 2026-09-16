@@ -4,60 +4,33 @@
   "title": "Flagship template input",
   "description": "What the Flagship template renders: the candidate-facts record (packages/cv-engine/schema/candidate.schema.json) plus optional copy overrides. Produced by templates/flagship/adapter/adapter.typ; mirrors normalize-candidate and validate-candidate in packages/cv-engine/core/data.typ.",
   "type": "object",
-  "required": [
-    "identity",
-    "companies"
-  ],
+  "required": ["identity", "companies"],
   "additionalProperties": false,
   "properties": {
     "identity": {
       "type": "object",
-      "required": [
-        "name",
-        "rank"
-      ],
+      "required": ["name", "rank"],
       "additionalProperties": false,
       "properties": {
-        "name": {
-          "$ref": "#/$defs/text"
-        },
-        "rank": {
-          "$ref": "#/$defs/text"
-        },
-        "portrait": {
-          "type": [
-            "string",
-            "null"
-          ],
-          "description": "Path from the project root, e.g. /private/portrait.png, or null for no photo."
-        },
-        "portrait-alt": {
-          "type": "string"
-        }
+        "name": { "$ref": "#/$defs/text" },
+        "rank": { "$ref": "#/$defs/text" },
+        "portrait": { "type": ["string", "null"], "description": "Path from the project root, e.g. /private/portrait.png, or null for no photo." },
+        "portrait-alt": { "type": "string" }
       }
     },
     "contacts": {
       "type": "object",
       "additionalProperties": false,
       "properties": {
-        "left": {
-          "$ref": "#/$defs/contactList"
-        },
-        "right": {
-          "$ref": "#/$defs/contactList"
-        }
+        "left": { "$ref": "#/$defs/contactList" },
+        "right": { "$ref": "#/$defs/contactList" }
       }
     },
-    "profile": {
-      "type": "string",
-      "description": "Short paragraph shown beside the profile illustration on page one."
-    },
+    "profile": { "type": "string", "description": "Short paragraph shown beside the profile illustration on page one." },
     "companies": {
       "type": "array",
       "minItems": 1,
-      "items": {
-        "$ref": "#/$defs/company"
-      }
+      "items": { "$ref": "#/$defs/company" }
     },
     "certificates": {
       "type": "array",
@@ -68,32 +41,17 @@
             "description": "title, scope, issued, review",
             "minItems": 4,
             "maxItems": 4,
-            "items": {
-              "$ref": "#/$defs/text"
-            }
+            "items": { "$ref": "#/$defs/text" }
           },
           {
             "type": "object",
-            "required": [
-              "title",
-              "scope",
-              "issued",
-              "review"
-            ],
+            "required": ["title", "scope", "issued", "review"],
             "additionalProperties": false,
             "properties": {
-              "title": {
-                "$ref": "#/$defs/text"
-              },
-              "scope": {
-                "$ref": "#/$defs/text"
-              },
-              "issued": {
-                "$ref": "#/$defs/text"
-              },
-              "review": {
-                "$ref": "#/$defs/text"
-              }
+              "title": { "$ref": "#/$defs/text" },
+              "scope": { "$ref": "#/$defs/text" },
+              "issued": { "$ref": "#/$defs/text" },
+              "review": { "$ref": "#/$defs/text" }
             }
           }
         ]
@@ -103,21 +61,12 @@
       "type": "array",
       "items": {
         "type": "object",
-        "required": [
-          "qualification",
-          "institution"
-        ],
+        "required": ["qualification", "institution"],
         "additionalProperties": false,
         "properties": {
-          "qualification": {
-            "$ref": "#/$defs/text"
-          },
-          "institution": {
-            "$ref": "#/$defs/text"
-          },
-          "note": {
-            "type": "string"
-          }
+          "qualification": { "$ref": "#/$defs/text" },
+          "institution": { "$ref": "#/$defs/text" },
+          "note": { "type": "string" }
         }
       }
     },
@@ -125,181 +74,84 @@
       "type": "array",
       "items": {
         "type": "object",
-        "required": [
-          "name",
-          "level"
-        ],
+        "required": ["name", "level"],
         "additionalProperties": false,
         "properties": {
-          "name": {
-            "$ref": "#/$defs/text"
-          },
-          "level": {
-            "$ref": "#/$defs/text"
-          }
+          "name": { "$ref": "#/$defs/text" },
+          "level": { "$ref": "#/$defs/text" }
         }
       }
     },
-    "disclosure": {
-      "type": "string",
-      "description": "Footer text. Defaults to the fictional-candidate notice."
-    },
+    "disclosure": { "type": "string", "description": "Footer text. Defaults to the fictional-candidate notice." },
     "copy": {
       "type": "object",
-      "description": "Overrides for Flagship wording; merged over the template defaults in adapter.typ, so include only the keys you change.",
+      "description": "Overrides for Flagship wording, merged over the template defaults in adapter.typ; include only the keys you change.",
       "additionalProperties": false,
       "properties": {
-        "experience": {
-          "type": "string"
-        },
-        "experience-subtitle": {
-          "type": "string"
-        },
-        "continuation": {
-          "type": "string"
-        },
-        "combined": {
-          "type": "string"
-        },
-        "total": {
-          "type": "string"
-        },
-        "vessels": {
-          "type": "string"
-        },
-        "companies": {
-          "type": "string"
-        },
-        "certificates": {
-          "type": "string"
-        },
-        "certificates-subtitle": {
-          "type": "string"
-        },
-        "certificate-columns": {
-          "type": "array",
-          "minItems": 4,
-          "maxItems": 4,
-          "items": {
-            "type": "string"
-          }
-        },
-        "education-languages": {
-          "type": "string"
-        },
-        "education": {
-          "type": "string"
-        },
-        "languages": {
-          "type": "string"
-        },
-        "page-caption": {
-          "type": "string"
-        },
-        "brand": {
-          "type": "string"
-        }
+        "experience": { "type": "string" },
+        "experience-subtitle": { "type": "string" },
+        "continuation": { "type": "string" },
+        "combined": { "type": "string" },
+        "total": { "type": "string" },
+        "vessels": { "type": "string" },
+        "companies": { "type": "string" },
+        "certificates": { "type": "string" },
+        "certificates-subtitle": { "type": "string" },
+        "certificate-columns": { "type": "array", "minItems": 4, "maxItems": 4, "items": { "type": "string" } },
+        "education-languages": { "type": "string" },
+        "education": { "type": "string" },
+        "languages": { "type": "string" },
+        "page-caption": { "type": "string" },
+        "brand": { "type": "string" }
       }
     }
   },
   "$defs": {
-    "text": {
-      "type": "string",
-      "minLength": 1,
-      "pattern": "\\S"
-    },
-    "months": {
-      "type": "integer",
-      "minimum": 0,
-      "description": "Whole service months, never a calendar difference."
-    },
+    "text": { "type": "string", "minLength": 1, "pattern": "\\S" },
+    "months": { "type": "integer", "minimum": 0, "description": "Whole service months, never a calendar difference." },
     "contactList": {
       "type": "array",
       "items": {
         "type": "object",
-        "required": [
-          "label",
-          "value"
-        ],
+        "required": ["label", "value"],
         "additionalProperties": false,
         "properties": {
-          "label": {
-            "$ref": "#/$defs/text"
-          },
-          "value": {
-            "$ref": "#/$defs/text"
-          },
-          "href": {
-            "$ref": "#/$defs/text"
-          }
+          "label": { "$ref": "#/$defs/text" },
+          "value": { "$ref": "#/$defs/text" },
+          "href": { "$ref": "#/$defs/text" }
         }
       }
     },
     "company": {
       "type": "object",
-      "required": [
-        "name",
-        "period",
-        "groups"
-      ],
+      "required": ["name", "period", "groups"],
       "additionalProperties": false,
       "properties": {
-        "id": {
-          "$ref": "#/$defs/text",
-          "description": "Unique. Defaults to the lower-cased name with hyphens."
-        },
-        "name": {
-          "$ref": "#/$defs/text"
-        },
-        "period": {
-          "$ref": "#/$defs/text",
-          "description": "Display text only, e.g. 2022 - 2026. Never parsed."
-        },
-        "service-months": {
-          "$ref": "#/$defs/months",
-          "description": "Company total when vessel months are unknown. Must equal the sum when all vessel months are present."
-        },
+        "id": { "$ref": "#/$defs/text", "description": "Unique. Defaults to the lower-cased name with hyphens." },
+        "name": { "$ref": "#/$defs/text" },
+        "period": { "$ref": "#/$defs/text", "description": "Display text only, e.g. 2022 - 2026. Never parsed." },
+        "service-months": { "$ref": "#/$defs/months", "description": "Company total when vessel months are unknown. Must equal the sum when all vessel months are present." },
         "groups": {
           "type": "array",
           "minItems": 1,
           "items": {
             "type": "object",
-            "required": [
-              "type",
-              "ships"
-            ],
+            "required": ["type", "ships"],
             "additionalProperties": false,
             "properties": {
-              "type": {
-                "$ref": "#/$defs/text",
-                "description": "Vessel type label, e.g. Product tankers."
-              },
+              "type": { "$ref": "#/$defs/text", "description": "Vessel type label, e.g. Product tankers." },
               "ships": {
                 "type": "array",
                 "minItems": 1,
                 "items": {
                   "type": "object",
-                  "required": [
-                    "id",
-                    "name",
-                    "rank"
-                  ],
+                  "required": ["id", "name", "rank"],
                   "additionalProperties": false,
                   "properties": {
-                    "id": {
-                      "$ref": "#/$defs/text",
-                      "description": "Stable across repeat service on the same vessel."
-                    },
-                    "name": {
-                      "$ref": "#/$defs/text"
-                    },
-                    "rank": {
-                      "$ref": "#/$defs/text"
-                    },
-                    "months": {
-                      "$ref": "#/$defs/months",
-                      "description": "Required when durations are shown."
-                    }
+                    "id": { "$ref": "#/$defs/text", "description": "Stable across repeat service on the same vessel." },
+                    "name": { "$ref": "#/$defs/text" },
+                    "rank": { "$ref": "#/$defs/text" },
+                    "months": { "$ref": "#/$defs/months", "description": "Required when durations are shown." }
                   }
                 }
               }
