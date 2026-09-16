@@ -135,7 +135,27 @@ def run_workflow(out, typst):
     assert json.loads((revision(broken['revision']) / 'render.json').read_text(encoding='utf-8'))['pdf'] is None
     assert 'did not render' in cv('approve', workspace, broken['revision'], '--approver', 'suite', '--sha256', sha, '--test-only', expect=2)
     (workspace / 'cv.typ').write_text(ENTRY, encoding='utf-8')
+    # A data error naming a Greek company must reach render.log intact whatever the console codec.
+    greek = json.loads(json.dumps(record))
+    greek['companies'][0]['name'] = 'Ναυτιλιακή Δοκιμή'
+    greek['companies'][0]['groups'][0]['ships'][0]['months'] = None
+    (workspace / 'candidate.json').write_text(json.dumps(greek, ensure_ascii=False, indent=2), encoding='utf-8')
+    data_error = cv('render', workspace, '--typst', typst, expect=1)
+    assert data_error['status'] == 'failed' and 'Ναυτιλιακή Δοκιμή' in data_error['errors'][0]
+    assert 'Ναυτιλιακή Δοκιμή' in (revision(data_error['revision']) / 'render.log').read_text(encoding='utf-8')
     passed.append('stale-checks-and-failed-render')
+
+    # Refusals before the compiler runs leave no revision behind: bad JSON, missing portrait.
+    count = len(list((workspace / 'revisions').iterdir()))
+    (workspace / 'candidate.json').write_text('{"identity": ', encoding='utf-8')
+    assert 'not valid JSON' in cv('render', workspace, '--typst', typst, expect=2)
+    missing = json.loads(json.dumps(record))
+    missing['identity']['portrait'] = 'nobody.png'
+    (workspace / 'candidate.json').write_text(json.dumps(missing), encoding='utf-8')
+    assert 'does not exist' in cv('render', workspace, '--typst', typst, expect=2)
+    assert len(list((workspace / 'revisions').iterdir())) == count
+    (workspace / 'candidate.json').write_text(json.dumps(record, indent=2), encoding='utf-8')
+    passed.append('refused-render-leaves-nothing')
 
     # 8. Interrupted operations: a revision without render.json, a leftover partial export, a conflicting destination.
     ghost = revision('20000101-000000-ghost0')
@@ -143,7 +163,16 @@ def run_workflow(out, typst):
     shutil.copyfile(folder / 'cv.pdf', ghost / 'cv.pdf')
     assert 'incomplete' in cv('approve', workspace, ghost.name, '--approver', 'suite', '--sha256', sha, '--test-only', expect=2)
     assert 'incomplete' in cv('export', workspace, ghost.name, expect=2)
+    assert 'approver name is required' in cv('approve', workspace, rid3, '--approver', ' ', '--sha256', third['sha256'], '--test-only', expect=2)
     cv('approve', workspace, rid3, '--approver', 'suite', '--sha256', third['sha256'], '--test-only')
+    receipt3 = revision(rid3) / 'cv.approval.json'
+    genuine = receipt3.read_text(encoding='utf-8')
+    forged = json.loads(genuine)
+    forged['sha256'] = sha  # a receipt for this revision but other bytes
+    receipt3.write_text(json.dumps(forged), encoding='utf-8')
+    assert 'other PDF bytes' in cv('export', workspace, rid3, expect=2)
+    assert 'for other bytes' in cv('approve', workspace, rid3, '--approver', 'suite', '--sha256', third['sha256'], '--test-only', expect=2)
+    receipt3.write_text(genuine, encoding='utf-8')
     partial = workspace / 'exports' / f'.partial-{rid3}-000000'
     partial.mkdir()
     (partial / 'cv.pdf').write_bytes(b'half written')
@@ -154,11 +183,15 @@ def run_workflow(out, typst):
     shutil.copyfile(revision(rid3) / 'cv.approval.json', conflict / 'cv.approval.json')
     assert 'different cv.pdf' in cv('export', workspace, rid3, expect=2)
     assert (conflict / 'cv.pdf').read_bytes() == b'someone else\'s file'
+    shutil.copyfile(revision(rid3) / 'cv.pdf', conflict / 'cv.pdf')
+    (conflict / 'cv.approval.json').write_text(json.dumps({**json.loads(genuine), 'approver': 'not the suite'}), encoding='utf-8')
+    assert 'different approval receipt' in cv('export', workspace, rid3, expect=2)
     status = cv('status', workspace)
     assert status['partial_exports'] == [partial.name]
     assert dict((r['revision'], r['state']) for r in status['revisions']) == {
         rid: 'exported', rid2: 'changed', failing['revision']: 'checks-failed', broken['revision']: 'failed',
-        rid3: 'export-conflict', ghost.name: 'incomplete'}
+        data_error['revision']: 'failed', rid3: 'export-conflict', ghost.name: 'incomplete'}
+    assert {r['revision']: r['sha256'] for r in status['revisions']}[rid3] == third['sha256'][:12]
     shutil.rmtree(conflict)
     exported3 = cv('export', workspace, rid3, env=no_typst)
     assert not exported3['existing'] and sha256_file(conflict / 'cv.pdf') == third['sha256']

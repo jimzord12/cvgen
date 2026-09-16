@@ -16,7 +16,7 @@ from cv_workflow import render_revision, approve_revision, export_revision, work
 render_revision(workspace, typst='typst', pages=2, inputs={})      # -> revision id, sha256, checks_passed
 approve_revision(workspace, revision_id, approver, sha256, test_only=False)
 export_revision(workspace, revision_id)                            # -> export folder, existing flag
-workspace_status(workspace)                                        # -> one state per revision
+workspace_status(workspace)                                        # -> state and hash prefix per revision
 ```
 
 A `workspace` is a folder inside the repository checkout (`private/<name>`,
@@ -44,6 +44,9 @@ step; nothing is overwritten on the way.
 
 ## The refusal rules
 
+- Render checks the record and locates the portrait before it creates the
+  revision folder, so a refusal leaves nothing; compiler output is decoded
+  as UTF-8 so a Greek name in an error survives the Windows console codec.
 - Approve and export need `render.json` with `status: success` and a
   `cv.pdf` whose hash still equals the recorded one, and a `checks.json`
   that passed for exactly that hash. A folder without `render.json` is an

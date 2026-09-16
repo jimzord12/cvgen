@@ -48,8 +48,11 @@ render. Splitting one large company across pages is shown in
 Copy `examples/candidates/engineer-example.json` or `examples/candidates/captain-example.json` and
 replace every value. Field meanings and error messages are in
 `../reference/candidate-schema.md`. Set `identity.portrait` to
-`portrait.<ext>` (relative to the workspace folder), to
-`/private/jane-doe-second-engineer/portrait.<ext>`, or to `null`.
+`/private/jane-doe-second-engineer/portrait.<ext>` (a path from the
+repository root, which both the preview in section 3 and the workflow
+accept) or to `null`. A path relative to the workspace folder,
+`portrait.<ext>`, works only through `scripts/cv.py render`, which copies
+the file into the revision; the direct compiler cannot find it.
 
 If you do not know months per vessel, set `show-vessel-durations: false` and
 give each company a `service-months` total instead.

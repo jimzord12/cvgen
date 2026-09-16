@@ -56,9 +56,12 @@ and per-check folders with `result.json` and, on a raster mismatch, a
    approval refused under `private/`, export with no compiler on PATH,
    repeated export untouched, a later revision without approval, a copied
    receipt, bytes changed after approval, failing and stale checks, a
-   failed compile kept with its log, a revision without `render.json`, a
-   leftover partial export and a conflicting destination. `commands.log`
-   holds every command with its output and exit code.
+   failed compile kept with its log, a data error naming a Greek company
+   that reaches `render.log` intact, refused renders (bad JSON, missing
+   portrait) that leave no folder, a receipt rewritten for other bytes, a
+   revision without `render.json`, a leftover partial export, a
+   conflicting destination and a bundle with a different receipt.
+   `commands.log` holds every command with its output and exit code.
 
 Negative cases assert on the exact error text so a message change is a test
 change.

@@ -13,11 +13,13 @@ from .workspace import ROOT, Revision, Workspace, WorkflowError, sha256_file
 def workspace_status(workspace):
     """Every revision with its one-word state, plus any interrupted export folders."""
     ws = Workspace(workspace)
-    return {
-        'workspace': str(ws.folder),
-        'revisions': [{'revision': rid, 'state': ws.revision(rid).state()} for rid in ws.revision_ids()],
-        'partial_exports': ws.partial_exports(),
-    }
+    revisions = []
+    for rid in ws.revision_ids():
+        revision = ws.revision(rid)
+        # The hash prefix is what the owner passes to approve after reviewing cv.pdf.
+        sha256 = sha256_file(revision.pdf)[:12] if revision.pdf.is_file() else None
+        revisions.append({'revision': rid, 'state': revision.state(), 'sha256': sha256})
+    return {'workspace': str(ws.folder), 'revisions': revisions, 'partial_exports': ws.partial_exports()}
 
 
 __all__ = ['ROOT', 'Revision', 'Workspace', 'WorkflowError', 'approve_revision', 'export_revision',

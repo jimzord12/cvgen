@@ -181,9 +181,14 @@ class Revision:
         except WorkflowError:
             return 'checks-failed'
         try:
-            self.require_approval(sha256)
+            approval = self.require_approval(sha256)
         except WorkflowError:
             return 'rendered'
-        if self.export.is_dir():
-            return 'exported' if (self.export / 'cv.pdf').is_file() and sha256_file(self.export / 'cv.pdf') == sha256 else 'export-conflict'
-        return 'approved'
+        if not self.export.exists():
+            return 'approved'
+        pdf, receipt = self.export / 'cv.pdf', self.export / 'cv.approval.json'
+        try:
+            complete = pdf.is_file() and sha256_file(pdf) == sha256 and read_json(receipt) == approval
+        except (OSError, ValueError):
+            complete = False
+        return 'exported' if complete else 'export-conflict'

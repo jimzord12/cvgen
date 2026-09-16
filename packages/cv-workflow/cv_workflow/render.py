@@ -8,6 +8,8 @@ from .workspace import (ENGINE, FONTS, ROOT, Workspace, WorkflowError, new_revis
                         repo_relative, sha256_file, utc_now, write_json)
 
 IMPORT = re.compile(r'^\s*#import\s+"([^"]+)"', re.MULTILINE)
+# Typst writes UTF-8 whatever the Windows locale says; a Greek name in an error must survive.
+TEXT = {'text': True, 'encoding': 'utf-8', 'errors': 'replace'}
 
 
 def render_revision(workspace, typst='typst', pages=2, inputs=None):
@@ -19,22 +21,31 @@ def render_revision(workspace, typst='typst', pages=2, inputs=None):
     ws = Workspace(workspace)
     compiler = shutil.which(typst) or typst
     try:
-        version = subprocess.run([compiler, '--version'], capture_output=True, text=True, check=True).stdout.strip()
+        version = subprocess.run([compiler, '--version'], capture_output=True, **TEXT, check=True).stdout.strip()
     except (OSError, subprocess.CalledProcessError):
         raise WorkflowError(f'Typst compiler not found: {typst!r}; pass --typst path/to/typst')
-    revision = ws.revision(new_revision_id())
-    (revision.inputs / 'assets').mkdir(parents=True, exist_ok=False)
-
-    # Snapshot: the entry point verbatim, the record with its portrait repointed
-    # at the copied asset, so the revision compiles from its own files alone.
-    shutil.copyfile(ws.entry, revision.inputs / 'cv.typ')
-    record = read_json(ws.record)
-    assets = []
+    # Everything that can be refused is checked before the revision folder exists,
+    # so a refusal leaves nothing behind.
+    try:
+        record = read_json(ws.record)
+    except ValueError as error:
+        raise WorkflowError(f'{ws.record} is not valid JSON: {error}')
+    if not isinstance(record, dict):
+        raise WorkflowError(f'{ws.record} must hold a JSON object')
     portrait = (record.get('identity') or {}).get('portrait')
+    source = None
     if portrait:
         source = ROOT / portrait.lstrip('/') if portrait.startswith('/') else ws.folder / portrait
         if not source.is_file():
             raise WorkflowError(f'identity.portrait {portrait!r} resolves to {source}, which does not exist')
+
+    revision = ws.revision(new_revision_id())
+    (revision.inputs / 'assets').mkdir(parents=True, exist_ok=False)
+    # Snapshot: the entry point verbatim, the record with its portrait repointed
+    # at the copied asset, so the revision compiles from its own files alone.
+    shutil.copyfile(ws.entry, revision.inputs / 'cv.typ')
+    assets = []
+    if source:
         copy = revision.inputs / 'assets' / source.name
         shutil.copyfile(source, copy)
         record['identity']['portrait'] = repo_relative(copy)
@@ -46,7 +57,7 @@ def render_revision(workspace, typst='typst', pages=2, inputs=None):
     for key, value in (inputs or {}).items():
         command += ['--input', f'{key}={value}']
     command += [str(revision.inputs / 'cv.typ'), str(revision.pdf)]
-    result = subprocess.run(command, capture_output=True, text=True, cwd=ROOT)
+    result = subprocess.run(command, capture_output=True, cwd=ROOT, **TEXT)
     revision.log.write_text(result.stdout + result.stderr, encoding='utf-8')
     succeeded = result.returncode == 0 and revision.pdf.is_file()
 
