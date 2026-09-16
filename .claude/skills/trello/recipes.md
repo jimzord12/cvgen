@@ -53,5 +53,6 @@ lists, labels, checklists, attachments, up to 1000 actions). Write it to a
 fresh folder under `builds/`; it is a dated snapshot, not a backup store.
 
 ```powershell
-& $T GET "boards/$boardId" -Query @{ fields = 'all'; cards = 'all'; card_attachments = 'true'; card_checklists = 'all'; lists = 'all'; labels = 'all'; checklists = 'all'; actions = 'all'; actions_limit = 1000 } -Pretty > builds/trello-<timestamp>/board.json
+$dir = New-Item -ItemType Directory ("builds/trello-" + (Get-Date -Format 'yyyyMMdd-HHmmss'))
+& $T GET "boards/$boardId" -Query @{ fields = 'all'; cards = 'all'; card_attachments = 'true'; card_checklists = 'all'; lists = 'all'; labels = 'all'; checklists = 'all'; actions = 'all'; actions_limit = 1000 } -Pretty | Out-File "$dir/board.json" -NoClobber -Encoding utf8
 ```

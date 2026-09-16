@@ -13,9 +13,13 @@ Workflow rules (stages, what a card may and may not prove) are in
 
 `TRELLO_API_KEY` and `TRELLO_API_TOKEN` are user-scope environment variables
 on the owner's machine, so every worktree and fresh session sees them. The
-helper refuses to run without them and never prints them. Never paste them
-into a card, a commit, a log or the chat. If they are missing, ask the owner
-to set them in his own shell; do not ask for the values.
+helper sends them in an `Authorization` header (never in the URL, which
+Trello echoes back in 404 bodies), redacts them from its own error output,
+and refuses to run without them. Never paste them into a card, a commit, a
+log or the chat, and never copy them into a PowerShell variable in a tool
+call: variable names are case-insensitive, so `$t` silently overwrites `$T`
+and the shell prints the value in its error. If they are missing, ask the
+owner to set them in his own shell; do not ask for the values.
 
 ## The board
 

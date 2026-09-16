@@ -166,6 +166,22 @@ Checked 2026-09-16:
   replaying the JSON through the same helper is roughly an hour of work.
 - **Phone verdict:** pending from the owner.
 
-Remaining before the endpoint: the owner's phone verdict. Recommendation so
+### Review of the skill
+
+Round 1 on `ec5c23d..045f68d`, in-session `code-reviewer`, lead lenses 4
+and 1: [docs/work/trello-trial/reviews/01.md](../work/trello-trial/reviews/01.md).
+Verdict **FINDINGS**.
+
+| Finding | Disposition |
+|---|---|
+| T1-01 Blocking: key and token printed on 404 (Trello echoes the request URL) | Fixed: credentials now travel in an `Authorization: OAuth` header, never in the URL; error output additionally redacts both values. Verified: `GET nonexistent-path-for-review` prints `HTTP 404 Cannot GET /1/nonexistent-path-for-review`, nothing else. Rotation of the exposed key and token requested from the owner; the values also appeared once in the lead session through a variable-name slip (`$t` vs `$T`), recorded in SKILL.md as a rule. |
+| T1-02 Minor: `exit` unreachable after `Write-Error` | Fixed: failures write to stderr via `[Console]::Error` and exit 1 (API/board) or 2 (usage/env). Verified `$LASTEXITCODE`. |
+| T1-03 Minor: no timeout, empty diagnostics on no-response | Fixed: `-TimeoutSec 30`; message carries the exception text when there is no HTTP status. |
+| T1-04 Note: export recipe could overwrite | Fixed: recipe creates a fresh timestamped folder and writes with `-NoClobber`. |
+| T1-05 Note: store the report | Accepted: stored at the path above and linked here. |
+| T1-06 Note: orientation bullet after adoption | Deferred to the adoption decision. |
+
+Remaining before the endpoint: the owner's phone verdict and the credential
+rotation. Recommendation so
 far: adopt for the migration task; the Free tier covered every operation the
 protocol needs.

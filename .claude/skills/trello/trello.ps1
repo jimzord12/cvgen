@@ -27,16 +27,32 @@ param(
 $ErrorActionPreference = 'Stop'
 $key = $env:TRELLO_API_KEY
 $token = $env:TRELLO_API_TOKEN
+
+# Write-Error would throw under ErrorActionPreference=Stop and skip the exit
+# code, so failures go straight to stderr and exit with a real code.
+function Fail([string]$Message, [int]$Code) {
+    # Belt and braces: Trello error bodies can echo the request; never let the
+    # credentials through even if a future change puts them back in the URL.
+    foreach ($secret in @($key, $token)) { if ($secret) { $Message = $Message.Replace($secret, '<redacted>') } }
+    [Console]::Error.WriteLine($Message)
+    exit $Code
+}
+
 if (-not $key -or -not $token) {
-    Write-Error 'Set TRELLO_API_KEY and TRELLO_API_TOKEN as environment variables (user scope), then start a new shell.'
-    exit 2
+    Fail 'Set TRELLO_API_KEY and TRELLO_API_TOKEN as environment variables (user scope), then start a new shell.' 2
 }
 
 function Invoke-Trello([string]$Method, [string]$Path, [hashtable]$Query, [hashtable]$Body) {
-    $pairs = @("key=$key", "token=$token")
+    $pairs = @()
     foreach ($k in $Query.Keys) { $pairs += "$k=" + [uri]::EscapeDataString([string]$Query[$k]) }
-    $uri = 'https://api.trello.com/1/' + $Path.TrimStart('/') + '?' + ($pairs -join '&')
-    $req = @{ Method = $Method; Uri = $uri }
+    $uri = 'https://api.trello.com/1/' + $Path.TrimStart('/')
+    if ($pairs.Count) { $uri += '?' + ($pairs -join '&') }
+    # Credentials travel in a header, not the URL: Trello's 404 body repeats
+    # the URL verbatim, which would print them into the session log.
+    $req = @{
+        Method     = $Method; Uri = $uri; TimeoutSec = 30
+        Headers    = @{ Authorization = "OAuth oauth_consumer_key=`"$key`", oauth_token=`"$token`"" }
+    }
     if ($Body) {
         $req.ContentType = 'application/json; charset=utf-8'
         $req.Body = [Text.Encoding]::UTF8.GetBytes(($Body | ConvertTo-Json -Depth 10 -Compress))
@@ -46,9 +62,8 @@ function Invoke-Trello([string]$Method, [string]$Path, [hashtable]$Query, [hasht
         return ,(Invoke-RestMethod @req)
     } catch {
         $status = $_.Exception.Response.StatusCode.value__
-        $detail = $_.ErrorDetails.Message
-        Write-Error "Trello $Method /$Path failed: HTTP $status $detail"
-        exit 1
+        $detail = if ($status) { $_.ErrorDetails.Message } else { 'no response (timeout or connection failure): ' + $_.Exception.Message }
+        Fail "Trello $Method /$Path failed: HTTP $status $detail" 1
     }
 }
 
@@ -56,8 +71,7 @@ function Find-Board([string]$Name) {
     $boards = @(Invoke-Trello GET 'members/me/boards' @{ fields = 'name,url,closed' } $null | ForEach-Object { $_ })
     $hit = @($boards | Where-Object { $_.name -eq $Name -and -not $_.closed })
     if ($hit.Count -ne 1) {
-        Write-Error "Expected exactly one open board named '$Name', found $($hit.Count). Open boards: $(($boards | Where-Object { -not $_.closed } | ForEach-Object name) -join ' | ')"
-        exit 1
+        Fail "Expected exactly one open board named '$Name', found $($hit.Count). Open boards: $(($boards | Where-Object { -not $_.closed } | ForEach-Object name) -join ' | ')" 1
     }
     return $hit[0]
 }
@@ -87,7 +101,7 @@ switch ($PSCmdlet.ParameterSetName) {
         })
     }
     default {
-        if (-not $Method -or -not $Path) { Write-Error 'Usage: trello.ps1 <GET|POST|PUT|DELETE> <path> [-Query @{}] [-Body @{}] | -Lists <board> | -Cards <board>'; exit 2 }
+        if (-not $Method -or -not $Path) { Fail 'Usage: trello.ps1 <GET|POST|PUT|DELETE> <path> [-Query @{}] [-Body @{}] | -Lists <board> | -Cards <board>' 2 }
         Out-Result (Invoke-Trello $Method $Path $Query $Body)
     }
 }
