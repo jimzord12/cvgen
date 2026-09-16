@@ -125,6 +125,9 @@ Full text in `docs/constitution.md`. The short list:
 
 `.claude/skills/new-cv`, `verify-cv`, `new-theme`. Each is a short checklist
 that names the files to copy, the commands to run and the evidence to report.
+`.claude/skills/trello` reads and updates the Trello board through the REST
+API; use it whenever a task's record is a Trello card (trial scope, see
+`docs/proposals/trello-free-trial.md`).
 `.claude/agents/code-reviewer.md` is the independent reviewer; it holds no
 rules of its own and defers to `docs/review.md`.
 
