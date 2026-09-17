@@ -35,4 +35,4 @@ What becomes easier, what becomes harder, what the suite enforces.
 | [0007](0007-family-of-templates.md) | A family of templates over one shared core; deck and engine are variations, never forks. Amends 0002 |
 | [0008](0008-component-contract.md) | One React-inspired component contract: ctx first, data, props, slots, scoped styles |
 | [0009](0009-framework-not-a-cage.md) | The framework is the happy path, not a cage: bypass components freely, log every bypass, never bypass rules |
-| [0010](0010-public-monorepo-and-pdf-workflow.md) | Approved target: public monorepo, template-owned input schemas and presentation, separate PDF workflow, private revisions and hash-based approval. Implementation pending. Amends 0005 and 0007. |
+| [0010](0010-public-monorepo-and-pdf-workflow.md) | Public monorepo, template-owned input schemas and presentation, separate PDF workflow, private revisions and hash-based approval. Engine layout and local PDF workflow implemented 2026-09-16; web application pending. Amends 0005 and 0007. |

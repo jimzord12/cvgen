@@ -12,9 +12,9 @@ presentation. The PDF workflow binds explicit owner approval to an exact PDF.
 See [PDF workflow and storage](pdf-workflow.md) and
 [ADR 0010](decisions/0010-public-monorepo-and-pdf-workflow.md).
 
-The engine layout is implemented (2026-09-16); the workflow package and the
-web application are pending. This decision takes precedence over earlier folder
-and sharing assumptions below.
+The engine layout and local PDF workflow are implemented (2026-09-16); the
+web application remains pending. This decision takes precedence over earlier
+folder and sharing assumptions below.
 
 ## What this is
 
