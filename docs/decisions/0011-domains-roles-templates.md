@@ -75,7 +75,8 @@ realised with dictionaries and functions.
   the existing names already satisfy.
 
 Direction approved by the owner in conversation on 2026-09-20; the name
-CVgen, the constitution wording and the staged delivery on 2026-09-21.
+CVgen, the rewording of constitution sections 6 and 7 (explicitly), the
+staged delivery and the repository rename on 2026-09-21.
 
 ## Consequences
 
