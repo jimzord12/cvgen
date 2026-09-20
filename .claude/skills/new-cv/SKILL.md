@@ -1,6 +1,6 @@
 ---
 name: new-cv
-description: Produce a CV for a real or new fictional candidate with the marine-cv library. Use when asked to create, set up or render a CV for a person, or to add a new example. Covers the private workspace, data file, entry point, page plan and evidence.
+description: Produce a CV for a real or new fictional candidate with the CVgen library. Use when asked to create, set up or render a CV for a person, or to add a new example. Covers the private workspace, data file, entry point, page plan and evidence.
 ---
 
 # New CV

@@ -1,6 +1,6 @@
 ---
 name: new-theme
-description: Create a new visual theme or artwork pack for the marine-cv library. Use when asked for a new look, colour scheme, typography variant, or a new role's illustrations. Keeps tokens in the template's themes/, pictures in its artwork/ and assets/, and proves the engineer reference is untouched.
+description: Create a new visual theme or artwork pack for the CVgen library. Use when asked for a new look, colour scheme, typography variant, or a new role's illustrations. Keeps tokens in the template's themes/, pictures in its artwork/ and assets/, and proves the engineer reference is untouched.
 ---
 
 # New theme or artwork pack

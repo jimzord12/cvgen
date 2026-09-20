@@ -1,6 +1,6 @@
 ---
 name: trello
-description: Read and update this project's Trello board "Marine CV" through the REST API with the bundled helper. Every task's record is a card there. Use it for session orientation, creating or editing a card, moving it between the five stages, checklists, the Blocked label, or exporting the board.
+description: Read and update this project's Trello board "CVgen" through the REST API with the bundled helper. Every task's record is a card there. Use it for session orientation, creating or editing a card, moving it between the five stages, checklists, the Blocked label, or exporting the board.
 ---
 
 # Trello
@@ -29,7 +29,7 @@ values; test in a fresh `pwsh` child.
 
 ## The board
 
-Board: **Marine CV** (`https://trello.com/b/IPsBxAwf`), workspace
+Board: **CVgen** (`https://trello.com/b/IPsBxAwf`, created as "Marine CV", renamed 2026-09-21), workspace
 "Jimzord12 Projects" (Free). Lists in order: Handoff, Queued, Active,
 Review, Ready, Done. One label: **Blocked** (red). The Handoff list holds
 one card, `session-handoff`, read first on a fresh session and rewritten in
@@ -38,8 +38,8 @@ duplicated or deleted. Always resolve ids by name, never hard-code them in
 a card or a doc:
 
 ```powershell
-./.claude/skills/trello/trello.ps1 -Lists 'Marine CV'   # board id, url, list name -> id
-./.claude/skills/trello/trello.ps1 -Cards 'Marine CV'   # id, name, list, labels, n/m checklist, url
+./.claude/skills/trello/trello.ps1 -Lists 'CVgen'   # board id, url, list name -> id
+./.claude/skills/trello/trello.ps1 -Cards 'CVgen'   # id, name, list, labels, n/m checklist, url
 ```
 
 Board orientation is those two calls; no board dump. Read a single card fully

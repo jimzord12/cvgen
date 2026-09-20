@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://github.com/jimzord12/marine-engineer-cv/packages/cv-engine/domains/marine/templates/flagship/schema/flagship-input.schema.json",
+  "$id": "https://github.com/jimzord12/cvgen/packages/cv-engine/domains/marine/templates/flagship/schema/flagship-input.schema.json",
   "title": "Flagship template input",
   "description": "What the Flagship template renders: the candidate-facts record (packages/cv-engine/domains/marine/schema/candidate.schema.json) plus optional copy overrides. Produced by domains/marine/templates/flagship/adapter/adapter.typ; mirrors normalize-candidate and validate-candidate in packages/cv-engine/domains/marine/data.typ.",
   "type": "object",

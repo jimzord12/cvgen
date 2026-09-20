@@ -1,6 +1,6 @@
-# AGENTS.md — map of this repository
+# AGENTS.md — map of CVgen
 
-Composable Typst library that renders CVs; maritime first, any field next
+CVgen is a composable Typst library that renders premium CVs for any field
 (ADR 0011, 2026-09-21). The engine is a field-neutral core plus domains;
 `marine` is the first, with one template, `flagship`, that takes six
 independent inputs: candidate JSON, role, theme, artwork pack, layout
@@ -23,7 +23,7 @@ keep it untracked and do not copy its contents into shared documentation.
   their documentation. Reading code for design context is allowed; it does not
   take over implementation or provide the implementation test/review verdict.
 - On a fresh or resumed session, read the `session-handoff` card first (list
-  Handoff on the Trello board "Marine CV", through the trello skill), then
+  Handoff on the Trello board "CVgen", through the trello skill), then
   derive a brief Goal / Now / Next / You report from the vision, relevant
   decisions/proposals, the task cards (the authoritative task records), Git
   state, and evidence for the examined revision. If the board cannot be
@@ -155,7 +155,7 @@ Full text in `docs/constitution.md`. The short list:
 
 `.claude/skills/new-cv`, `verify-cv`, `new-theme`. Each is a short checklist
 that names the files to copy, the commands to run and the evidence to report.
-`.claude/skills/trello` reads and updates the Trello board "Marine CV"
+`.claude/skills/trello` reads and updates the Trello board "CVgen"
 through the REST API; every task's record is a card there, so use it for
 orientation and for any task state change.
 `.claude/agents/code-reviewer.md` is the independent reviewer; it holds no
