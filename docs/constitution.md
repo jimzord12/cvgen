@@ -60,17 +60,21 @@ should work" is not a state.
 
 ## 6. Totals come from data
 
-Service months, vessel counts and company counts are computed once from the
-full candidate. Pages never recompute totals from what they display. Calendar
-periods are never converted into service time.
+Totals are computed once from the full candidate by the domain's rules; for
+marine that is service months, vessel counts and company counts. Pages never
+recompute totals from what they display. Calendar periods are never
+converted into service time. (Generalised by ADR 0011; the rule is
+unchanged.)
 
 ## 7. Roles do not leak into components
 
-Deck and engine are variations of every template, expressed through the
-candidate JSON, the artwork pack and copy strings. In the tree today deck is
-the captain pack and example, engine the engineer pack and example. No
-component branches on role. No template is forked by role. A section that must differ between the
-two is a slot or a data-selected variant of the same template (ADR 0007).
+Roles are variations within a domain, expressed through the candidate JSON,
+the artwork pack and copy strings. In the marine tree today deck is the
+captain pack and example, engine the engineer pack and example. No
+component branches on a role name. A template serves every role of its
+domain unless a recorded reason makes it role-level; a role fork doubles the
+section set forever. A section that must differ between roles is a slot or a
+data-selected variant of the same template (ADR 0007, ADR 0011).
 
 ## 8. Licences travel with their files
 

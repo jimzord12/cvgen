@@ -30,19 +30,28 @@ them. These evolve; the rules that do not are in `constitution.md`.
 - **Assert with a fix in the message.** `assert(..., message: "Name exceeds
   identity plate: adjust theme.sizes.name or hero.plate-width")`. The reader
   should not need the source to know what to change.
-- **No role branches.** Deck versus engine is data, artwork and copy; in
-  the tree today that is the captain and engineer packs and examples. A
-  section that must differ is a slot or a data-selected variant, never a
-  second template.
+- **No role branches.** A role within a domain is data, artwork and copy;
+  in the marine tree today that is the captain and engineer packs and
+  examples. A section that must differ is a slot or a data-selected
+  variant. A role-level template folder is allowed by ADR 0011 but needs a
+  recorded reason; a component never tests a role name.
+- **Domain, role and template markers (ADR 0011).** A domain folder is
+  `packages/cv-engine/domains/<domain>/` with `domain.typ` exporting a
+  dictionary `domain`; a role folder is `roles/<role>/` inside it with
+  `role.typ` exporting `role`; a template folder holds its design-named
+  function file (`flagship.typ`). Any folder between a role and a template
+  is grouping only and has no marker. Dictionaries merge
+  domain < role < template < record `copy` < call-site `copy`.
 - **Related pieces stay together.** Hero and its five helpers are one file.
   A new file is justified by a new responsibility, not by line count.
 - **Paths from the project root** for assets: `/packages/cv-engine/templates/flagship/assets/...`. Compile with
   `--root .`.
-- **Naming:** kebab-case for functions, keys and files. Templates are named
-  after the design, `flagship`, never after a role. Themes and artwork
-  packs are named after what they look like, not after a revision number.
-  Layouts carry the template and the reference they reproduce,
-  `flagship-v11`.
+- **Naming:** kebab-case for functions, keys, folders and files. Domains
+  are named after the field (`marine`, `travel-and-tourism`), roles after
+  the specialisation (`deck`, `engine`). Templates are named after the
+  design, `flagship`, never after a role. Themes and artwork packs are
+  named after what they look like, not after a revision number. Layouts
+  carry the template and the reference they reproduce, `flagship-v11`.
 - **Comments** explain a decision or a trap, never restate the code. One line
   at the top of a file says what the file owns.
 
@@ -93,6 +102,7 @@ backs the change.
 
 ## Versioning of deliverables
 
-Rendered PDFs are named `Marine-<Role>-CV-<Variant>-vNN.pdf`. A new render
-with visible changes gets a new number and a new file. Old files are removed
+Rendered PDFs are named `<Domain>-<Role>-CV-<Variant>-vNN.pdf`, for example
+`Marine-Engineer-CV-v11.pdf`. A new render with visible changes gets a new
+number and a new file. Old files are removed
 in the same commit unless they are a frozen reference.
