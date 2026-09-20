@@ -159,9 +159,9 @@ organised as domain, role and template: a domain offers a facts shape,
 assets, wording and rules; a role is one level of specialisation; a
 template may override anything and may serve a whole domain. Marine is the
 first domain, travel and tourism the next. ADR 0011 records the decision,
-amends 0002, 0007 and 0010, and the constitution's totals and roles
-sections were generalised without weakening them. The work was planned in
-four stages under the pixel gate: governance, the mechanical move of
-Flagship under `domains/marine/`, the split of the maritime data model out
-of the shared core, and the rename. Four independent review rounds on the
-plan before any file moved; the fourth passed.
+amends 0002, 0007 and 0010; the constitution's totals rule was generalised
+unchanged and its roles rule now admits a role-level template with a
+recorded reason, both approved by the owner. The work was planned in four
+stages under the pixel gate: governance, the mechanical move of Flagship
+under `domains/marine/`, the split of the maritime data model out of the
+shared core, and the rename to CVgen.

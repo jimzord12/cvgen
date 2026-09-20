@@ -41,7 +41,9 @@ realised with dictionaries and functions.
 - **Composition.** Dictionaries merge in the order
   domain < role < template < `copy` inside the record < `copy` at the call
   site; later wins, nested dictionaries merge, arrays and scalars are
-  replaced (`core/node.typ`, `merge` and `compose`). A consequence: a role can
+  replaced. A `merge`/`compose` helper in `core/node.typ` is added in the
+  core-split stage; today the adapter does a shallow `+` of `copy`. A
+  consequence: a role can
   override only what its domain offers; template words are overridden from
   the record or the call site, never by a role.
 - **Domain-level templates.** A template may sit under a role or directly
