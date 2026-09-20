@@ -68,13 +68,14 @@ realised with dictionaries and functions.
 - **Marine keeps its facts shape.** `identity.rank` and the
   companies/groups/ships model remain the marine domain's contract. The core
   requires only `identity.name`.
-- **Name.** The project is renamed `<NAME>`; the Typst package, repository,
-  README and Trello board follow. Folder names `packages/cv-engine` and
+- **Name.** The project is renamed **CVgen** (repository `cvgen`, Typst
+  package `cvgen`); the README and Trello board follow. Folder names `packages/cv-engine` and
   `packages/cv-workflow` stay. Frozen reference and export file names stay;
   the deliverable rule becomes `<Domain>-<Role>-CV-<Variant>-vNN.pdf`, which
   the existing names already satisfy.
 
-Approved by the owner in conversation on 2026-09-21.
+Direction approved by the owner in conversation on 2026-09-20; the name
+CVgen, the constitution wording and the staged delivery on 2026-09-21.
 
 ## Consequences
 
