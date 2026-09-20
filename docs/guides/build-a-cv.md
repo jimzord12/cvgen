@@ -26,6 +26,7 @@ company indices, zero-based, in JSON order:
 
 ```typst
 #import "/packages/cv-engine/lib.typ": flagship
+#import "/packages/cv-engine/domains/marine/roles/engine/role.typ": role   // or roles/deck
 #import "/packages/cv-engine/domains/marine/templates/flagship/themes/golden-blue.typ": theme
 #import "/packages/cv-engine/domains/marine/templates/flagship/artwork/engineer.typ": artwork
 #import "/packages/cv-engine/domains/marine/templates/flagship/layouts/flagship-v11.typ": layout as base
@@ -34,7 +35,7 @@ company indices, zero-based, in JSON order:
   (companies: (2,), synopsis: true, certificates: true, education: true),
 ))
 #let candidate = json("candidate.json")
-#show: flagship.with(candidate: candidate, theme: theme, artwork: artwork, layout: layout,
+#show: flagship.with(candidate: candidate, role: role, theme: theme, artwork: artwork, layout: layout,
   show-vessel-durations: true)
 ```
 
@@ -147,12 +148,18 @@ the same public exports:
 
 ```typst
 #import "/packages/cv-engine/lib.typ": (document-shell, page-header, hero, profile-summary,
-  section-heading, skills-section)
+  section-heading, skills-section, normalize-candidate, marine)
+#let d = normalize-candidate(json("candidate.json"))
+// document-shell takes the PDF metadata as named arguments; page-header takes strings.
+#show: document-shell.with(d, theme, artwork, layout,
+  title: d.identity.name + " | " + d.identity.rank + " | " + marine.meta.title, author: marine.meta.author)
+// page 2 onward: page-header(d.identity.name, d.identity.rank, "EXPERIENCE / CREDENTIALS", theme, layout.header)
 // then place the hero, the sections and your own table below
 ```
 
 The skills block is documented in `../reference/skills-component.md`. The
-root-absolute import works from any workspace folder.
+root-absolute import works from any workspace folder. `marine` is the domain
+node exported by `lib.typ` (`docs/reference/domains-and-roles.md`).
 
 Rules for this path:
 

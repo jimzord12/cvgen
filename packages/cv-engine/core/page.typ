@@ -1,8 +1,9 @@
 #import "primitives.typ": label, rule, decoration
 
-#let page-header(identity, caption, theme, geometry) = [
+// `headline` is whatever the domain puts under the name: a rank at sea, a title elsewhere.
+#let page-header(name, headline, caption, theme, geometry) = [
   #grid(columns: (1fr, auto), align: horizon,
-    stack(spacing: geometry.gap, text(font: theme.fonts.display, size: theme.sizes.page-name)[#identity.name], label(identity.rank, theme, color: theme.colors.accent)),
+    stack(spacing: geometry.gap, text(font: theme.fonts.display, size: theme.sizes.page-name)[#name], label(headline, theme, color: theme.colors.accent)),
     text(size: theme.sizes.page-caption, fill: theme.colors.muted)[#caption])
   #v(geometry.rule-gap)
   #rule(theme, weight: 1pt)
@@ -19,8 +20,10 @@
   if first {place(top, rect(width: 100%, height: layout.hero.band-height, fill: theme.colors.hero, stroke: none))}
 }
 
-#let document-shell(candidate, theme, artwork, layout, body) = {
-  set document(title: candidate.identity.name + " | " + candidate.identity.rank + " | Marine CV", author: "Marine CV Studio")
+// PDF metadata comes from the template (title) and the domain (author); the core names no field.
+#let document-shell(candidate, theme, artwork, layout, body, title: none, author: none) = {
+  set document(title: title) if title != none
+  set document(author: author) if author != none
   set text(font: theme.fonts.body, size: theme.sizes.body, fill: theme.colors.ink, lang: "en")
   set par(leading: theme.leading.initial)
   // Default white is the PDF canvas; an explicit white fill changes edge compositing.

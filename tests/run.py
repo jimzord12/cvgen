@@ -11,6 +11,14 @@ from verify import ROOT, FONTS, FLAGSHIP, verify, check_frozen
 from workflow import run_workflow
 
 
+def check_core_boundary():
+    """The shared core imports only its own siblings: never a domain, never lib.typ (ADR 0011)."""
+    import re
+    for source in sorted((ROOT / 'packages/cv-engine/core').glob('*.typ')):
+        for target in re.findall(r'#import "([^"]+)"', source.read_text(encoding='utf-8')):
+            assert '/' not in target and '..' not in target, f'core/{source.name} imports outside core: {target}'
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--typst', default=shutil.which('typst'))
@@ -89,7 +97,14 @@ def main():
             keep = lambda page: [w for w in page.get_text('words') if w[4] not in brand]
             assert keep(pa) == keep(pb)
     compile_case('data-valid', 'tests/fixtures/data.typ')
-    for mode, message in [('missing-visible', 'Visible vessel durations'), ('mismatch', 'does not match'), ('negative', 'non-negative integer')]:
+    # The core paginates a domain that has no ships, and composes domain < role < template.
+    compile_case('core-model', 'tests/fixtures/core-model.typ')
+    # A role reaches the page only if `flagship` forwards it to the adapter.
+    roled = compile_case('role', 'tests/fixtures/role.typ')
+    with fitz.open(roled) as doc:
+        first = doc[0].get_text()
+        assert 'ROLE SUBTITLE' in first and 'Company / vessel type / vessel' not in first
+    for mode, message in [('missing-visible', 'Visible vessel durations'), ('mismatch', 'does not match'), ('negative', 'non-negative integer'), ('missing-name', 'Required text: identity.name')]:
         compile_case('data-' + mode, 'tests/fixtures/data.typ', {'case': mode}, error=message)
     for mode in ['normal', 'no-portrait', 'no-contact']:
         compile_case('hero-' + mode, 'tests/fixtures/components.typ', {'case': mode})
@@ -108,6 +123,8 @@ def main():
     with fitz.open(three) as doc:
         text = ' '.join(' '.join(p.get_text().split()) for p in doc)
         assert 'Northline Marine (continued)' in text
+        # Both halves of the split company show the full company's 60 months, never the page's rows.
+        assert text.count('5 years') == 2
         assert '13 years 6 months' in text and text.count('TOTAL EXPERIENCE') == 1
         assert 'TOTAL EXPERIENCE' in doc[2].get_text()
         for i in range(8):
@@ -122,6 +139,7 @@ def main():
     for check in run_workflow(out, args.typst):
         results.append({'case': 'workflow-' + check, 'passed': True})
     check_frozen()
+    check_core_boundary()
     report = {'passed': True, 'cases': results, 'exact_reference': result, 'output': str(out)}
     (out / 'report.json').write_text(json.dumps(report, indent=2), encoding='utf-8')
     print(f'PASS: {len(results)} compilation cases plus PDF/data/layout assertions. Evidence: {out}')

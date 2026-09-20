@@ -2,38 +2,47 @@
 
 Read this before changing any module under `packages/cv-engine/`.
 
-This page describes the current implementation, laid out per
+This page describes the current implementation: the monorepo of
 [ADR 0010](decisions/0010-public-monorepo-and-pdf-workflow.md) and
-[PDF workflow and storage](pdf-workflow.md) since 2026-09-16. The engine
-package and the workflow package exist; the web app does not. Paths below
+[PDF workflow and storage](pdf-workflow.md) since 2026-09-16, with the
+engine organised by domain, role and template since 2026-09-21
+([ADR 0011](decisions/0011-domains-roles-templates.md),
+[domains and roles](reference/domains-and-roles.md)). The engine package
+and the workflow package exist; the web app does not. Paths below
 are relative to `packages/cv-engine/` unless they start with `packages/`,
 `examples/`, `scripts/` or `tests/`.
 
 ## The one-paragraph version
 
 `examples/marine/flagship/engineer.typ` loads a candidate-facts JSON and passes it,
-together with a theme, an artwork pack and a layout profile, to `flagship` in
-`domains/marine/templates/flagship/flagship.typ`. The template runs the facts through its
-adapter (`domains/marine/templates/flagship/adapter/adapter.typ`), which adds Flagship's
-wording, then normalises and validates the data, validates the page plan, and
-walks the plan page by page, calling section functions that return Typst
-content. Section functions never read files and never branch on the
-candidate's role. Everything visual comes from the theme, everything
-geometric from the layout, every picture from the artwork pack.
+together with a role marker, a theme, an artwork pack and a layout profile,
+to `flagship` in `domains/marine/templates/flagship/flagship.typ`. The
+template runs the facts through its adapter
+(`domains/marine/templates/flagship/adapter/adapter.typ`), which composes the
+wording of the marine domain, the role and Flagship (`core/node.typ`), then
+normalises and validates the data with the marine domain's rules
+(`domains/marine/data.typ` over `core/data.typ`), validates the page plan
+against the domain's row model, and walks the plan page by page, calling
+section functions that return Typst content. Section functions never read
+files and never branch on the candidate's role. Everything visual comes from
+the theme, everything geometric from the layout, every picture from the
+artwork pack.
 
-## The five inputs
+## The six inputs
 
 | Input | File | Owns |
 |---|---|---|
 | Candidate facts | `examples/candidates/*.json` (contract: `domains/marine/schema/candidate.schema.json`) | Identity, contacts, profile, companies, vessels, certificates, education, languages, disclosure. No template wording |
+| Role | `domains/marine/roles/<deck or engine>/role.typ`, or none | One level of specialisation inside the domain; may refine the domain's wording, assets and rules. Both marine roles are bare markers today |
 | Theme | `domains/marine/templates/flagship/themes/*.typ` | Colours, fonts, sizes, tracking, leading, and a map from legacy SVG hex colours to theme colours |
 | Artwork | `domains/marine/templates/flagship/artwork/*.typ` | Which SVG under `domains/marine/assets/` fills each named slot, with optional width, x, y and opacity |
 | Layout | `domains/marine/templates/flagship/layouts/*.typ` | Margins, hero geometry, column widths, gaps, spacing scale, page plan, `anchor-education` |
 | Display switch | `show-vessel-durations` on `flagship` | Show or hide every vessel duration at once without moving columns |
 
-A sixth, optional input is `copy` on `flagship`: overrides for Flagship's
-wording. The adapter merges template defaults, then a `copy` key inside the
-record (legacy), then the argument, and the result is the Flagship input
+A seventh, optional input is `copy` on `flagship`: overrides for the
+wording. The adapter composes the marine domain's words, then the role's,
+then Flagship's, then a `copy` key inside the record, then the argument
+(later wins, `merge`/`compose` in `core/node.typ`), and the result is the Flagship input
 (contract: `domains/marine/templates/flagship/schema/flagship-input.schema.json`). The two
 contracts differ only by that key today; keeping them apart is what lets a
 second template read the same facts with its own wording.
@@ -54,25 +63,28 @@ Modules are migrated to this shape one per commit; an unmigrated module
 keeps the older order (data, theme, geometry slice) until its turn. As of
 this writing no module has been migrated.
 
-## One core, many templates
+## One core, domains, templates
 
-Flagship is the first template of a family (ADR 0007). What is shared and
-what is per template:
+The core is field-neutral; a domain owns what its field needs; a template
+owns its design (ADR 0007, ADR 0011). Who owns what:
 
-| Shared core | Per template |
-|---|---|
-| Candidate contract and schema, normalisation, totals (`data.typ`) | Section components: hero, experience, synopsis, certificates, education, skills |
-| Page shell, header, footer, backgrounds (`page.typ`) | Layout profiles and page plans |
-| Page plan validation (`pagination.typ`) | The page loop with its overflow assertion, in `domains/marine/templates/flagship/flagship.typ` |
-| The verification runner and its checks | Frozen reference render and its pixel gate |
-| SVG recolouring and primitives | Artwork slot names the template expects |
-| Component helpers, theme validation | The adapter: input contract and copy defaults |
+| Shared core (`core/`) | Marine domain (`domains/marine/`) | Per template |
+|---|---|---|
+| Common facts: identity name, contacts, profile, certificates, education, languages (`normalize-common`, `validate-common` in `data.typ`) | The marine facts: `identity.rank`, companies, vessel-type groups, ships with months; `company-months`, `experience-totals`, the row model (`data.typ`); the schema | Section components: hero, experience, synopsis, certificates, education, skills |
+| Page shell, header, footer, backgrounds (`page.typ`); the header takes strings, the shell takes title and author | `domain.meta` (PDF title suffix, author) | Layout profiles and page plans |
+| Page plan grammar and pagination over a domain row model (`pagination.typ`) | `experience-model`: `count`, `slice`, `totals` | The page loop with its overflow assertion, in `flagship.typ` |
+| `merge` and `compose` (`node.typ`) | `domain.copy`: the field's six words | The adapter: input contract and Flagship's nine words |
+| SVG recolouring and primitives; theme validation | The SVG files (`assets/`) | Artwork packs: which SVG in which slot |
+| The verification runner and its checks | Role markers (`roles/deck`, `roles/engine`) | Frozen reference render and its pixel gate |
 
-Deck and engine are never separate templates. A section that must differ is
-a slot or a data-selected variant. A section is promoted from a template to
-the core when a third template needs it unchanged. The shared core lives in
-`core/`; everything Flagship owns lives under `domains/marine/templates/flagship/`. A
-second template gets its own folder beside it and its own adapter.
+Roles are variations within a domain, never forks; Flagship serves both
+marine roles from data, artwork and copy. A section that must differ is a
+slot or a data-selected variant. A section is promoted from a template to
+the core when a third template needs it unchanged, and from a domain to the
+core when a second domain needs it unchanged. `core/` never imports from
+`domains/`; the suite asserts it. A second marine template gets its own
+folder beside Flagship and its own adapter; a second domain gets its own
+folder beside `marine/` and touches neither `core/` nor `marine/`.
 
 ## Module map
 
@@ -80,14 +92,18 @@ second template gets its own folder beside it and its own adapter.
 lib.typ                                 public exports, no side effects
 typst.toml                              package manifest
 core/
-  data.typ                              normalise raw JSON, validate, pure totals, duration parts
+  node.typ                              merge, compose: domain < role < template
+  data.typ                              duration-parts, required-text, normalize-common, validate-common
   theme.typ                             validate-theme: required colours and fonts
   primitives.typ                        label, rule, decoration (SVG recolour), duration, metric
   page.typ                              page-header, page-footer, page-background, document-shell
-  pagination.typ                        validate-pages, company-fragment
-domains/marine/                         the marine domain (ADR 0011; schema and assets today, wording and rules after the core split)
+  pagination.typ                        validate-pages, company-fragment over a domain row model
+domains/marine/                         the marine domain (ADR 0011)
+  domain.typ                            id, meta, copy, experience
+  data.typ                              company-months, experience-totals, normalize-candidate, validate-candidate, experience-model
   schema/candidate.schema.json          marine candidate-facts contract
   assets/                               the SVG files, shared by the domain's templates
+  roles/deck/role.typ  roles/engine/role.typ   role markers
   templates/flagship/
     flagship.typ                          the composition: page loop, section order, overflow check
     adapter/adapter.typ                   flagship-copy defaults, to-flagship-input
