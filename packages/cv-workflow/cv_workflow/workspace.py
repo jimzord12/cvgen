@@ -45,9 +45,12 @@ def write_json(path, data):
 
 def read_json(path):
     try:
-        return json.loads(Path(path).read_text(encoding='utf-8'))
+        data = json.loads(Path(path).read_text(encoding='utf-8'))
     except ValueError as error:
         raise WorkflowError(f'{path} is not valid JSON: {error}')
+    if not isinstance(data, dict):
+        raise WorkflowError(f'{path} must hold a JSON object')
+    return data
 
 
 def hash_matches(reviewed, actual):
@@ -177,8 +180,8 @@ class Revision:
             # A record that is not JSON, or is JSON of the wrong shape (a list, a missing `pdf` block),
             # is 'corrupt', never mistaken for a failed check or a missing approval.
             for record in (self.render_record, self.checks_record, self.approval_record):
-                if record.is_file() and not isinstance(read_json(record), dict):
-                    raise WorkflowError(f'{record} is not a JSON object')
+                if record.is_file():
+                    read_json(record)
             return self.describe()
         except (OSError, WorkflowError, KeyError, TypeError, AttributeError):
             return 'corrupt'

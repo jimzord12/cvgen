@@ -138,6 +138,8 @@ def run_workflow(out, typst):
     for wrong in ('[]', '{"status": "success"}', '{"status": "success", "pdf": null}'):
         render_path.write_text(wrong, encoding='utf-8')
         assert [r['state'] for r in cv('status', workspace)['revisions'] if r['revision'] == rid3] == ['corrupt'], wrong
+    render_path.write_text('[]', encoding='utf-8')
+    assert 'must hold a JSON object' in cv('approve', workspace, rid3, '--approver', 'suite', '--sha256', third['sha256'], '--test-only', expect=2)
     render_path.write_text(original_render, encoding='utf-8')
     (workspace / 'cv.typ').write_text(ENTRY.replace('flagship.with', 'flagship.wit'), encoding='utf-8')
     broken = cv('render', workspace, '--typst', typst, expect=1)
