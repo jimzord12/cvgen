@@ -33,7 +33,7 @@ artwork pack.
 | Input | File | Owns |
 |---|---|---|
 | Candidate facts | `examples/candidates/*.json` (contract: `domains/marine/schema/candidate.schema.json`) | Identity, contacts, profile, companies, vessels, certificates, education, languages, disclosure. No template wording |
-| Role | `domains/marine/roles/<deck or engine>/role.typ`, or none | One level of specialisation inside the domain; may refine the domain's wording, assets and rules. Both marine roles are bare markers today |
+| Role | `domains/marine/roles/<deck or engine>/role.typ`, or none | One level of specialisation inside the domain. Flagship composes the role's `copy` today; both marine roles are bare markers |
 | Theme | `domains/marine/templates/flagship/themes/*.typ` | Colours, fonts, sizes, tracking, leading, and a map from legacy SVG hex colours to theme colours |
 | Artwork | `domains/marine/templates/flagship/artwork/*.typ` | Which SVG under `domains/marine/assets/` fills each named slot, with optional width, x, y and opacity |
 | Layout | `domains/marine/templates/flagship/layouts/*.typ` | Margins, hero geometry, column widths, gaps, spacing scale, page plan, `anchor-education` |

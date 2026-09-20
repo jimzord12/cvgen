@@ -148,8 +148,9 @@ the same public exports:
 
 ```typst
 #import "/packages/cv-engine/lib.typ": (document-shell, page-header, hero, profile-summary,
-  section-heading, skills-section, normalize-candidate, marine)
-#let d = normalize-candidate(json("candidate.json"))
+  section-heading, skills-section, normalize-candidate, to-flagship-input, marine)
+// The shell reads copy.brand and disclosure, so the record goes through the adapter first.
+#let d = normalize-candidate(to-flagship-input(json("candidate.json")))
 // document-shell takes the PDF metadata as named arguments; page-header takes strings.
 #show: document-shell.with(d, theme, artwork, layout,
   title: d.identity.name + " | " + d.identity.rank + " | " + marine.meta.title, author: marine.meta.author)

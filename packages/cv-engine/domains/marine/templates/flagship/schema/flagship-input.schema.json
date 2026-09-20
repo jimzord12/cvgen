@@ -85,7 +85,7 @@
     "disclosure": { "type": "string", "description": "Footer text. Defaults to the fictional-candidate notice." },
     "copy": {
       "type": "object",
-      "description": "Overrides for Flagship wording, merged over the template defaults in adapter.typ; include only the keys you change.",
+      "description": "Overrides for the wording, merged over the domain, role and template defaults composed in adapter.typ; include only the keys you change.",
       "additionalProperties": false,
       "properties": {
         "experience": { "type": "string" },

@@ -15,7 +15,7 @@ def check_core_boundary():
     """The shared core imports only its own siblings: never a domain, never lib.typ (ADR 0011)."""
     import re
     for source in sorted((ROOT / 'packages/cv-engine/core').glob('*.typ')):
-        for target in re.findall(r'#import "([^"]+)"', source.read_text(encoding='utf-8')):
+        for target in re.findall(r'(?<![\w-])(?:import|include)\s+"([^"]+)"', source.read_text(encoding='utf-8')):
             assert '/' not in target and '..' not in target, f'core/{source.name} imports outside core: {target}'
 
 

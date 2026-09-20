@@ -35,15 +35,16 @@ then from the repository root:
 Four PDFs land in a new `builds/library-<timestamp>/` folder. No Python,
 Node or online service is needed to build a CV. All fonts are bundled.
 
-An example entry point is seven lines:
+An example entry point is eight lines:
 
 ```typst
 #import "../../../packages/cv-engine/lib.typ": flagship
+#import "../../../packages/cv-engine/domains/marine/roles/engine/role.typ": role
 #import "../../../packages/cv-engine/domains/marine/templates/flagship/themes/golden-blue.typ": theme
 #import "../../../packages/cv-engine/domains/marine/templates/flagship/artwork/engineer.typ": artwork
 #import "../../../packages/cv-engine/domains/marine/templates/flagship/layouts/flagship-v11.typ": layout
 #let candidate = json("../../candidates/engineer-example.json")
-#show: flagship.with(candidate: candidate, theme: theme, artwork: artwork, layout: layout,
+#show: flagship.with(candidate: candidate, role: role, theme: theme, artwork: artwork, layout: layout,
   show-vessel-durations: true)
 ```
 
@@ -67,7 +68,7 @@ to change margins and which companies sit on which page.
 python tests/run.py
 ```
 
-Needs Python with `pymupdf` and `pillow`. The suite compiles 35 cases and
+Needs Python with `pymupdf` and `pillow`. The suite compiles 38 cases and
 proves the engineer example renders pixel-identical to the frozen
 [v11 reference](packages/cv-engine/domains/marine/templates/flagship/tests/approved/Marine-Engineer-CV-v11.pdf). Details in
 [docs/reference/verification.md](docs/reference/verification.md).

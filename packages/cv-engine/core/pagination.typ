@@ -1,8 +1,9 @@
 // Explicit page allocations and company fragments. Never changes candidate
 // totals. The row model comes from the domain as `model`: `count(company)`
 // gives the number of rows a company has, `slice(company, rows)` returns the
-// company reduced to a half-open row range. Functions stored in a
-// dictionary are called as `(model.count)(company)`.
+// company reduced to a half-open row range. The core uses `count` and
+// `slice` only; a template may add more (marine adds `totals`). Functions
+// stored in a dictionary are called as `(model.count)(company)`.
 #let selection(ref, companies, model) = {
   let index = if type(ref) == int {ref} else {ref.company}
   assert(type(index) == int and index >= 0 and index < companies.len(), message: "Page plan company index out of bounds")

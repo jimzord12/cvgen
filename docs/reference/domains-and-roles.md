@@ -20,7 +20,10 @@ packages/cv-engine/domains/<domain>/          domain.typ exports `domain`
   rules. For marine the rules are the experience model in `data.typ`:
   companies, vessel-type groups, ships with rank and months, and totals.
 - A **role** is one level of specialisation: `deck`, `engine`. It may refine
-  anything the domain offers. Today both marine roles are three-line markers.
+  anything the domain offers. Today both marine roles are three-line markers,
+  and Flagship composes only the role's `copy`; it reads `meta` and
+  `experience` from the domain node directly. A role that needs to refine
+  those is the moment to compose once in `flagship.typ` and read the result.
 - A **template** is a named design. It may sit under a role or directly under
   the domain; Flagship serves both marine roles. It may override anything.
 

@@ -20,6 +20,7 @@
 // domain < role < template < `copy` inside the record < the `copy` argument.
 #let to-flagship-input(facts, role: none, copy: (:)) = {
   assert(type(facts) == dictionary, message: "Candidate facts must be a dictionary; load the JSON record first")
+  assert(role == none or type(role) == dictionary, message: "role must be a role node (roles/<role>/role.typ) or none")
   let words = compose(domain, role, (copy: flagship-copy)).copy
   (..facts, copy: merge(merge(words, facts.at("copy", default: (:))), copy))
 }
