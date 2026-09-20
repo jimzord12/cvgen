@@ -1,7 +1,7 @@
 # Vision
 
 Read this when deciding whether a feature belongs in the project. Owned by
-the product owner; last confirmed 2026-09-15.
+the product owner; last confirmed 2026-09-21.
 
 ## Approved next architecture
 
@@ -18,21 +18,31 @@ folder and sharing assumptions below.
 
 ## What this is
 
-A product for merchant marine seafarers: polished, distinctive CVs that a
-crewing agency or a shipping company's HR desk opens, reads and parses
-without friction. It is built as a family of Typst templates on one shared
-core. Every template comes in a deck variation and an engine variation and
-in two to four themes. Cadets and short careers get a one-page layout.
+A library of polished, distinctive CVs for any field, organised by domain:
+merchant marine first, travel and tourism next, others as they come. A CV
+is something the reader on the other side, a crewing agency, a hotel group's
+HR desk, a hiring manager, opens, reads and parses without friction. It is
+built as Typst templates on one shared, field-neutral core.
+
+A **domain** (marine, travel and tourism, software development) offers what
+its field needs: a facts shape, assets, wording and rules. A **role** is one
+level of specialisation inside a domain (deck and engine at sea; front-end
+and back-end in software) and may refine what the domain offers. A
+**template** is a named design; it may sit under a role or serve a whole
+domain, and it may override anything. Each template comes in two to four
+themes. Cadets and short careers get a one-page layout. Decided 2026-09-20,
+[ADR 0011](decisions/0011-domains-roles-templates.md).
 
 The person editing a CV changes data, not layout code. The person designing
-a new look changes a theme or an artwork pack. The person designing a new
-template writes its sections against the shared core and the component
-contract, then freezes an approved render.
+a new look changes a theme or an artwork pack. The person opening a new field
+writes a domain: its schema, wording, assets and a first template against
+the shared core, then freezes an approved render.
 
 ## What it is not
 
-- Not a general resume framework. Maritime roles only. Two pages by
-  default, one page for cadets.
+- Not a generic resume builder with one shape for everyone. Each domain
+  keeps the facts and wording its field actually uses. Two pages by default,
+  one page for short careers.
 - The engine remains locally usable with one compiler. The approved future web
   application adds hosted intake, review, and delivery, with real candidate
   data in private storage outside the public source repository.
@@ -42,15 +52,16 @@ contract, then freezes an approved render.
 
 ## Principles
 
-1. **Five inputs, many templates.** Candidate, theme, artwork, layout,
-   display switch. Each can change alone, and a candidate can change
-   template without re-entering a career. If a feature needs two inputs to
-   know about each other, it is in the wrong place.
-2. **Deck and engine are variations, never forks.** A template renders both
-   roles from data, artwork and copy. A section that must differ is a slot
-   or a data-selected variant of the same template. In the tree today the
-   deck variation is the captain artwork pack and example; the engine
-   variation is the engineer pack and example.
+1. **Independent inputs, many templates.** Candidate, role, theme, artwork,
+   layout, display switch. Each can change alone, and a candidate can change
+   template within a domain without re-entering a career. If a feature
+   needs two inputs to know about each other, it is in the wrong place.
+2. **Roles are variations within a domain, never forks.** A template
+   renders every role of its domain from data, artwork and copy. A section
+   that must differ is a slot or a data-selected variant of the same
+   template. A role-level template is the exception and needs a reason. In
+   the marine tree today the deck variation is the captain artwork pack and
+   example; the engine variation is the engineer pack and example.
 3. **Approved looks are frozen.** Every approved template has a locked
    reference render, and the suite proves the library reproduces it on
    every run.
@@ -73,20 +84,27 @@ contract, then freezes an approved render.
 In priority order. Each item is committed when the owner opens it; none is
 started on an agent's initiative.
 
-1. **Deck data support.** Real deck careers are recorded as contract
-   periods, not service months. The schema must hold them, the synopsis
-   must take its metrics from data, the certificate table must take its
-   columns from data, and the skills section must be available inside the
-   template, so a real deck CV fits the template instead of bypassing it.
-   See ADR 0007.
-2. **The component contract.** Migrate the Flagship modules to the shape in
+1. **Domains, roles and templates.** Move Flagship and its schema under the
+   marine domain, split the maritime data model out of the shared core, add
+   the role level, rename the project. Four stages, each pixel-identical to
+   the frozen reference. See ADR 0011. Opened 2026-09-21.
+2. **Travel and tourism.** The first non-marine domain: its facts shape,
+   wording, assets and a first template, added without touching the marine
+   domain or the core. The proof that item 1 worked.
+3. **Deck data support** inside the marine domain. Real deck careers are
+   recorded as contract periods, not service months. The marine schema must
+   hold them, the synopsis must take its metrics from data, the certificate
+   table must take its columns from data, and the skills section must be
+   available inside the template, so a real deck CV fits the template
+   instead of bypassing it. See ADR 0007.
+4. **The component contract.** Migrate the Flagship modules to the shape in
    ADR 0008, one module per commit under the pixel gate.
-3. **A second template.** A named design with its own sections and frozen
-   reference, likely grown from one of the studies under `archive/design-studies/`. Its
-   ownership follows the approved template layout in ADR 0010.
-4. **Cadet layout.** A one-page layout profile for cadets and short
-   careers, for every template.
-5. **More themes.** Two to four per template.
-6. **The hosted workflow** in the public monorepo: candidate intake, background
+5. **A second marine template.** A named design with its own sections and
+   frozen reference, likely grown from one of the studies under
+   `archive/design-studies/`.
+6. **Short-career layout.** A one-page layout profile for cadets, juniors
+   and short careers, for every template.
+7. **More themes.** Two to four per template.
+8. **The hosted workflow** in the public monorepo: candidate intake, background
    rendering, owner review and approval, then delivery of the approved PDF.
    Build it after the core is stable; local operation remains supported.

@@ -1,6 +1,7 @@
 # AGENTS.md — map of this repository
 
-Composable Typst library that renders maritime CVs. Today one template,
+Composable Typst library that renders CVs; maritime first, any field next
+(ADR 0011, 2026-09-21, restructure in progress). Today one template,
 `flagship`, takes five independent inputs: candidate JSON, theme, artwork
 pack, layout profile and a durations switch. The product is a family of such
 templates on one shared core, each rendering deck and engine candidates

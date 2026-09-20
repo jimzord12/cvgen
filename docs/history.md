@@ -151,3 +151,17 @@ and every refusal through the real commands on a fictional workspace; the
 workflow's own render of the fictional engineer equals the frozen v11
 reference pixel for pixel. Entry points now import the engine by
 root-absolute path. No web app, database or job service was built.
+
+## 2026-09-21 — a CV library for any field
+
+The owner widened the product from maritime CVs to CVs for any field,
+organised as domain, role and template: a domain offers a facts shape,
+assets, wording and rules; a role is one level of specialisation; a
+template may override anything and may serve a whole domain. Marine is the
+first domain, travel and tourism the next. ADR 0011 records the decision,
+amends 0002, 0007 and 0010; the constitution's totals rule was generalised
+unchanged and its roles rule now admits a role-level template with a
+recorded reason, both approved by the owner. The work was planned in four
+stages under the pixel gate: governance, the mechanical move of Flagship
+under `domains/marine/`, the split of the maritime data model out of the
+shared core, and the rename to CVgen.

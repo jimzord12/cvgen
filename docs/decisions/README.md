@@ -36,3 +36,4 @@ What becomes easier, what becomes harder, what the suite enforces.
 | [0008](0008-component-contract.md) | One React-inspired component contract: ctx first, data, props, slots, scoped styles |
 | [0009](0009-framework-not-a-cage.md) | The framework is the happy path, not a cage: bypass components freely, log every bypass, never bypass rules |
 | [0010](0010-public-monorepo-and-pdf-workflow.md) | Public monorepo, template-owned input schemas and presentation, separate PDF workflow, private revisions and hash-based approval. Engine layout and local PDF workflow implemented 2026-09-16; web application pending. Amends 0005 and 0007. |
+| [0011](0011-domains-roles-templates.md) | A CV library for any field: domain > role > template, dictionaries merged domain < role < template, neutral core, marine as the first domain, project renamed. Amends 0002, 0007 and 0010. |

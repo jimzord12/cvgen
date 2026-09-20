@@ -20,7 +20,7 @@ an extension. A third appearance makes it one (rule of three, ADR 0007).
 
 ## Entries
 
-### 2026-09-12  Contract periods instead of service months          Status: open, roadmap item one
+### 2026-09-12  Contract periods instead of service months          Status: open, roadmap item three (deck data support, marine domain)
 Needed:   A deck officer's career recorded as one date range per contract, with
           a synopsis counting contracts, vessels and companies.
 Bypassed: The candidate schema (no field for periods), the experience section
@@ -32,14 +32,14 @@ Built:    A custom composition in the candidate's private folder: a hand-made
 Lesson:   The schema needs contract periods, and the synopsis needs its metrics
           declared by data.
 
-### 2026-09-12  Three-column certificate table                     Status: open, roadmap item one
+### 2026-09-12  Three-column certificate table                     Status: open, roadmap item three (deck data support, marine domain)
 Needed:   An approved design with certificate, provider and date, no
           expiry column.
 Bypassed: `certificate-table`, which renders four fixed cells per record.
 Built:    A hand-made table in the private entry point.
 Lesson:   The certificate table should take its columns from data or copy.
 
-### 2026-09-12  Skills section inside the two-page layout           Status: open, roadmap item one
+### 2026-09-12  Skills section inside the two-page layout           Status: open, roadmap item three (deck data support, marine domain)
 Needed:   A professional skills block at the bottom of page one.
 Bypassed: The `flagship` template, which has no slot for it; the section
           exists only as a standalone export.
