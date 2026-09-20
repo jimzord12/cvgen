@@ -11,10 +11,10 @@ are relative to `packages/cv-engine/` unless they start with `packages/`,
 
 ## The one-paragraph version
 
-`examples/flagship/engineer.typ` loads a candidate-facts JSON and passes it,
+`examples/marine/flagship/engineer.typ` loads a candidate-facts JSON and passes it,
 together with a theme, an artwork pack and a layout profile, to `flagship` in
-`templates/flagship/flagship.typ`. The template runs the facts through its
-adapter (`templates/flagship/adapter/adapter.typ`), which adds Flagship's
+`domains/marine/templates/flagship/flagship.typ`. The template runs the facts through its
+adapter (`domains/marine/templates/flagship/adapter/adapter.typ`), which adds Flagship's
 wording, then normalises and validates the data, validates the page plan, and
 walks the plan page by page, calling section functions that return Typst
 content. Section functions never read files and never branch on the
@@ -26,15 +26,15 @@ geometric from the layout, every picture from the artwork pack.
 | Input | File | Owns |
 |---|---|---|
 | Candidate facts | `examples/candidates/*.json` (contract: `schema/candidate.schema.json`) | Identity, contacts, profile, companies, vessels, certificates, education, languages, disclosure. No template wording |
-| Theme | `templates/flagship/themes/*.typ` | Colours, fonts, sizes, tracking, leading, and a map from legacy SVG hex colours to theme colours |
-| Artwork | `templates/flagship/artwork/*.typ` | Which SVG under `templates/flagship/assets/` fills each named slot, with optional width, x, y and opacity |
-| Layout | `templates/flagship/layouts/*.typ` | Margins, hero geometry, column widths, gaps, spacing scale, page plan, `anchor-education` |
+| Theme | `domains/marine/templates/flagship/themes/*.typ` | Colours, fonts, sizes, tracking, leading, and a map from legacy SVG hex colours to theme colours |
+| Artwork | `domains/marine/templates/flagship/artwork/*.typ` | Which SVG under `domains/marine/assets/` fills each named slot, with optional width, x, y and opacity |
+| Layout | `domains/marine/templates/flagship/layouts/*.typ` | Margins, hero geometry, column widths, gaps, spacing scale, page plan, `anchor-education` |
 | Display switch | `show-vessel-durations` on `flagship` | Show or hide every vessel duration at once without moving columns |
 
 A sixth, optional input is `copy` on `flagship`: overrides for Flagship's
 wording. The adapter merges template defaults, then a `copy` key inside the
 record (legacy), then the argument, and the result is the Flagship input
-(contract: `templates/flagship/schema/flagship-input.schema.json`). The two
+(contract: `domains/marine/templates/flagship/schema/flagship-input.schema.json`). The two
 contracts differ only by that key today; keeping them apart is what lets a
 second template read the same facts with its own wording.
 
@@ -63,7 +63,7 @@ what is per template:
 |---|---|
 | Candidate contract and schema, normalisation, totals (`data.typ`) | Section components: hero, experience, synopsis, certificates, education, skills |
 | Page shell, header, footer, backgrounds (`page.typ`) | Layout profiles and page plans |
-| Page plan validation (`pagination.typ`) | The page loop with its overflow assertion, in `templates/flagship/flagship.typ` |
+| Page plan validation (`pagination.typ`) | The page loop with its overflow assertion, in `domains/marine/templates/flagship/flagship.typ` |
 | The verification runner and its checks | Frozen reference render and its pixel gate |
 | SVG recolouring and primitives | Artwork slot names the template expects |
 | Component helpers, theme validation | The adapter: input contract and copy defaults |
@@ -71,7 +71,7 @@ what is per template:
 Deck and engine are never separate templates. A section that must differ is
 a slot or a data-selected variant. A section is promoted from a template to
 the core when a third template needs it unchanged. The shared core lives in
-`core/`; everything Flagship owns lives under `templates/flagship/`. A
+`core/`; everything Flagship owns lives under `domains/marine/templates/flagship/`. A
 second template gets its own folder beside it and its own adapter.
 
 ## Module map
@@ -79,25 +79,27 @@ second template gets its own folder beside it and its own adapter.
 ```text
 lib.typ                                 public exports, no side effects
 typst.toml                              package manifest
-schema/candidate.schema.json            candidate-facts contract
 core/
   data.typ                              normalise raw JSON, validate, pure totals, duration parts
   theme.typ                             validate-theme: required colours and fonts
   primitives.typ                        label, rule, decoration (SVG recolour), duration, metric
   page.typ                              page-header, page-footer, page-background, document-shell
   pagination.typ                        validate-pages, company-fragment
-templates/flagship/
-  flagship.typ                          the composition: page loop, section order, overflow check
-  adapter/adapter.typ                   flagship-copy defaults, to-flagship-input
-  schema/flagship-input.schema.json     Flagship input contract (facts + copy)
-  components/hero.typ                   portrait, frame, backdrop, contact groups, identity plate, hero
-  components/experience.typ             company-period, vessel-row, vessel-type-group, company-experience, experience-section
-  components/sections.typ               section-heading, profile-summary, synopsis
-  components/certificates.typ           certificate-table, certificates-section
-  components/education.typ              education-entry, language-entry, education-languages-section
-  components/skills.typ                 optional skills-section with themed bullets (not in the locked template)
-  themes/  artwork/  assets/  layouts/  the four presentation inputs
-  tests/approved/                       the frozen v11 reference PDF
+domains/marine/                         the marine domain (ADR 0011; schema and assets today, wording and rules after the core split)
+  schema/candidate.schema.json          marine candidate-facts contract
+  assets/                               the SVG files, shared by the domain's templates
+  templates/flagship/
+    flagship.typ                          the composition: page loop, section order, overflow check
+    adapter/adapter.typ                   flagship-copy defaults, to-flagship-input
+    schema/flagship-input.schema.json     Flagship input contract (facts + copy)
+    components/hero.typ                   portrait, frame, backdrop, contact groups, identity plate, hero
+    components/experience.typ             company-period, vessel-row, vessel-type-group, company-experience, experience-section
+    components/sections.typ               section-heading, profile-summary, synopsis
+    components/certificates.typ           certificate-table, certificates-section
+    components/education.typ              education-entry, language-entry, education-languages-section
+    components/skills.typ                 optional skills-section with themed bullets (not in the locked template)
+    themes/  artwork/  layouts/           three of the four presentation inputs (assets live at domain level)
+    tests/approved/                       the frozen v11 reference PDF
 fonts/  licenses/                       bundled OFL fonts and their notices
 
 packages/cv-workflow/cv_workflow/       Python; owns everything around a candidate render

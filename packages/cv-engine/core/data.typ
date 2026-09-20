@@ -43,7 +43,7 @@
     languages: raw.at("language_entries", default: ()),
     disclosure: raw.at("disclosure", default: "FICTIONAL CANDIDATE & AI PORTRAIT / DESIGN STUDY"),
     // Presentation wording is a template input, not a candidate fact: a
-    // template's adapter supplies it (see templates/flagship/adapter).
+    // template's adapter supplies it (see domains/marine/templates/flagship/adapter).
     copy: raw.at("copy", default: (:)))
 }
 

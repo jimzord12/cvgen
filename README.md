@@ -39,9 +39,9 @@ An example entry point is seven lines:
 
 ```typst
 #import "../../packages/cv-engine/lib.typ": flagship
-#import "../../packages/cv-engine/templates/flagship/themes/golden-blue.typ": theme
-#import "../../packages/cv-engine/templates/flagship/artwork/engineer.typ": artwork
-#import "../../packages/cv-engine/templates/flagship/layouts/flagship-v11.typ": layout
+#import "../../packages/cv-engine/domains/marine/templates/flagship/themes/golden-blue.typ": theme
+#import "../../packages/cv-engine/domains/marine/templates/flagship/artwork/engineer.typ": artwork
+#import "../../packages/cv-engine/domains/marine/templates/flagship/layouts/flagship-v11.typ": layout
 #let candidate = json("../candidates/engineer-example.json")
 #show: flagship.with(candidate: candidate, theme: theme, artwork: artwork, layout: layout,
   show-vessel-durations: true)
@@ -54,7 +54,7 @@ to change margins and which companies sit on which page.
 ## Where to go next
 
 - Building a CV for a real person: [docs/guides/build-a-cv.md](docs/guides/build-a-cv.md)
-- Candidate JSON fields: [docs/reference/candidate-schema.md](docs/reference/candidate-schema.md), validated by [packages/cv-engine/schema/candidate.schema.json](packages/cv-engine/schema/candidate.schema.json)
+- Candidate JSON fields: [docs/reference/candidate-schema.md](docs/reference/candidate-schema.md), validated by [packages/cv-engine/domains/marine/schema/candidate.schema.json](packages/cv-engine/domains/marine/schema/candidate.schema.json)
 - Repository layout and the PDF lifecycle: [docs/pdf-workflow.md](docs/pdf-workflow.md)
 - How the pieces fit: [docs/architecture.md](docs/architecture.md)
 - Rules, conventions and workflow: [docs/constitution.md](docs/constitution.md), [docs/conventions.md](docs/conventions.md), [docs/git-workflow.md](docs/git-workflow.md)
@@ -69,7 +69,7 @@ python tests/run.py
 
 Needs Python with `pymupdf` and `pillow`. The suite compiles 26 cases and
 proves the engineer example renders pixel-identical to the frozen
-[v11 reference](packages/cv-engine/templates/flagship/tests/approved/Marine-Engineer-CV-v11.pdf). Details in
+[v11 reference](packages/cv-engine/domains/marine/templates/flagship/tests/approved/Marine-Engineer-CV-v11.pdf). Details in
 [docs/reference/verification.md](docs/reference/verification.md).
 
 Rendered PDFs contain selectable text and embedded fonts, and decorative art is

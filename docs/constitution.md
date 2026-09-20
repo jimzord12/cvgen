@@ -18,8 +18,8 @@ throughout the move and still hold.
   and a public example that must render pixel-identical to it at 144 dpi
   with identical normalised text on every page. `tests/run.py` enforces
   this. Today that is Flagship:
-  `packages/cv-engine/templates/flagship/tests/approved/Marine-Engineer-CV-v11.pdf`
-  and `examples/flagship/engineer.typ`.
+  `packages/cv-engine/domains/marine/templates/flagship/tests/approved/Marine-Engineer-CV-v11.pdf`
+  and `examples/marine/flagship/engineer.typ`.
 - `tests/baseline.json` pins the SHA-256 of every asset, font, example JSON,
   design study and the reference PDF, whether or not the engineer comparison
   uses it. Changing any of them is a design decision, recorded as an ADR in `docs/decisions/`, with a

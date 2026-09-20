@@ -51,10 +51,10 @@ def main():
         text = ' '.join(doc[0].get_text().split())
         for phrase in ['Professional Skills', 'Technical Skills', 'Three columns', 'Navigation', 'Plain bullet', 'Third']:
             assert text.count(phrase) == 1, phrase
-    engineer = compile_case('engineer', 'examples/flagship/engineer.typ')
+    engineer = compile_case('engineer', 'examples/marine/flagship/engineer.typ')
     result = verify(engineer, ROOT / FLAGSHIP / 'tests/approved/Marine-Engineer-CV-v11.pdf', output=out / 'exact')
     assert result['passed'], result
-    hidden = compile_case('engineer-hidden', 'examples/flagship/engineer.typ', {'vessel-durations': 'false'})
+    hidden = compile_case('engineer-hidden', 'examples/marine/flagship/engineer.typ', {'vessel-durations': 'false'})
     with fitz.open(engineer) as a, fitz.open(hidden) as b:
         assert len(a) == len(b) == 2
         data = json.loads((ROOT / 'examples/candidates/engineer-example.json').read_text())
@@ -64,15 +64,15 @@ def main():
             for name in names:
                 assert pa.search_for(name) == pb.search_for(name), name
         assert '8 months' not in ' '.join(p.get_text() for p in b)
-    classic = compile_case('captain', 'examples/flagship/captain.typ')
-    silver = compile_case('captain-silver', 'examples/flagship/captain-silver.typ')
+    classic = compile_case('captain', 'examples/marine/flagship/captain.typ')
+    silver = compile_case('captain-silver', 'examples/marine/flagship/captain-silver.typ')
     for pdf in [hidden, classic, silver]:
         assert verify(pdf, output=out / (pdf.stem + '-check'))['passed']
     with fitz.open(classic) as a, fitz.open(silver) as b:
         assert [' '.join(p.get_text().split()) for p in a] == [' '.join(p.get_text().split()) for p in b]
         assert 'Engineer' not in ''.join(p.get_text() for p in a)
     # Third dataset: deck officer without a portrait, on the same page plan.
-    officer = compile_case('chief-officer', 'examples/flagship/chief-officer.typ')
+    officer = compile_case('chief-officer', 'examples/marine/flagship/chief-officer.typ')
     assert verify(officer, output=out / 'chief-officer-check')['passed']
     with fitz.open(officer) as doc:
         text = ' '.join(' '.join(p.get_text().split()) for p in doc)
@@ -81,7 +81,7 @@ def main():
             assert phrase in text, phrase
         assert 'AI PORTRAIT' not in text and not doc[0].get_images()
     # Copy overrides reach the page through the adapter, and nothing else moves.
-    branded = compile_case('chief-officer-copy', 'examples/flagship/chief-officer.typ', {'brand': 'SILVER BRIDGE'})
+    branded = compile_case('chief-officer-copy', 'examples/marine/flagship/chief-officer.typ', {'brand': 'SILVER BRIDGE'})
     with fitz.open(officer) as a, fitz.open(branded) as b:
         assert 'SILVER BRIDGE' in b[1].get_text() and 'FLAGSHIP' not in b[1].get_text()
         brand = {'FLAGSHIP', 'SILVER', 'BRIDGE'}

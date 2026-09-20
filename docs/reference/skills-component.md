@@ -5,15 +5,15 @@ It is exported from `packages/cv-engine/lib.typ` and is not part of the locked `
 template.
 
 ```typst
-// From examples/flagship/ or private/<folder>/ (both two levels below the root).
+// From examples/marine/flagship/ or private/<folder>/ (both two levels below the root).
 #import "../../packages/cv-engine/lib.typ": skills-section, skills-layout
-#import "../../packages/cv-engine/templates/flagship/themes/golden-blue.typ": theme
+#import "../../packages/cv-engine/domains/marine/templates/flagship/themes/golden-blue.typ": theme
 
 #skills-section(
   (("Navigation", "GMDSS"), ("Cargo handling", "Safety")),
   theme,
   title: "Professional Skills",
-  bullet: (source: "/packages/cv-engine/templates/flagship/assets/captain/compass-bullet.svg"),
+  bullet: (source: "/packages/cv-engine/domains/marine/assets/captain/compass-bullet.svg"),
   geometry: (..skills-layout, column-gap: 8mm),
 )
 ```

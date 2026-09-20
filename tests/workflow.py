@@ -12,9 +12,9 @@ sys.path.insert(0, str(ROOT / 'packages/cv-workflow'))
 from cv_workflow import sha256_file  # noqa: E402
 
 ENTRY = '''#import "/packages/cv-engine/lib.typ": flagship
-#import "/packages/cv-engine/templates/flagship/themes/golden-blue.typ": theme
-#import "/packages/cv-engine/templates/flagship/artwork/engineer.typ": artwork
-#import "/packages/cv-engine/templates/flagship/layouts/flagship-v11.typ": layout
+#import "/packages/cv-engine/domains/marine/templates/flagship/themes/golden-blue.typ": theme
+#import "/packages/cv-engine/domains/marine/templates/flagship/artwork/engineer.typ": artwork
+#import "/packages/cv-engine/domains/marine/templates/flagship/layouts/flagship-v11.typ": layout
 #let candidate = json("candidate.json")
 #show: flagship.with(candidate: candidate, theme: theme, artwork: artwork, layout: layout, show-vessel-durations: true)
 '''

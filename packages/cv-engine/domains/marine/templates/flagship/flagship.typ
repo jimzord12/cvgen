@@ -1,8 +1,8 @@
 // The Flagship composition: page loop, section order, overflow check.
-#import "../../core/data.typ": normalize-candidate, validate-candidate, experience-totals
-#import "../../core/theme.typ": validate-theme
-#import "../../core/page.typ": document-shell, page-header
-#import "../../core/pagination.typ": validate-pages, company-fragment
+#import "../../../../core/data.typ": normalize-candidate, validate-candidate, experience-totals
+#import "../../../../core/theme.typ": validate-theme
+#import "../../../../core/page.typ": document-shell, page-header
+#import "../../../../core/pagination.typ": validate-pages, company-fragment
 #import "adapter/adapter.typ": to-flagship-input
 #import "components/hero.typ": hero
 #import "components/experience.typ": experience-section

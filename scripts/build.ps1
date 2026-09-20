@@ -13,10 +13,10 @@ try {
     $compiler = Get-Command $TypstExecutable -ErrorAction Stop
     New-Item -ItemType Directory -Path $OutputDirectory | Out-Null
     $examples = @(
-        @{ Source = 'examples/flagship/engineer.typ'; Name = 'Marine-Engineer-CV-v12.pdf' },
-        @{ Source = 'examples/flagship/captain.typ'; Name = 'Marine-Captain-CV-Classic-v01.pdf' },
-        @{ Source = 'examples/flagship/captain-silver.typ'; Name = 'Marine-Captain-CV-Silver-v01.pdf' },
-        @{ Source = 'examples/flagship/chief-officer.typ'; Name = 'Marine-Chief-Officer-CV-Silver-v01.pdf' }
+        @{ Source = 'examples/marine/flagship/engineer.typ'; Name = 'Marine-Engineer-CV-v12.pdf' },
+        @{ Source = 'examples/marine/flagship/captain.typ'; Name = 'Marine-Captain-CV-Classic-v01.pdf' },
+        @{ Source = 'examples/marine/flagship/captain-silver.typ'; Name = 'Marine-Captain-CV-Silver-v01.pdf' },
+        @{ Source = 'examples/marine/flagship/chief-officer.typ'; Name = 'Marine-Chief-Officer-CV-Silver-v01.pdf' }
     )
     $durationMode = if ($HideVesselDurations) { 'false' } else { 'true' }
     foreach ($example in $examples) {
