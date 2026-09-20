@@ -174,12 +174,13 @@ class Revision:
         if not self.render_record.is_file():
             return 'incomplete'
         try:
-            # A record that is not JSON is 'corrupt', never mistaken for a failed check or a missing approval.
+            # A record that is not JSON, or is JSON of the wrong shape (a list, a missing `pdf` block),
+            # is 'corrupt', never mistaken for a failed check or a missing approval.
             for record in (self.render_record, self.checks_record, self.approval_record):
-                if record.is_file():
-                    read_json(record)
+                if record.is_file() and not isinstance(read_json(record), dict):
+                    raise WorkflowError(f'{record} is not a JSON object')
             return self.describe()
-        except (OSError, WorkflowError):
+        except (OSError, WorkflowError, KeyError, TypeError, AttributeError):
             return 'corrupt'
 
     def describe(self):
@@ -187,6 +188,9 @@ class Revision:
         render = read_json(self.render_record)
         if render.get('status') != 'success':
             return 'failed'
+        pdf = render.get('pdf')
+        if not isinstance(pdf, dict) or not isinstance(pdf.get('sha256'), str):
+            raise WorkflowError(f'Revision {self.id}: render.json records success without a pdf hash')
         if not self.pdf.is_file() or sha256_file(self.pdf) != render['pdf']['sha256']:
             return 'changed'
         sha256 = render['pdf']['sha256']
