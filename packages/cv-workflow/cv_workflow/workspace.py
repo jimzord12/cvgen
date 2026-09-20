@@ -45,9 +45,12 @@ def write_json(path, data):
 
 def read_json(path):
     try:
-        return json.loads(Path(path).read_text(encoding='utf-8'))
+        data = json.loads(Path(path).read_text(encoding='utf-8'))
     except ValueError as error:
         raise WorkflowError(f'{path} is not valid JSON: {error}')
+    if not isinstance(data, dict):
+        raise WorkflowError(f'{path} must hold a JSON object')
+    return data
 
 
 def hash_matches(reviewed, actual):
@@ -174,12 +177,13 @@ class Revision:
         if not self.render_record.is_file():
             return 'incomplete'
         try:
-            # A record that is not JSON is 'corrupt', never mistaken for a failed check or a missing approval.
+            # A record that is not JSON, or is JSON of the wrong shape (a list, a missing `pdf` block),
+            # is 'corrupt', never mistaken for a failed check or a missing approval.
             for record in (self.render_record, self.checks_record, self.approval_record):
                 if record.is_file():
                     read_json(record)
             return self.describe()
-        except (OSError, WorkflowError):
+        except (OSError, WorkflowError, KeyError, TypeError, AttributeError):
             return 'corrupt'
 
     def describe(self):
@@ -187,6 +191,9 @@ class Revision:
         render = read_json(self.render_record)
         if render.get('status') != 'success':
             return 'failed'
+        pdf = render.get('pdf')
+        if not isinstance(pdf, dict) or not isinstance(pdf.get('sha256'), str):
+            raise WorkflowError(f'Revision {self.id}: render.json records success without a pdf hash')
         if not self.pdf.is_file() or sha256_file(self.pdf) != render['pdf']['sha256']:
             return 'changed'
         sha256 = render['pdf']['sha256']
