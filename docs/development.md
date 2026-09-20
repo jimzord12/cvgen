@@ -71,7 +71,7 @@ demand from those sources; no second status page, dashboard or backlog.
 CLAUDE.md, AGENTS.md              # Entry, roles, routing, essential constraints
 docs/development.md               # This protocol
 docs/review.md                    # Review protocol
-Trello board "Marine CV"          # One authoritative brief and status per task (a card)
+Trello board "CVgen"              # One authoritative brief and status per task (a card)
   list Handoff, session-handoff   # Cross-session resume point, rewritten at the end of each session
 docs/work/<id>/reviews/NN.md      # Review reports, created only when review runs
 docs/decisions/                   # Accepted architecture decisions

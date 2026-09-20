@@ -22,7 +22,7 @@ $card = & $T POST cards -Body @{ idList = $listId; name = 'id: outcome'; desc = 
 
 ```powershell
 # find it (one card, list Handoff)
-$hand = & $T -Cards 'Marine CV' | ConvertFrom-Json | Where-Object { $_.name -like 'session-handoff*' }
+$hand = & $T -Cards 'CVgen' | ConvertFrom-Json | Where-Object { $_.name -like 'session-handoff*' }
 # read at the start of a session
 (& $T GET "cards/$($hand.id)" -Query @{ fields = 'desc' } | ConvertFrom-Json).desc
 # rewrite at the end (whole description; first lines carry the date and who wrote it)

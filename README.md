@@ -1,10 +1,12 @@
-# Marine CV
+# CVgen
 
-A composable [Typst](https://typst.app) library for maritime CVs. Five
-independent inputs: candidate data, theme, artwork pack, layout profile and a
-durations switch. Swap any one without touching the others. One template
-today, Flagship; the library is built to carry a family of them, each
-rendering deck and engine officers (see [docs/vision.md](docs/vision.md)).
+A composable [Typst](https://typst.app) library for premium CVs in any
+field, organised by domain, role and template. Six independent inputs:
+candidate data, role, theme, artwork pack, layout profile and a durations
+switch. Swap any one without touching the others. One domain today, marine,
+with one template, Flagship, serving deck and engine officers; travel and
+tourism is next (see [docs/vision.md](docs/vision.md) and
+[ADR 0011](docs/decisions/0011-domains-roles-templates.md)).
 
 All names, employers, service histories and qualifications in this repository
 are fictional. The portrait is AI-generated. This is a public template, not a
