@@ -27,7 +27,8 @@ Follow `docs/guides/build-a-cv.md`. This skill is the checklist.
 2. Validate the JSON against `packages/cv-engine/domains/marine/schema/candidate.schema.json` if a validator
    is available; otherwise rely on the compile-time assertions.
 3. Write the entry point as shown in the guide, importing the engine by
-   root-absolute path (`/packages/cv-engine/...`). Pick theme and artwork from
+   root-absolute path (`/packages/cv-engine/...`). Pick the role marker
+   (`domains/marine/roles/deck` or `roles/engine`), theme and artwork from
    `packages/cv-engine/domains/marine/templates/flagship/themes/` and `artwork/`, the durations switch, and import the layout
    `as base` with a `pages` override that lists this candidate's company
    indices. The shipped plan assumes six companies and fails with

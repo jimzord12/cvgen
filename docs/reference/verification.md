@@ -41,12 +41,16 @@ and per-check folders with `result.json` and, on a raster mismatch, a
 |---|---|
 | `configuration.typ` | Theme validates; frozen geometry constants (hero 77mm, page-two bottom margin 11mm, backdrop 94mm) |
 | `content.typ` | Experience, synopsis, certificates and education compose on one page |
-| `data.typ` | The core leaves `copy` empty and the Flagship adapter fills it, merging record and argument overrides in that order; duration parts, totals 138 months / 23 vessels / 6 companies, vessel dedup, company-only months; rejects missing months, mismatched totals, negative months |
+| `data.typ` | The core leaves `copy` empty and the adapter composes it domain < role < template < record < argument (a role overrides only domain words; arrays are replaced); duration parts, totals 138 months / 23 vessels / 6 companies, vessel dedup, company-only months; rejects missing months, mismatched totals, negative months, a blank identity name |
+| `role.typ` | A role's wording reaches page one through `flagship` |
+| `core-model.typ` | The core paginates a domain with no ships (row model supplied by the domain); `merge`/`compose` semantics |
 | `components.typ` | Hero renders with and without portrait or contacts; rejects a name or email that does not fit |
 | `options.typ` | Company-only months, all optional fields empty, a long vessel name whose duration wraps, with and without durations |
 | `pagination.typ` | Three pages with a company split across pages; rejects overflow and duplicate allocation |
 | `certificate-continuation.typ` | Fifty rows, header repeats on page two |
 | `skills.typ` | Titles, one to three columns, wrapping, two themes, SVG and plain bullets |
+
+8. **Core boundary.** Every `import`/`include` in `packages/cv-engine/core/*.typ` names a bare sibling file; the core never reaches a domain (ADR 0011).
 
 8. **Candidate workflow** (`tests/workflow.py`). A fresh fictional workspace
    under the run's `workflow/` folder is driven through the real

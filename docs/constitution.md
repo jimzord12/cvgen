@@ -6,10 +6,11 @@ Read before anything irreversible. Conventions, which do evolve, are in
 
 Path references below describe the current implementation. The owner-approved
 [ADR 0010](decisions/0010-public-monorepo-and-pdf-workflow.md) establishes the
-target monorepo layout and fresh private candidate revision folders. The
-engine moved into `packages/cv-engine/` on 2026-09-16; the workflow package is
-pending. Frozen content, evidence requirements, and safety checkpoints held
-throughout the move and still hold.
+monorepo layout and fresh private candidate revision folders; the engine and
+the workflow package landed on 2026-09-16. [ADR 0011](decisions/0011-domains-roles-templates.md)
+organises the engine by domain, role and template (2026-09-21). Frozen
+content, evidence requirements, and safety checkpoints held throughout both
+moves and still hold.
 
 ## 1. Frozen references are contracts
 

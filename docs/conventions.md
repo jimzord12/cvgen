@@ -55,8 +55,12 @@ them. These evolve; the rules that do not are in `constitution.md`.
 - **Comments** explain a decision or a trap, never restate the code. One line
   at the top of a file says what the file owns.
 
-## Candidate JSON
+## Candidate JSON (marine domain)
 
+- The common facts (`identity.name`, `contacts`, `certificates`,
+  `education_entries`, `language_entries`, `profile`, `disclosure`, `copy`)
+  are normalised by the core; `identity.rank` and `companies` are the marine
+  domain's. Another domain defines its own sections (ADR 0011).
 - Nested schema only: `identity`, `contacts`, `companies`, `certificates`,
   `education_entries`, `language_entries`, optional `profile`, `disclosure`,
   `copy`. Validate a candidate record against `packages/cv-engine/domains/marine/schema/candidate.schema.json` (facts) and, with `copy`, against `packages/cv-engine/domains/marine/templates/flagship/schema/flagship-input.schema.json`.

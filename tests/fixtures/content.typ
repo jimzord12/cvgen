@@ -1,6 +1,6 @@
 #import "../../packages/cv-engine/domains/marine/templates/flagship/themes/golden-blue.typ": theme
 #import "../../packages/cv-engine/domains/marine/templates/flagship/layouts/flagship-v11.typ": layout
-#import "../../packages/cv-engine/core/data.typ": normalize-candidate, experience-totals
+#import "../../packages/cv-engine/domains/marine/data.typ": normalize-candidate, experience-totals
 #import "../../packages/cv-engine/domains/marine/templates/flagship/adapter/adapter.typ": to-flagship-input
 #import "../../packages/cv-engine/domains/marine/templates/flagship/components/experience.typ": experience-section
 #import "../../packages/cv-engine/domains/marine/templates/flagship/components/sections.typ": synopsis

@@ -1,11 +1,12 @@
 # AGENTS.md — map of this repository
 
 Composable Typst library that renders CVs; maritime first, any field next
-(ADR 0011, 2026-09-21, restructure in progress). Today one template,
-`flagship`, takes five independent inputs: candidate JSON, theme, artwork
-pack, layout profile and a durations switch. The product is a family of such
-templates on one shared core, each rendering deck and engine candidates
-(`docs/vision.md`, ADR 0007). Read this file and `docs/preferences.md`, then
+(ADR 0011, 2026-09-21). The engine is a field-neutral core plus domains;
+`marine` is the first, with one template, `flagship`, that takes six
+independent inputs: candidate JSON, role, theme, artwork pack, layout
+profile and a durations switch. A domain offers a facts shape, assets,
+wording and rules; a role is one level of specialisation; a template may
+override anything (`docs/vision.md`, `docs/reference/domains-and-roles.md`). Read this file and `docs/preferences.md`, then
 open only what your task needs.
 
 If `.local/preferences/user-profile.md` exists, read it alongside
@@ -65,7 +66,9 @@ domain; `F` for `M/templates/flagship`.
 | Path | Role | Touch it when |
 |---|---|---|
 | `E/lib.typ` | Public import surface, no side effects | Adding or renaming an exported function |
-| `E/core/` | Shared core: `data` (normalise, totals), `theme` check, `primitives`, `page` shell, `pagination` | Changing behaviour every template shares |
+| `E/core/` | Field-neutral core: `node` (merge, compose), `data` (common facts), `theme` check, `primitives`, `page` shell, `pagination` over a domain row model. Never imports a domain | Changing behaviour every domain shares |
+| `M/domain.typ`, `M/data.typ` | The marine domain node (id, meta, copy, experience model) and the marine facts: companies, vessels, months, totals, `normalize-candidate`, `validate-candidate` | Changing what the marine field means |
+| `M/roles/deck/`, `M/roles/engine/` | Role markers (`role.typ`); bare today | Refining something for one role |
 | `M/schema/candidate.schema.json` | Marine candidate-facts contract: what a record may contain, no template wording | Changing the marine data contract |
 | `F/flagship.typ` | The Flagship composition: page loop, section order, overflow check | Changing what Flagship renders |
 | `F/adapter/` | Candidate facts -> Flagship input: adds Flagship wording (`copy`) and merges overrides | Changing Flagship's input shape |
@@ -78,7 +81,7 @@ domain; `F` for `M/templates/flagship`.
 | `E/fonts/`, `E/licenses/` | Bundled OFL fonts, licence notices | Adding a font |
 | `E/typst.toml` | Package manifest for the engine | Releasing |
 | `examples/candidates/` | Fictional candidate records (engineer, captain, chief officer) and the one fictional portrait | Changing example data |
-| `examples/marine/flagship/` | Seven-line entry points that wire the five inputs together | Adding an example |
+| `examples/marine/flagship/` | Eight-line entry points that wire the six inputs together | Adding an example |
 | `packages/cv-workflow/` | Python package: fresh revisions (snapshot, compile, `render.json`, `checks.json`), explicit approval (`cv.approval.json` bound to the SHA-256), verified export. Never sends anything | Changing how a candidate PDF is produced, approved or exported |
 | `tests/` | `run.py` runner, `verify.py` PDF checks, `workflow.py` end-to-end workflow case, `baseline.json` hash manifest, `fixtures/*.typ` compile cases | Changing behaviour |
 | `archive/design-studies/` | Four frozen, evaluated design studies with their renders | Reading for inspiration only |
@@ -137,7 +140,8 @@ Full text in `docs/constitution.md`. The short list:
 | `docs/proposals/README.md` | Proposal states, owner decisions, and orientation of pending/approved work |
 | `docs/proposals/trello-free-trial.md` | Why Trello is the task store: the trial, its evidence, the adoption decision |
 | `docs/git-workflow.md` | Agent-owned Git, direct pushes, feature branches, integration and tags |
-| `docs/reference/candidate-schema.md` | Editing a candidate JSON |
+| `docs/reference/domains-and-roles.md` | Adding a field, a role or a template; how domain, role and template compose |
+| `docs/reference/candidate-schema.md` | Editing a marine candidate JSON |
 | `docs/reference/theme.md` | Creating or editing a theme |
 | `docs/reference/artwork-pack.md` | Creating or editing an artwork pack |
 | `docs/reference/layout-and-pagination.md` | Page balance, splits, overflow errors |
@@ -166,8 +170,8 @@ rules of its own and defers to `docs/review.md`.
 - Components in a migrated module follow the contract in
   `docs/conventions.md` (ADR 0008): `ctx` first, data, named props, slots.
   No module is migrated yet, so a new component matches the order already
-  used by its file. Deck and engine are never separate templates
-  (constitution section 7).
+  used by its file. Roles are variations within a domain, never forks
+  (constitution section 7); `core/` never imports from `domains/`.
 - Every non-trivial change to code, fixtures or inputs ends with
   `python tests/run.py` passing and the evidence path reported; a visual
   change also needs a rendered page. Every non-trivial change of any kind

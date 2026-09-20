@@ -1,9 +1,14 @@
-# Candidate schema
+# Candidate schema (marine domain)
 
-Read this when editing a candidate JSON. Machine-checkable version:
-`packages/cv-engine/domains/marine/schema/candidate.schema.json` (candidate facts; the Flagship input adds
-`copy`, see `packages/cv-engine/domains/marine/templates/flagship/schema/flagship-input.schema.json`).
-Runtime checks: `validate-candidate` in `packages/cv-engine/core/data.typ`.
+Read this when editing a marine candidate JSON. This is the marine domain's
+facts contract (ADR 0011); another domain defines its own. Machine-checkable
+version: `packages/cv-engine/domains/marine/schema/candidate.schema.json`
+(candidate facts; the Flagship input adds `copy`, see
+`packages/cv-engine/domains/marine/templates/flagship/schema/flagship-input.schema.json`).
+Runtime checks: `validate-candidate` in `packages/cv-engine/domains/marine/data.typ`,
+which runs the field-neutral `validate-common` from `packages/cv-engine/core/data.typ`
+first (identity name, contacts, certificates, education, languages) and then the
+marine rules (rank, companies, vessels, months).
 
 Top-level shape. Required keys are `identity` and `companies`.
 
@@ -65,20 +70,26 @@ adapter produces it (see "Flagship wording" below).
   scope, issued, review, or an object with those keys.
 - **education_entries[].note** is optional and renders small under the
   institution.
-## Flagship wording
+## Wording
 
-Headings, captions and the footer brand are Flagship input, not candidate
-facts. Their defaults live in
-`packages/cv-engine/domains/marine/templates/flagship/adapter/adapter.typ` (`flagship-copy`):
+Headings, captions and the footer brand are template input, not candidate
+facts. The field's words come from the marine domain
+(`packages/cv-engine/domains/marine/domain.typ`, `domain.copy`):
 
 ```text
-experience            "Experience"
 experience-subtitle   "Company / vessel type / vessel"
 continuation          "Continued / earlier companies"
 combined              "Combined service"
 total                 "Total experience"
 vessels               "Vessels"
 companies             "Companies"
+```
+
+The design's words come from Flagship's adapter
+(`packages/cv-engine/domains/marine/templates/flagship/adapter/adapter.typ`, `flagship-copy`):
+
+```text
+experience            "Experience"
 certificates          "Certificates & endorsements"
 certificates-subtitle "Illustrative register - dates and credentials are fictional"
 certificate-columns   ["Certificate", "Scope / record", "Issued", "Expires / review"]
@@ -94,7 +105,9 @@ them over the defaults. Preferred: the `copy` argument of `flagship`, for
 example `flagship.with(..., copy: (brand: "GOLDEN BLUE"))`. Legacy: a `copy`
 key inside the record, which the adapter also merges, but such a record only
 validates against `flagship-input.schema.json`, not the facts contract.
-Merge order is defaults, then the record's `copy`, then the argument.
+Merge order is domain, then role, then Flagship, then the record's `copy`,
+then the argument; later wins (see `docs/reference/domains-and-roles.md`).
+A role can only override the domain's words.
 
 ## Errors you will see
 

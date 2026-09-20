@@ -14,31 +14,37 @@ describes the records it writes.
 Each PDF revision has one permanent home. Approval adds a sidecar [a companion
 metadata file]; export copies the approved bytes into a delivery folder.
 
-The approved target public source tree is:
+The approved target public source tree, with the engine organised by domain
+since ADR 0011 (2026-09-21), is:
 
 ```text
 apps/
   web/                          # Future submission, review, and download UI
 packages/
   cv-engine/
-    schema/                     # Candidate facts contract
-    templates/
-      flagship/
-        schema/                 # Flagship input contract
-        adapter/                # Candidate facts -> Flagship input
-        components/
-        themes/
-        layouts/
-        assets/
-        artwork/
-        tests/approved/         # Frozen fictional design reference
+    core/                       # Field-neutral core
+    domains/
+      marine/
+        domain.typ  data.typ    # Domain node; marine facts, totals, row model
+        schema/                 # Marine candidate facts contract
+        assets/                 # SVG files shared by the domain's templates
+        roles/deck/ roles/engine/
+        templates/
+          flagship/
+            schema/             # Flagship input contract
+            adapter/            # Candidate facts -> Flagship input
+            components/
+            themes/
+            layouts/
+            artwork/
+            tests/approved/     # Frozen fictional design reference
     fonts/
     licenses/
   cv-workflow/                  # Revision creation, checks, approval, export
 scripts/                        # Local commands calling the workflow
 examples/
   candidates/                   # 3-5 fictional datasets
-  flagship/                     # Builds using those datasets
+  marine/flagship/              # Builds using those datasets
 exports/                        # Published fictional example PDFs only
 builds/                         # Disposable public example/test output
 docs/
