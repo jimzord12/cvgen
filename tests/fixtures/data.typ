@@ -1,5 +1,5 @@
 #import "../../packages/cv-engine/core/data.typ": normalize-candidate, validate-candidate, duration-parts, experience-totals
-#import "../../packages/cv-engine/templates/flagship/adapter/adapter.typ": to-flagship-input, flagship-copy
+#import "../../packages/cv-engine/domains/marine/templates/flagship/adapter/adapter.typ": to-flagship-input, flagship-copy
 // The core carries no template wording; the adapter adds Flagship's and merges overrides in order.
 #let facts = json("../../examples/candidates/engineer-example.json")
 #assert.eq(normalize-candidate(facts).copy, (:))

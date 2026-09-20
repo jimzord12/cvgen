@@ -7,5 +7,5 @@ license = "MIT"
 description = "Composable Typst CV library for maritime roles: a family of templates over independent candidate data, theme, artwork pack and layout profile."
 compiler = "0.15.1"
 # Paths are relative to this package folder. The frozen design reference under
-# templates/flagship/tests/approved is excluded from the package payload.
-exclude = ["templates/flagship/tests"]
+# domains/marine/templates/flagship/tests/approved is excluded from the package payload.
+exclude = ["domains/marine/templates/flagship/tests"]

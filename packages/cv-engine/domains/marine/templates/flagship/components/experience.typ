@@ -1,5 +1,5 @@
-#import "../../../core/data.typ": company-months
-#import "../../../core/primitives.typ": label, duration
+#import "../../../../../core/data.typ": company-months
+#import "../../../../../core/primitives.typ": label, duration
 
 #let company-period(period, months, caption, theme, geometry) = stack(spacing: geometry.period-gap,
   label(period, theme),

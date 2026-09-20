@@ -11,7 +11,7 @@ or to compare a library render against an approved look.
 | `01-soundings.typ` | Deep petrol sidebar, compass geometry, condensed name | Reviewed one-page study | [PDF](review/01-soundings.pdf) · [PNG](review/01-soundings.png) |
 | `02-engine-room.typ` | Graphite masthead, copper accents, shaft-line drawing, numbered sections | Reviewed one-page study | [PDF](review/02-engine-room.pdf) · [PNG](review/02-engine-room.png) |
 | `03-horizon.typ` | Editorial serif name, teal detailing, hull-line drawing | Reviewed one-page study | [PDF](review/03-horizon.pdf) · [PNG](review/03-horizon.png) |
-| `11-flagship-balance.typ` | Two-page portrait hero, company / vessel-type / vessel experience | **Approved and frozen.** The library reproduces it exactly | [PDF](../../packages/cv-engine/templates/flagship/tests/approved/Marine-Engineer-CV-v11.pdf) · [p1](review/Marine-Engineer-CV-v11-page-1.png) · [p2](review/Marine-Engineer-CV-v11-page-2.png) |
+| `11-flagship-balance.typ` | Two-page portrait hero, company / vessel-type / vessel experience | **Approved and frozen.** The library reproduces it exactly | [PDF](../../packages/cv-engine/domains/marine/templates/flagship/tests/approved/Marine-Engineer-CV-v11.pdf) · [p1](review/Marine-Engineer-CV-v11-page-1.png) · [p2](review/Marine-Engineer-CV-v11-page-2.png) |
 
 `review/comparison.png` shows the three one-page studies side by side.
 
@@ -20,8 +20,8 @@ or to compare a library render against an approved look.
 - These files are frozen. Do not edit them to experiment; copy the idea into a
   theme, artwork pack or layout under the library instead.
 - `11-flagship-balance.typ` is the source of the frozen reference PDF now kept
-  at `packages/cv-engine/templates/flagship/tests/approved/`. The regression
-  suite proves `examples/flagship/engineer.typ` renders pixel-identical to that
+  at `packages/cv-engine/domains/marine/templates/flagship/tests/approved/`. The regression
+  suite proves `examples/marine/flagship/engineer.typ` renders pixel-identical to that
   PDF. If you ever recompile this file, the result must still match.
 - Intermediate flagship iterations 04 to 10 were removed. They live under the
   git tag `archive/pre-restructure` if you need to see how a decision evolved.

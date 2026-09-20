@@ -1,6 +1,6 @@
 # Theme
 
-Read this when creating or editing a file under `packages/cv-engine/templates/flagship/themes/`. A theme is visual
+Read this when creating or editing a file under `packages/cv-engine/domains/marine/templates/flagship/themes/`. A theme is visual
 tokens only. Geometry belongs to the layout, pictures to the artwork pack.
 
 Copy `golden-blue.typ` in that folder to start. `silver-bridge.typ` shows the

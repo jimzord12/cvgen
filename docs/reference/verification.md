@@ -19,8 +19,8 @@ and per-check folders with `result.json` and, on a raster mismatch, a
 
 1. **Frozen inputs.** Every path in `tests/baseline.json` still has its
    recorded SHA-256. Runs first and last.
-2. **Engineer exact match.** `examples/flagship/engineer.typ` renders two pages that
-   equal `packages/cv-engine/templates/flagship/tests/approved/Marine-Engineer-CV-v11.pdf` pixel for pixel at 144 dpi,
+2. **Engineer exact match.** `examples/marine/flagship/engineer.typ` renders two pages that
+   equal `packages/cv-engine/domains/marine/templates/flagship/tests/approved/Marine-Engineer-CV-v11.pdf` pixel for pixel at 144 dpi,
    with identical whitespace-normalised text per page.
 3. **Hidden durations.** The same example with `vessel-durations=false` keeps
    every vessel name and rank at the same coordinates and emits no duration

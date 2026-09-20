@@ -1,4 +1,4 @@
-#import "../../../core/primitives.typ": decoration
+#import "../../../../../core/primitives.typ": decoration
 
 // The parent controls placement on the page; groups define explicit column order.
 #let skills-layout = (heading-gap: 5mm, rule-weight: 0.7pt, content-gap: 4mm,

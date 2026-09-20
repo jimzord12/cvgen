@@ -2,8 +2,8 @@
 
 Read this when a page is out of balance, content overflows, or a new
 candidate needs a different page split. The geometry lives in
-`packages/cv-engine/templates/flagship/layouts/flagship-v11.typ`, page plan validation in `packages/cv-engine/core/pagination.typ`,
-and the overflow check in the page loop of `packages/cv-engine/templates/flagship/flagship.typ`.
+`packages/cv-engine/domains/marine/templates/flagship/layouts/flagship-v11.typ`, page plan validation in `packages/cv-engine/core/pagination.typ`,
+and the overflow check in the page loop of `packages/cv-engine/domains/marine/templates/flagship/flagship.typ`.
 
 ## The layout profile
 
@@ -16,7 +16,7 @@ receive only their own slice. Change a value here and every example follows.
 For one CV, prefer a small override in the entry point over a new file:
 
 ```typst
-#import "../../packages/cv-engine/templates/flagship/layouts/flagship-v11.typ": layout as base
+#import "/packages/cv-engine/domains/marine/templates/flagship/layouts/flagship-v11.typ": layout as base
 #let layout = (..base, pages: (
   (companies: (0, 1, 2)),
   (companies: (3, 4)),
