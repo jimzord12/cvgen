@@ -72,7 +72,7 @@ The command prints the revision id, the PDF's SHA-256 and whether the
 automated checks passed (page count, no empty page, fonts embedded, text
 inside the page). Exit code 1 means the compiler or a check failed; the
 revision stays, with the error in its `render.log` or `checks.json`, and the
-fix is a new revision. Needs Python with `pymupdf` like the test suite.
+fix is a new revision. Needs Python with `pymupdf` and `jsonschema` like the test suite.
 
 For live editing while you adjust the page plan, the compiler still works
 directly; write to a fresh name under `builds/`:

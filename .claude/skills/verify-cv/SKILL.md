@@ -11,7 +11,7 @@ description: Run the CVgen regression suite and produce readable evidence. Use a
 python tests/run.py
 ```
 
-Requires Typst 0.15.1 on PATH and Python with `pymupdf` and `pillow`. Pass
+Requires Typst 0.15.1 on PATH and Python with `pymupdf`, `pillow` and `jsonschema`. Pass
 `--typst <path>` if Typst is elsewhere. Every run writes to a new
 `builds/tests-<timestamp>/` folder.
 

@@ -8,7 +8,8 @@ publishes or deletes a PDF.
 
 ## Functions
 
-Python 3.11, standard library plus `pymupdf` for the render checks. Called
+Python 3.11, standard library plus `pymupdf` for the render checks and
+`jsonschema` for the record check. Called
 by `scripts/cv.py` today and by the future web backend later:
 
 ```python
@@ -34,7 +35,7 @@ step; nothing is overwritten on the way.
 | `inputs/candidate.json` | render | the record with `identity.portrait` repointed at `inputs/assets/` |
 | `inputs/assets/` | render | the portrait actually used |
 | `render.log` | render | compiler output, also for failed runs |
-| `render.json` | render | status, engine commit and dirty flag, compiler version and command, input hashes and imports, PDF hash |
+| `render.json` | render | status, engine commit and dirty flag, compiler version and command, input hashes and imports, the schema the record was checked against, PDF hash |
 | `checks.json` | render | page count, empty pages, fonts, bounds; `pdf_sha256` of the bytes checked |
 | `cv.pdf` | render | the PDF, on success |
 | `cv.approval.json` | approve | revision id, sha256, approver, time, scope `owner` or `test-only` |
@@ -45,7 +46,12 @@ step; nothing is overwritten on the way.
 ## The refusal rules
 
 - Render checks the record and locates the portrait before it creates the
-  revision folder, so a refusal leaves nothing; compiler output is decoded
+  revision folder, so a refusal leaves nothing. The record is validated
+  against the most specific schema the entry point imports: the template's
+  `schema/<template>-input.schema.json`, else the domain's
+  `schema/candidate.schema.json`; an entry that imports only `lib.typ` names
+  neither and is not schema-checked (`render.json` then records `schema:
+  null`). The refusal lists every offending field path. Compiler output is decoded
   as UTF-8 so a Greek name in an error survives the Windows console codec.
 - Approve and export need `render.json` with `status: success` and a
   `cv.pdf` whose hash still equals the recorded one, and a `checks.json`

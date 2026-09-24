@@ -57,7 +57,7 @@ to change margins and which companies sit on which page.
 ## Where to go next
 
 - Building a CV for a real person: [docs/guides/build-a-cv.md](docs/guides/build-a-cv.md)
-- Candidate JSON fields: [docs/reference/candidate-schema.md](docs/reference/candidate-schema.md), validated by [packages/cv-engine/domains/marine/schema/candidate.schema.json](packages/cv-engine/domains/marine/schema/candidate.schema.json)
+- Candidate JSON fields: [docs/reference/candidate-schema.md](docs/reference/candidate-schema.md), contract in [packages/cv-engine/domains/marine/schema/candidate.schema.json](packages/cv-engine/domains/marine/schema/candidate.schema.json); `scripts/cv.py render` and the suite refuse a record that breaks its template's input schema
 - Repository layout and the PDF lifecycle: [docs/pdf-workflow.md](docs/pdf-workflow.md)
 - How the pieces fit: [docs/architecture.md](docs/architecture.md)
 - Rules, conventions and workflow: [docs/constitution.md](docs/constitution.md), [docs/conventions.md](docs/conventions.md), [docs/git-workflow.md](docs/git-workflow.md)
