@@ -145,3 +145,10 @@ gaps, README entry-point imports, theme keys, artwork slots, the
 - **Left for the owner:** A-L12, deleting or archiving the retired
   `docs/now.md`. The four public PDFs in `exports/` still carry the old
   "Marine CV" metadata; replacing them is a release the owner approves.
+
+## Observations for later (review round 6)
+
+- `lib.typ` exports `label` and `duration`, which shadow Typst built-ins of
+  the same name when imported. No tracked file imports `lib.typ` with a
+  wildcard today. When the duplicate-name check for `lib.typ` is built
+  (second domain), it should also flag built-in names.
