@@ -79,9 +79,10 @@ examples and would otherwise print on a real CV:
 
 An empty string (`""`) leaves a slot blank. Before approving, search the
 rendered PDF's text, ignoring case, for "fictional", "illustrative" and
-"flagship": none may appear, except in the candidate's own words (a profile
-may mention "the company's flagship") once the footer shows the configured
-brand; never edit the candidate's text to pass the check. This prints `[]`
+"flagship": none may appear. The one exception is "flagship" in the
+candidate's own words (a profile may mention "the company's flagship"), and
+only once the footer shows the configured brand; never edit the candidate's
+text to pass the check. This prints `[]`
 when the PDF is clean:
 
 ```powershell

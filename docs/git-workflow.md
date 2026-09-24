@@ -21,7 +21,9 @@ None of this approves a pending product design.
 ## Branches
 
 - `main` is always releasable: the suite passes and the PDFs in
-  `exports/` match the code.
+  `exports/` match the code. If a merge changes what `exports/` would
+  contain, refreshing them needs the owner's go; until then record the
+  mismatch on the handoff card.
 - Small, low-risk, verified fixes and documentation can go directly to `main`.
   Choose a feature branch for new features, migrations, significant changes,
   or work whose readiness is uncertain.
@@ -111,6 +113,9 @@ portrait is about 2.8 MB, so do not add renders casually. Replace, do not accumu
 
 ## Releasing a new render
 
+Replacing an approved deliverable in `exports/` needs the owner's go
+(preferences.md); get it before step 3.
+
 1. Choose a branch appropriate to the change. Run `python tests/run.py`.
 2. Build with `./scripts/build.ps1`, inspect both pages of every changed
    example.
@@ -121,5 +126,4 @@ portrait is about 2.8 MB, so do not add renders casually. Replace, do not accumu
    reference, regenerate `tests/baseline.json`, and tag the commit.
 5. Commit with the evidence folder named, integrate and push under the workflow
    above, then confirm the published commit's CI result. Approval of a changed
-   look or reference is the owner's, and replacing an approved deliverable in
-   `exports/` needs his go (preferences.md).
+   look or reference is the owner's.

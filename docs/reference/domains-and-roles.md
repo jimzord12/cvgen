@@ -124,11 +124,16 @@ import in `lib.typ`:
 
 The domain node takes the field's short name (as `marine` does), functions
 take `<short-name>-` as a prefix, and a template function keeps its own
-unique name. A template's components are not exported flat unless a custom
-composition needs them, and then with the template's name as the prefix
-(`postcard-hero`). Prefixed names were chosen over module bindings
-(`import ... as tourism-data`) because they read the same way as marine's
-existing names and can be found with one search. Before adding an export,
+unique name. For domain functions, prefixed names were chosen over module
+bindings (`import ... as tourism-data`) because they read the same way as
+marine's existing names and can be found with one search. A template's
+components are the exception: they are exported as one module named
+`<template>-components` (`flagship-components`, later
+`postcard-components`), used as `flagship-components.hero(ctx, ...)`,
+because a template has dozens of components and one module keeps them out
+of the flat namespace entirely; the shared core's components follow the same
+form as `core-components` (component contract, `conventions.md`). Before
+adding an export,
 search `lib.typ` for the name. The rule is a convention today; when the
 second domain lands, `tests/run.py` should also check that no name is bound
 twice in `lib.typ`.

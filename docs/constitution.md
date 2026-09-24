@@ -2,7 +2,8 @@
 
 Rules that do not change without the product owner saying so in writing.
 Read before anything irreversible. Conventions, which do evolve, are in
-`conventions.md`.
+`conventions.md`. The operations reserved for the owner are listed in
+`preferences.md` ("What he decides and what agents decide").
 
 Path references below describe the current implementation. The owner-approved
 [ADR 0010](decisions/0010-public-monorepo-and-pdf-workflow.md) establishes the
