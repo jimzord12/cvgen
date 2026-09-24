@@ -4,11 +4,12 @@
 #import "../../packages/cv-engine/domains/marine/data.typ": normalize-candidate
 #import "../../packages/cv-engine/domains/marine/templates/flagship/components/hero.typ": hero
 #import "../../packages/cv-engine/core/primitives.typ": decoration
+#import "../../packages/cv-engine/core/component.typ": make-ctx
 #let d = normalize-candidate(json("../../examples/candidates/engineer-example.json"))
 #set text(font: theme.fonts.body, size: theme.sizes.body, fill: theme.colors.ink, lang: "en")
 #set par(leading: theme.leading.initial)
 #set page(paper: "a4", margin: layout.opening-margin, background: {
-  place(top + left, decoration(artwork.background-first, theme, width: layout.width, height: layout.height))
+  place(top + left, decoration(make-ctx(theme: theme), artwork.background-first, width: layout.width, height: layout.height))
   place(top, rect(width: 100%, height: layout.hero.band-height, fill: theme.colors.hero, stroke: none))
 })
 #let mode = sys.inputs.at("case", default: "normal")

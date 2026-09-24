@@ -1,4 +1,4 @@
-#import "../../../../../core/primitives.typ": label, decoration
+#import "../../../../../core/legacy.typ": label, decoration
 
 #let portrait(identity, theme, geometry) = block(width: geometry.portrait-size, height: geometry.portrait-size, radius: 50%, clip: true)[
   #if identity.at("portrait", default: none) != none {

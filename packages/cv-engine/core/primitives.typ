@@ -1,13 +1,15 @@
+// Leaf components shared by every template (ADR 0008 shape: ctx, data, props).
 #import "data.typ": duration-parts
 
-#let label(body, theme, color: none) = text(size: theme.sizes.label, weight: "bold",
-  tracking: theme.tracking.label, fill: if color == none {theme.colors.muted} else {color})[#upper(body)]
+#let label(ctx, body, color: none) = text(size: ctx.theme.sizes.label, weight: "bold",
+  tracking: ctx.theme.tracking.label, fill: if color == none {ctx.theme.colors.muted} else {color})[#upper(body)]
 
-#let rule(theme, weight: 0.5pt) = line(length: 100%, stroke: weight + theme.colors.metal)
+#let rule(ctx, weight: 0.5pt) = line(length: 100%, stroke: weight + ctx.theme.colors.metal)
 
 // The original art's palette is mapped in memory; no frozen SVG is edited.
-#let decoration(asset, theme, width: auto, height: auto, artifact: true) = {
+#let decoration(ctx, asset, width: auto, height: auto, artifact: true) = {
   if asset != none {
+    let theme = ctx.theme
     let source = read(asset.source)
     let palette = (("#102f3a", theme.colors.ink), ("#236a70", theme.colors.accent),
       ("#c8a579", theme.colors.metal), ("#546870", theme.colors.muted),
@@ -26,6 +28,7 @@
   }
 }
 
+// A pure function, not a component: "2 years 3 months" for whole service months.
 #let duration(months) = {
   let p = duration-parts(months)
   let parts = ()
@@ -34,11 +37,15 @@
   parts.join(" ")
 }
 
-#let metric(value, caption, theme, gap: 3mm) = stack(spacing: gap,
-  text(font: theme.fonts.display, size: theme.sizes.metric)[#value],
-  label(caption, theme, color: theme.colors.metal))
+#let metric(ctx, value, caption: none, gap: 3mm) = {
+  assert(caption != none, message: "metric needs a caption: metric(ctx, value, caption: \"Vessels\")")
+  stack(spacing: gap,
+    text(font: ctx.theme.fonts.display, size: ctx.theme.sizes.metric)[#value],
+    label(ctx, caption, color: ctx.theme.colors.metal))
+}
 
-#let duration-value(months, theme) = {
+#let duration-value(ctx, months) = {
+  let theme = ctx.theme
   let p = duration-parts(months)
   let parts = ()
   if p.years > 0 {

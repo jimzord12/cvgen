@@ -1,4 +1,4 @@
-#import "../../../../../core/primitives.typ": label
+#import "../../../../../core/legacy.typ": label
 #import "sections.typ": section-heading
 
 #let education-entry(entry, theme, geometry) = block(breakable: false, below: geometry.entry-gap,

@@ -1,4 +1,4 @@
-#import "primitives.typ": label, rule, decoration
+#import "legacy.typ": label, rule, decoration
 
 // `headline` is whatever the domain puts under the name: a rank at sea, a title elsewhere.
 #let page-header(name, headline, caption, theme, geometry) = [
