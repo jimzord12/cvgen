@@ -66,14 +66,14 @@ domain; `F` for `M/templates/flagship`.
 | Path | Role | Touch it when |
 |---|---|---|
 | `E/lib.typ` | Public import surface, no side effects | Adding or renaming an exported function |
-| `E/core/` | Field-neutral core: `node` (merge, compose), `data` (common facts), `theme` check, `component` (`make-ctx`), `primitives`, `page` shell, `pagination` over a domain row model, `legacy` (deprecated old signatures). Never imports a domain | Changing behaviour every domain shares |
+| `E/core/` | Field-neutral core: `node` (merge, compose), `data` (common facts), `theme` check, `component` (`make-ctx`, which builds `ctx`), `components` (the ctx-first primitives and page shell as one module, exported as `core-components`), `primitives`, `page` shell, `pagination` over a domain row model, `legacy` (deprecated old signatures). Never imports a domain | Changing behaviour every domain shares |
 | `M/domain.typ`, `M/data.typ` | The marine domain node (id, meta, copy, experience model) and the marine facts: companies, vessels, months, totals, `normalize-candidate`, `validate-candidate` | Changing what the marine field means |
 | `M/roles/deck/`, `M/roles/engine/` | Role markers (`role.typ`); bare today | Refining something for one role |
 | `M/schema/candidate.schema.json` | Marine candidate-facts contract: what a record may contain, no template wording | Changing the marine data contract |
 | `F/flagship.typ` | The Flagship composition: page loop, section order, overflow check | Changing what Flagship renders |
 | `F/adapter/` | Candidate facts -> Flagship input: adds Flagship wording (`copy`) and merges overrides | Changing Flagship's input shape |
 | `F/schema/flagship-input.schema.json` | Flagship input contract: facts plus `copy` | Same |
-| `F/components/`, `F/legacy.typ` | Flagship sections, ctx-first: hero, experience, sections, certificates, education, skills; `legacy.typ` keeps their old signatures for `lib.typ` (deprecated) | Changing how a section renders |
+| `F/components/`, `F/components.typ`, `F/legacy.typ` | Flagship sections, ctx-first: hero, experience, sections, certificates, education, skills; `components.typ` gathers them into the one module `lib.typ` exports as `flagship-components`; `legacy.typ` keeps their old signatures for `lib.typ` (deprecated) | Changing how a section renders |
 | `F/themes/` | Visual tokens only: colours, fonts, sizes, tracking, leading, SVG colour map | Adding a look |
 | `F/artwork/`, `M/assets/` | Artwork packs (which SVG in which slot, offsets) and the SVG files | Adding a role's illustrations |
 | `F/layouts/` | Geometry and page plan: margins, gaps, widths, which companies go on which page | Fixing page balance |

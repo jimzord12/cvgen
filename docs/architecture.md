@@ -105,7 +105,8 @@ core/
   node.typ                              merge, compose: domain < role < template
   data.typ                              duration-parts, required-text, normalize-common, validate-common
   theme.typ                             validate-theme: required colours and fonts
-  component.typ                         make-ctx: the one ctx dictionary every component takes first (ADR 0008)
+  component.typ                         make-ctx: builds the one ctx dictionary every component takes first (ADR 0008)
+  components.typ                        the core's ctx-first components as one module; lib.typ exports it as core-components
   primitives.typ                        label, rule, decoration (SVG recolour), duration, metric
   page.typ                              page-header, page-footer, page-background, document-shell
   legacy.typ                            deprecated pre-contract signatures of primitives and page, exported by lib.typ
@@ -119,6 +120,7 @@ domains/marine/                         the marine domain (ADR 0011)
   templates/flagship/
     flagship.typ                          the composition: page loop, section order, overflow check
     adapter/adapter.typ                   flagship-copy defaults, to-flagship-input
+    components.typ                        Flagship's ctx-first components as one module; lib.typ exports it as flagship-components
     legacy.typ                            deprecated pre-contract signatures of the components, exported by lib.typ
     schema/flagship-input.schema.json     Flagship input contract (facts + copy)
     components/hero.typ                   portrait, frame, backdrop, contact groups, identity plate, hero

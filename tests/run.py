@@ -109,15 +109,21 @@ def main():
     lib = (ROOT / 'packages/cv-engine/lib.typ').read_text(encoding='utf-8')
     legacy_names = [n.strip() for line in lib.splitlines() if 'legacy.typ"' in line for n in line.split(':', 1)[1].split(',')]
     parity = (ROOT / 'tests/fixtures/legacy-parity.typ').read_text(encoding='utf-8')
-    uncalled = [n for n in legacy_names if not re.search(r'L\.' + re.escape(n) + r'[(.]', parity)]
+    code = re.sub(r'//[^\n]*', '', re.sub(r'/\*.*?\*/', '', parity, flags=re.S))  # a call in a comment does not count
+    uncalled = [n for n in legacy_names if not re.search(r'L\.' + re.escape(n) + r'[(.]', code)]
     assert len(legacy_names) == 32 and not uncalled, uncalled
     old = compile_case('legacy-api', 'tests/fixtures/legacy-parity.typ', {'api': 'legacy'})
     new = compile_case('contract-api', 'tests/fixtures/legacy-parity.typ', {'api': 'contract'})
     with fitz.open(old) as a, fitz.open(new) as b:
-        assert len(a) == len(b) == 4
+        assert len(a) == len(b) == 5
+        # document-shell forwards the PDF metadata through both APIs.
+        for doc in (a, b):
+            assert (doc.metadata['title'], doc.metadata['author']) == ('Parity title', 'Parity author'), doc.metadata
         for pa, pb in zip(a, b):
             ra, rb = (p.get_pixmap(matrix=fitz.Matrix(2, 2), alpha=False) for p in (pa, pb))
             assert (ra.width, ra.height, ra.samples) == (rb.width, rb.height, rb.samples), 'legacy API draws differently'
+        # Page 5 holds only page-background, with the shell's background off: it must draw art.
+        assert len(set(a[4].get_pixmap(alpha=False).samples)) > 1, 'page-background drew nothing'
     # The core paginates a domain that has no ships, and composes domain < role < template.
     compile_case('core-model', 'tests/fixtures/core-model.typ')
     # A role reaches the page only if `flagship` forwards it to the adapter.

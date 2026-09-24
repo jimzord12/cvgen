@@ -23,9 +23,12 @@ them. These evolve; the rules that do not are in `constitution.md`.
 - **Entry points reach components through `lib.typ` only** (constitution
   section 3). The ctx-first components are two modules there:
   `core-components` (label, rule, decoration, metric, duration-value, the
-  page shell) and `flagship-components` (every Flagship section). A later
-  template exports its own `<template>-components` module, following the
-  naming rule in `docs/reference/domains-and-roles.md`. Example:
+  page shell) and `flagship-components` (every Flagship section). A
+  template's components are always exported as one module named
+  `<template>-components`, never as flat names, so they cannot clash with
+  each other, with a later domain or with the deprecated flat names; domain
+  functions are the ones that take prefixed flat names
+  (`docs/reference/domains-and-roles.md`, "Naming rule for exports"). Example:
   `#import "/packages/cv-engine/lib.typ": make-ctx, flagship-components as fc`,
   then `fc.hero(ctx, d)`. Engine code inside `packages/` imports sibling
   files directly.
@@ -34,7 +37,8 @@ them. These evolve; the rules that do not are in `constitution.md`.
   exports (`hero`, `section-heading`, ...) are thin wrappers with the old
   order (data, theme, geometry slice) so custom compositions written earlier
   render unchanged; `tests/fixtures/legacy-parity.typ` calls all 32 and
-  proves identical pixels. Deprecated: new code never calls them, and no new
+  proves identical pixels and PDF metadata (the suite rejects a name called
+  only in a comment, and a page-background that draws nothing). Deprecated: new code never calls them, and no new
   legacy wrapper is added.
 - **Style block: not applied yet.** ADR 0008 asks each component to group
   its `set` and `show` rules at the top of its block; the 2026-09-25
