@@ -47,9 +47,9 @@ choices and act without asking (owner's instruction, 2026-09-25).
   abandoned branches locally and on GitHub, deleting tags other than
   `archive/*`, `git worktree` add, remove and prune, clearing `builds/` by
   path (never `git clean -x` or `-X`, which would also wipe the ignored
-  `private/` and `.local/`), editing a candidate workspace's `candidate.json`
-  and `cv.typ` for a CV he asked for, and editing or moving Trello cards. Do
-  not bring these to him; report them.
+  `private/` and `.local/`), editing a candidate workspace's `candidate.json`,
+  `cv.typ`, `presentation.json` and `README.md` for a CV he asked for, and
+  editing or moving Trello cards. Do not bring these to him; report them.
 - **Still needs his explicit go, with the exact command shown first:**
   deleting or force-pushing `main`, rewriting published `main` history,
   deleting or moving `archive/*` tags, deleting the GitHub repository or

@@ -184,8 +184,6 @@ rules of its own and defers to `docs/review.md`.
   pushes, merges to `main`, history edits on feature work, branch, worktree
   and (non-`archive/*`) tag cleanup, clearing `builds/` by path, board
   updates (owner's instruction, 2026-09-25). Product decisions, real-candidate
-  approval and the short list of irreversible operations (`main`'s published
-  history, `archive/*` tags, the GitHub repository, anything outside the
-  repo, deletions or overwrites in `private/` beyond a workspace's
-  `candidate.json` and `cv.typ`, the released PDFs in `exports/`) stay with
-  the owner; the full list is in `docs/preferences.md`.
+  approval and a short list of irreversible operations stay with the owner.
+  That list lives only in `docs/preferences.md` ("What he decides and what
+  agents decide"); read it there rather than from a summary.

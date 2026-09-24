@@ -53,8 +53,9 @@ Follow `docs/guides/build-a-cv.md`. This skill is the checklist.
 6. Render each page to PNG and look at it. `python -c` with `pymupdf` works:
    `page.get_pixmap(dpi=96).save(...)`. For a real person, confirm the text,
    ignoring case, contains none of "fictional", "illustrative" and
-   "flagship" outside the candidate's own words (guide section 2 has a
-   one-line check and the exception).
+   "flagship" outside the candidate's own words, and a hit in their words is
+   acceptable only once the footer shows the configured brand (guide section
+   2 has the one-line check and the exception).
 7. For a public example, run `python tests/run.py` and confirm PASS.
 8. For a real person, stop at the render. Approval (`scripts/cv.py approve`)
    is the owner's act on the revision they reviewed; export follows it.

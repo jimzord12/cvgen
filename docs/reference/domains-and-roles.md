@@ -99,7 +99,8 @@ A new field is done when every line below is true:
    left alone.
 8. `git diff --stat main...HEAD -- packages/cv-engine/core packages/cv-engine/domains/marine`
    is empty (three dots: only the field branch's own changes, so merging
-   `main` in does not raise a false alarm).
+   `main` in does not raise a false alarm; use `origin/main` if that is what
+   you merged).
    If the core had to change, that is a separate, reviewed core change first.
 9. `AGENTS.md` ("Where things are"), this page and a history entry name the
    new field.
