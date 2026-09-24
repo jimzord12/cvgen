@@ -125,8 +125,10 @@ def main():
             # Decorations are tagged as PDF artifacts; a wrapper that drops `artifact` changes the count.
             assert pa.read_contents().count(b'/Artifact') == pb.read_contents().count(b'/Artifact'), 'legacy API tags artifacts differently'
         # Page 5 holds only page-background, with the shell's background off: it must draw art, which
-        # means more than one colour on the page whatever the paper fill is.
-        assert a[4].get_pixmap(alpha=False).color_count() > 1, 'page-background drew nothing'
+        # means more than one colour on the page whatever the paper fill is. The 2pt border is left
+        # out: a tinted fill's anti-aliased page edge alone would count as a second colour.
+        inner = a[4].get_pixmap(alpha=False, clip=a[4].rect + (2, 2, -2, -2))
+        assert inner.color_count() > 1, 'page-background drew nothing'
     # The core paginates a domain that has no ships, and composes domain < role < template.
     compile_case('core-model', 'tests/fixtures/core-model.typ')
     # A role reaches the page only if `flagship` forwards it to the adapter.
