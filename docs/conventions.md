@@ -20,12 +20,27 @@ them. These evolve; the rules that do not are in `constitution.md`.
   layout, then compose. Positional content arguments are children; named
   content arguments are named slots. A page variant the parent chooses (for
   example `spacing: layout.experience.opening`) is a named prop.
+- **Entry points reach components through `lib.typ` only** (constitution
+  section 3). The ctx-first components are two modules there:
+  `core-components` (label, rule, decoration, metric, duration-value, the
+  page shell) and `flagship-components` (every Flagship section). A later
+  template exports its own `<template>-components` module, following the
+  naming rule in `docs/reference/domains-and-roles.md`. Example:
+  `#import "/packages/cv-engine/lib.typ": make-ctx, flagship-components as fc`,
+  then `fc.hero(ctx, d)`. Engine code inside `packages/` imports sibling
+  files directly.
 - **Legacy signatures stay in `legacy.typ`.** Every core and Flagship module
-  follows the contract since 2026-09-25. The names `lib.typ` exports are thin
-  wrappers with the old order (data, theme, geometry slice) so custom
-  compositions written earlier render unchanged (`tests/fixtures/legacy-parity.typ`
-  proves identical pixels). New code imports the ctx-first components from
-  their files; never add a new legacy wrapper.
+  follows the contract since 2026-09-25. The flat component names `lib.typ`
+  exports (`hero`, `section-heading`, ...) are thin wrappers with the old
+  order (data, theme, geometry slice) so custom compositions written earlier
+  render unchanged; `tests/fixtures/legacy-parity.typ` calls all 32 and
+  proves identical pixels. Deprecated: new code never calls them, and no new
+  legacy wrapper is added.
+- **Style block: not applied yet.** ADR 0008 asks each component to group
+  its `set` and `show` rules at the top of its block; the 2026-09-25
+  migration changed signatures only, and most components still style inline
+  (`docs/framework-gaps.md`). A component touched for another reason moves
+  its styling into the style block.
 - **Parent owns outer spacing, child owns internal layout.** Never add an
   outer `v()` inside a component. A component reads its own slice,
   `ctx.layout.hero`, never a sibling's.

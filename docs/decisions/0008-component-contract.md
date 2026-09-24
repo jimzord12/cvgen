@@ -2,6 +2,7 @@
 
 Date: 2026-09-12
 Status: Accepted. Replaces the signature rule in `docs/conventions.md`.
+Applied to every core and Flagship module on 2026-09-25; see `docs/history.md`.
 
 ## Context
 
@@ -66,25 +67,3 @@ Approved by the owner in conversation on 2026-09-12, including ctx-first.
   follows the shape without the helpers is still compliant.
 - The pixel diff catches the main failure mode, a show rule leaking outside
   its block.
-
-## Applied 2026-09-25
-
-The migration landed on branch `refactor/component-contract` (roadmap item
-4, opened by the owner 2026-09-25), one module per commit in the order
-above, with the engineer example pixel-identical to the frozen v11
-reference after every commit and both private candidate workspaces
-pixel-identical to their approved `reference.pdf`. Three details differ
-from the text above, all recorded here rather than in a new ADR because the
-contract itself is unchanged:
-
-- `ctx` also carries `artwork`, the sixth independent input, because the
-  hero, the profile summary and the page background place pictures.
-- `core/component.typ` holds only `make-ctx`. No component needed `require`,
-  `slot` or `children`; they are added when one does.
-- `lib.typ` keeps exporting the old names with the old signatures, as thin
-  wrappers in `core/legacy.typ` and `templates/flagship/legacy.typ`, because
-  private custom compositions import them and are never edited without the
-  owner. `tests/fixtures/legacy-parity.typ` proves the wrappers draw the
-  same pixels; `docs/framework-gaps.md` tracks their removal.
-- Fixtures: `tests/fixtures/contract.typ` renders each of the 31 ctx-first
-  components alone on its own page.

@@ -11,10 +11,15 @@
 #import "domains/marine/templates/flagship/flagship.typ": flagship
 #import "domains/marine/templates/flagship/adapter/adapter.typ": to-flagship-input, flagship-copy
 #import "domains/marine/templates/flagship/components/skills.typ": skills-layout
+// The ctx-first components (ADR 0008), one module each, so they cannot clash with the
+// flat names below or with a later domain: core-components.page-header(ctx, ...),
+// flagship-components.hero(ctx, d). This is how custom compositions use them.
+#import "core/components.typ" as core-components
+#import "domains/marine/templates/flagship/components.typ" as flagship-components
 // Component names below keep their pre-contract signatures (data, theme, geometry) so
 // custom compositions written before ADR 0008 render unchanged. Deprecated: new code
-// imports the ctx-first components from core/ and the template's components/ and
-// passes a make-ctx(...) dictionary (docs/framework-gaps.md, "Legacy component signatures").
+// uses core-components and flagship-components with a make-ctx(...) dictionary
+// (docs/framework-gaps.md, "Legacy component signatures").
 #import "core/legacy.typ": label, rule, metric, duration-value, decoration, document-shell, page-header, page-footer, page-background
 #import "domains/marine/templates/flagship/legacy.typ": hero, portrait, portrait-frame, portrait-backdrop, contact-item, contact-group, identity-plate
 #import "domains/marine/templates/flagship/legacy.typ": company-period, vessel-row, vessel-type-group, company-experience, experience-section

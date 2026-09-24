@@ -68,7 +68,9 @@ component has needed so far.
 (data, theme, geometry slice), from `core/legacy.typ` and the template's
 `legacy.typ`: each wrapper builds a small `ctx` and calls the ctx-first
 component, so custom compositions written before the migration render the
-same pixels (`tests/fixtures/legacy-parity.typ`). The wrappers are
+same pixels (`tests/fixtures/legacy-parity.typ` calls all 32). Entry
+points reach the ctx-first components through `lib.typ` as the modules
+`core-components` and `flagship-components`. The wrappers are
 deprecated; `docs/framework-gaps.md` records when they can go.
 
 ## One core, domains, templates

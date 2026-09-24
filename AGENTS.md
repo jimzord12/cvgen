@@ -170,9 +170,11 @@ rules of its own and defers to `docs/review.md`.
 - Every component follows the contract in `docs/conventions.md` (ADR 0008):
   `ctx` first, data, named props, slots; the template builds `ctx` once with
   `make-ctx` (`core/component.typ`). All core and Flagship modules are
-  migrated (2026-09-25). The component names `lib.typ` exports keep the
-  pre-contract signatures for older custom compositions (`core/legacy.typ`,
-  `F/legacy.typ`, deprecated); new code never calls them. Roles are
+  migrated (2026-09-25). Entry points reach them only through `lib.typ`, as
+  the modules `core-components` and `flagship-components`. The flat
+  component names `lib.typ` exports keep the pre-contract signatures for
+  older custom compositions (`core/legacy.typ`, `F/legacy.typ`,
+  deprecated); new code never calls them. Roles are
   variations within a domain, never forks (constitution section 7); `core/`
   never imports from `domains/`.
 - Every non-trivial change to code, fixtures or inputs ends with

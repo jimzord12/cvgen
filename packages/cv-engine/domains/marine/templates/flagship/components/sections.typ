@@ -4,8 +4,9 @@
 // Pure chrome: the title is the child. Geometry from ctx.layout.headings; `spacing`
 // is the parent's choice for this heading (a layout.headings entry such as `opening`).
 #let section-heading(ctx, title, number: none, spacing: none, subtitle: none) = {
-  assert(number != none and spacing != none,
-    message: "section-heading needs number: and spacing: (a layout.headings entry, e.g. layout.headings.opening)")
+  // `number: none` leaves the number cell empty, as it always has.
+  assert(spacing != none,
+    message: "section-heading needs spacing: (a layout.headings entry, e.g. layout.headings.opening)")
   let (theme, geometry) = (ctx.theme, ctx.layout.headings)
   block(above: spacing.above, below: spacing.below)[
     #grid(columns: (geometry.number-width, 1fr), align: horizon,

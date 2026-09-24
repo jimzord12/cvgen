@@ -97,16 +97,24 @@ def main():
             keep = lambda page: [w for w in page.get_text('words') if w[4] not in brand]
             assert keep(pa) == keep(pb)
     compile_case('data-valid', 'tests/fixtures/data.typ')
-    # ADR 0008 fixtures: every ctx-first component rendered alone, one page each, headed by its name.
+    # ADR 0008 fixtures: 31 of the 32 ctx-first components rendered alone, one page each, headed by
+    # its name; the 32nd, document-shell, wraps a whole document and is covered by legacy-parity.
     components = compile_case('contract-components', 'tests/fixtures/contract.typ')
     with fitz.open(components) as doc:
         names = [page.get_text().split()[1] for page in doc]
         assert len(names) == len(set(names)) == 31, names
-    # lib.typ's pre-contract names draw exactly what the ctx-first components draw.
+    # lib.typ's 32 deprecated pre-contract names draw exactly what the ctx-first components draw;
+    # the fixture must call every one of them.
+    import re
+    lib = (ROOT / 'packages/cv-engine/lib.typ').read_text(encoding='utf-8')
+    legacy_names = [n.strip() for line in lib.splitlines() if 'legacy.typ"' in line for n in line.split(':', 1)[1].split(',')]
+    parity = (ROOT / 'tests/fixtures/legacy-parity.typ').read_text(encoding='utf-8')
+    uncalled = [n for n in legacy_names if not re.search(r'L\.' + re.escape(n) + r'[(.]', parity)]
+    assert len(legacy_names) == 32 and not uncalled, uncalled
     old = compile_case('legacy-api', 'tests/fixtures/legacy-parity.typ', {'api': 'legacy'})
     new = compile_case('contract-api', 'tests/fixtures/legacy-parity.typ', {'api': 'contract'})
     with fitz.open(old) as a, fitz.open(new) as b:
-        assert len(a) == len(b) == 2
+        assert len(a) == len(b) == 4
         for pa, pb in zip(a, b):
             ra, rb = (p.get_pixmap(matrix=fitz.Matrix(2, 2), alpha=False) for p in (pa, pb))
             assert (ra.width, ra.height, ra.samples) == (rb.width, rb.height, rb.samples), 'legacy API draws differently'

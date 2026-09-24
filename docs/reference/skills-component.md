@@ -1,18 +1,17 @@
 # Skills component
 
 Read this when adding a professional skills block to a custom composition.
-It lives in the Flagship template's `components/skills.typ` and is not part
-of the locked `flagship` template. Like every component it takes `ctx`
-first (ADR 0008).
+It belongs to the Flagship template's components, which `lib.typ` exports
+as the module `flagship-components`; it is not part of the locked
+`flagship` template. Like every component it takes `ctx` first (ADR 0008).
 
 ```typst
 // Root-absolute paths work from any entry point compiled with --root .
-#import "/packages/cv-engine/core/component.typ": make-ctx
-#import "/packages/cv-engine/domains/marine/templates/flagship/components/skills.typ": skills-section, skills-layout
+#import "/packages/cv-engine/lib.typ": make-ctx, skills-layout, flagship-components as fc
 #import "/packages/cv-engine/domains/marine/templates/flagship/themes/golden-blue.typ": theme
 
 #let ctx = make-ctx(theme: theme, layout: (skills: (..skills-layout, column-gap: 8mm)))
-#skills-section(ctx,
+#fc.skills-section(ctx,
   (("Navigation", "GMDSS"), ("Cargo handling", "Safety")),
   title: "Professional Skills",
   bullet: (source: "/packages/cv-engine/domains/marine/assets/captain/compass-bullet.svg"),
@@ -32,8 +31,8 @@ first (ADR 0008).
   has no `skills` slice. `skills-layout` exposes `heading-gap`,
   `rule-weight`, `content-gap`, `column-gap`, `bullet-size`, `body-indent`,
   `item-gap`.
-- Older compositions call `lib.typ`'s `skills-section(groups, theme, title:,
-  bullet:, geometry:)`; that deprecated wrapper draws the same pixels.
+- Older compositions call `lib.typ`'s flat `skills-section(groups, theme,
+  title:, bullet:, geometry:)`; that deprecated wrapper draws the same pixels.
 
 `tests/fixtures/skills.typ` covers titles, one to three columns, wrapping,
 both themes and both bullet kinds through the `lib.typ` wrapper;
