@@ -17,6 +17,7 @@
 #import "domains/marine/templates/flagship/components/hero.typ": hero, portrait, portrait-frame, portrait-backdrop, contact-item, contact-group, identity-plate
 #import "domains/marine/templates/flagship/components/experience.typ": company-period, vessel-row, vessel-type-group, company-experience, experience-section
 #import "domains/marine/templates/flagship/legacy.typ": section-heading, profile-summary, synopsis
-#import "domains/marine/templates/flagship/components/skills.typ": skills-heading, skill-list, skills-section, skills-layout
+#import "domains/marine/templates/flagship/components/skills.typ": skills-layout
+#import "domains/marine/templates/flagship/legacy.typ": skills-heading, skill-list, skills-section
 #import "domains/marine/templates/flagship/components/certificates.typ": certificate-table, certificates-section
 #import "domains/marine/templates/flagship/components/education.typ": education-entry, language-entry, education-languages-section
