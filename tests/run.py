@@ -19,6 +19,20 @@ def check_core_boundary():
             assert '/' not in target and '..' not in target, f'core/{source.name} imports outside core: {target}'
 
 
+def check_example_records():
+    """Every public example's record matches the contract its entry point imports (the check cv.py render runs)."""
+    import re
+    from cv_workflow.render import IMPORT
+    from cv_workflow.validate import validate_record
+    entries = sorted((ROOT / 'examples').rglob('*.typ'))
+    assert entries, 'no example entry points found'
+    for entry in entries:
+        source = entry.read_text(encoding='utf-8')
+        for path in re.findall(r'json\("([^"]+)"\)', source):
+            record = json.loads((entry.parent / path).read_text(encoding='utf-8'))
+            assert validate_record(record, IMPORT.findall(source)), f'{entry.name} names no schema'
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--typst', default=shutil.which('typst'))
@@ -46,6 +60,8 @@ def main():
         return pdf
 
     check_frozen()
+    check_example_records()
+    results.append({'case': 'example-records-match-schema', 'passed': True})
     compile_case('configuration', 'tests/fixtures/configuration.typ')
     content = compile_case('content', 'tests/fixtures/content.typ')
     assert verify(content, pages=1, output=out / 'content-check')['passed']

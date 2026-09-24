@@ -56,6 +56,7 @@ def run_workflow(out, typst):
     assert render['pdf']['sha256'] == sha == first['sha256'] == checks['pdf_sha256'] and checks['passed']
     assert render['compiler']['version'].startswith('typst 0.15.1') and render['engine']['commit']
     assert render['inputs']['entry']['imports'][0] == '/packages/cv-engine/lib.typ'
+    assert render['inputs']['candidate']['schema'].endswith('/templates/flagship/schema/flagship-input.schema.json')
     snapshot = json.loads((folder / 'inputs/candidate.json').read_text(encoding='utf-8'))
     assert snapshot['identity']['portrait'] == '/' + (folder / 'inputs/assets/portrait.png').relative_to(ROOT).as_posix()
     assert sha256_file(folder / 'inputs/assets/portrait.png') == sha256_file(ROOT / 'examples/candidates/fictional-engineer.png')
@@ -148,9 +149,10 @@ def run_workflow(out, typst):
     assert 'did not render' in cv('approve', workspace, broken['revision'], '--approver', 'suite', '--sha256', sha, '--test-only', expect=2)
     (workspace / 'cv.typ').write_text(ENTRY, encoding='utf-8')
     # A data error naming a Greek company must reach render.log intact whatever the console codec.
+    # A wrong company total passes the schema (it cannot add up months) and fails in the engine.
     greek = json.loads(json.dumps(record))
     greek['companies'][0]['name'] = 'Ναυτιλιακή Δοκιμή'
-    greek['companies'][0]['groups'][0]['ships'][0]['months'] = None
+    greek['companies'][0]['service-months'] = 1
     (workspace / 'candidate.json').write_text(json.dumps(greek, ensure_ascii=False, indent=2), encoding='utf-8')
     data_error = cv('render', workspace, '--typst', typst, expect=1)
     assert data_error['status'] == 'failed' and 'Ναυτιλιακή Δοκιμή' in data_error['errors'][0]
@@ -168,6 +170,19 @@ def run_workflow(out, typst):
     assert len(list((workspace / 'revisions').iterdir())) == count
     (workspace / 'candidate.json').write_text(json.dumps(record, indent=2), encoding='utf-8')
     passed.append('refused-render-leaves-nothing')
+
+    # A record that breaks the Flagship contract is refused before anything is written, naming each field.
+    typo = json.loads(json.dumps(record))
+    typo['educaton_entries'] = typo.pop('education_entries')
+    typo['companies'][0]['groups'][0]['ships'][0]['months'] = 'eight'
+    del typo['identity']['rank']
+    (workspace / 'candidate.json').write_text(json.dumps(typo), encoding='utf-8')
+    refused = cv('render', workspace, '--typst', typst, expect=2)
+    assert 'flagship-input.schema.json' in refused and "'educaton_entries' was unexpected" in refused, refused
+    assert 'companies/0/groups/0/ships/0/months' in refused and "'rank' is a required property" in refused, refused
+    assert len(list((workspace / 'revisions').iterdir())) == count
+    (workspace / 'candidate.json').write_text(json.dumps(record, indent=2), encoding='utf-8')
+    passed.append('schema-refuses-invalid-record')
 
     # 8. Interrupted operations: a revision without render.json, a leftover partial export, a conflicting destination.
     ghost = revision('20000101-000000-ghost0')
