@@ -63,12 +63,14 @@ None of this approves a pending product design.
 - Fetch before integrating, inspect new upstream commits, and preserve others'
   work. Prefer fast-forward updates or ordinary merges; never force a push to
   resolve divergence. Recheck the combined result after integration changes it.
-- If a remote advances before the push, fetch and reconcile again. Existing
-  history-rewriting and destructive-operation checkpoints still apply. Do not
+- If a remote advances before the push, fetch and reconcile again. The
+  operations reserved for the owner (preferences.md) still apply. Do not
   bypass remote protections or hooks to make the no-PR policy work.
-- Observe the push-triggered CI result for the published commit. Keep the task
-  awaiting verification if it is unavailable; investigate failure before claiming
-  completion. Report commit/target and any outstanding issue briefly.
+- Observe the push-triggered CI result for the published commit:
+  `gh run list --branch main --limit 1`, then
+  `gh run watch <run-id> --exit-status`. Keep the task awaiting verification
+  if it is unavailable; investigate failure before claiming completion.
+  Report commit/target and any outstanding issue briefly.
 - A feature task may integrate into its named parent branch. That completion is
   distinct from the whole feature reaching `main`; record the intended target.
 
@@ -82,8 +84,9 @@ branch structure is a proportionate choice for this small project.
 
 - `archive/<name>` marks a snapshot before a large removal. Files deleted
   from the tree remain reachable there.
-- `reference/v11` style tags mark the commit that produced a frozen
-  reference render.
+- `reference/<name>` tags are meant to mark the commit that produced a frozen
+  reference render. None exists yet; the v11 reference predates the
+  convention.
 - Release tags follow `vMAJOR.MINOR.PATCH` and match `packages/cv-engine/typst.toml`.
 
 ## What is committed
@@ -99,8 +102,8 @@ branch structure is a proportionate choice for this small project.
 
 `.gitattributes` stores and checks out every text file with LF on every
 platform, so the hashes in `tests/baseline.json` match on Windows, macOS,
-Linux and CI. Binary files are marked there too. Each CV PDF is about
-2.8 MB, so do not add renders casually. Replace, do not accumulate.
+Linux and CI. Binary files are marked there too. A CV PDF with an embedded
+portrait is about 2.8 MB, so do not add renders casually. Replace, do not accumulate.
 
 ## Releasing a new render
 
@@ -108,7 +111,8 @@ Linux and CI. Binary files are marked there too. Each CV PDF is about
 2. Build with `./scripts/build.ps1`, inspect both pages of every changed
    example.
 3. Copy the new PDF into `exports/` with the next version number and remove
-   the old one. Refresh the two preview PNGs in `docs/images/` at 96 dpi.
+   the old one. Refresh the changed deliverable's page PNGs in `docs/images/`
+   at 96 dpi (one per page).
 4. If the engineer look changed on purpose, write an ADR, replace the frozen
    reference, regenerate `tests/baseline.json`, and tag the commit.
 5. Commit with the evidence folder named, integrate and push under the workflow

@@ -21,10 +21,15 @@ moves and still hold.
   this. Today that is Flagship:
   `packages/cv-engine/domains/marine/templates/flagship/tests/approved/Marine-Engineer-CV-v11.pdf`
   and `examples/marine/flagship/engineer.typ`.
-- `tests/baseline.json` pins the SHA-256 of every asset, font, example JSON,
-  design study and the reference PDF, whether or not the engineer comparison
-  uses it. Changing any of them is a design decision, recorded as an ADR in `docs/decisions/`, with a
-  new frozen reference and a version bump on the PDF name.
+- `tests/baseline.json` pins the SHA-256 of the frozen set: every marine SVG
+  asset, the bundled fonts, the engineer and captain example records and the
+  fictional portrait, the design studies with their content, and the
+  reference PDF, whether or not the engineer comparison uses them. The suite
+  fails if a pinned file changes. Changing or removing a pinned file is a
+  design decision, recorded as an ADR in `docs/decisions/`, with a new frozen
+  reference and a version bump on the PDF name. Adding a newly reviewed file
+  to the manifest (a new pack's SVGs, for example) is routine. Files not in
+  the manifest, such as `chief-officer-example.json`, are not frozen.
 - The four numbered studies and `shared.typ` under `archive/design-studies/`
   are frozen.
   Copy ideas out of them; do not edit them. Path-only updates during a move
@@ -41,9 +46,8 @@ commit with a new version number.
 
 Names, employers, vessels, dates, certificates and the portrait are invented.
 Real candidate data lives in `private/`, which git ignores, one folder per
-candidate with its own entry point. New entry points import
-`packages/cv-engine/lib.typ`; two older ones import modules by their
-pre-migration paths and are migrated when next touched. Certificate numbers, scans and passport details
+candidate with its own entry point, importing
+`packages/cv-engine/lib.typ`. Certificate numbers, scans and passport details
 never enter this repository.
 
 ## 4. The system does not lie to fit

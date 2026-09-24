@@ -11,7 +11,7 @@ The system is experimental: record concrete friction under
 
 ## The flow
 
-Kanban-style [work moves through explicit stages]: one active implementation
+Kanban-style: work moves through explicit stages, one active implementation
 task, clear acceptance criteria, independent review. Fixed sprints are optional.
 
 | Stage | Required outcome |
@@ -23,9 +23,13 @@ task, clear acceptance criteria, independent review. Fixed sprints are optional.
 | Done | The change reaches its intended branch, the push and CI result are confirmed, and evidence is recorded. |
 
 Blocked and Cancelled are explicit side states. Design and PDF approvals are
-separate gates. Small behaviour-preserving edits may use their commit as the
-record and skip independent review; judge the consequence, not line count,
-and record the reason.
+separate gates. When a change may skip independent review is decided only by
+[review.md](review.md#when-a-review-is-required); small changes that skip it
+use their commit as the record and state the reason.
+
+A cancelled task moves to **Done** with a `## Cancelled` section on its card:
+the date, the reason, who decided, and what (if anything) was kept. Cancelled
+work never counts as delivered.
 
 ## A fresh session
 
@@ -54,7 +58,9 @@ communication profile.
 ## Ending a session
 
 Rewrite the session-handoff card's description in place (one card, never a
-new one, never deleted; Trello keeps its history): the date, where things
+new one, never deleted; Trello keeps its history). Keep the card's heading and
+intro, then a line `**Written:** yyyy-MM-dd, <what the session was> (<agent>)`;
+the trello skill's read-back check looks for that date. Then: where things
 stand, the next step in order, parked owner decisions, pitfalls that cost
 time, constraints in force. Keep only what no task card owns; a task's own
 state goes in its card's Handoff section. Any local handoff file is a
@@ -83,7 +89,7 @@ docs/proposals/                   # Proposals with status; rejected/ keeps decli
 Task ids are short kebab-case slugs (`dev-setup`, `monorepo-migration`) and
 start the card name. The board (adopted 2026-09-16 under
 [trello-free-trial](proposals/trello-free-trial.md)) is the task store:
-its lists are the five stages, a card's description holds the sections
+its lists are Handoff plus the five stages, a card's description holds the sections
 below, its checklist holds the acceptance items, and the list plus the red
 **Blocked** label are its status: a blocked card keeps its stage, gains the
 label and a `## Blocked` section with the reason, the dependency card link
