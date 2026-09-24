@@ -112,7 +112,7 @@ replace an earlier one with the same name (checked 2026-09-25: two
 `#import ...: f` lines keep the second `f` without a warning). Marine came
 first and keeps its flat names (`normalize-candidate`, `validate-candidate`,
 `hero`, ...) so existing entry points and private workspaces keep working.
-Every later domain and template exports **prefixed names**, renamed at the
+Every later domain exports **prefixed names**, renamed at the
 import in `lib.typ`:
 
 ```typst
@@ -124,7 +124,8 @@ import in `lib.typ`:
 
 The domain node takes the field's short name (as `marine` does), functions
 take `<short-name>-` as a prefix, and a template function keeps its own
-unique name. For domain functions, prefixed names were chosen over module
+unique name, and its adapter is `to-<template>-input` (as
+`to-flagship-input`). For domain functions, prefixed names were chosen over module
 bindings (`import ... as tourism-data`) because they read the same way as
 marine's existing names and can be found with one search. A template's
 components are the exception: they are exported as one module named
@@ -132,8 +133,9 @@ components are the exception: they are exported as one module named
 `postcard-components`), used as `flagship-components.hero(ctx, ...)`,
 because a template has dozens of components and one module keeps them out
 of the flat namespace entirely; the shared core's components follow the same
-form as `core-components` (component contract, `conventions.md`). Before
-adding an export,
-search `lib.typ` for the name. The rule is a convention today; when the
+form as `core-components`. Flagship's and the core's modules arrive with the
+component contract migration (ADR 0008, card `component-contract`); until
+that lands on `main`, Flagship's components are only the flat names above.
+Before adding an export, search `lib.typ` for the name. The rule is a convention today; when the
 second domain lands, `tests/run.py` should also check that no name is bound
 twice in `lib.typ`.

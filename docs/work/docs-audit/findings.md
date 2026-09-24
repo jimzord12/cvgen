@@ -133,7 +133,11 @@ gaps, README entry-point imports, theme keys, artwork slots, the
 - **P-M9 decision (job D):** later domains and templates export
   domain-prefixed names from `lib.typ` (`tourism`,
   `tourism-normalize-candidate`); marine keeps its flat names. Reason and
-  checklist in `docs/reference/domains-and-roles.md`.
+  checklist in `docs/reference/domains-and-roles.md`. Revised the same day
+  (review round 4-5, lead): domain functions keep prefixed names; a
+  template's components are one `<template>-components` module, agreed
+  with the component-contract branch, because a template has dozens of
+  components and a module keeps them out of the flat namespace.
 - **Owner addition, same day:** review rounds capped at 5 when the owner
   attends, 10 unattended (`docs/review.md`).
 - **Left for job C (candidate-validation):** P-M7, the schema described as a
