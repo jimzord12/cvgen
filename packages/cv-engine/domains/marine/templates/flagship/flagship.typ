@@ -9,7 +9,7 @@
 #import "components/experience.typ": experience-section
 #import "legacy.typ": profile-summary, section-heading, synopsis
 #import "components/certificates.typ": certificates-section
-#import "components/education.typ": education-languages-section
+#import "legacy.typ": education-languages-section
 
 // `candidate` is a candidate-facts record; the adapter turns it into Flagship input.
 // `role` is a marine role marker (roles/<role>/role.typ) or none; Flagship serves every role of the domain.

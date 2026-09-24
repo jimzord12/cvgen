@@ -20,4 +20,4 @@
 #import "domains/marine/templates/flagship/components/skills.typ": skills-layout
 #import "domains/marine/templates/flagship/legacy.typ": skills-heading, skill-list, skills-section
 #import "domains/marine/templates/flagship/components/certificates.typ": certificate-table, certificates-section
-#import "domains/marine/templates/flagship/components/education.typ": education-entry, language-entry, education-languages-section
+#import "domains/marine/templates/flagship/legacy.typ": education-entry, language-entry, education-languages-section

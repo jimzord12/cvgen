@@ -15,4 +15,4 @@
 #experience-section(d.companies.slice(0, 1), theme, layout.experience, layout.experience.opening, sys.inputs.at("times", default: "true") == "true", d.copy.combined)
 #synopsis(make-ctx(theme: theme, layout: layout, copy: d.copy), experience-totals(d.companies))
 #certificates-section(d.certificates, d.copy, theme, layout)
-#education-languages-section(d.education, d.languages, d.copy, theme, layout)
+#education-languages-section(make-ctx(theme: theme, layout: layout, copy: d.copy), (education: d.education, languages: d.languages))
