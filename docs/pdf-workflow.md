@@ -65,8 +65,9 @@ This schematic candidate name does not identify a real person:
 private/<candidate>/
   candidate.json                # Working candidate record
   cv.typ                        # Entry point: template, theme, artwork, layout, page plan
-  sources/                      # Original documents and correspondence
-  assets/                       # Prepared portrait and other rendering assets
+  sources/                      # Optional: original documents and correspondence
+  assets/                       # Optional: prepared portrait; a portrait at the
+                                #   folder root works too (docs/guides/build-a-cv.md)
   revisions/<revision-id>/       # Fresh timestamp + unique suffix for each run
     inputs/
       cv.typ                    # Entry point as it was, verbatim

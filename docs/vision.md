@@ -12,9 +12,9 @@ presentation. The PDF workflow binds explicit owner approval to an exact PDF.
 See [PDF workflow and storage](pdf-workflow.md) and
 [ADR 0010](decisions/0010-public-monorepo-and-pdf-workflow.md).
 
-The engine layout and local PDF workflow are implemented (2026-09-16); the
-web application remains pending. This decision takes precedence over earlier
-folder and sharing assumptions below.
+The engine layout and local PDF workflow are implemented (2026-09-16), and
+the engine is organised by domain, role and template (ADR 0011, implemented
+2026-09-21); the web application remains pending.
 
 ## What this is
 
@@ -30,7 +30,8 @@ level of specialisation inside a domain (deck and engine at sea; front-end
 and back-end in software) and may refine what the domain offers. A
 **template** is a named design; it may sit under a role or serve a whole
 domain, and it may override anything. Each template comes in two to four
-themes. Cadets and short careers get a one-page layout. Decided 2026-09-20,
+themes. Cadets and short careers are to get a one-page layout (direction
+item 6, not built yet). Decided 2026-09-20,
 [ADR 0011](decisions/0011-domains-roles-templates.md).
 
 The person editing a CV changes data, not layout code. The person designing
@@ -41,8 +42,8 @@ the shared core, then freezes an approved render.
 ## What it is not
 
 - Not a generic resume builder with one shape for everyone. Each domain
-  keeps the facts and wording its field actually uses. Two pages by default,
-  one page for short careers.
+  keeps the facts and wording its field actually uses. Two pages by default;
+  one page for short careers once direction item 6 lands.
 - The engine remains locally usable with one compiler. The approved future web
   application adds hosted intake, review, and delivery, with real candidate
   data in private storage outside the public source repository.
@@ -87,7 +88,8 @@ started on an agent's initiative.
 1. **Domains, roles and templates.** Move Flagship and its schema under the
    marine domain, split the maritime data model out of the shared core, add
    the role level, rename the project. Four stages, each pixel-identical to
-   the frozen reference. See ADR 0011. Opened 2026-09-21.
+   the frozen reference. See ADR 0011. Opened and **done** 2026-09-21: all
+   four stages merged the same day, each pixel-identical to v11.
 2. **Travel and tourism.** The first non-marine domain: its facts shape,
    wording, assets and a first template, added without touching the marine
    domain or the core. The proof that item 1 worked.

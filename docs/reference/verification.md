@@ -52,7 +52,7 @@ and per-check folders with `result.json` and, on a raster mismatch, a
 
 8. **Core boundary.** Every `import`/`include` in `packages/cv-engine/core/*.typ` names a bare sibling file; the core never reaches a domain (ADR 0011).
 
-8. **Candidate workflow** (`tests/workflow.py`). A fresh fictional workspace
+9. **Candidate workflow** (`tests/workflow.py`). A fresh fictional workspace
    under the run's `workflow/` folder is driven through the real
    `scripts/cv.py`: render (the revision's PDF must equal the frozen v11
    reference, the snapshot must be self-contained, `checks.json` bound to

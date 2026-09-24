@@ -122,3 +122,22 @@ gaps, README entry-point imports, theme keys, artwork slots, the
   candidate-schema.
 - **P-L22** `vision.md:15-17` precedence note is stale after ADR 0011
   rewrote the sections below.
+
+## Dispositions (2026-09-25, branch `docs/audit-2026-09-25`)
+
+- **Fixed:** every finding above except the three below. A-H1 in `2439af7`;
+  the metadata part of P-H1 in `b0cde6c` (marine `domain.meta` is now
+  "CVgen"; the suite compares pixels and page text, not metadata, and
+  passed: `builds/tests-20260925-013520-233467`); the rest in the docs
+  commits that follow.
+- **P-M9 decision (job D):** later domains and templates export
+  domain-prefixed names from `lib.typ` (`tourism`,
+  `tourism-normalize-candidate`); marine keeps its flat names. Reason and
+  checklist in `docs/reference/domains-and-roles.md`.
+- **Owner addition, same day:** review rounds capped at 5 when the owner
+  attends, 10 unattended (`docs/review.md`).
+- **Left for job C (candidate-validation):** P-M7, the schema described as a
+  validation; that job makes it one.
+- **Left for the owner:** A-L12, deleting or archiving the retired
+  `docs/now.md`. The four public PDFs in `exports/` still carry the old
+  "Marine CV" metadata; replacing them is a release the owner approves.
