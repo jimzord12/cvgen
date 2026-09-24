@@ -178,12 +178,14 @@ def run_workflow(out, typst):
     typo['companies'][0]['groups'][0]['ships'][0]['months'] = 'eight'
     typo['companies'][0]['groups'][0]['ships'][1]['months'] = None
     del typo['identity']['rank']
-    typo['certificates'] = [{'title': 'A', 'scope': 'B', 'issued': 'C', 'reviw': 'D'}]
+    typo['certificates'] = [{'title': 'A', 'scope': 'B', 'issued': 'C', 'reviw': 'D'},
+                            {'title': 'A', 'scope': 'B', 'issued': 2021, 'review': 'D'}]
     (workspace / 'candidate.json').write_text(json.dumps(typo), encoding='utf-8')
     refused = cv('render', workspace, '--typst', typst, expect=2)
     assert 'flagship-input.schema.json' in refused and "'educaton_entries' was unexpected" in refused, refused
     assert 'companies/0/groups/0/ships/0/months' in refused and "'rank' is a required property" in refused, refused
-    assert 'companies/0/groups/0/ships/1/months: is null; leave the key out instead' in refused, refused
+    assert 'companies/0/groups/0/ships/1/months: is null; give a value, or leave the key out if it is optional' in refused, refused
+    assert "certificates/1/issued: 2021 is not of type 'string'" in refused, refused
     assert "certificates/0: 'review' is a required property" in refused and "'reviw' was unexpected" in refused, refused
     assert "'title': 'A'" not in refused, refused
     assert len(list((workspace / 'revisions').iterdir())) == count

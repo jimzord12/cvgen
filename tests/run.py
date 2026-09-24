@@ -38,6 +38,19 @@ def check_example_records():
                        '/packages/cv-engine/domains/marine/templates/flagship/themes/golden-blue.typ']) == ROOT / FLAGSHIP_INPUT[1:]
     assert schema_for(['/packages/cv-engine/lib.typ']) == ROOT / FLAGSHIP_INPUT[1:]
     assert schema_for(['/private/helpers.typ']) is None
+    # lib.typ plus a marine role but no template still means Flagship's contract.
+    assert schema_for(['/packages/cv-engine/lib.typ', '/packages/cv-engine/domains/marine/roles/deck/role.typ']) == ROOT / FLAGSHIP_INPUT[1:]
+    # The template-over-domain choice must not depend on the checkout path: an engine under a folder
+    # named `templates` still resolves the template schema, whatever the import order.
+    import shutil, tempfile
+    with tempfile.TemporaryDirectory() as scratch:
+        engine = Path(scratch) / 'templates' / 'checkout' / 'packages' / 'cv-engine'
+        for schema in ['domains/marine/schema/candidate.schema.json', FLAGSHIP_INPUT[len('/packages/cv-engine/'):]]:
+            (engine / schema).parent.mkdir(parents=True, exist_ok=True)
+            shutil.copyfile(ROOT / 'packages/cv-engine' / schema, engine / schema)
+        chosen = schema_for(['/packages/cv-engine/domains/marine/roles/deck/role.typ',
+                             '/packages/cv-engine/domains/marine/templates/flagship/themes/golden-blue.typ'], engine=engine)
+        assert chosen.name == 'flagship-input.schema.json', chosen
 
 
 def main():

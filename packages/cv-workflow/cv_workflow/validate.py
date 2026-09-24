@@ -13,33 +13,39 @@ LIB_SCHEMA = ENGINE / 'domains/marine/templates/flagship/schema/flagship-input.s
 MAX_REPORTED = 10
 
 
-def schema_for(imports):
-    """The most specific contract the entry point uses: a template's input schema, else a domain's
-    candidate schema, else Flagship's when only lib.typ is imported, else None."""
-    found = []
+def schema_for(imports, engine=ENGINE):
+    """The most specific contract the entry point uses: a template's input schema; else Flagship's when
+    lib.typ is imported and every domain named is marine (lib.typ's flat exports are marine and Flagship);
+    else a domain's candidate schema; else None."""
+    found, domains = [], set()
     for path in imports:
         match = DOMAIN.search(path)
         if match:
             domain, template = match.groups()
-            candidates = [ENGINE / 'domains' / domain / 'templates' / template / 'schema' / f'{template}-input.schema.json'] if template else []
-            candidates.append(ENGINE / 'domains' / domain / 'schema' / 'candidate.schema.json')
+            domains.add(domain)
+            candidates = [engine / 'domains' / domain / 'templates' / template / 'schema' / f'{template}-input.schema.json'] if template else []
+            candidates.append(engine / 'domains' / domain / 'schema' / 'candidate.schema.json')
             found.append(next((c for c in candidates if c.is_file()), None))
     found = [f for f in found if f]
-    if found:
+    # Judge by the path inside the engine, never by where the checkout happens to live.
+    templates = [f for f in found if 'templates' in f.relative_to(engine).parts]
+    if templates:
         # A template schema is stricter than its domain's and includes the template's `copy` key.
-        # Judge by the path inside the engine, never by where the checkout happens to live.
-        return max(found, key=lambda f: 'templates' in f.relative_to(ENGINE).parts)
-    return LIB_SCHEMA if any(LIB.search(path) for path in imports) else None
+        return templates[0]
+    if any(LIB.search(path) for path in imports) and domains <= {'marine'}:
+        return engine / LIB_SCHEMA.relative_to(ENGINE)
+    return found[0] if found else None
 
 
 def describe(error):
     """One line per problem: the field path and what to change. A oneOf failure is unpacked into the
-    reasons of its alternatives, so a misspelt key inside a certificate is named, not the whole object."""
-    reasons = [e for e in error.context if e.validator != 'type'] or [error]
+    reasons of its alternatives: a field's own error is kept, only the "not this alternative at all"
+    type mismatch is dropped, so a misspelt key or a wrong value inside a certificate is named."""
+    reasons = [e for e in error.context if not (e.validator == 'type' and not e.relative_path)] or [error]
     lines = []
     for e in reasons:
         where = '/'.join(str(p) for p in e.absolute_path) or '(top level)'
-        message = 'is null; leave the key out instead' if e.validator == 'type' and e.instance is None else e.message
+        message = 'is null; give a value, or leave the key out if it is optional' if e.validator == 'type' and e.instance is None else e.message
         line = f'  {where}: {message}'
         if line not in lines:
             lines.append(line)

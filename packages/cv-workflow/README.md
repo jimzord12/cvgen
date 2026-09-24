@@ -48,10 +48,13 @@ step; nothing is overwritten on the way.
 - Render checks the record and locates the portrait before it creates the
   revision folder, so a refusal leaves nothing. The record is validated
   against the most specific schema the entry point imports: the template's
-  `schema/<template>-input.schema.json`, else the domain's
-  `schema/candidate.schema.json`; an entry that imports only `lib.typ` names
-  neither and is not schema-checked (`render.json` then records `schema:
-  null`). The refusal lists every offending field path. Compiler output is decoded
+  `schema/<template>-input.schema.json`; else Flagship's input schema when
+  `lib.typ` is imported and every domain named is marine (its flat exports
+  are marine and Flagship); else the domain's `schema/candidate.schema.json`.
+  `schema: null` in the summary and `render.json` only when the entry
+  imports neither. The refusal lists every offending field path; a new
+  domain adds its case to `validate.py` (see the wiring checklist in
+  `docs/reference/domains-and-roles.md`). Compiler output is decoded
   as UTF-8 so a Greek name in an error survives the Windows console codec.
 - Approve and export need `render.json` with `status: success` and a
   `cv.pdf` whose hash still equals the recorded one, and a `checks.json`
