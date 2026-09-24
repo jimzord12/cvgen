@@ -141,7 +141,7 @@ from task progress. A saved status report, when explicitly useful, is a dated
 snapshot, never an authority. Build artifacts under `builds/` are local and
 ignored: name them honestly, and treat a missing old artifact as no proof.
 Cleanup preserves the evidence still needed by active work or deliberate
-milestones; clearing `builds/` is an agent decision.
+milestones; clearing `builds/` by path is an agent decision.
 
 Ready is not Done. Ready means implementation, verification and review are
 complete. Done means the change reached its integration branch, the push and
@@ -156,8 +156,8 @@ feature branch is not the whole feature reaching `main`.
   and [git-workflow.md](git-workflow.md).
 - One writer per checkout. Parallel implementation needs separate worktrees,
   explicit ownership and a useful reason.
-- Ask for missing product intent, unresolved architecture or an existing
-  safety checkpoint, with a recommendation and consequence. Do not ask the
+- Ask for missing product intent, architecture outside an approved item or
+  an operation reserved for the owner (preferences.md), with a recommendation and consequence. Do not ask the
   owner to re-approve accepted designs or routine choices.
 - Record out-of-scope discoveries. Escalate boundary changes; log bypasses in
   [framework-gaps.md](framework-gaps.md).

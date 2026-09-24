@@ -5,6 +5,9 @@ Status: Accepted. Amends 0002 (a sixth entry-point input, `role`), 0007
 (deck and engine become roles of the marine domain; the core no longer owns a
 data model) and 0010 (templates and their schemas move under
 `domains/<domain>/`). The PDF workflow half of 0010 is untouched.
+Implemented 2026-09-21 in four stages (`b54d9f9`, `195fbab`, `3296e91`,
+`422f150`); the `merge`/`compose` helpers in `core/node.typ` now carry the
+composition described below, and the adapter uses them.
 
 ## Context
 
@@ -41,8 +44,9 @@ realised with dictionaries and functions.
 - **Composition.** Dictionaries merge in the order
   domain < role < template < `copy` inside the record < `copy` at the call
   site; later wins, nested dictionaries merge, arrays and scalars are
-  replaced. The `merge`/`compose` helpers in `core/node.typ` implement it
-  (added in the core-split stage, 2026-09-21). A consequence: a role can
+  replaced. A `merge`/`compose` helper in `core/node.typ` is added in the
+  core-split stage; today the adapter does a shallow `+` of `copy`. A
+  consequence: a role can
   override only what its domain offers; template words are overridden from
   the record or the call site, never by a role.
 - **Domain-level templates.** A template may sit under a role or directly

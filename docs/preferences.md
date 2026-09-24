@@ -44,15 +44,20 @@ choices and act without asking (owner's instruction, 2026-09-25).
   and all routine Git and board work: commits, pushes, merges into `main`,
   amend, rebase, reset, force-push of a feature branch
   (`--force-with-lease`), branch and tag creation, deleting merged or
-  abandoned branches locally and on GitHub, `git worktree` add, remove and
-  prune, clearing `builds/`, and editing or moving Trello cards. Do not bring
-  these to him; report them.
+  abandoned branches locally and on GitHub, deleting tags other than
+  `archive/*`, `git worktree` add, remove and prune, clearing `builds/` by
+  path (never `git clean -x` or `-X`, which would also wipe the ignored
+  `private/` and `.local/`), editing a candidate workspace's `candidate.json`
+  and `cv.typ` for a CV he asked for, and editing or moving Trello cards. Do
+  not bring these to him; report them.
 - **Still needs his explicit go, with the exact command shown first:**
   deleting or force-pushing `main`, rewriting published `main` history,
-  deleting `archive/*` tags, deleting the GitHub repository or changing its
-  visibility or settings, deleting anything outside this repository, and
-  deleting or overwriting real candidate files in `private/` or approved
-  deliverables in `exports/` (neither can be recovered from Git).
+  deleting or moving `archive/*` tags, deleting the GitHub repository or
+  changing its visibility or settings, deleting anything outside this
+  repository, deleting anything under `private/` or overwriting or removing
+  its revisions, approval receipts and exports (ignored by Git, so nothing
+  restores them), and replacing or removing the PDFs in the root `exports/`
+  (the public released deliverables).
 - **Ask him for observations, not decisions that are yours:** a screen, a
   render, a log, a yes or no on a look.
 

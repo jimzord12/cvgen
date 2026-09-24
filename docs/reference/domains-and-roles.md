@@ -94,10 +94,13 @@ A new field is done when every line below is true:
    `tests/run.py`, and the reviewed SVGs, fonts and example record are
    added to `tests/baseline.json` (adding entries is routine; constitution
    section 1).
-7. `python tests/run.py` passes, including the core-boundary check: nothing
-   under `core/` or `domains/marine/` changed. If the core had to change,
-   that is a separate, reviewed core change first.
-8. `AGENTS.md` ("Where things are"), this page and a history entry name the
+7. `python tests/run.py` passes. Its core-boundary check only proves that
+   core modules import their own siblings; it does not prove the core was
+   left alone.
+8. `git diff --stat <base> -- packages/cv-engine/core packages/cv-engine/domains/marine`
+   is empty, where `<base>` is the commit the field's branch started from.
+   If the core had to change, that is a separate, reviewed core change first.
+9. `AGENTS.md` ("Where things are"), this page and a history entry name the
    new field.
 
 ### Naming rule for exports
@@ -112,8 +115,8 @@ import in `lib.typ`:
 
 ```typst
 #import "domains/travel-and-tourism/domain.typ": domain as tourism
-#import "domains/travel-and-tourism/data.typ": normalize-candidate as tourism-normalize-candidate,
-  validate-candidate as tourism-validate-candidate
+#import "domains/travel-and-tourism/data.typ": (normalize-candidate as tourism-normalize-candidate,
+  validate-candidate as tourism-validate-candidate)
 #import "domains/travel-and-tourism/templates/postcard/postcard.typ": postcard
 ```
 
@@ -124,4 +127,6 @@ composition needs them, and then with the template's name as the prefix
 (`postcard-hero`). Prefixed names were chosen over module bindings
 (`import ... as tourism-data`) because they read the same way as marine's
 existing names and can be found with one search. Before adding an export,
-search `lib.typ` for the name.
+search `lib.typ` for the name. The rule is a convention today; when the
+second domain lands, `tests/run.py` should also check that no name is bound
+twice in `lib.typ`.

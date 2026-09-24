@@ -78,7 +78,12 @@ examples and would otherwise print on a real CV:
 ```
 
 An empty string (`""`) leaves a slot blank. Before approving, search the
-rendered PDF for "fictional" and "illustrative": neither may appear.
+rendered PDF's text, ignoring case, for "fictional", "illustrative" and
+"flagship": none may appear. This prints `[]` when the PDF is clean:
+
+```powershell
+python -c "import pymupdf,sys; t=''.join(p.get_text() for p in pymupdf.open(sys.argv[1])).lower(); print([w for w in ('fictional','illustrative','flagship') if w in t])" private/jane-doe-second-engineer/revisions/<id>/cv.pdf
+```
 
 ## 3. Render a revision
 
@@ -180,7 +185,9 @@ the same public exports:
 #import "/packages/cv-engine/domains/marine/templates/flagship/artwork/engineer.typ": artwork
 #import "/packages/cv-engine/domains/marine/templates/flagship/layouts/flagship-v11.typ": layout
 // The shell reads copy.brand and disclosure, so the record goes through the adapter first.
-#let d = normalize-candidate(to-flagship-input(json("candidate.json")))
+// copy is not allowed in candidate.json; replace the example wording here (section 2).
+#let d = normalize-candidate(to-flagship-input(json("candidate.json"),
+  copy: (certificates-subtitle: "Certificates of competency and endorsements", brand: "JANE DOE")))
 // document-shell takes the PDF metadata as named arguments; page-header takes strings.
 #show: document-shell.with(d, theme, artwork, layout,
   title: d.identity.name + " | " + d.identity.rank + " | " + marine.meta.title, author: marine.meta.author)

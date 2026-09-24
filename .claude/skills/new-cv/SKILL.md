@@ -51,8 +51,9 @@ Follow `docs/guides/build-a-cv.md`. This skill is the checklist.
    changes go in the entry point as a layout override, see
    `docs/reference/layout-and-pagination.md`. Never shrink body fonts.
 6. Render each page to PNG and look at it. `python -c` with `pymupdf` works:
-   `page.get_pixmap(dpi=96).save(...)`. For a real person, confirm the text
-   contains neither "fictional" nor "illustrative".
+   `page.get_pixmap(dpi=96).save(...)`. For a real person, confirm the text,
+   ignoring case, contains none of "fictional", "illustrative" and
+   "flagship" (guide section 2 has a one-line check).
 7. For a public example, run `python tests/run.py` and confirm PASS.
 8. For a real person, stop at the render. Approval (`scripts/cv.py approve`)
    is the owner's act on the revision they reviewed; export follows it.

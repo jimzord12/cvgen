@@ -49,9 +49,12 @@ None of this approves a pending product design.
 - Commit at coherent checkpoints and push at useful milestones or handoffs.
   Branch checkpoints can be unfinished overall if their limitations are clear;
   unfinished or unverified work does not belong on `main`.
-- Amend, rebase, reset, force-push of a feature branch (`--force-with-lease`)
-  and branch deletion are agent decisions. Never rewrite or force-push
-  published `main`; that stays with the owner.
+- Amend, rebase, reset, force-push of a feature branch (`--force-with-lease`),
+  branch deletion and deleting tags other than `archive/*` are agent
+  decisions. Never rewrite or force-push published `main`, and never delete
+  or move an `archive/*` tag; those stay with the owner.
+- Clear `builds/` by path. Never run `git clean -x` or `-X`: they also wipe
+  the ignored `private/` and `.local/` folders.
 
 ## Integration without PRs
 
@@ -67,7 +70,8 @@ None of this approves a pending product design.
   operations reserved for the owner (preferences.md) still apply. Do not
   bypass remote protections or hooks to make the no-PR policy work.
 - Observe the push-triggered CI result for the published commit:
-  `gh run list --branch main --limit 1`, then
+  `gh run list --commit <pushed sha> --limit 1` (repeat until the run is
+  listed; `--branch` alone can return the previous commit's run), then
   `gh run watch <run-id> --exit-status`. Keep the task awaiting verification
   if it is unavailable; investigate failure before claiming completion.
   Report commit/target and any outstanding issue briefly.

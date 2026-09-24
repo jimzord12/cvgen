@@ -181,7 +181,10 @@ rules of its own and defers to `docs/review.md`.
   what the owner wanted, add an entry to `docs/framework-gaps.md` before
   reporting done. A bypass is a lesson, not a fault.
 - Agents act as senior developers and do not ask for routine work: commits,
-  pushes, merges to `main`, history edits on feature work, branch, tag and
-  worktree cleanup, board updates (owner's instruction, 2026-09-25). Product
-  decisions, real-candidate approval and the short list of irreversible
-  operations stay with the owner; the list is in `docs/preferences.md`.
+  pushes, merges to `main`, history edits on feature work, branch, worktree
+  and (non-`archive/*`) tag cleanup, clearing `builds/` by path, board
+  updates (owner's instruction, 2026-09-25). Product decisions, real-candidate
+  approval and the short list of irreversible operations (`main`'s published
+  history, `archive/*` tags, the GitHub repository, anything outside the
+  repo, deletions in `private/`, the released PDFs in `exports/`) stay with
+  the owner; the full list is in `docs/preferences.md`.
