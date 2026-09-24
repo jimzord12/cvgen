@@ -1,4 +1,4 @@
-#import "sections.typ": section-heading
+#import "../legacy.typ": section-heading
 
 #let certificate-table(records, headings, theme, geometry) = {
   set table(inset: geometry.inset, stroke: (left: none, right: none, top: none, bottom: 0.4pt + theme.colors.rule))

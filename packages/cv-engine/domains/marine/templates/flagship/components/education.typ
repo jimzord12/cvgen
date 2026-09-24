@@ -1,5 +1,5 @@
 #import "../../../../../core/legacy.typ": label
-#import "sections.typ": section-heading
+#import "../legacy.typ": section-heading
 
 #let education-entry(entry, theme, geometry) = block(breakable: false, below: geometry.entry-gap,
   stroke: (left: 2pt + theme.colors.metal), inset: geometry.entry-inset)[

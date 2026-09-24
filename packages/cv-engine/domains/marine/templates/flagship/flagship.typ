@@ -7,7 +7,7 @@
 #import "adapter/adapter.typ": to-flagship-input
 #import "components/hero.typ": hero
 #import "components/experience.typ": experience-section
-#import "components/sections.typ": profile-summary, section-heading, synopsis
+#import "legacy.typ": profile-summary, section-heading, synopsis
 #import "components/certificates.typ": certificates-section
 #import "components/education.typ": education-languages-section
 
