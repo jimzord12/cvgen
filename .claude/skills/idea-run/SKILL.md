@@ -5,8 +5,10 @@ description: Run CVgen's idea agents in a closed review loop - the ceo (product 
 
 # Idea run
 
-The lead (you) runs the loop; the agents cannot start each other. Authors
-propose, reviewers judge, the owner decides. Nothing from a run is built,
+The lead (you) runs the loop. The agents' tool lists leave out `Agent` on
+purpose, so they cannot start each other: every reviewer round then starts
+fresh, the caps are enforced in one place, and the loop is visible in the
+run record. Authors propose, reviewers judge, the owner decides. Nothing from a run is built,
 approved or put on the roadmap without the owner.
 
 | Run | Author | Reviewers, in order | Output |
