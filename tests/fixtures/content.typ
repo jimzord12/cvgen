@@ -12,7 +12,8 @@
 #set text(font: theme.fonts.body, size: theme.sizes.body, fill: theme.colors.ink, lang: "en")
 #set par(spacing: 0pt, leading: theme.leading.body)
 #set page(paper: "a4", margin: 16mm)
-#experience-section(d.companies.slice(0, 1), theme, layout.experience, layout.experience.opening, sys.inputs.at("times", default: "true") == "true", d.copy.combined)
+#experience-section(make-ctx(theme: theme, layout: layout, copy: d.copy, options: (show-vessel-durations: sys.inputs.at("times", default: "true") == "true")),
+  d.companies.slice(0, 1), spacing: layout.experience.opening)
 #synopsis(make-ctx(theme: theme, layout: layout, copy: d.copy), experience-totals(d.companies))
 #certificates-section(make-ctx(theme: theme, layout: layout, copy: d.copy), d.certificates)
 #education-languages-section(make-ctx(theme: theme, layout: layout, copy: d.copy), (education: d.education, languages: d.languages))

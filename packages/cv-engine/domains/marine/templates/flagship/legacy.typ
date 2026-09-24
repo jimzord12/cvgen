@@ -7,6 +7,7 @@
 #import "components/skills.typ" as skills
 #import "components/education.typ" as education
 #import "components/certificates.typ" as certificates
+#import "components/experience.typ" as experience
 
 #let section-heading(number, title, theme, geometry, spacing, subtitle: none) = sections.section-heading(
   make-ctx(theme: theme, layout: (headings: geometry)), title, number: number, spacing: spacing, subtitle: subtitle)
@@ -31,3 +32,16 @@
   make-ctx(theme: theme, layout: (certificates: geometry), copy: (certificate-columns: headings)), records)
 #let certificates-section(records, copy, theme, layout) = certificates.certificates-section(
   make-ctx(theme: theme, layout: layout, copy: copy), records)
+
+#let experience-ctx(theme, geometry, show-durations, caption) = make-ctx(theme: theme, layout: (experience: geometry),
+  copy: (combined: caption), options: (show-vessel-durations: show-durations))
+#let company-period(period, months, caption, theme, geometry) = experience.company-period(
+  experience-ctx(theme, geometry, true, caption), (period: period, months: months))
+#let vessel-row(vessel, show-durations, theme, geometry) = experience.vessel-row(
+  experience-ctx(theme, geometry, show-durations, none), vessel)
+#let vessel-type-group(group, show-durations, theme, geometry, spacing) = experience.vessel-type-group(
+  experience-ctx(theme, geometry, show-durations, none), group, spacing: spacing)
+#let company-experience(company, theme, geometry, spacing, show-durations, caption, continued: false) = experience.company-experience(
+  experience-ctx(theme, geometry, show-durations, caption), company, spacing: spacing, continued: continued)
+#let experience-section(companies, theme, geometry, spacing, show-durations, caption) = experience.experience-section(
+  experience-ctx(theme, geometry, show-durations, caption), companies, spacing: spacing)
