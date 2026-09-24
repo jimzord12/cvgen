@@ -43,3 +43,8 @@ committed). The travel samples' two certificates dated "Jun 2026" read as
 expired on a page dated 2026-09-25; changed to "Jun 2027" and both travel
 variants re-rendered (layout-only, checked by the lead). Output of this run
 is confined to `design-concepts/` and the run folder (idea-gate coverage).
+
+The "Font files" tables added after the research PASS record where each
+unmodified file came from (google/fonts paths, checked by the lead against
+the repository layout) and its hash; they are provenance facts, not new
+claims behind a design decision, so the research gate was not rerun.

@@ -6,8 +6,9 @@ skill. Not library code: nothing here is imported by `packages/`, and a concept
 becomes a template only after the owner keeps it and a build task is agreed.
 
 Each folder holds `concept.typ` (self-contained), `concept.pdf`, `page-1.png`
-(96 dpi), `brief.md` (idea, references, fonts, data, weaknesses) and any
-fonts it brings, with their licence. Compile from the repository root:
+(96 dpi) and `brief.md` (idea, references, fonts with source and SHA-256,
+data, weaknesses). Downloaded font families live once in `fonts/<family>/`
+with their licence and are shared between concepts. Compile from the repository root:
 
 ```powershell
 typst compile --root . --ignore-system-fonts --font-path packages/cv-engine/fonts --font-path design-concepts/fonts design-concepts/<folder>/concept.typ builds/<name>.pdf

@@ -48,7 +48,7 @@ helper.
    contrast.
 4. **Provenance.** At least three unrelated references with the principle
    taken from each; nothing traced or copied, no brand look; fonts are OFL
-   or Apache with the licence in the folder, or bundled with the engine;
+   or Apache with the licence beside the font files, or bundled with the engine;
    artwork original; data fictional.
 5. **Buildable and honest.** Uses the candidate schema (or names the
    missing fields); month totals from data; the brief says what it would
@@ -70,6 +70,8 @@ remaining concept passes; the author may drop a failing concept.
 
 ```markdown
 # Design review round <N>: <run date>
+
+Snapshot: <commit, or file paths with their modification time, you examined>
 
 ## <concept folder>: PASS | FINDINGS
 First impression: <one line, what the eye sees first>

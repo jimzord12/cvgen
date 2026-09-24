@@ -58,6 +58,8 @@ PASS when no Blocking finding remains.
 ```markdown
 # Research review round <N>: <subject>
 
+Snapshot: <commit, or file paths with their modification time, you examined>
+
 Claims checked: <count> load-bearing, <count> confirmed, <count> unreachable
 
 ## Findings

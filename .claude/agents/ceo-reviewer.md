@@ -60,6 +60,8 @@ it.
 ```markdown
 # CEO review round <N>: <run date>
 
+Snapshot: <commit, or file paths with their modification time, you examined>
+
 ## <proposal file>: PASS | FINDINGS
 - C<n> <Blocking|Note> (<criterion>): <what is wrong> - Fix: <smallest fix>
 

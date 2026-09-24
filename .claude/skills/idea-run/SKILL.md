@@ -35,21 +35,26 @@ ideas weekly at most (the roadmap is long, the owner's attention is not).
    references in each `brief.md`). FINDINGS -> send the report to the
    author, then review again.
 4. Quality gate: a fresh `ceo-reviewer` or `design-reviewer` per round, with
-   all earlier reports and the author's replies. FINDINGS -> author revises
+   all earlier reports and the author's replies (the ceo-reviewer also gets
+   the same board card list, to check for duplicates). FINDINGS -> author revises
    -> review again. A reviewer starts fresh each round on purpose: judges
    drift towards whatever they have already seen.
 5. Round cap per gate (owner, 2026-09-25): **5 when the owner is attending,
    10 unattended.** At the cap, the item is not dropped silently: it reaches
    the owner marked `unresolved` with the reviewer's last reason. An author
    may drop an item instead of fixing it; say so in the run record.
-6. Edits after a PASS: a change that adds or alters a sourced claim goes
-   back through the research gate; a layout-only change is checked by the
-   lead against the render and noted in `run.md`. Name the file revision (or
-   commit) each review saw in its report.
+6. Edits after a PASS, three kinds: a change that adds or alters a sourced
+   claim goes back through the research gate; a change to what the owner
+   decides on (an idea's scope, cost or risk; a concept's idea or data
+   needs) goes back through the quality gate; layout, typos and fictional
+   sample data get a lead check against the render, noted in `run.md`.
+   Every report names the snapshot it saw.
 7. Store every report as `docs/work/idea-runs/<run>/reviews/NN-<reviewer>.md`.
 8. Integrate. Output confined to new files in `design-concepts/`, the run
    folder and passed proposals in `docs/proposals/` is covered by the idea
-   gates; say so in `run.md`. Any other change (agent files, skills, engine,
+   gates (`docs/review.md` names this exception); say so in `run.md`. An item
+   left `unresolved` at the cap is not covered: its README row or proposal
+   says `unresolved`, and it merges only as such. Any other change (agent files, skills, engine,
    docs outside those) goes through `docs/review.md` first. Then commit,
    merge to `main`, push (routine Git, no approval needed). Proposals stay
    `pending`; concepts stay `proposed`.
@@ -59,8 +64,10 @@ ideas weekly at most (the roadmap is long, the owner's attention is not).
 Subagent definitions load when a session starts. If the harness does not
 list one yet, run a `general-purpose` agent told to act exactly as the file
 in `.claude/agents/` defines, paste the file's `tools:` line into the brief
-as a hard limit, and after every round run `git status --porcelain` in the
-worktree and note in `run.md` that only the expected files changed.
+as a hard limit, and record in `run.md` the model and effort it ran at.
+Before and after every round, record `git rev-parse HEAD`,
+`git for-each-ref` and `git status --porcelain` in the worktree; any
+difference beyond the expected new or changed files stops the run.
 
 ## Bar (give it to every reviewer as is)
 
@@ -72,11 +79,13 @@ are Notes, never blocking.
 
 A short message: each concept's PDF link and three-word idea, or each
 proposal's one-line pitch and link; which items were dropped or are
-`unresolved`; the rounds each gate took. He answers keep, park or reject:
+`unresolved`; the rounds each gate took. His answer maps to states
+(`docs/proposals/README.md`), with a dated decision entry appended to the
+proposal or the concept's README row:
 
-| Answer | Proposal (`docs/proposals/README.md`) | Concept (`design-concepts/README.md`) |
+| Answer | Proposal | Concept (`design-concepts/README.md`) |
 |---|---|---|
-| Keep, build it | `approved` (then a card) | `chosen`; a template card follows |
-| Keep for later | stays `pending` | stays `proposed` |
-| Park | `deferred` | `parked` |
-| Reject | `rejected`, moved to `rejected/` | `rejected`; its folder is removed (Git history keeps it) and the README row names the commit |
+| Build it | `approved` (then a card) | `chosen`; a template card follows |
+| Later / park | `deferred` | `parked` |
+| Reject | `rejected`, moved to `rejected/` | `rejected`; its folder is removed (Git history keeps it), the README row names the commit, and its font family goes too if no other concept uses it |
+| No answer yet | no change (`pending`) | no change (`proposed`) |
