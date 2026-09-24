@@ -39,6 +39,10 @@ Follow `docs/guides/build-a-cv.md`. This skill is the checklist.
    three-column certificate table, a skills block), use the
    custom-composition path in guide section 8, record the reason in the
    folder's `README.md`, and add an entry to `docs/framework-gaps.md`.
+   Real person: replace the fictional example wording, which otherwise
+   prints on every page: `disclosure` in `candidate.json`, and
+   `copy: (certificates-subtitle: ..., brand: ...)` in `cv.typ` (guide
+   section 2, "Replace the example wording").
 4. Real person: `python scripts/cv.py render private/<name>-<role>` (add
    `--pages 3` for a three-page plan); the revision id, hash and check
    result are printed and kept under `revisions/<id>/`. Public example:
@@ -47,7 +51,11 @@ Follow `docs/guides/build-a-cv.md`. This skill is the checklist.
    changes go in the entry point as a layout override, see
    `docs/reference/layout-and-pagination.md`. Never shrink body fonts.
 6. Render each page to PNG and look at it. `python -c` with `pymupdf` works:
-   `page.get_pixmap(dpi=96).save(...)`.
+   `page.get_pixmap(dpi=96).save(...)`. For a real person, confirm the text,
+   ignoring case, contains none of "fictional", "illustrative" and
+   "flagship"; the one exception is "flagship" in the candidate's own words,
+   and only once the footer shows the configured brand (guide section 2 has
+   the one-line check and the exception).
 7. For a public example, run `python tests/run.py` and confirm PASS.
 8. For a real person, stop at the render. Approval (`scripts/cv.py approve`)
    is the owner's act on the revision they reviewed; export follows it.

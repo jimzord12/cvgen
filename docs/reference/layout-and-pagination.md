@@ -11,7 +11,9 @@ and the overflow check in the page loop of `packages/cv-engine/domains/marine/te
 design: paper size, opening and continuation margins, a spacing scale, and a
 dictionary per component (`hero`, `experience`, `headings`, `profile`,
 `synopsis`, `certificates`, `education`, `footer`, `header`). Components
-receive only their own slice. Change a value here and every example follows.
+receive only their own slice (the certificates and education sections are
+the exception and get the whole `layout`). Change a value here and every
+example follows.
 
 For one CV, prefer a small override in the entry point over a new file:
 
@@ -74,6 +76,13 @@ finish.
 | `Page plan must cover each vessel row once` | A company or row range is missing or duplicated | Check indices against candidate order |
 | `Synopsis must follow the final Experience page` | Flag on the wrong page | Move `synopsis: true` |
 | `Missing page assignment: certificates` | The candidate has certificates but no page shows them | Add the flag to the last page |
+| `Page plan requires exactly one synopsis` | No page, or more than one page, sets `synopsis: true` | Set it on exactly one page |
+| `Credentials must follow Experience` | Certificates or education are placed before the last Experience page | Move the flag to that page or a later one |
+| `Section assigned more than once: <key>` | Two pages set the same section flag | Keep the flag on one page |
+| `Page plan vessel row range out of bounds` | A row range `(start, end)` exceeds the company's vessel rows | Use `0 <= start < end <= row count` |
+| `Page plan cannot be empty` | `pages` is an empty array | List at least one page |
+| `Row range must contain two integer indices` | A row range is not a pair of integers | Write it as `(start, end)` |
+| `Experience requires at least one vessel` | The candidate has no vessel rows at all | Add at least one company with a vessel to `candidate.json` and list it in `pages` |
 
 The system never shrinks fonts to fit. The certificate table repeats its
 header when it continues onto another page.

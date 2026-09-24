@@ -48,7 +48,9 @@ contracts differ only by that key today; keeping them apart is what lets a
 second template read the same facts with its own wording.
 
 The template is the only place that sees all inputs. Children receive only
-the slice they need, so a hero function gets `layout.hero`, not `layout`. Once
+the slice they need, so a hero function gets `layout.hero`, not `layout`.
+Two exceptions today: the certificates and education sections receive the
+whole `layout`, because they read more than one slice. Once
 the ADR 0008 migration starts, the template will build one `ctx` dictionary
 from theme, layout, copy and options and pass that down instead; see below.
 

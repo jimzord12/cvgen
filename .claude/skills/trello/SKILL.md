@@ -1,6 +1,6 @@
 ---
 name: trello
-description: Read and update this project's Trello board "CVgen" through the REST API with the bundled helper. Every task's record is a card there. Use it for session orientation, creating or editing a card, moving it between the five stages, checklists, the Blocked label, or exporting the board.
+description: Read and update this project's Trello board "CVgen" through the REST API with the bundled helper. Every task's record is a card there. Use it for session orientation, creating or editing a card, moving it between the five stage lists (plus Handoff), checklists, the Blocked label, or exporting the board.
 ---
 
 # Trello

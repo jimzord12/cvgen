@@ -17,6 +17,8 @@ For the authorized [Trello Free trial](trello-free-trial.md), put these sections
 on each trial card and link the existing decision/review records. Do not create
 `docs/work/<id>/task.md` for a card already owning that information. This is a
 temporary variation for two fictional tasks, not a permanent store migration.
+*Superseded 2026-09-16:* the trial was adopted and Trello is now the task
+store (`docs/development.md`); this paragraph is history.
 
 ## Generate current state on demand
 

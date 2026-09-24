@@ -22,7 +22,8 @@ or to compare a library render against an approved look.
 - `11-flagship-balance.typ` is the source of the frozen reference PDF now kept
   at `packages/cv-engine/domains/marine/templates/flagship/tests/approved/`. The regression
   suite proves `examples/marine/flagship/engineer.typ` renders pixel-identical to that
-  PDF. If you ever recompile this file, the result must still match.
+  PDF. It no longer compiles from this folder (see "Compile one"); if you
+  recompile it from the pre-migration tree, the result must still match.
 - Intermediate flagship iterations 04 to 10 were removed. They live under the
   git tag `archive/pre-restructure` if you need to see how a decision evolved.
 

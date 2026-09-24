@@ -1,7 +1,10 @@
 # 0008. One component contract, inspired by React
 
 Date: 2026-09-12
-Status: Accepted. Replaces the signature rule in `docs/conventions.md`.
+Status: Accepted. Replaces the signature rule in `docs/conventions.md`. Paths
+amended by 0010 and 0011: `src/` became `packages/cv-engine/` (shared parts in
+`core/`, Flagship's components under `domains/marine/templates/flagship/`);
+never recreate `src/`. The contract itself is unchanged.
 
 ## Context
 

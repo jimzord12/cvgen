@@ -133,8 +133,10 @@ Architecture tastes do not override settled decisions. No finding quota.
    of the updated snapshot, with earlier reports and dispositions. Review
    fixes and their impact; consider all lenses without repeating a declined
    minor preference unless there is new evidence or an explained disagreement.
-4. Stop at PASS. Maximum: eight reviewer rounds. At the limit, keep the task
-   unresolved and summarize the remaining problem and recommended next step.
+4. Stop at PASS. Maximum reviewer rounds (owner's instruction, 2026-09-25):
+   **5** when the owner is attending the session, **10** when the work runs
+   unattended (for example overnight). At the cap, keep the task unresolved
+   and bring the owner the remaining problem and the recommended next step.
    Further rounds require an explicit owner decision.
 
 For INCOMPLETE, resolve the missing evidence or environment issue before
@@ -148,7 +150,7 @@ be reviewed. Prefer one reviewer unless the additional coverage is useful.
 
 Repeated review churn is evidence for an observation or proposal under
 [proposal tracking](proposals/README.md), not permission to weaken review
-gates or reset the eight-round count by renaming the same task.
+gates or reset the round count by renaming the same task.
 
 ## Report and persistence
 
