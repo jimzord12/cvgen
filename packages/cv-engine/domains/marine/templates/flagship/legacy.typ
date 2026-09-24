@@ -6,6 +6,7 @@
 #import "components/sections.typ" as sections
 #import "components/skills.typ" as skills
 #import "components/education.typ" as education
+#import "components/certificates.typ" as certificates
 
 #let section-heading(number, title, theme, geometry, spacing, subtitle: none) = sections.section-heading(
   make-ctx(theme: theme, layout: (headings: geometry)), title, number: number, spacing: spacing, subtitle: subtitle)
@@ -25,3 +26,8 @@
 #let language-entry(entry, theme, geometry) = education.language-entry(make-ctx(theme: theme, layout: (education: geometry)), entry)
 #let education-languages-section(entries, languages, copy, theme, layout) = education.education-languages-section(
   make-ctx(theme: theme, layout: layout, copy: copy), (education: entries, languages: languages))
+
+#let certificate-table(records, headings, theme, geometry) = certificates.certificate-table(
+  make-ctx(theme: theme, layout: (certificates: geometry), copy: (certificate-columns: headings)), records)
+#let certificates-section(records, copy, theme, layout) = certificates.certificates-section(
+  make-ctx(theme: theme, layout: layout, copy: copy), records)

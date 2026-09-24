@@ -8,7 +8,7 @@
 #import "components/hero.typ": hero
 #import "components/experience.typ": experience-section
 #import "legacy.typ": profile-summary, section-heading, synopsis
-#import "components/certificates.typ": certificates-section
+#import "legacy.typ": certificates-section
 #import "legacy.typ": education-languages-section
 
 // `candidate` is a candidate-facts record; the adapter turns it into Flagship input.
