@@ -13,14 +13,19 @@ them. These evolve; the rules that do not are in `constitution.md`.
   #let name(ctx, data, prop: default, ..slots) = { ... }
   ```
 
-  `ctx` bundles `theme`, `layout`, `copy` and `options`; it is built once by
-  the template and passed through untouched. Inside the function: validate,
-  then the style block of `set` and `show` rules, then layout, then compose.
-  Positional content arguments are children; named content arguments are
-  named slots.
-- **Migrate a module whole.** Until every module is migrated, an unmigrated
-  file keeps the old order (data, theme, geometry slice). A file never
-  mixes the two.
+  `ctx` bundles `theme`, `layout` (the whole profile), `artwork`, `copy` and
+  `options`; the template builds it once with `make-ctx`
+  (`core/component.typ`) and passes it through untouched. Inside the
+  function: validate, then the style block of `set` and `show` rules, then
+  layout, then compose. Positional content arguments are children; named
+  content arguments are named slots. A page variant the parent chooses (for
+  example `spacing: layout.experience.opening`) is a named prop.
+- **Legacy signatures stay in `legacy.typ`.** Every core and Flagship module
+  follows the contract since 2026-09-25. The names `lib.typ` exports are thin
+  wrappers with the old order (data, theme, geometry slice) so custom
+  compositions written earlier render unchanged (`tests/fixtures/legacy-parity.typ`
+  proves identical pixels). New code imports the ctx-first components from
+  their files; never add a new legacy wrapper.
 - **Parent owns outer spacing, child owns internal layout.** Never add an
   outer `v()` inside a component. A component reads its own slice,
   `ctx.layout.hero`, never a sibling's.

@@ -10,8 +10,11 @@ and the overflow check in the page loop of `packages/cv-engine/domains/marine/te
 `flagship-v11.typ` holds every geometric decision of the approved
 design: paper size, opening and continuation margins, a spacing scale, and a
 dictionary per component (`hero`, `experience`, `headings`, `profile`,
-`synopsis`, `certificates`, `education`, `footer`, `header`). Components
-receive only their own slice. Change a value here and every example follows.
+`synopsis`, `certificates`, `education`, `footer`, `header`). The template
+passes the whole profile in `ctx.layout`; each component reads its own
+slice, and a section reads the heading slice it places as well. An optional
+`skills` slice overrides `skills-layout` for the skills block. Change a
+value here and every example follows.
 
 For one CV, prefer a small override in the entry point over a new file:
 

@@ -1,20 +1,21 @@
 # Skills component
 
 Read this when adding a professional skills block to a custom composition.
-It is exported from `packages/cv-engine/lib.typ` and is not part of the locked `flagship`
-template.
+It lives in the Flagship template's `components/skills.typ` and is not part
+of the locked `flagship` template. Like every component it takes `ctx`
+first (ADR 0008).
 
 ```typst
 // Root-absolute paths work from any entry point compiled with --root .
-#import "/packages/cv-engine/lib.typ": skills-section, skills-layout
+#import "/packages/cv-engine/core/component.typ": make-ctx
+#import "/packages/cv-engine/domains/marine/templates/flagship/components/skills.typ": skills-section, skills-layout
 #import "/packages/cv-engine/domains/marine/templates/flagship/themes/golden-blue.typ": theme
 
-#skills-section(
+#let ctx = make-ctx(theme: theme, layout: (skills: (..skills-layout, column-gap: 8mm)))
+#skills-section(ctx,
   (("Navigation", "GMDSS"), ("Cargo handling", "Safety")),
-  theme,
   title: "Professional Skills",
   bullet: (source: "/packages/cv-engine/domains/marine/assets/captain/compass-bullet.svg"),
-  geometry: (..skills-layout, column-gap: 8mm),
 )
 ```
 
@@ -27,8 +28,13 @@ template.
   `theme.sizes.skill` with a default of 10pt.
 - The section is unbreakable. The parent owns placement and outer spacing.
   For long lists, split into several sections.
-- `skills-layout` exposes `heading-gap`, `rule-weight`, `content-gap`,
-  `column-gap`, `bullet-size`, `body-indent`, `item-gap`.
+- Geometry comes from `ctx.layout.skills`, or `skills-layout` when the layout
+  has no `skills` slice. `skills-layout` exposes `heading-gap`,
+  `rule-weight`, `content-gap`, `column-gap`, `bullet-size`, `body-indent`,
+  `item-gap`.
+- Older compositions call `lib.typ`'s `skills-section(groups, theme, title:,
+  bullet:, geometry:)`; that deprecated wrapper draws the same pixels.
 
 `tests/fixtures/skills.typ` covers titles, one to three columns, wrapping,
-both themes and both bullet kinds.
+both themes and both bullet kinds through the `lib.typ` wrapper;
+`tests/fixtures/contract.typ` renders the ctx-first component alone.

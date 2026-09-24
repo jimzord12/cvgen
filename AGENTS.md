@@ -66,14 +66,14 @@ domain; `F` for `M/templates/flagship`.
 | Path | Role | Touch it when |
 |---|---|---|
 | `E/lib.typ` | Public import surface, no side effects | Adding or renaming an exported function |
-| `E/core/` | Field-neutral core: `node` (merge, compose), `data` (common facts), `theme` check, `primitives`, `page` shell, `pagination` over a domain row model. Never imports a domain | Changing behaviour every domain shares |
+| `E/core/` | Field-neutral core: `node` (merge, compose), `data` (common facts), `theme` check, `component` (`make-ctx`), `primitives`, `page` shell, `pagination` over a domain row model, `legacy` (deprecated old signatures). Never imports a domain | Changing behaviour every domain shares |
 | `M/domain.typ`, `M/data.typ` | The marine domain node (id, meta, copy, experience model) and the marine facts: companies, vessels, months, totals, `normalize-candidate`, `validate-candidate` | Changing what the marine field means |
 | `M/roles/deck/`, `M/roles/engine/` | Role markers (`role.typ`); bare today | Refining something for one role |
 | `M/schema/candidate.schema.json` | Marine candidate-facts contract: what a record may contain, no template wording | Changing the marine data contract |
 | `F/flagship.typ` | The Flagship composition: page loop, section order, overflow check | Changing what Flagship renders |
 | `F/adapter/` | Candidate facts -> Flagship input: adds Flagship wording (`copy`) and merges overrides | Changing Flagship's input shape |
 | `F/schema/flagship-input.schema.json` | Flagship input contract: facts plus `copy` | Same |
-| `F/components/` | Flagship sections: hero, experience, sections, certificates, education, skills | Changing how a section renders |
+| `F/components/`, `F/legacy.typ` | Flagship sections, ctx-first: hero, experience, sections, certificates, education, skills; `legacy.typ` keeps their old signatures for `lib.typ` (deprecated) | Changing how a section renders |
 | `F/themes/` | Visual tokens only: colours, fonts, sizes, tracking, leading, SVG colour map | Adding a look |
 | `F/artwork/`, `M/assets/` | Artwork packs (which SVG in which slot, offsets) and the SVG files | Adding a role's illustrations |
 | `F/layouts/` | Geometry and page plan: margins, gaps, widths, which companies go on which page | Fixing page balance |
@@ -167,11 +167,14 @@ rules of its own and defers to `docs/review.md`.
   covers it. Say what you found in a line, then act.
 - Prefer the owning module over a parallel one. Related components stay in
   one small file.
-- Components in a migrated module follow the contract in
-  `docs/conventions.md` (ADR 0008): `ctx` first, data, named props, slots.
-  No module is migrated yet, so a new component matches the order already
-  used by its file. Roles are variations within a domain, never forks
-  (constitution section 7); `core/` never imports from `domains/`.
+- Every component follows the contract in `docs/conventions.md` (ADR 0008):
+  `ctx` first, data, named props, slots; the template builds `ctx` once with
+  `make-ctx` (`core/component.typ`). All core and Flagship modules are
+  migrated (2026-09-25). The component names `lib.typ` exports keep the
+  pre-contract signatures for older custom compositions (`core/legacy.typ`,
+  `F/legacy.typ`, deprecated); new code never calls them. Roles are
+  variations within a domain, never forks (constitution section 7); `core/`
+  never imports from `domains/`.
 - Every non-trivial change to code, fixtures or inputs ends with
   `python tests/run.py` passing and the evidence path reported; a visual
   change also needs a rendered page. Every non-trivial change of any kind

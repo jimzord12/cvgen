@@ -48,7 +48,9 @@ and per-check folders with `result.json` and, on a raster mismatch, a
 | `options.typ` | Company-only months, all optional fields empty, a long vessel name whose duration wraps, with and without durations |
 | `pagination.typ` | Three pages with a company split across pages; rejects overflow and duplicate allocation |
 | `certificate-continuation.typ` | Fifty rows, header repeats on page two |
-| `skills.typ` | Titles, one to three columns, wrapping, two themes, SVG and plain bullets |
+| `skills.typ` | Titles, one to three columns, wrapping, two themes, SVG and plain bullets (through the `lib.typ` wrapper) |
+| `contract.typ` | Each of the 31 ctx-first components rendered alone on its own page, headed by its name (ADR 0008 fixtures) |
+| `legacy-parity.typ` | One custom composition written with `lib.typ`'s pre-contract names (`api=legacy`) and with the ctx-first components (`api=contract`); every page must be pixel-identical |
 
 8. **Core boundary.** Every `import`/`include` in `packages/cv-engine/core/*.typ` names a bare sibling file; the core never reaches a domain (ADR 0011).
 
