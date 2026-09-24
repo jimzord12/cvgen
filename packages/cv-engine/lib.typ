@@ -2,11 +2,10 @@
 // Core: shared by every domain.
 #import "core/node.typ": merge, compose
 #import "core/data.typ": duration-parts, normalize-common, validate-common
-#import "core/page.typ": document-shell, page-header, page-footer, page-background
 #import "core/component.typ": make-ctx
 #import "core/primitives.typ": duration
 // Pre-contract signatures for custom compositions written before ADR 0008 (deprecated).
-#import "core/legacy.typ": label, rule, metric, duration-value, decoration
+#import "core/legacy.typ": label, rule, metric, duration-value, decoration, document-shell, page-header, page-footer, page-background
 // Marine domain: facts model, totals and the domain node (ADR 0011).
 #import "domains/marine/domain.typ": domain as marine
 #import "domains/marine/data.typ": normalize-candidate, validate-candidate, experience-totals, company-months, experience-model

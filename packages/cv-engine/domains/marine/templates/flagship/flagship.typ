@@ -2,7 +2,7 @@
 #import "../../data.typ": normalize-candidate, validate-candidate
 #import "../../domain.typ": domain
 #import "../../../../core/theme.typ": validate-theme
-#import "../../../../core/page.typ": document-shell, page-header
+#import "../../../../core/legacy.typ": document-shell, page-header
 #import "../../../../core/pagination.typ": validate-pages, company-fragment
 #import "adapter/adapter.typ": to-flagship-input
 #import "legacy.typ": hero
