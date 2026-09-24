@@ -89,6 +89,7 @@ def render_revision(workspace, typst='typst', pages=2, inputs=None):
         'revision': revision.id,
         'folder': str(revision.folder),
         'status': render['status'],
+        'schema': schema,
         'sha256': render['pdf']['sha256'] if succeeded else None,
         'checks_passed': bool(checks and checks['passed']),
         'errors': (checks or {}).get('errors', []) if succeeded else [result.stderr.strip()],

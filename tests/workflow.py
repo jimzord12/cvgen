@@ -46,6 +46,7 @@ def run_workflow(out, typst):
     # 1. Render: snapshot, records, checks bound to the bytes, PDF identical to the frozen v11 reference.
     first = cv('render', workspace, '--typst', typst)
     rid = first['revision']
+    assert first['schema'] == '/packages/cv-engine/domains/marine/templates/flagship/schema/flagship-input.schema.json', first
     assert first['status'] == 'success' and first['checks_passed'] and first['engine_uncommitted_changes'] is False, first
     folder = revision(rid)
     for name in ['inputs/cv.typ', 'inputs/candidate.json', 'inputs/assets/portrait.png', 'render.log', 'render.json', 'checks.json', 'cv.pdf']:
@@ -175,11 +176,16 @@ def run_workflow(out, typst):
     typo = json.loads(json.dumps(record))
     typo['educaton_entries'] = typo.pop('education_entries')
     typo['companies'][0]['groups'][0]['ships'][0]['months'] = 'eight'
+    typo['companies'][0]['groups'][0]['ships'][1]['months'] = None
     del typo['identity']['rank']
+    typo['certificates'] = [{'title': 'A', 'scope': 'B', 'issued': 'C', 'reviw': 'D'}]
     (workspace / 'candidate.json').write_text(json.dumps(typo), encoding='utf-8')
     refused = cv('render', workspace, '--typst', typst, expect=2)
     assert 'flagship-input.schema.json' in refused and "'educaton_entries' was unexpected" in refused, refused
     assert 'companies/0/groups/0/ships/0/months' in refused and "'rank' is a required property" in refused, refused
+    assert 'companies/0/groups/0/ships/1/months: is null; leave the key out instead' in refused, refused
+    assert "certificates/0: 'review' is a required property" in refused and "'reviw' was unexpected" in refused, refused
+    assert "'title': 'A'" not in refused, refused
     assert len(list((workspace / 'revisions').iterdir())) == count
     (workspace / 'candidate.json').write_text(json.dumps(record, indent=2), encoding='utf-8')
     passed.append('schema-refuses-invalid-record')

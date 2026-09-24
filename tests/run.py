@@ -23,14 +23,21 @@ def check_example_records():
     """Every public example's record matches the contract its entry point imports (the check cv.py render runs)."""
     import re
     from cv_workflow.render import IMPORT
-    from cv_workflow.validate import validate_record
+    from cv_workflow.validate import schema_for, validate_record
+    FLAGSHIP_INPUT = '/packages/cv-engine/domains/marine/templates/flagship/schema/flagship-input.schema.json'
     entries = sorted((ROOT / 'examples').rglob('*.typ'))
     assert entries, 'no example entry points found'
     for entry in entries:
         source = entry.read_text(encoding='utf-8')
         for path in re.findall(r'json\("([^"]+)"\)', source):
             record = json.loads((entry.parent / path).read_text(encoding='utf-8'))
-            assert validate_record(record, IMPORT.findall(source)), f'{entry.name} names no schema'
+            schema = validate_record(record, IMPORT.findall(source))
+            assert schema == FLAGSHIP_INPUT, (entry.name, schema)
+    # Template beats domain whatever the import order; lib.typ alone means Flagship; no engine import, no contract.
+    assert schema_for(['/packages/cv-engine/domains/marine/roles/deck/role.typ',
+                       '/packages/cv-engine/domains/marine/templates/flagship/themes/golden-blue.typ']) == ROOT / FLAGSHIP_INPUT[1:]
+    assert schema_for(['/packages/cv-engine/lib.typ']) == ROOT / FLAGSHIP_INPUT[1:]
+    assert schema_for(['/private/helpers.typ']) is None
 
 
 def main():
