@@ -1,0 +1,53 @@
+{
+  "_note": "Fictional travel and tourism candidate for the 2026-09-25 design concepts (Measured in Months, Feature Opener). Not a schema: a sketch of what a hospitality facts record might hold. Every name, employer and date is invented.",
+  "identity": { "name": "MARINA KOSTA", "role": "GUEST EXPERIENCE MANAGER" },
+  "discipline": "Hospitality / guest services",
+  "contacts": [
+    { "label": "Based in", "value": "Rhodes, Greece" },
+    { "label": "Telephone", "value": "+00 000 000 000" },
+    { "label": "Email", "value": "marina.kosta@example.com" }
+  ],
+  "profile": "Guest experience manager across resort, boutique and expedition-cruise hospitality. Opens and runs front-of-house teams of up to forty, in four languages. All details fictional.",
+  "employers": [
+    { "name": "Aurelia Coast Resorts", "period": "2023 - 2026", "types": ["Resort hotel"],
+      "placements": [
+        { "id": "aurelia-2025", "name": "Lindos, 2025", "role": "Guest Experience Manager", "months": 7 },
+        { "id": "aurelia-2024", "name": "Lindos, 2024", "role": "Guest Experience Manager", "months": 7 },
+        { "id": "aurelia-2023", "name": "Kos, 2023", "role": "Guest Relations Manager", "months": 6 } ] },
+    { "name": "Polar Wren Expeditions", "period": "2021 - 2023", "types": ["Expedition cruise ship"],
+      "placements": [
+        { "id": "polar-tern-arctic", "name": "MS Polar Tern", "role": "Assistant Hotel Manager", "months": 5 },
+        { "id": "fjord-wren", "name": "MS Fjord Wren", "role": "Assistant Hotel Manager", "months": 4 },
+        { "id": "polar-tern-antarctic", "name": "MS Polar Tern", "role": "Front Desk Manager", "months": 5 } ] },
+    { "name": "Casa Ilios Boutique Hotel", "period": "2018 - 2021", "types": ["Boutique hotel"],
+      "placements": [
+        { "id": "ilios-2020", "name": "Season 2020", "role": "Front Office Manager", "months": 4 },
+        { "id": "ilios-2019", "name": "Season 2019", "role": "Front Office Manager", "months": 7 },
+        { "id": "ilios-2018", "name": "Season 2018", "role": "Front Office Supervisor", "months": 7 } ] },
+    { "name": "Kyma Journeys", "period": "2016 - 2018", "types": ["Tour operator"],
+      "placements": [
+        { "id": "kyma-crete", "name": "Crete routes", "role": "Tour Leader", "months": 6 },
+        { "id": "kyma-cyclades", "name": "Cyclades routes", "role": "Tour Leader", "months": 6 } ] },
+    { "name": "Hotel Elaia Athens", "period": "2014 - 2016", "types": ["City hotel"],
+      "placements": [
+        { "id": "elaia-contract", "name": "Front desk", "role": "Guest Relations Agent", "months": 12 },
+        { "id": "elaia-summer", "name": "Concierge", "role": "Concierge Assistant", "months": 4 } ] }
+  ],
+  "certificates": [
+    { "title": "Hospitality management diploma", "scope": "Illustrative record", "issued": "2014", "review": "Permanent" },
+    { "title": "Food safety & hygiene, level 3", "scope": "Supervisor level", "issued": "2023", "review": "Mar 2027" },
+    { "title": "First aid at work", "scope": "Three-day course", "issued": "2024", "review": "Apr 2027" },
+    { "title": "Basic safety training", "scope": "Cruise crew record", "issued": "2021", "review": "Jun 2026" },
+    { "title": "Crowd & crisis management", "scope": "Passenger ship crew", "issued": "2021", "review": "Jun 2026" },
+    { "title": "Licensed tour leader", "scope": "Illustrative licence", "issued": "2016", "review": "Verify locally" }
+  ],
+  "education": [
+    { "qualification": "BA Tourism Management", "institution": "Example School of Hospitality", "note": "Illustrative education entry" }
+  ],
+  "languages": [
+    { "name": "Greek", "level": "Native" },
+    { "name": "English", "level": "Fluent, C2" },
+    { "name": "German", "level": "Professional, B2" },
+    { "name": "Italian", "level": "Conversational, B1" }
+  ]
+}
