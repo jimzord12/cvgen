@@ -10,9 +10,13 @@ design/documentation changes. If the owner explicitly says they will handle Git
 for a session, leave Git mutations to them until they hand it back. This is a
 session override, not a permanent repository preference.
 
-The owner's 2026-09-16 instruction replaces mandatory PRs and individual merge
-approval. Routine publication/integration of authorized work needs no repeated
-permission. It does not approve a pending design or bypass safety checkpoints.
+The owner's 2026-09-16 instruction replaced mandatory PRs and individual merge
+approval; his 2026-09-25 instruction extends that to every routine Git
+operation, including history edits on unpublished or feature work and branch,
+tag and worktree cleanup. The authoritative list of what agents do without
+asking, and the few operations that still need his go, is in
+[preferences.md](preferences.md#what-he-decides-and-what-agents-decide).
+None of this approves a pending product design.
 
 ## Branches
 
@@ -45,8 +49,9 @@ permission. It does not approve a pending design or bypass safety checkpoints.
 - Commit at coherent checkpoints and push at useful milestones or handoffs.
   Branch checkpoints can be unfinished overall if their limitations are clear;
   unfinished or unverified work does not belong on `main`.
-- Amend, rebase, force-push, reset and branch deletion require the owner's
-  explicit approval with the exact command shown first.
+- Amend, rebase, reset, force-push of a feature branch (`--force-with-lease`)
+  and branch deletion are agent decisions. Never rewrite or force-push
+  published `main`; that stays with the owner.
 
 ## Integration without PRs
 
@@ -107,5 +112,6 @@ Linux and CI. Binary files are marked there too. Each CV PDF is about
 4. If the engineer look changed on purpose, write an ADR, replace the frozen
    reference, regenerate `tests/baseline.json`, and tag the commit.
 5. Commit with the evidence folder named, integrate and push under the workflow
-   above, then confirm the published commit's CI result. Required look/reference
-   approval and confirmation for overwriting or removing deliverables still apply.
+   above, then confirm the published commit's CI result. Approval of a changed
+   look or reference is the owner's, and replacing an approved deliverable in
+   `exports/` needs his go (preferences.md).

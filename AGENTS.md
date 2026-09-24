@@ -180,7 +180,8 @@ rules of its own and defers to `docs/review.md`.
 - If you had to go around a component, template or the contract to deliver
   what the owner wanted, add an entry to `docs/framework-gaps.md` before
   reporting done. A bypass is a lesson, not a fault.
-- Routine commits, pushes and non-destructive merges, including to `main`, are
-  authorized for agreed work under `docs/git-workflow.md`. This replaces the old
-  per-merge approval rule. Product/design decisions and the explicit destructive
-  operation checkpoints remain with the owner.
+- Agents act as senior developers and do not ask for routine work: commits,
+  pushes, merges to `main`, history edits on feature work, branch, tag and
+  worktree cleanup, board updates (owner's instruction, 2026-09-25). Product
+  decisions, real-candidate approval and the short list of irreversible
+  operations stay with the owner; the list is in `docs/preferences.md`.

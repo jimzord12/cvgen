@@ -33,11 +33,26 @@ product is and what gets built next, not as someone who will open a file.
 
 ## What he decides and what agents decide
 
+Agents work as experienced senior developers: they make their own technical
+choices and act without asking (owner's instruction, 2026-09-25).
+
 - **He decides:** what the product is, what gets built next, what an approved
-  look is, whether to merge into `main`, anything the constitution reserves
-  for him.
-- **Agents decide:** naming, structure, wording, small design choices, the
-  order of work inside an approved task. Do not bring these to him.
+  look is, approval of a real candidate's PDF, and changes to the rules in
+  `constitution.md`.
+- **Agents decide and do, without asking:** architecture inside an approved
+  item, naming, structure, wording, small design choices, the order of work,
+  and all routine Git and board work: commits, pushes, merges into `main`,
+  amend, rebase, reset, force-push of a feature branch
+  (`--force-with-lease`), branch and tag creation, deleting merged or
+  abandoned branches locally and on GitHub, `git worktree` add, remove and
+  prune, clearing `builds/`, and editing or moving Trello cards. Do not bring
+  these to him; report them.
+- **Still needs his explicit go, with the exact command shown first:**
+  deleting or force-pushing `main`, rewriting published `main` history,
+  deleting `archive/*` tags, deleting the GitHub repository or changing its
+  visibility or settings, deleting anything outside this repository, and
+  deleting or overwriting real candidate files in `private/` or approved
+  deliverables in `exports/` (neither can be recovered from Git).
 - **Ask him for observations, not decisions that are yours:** a screen, a
   render, a log, a yes or no on a look.
 
