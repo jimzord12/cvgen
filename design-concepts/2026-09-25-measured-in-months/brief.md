@@ -44,8 +44,8 @@ takes structure (proportional axis, grid, palette logic), never a look.
 ## Fonts and licences
 
 - **Archivo** (variable, width 62-125 %, weight 100-900), Omnibus-Type, SIL OFL
-  1.1. From the Google Fonts repository, unmodified: `fonts/Archivo[wdth,wght].ttf`,
-  licence `fonts/OFL.txt`. One family for the whole page.
+  1.1. From the Google Fonts repository, unmodified: `design-concepts/fonts/archivo/Archivo[wdth,wght].ttf`,
+  licence `design-concepts/fonts/archivo/OFL.txt`. One family for the whole page.
 
 ## Data it needs
 
@@ -95,3 +95,11 @@ All from the marine candidate schema: `identity.name`, `identity.rank`,
 - Very short contracts (1-2 months) give bars too narrow for their number.
 - Travel entry names must be short (for example "Lindos, 2025") to fit the
   fringe.
+
+## Font files
+
+Shared folder `design-concepts/fonts/`, unmodified, recorded 2026-09-25.
+
+| File | Source | SHA-256 |
+|---|---|---|
+| `Archivo[wdth,wght].ttf` | https://github.com/google/fonts/tree/main/ofl/archivo | `0e094a7d3c7c4c25cf1310c4b30014f1dae9332220b1c2c88f4fa996f0b05053` |

@@ -35,3 +35,11 @@ class field.
 ## What reaches the owner
 
 All three concepts, status `proposed`. Open for the owner: the engineer example record names a real institution in its education entry (D11); changing it touches the frozen v11 reference, so it is his call.
+
+After the idea-agents code review round 1 (lead): the downloaded fonts moved
+to the shared `design-concepts/fonts/<family>/`, with source URL and SHA-256
+in each brief; the three main pages re-render pixel-identical (PDFs kept as
+committed). The travel samples' two certificates dated "Jun 2026" read as
+expired on a page dated 2026-09-25; changed to "Jun 2027" and both travel
+variants re-rendered (layout-only, checked by the lead). Output of this run
+is confined to `design-concepts/` and the run folder (idea-gate coverage).

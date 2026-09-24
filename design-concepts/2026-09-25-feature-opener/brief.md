@@ -44,11 +44,11 @@ Principles only.
 ## Fonts and licences
 
 - **Instrument Serif** (Regular, Italic), SIL OFL 1.1: display, pull-quote,
-  company headings. `fonts/InstrumentSerif-*.ttf`, licence
-  `fonts/OFL-InstrumentSerif.txt`.
+  company headings. `design-concepts/fonts/instrument-serif/InstrumentSerif-*.ttf`,
+  licence `design-concepts/fonts/instrument-serif/OFL.txt`.
 - **Newsreader** (variable, optical size 6-72, weight 200-800), Production Type,
-  SIL OFL 1.1: text, standfirst, labels. `fonts/Newsreader*.ttf`, licence
-  `fonts/OFL-Newsreader.txt`. Typst registers it as `"Newsreader 16pt"` (the
+  SIL OFL 1.1: text, standfirst, labels. `design-concepts/fonts/newsreader/Newsreader*.ttf`,
+  licence `design-concepts/fonts/newsreader/OFL.txt`. Typst registers it as `"Newsreader 16pt"` (the
   variable font's default instance name); a theme must use that string.
 - Both from the Google Fonts repository, unmodified.
 
@@ -96,3 +96,14 @@ groups, ships, ranks and months, `certificates` (all four fields),
   column if a client wants one; not drawn.
 - The standfirst is the candidate's own profile; a weak profile weakens the
   page more here than in any other concept.
+
+## Font files
+
+Shared folder `design-concepts/fonts/`, unmodified, recorded 2026-09-25.
+
+| File | Source | SHA-256 |
+|---|---|---|
+| `InstrumentSerif-Italic.ttf` | https://github.com/google/fonts/tree/main/ofl/instrumentserif | `08939b8bdf534afec24ae0ef5e03f948940cd9a8fe08e7fecbad040e62327385` |
+| `InstrumentSerif-Regular.ttf` | https://github.com/google/fonts/tree/main/ofl/instrumentserif | `498efd461f6ddfcb7a111bf9a565709d2085d48201d501ead960d93e84ffbb88` |
+| `Newsreader-Italic[opsz,wght].ttf` | https://github.com/google/fonts/tree/main/ofl/newsreader | `796668611f80b64d5adf182fde3b6f29ed83b4e7cbec7b96937e84ac01364792` |
+| `Newsreader[opsz,wght].ttf` | https://github.com/google/fonts/tree/main/ofl/newsreader | `8a08d13f8a6c0d51be379a60af84f945f65369a67e509ee3c3bdcc421254d7c1` |

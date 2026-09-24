@@ -10,7 +10,7 @@ Each folder holds `concept.typ` (self-contained), `concept.pdf`, `page-1.png`
 fonts it brings, with their licence. Compile from the repository root:
 
 ```powershell
-typst compile --root . --ignore-system-fonts --font-path packages/cv-engine/fonts --font-path design-concepts/<folder>/fonts design-concepts/<folder>/concept.typ builds/<name>.pdf
+typst compile --root . --ignore-system-fonts --font-path packages/cv-engine/fonts --font-path design-concepts/fonts design-concepts/<folder>/concept.typ builds/<name>.pdf
 ```
 
 | Concept | Idea | Date | Status | PDF |

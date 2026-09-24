@@ -4,7 +4,7 @@
 // career as a contents list with leaders, and back-matter credentials.
 // Compile from the repository root:
 // typst compile --root . --ignore-system-fonts --font-path packages/cv-engine/fonts
-//   --font-path design-concepts/2026-09-25-feature-opener/fonts
+//   --font-path design-concepts/fonts
 //   design-concepts/2026-09-25-feature-opener/concept.typ
 //   design-concepts/2026-09-25-feature-opener/concept.pdf
 

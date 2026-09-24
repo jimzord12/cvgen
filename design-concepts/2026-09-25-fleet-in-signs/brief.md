@@ -40,7 +40,8 @@ Morgan). Signs: `signs/*.svg`, drawn for this concept.
 
 - **Jost** (variable, weight 100-900), indestructible type*, SIL OFL 1.1, a
   geometric sans in the spirit of the faces Isotype used. From the Google Fonts
-  repository, unmodified: `fonts/Jost[wght].ttf`, licence `fonts/OFL.txt`.
+  repository, unmodified: `design-concepts/fonts/jost/Jost[wght].ttf`, licence
+  `design-concepts/fonts/jost/OFL.txt`.
 
 ## Data it needs
 
@@ -83,3 +84,11 @@ All from the marine candidate schema: `identity`, `contacts`, `profile`,
 - Tanker and bulk carrier signs differ in deck detail only; at the key's 12 mm
   they are close, at 19 mm in the chart they separate clearly.
 - Cream paper (`#fcfaf5`) is a choice; white is a one-token change.
+
+## Font files
+
+Shared folder `design-concepts/fonts/`, unmodified, recorded 2026-09-25.
+
+| File | Source | SHA-256 |
+|---|---|---|
+| `Jost[wght].ttf` | https://github.com/google/fonts/tree/main/ofl/jost | `6343b70971000b04c5d401c96ae08ce371086135e999d5e1e1413039c0213076` |

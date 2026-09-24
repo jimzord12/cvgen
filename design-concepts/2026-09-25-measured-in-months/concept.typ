@@ -3,7 +3,7 @@
 // whose length is its service months, read against a ruler in months.
 // Compile from the repository root:
 // typst compile --root . --ignore-system-fonts --font-path packages/cv-engine/fonts
-//   --font-path design-concepts/2026-09-25-measured-in-months/fonts
+//   --font-path design-concepts/fonts
 //   design-concepts/2026-09-25-measured-in-months/concept.typ
 //   design-concepts/2026-09-25-measured-in-months/concept.pdf
 

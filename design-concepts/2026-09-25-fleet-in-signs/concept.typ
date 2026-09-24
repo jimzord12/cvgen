@@ -4,7 +4,7 @@
 // the rank held. Rows are companies, newest at the top.
 // Compile from the repository root:
 // typst compile --root . --ignore-system-fonts --font-path packages/cv-engine/fonts
-//   --font-path design-concepts/2026-09-25-fleet-in-signs/fonts
+//   --font-path design-concepts/fonts
 //   design-concepts/2026-09-25-fleet-in-signs/concept.typ
 //   design-concepts/2026-09-25-fleet-in-signs/concept.pdf
 

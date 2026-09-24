@@ -94,7 +94,7 @@ the client.
 ## Risk
 
 - Drift: the questionnaire can fall behind the schema. Mitigation: the
-  appendix names the fields, and tonight's `candidate-validation` card
+  appendix names the fields, and the `candidate-validation` card (opened 2026-09-25)
   rejects a converted record with unknown or misspelled fields.
 - Real data: answers are real personal data and live only under `private/`,
   which Git ignores (constitution section 3). The questionnaire itself is

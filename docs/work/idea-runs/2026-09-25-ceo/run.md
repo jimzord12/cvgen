@@ -190,3 +190,9 @@ column, so this is minor; it may be worth a look during the component work.
 - Research gate: PASS round 1 (reviews/01-research-reviewer.md)
 - Quality gate round 1: FINDINGS (reviews/02-ceo-reviewer.md)
 - Quality gate round 2: PASS, all three proposals (reviews/03-ceo-reviewer.md); its two Notes applied by the lead (width sum 177 pt; `sources/` added to the workspace tree step).
+
+Note (lead, after the idea-agents code review round 1): this first run wrote
+its drafts straight into `docs/proposals/`; the skill now keeps drafts in the
+run folder until both gates pass. All three passed both gates, so their
+place is unchanged. Output of this run is confined to the run folder and
+`docs/proposals/` (idea-gate coverage, skill step 8).

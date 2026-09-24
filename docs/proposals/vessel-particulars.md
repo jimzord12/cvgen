@@ -109,7 +109,7 @@ change for every candidate who uses the fields is his decision).
   loud failure handles it; the fix costs the operator a shortened string.
 - A second visual element per row could make the experience section look
   busy. That is exactly the look decision the owner makes on the render.
-- Interaction with tonight's `candidate-validation` card: that card rejects
+- Interaction with the `candidate-validation` card (opened 2026-09-25): that card rejects
   unknown fields, so these fields must be added to the schema it enforces,
   not bolted on.
 
@@ -118,7 +118,7 @@ change for every candidate who uses the fields is his decision).
 With item 3 (deck data support), which already reopens the marine schema
 and the experience rows for contract periods; doing both together means one
 schema change, one row change and one look to approve. It must come after
-item 4 migrates the experience module (running tonight), or it would be
+item 4 migrates the experience module (opened 2026-09-25), or it would be
 built twice. If the owner's first real client turns out to be a marine
 engineer, pull this part forward ahead of item 2: it is independent of item
 3's periods and is the fact that client's agency will ask for.

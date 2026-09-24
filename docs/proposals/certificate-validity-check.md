@@ -27,7 +27,7 @@ stale fact on a CV should stop the delivery with a message naming the fix,
 as an overflowing page already does.
 
 Today the product checks the PDF (pages, fonts, text inside the page) and,
-from tonight's `candidate-validation` card, the record's shape (typos,
+from the `candidate-validation` card (opened 2026-09-25), the record's shape (typos,
 unknown fields). Neither looks at what a date means on the day the CV is
 made.
 
@@ -110,7 +110,7 @@ standard date handling). Owner time: one minute to decide; none to run.
 ## Roadmap slot
 
 Now, before item 2, as a small standalone task. It touches only the local
-PDF workflow, not the engine, so it does not collide with tonight's
+PDF workflow, not the engine, so it does not collide with the 2026-09-25
 component work (item 4). It pairs naturally with the `candidate-validation`
 card: that one checks the record's shape, this one checks its dates. Not a
 duplicate of anything on the roadmap, the board, the proposals or
