@@ -5,7 +5,7 @@
 #import "../../../../core/page.typ": document-shell, page-header
 #import "../../../../core/pagination.typ": validate-pages, company-fragment
 #import "adapter/adapter.typ": to-flagship-input
-#import "components/hero.typ": hero
+#import "legacy.typ": hero
 #import "legacy.typ": experience-section
 #import "legacy.typ": profile-summary, section-heading, synopsis
 #import "legacy.typ": certificates-section

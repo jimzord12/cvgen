@@ -15,4 +15,4 @@
 #let mode = sys.inputs.at("case", default: "normal")
 #let identity = if mode == "long-name" {(..d.identity, name: "A VERY LONG NAME THAT CANNOT FIT THIS PLATE")} else if mode == "no-portrait" {(..d.identity, portrait: none)} else {d.identity}
 #let contacts = if mode == "long-email" {(..d.contacts, right: ((label: "Email", value: "a-very-long-address-that-does-not-fit@example.com"),))} else if mode == "no-contact" {(..d.contacts, right: ())} else {d.contacts}
-#hero(identity, contacts, theme, artwork, layout.hero)
+#hero(make-ctx(theme: theme, layout: layout, artwork: artwork), (identity: identity, contacts: contacts))

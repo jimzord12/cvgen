@@ -8,6 +8,7 @@
 #import "components/education.typ" as education
 #import "components/certificates.typ" as certificates
 #import "components/experience.typ" as experience
+#import "components/hero.typ" as hero-parts
 
 #let section-heading(number, title, theme, geometry, spacing, subtitle: none) = sections.section-heading(
   make-ctx(theme: theme, layout: (headings: geometry)), title, number: number, spacing: spacing, subtitle: subtitle)
@@ -45,3 +46,13 @@
   experience-ctx(theme, geometry, show-durations, caption), company, spacing: spacing, continued: continued)
 #let experience-section(companies, theme, geometry, spacing, show-durations, caption) = experience.experience-section(
   experience-ctx(theme, geometry, show-durations, caption), companies, spacing: spacing)
+
+#let hero-ctx(theme, geometry, artwork: (:)) = make-ctx(theme: theme, layout: (hero: geometry), artwork: artwork)
+#let portrait(identity, theme, geometry) = hero-parts.portrait(hero-ctx(theme, geometry), identity)
+#let portrait-frame(asset, theme) = hero-parts.portrait-frame(make-ctx(theme: theme), asset)
+#let portrait-backdrop(asset, theme) = hero-parts.portrait-backdrop(make-ctx(theme: theme), asset)
+#let contact-item(item, theme) = hero-parts.contact-item(make-ctx(theme: theme), item)
+#let contact-group(items, alignment, theme, geometry) = hero-parts.contact-group(hero-ctx(theme, geometry), items, alignment: alignment)
+#let identity-plate(identity, theme, geometry) = hero-parts.identity-plate(hero-ctx(theme, geometry), identity)
+#let hero(identity, contacts, theme, artwork, geometry) = hero-parts.hero(hero-ctx(theme, geometry, artwork: artwork),
+  (identity: identity, contacts: contacts))
