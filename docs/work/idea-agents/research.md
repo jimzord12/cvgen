@@ -18,10 +18,15 @@ Source: https://code.claude.com/docs/en/sub-agents.md [F]
 - A subagent is a Markdown file in `.claude/agents/` with YAML frontmatter;
   the body is its system prompt. Required: `name`, `description`. Used here:
   `tools` (allow-list; omitted means inherit), `model` (`opus`, `sonnet`,
-  `haiku`, `fable`, a full id, or `inherit`), `effort` (`low` to `max`).
-- `WebSearch` and `WebFetch` can be granted by name. A subagent cannot spawn
-  further subagents unless `Agent(...)` is granted, so the lead runs the
-  review loops, not the author.
+  `haiku`, `fable`, a full id, or `inherit`), `effort` (`low`, `medium`,
+  `high`, `xhigh`, `max`; availability depends on the model).
+- `WebSearch` and `WebFetch` can be granted by name. By default a subagent
+  can spawn subagents up to three layers deep; an explicit `tools` list
+  without `Agent` blocks that, and `Agent(type)` limits which types. The
+  idea agents' `tools` lists leave `Agent` out on purpose: the lead runs the
+  loops so every reviewer round starts from a fresh context, the round caps
+  are enforced in one place, and the whole loop stays visible in the run
+  record (design choice, not a platform limit).
 - `description` drives automatic delegation; details belong in the body,
   which loads only when the subagent runs. CLAUDE.md loads too; conversation
   history does not. The parent sees only the final message.
@@ -37,8 +42,9 @@ Source: https://code.claude.com/docs/en/sub-agents.md [F]
 4. Models converge on generic, "on distribution" output unless the defaults
    are named and ruled out (fonts, layouts, cookie-cutter design). Same
    Claude source [F]. Hence an explicit cliché list for the editor.
-5. A few diverse examples help; too many cause overfitting, so examples go
-   with explicit instructions. https://ai.google.dev/gemini-api/docs/prompting-strategies [F]
+5. A few diverse examples help; too many cause overfitting
+   (https://ai.google.dev/gemini-api/docs/prompting-strategies [F]). Pairing
+   them with explicit instructions is our choice [synthesis].
 6. Say what to do, with a fixed output shape and a cap.
    https://developers.openai.com/cookbook/examples/gpt-5/gpt-5_prompting_guide [F]
 7. Evaluator-optimizer loops pay off when evaluation criteria are clear and
@@ -49,16 +55,25 @@ Source: https://code.claude.com/docs/en/sub-agents.md [F]
 
 Calibrated reviewers:
 
-- Explicit rubric, fixed output, binary pass/fail per criterion with a
-  written reason; scores like 3 of 5 are hard to act on.
-  https://hamel.dev/blog/posts/llm-judge/ [O]; develop-tests source [F]
+- Explicit rubric and fixed output (develop-tests source [F]); binary
+  pass/fail per criterion with a written reason, because scores like 3 of 5
+  are hard to act on (https://hamel.dev/blog/posts/llm-judge/ [O]; the
+  develop-tests page itself also shows 1-5 grading).
 - Approve work that clearly improves things even if not perfect; label
   polish as a non-blocking nit; facts overrule opinions.
   https://google.github.io/eng-practices/review/reviewer/standard.html [F, Google policy]
 - Blocking vs non-blocking labels. https://conventionalcomments.org/ [O]
-- LLM judges favour longer answers, certain positions and their own model's
-  output; mitigate with a fresh context per round and a fixed rubric.
-  https://arxiv.org/abs/2306.05685 [F, research]
+- LLM judges show position, verbosity and self-enhancement bias
+  (https://arxiv.org/abs/2306.05685 [F, research]). Our mitigation, a fresh
+  context per round plus a fixed rubric, is synthesis, not from the paper.
+  Self-preference remains a risk because authors and reviewers are the same
+  model family, and Anthropic's eval guidance says it is generally best
+  practice to evaluate with a different model than the generator
+  (develop-tests source [F]). Deliberate choice: reviewers stay on Opus,
+  the strongest judge available, because a weaker judge is the larger risk
+  for premium work; fresh contexts, a fixed rubric and the owner's own
+  verdicts are the mitigation. Revisit if reviewers pass work the owner
+  rejects.
 
 ## 3. Fonts
 
@@ -66,11 +81,19 @@ Calibrated reviewers:
   sold alone; keep copyright notice and licence with every copy; Reserved
   Font Names; documents made with the font are not covered.
   https://openfontlicense.org/open-font-license-official-text/ [F];
-  FAQ 1.2, 1.13: https://openfontlicense.org/ofl-faq/ [F]
+  FAQ 1.13 (embedding in documents), 1.20 (bundling with software: copyright
+  statement, licence notice, licence text): https://openfontlicense.org/ofl-faq/ [F]
+- Typst Universe packages may not ship fonts; fonts come in through
+  `--font-path` or the system. CVgen uses `--font-path` in a local monorepo,
+  so this only matters if the engine is ever published as a package.
+  https://typst-community.github.io/extra-docs/packages/resources.html [O,
+  community docs]
 - Google Fonts: mostly OFL, some Apache 2.0 and the Ubuntu Font Licence;
   read each family's licence. https://github.com/google/fonts [F]
-- Avoid "free for personal use" fonts, Adobe Fonts (no passing font files
-  on), and commercial desktop EULAs (no server or generated-document use).
+- Avoid "free for personal use" fonts, Adobe Fonts (font files may not be
+  copied or passed on), and commercial desktop EULAs, which typically forbid
+  embedding in products or apps (example: The Foundry Types, clause D8,
+  forbids embedding in editable documents, websites and products).
   https://helpx.adobe.com/fonts/using/font-licensing.html [F, via search excerpt];
   https://www.thefoundrytypes.com/licensing/ [F]
 - Typst reads `.ttf` and `.otf` (collections reported to work); WOFF is not
@@ -102,8 +125,9 @@ https://resume.io/.
 ## 5. Inspiration, not copying
 
 - Page layout and format as such are not copyrightable (US Compendium
-  §906.5, https://www.copyright.gov/comp3/chap900/ch900-visual-art.pdf [F]);
-  nor are ideas, methods or typeface designs as such
+  §906.5, https://www.copyright.gov/comp3/chap900/ch900-visual-art.pdf [F]),
+  though an original, sufficiently creative selection and arrangement of
+  specific content can be; nor are ideas, methods or typeface designs as such
   (https://www.copyright.gov/circs/circ33.pdf [F]).
 - Protected: specific artwork, photos, logos, distinctive copy, font
   software (https://en.wikipedia.org/wiki/Adobe_Systems,_Inc._v._Southern_Software,_Inc. [F]),
