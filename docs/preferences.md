@@ -54,9 +54,10 @@ choices and act without asking (owner's instruction, 2026-09-25).
   deleting or force-pushing `main`, rewriting published `main` history,
   deleting or moving `archive/*` tags, deleting the GitHub repository or
   changing its visibility or settings, deleting anything outside this
-  repository, deleting anything under `private/` or overwriting or removing
-  its revisions, approval receipts and exports (ignored by Git, so nothing
-  restores them), and replacing or removing the PDFs in the root `exports/`
+  repository, deleting anything under `private/` or `.local/`, overwriting
+  or removing a workspace's revisions, approval receipts, exports, portrait
+  or source documents (ignored by Git and, apart from what a revision
+  snapshots, not copied anywhere, so nothing restores them), and replacing or removing the PDFs in the root `exports/`
   (the public released deliverables).
 - **Ask him for observations, not decisions that are yours:** a screen, a
   render, a log, a yes or no on a look.

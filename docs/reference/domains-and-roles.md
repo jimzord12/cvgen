@@ -97,8 +97,9 @@ A new field is done when every line below is true:
 7. `python tests/run.py` passes. Its core-boundary check only proves that
    core modules import their own siblings; it does not prove the core was
    left alone.
-8. `git diff --stat <base> -- packages/cv-engine/core packages/cv-engine/domains/marine`
-   is empty, where `<base>` is the commit the field's branch started from.
+8. `git diff --stat main...HEAD -- packages/cv-engine/core packages/cv-engine/domains/marine`
+   is empty (three dots: only the field branch's own changes, so merging
+   `main` in does not raise a false alarm).
    If the core had to change, that is a separate, reviewed core change first.
 9. `AGENTS.md` ("Where things are"), this page and a history entry name the
    new field.

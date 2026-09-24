@@ -79,7 +79,10 @@ examples and would otherwise print on a real CV:
 
 An empty string (`""`) leaves a slot blank. Before approving, search the
 rendered PDF's text, ignoring case, for "fictional", "illustrative" and
-"flagship": none may appear. This prints `[]` when the PDF is clean:
+"flagship": none may appear, except in the candidate's own words (a profile
+may mention "the company's flagship") once the footer shows the configured
+brand; never edit the candidate's text to pass the check. This prints `[]`
+when the PDF is clean:
 
 ```powershell
 python -c "import pymupdf,sys; t=''.join(p.get_text() for p in pymupdf.open(sys.argv[1])).lower(); print([w for w in ('fictional','illustrative','flagship') if w in t])" private/jane-doe-second-engineer/revisions/<id>/cv.pdf

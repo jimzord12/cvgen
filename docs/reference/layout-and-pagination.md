@@ -82,7 +82,7 @@ finish.
 | `Page plan vessel row range out of bounds` | A row range `(start, end)` exceeds the company's vessel rows | Use `0 <= start < end <= row count` |
 | `Page plan cannot be empty` | `pages` is an empty array | List at least one page |
 | `Row range must contain two integer indices` | A row range is not a pair of integers | Write it as `(start, end)` |
-| `Experience requires at least one vessel` | No page places any vessel row | List at least one company on a page |
+| `Experience requires at least one vessel` | The candidate has no vessel rows at all | Add at least one company with a vessel to `candidate.json` |
 
 The system never shrinks fonts to fit. The certificate table repeats its
 header when it continues onto another page.

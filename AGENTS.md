@@ -186,5 +186,6 @@ rules of its own and defers to `docs/review.md`.
   updates (owner's instruction, 2026-09-25). Product decisions, real-candidate
   approval and the short list of irreversible operations (`main`'s published
   history, `archive/*` tags, the GitHub repository, anything outside the
-  repo, deletions in `private/`, the released PDFs in `exports/`) stay with
+  repo, deletions or overwrites in `private/` beyond a workspace's
+  `candidate.json` and `cv.typ`, the released PDFs in `exports/`) stay with
   the owner; the full list is in `docs/preferences.md`.
