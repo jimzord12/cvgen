@@ -1,8 +1,9 @@
 // One custom composition written twice: with lib.typ's 32 deprecated pre-contract
 // names (api=legacy) and with the ctx-first components lib.typ exports as
-// core-components and flagship-components (api=contract). Every wrapper is called
-// once; the suite requires identical pixels, so compositions written before
-// ADR 0008 keep rendering unchanged.
+// core-components and flagship-components (api=contract). Each wrapper is called at
+// least once; the suite requires identical pixels, PDF artifact tags and metadata, so
+// compositions written before ADR 0008 keep rendering unchanged. Known limit: the
+// suite's "called" check is textual, so a call inside a never-invoked #let counts.
 #import "../../packages/cv-engine/lib.typ" as L
 #import "../../packages/cv-engine/lib.typ": make-ctx, normalize-candidate, to-flagship-input, experience-totals, skills-layout
 #import "../../packages/cv-engine/domains/marine/templates/flagship/themes/golden-blue.typ": theme

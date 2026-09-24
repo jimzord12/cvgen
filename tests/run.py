@@ -115,15 +115,18 @@ def main():
     old = compile_case('legacy-api', 'tests/fixtures/legacy-parity.typ', {'api': 'legacy'})
     new = compile_case('contract-api', 'tests/fixtures/legacy-parity.typ', {'api': 'contract'})
     with fitz.open(old) as a, fitz.open(new) as b:
-        assert len(a) == len(b) == 5
+        assert len(a) == len(b) == 5, f'parity fixture pages: legacy {len(a)}, contract {len(b)}, expected 5 (page 5 vanishes if page-background draws nothing)'
         # document-shell forwards the PDF metadata through both APIs.
         for doc in (a, b):
             assert (doc.metadata['title'], doc.metadata['author']) == ('Parity title', 'Parity author'), doc.metadata
         for pa, pb in zip(a, b):
             ra, rb = (p.get_pixmap(matrix=fitz.Matrix(2, 2), alpha=False) for p in (pa, pb))
             assert (ra.width, ra.height, ra.samples) == (rb.width, rb.height, rb.samples), 'legacy API draws differently'
-        # Page 5 holds only page-background, with the shell's background off: it must draw art.
-        assert len(set(a[4].get_pixmap(alpha=False).samples)) > 1, 'page-background drew nothing'
+            # Decorations are tagged as PDF artifacts; a wrapper that drops `artifact` changes the count.
+            assert pa.read_contents().count(b'/Artifact') == pb.read_contents().count(b'/Artifact'), 'legacy API tags artifacts differently'
+        # Page 5 holds only page-background, with the shell's background off: it must draw art, which
+        # means more than one colour on the page whatever the paper fill is.
+        assert a[4].get_pixmap(alpha=False).color_count() > 1, 'page-background drew nothing'
     # The core paginates a domain that has no ships, and composes domain < role < template.
     compile_case('core-model', 'tests/fixtures/core-model.typ')
     # A role reaches the page only if `flagship` forwards it to the adapter.
