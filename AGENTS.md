@@ -89,6 +89,7 @@ Framework; `M` for `packages/domains/marine`, the marine domain; `F` for
 | `tests/` | `run.py` runner, `verify.py` PDF checks, `workflow.py` end-to-end workflow case, `baseline.json` hash manifest, `fixtures/*.typ` compile cases | Changing behaviour |
 | `archive/design-studies/` | Four frozen, evaluated design studies with their renders | Reading for inspiration only |
 | `design-concepts/` | Template concepts proposed by the `magazine-editor` agent: one folder per concept with `concept.typ`, PDF, PNG and `brief.md`. Proposals, not library code | Running or deciding on an idea run |
+| `brand/` | CVgen's own brand assets: `logos/` (draft logo, a raster mock-up; see `brand/README.md`) | Using or replacing the logo |
 | `exports/` | The four current public example PDFs (the `Release`) | Releasing a new version |
 | `docs/` | Governance and reference documentation, see below | Recording a decision |
 | `scripts/build.ps1` | Builds the four examples into a new `builds/` folder | Rarely |
