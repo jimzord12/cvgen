@@ -1,7 +1,9 @@
 # 0001. Freeze v11 as the pixel-exact reference
 
 Date: 2026-09-09
-Status: Accepted
+Status: Accepted. Paths amended by 0010 and 0011: the reference now lives at
+`packages/cv-engine/domains/marine/templates/flagship/tests/approved/Marine-Engineer-CV-v11.pdf`
+and the example at `examples/marine/flagship/engineer.typ`; the decision is unchanged.
 
 ## Context
 

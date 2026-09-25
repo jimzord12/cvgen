@@ -1,6 +1,9 @@
 # Real candidate data and private entry points never enter the public repo.
 private/
 
+# Machine-local agent preferences (also in .git/info/exclude).
+/.local/
+
 # Build and test outputs. Every run writes to a new timestamped folder here.
 # The folder itself is tracked through .gitkeep so documented compile
 # commands work on a fresh clone.

@@ -29,6 +29,9 @@ Read `docs/reference/theme.md` or `docs/reference/artwork-pack.md` first.
    others may be `none`.
 3. Tune `width`, `x`, `y`, `opacity` per slot by compiling and looking.
 4. Add an example and register it as above.
+5. Once the pack is reviewed, add its SVGs to `tests/baseline.json`. Adding
+   entries is routine; changing a file that is already pinned needs an ADR
+   (`docs/constitution.md` section 1).
 
 ## Prove nothing else moved
 

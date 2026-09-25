@@ -59,7 +59,7 @@ keep it untracked and do not copy its contents into shared documentation.
 
 ## Where things are
 
-Layout per ADR 0010 (`docs/pdf-workflow.md`). `E` below stands for
+Layout per ADR 0010 (`docs/pdf-workflow.md`) and ADR 0011 (domains). `E` below stands for
 `packages/cv-engine`, the engine package; `M` for `E/domains/marine`, the marine
 domain; `F` for `M/templates/flagship`.
 
@@ -81,7 +81,7 @@ domain; `F` for `M/templates/flagship`.
 | `E/fonts/`, `E/licenses/` | Bundled OFL fonts, licence notices | Adding a font |
 | `E/typst.toml` | Package manifest for the engine | Releasing |
 | `examples/candidates/` | Fictional candidate records (engineer, captain, chief officer) and the one fictional portrait | Changing example data |
-| `examples/marine/flagship/` | Eight-line entry points that wire the six inputs together | Adding an example |
+| `examples/marine/flagship/` | Short entry points that wire the six inputs together | Adding an example |
 | `packages/cv-workflow/` | Python package: fresh revisions (snapshot, compile, `render.json`, `checks.json`), explicit approval (`cv.approval.json` bound to the SHA-256), verified export. Never sends anything | Changing how a candidate PDF is produced, approved or exported |
 | `tests/` | `run.py` runner, `verify.py` PDF checks, `workflow.py` end-to-end workflow case, `baseline.json` hash manifest, `fixtures/*.typ` compile cases | Changing behaviour |
 | `archive/design-studies/` | Four frozen, evaluated design studies with their renders | Reading for inspiration only |
@@ -180,13 +180,16 @@ propose; the owner decides.
   (constitution section 7); `core/` never imports from `domains/`.
 - Every non-trivial change to code, fixtures or inputs ends with
   `python tests/run.py` passing and the evidence path reported; a visual
-  change also needs a rendered page. Every non-trivial change of any kind
-  ends with a fresh `code-reviewer` round under `docs/review.md`, the report
-  stored in the task's `reviews/` folder.
+  change also needs a rendered page. Whether a change needs an independent
+  `code-reviewer` round is decided by `docs/review.md` ("When a review is
+  required"); reports go in the task's `reviews/` folder.
 - If you had to go around a component, template or the contract to deliver
   what the owner wanted, add an entry to `docs/framework-gaps.md` before
   reporting done. A bypass is a lesson, not a fault.
-- Routine commits, pushes and non-destructive merges, including to `main`, are
-  authorized for agreed work under `docs/git-workflow.md`. This replaces the old
-  per-merge approval rule. Product/design decisions and the explicit destructive
-  operation checkpoints remain with the owner.
+- Agents act as senior developers and do not ask for routine work: commits,
+  pushes, merges to `main`, history edits on feature work, branch, worktree
+  and (non-`archive/*`) tag cleanup, clearing `builds/` by path, board
+  updates (owner's instruction, 2026-09-25). Product decisions, real-candidate
+  approval and a short list of irreversible operations stay with the owner.
+  That list lives only in `docs/preferences.md` ("What he decides and what
+  agents decide"); read it there rather than from a summary.
