@@ -49,6 +49,7 @@ exports/                        # Published fictional example PDFs only
 builds/                         # Disposable public example/test output
 docs/
 archive/design-studies/          # Historical studies, inputs, and previews
+design-concepts/                # Proposed template concepts (idea-run skill); fonts/ shared
 private/                        # Local candidate workspaces; Git-ignored
 ```
 
