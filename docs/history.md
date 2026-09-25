@@ -80,8 +80,8 @@ the engineer CV because its approved design uses a three-column certificate
 table. Closing that gap became roadmap item one.
 
 A React-inspired component contract was accepted, ctx-first, with slots and
-scoped style blocks (ADR 0008). Migration of the Flagship modules to it is
-the next code task.
+scoped style blocks (ADR 0008). Migrating the Flagship modules to it was
+planned as the next code task; it landed on 2026-09-25 (below).
 
 The owner added a standing rule: the framework is the happy path, not a
 cage. Agents may go around components to deliver, must log each bypass in
@@ -187,3 +187,35 @@ are capped at five when he attends and ten when work runs unattended. Two
 auditors checked every document against the code; the findings and their
 fixes are in `docs/work/docs-audit/`. Marine PDFs now carry CVgen in their
 metadata.
+
+## 2026-09-25 — the component contract applied
+
+The owner opened roadmap item 4 and the ADR 0008 migration ran overnight on
+`refactor/component-contract`: one module per commit in the ADR's order
+(core primitives, sections, skills, education, certificates, experience,
+hero, core page shell, the template), the engineer example pixel-identical
+to the frozen v11 reference after every commit and both private candidate
+workspaces pixel-identical to their approved `reference.pdf`. All 32
+components now take `ctx` first; the template builds it once. Four details
+differ from the ADR's text, recorded here because the contract itself did
+not change:
+
+- `ctx` also carries `artwork`, the sixth independent input, because the
+  hero, the profile summary and the page background place pictures.
+- `core/component.typ` holds only `make-ctx`; no component needed
+  `require`, `slot` or `children`, so they were not added.
+- `lib.typ` exports the ctx-first components as two modules,
+  `core-components` and `flagship-components`, and keeps exporting the old
+  flat names with the old signatures as thin wrappers (`core/legacy.typ`,
+  `templates/flagship/legacy.typ`), because the private custom compositions
+  import them and are never edited without the owner.
+  `tests/fixtures/legacy-parity.typ` calls all 32 wrappers and requires the
+  same pixels as the ctx-first components; `docs/framework-gaps.md` tracks
+  the wrappers' removal.
+- The style-block clause (each component's `set`/`show` rules grouped at
+  the top of its block) is not applied yet: most components still style
+  inline, as before. Recorded in `docs/framework-gaps.md`.
+
+Fixtures: `tests/fixtures/contract.typ` renders 31 components alone, one
+per page; `document-shell` wraps a whole document and is covered by the
+parity fixture and the examples.

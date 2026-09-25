@@ -100,7 +100,10 @@ started on an agent's initiative.
    available inside the template, so a real deck CV fits the template
    instead of bypassing it. See ADR 0007.
 4. **The component contract.** Migrate the Flagship modules to the shape in
-   ADR 0008, one module per commit under the pixel gate.
+   ADR 0008, one module per commit under the pixel gate. Opened and
+   **done** 2026-09-25: core and Flagship components are ctx-first, exported
+   as `core-components` and `flagship-components`; the old signatures stay
+   as deprecated wrappers (`docs/framework-gaps.md`).
 5. **A second marine template.** A named design with its own sections and
    frozen reference, likely grown from one of the studies under
    `archive/design-studies/`.

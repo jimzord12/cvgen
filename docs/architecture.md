@@ -47,23 +47,31 @@ then Flagship's, then a `copy` key inside the record, then the argument
 contracts differ only by that key today; keeping them apart is what lets a
 second template read the same facts with its own wording.
 
-The template is the only place that sees all inputs. Children receive only
-the slice they need, so a hero function gets `layout.hero`, not `layout`.
-Two exceptions today: the certificates and education sections receive the
-whole `layout`, because they read more than one slice. Once
-the ADR 0008 migration starts, the template will build one `ctx` dictionary
-from theme, layout, copy and options and pass that down instead; see below.
+The template is the only place that sees all inputs. It builds one `ctx`
+dictionary (theme, layout, artwork, the composed copy, options such as
+`show-vessel-durations`) with `make-ctx` and passes it to every component;
+see below.
 
 ## The component contract
 
-Every component will take the same shape, decided in ADR 0008: `ctx` first,
-the data it renders second, named props with defaults, content slots last.
+Every component takes the same shape, decided in ADR 0008 and applied to
+every core and Flagship module on 2026-09-25: `ctx` first, the data it
+renders second, named props with defaults, content slots last. A component
+reads its own slice of `ctx.layout` (`hero` reads `ctx.layout.hero`); a
+section that composes a heading and a body reads both slices it places.
 Inside, in order: validation with a fix in every message, the style block of
 `set` and `show` rules, one layout construct, composition of smaller
-components. Helpers will live in `core/component.typ` once migration starts.
-Modules are migrated to this shape one per commit; an unmigrated module
-keeps the older order (data, theme, geometry slice) until its turn. As of
-this writing no module has been migrated.
+components. `core/component.typ` holds `make-ctx`, the only helper a
+component has needed so far.
+
+`lib.typ` still exports the component names with their pre-contract order
+(data, theme, geometry slice), from `core/legacy.typ` and the template's
+`legacy.typ`: each wrapper builds a small `ctx` and calls the ctx-first
+component, so custom compositions written before the migration render the
+same pixels (`tests/fixtures/legacy-parity.typ` calls all 32). Entry
+points reach the ctx-first components through `lib.typ` as the modules
+`core-components` and `flagship-components`. The wrappers are
+deprecated; `docs/framework-gaps.md` records when they can go.
 
 ## One core, domains, templates
 
@@ -73,7 +81,7 @@ owns its design (ADR 0007, ADR 0011). Who owns what:
 | Shared core (`core/`) | Marine domain (`domains/marine/`) | Per template |
 |---|---|---|
 | Common facts: identity name, contacts, profile, certificates, education, languages (`normalize-common`, `validate-common` in `data.typ`) | The marine facts: `identity.rank`, companies, vessel-type groups, ships with months; `company-months`, `experience-totals`, the row model (`data.typ`); the schema | Section components: hero, experience, synopsis, certificates, education, skills |
-| Page shell, header, footer, backgrounds (`page.typ`); the header takes strings, the shell takes title and author | `domain.meta` (PDF title suffix, author) | Layout profiles and page plans |
+| Page shell, header, footer, backgrounds (`page.typ`); the header takes a name and headline (no field data) and a caption, the shell takes title and author | `domain.meta` (PDF title suffix, author) | Layout profiles and page plans |
 | Page plan grammar and pagination over a domain row model (`pagination.typ`) | `experience-model`: `count`, `slice`, `totals` | The page loop with its overflow assertion, in `flagship.typ` |
 | `merge` and `compose` (`node.typ`) | `domain.copy`: the field's six words | The adapter: input contract and Flagship's nine words |
 | SVG recolouring and primitives; theme validation | The SVG files (`assets/`) | Artwork packs: which SVG in which slot |
@@ -97,8 +105,11 @@ core/
   node.typ                              merge, compose: domain < role < template
   data.typ                              duration-parts, required-text, normalize-common, validate-common
   theme.typ                             validate-theme: required colours and fonts
+  component.typ                         make-ctx: builds the one ctx dictionary every component takes first (ADR 0008)
+  components.typ                        the core's ctx-first components as one module; lib.typ exports it as core-components
   primitives.typ                        label, rule, decoration (SVG recolour), duration, metric
   page.typ                              page-header, page-footer, page-background, document-shell
+  legacy.typ                            deprecated pre-contract signatures of primitives and page, exported by lib.typ
   pagination.typ                        validate-pages, company-fragment over a domain row model
 domains/marine/                         the marine domain (ADR 0011)
   domain.typ                            id, meta, copy, experience
@@ -109,6 +120,8 @@ domains/marine/                         the marine domain (ADR 0011)
   templates/flagship/
     flagship.typ                          the composition: page loop, section order, overflow check
     adapter/adapter.typ                   flagship-copy defaults, to-flagship-input
+    components.typ                        Flagship's ctx-first components as one module; lib.typ exports it as flagship-components
+    legacy.typ                            deprecated pre-contract signatures of the components, exported by lib.typ
     schema/flagship-input.schema.json     Flagship input contract (facts + copy)
     components/hero.typ                   portrait, frame, backdrop, contact groups, identity plate, hero
     components/experience.typ             company-period, vessel-row, vessel-type-group, company-experience, experience-section
@@ -122,7 +135,8 @@ fonts/  licenses/                       bundled OFL fonts and their notices
 
 packages/cv-workflow/cv_workflow/       Python; owns everything around a candidate render
   workspace.py                          workspace and revision paths, ids, hashes, records, the refusal rules
-  render.py                             snapshot inputs, compile, render.json + render.log, then checks
+  validate.py                           candidate record against the template's (or domain's) JSON Schema, before anything is written
+  render.py                             validate, snapshot inputs, compile, render.json + render.log, then checks
   checks.py                             page count, empty page, fonts, bounds; bound to the PDF hash
   approve.py                            explicit approval receipt, bound to revision id and hash
   export.py                             verify, copy into a .partial- folder, verify, rename into place

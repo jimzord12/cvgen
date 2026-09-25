@@ -24,8 +24,10 @@ Follow `docs/guides/build-a-cv.md`. This skill is the checklist.
    `captain-example.json` or `chief-officer-example.json`) and replace every value. Keep stable ids.
    Whole months. If months per vessel are unknown, use `service-months` on
    the company and plan to hide durations.
-2. Validate the JSON against `packages/cv-engine/domains/marine/schema/candidate.schema.json` if a validator
-   is available; otherwise rely on the compile-time assertions.
+2. The record is validated for you: `scripts/cv.py render` refuses a record
+   that breaks the Flagship input schema (needs `jsonschema`) and lists the
+   field paths; the engine's compile-time assertions then check totals. For
+   a public example, the suite runs the same schema check.
 3. Write the entry point as shown in the guide, importing the engine by
    root-absolute path (`/packages/cv-engine/...`). Pick the role marker
    (`domains/marine/roles/deck` or `roles/engine`), theme and artwork from

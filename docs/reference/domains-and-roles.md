@@ -85,6 +85,11 @@ A new field is done when every line below is true:
    `validate-common`.
 2. `schema/candidate.schema.json` describes the facts; a fictional record
    under `examples/candidates/<field>-<who>-example.json` validates against it.
+   A template adds `schema/<template>-input.schema.json`.
+   `packages/cv-workflow/cv_workflow/validate.py` picks the schema from the
+   entry point's imports; teach it the new field's case (today a
+   `lib.typ`-only entry falls back to Flagship's schema only when every
+   named domain is marine).
 3. `packages/cv-engine/lib.typ` exports the field under the naming rule below.
 4. `examples/<field>/<design>/<name>.typ` compiles with `--root .`.
 5. `tests/run.py` compiles every new example (`compile_case`) and asserts
@@ -133,9 +138,9 @@ components are the exception: they are exported as one module named
 `postcard-components`), used as `flagship-components.hero(ctx, ...)`,
 because a template has dozens of components and one module keeps them out
 of the flat namespace entirely; the shared core's components follow the same
-form as `core-components`. Flagship's and the core's modules arrive with the
-component contract migration (ADR 0008, card `component-contract`); until
-that lands on `main`, Flagship's components are only the flat names above.
+form as `core-components` (component contract, `conventions.md`). Marine's
+flat component names (`hero`, `section-heading`, ...) remain only as the
+deprecated pre-contract wrappers.
 Before adding an export, search `lib.typ` for the name. The rule is a convention today; when the
 second domain lands, `tests/run.py` should also check that no name is bound
 twice in `lib.typ`.

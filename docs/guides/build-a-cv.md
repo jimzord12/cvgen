@@ -101,14 +101,16 @@ python scripts/cv.py render private/jane-doe-second-engineer            # --page
 
 Run every `scripts/cv.py` command from the repository root; the workspace
 path is relative to it. The command prints the revision id, the PDF's
-SHA-256 and whether the automated checks passed (page count, no empty page,
-fonts embedded, text inside the page). Exit code 1 means the compiler or a
-check failed; the revision stays, with the error in its `render.log` or
-`checks.json`, and the fix is a new revision. Exit code 2 prints
-`REFUSED: <reason>`: the inputs are not usable (a workspace without
-`candidate.json` or `cv.typ`, invalid JSON, a missing portrait file, no
-Typst on PATH), and the reason names the fix.
-Needs Python with `pymupdf` like the test suite.
+SHA-256, the schema the record was checked against and whether the
+automated checks passed (page count, no empty page, fonts embedded, text
+inside the page). Exit code 1 means the compiler or a check failed; the
+revision stays, with the error in its `render.log` or `checks.json`, and the
+fix is a new revision. Exit code 2 prints `REFUSED: <reason>`: the inputs
+are not usable (a workspace without `candidate.json` or `cv.typ`, invalid
+JSON, a record that breaks its schema - the offending fields are listed
+with their paths, the first ten and then a count - a missing portrait file, no Typst on PATH), and the reason
+names the fix. Nothing is written on a refusal.
+Needs Python with `pymupdf` and `jsonschema` like the test suite.
 
 For live editing while you adjust the page plan, the compiler still works
 directly; write to a fresh name under `builds/`:
@@ -183,8 +185,8 @@ slot for. Until the template supports these, compose the page by hand from
 the same public exports:
 
 ```typst
-#import "/packages/cv-engine/lib.typ": (document-shell, page-header, hero, profile-summary,
-  section-heading, skills-section, normalize-candidate, to-flagship-input, marine)
+#import "/packages/cv-engine/lib.typ": (make-ctx, normalize-candidate, to-flagship-input, marine,
+  core-components as cc, flagship-components as fc)
 #import "/packages/cv-engine/domains/marine/templates/flagship/themes/golden-blue.typ": theme
 #import "/packages/cv-engine/domains/marine/templates/flagship/artwork/engineer.typ": artwork
 #import "/packages/cv-engine/domains/marine/templates/flagship/layouts/flagship-v11.typ": layout
@@ -192,16 +194,27 @@ the same public exports:
 // copy is not allowed in candidate.json; replace the example wording here (section 2).
 #let d = normalize-candidate(to-flagship-input(json("candidate.json"),
   copy: (certificates-subtitle: "Certificates of competency and endorsements", brand: "JANE DOE")))
-// document-shell takes the PDF metadata as named arguments; page-header takes strings.
-#show: document-shell.with(d, theme, artwork, layout,
+// One ctx for every component: theme, layout, artwork, the composed wording, switches (ADR 0008).
+#let ctx = make-ctx(theme: theme, layout: layout, artwork: artwork, copy: d.copy,
+  options: (show-vessel-durations: true))
+// document-shell takes the PDF metadata as named arguments.
+#show: cc.document-shell.with(ctx, d,
   title: d.identity.name + " | " + d.identity.rank + " | " + marine.meta.title, author: marine.meta.author)
-// page 2 onward: page-header(d.identity.name, d.identity.rank, "EXPERIENCE / CREDENTIALS", theme, layout.header)
-// then place the hero, the sections and your own table below
+#fc.hero(ctx, d)
+#fc.profile-summary(ctx, d.profile)
+#fc.section-heading(ctx, "Experience", number: "01", spacing: layout.headings.opening)
+// page 2 onward: #cc.page-header(ctx, (name: d.identity.name, headline: d.identity.rank), caption: "EXPERIENCE / CREDENTIALS")
+// then the other sections and your own table below
 ```
 
-The skills block is documented in `../reference/skills-component.md`. The
-root-absolute import works from any workspace folder. `marine` is the domain
-node exported by `lib.typ` (`docs/reference/domains-and-roles.md`).
+Entry points reach components only through `lib.typ`: `core-components`
+holds the page shell and the small pieces, `flagship-components` every
+Flagship section (`docs/conventions.md`). The flat names such as `hero` or
+`section-heading` still work with their old signatures, for compositions
+written before 2026-09-25, but are deprecated. The skills block is
+documented in `../reference/skills-component.md`. The root-absolute import
+works from any workspace folder. `marine` is the domain node exported by
+`lib.typ` (`docs/reference/domains-and-roles.md`).
 
 Rules for this path:
 

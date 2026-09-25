@@ -19,6 +19,62 @@ def check_core_boundary():
             assert '/' not in target and '..' not in target, f'core/{source.name} imports outside core: {target}'
 
 
+def check_example_records():
+    """Every public example's record matches the contract its entry point imports (the check cv.py render runs)."""
+    import re
+    from jsonschema import Draft202012Validator  # noqa: F401  A missing or pre-4.0 jsonschema fails here, not as a broken record.
+    from cv_workflow.render import IMPORT
+    from cv_workflow import WorkflowError
+    from cv_workflow.validate import MAX_REPORTED, schema_for, validate_record
+    FLAGSHIP_INPUT = '/packages/cv-engine/domains/marine/templates/flagship/schema/flagship-input.schema.json'
+    entries = sorted((ROOT / 'examples').rglob('*.typ'))
+    assert entries, 'no example entry points found'
+    checked = set()
+    for entry in entries:
+        source = entry.read_text(encoding='utf-8')
+        for path in re.findall(r'json\("([^"]+)"\)', source):
+            checked.add(entry)
+            record = json.loads((entry.parent / path).read_text(encoding='utf-8'))
+            try:
+                schema = validate_record(record, IMPORT.findall(source))
+            except WorkflowError as error:
+                raise AssertionError(f'example record {path} (read by {entry.name}) breaks its schema: {error}')
+            assert schema == FLAGSHIP_INPUT, (entry.name, schema)
+    # Every entry must read its record with a literal json("...") path, or it was not checked at all.
+    assert checked == set(entries), f'no record found in: {sorted(e.name for e in set(entries) - checked)}'
+    # Template beats domain whatever the import order; lib.typ alone means Flagship; no engine import, no contract.
+    assert schema_for(['/packages/cv-engine/domains/marine/roles/deck/role.typ',
+                       '/packages/cv-engine/domains/marine/templates/flagship/themes/golden-blue.typ']) == ROOT / FLAGSHIP_INPUT[1:]
+    assert schema_for(['/packages/cv-engine/lib.typ']) == ROOT / FLAGSHIP_INPUT[1:]
+    assert schema_for(['/private/helpers.typ']) is None
+    # lib.typ with a non-marine domain never falls back to Flagship's contract.
+    assert schema_for(['/packages/cv-engine/lib.typ', '/packages/cv-engine/domains/travel-and-tourism/domain.typ']) is None
+    # The refusal lists the first MAX_REPORTED problems, then a count.
+    many = json.loads((ROOT / 'examples/candidates/engineer-example.json').read_text(encoding='utf-8'))
+    ships = [s for c in many['companies'] for g in c['groups'] for s in g['ships']]
+    for ship in ships:
+        ship['months'] = 'x'
+    try:
+        validate_record(many, ['/packages/cv-engine/lib.typ'])
+        raise AssertionError(f'{len(ships)} bad months were accepted')
+    except WorkflowError as error:
+        lines = str(error).splitlines()[1:]
+        assert len(lines) == MAX_REPORTED + 1 and lines[-1] == f'  ... and {len(ships) - MAX_REPORTED} more', lines
+    # lib.typ plus a marine role but no template still means Flagship's contract.
+    assert schema_for(['/packages/cv-engine/lib.typ', '/packages/cv-engine/domains/marine/roles/deck/role.typ']) == ROOT / FLAGSHIP_INPUT[1:]
+    # The template-over-domain choice must not depend on the checkout path: an engine under a folder
+    # named `templates` still resolves the template schema, whatever the import order.
+    import shutil, tempfile
+    with tempfile.TemporaryDirectory() as scratch:
+        engine = Path(scratch) / 'templates' / 'checkout' / 'packages' / 'cv-engine'
+        for schema in ['domains/marine/schema/candidate.schema.json', FLAGSHIP_INPUT[len('/packages/cv-engine/'):]]:
+            (engine / schema).parent.mkdir(parents=True, exist_ok=True)
+            shutil.copyfile(ROOT / 'packages/cv-engine' / schema, engine / schema)
+        chosen = schema_for(['/packages/cv-engine/domains/marine/roles/deck/role.typ',
+                             '/packages/cv-engine/domains/marine/templates/flagship/themes/golden-blue.typ'], engine=engine)
+        assert chosen.name == 'flagship-input.schema.json', chosen
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--typst', default=shutil.which('typst'))
@@ -46,6 +102,8 @@ def main():
         return pdf
 
     check_frozen()
+    check_example_records()
+    results.append({'case': 'example-records-match-schema', 'passed': True})
     compile_case('configuration', 'tests/fixtures/configuration.typ')
     content = compile_case('content', 'tests/fixtures/content.typ')
     assert verify(content, pages=1, output=out / 'content-check')['passed']
@@ -97,6 +155,38 @@ def main():
             keep = lambda page: [w for w in page.get_text('words') if w[4] not in brand]
             assert keep(pa) == keep(pb)
     compile_case('data-valid', 'tests/fixtures/data.typ')
+    # ADR 0008 fixtures: 31 of the 32 ctx-first components rendered alone, one page each, headed by
+    # its name; the 32nd, document-shell, wraps a whole document and is covered by legacy-parity.
+    components = compile_case('contract-components', 'tests/fixtures/contract.typ')
+    with fitz.open(components) as doc:
+        names = [page.get_text().split()[1] for page in doc]
+        assert len(names) == len(set(names)) == 31, names
+    # lib.typ's 32 deprecated pre-contract names draw exactly what the ctx-first components draw;
+    # the fixture must call every one of them.
+    import re
+    lib = (ROOT / 'packages/cv-engine/lib.typ').read_text(encoding='utf-8')
+    legacy_names = [n.strip() for line in lib.splitlines() if 'legacy.typ"' in line for n in line.split(':', 1)[1].split(',')]
+    parity = (ROOT / 'tests/fixtures/legacy-parity.typ').read_text(encoding='utf-8')
+    code = re.sub(r'//[^\n]*', '', re.sub(r'/\*.*?\*/', '', parity, flags=re.S))  # a call in a comment does not count
+    uncalled = [n for n in legacy_names if not re.search(r'L\.' + re.escape(n) + r'[(.]', code)]
+    assert len(legacy_names) == 32 and not uncalled, uncalled
+    old = compile_case('legacy-api', 'tests/fixtures/legacy-parity.typ', {'api': 'legacy'})
+    new = compile_case('contract-api', 'tests/fixtures/legacy-parity.typ', {'api': 'contract'})
+    with fitz.open(old) as a, fitz.open(new) as b:
+        assert len(a) == len(b) == 5, f'parity fixture pages: legacy {len(a)}, contract {len(b)}, expected 5 (page 5 vanishes if page-background draws nothing)'
+        # document-shell forwards the PDF metadata through both APIs.
+        for doc in (a, b):
+            assert (doc.metadata['title'], doc.metadata['author']) == ('Parity title', 'Parity author'), doc.metadata
+        for pa, pb in zip(a, b):
+            ra, rb = (p.get_pixmap(matrix=fitz.Matrix(2, 2), alpha=False) for p in (pa, pb))
+            assert (ra.width, ra.height, ra.samples) == (rb.width, rb.height, rb.samples), 'legacy API draws differently'
+            # Decorations are tagged as PDF artifacts; a wrapper that drops `artifact` changes the count.
+            assert pa.read_contents().count(b'/Artifact') == pb.read_contents().count(b'/Artifact'), 'legacy API tags artifacts differently'
+        # Page 5 holds only page-background, with the shell's background off: it must draw art, which
+        # means more than one colour on the page whatever the paper fill is. The 2pt border is left
+        # out: a tinted fill's anti-aliased page edge alone would count as a second colour.
+        inner = a[4].get_pixmap(alpha=False, clip=a[4].rect + (2, 2, -2, -2))
+        assert inner.color_count() > 1, 'page-background drew nothing'
     # The core paginates a domain that has no ships, and composes domain < role < template.
     compile_case('core-model', 'tests/fixtures/core-model.typ')
     # A role reaches the page only if `flagship` forwards it to the adapter.

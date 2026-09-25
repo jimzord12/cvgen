@@ -13,14 +13,38 @@ them. These evolve; the rules that do not are in `constitution.md`.
   #let name(ctx, data, prop: default, ..slots) = { ... }
   ```
 
-  `ctx` bundles `theme`, `layout`, `copy` and `options`; it is built once by
-  the template and passed through untouched. Inside the function: validate,
-  then the style block of `set` and `show` rules, then layout, then compose.
-  Positional content arguments are children; named content arguments are
-  named slots.
-- **Migrate a module whole.** Until every module is migrated, an unmigrated
-  file keeps the old order (data, theme, geometry slice). A file never
-  mixes the two.
+  `ctx` bundles `theme`, `layout` (the whole profile), `artwork`, `copy` and
+  `options`; the template builds it once with `make-ctx`
+  (`core/component.typ`) and passes it through untouched. Inside the
+  function: validate, then the style block of `set` and `show` rules, then
+  layout, then compose. Positional content arguments are children; named
+  content arguments are named slots. A page variant the parent chooses (for
+  example `spacing: layout.experience.opening`) is a named prop.
+- **Entry points reach components through `lib.typ` only** (constitution
+  section 3). The ctx-first components are two modules there:
+  `core-components` (label, rule, decoration, metric, duration-value, the
+  page shell) and `flagship-components` (every Flagship section). A
+  template's components are always exported as one module named
+  `<template>-components`, never as flat names, so they cannot clash with
+  each other, with a later domain or with the deprecated flat names. A later
+  domain's functions take prefixed flat names; marine keeps its flat names
+  (`docs/reference/domains-and-roles.md`, "Naming rule for exports"). Example:
+  `#import "/packages/cv-engine/lib.typ": make-ctx, flagship-components as fc`,
+  then `fc.hero(ctx, d)`. Engine code inside `packages/` imports sibling
+  files directly.
+- **Legacy signatures stay in `legacy.typ`.** Every core and Flagship module
+  follows the contract since 2026-09-25. The flat component names `lib.typ`
+  exports (`hero`, `section-heading`, ...) are thin wrappers with the old
+  order (data, theme, geometry slice) so custom compositions written earlier
+  render unchanged; `tests/fixtures/legacy-parity.typ` calls all 32 and
+  proves identical pixels, artifact tags and PDF metadata (the suite rejects a name called
+  only in a comment, and a page-background that draws nothing). Deprecated: new code never calls them, and no new
+  legacy wrapper is added.
+- **Style block: not applied yet.** ADR 0008 asks each component to group
+  its `set` and `show` rules at the top of its block; the 2026-09-25
+  migration changed signatures only, and most components still style inline
+  (`docs/framework-gaps.md`). A component touched for another reason moves
+  its styling into the style block.
 - **Parent owns outer spacing, child owns internal layout.** Never add an
   outer `v()` inside a component. A component reads its own slice,
   `ctx.layout.hero`, never a sibling's.

@@ -5,6 +5,7 @@ Status: Accepted. Replaces the signature rule in `docs/conventions.md`. Paths
 amended by 0010 and 0011: `src/` became `packages/cv-engine/` (shared parts in
 `core/`, Flagship's components under `domains/marine/templates/flagship/`);
 never recreate `src/`. The contract itself is unchanged.
+Applied to every core and Flagship module on 2026-09-25; see `docs/history.md`.
 
 ## Context
 

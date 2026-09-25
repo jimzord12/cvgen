@@ -11,7 +11,7 @@ description: Run the CVgen regression suite and produce readable evidence. Use a
 python tests/run.py
 ```
 
-Requires Typst 0.15.1 on PATH and Python with `pymupdf` and `pillow`. Pass
+Requires Typst 0.15.1 on PATH and Python with `pymupdf`, `pillow` and `jsonschema`. Pass
 `--typst <path>` if Typst is elsewhere. Every run writes to a new
 `builds/tests-<timestamp>/` folder.
 
@@ -29,6 +29,13 @@ Requires Typst 0.15.1 on PATH and Python with `pymupdf` and `pillow`. Pass
 - `Text mismatch on page N`: the page looks the same but its extractable text
   differs from v11 (wording, order or a hidden character). Compare the page
   text of both PDFs.
+- `example record <file> (read by <entry>) breaks its schema: ...`: a
+  fictional record no longer matches its schema; the lines after it name
+  the field paths (the first ten, then a count). Fix the record (or the
+  schema, if the change is meant).
+- `ImportError` or `ModuleNotFoundError` naming `jsonschema` at the start
+  of the run: the dependency is missing or older than 4.0:
+  `pip install "jsonschema>=4"`.
 - `core/<file> imports outside core: <target>`: a core module reached into a
   domain or `lib.typ`; the core must import only its siblings (ADR 0011).
 - An `AssertionError` from `tests/workflow.py`: a candidate-workflow step
