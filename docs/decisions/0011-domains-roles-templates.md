@@ -5,6 +5,9 @@ Status: Accepted. Amends 0002 (a sixth entry-point input, `role`), 0007
 (deck and engine become roles of the marine domain; the core no longer owns a
 data model) and 0010 (templates and their schemas move under
 `domains/<domain>/`). The PDF workflow half of 0010 is untouched.
+Implemented 2026-09-21 in four stages (`b54d9f9`, `195fbab`, `3296e91`,
+`422f150`); the `merge`/`compose` helpers in `core/node.typ` now carry the
+composition described below, and the adapter uses them.
 
 ## Context
 

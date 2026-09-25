@@ -30,7 +30,8 @@ commands with `pwsh` or run the compiler directly.
 - No Node, React or web framework as the renderer. React and headless
   Chromium were evaluated and rejected in ADR 0006; the findings are there.
   Web technology may sit in front of the library, never in place of it.
-- No icon fonts. Icons are SVG in the template's `assets/` folder.
+- No icon fonts. Icons are SVG in the domain's `assets/` folder
+  (`packages/cv-engine/domains/marine/assets/`).
 - No hosted Typst. Everything compiles locally so real candidate data never
   leaves the machine.
 - No RenderCV or other CV generators. The layout is the product.

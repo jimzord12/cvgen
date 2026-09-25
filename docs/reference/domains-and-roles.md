@@ -74,3 +74,68 @@ examples/travel-and-tourism/<design>/*.typ
 If the field's template does not fit the page-plan grammar, it calls its own
 validator instead of `validate-pages`; the grammar is generalised when a
 second domain needs it changed, not before (ADR 0011).
+
+### Wiring checklist
+
+A new field is done when every line below is true:
+
+1. `domains/<field>/domain.typ` exports `domain` (`id`, `meta`, `copy`,
+   `experience` with `count` and `slice`); `data.typ` exports the field's
+   normalise and validate functions built on `normalize-common` and
+   `validate-common`.
+2. `schema/candidate.schema.json` describes the facts; a fictional record
+   under `examples/candidates/<field>-<who>-example.json` validates against it.
+3. `packages/cv-engine/lib.typ` exports the field under the naming rule below.
+4. `examples/<field>/<design>/<name>.typ` compiles with `--root .`.
+5. `tests/run.py` compiles every new example (`compile_case`) and asserts
+   its page count; `scripts/build.ps1` lists it in `$examples`.
+6. Once the owner approves the first render: the frozen PDF goes to the
+   template's `tests/approved/`, the example is compared against it in
+   `tests/run.py`, and the reviewed SVGs, fonts and example record are
+   added to `tests/baseline.json` (adding entries is routine; constitution
+   section 1).
+7. `python tests/run.py` passes. Its core-boundary check only proves that
+   core modules import their own siblings; it does not prove the core was
+   left alone.
+8. `git diff --stat main...HEAD -- packages/cv-engine/core packages/cv-engine/domains/marine`
+   is empty (three dots: only the field branch's own changes, so merging
+   `main` in does not raise a false alarm; use `origin/main` if that is what
+   you merged).
+   If the core had to change, that is a separate, reviewed core change first.
+9. `AGENTS.md` ("Where things are"), this page and a history entry name the
+   new field.
+
+### Naming rule for exports
+
+`lib.typ` is one flat namespace, and Typst lets a later import silently
+replace an earlier one with the same name (checked 2026-09-25: two
+`#import ...: f` lines keep the second `f` without a warning). Marine came
+first and keeps its flat names (`normalize-candidate`, `validate-candidate`,
+`hero`, ...) so existing entry points and private workspaces keep working.
+Every later domain exports **prefixed names**, renamed at the
+import in `lib.typ`:
+
+```typst
+#import "domains/travel-and-tourism/domain.typ": domain as tourism
+#import "domains/travel-and-tourism/data.typ": (normalize-candidate as tourism-normalize-candidate,
+  validate-candidate as tourism-validate-candidate)
+#import "domains/travel-and-tourism/templates/postcard/postcard.typ": postcard
+```
+
+The domain node takes the field's short name (as `marine` does), functions
+take `<short-name>-` as a prefix, and a template function keeps its own
+unique name, and its adapter is `to-<template>-input` (as
+`to-flagship-input`). For domain functions, prefixed names were chosen over module
+bindings (`import ... as tourism-data`) because they read the same way as
+marine's existing names and can be found with one search. A template's
+components are the exception: they are exported as one module named
+`<template>-components` (`flagship-components`, later
+`postcard-components`), used as `flagship-components.hero(ctx, ...)`,
+because a template has dozens of components and one module keeps them out
+of the flat namespace entirely; the shared core's components follow the same
+form as `core-components` (component contract, `conventions.md`). Marine's
+flat component names (`hero`, `section-heading`, ...) remain only as the
+deprecated pre-contract wrappers.
+Before adding an export, search `lib.typ` for the name. The rule is a convention today; when the
+second domain lands, `tests/run.py` should also check that no name is bound
+twice in `lib.typ`.

@@ -77,6 +77,13 @@ finish.
 | `Page plan must cover each vessel row once` | A company or row range is missing or duplicated | Check indices against candidate order |
 | `Synopsis must follow the final Experience page` | Flag on the wrong page | Move `synopsis: true` |
 | `Missing page assignment: certificates` | The candidate has certificates but no page shows them | Add the flag to the last page |
+| `Page plan requires exactly one synopsis` | No page, or more than one page, sets `synopsis: true` | Set it on exactly one page |
+| `Credentials must follow Experience` | Certificates or education are placed before the last Experience page | Move the flag to that page or a later one |
+| `Section assigned more than once: <key>` | Two pages set the same section flag | Keep the flag on one page |
+| `Page plan vessel row range out of bounds` | A row range `(start, end)` exceeds the company's vessel rows | Use `0 <= start < end <= row count` |
+| `Page plan cannot be empty` | `pages` is an empty array | List at least one page |
+| `Row range must contain two integer indices` | A row range is not a pair of integers | Write it as `(start, end)` |
+| `Experience requires at least one vessel` | The candidate has no vessel rows at all | Add at least one company with a vessel to `candidate.json` and list it in `pages` |
 
 The system never shrinks fonts to fit. The certificate table repeats its
 header when it continues onto another page.

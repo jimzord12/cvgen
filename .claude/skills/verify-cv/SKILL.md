@@ -26,6 +26,16 @@ Requires Typst 0.15.1 on PATH and Python with `pymupdf` and `pillow`. Pass
   intended; if not, fix the cause.
 - `AssertionError: ('<case>', '<stderr>')`: a fixture failed to compile or
   compiled when it should have failed. Read `<evidence>/<case>.log`.
+- `Text mismatch on page N`: the page looks the same but its extractable text
+  differs from v11 (wording, order or a hidden character). Compare the page
+  text of both PDFs.
+- `core/<file> imports outside core: <target>`: a core module reached into a
+  domain or `lib.typ`; the core must import only its siblings (ADR 0011).
+- An `AssertionError` from `tests/workflow.py`: a candidate-workflow step
+  misbehaved. Its repr shows the command arguments, expected and actual exit
+  code, stdout and stderr, or the render/check record that failed. A failure
+  naming `engine_uncommitted_changes` means engine files are uncommitted:
+  commit them and rerun.
 
 ## Visual evidence for a visual change
 

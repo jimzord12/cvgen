@@ -166,6 +166,28 @@ stages under the pixel gate: governance, the mechanical move of Flagship
 under `domains/marine/`, the split of the maritime data model out of the
 shared core, and the rename to CVgen.
 
+## 2026-09-21 — the four stages land
+
+All four stages merged into `main` the same night, each with a passing
+review round and the engineer example still pixel-identical to v11:
+governance (`b54d9f9`), the move of Flagship and the marine schema under
+`domains/marine/` (`195fbab`, tag `archive/pre-domains` marks the tree
+before it), the split of the maritime data model out of the core with the
+marine domain node and the `deck`/`engine` role markers (`3296e91`), and
+the rename to CVgen: repository `github.com/jimzord12/cvgen`, Typst package
+`cvgen`, board "CVgen" (`422f150`). The suite stood at 38 cases. The
+owner's two private workspaces were repathed and matched their references.
+
+## 2026-09-25 — autonomy and a documentation audit
+
+The owner widened agent authority: routine Git and board work, including
+branch and worktree cleanup, no longer needs his approval; a short list of
+irreversible operations still does (`docs/preferences.md`). Review rounds
+are capped at five when he attends and ten when work runs unattended. Two
+auditors checked every document against the code; the findings and their
+fixes are in `docs/work/docs-audit/`. Marine PDFs now carry CVgen in their
+metadata.
+
 ## 2026-09-25 — the component contract applied
 
 The owner opened roadmap item 4 and the ADR 0008 migration ran overnight on

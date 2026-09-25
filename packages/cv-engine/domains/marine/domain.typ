@@ -4,7 +4,7 @@
 
 #let domain = (
   id: "marine",
-  meta: (title: "Marine CV", author: "Marine CV Studio"),
+  meta: (title: "CVgen", author: "CVgen"),
   // Wording that belongs to the field, not to one design.
   copy: (
     experience-subtitle: "Company / vessel type / vessel", continuation: "Continued / earlier companies",

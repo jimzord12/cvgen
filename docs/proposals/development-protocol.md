@@ -45,7 +45,9 @@ fixtures (defect and evidence gap detected; clean case passed; no file
 modified) and the setup itself passed review round 1; reports and hashes are
 linked from the task record. Evidence so far comes from a fresh headless
 invocation (`claude -p --agent code-reviewer`); the in-session Agent-tool path
-awaits a session restart and is noted in the task record. Task tooling remains
+awaits a session restart and is noted in the task record. *Superseded:* later
+reviews (from 2026-09-16 onward, `docs/work/*/reviews/`) ran in-session
+through the Agent tool. Task tooling remains
 with the [Trello trial](trello-free-trial.md); no governance package or CLI
 was installed.
 

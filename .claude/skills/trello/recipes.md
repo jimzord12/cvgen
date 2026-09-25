@@ -51,11 +51,15 @@ Blocked convention: keep the card in its stage, add the label, and put a
 `## Blocked` section in the description with the reason, the dependency card
 link and the unblock condition.
 
+Cancelled convention: move the card to Done and add a `## Cancelled` section
+with the date, the reason, who decided and what was kept
+(`docs/development.md`). No label; the section is the marker.
+
 ## Board setup (done once; kept for a future board)
 
 ```powershell
-$b = & $T POST boards -Body @{ name = 'Marine CV'; idOrganization = $orgId; defaultLists = $false; prefs_permissionLevel = 'private' } | ConvertFrom-Json
-foreach ($n in 'Queued','Active','Review','Ready','Done') { & $T POST lists -Body @{ name = $n; idBoard = $b.id; pos = 'bottom' } }
+$b = & $T POST boards -Body @{ name = 'CVgen'; idOrganization = $orgId; defaultLists = $false; prefs_permissionLevel = 'private' } | ConvertFrom-Json
+foreach ($n in 'Handoff','Queued','Active','Review','Ready','Done') { & $T POST lists -Body @{ name = $n; idBoard = $b.id; pos = 'bottom' } }
 ```
 
 ## Export
