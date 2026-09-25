@@ -5,14 +5,19 @@ description: Produce a CV for a real or new fictional candidate with the CVgen l
 
 # New CV
 
-Follow `docs/guides/build-a-cv.md`. This skill is the checklist.
+Follow `docs/guides/build-a-cv.md`. This skill is the checklist. For a real
+client it starts after the `new-client` skill: take the facts from the
+`Envelope`'s `intake/facts.md` and the wording from the signed-off text in
+`draft/`; do not re-ask the client or reword what they signed off beyond
+fitting the page.
 
 ## Decide the destination
 
-- Real person: one folder per candidate under `private/` (ignored), named
-  after the person and role: `private/<name>-<role>/` with `candidate.json`,
-  `cv.typ`, `portrait.<ext>` and a `README.md` recording what was decided
-  and where the evidence is. Renders go to `revisions/` and approved copies
+- Real person: the client's `Envelope` under `private/` (ignored), named
+  after the person and their `Rank`: `private/<name>-<rank>/` with the
+  client workflow's `intake/`, `research/` and `draft/`, plus
+  `candidate.json`, `cv.typ`, `portrait.<ext>` and a `README.md` recording
+  what was decided and where the evidence is. Renders go to `revisions/` and approved copies
   to `exports/` through `scripts/cv.py`. Never under `examples/`.
 - New public example: fictional data under `examples/candidates/<name>-example.json`,
   entry under `examples/marine/flagship/<name>.typ`, and add it to `scripts/build.ps1` and

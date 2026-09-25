@@ -66,7 +66,9 @@ This schematic candidate name does not identify a real person:
 private/<candidate>/
   candidate.json                # Working candidate record
   cv.typ                        # Entry point: template, theme, artwork, layout, page plan
-  sources/                      # Optional: original documents and correspondence
+  intake/ research/ draft/      # Client workflow drawers: messages and documents,
+                                #   research, text drafts and Sign-off
+                                #   (docs/guides/client-workflow.md)
   assets/                       # Optional: prepared portrait; a portrait at the
                                 #   folder root works too (docs/guides/build-a-cv.md)
   revisions/<revision-id>/       # Fresh timestamp + unique suffix for each run

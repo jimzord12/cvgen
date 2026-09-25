@@ -3,13 +3,19 @@
 Read this when producing an actual CV. The public repository never receives
 real data; everything below happens in the ignored `private/` folder.
 
+A new client starts with [the client workflow](client-workflow.md): intake,
+research and the client's `Sign-off` on the text. This guide takes over
+from there, with the facts in `intake/facts.md` and the signed-off draft.
+
 ## 1. Create the private workspace
 
-One folder per candidate, named after the person and role:
+One folder per client, the `Envelope`, named after the person and their
+`Rank` (the client workflow has usually created it already):
 
 ```text
 private/jane-doe-second-engineer/
   README.md              how to build, what was decided, where the evidence is
+  intake/, research/, draft/   from the client workflow; never copied into a revision
   candidate.json         candidate data
   cv.typ                 entry point
   portrait.<ext>         authorised photograph, jpg or png

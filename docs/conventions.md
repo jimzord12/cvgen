@@ -105,7 +105,7 @@ them. These evolve; the rules that do not are in `constitution.md`.
 - English. Plain language. Lead with the answer.
 - Official terms as in `docs/glossary.md`, never a synonym. A term the
   glossary lacks but the text needs repeatedly is added to it in the same
-  change.
+  change and named in the next report (glossary Rule 4).
 - One concept per file under `docs/reference/`. First line says when to read
   it. Under about 100 lines.
 - Anything with a shape (JSON, dictionary, command) is a code block with a

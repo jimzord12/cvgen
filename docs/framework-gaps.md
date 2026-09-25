@@ -46,6 +46,19 @@ Bypassed: The `flagship` template, which has no slot for it; the section
 Built:    Placed by hand in a custom composition.
 Lesson:   The template needs a slot for optional sections per page.
 
+### 2026-09-25  A client whose domain does not exist yet           Status: open, card framework-split (ADR 0012), then card revision-snapshot
+Needed:   A CV for a client outside marine (a tour guide) through
+          `scripts/cv.py render`, `approve` and `export`, before the
+          `Travel & Tourism` domain exists.
+Bypassed: Nothing yet, because nothing works: an entry point importing
+          `lib.typ` is checked against Flagship's marine input schema, and
+          a revision snapshots only `cv.typ`, `candidate.json` and the
+          portrait, so a one-off template split across files is lost.
+Built:    Recorded in advance in the client workflow (guide section 9):
+          stop at the signed-off text draft and tell the owner.
+Lesson:   A one-off design needs the core without a domain, and the
+          snapshot needs the sibling files an entry point reads.
+
 ### 2026-09-25  Legacy component signatures                         Status: open, remove when no custom composition imports them
 Needed:   The ADR 0008 migration (ctx first) without breaking the two private
           custom compositions, which import lib.typ's component names with the

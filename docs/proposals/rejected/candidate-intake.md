@@ -1,12 +1,12 @@
 ---
 kind: proposal
-status: pending
+status: rejected
 revision: 1
 ---
 
 # Candidate intake questionnaire
 
-Origin: ceo agent run 2026-09-25 ([run record](../work/idea-runs/2026-09-25-ceo/run.md)).
+Origin: ceo agent run 2026-09-25 ([run record](../../work/idea-runs/2026-09-25-ceo/run.md)).
 
 **Pitch:** one intake questionnaire that collects every fact the CV needs,
 in the form the record needs it, before a client's CV is started: marine
@@ -133,3 +133,11 @@ is marine.
 Approve the smallest version (questionnaire with field appendix and a
 step 0 in the build guide), written now if the first client is marine,
 otherwise with item 2?
+
+## Decisions
+
+- 2026-09-25, owner: rejected as superseded by the
+  [client workflow](../client-workflow.md), which keeps the questionnaire
+  idea but sends it by chat through the owner (Relay intake) instead of as a
+  document, for every `Domain`, with a follow-up round and research. The
+  marine field appendix is not carried over; `new-cv` converts the facts.

@@ -6,7 +6,7 @@ version: `packages/cv-engine/domains/marine/schema/candidate.schema.json`
 (candidate facts; the Flagship input adds `copy`, see
 `packages/cv-engine/domains/marine/templates/flagship/schema/flagship-input.schema.json`).
 Runtime checks: `validate-candidate` in `packages/cv-engine/domains/marine/data.typ`,
-which runs the field-neutral `validate-common` from `packages/cv-engine/core/data.typ`
+which runs the domain-neutral `validate-common` from `packages/cv-engine/core/data.typ`
 first (identity name, contacts, certificates, education, languages) and then the
 marine rules (rank, companies, vessels, months).
 
@@ -74,7 +74,7 @@ adapter produces it (see "Flagship wording" below).
 ## Wording
 
 Headings, captions and the footer brand are template input, not candidate
-facts. The field's words come from the marine domain
+facts. The domain's words come from the marine domain
 (`packages/cv-engine/domains/marine/domain.typ`, `domain.copy`):
 
 ```text

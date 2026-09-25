@@ -18,14 +18,15 @@ the engine is organised by domain, role and template (ADR 0011, implemented
 
 ## What this is
 
-A library of polished, distinctive CVs for any field, organised by domain:
+Hand-crafted, premium CVs made with AI on our own Typst framework (owner,
+2026-09-25): a library of polished, distinctive CVs for any career area, organised by domain:
 merchant marine first, travel and tourism next, others as they come. A CV
 is something the reader on the other side, a crewing agency, a hotel group's
 HR desk, a hiring manager, opens, reads and parses without friction. It is
-built as Typst templates on one shared, field-neutral core.
+built as Typst templates on one shared, domain-neutral core.
 
 A **domain** (marine, travel and tourism, software development) offers what
-its field needs: a facts shape, assets, wording and rules. A **role** is one
+its career area needs: a facts shape, assets, wording and rules. A **role** is one
 level of specialisation inside a domain (deck and engine at sea; front-end
 and back-end in software) and may refine what the domain offers. A
 **template** is a named design; it may sit under a role or serve a whole
@@ -35,14 +36,14 @@ item 6, not built yet). Decided 2026-09-20,
 [ADR 0011](decisions/0011-domains-roles-templates.md).
 
 The person editing a CV changes data, not layout code. The person designing
-a new look changes a theme or an artwork pack. The person opening a new field
+a new look changes a theme or an artwork pack. The person opening a new career area
 writes a domain: its schema, wording, assets and a first template against
 the shared core, then freezes an approved render.
 
 ## What it is not
 
 - Not a generic resume builder with one shape for everyone. Each domain
-  keeps the facts and wording its field actually uses. Two pages by default;
+  keeps the facts and wording its career area actually uses. Two pages by default;
   one page for short careers once direction item 6 lands.
 - The engine remains locally usable with one compiler. The approved future web
   application adds hosted intake, review, and delivery, with real candidate

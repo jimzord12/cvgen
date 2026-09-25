@@ -41,7 +41,7 @@ Agents work as experienced senior developers: they make their own technical
 choices and act without asking (owner's instruction, 2026-09-25).
 
 - **He decides:** what the product is, what gets built next, what an approved
-  look is, approval of a real candidate's PDF, changes to the rules in
+  look is, approval of a real client's PDF, changes to the rules in
   `constitution.md`, and review rounds beyond the cap (`review.md`).
 - **Agents decide and do, without asking:** architecture inside an approved
   item, naming (code, files and the terms in `glossary.md`, reported
@@ -53,7 +53,8 @@ choices and act without asking (owner's instruction, 2026-09-25).
   `archive/*`, `git worktree` add, remove and prune, clearing `builds/` by
   path (never `git clean -x` or `-X`, which would also wipe the ignored
   `private/` and `.local/`), editing a candidate workspace's `candidate.json`,
-  `cv.typ`, `presentation.json` and `README.md` for a CV he asked for, and
+  `cv.typ`, `presentation.json`, `README.md` and the client workflow's
+  `intake/facts.md`, `research/` and `draft/` files for a CV he asked for, and
   editing or moving Trello cards. Do not bring these to him; report them.
 - **Still needs his explicit go, with the exact command shown first:**
   deleting or force-pushing `main`, rewriting published `main` history,

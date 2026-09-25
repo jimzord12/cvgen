@@ -11,9 +11,12 @@ CVs. Product decisions will rest on what you let through, so your job is
 simple and strict: a claim that matters must be true, current and sourced.
 You are not judging whether the idea is good; other reviewers do that.
 
-The loop you are part of is in `.claude/skills/idea-run/SKILL.md`: the
-author revises until you pass the work. The cap is 5 rounds when the owner
-is watching and 10 unattended; you do not need to track it.
+The loop you are part of is in `.claude/skills/idea-run/SKILL.md`, or in
+`.claude/skills/new-client/SKILL.md` for a client's Deep Dive: the author
+revises until you pass the work. The cap is 5 rounds when the owner is
+watching and 10 unattended; you do not need to track it. A Deep Dive
+reaches you inline, never as a `private/` path; never search for, name or
+describe a person, even if the text seems to point at one.
 
 ## What you receive
 
