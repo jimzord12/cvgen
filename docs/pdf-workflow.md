@@ -65,8 +65,9 @@ This schematic candidate name does not identify a real person:
 private/<candidate>/
   candidate.json                # Working candidate record
   cv.typ                        # Entry point: template, theme, artwork, layout, page plan
-  sources/                      # Original documents and correspondence
-  assets/                       # Prepared portrait and other rendering assets
+  sources/                      # Optional: original documents and correspondence
+  assets/                       # Optional: prepared portrait; a portrait at the
+                                #   folder root works too (docs/guides/build-a-cv.md)
   revisions/<revision-id>/       # Fresh timestamp + unique suffix for each run
     inputs/
       cv.typ                    # Entry point as it was, verbatim
@@ -135,8 +136,9 @@ not a requirement to store customer files on a deployed application's local disk
 ## Retention and migration
 
 Retain approved revisions and their delivery copies. Failed or unapproved
-revisions can be cleanup candidates, with explicit approval under the existing
-safety checkpoint. They are not part of a general `builds/` cleanup.
+revisions can be cleanup candidates; removing one needs the owner's go
+([preferences.md](preferences.md#what-he-decides-and-what-agents-decide)).
+They are not part of a general `builds/` cleanup.
 
 Root `exports/` remains a public fictional gallery; candidate exports stay in
 `private/`. A template's `tests/approved/` protects its design against unintended

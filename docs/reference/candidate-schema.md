@@ -29,7 +29,7 @@ Top-level shape. Required keys are `identity` and `companies`.
   "education_entries": [ { "qualification": "Diploma in Marine Engineering",
                            "institution": "Merchant Marine Academy", "note": "optional" } ],
   "language_entries":  [ { "name": "Greek", "level": "Native" } ],
-  "disclosure":        "optional footer text"
+  "disclosure":        "footer text; defaults to the fictional-example line, so a real CV sets it"
 }
 ```
 
@@ -62,14 +62,15 @@ adapter produces it (see "Flagship wording" below).
   recorded as one date range per contract, not as service months. There is
   no per-contract field (`companies[].period` is company-level display
   text), and the synopsis counts months, vessels and companies.
-  This is roadmap item one in `docs/vision.md` (ADR 0007). Until it lands, a
+  This is roadmap item 3 in `docs/vision.md` (ADR 0007). Until it lands, a
   deck CV with contract periods uses the custom-composition path in
-  `docs/guides/build-a-cv.md`, section 7. Do not convert calendar periods
+  `docs/guides/build-a-cv.md`, section 8. Do not convert calendar periods
   into months to make the data fit; constitution section 6 forbids it.
 - **certificates** accept either a four-string array in the order title,
   scope, issued, review, or an object with those keys.
 - **education_entries[].note** is optional and renders small under the
   institution.
+
 ## Wording
 
 Headings, captions and the footer brand are template input, not candidate
@@ -110,6 +111,21 @@ then the argument; later wins (see `docs/reference/domains-and-roles.md`).
 A role can only override the domain's words.
 
 ## Errors you will see
+
+`scripts/cv.py render` first checks the record against the Flagship input
+schema (this file's facts plus `copy`) and refuses with exit 2 before
+anything is written, listing every problem with its field path, for
+example:
+
+```text
+REFUSED: candidate.json does not match /packages/cv-engine/domains/marine/templates/flagship/schema/flagship-input.schema.json:
+  (top level): Additional properties are not allowed ('educaton_entries' was unexpected)
+  certificates/0: 'review' is a required property
+  companies/0/groups/0/ships/1/months: is null; give a value, or leave the key out if it is optional
+```
+
+Fix the named field and render again. The engine's own checks below run
+after that, during compilation, for what a schema cannot express.
 
 | Message | Fix |
 |---|---|

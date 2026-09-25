@@ -28,7 +28,7 @@ Bypassed: The candidate schema (no field for periods), the experience section
 Built:    A custom composition in the candidate's private folder: a hand-made
           vessel, rank and period table, a hand-made synopsis, periods kept in
           a separate `presentation.json`. See `docs/guides/build-a-cv.md`
-          section 7.
+          section 8.
 Lesson:   The schema needs contract periods, and the synopsis needs its metrics
           declared by data.
 

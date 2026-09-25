@@ -46,9 +46,10 @@ Any descriptor also works as the `bullet` of the skills section.
   so faint detail reads as texture, not clutter.
 - Everything placed through a pack is tagged as a PDF artifact, so it does
   not enter the reading order. Do not put information in artwork.
-- Add every new SVG to `tests/baseline.json`. The manifest freezes all
-  assets, fonts, example JSON and design studies, not only what the engineer
-  example uses, so a pack cannot drift once it has been reviewed.
+- Add every new SVG to `tests/baseline.json` once the pack is reviewed.
+  The manifest freezes every marine asset and the fonts, not only what the
+  engineer example uses, so a pack cannot drift after review. Adding an entry
+  is routine; changing a pinned file needs an ADR (constitution section 1).
 
 ## Checks
 

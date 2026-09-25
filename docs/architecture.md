@@ -48,7 +48,9 @@ contracts differ only by that key today; keeping them apart is what lets a
 second template read the same facts with its own wording.
 
 The template is the only place that sees all inputs. Children receive only
-the slice they need, so a hero function gets `layout.hero`, not `layout`. Once
+the slice they need, so a hero function gets `layout.hero`, not `layout`.
+Two exceptions today: the certificates and education sections receive the
+whole `layout`, because they read more than one slice. Once
 the ADR 0008 migration starts, the template will build one `ctx` dictionary
 from theme, layout, copy and options and pass that down instead; see below.
 
@@ -120,7 +122,8 @@ fonts/  licenses/                       bundled OFL fonts and their notices
 
 packages/cv-workflow/cv_workflow/       Python; owns everything around a candidate render
   workspace.py                          workspace and revision paths, ids, hashes, records, the refusal rules
-  render.py                             snapshot inputs, compile, render.json + render.log, then checks
+  validate.py                           candidate record against the template's (or domain's) JSON Schema, before anything is written
+  render.py                             validate, snapshot inputs, compile, render.json + render.log, then checks
   checks.py                             page count, empty page, fonts, bounds; bound to the PDF hash
   approve.py                            explicit approval receipt, bound to revision id and hash
   export.py                             verify, copy into a .partial- folder, verify, rename into place
