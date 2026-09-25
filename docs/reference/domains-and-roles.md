@@ -52,8 +52,8 @@ access: `(domain.experience.totals)(companies)`.
 
 ## What the Framework owns and what it does not
 
-Nothing in `packages/cv-framework/` imports or reads a file in
-`packages/domains/`, and every domain file that reaches the core does so
+Nothing in `packages/cv-framework/` imports or names a file in
+`packages/domains/` (a domain passes its SVG paths in at render time), and every domain file that reaches the core does so
 through `cv-framework/core/` (the suite asserts both). The Framework owns:
 `normalize-common` and `validate-common` (identity name, contacts, profile,
 certificates, education, languages), the page shell, the page-plan grammar

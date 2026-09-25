@@ -49,8 +49,9 @@ commit with a new version number.
 
 Names, employers, vessels, dates, certificates and the portrait are invented.
 Real candidate data lives in `private/`, which git ignores, one folder per
-candidate with its own entry point, importing
-`packages/domains/marine/lib.typ`. Certificate numbers, scans and passport details
+candidate with its own entry point, importing its `Domain`'s `lib.typ`
+(`packages/domains/marine/lib.typ`), or the `Framework`'s
+(`packages/cv-framework/lib.typ`) for a one-off `Template`. Certificate numbers, scans and passport details
 never enter this repository.
 
 ## 4. The system does not lie to fit

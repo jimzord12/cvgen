@@ -59,8 +59,7 @@ owner talks to the client; you never do. Terms: `docs/glossary.md`.
    one `cv.typ` that imports only `/packages/cv-framework/lib.typ` (guide
    section 9). Record decisions and evidence paths in the `Envelope`'s
    `README.md`. At `Export`, write "Delivered <date>. Delete by <date + 12
-   months>" there. Name a client with no progress three months after the
-   intake date to the owner, by `Alias`.
+   months>" there.
 
 ## Brief for a Scout or Deep Dive agent
 
@@ -78,6 +77,10 @@ the question.
 ```
 
 ## Report to the owner
+
+Every time this skill runs, first read the intake date in each `Envelope`'s
+`README.md`: name to the owner, by `Alias`, any client with no `Export`
+three months after intake, and any delete-by date that has passed.
 
 Where the client stands (which step), what is waiting on him (a message to
 paste, a Deep Dive choice, a screenshot), new or changed `Research Library`

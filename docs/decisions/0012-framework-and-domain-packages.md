@@ -17,7 +17,7 @@ On 2026-09-25 the owner decided to decouple the framework from the domains
 ("yes, it should not be that difficult"), and settled the words: the
 shared core is the `Framework`, a career area is a `Domain`
 (`docs/glossary.md`). The same day he approved a client workflow in which a
-client whose domain does not exist yet gets a one-off design in their
+client whose domain does not exist yet gets a one-off `Template` in their
 `Envelope`; such a design needs the core without marine.
 
 ## Decision
@@ -29,7 +29,7 @@ client whose domain does not exist yet gets a one-off design in their
 - **One surface per domain.** `packages/domains/marine/lib.typ` exports
   every name the old `lib.typ` exported: the Framework's names (through
   `cv-framework/lib.typ`), marine, and Flagship with its deprecated wrappers.
-  Marine entry points change only their paths; a one-off design with no
+  Marine entry points change only their paths; a one-off `Template` with no
   domain imports `packages/cv-framework/lib.typ`.
 - **One direction.** Nothing in `cv-framework/` imports a file in, or names
   a path under, `domains/` (a domain passes its own SVG paths in at render
@@ -42,7 +42,7 @@ client whose domain does not exist yet gets a one-off design in their
 
 ## Consequences
 
-- Easier: a new domain, or a client's one-off design, builds on the
+- Easier: a new domain, or a client's one-off `Template`, builds on the
   Framework without importing marine; each domain's `lib.typ` is its own
   namespace, so the prefixed-names rule of 0011 is no longer needed.
 - Harder: every path under `packages/cv-engine/` changed once. Examples,

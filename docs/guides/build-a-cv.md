@@ -228,7 +228,7 @@ Rules for this path:
   A client whose domain does not exist yet imports `/packages/cv-framework/lib.typ`
   only (render then checks no schema) and keeps the whole design in `cv.typ`
   (`client-workflow.md` section 9).
-- Keep the candidate JSON valid against the schema. Put data the schema
+- Keep the candidate JSON valid against its schema, if it has one. Put data the schema
   cannot hold, such as contract periods, in a separate `presentation.json`
   beside it. Never invent months from calendar periods.
 - Approve and export the hand-composed render through the same workflow

@@ -98,7 +98,7 @@ marine roles from data, artwork and copy. A section that must differ is a
 slot or a data-selected variant. A section is promoted from a template to
 the Framework when a third template needs it unchanged, and from a domain to
 the Framework when a second domain needs it unchanged. Nothing in
-`cv-framework/` imports or reads anything in `domains/`; domain files reach
+`cv-framework/` imports or names anything in `domains/`; domain files reach
 the core only through `cv-framework/`; the suite asserts both. A second
 marine template gets its own folder beside Flagship and its own adapter; a
 second domain gets its own folder beside `marine/`, with its own `lib.typ`,

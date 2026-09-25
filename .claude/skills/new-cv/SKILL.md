@@ -32,7 +32,10 @@ fitting the page.
 2. The record is validated for you: `scripts/cv.py render` refuses a record
    that breaks the Flagship input schema (needs `jsonschema`) and lists the
    field paths; the engine's compile-time assertions then check totals. For
-   a public example, the suite runs the same schema check.
+   a public example, the suite runs the same schema check. A one-off
+   `Template` that imports only the `Framework` gets no schema check: keep
+   `identity.name` and `identity.portrait`, and run `normalize-common` and
+   `validate-common` in its `cv.typ`.
 3. Write the entry point as shown in the guide, importing the engine by
    root-absolute path (`/packages/domains/marine/lib.typ` and the files
    beside it; a one-off `Template` with no domain uses

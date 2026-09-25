@@ -18,8 +18,7 @@ comments, mechanical formatting or a term row added, renamed or dropped in
 independent round after a focused check; for a term row, that check is
 that its code name matches the tree at that commit and anything unbuilt
 says so. The term-row path was adopted by the lead on 2026-09-25 under the
-owner's "as little friction as possible"
-after a focused check. A one-line configuration change can be high risk; file count
+owner's "as little friction as possible". A one-line configuration change can be high risk; file count
 is not the criterion. Record the reason when taking the small-change path.
 
 Idea runs are the one other exception (adopted by the lead on 2026-09-25 to
