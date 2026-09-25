@@ -22,7 +22,7 @@ jobs:
           python-version: "3.11"
 
       - name: Install verification dependencies
-        run: pip install pymupdf==1.28.2 pillow
+        run: pip install pymupdf==1.28.2 pillow jsonschema==4.26.0
 
       - name: Run the regression suite
         run: python tests/run.py --output builds/ci

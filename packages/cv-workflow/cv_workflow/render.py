@@ -4,6 +4,7 @@ import shutil
 import subprocess
 
 from .checks import check_pdf
+from .validate import validate_record
 from .workspace import (ENGINE, FONTS, ROOT, Workspace, WorkflowError, new_revision_id, read_json,
                         repo_relative, sha256_file, utc_now, write_json)
 
@@ -29,6 +30,8 @@ def render_revision(workspace, typst='typst', pages=2, inputs=None):
     record = read_json(ws.record)
     if not isinstance(record, dict):
         raise WorkflowError(f'{ws.record} must hold a JSON object')
+    # A misspelt or unknown key would otherwise be dropped silently by the engine.
+    schema = validate_record(record, IMPORT.findall(ws.entry.read_text(encoding='utf-8')))
     portrait = (record.get('identity') or {}).get('portrait')
     source = None
     if portrait:
@@ -70,7 +73,7 @@ def render_revision(workspace, typst='typst', pages=2, inputs=None):
             'entry': {'path': 'inputs/cv.typ', 'sha256': sha256_file(revision.inputs / 'cv.typ'),
                       'imports': IMPORT.findall((revision.inputs / 'cv.typ').read_text(encoding='utf-8'))},
             'candidate': {'path': 'inputs/candidate.json', 'sha256': sha256_file(revision.inputs / 'candidate.json'),
-                          'source_sha256': sha256_file(ws.record)},
+                          'source_sha256': sha256_file(ws.record), 'schema': schema},
             'assets': assets,
             'compiler_inputs': dict(inputs or {}),
         },
@@ -86,6 +89,7 @@ def render_revision(workspace, typst='typst', pages=2, inputs=None):
         'revision': revision.id,
         'folder': str(revision.folder),
         'status': render['status'],
+        'schema': schema,
         'sha256': render['pdf']['sha256'] if succeeded else None,
         'checks_passed': bool(checks and checks['passed']),
         'errors': (checks or {}).get('errors', []) if succeeded else [result.stderr.strip()],

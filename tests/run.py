@@ -19,6 +19,62 @@ def check_core_boundary():
             assert '/' not in target and '..' not in target, f'core/{source.name} imports outside core: {target}'
 
 
+def check_example_records():
+    """Every public example's record matches the contract its entry point imports (the check cv.py render runs)."""
+    import re
+    from jsonschema import Draft202012Validator  # noqa: F401  A missing or pre-4.0 jsonschema fails here, not as a broken record.
+    from cv_workflow.render import IMPORT
+    from cv_workflow import WorkflowError
+    from cv_workflow.validate import MAX_REPORTED, schema_for, validate_record
+    FLAGSHIP_INPUT = '/packages/cv-engine/domains/marine/templates/flagship/schema/flagship-input.schema.json'
+    entries = sorted((ROOT / 'examples').rglob('*.typ'))
+    assert entries, 'no example entry points found'
+    checked = set()
+    for entry in entries:
+        source = entry.read_text(encoding='utf-8')
+        for path in re.findall(r'json\("([^"]+)"\)', source):
+            checked.add(entry)
+            record = json.loads((entry.parent / path).read_text(encoding='utf-8'))
+            try:
+                schema = validate_record(record, IMPORT.findall(source))
+            except WorkflowError as error:
+                raise AssertionError(f'example record {path} (read by {entry.name}) breaks its schema: {error}')
+            assert schema == FLAGSHIP_INPUT, (entry.name, schema)
+    # Every entry must read its record with a literal json("...") path, or it was not checked at all.
+    assert checked == set(entries), f'no record found in: {sorted(e.name for e in set(entries) - checked)}'
+    # Template beats domain whatever the import order; lib.typ alone means Flagship; no engine import, no contract.
+    assert schema_for(['/packages/cv-engine/domains/marine/roles/deck/role.typ',
+                       '/packages/cv-engine/domains/marine/templates/flagship/themes/golden-blue.typ']) == ROOT / FLAGSHIP_INPUT[1:]
+    assert schema_for(['/packages/cv-engine/lib.typ']) == ROOT / FLAGSHIP_INPUT[1:]
+    assert schema_for(['/private/helpers.typ']) is None
+    # lib.typ with a non-marine domain never falls back to Flagship's contract.
+    assert schema_for(['/packages/cv-engine/lib.typ', '/packages/cv-engine/domains/travel-and-tourism/domain.typ']) is None
+    # The refusal lists the first MAX_REPORTED problems, then a count.
+    many = json.loads((ROOT / 'examples/candidates/engineer-example.json').read_text(encoding='utf-8'))
+    ships = [s for c in many['companies'] for g in c['groups'] for s in g['ships']]
+    for ship in ships:
+        ship['months'] = 'x'
+    try:
+        validate_record(many, ['/packages/cv-engine/lib.typ'])
+        raise AssertionError(f'{len(ships)} bad months were accepted')
+    except WorkflowError as error:
+        lines = str(error).splitlines()[1:]
+        assert len(lines) == MAX_REPORTED + 1 and lines[-1] == f'  ... and {len(ships) - MAX_REPORTED} more', lines
+    # lib.typ plus a marine role but no template still means Flagship's contract.
+    assert schema_for(['/packages/cv-engine/lib.typ', '/packages/cv-engine/domains/marine/roles/deck/role.typ']) == ROOT / FLAGSHIP_INPUT[1:]
+    # The template-over-domain choice must not depend on the checkout path: an engine under a folder
+    # named `templates` still resolves the template schema, whatever the import order.
+    import shutil, tempfile
+    with tempfile.TemporaryDirectory() as scratch:
+        engine = Path(scratch) / 'templates' / 'checkout' / 'packages' / 'cv-engine'
+        for schema in ['domains/marine/schema/candidate.schema.json', FLAGSHIP_INPUT[len('/packages/cv-engine/'):]]:
+            (engine / schema).parent.mkdir(parents=True, exist_ok=True)
+            shutil.copyfile(ROOT / 'packages/cv-engine' / schema, engine / schema)
+        chosen = schema_for(['/packages/cv-engine/domains/marine/roles/deck/role.typ',
+                             '/packages/cv-engine/domains/marine/templates/flagship/themes/golden-blue.typ'], engine=engine)
+        assert chosen.name == 'flagship-input.schema.json', chosen
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--typst', default=shutil.which('typst'))
@@ -46,6 +102,8 @@ def main():
         return pdf
 
     check_frozen()
+    check_example_records()
+    results.append({'case': 'example-records-match-schema', 'passed': True})
     compile_case('configuration', 'tests/fixtures/configuration.typ')
     content = compile_case('content', 'tests/fixtures/content.typ')
     assert verify(content, pages=1, output=out / 'content-check')['passed']
