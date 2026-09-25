@@ -16,7 +16,7 @@ Intake (Relay) -> Scout -> CV decisions -> Deep Dives -> one follow-up
 
 | Step | Owner | Claude |
 |---|---|---|
-| 1. Envelope | names the client | creates the folder |
+| 1. Envelope | names the client | creates the folder and its alias |
 | 2. Intake | pastes the questions, brings the answers back | writes the questions in simple Greek |
 | 3. Facts | - | turns answers into facts and a gap list |
 | 4. Scout | - | Research Library first, then the web |
@@ -33,8 +33,8 @@ person and their `Rank`, as in `build-a-cv.md`. The workflow adds three
 drawers to it:
 
 ```text
-private/maria-papadaki-tour-guide/
-  README.md          what was decided and where the evidence is
+private/eleni-example-tour-guide/
+  README.md          alias, decisions, draft fingerprints, delivery and delete-by dates
   intake/
     messages.md      every answer as received, dated, in the client's words
     documents/       the photos and files the client sent
@@ -43,6 +43,7 @@ private/maria-papadaki-tour-guide/
     scout.md         the Scout's findings, each with its source
     decisions.md     the CV decisions and what answers each one
     deep-dive-<topic>.md
+    reviews/         research-reviewer reports on this client's Deep Dives
   draft/
     draft-01.typ, draft-01.pdf   the text draft (a new number per version)
     sign-off-01.png              the client's OK, as a screenshot
@@ -51,6 +52,12 @@ private/maria-papadaki-tour-guide/
 
 `scripts/cv.py render` copies only `cv.typ`, `candidate.json` and the
 portrait into a `Revision`; the drawers never enter one.
+
+**The folder name is client data.** Claude gives each client an alias,
+`client-<yyyy>-<mm>-<nn>` (for example `client-2026-09-01`), written at the
+top of the `Envelope`'s `README.md`. Outside `private/` (Trello cards,
+commit messages, briefs to agents, anything public) the client is only ever
+the alias.
 
 ## 2. Intake by Relay
 
@@ -67,34 +74,37 @@ and saves photos into `intake/documents/`.
 The master list, in English (why each question matters:
 [research note](../research/cv-intake-practice.md), "Draft question set"):
 
-1. Which job are you applying for next, and at what level?
-2. In which country or countries, and with what kind of employer (for
+1. Consent, first: "We use AI tools and web research to write your CV.
+   Your details stay in our private files, are never published, and are
+   deleted 12 months after delivery unless you ask us to keep them. Reply
+   'I agree' to continue."
+2. Which job are you applying for next, and at what level?
+3. In which country or countries, and with what kind of employer (for
    example a crewing agency, a shipowner, a hotel group, a tour operator)?
-3. Send 1-3 real job ads you would apply to, or the companies you want.
-4. Send your current CV and any older ones, and your LinkedIn link if you
-   have one.
-5. Send photos of what proves your record: certificates, service record or
+4. Send 1-3 real job ads you would apply to, or the companies you want.
+5. Send your current CV and any older ones. If you use LinkedIn, send its
+   PDF (on your profile: More, then Save to PDF).
+6. Send photos of what proves your record: certificates, service record or
    discharge book, references, appraisals, awards.
-6. For your last 2-3 jobs: exact title, dates (month and year), employer,
+7. For your last 2-3 jobs: exact title, dates (month and year), employer,
    and what you were responsible for (team size, who you reported to,
    budget, equipment, vessel type).
-7. For each of those jobs, 2-3 things you are proud of: what was the
+8. For each of those jobs, 2-3 things you are proud of: what was the
    problem, what did you do, what changed?
-8. Did any of that save money or time, cut problems or downtime, pass an
+9. Did any of that save money or time, cut problems or downtime, pass an
    inspection, or grow something? Rough numbers are fine.
-9. What do your managers or colleagues always say you are good at?
-10. Anything we should handle carefully: a gap, short jobs, a career
+10. What do your managers or colleagues always say you are good at?
+11. Anything we should handle carefully: a gap, short jobs, a career
     change, something to leave out?
-11. Where can you work, from when, and do you need a visa?
-12. What may your CV show: a photo, your date of birth, your nationality?
-13. Consent: "We use AI tools and web research to write your CV. Your
-    details stay in our private files, are never published, and are
-    deleted 12 months after delivery unless you ask us to keep them.
-    Reply 'I agree' to continue."
+12. Where can you work, from when, and do you need a visa?
+13. What may your CV show: a photo, your date of birth, your nationality?
 
-Research does not start before the client's "I agree" is in
-`intake/messages.md`. The consent text is plain wording, not reviewed by a
-lawyer; the owner may change it and the retention period.
+**Nothing after this step starts before the client's "I agree" is in
+`intake/messages.md`**: Claude does not read the documents, write facts or
+research until then. Without consent the owner decides whether to ask again
+or stop. The consent text is plain wording, not reviewed by a lawyer; the
+owner may change it and the retention period. Claude never opens a client's
+LinkedIn page; the PDF export is enough.
 
 ## 3. Facts and the gap list
 
@@ -129,7 +139,7 @@ make, each with its answer and source, "judgement" with the reason, or
 | Length | two pages |
 | Photo, date of birth, nationality | photo yes, date of birth no (country norm, client allows) |
 | Language(s) of the CV | English |
-| `Domain` and `Template` | no `Travel & Tourism` `Domain` yet: a one-off `Template` in the `Envelope` |
+| `Domain` and `Template` | no `Travel & Tourism` `Domain` yet: a one-off `Template` in the `Envelope` (step 9) |
 | Achievements that lead | the three with numbers |
 | Keywords | from the job ads |
 | Gaps and short jobs | how each is shown |
@@ -143,15 +153,21 @@ source that changes no decision is the signal to stop.
 
 One agent per chosen question: 0-3 per client, up to 6 for an executive
 aiming at named companies. Each writes `research/deep-dive-<topic>.md`
-with numbered, sourced claims. A fresh `research-reviewer` checks each one
-until PASS (cap: 5 rounds while the owner watches, 10 unattended; at the
-cap it goes to the owner marked unresolved).
+with numbered, sourced claims and nothing about the client.
+
+A fresh `research-reviewer` checks each one until PASS (cap: 5 rounds while
+the owner watches, 10 unattended; at the cap it goes to the owner marked
+unresolved). The reviewer never reads `private/`, so Claude first checks
+the Deep Dive for client details, then passes its text inline, with its
+SHA-256 as the snapshot and the question it answers. Reports on a Deep Dive
+that stays with the client go in the `Envelope`'s `research/reviews/`.
 
 A finding about a country, a `Domain` or a `Rank`, with nothing about the
 client, is also written to the `Research Library` (`docs/research/`,
-public) in the same session. A finding about one employer stays in the
-`Envelope`; it moves to the library when a second client targets the same
-employer.
+public) in the same session; its reports go under
+`docs/work/research-<topic>/reviews/`, never under a client's name. A
+finding about one employer stays in the `Envelope`; it moves to the
+library when a second client targets the same employer.
 
 ## 7. One follow-up
 
@@ -172,18 +188,30 @@ using `scripts/text-draft.typ`, compiled to `draft/draft-01.pdf`:
 typst compile --root . --font-path packages/cv-engine/fonts private/<envelope>/draft/draft-01.typ private/<envelope>/draft/draft-01.pdf
 ```
 
-Its first page, in Greek, asks the client to check only names, dates,
-numbers and titles, because the wording is our job. The owner sends the
-PDF; the client's "OK" is the `Sign-off`, saved as a screenshot in
-`draft/`. Corrections make `draft-02`; an earlier draft is never
-overwritten.
+Its first page, the check page, in Greek, asks the client to check only
+names, dates, numbers and titles, because the wording is our job. When the
+owner sends a draft, Claude writes its SHA-256 in the `Envelope`'s
+`README.md`; a sent draft is never compiled again, and corrections make
+the next number (`draft-02`). The client's "OK" is the `Sign-off`, saved as
+`draft/sign-off-NN.png` next to the draft it answers.
 
 ## 9. Handover to new-cv
 
 `new-cv` builds the CV from `intake/facts.md` and the signed-off draft. If
-the client's `Domain` does not exist or the facts do not fit its
-`Template`, it builds a one-off `Template` in the `Envelope` and records a
-`Framework Gap` (`build-a-cv.md` section 8). `Approval` stays the owner's.
+the facts do not fit the `Domain`'s `Template`, it builds a one-off
+`Template` in the `Envelope` and records a `Framework Gap` (`build-a-cv.md`
+section 8).
+
+A client whose `Domain` does not exist yet (a tour guide, today) cannot be
+rendered through `scripts/cv.py` yet: an entry point that imports `lib.typ`
+is checked against Flagship's marine schema, and a `Revision` copies only
+`cv.typ`, `candidate.json` and the portrait. The framework-split card gives
+a one-off design the `Framework` without marine; until it lands, stop at
+the signed-off draft and tell the owner (`docs/framework-gaps.md`).
+
+At `Export`, Claude writes "Delivered <date>. Delete by <date + 12 months>"
+in the `Envelope`'s `README.md` and names the delete-by date in its report
+to the owner. Deleting anything under `private/` stays the owner's act.
 
 ## Rules
 
@@ -191,8 +219,9 @@ the client's `Domain` does not exist or the facts do not fit its
   contact details, or a combination that identifies them (their employer
   with their `Rank` and dates, a vessel with its crew position). Search for
   "chief officers applying to Norwegian shipowners", never the person.
-- **Client data stays in the `Envelope`.** Research Library notes, commit
-  messages, cards and public documents never contain it.
+- **Client data stays in the `Envelope`.** Research Library notes, review
+  reports outside the `Envelope`, commit messages, cards and public
+  documents never contain it; they use the alias.
 - **One batch per round.** Up to `Sign-off`, the client gets three
   messages from us: the question list, one follow-up, the text draft
   (plus a corrected draft if they asked for changes).

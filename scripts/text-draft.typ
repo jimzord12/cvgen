@@ -4,7 +4,7 @@
 // is the CV's content in the CV's language.
 //
 //   #import "/scripts/text-draft.typ": text-draft
-//   #show: text-draft.with(title: "Maria Papadaki - CV text", version: "Draft 01, 25 Sep 2026",
+//   #show: text-draft.with(title: "Eleni Example - CV text", version: "Draft 01, 25 Sep 2026",
 //     check: [ ... what to check, in Greek ... ], lang: "en", check-lang: "el")
 //   = Profile
 //   ...

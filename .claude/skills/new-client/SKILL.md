@@ -11,13 +11,17 @@ owner talks to the client; you never do. Terms: `docs/glossary.md`.
 ## Steps
 
 1. **Envelope.** `private/<name>-<rank>/` with `README.md`, `intake/`
-   (`messages.md`, `documents/`), `research/`, `draft/`. Never under
-   `examples/`; nothing about the client leaves `private/`.
-2. **Intake.** Write the guide's question list (section 2) as one message
-   in simple, friendly Greek, adapted to the client's `Domain` and target.
-   Give it to the owner ready to paste. Stop until the answers are in
-   `intake/messages.md` and the client's consent ("I agree") is there. You
-   read text only: ask the owner for a transcript of voice messages.
+   (`messages.md`, `documents/`), `research/` (`reviews/`), `draft/`. Never
+   under `examples/`. Give the client an alias `client-<yyyy>-<mm>-<nn>`,
+   written at the top of `README.md`; outside `private/` (cards, commits,
+   agent briefs, public files) use only the alias.
+2. **Intake.** Write the guide's question list (section 2, consent first)
+   as one message in simple, friendly Greek, adapted to the client's
+   `Domain` and target. Give it to the owner ready to paste. **Stop until
+   the client's "I agree" is in `intake/messages.md`**; before it, do not
+   read the documents, write facts or research. You read text only: ask
+   the owner for a transcript of voice messages. Never open a client's
+   LinkedIn page; use the PDF they send.
 3. **Facts.** Write `intake/facts.md` from the messages and documents:
    every fact names its source; nothing invented; no calendar period turned
    into service time. End with the gap list. Do not send it yet.
@@ -28,24 +32,31 @@ owner talks to the client; you never do. Terms: `docs/glossary.md`.
    the owner the open decisions with a recommendation for each; he picks
    the Deep Dives (0-3, up to 6 for an executive aiming at named companies).
 6. **Deep Dives.** One background `general-purpose` agent per chosen
-   question, brief below, output `research/deep-dive-<topic>.md`. Then a
-   fresh `research-reviewer` per round until PASS (5 rounds attended, 10
-   unattended; at the cap, report it unresolved). Keep each author's agent
-   id and send findings back to the same author. Anything about a country,
-   a `Domain` or a `Rank` with no client detail also becomes or updates a
-   `Research Library` note (`docs/research/README.md`), committed like any
-   documentation.
+   question, brief below, output `research/deep-dive-<topic>.md`. Check the
+   file for client details, then a fresh `research-reviewer` per round
+   until PASS (5 rounds attended, 10 unattended; at the cap, report it
+   unresolved). The reviewer never reads `private/`: give it the Deep
+   Dive's text inline, its SHA-256 as the snapshot, the question, the round
+   and earlier reports. Store reports in `research/reviews/NN.md`. Keep each
+   author's agent id and send findings back to the same author. Anything
+   about a country, a `Domain` or a `Rank` with no client detail also
+   becomes or updates a `Research Library` note (`docs/research/README.md`),
+   its reports under `docs/work/research-<topic>/reviews/`, committed like
+   any documentation.
 7. **Follow-up.** Gap list plus research questions, one batch in simple
    Greek: aim for 5, never more than 10. Update `facts.md` from the answers.
 8. **Text draft.** `draft/draft-NN.typ` with `scripts/text-draft.typ`: a
    Greek check page ("check only names, dates, numbers and titles; the
    wording is ours; reply OK"), then the content in the CV's language,
    sized for the `Template`. Compile it (guide section 8), look at every
-   page, give the owner the PDF path. His screenshot of the client's OK
-   goes in `draft/` as `sign-off-NN.png`. Corrections make the next number.
+   page, give the owner the PDF path. When he sends it, write its SHA-256
+   in `README.md`; never compile a sent number again, corrections make the
+   next one. His screenshot of the client's OK goes in `draft/` as
+   `sign-off-NN.png`.
 9. **Handover.** Run the `new-cv` skill from `facts.md` and the signed-off
-   draft. Record decisions and evidence paths in the `Envelope`'s
-   `README.md`.
+   draft; for a `Domain` that does not exist yet, follow guide section 9.
+   Record decisions and evidence paths in the `Envelope`'s `README.md`. At
+   `Export`, write "Delivered <date>. Delete by <date + 12 months>" there.
 
 ## Brief for a Scout or Deep Dive agent
 
@@ -64,6 +75,6 @@ Return: the file path and the 3-5 findings that answer the question.
 ## Report to the owner
 
 Where the client stands (which step), what is waiting on him (a message to
-paste, a Deep Dive choice, a screenshot), and new or changed `Research
-Library` notes. Never paste client data into the chat beyond what he needs
-to act.
+paste, a Deep Dive choice, a screenshot), new or changed `Research Library`
+notes, and after `Export` the delete-by date. Never paste client data into
+the chat beyond what he needs to act.

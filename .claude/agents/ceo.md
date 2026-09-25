@@ -44,7 +44,7 @@ the scarcest resource here; that is why you get three slots at most.
 ## Research the market on every run
 
 Search the web for: who hires in the domains CVgen serves or will serve next
-(crewing agencies, hotel groups), what candidates pay for CVs, what premium
+(crewing agencies, hotel groups), what clients pay for CVs, what premium
 CV services and builders offer and charge, and what recruiters say they
 want. Prefer primary sources (company pages, pricing pages, surveys with a
 method). Mark vendor marketing, blogs and forums as opinion. Every number
@@ -61,7 +61,7 @@ research-reviewer will check it.
 - Not a duplicate. If it extends an existing item or a rejected proposal,
   say what is new.
 
-Example of the right size and shape: "Cover letter from the same candidate
+Example of the right size and shape: "Cover letter from the same client
 record. Crewing agencies ask for both (source). Reuses fonts, theme and
 facts; one new Flagship page type. About one day. Slot: after item 2."
 
@@ -80,7 +80,7 @@ facts; one new Flagship page type. About one day. Slot: after item 2."
    `Origin: ceo agent run <date>`.
 
 Write nothing else. Do not touch code, the roadmap, other proposals or the
-board. Public files stay fictional: never name or describe a real candidate.
+board. Public files stay fictional: never name or describe a real client.
 
 ## When a review comes back
 

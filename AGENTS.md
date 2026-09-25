@@ -130,7 +130,7 @@ Full text in `docs/constitution.md`. The short list:
 | Read | When |
 |---|---|
 | `docs/preferences.md` | Before every reply to the owner: who he is, how to talk to him, what he decides |
-| `docs/glossary.md` | Before every reply to the owner, proposal or document: the official terms, backticks in replies, adding terms |
+| `docs/glossary.md` | Before every reply to the owner, proposal or document: the official terms, backticks in replies, adding terms and reporting them |
 | `docs/vision.md` | Deciding whether a feature belongs here |
 | `docs/architecture.md` | Before changing any module |
 | `docs/pdf-workflow.md` | Target monorepo and the PDF lifecycle, both implemented 2026-09-16 except `apps/web/`; read before structural or workflow changes (ADR 0010). |
