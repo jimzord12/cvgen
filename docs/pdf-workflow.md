@@ -3,8 +3,8 @@
 Read when discussing the monorepo boundaries or where a candidate PDF lives.
 Status: Approved by the owner in conversation on 2026-09-15; recorded in
 [ADR 0010](decisions/0010-public-monorepo-and-pdf-workflow.md). The source
-tree below is implemented for the engine (`packages/cv-engine/`, `examples/`,
-`archive/`) and for the local workflow (`packages/cv-workflow/`,
+tree below is implemented for the engine (`packages/cv-framework/` and
+`packages/domains/` since ADR 0012, `examples/`, `archive/`) and for the local workflow (`packages/cv-workflow/`,
 `scripts/cv.py`) since 2026-09-16; `apps/web/` is not implemented.
 The commands are in `docs/guides/build-a-cv.md`; the package's own README
 describes the records it writes.
@@ -15,31 +15,34 @@ Each PDF revision has one permanent home. Approval adds a sidecar [a companion
 metadata file]; export copies the approved bytes into a delivery folder.
 
 The approved target public source tree, with the engine organised by domain
-since ADR 0011 (2026-09-21), is:
+since ADR 0011 (2026-09-21) and split into the Framework and the domains
+since ADR 0012 (2026-09-25), is:
 
 ```text
 apps/
   web/                          # Future submission, review, and download UI
 packages/
-  cv-engine/
-    core/                       # Field-neutral core
-    domains/
-      marine/
-        domain.typ  data.typ    # Domain node; marine facts, totals, row model
-        schema/                 # Marine candidate facts contract
-        assets/                 # SVG files shared by the domain's templates
-        roles/deck/ roles/engine/
-        templates/
-          flagship/
-            schema/             # Flagship input contract
-            adapter/            # Candidate facts -> Flagship input
-            components/
-            themes/
-            layouts/
-            artwork/
-            tests/approved/     # Frozen fictional design reference
+  cv-framework/                 # The Framework; imports no domain
+    lib.typ                     # Core exports only
+    core/                       # Domain-neutral core
     fonts/
     licenses/
+  domains/
+    marine/
+      lib.typ                   # Marine surface: Framework names, marine, Flagship
+      domain.typ  data.typ      # Domain node; marine facts, totals, row model
+      schema/                   # Marine candidate facts contract
+      assets/                   # SVG files shared by the domain's templates
+      roles/deck/ roles/engine/
+      templates/
+        flagship/
+          schema/               # Flagship input contract
+          adapter/              # Candidate facts -> Flagship input
+          components/
+          themes/
+          layouts/
+          artwork/
+          tests/approved/       # Frozen fictional design reference
   cv-workflow/                  # Revision creation, checks, approval, export
 scripts/                        # Local commands calling the workflow
 examples/
@@ -88,7 +91,8 @@ private/<candidate>/
 
 The revision snapshot is fixed before compilation and compiles on its own:
 the entry point imports the engine by root-absolute path
-(`/packages/cv-engine/...`), and the snapshot record's `identity.portrait`
+(`/packages/domains/marine/...` for marine, `/packages/cv-framework/...` for
+a one-off `Template` with no domain), and the snapshot record's `identity.portrait`
 points at the copied asset under `inputs/assets/`, which `render.json`
 records next to the original path and the working record's hash. Rendering
 never rewrites an existing revision PDF. A failed or corrected run gets a new

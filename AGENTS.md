@@ -1,8 +1,9 @@
 # AGENTS.md — map of CVgen
 
-CVgen is a composable Typst library that renders premium CVs for any domain
-(ADR 0011, 2026-09-21). The engine is a domain-neutral core plus domains;
-`marine` is the first, with one template, `flagship`, that takes six
+CVgen makes hand-crafted, premium CVs with AI on its own Typst framework,
+for any domain (ADR 0011, 2026-09-21). The engine is the domain-neutral
+Framework (`packages/cv-framework`) plus the domains beside it
+(`packages/domains/`, ADR 0012); `marine` is the first, with one template, `flagship`, that takes six
 independent inputs: candidate JSON, role, theme, artwork pack, layout
 profile and a durations switch. A domain offers a facts shape, assets,
 wording and rules; a role is one level of specialisation; a template may
@@ -59,27 +60,29 @@ keep it untracked and do not copy its contents into shared documentation.
 
 ## Where things are
 
-Layout per ADR 0010 (`docs/pdf-workflow.md`) and ADR 0011 (domains). `E` below stands for
-`packages/cv-engine`, the engine package; `M` for `E/domains/marine`, the marine
-domain; `F` for `M/templates/flagship`.
+Layout per ADR 0010 (`docs/pdf-workflow.md`), ADR 0011 (domains) and ADR 0012
+(the Framework split). `W` below stands for `packages/cv-framework`, the
+Framework; `M` for `packages/domains/marine`, the marine domain; `F` for
+`M/templates/flagship`.
 
 | Path | Role | Touch it when |
 |---|---|---|
-| `E/lib.typ` | Public import surface, no side effects | Adding or renaming an exported function |
-| `E/core/` | Domain-neutral core: `node` (merge, compose), `data` (common facts), `theme` check, `component` (`make-ctx`, which builds `ctx`), `components` (the ctx-first primitives and page shell as one module, exported as `core-components`), `primitives`, `page` shell, `pagination` over a domain row model, `legacy` (deprecated old signatures). Never imports a domain | Changing behaviour every domain shares |
+| `W/lib.typ` | The Framework's import surface: core names only, no domain, no side effects | Adding or renaming a core export |
+| `M/lib.typ` | The marine import surface every marine entry point uses: the Framework's names plus marine and Flagship, no side effects | Adding or renaming a marine or Flagship export |
+| `W/core/` | Domain-neutral core: `node` (merge, compose), `data` (common facts), `theme` check, `component` (`make-ctx`, which builds `ctx`), `components` (the ctx-first primitives and page shell as one module, exported as `core-components`), `primitives`, `page` shell, `pagination` over a domain row model, `legacy` (deprecated old signatures). Never imports a domain; the suite checks it | Changing behaviour every domain shares |
 | `M/domain.typ`, `M/data.typ` | The marine domain node (id, meta, copy, experience model) and the marine facts: companies, vessels, months, totals, `normalize-candidate`, `validate-candidate` | Changing what the marine domain means |
 | `M/roles/deck/`, `M/roles/engine/` | Role markers (`role.typ`); bare today | Refining something for one role |
 | `M/schema/candidate.schema.json` | Marine candidate-facts contract: what a record may contain, no template wording | Changing the marine data contract |
 | `F/flagship.typ` | The Flagship composition: page loop, section order, overflow check | Changing what Flagship renders |
 | `F/adapter/` | Candidate facts -> Flagship input: adds Flagship wording (`copy`) and merges overrides | Changing Flagship's input shape |
 | `F/schema/flagship-input.schema.json` | Flagship input contract: facts plus `copy` | Same |
-| `F/components/`, `F/components.typ`, `F/legacy.typ` | Flagship sections, ctx-first: hero, experience, sections, certificates, education, skills; `components.typ` gathers them into the one module `lib.typ` exports as `flagship-components`; `legacy.typ` keeps their old signatures for `lib.typ` (deprecated) | Changing how a section renders |
+| `F/components/`, `F/components.typ`, `F/legacy.typ` | Flagship sections, ctx-first: hero, experience, sections, certificates, education, skills; `components.typ` gathers them into the one module `M/lib.typ` exports as `flagship-components`; `legacy.typ` keeps their old signatures for `M/lib.typ` (deprecated) | Changing how a section renders |
 | `F/themes/` | Visual tokens only: colours, fonts, sizes, tracking, leading, SVG colour map | Adding a look |
 | `F/artwork/`, `M/assets/` | Artwork packs (which SVG in which slot, offsets) and the SVG files | Adding a role's illustrations |
 | `F/layouts/` | Geometry and page plan: margins, gaps, widths, which companies go on which page | Fixing page balance |
 | `F/tests/approved/` | Frozen v11 PDF that the engineer example must match pixel for pixel | Never |
-| `E/fonts/`, `E/licenses/` | Bundled OFL fonts, licence notices | Adding a font |
-| `E/typst.toml` | Package manifest for the engine | Releasing |
+| `W/fonts/`, `W/licenses/` | Bundled OFL fonts, licence notices | Adding a font |
+| `W/typst.toml` | Package manifest for the Framework | Releasing |
 | `examples/candidates/` | Fictional candidate records (engineer, captain, chief officer) and the one fictional portrait | Changing example data |
 | `examples/marine/flagship/` | Short entry points that wire the six inputs together | Adding an example |
 | `packages/cv-workflow/` | Python package: fresh revisions (snapshot, compile, `render.json`, `checks.json`), explicit approval (`cv.approval.json` bound to the SHA-256), verified export. Never sends anything | Changing how a candidate PDF is produced, approved or exported |
@@ -102,7 +105,7 @@ domain; `F` for `M/templates/flagship`.
 ./scripts/build.ps1                     # four PDFs into builds/library-<timestamp>/
 ./scripts/build.ps1 -HideVesselDurations
 python tests/run.py                     # full suite, evidence into builds/tests-<timestamp>/
-typst compile --root . --font-path packages/cv-engine/fonts examples/marine/flagship/engineer.typ builds/scratch.pdf
+typst compile --root . --font-path packages/cv-framework/fonts examples/marine/flagship/engineer.typ builds/scratch.pdf
 python scripts/cv.py render private/<candidate>            # new revision: snapshot, PDF, log, checks
 python scripts/cv.py approve private/<candidate> <revision> --approver "<name>" --sha256 <reviewed hash>
 python scripts/cv.py export private/<candidate> <revision>  # verified copy into exports/<revision>/
@@ -118,7 +121,7 @@ under `private/`.
 
 Full text in `docs/constitution.md`. The short list:
 
-1. Every approved template has a frozen reference under its `tests/approved/` folder and a public example that must render pixel-identical to it; the hashes in `tests/baseline.json` are frozen with it. Today: `packages/cv-engine/domains/marine/templates/flagship/tests/approved/Marine-Engineer-CV-v11.pdf` and `examples/marine/flagship/engineer.typ`. A change that breaks this needs a new frozen reference and an ADR.
+1. Every approved template has a frozen reference under its `tests/approved/` folder and a public example that must render pixel-identical to it; the hashes in `tests/baseline.json` are frozen with it. Today: `packages/domains/marine/templates/flagship/tests/approved/Marine-Engineer-CV-v11.pdf` and `examples/marine/flagship/engineer.typ`. A change that breaks this needs a new frozen reference and an ADR.
 2. Every output goes to a new folder. Scripts refuse to overwrite.
 3. Public content is fictional. Real candidate data lives in `private/`, which is ignored.
 4. No automatic font shrinking. Overflow fails loudly and the page plan is changed by hand.
@@ -187,14 +190,15 @@ propose; the owner decides.
   one small file.
 - Every component follows the contract in `docs/conventions.md` (ADR 0008):
   `ctx` first, data, named props, slots; the template builds `ctx` once with
-  `make-ctx` (`core/component.typ`). All core and Flagship modules are
-  migrated (2026-09-25). Entry points reach them only through `lib.typ`, as
+  `make-ctx` (`W/core/component.typ`). All core and Flagship modules are
+  migrated (2026-09-25). Entry points reach them only through a `lib.typ`
+  (`M/lib.typ` for marine, `W/lib.typ` for a one-off with no domain), as
   the modules `core-components` and `flagship-components`. The flat
-  component names `lib.typ` exports keep the pre-contract signatures for
-  older custom compositions (`core/legacy.typ`, `F/legacy.typ`,
+  component names `M/lib.typ` exports keep the pre-contract signatures for
+  older custom compositions (`W/core/legacy.typ`, `F/legacy.typ`,
   deprecated); new code never calls them. Roles are
-  variations within a domain, never forks (constitution section 7); `core/`
-  never imports from `domains/`.
+  variations within a domain, never forks (constitution section 7); the
+  Framework never imports from `packages/domains/` (ADR 0012).
 - Every non-trivial change to code, fixtures or inputs ends with
   `python tests/run.py` passing and the evidence path reported; a visual
   change also needs a rendered page. Whether a change needs an independent

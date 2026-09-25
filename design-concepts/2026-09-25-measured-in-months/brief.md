@@ -77,7 +77,7 @@ All from the marine candidate schema: `identity.name`, `identity.rank`,
 - Theme tokens: `ink`, `ink-2`, `signal`, `rule`, one font family; layout
   tokens: bar height, gaps, tick step (6 and 12 months), name fringe depth
   (measured from the longest vessel name in this mock-up).
-- Add Archivo to `packages/cv-engine/fonts/` with its licence.
+- Add Archivo to `packages/cv-framework/fonts/` with its licence.
 - A page-plan rule for long careers: past about 30 vessels, or with contracts
   under 3 months, the strip needs two lines split at a company boundary.
 - The marine words (months at sea, vessels, companies) come from the domain

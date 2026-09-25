@@ -1,5 +1,5 @@
 // Section chrome for Flagship (ADR 0008 shape: ctx, data, props, slots).
-#import "../../../../../core/primitives.typ": decoration, metric, duration-value
+#import "../../../../../cv-framework/core/primitives.typ": decoration, metric, duration-value
 
 // Pure chrome: the title is the child. Geometry from ctx.layout.headings; `spacing`
 // is the parent's choice for this heading (a layout.headings entry such as `opening`).

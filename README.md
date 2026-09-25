@@ -40,11 +40,11 @@ Node or online service is needed to build a CV. All fonts are bundled.
 An example entry point is eight lines:
 
 ```typst
-#import "../../../packages/cv-engine/lib.typ": flagship
-#import "../../../packages/cv-engine/domains/marine/roles/engine/role.typ": role
-#import "../../../packages/cv-engine/domains/marine/templates/flagship/themes/golden-blue.typ": theme
-#import "../../../packages/cv-engine/domains/marine/templates/flagship/artwork/engineer.typ": artwork
-#import "../../../packages/cv-engine/domains/marine/templates/flagship/layouts/flagship-v11.typ": layout
+#import "../../../packages/domains/marine/lib.typ": flagship
+#import "../../../packages/domains/marine/roles/engine/role.typ": role
+#import "../../../packages/domains/marine/templates/flagship/themes/golden-blue.typ": theme
+#import "../../../packages/domains/marine/templates/flagship/artwork/engineer.typ": artwork
+#import "../../../packages/domains/marine/templates/flagship/layouts/flagship-v11.typ": layout
 #let candidate = json("../../candidates/engineer-example.json")
 #show: flagship.with(candidate: candidate, role: role, theme: theme, artwork: artwork, layout: layout,
   show-vessel-durations: true)
@@ -57,7 +57,7 @@ to change margins and which companies sit on which page.
 ## Where to go next
 
 - Building a CV for a real person: [docs/guides/build-a-cv.md](docs/guides/build-a-cv.md)
-- Candidate JSON fields: [docs/reference/candidate-schema.md](docs/reference/candidate-schema.md), contract in [packages/cv-engine/domains/marine/schema/candidate.schema.json](packages/cv-engine/domains/marine/schema/candidate.schema.json); `scripts/cv.py render` and the suite refuse a record that breaks its template's input schema
+- Candidate JSON fields: [docs/reference/candidate-schema.md](docs/reference/candidate-schema.md), contract in [packages/domains/marine/schema/candidate.schema.json](packages/domains/marine/schema/candidate.schema.json); `scripts/cv.py render` and the suite refuse a record that breaks its template's input schema
 - Reference for each input: [theme](docs/reference/theme.md), [artwork pack](docs/reference/artwork-pack.md), [layout and pagination](docs/reference/layout-and-pagination.md), [skills section](docs/reference/skills-component.md), [domains and roles](docs/reference/domains-and-roles.md), [verification](docs/reference/verification.md)
 - Repository layout and the PDF lifecycle: [docs/pdf-workflow.md](docs/pdf-workflow.md)
 - How the pieces fit: [docs/architecture.md](docs/architecture.md)
@@ -71,9 +71,9 @@ to change margins and which companies sit on which page.
 python tests/run.py
 ```
 
-Needs Python with `pymupdf`, `pillow` and `jsonschema`. The suite runs 43 cases and
+Needs Python with `pymupdf`, `pillow` and `jsonschema`. The suite runs 44 cases and
 proves the engineer example renders pixel-identical to the frozen
-[v11 reference](packages/cv-engine/domains/marine/templates/flagship/tests/approved/Marine-Engineer-CV-v11.pdf). Details in
+[v11 reference](packages/domains/marine/templates/flagship/tests/approved/Marine-Engineer-CV-v11.pdf). Details in
 [docs/reference/verification.md](docs/reference/verification.md).
 
 Rendered PDFs contain selectable text and embedded fonts, and decorative art is
@@ -84,5 +84,5 @@ reading order against the actual application portal.
 
 Project code and original illustrations are MIT, see [LICENSE](LICENSE).
 Bundled fonts (Source Sans 3, Barlow Condensed as family `Barlow`, Cormorant Garamond) are under
-the SIL Open Font License, notices in [packages/cv-engine/licenses/](packages/cv-engine/licenses/). The experience
+the SIL Open Font License, notices in [packages/cv-framework/licenses/](packages/cv-framework/licenses/). The experience
 helper pattern is adapted from Cobalt CV 0.1.0 (MIT), notice preserved.

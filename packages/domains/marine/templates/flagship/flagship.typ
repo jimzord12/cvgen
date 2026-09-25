@@ -1,10 +1,10 @@
 // The Flagship composition: page loop, section order, overflow check.
 #import "../../data.typ": normalize-candidate, validate-candidate
 #import "../../domain.typ": domain
-#import "../../../../core/component.typ": make-ctx
-#import "../../../../core/theme.typ": validate-theme
-#import "../../../../core/page.typ": document-shell, page-header
-#import "../../../../core/pagination.typ": validate-pages, company-fragment
+#import "../../../../cv-framework/core/component.typ": make-ctx
+#import "../../../../cv-framework/core/theme.typ": validate-theme
+#import "../../../../cv-framework/core/page.typ": document-shell, page-header
+#import "../../../../cv-framework/core/pagination.typ": validate-pages, company-fragment
 #import "adapter/adapter.typ": to-flagship-input
 #import "components/hero.typ": hero
 #import "components/experience.typ": experience-section

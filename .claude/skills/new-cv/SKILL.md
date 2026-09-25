@@ -32,11 +32,16 @@ fitting the page.
 2. The record is validated for you: `scripts/cv.py render` refuses a record
    that breaks the Flagship input schema (needs `jsonschema`) and lists the
    field paths; the engine's compile-time assertions then check totals. For
-   a public example, the suite runs the same schema check.
+   a public example, the suite runs the same schema check. A one-off
+   `Template` that imports only the `Framework` gets no schema check: keep
+   `identity.name` and `identity.portrait`, and run `normalize-common` and
+   `validate-common` in its `cv.typ`.
 3. Write the entry point as shown in the guide, importing the engine by
-   root-absolute path (`/packages/cv-engine/...`). Pick the role marker
+   root-absolute path (`/packages/domains/marine/lib.typ` and the files
+   beside it; a one-off `Template` with no domain uses
+   `/packages/cv-framework/lib.typ`). Pick the role marker
    (`domains/marine/roles/deck` or `roles/engine`), theme and artwork from
-   `packages/cv-engine/domains/marine/templates/flagship/themes/` and `artwork/`, the durations switch, and import the layout
+   `packages/domains/marine/templates/flagship/themes/` and `artwork/`, the durations switch, and import the layout
    `as base` with a `pages` override that lists this candidate's company
    indices. The shipped plan assumes six companies and fails with
    `Page plan company index out of bounds` for fewer, or
@@ -50,10 +55,10 @@ fitting the page.
    prints on every page: `disclosure` in `candidate.json`, and
    `copy: (certificates-subtitle: ..., brand: ...)` in `cv.typ` (guide
    section 2, "Replace the example wording").
-4. Real person: `python scripts/cv.py render private/<name>-<role>` (add
+4. Real person: `python scripts/cv.py render private/<name>-<rank>` (add
    `--pages 3` for a three-page plan); the revision id, hash and check
    result are printed and kept under `revisions/<id>/`. Public example:
-   `typst compile --root . --font-path packages/cv-engine/fonts <entry> builds/<name>-01.pdf`.
+   `typst compile --root . --font-path packages/cv-framework/fonts <entry> builds/<name>-01.pdf`.
 5. On a fit or overflow error, apply the fix the message names. Page plan
    changes go in the entry point as a layout override, see
    `docs/reference/layout-and-pagination.md`. Never shrink body fonts.

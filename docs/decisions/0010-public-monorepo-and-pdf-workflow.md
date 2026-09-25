@@ -7,6 +7,8 @@ schema, and folder-split decisions. Engine layout implemented 2026-09-16
 2026-09-16 (`packages/cv-workflow/`, `scripts/cv.py`); `apps/web/` pending.
 Amended by 0011: templates and their schemas move under
 `packages/cv-engine/domains/<domain>/`; the workflow half is unchanged.
+Amended by 0012: `packages/cv-engine/` became `packages/cv-framework/` plus
+`packages/domains/`.
 
 ## Context
 

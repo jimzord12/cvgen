@@ -1,6 +1,6 @@
-#import "../../packages/cv-engine/core/data.typ": duration-parts
-#import "../../packages/cv-engine/domains/marine/data.typ": normalize-candidate, validate-candidate, experience-totals
-#import "../../packages/cv-engine/domains/marine/templates/flagship/adapter/adapter.typ": to-flagship-input, flagship-copy
+#import "../../packages/cv-framework/core/data.typ": duration-parts
+#import "../../packages/domains/marine/data.typ": normalize-candidate, validate-candidate, experience-totals
+#import "../../packages/domains/marine/templates/flagship/adapter/adapter.typ": to-flagship-input, flagship-copy
 // The core carries no wording; the domain and the adapter add it, and overrides
 // win in the order domain < role < template < record < call site (ADR 0011).
 #let facts = json("../../examples/candidates/engineer-example.json")

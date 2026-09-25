@@ -1,5 +1,5 @@
 // Education and languages for Flagship (ADR 0008 shape: ctx, data, props).
-#import "../../../../../core/primitives.typ": label
+#import "../../../../../cv-framework/core/primitives.typ": label
 #import "sections.typ": section-heading
 
 // One qualification; geometry from ctx.layout.education.

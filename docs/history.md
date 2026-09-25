@@ -219,3 +219,26 @@ not change:
 Fixtures: `tests/fixtures/contract.typ` renders 31 components alone, one
 per page; `document-shell` wraps a whole document and is covered by the
 parity fixture and the examples.
+
+## 2026-09-25 — a glossary, a client workflow and the Framework split
+
+In one design session the owner settled the project's words and the path
+a real client takes. Official terms now live in `docs/glossary.md`, kept by
+the agents themselves and reported to the owner afterwards; a career area
+is a `Domain` (the word `Field` was tried and dropped the same day), the
+shared core is the `Framework`, a client's folder is their `Envelope`.
+
+The client workflow (`docs/guides/client-workflow.md`, skill `new-client`)
+covers the half before `new-cv`: questions sent by chat in Greek through
+the owner (Relay intake, no web form), research that reads a shared
+`Research Library` first, a text draft the client signs off before design.
+It superseded the ceo agent's intake questionnaire proposal.
+
+ADR 0012 then split `packages/cv-engine` into `packages/cv-framework` (the
+core, importing no domain) and `packages/domains/marine` (with its own
+`lib.typ` carrying every name entry points used before), so a new domain or
+a client's one-off `Template` can use the Framework without marine. Paths were
+rewritten by a script; the engineer example stayed pixel-identical to v11,
+and both private compositions, whose engine paths are updated at the
+merge with the owner's consent, render pixel-identical to their approved
+references.

@@ -2,38 +2,40 @@
 import json
 import re
 
-from .workspace import ENGINE, WorkflowError, repo_relative
+from .workspace import DOMAINS, WorkflowError, repo_relative
 
-# /packages/cv-engine/domains/<domain>/templates/<template>/... inside an #import path.
+# /packages/domains/<domain>/templates/<template>/... inside an #import path.
 DOMAIN = re.compile(r'domains/([\w-]+)(?:/templates/([\w-]+))?')
-# lib.typ exports the marine domain and Flagship under flat names (docs/reference/domains-and-roles.md);
-# every later domain is exported with a prefix, so an entry importing only lib.typ uses these.
-LIB = re.compile(r'(^|/)packages/cv-engine/lib\.typ$')
-LIB_SCHEMA = ENGINE / 'domains/marine/templates/flagship/schema/flagship-input.schema.json'
+# The marine domain's lib.typ exports marine and Flagship under flat names (docs/reference/domains-and-roles.md);
+# an entry importing it, and no other domain, uses Flagship's contract. The Framework's lib.typ names no domain.
+LIB = re.compile(r'(^|/)packages/domains/marine/lib\.typ$')
+LIB_SCHEMA = DOMAINS / 'marine/templates/flagship/schema/flagship-input.schema.json'
 MAX_REPORTED = 10
 
 
-def schema_for(imports, engine=ENGINE):
+def schema_for(imports, domains_root=DOMAINS):
     """The most specific contract the entry point uses: a template's input schema; else Flagship's when
-    lib.typ is imported and every domain named is marine (lib.typ's flat exports are marine and Flagship);
-    else a domain's candidate schema; else None."""
+    marine's lib.typ is imported and every other domain named is marine; else a domain's candidate
+    schema; else None."""
     found, domains = [], set()
     for path in imports:
+        if LIB.search(path):
+            continue  # judged below, by what the lib exports rather than by its folder
         match = DOMAIN.search(path)
         if match:
             domain, template = match.groups()
             domains.add(domain)
-            candidates = [engine / 'domains' / domain / 'templates' / template / 'schema' / f'{template}-input.schema.json'] if template else []
-            candidates.append(engine / 'domains' / domain / 'schema' / 'candidate.schema.json')
+            candidates = [domains_root / domain / 'templates' / template / 'schema' / f'{template}-input.schema.json'] if template else []
+            candidates.append(domains_root / domain / 'schema' / 'candidate.schema.json')
             found.append(next((c for c in candidates if c.is_file()), None))
     found = [f for f in found if f]
-    # Judge by the path inside the engine, never by where the checkout happens to live.
-    templates = [f for f in found if 'templates' in f.relative_to(engine).parts]
+    # Judge by the path inside packages/domains, never by where the checkout happens to live.
+    templates = [f for f in found if 'templates' in f.relative_to(domains_root).parts]
     if templates:
         # A template schema is stricter than its domain's and includes the template's `copy` key.
         return templates[0]
     if any(LIB.search(path) for path in imports) and domains <= {'marine'}:
-        return engine / LIB_SCHEMA.relative_to(ENGINE)
+        return domains_root / LIB_SCHEMA.relative_to(DOMAINS)
     return found[0] if found else None
 
 

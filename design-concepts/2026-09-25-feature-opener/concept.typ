@@ -3,7 +3,7 @@
 // headline, standfirst, a pull-quote made of the service figures, the
 // career as a contents list with leaders, and back-matter credentials.
 // Compile from the repository root:
-// typst compile --root . --ignore-system-fonts --font-path packages/cv-engine/fonts
+// typst compile --root . --ignore-system-fonts --font-path packages/cv-framework/fonts
 //   --font-path design-concepts/fonts
 //   design-concepts/2026-09-25-feature-opener/concept.typ
 //   design-concepts/2026-09-25-feature-opener/concept.pdf

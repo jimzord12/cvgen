@@ -21,7 +21,7 @@ try {
     $durationMode = if ($HideVesselDurations) { 'false' } else { 'true' }
     foreach ($example in $examples) {
         $destination = Join-Path $OutputDirectory $example.Name
-        & $compiler.Source compile --root . --font-path packages/cv-engine/fonts --input "vessel-durations=$durationMode" $example.Source $destination
+        & $compiler.Source compile --root . --font-path packages/cv-framework/fonts --input "vessel-durations=$durationMode" $example.Source $destination
         if ($LASTEXITCODE -ne 0) { throw "Compilation failed: $($example.Source)" }
     }
     Write-Host "Four CVs created in $OutputDirectory"

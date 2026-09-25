@@ -1,7 +1,7 @@
-#import "../../packages/cv-engine/lib.typ": flagship
-#import "../../packages/cv-engine/domains/marine/templates/flagship/themes/golden-blue.typ": theme
-#import "../../packages/cv-engine/domains/marine/templates/flagship/artwork/engineer.typ": artwork
-#import "../../packages/cv-engine/domains/marine/templates/flagship/layouts/flagship-v11.typ": layout as base
+#import "../../packages/domains/marine/lib.typ": flagship
+#import "../../packages/domains/marine/templates/flagship/themes/golden-blue.typ": theme
+#import "../../packages/domains/marine/templates/flagship/artwork/engineer.typ": artwork
+#import "../../packages/domains/marine/templates/flagship/layouts/flagship-v11.typ": layout as base
 #let raw = json("../../examples/candidates/engineer-example.json")
 #let companies = raw.companies
 #let first = companies.first()

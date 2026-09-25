@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://github.com/jimzord12/cvgen/packages/cv-engine/domains/marine/schema/candidate.schema.json",
+  "$id": "https://github.com/jimzord12/cvgen/packages/domains/marine/schema/candidate.schema.json",
   "title": "CVgen marine candidate facts",
   "description": "Portable facts about one candidate: identity, contacts, profile, service history, certificates, education and languages. Carries no template wording; a template adapter (for example domains/marine/templates/flagship/adapter) turns this record into that template input.",
   "type": "object",

@@ -2,7 +2,7 @@
 // One A4 page. The career is drawn once, to scale: every vessel is a bar
 // whose length is its service months, read against a ruler in months.
 // Compile from the repository root:
-// typst compile --root . --ignore-system-fonts --font-path packages/cv-engine/fonts
+// typst compile --root . --ignore-system-fonts --font-path packages/cv-framework/fonts
 //   --font-path design-concepts/fonts
 //   design-concepts/2026-09-25-measured-in-months/concept.typ
 //   design-concepts/2026-09-25-measured-in-months/concept.pdf

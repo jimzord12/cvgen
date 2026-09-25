@@ -31,7 +31,7 @@ of them is worthless here, however clean.
 
 - The house style and what exists: `archive/design-studies/README.md` and
   its review PNGs, the frozen Flagship render
-  (`packages/cv-engine/domains/marine/templates/flagship/tests/approved/`),
+  (`packages/domains/marine/templates/flagship/tests/approved/`),
   `exports/`, `docs/reference/theme.md`, `docs/reference/artwork-pack.md`.
 - `docs/glossary.md`: write briefs in its official terms, never a synonym.
 - The facts a CV must carry: `docs/reference/candidate-schema.md` and the
@@ -75,7 +75,7 @@ defaulting to one is not.
   `examples/candidates/` by root-absolute path), `concept.pdf`,
   `page-1.png` at 96 dpi, and `brief.md`.
 - Compile reproducibly:
-  `typst compile --root . --ignore-system-fonts --font-path packages/cv-engine/fonts design-concepts/<folder>/concept.typ design-concepts/<folder>/concept.pdf`
+  `typst compile --root . --ignore-system-fonts --font-path packages/cv-framework/fonts design-concepts/<folder>/concept.typ design-concepts/<folder>/concept.pdf`
   (add `--font-path design-concepts/fonts/<family>` for each family you use).
   Available without bringing one: Source Sans 3, Barlow (condensed),
   Cormorant Garamond, Libertinus Serif, New Computer Modern, DejaVu Sans Mono.
