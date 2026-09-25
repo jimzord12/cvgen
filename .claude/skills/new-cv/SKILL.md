@@ -5,7 +5,11 @@ description: Produce a CV for a real or new fictional candidate with the CVgen l
 
 # New CV
 
-Follow `docs/guides/build-a-cv.md`. This skill is the checklist.
+Follow `docs/guides/build-a-cv.md`. This skill is the checklist. For a real
+client it starts after the `new-client` skill: take the facts from the
+`Envelope`'s `intake/facts.md` and the wording from the signed-off text in
+`draft/`; do not re-ask the client or reword what they signed off beyond
+fitting the page.
 
 ## Decide the destination
 

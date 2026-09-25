@@ -171,7 +171,7 @@ on this repository.
    the candidate's documents use, shown on the experience rows, because
    Marlow asks every applicant for these (GT and kW; the crewdata.com form
    asks DWT and BHP).
-3. [`candidate-intake`](../../../proposals/candidate-intake.md): a one-document
+3. [`candidate-intake`](../../../proposals/rejected/candidate-intake.md): a one-document
    intake questionnaire that collects every fact the CV needs before a
    client's CV is started (marine now if the first client is marine,
    otherwise with item 2), the paper precursor of item 8's intake form.

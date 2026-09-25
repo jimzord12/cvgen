@@ -86,12 +86,13 @@ domain; `F` for `M/templates/flagship`.
 | `tests/` | `run.py` runner, `verify.py` PDF checks, `workflow.py` end-to-end workflow case, `baseline.json` hash manifest, `fixtures/*.typ` compile cases | Changing behaviour |
 | `archive/design-studies/` | Four frozen, evaluated design studies with their renders | Reading for inspiration only |
 | `design-concepts/` | Template concepts proposed by the `magazine-editor` agent: one folder per concept with `concept.typ`, PDF, PNG and `brief.md`. Proposals, not library code | Running or deciding on an idea run |
-| `exports/` | The four current deliverable PDFs | Releasing a new version |
+| `exports/` | The four current public example PDFs (the `Release`) | Releasing a new version |
 | `docs/` | Governance and reference documentation, see below | Recording a decision |
 | `scripts/build.ps1` | Builds the four examples into a new `builds/` folder | Rarely |
 | `scripts/cv.py` | `render`, `approve`, `export`, `status` for one candidate workspace, calling `packages/cv-workflow` | Producing a real CV |
+| `scripts/text-draft.typ` | The plain text draft a client checks before design (`Sign-off`) | Changing how the text draft looks |
 | `builds/` | Ignored. Every build and test run writes to a new timestamped folder here | Reading evidence |
-| `private/` | Ignored. Real candidate workspaces: `candidate.json`, `cv.typ`, `revisions/`, `exports/` | Producing a real CV |
+| `private/` | Ignored. One `Envelope` per real client: `intake/`, `research/`, `draft/`, `candidate.json`, `cv.typ`, `revisions/`, `exports/` | Producing a real CV |
 
 `apps/web/` from the target tree is not implemented; see the Trello board.
 
@@ -129,7 +130,7 @@ Full text in `docs/constitution.md`. The short list:
 | Read | When |
 |---|---|
 | `docs/preferences.md` | Before every reply to the owner: who he is, how to talk to him, what he decides |
-| `docs/glossary.md` | Before every reply to the owner, proposal or document: the official terms, backticks in replies, spotting new candidates |
+| `docs/glossary.md` | Before every reply to the owner, proposal or document: the official terms, backticks in replies, adding terms |
 | `docs/vision.md` | Deciding whether a feature belongs here |
 | `docs/architecture.md` | Before changing any module |
 | `docs/pdf-workflow.md` | Target monorepo and the PDF lifecycle, both implemented 2026-09-16 except `apps/web/`; read before structural or workflow changes (ADR 0010). |
@@ -149,14 +150,18 @@ Full text in `docs/constitution.md`. The short list:
 | `docs/reference/layout-and-pagination.md` | Page balance, splits, overflow errors |
 | `docs/reference/skills-component.md` | Using the optional skills section |
 | `docs/reference/verification.md` | What the suite checks and how to read its output |
+| `docs/guides/client-workflow.md` | A new client: intake, research, `Sign-off`, before building the CV |
+| `docs/research/` | The `Research Library`: shared, dated research notes, no client data |
 | `docs/guides/build-a-cv.md` | Producing a CV for a real person |
 | `docs/decisions/` | Why things are the way they are (ADRs) |
 | `docs/history.md` | How the project got here |
 
 ## Skills and agents
 
-`.claude/skills/new-cv`, `verify-cv`, `new-theme`. Each is a short checklist
+`.claude/skills/new-client`, `new-cv`, `verify-cv`, `new-theme`. Each is a short checklist
 that names the files to copy, the commands to run and the evidence to report.
+`new-client` takes a client from first message to signed-off facts; `new-cv`
+builds the CV from there.
 `.claude/skills/trello` reads and updates the Trello board "CVgen"
 through the REST API; every task's record is a card there, so use it for
 orientation and for any task state change.

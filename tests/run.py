@@ -225,6 +225,13 @@ def main():
     with fitz.open(certs) as doc:
         assert len(doc) == 2
         assert all('Scope / record' in p.get_text() for p in doc)
+    # The Sign-off text draft: a Greek check page first, then the content, one embedded font.
+    draft = compile_case('text-draft', 'tests/fixtures/text-draft.typ')
+    with fitz.open(draft) as doc:
+        assert len(doc) == 2, len(doc)
+        assert 'Ελέγξτε' in doc[0].get_text() and 'Profile' in doc[1].get_text()
+        fonts = {f[3] for p in doc for f in p.get_fonts()}
+        assert fonts and all('SourceSans3' in name for name in fonts), fonts
     # The candidate workflow, end to end and every refusal, in a fresh fictional workspace.
     for check in run_workflow(out, args.typst):
         results.append({'case': 'workflow-' + check, 'passed': True})

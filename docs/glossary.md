@@ -30,7 +30,7 @@ owner afterwards.
 
 | Term | Meaning | Code name today | Added |
 |---|---|---|---|
-| `CVgen` | The product: premium, hand-crafted CVs built with AI on our own Typst `Framework` (owner's words; `docs/vision.md` still says "library") | the repository | 2026-09-25 |
+| `CVgen` | The product: premium, hand-crafted CVs built with AI on our own Typst `Framework` (owner's words, also in `docs/vision.md`) | the repository | 2026-09-25 |
 | `Framework` | The shared Typst core every CV is built on: page frame, headings, data merge and checks. Knows no `Domain` | `packages/cv-engine/core/` (docs say "core"); `lib.typ` re-exports it together with `Marine` and `Flagship` until the agreed `Framework`/`Domain` split is built | 2026-09-25 |
 | `Domain` | A career area with its own facts shape, wording, artwork and rules: `Marine`, `Travel & Tourism`, `Software Development`. Not a web address | `packages/cv-engine/domains/<id>/`; only `marine` exists | 2026-09-25, owner |
 | `Role` | One specialisation inside a `Domain`, never a fork of it: `Deck` and `Engine` in `Marine` | `domains/marine/roles/deck`, `roles/engine` | 2026-09-25 |
@@ -40,13 +40,13 @@ owner afterwards.
 | `Artwork Pack` | Which illustration goes in which slot of a `Template` | `templates/<t>/artwork/` | 2026-09-25 |
 | `Layout` | Margins, gaps and which content lands on which page | `templates/<t>/layouts/`; docs also say "layout profile" | 2026-09-25 |
 | `Client` | The person a CV is for, who also pays for it | the code and the data contract say "candidate" (`candidate.json`) | 2026-09-25 |
-| `Envelope` | One `Client`'s folder: their facts, portrait, their own `Template` tweaks, every `Revision` and `Export` | `private/<envelope>/`; docs also say "candidate workspace" | 2026-09-25, owner |
-| `Intake` | Collecting a `Client`'s facts and goals before research: a question list sent by chat, answers kept in the `Envelope` | not built | 2026-09-25 |
-| `Relay` | The `Intake` method: Claude Code writes the questions and follow-ups, the owner passes them to the `Client` by chat and brings the answers back | not built | 2026-09-25, owner |
-| `Research Library` | Shared, dated research notes about a country, a `Domain` or a `Rank`, reused across `Client`s and rechecked after 6 months. No client data | not built | 2026-09-25 |
-| `Scout` | A wide, shallow first search for one `Client`: the `Research Library` first, the web for what is missing | not built | 2026-09-25 |
-| `Deep Dive` | One agent researching one open question the CV must answer, chosen by the owner after the `Scout` | not built | 2026-09-25 |
-| `Sign-off` | The `Client`'s "OK, the facts are correct" on the text draft, before design starts; usually a chat message whose screenshot goes into the `Envelope`. Not a signature | not built | 2026-09-25, owner |
+| `Envelope` | One `Client`'s folder: their facts, portrait, their own `Template` tweaks, every `Revision` and `Export` | `private/<envelope>/` with the drawers `intake/`, `research/`, `draft/`; docs also say "candidate workspace" | 2026-09-25, owner |
+| `Intake` | Collecting a `Client`'s facts and goals before research: a question list sent by chat, answers kept in the `Envelope` | `docs/guides/client-workflow.md` step 2, `new-client` skill, `intake/` | 2026-09-25 |
+| `Relay` | The `Intake` method: Claude Code writes the questions and follow-ups, the owner passes them to the `Client` by chat and brings the answers back | `docs/guides/client-workflow.md` steps 2 and 7 | 2026-09-25, owner |
+| `Research Library` | Shared, dated research notes about a country, a `Domain` or a `Rank`, reused across `Client`s and rechecked after 6 months. No client data | `docs/research/` | 2026-09-25 |
+| `Scout` | A wide, shallow first search for one `Client`: the `Research Library` first, the web for what is missing | `docs/guides/client-workflow.md` step 4, `research/scout.md` | 2026-09-25 |
+| `Deep Dive` | One agent researching one open question the CV must answer, chosen by the owner after the `Scout` | `docs/guides/client-workflow.md` step 6, `research/deep-dive-<topic>.md` | 2026-09-25 |
+| `Sign-off` | The `Client`'s "OK, the facts are correct" on the text draft, before design starts; usually a chat message whose screenshot goes into the `Envelope`. Not a signature | `docs/guides/client-workflow.md` step 8, `draft/sign-off-NN.png`; the draft uses `scripts/text-draft.typ` | 2026-09-25, owner |
 | `Revision` | One render of a CV in its own folder, never overwritten | `private/<envelope>/revisions/<id>/` | 2026-09-25 |
 | `Approval` | The owner's act on one exact PDF, bound to its SHA-256. Agents never approve a real `Client`'s PDF | `scripts/cv.py approve`, `cv.approval.json` | 2026-09-25 |
 | `Export` | The verified copy of a `Client`'s approved PDF, ready to deliver | `scripts/cv.py export`, `private/<envelope>/exports/` | 2026-09-25 |
