@@ -15,31 +15,34 @@ Each PDF revision has one permanent home. Approval adds a sidecar [a companion
 metadata file]; export copies the approved bytes into a delivery folder.
 
 The approved target public source tree, with the engine organised by domain
-since ADR 0011 (2026-09-21), is:
+since ADR 0011 (2026-09-21) and split into the Framework and the domains
+since ADR 0012 (2026-09-25), is:
 
 ```text
 apps/
   web/                          # Future submission, review, and download UI
 packages/
-  cv-engine/
-    core/                       # Field-neutral core
-    domains/
-      marine/
-        domain.typ  data.typ    # Domain node; marine facts, totals, row model
-        schema/                 # Marine candidate facts contract
-        assets/                 # SVG files shared by the domain's templates
-        roles/deck/ roles/engine/
-        templates/
-          flagship/
-            schema/             # Flagship input contract
-            adapter/            # Candidate facts -> Flagship input
-            components/
-            themes/
-            layouts/
-            artwork/
-            tests/approved/     # Frozen fictional design reference
+  cv-framework/                 # The Framework; imports no domain
+    lib.typ                     # Core exports only
+    core/                       # Domain-neutral core
     fonts/
     licenses/
+  domains/
+    marine/
+      lib.typ                   # Marine surface: Framework names, marine, Flagship
+      domain.typ  data.typ      # Domain node; marine facts, totals, row model
+      schema/                   # Marine candidate facts contract
+      assets/                   # SVG files shared by the domain's templates
+      roles/deck/ roles/engine/
+      templates/
+        flagship/
+          schema/               # Flagship input contract
+          adapter/              # Candidate facts -> Flagship input
+          components/
+          themes/
+          layouts/
+          artwork/
+          tests/approved/       # Frozen fictional design reference
   cv-workflow/                  # Revision creation, checks, approval, export
 scripts/                        # Local commands calling the workflow
 examples/

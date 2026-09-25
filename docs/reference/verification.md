@@ -51,18 +51,20 @@ and per-check folders with `result.json` and, on a raster mismatch, a
 | `skills.typ` | Titles, one to three columns, wrapping, two themes, SVG and plain bullets (through the `lib.typ` wrapper) |
 | `contract.typ` | 31 of the 32 ctx-first components rendered alone, one per page, headed by its name (ADR 0008 fixtures); `document-shell` wraps a whole document and is covered by `legacy-parity.typ` |
 | `text-draft.typ` | The `Sign-off` text draft (`scripts/text-draft.typ`): two pages, the Greek check page first, the content second, Source Sans 3 as the only font |
-| `legacy-parity.typ` | One five-page custom composition written with all 32 of `lib.typ`'s deprecated pre-contract names (`api=legacy`) and with `core-components`/`flagship-components` (`api=contract`); every page must be pixel-identical with the same number of `/Artifact` tags, both PDFs carry the title and author passed to `document-shell`, page 5 (only `page-background`, shell background off) must show more than one colour, and the suite fails if a legacy name exported by `lib.typ` is not called outside a comment (textual check: a call inside a never-invoked `#let` still counts) |
+| `legacy-parity.typ` | One five-page custom composition written with all 32 deprecated pre-contract names marine's `lib.typ` exports (9 from the Framework's `lib.typ`, 23 from Flagship) (`api=legacy`) and with `core-components`/`flagship-components` (`api=contract`); every page must be pixel-identical with the same number of `/Artifact` tags, both PDFs carry the title and author passed to `document-shell`, page 5 (only `page-background`, shell background off) must show more than one colour, and the suite fails if a legacy name exported by `lib.typ` is not called outside a comment (textual check: a call inside a never-invoked `#let` still counts) |
 
 8. **Example records.** Before any compile, every record an example entry
    point reads validates against the schema its imports select (the Flagship
    input schema for all four), with the same code `scripts/cv.py render`
    uses, and every entry point must contribute a record; the
-   template-over-domain choice is also pinned for role-first imports, a
-   lib.typ-only entry, lib.typ with a marine role, lib.typ with a non-marine
-   domain (no schema) and an engine under a folder named `templates`; a
-   record with 23 bad values is refused with ten lines and a count.
+   template-over-domain choice is also pinned for role-first imports, an
+   entry importing only marine's `lib.typ` (Flagship's schema), only the
+   Framework's `lib.typ` (no schema), marine's `lib.typ` with a marine role,
+   marine's `lib.typ` with a non-marine domain (no schema) and domains under
+   a folder named `templates`; a record with 23 bad values is refused with
+   ten lines and a count.
 
-9. **Core boundary.** Every `import`/`include` in `packages/cv-framework/core/*.typ` names a bare sibling file; the core never reaches a domain (ADR 0011).
+9. **Framework boundary.** Every `import`/`include` in `packages/cv-framework/core/*.typ` names a bare sibling file; `packages/cv-framework/lib.typ` imports only `core/` files; no Framework `.typ` file names a `domains/` path outside a comment; every domain file that imports a core file does so through `cv-framework/core/` (ADR 0011, 0012).
 
 10. **Candidate workflow** (`tests/workflow.py`). A fresh fictional workspace
    under the run's `workflow/` folder is driven through the real

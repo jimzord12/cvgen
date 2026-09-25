@@ -38,6 +38,10 @@ Requires Typst 0.15.1 on PATH and Python with `pymupdf`, `pillow` and `jsonschem
   `pip install "jsonschema>=4"`.
 - `core/<file> imports outside core: <target>`: a core module reached into a
   domain or `lib.typ`; the core must import only its siblings (ADR 0011).
+  `the Framework lib.typ imports outside core`, `... names a domain path` or
+  `... reaches a core file outside the Framework`: the Framework touched a
+  domain, or a domain file bypassed `cv-framework/` to reach the core
+  (ADR 0012).
 - An `AssertionError` from `tests/workflow.py`: a candidate-workflow step
   misbehaved. Its repr shows the command arguments, expected and actual exit
   code, stdout and stderr, or the render/check record that failed. A failure

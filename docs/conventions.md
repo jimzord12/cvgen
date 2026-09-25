@@ -20,21 +20,23 @@ them. These evolve; the rules that do not are in `constitution.md`.
   layout, then compose. Positional content arguments are children; named
   content arguments are named slots. A page variant the parent chooses (for
   example `spacing: layout.experience.opening`) is a named prop.
-- **Entry points reach components through `lib.typ` only** (constitution
-  section 3). The ctx-first components are two modules there:
+- **Entry points reach components through a `lib.typ` only** (constitution
+  section 3): their domain's (`packages/domains/<domain>/lib.typ`), or the
+  Framework's (`packages/cv-framework/lib.typ`) for a one-off design with no
+  domain. The ctx-first components are modules there:
   `core-components` (label, rule, decoration, metric, duration-value, the
-  page shell) and `flagship-components` (every Flagship section). A
-  template's components are always exported as one module named
-  `<template>-components`, never as flat names, so they cannot clash with
-  each other, with a later domain or with the deprecated flat names. A later
-  domain's functions take prefixed flat names; marine keeps its flat names
-  (`docs/reference/domains-and-roles.md`, "Naming rule for exports"). Example:
+  page shell; in both) and `flagship-components` (every Flagship section,
+  in marine's). A template's components are always exported as one module
+  named `<template>-components`, never as flat names, so they cannot clash
+  with each other or with the deprecated flat names. Each domain's `lib.typ`
+  is its own namespace (`docs/reference/domains-and-roles.md`, "Naming rule
+  for exports"). Example:
   `#import "/packages/domains/marine/lib.typ": make-ctx, flagship-components as fc`,
-  then `fc.hero(ctx, d)`. Engine code inside `packages/` imports sibling
-  files directly.
+  then `fc.hero(ctx, d)`. Engine code inside `packages/` imports its files
+  directly; a domain reaches the core through `../cv-framework/core/`.
 - **Legacy signatures stay in `legacy.typ`.** Every core and Flagship module
-  follows the contract since 2026-09-25. The flat component names `lib.typ`
-  exports (`hero`, `section-heading`, ...) are thin wrappers with the old
+  follows the contract since 2026-09-25. The flat component names marine's
+  `lib.typ` exports (`hero`, `section-heading`, ...) are thin wrappers with the old
   order (data, theme, geometry slice) so custom compositions written earlier
   render unchanged; `tests/fixtures/legacy-parity.typ` calls all 32 and
   proves identical pixels, artifact tags and PDF metadata (the suite rejects a name called

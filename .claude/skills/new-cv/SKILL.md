@@ -34,7 +34,9 @@ fitting the page.
    field paths; the engine's compile-time assertions then check totals. For
    a public example, the suite runs the same schema check.
 3. Write the entry point as shown in the guide, importing the engine by
-   root-absolute path (`/packages/cv-framework/...`). Pick the role marker
+   root-absolute path (`/packages/domains/marine/lib.typ` and the files
+   beside it; a one-off design with no domain uses
+   `/packages/cv-framework/lib.typ`). Pick the role marker
    (`domains/marine/roles/deck` or `roles/engine`), theme and artwork from
    `packages/domains/marine/templates/flagship/themes/` and `artwork/`, the durations switch, and import the layout
    `as base` with a `pages` override that lists this candidate's company

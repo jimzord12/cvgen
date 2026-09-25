@@ -4,7 +4,10 @@ Date: 2026-09-21
 Status: Accepted. Amends 0002 (a sixth entry-point input, `role`), 0007
 (deck and engine become roles of the marine domain; the core no longer owns a
 data model) and 0010 (templates and their schemas move under
-`domains/<domain>/`). The PDF workflow half of 0010 is untouched.
+`domains/<domain>/`). The PDF workflow half of 0010 is untouched. Amended by
+0012: the domains moved out of the engine package to `packages/domains/`, the
+core became `packages/cv-framework/`, and each domain has its own `lib.typ`,
+which retires the prefixed-names rule.
 Implemented 2026-09-21 in four stages (`b54d9f9`, `195fbab`, `3296e91`,
 `422f150`); the `merge`/`compose` helpers in `core/node.typ` now carry the
 composition described below, and the adapter uses them.
