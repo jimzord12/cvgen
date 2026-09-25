@@ -55,8 +55,8 @@ def describe(error):
 def validate_record(record, imports):
     """Refuse a record that breaks its contract: unknown or misspelt keys, wrong types, missing fields.
 
-    Returns the schema path used (repository-relative), or None when the entry imports neither lib.typ
-    nor a domain, so there is no contract to check against.
+    Returns the schema path used (repository-relative), or None when no imported template or domain has
+    a schema and the lib.typ fallback does not apply, so there is no contract to check against.
     """
     schema_path = schema_for(imports)
     if schema_path is None:

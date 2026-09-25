@@ -53,9 +53,11 @@ and per-check folders with `result.json` and, on a raster mismatch, a
 8. **Example records.** Before any compile, every record an example entry
    point reads validates against the schema its imports select (the Flagship
    input schema for all four), with the same code `scripts/cv.py render`
-   uses; the template-over-domain choice is also pinned for role-first
-   imports, a lib.typ-only entry and an engine under a folder named
-   `templates`.
+   uses, and every entry point must contribute a record; the
+   template-over-domain choice is also pinned for role-first imports, a
+   lib.typ-only entry, lib.typ with a marine role, lib.typ with a non-marine
+   domain (no schema) and an engine under a folder named `templates`; a
+   record with 23 bad values is refused with ten lines and a count.
 
 9. **Core boundary.** Every `import`/`include` in `packages/cv-engine/core/*.typ` names a bare sibling file; the core never reaches a domain (ADR 0011).
 

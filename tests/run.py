@@ -22,21 +22,26 @@ def check_core_boundary():
 def check_example_records():
     """Every public example's record matches the contract its entry point imports (the check cv.py render runs)."""
     import re
+    import jsonschema  # noqa: F401  A missing dependency fails here, not as a broken record.
     from cv_workflow.render import IMPORT
     from cv_workflow import WorkflowError
     from cv_workflow.validate import MAX_REPORTED, schema_for, validate_record
     FLAGSHIP_INPUT = '/packages/cv-engine/domains/marine/templates/flagship/schema/flagship-input.schema.json'
     entries = sorted((ROOT / 'examples').rglob('*.typ'))
     assert entries, 'no example entry points found'
+    checked = set()
     for entry in entries:
         source = entry.read_text(encoding='utf-8')
         for path in re.findall(r'json\("([^"]+)"\)', source):
+            checked.add(entry)
             record = json.loads((entry.parent / path).read_text(encoding='utf-8'))
             try:
                 schema = validate_record(record, IMPORT.findall(source))
             except WorkflowError as error:
                 raise AssertionError(f'example record {path} (read by {entry.name}) breaks its schema: {error}')
             assert schema == FLAGSHIP_INPUT, (entry.name, schema)
+    # Every entry must read its record with a literal json("...") path, or it was not checked at all.
+    assert checked == set(entries), f'no record found in: {sorted(e.name for e in set(entries) - checked)}'
     # Template beats domain whatever the import order; lib.typ alone means Flagship; no engine import, no contract.
     assert schema_for(['/packages/cv-engine/domains/marine/roles/deck/role.typ',
                        '/packages/cv-engine/domains/marine/templates/flagship/themes/golden-blue.typ']) == ROOT / FLAGSHIP_INPUT[1:]
@@ -51,7 +56,7 @@ def check_example_records():
         ship['months'] = 'x'
     try:
         validate_record(many, ['/packages/cv-engine/lib.typ'])
-        raise AssertionError('twenty bad months were accepted')
+        raise AssertionError(f'{len(ships)} bad months were accepted')
     except WorkflowError as error:
         lines = str(error).splitlines()[1:]
         assert len(lines) == MAX_REPORTED + 1 and lines[-1] == f'  ... and {len(ships) - MAX_REPORTED} more', lines
