@@ -85,6 +85,7 @@ domain; `F` for `M/templates/flagship`.
 | `packages/cv-workflow/` | Python package: fresh revisions (snapshot, compile, `render.json`, `checks.json`), explicit approval (`cv.approval.json` bound to the SHA-256), verified export. Never sends anything | Changing how a candidate PDF is produced, approved or exported |
 | `tests/` | `run.py` runner, `verify.py` PDF checks, `workflow.py` end-to-end workflow case, `baseline.json` hash manifest, `fixtures/*.typ` compile cases | Changing behaviour |
 | `archive/design-studies/` | Four frozen, evaluated design studies with their renders | Reading for inspiration only |
+| `design-concepts/` | Template concepts proposed by the `magazine-editor` agent: one folder per concept with `concept.typ`, PDF, PNG and `brief.md`. Proposals, not library code | Running or deciding on an idea run |
 | `exports/` | The four current deliverable PDFs | Releasing a new version |
 | `docs/` | Governance and reference documentation, see below | Recording a decision |
 | `scripts/build.ps1` | Builds the four examples into a new `builds/` folder | Rarely |
@@ -160,6 +161,11 @@ through the REST API; every task's record is a card there, so use it for
 orientation and for any task state change.
 `.claude/agents/code-reviewer.md` is the independent reviewer; it holds no
 rules of its own and defers to `docs/review.md`.
+`.claude/skills/idea-run` runs the idea agents in a closed review loop:
+`ceo` proposes product ideas (checked by `ceo-reviewer`), `magazine-editor`
+proposes template concepts with mock-up PDFs (checked by `design-reviewer`),
+and `research-reviewer` checks the web research behind both. They only
+propose; the owner decides.
 
 ## Working agreement for agents
 

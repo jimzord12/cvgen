@@ -17,6 +17,18 @@ comments or mechanical formatting can skip the independent round after a
 focused check. A one-line configuration change can be high risk; file count
 is not the criterion. Record the reason when taking the small-change path.
 
+Idea runs are the one other exception (adopted by the lead on 2026-09-25 to
+carry out the owner's instruction that idea work runs in its own closed
+review loop; parked for the owner to confirm on the session-handoff card,
+and replaced here by his dated decision when he answers): new files in
+`design-concepts/`, the run's rows in `design-concepts/README.md`, an idea
+run's folder under
+`docs/work/idea-runs/` and proposals that passed both gates in
+`docs/proposals/` are reviewed by the idea gates of
+`.claude/skills/idea-run/SKILL.md` instead of this gate. Any other file an
+idea run touches, and every change to the idea agents or the skill
+themselves, is reviewed here.
+
 ## Give the reviewer a precise brief
 
 - Task outcome, acceptance criteria, scope exclusions and settled decisions.
