@@ -138,9 +138,9 @@ components are the exception: they are exported as one module named
 `postcard-components`), used as `flagship-components.hero(ctx, ...)`,
 because a template has dozens of components and one module keeps them out
 of the flat namespace entirely; the shared core's components follow the same
-form as `core-components`. Flagship's and the core's modules arrive with the
-component contract migration (ADR 0008, card `component-contract`); until
-that lands on `main`, Flagship's components are only the flat names above.
+form as `core-components` (component contract, `conventions.md`). Marine's
+flat component names (`hero`, `section-heading`, ...) remain only as the
+deprecated pre-contract wrappers.
 Before adding an export, search `lib.typ` for the name. The rule is a convention today; when the
 second domain lands, `tests/run.py` should also check that no name is bound
 twice in `lib.typ`.

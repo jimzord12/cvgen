@@ -45,3 +45,27 @@ Bypassed: The `flagship` template, which has no slot for it; the section
           exists only as a standalone export.
 Built:    Placed by hand in a custom composition.
 Lesson:   The template needs a slot for optional sections per page.
+
+### 2026-09-25  Legacy component signatures                         Status: open, remove when no custom composition imports them
+Needed:   The ADR 0008 migration (ctx first) without breaking the two private
+          custom compositions, which import lib.typ's component names with the
+          old (data, theme, geometry) order and are never edited by an agent.
+Bypassed: The contract itself: lib.typ exports the old names as thin wrappers
+          (core/legacy.typ, templates/flagship/legacy.typ) instead of the
+          ctx-first components.
+Built:    One wrapper per exported component (32); the ctx-first components
+          are exported as the modules core-components and flagship-components.
+          tests/fixtures/legacy-parity.typ calls every wrapper and requires
+          identical pixels from both APIs.
+Lesson:   lib.typ needs a versioned public surface. Once the owner approves
+          re-pointing the private entry points at the ctx-first components,
+          delete both legacy.typ files and the flat names.
+
+### 2026-09-25  Style blocks not yet applied                        Status: open, applied when a component is next touched
+Needed:   ADR 0008's style block: each component groups its set and show
+          rules at the top of its returned block.
+Bypassed: The 2026-09-25 migration changed signatures only; most components
+          still pass size, weight and fill inline on each text call.
+Built:    Nothing; the rendering is unchanged and pixel-identical.
+Lesson:   Move styling into style blocks one component at a time under the
+          pixel gate, when a component is changed for another reason.

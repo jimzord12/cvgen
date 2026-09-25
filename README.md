@@ -71,7 +71,7 @@ to change margins and which companies sit on which page.
 python tests/run.py
 ```
 
-Needs Python with `pymupdf`, `pillow` and `jsonschema`. The suite runs 40 cases and
+Needs Python with `pymupdf`, `pillow` and `jsonschema`. The suite runs 43 cases and
 proves the engineer example renders pixel-identical to the frozen
 [v11 reference](packages/cv-engine/domains/marine/templates/flagship/tests/approved/Marine-Engineer-CV-v11.pdf). Details in
 [docs/reference/verification.md](docs/reference/verification.md).
