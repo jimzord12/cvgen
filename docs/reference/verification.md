@@ -50,9 +50,18 @@ and per-check folders with `result.json` and, on a raster mismatch, a
 | `certificate-continuation.typ` | Fifty rows, header repeats on page two |
 | `skills.typ` | Titles, one to three columns, wrapping, two themes, SVG and plain bullets |
 
-8. **Core boundary.** Every `import`/`include` in `packages/cv-engine/core/*.typ` names a bare sibling file; the core never reaches a domain (ADR 0011).
+8. **Example records.** Before any compile, every record an example entry
+   point reads validates against the schema its imports select (the Flagship
+   input schema for all four), with the same code `scripts/cv.py render`
+   uses, and every entry point must contribute a record; the
+   template-over-domain choice is also pinned for role-first imports, a
+   lib.typ-only entry, lib.typ with a marine role, lib.typ with a non-marine
+   domain (no schema) and an engine under a folder named `templates`; a
+   record with 23 bad values is refused with ten lines and a count.
 
-9. **Candidate workflow** (`tests/workflow.py`). A fresh fictional workspace
+9. **Core boundary.** Every `import`/`include` in `packages/cv-engine/core/*.typ` names a bare sibling file; the core never reaches a domain (ADR 0011).
+
+10. **Candidate workflow** (`tests/workflow.py`). A fresh fictional workspace
    under the run's `workflow/` folder is driven through the real
    `scripts/cv.py`: render (the revision's PDF must equal the frozen v11
    reference, the snapshot must be self-contained, `checks.json` bound to
@@ -62,7 +71,9 @@ and per-check folders with `result.json` and, on a raster mismatch, a
    receipt, bytes changed after approval, failing and stale checks, a
    failed compile kept with its log, a data error naming a Greek company
    that reaches `render.log` intact, refused renders (bad JSON, missing
-   portrait) that leave no folder, a receipt rewritten for other bytes, a
+   portrait, a record that breaks its schema - misspelt key, wrong type,
+   null value, missing required field, a bad certificate field - with every
+   field path named) that leave no folder, a receipt rewritten for other bytes, a
    revision without `render.json`, a leftover partial export, a
    conflicting destination and a bundle with a different receipt.
    `commands.log` holds every command with its output and exit code.

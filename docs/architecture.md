@@ -122,7 +122,8 @@ fonts/  licenses/                       bundled OFL fonts and their notices
 
 packages/cv-workflow/cv_workflow/       Python; owns everything around a candidate render
   workspace.py                          workspace and revision paths, ids, hashes, records, the refusal rules
-  render.py                             snapshot inputs, compile, render.json + render.log, then checks
+  validate.py                           candidate record against the template's (or domain's) JSON Schema, before anything is written
+  render.py                             validate, snapshot inputs, compile, render.json + render.log, then checks
   checks.py                             page count, empty page, fonts, bounds; bound to the PDF hash
   approve.py                            explicit approval receipt, bound to revision id and hash
   export.py                             verify, copy into a .partial- folder, verify, rename into place

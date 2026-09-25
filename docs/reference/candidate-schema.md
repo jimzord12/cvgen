@@ -112,6 +112,22 @@ A role can only override the domain's words.
 
 ## Errors you will see
 
+`scripts/cv.py render` first checks the record against the Flagship input
+schema (this file's facts plus `copy`) and refuses with exit 2 before
+anything is written, listing the problems with their field paths (the first
+ten, then a count of the rest), for
+example:
+
+```text
+REFUSED: candidate.json does not match /packages/cv-engine/domains/marine/templates/flagship/schema/flagship-input.schema.json:
+  (top level): Additional properties are not allowed ('educaton_entries' was unexpected)
+  certificates/0: 'review' is a required property
+  companies/0/groups/0/ships/1/months: is null; give a value, or leave the key out if it is optional
+```
+
+Fix the named field and render again. The engine's own checks below run
+after that, during compilation, for what a schema cannot express.
+
 | Message | Fix |
 |---|---|
 | `Candidate requires identity` or `... companies` | Add the missing top-level key |
