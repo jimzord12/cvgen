@@ -34,7 +34,7 @@ drawers to it:
 
 ```text
 private/eleni-example-tour-guide/
-  README.md          alias, decisions, draft fingerprints, delivery and delete-by dates
+  README.md          alias, intake date, decisions, draft fingerprints, delivery and delete-by dates
   intake/
     messages.md      every answer as received, dated, in the client's words
     documents/       the photos and files the client sent
@@ -43,7 +43,7 @@ private/eleni-example-tour-guide/
     scout.md         the Scout's findings, each with its source
     decisions.md     the CV decisions and what answers each one
     deep-dive-<topic>.md
-    reviews/         research-reviewer reports on this client's Deep Dives
+    reviews/         research-reviewer reports: <topic>-NN.md per Deep Dive and round
   draft/
     draft-01.typ, draft-01.pdf   the text draft (a new number per version)
     sign-off-01.png              the client's OK, as a screenshot
@@ -55,7 +55,7 @@ portrait into a `Revision`; the drawers never enter one.
 
 **The folder name is client data.** Claude gives each client an alias,
 `client-<yyyy>-<mm>-<nn>` (for example `client-2026-09-01`), written at the
-top of the `Envelope`'s `README.md`. Outside `private/` (Trello cards,
+top of the `Envelope`'s `README.md` with the date intake started. Outside `private/` (Trello cards,
 commit messages, briefs to agents, anything public) the client is only ever
 the alias.
 
@@ -152,19 +152,22 @@ source that changes no decision is the signal to stop.
 ## 6. Deep Dives
 
 One agent per chosen question: 0-3 per client, up to 6 for an executive
-aiming at named companies. Each writes `research/deep-dive-<topic>.md`
-with numbered, sourced claims and nothing about the client.
+aiming at named companies. Each author gets the `Alias`, never the
+`Envelope` path, and returns its text: numbered, sourced claims and
+nothing about the client. Claude saves it as `research/deep-dive-<topic>.md`.
 
 A fresh `research-reviewer` checks each one until PASS (cap: 5 rounds while
 the owner watches, 10 unattended; at the cap it goes to the owner marked
 unresolved). The reviewer never reads `private/`, so Claude first checks
 the Deep Dive for client details, then passes its text inline, with its
 SHA-256 as the snapshot and the question it answers. Reports on a Deep Dive
-that stays with the client go in the `Envelope`'s `research/reviews/`.
+that stays with the client go in the `Envelope`'s
+`research/reviews/<topic>-NN.md`.
 
 A finding about a country, a `Domain` or a `Rank`, with nothing about the
 client, is also written to the `Research Library` (`docs/research/`,
-public) in the same session; its reports go under
+public) in the same session. The library note is written first, free of
+client detail, and reviewed on its own text and hash; its reports go under
 `docs/work/research-<topic>/reviews/`, never under a client's name. A
 finding about one employer stays in the `Envelope`; it moves to the
 library when a second client targets the same employer.
@@ -202,16 +205,20 @@ the facts do not fit the `Domain`'s `Template`, it builds a one-off
 `Template` in the `Envelope` and records a `Framework Gap` (`build-a-cv.md`
 section 8).
 
-A client whose `Domain` does not exist yet (a tour guide, today) cannot be
-rendered through `scripts/cv.py` yet: an entry point that imports `lib.typ`
-is checked against Flagship's marine schema, and a `Revision` copies only
-`cv.typ`, `candidate.json` and the portrait. The framework-split card gives
-a one-off design the `Framework` without marine; until it lands, stop at
-the signed-off draft and tell the owner (`docs/framework-gaps.md`).
+A client whose `Domain` does not exist yet (a tour guide, today) gets a
+one-off `Template` in the `Envelope`: its `cv.typ` imports
+`/packages/cv-framework/lib.typ` only (ADR 0012), so `scripts/cv.py render`
+checks no schema, and it holds the whole design in that one file, because a
+`Revision` copies only `cv.typ`, `candidate.json` and the portrait
+(`docs/framework-gaps.md`; card revision-snapshot). Record the `Framework
+Gap` for that client's design.
 
 At `Export`, Claude writes "Delivered <date>. Delete by <date + 12 months>"
 in the `Envelope`'s `README.md` and names the delete-by date in its report
-to the owner. Deleting anything under `private/` stays the owner's act.
+to the owner. A client who never reaches `Export` (no consent, dropped out)
+is named to the owner, by `Alias`, once three months pass without progress
+since the intake date. Deleting anything under `private/` stays the
+owner's act.
 
 ## Rules
 

@@ -3,8 +3,8 @@
 Read when discussing the monorepo boundaries or where a candidate PDF lives.
 Status: Approved by the owner in conversation on 2026-09-15; recorded in
 [ADR 0010](decisions/0010-public-monorepo-and-pdf-workflow.md). The source
-tree below is implemented for the engine (`packages/cv-framework/`, `examples/`,
-`archive/`) and for the local workflow (`packages/cv-workflow/`,
+tree below is implemented for the engine (`packages/cv-framework/` and
+`packages/domains/` since ADR 0012, `examples/`, `archive/`) and for the local workflow (`packages/cv-workflow/`,
 `scripts/cv.py`) since 2026-09-16; `apps/web/` is not implemented.
 The commands are in `docs/guides/build-a-cv.md`; the package's own README
 describes the records it writes.
@@ -91,7 +91,8 @@ private/<candidate>/
 
 The revision snapshot is fixed before compilation and compiles on its own:
 the entry point imports the engine by root-absolute path
-(`/packages/cv-framework/...`), and the snapshot record's `identity.portrait`
+(`/packages/domains/marine/...` for marine, `/packages/cv-framework/...` for
+a one-off `Template` with no domain), and the snapshot record's `identity.portrait`
 points at the copied asset under `inputs/assets/`, which `render.json`
 records next to the original path and the working record's hash. Rendering
 never rewrites an existing revision PDF. A failed or corrected run gets a new

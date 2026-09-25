@@ -239,5 +239,6 @@ core, importing no domain) and `packages/domains/marine` (with its own
 `lib.typ` carrying every name entry points used before), so a new domain or
 a client's one-off design can use the Framework without marine. Paths were
 rewritten by a script; the engineer example stayed pixel-identical to v11,
-and both private compositions, whose engine paths were updated with the
-owner's consent, stayed pixel-identical to their approved references.
+and both private compositions, whose engine paths are updated at the
+merge with the owner's consent, render pixel-identical to their approved
+references.

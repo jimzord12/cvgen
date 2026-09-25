@@ -143,7 +143,7 @@ domains/marine/                         the marine domain (ADR 0011)
     themes/  artwork/  layouts/           three of the four presentation inputs (assets live at domain level)
     tests/approved/                       the frozen v11 reference PDF
 
-packages/cv-workflow/cv_workflow/       Python; owns everything around a candidate render
+cv-workflow/cv_workflow/                Python; owns everything around a candidate render
   workspace.py                          workspace and revision paths, ids, hashes, records, the refusal rules
   validate.py                           candidate record against the template's (or domain's) JSON Schema, before anything is written
   render.py                             validate, snapshot inputs, compile, render.json + render.log, then checks

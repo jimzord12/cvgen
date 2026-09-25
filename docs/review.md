@@ -14,10 +14,11 @@ does not satisfy a code review gate.
 Review behaviour, data-contract, dependency, rendering, persistence, approval,
 security, migration and test-logic changes independently. Pure spelling,
 comments, mechanical formatting or a term row added, renamed or dropped in
-`docs/glossary.md` (its Rules section is not a row; adopted by the lead on
-2026-09-25 under the owner's "as little friction as possible") can skip
-the independent round; for a term row the focused check is that its code
-name matches the tree at that commit and anything unbuilt says so
+`docs/glossary.md` (its Rules section is not a row) can skip the
+independent round after a focused check; for a term row, that check is
+that its code name matches the tree at that commit and anything unbuilt
+says so. The term-row path was adopted by the lead on 2026-09-25 under the
+owner's "as little friction as possible"
 after a focused check. A one-line configuration change can be high risk; file count
 is not the criterion. Record the reason when taking the small-change path.
 

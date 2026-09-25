@@ -225,6 +225,9 @@ works from any workspace folder. `marine` is the domain node exported by
 Rules for this path:
 
 - Import from `packages/domains/marine/lib.typ`; never copy library code into the workspace.
+  A client whose domain does not exist yet imports `/packages/cv-framework/lib.typ`
+  only (render then checks no schema) and keeps the whole design in `cv.typ`
+  (`client-workflow.md` section 9).
 - Keep the candidate JSON valid against the schema. Put data the schema
   cannot hold, such as contract periods, in a separate `presentation.json`
   beside it. Never invent months from calendar periods.

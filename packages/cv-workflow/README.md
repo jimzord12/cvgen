@@ -49,10 +49,12 @@ step; nothing is overwritten on the way.
   revision folder, so a refusal leaves nothing. The record is validated
   against the most specific schema the entry point imports: the template's
   `schema/<template>-input.schema.json`; else Flagship's input schema when
-  `lib.typ` is imported and every domain named is marine (its flat exports
-  are marine and Flagship); else the domain's `schema/candidate.schema.json`.
-  `schema: null` in the summary and `render.json` when no imported template
-  or domain has a schema and the lib.typ fallback does not apply. The refusal lists the offending field paths (the first ten, then a count); a new
+  marine's `lib.typ` (`packages/domains/marine/lib.typ`) is imported and every
+  other domain named is marine (its flat exports are marine and Flagship);
+  else the domain's `schema/candidate.schema.json`. `schema: null` in the
+  summary and `render.json` when no imported template or domain has a schema
+  and the marine fallback does not apply, for example an entry that imports
+  only the Framework's `packages/cv-framework/lib.typ` (ADR 0012). The refusal lists the offending field paths (the first ten, then a count); a new
   domain adds its case to `validate.py` (see the wiring checklist in
   `docs/reference/domains-and-roles.md`). Compiler output is decoded
   as UTF-8 so a Greek name in an error survives the Windows console codec.

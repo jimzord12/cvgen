@@ -22,7 +22,7 @@ them. These evolve; the rules that do not are in `constitution.md`.
   example `spacing: layout.experience.opening`) is a named prop.
 - **Entry points reach components through a `lib.typ` only** (constitution
   section 3): their domain's (`packages/domains/<domain>/lib.typ`), or the
-  Framework's (`packages/cv-framework/lib.typ`) for a one-off design with no
+  Framework's (`packages/cv-framework/lib.typ`) for a one-off `Template` with no
   domain. The ctx-first components are modules there:
   `core-components` (label, rule, decoration, metric, duration-value, the
   page shell; in both) and `flagship-components` (every Flagship section,
@@ -33,7 +33,9 @@ them. These evolve; the rules that do not are in `constitution.md`.
   for exports"). Example:
   `#import "/packages/domains/marine/lib.typ": make-ctx, flagship-components as fc`,
   then `fc.hero(ctx, d)`. Engine code inside `packages/` imports its files
-  directly; a domain reaches the core through `../cv-framework/core/`.
+  directly; a domain file reaches the core by a relative path through
+  `cv-framework/core/` (`../../cv-framework/core/data.typ` from a domain's
+  `data.typ`).
 - **Legacy signatures stay in `legacy.typ`.** Every core and Flagship module
   follows the contract since 2026-09-25. The flat component names marine's
   `lib.typ` exports (`hero`, `section-heading`, ...) are thin wrappers with the old

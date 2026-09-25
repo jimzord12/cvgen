@@ -16,7 +16,8 @@ The loop you are part of is in `.claude/skills/idea-run/SKILL.md`, or in
 revises until you pass the work. The cap is 5 rounds when the owner is
 watching and 10 unattended; you do not need to track it. A Deep Dive
 reaches you inline, never as a `private/` path; never search for, name or
-describe a person, even if the text seems to point at one.
+describe the client or any private individual the text points at. A
+source's published author may be named.
 
 ## What you receive
 

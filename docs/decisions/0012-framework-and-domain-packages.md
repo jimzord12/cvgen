@@ -31,8 +31,9 @@ client whose domain does not exist yet gets a one-off design in their
   `cv-framework/lib.typ`), marine, and Flagship with its deprecated wrappers.
   Marine entry points change only their paths; a one-off design with no
   domain imports `packages/cv-framework/lib.typ`.
-- **One direction.** Nothing in `cv-framework/` imports or reads a file in
-  `domains/`; a domain file reaches the core by a relative path through
+- **One direction.** Nothing in `cv-framework/` imports a file in, or names
+  a path under, `domains/` (a domain passes its own SVG paths in at render
+  time); a domain file reaches the core by a relative path through
   `cv-framework/core/`. `tests/run.py` asserts both, on imports and on file
   paths in code.
 - **Schema choice.** `cv_workflow/validate.py` treats marine's `lib.typ` as
@@ -50,12 +51,19 @@ client whose domain does not exist yet gets a one-off design in their
   and the engineer example still matches the frozen v11 reference pixel for
   pixel. History records (`docs/work/`, earlier ADRs, `docs/history.md`,
   proposals) keep the paths they were written with.
-- The two private compositions changed their engine paths (their import
-  lines and one asset path) with the owner's consent; both render
-  pixel-identical to their approved `reference.pdf` at 144 dpi. Revisions
+- The two private compositions' engine paths (their import lines and one
+  asset path) are rewritten when this change merges, with the owner's
+  consent; copies with the same rewrite render pixel-identical to their
+  approved `reference.pdf` at 144 dpi, and the real files are compared
+  again after the rewrite. Revisions
   rendered before the split keep a snapshot of the old `cv.typ`; their PDFs
   stand, but recompiling such a snapshot needs the old layout (any commit
   before this ADR).
+- A revision's `render.json` records `engine.packages` (a list: the
+  Framework and the domains) instead of `engine.package`; revisions made
+  before the split keep the old key. Nothing reads either key yet; a
+  future reader must accept both. The schemas' `$id`s changed with their
+  paths.
 - `typst.toml` now describes the Framework (`cvgen-framework`); marine is not
   a standalone Typst package, because it imports the Framework by a relative
   path outside its folder. Publishing packages stays future work.

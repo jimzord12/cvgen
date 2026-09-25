@@ -84,8 +84,8 @@ from `data.typ`. If the domain's template does not fit the page-plan
 grammar, it calls its own validator instead of `validate-pages`; the grammar
 is generalised when a second domain needs it changed, not before (ADR 0011).
 
-A one-off design for a single client whose domain does not exist yet is not
-a domain: it lives in that client's `Envelope` and imports
+A one-off `Template` for a single client whose domain does not exist yet is
+not a domain: it lives in that client's `Envelope` and imports
 `/packages/cv-framework/lib.typ` (`docs/guides/client-workflow.md`, step 9).
 
 ### Wiring checklist

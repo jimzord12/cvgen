@@ -35,7 +35,7 @@ fitting the page.
    a public example, the suite runs the same schema check.
 3. Write the entry point as shown in the guide, importing the engine by
    root-absolute path (`/packages/domains/marine/lib.typ` and the files
-   beside it; a one-off design with no domain uses
+   beside it; a one-off `Template` with no domain uses
    `/packages/cv-framework/lib.typ`). Pick the role marker
    (`domains/marine/roles/deck` or `roles/engine`), theme and artwork from
    `packages/domains/marine/templates/flagship/themes/` and `artwork/`, the durations switch, and import the layout
@@ -52,7 +52,7 @@ fitting the page.
    prints on every page: `disclosure` in `candidate.json`, and
    `copy: (certificates-subtitle: ..., brand: ...)` in `cv.typ` (guide
    section 2, "Replace the example wording").
-4. Real person: `python scripts/cv.py render private/<name>-<role>` (add
+4. Real person: `python scripts/cv.py render private/<name>-<rank>` (add
    `--pages 3` for a three-page plan); the revision id, hash and check
    result are printed and kept under `revisions/<id>/`. Public example:
    `typst compile --root . --font-path packages/cv-framework/fonts <entry> builds/<name>-01.pdf`.

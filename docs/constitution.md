@@ -9,9 +9,11 @@ Path references below describe the current implementation. The owner-approved
 [ADR 0010](decisions/0010-public-monorepo-and-pdf-workflow.md) establishes the
 monorepo layout and fresh private candidate revision folders; the engine and
 the workflow package landed on 2026-09-16. [ADR 0011](decisions/0011-domains-roles-templates.md)
-organises the engine by domain, role and template (2026-09-21). Frozen
-content, evidence requirements, and safety checkpoints held throughout both
-moves and still hold.
+organises the engine by domain, role and template (2026-09-21), and
+[ADR 0012](decisions/0012-framework-and-domain-packages.md) splits it into
+the Framework and the domains (2026-09-25). Frozen content, evidence
+requirements, and safety checkpoints held throughout these moves and still
+hold.
 
 ## 1. Frozen references are contracts
 
