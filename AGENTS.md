@@ -129,6 +129,7 @@ Full text in `docs/constitution.md`. The short list:
 | Read | When |
 |---|---|
 | `docs/preferences.md` | Before every reply to the owner: who he is, how to talk to him, what he decides |
+| `docs/glossary.md` | Before every reply to the owner, proposal or document: the official terms, backticks in replies, spotting new candidates |
 | `docs/vision.md` | Deciding whether a feature belongs here |
 | `docs/architecture.md` | Before changing any module |
 | `docs/pdf-workflow.md` | Target monorepo and the PDF lifecycle, both implemented 2026-09-16 except `apps/web/`; read before structural or workflow changes (ADR 0010). |
@@ -169,6 +170,12 @@ propose; the owner decides.
 
 ## Working agreement for agents
 
+- Speak the glossary (`docs/glossary.md`). Use its official terms, never a
+  synonym, and wrap them in backticks in every reply to the owner. Watch
+  for new terms: a concept that keeps coming up unnamed, two words for one
+  thing, or one word for two things goes under its Candidates with a
+  one-line meaning, and you name it in your Recap. Only the owner makes a
+  term official.
 - Understand the seam before editing: imports, call sites, the fixture that
   covers it. Say what you found in a line, then act.
 - Prefer the owning module over a parallel one. Related components stay in

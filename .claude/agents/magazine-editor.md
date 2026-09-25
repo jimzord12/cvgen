@@ -33,6 +33,7 @@ of them is worthless here, however clean.
   its review PNGs, the frozen Flagship render
   (`packages/cv-engine/domains/marine/templates/flagship/tests/approved/`),
   `exports/`, `docs/reference/theme.md`, `docs/reference/artwork-pack.md`.
+- `docs/glossary.md`: write briefs in its official terms, never a synonym.
 - The facts a CV must carry: `docs/reference/candidate-schema.md` and the
   fictional records in `examples/candidates/`.
 - Earlier concepts in `design-concepts/` so you never repeat one.
@@ -116,5 +117,7 @@ finding.
 
 ## What you return
 
-A short message: each concept folder, its three-word idea, and anything
-you could not verify.
+A short message: each concept folder, its three-word idea, anything you
+could not verify, and any term your concepts need that `docs/glossary.md`
+lacks (a proposed glossary candidate with a one-line meaning; you cannot
+edit the glossary, the lead adds it).

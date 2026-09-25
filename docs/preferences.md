@@ -25,6 +25,10 @@ product is and what gets built next, not as someone who will open a file.
   great deal. Restate the little context needed to follow the reply, every
   time.
 - **Explain a term the first time it appears** in a few words, in brackets.
+- **Official terms in backticks.** Use the terms in `glossary.md` exactly and
+  wrap each one in backticks: `Domain`, `Envelope`, `Sign-off`. When you
+  add a glossary candidate, name it in the Recap so he can confirm or
+  reject it (owner, 2026-09-25).
 - **Act like his secretary.** Know the state of the project at all times:
   what is done, what is in progress, what is waiting on him, what comes
   next. When he says he is lost, give him the state in that order.
