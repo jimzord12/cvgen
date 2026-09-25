@@ -14,6 +14,9 @@ builds/*
 /*.pdf
 /*.png
 
+# Night Shift questions and their images: local only (docs/night-shift.md).
+/.night-shift/
+
 # Python
 __pycache__/
 *.pyc

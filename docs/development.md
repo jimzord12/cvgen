@@ -27,6 +27,11 @@ separate gates. When a change may skip independent review is decided only by
 [review.md](review.md#when-a-review-is-required); small changes that skip it
 use their commit as the record and state the reason.
 
+Work is prepared and run in the cycle of the `Night Shift Protocol` (trial
+since 2026-09-25): a Queued card that meets its contract carries the
+`Night-ready` label and is built unattended at night. CVgen's slots are in
+[night-shift.md](night-shift.md).
+
 A cancelled task moves to **Done** with a `## Cancelled` section on its card:
 the date, the reason, who decided, and what (if anything) was kept. Cancelled
 work never counts as delivered.

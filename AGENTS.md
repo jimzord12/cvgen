@@ -143,6 +143,7 @@ Full text in `docs/constitution.md`. The short list:
 | `docs/framework-gaps.md` | Before planning framework work, and after any bypass of a component or template |
 | `docs/conventions.md` | Before writing code, docs or a commit message |
 | `docs/development.md` | Starting, resuming or handing off a task: stages, the card as task record, review reports under `docs/work/<id>/reviews/`, guardrails |
+| `docs/night-shift.md` | Preparing `Night-ready` cards, working a `Night Shift`, or writing a `Question` for the owner (the `Night Shift Protocol` binding) |
 | `docs/review.md` | Requesting, performing or recording an independent review; the `code-reviewer` subagent follows it |
 | `docs/proposals/README.md` | Proposal states, owner decisions, and orientation of pending/approved work |
 | `docs/proposals/trello-free-trial.md` | Why Trello is the task store: the trial, its evidence, the adoption decision |
