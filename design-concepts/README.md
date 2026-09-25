@@ -15,9 +15,10 @@ typst compile --root . --ignore-system-fonts --font-path packages/cv-engine/font
 ```
 
 Every compile rewrites the PDF (Typst embeds the compile time). To check a
-concept without changing it, write to a new folder under `builds/` instead.
-A wrong `--font-path` still exits 0 but falls back to another font, so
-compare the page with its PNG.
+concept without changing it (reviewers and the lead), write to a new folder
+under `builds/` instead. A wrong `--font-path` still exits 0 but falls back
+to another font; Typst then warns `unknown font family`, so read the
+warnings.
 
 | Concept | Idea | Date | Status | PDF |
 |---|---|---|---|---|
