@@ -27,7 +27,10 @@ ideas weekly at most (the roadmap is long, the owner's attention is not).
    `run.md`: brief, rounds, verdicts, what reached the owner.
 2. Start the author with the date, the run folder and any owner steer (a
    field, a mood, a problem). For the ceo, paste the board's card list
-   (`trello.ps1 -Cards 'CVgen'`) into the brief; it has no shell. Keep the
+   (`trello.ps1 -Cards 'CVgen'`) into the brief; it has no shell. When the
+   run uses a worktree, give every author and reviewer absolute paths into
+   it and tell the editor to run Typst from the worktree root: a subagent's
+   shell starts in the session's main folder. Keep the
    author's agent id: revisions go back to the same author with SendMessage
    so it keeps its context.
 3. Give every reviewer the snapshot it reviews: a commit on the run branch,
@@ -69,10 +72,13 @@ list one yet, run a `general-purpose` agent told to act exactly as the file
 in `.claude/agents/` defines, paste the file's `tools:` line into the brief
 as a hard limit, and record in `run.md` the model and effort it ran at.
 Before and after every round, record in the run worktree `git rev-parse
-HEAD`, `git status --porcelain` and the refs `refs/heads/<run-branch>`,
-`refs/heads/main`, `refs/tags` and the run branch's remote ref; any
-difference beyond the expected new or changed files stops the run. Other
-refs moving is parallel work: log it, do not stop. The same check is cheap
+HEAD`, `git status --porcelain` and `git for-each-ref` in full. A change to
+HEAD, the status beyond the expected new or changed files,
+`refs/heads/<run-branch>` or its remote ref, `refs/heads/main`,
+`refs/remotes/origin/main` or `refs/tags` stops the run until the lead has
+explained it (a parallel task integrating moves both `main` refs together;
+check its commit). Any other ref moving is parallel work: log it, do not
+stop. The same check is cheap
 for the named `magazine-editor` and `design-reviewer`, which have a shell.
 
 ## Bar (give it to every reviewer as is)
@@ -86,7 +92,6 @@ are Notes, never blocking.
 Concepts still waiting for his answer are listed on the handoff card
 (orientation reads only proposal metadata, so they would not surface
 otherwise).
-
 
 A short message: each concept's PDF link and three-word idea, or each
 proposal's one-line pitch and link; which items were dropped or are

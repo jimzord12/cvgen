@@ -1,5 +1,7 @@
 # Research review round 1: docs/work/idea-agents/research.md
 
+> Record note (lead): condensed by the lead from the returned report; the original text was not retained.
+
 Reviewer: research-reviewer brief, run as a general-purpose agent (the
 agent file was new this session). Snapshot: 580c170.
 

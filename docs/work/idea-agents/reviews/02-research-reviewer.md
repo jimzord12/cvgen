@@ -1,5 +1,7 @@
 # Research review round 2: docs/work/idea-agents/research.md
 
+> Record note (lead): condensed by the lead from the returned report; the original text was not retained.
+
 Reviewer: research-reviewer brief, run as a general-purpose agent.
 Subject: research.md after round-1 fixes, plus the idea-run skill sentence
 on why the lead runs the loops.

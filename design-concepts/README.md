@@ -14,6 +14,11 @@ with their licence and are shared between concepts. Compile from the repository 
 typst compile --root . --ignore-system-fonts --font-path packages/cv-engine/fonts --font-path design-concepts/fonts design-concepts/<folder>/concept.typ design-concepts/<folder>/concept.pdf
 ```
 
+Every compile rewrites the PDF (Typst embeds the compile time). To check a
+concept without changing it, write to a new folder under `builds/` instead.
+A wrong `--font-path` still exits 0 but falls back to another font, so
+compare the page with its PNG.
+
 | Concept | Idea | Date | Status | PDF |
 |---|---|---|---|---|
 | Measured in Months | The career drawn to scale: one bar per vessel, length = service months; marine and travel variants | 2026-09-25 | proposed | [marine](2026-09-25-measured-in-months/concept.pdf) · [travel](2026-09-25-measured-in-months/concept-travel.pdf) |
