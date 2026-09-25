@@ -81,7 +81,7 @@ owns its design (ADR 0007, ADR 0011). Who owns what:
 | Shared core (`core/`) | Marine domain (`domains/marine/`) | Per template |
 |---|---|---|
 | Common facts: identity name, contacts, profile, certificates, education, languages (`normalize-common`, `validate-common` in `data.typ`) | The marine facts: `identity.rank`, companies, vessel-type groups, ships with months; `company-months`, `experience-totals`, the row model (`data.typ`); the schema | Section components: hero, experience, synopsis, certificates, education, skills |
-| Page shell, header, footer, backgrounds (`page.typ`); the header takes strings, the shell takes title and author | `domain.meta` (PDF title suffix, author) | Layout profiles and page plans |
+| Page shell, header, footer, backgrounds (`page.typ`); the header takes a name and headline (no field data) and a caption, the shell takes title and author | `domain.meta` (PDF title suffix, author) | Layout profiles and page plans |
 | Page plan grammar and pagination over a domain row model (`pagination.typ`) | `experience-model`: `count`, `slice`, `totals` | The page loop with its overflow assertion, in `flagship.typ` |
 | `merge` and `compose` (`node.typ`) | `domain.copy`: the field's six words | The adapter: input contract and Flagship's nine words |
 | SVG recolouring and primitives; theme validation | The SVG files (`assets/`) | Artwork packs: which SVG in which slot |
