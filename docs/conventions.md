@@ -71,7 +71,7 @@ them. These evolve; the rules that do not are in `constitution.md`.
 - **Paths from the project root** for assets: `/packages/cv-engine/domains/marine/assets/...`. Compile with
   `--root .`.
 - **Naming:** kebab-case for functions, keys, folders and files. Domains
-  are named after the field (`marine`, `travel-and-tourism`), roles after
+  are named after the career area (`marine`, `travel-and-tourism`), roles after
   the specialisation (`deck`, `engine`). Templates are named after the
   design, `flagship`, never after a role. Themes and artwork packs are
   named after what they look like, not after a revision number. Layouts

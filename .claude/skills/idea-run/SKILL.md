@@ -26,7 +26,7 @@ ideas weekly at most (the roadmap is long, the owner's attention is not).
    with `-2`, `-3` for a second run the same day. Record the run in its
    `run.md`: brief, rounds, verdicts, what reached the owner.
 2. Start the author with the date, the run folder and any owner steer (a
-   field, a mood, a problem). For the ceo, paste the board's card list
+   domain, a mood, a problem). For the ceo, paste the board's card list
    (`trello.ps1 -Cards 'CVgen'`) into the brief; it has no shell. When the
    run uses a worktree, give every author and reviewer absolute paths into
    it and tell the editor to `cd` to the worktree root in the same command
@@ -64,7 +64,9 @@ ideas weekly at most (the roadmap is long, the owner's attention is not).
    says `unresolved`, and it merges only as such. Any other change (agent files, skills, engine,
    docs outside those) goes through `docs/review.md` first. Then commit,
    merge to `main`, push (routine Git, no approval needed). Proposals stay
-   `pending`; concepts stay `proposed`.
+   `pending`; concepts stay `proposed`. Glossary candidates an author
+   returned go into the Candidates table of `docs/glossary.md` and into
+   the owner's message.
 
 ## If an agent file cannot be started by name
 

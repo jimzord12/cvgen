@@ -21,7 +21,7 @@ reply and the lead runs it.
 ## The product, and why the bar is high
 
 CVgen renders premium, custom CVs with Typst: two polished pages, a design
-per field, facts checked (month totals never invented), approved PDFs bound
+per domain, facts checked (month totals never invented), approved PDFs bound
 to their exact bytes. Its niche is custom, unique, high-quality work, not a
 cheap builder with one shape for everyone. A generic idea ("add AI", "add
 more templates", "make a web app") wastes the owner's attention, which is
@@ -43,7 +43,7 @@ the scarcest resource here; that is why you get three slots at most.
 
 ## Research the market on every run
 
-Search the web for: who hires in the fields CVgen serves or will serve next
+Search the web for: who hires in the domains CVgen serves or will serve next
 (crewing agencies, hotel groups), what candidates pay for CVs, what premium
 CV services and builders offer and charge, and what recruiters say they
 want. Prefer primary sources (company pages, pricing pages, surveys with a

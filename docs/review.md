@@ -13,8 +13,9 @@ does not satisfy a code review gate.
 
 Review behaviour, data-contract, dependency, rendering, persistence, approval,
 security, migration and test-logic changes independently. Pure spelling,
-comments or mechanical formatting can skip the independent round after a
-focused check. A one-line configuration change can be high risk; file count
+comments, mechanical formatting or a new row in the Candidates table of
+`docs/glossary.md` (a proposal, not a rule) can skip the independent round
+after a focused check. A one-line configuration change can be high risk; file count
 is not the criterion. Record the reason when taking the small-change path.
 
 Idea runs are the one other exception (adopted by the lead on 2026-09-25 to

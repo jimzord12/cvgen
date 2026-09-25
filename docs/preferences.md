@@ -42,9 +42,11 @@ choices and act without asking (owner's instruction, 2026-09-25).
 
 - **He decides:** what the product is, what gets built next, what an approved
   look is, approval of a real candidate's PDF, changes to the rules in
-  `constitution.md`, and review rounds beyond the cap (`review.md`).
+  `constitution.md`, review rounds beyond the cap (`review.md`), and the
+  official terms in `glossary.md`: making a candidate official, renaming
+  or dropping a term (owner, 2026-09-25).
 - **Agents decide and do, without asking:** architecture inside an approved
-  item, naming, structure, wording, small design choices, the order of work,
+  item, naming of code and files, structure, wording, small design choices, the order of work,
   and all routine Git and board work: commits, pushes, merges into `main`,
   amend, rebase, reset, force-push of a feature branch
   (`--force-with-lease`), branch and tag creation, deleting merged or
