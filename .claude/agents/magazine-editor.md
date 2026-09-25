@@ -119,5 +119,5 @@ finding.
 
 A short message: each concept folder, its three-word idea, anything you
 could not verify, and any term your concepts need that `docs/glossary.md`
-lacks (a proposed glossary candidate with a one-line meaning; you cannot
+lacks (a proposed glossary term with a one-line meaning; you cannot
 edit the glossary, the lead adds it).

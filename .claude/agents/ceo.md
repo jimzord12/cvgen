@@ -93,5 +93,5 @@ cannot survive, drop it and say so. Reply with what you changed per finding.
 
 A short message: the run record path, each proposal path with its one-line
 pitch, anything you could not verify, and any term your ideas need that
-`docs/glossary.md` lacks (a proposed glossary candidate with a one-line
+`docs/glossary.md` lacks (a proposed glossary term with a one-line
 meaning; you cannot edit the glossary, the lead adds it).

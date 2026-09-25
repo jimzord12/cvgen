@@ -171,12 +171,11 @@ propose; the owner decides.
 ## Working agreement for agents
 
 - Speak the glossary (`docs/glossary.md`). Use its official terms, never a
-  synonym, and wrap them in backticks in every reply to the owner. Watch
-  for new terms: a concept that keeps coming up unnamed, two words for one
-  thing, one word for two things, or a term the owner coins goes under its
-  Candidates with a
-  one-line meaning, and you name it in your Recap. Only the owner makes a
-  term official.
+  synonym, and wrap them in backticks in every reply to the owner. Keep it
+  current yourself: a concept that keeps coming up unnamed, two words for
+  one thing, one word for two things, or a term the owner coins becomes a
+  term without asking. Name every term you added, renamed or dropped in
+  your next report or Recap; the owner changes it then if he dislikes it.
 - Understand the seam before editing: imports, call sites, the fixture that
   covers it. Say what you found in a line, then act.
 - Prefer the owning module over a parallel one. Related components stay in

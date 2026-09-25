@@ -64,9 +64,9 @@ ideas weekly at most (the roadmap is long, the owner's attention is not).
    says `unresolved`, and it merges only as such. Any other change (agent files, skills, engine,
    docs outside those) goes through `docs/review.md` first. Then commit,
    merge to `main`, push (routine Git, no approval needed). Proposals stay
-   `pending`; concepts stay `proposed`. Glossary candidates an author
-   returned go into the Candidates table of `docs/glossary.md` and into
-   the owner's message.
+   `pending`; concepts stay `proposed`. Glossary terms an author
+   returned go into `docs/glossary.md` and are named in the owner's
+   message.
 
 ## If an agent file cannot be started by name
 
