@@ -114,7 +114,8 @@ A role can only override the domain's words.
 
 `scripts/cv.py render` first checks the record against the Flagship input
 schema (this file's facts plus `copy`) and refuses with exit 2 before
-anything is written, listing every problem with its field path, for
+anything is written, listing the problems with their field paths (the first
+ten, then a count of the rest), for
 example:
 
 ```text

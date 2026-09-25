@@ -29,6 +29,9 @@ Requires Typst 0.15.1 on PATH and Python with `pymupdf`, `pillow` and `jsonschem
 - `Text mismatch on page N`: the page looks the same but its extractable text
   differs from v11 (wording, order or a hidden character). Compare the page
   text of both PDFs.
+- `example record <file> (read by <entry>) breaks its schema: ...`: a
+  fictional record no longer matches its schema; the lines after it name
+  each field path. Fix the record (or the schema, if the change is meant).
 - `core/<file> imports outside core: <target>`: a core module reached into a
   domain or `lib.typ`; the core must import only its siblings (ADR 0011).
 - An `AssertionError` from `tests/workflow.py`: a candidate-workflow step

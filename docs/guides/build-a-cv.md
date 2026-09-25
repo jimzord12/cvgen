@@ -107,7 +107,8 @@ inside the page). Exit code 1 means the compiler or a check failed; the
 revision stays, with the error in its `render.log` or `checks.json`, and the
 fix is a new revision. Exit code 2 prints `REFUSED: <reason>`: the inputs
 are not usable (a workspace without `candidate.json` or `cv.typ`, invalid
-JSON, a record that breaks its schema - every offending field is listed
+JSON, a record that breaks its schema - the first ten offending fields are
+listed
 with its path - a missing portrait file, no Typst on PATH), and the reason
 names the fix. Nothing is written on a refusal.
 Needs Python with `pymupdf` and `jsonschema` like the test suite.

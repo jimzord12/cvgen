@@ -52,7 +52,7 @@ step; nothing is overwritten on the way.
   `lib.typ` is imported and every domain named is marine (its flat exports
   are marine and Flagship); else the domain's `schema/candidate.schema.json`.
   `schema: null` in the summary and `render.json` only when the entry
-  imports neither. The refusal lists every offending field path; a new
+  imports neither. The refusal lists the offending field paths (the first ten, then a count); a new
   domain adds its case to `validate.py` (see the wiring checklist in
   `docs/reference/domains-and-roles.md`). Compiler output is decoded
   as UTF-8 so a Greek name in an error survives the Windows console codec.
