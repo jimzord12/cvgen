@@ -75,7 +75,7 @@ groups, ships, ranks and months, `certificates` (all four fields),
   mock-up picks the split point that balances the columns), pull-quote, fact
   file, certificate register, folio.
 - Theme tokens: `ink`, `muted`, `accent`, `panel`, display and body fonts;
-  add both families to `packages/cv-engine/fonts/`.
+  add both families to `packages/cv-framework/fonts/`.
 - **Headline size is a page-plan value, not automatic**: the constitution
   forbids automatic shrinking, so a long name needs a smaller size chosen by
   hand, plus an overflow check that fails loudly (the mock-up has none).

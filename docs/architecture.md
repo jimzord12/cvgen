@@ -1,6 +1,6 @@
 # Architecture
 
-Read this before changing any module under `packages/cv-engine/`.
+Read this before changing any module under `packages/cv-framework/`.
 
 This page describes the current implementation: the monorepo of
 [ADR 0010](decisions/0010-public-monorepo-and-pdf-workflow.md) and
@@ -9,7 +9,7 @@ engine organised by domain, role and template since 2026-09-21
 ([ADR 0011](decisions/0011-domains-roles-templates.md),
 [domains and roles](reference/domains-and-roles.md)). The engine package
 and the workflow package exist; the web app does not. Paths below
-are relative to `packages/cv-engine/` unless they start with `packages/`,
+are relative to `packages/cv-framework/` unless they start with `packages/`,
 `examples/`, `scripts/` or `tests/`.
 
 ## The one-paragraph version

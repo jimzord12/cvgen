@@ -1,5 +1,5 @@
-#import "../../packages/cv-engine/core/pagination.typ": validate-pages, company-fragment
-#import "../../packages/cv-engine/core/node.typ": merge, compose
+#import "../../packages/cv-framework/core/pagination.typ": validate-pages, company-fragment
+#import "../../packages/cv-framework/core/node.typ": merge, compose
 // The core's page plan must work for a domain that has no ships: rows come
 // from the model, never from `groups` or `ships`.
 #let model = (

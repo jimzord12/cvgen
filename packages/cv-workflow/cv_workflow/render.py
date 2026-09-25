@@ -98,11 +98,12 @@ def render_revision(workspace, typst='typst', pages=2, inputs=None):
 
 
 def engine_state():
-    """Engine commit plus whether packages/cv-engine has uncommitted edits (then the run is not reproducible)."""
+    """Engine commit plus whether the Framework or a domain has uncommitted edits (then the run is not reproducible)."""
+    packages = [repo_relative(p).lstrip('/') for p in ENGINE]
     try:
         commit = subprocess.run(['git', 'rev-parse', 'HEAD'], cwd=ROOT, capture_output=True, **TEXT, check=True).stdout.strip()
-        dirty = subprocess.run(['git', 'status', '--porcelain', '--', str(ENGINE)], cwd=ROOT, capture_output=True,
+        dirty = subprocess.run(['git', 'status', '--porcelain', '--', *map(str, ENGINE)], cwd=ROOT, capture_output=True,
                                **TEXT, check=True).stdout.strip()
-        return {'package': 'packages/cv-engine', 'commit': commit, 'uncommitted_changes': bool(dirty)}
+        return {'packages': packages, 'commit': commit, 'uncommitted_changes': bool(dirty)}
     except (OSError, subprocess.CalledProcessError):
-        return {'package': 'packages/cv-engine', 'commit': None, 'uncommitted_changes': None}
+        return {'packages': packages, 'commit': None, 'uncommitted_changes': None}

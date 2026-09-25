@@ -11,10 +11,10 @@ from verify import ROOT, FLAGSHIP, verify
 sys.path.insert(0, str(ROOT / 'packages/cv-workflow'))
 from cv_workflow import sha256_file  # noqa: E402
 
-ENTRY = '''#import "/packages/cv-engine/lib.typ": flagship
-#import "/packages/cv-engine/domains/marine/templates/flagship/themes/golden-blue.typ": theme
-#import "/packages/cv-engine/domains/marine/templates/flagship/artwork/engineer.typ": artwork
-#import "/packages/cv-engine/domains/marine/templates/flagship/layouts/flagship-v11.typ": layout
+ENTRY = '''#import "/packages/domains/marine/lib.typ": flagship
+#import "/packages/domains/marine/templates/flagship/themes/golden-blue.typ": theme
+#import "/packages/domains/marine/templates/flagship/artwork/engineer.typ": artwork
+#import "/packages/domains/marine/templates/flagship/layouts/flagship-v11.typ": layout
 #let candidate = json("candidate.json")
 #show: flagship.with(candidate: candidate, theme: theme, artwork: artwork, layout: layout, show-vessel-durations: true)
 '''
@@ -46,7 +46,7 @@ def run_workflow(out, typst):
     # 1. Render: snapshot, records, checks bound to the bytes, PDF identical to the frozen v11 reference.
     first = cv('render', workspace, '--typst', typst)
     rid = first['revision']
-    assert first['schema'] == '/packages/cv-engine/domains/marine/templates/flagship/schema/flagship-input.schema.json', first
+    assert first['schema'] == '/packages/domains/marine/templates/flagship/schema/flagship-input.schema.json', first
     assert first['status'] == 'success' and first['checks_passed'] and first['engine_uncommitted_changes'] is False, first
     folder = revision(rid)
     for name in ['inputs/cv.typ', 'inputs/candidate.json', 'inputs/assets/portrait.png', 'render.log', 'render.json', 'checks.json', 'cv.pdf']:
@@ -56,7 +56,7 @@ def run_workflow(out, typst):
     sha = sha256_file(folder / 'cv.pdf')
     assert render['pdf']['sha256'] == sha == first['sha256'] == checks['pdf_sha256'] and checks['passed']
     assert render['compiler']['version'].startswith('typst 0.15.1') and render['engine']['commit']
-    assert render['inputs']['entry']['imports'][0] == '/packages/cv-engine/lib.typ'
+    assert render['inputs']['entry']['imports'][0] == '/packages/domains/marine/lib.typ'
     assert render['inputs']['candidate']['schema'].endswith('/templates/flagship/schema/flagship-input.schema.json')
     snapshot = json.loads((folder / 'inputs/candidate.json').read_text(encoding='utf-8'))
     assert snapshot['identity']['portrait'] == '/' + (folder / 'inputs/assets/portrait.png').relative_to(ROOT).as_posix()

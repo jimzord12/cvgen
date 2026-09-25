@@ -1,6 +1,6 @@
 // The Flagship opening band: portrait, contacts, artwork and identity plate
 // (ADR 0008 shape: ctx, data, props). Geometry from ctx.layout.hero, pictures from ctx.artwork.
-#import "../../../../../core/primitives.typ": label, decoration
+#import "../../../../../cv-framework/core/primitives.typ": label, decoration
 
 #let portrait(ctx, identity) = {
   let geometry = ctx.layout.hero

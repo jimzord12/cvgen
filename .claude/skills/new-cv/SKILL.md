@@ -34,9 +34,9 @@ fitting the page.
    field paths; the engine's compile-time assertions then check totals. For
    a public example, the suite runs the same schema check.
 3. Write the entry point as shown in the guide, importing the engine by
-   root-absolute path (`/packages/cv-engine/...`). Pick the role marker
+   root-absolute path (`/packages/cv-framework/...`). Pick the role marker
    (`domains/marine/roles/deck` or `roles/engine`), theme and artwork from
-   `packages/cv-engine/domains/marine/templates/flagship/themes/` and `artwork/`, the durations switch, and import the layout
+   `packages/domains/marine/templates/flagship/themes/` and `artwork/`, the durations switch, and import the layout
    `as base` with a `pages` override that lists this candidate's company
    indices. The shipped plan assumes six companies and fails with
    `Page plan company index out of bounds` for fewer, or
@@ -53,7 +53,7 @@ fitting the page.
 4. Real person: `python scripts/cv.py render private/<name>-<role>` (add
    `--pages 3` for a three-page plan); the revision id, hash and check
    result are printed and kept under `revisions/<id>/`. Public example:
-   `typst compile --root . --font-path packages/cv-engine/fonts <entry> builds/<name>-01.pdf`.
+   `typst compile --root . --font-path packages/cv-framework/fonts <entry> builds/<name>-01.pdf`.
 5. On a fit or overflow error, apply the fix the message names. Page plan
    changes go in the entry point as a layout override, see
    `docs/reference/layout-and-pagination.md`. Never shrink body fonts.

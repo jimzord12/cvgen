@@ -1,7 +1,7 @@
 // Candidate facts -> Flagship input. Facts carry no presentation text; the
 // domain supplies the field's words, this adapter supplies Flagship's, and
 // the core normalises the result.
-#import "../../../../../core/node.typ": merge, compose
+#import "../../../../../cv-framework/core/node.typ": merge, compose
 #import "../../../domain.typ": domain
 
 // Words Flagship owns. The field's words (experience-subtitle, continuation,

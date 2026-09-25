@@ -2,7 +2,7 @@
 // ctx.layout.experience; `spacing` is the parent's page variant (experience.opening
 // or experience.continuation); ctx.options.show-vessel-durations hides row times.
 #import "../../../data.typ": company-months
-#import "../../../../../core/primitives.typ": label, duration
+#import "../../../../../cv-framework/core/primitives.typ": label, duration
 
 #let show-durations(ctx) = ctx.options.at("show-vessel-durations", default: true)
 

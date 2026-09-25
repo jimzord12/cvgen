@@ -60,7 +60,7 @@ keep it untracked and do not copy its contents into shared documentation.
 ## Where things are
 
 Layout per ADR 0010 (`docs/pdf-workflow.md`) and ADR 0011 (domains). `E` below stands for
-`packages/cv-engine`, the engine package; `M` for `E/domains/marine`, the marine
+`packages/cv-framework`, the engine package; `M` for `E/domains/marine`, the marine
 domain; `F` for `M/templates/flagship`.
 
 | Path | Role | Touch it when |
@@ -102,7 +102,7 @@ domain; `F` for `M/templates/flagship`.
 ./scripts/build.ps1                     # four PDFs into builds/library-<timestamp>/
 ./scripts/build.ps1 -HideVesselDurations
 python tests/run.py                     # full suite, evidence into builds/tests-<timestamp>/
-typst compile --root . --font-path packages/cv-engine/fonts examples/marine/flagship/engineer.typ builds/scratch.pdf
+typst compile --root . --font-path packages/cv-framework/fonts examples/marine/flagship/engineer.typ builds/scratch.pdf
 python scripts/cv.py render private/<candidate>            # new revision: snapshot, PDF, log, checks
 python scripts/cv.py approve private/<candidate> <revision> --approver "<name>" --sha256 <reviewed hash>
 python scripts/cv.py export private/<candidate> <revision>  # verified copy into exports/<revision>/
@@ -118,7 +118,7 @@ under `private/`.
 
 Full text in `docs/constitution.md`. The short list:
 
-1. Every approved template has a frozen reference under its `tests/approved/` folder and a public example that must render pixel-identical to it; the hashes in `tests/baseline.json` are frozen with it. Today: `packages/cv-engine/domains/marine/templates/flagship/tests/approved/Marine-Engineer-CV-v11.pdf` and `examples/marine/flagship/engineer.typ`. A change that breaks this needs a new frozen reference and an ADR.
+1. Every approved template has a frozen reference under its `tests/approved/` folder and a public example that must render pixel-identical to it; the hashes in `tests/baseline.json` are frozen with it. Today: `packages/domains/marine/templates/flagship/tests/approved/Marine-Engineer-CV-v11.pdf` and `examples/marine/flagship/engineer.typ`. A change that breaks this needs a new frozen reference and an ADR.
 2. Every output goes to a new folder. Scripts refuse to overwrite.
 3. Public content is fictional. Real candidate data lives in `private/`, which is ignored.
 4. No automatic font shrinking. Overflow fails loudly and the page plan is changed by hand.

@@ -8,8 +8,11 @@ from pathlib import Path
 
 # Repository root: packages/cv-workflow/cv_workflow/workspace.py -> three levels up.
 ROOT = Path(__file__).resolve().parents[3]
-ENGINE = ROOT / 'packages/cv-engine'
-FONTS = ENGINE / 'fonts'
+# The engine is the Framework plus the domains beside it (ADR 0012).
+FRAMEWORK = ROOT / 'packages/cv-framework'
+DOMAINS = ROOT / 'packages/domains'
+ENGINE = (FRAMEWORK, DOMAINS)
+FONTS = FRAMEWORK / 'fonts'
 # Prefix of an export folder that is still being written; never a finished bundle.
 PARTIAL_EXPORT = '.partial-'
 MIN_HASH_PREFIX = 12

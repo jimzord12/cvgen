@@ -1,8 +1,8 @@
-#import "../../packages/cv-engine/lib.typ": flagship, normalize-candidate
-#import "../../packages/cv-engine/domains/marine/data.typ": company-months
-#import "../../packages/cv-engine/domains/marine/templates/flagship/themes/golden-blue.typ": theme
-#import "../../packages/cv-engine/domains/marine/templates/flagship/artwork/engineer.typ": artwork as original-art
-#import "../../packages/cv-engine/domains/marine/templates/flagship/layouts/flagship-v11.typ": layout
+#import "../../packages/domains/marine/lib.typ": flagship, normalize-candidate
+#import "../../packages/domains/marine/data.typ": company-months
+#import "../../packages/domains/marine/templates/flagship/themes/golden-blue.typ": theme
+#import "../../packages/domains/marine/templates/flagship/artwork/engineer.typ": artwork as original-art
+#import "../../packages/domains/marine/templates/flagship/layouts/flagship-v11.typ": layout
 #let d = normalize-candidate(json("../../examples/candidates/engineer-example.json"))
 #let mode = sys.inputs.at("case", default: "missing-months")
 #let candidate = if mode == "missing-months" {

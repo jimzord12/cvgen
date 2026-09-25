@@ -12,11 +12,25 @@ from workflow import run_workflow
 
 
 def check_core_boundary():
-    """The shared core imports only its own siblings: never a domain, never lib.typ (ADR 0011)."""
+    """The Framework never reaches a domain (ADR 0011, 0012): core files import only their siblings, lib.typ
+    only core files, and no Framework file names packages/domains; every domain file that reaches the core
+    goes through packages/cv-framework."""
     import re
-    for source in sorted((ROOT / 'packages/cv-engine/core').glob('*.typ')):
-        for target in re.findall(r'(?<![\w-])(?:import|include)\s+"([^"]+)"', source.read_text(encoding='utf-8')):
+    imports = re.compile(r'(?<![\w-])(?:import|include)\s+"([^"]+)"')
+    framework = ROOT / 'packages/cv-framework'
+    for source in sorted((framework / 'core').glob('*.typ')):
+        for target in imports.findall(source.read_text(encoding='utf-8')):
             assert '/' not in target and '..' not in target, f'core/{source.name} imports outside core: {target}'
+    for target in imports.findall((framework / 'lib.typ').read_text(encoding='utf-8')):
+        assert target.startswith('core/') and '..' not in target, f'the Framework lib.typ imports outside core: {target}'
+    # Nor may any Framework code read a file by a domain path (read, image, json); comments may name one.
+    for source in framework.rglob('*.typ'):
+        code = re.sub(r'//[^\n]*', '', re.sub(r'/\*.*?\*/', '', source.read_text(encoding='utf-8'), flags=re.S))
+        assert 'domains/' not in code, f'{source.relative_to(ROOT)} names a domain path'
+    for source in sorted((ROOT / 'packages/domains').rglob('*.typ')):
+        for target in imports.findall(source.read_text(encoding='utf-8')):
+            assert not re.search(r'(^|/)core/', target) or 'cv-framework/core/' in target, \
+                f'{source.relative_to(ROOT)} reaches a core file outside the Framework: {target}'
 
 
 def check_example_records():
@@ -26,7 +40,7 @@ def check_example_records():
     from cv_workflow.render import IMPORT
     from cv_workflow import WorkflowError
     from cv_workflow.validate import MAX_REPORTED, schema_for, validate_record
-    FLAGSHIP_INPUT = '/packages/cv-engine/domains/marine/templates/flagship/schema/flagship-input.schema.json'
+    FLAGSHIP_INPUT = '/packages/domains/marine/templates/flagship/schema/flagship-input.schema.json'
     entries = sorted((ROOT / 'examples').rglob('*.typ'))
     assert entries, 'no example entry points found'
     checked = set()
@@ -42,36 +56,38 @@ def check_example_records():
             assert schema == FLAGSHIP_INPUT, (entry.name, schema)
     # Every entry must read its record with a literal json("...") path, or it was not checked at all.
     assert checked == set(entries), f'no record found in: {sorted(e.name for e in set(entries) - checked)}'
-    # Template beats domain whatever the import order; lib.typ alone means Flagship; no engine import, no contract.
-    assert schema_for(['/packages/cv-engine/domains/marine/roles/deck/role.typ',
-                       '/packages/cv-engine/domains/marine/templates/flagship/themes/golden-blue.typ']) == ROOT / FLAGSHIP_INPUT[1:]
-    assert schema_for(['/packages/cv-engine/lib.typ']) == ROOT / FLAGSHIP_INPUT[1:]
+    # Template beats domain whatever the import order; marine's lib.typ alone means Flagship; the Framework's
+    # lib.typ names no domain, so it alone has no contract; no engine import, no contract.
+    assert schema_for(['/packages/domains/marine/roles/deck/role.typ',
+                       '/packages/domains/marine/templates/flagship/themes/golden-blue.typ']) == ROOT / FLAGSHIP_INPUT[1:]
+    assert schema_for(['/packages/domains/marine/lib.typ']) == ROOT / FLAGSHIP_INPUT[1:]
+    assert schema_for(['/packages/cv-framework/lib.typ']) is None
     assert schema_for(['/private/helpers.typ']) is None
     # lib.typ with a non-marine domain never falls back to Flagship's contract.
-    assert schema_for(['/packages/cv-engine/lib.typ', '/packages/cv-engine/domains/travel-and-tourism/domain.typ']) is None
+    assert schema_for(['/packages/domains/marine/lib.typ', '/packages/domains/travel-and-tourism/domain.typ']) is None
     # The refusal lists the first MAX_REPORTED problems, then a count.
     many = json.loads((ROOT / 'examples/candidates/engineer-example.json').read_text(encoding='utf-8'))
     ships = [s for c in many['companies'] for g in c['groups'] for s in g['ships']]
     for ship in ships:
         ship['months'] = 'x'
     try:
-        validate_record(many, ['/packages/cv-engine/lib.typ'])
+        validate_record(many, ['/packages/domains/marine/lib.typ'])
         raise AssertionError(f'{len(ships)} bad months were accepted')
     except WorkflowError as error:
         lines = str(error).splitlines()[1:]
         assert len(lines) == MAX_REPORTED + 1 and lines[-1] == f'  ... and {len(ships) - MAX_REPORTED} more', lines
     # lib.typ plus a marine role but no template still means Flagship's contract.
-    assert schema_for(['/packages/cv-engine/lib.typ', '/packages/cv-engine/domains/marine/roles/deck/role.typ']) == ROOT / FLAGSHIP_INPUT[1:]
-    # The template-over-domain choice must not depend on the checkout path: an engine under a folder
-    # named `templates` still resolves the template schema, whatever the import order.
+    assert schema_for(['/packages/domains/marine/lib.typ', '/packages/domains/marine/roles/deck/role.typ']) == ROOT / FLAGSHIP_INPUT[1:]
+    # The template-over-domain choice must not depend on the checkout path: domains under a folder
+    # named `templates` still resolve the template schema, whatever the import order.
     import shutil, tempfile
     with tempfile.TemporaryDirectory() as scratch:
-        engine = Path(scratch) / 'templates' / 'checkout' / 'packages' / 'cv-engine'
-        for schema in ['domains/marine/schema/candidate.schema.json', FLAGSHIP_INPUT[len('/packages/cv-engine/'):]]:
-            (engine / schema).parent.mkdir(parents=True, exist_ok=True)
-            shutil.copyfile(ROOT / 'packages/cv-engine' / schema, engine / schema)
-        chosen = schema_for(['/packages/cv-engine/domains/marine/roles/deck/role.typ',
-                             '/packages/cv-engine/domains/marine/templates/flagship/themes/golden-blue.typ'], engine=engine)
+        domains = Path(scratch) / 'templates' / 'checkout' / 'packages' / 'domains'
+        for schema in ['marine/schema/candidate.schema.json', FLAGSHIP_INPUT[len('/packages/domains/'):]]:
+            (domains / schema).parent.mkdir(parents=True, exist_ok=True)
+            shutil.copyfile(ROOT / 'packages/domains' / schema, domains / schema)
+        chosen = schema_for(['/packages/domains/marine/roles/deck/role.typ',
+                             '/packages/domains/marine/templates/flagship/themes/golden-blue.typ'], domains_root=domains)
         assert chosen.name == 'flagship-input.schema.json', chosen
 
 
@@ -161,10 +177,11 @@ def main():
     with fitz.open(components) as doc:
         names = [page.get_text().split()[1] for page in doc]
         assert len(names) == len(set(names)) == 31, names
-    # lib.typ's 32 deprecated pre-contract names draw exactly what the ctx-first components draw;
-    # the fixture must call every one of them.
+    # The 32 deprecated pre-contract names (9 from the Framework's lib.typ, 23 from Flagship's, all
+    # re-exported by marine's lib.typ) draw exactly what the ctx-first components draw; the fixture,
+    # which imports marine's lib.typ, must call every one of them.
     import re
-    lib = (ROOT / 'packages/cv-engine/lib.typ').read_text(encoding='utf-8')
+    lib = '\n'.join((ROOT / p).read_text(encoding='utf-8') for p in ['packages/cv-framework/lib.typ', 'packages/domains/marine/lib.typ'])
     legacy_names = [n.strip() for line in lib.splitlines() if 'legacy.typ"' in line for n in line.split(':', 1)[1].split(',')]
     parity = (ROOT / 'tests/fixtures/legacy-parity.typ').read_text(encoding='utf-8')
     code = re.sub(r'//[^\n]*', '', re.sub(r'/\*.*?\*/', '', parity, flags=re.S))  # a call in a comment does not count

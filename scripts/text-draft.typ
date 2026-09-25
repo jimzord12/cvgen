@@ -9,7 +9,7 @@
 //   = Profile
 //   ...
 //
-// Compile with --font-path packages/cv-engine/fonts (Source Sans 3 covers Greek).
+// Compile with --font-path packages/cv-framework/fonts (Source Sans 3 covers Greek).
 
 #let text-draft(title: "", version: "", check: none, lang: "en", check-lang: "el", body) = {
   set document(title: title)

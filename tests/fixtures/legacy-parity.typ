@@ -4,11 +4,11 @@
 // least once; the suite requires identical pixels, PDF artifact tags and metadata, so
 // compositions written before ADR 0008 keep rendering unchanged. Known limit: the
 // suite's "called" check is textual, so a call inside a never-invoked #let counts.
-#import "../../packages/cv-engine/lib.typ" as L
-#import "../../packages/cv-engine/lib.typ": make-ctx, normalize-candidate, to-flagship-input, experience-totals, skills-layout
-#import "../../packages/cv-engine/domains/marine/templates/flagship/themes/golden-blue.typ": theme
-#import "../../packages/cv-engine/domains/marine/templates/flagship/artwork/engineer.typ": artwork
-#import "../../packages/cv-engine/domains/marine/templates/flagship/layouts/flagship-v11.typ": layout
+#import "../../packages/domains/marine/lib.typ" as L
+#import "../../packages/domains/marine/lib.typ": make-ctx, normalize-candidate, to-flagship-input, experience-totals, skills-layout
+#import "../../packages/domains/marine/templates/flagship/themes/golden-blue.typ": theme
+#import "../../packages/domains/marine/templates/flagship/artwork/engineer.typ": artwork
+#import "../../packages/domains/marine/templates/flagship/layouts/flagship-v11.typ": layout
 
 #let C = L.core-components
 #let F = L.flagship-components
@@ -38,7 +38,7 @@
 #grid(columns: (1fr, 1fr, 1fr), ..("8", "7", "1").zip(("Contracts", "Vessels", "Company")).map(((v, c)) =>
   if legacy {L.metric(v, c, theme, gap: 2mm)} else {C.metric(ctx, v, caption: c, gap: 2mm)}))
 #v(4mm)
-#let bullet = (source: "/packages/cv-engine/domains/marine/assets/captain/compass-bullet.svg")
+#let bullet = (source: "/packages/domains/marine/assets/captain/compass-bullet.svg")
 #if legacy {L.skills-section((("Diesel overhaul", "Purifiers"), ("Planned maintenance",)), theme, title: "Core Skills", bullet: bullet, geometry: skills-geo)} else {
   F.skills-section(skills-ctx, (("Diesel overhaul", "Purifiers"), ("Planned maintenance",)), title: "Core Skills", bullet: bullet)}
 

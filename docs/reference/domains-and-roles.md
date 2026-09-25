@@ -7,7 +7,7 @@ design. Decided in [ADR 0011](../decisions/0011-domains-roles-templates.md).
 ## The three levels
 
 ```text
-packages/cv-engine/domains/<domain>/          domain.typ exports `domain`
+packages/domains/<domain>/          domain.typ exports `domain`
   roles/<role>/                               role.typ exports `role`
     <any grouping folders>/                   no marker, no meaning
       <template>/                             <template>.typ exports the template function
@@ -32,7 +32,7 @@ packages/cv-engine/domains/<domain>/          domain.typ exports `domain`
 Typst has no classes, so a level is a dictionary and refinement is a merge:
 
 ```typst
-#import "/packages/cv-engine/core/node.typ": merge, compose
+#import "/packages/cv-framework/core/node.typ": merge, compose
 #let words = compose(domain, role, (copy: flagship-copy)).copy   // later wins
 ```
 
@@ -90,7 +90,7 @@ A new field is done when every line below is true:
    entry point's imports; teach it the new field's case (today a
    `lib.typ`-only entry falls back to Flagship's schema only when every
    named domain is marine).
-3. `packages/cv-engine/lib.typ` exports the field under the naming rule below.
+3. `packages/domains/marine/lib.typ` exports the field under the naming rule below.
 4. `examples/<field>/<design>/<name>.typ` compiles with `--root .`.
 5. `tests/run.py` compiles every new example (`compile_case`) and asserts
    its page count; `scripts/build.ps1` lists it in `$examples`.
@@ -102,7 +102,7 @@ A new field is done when every line below is true:
 7. `python tests/run.py` passes. Its core-boundary check only proves that
    core modules import their own siblings; it does not prove the core was
    left alone.
-8. `git diff --stat main...HEAD -- packages/cv-engine/core packages/cv-engine/domains/marine`
+8. `git diff --stat main...HEAD -- packages/cv-framework/core packages/domains/marine`
    is empty (three dots: only the field branch's own changes, so merging
    `main` in does not raise a false alarm; use `origin/main` if that is what
    you merged).

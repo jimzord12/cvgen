@@ -1,5 +1,5 @@
 // Optional skills block for custom compositions (ADR 0008 shape: ctx, data, props).
-#import "../../../../../core/primitives.typ": decoration
+#import "../../../../../cv-framework/core/primitives.typ": decoration
 
 // Geometry used when the layout profile has no `skills` slice. The parent controls
 // placement on the page; groups define explicit column order.

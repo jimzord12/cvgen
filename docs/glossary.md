@@ -34,8 +34,8 @@ owner afterwards.
 | Term | Meaning | Code name today | Added |
 |---|---|---|---|
 | `CVgen` | The product: premium, hand-crafted CVs built with AI on our own Typst `Framework` (owner's words, also in `docs/vision.md`) | the repository | 2026-09-25 |
-| `Framework` | The shared Typst core every CV is built on: page frame, headings, data merge and checks. Knows no `Domain` | `packages/cv-engine/core/` (docs say "core"); `lib.typ` re-exports it together with `Marine` and `Flagship` until the agreed `Framework`/`Domain` split is built | 2026-09-25 |
-| `Domain` | A career area with its own facts shape, wording, artwork and rules: `Marine`, `Travel & Tourism`, `Software Development`. Not a web address | `packages/cv-engine/domains/<id>/`; only `marine` exists | 2026-09-25, owner |
+| `Framework` | The shared Typst core every CV is built on: page frame, headings, data merge and checks. Knows no `Domain` | `packages/cv-framework/core/` (docs say "core"); `lib.typ` re-exports it together with `Marine` and `Flagship` until the agreed `Framework`/`Domain` split is built | 2026-09-25 |
+| `Domain` | A career area with its own facts shape, wording, artwork and rules: `Marine`, `Travel & Tourism`, `Software Development`. Not a web address | `packages/domains/<id>/`; only `marine` exists | 2026-09-25, owner |
 | `Role` | One specialisation inside a `Domain`, never a fork of it: `Deck` and `Engine` in `Marine` | `domains/marine/roles/deck`, `roles/engine` | 2026-09-25 |
 | `Rank` | The client's job title: second engineer, chief officer, captain, tour guide; inside a `Role` where the `Domain` has roles | `identity.rank` in the marine facts; folder and file names say "role" for it (`jane-doe-second-engineer`) | 2026-09-25 |
 | `Template` | A named CV design. Belongs to a `Domain`, or lives in one `Envelope` as a one-off for a single client | `templates/flagship/` (`Flagship`); a one-off is a "custom composition" in `private/<envelope>/cv.typ` | 2026-09-25 |
@@ -70,7 +70,7 @@ Say the term on the right instead.
 | Word | Say instead |
 |---|---|
 | "approved" | `Approval` for a `Client`'s PDF; `Frozen Reference` for a `Template`'s locked look; plain "approved" only for an owner-approved proposal or design |
-| "engine" | `Framework` for the shared core; the `Engine` `Role` for marine engineers; "the package" for `packages/cv-engine` as a whole |
+| "engine" | `Framework` for the shared core; the `Engine` `Role` for marine engineers; "the package" for `packages/cv-framework` as a whole |
 | "role" for a job title | `Rank` |
 | "export" for the public PDFs | `Release` |
 | "release" for a version tag | "version tag" (`v0.1.0`) |

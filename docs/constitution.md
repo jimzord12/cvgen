@@ -20,7 +20,7 @@ moves and still hold.
   and a public example that must render pixel-identical to it at 144 dpi
   with identical normalised text on every page. `tests/run.py` enforces
   this. Today that is Flagship:
-  `packages/cv-engine/domains/marine/templates/flagship/tests/approved/Marine-Engineer-CV-v11.pdf`
+  `packages/domains/marine/templates/flagship/tests/approved/Marine-Engineer-CV-v11.pdf`
   and `examples/marine/flagship/engineer.typ`.
 - `tests/baseline.json` pins the SHA-256 of the frozen set: every marine SVG
   asset, the bundled fonts, the engineer and captain example records and the
@@ -48,7 +48,7 @@ commit with a new version number.
 Names, employers, vessels, dates, certificates and the portrait are invented.
 Real candidate data lives in `private/`, which git ignores, one folder per
 candidate with its own entry point, importing
-`packages/cv-engine/lib.typ`. Certificate numbers, scans and passport details
+`packages/domains/marine/lib.typ`. Certificate numbers, scans and passport details
 never enter this repository.
 
 ## 4. The system does not lie to fit
@@ -84,7 +84,7 @@ data-selected variant of the same template (ADR 0007, ADR 0011).
 
 ## 8. Licences travel with their files
 
-Every bundled font keeps its OFL notice in `packages/cv-engine/licenses/`. Adapted code keeps
+Every bundled font keeps its OFL notice in `packages/cv-framework/licenses/`. Adapted code keeps
 its original notice. Original artwork is MIT with the project.
 
 ## 9. Delivery bar

@@ -1,20 +1,20 @@
 // ADR 0008 "Fixtures": 31 of the 32 ctx-first components rendered alone, one per
 // page, each page headed by the component's name. The 32nd, document-shell, wraps a
 // whole document, so the examples and tests/fixtures/legacy-parity.typ cover it.
-#import "../../packages/cv-engine/core/component.typ": make-ctx
-#import "../../packages/cv-engine/core/primitives.typ": label, rule, decoration, metric, duration-value
-#import "../../packages/cv-engine/core/page.typ": page-header, page-footer, page-background
-#import "../../packages/cv-engine/domains/marine/data.typ": normalize-candidate, experience-totals
-#import "../../packages/cv-engine/domains/marine/templates/flagship/adapter/adapter.typ": to-flagship-input
-#import "../../packages/cv-engine/domains/marine/templates/flagship/themes/golden-blue.typ": theme
-#import "../../packages/cv-engine/domains/marine/templates/flagship/artwork/engineer.typ": artwork
-#import "../../packages/cv-engine/domains/marine/templates/flagship/layouts/flagship-v11.typ": layout
-#import "../../packages/cv-engine/domains/marine/templates/flagship/components/sections.typ": section-heading, profile-summary, synopsis
-#import "../../packages/cv-engine/domains/marine/templates/flagship/components/skills.typ": skills-heading, skill-list, skills-section
-#import "../../packages/cv-engine/domains/marine/templates/flagship/components/education.typ": education-entry, language-entry, education-languages-section
-#import "../../packages/cv-engine/domains/marine/templates/flagship/components/certificates.typ": certificate-table, certificates-section
-#import "../../packages/cv-engine/domains/marine/templates/flagship/components/experience.typ": company-period, vessel-row, vessel-type-group, company-experience, experience-section
-#import "../../packages/cv-engine/domains/marine/templates/flagship/components/hero.typ": portrait, portrait-frame, portrait-backdrop, contact-item, contact-group, identity-plate, hero
+#import "../../packages/cv-framework/core/component.typ": make-ctx
+#import "../../packages/cv-framework/core/primitives.typ": label, rule, decoration, metric, duration-value
+#import "../../packages/cv-framework/core/page.typ": page-header, page-footer, page-background
+#import "../../packages/domains/marine/data.typ": normalize-candidate, experience-totals
+#import "../../packages/domains/marine/templates/flagship/adapter/adapter.typ": to-flagship-input
+#import "../../packages/domains/marine/templates/flagship/themes/golden-blue.typ": theme
+#import "../../packages/domains/marine/templates/flagship/artwork/engineer.typ": artwork
+#import "../../packages/domains/marine/templates/flagship/layouts/flagship-v11.typ": layout
+#import "../../packages/domains/marine/templates/flagship/components/sections.typ": section-heading, profile-summary, synopsis
+#import "../../packages/domains/marine/templates/flagship/components/skills.typ": skills-heading, skill-list, skills-section
+#import "../../packages/domains/marine/templates/flagship/components/education.typ": education-entry, language-entry, education-languages-section
+#import "../../packages/domains/marine/templates/flagship/components/certificates.typ": certificate-table, certificates-section
+#import "../../packages/domains/marine/templates/flagship/components/experience.typ": company-period, vessel-row, vessel-type-group, company-experience, experience-section
+#import "../../packages/domains/marine/templates/flagship/components/hero.typ": portrait, portrait-frame, portrait-backdrop, contact-item, contact-group, identity-plate, hero
 
 #let d = normalize-candidate(to-flagship-input(json("../../examples/candidates/engineer-example.json")))
 #let ctx = make-ctx(theme: theme, layout: layout, artwork: artwork, copy: d.copy, options: (show-vessel-durations: true))

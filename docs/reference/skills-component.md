@@ -7,14 +7,14 @@ as the module `flagship-components`; it is not part of the locked
 
 ```typst
 // Root-absolute paths work from any entry point compiled with --root .
-#import "/packages/cv-engine/lib.typ": make-ctx, skills-layout, flagship-components as fc
-#import "/packages/cv-engine/domains/marine/templates/flagship/themes/golden-blue.typ": theme
+#import "/packages/domains/marine/lib.typ": make-ctx, skills-layout, flagship-components as fc
+#import "/packages/domains/marine/templates/flagship/themes/golden-blue.typ": theme
 
 #let ctx = make-ctx(theme: theme, layout: (skills: (..skills-layout, column-gap: 8mm)))
 #fc.skills-section(ctx,
   (("Navigation", "GMDSS"), ("Cargo handling", "Safety")),
   title: "Professional Skills",
-  bullet: (source: "/packages/cv-engine/domains/marine/assets/captain/compass-bullet.svg"),
+  bullet: (source: "/packages/domains/marine/assets/captain/compass-bullet.svg"),
 )
 ```
 

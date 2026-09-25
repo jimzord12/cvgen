@@ -185,7 +185,7 @@ language, sized for the `Template` (two pages by default): `draft/draft-01.typ`
 using `scripts/text-draft.typ`, compiled to `draft/draft-01.pdf`:
 
 ```powershell
-typst compile --root . --font-path packages/cv-engine/fonts private/<envelope>/draft/draft-01.typ private/<envelope>/draft/draft-01.pdf
+typst compile --root . --font-path packages/cv-framework/fonts private/<envelope>/draft/draft-01.typ private/<envelope>/draft/draft-01.pdf
 ```
 
 Its first page, the check page, in Greek, asks the client to check only

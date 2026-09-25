@@ -1,0 +1,8 @@
+[package]
+name = "cvgen-framework"
+version = "0.1.0"
+entrypoint = "lib.typ"
+authors = ["Dimitrios Stamatakis"]
+license = "MIT"
+description = "CVgen Framework: the domain-neutral Typst core of CVgen's CVs. Each domain builds on it; it imports none of them."
+compiler = "0.15.1"

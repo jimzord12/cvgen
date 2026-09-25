@@ -2,11 +2,11 @@
 
 Read this when editing a marine candidate JSON. This is the marine domain's
 facts contract (ADR 0011); another domain defines its own. Machine-checkable
-version: `packages/cv-engine/domains/marine/schema/candidate.schema.json`
+version: `packages/domains/marine/schema/candidate.schema.json`
 (candidate facts; the Flagship input adds `copy`, see
-`packages/cv-engine/domains/marine/templates/flagship/schema/flagship-input.schema.json`).
-Runtime checks: `validate-candidate` in `packages/cv-engine/domains/marine/data.typ`,
-which runs the domain-neutral `validate-common` from `packages/cv-engine/core/data.typ`
+`packages/domains/marine/templates/flagship/schema/flagship-input.schema.json`).
+Runtime checks: `validate-candidate` in `packages/domains/marine/data.typ`,
+which runs the domain-neutral `validate-common` from `packages/cv-framework/core/data.typ`
 first (identity name, contacts, certificates, education, languages) and then the
 marine rules (rank, companies, vessels, months).
 
@@ -75,7 +75,7 @@ adapter produces it (see "Flagship wording" below).
 
 Headings, captions and the footer brand are template input, not candidate
 facts. The domain's words come from the marine domain
-(`packages/cv-engine/domains/marine/domain.typ`, `domain.copy`):
+(`packages/domains/marine/domain.typ`, `domain.copy`):
 
 ```text
 experience-subtitle   "Company / vessel type / vessel"
@@ -87,7 +87,7 @@ companies             "Companies"
 ```
 
 The design's words come from Flagship's adapter
-(`packages/cv-engine/domains/marine/templates/flagship/adapter/adapter.typ`, `flagship-copy`):
+(`packages/domains/marine/templates/flagship/adapter/adapter.typ`, `flagship-copy`):
 
 ```text
 experience            "Experience"
@@ -119,7 +119,7 @@ ten, then a count of the rest), for
 example:
 
 ```text
-REFUSED: candidate.json does not match /packages/cv-engine/domains/marine/templates/flagship/schema/flagship-input.schema.json:
+REFUSED: candidate.json does not match /packages/domains/marine/templates/flagship/schema/flagship-input.schema.json:
   (top level): Additional properties are not allowed ('educaton_entries' was unexpected)
   certificates/0: 'review' is a required property
   companies/0/groups/0/ships/1/months: is null; give a value, or leave the key out if it is optional

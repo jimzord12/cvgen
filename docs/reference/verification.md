@@ -20,7 +20,7 @@ and per-check folders with `result.json` and, on a raster mismatch, a
 1. **Frozen inputs.** Every path in `tests/baseline.json` still has its
    recorded SHA-256. Runs first and last.
 2. **Engineer exact match.** `examples/marine/flagship/engineer.typ` renders two pages that
-   equal `packages/cv-engine/domains/marine/templates/flagship/tests/approved/Marine-Engineer-CV-v11.pdf` pixel for pixel at 144 dpi,
+   equal `packages/domains/marine/templates/flagship/tests/approved/Marine-Engineer-CV-v11.pdf` pixel for pixel at 144 dpi,
    with identical whitespace-normalised text per page.
 3. **Hidden durations.** The same example with `vessel-durations=false` keeps
    every vessel name and rank at the same coordinates and emits no duration
@@ -62,7 +62,7 @@ and per-check folders with `result.json` and, on a raster mismatch, a
    domain (no schema) and an engine under a folder named `templates`; a
    record with 23 bad values is refused with ten lines and a count.
 
-9. **Core boundary.** Every `import`/`include` in `packages/cv-engine/core/*.typ` names a bare sibling file; the core never reaches a domain (ADR 0011).
+9. **Core boundary.** Every `import`/`include` in `packages/cv-framework/core/*.typ` names a bare sibling file; the core never reaches a domain (ADR 0011).
 
 10. **Candidate workflow** (`tests/workflow.py`). A fresh fictional workspace
    under the run's `workflow/` folder is driven through the real

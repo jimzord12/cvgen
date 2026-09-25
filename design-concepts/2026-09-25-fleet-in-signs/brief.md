@@ -71,7 +71,7 @@ All from the marine candidate schema: `identity`, `contacts`, `profile`,
   explains.
 - A layout rule for rows: at this sign size one row holds six vessels plus a
   group gap; a company with seven or more needs a second sign row.
-- Add Jost to `packages/cv-engine/fonts/` with its licence.
+- Add Jost to `packages/cv-framework/fonts/` with its licence.
 - The class names in the key come from the domain copy, so a travel domain
   could swap in property signs (resort, city hotel, cruise ship). Not drawn.
 

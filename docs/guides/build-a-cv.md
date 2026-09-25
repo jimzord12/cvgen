@@ -31,11 +31,11 @@ companies, so a real candidate always overrides `pages` with their own
 company indices, zero-based, in JSON order:
 
 ```typst
-#import "/packages/cv-engine/lib.typ": flagship
-#import "/packages/cv-engine/domains/marine/roles/engine/role.typ": role   // or roles/deck
-#import "/packages/cv-engine/domains/marine/templates/flagship/themes/golden-blue.typ": theme
-#import "/packages/cv-engine/domains/marine/templates/flagship/artwork/engineer.typ": artwork
-#import "/packages/cv-engine/domains/marine/templates/flagship/layouts/flagship-v11.typ": layout as base
+#import "/packages/domains/marine/lib.typ": flagship
+#import "/packages/domains/marine/roles/engine/role.typ": role   // or roles/deck
+#import "/packages/domains/marine/templates/flagship/themes/golden-blue.typ": theme
+#import "/packages/domains/marine/templates/flagship/artwork/engineer.typ": artwork
+#import "/packages/domains/marine/templates/flagship/layouts/flagship-v11.typ": layout as base
 #let layout = (..base, pages: (
   (companies: (0, 1)),
   (companies: (2,), synopsis: true, certificates: true, education: true),
@@ -122,7 +122,7 @@ For live editing while you adjust the page plan, the compiler still works
 directly; write to a fresh name under `builds/`:
 
 ```powershell
-typst watch --root . --font-path packages/cv-engine/fonts private/jane-doe-second-engineer/cv.typ builds/jane-doe-preview.pdf
+typst watch --root . --font-path packages/cv-framework/fonts private/jane-doe-second-engineer/cv.typ builds/jane-doe-preview.pdf
 ```
 
 A preview is not a revision: what you approve and export is always a
@@ -191,11 +191,11 @@ slot for. Until the template supports these, compose the page by hand from
 the same public exports:
 
 ```typst
-#import "/packages/cv-engine/lib.typ": (make-ctx, normalize-candidate, to-flagship-input, marine,
+#import "/packages/domains/marine/lib.typ": (make-ctx, normalize-candidate, to-flagship-input, marine,
   core-components as cc, flagship-components as fc)
-#import "/packages/cv-engine/domains/marine/templates/flagship/themes/golden-blue.typ": theme
-#import "/packages/cv-engine/domains/marine/templates/flagship/artwork/engineer.typ": artwork
-#import "/packages/cv-engine/domains/marine/templates/flagship/layouts/flagship-v11.typ": layout
+#import "/packages/domains/marine/templates/flagship/themes/golden-blue.typ": theme
+#import "/packages/domains/marine/templates/flagship/artwork/engineer.typ": artwork
+#import "/packages/domains/marine/templates/flagship/layouts/flagship-v11.typ": layout
 // The shell reads copy.brand and disclosure, so the record goes through the adapter first.
 // copy is not allowed in candidate.json; replace the example wording here (section 2).
 #let d = normalize-candidate(to-flagship-input(json("candidate.json"),
@@ -224,7 +224,7 @@ works from any workspace folder. `marine` is the domain node exported by
 
 Rules for this path:
 
-- Import from `packages/cv-engine/lib.typ`; never copy library code into the workspace.
+- Import from `packages/domains/marine/lib.typ`; never copy library code into the workspace.
 - Keep the candidate JSON valid against the schema. Put data the schema
   cannot hold, such as contract periods, in a separate `presentation.json`
   beside it. Never invent months from calendar periods.

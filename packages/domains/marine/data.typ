@@ -1,7 +1,7 @@
 // The marine facts: companies, vessel-type groups and ships with rank and
 // whole service months. Totals are computed once from the full candidate;
 // calendar periods are never converted into service time (constitution 6).
-#import "../../core/data.typ": duration-parts, required-text, normalize-common, validate-common
+#import "../../cv-framework/core/data.typ": duration-parts, required-text, normalize-common, validate-common
 
 #let company-months(company) = {
   let ships = company.groups.map(g => g.ships).flatten()

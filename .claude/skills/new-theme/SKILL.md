@@ -9,12 +9,12 @@ Read `docs/reference/theme.md` or `docs/reference/artwork-pack.md` first.
 
 ## Theme
 
-1. Copy `packages/cv-engine/domains/marine/templates/flagship/themes/silver-bridge.typ` as the pattern: spread `golden-blue`'s
+1. Copy `packages/domains/marine/templates/flagship/themes/silver-bridge.typ` as the pattern: spread `golden-blue`'s
    theme, set `name`, replace `colors`, `fonts` and any `sizes`.
 2. Every colour key must exist; `validate-theme` fails otherwise. Fonts must
    be one of the bundled family strings `Source Sans 3`, `Barlow` or
    `Cormorant Garamond` (the Barlow Condensed file registers as `Barlow`;
-   check with `typst fonts --font-path packages/cv-engine/fonts`). An unknown name prints
+   check with `typst fonts --font-path packages/cv-framework/fonts`). An unknown name prints
    `warning: unknown font family` and substitutes; the suite does not catch it.
 3. If the theme changes secondary SVG hues, add the hex values to
    `art-colors`.
@@ -23,7 +23,7 @@ Read `docs/reference/theme.md` or `docs/reference/artwork-pack.md` first.
 
 ## Artwork pack
 
-1. Copy `packages/cv-engine/domains/marine/templates/flagship/artwork/captain.typ`. Draw SVGs under `packages/cv-engine/domains/marine/assets/<role>/` using
+1. Copy `packages/domains/marine/templates/flagship/artwork/captain.typ`. Draw SVGs under `packages/domains/marine/assets/<role>/` using
    `{{ink}}`, `{{accent}}`, `{{metal}}` for colours. Vector only.
 2. Fill the required slots `background-first` and `background-continuation`;
    others may be `none`.
