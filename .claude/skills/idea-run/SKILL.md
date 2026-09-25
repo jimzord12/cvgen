@@ -30,7 +30,10 @@ ideas weekly at most (the roadmap is long, the owner's attention is not).
    (`trello.ps1 -Cards 'CVgen'`) into the brief; it has no shell. Keep the
    author's agent id: revisions go back to the same author with SendMessage
    so it keeps its context.
-3. Research gate: a fresh `research-reviewer` per round on the author's
+3. Give every reviewer the snapshot it reviews: a commit on the run branch,
+   or the file paths with their SHA-256 (commit drafts between rounds when
+   in doubt).
+   Research gate: a fresh `research-reviewer` per round on the author's
    sources (ceo: the market research in the run record; editor: the
    references in each `brief.md`). FINDINGS -> send the report to the
    author, then review again.
@@ -50,9 +53,9 @@ ideas weekly at most (the roadmap is long, the owner's attention is not).
    sample data get a lead check against the render, noted in `run.md`.
    Every report names the snapshot it saw.
 7. Store every report as `docs/work/idea-runs/<run>/reviews/NN-<reviewer>.md`.
-8. Integrate. Output confined to new files in `design-concepts/`, the run
-   folder and passed proposals in `docs/proposals/` is covered by the idea
-   gates (`docs/review.md` names this exception); say so in `run.md`. An item
+8. Integrate. Output confined to new files in `design-concepts/`, the run's
+   rows in `design-concepts/README.md`, the run folder and passed proposals
+   in `docs/proposals/` is covered by the idea gates (`docs/review.md` names this exception); say so in `run.md`. An item
    left `unresolved` at the cap is not covered: its README row or proposal
    says `unresolved`, and it merges only as such. Any other change (agent files, skills, engine,
    docs outside those) goes through `docs/review.md` first. Then commit,
@@ -65,9 +68,12 @@ Subagent definitions load when a session starts. If the harness does not
 list one yet, run a `general-purpose` agent told to act exactly as the file
 in `.claude/agents/` defines, paste the file's `tools:` line into the brief
 as a hard limit, and record in `run.md` the model and effort it ran at.
-Before and after every round, record `git rev-parse HEAD`,
-`git for-each-ref` and `git status --porcelain` in the worktree; any
-difference beyond the expected new or changed files stops the run.
+Before and after every round, record in the run worktree `git rev-parse
+HEAD`, `git status --porcelain` and the refs `refs/heads/<run-branch>`,
+`refs/heads/main`, `refs/tags` and the run branch's remote ref; any
+difference beyond the expected new or changed files stops the run. Other
+refs moving is parallel work: log it, do not stop. The same check is cheap
+for the named `magazine-editor` and `design-reviewer`, which have a shell.
 
 ## Bar (give it to every reviewer as is)
 
@@ -76,6 +82,11 @@ work: fail generic, copied, broken or unsupported work; taste and polish
 are Notes, never blocking.
 
 ## What the owner gets, and what his answer does
+
+Concepts still waiting for his answer are listed on the handoff card
+(orientation reads only proposal metadata, so they would not surface
+otherwise).
+
 
 A short message: each concept's PDF link and three-word idea, or each
 proposal's one-line pitch and link; which items were dropped or are

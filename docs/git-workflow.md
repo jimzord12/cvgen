@@ -105,7 +105,7 @@ branch structure is a proportionate choice for this small project.
 | The frozen reference PDF and hash manifest | `__pycache__/` |
 | Design studies with their review renders | Anything under `previews/` or `exports/review/` from earlier sessions |
 | Preview PNGs used by the README | |
-| Template concepts in `design-concepts/` (PDF, one PNG per page, shared OFL fonts in `fonts/<family>/`); a rejected concept's folder is removed | |
+| Template concepts in `design-concepts/` (PDF, one PNG per page, shared OFL or Apache 2.0 fonts in `fonts/<family>/`); a rejected concept's folder is removed | |
 
 `.gitattributes` stores and checks out every text file with LF on every
 platform, so the hashes in `tests/baseline.json` match on Windows, macOS,

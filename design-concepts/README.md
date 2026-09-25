@@ -11,7 +11,7 @@ data, weaknesses). Downloaded font families live once in `fonts/<family>/`
 with their licence and are shared between concepts. Compile from the repository root:
 
 ```powershell
-typst compile --root . --ignore-system-fonts --font-path packages/cv-engine/fonts --font-path design-concepts/fonts design-concepts/<folder>/concept.typ builds/<name>.pdf
+typst compile --root . --ignore-system-fonts --font-path packages/cv-engine/fonts --font-path design-concepts/fonts design-concepts/<folder>/concept.typ design-concepts/<folder>/concept.pdf
 ```
 
 | Concept | Idea | Date | Status | PDF |

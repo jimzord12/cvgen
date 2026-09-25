@@ -1,5 +1,7 @@
 # Review round 1: idea-agents (code-reviewer)
 
+> Record note (lead): condensed by the lead from the returned report; the original text was not retained. Round 2 (04) onward is stored verbatim.
+
 Snapshot: `feat/idea-agents`, 422f150..ad53ec2, clean. Lead lenses: the
 agent files and skill implement the request safely; repository fit.
 Coverage: the request is met in shape (two authors, three reviewers, closed
