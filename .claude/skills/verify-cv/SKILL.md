@@ -31,9 +31,11 @@ Requires Typst 0.15.1 on PATH and Python with `pymupdf`, `pillow` and `jsonschem
   text of both PDFs.
 - `example record <file> (read by <entry>) breaks its schema: ...`: a
   fictional record no longer matches its schema; the lines after it name
-  the field paths (the first ten, then a count). `ModuleNotFoundError: No
-  module named 'jsonschema'` instead means the dependency is missing:
-  `pip install jsonschema`. Fix the record (or the schema, if the change is meant).
+  the field paths (the first ten, then a count). Fix the record (or the
+  schema, if the change is meant).
+- `ImportError` or `ModuleNotFoundError` naming `jsonschema` at the start
+  of the run: the dependency is missing or older than 4.0:
+  `pip install "jsonschema>=4"`.
 - `core/<file> imports outside core: <target>`: a core module reached into a
   domain or `lib.typ`; the core must import only its siblings (ADR 0011).
 - An `AssertionError` from `tests/workflow.py`: a candidate-workflow step

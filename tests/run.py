@@ -22,7 +22,7 @@ def check_core_boundary():
 def check_example_records():
     """Every public example's record matches the contract its entry point imports (the check cv.py render runs)."""
     import re
-    import jsonschema  # noqa: F401  A missing dependency fails here, not as a broken record.
+    from jsonschema import Draft202012Validator  # noqa: F401  A missing or pre-4.0 jsonschema fails here, not as a broken record.
     from cv_workflow.render import IMPORT
     from cv_workflow import WorkflowError
     from cv_workflow.validate import MAX_REPORTED, schema_for, validate_record

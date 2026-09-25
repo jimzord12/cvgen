@@ -64,7 +64,7 @@ def validate_record(record, imports):
     try:
         from jsonschema import Draft202012Validator
     except ImportError:
-        raise WorkflowError('the candidate check needs jsonschema: pip install jsonschema')
+        raise WorkflowError('the candidate check needs jsonschema 4 or later: pip install "jsonschema>=4"')
     schema = json.loads(schema_path.read_text(encoding='utf-8'))
     errors = sorted(Draft202012Validator(schema).iter_errors(record), key=lambda e: [str(p) for p in e.absolute_path])
     if errors:
