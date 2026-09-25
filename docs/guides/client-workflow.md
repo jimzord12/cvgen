@@ -191,8 +191,16 @@ using `scripts/text-draft.typ`, compiled to `draft/draft-01.pdf`:
 typst compile --root . --font-path packages/cv-framework/fonts private/<envelope>/draft/draft-01.typ private/<envelope>/draft/draft-01.pdf
 ```
 
-Its first page, the check page, in Greek, asks the client to check only
-names, dates, numbers and titles, because the wording is our job. When the
+It is the first thing the client receives from us, so it is designed, not
+plain: one house design for every client (GFS Didot and Source Sans 3,
+navy and brass), because a document that feels made by hand is what makes a
+client trust a premium service. Its first page, the check page, reads like
+the cover of a private dossier: the client's name, what the pages are, and
+in their language the three things to check (names, dates, numbers and
+titles; the wording is our job) and the reply we need. Claude passes the
+client's name, `Rank` and those Greek words (`check`, `labels`); nothing
+else changes per client. A sample with a fictional client:
+`tests/fixtures/text-draft.typ`. When the
 owner sends a draft, Claude writes its SHA-256 in the `Envelope`'s
 `README.md`; a sent draft is never compiled again, and corrections make
 the next number (`draft-02`). The client's "OK" is the `Sign-off`, saved as

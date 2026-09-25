@@ -53,8 +53,8 @@ owner afterwards.
 | `Scout` | A wide, shallow first search for one `Client`: the `Research Library` first, the web for what is missing | `docs/guides/client-workflow.md` step 4, `research/scout.md` | 2026-09-25 |
 | `CV Decisions` | The list of choices a CV must make (title wording, length, photo, language, `Template`, what leads), each with a sourced answer, a judgement or "open" | `research/decisions.md`, `docs/guides/client-workflow.md` step 5 | 2026-09-25 |
 | `Deep Dive` | One agent researching one open question the CV must answer, chosen by the owner after the `Scout` | `docs/guides/client-workflow.md` step 6, `research/deep-dive-<topic>.md` | 2026-09-25 |
-| `Text Draft` | The CV's content as a plain PDF, no design, that the `Client` checks before design starts; a sent draft is never recompiled | `scripts/text-draft.typ`, `draft/draft-NN.pdf` | 2026-09-25 |
-| `Check Page` | The first page of a `Text Draft`, in the `Client`'s language: check only names, dates, numbers and titles, reply OK | `check:` in `scripts/text-draft.typ` | 2026-09-25 |
+| `Text Draft` | The CV's content, before the CV's own design, in one premium house design that every `Client` receives; they check it before design starts; a sent draft is never recompiled | `scripts/text-draft.typ`, `draft/draft-NN.pdf` | 2026-09-25 |
+| `Check Page` | The first page of a `Text Draft`, set like a dossier cover, in the `Client`'s language: check only names, dates, numbers and titles, reply OK | `check:` in `scripts/text-draft.typ` | 2026-09-25 |
 | `Sign-off` | The `Client`'s "OK, the facts are correct" on the text draft, before design starts; usually a chat message whose screenshot goes into the `Envelope`. Not a signature | `docs/guides/client-workflow.md` step 8, `draft/sign-off-NN.png`; the draft uses `scripts/text-draft.typ` | 2026-09-25, owner |
 | `Revision` | One render of a CV in its own folder, never overwritten | `private/<envelope>/revisions/<id>/` | 2026-09-25 |
 | `Approval` | The owner's act on one exact PDF, bound to its SHA-256. Agents never approve a real `Client`'s PDF | `scripts/cv.py approve`, `cv.approval.json` | 2026-09-25 |

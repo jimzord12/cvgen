@@ -32,6 +32,7 @@
     "packages/domains/marine/templates/flagship/tests/approved/Marine-Engineer-CV-v11.pdf": "9efd054b6fd376495a5eb3967bf0b833f24a8d8d09844d43dd253e3bd17187bf",
     "packages/cv-framework/fonts/BarlowCondensed-SemiBold.ttf": "7b619d14bc2327509a9ef32b0890f709626f7ecc9ff61191c2a4314c5499d2d9",
     "packages/cv-framework/fonts/CormorantGaramond[wght].ttf": "b20b7d9626dd956b2c5e558692ad328b1f19e3275e2782db4fa07670d83f35e0",
+    "packages/cv-framework/fonts/GFSDidot-Regular.ttf": "4fc784ab824e8866eeef8ad55976b93e7e170fb1b8237fd4f8781b5b4dd297f9",
     "packages/cv-framework/fonts/SourceSans3[wght].ttf": "042fe2cc0b933e328410d7acbd0aa6a1873dca5aef81875f4bc214b08825c7b9"
   }
 }

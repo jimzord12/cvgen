@@ -246,9 +246,13 @@ def main():
     draft = compile_case('text-draft', 'tests/fixtures/text-draft.typ')
     with fitz.open(draft) as doc:
         assert len(doc) == 2, len(doc)
-        assert 'Ελέγξτε' in doc[0].get_text() and 'Profile' in doc[1].get_text()
+        cover = doc[0].get_text()
+        assert 'Eleni Example' in cover and 'ελέγχους' in cover and 'Profile' in doc[1].get_text()
+        # Greek in capitals drops its accents (tracked capitals come out of the PDF with spaces).
+        packed = cover.replace(' ', '')
+        assert 'ΕΜΠΙΣΤΕΥΤΙΚΟ' in packed and 'ΕΜΠΙΣΤΕΥΤΙΚΌ' not in packed, cover
         fonts = {f[3] for p in doc for f in p.get_fonts()}
-        assert fonts and all('SourceSans3' in name for name in fonts), fonts
+        assert any('GFSDidot' in n for n in fonts) and all('SourceSans3' in n or 'GFSDidot' in n for n in fonts), fonts
     # The candidate workflow, end to end and every refusal, in a fresh fictional workspace.
     for check in run_workflow(out, args.typst):
         results.append({'case': 'workflow-' + check, 'passed': True})

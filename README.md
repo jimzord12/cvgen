@@ -83,6 +83,6 @@ reading order against the actual application portal.
 ## Licences
 
 Project code and original illustrations are MIT, see [LICENSE](LICENSE).
-Bundled fonts (Source Sans 3, Barlow Condensed as family `Barlow`, Cormorant Garamond) are under
+Bundled fonts (Source Sans 3, Barlow Condensed as family `Barlow`, Cormorant Garamond, GFS Didot) are under
 the SIL Open Font License, notices in [packages/cv-framework/licenses/](packages/cv-framework/licenses/). The experience
 helper pattern is adapted from Cobalt CV 0.1.0 (MIT), notice preserved.

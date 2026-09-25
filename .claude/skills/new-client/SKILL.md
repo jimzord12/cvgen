@@ -46,10 +46,11 @@ owner talks to the client; you never do. Terms: `docs/glossary.md`.
    committed like any documentation.
 7. **Follow-up.** Gap list plus research questions, one batch in simple
    Greek: aim for 5, never more than 10. Update `facts.md` from the answers.
-8. **Text draft.** `draft/draft-NN.typ` with `scripts/text-draft.typ`: a
-   Greek check page ("check only names, dates, numbers and titles; the
-   wording is ours; reply OK"), then the content in the CV's language,
-   sized for the `Template`. Compile it (guide section 8), look at every
+8. **Text draft.** `draft/draft-NN.typ` with `scripts/text-draft.typ`, the
+   one house design: copy `tests/fixtures/text-draft.typ`, then set `name`,
+   `role`, `version`, the Greek `check` (the three checks: names, dates,
+   numbers and titles; the wording is ours) and the Greek `labels`, then
+   the content in the CV's language, sized for the `Template`. Compile it (guide section 8), look at every
    page, give the owner the PDF path. When he sends it, write its SHA-256
    in `README.md`; never compile a sent number again, corrections make the
    next one. His screenshot of the client's OK goes in `draft/` as

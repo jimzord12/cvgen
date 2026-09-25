@@ -50,7 +50,7 @@ and per-check folders with `result.json` and, on a raster mismatch, a
 | `certificate-continuation.typ` | Fifty rows, header repeats on page two |
 | `skills.typ` | Titles, one to three columns, wrapping, two themes, SVG and plain bullets (through the `lib.typ` wrapper) |
 | `contract.typ` | 31 of the 32 ctx-first components rendered alone, one per page, headed by its name (ADR 0008 fixtures); `document-shell` wraps a whole document and is covered by `legacy-parity.typ` |
-| `text-draft.typ` | The `Sign-off` text draft (`scripts/text-draft.typ`): two pages, the Greek check page first, the content second, Source Sans 3 as the only font |
+| `text-draft.typ` | The `Text Draft` house design (`scripts/text-draft.typ`): two pages, the Greek check page first with its capitals unaccented (ΕΜΠΙΣΤΕΥΤΙΚΟ), the content second; only GFS Didot and Source Sans 3 embedded |
 | `legacy-parity.typ` | One five-page custom composition written with all 32 deprecated pre-contract names marine's `lib.typ` exports (9 from the Framework's `lib.typ`, 23 from Flagship) (`api=legacy`) and with `core-components`/`flagship-components` (`api=contract`); every page must be pixel-identical with the same number of `/Artifact` tags, both PDFs carry the title and author passed to `document-shell`, page 5 (only `page-background`, shell background off) must show more than one colour, and the suite fails if a legacy name exported by `lib.typ` is not called outside a comment (textual check: a call inside a never-invoked `#let` still counts) |
 
 8. **Example records.** Before any compile, every record an example entry
