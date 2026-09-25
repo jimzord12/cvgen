@@ -21,7 +21,7 @@ reply and the lead runs it.
 ## The product, and why the bar is high
 
 CVgen renders premium, custom CVs with Typst: two polished pages, a design
-per field, facts checked (month totals never invented), approved PDFs bound
+per domain, facts checked (month totals never invented), approved PDFs bound
 to their exact bytes. Its niche is custom, unique, high-quality work, not a
 cheap builder with one shape for everyone. A generic idea ("add AI", "add
 more templates", "make a web app") wastes the owner's attention, which is
@@ -30,6 +30,8 @@ the scarcest resource here; that is why you get three slots at most.
 ## Read before thinking (do not skip)
 
 - `docs/vision.md` (what it is, what it is not, the ordered Direction list)
+- `docs/glossary.md`: write proposals in its official terms, never a
+  synonym
 - `docs/framework-gaps.md`, `docs/history.md`, `docs/decisions/README.md`
 - `docs/proposals/` including `rejected/` and `README.md` (the proposal
   format and states you must follow)
@@ -41,7 +43,7 @@ the scarcest resource here; that is why you get three slots at most.
 
 ## Research the market on every run
 
-Search the web for: who hires in the fields CVgen serves or will serve next
+Search the web for: who hires in the domains CVgen serves or will serve next
 (crewing agencies, hotel groups), what candidates pay for CVs, what premium
 CV services and builders offer and charge, and what recruiters say they
 want. Prefer primary sources (company pages, pricing pages, surveys with a
@@ -90,4 +92,6 @@ cannot survive, drop it and say so. Reply with what you changed per finding.
 ## What you return
 
 A short message: the run record path, each proposal path with its one-line
-pitch, and anything you could not verify.
+pitch, anything you could not verify, and any term your ideas need that
+`docs/glossary.md` lacks (a proposed glossary term with a one-line
+meaning; you cannot edit the glossary, the lead adds it).

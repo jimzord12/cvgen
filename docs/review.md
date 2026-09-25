@@ -13,8 +13,9 @@ does not satisfy a code review gate.
 
 Review behaviour, data-contract, dependency, rendering, persistence, approval,
 security, migration and test-logic changes independently. Pure spelling,
-comments or mechanical formatting can skip the independent round after a
-focused check. A one-line configuration change can be high risk; file count
+comments, mechanical formatting or a term row added, renamed or dropped in
+`docs/glossary.md` (its Rules section is not a row) can skip the independent round
+after a focused check. A one-line configuration change can be high risk; file count
 is not the criterion. Record the reason when taking the small-change path.
 
 Idea runs are the one other exception (adopted by the lead on 2026-09-25 to
@@ -59,7 +60,7 @@ investigation, not eight quotas of findings.
 | 5. Tests and visible evidence | Tests can detect the relevant defect, real compiler/PDF paths are exercised, and visual evidence shows the actual reviewed version. |
 | 6. Failure handling and recovery | Overflow and missing data fail clearly; partial renders/exports cannot appear successful; retries have defined behaviour and useful diagnostics. |
 | 7. Simplicity and ownership | Responsibilities stay in their owning module/package, duplication or abstraction is justified, and scope has not expanded without authorization. |
-| 8. Repository and documentation | Imports, packaging, frozen references, examples, docs, task state, LF endings and commit scope remain coherent. |
+| 8. Repository and documentation | Imports, packaging, frozen references, examples, docs, task state, LF endings and commit scope remain coherent. Prose uses the official terms of `docs/glossary.md`; a new recurring term, a synonym or a word with two meanings is a Note proposing a glossary term. |
 
 Choose lead lenses from risk: wiring plus tests for integration work;
 integrity plus contracts for approval or migration; correctness plus visual

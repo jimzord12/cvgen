@@ -71,7 +71,7 @@ them. These evolve; the rules that do not are in `constitution.md`.
 - **Paths from the project root** for assets: `/packages/cv-engine/domains/marine/assets/...`. Compile with
   `--root .`.
 - **Naming:** kebab-case for functions, keys, folders and files. Domains
-  are named after the field (`marine`, `travel-and-tourism`), roles after
+  are named after the career area (`marine`, `travel-and-tourism`), roles after
   the specialisation (`deck`, `engine`). Templates are named after the
   design, `flagship`, never after a role. Themes and artwork packs are
   named after what they look like, not after a revision number. Layouts
@@ -103,6 +103,9 @@ them. These evolve; the rules that do not are in `constitution.md`.
 ## Documents
 
 - English. Plain language. Lead with the answer.
+- Official terms as in `docs/glossary.md`, never a synonym. A term the
+  glossary lacks but the text needs repeatedly is added to it in the same
+  change.
 - One concept per file under `docs/reference/`. First line says when to read
   it. Under about 100 lines.
 - Anything with a shape (JSON, dictionary, command) is a code block with a

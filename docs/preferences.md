@@ -25,6 +25,10 @@ product is and what gets built next, not as someone who will open a file.
   great deal. Restate the little context needed to follow the reply, every
   time.
 - **Explain a term the first time it appears** in a few words, in brackets.
+- **Official terms in backticks.** Use the terms in `glossary.md` exactly and
+  wrap each one in backticks: `Domain`, `Envelope`, `Sign-off`. When you
+  add, rename or drop a glossary term, name it in your next report or
+  Recap; he changes it then if he dislikes it (owner, 2026-09-25).
 - **Act like his secretary.** Know the state of the project at all times:
   what is done, what is in progress, what is waiting on him, what comes
   next. When he says he is lost, give him the state in that order.
@@ -40,7 +44,8 @@ choices and act without asking (owner's instruction, 2026-09-25).
   look is, approval of a real candidate's PDF, changes to the rules in
   `constitution.md`, and review rounds beyond the cap (`review.md`).
 - **Agents decide and do, without asking:** architecture inside an approved
-  item, naming, structure, wording, small design choices, the order of work,
+  item, naming (code, files and the terms in `glossary.md`, reported
+  afterwards), structure, wording, small design choices, the order of work,
   and all routine Git and board work: commits, pushes, merges into `main`,
   amend, rebase, reset, force-push of a feature branch
   (`--force-with-lease`), branch and tag creation, deleting merged or

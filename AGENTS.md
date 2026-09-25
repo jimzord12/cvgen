@@ -1,7 +1,7 @@
 # AGENTS.md — map of CVgen
 
-CVgen is a composable Typst library that renders premium CVs for any field
-(ADR 0011, 2026-09-21). The engine is a field-neutral core plus domains;
+CVgen is a composable Typst library that renders premium CVs for any domain
+(ADR 0011, 2026-09-21). The engine is a domain-neutral core plus domains;
 `marine` is the first, with one template, `flagship`, that takes six
 independent inputs: candidate JSON, role, theme, artwork pack, layout
 profile and a durations switch. A domain offers a facts shape, assets,
@@ -66,8 +66,8 @@ domain; `F` for `M/templates/flagship`.
 | Path | Role | Touch it when |
 |---|---|---|
 | `E/lib.typ` | Public import surface, no side effects | Adding or renaming an exported function |
-| `E/core/` | Field-neutral core: `node` (merge, compose), `data` (common facts), `theme` check, `component` (`make-ctx`, which builds `ctx`), `components` (the ctx-first primitives and page shell as one module, exported as `core-components`), `primitives`, `page` shell, `pagination` over a domain row model, `legacy` (deprecated old signatures). Never imports a domain | Changing behaviour every domain shares |
-| `M/domain.typ`, `M/data.typ` | The marine domain node (id, meta, copy, experience model) and the marine facts: companies, vessels, months, totals, `normalize-candidate`, `validate-candidate` | Changing what the marine field means |
+| `E/core/` | Domain-neutral core: `node` (merge, compose), `data` (common facts), `theme` check, `component` (`make-ctx`, which builds `ctx`), `components` (the ctx-first primitives and page shell as one module, exported as `core-components`), `primitives`, `page` shell, `pagination` over a domain row model, `legacy` (deprecated old signatures). Never imports a domain | Changing behaviour every domain shares |
+| `M/domain.typ`, `M/data.typ` | The marine domain node (id, meta, copy, experience model) and the marine facts: companies, vessels, months, totals, `normalize-candidate`, `validate-candidate` | Changing what the marine domain means |
 | `M/roles/deck/`, `M/roles/engine/` | Role markers (`role.typ`); bare today | Refining something for one role |
 | `M/schema/candidate.schema.json` | Marine candidate-facts contract: what a record may contain, no template wording | Changing the marine data contract |
 | `F/flagship.typ` | The Flagship composition: page loop, section order, overflow check | Changing what Flagship renders |
@@ -129,6 +129,7 @@ Full text in `docs/constitution.md`. The short list:
 | Read | When |
 |---|---|
 | `docs/preferences.md` | Before every reply to the owner: who he is, how to talk to him, what he decides |
+| `docs/glossary.md` | Before every reply to the owner, proposal or document: the official terms, backticks in replies, spotting new candidates |
 | `docs/vision.md` | Deciding whether a feature belongs here |
 | `docs/architecture.md` | Before changing any module |
 | `docs/pdf-workflow.md` | Target monorepo and the PDF lifecycle, both implemented 2026-09-16 except `apps/web/`; read before structural or workflow changes (ADR 0010). |
@@ -141,7 +142,7 @@ Full text in `docs/constitution.md`. The short list:
 | `docs/proposals/README.md` | Proposal states, owner decisions, and orientation of pending/approved work |
 | `docs/proposals/trello-free-trial.md` | Why Trello is the task store: the trial, its evidence, the adoption decision |
 | `docs/git-workflow.md` | Agent-owned Git, direct pushes, feature branches, integration and tags |
-| `docs/reference/domains-and-roles.md` | Adding a field, a role or a template; how domain, role and template compose |
+| `docs/reference/domains-and-roles.md` | Adding a domain, a role or a template; how domain, role and template compose |
 | `docs/reference/candidate-schema.md` | Editing a marine candidate JSON |
 | `docs/reference/theme.md` | Creating or editing a theme |
 | `docs/reference/artwork-pack.md` | Creating or editing an artwork pack |
@@ -169,6 +170,12 @@ propose; the owner decides.
 
 ## Working agreement for agents
 
+- Speak the glossary (`docs/glossary.md`). Use its official terms, never a
+  synonym, and wrap them in backticks in every reply to the owner. Keep it
+  current yourself: a concept that keeps coming up unnamed, two words for
+  one thing, one word for two things, or a term the owner coins becomes a
+  term without asking. Name every term you added, renamed or dropped in
+  your next report or Recap; the owner changes it then if he dislikes it.
 - Understand the seam before editing: imports, call sites, the fixture that
   covers it. Say what you found in a line, then act.
 - Prefer the owning module over a parallel one. Related components stay in
