@@ -1,6 +1,6 @@
 ---
 kind: proposal
-status: pending
+status: approved
 revision: 1
 ---
 
@@ -151,3 +151,12 @@ second engineer record with particulars, added to the gallery in
 `exports/`) showcase the feature? Recommended: no for now; the test fixture
 and the render you approve are enough, and a gallery example can follow
 when a client asks to see one. Yes adds about half a day.
+
+## Decisions
+
+- 2026-09-25, owner (Day Shift question 08): **approved**, the smallest
+  version as written. The showcase question was not asked separately; the
+  proposal's recommendation (no new public example for now) applies.
+- 2026-09-27, lead (Night Shift): built on `feat/vessel-particulars`
+  (card `vessel-particulars`). The look of the row suffix goes to the
+  owner as a render.

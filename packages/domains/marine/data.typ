@@ -34,6 +34,44 @@
   (..common, companies: raw.companies.map(c => (..c, id: c.at("id", default: lower(c.name).replace(" ", "-")))))
 }
 
+// Optional vessel particulars, printed in the documented unit and never
+// converted (GT and DWT measure different things).
+#let particular-units = (tonnage: ("GT", "DWT"), power: ("kW", "BHP"))
+
+#let validate-particulars(ship) = {
+  for (key, units) in particular-units {
+    let given = ship.at(key, default: none)
+    if given != none {
+      assert(type(given) == dictionary and given.keys().sorted() == ("unit", "value"),
+        message: "vessel." + key + " needs exactly value and unit: " + ship.name)
+      assert(type(given.value) == int and given.value > 0, message: "vessel." + key + ".value must be a positive whole number: " + ship.name)
+      assert(given.unit in units, message: "vessel." + key + ".unit must be one of " + units.join(", ") + ": " + ship.name)
+    }
+  }
+  if ship.at("engine", default: none) != none { required-text(ship.engine, "vessel.engine") }
+}
+
+// A vessel served on twice (same id) states the same particulars or omits them.
+#let validate-repeated-vessels(companies) = {
+  let seen = (:)
+  for company in companies {
+    for group in company.groups {
+      for ship in group.ships {
+        let known = seen.at(ship.id, default: (:))
+        for key in ("tonnage", "engine", "power") {
+          let given = ship.at(key, default: none)
+          if given == none { continue }
+          let earlier = known.at(key, default: none)
+          assert(earlier == none or earlier == given,
+            message: "Vessel " + ship.id + " repeats with a different " + key + "; give the same value or omit it")
+          known.insert(key, given)
+        }
+        seen.insert(ship.id, known)
+      }
+    }
+  }
+}
+
 #let validate-candidate(candidate, show-vessel-durations) = {
   validate-common(candidate)
   required-text(candidate.identity.rank, "identity.rank")
@@ -48,12 +86,14 @@
       required-text(group.type, "vessel type")
       for ship in group.ships {
         for key in ("id", "name", "rank") { required-text(ship.at(key), "vessel." + key) }
+        validate-particulars(ship)
         if show-vessel-durations {
           assert(ship.at("months", default: none) != none, message: "Visible vessel durations require months: " + ship.name)
         }
       }
     }
   }
+  validate-repeated-vessels(candidate.companies)
 }
 
 // The row model the core's pagination uses: one row per ship. A fragment
