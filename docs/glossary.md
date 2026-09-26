@@ -63,14 +63,6 @@ owner afterwards.
 | `Frozen Reference` | The PDF a `Template`'s public example must reproduce pixel for pixel | `templates/<t>/tests/approved/` | 2026-09-25 |
 | `Framework Gap` | A recorded case of going around the `Framework`, a `Domain` or a `Template` to deliver a CV | `docs/framework-gaps.md` | 2026-09-25 |
 | `Idea Run` | One closed loop of an idea agent (ceo or magazine-editor) and its reviewers | `.claude/skills/idea-run/`, `docs/work/idea-runs/` | 2026-09-25 |
-| `Night Shift Protocol` | The way of working: decide by day, agents build unattended at night, the owner reviews in the morning. Project-neutral, its own repository | `jimzord12/night-shift`; this project's `Binding` is `docs/night-shift.md` | 2026-09-25, owner |
-| `Day Shift` | A session where the owner and the lead agent decide and design, and turn the result into `Night-ready` cards | `docs/night-shift.md` | 2026-09-25 |
-| `Night Shift` | Agents building `Night-ready` cards unattended, one card per agent, raising a `Question` instead of guessing | `docs/night-shift.md` | 2026-09-25 |
-| `Morning Review` | The owner's pass over a `Night Shift` in the Night Shift app: outcomes, open `Question`s, the buffer | `night-shift serve .` | 2026-09-25 |
-| `Night-ready` | A card with nothing left to decide: outcome, acceptance checks, touched paths, kind and size are on it. Carries the board label of that name | Trello label `Night-ready`; the card header line `night-shift: kind=… size=… touches=…` | 2026-09-25 |
-| `Question` | A decision an agent needs from the owner, as a file the owner answers with a click. Open until the agent marks it resolved | `.night-shift/questions/<id>.json` (git-ignored) | 2026-09-25, owner |
-| `Outcome` | What happened to one card in one shift (shipped, needs your eyes, blocked, skipped), posted as a comment on the card | the `night-shift outcome/1` comment | 2026-09-25 |
-| `Binding` | A project's answers to the `Night Shift Protocol`'s slots: board, test command, review gate, owner-reserved actions | `docs/night-shift.md` | 2026-09-25 |
 
 ## Words with two meanings
 
