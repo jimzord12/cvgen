@@ -82,7 +82,11 @@ and per-check folders with `result.json` and, on a raster mismatch, a
    null value, missing required field, a bad certificate field - with every
    field path named) that leave no folder, a receipt rewritten for other bytes, a
    revision without `render.json`, a leftover partial export, a
-   conflicting destination and a bundle with a different receipt.
+   conflicting destination and a bundle with a different receipt, and
+   certificate dates (against a fixed reference date: expired and
+   within-180-day certificates warn in render, `status` and `checks.json`
+   without failing the render or blocking approval; unchecked dates are
+   counted; a broken certificate block never breaks `status`).
    `commands.log` holds every command with its output and exit code.
 
 Negative cases assert on the exact error text so a message change is a test

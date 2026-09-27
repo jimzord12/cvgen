@@ -36,6 +36,7 @@ def run_workflow(out, typst):
     def cv(*args, expect=0, env=None):
         command = [sys.executable, str(ROOT / 'scripts/cv.py'), *[str(a) for a in args]]
         result = subprocess.run(command, capture_output=True, text=True, cwd=ROOT, env=env)
+        cv.stderr = result.stderr
         log.write(f'$ {" ".join(command[2:])}\n{result.stdout}{result.stderr}[exit {result.returncode}]\n\n')
         assert result.returncode == expect, (args, expect, result.returncode, result.stdout, result.stderr)
         return json.loads(result.stdout) if result.returncode != 2 else result.stderr
@@ -232,6 +233,48 @@ def run_workflow(out, typst):
     assert not exported3['existing'] and sha256_file(conflict / 'cv.pdf') == third['sha256']
     assert cv('status', workspace)['partial_exports'] == [partial.name]  # left for inspection, never used
     passed.append('interrupted-and-conflicting-refused')
+
+    # 9. Certificate dates warn loudly and never block (owner, 2026-09-25), measured against a fixed day so
+    # the suite never ages. Both certificate shapes; the 180-day edge; free text and a non-date are counted.
+    dated = json.loads(json.dumps(record))
+    dated['certificates'] = [
+        ['Expired medical', 'ENG1', '01 Jun 2024', '31 May 2026'],
+        {'title': 'Near CoC', 'scope': 'III/2', 'issued': '15 Jul 2021', 'review': '10 Jan 2027'},
+        ['Edge of window', 'Record', '01 Jan 2024', '26 Mar 2027'],
+        ['Beyond window', 'Record', '01 Jan 2024', '27 Mar 2027'],
+        ['Free text', 'Record', '01 Jan 2024', 'As required'],
+        ['Not a date', 'Record', '01 Jan 2024', '31 Feb 2029'],
+    ]
+    (workspace / 'candidate.json').write_text(json.dumps(dated, indent=2), encoding='utf-8')
+    warned = cv('render', workspace, '--typst', typst, '--reference-date', '2026-09-27')
+    assert warned['status'] == 'success' and warned['checks_passed'], warned
+    assert len(warned['warnings']) == 3, warned['warnings']
+    assert warned['warnings'][0].startswith('Certificate "Expired medical" EXPIRED on 31 May 2026 (119 days'), warned['warnings']
+    assert warned['warnings'][1].startswith('Certificate "Near CoC" expires on 10 Jan 2027, in 105 days'), warned['warnings']
+    assert warned['warnings'][2].startswith('Certificate "Edge of window" expires on 26 Mar 2027, in 180 days'), warned['warnings']
+    assert cv.stderr.count('WARNING: Certificate') == 3, cv.stderr
+    # The unchecked count reaches the output too, so silence is never read as a pass.
+    assert warned['certificate_dates'] == {'reference_date': '2026-09-27', 'date_checked': 4, 'not_date_checked': 2}, warned
+    assert 'NOTE: 2 certificate date(s) not checked' in cv.stderr, cv.stderr
+    recorded = json.loads((revision(warned['revision']) / 'checks.json').read_text(encoding='utf-8'))
+    assert recorded['passed'] and recorded['certificates'] == {
+        'reference_date': '2026-09-27', 'window_days': 180, 'date_checked': 4, 'not_date_checked': 2,
+        'warnings': warned['warnings']}, recorded
+    listed = {r['revision']: r['warnings'] for r in cv('status', workspace)['revisions']}
+    assert listed[warned['revision']] == warned['warnings']
+    assert cv.stderr.count(f'WARNING [{warned["revision"]}]: Certificate') == 3, cv.stderr
+    assert {r['revision']: r['certificate_dates'] for r in cv('status', workspace)['revisions']}[warned['revision']] == warned['certificate_dates']
+    cv('approve', workspace, warned['revision'], '--approver', 'suite', '--sha256', warned['sha256'], '--test-only')
+    # A hand-broken certificate block never makes status a traceback: no warnings, no counts, same state.
+    warned_checks = revision(warned['revision']) / 'checks.json'
+    kept = warned_checks.read_text(encoding='utf-8')
+    for broken_block in ['x', ['x'], {'warnings': None}, {'warnings': [1]}]:
+        warned_checks.write_text(json.dumps({**json.loads(kept), 'certificates': broken_block}), encoding='utf-8')
+        row = [r for r in cv('status', workspace)['revisions'] if r['revision'] == warned['revision']][0]
+        assert row['warnings'] == [] and row['certificate_dates'] is None and row['state'] == 'approved', (broken_block, row)
+    warned_checks.write_text(kept, encoding='utf-8')
+    (workspace / 'candidate.json').write_text(json.dumps(record, indent=2), encoding='utf-8')
+    passed.append('certificate-dates-warn-only')
 
     log.close()
     (base / 'report.json').write_text(json.dumps({'passed': passed, 'workspace': str(workspace)}, indent=2), encoding='utf-8')

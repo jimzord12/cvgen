@@ -147,7 +147,7 @@ cv-workflow/cv_workflow/                Python; owns everything around a candida
   workspace.py                          workspace and revision paths, ids, hashes, records, the refusal rules
   validate.py                           candidate record against the template's (or domain's) JSON Schema, before anything is written
   render.py                             validate, snapshot inputs, compile, render.json + render.log, then checks
-  checks.py                             page count, empty page, fonts, bounds; bound to the PDF hash
+  checks.py                             page count, empty page, fonts, bounds; bound to the PDF hash; certificate expiry warnings
   approve.py                            explicit approval receipt, bound to revision id and hash
   export.py                             verify, copy into a .partial- folder, verify, rename into place
 scripts/cv.py                           the four local commands calling that package
