@@ -116,13 +116,15 @@
 // The knot: from the eyelet the thread runs over the card's top edge and tucks behind it.
 #let knot = place(top + left, dx: -34mm, dy: -26mm, place(top + left, curve(
   stroke: (paint: copper, thickness: 1.3pt, cap: "round"),
-  curve.move((168.4mm, 42mm)), curve.cubic((168.8mm, 40mm), (169.6mm, 38.6mm), (170.2mm, 37.6mm)))))
+  curve.move((168.4mm, 42mm)), curve.cubic((168.8mm, 40mm), (169.8mm, 37.4mm), (170.4mm, 36.2mm)))))
 
 #let check-page(client, draft, date, samples, copy, check-lang) = {
   let c = house-copy.at(check-lang, default: (:)) + copy
   let missing = house-copy.el.keys().filter(k => k not in c)
   assert(missing.len() == 0, message: "Text Draft: no house copy for check-lang \"" + check-lang
     + "\" (house copy exists for: " + house-copy.keys().join(", ") + "); pass these in copy: " + missing.join(", "))
+  assert(type(c.headline) == array and c.headline.len() == 2,
+    message: "Text Draft: copy.headline takes two lines, e.g. (\"Your CV,\", \"to check.\")")
   set text(lang: check-lang)
   place(top + left, dy: -6mm, spaced(c.kicker))
   thread
@@ -150,8 +152,12 @@
   block({ needle; text(size: 18pt, weight: "bold", c.ask) })
   v(6mm)
   // Rows grow with their content: a long company name wraps inside its own row.
-  grid(columns: (52mm, 1fr), row-gutter: 5.5mm, align: (left + top, left + top),
-    ..samples.map(((kind, sample)) => (text(size: 16pt, kind), text(size: 16pt, fact(sample, w: 1.1pt, off: 4pt)))).flatten())
+  // A wrapped value keeps its lines closer than the rows, so its second line reads as the same row.
+  block({
+    set par(leading: 0.55em)
+    grid(columns: (52mm, 1fr), row-gutter: 5.5mm, align: (left + top, left + top),
+      ..samples.map(((kind, sample)) => (text(size: 16pt, kind), text(size: 16pt, fact(sample, w: 1.1pt, off: 4pt)))).flatten())
+  })
   v(10mm)
   text(size: 15pt, style: "italic", fill: quiet, c.ours)
 

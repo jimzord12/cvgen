@@ -304,6 +304,9 @@ def main():
         overlaps = [(a, b) for i, a in enumerate(boxes) for b in boxes[i + 1:] if (a & b).get_area() > 1]
         assert not overlaps, overlaps[:3]
         assert 'Όλα σωστά' in doc[0].get_text() and 'Services S.A.' in doc[0].get_text()
+    # One row more than fits: the reply is in the flow, so the page overflows and the compile fails
+    # (a reply placed at the foot would overprint; a missing guard would spill onto page 2).
+    compile_case('text-draft-full', 'tests/fixtures/text-draft.typ', {'case': 'full'}, error='the Check Page runs past one page')
     compile_case('text-draft-english', 'tests/fixtures/text-draft.typ', {'case': 'english'}, error='no house copy for check-lang "en"')
     # The candidate workflow, end to end and every refusal, in a fresh fictional workspace.
     for check in run_workflow(out, args.typst):
