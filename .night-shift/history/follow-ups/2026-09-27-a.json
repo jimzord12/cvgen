@@ -1,0 +1,63 @@
+{
+  "schema": "night-shift/follow-up@1",
+  "id": "2026-09-27-a",
+  "from_night": "2026-09-27-a",
+  "created_at": "2026-09-27T23:52:56+03:00",
+  "items": [
+    {
+      "id": "A1",
+      "status": "open",
+      "task": "T2",
+      "title": "Premium Text Draft: Idea Run with magazine-editor",
+      "done_when": [
+        "Two or three bold Text Draft directions with mock-up PDFs in design-concepts/",
+        "Each direction passed design-reviewer (and research-reviewer if research is used) or is marked unresolved at the 5-round cap",
+        "scripts/text-draft.typ is unchanged",
+        "Question 10 (which design concepts to keep) asked again in the Viewer"
+      ],
+      "kind": "decision",
+      "question": "Which of the three 2026-09-25 design concepts do we keep developing into templates?",
+      "decision": "d",
+      "decision_label": "Drop all three"
+    },
+    {
+      "id": "A2",
+      "status": "open",
+      "task": "T7",
+      "title": "Housekeeping: review exception, D11, stray file, board",
+      "done_when": [
+        "docs/review.md records the idea-run exception as confirmed by the owner on 2026-09-25",
+        "D11 closed where it is tracked, no reference change",
+        "The stray reviewer file is checked and deleted",
+        "Trello cards in step and session-handoff rewritten"
+      ],
+      "kind": "unfinished",
+      "left": [
+        "not started"
+      ]
+    },
+    {
+      "id": "A3",
+      "status": "open",
+      "task": "T3",
+      "title": "Do you like how ship size and engine power look on the experience rows?",
+      "done_when": [],
+      "kind": "decision",
+      "question": "Do you like how ship size and engine power look on the experience rows?",
+      "decision": "a",
+      "decision_label": "Looks good, keep it"
+    },
+    {
+      "id": "A4",
+      "status": "open",
+      "task": "T1",
+      "title": "Which CVgen logo direction do we keep?",
+      "done_when": [],
+      "kind": "decision",
+      "question": "Which CVgen logo direction do we keep?",
+      "decision": "c",
+      "decision_label": "Faithful, plus a custom letter detail",
+      "owner_note": "Do not understand what you mean, please explain."
+    }
+  ]
+}
