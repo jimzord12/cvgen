@@ -1,6 +1,6 @@
 ---
 kind: proposal
-status: approved
+status: applied
 revision: 1
 ---
 
@@ -144,3 +144,8 @@ warning within 180 days, workflow only), to be built as a task now?
   reference date in the suite).
 - 2026-09-27, lead (Night Shift): built on
   `feat/certificate-validity-check` (card `certificate-validity-check`).
+- 2026-09-27, lead: **applied** (warnings only). Merged to `main` in
+  3f93864 after two `code-reviewer` rounds (round 2 PASS, reports in
+  `docs/work/certificate-validity-check/reviews/`); suite 51 cases PASS on
+  `main`. Beyond the proposal, render also prints a `NOTE:` line with the
+  count of unchecked dates (round 1, F1).
