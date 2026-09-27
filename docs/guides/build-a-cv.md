@@ -15,7 +15,7 @@ One folder per client, the `Envelope`, named after the person and their
 ```text
 private/jane-doe-second-engineer/
   README.md              how to build, what was decided, where the evidence is
-  intake/, research/, draft/   from the client workflow; never copied into a revision
+  intake/, research/, draft/   from the client workflow; not copied into a revision unless cv.typ reads them (it should not)
   candidate.json         candidate data
   cv.typ                 entry point
   portrait.<ext>         authorised photograph, jpg or png
@@ -236,11 +236,19 @@ Rules for this path:
 
 - Import from `packages/domains/marine/lib.typ`; never copy library code into the workspace.
   A client whose domain does not exist yet imports `/packages/cv-framework/lib.typ`
-  only (render then checks no schema) and keeps the whole design in `cv.typ`
-  (`client-workflow.md` section 9).
+  only (render then checks no schema; `client-workflow.md` section 9).
 - Keep the candidate JSON valid against its schema, if it has one. Put data the schema
   cannot hold, such as contract periods, in a separate `presentation.json`
   beside it. Never invent months from calendar periods.
+- Read every workspace file by a literal path relative to `cv.typ`
+  (`json("presentation.json")`, `#import "parts/table.typ"`, `image("map.png")`).
+  `render` finds these reads, follows local `.typ` helpers, copies each file
+  into the `Revision` and records its hash in `render.json`. It refuses a
+  root-absolute path into `private/` (the revision would read the live
+  file), a path that leaves the workspace, and a missing file. A computed
+  path (`image(d.photo)`) is not found by the scan; if its file is not in
+  the snapshot the compile fails, and if it reads a live file the revision's
+  checks fail, so it cannot be approved.
 - Approve and export the hand-composed render through the same workflow
   (sections 3 and 6): its entry point is still `cv.typ`. Record in
   the folder's `README.md` why the custom composition exists and what it

@@ -82,11 +82,17 @@ and per-check folders with `result.json` and, on a raster mismatch, a
    null value, missing required field, a bad certificate field - with every
    field path named) that leave no folder, a receipt rewritten for other bytes, a
    revision without `render.json`, a leftover partial export, a
-   conflicting destination and a bundle with a different receipt, and
+   conflicting destination and a bundle with a different receipt,
    certificate dates (against a fixed reference date: expired and
    within-180-day certificates warn in render, `status` and `checks.json`
    without failing the render or blocking approval; unchecked dates are
-   counted; a broken certificate block never breaks `status`).
+   counted; a broken certificate block never breaks `status`), and a
+   one-off `Framework`-only entry (schema null, one page) whose sibling
+   data, local helper and files read after a URL are snapshotted and
+   hashed and compile after the live files are gone; live reads are
+   refused (root-absolute into `private/` or the workspace, outside the
+   workspace, missing, taking the portrait's place) or, when computed,
+   fail the checks and block approval.
    `commands.log` holds every command with its output and exit code.
 
 Negative cases assert on the exact error text so a message change is a test

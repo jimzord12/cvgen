@@ -70,7 +70,7 @@ Built:    Nothing; the rendering is unchanged and pixel-identical.
 Lesson:   Move styling into style blocks one component at a time under the
           pixel gate, when a component is changed for another reason.
 
-### 2026-09-25  A client whose domain does not exist yet           Status: open, card revision-snapshot
+### 2026-09-25  A client whose domain does not exist yet           Status: open until the domain exists; the snapshot limit closed by card revision-snapshot (2026-09-27)
 Needed:   A CV for a client outside marine (a tour guide) through
           `scripts/cv.py render`, `approve` and `export`, before the
           `Travel & Tourism` domain exists.
@@ -86,3 +86,6 @@ Built:    The path in the client workflow (guide section 9); no client has
 Lesson:   The snapshot needs the sibling files an entry point reads, and a
           second client in the same career area is the moment to open its
           domain.
+Update:   2026-09-27: a revision now copies the files `cv.typ` reads by a
+          literal relative path (and its local helpers), so the design no
+          longer has to fit in `cv.typ` (`build-a-cv.md` section 8).
