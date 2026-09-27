@@ -33,8 +33,8 @@ thread). Recognisable without the name on it.
 |---|---|
 | Savile Row Bespoke Association, tailoring terms: <https://www.savilerowbespoke.com/about-us/tailoring-terms/> ("Baste: garment roughly assembled for first fitting"; "Basting: tacking with long stitches") | The client is shown the work deliberately unfinished, held by visible temporary stitches, and judges the fit, not the finish. Maps one to one onto "check the facts; the wording is ours". |
 | Needlework samplers: <https://en.wikipedia.org/wiki/Sampler_(needlework)> ("specimen of achievement": alphabets, numerals, the maker's name and date); Cooper Hewitt sampler, England, red thread on natural linen: <https://collection.cooperhewitt.org/objects/18474165/> | Thread as a writing instrument: one thread colour on a natural ground, and the maker's name and date carried on the piece (the ticket). |
-| Sewing-pattern markings: <https://en.wikipedia.org/wiki/Pattern_(sewing)> (notches and match points "to help align adjoining pattern pieces"; lines that tell you where a piece may be lengthened or shortened "for a different fit") | A small, consistent grammar of marks, where the line style itself is the instruction: the dashed stitch = check this; the notch = a step to act on. |
-| Bona Nova (Capitalics, after Andrzej Heidrich's 1971 Bona): <https://fonts.google.com/specimen/Bona+Nova>, <https://fontsinuse.com/typefaces/83442/bona-nova> | A cursive-rooted text face by a banknote designer: hand-made warmth with engraved precision, and a real Greek. |
+| Sewing-pattern markings: <https://en.wikipedia.org/wiki/Pattern_(sewing)> (dot, triangle or square symbols "provide 'match points' for adjoining pattern pieces"; lines that tell you where a piece may be lengthened or shortened "for a different fit") | A small, consistent grammar of marks, where the line style itself is the instruction: the dashed stitch = check this; the notch = a step to act on. |
+| Bona Nova (Capitalics, after Andrzej Heidrich's 1971 Bona): <https://raw.githubusercontent.com/google/fonts/main/ofl/bonanova/DESCRIPTION.en_us.html>, <https://raw.githubusercontent.com/google/fonts/main/ofl/bonanova/METADATA.pb>, <https://fontsinuse.com/typefaces/83442/bona-nova> | A cursive-rooted text face by a banknote designer: hand-made warmth with engraved precision, and a real Greek. |
 
 No drawing, photo or copy was taken from any of them.
 
@@ -45,9 +45,11 @@ No drawing, photo or copy was taken from any of them.
   italic, one copper thread. It says "made by hand for you", not "legal file".
 - **From Flagship:** Flagship is a dark masthead, portrait and condensed
   grotesque. This has no portrait, no bars, no boxes; one serif family.
-- **From the market:** CV builders never show a draft at all, and their
-  templates mark nothing. Here the draft's function (which words the client
-  owns) *is* the ornament.
+- **From the market:** CV builders go straight to a template; paid writers
+  do send a first draft for review (e.g. <https://www.resumeprofessionalwriters.com/faq/>),
+  but as a plain document. In what I have seen, none marks which words the
+  client owns (my observation, not a survey). Here that function *is* the
+  ornament.
 
 ## Fonts and licences
 
