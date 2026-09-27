@@ -77,4 +77,6 @@ fitting the page.
 
 State the revision folder or output path, the PDF hash for a real
 candidate, the page count, what was checked on each page, and any override
-applied to the layout or theme.
+applied to the layout or theme. Pass on every `WARNING:` line (expired or
+soon-expiring certificates) and any `NOTE:` about unchecked certificate
+dates word for word: the owner weighs them before he approves.

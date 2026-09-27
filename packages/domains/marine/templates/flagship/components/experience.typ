@@ -20,6 +20,44 @@
     text(size: theme.sizes.label, fill: theme.colors.muted)[#ctx.copy.combined])
 }
 
+// 49990 -> "49,990": particulars are printed as documented, only grouped.
+#let thousands(value) = {
+  let digits = str(value)
+  let groups = ()
+  while digits.len() > 3 {
+    groups.insert(0, digits.slice(-3))
+    digits = digits.slice(0, -3)
+  }
+  groups.insert(0, digits)
+  groups.join(",")
+}
+
+// "49,990 GT · MAN B&W · 9,480 kW" from whichever particulars the vessel has, or none.
+#let particulars(vessel) = {
+  let parts = ()
+  let tonnage = vessel.at("tonnage", default: none)
+  if tonnage != none { parts.push(thousands(tonnage.value) + " " + tonnage.unit) }
+  if vessel.at("engine", default: none) != none { parts.push(vessel.engine) }
+  let power = vessel.at("power", default: none)
+  if power != none { parts.push(thousands(power.value) + " " + power.unit) }
+  if parts.len() == 0 { none } else { parts.join(" · ") }
+}
+
+// The vessel name, followed on the same line by its particulars when it has any.
+// A name plus particulars that would wrap fails loudly (constitution 4, no shrinking).
+#let vessel-name(ctx, vessel) = {
+  let theme = ctx.theme
+  let name = text(size: theme.sizes.vessel, weight: "semibold")[#vessel.name]
+  let suffix = particulars(vessel)
+  if suffix == none { return name }
+  let line = [#name#text(size: theme.sizes.rank-row, fill: theme.colors.muted)[ · #suffix]]
+  layout(size => {
+    assert(measure(line).width <= size.width,
+      message: "Vessel particulars do not fit on one row: " + vessel.name + "; leave out one particular for this vessel")
+    line
+  })
+}
+
 // Returns cells, not a separate grid: all rows share the parent's column tracks.
 #let vessel-row(ctx, vessel) = {
   let (theme, geometry) = (ctx.theme, ctx.layout.experience)
@@ -31,7 +69,7 @@
     let bounds = measure(time, width: geometry.duration-width)
     box(width: bounds.width, height: bounds.height)
   }}
-  (text(size: theme.sizes.vessel, weight: "semibold")[#vessel.name],
+  (vessel-name(ctx, vessel),
     text(size: theme.sizes.rank-row, fill: theme.colors.muted)[#vessel.rank], last)
 }
 

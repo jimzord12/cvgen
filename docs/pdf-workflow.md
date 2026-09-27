@@ -94,7 +94,10 @@ the entry point imports the engine by root-absolute path
 (`/packages/domains/marine/...` for marine, `/packages/cv-framework/...` for
 a one-off `Template` with no domain), and the snapshot record's `identity.portrait`
 points at the copied asset under `inputs/assets/`, which `render.json`
-records next to the original path and the working record's hash. Rendering
+records next to the original path and the working record's hash. Other
+workspace files the entry point reads by a literal relative path (and its
+local `.typ` helpers read) are copied to the same place under `inputs/` and
+listed with their hashes in `render.json` (`inputs.files`). Rendering
 never rewrites an existing revision PDF. A failed or corrected run gets a new
 revision folder. `render.json` records the engine commit, the compiler
 version, the entry point's imports (template, theme, artwork, layout) and the

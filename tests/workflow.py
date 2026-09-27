@@ -19,6 +19,22 @@ ENTRY = '''#import "/packages/domains/marine/lib.typ": flagship
 #show: flagship.with(candidate: candidate, theme: theme, artwork: artwork, layout: layout, show-vessel-durations: true)
 '''
 
+# A one-off design for a field with no domain yet: the Framework only, plus files beside cv.typ.
+ONE_OFF = '''#import "/packages/cv-framework/lib.typ": normalize-common
+#import "parts/helper.typ": note
+// A commented read such as json("missing.json") is not a file the page needs.
+#let d = normalize-common(json("candidate.json"))
+#let p = json("presentation.json")
+#set text(font: "Source Sans 3")
+= #d.identity.name
+#p.headline
+
+#note
+
+Signature tours include "Athens by Night" and more.
+#link("https://example.org/ada")[#read("parts/link.txt")]
+'''
+
 
 def run_workflow(out, typst):
     """A fresh fictional workspace under the suite output; returns the list of passed checks."""
@@ -36,6 +52,7 @@ def run_workflow(out, typst):
     def cv(*args, expect=0, env=None):
         command = [sys.executable, str(ROOT / 'scripts/cv.py'), *[str(a) for a in args]]
         result = subprocess.run(command, capture_output=True, text=True, cwd=ROOT, env=env)
+        cv.stderr = result.stderr
         log.write(f'$ {" ".join(command[2:])}\n{result.stdout}{result.stderr}[exit {result.returncode}]\n\n')
         assert result.returncode == expect, (args, expect, result.returncode, result.stdout, result.stderr)
         return json.loads(result.stdout) if result.returncode != 2 else result.stderr
@@ -232,6 +249,114 @@ def run_workflow(out, typst):
     assert not exported3['existing'] and sha256_file(conflict / 'cv.pdf') == third['sha256']
     assert cv('status', workspace)['partial_exports'] == [partial.name]  # left for inspection, never used
     passed.append('interrupted-and-conflicting-refused')
+
+    # 9. Certificate dates warn loudly and never block (owner, 2026-09-25), measured against a fixed day so
+    # the suite never ages. Both certificate shapes; the 180-day edge; free text and a non-date are counted.
+    dated = json.loads(json.dumps(record))
+    dated['certificates'] = [
+        ['Expired medical', 'ENG1', '01 Jun 2024', '31 May 2026'],
+        {'title': 'Near CoC', 'scope': 'III/2', 'issued': '15 Jul 2021', 'review': '10 Jan 2027'},
+        ['Edge of window', 'Record', '01 Jan 2024', '26 Mar 2027'],
+        ['Beyond window', 'Record', '01 Jan 2024', '27 Mar 2027'],
+        ['Free text', 'Record', '01 Jan 2024', 'As required'],
+        ['Not a date', 'Record', '01 Jan 2024', '31 Feb 2029'],
+    ]
+    (workspace / 'candidate.json').write_text(json.dumps(dated, indent=2), encoding='utf-8')
+    warned = cv('render', workspace, '--typst', typst, '--reference-date', '2026-09-27')
+    assert warned['status'] == 'success' and warned['checks_passed'], warned
+    assert len(warned['warnings']) == 3, warned['warnings']
+    assert warned['warnings'][0].startswith('Certificate "Expired medical" EXPIRED on 31 May 2026 (119 days'), warned['warnings']
+    assert warned['warnings'][1].startswith('Certificate "Near CoC" expires on 10 Jan 2027, in 105 days'), warned['warnings']
+    assert warned['warnings'][2].startswith('Certificate "Edge of window" expires on 26 Mar 2027, in 180 days'), warned['warnings']
+    assert cv.stderr.count('WARNING: Certificate') == 3, cv.stderr
+    # The unchecked count reaches the output too, so silence is never read as a pass.
+    assert warned['certificate_dates'] == {'reference_date': '2026-09-27', 'date_checked': 4, 'not_date_checked': 2}, warned
+    assert 'NOTE: 2 certificate date(s) not checked' in cv.stderr, cv.stderr
+    recorded = json.loads((revision(warned['revision']) / 'checks.json').read_text(encoding='utf-8'))
+    assert recorded['passed'] and recorded['certificates'] == {
+        'reference_date': '2026-09-27', 'window_days': 180, 'date_checked': 4, 'not_date_checked': 2,
+        'warnings': warned['warnings']}, recorded
+    listed = {r['revision']: r['warnings'] for r in cv('status', workspace)['revisions']}
+    assert listed[warned['revision']] == warned['warnings']
+    assert cv.stderr.count(f'WARNING [{warned["revision"]}]: Certificate') == 3, cv.stderr
+    assert {r['revision']: r['certificate_dates'] for r in cv('status', workspace)['revisions']}[warned['revision']] == warned['certificate_dates']
+    cv('approve', workspace, warned['revision'], '--approver', 'suite', '--sha256', warned['sha256'], '--test-only')
+    # A hand-broken certificate block never makes status a traceback: no warnings, no counts, same state.
+    warned_checks = revision(warned['revision']) / 'checks.json'
+    kept = warned_checks.read_text(encoding='utf-8')
+    for broken_block in ['x', ['x'], {'warnings': None}, {'warnings': [1]}]:
+        warned_checks.write_text(json.dumps({**json.loads(kept), 'certificates': broken_block}), encoding='utf-8')
+        row = [r for r in cv('status', workspace)['revisions'] if r['revision'] == warned['revision']][0]
+        assert row['warnings'] == [] and row['certificate_dates'] is None and row['state'] == 'approved', (broken_block, row)
+    warned_checks.write_text(kept, encoding='utf-8')
+    (workspace / 'candidate.json').write_text(json.dumps(record, indent=2), encoding='utf-8')
+    passed.append('certificate-dates-warn-only')
+
+    # 10. A one-off design (no domain yet) imports only the Framework, reads sibling files and a local helper;
+    # the revision snapshots them all, and compiles from the snapshot alone (card revision-snapshot).
+    oneoff = base / 'fictional-tour-guide'
+    (oneoff / 'parts').mkdir(parents=True)
+    (oneoff / 'cv.typ').write_text(ONE_OFF, encoding='utf-8')
+    (oneoff / 'parts/helper.typ').write_text('#let note = read("note.txt")\n', encoding='utf-8')
+    (oneoff / 'parts/note.txt').write_text('Licensed guide, fictional record', encoding='utf-8')
+    (oneoff / 'parts/link.txt').write_text('Read after a URL', encoding='utf-8')
+    (oneoff / 'presentation.json').write_text(json.dumps({'headline': 'Walks through old Athens'}), encoding='utf-8')
+    (oneoff / 'candidate.json').write_text(json.dumps({'identity': {'name': 'Ada Example', 'rank': 'Tour guide'}}), encoding='utf-8')
+    guide = cv('render', oneoff, '--typst', typst, '--pages', '1')
+    assert guide['status'] == 'success' and guide['checks_passed'] and guide['schema'] is None, guide
+    snap = oneoff / 'revisions' / guide['revision']
+    files = json.loads((snap / 'render.json').read_text(encoding='utf-8'))['inputs']['files']
+    # The read after a URL is found (a // in a string is not a comment); the word "include" in prose is not a read.
+    assert sorted(f['path'] for f in files) == ['inputs/parts/helper.typ', 'inputs/parts/link.txt', 'inputs/parts/note.txt',
+                                                'inputs/presentation.json'], files
+    assert all(f['sha256'] == sha256_file(snap / f['path']) for f in files), files
+    import pymupdf as fitz
+    with fitz.open(snap / 'cv.pdf') as doc:
+        assert all(t in doc[0].get_text() for t in ['Walks through old Athens', 'Licensed guide', 'Read after a URL'])
+    # Change and then remove the live files: the snapshot still compiles, with what was rendered.
+    (oneoff / 'presentation.json').write_text(json.dumps({'headline': 'Changed after the render'}), encoding='utf-8')
+    for name in ['presentation.json', 'parts/helper.typ', 'parts/note.txt', 'parts/link.txt']:
+        os.remove(oneoff / name)
+    again = base / 'oneoff-from-snapshot.pdf'
+    subprocess.run([typst, 'compile', '--root', str(ROOT), '--font-path', str(ROOT / 'packages/cv-framework/fonts'),
+                    str(snap / 'inputs/cv.typ'), str(again)], check=True, capture_output=True)
+    with fitz.open(again) as doc:
+        assert 'Walks through old Athens' in doc[0].get_text() and 'Licensed guide' in doc[0].get_text()
+    # Reads the snapshot cannot hold are refused before anything is written, naming the file.
+    count = len(list((oneoff / 'revisions').iterdir()))
+    without_helper = ONE_OFF.replace('#import "parts/helper.typ": note\n', '').replace('#note\n', '')
+    refused = [('/private/zz-fictional/presentation.json', 'root-absolute path'),
+               ('/' + (oneoff / 'presentation.json').relative_to(ROOT).as_posix(), 'root-absolute path'),
+               ('../outside.json', 'outside the workspace'), ('presentation.json', 'does not exist')]
+    if os.name == 'nt':  # only a case-insensitive filesystem makes Private/ the same folder as private/
+        refused.append(('/./Private/zz-fictional/presentation.json', 'root-absolute path'))
+    for read, message in refused:
+        (oneoff / 'cv.typ').write_text(without_helper.replace('presentation.json', read), encoding='utf-8')
+        refusal = cv('render', oneoff, '--typst', typst, '--pages', '1', expect=2)
+        assert message in refusal and read in refusal, refusal
+    # A workspace file that would land on the portrait's place in the snapshot is refused too.
+    (oneoff / 'parts/link.txt').write_text('Read after a URL', encoding='utf-8')
+    (oneoff / 'portrait.png').write_bytes((ROOT / 'examples/candidates/fictional-engineer.png').read_bytes())
+    (oneoff / 'assets').mkdir()
+    (oneoff / 'assets/portrait.png').write_bytes(b'not the portrait')
+    (oneoff / 'candidate.json').write_text(json.dumps({'identity': {'name': 'Ada Example', 'rank': 'Tour guide',
+                                                                    'portrait': 'portrait.png'}}), encoding='utf-8')
+    (oneoff / 'cv.typ').write_text(without_helper.replace('json("presentation.json")', '(headline: read("assets/portrait.png"))'),
+                                   encoding='utf-8')
+    assert 'would take its place' in cv('render', oneoff, '--typst', typst, '--pages', '1', expect=2)
+    assert len(list((oneoff / 'revisions').iterdir())) == count
+    # A computed path the scan cannot see still cannot make a live read approvable: Typst's dependency list
+    # names the live file, the checks fail and approval is refused.
+    (oneoff / 'candidate.json').write_text(json.dumps({'identity': {'name': 'Ada Example', 'rank': 'Tour guide'}}), encoding='utf-8')
+    (oneoff / 'presentation.json').write_text(json.dumps({'headline': 'Live, not snapshotted'}), encoding='utf-8')
+    live_path = (oneoff / 'presentation.json').relative_to(ROOT).as_posix()
+    (oneoff / 'cv.typ').write_text(without_helper.replace('json("presentation.json")', f'json("/" + "{live_path}")'), encoding='utf-8')
+    live = cv('render', oneoff, '--typst', typst, '--pages', '1', expect=1)
+    assert live['status'] == 'success' and not live['checks_passed'], live
+    assert any('live file outside the revision snapshot' in e and 'presentation.json' in e for e in live['errors']), live
+    assert 'checks failed' in cv('approve', oneoff, live['revision'], '--approver', 'suite', '--sha256', live['sha256'],
+                                 '--test-only', expect=2)
+    passed.append('snapshot-holds-sibling-files')
 
     log.close()
     (base / 'report.json').write_text(json.dumps({'passed': passed, 'workspace': str(workspace)}, indent=2), encoding='utf-8')

@@ -1,6 +1,6 @@
 ---
 kind: proposal
-status: pending
+status: applied
 revision: 1
 ---
 
@@ -133,3 +133,19 @@ client's CV is rendered.
 
 Approve this revision as the smallest version above (error on expired,
 warning within 180 days, workflow only), to be built as a task now?
+
+## Decisions
+
+- 2026-09-25, owner (Day Shift question 07): **approved, warnings only**.
+  An expired certificate is a loud warning like a near one, not a check
+  error: the render succeeds, approval is not refused, and the owner
+  weighs the warning when he approves. Everything else as written
+  (180 days, `DD Mon YYYY` only, count of unchecked dates, fixed
+  reference date in the suite).
+- 2026-09-27, lead (Night Shift): built on
+  `feat/certificate-validity-check` (card `certificate-validity-check`).
+- 2026-09-27, lead: **applied** (warnings only). Merged to `main` in
+  3f93864 after two `code-reviewer` rounds (round 2 PASS, reports in
+  `docs/work/certificate-validity-check/reviews/`); suite 51 cases PASS on
+  `main`. Beyond the proposal, render also prints a `NOTE:` line with the
+  count of unchecked dates (round 1, F1).

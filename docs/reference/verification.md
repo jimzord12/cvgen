@@ -47,6 +47,7 @@ and per-check folders with `result.json` and, on a raster mismatch, a
 | `components.typ` | Hero renders with and without portrait or contacts; rejects a name or email that does not fit |
 | `options.typ` | Company-only months, all optional fields empty, a long vessel name whose duration wraps, with and without durations |
 | `pagination.typ` | Three pages with a company split across pages; rejects overflow and duplicate allocation |
+| `particulars.typ` | The engineer record with `Vessel Particulars` on five ships: the suffix text on each row and every other word exactly where the engineer example has it; refuses a repeated vessel with a different value, an unknown unit, a zero value, an extra key and a row too long to fit |
 | `certificate-continuation.typ` | Fifty rows, header repeats on page two |
 | `skills.typ` | Titles, one to three columns, wrapping, two themes, SVG and plain bullets (through the `lib.typ` wrapper) |
 | `contract.typ` | 31 of the 32 ctx-first components rendered alone, one per page, headed by its name (ADR 0008 fixtures); `document-shell` wraps a whole document and is covered by `legacy-parity.typ` |
@@ -62,7 +63,8 @@ and per-check folders with `result.json` and, on a raster mismatch, a
    Framework's `lib.typ` (no schema), marine's `lib.typ` with a marine role,
    marine's `lib.typ` with a non-marine domain (no schema) and domains under
    a folder named `templates`; a record with 23 bad values is refused with
-   ten lines and a count.
+   ten lines and a count. The two marine schemas share identical `$defs`;
+   a record with vessel particulars is accepted and a `hp` power unit refused.
 
 9. **Framework boundary.** Every `import`/`include` in `packages/cv-framework/core/*.typ` names a bare sibling file; `packages/cv-framework/lib.typ` imports only `core/` files; no Framework `.typ` file names a `domains/` path outside a comment; every domain file that imports a core file does so through `cv-framework/core/` (ADR 0011, 0012).
 
@@ -80,7 +82,17 @@ and per-check folders with `result.json` and, on a raster mismatch, a
    null value, missing required field, a bad certificate field - with every
    field path named) that leave no folder, a receipt rewritten for other bytes, a
    revision without `render.json`, a leftover partial export, a
-   conflicting destination and a bundle with a different receipt.
+   conflicting destination and a bundle with a different receipt,
+   certificate dates (against a fixed reference date: expired and
+   within-180-day certificates warn in render, `status` and `checks.json`
+   without failing the render or blocking approval; unchecked dates are
+   counted; a broken certificate block never breaks `status`), and a
+   one-off `Framework`-only entry (schema null, one page) whose sibling
+   data, local helper and files read after a URL are snapshotted and
+   hashed and compile after the live files are gone; live reads are
+   refused (root-absolute into `private/` or the workspace, outside the
+   workspace, missing, taking the portrait's place) or, when computed,
+   fail the checks and block approval.
    `commands.log` holds every command with its output and exit code.
 
 Negative cases assert on the exact error text so a message change is a test

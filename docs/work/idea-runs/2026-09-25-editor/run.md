@@ -35,6 +35,9 @@ class field.
 ## What reaches the owner
 
 All three concepts, status `proposed`. Open for the owner: the engineer example record names a real institution in its education entry (D11); changing it touches the frozen v11 reference, so it is his call.
+Closed 2026-09-25 by the owner (Day Shift question 05): keep the name, an
+institution rather than a person; no change to the example or the frozen
+reference.
 
 After the idea-agents code review round 1 (lead): the downloaded fonts moved
 to the shared `design-concepts/fonts/<family>/`, with source URL and SHA-256

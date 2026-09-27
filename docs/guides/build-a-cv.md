@@ -15,7 +15,7 @@ One folder per client, the `Envelope`, named after the person and their
 ```text
 private/jane-doe-second-engineer/
   README.md              how to build, what was decided, where the evidence is
-  intake/, research/, draft/   from the client workflow; never copied into a revision
+  intake/, research/, draft/   from the client workflow; not copied into a revision unless cv.typ reads them (it should not)
   candidate.json         candidate data
   cv.typ                 entry point
   portrait.<ext>         authorised photograph, jpg or png
@@ -117,6 +117,16 @@ JSON, a record that breaks its schema - the offending fields are listed
 with their paths, the first ten and then a count - a missing portrait file, no Typst on PATH), and the reason
 names the fix. Nothing is written on a refusal.
 Needs Python with `pymupdf` and `jsonschema` like the test suite.
+
+Certificate dates are checked against the day of the render: a
+certificate whose expiry (the fourth field, or `review`) has passed, or
+falls within 180 days, prints a `WARNING:` line naming it, and `status`
+repeats it for that revision. Warnings never fail the render or block
+approval (owner, 2026-09-25): read them before you approve, and renew,
+update or reword the date if needed. Only dates written like `14 Jul 2029`
+are checked; when some are not, render prints a `NOTE:` line with the
+count, and the summary, `status` and `checks.json` carry the counts and the
+day used (`reference_date`; `--reference-date YYYY-MM-DD` sets it).
 
 For live editing while you adjust the page plan, the compiler still works
 directly; write to a fresh name under `builds/`:
@@ -226,11 +236,19 @@ Rules for this path:
 
 - Import from `packages/domains/marine/lib.typ`; never copy library code into the workspace.
   A client whose domain does not exist yet imports `/packages/cv-framework/lib.typ`
-  only (render then checks no schema) and keeps the whole design in `cv.typ`
-  (`client-workflow.md` section 9).
+  only (render then checks no schema; `client-workflow.md` section 9).
 - Keep the candidate JSON valid against its schema, if it has one. Put data the schema
   cannot hold, such as contract periods, in a separate `presentation.json`
   beside it. Never invent months from calendar periods.
+- Read every workspace file by a literal path relative to `cv.typ`
+  (`json("presentation.json")`, `#import "parts/table.typ"`, `image("map.png")`).
+  `render` finds these reads, follows local `.typ` helpers, copies each file
+  into the `Revision` and records its hash in `render.json`. It refuses a
+  root-absolute path into `private/` (the revision would read the live
+  file), a path that leaves the workspace, and a missing file. A computed
+  path (`image(d.photo)`) is not found by the scan; if its file is not in
+  the snapshot the compile fails, and if it reads a live file the revision's
+  checks fail, so it cannot be approved.
 - Approve and export the hand-composed render through the same workflow
   (sections 3 and 6): its entry point is still `cv.typ`. Record in
   the folder's `README.md` why the custom composition exists and what it
