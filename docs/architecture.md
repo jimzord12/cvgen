@@ -187,6 +187,9 @@ never move.
 - Each company has a unique id. Each vessel has a stable id. The same vessel
   under two ranks or companies counts once in the vessel total; its months
   add up.
+- Vessel particulars (tonnage, engine maker, power) are optional and printed
+  in the documented unit, never converted. A vessel listed twice states the
+  same particulars or omits them.
 - If per-vessel months are unknown, hide durations and give the company a
   `service-months` total. If both are given, they must agree.
 - Totals are computed once from the full candidate, never from what a page

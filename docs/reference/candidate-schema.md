@@ -58,6 +58,16 @@ adapter produces it (see "Flagship wording" below).
   another rank or company. It counts once in the vessel total; months add.
 - **ships[].months** are whole service months. Required when durations are
   shown.
+- **ships[].tonnage**, **ships[].engine**, **ships[].power** are optional
+  vessel particulars: `"tonnage": { "value": 49990, "unit": "GT" }` (or
+  `"DWT"`), `"engine": "MAN B&W"` (the maker), `"power": { "value": 9480,
+  "unit": "kW" }` (or `"BHP"`). Values are whole numbers in the unit the
+  candidate's documents use; they are printed as given and never converted.
+  Flagship shows them after the vessel name on the same row
+  ("MV Meridian · 49,990 GT · MAN B&W · 9,480 kW"); a vessel without them
+  renders as before. A name plus particulars too wide for the row fails the
+  render: leave out one particular for that vessel. A vessel that appears
+  twice (same `id`) must state the same values or omit them.
 - **Contract periods are not supported yet.** Deck careers are usually
   recorded as one date range per contract, not as service months. There is
   no per-contract field (`companies[].period` is company-level display
@@ -140,3 +150,7 @@ after that, during compilation, for what a schema cannot express.
 | `Company IDs must be unique` | Give the second company a different `id` |
 | `Name exceeds identity plate` | Shorter name, smaller `theme.sizes.name`, or wider `layout.hero.plate-width` |
 | `Contact exceeds hero column` | Shorter value or wider `layout.hero.contacts-width` |
+| `Vessel <id> repeats with a different <tonnage/engine/power>` | A vessel listed twice states the same particulars both times, or leaves them out on one |
+| `vessel.<tonnage/power>.unit must be one of ...` | Use `GT` or `DWT` for tonnage, `kW` or `BHP` for power, as the documents say; never convert |
+| `vessel.<tonnage/power> needs exactly value and unit` or `... value must be a positive whole number` | Give `{ "value": 9480, "unit": "kW" }` with a whole number |
+| `Vessel particulars do not fit on one row: <ship>` | Leave out one particular for that vessel (no shrinking) |

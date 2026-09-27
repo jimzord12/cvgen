@@ -109,6 +109,26 @@
   "$defs": {
     "text": { "type": "string", "minLength": 1, "pattern": "\\S" },
     "months": { "type": "integer", "minimum": 0, "description": "Whole service months, never a calendar difference." },
+    "tonnage": {
+      "type": "object",
+      "description": "Vessel size in the unit the candidate's documents use. Printed as given, never converted (GT and DWT measure different things).",
+      "required": ["value", "unit"],
+      "additionalProperties": false,
+      "properties": {
+        "value": { "type": "integer", "minimum": 1 },
+        "unit": { "enum": ["GT", "DWT"] }
+      }
+    },
+    "power": {
+      "type": "object",
+      "description": "Main engine power in the unit the candidate's documents use. Printed as given, never converted.",
+      "required": ["value", "unit"],
+      "additionalProperties": false,
+      "properties": {
+        "value": { "type": "integer", "minimum": 1 },
+        "unit": { "enum": ["kW", "BHP"] }
+      }
+    },
     "contactList": {
       "type": "array",
       "items": {
@@ -151,7 +171,10 @@
                     "id": { "$ref": "#/$defs/text", "description": "Stable across repeat service on the same vessel." },
                     "name": { "$ref": "#/$defs/text" },
                     "rank": { "$ref": "#/$defs/text" },
-                    "months": { "$ref": "#/$defs/months", "description": "Required when durations are shown." }
+                    "months": { "$ref": "#/$defs/months", "description": "Required when durations are shown." },
+                    "tonnage": { "$ref": "#/$defs/tonnage" },
+                    "engine": { "$ref": "#/$defs/text", "description": "Main engine maker as documented, e.g. MAN B&W or Wärtsilä." },
+                    "power": { "$ref": "#/$defs/power" }
                   }
                 }
               }

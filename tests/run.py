@@ -76,6 +76,20 @@ def check_example_records():
     except WorkflowError as error:
         lines = str(error).splitlines()[1:]
         assert len(lines) == MAX_REPORTED + 1 and lines[-1] == f'  ... and {len(ships) - MAX_REPORTED} more', lines
+    # The facts contract and the Flagship input contract share their definitions, vessel particulars included.
+    facts_schema, input_schema = (json.loads((ROOT / 'packages/domains' / p).read_text(encoding='utf-8')) for p in
+                                  ['marine/schema/candidate.schema.json', FLAGSHIP_INPUT[len('/packages/domains/'):]])
+    assert facts_schema['$defs'] == input_schema['$defs'], 'the two marine schemas define different $defs'
+    record = json.loads((ROOT / 'examples/candidates/engineer-example.json').read_text(encoding='utf-8'))
+    ship = record['companies'][0]['groups'][0]['ships'][0]
+    ship.update(tonnage={'value': 49990, 'unit': 'GT'}, engine='MAN B&W', power={'value': 9480, 'unit': 'kW'})
+    validate_record(record, ['/packages/domains/marine/lib.typ'])
+    ship['power'] = {'value': 9480, 'unit': 'hp'}
+    try:
+        validate_record(record, ['/packages/domains/marine/lib.typ'])
+        raise AssertionError('an unknown power unit was accepted')
+    except WorkflowError:
+        pass
     # lib.typ plus a marine role but no template still means Flagship's contract.
     assert schema_for(['/packages/domains/marine/lib.typ', '/packages/domains/marine/roles/deck/role.typ']) == ROOT / FLAGSHIP_INPUT[1:]
     # The template-over-domain choice must not depend on the checkout path: domains under a folder
@@ -140,10 +154,10 @@ def main():
     with fitz.open(engineer) as a, fitz.open(hidden) as b:
         assert len(a) == len(b) == 2
         data = json.loads((ROOT / 'examples/candidates/engineer-example.json').read_text())
-        names = [s['name'] for c in data['companies'] for g in c['groups'] for s in g['ships']]
-        names += ['Second Engineer', 'Third Engineer', 'Fourth Engineer', 'Engineering Cadet']
+        vessel_names = [s['name'] for c in data['companies'] for g in c['groups'] for s in g['ships']]
+        vessel_names += ['Second Engineer', 'Third Engineer', 'Fourth Engineer', 'Engineering Cadet']
         for pa, pb in zip(a, b):
-            for name in names:
+            for name in vessel_names:
                 assert pa.search_for(name) == pb.search_for(name), name
         assert '8 months' not in ' '.join(p.get_text() for p in b)
     classic = compile_case('captain', 'examples/marine/flagship/captain.typ')
@@ -225,6 +239,26 @@ def main():
         for pa, pb in zip(a, b):
             for token in ['MV Aurora', 'MV Caspian', 'Second Engineer']:
                 assert pa.search_for(token) == pb.search_for(token), token
+    # Optional vessel particulars: a muted suffix on the vessel's own row, in the documented unit, so no
+    # row moves; a repeated vessel must agree, units are closed, and a row that would wrap fails loudly.
+    particulars = compile_case('particulars', 'tests/fixtures/particulars.typ')
+    assert verify(particulars, output=out / 'particulars-check')['passed']
+    with fitz.open(engineer) as a, fitz.open(particulars) as b:
+        lines = [line for page in b for line in page.get_text().splitlines()]
+        for expected in ['MV Meridian · 49,990 GT · MAN B&W · 9,480 kW', 'MV Aurora · MAN B&W · 9,480 kW',
+                         'MV Atlas · 51,200 DWT', 'MV North Passage · Wärtsilä · 12,900 BHP', 'MV Solstice · 850 kW']:
+            assert expected in lines, expected
+        assert 'MV Polaris' in lines
+        assert len(a) == len(b) == 2
+        # Apart from the suffix words, every word of both pages sits exactly where the engineer example has it.
+        suffix = {'·', '49,990', 'GT', 'MAN', 'B&W', '9,480', 'kW', '51,200', 'DWT', 'Wärtsilä', '12,900', 'BHP', '850'}
+        for pa, pb in zip(a, b):
+            keep = lambda page: [w[:5] for w in page.get_text('words') if w[4] not in suffix]
+            assert len(keep(pa)) > 100 and keep(pa) == keep(pb), 'a vessel row moved or a word changed'
+    for mode, message in [('conflict', 'repeats with a different power'), ('bad-unit', 'unit must be one of GT, DWT'),
+                          ('bad-value', 'must be a positive whole number'), ('bad-keys', 'needs exactly value and unit'),
+                          ('too-long', 'do not fit on one row')]:
+        compile_case('particulars-' + mode, 'tests/fixtures/particulars.typ', {'case': mode}, error=message)
     three = compile_case('three-pages', 'tests/fixtures/pagination.typ')
     assert verify(three, pages=3, output=out / 'three-check')['passed']
     with fitz.open(three) as doc:
