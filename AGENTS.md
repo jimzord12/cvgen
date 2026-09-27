@@ -94,7 +94,7 @@ Framework; `M` for `packages/domains/marine`, the marine domain; `F` for
 | `docs/` | Governance and reference documentation, see below | Recording a decision |
 | `scripts/build.ps1` | Builds the four examples into a new `builds/` folder | Rarely |
 | `scripts/cv.py` | `render`, `approve`, `export`, `status` for one candidate workspace, calling `packages/cv-workflow` | Producing a real CV |
-| `scripts/text-draft.typ` | The plain text draft a client checks before design (`Sign-off`) | Changing how the text draft looks |
+| `scripts/text-draft.typ` | The `Text Draft` a client checks before design (`Sign-off`), house design First Fitting | Changing how the text draft looks |
 | `builds/` | Ignored. Every build and test run writes to a new timestamped folder here | Reading evidence |
 | `private/` | Ignored. One `Envelope` per real client: `intake/`, `research/`, `draft/`, `candidate.json`, `cv.typ`, `revisions/`, `exports/` | Producing a real CV |
 

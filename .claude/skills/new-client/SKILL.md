@@ -49,8 +49,10 @@ owner talks to the client; you never do. Terms: `docs/glossary.md`.
 8. **Text draft.** `draft/draft-NN.typ` with `scripts/text-draft.typ`: the
    Greek `Check Page` (house copy: "check only the underlined facts; the
    wording is ours; reply OK"), then the content in the CV's language,
-   sized for the `Template`, every checkable fact wrapped in `#fact[...]`. Compile it (guide section 8), look at every
-   page, give the owner the PDF path. When he sends it, write its SHA-256
+   sized for the `Template`, every checkable fact wrapped in `#fact[...]` (a `Fact Mark`); set
+   `lang: "el"` for a Greek CV. Compile it (guide section 8), look at every
+   page (every name, date, number and title underlined, since the client
+   checks only those), give the owner the PDF path. When he sends it, write its SHA-256
    in `README.md`; never compile a sent number again, corrections make the
    next one. His screenshot of the client's OK goes in `draft/` as
    `sign-off-NN.png`.

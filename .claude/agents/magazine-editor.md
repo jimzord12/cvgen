@@ -78,7 +78,7 @@ defaulting to one is not.
   `typst compile --root . --ignore-system-fonts --font-path packages/cv-framework/fonts design-concepts/<folder>/concept.typ design-concepts/<folder>/concept.pdf`
   (add `--font-path design-concepts/fonts/<family>` for each family you use).
   Available without bringing one: Source Sans 3, Barlow (condensed),
-  Cormorant Garamond, Libertinus Serif, New Computer Modern, DejaVu Sans Mono.
+  Cormorant Garamond, Bona Nova, Libertinus Serif, New Computer Modern, DejaVu Sans Mono.
 - Prefer the fonts above; every downloaded family costs repository size.
   You may bring at most two families per concept: OFL (or Apache 2.0)
   only, from the Google Fonts repository or the foundry, `.ttf` or `.otf`,

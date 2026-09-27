@@ -283,9 +283,27 @@ def main():
         assert len(doc) == 2, len(doc)
         check = doc[0].get_text()
         assert all(t in check for t in ['προς έλεγχο', 'Ελένη Παράδειγμα', 'Ελέγξτε μόνο', 'Example Tours', '27.09.2026']), check
-        assert 'Profile' in doc[1].get_text() and 'Page 2 of 2' in doc[1].get_text()
+        assert 'Page 1' not in check and 'Profile' in doc[1].get_text() and 'Page 2 of 2' in doc[1].get_text()
         fonts = {f[3] for p in doc for f in p.get_fonts()}
         assert fonts and all('BonaNova' in name for name in fonts), fonts
+        # The Check Page says "check only the underlined facts": every fact carries the copper
+        # stitch just under it, and our own wording carries none.
+        for page, marked, plain in [(0, ['Example', '600'], ['Ελέγξτε']), (1, ['seven', 'Athens', '600', 'Kyoto'], ['Licensed', 'walking'])]:
+            stitched = [d['rect'] for d in doc[page].get_drawings()
+                        if d.get('color') and all(abs(a - b) < 0.02 for a, b in zip(d['color'], (0xB0 / 255, 0x60 / 255, 0x2B / 255)))]
+            words = doc[page].get_text('words')
+            for word, wanted in [(w, True) for w in marked] + [(w, False) for w in plain]:
+                box = next(fitz.Rect(w[:4]) for w in words if w[4].strip('.,;:') == word)
+                under = any(r.x0 < box.x1 and r.x1 > box.x0 and box.y1 - 2 <= r.y0 <= box.y1 + 8 for r in stitched)
+                assert under == wanted, (page, word, 'stitched' if under else 'not stitched')
+    # Rows grow and the reply stays in the flow: a long company name and seven rows never overprint.
+    long_draft = compile_case('text-draft-long', 'tests/fixtures/text-draft.typ', {'case': 'long'})
+    with fitz.open(long_draft) as doc:
+        boxes = [fitz.Rect(w[:4]) for w in doc[0].get_text('words')]
+        overlaps = [(a, b) for i, a in enumerate(boxes) for b in boxes[i + 1:] if (a & b).get_area() > 1]
+        assert not overlaps, overlaps[:3]
+        assert 'Όλα σωστά' in doc[0].get_text() and 'Services S.A.' in doc[0].get_text()
+    compile_case('text-draft-english', 'tests/fixtures/text-draft.typ', {'case': 'english'}, error='no house copy for check-lang "en"')
     # The candidate workflow, end to end and every refusal, in a fresh fictional workspace.
     for check in run_workflow(out, args.typst):
         results.append({'case': 'workflow-' + check, 'passed': True})

@@ -1,21 +1,38 @@
 // The Text Draft (scripts/text-draft.typ) with a fictional client:
 // the Check Page in Greek, then the content in English with checked facts marked.
+// case=long: a long legal company name and seven sample rows (rows must grow, never overprint);
+// case=english: an English Check Page with no copy (must fail loudly, naming the missing keys).
 #import "/scripts/text-draft.typ": text-draft, fact
+
+#let case = sys.inputs.at("case", default: "base")
+#let samples = (
+  ("Ονόματα", "Example Tours"),
+  ("Ημερομηνίες", "2021 – 2026"),
+  ("Αριθμούς", "600 tours"),
+  ("Τίτλους", "Senior Guide"),
+)
+#let long-samples = (
+  ("Ονόματα", "Example Tours and Cultural Walks International Services S.A."),
+  ..samples.slice(1),
+  ("Άδειες", "Tourist Guide Licence 2019"),
+  ("Γλώσσες", "English C2, Japanese JLPT N2"),
+  ("Πιστοποιητικά", "First aid, valid until Mar 2027"),
+)
 
 #show: text-draft.with(
   title: "Eleni Example - CV text - draft 01",
   client: (name: "Ελένη Παράδειγμα", greeting: "Ελένη", label: "Πελάτισσα"),
   draft: "01",
   date: "27.09.2026",
-  samples: (
-    ("Ονόματα", "Example Tours"),
-    ("Ημερομηνίες", "2021 – 2026"),
-    ("Αριθμούς", "600 tours"),
-    ("Τίτλους", "Senior Guide"),
-  ),
+  samples: if case == "long" { long-samples } else { samples },
   lang: "en",
-  check-lang: "el",
+  check-lang: if case == "english" { "en" } else { "el" },
 )
+
+#text(size: 26pt, fact[Eleni Example]) \
+#text(size: 16pt, style: "italic", fact[Senior Tour Guide])
+
+#fact[+30 690 000 0000] · #fact[eleni\@example.org] · #fact[Athens, Greece]
 
 = Profile
 Licensed tour guide with #fact[seven years] of walking and cultural tours in

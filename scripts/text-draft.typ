@@ -16,6 +16,14 @@
 //   = Profile
 //   Chief officer with #fact[six] years on LNG carriers ...
 //
+// lang: the CV's language, for the running head ("en" or "el"; default "en": set "el" for a
+// Greek CV). check-lang: the Check Page's language (house copy exists for "el"; any other needs
+// every line in copy:). copy: overrides of the house copy, by key (kicker, headline as two
+// lines, intro as a function of the greeting, ask, ours, ok, fix, client, draft, date); a
+// different headline moves the thread out of place. client.label defaults to "Πελάτης".
+// Wrap every name, date, number and title the client must check in #fact[...]: the Check
+// Page tells the client to check only what is underlined.
+//
 // Compile with --font-path packages/cv-framework/fonts (Bona Nova covers Greek).
 
 #let paper = rgb("#F3EEE3")
@@ -105,12 +113,16 @@
     curve.cubic((56mm, 91mm), (64mm, 85mm), (74mm, 87mm)),
   ))
 })
+// The knot: from the eyelet the thread runs over the card's top edge and tucks behind it.
 #let knot = place(top + left, dx: -34mm, dy: -26mm, place(top + left, curve(
   stroke: (paint: copper, thickness: 1.3pt, cap: "round"),
-  curve.move((168.4mm, 42mm)), curve.cubic((165mm, 36mm), (172mm, 33.5mm), (174mm, 37.5mm)))))
+  curve.move((168.4mm, 42mm)), curve.cubic((168.8mm, 40mm), (169.6mm, 38.6mm), (170.2mm, 37.6mm)))))
 
 #let check-page(client, draft, date, samples, copy, check-lang) = {
-  let c = house-copy.at(check-lang) + copy
+  let c = house-copy.at(check-lang, default: (:)) + copy
+  let missing = house-copy.el.keys().filter(k => k not in c)
+  assert(missing.len() == 0, message: "Text Draft: no house copy for check-lang \"" + check-lang
+    + "\" (house copy exists for: " + house-copy.keys().join(", ") + "); pass these in copy: " + missing.join(", "))
   set text(lang: check-lang)
   place(top + left, dy: -6mm, spaced(c.kicker))
   thread
@@ -136,26 +148,31 @@
 
   v(14mm)
   block({ needle; text(size: 18pt, weight: "bold", c.ask) })
-  v(8mm)
-  for (kind, sample) in samples {
-    block(above: 0mm, below: 0mm, height: 12mm, grid(columns: (52mm, 1fr), align: (left + bottom, left + bottom),
-      text(size: 16pt, kind),
-      text(size: 16pt, fact(sample, w: 1.1pt, off: 4pt)),
-    ))
-  }
+  v(6mm)
+  // Rows grow with their content: a long company name wraps inside its own row.
+  grid(columns: (52mm, 1fr), row-gutter: 5.5mm, align: (left + top, left + top),
+    ..samples.map(((kind, sample)) => (text(size: 16pt, kind), text(size: 16pt, fact(sample, w: 1.1pt, off: 4pt)))).flatten())
   v(10mm)
-  text(size: 13pt, style: "italic", fill: quiet, c.ours)
+  text(size: 15pt, style: "italic", fill: quiet, c.ours)
 
-  place(bottom + left, dy: -4mm, block(width: 150mm, {
+  // The reply stays in the flow at the foot of the page, so nothing above can print over it.
+  v(1fr, weak: true)
+  v(12mm)
+  block(width: 150mm, breakable: false, {
     needle
     text(size: 22pt, weight: "bold", c.ok)
     v(1mm)
-    text(size: 15pt, c.fix)
-  }))
+    text(size: 17pt, c.fix)
+  })
+  // No shrinking (constitution rule 4): a Check Page that runs past one page fails loudly.
+  context assert(counter(page).get().first() == 1,
+    message: "Text Draft: the Check Page runs past one page; shorten the samples or the copy overrides")
 }
 
 #let text-draft(title: "", client: none, draft: "01", date: "", samples: (), copy: (:),
                 lang: "en", check-lang: "el", body) = {
+  assert(lang in running, message: "Text Draft: no running head for lang \"" + lang + "\" (supported: "
+    + running.keys().join(", ") + "); add it to `running` in scripts/text-draft.typ")
   let head = running.at(lang)
   set document(title: title)
   set page(paper: "a4", fill: paper, margin: (left: 34mm, right: 26mm, top: 26mm, bottom: 24mm),
@@ -164,12 +181,12 @@
       set text(lang: lang)
       spaced(head.text + " · " + head.draft + " " + draft + " · " + date, size: 7.5pt)
       h(1fr)
-      text(size: 10pt, fill: quiet, (head.page)(counter(page).get().first(), counter(page).final().first()))
+      text(size: 12pt, (head.page)(counter(page).get().first(), counter(page).final().first()))
     })
-  set text(font: serif, fill: ink, size: 12pt, lang: lang, number-type: "lining")
+  set text(font: serif, fill: ink, size: 13pt, lang: lang, number-type: "lining")
   set par(justify: false, leading: 0.78em, spacing: 1.3em)
   show heading.where(level: 1): it => block(above: 13mm, below: 5mm, { needle; text(size: 17pt, weight: "regular", style: "italic", it.body) })
-  show heading.where(level: 2): it => block(above: 7mm, below: 3mm, text(size: 12.5pt, weight: "bold", it.body))
+  show heading.where(level: 2): it => block(above: 7mm, below: 3mm, text(size: 13.5pt, weight: "bold", it.body))
 
   if client != none {
     check-page(client, draft, date, samples, copy, check-lang)
