@@ -58,7 +58,8 @@ No artwork, photo or copy was taken from any of them.
 One family, OFL 1.1, from the Google Fonts repository, unmodified, in
 `design-concepts/fonts/syne/` with `OFL.txt`. Variable weight axis 400–800
 (per <https://raw.githubusercontent.com/google/fonts/main/ofl/syne/METADATA.pb>);
-Typst selects weights 500, 600, 700 and 800 from it.
+Typst 0.15+ selects weights 500, 600, 700 and 800 from it (variable-font
+support: <https://typst.app/docs/changelog/0.15.0/>).
 
 | File | Source | SHA-256 |
 |---|---|---|
@@ -99,12 +100,18 @@ The draft number is data, so "02", "03" print themselves.
   greeting "Κωνσταντίνε," on page 1; see the long-name renders. The drama
   holds, but it is half the size of the Eleni case. Sizes are set by hand
   per client and the compile fails loudly if one is too large.
-- The Google Fonts Syne has no italic (the 2017 release had one); type labels
-  use spaced capitals.
+- The Google Fonts Syne has no italic (the original 2018 release had one, now Syne Tactile, Latin only);
+  type labels use spaced capitals. Sources: <https://fontsinuse.com/typefaces/81101/syne>,
+  <https://raw.githubusercontent.com/google/fonts/main/ofl/synetactile/METADATA.pb>.
 - Orange-on-orange: a fact inside a giant orange form would vanish, so
   content pages carry no giant forms. That rule must be kept.
 - In greyscale the orange slabs become light grey; still distinct, but the
   poster loses its punch (acceptable for a phone-first draft).
+- Vessel types (LNG CARRIERS, CRUDE OIL TANKERS) are record facts and sit on
+  slabs like every other fact.
+- At text sizes the slab padding is at least twice the drift (0.9 / 0.5 mm),
+  so the offset reads as a shifted drum; a fact inside running text gets
+  extra space sized to its slab so the slab clears the next word.
 - The slabs make the experience table dense; it reads like a marked-up
   proof, which is the intent, but it is the loudest table of the three. The
   table is now 12 pt (the current `Text Draft` uses 13 pt); 13 pt would push

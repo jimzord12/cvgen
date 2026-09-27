@@ -90,7 +90,12 @@ mark, the seam and notch, the ticket, `caps-el` for Greek capitals, and a
 coordinates for this headline; the headline words ("Ώρα για πρόβα.") are
 fixed brand copy with no ordinal, so the thread never has to move for draft
 02 or 03. The ticket holds about 15 characters of name per line; a longer
-name wraps cleanly onto a second line. No artwork pack; no template changes.
+name wraps cleanly onto a second line. Page 2 is set in normal flow, so a
+long CV name that wraps at 54 pt pushes the rest of the page down and the
+house version breaks onto the next page (no shrinking); the mock-up does not
+yet guard the page-1 headline block the same way, since its words are fixed.
+The headline sets its two lines at 0.3 em leading so the tonos of "πρόβα"
+and the descender of "για" never meet. No artwork pack; no template changes.
 
 ## Known weaknesses
 

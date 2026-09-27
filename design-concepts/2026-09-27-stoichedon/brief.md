@@ -10,7 +10,13 @@ nothing else on the page uses, so the cue survives greyscale printing and
 red-green colour blindness. Three words: **every letter placed**.
 
 Files: `concept.pdf` (two pages), `page-1.png` (the `Check Page`, Greek),
-`page-2.png` (the first CV-content page, English), `concept.typ`.
+`page-2.png` (the first CV-content page, English), `concept.typ`. Long-surname
+case at the smallest cell: `concept-long.pdf`, `long-page-1.png`,
+`long-page-2.png`, from the same `concept.typ` with `--input client=long`
+(fictional Κωνσταντίνος Παναγιωτόπουλος at `name-span` 1; the rest of the
+record, contacts included, is still Eleni's, since this render only tests the
+name). Below the name every row moves up by the rows the smaller name frees,
+and page 2 then has room for a third company.
 Fictional record: `examples/candidates/chief-officer-example.json`; the
 `Check Page` uses the Greek form of the name, ΕΛΕΝΗ ΜΑΡΚΟΥ (invented,
 consistent with the record's ELENI MARKOU of Piraeus).
@@ -24,7 +30,10 @@ consistent with the record's ELENI MARKOU of Piraeus).
    the red"), glossed underneath "τα κόκκινα, έντονα γράμματα, όπως αυτά:"
    ("the red, bold letters, like these"), then four real samples in bold red,
    then ΟΛΑ ΣΩΣΤΑ; / ΑΠΑΝΤΗΣΤΕ OK. Everything that is not a fact, display
-   lines included, is in the Regular cut. The page is legible at arm's length
+   lines included, is in the Regular cut. The one exception is ΤΑ ΚΟΚΚΙΝΑ
+   itself: it is set bold red because it *names* the mark, and it is the
+   only bold red on the page that is not a fact. The gloss is set in the main
+   ink, not grey, because colour-blind readers depend on it. The page is legible at arm's length
    and on a phone, and in a greyscale render the facts still stand out by weight.
 3. Greek capitals without accents, as Greek typography requires (Ελέγξτε →
    ΕΛΕΓΞΤΕ, Όλα σωστά → ΟΛΑ ΣΩΣΤΑ), done by a `caps-el` function that also
@@ -102,8 +111,10 @@ row grid, which is the real work: roughly a day.
 
 - Rows are placed by hand in the mock-up; the house version needs a row
   allocator and must break pages on whole rows.
-- Page 2 fits only two companies at a readable row height; this draft would
-  run to four pages for this record.
+- Page 2 fits only two companies at a readable row height (three in the
+  long-surname case); this draft would run to four pages for this record.
+- Vessel types (LNG carriers, Crude oil tankers) are record facts and are
+  marked like every other fact (bold red italic).
 - Long names lose the monument: a 12-letter word (ΠΑΠΑΔΟΠΟΥΛΟΣ) needs the
   15 mm cell (span 2), and ΠΑΝΑΓΙΩΤΟΠΟΥΛΟΣ (15 letters, 30 cells at 15 mm)
   only fits at 7.5 mm (span 1). The 15 mm case still holds up; the 7.5 mm

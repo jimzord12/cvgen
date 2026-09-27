@@ -54,13 +54,24 @@
 #let drift = (x: 0.9mm, y: 0.5mm)
 
 // A fact: black text overprinting an orange slab laid a hair out of register.
-#let fact(body, pad: 0.3em) = box(context {
+#let fact(body) = box(context {
   let m = measure(body)
+  // Padding is at least twice the drift, so at text sizes the offset reads as a
+  // shifted drum, never as letters touching the slab's edge.
+  let px = calc.max(0.3em.to-absolute(), 2 * drift.x)
+  let pt = calc.max(0.18em.to-absolute(), 2 * drift.y)
+  let pb = calc.max(0.24em.to-absolute(), 2 * drift.y)
   // the black letters print over a solid orange slab: a fact is whatever sits on orange
-  place(top + left, dx: -pad + drift.x, dy: -0.18em + drift.y,
-    rect(width: m.width + 2 * pad, height: m.height + 0.42em, fill: orange))
+  place(top + left, dx: -px + drift.x, dy: -pt + drift.y,
+    rect(width: m.width + 2 * px, height: m.height + pt + pb, fill: orange))
   body
 })
+// In running text a fact gets extra space each side, sized to its slab's overhang
+// plus a thin space, so the slab clears the neighbouring words.
+#let fact-inline(body) = context {
+  let px = calc.max(0.3em.to-absolute(), 2 * drift.x)
+  h(px - drift.x + 0.08em) + fact(body) + h(px + drift.x + 0.08em)
+}
 // Registration target, printed by both drums: the orange copy sits off the black one
 // by exactly the page's drift, so the offset reads as print, not as sloppy padding.
 #let target(r: 3.2mm) = {
@@ -153,17 +164,17 @@
   #v(6mm)
   #block(width: 160mm, {
     set par(leading: 0.75em)
-    show "six": fact
+    show "six": fact-inline
     text(size: 12pt, data.profile)
   })
 
   #v(5mm)
   #text(size: 22pt, weight: 800)[Sea service] #h(4mm)
-  #text(size: 12pt, weight: 600)[#fact(str(months-total) + " months") · #fact(str(vessels-total) + " vessels") · #fact(str(data.companies.len()) + " companies")]
+  #text(size: 12pt, weight: 600)[#fact-inline(str(months-total) + " months")·#fact-inline(str(vessels-total) + " vessels")·#fact-inline(str(data.companies.len()) + " companies")]
   #v(0.5mm)
   #text(size: 9pt, fill: quiet)[Months as recorded, vessel by vessel.]
 
-  #let row(a, b, c, d) = grid(columns: (38mm, 1fr, 44mm, 25mm), align: (left, left, left, right), a, b, c, d)
+  #let row(a, b, c, d) = grid(columns: (46mm, 1fr, 44mm, 25mm), align: (left, left, left, right), a, b, c, d)
   #for co in data.companies.slice(0, 2) {
     block(above: 6.5mm, below: 0mm, breakable: false, {
       grid(columns: (1fr, auto), align: (left + bottom, right + bottom),
@@ -171,7 +182,7 @@
       for g in co.groups {
         for (k, s) in g.ships.enumerate() {
           block(above: 3.1mm, below: 0mm, text(size: 12pt, weight: 500, row(
-            if k == 0 { text(size: 8pt, weight: 600, tracking: 0.08em, fill: quiet, upper(g.type)) },
+            if k == 0 { text(size: 8pt, weight: 600, tracking: 0.08em, fact(upper(g.type))) },
             fact(s.name), fact(s.rank), fact(str(s.months) + " months"))))
         }
       }

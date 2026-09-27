@@ -7,18 +7,30 @@
 // Two pages: the Check Page (Greek) and the first CV-content page (English).
 //
 // typst compile --root . --ignore-system-fonts --font-path packages/cv-framework/fonts --font-path design-concepts/fonts design-concepts/2026-09-27-stoichedon/concept.typ design-concepts/2026-09-27-stoichedon/concept.pdf
+// Long-surname case (span 1; same record, another fictional name):
+// typst compile ... --input client=long design-concepts/2026-09-27-stoichedon/concept.typ design-concepts/2026-09-27-stoichedon/concept-long.pdf
 
 #let data = json("/examples/candidates/chief-officer-example.json")
 
 // ---- Per-client parameters (words); the design below is fixed ---------------
-#let client = (
-  given-el: "Ελένη", family-el: "Μάρκου",
-  greeting-el: "Ελένη", // vocative: "Κωνσταντίνε" for Κωνσταντίνος
-  given-en: "Eleni", family-en: "Markou",
-  // Name cell size, in grid cells (4 = 30 mm, 3 = 22.5 mm, 2 = 15 mm, 1 = 7.5 mm).
-  // Set by hand per client; a name word that does not fit the 24-cell measure
-  // stops the compile (no automatic shrinking, constitution section 4).
-  name-span: 4,
+// Name cell size `name-span`, in grid cells (4 = 30 mm, 3 = 22.5 mm, 2 = 15 mm,
+// 1 = 7.5 mm), is set by hand per client; a name word that does not fit the
+// 24-cell measure stops the compile (no automatic shrinking, constitution section 4).
+#let clients = (
+  eleni: (
+    given-el: "Ελένη", family-el: "Μάρκου",
+    greeting-el: "Ελένη", // vocative
+    given-en: "Eleni", family-en: "Markou",
+    name-span: 4,
+  ),
+  long: (
+    given-el: "Κωνσταντίνος", family-el: "Παναγιωτόπουλος",
+    greeting-el: "Κωνσταντίνε", // vocative of Κωνσταντίνος
+    given-en: "Konstantinos", family-en: "Panagiotopoulos",
+    name-span: 1, // 15 letters: 30 cells at span 2, so only span 1 fits
+  ),
+)
+#let client = clients.at(sys.inputs.at("client", default: "eleni")) + (
   draft: "01", date: "27.09.2026", pages: 4,
 )
 #let check = (
@@ -118,22 +130,24 @@
   #let s = client.name-span
   #stoi(0, 2, client.given-el, span: s)
   #stoi(0, 2 + s, client.family-el, span: s)
+  // everything below the name moves up with a smaller name cell (0 rows at span 4)
+  #let sh = 2 * s - 8 + (if s < 3 { 1 } else { 0 })
 
-  #lines(0, 11, 22, check.intro, size: 18pt)
+  #lines(0, 11 + sh, 22, check.intro, size: 18pt)
 
-  #stoi(0, 14, check.ask.at(0), span: 2)
-  #stoi(0, 16, check.ask.at(1), span: 2, weight: "bold", fill: ochre)
-  #lines(0, 18, 24, text(fill: quiet, check.cue), size: 16pt)
+  #stoi(0, 14 + sh, check.ask.at(0), span: 2)
+  #stoi(0, 16 + sh, check.ask.at(1), span: 2, weight: "bold", fill: ochre)
+  #lines(0, 18 + sh, 24, check.cue, size: 16pt)
 
   #for (i, (kind, sample)) in check.items.enumerate() {
-    stoi(0, 20 + i, kind)
-    lines(12, 20 + i, 12, text(lang: "en", fact(sample)), size: 20pt)
+    stoi(0, 20 + sh + i, kind)
+    lines(12, 20 + sh + i, 12, text(lang: "en", fact(sample)), size: 20pt)
   }
-  #lines(0, 25, 24, text(fill: quiet, check.ours), size: 18pt)
+  #lines(0, 25 + sh, 24, text(fill: quiet, check.ours), size: 18pt)
 
-  #stoi(0, 27, check.ok.at(0), span: 2)
-  #stoi(0, 29, check.ok.at(1), span: 2)
-  #lines(0, 32, 24, check.fix, size: 18pt)
+  #stoi(0, 27 + sh, check.ok.at(0), span: 2)
+  #stoi(0, 29 + sh, check.ok.at(1), span: 2)
+  #lines(0, 32 + sh, 24, check.fix, size: 18pt)
 
   #stoi(0, 35, client.date)
   #stoi(24, 35, check.page + " 1/" + str(client.pages), align-right: true)
@@ -154,32 +168,35 @@
   #let s = client.name-span
   #stoi(0, 2, client.given-en, span: s, fill: ochre, weight: "bold")
   #stoi(0, 2 + s, client.family-en, span: s, fill: ochre, weight: "bold")
-  #stoi(0, 10, data.identity.rank, fill: ochre, weight: "bold")
+  #let sh = 2 * s - 8 + (if s < 3 { 1 } else { 0 })
+  #stoi(0, 10 + sh, data.identity.rank, fill: ochre, weight: "bold")
 
   #let contacts = data.contacts.left + data.contacts.right
   #for (i, c) in contacts.enumerate() {
     let col = if i < 3 { 0 } else { 12 }
-    let row = 12 + calc.rem(i, 3)
+    let row = 12 + sh + calc.rem(i, 3)
     lines(col, row, 3, label(c.label), size: 13pt)
     lines(col + 3, row, 9, fact(c.value), size: 13pt)
   }
 
-  #lines(0, 16, 24, {
+  #lines(0, 16 + sh, 24, {
     show "six": fact
     data.profile
   }, size: 14pt)
 
-  #stoi(0, 20, "Sea service")
-  #stoi(24, 20, ((str(months-total), ochre, "bold"), (" months", ink)), align-right: true)
+  #stoi(0, 20 + sh, "Sea service")
+  #stoi(24, 20 + sh, ((str(months-total), ochre, "bold"), (" months", ink)), align-right: true)
 
-  #let r = 22
-  #for co in data.companies.slice(0, 2) {
+  // companies fill the rows down to row 33; the rest continues overleaf
+  #let r = 22 + sh
+  #for co in data.companies {
+    if r + 1 + co.groups.map(g => g.ships.len()).sum() > 34 { break }
     lines(0, r, 17, text(weight: "bold", fact(co.name)), size: 15pt)
     lines(17, r, 7, align(right, fact(co.period)), size: 15pt)
     r += 1
     for g in co.groups {
       for (k, s) in g.ships.enumerate() {
-        if k == 0 { lines(0, r, 7, text(style: "italic", fill: quiet, g.type), size: 12pt) }
+        if k == 0 { lines(0, r, 7, text(style: "italic", fact(g.type)), size: 12pt) }
         lines(7, r, 8, fact(s.name), size: 13pt)
         lines(15, r, 6, fact(s.rank), size: 13pt)
         lines(21, r, 3, align(right, fact(str(s.months) + " months")), size: 13pt)

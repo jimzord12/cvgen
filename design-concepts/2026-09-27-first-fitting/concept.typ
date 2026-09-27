@@ -117,9 +117,9 @@
     #text(size: 8pt, style: "italic", fill: quiet)[CVgen · κομμένο στα μέτρα σας]
   ])
 
-  #v(10mm)
+  #v(2mm)
   #block(text(size: 106pt, style: "italic", tracking: -0.02em, {
-    set par(leading: 0.08em)
+    set par(leading: 0.3em)
     check.headline.at(0); linebreak(); h(18mm); check.headline.at(1)
   }))
 
