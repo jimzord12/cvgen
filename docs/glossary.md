@@ -62,6 +62,7 @@ owner afterwards.
 | `Release` | The public example PDFs that show the product, with fictional people | root `exports/` | 2026-09-25 |
 | `Frozen Reference` | The PDF a `Template`'s public example must reproduce pixel for pixel | `templates/<t>/tests/approved/` | 2026-09-25 |
 | `Framework Gap` | A recorded case of going around the `Framework`, a `Domain` or a `Template` to deliver a CV | `docs/framework-gaps.md` | 2026-09-25 |
+| `Vessel Particulars` | A vessel's size, main engine maker and engine power, printed on its experience row in the unit the `Client`'s documents use, never converted | `ships[].tonnage`, `engine`, `power` in the marine facts | 2026-09-27 |
 | `Idea Run` | One closed loop of an idea agent (ceo or magazine-editor) and its reviewers | `.claude/skills/idea-run/`, `docs/work/idea-runs/` | 2026-09-25 |
 
 ## Words with two meanings

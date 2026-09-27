@@ -159,4 +159,7 @@ when a client asks to see one. Yes adds about half a day.
   proposal's recommendation (no new public example for now) applies.
 - 2026-09-27, lead (Night Shift): built on `feat/vessel-particulars`
   (card `vessel-particulars`). The look of the row suffix goes to the
-  owner as a render.
+  owner as a render. Built ahead of the item 3 slot: the owner asked, in
+  the brief for this Night Shift, for every task doable without him, and
+  this part is independent of item 3's contract periods (the proposal's
+  own pull-forward rule); item 3 will reuse the same schema and row.

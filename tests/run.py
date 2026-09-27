@@ -154,10 +154,10 @@ def main():
     with fitz.open(engineer) as a, fitz.open(hidden) as b:
         assert len(a) == len(b) == 2
         data = json.loads((ROOT / 'examples/candidates/engineer-example.json').read_text())
-        names = [s['name'] for c in data['companies'] for g in c['groups'] for s in g['ships']]
-        names += ['Second Engineer', 'Third Engineer', 'Fourth Engineer', 'Engineering Cadet']
+        vessel_names = [s['name'] for c in data['companies'] for g in c['groups'] for s in g['ships']]
+        vessel_names += ['Second Engineer', 'Third Engineer', 'Fourth Engineer', 'Engineering Cadet']
         for pa, pb in zip(a, b):
-            for name in names:
+            for name in vessel_names:
                 assert pa.search_for(name) == pb.search_for(name), name
         assert '8 months' not in ' '.join(p.get_text() for p in b)
     classic = compile_case('captain', 'examples/marine/flagship/captain.typ')
@@ -250,10 +250,13 @@ def main():
             assert expected in lines, expected
         assert 'MV Polaris' in lines
         assert len(a) == len(b) == 2
+        # Apart from the suffix words, every word of both pages sits exactly where the engineer example has it.
+        suffix = {'·', '49,990', 'GT', 'MAN', 'B&W', '9,480', 'kW', '51,200', 'DWT', 'Wärtsilä', '12,900', 'BHP', '850'}
         for pa, pb in zip(a, b):
-            for name in names:
-                assert [r.y0 for r in pa.search_for(name)] == [r.y0 for r in pb.search_for(name)], name
+            keep = lambda page: [w[:5] for w in page.get_text('words') if w[4] not in suffix]
+            assert len(keep(pa)) > 100 and keep(pa) == keep(pb), 'a vessel row moved or a word changed'
     for mode, message in [('conflict', 'repeats with a different power'), ('bad-unit', 'unit must be one of GT, DWT'),
+                          ('bad-value', 'must be a positive whole number'), ('bad-keys', 'needs exactly value and unit'),
                           ('too-long', 'do not fit on one row')]:
         compile_case('particulars-' + mode, 'tests/fixtures/particulars.typ', {'case': mode}, error=message)
     three = compile_case('three-pages', 'tests/fixtures/pagination.typ')

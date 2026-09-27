@@ -150,3 +150,7 @@ after that, during compilation, for what a schema cannot express.
 | `Company IDs must be unique` | Give the second company a different `id` |
 | `Name exceeds identity plate` | Shorter name, smaller `theme.sizes.name`, or wider `layout.hero.plate-width` |
 | `Contact exceeds hero column` | Shorter value or wider `layout.hero.contacts-width` |
+| `Vessel <id> repeats with a different <tonnage/engine/power>` | A vessel listed twice states the same particulars both times, or leaves them out on one |
+| `vessel.<tonnage/power>.unit must be one of ...` | Use `GT` or `DWT` for tonnage, `kW` or `BHP` for power, as the documents say; never convert |
+| `vessel.<tonnage/power> needs exactly value and unit` or `... value must be a positive whole number` | Give `{ "value": 9480, "unit": "kW" }` with a whole number |
+| `Vessel particulars do not fit on one row: <ship>` | Leave out one particular for that vessel (no shrinking) |
