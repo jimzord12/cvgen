@@ -118,6 +118,15 @@ with their paths, the first ten and then a count - a missing portrait file, no T
 names the fix. Nothing is written on a refusal.
 Needs Python with `pymupdf` and `jsonschema` like the test suite.
 
+Certificate dates are checked against the day of the render: a
+certificate whose expiry (the fourth field, or `review`) has passed, or
+falls within 180 days, prints a `WARNING:` line naming it, and `status`
+repeats it for that revision. Warnings never fail the render or block
+approval (owner, 2026-09-25): read them before you approve, and renew,
+update or reword the date if needed. Only dates written like `14 Jul 2029`
+are checked; `checks.json` records how many were not (`not_date_checked`)
+and the day used (`reference_date`; `--reference-date YYYY-MM-DD` sets it).
+
 For live editing while you adjust the page plan, the compiler still works
 directly; write to a fresh name under `builds/`:
 
