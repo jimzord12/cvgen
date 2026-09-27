@@ -15,7 +15,7 @@ One folder per client, the `Envelope`, named after the person and their
 ```text
 private/jane-doe-second-engineer/
   README.md              how to build, what was decided, where the evidence is
-  intake/, research/, draft/   from the client workflow; never copied into a revision
+  intake/, research/, draft/   from the client workflow; not copied into a revision unless cv.typ reads them (it should not)
   candidate.json         candidate data
   cv.typ                 entry point
   portrait.<ext>         authorised photograph, jpg or png
@@ -236,8 +236,9 @@ Rules for this path:
   into the `Revision` and records its hash in `render.json`. It refuses a
   root-absolute path into `private/` (the revision would read the live
   file), a path that leaves the workspace, and a missing file. A computed
-  path (`image(d.photo)`) is not found; if its file is not in the snapshot,
-  the compile fails and names it.
+  path (`image(d.photo)`) is not found by the scan; if its file is not in
+  the snapshot the compile fails, and if it reads a live file the revision's
+  checks fail, so it cannot be approved.
 - Approve and export the hand-composed render through the same workflow
   (sections 3 and 6): its entry point is still `cv.typ`. Record in
   the folder's `README.md` why the custom composition exists and what it

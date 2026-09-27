@@ -50,8 +50,9 @@ private/eleni-example-tour-guide/
   candidate.json, cv.typ, portrait, revisions/, exports/   added by new-cv
 ```
 
-`scripts/cv.py render` copies only `cv.typ`, `candidate.json` and the
-portrait into a `Revision`; the drawers never enter one.
+`scripts/cv.py render` copies `cv.typ`, `candidate.json`, the portrait and
+the files `cv.typ` reads into a `Revision`; the drawers enter one only if
+`cv.typ` reads from them, which it should not.
 
 **The folder name is client data.** Claude gives each client an alias,
 `client-<yyyy>-<mm>-<nn>` (for example `client-2026-09-01`), written at the

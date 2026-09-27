@@ -30,6 +30,9 @@ ONE_OFF = '''#import "/packages/cv-framework/lib.typ": normalize-common
 #p.headline
 
 #note
+
+Signature tours include "Athens by Night" and more.
+#link("https://example.org/ada")[#read("parts/link.txt")]
 '''
 
 
@@ -253,20 +256,23 @@ def run_workflow(out, typst):
     (oneoff / 'cv.typ').write_text(ONE_OFF, encoding='utf-8')
     (oneoff / 'parts/helper.typ').write_text('#let note = read("note.txt")\n', encoding='utf-8')
     (oneoff / 'parts/note.txt').write_text('Licensed guide, fictional record', encoding='utf-8')
+    (oneoff / 'parts/link.txt').write_text('Read after a URL', encoding='utf-8')
     (oneoff / 'presentation.json').write_text(json.dumps({'headline': 'Walks through old Athens'}), encoding='utf-8')
     (oneoff / 'candidate.json').write_text(json.dumps({'identity': {'name': 'Ada Example', 'rank': 'Tour guide'}}), encoding='utf-8')
     guide = cv('render', oneoff, '--typst', typst, '--pages', '1')
     assert guide['status'] == 'success' and guide['checks_passed'] and guide['schema'] is None, guide
     snap = oneoff / 'revisions' / guide['revision']
     files = json.loads((snap / 'render.json').read_text(encoding='utf-8'))['inputs']['files']
-    assert sorted(f['path'] for f in files) == ['inputs/parts/helper.typ', 'inputs/parts/note.txt', 'inputs/presentation.json'], files
+    # The read after a URL is found (a // in a string is not a comment); the word "include" in prose is not a read.
+    assert sorted(f['path'] for f in files) == ['inputs/parts/helper.typ', 'inputs/parts/link.txt', 'inputs/parts/note.txt',
+                                                'inputs/presentation.json'], files
     assert all(f['sha256'] == sha256_file(snap / f['path']) for f in files), files
     import pymupdf as fitz
     with fitz.open(snap / 'cv.pdf') as doc:
-        assert 'Walks through old Athens' in doc[0].get_text() and 'Licensed guide' in doc[0].get_text()
+        assert all(t in doc[0].get_text() for t in ['Walks through old Athens', 'Licensed guide', 'Read after a URL'])
     # Change and then remove the live files: the snapshot still compiles, with what was rendered.
     (oneoff / 'presentation.json').write_text(json.dumps({'headline': 'Changed after the render'}), encoding='utf-8')
-    for name in ['presentation.json', 'parts/helper.typ', 'parts/note.txt']:
+    for name in ['presentation.json', 'parts/helper.typ', 'parts/note.txt', 'parts/link.txt']:
         os.remove(oneoff / name)
     again = base / 'oneoff-from-snapshot.pdf'
     subprocess.run([typst, 'compile', '--root', str(ROOT), '--font-path', str(ROOT / 'packages/cv-framework/fonts'),
@@ -277,11 +283,34 @@ def run_workflow(out, typst):
     count = len(list((oneoff / 'revisions').iterdir()))
     without_helper = ONE_OFF.replace('#import "parts/helper.typ": note\n', '').replace('#note\n', '')
     for read, message in [('/private/zz-fictional/presentation.json', 'root-absolute path'),
+                          ('/./Private/zz-fictional/presentation.json', 'root-absolute path'),
+                          ('/' + (oneoff / 'presentation.json').relative_to(ROOT).as_posix(), 'root-absolute path'),
                           ('../outside.json', 'outside the workspace'), ('presentation.json', 'does not exist')]:
         (oneoff / 'cv.typ').write_text(without_helper.replace('presentation.json', read), encoding='utf-8')
         refusal = cv('render', oneoff, '--typst', typst, '--pages', '1', expect=2)
         assert message in refusal and read in refusal, refusal
+    # A workspace file that would land on the portrait's place in the snapshot is refused too.
+    (oneoff / 'portrait.png').write_bytes((ROOT / 'examples/candidates/fictional-engineer.png').read_bytes())
+    (oneoff / 'assets').mkdir()
+    (oneoff / 'assets/portrait.png').write_bytes(b'not the portrait')
+    (oneoff / 'candidate.json').write_text(json.dumps({'identity': {'name': 'Ada Example', 'rank': 'Tour guide',
+                                                                    'portrait': 'portrait.png'}}), encoding='utf-8')
+    (oneoff / 'cv.typ').write_text(without_helper.replace('json("presentation.json")', '(headline: read("assets/portrait.png"))'),
+                                   encoding='utf-8')
+    assert 'would take its place' in cv('render', oneoff, '--typst', typst, '--pages', '1', expect=2)
     assert len(list((oneoff / 'revisions').iterdir())) == count
+    # A computed path the scan cannot see still cannot make a live read approvable: Typst's dependency list
+    # names the live file, the checks fail and approval is refused.
+    (oneoff / 'candidate.json').write_text(json.dumps({'identity': {'name': 'Ada Example', 'rank': 'Tour guide'}}), encoding='utf-8')
+    (oneoff / 'presentation.json').write_text(json.dumps({'headline': 'Live, not snapshotted'}), encoding='utf-8')
+    live_path = (oneoff / 'presentation.json').relative_to(ROOT).as_posix()
+    (oneoff / 'cv.typ').write_text(without_helper.replace('json("presentation.json")', f'json("/" + "{live_path}")'), encoding='utf-8')
+    (oneoff / 'parts/link.txt').write_text('Read after a URL', encoding='utf-8')
+    live = cv('render', oneoff, '--typst', typst, '--pages', '1', expect=1)
+    assert live['status'] == 'success' and not live['checks_passed'], live
+    assert any('live file outside the revision snapshot' in e and 'presentation.json' in e for e in live['errors']), live
+    assert 'checks failed' in cv('approve', oneoff, live['revision'], '--approver', 'suite', '--sha256', live['sha256'],
+                                 '--test-only', expect=2)
     passed.append('snapshot-holds-sibling-files')
 
     log.close()

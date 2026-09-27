@@ -34,8 +34,9 @@ step; nothing is overwritten on the way.
 | `inputs/cv.typ` | render | the entry point, verbatim |
 | `inputs/candidate.json` | render | the record with `identity.portrait` repointed at `inputs/assets/` |
 | `inputs/assets/` | render | the portrait actually used |
+| `inputs/<path>` | render | every other workspace file `cv.typ` (or a local `.typ` helper) reads by a literal relative path, at the same place |
 | `render.log` | render | compiler output, also for failed runs |
-| `render.json` | render | status, engine commit and dirty flag, compiler version and command, input hashes and imports, the schema the record was checked against, PDF hash |
+| `render.json` | render | status, engine commit and dirty flag, compiler version and command, input hashes and imports (`inputs.files` lists the copied workspace files), the schema the record was checked against, PDF hash |
 | `checks.json` | render | page count, empty pages, fonts, bounds; `pdf_sha256` of the bytes checked |
 | `cv.pdf` | render | the PDF, on success |
 | `cv.approval.json` | approve | revision id, sha256, approver, time, scope `owner` or `test-only` |
@@ -58,6 +59,15 @@ step; nothing is overwritten on the way.
   domain adds its case to `validate.py` (see the wiring checklist in
   `docs/reference/domains-and-roles.md`). Compiler output is decoded
   as UTF-8 so a Greek name in an error survives the Windows console codec.
+- Render finds the files `cv.typ` reads by a literal path (`json`, `yaml`,
+  `toml`, `csv`, `xml`, `cbor`, `read`, `image`, `import`, `include`),
+  follows local `.typ` helpers and copies them into the snapshot. It refuses,
+  before the revision exists, a root-absolute read into `private/` or the
+  workspace (the live file), a path that leaves the workspace, a missing
+  file, and a file that would take the portrait's place in `inputs/assets/`.
+  After the compile, Typst's dependency list is checked: a read of a live
+  workspace or `private/` file (a computed path the scan cannot see) fails
+  the checks, so that revision cannot be approved.
 - Approve and export need `render.json` with `status: success` and a
   `cv.pdf` whose hash still equals the recorded one, and a `checks.json`
   that passed for exactly that hash. A folder without `render.json` is an
