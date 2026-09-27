@@ -6,7 +6,7 @@
   "items": [
     {
       "id": "A1",
-      "status": "open",
+      "status": "done",
       "task": "T2",
       "title": "Premium Text Draft: Idea Run with magazine-editor",
       "done_when": [
@@ -18,11 +18,15 @@
       "kind": "decision",
       "question": "Which of the three 2026-09-25 design concepts do we keep developing into templates?",
       "decision": "d",
-      "decision_label": "Drop all three"
+      "decision_label": "Drop all three",
+      "resolved": {
+        "at": "2026-09-28T02:24:10+03:00",
+        "by": "2026-09-28-a"
+      }
     },
     {
       "id": "A2",
-      "status": "open",
+      "status": "done",
       "task": "T7",
       "title": "Housekeeping: review exception, D11, stray file, board",
       "done_when": [
@@ -34,22 +38,31 @@
       "kind": "unfinished",
       "left": [
         "not started"
-      ]
+      ],
+      "resolved": {
+        "at": "2026-09-28T02:24:10+03:00",
+        "by": "2026-09-28-a"
+      }
     },
     {
       "id": "A3",
-      "status": "open",
+      "status": "skipped",
       "task": "T3",
       "title": "Do you like how ship size and engine power look on the experience rows?",
       "done_when": [],
       "kind": "decision",
       "question": "Do you like how ship size and engine power look on the experience rows?",
       "decision": "a",
-      "decision_label": "Looks good, keep it"
+      "decision_label": "Looks good, keep it",
+      "resolved": {
+        "at": "2026-09-28T02:24:10+03:00",
+        "by": "2026-09-28-a",
+        "reason": "Owner kept the vessel particulars look as it is; nothing to change"
+      }
     },
     {
       "id": "A4",
-      "status": "open",
+      "status": "done",
       "task": "T1",
       "title": "Which CVgen logo direction do we keep?",
       "done_when": [],
@@ -57,7 +70,11 @@
       "question": "Which CVgen logo direction do we keep?",
       "decision": "c",
       "decision_label": "Faithful, plus a custom letter detail",
-      "owner_note": "Do not understand what you mean, please explain."
+      "owner_note": "Do not understand what you mean, please explain.",
+      "resolved": {
+        "at": "2026-09-28T02:24:10+03:00",
+        "by": "2026-09-28-a"
+      }
     }
   ]
 }

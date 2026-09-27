@@ -1,0 +1,378 @@
+{
+  "schema": "night-shift/night@1",
+  "night": "2026-09-28-a",
+  "status": "complete",
+  "started_at": "2026-09-28T01:26:00+03:00",
+  "ended_at": "2026-09-28T02:24:10+03:00",
+  "summary": "The Text Draft has your First Fitting design with your changes, on main and green; logo C options (needle's eye or stitch) wait for your pick in Q1. Two roadmap proposals are ready for your decision.",
+  "session": {
+    "harness": "claude-code",
+    "id": "cddc2544-8f5d-4752-8fb5-f677494269d9",
+    "pid": 36208,
+    "transcript": "C:\\Users\\jimzord12\\.claude-personal\\projects\\C--Users-jimzord12-Documents-GitHub-cvgen\\cddc2544-8f5d-4752-8fb5-f677494269d9.jsonl"
+  },
+  "tasks": [
+    {
+      "id": "T1",
+      "title": "Text Draft: build the First Fitting design into scripts/text-draft.typ",
+      "source": "developer prompt 2026-09-28; Trello card premium-text-draft (comments of 2026-09-28)",
+      "done_when": [
+        "scripts/text-draft.typ renders the First Fitting design: copper thread, stitched facts, tag",
+        "Owner's changes applied: quieter headline and headings, bigger and more distinctive margin markers, much more white space, body text still phone-readable",
+        "Client-facing wording is plain and professional: no fitting or sewing puns; headline 'Το βιογραφικό σας, προς έλεγχο.'",
+        "Greek sets correctly (accents, capitals without accents) on the Check Page",
+        "python tests/run.py passes and a rendered preview of every page is attached",
+        "Independent review (code-reviewer, and design-reviewer for the look) reaches PASS, merged to main"
+      ],
+      "outcome": "done",
+      "checks": [
+        {
+          "done_when": "scripts/text-draft.typ renders the First Fitting design: copper thread, stitched facts, tag",
+          "met": true
+        },
+        {
+          "done_when": "Owner's changes applied: quieter headline and headings, bigger and more distinctive margin markers, much more white space, body text still phone-readable",
+          "met": true
+        },
+        {
+          "done_when": "Client-facing wording is plain and professional: no fitting or sewing puns; headline 'Το βιογραφικό σας, προς έλεγχο.'",
+          "met": true
+        },
+        {
+          "done_when": "Greek sets correctly (accents, capitals without accents) on the Check Page",
+          "met": true
+        },
+        {
+          "done_when": "python tests/run.py passes and a rendered preview of every page is attached",
+          "met": true
+        },
+        {
+          "done_when": "Independent review (code-reviewer, and design-reviewer for the look) reaches PASS, merged to main",
+          "met": true
+        }
+      ],
+      "evidence": [
+        {
+          "type": "note",
+          "text": "The Text Draft now has your chosen design, First Fitting, with your changes: quieter headings, a copper needle as the bigger signature marker, much more space, and plain professional Greek (headline: Το βιογραφικό σας, προς έλεγχο.). Every fact the client must check is underlined with the copper stitch; everything else is our wording. Reviews found and we fixed real problems: long company names used to print on top of the next line, and the tests could not tell whether the underlines were there. Now long rows grow, a page that overflows fails loudly instead of printing over itself, and the tests check the underlines. The final look is your call: open the two pictures or the PDF."
+        },
+        {
+          "type": "image",
+          "path": "evidence/text-draft/page-1.png",
+          "caption": "Check Page (the page the client acts on), fictional client"
+        },
+        {
+          "type": "image",
+          "path": "evidence/text-draft/page-2.png",
+          "caption": "First content page: every fact underlined with the copper stitch"
+        },
+        {
+          "type": "image",
+          "path": "evidence/text-draft/long-1.png",
+          "caption": "Stress case: a long legal company name and seven rows, nothing overlaps"
+        },
+        {
+          "type": "pdf",
+          "path": "evidence/text-draft/text-draft.pdf",
+          "caption": "The full two-page draft as a client would receive it"
+        },
+        {
+          "type": "command",
+          "command": "python tests/run.py (on the merge commit 72a1277)",
+          "exit_code": 0,
+          "excerpt": "PASS: 55 compilation cases plus PDF/data/layout assertions."
+        },
+        {
+          "type": "link",
+          "url": "https://github.com/jimzord12/cvgen/commit/72a1277",
+          "label": "Merged to main, CI green"
+        },
+        {
+          "type": "link",
+          "url": "https://github.com/jimzord12/cvgen/tree/main/docs/work/premium-text-draft/reviews",
+          "label": "Reviews: code 3 rounds (PASS in round 3), design 2 rounds (PASS in round 2)"
+        },
+        {
+          "type": "link",
+          "url": "https://trello.com/c/AXarulyi",
+          "label": "Trello card premium-text-draft"
+        }
+      ],
+      "recorded_at": "2026-09-28T02:22:31+03:00"
+    },
+    {
+      "id": "T2",
+      "title": "Logo: 2-3 variations of a custom detail on the C only",
+      "source": "follow-up 2026-09-27-a A4, owner clarification 2026-09-28 (C only, tied to the copper thread)",
+      "follow_up": "2026-09-27-a/A4",
+      "done_when": [
+        "2-3 SVG variations of the faithful v3 mark with one custom detail on the C; the V and the thread unchanged",
+        "Each variation still reads as CV at 32 px",
+        "Side-by-side picture of the current mark and the variations attached",
+        "Owner asked which one to keep"
+      ],
+      "outcome": "done",
+      "checks": [
+        {
+          "done_when": "2-3 SVG variations of the faithful v3 mark with one custom detail on the C; the V and the thread unchanged",
+          "met": true
+        },
+        {
+          "done_when": "Each variation still reads as CV at 32 px",
+          "met": true
+        },
+        {
+          "done_when": "Side-by-side picture of the current mark and the variations attached",
+          "met": true
+        },
+        {
+          "done_when": "Owner asked which one to keep",
+          "met": true
+        }
+      ],
+      "evidence": [
+        {
+          "type": "note",
+          "text": "Two versions of the logo with one detail on the C only, both tied to the copper thread: a needle's eye the thread passes through, and a row of stitch holes along the C's edge. The V and the thread's path are unchanged. Two more ideas were tried and dropped because they looked worse (a knot that read as a full stop, a needle point that read as a thorn). Both kept versions passed design review in round 2; the reviewer recommends the needle's eye. Your pick is question Q1."
+        },
+        {
+          "type": "image",
+          "path": "evidence/logo/c-options.png",
+          "caption": "Current logo (top left), the stitch (top right) and the needle's eye (bottom), each also at 32 and 64 px"
+        },
+        {
+          "type": "link",
+          "url": "https://github.com/jimzord12/cvgen/tree/main/brand/logos",
+          "label": "Logo files on main (cvgen-mark-c-eye.svg, cvgen-mark-c-stitch.svg)"
+        },
+        {
+          "type": "link",
+          "url": "https://github.com/jimzord12/cvgen/blob/main/docs/work/brand-logo/reviews/03-design-reviewer.md",
+          "label": "Design review round 2: PASS (round 1 found alignment faults, fixed)"
+        }
+      ],
+      "recorded_at": "2026-09-28T02:03:01+03:00"
+    },
+    {
+      "id": "T3",
+      "title": "Close the Text Draft design run and drop the three 2026-09-25 concepts",
+      "source": "follow-up 2026-09-27-a A1 (owner: drop all three); owner pick First Fitting 2026-09-28",
+      "follow_up": "2026-09-27-a/A1",
+      "done_when": [
+        "Text Draft idea run closed in its run record with the owner's pick, branch docs/idea-run-2026-09-27-editor merged to main",
+        "The three 2026-09-25 concept folders removed (owner: drop all three); Git history keeps them"
+      ],
+      "outcome": "done",
+      "checks": [
+        {
+          "done_when": "Text Draft idea run closed in its run record with the owner's pick, branch docs/idea-run-2026-09-27-editor merged to main",
+          "met": true
+        },
+        {
+          "done_when": "The three 2026-09-25 concept folders removed (owner: drop all three); Git history keeps them",
+          "met": true
+        }
+      ],
+      "evidence": [
+        {
+          "type": "note",
+          "text": "The Text Draft design run is closed with your pick, First Fitting, and your changes written into its record. The other two directions (Stoichedon, Two Inks) stay in the folder as inspiration. The three template concepts from 2026-09-25 that you dropped are removed, with the fonts only they used; Git history keeps them if you ever want one back."
+        },
+        {
+          "type": "link",
+          "url": "https://github.com/jimzord12/cvgen/commit/7e9f619",
+          "label": "Removal of the three dropped concepts"
+        },
+        {
+          "type": "link",
+          "url": "https://github.com/jimzord12/cvgen/blob/main/docs/work/idea-runs/2026-09-27-editor/run.md",
+          "label": "Closed run record with your decision"
+        },
+        {
+          "type": "link",
+          "url": "https://github.com/jimzord12/cvgen/blob/main/design-concepts/README.md",
+          "label": "Concepts list with each one's status"
+        },
+        {
+          "type": "link",
+          "url": "https://github.com/jimzord12/cvgen/commit/a9b7883",
+          "label": "Merged to main"
+        }
+      ],
+      "recorded_at": "2026-09-28T01:37:26+03:00"
+    },
+    {
+      "id": "T4",
+      "title": "Housekeeping: review exception, D11, stray file, board",
+      "source": "follow-up 2026-09-27-a A2",
+      "follow_up": "2026-09-27-a/A2",
+      "done_when": [
+        "docs/review.md records the idea-gate exception as confirmed by the owner (2026-09-25)",
+        "D11 closed where it is tracked, no change to the frozen reference",
+        "Stray reviewer file /tmp/a.txt checked and deleted",
+        "Trello cards moved to their real stage; session-handoff card rewritten"
+      ],
+      "outcome": "done",
+      "checks": [
+        {
+          "done_when": "docs/review.md records the idea-gate exception as confirmed by the owner (2026-09-25)",
+          "met": true
+        },
+        {
+          "done_when": "D11 closed where it is tracked, no change to the frozen reference",
+          "met": true
+        },
+        {
+          "done_when": "Stray reviewer file /tmp/a.txt checked and deleted",
+          "met": true
+        },
+        {
+          "done_when": "Trello cards moved to their real stage; session-handoff card rewritten",
+          "met": true
+        }
+      ],
+      "evidence": [
+        {
+          "type": "note",
+          "text": "Three of the four items were already done before tonight: the review exception you confirmed on 2026-09-25 is recorded in the review rules, the academy-name question (D11) was closed on 2026-09-25 with your keep, and the stray reviewer file no longer exists. Tonight I moved the board cards to where they really are, rewrote the handoff card, removed the extra working copies and merged branches, and fixed one stale line in the repository map. Two old local branches are left because deleting them needs a force delete: feat/vessel-particulars (already merged) and feat/premium-draft (the rejected first design, kept as reference)."
+        },
+        {
+          "type": "link",
+          "url": "https://github.com/jimzord12/cvgen/blob/main/docs/review.md",
+          "label": "Review rules: idea-run exception confirmed by you on 2026-09-25"
+        },
+        {
+          "type": "link",
+          "url": "https://github.com/jimzord12/cvgen/blob/main/docs/work/idea-runs/2026-09-25-editor/run.md",
+          "label": "D11 closed 2026-09-25 (keep the academy name)"
+        },
+        {
+          "type": "link",
+          "url": "https://trello.com/c/ZvnPTC8h",
+          "label": "Handoff card, rewritten for the next session"
+        },
+        {
+          "type": "link",
+          "url": "https://trello.com/b/IPsBxAwf/cvgen",
+          "label": "Board: Text Draft and logo in Ready (your look and pick), three roadmap cards Queued"
+        },
+        {
+          "type": "link",
+          "url": "https://github.com/jimzord12/cvgen/commit/028689e",
+          "label": "Repository map fix"
+        }
+      ],
+      "recorded_at": "2026-09-28T02:24:02+03:00"
+    },
+    {
+      "id": "T5",
+      "title": "Roadmap proposals: travel and tourism domain; short-career one-page layout",
+      "source": "docs/vision.md roadmap items 2 and 6; owner answer of 2026-09-25 (prepare roadmap cards)",
+      "done_when": [
+        "Two pending proposals in docs/proposals/ following docs/proposals/README.md, each with the smallest honest first version",
+        "A Queued Trello card for each, linking its proposal",
+        "No code changed"
+      ],
+      "outcome": "done",
+      "checks": [
+        {
+          "done_when": "Two pending proposals in docs/proposals/ following docs/proposals/README.md, each with the smallest honest first version",
+          "met": true
+        },
+        {
+          "done_when": "A Queued Trello card for each, linking its proposal",
+          "met": true
+        },
+        {
+          "done_when": "No code changed",
+          "met": true
+        }
+      ],
+      "evidence": [
+        {
+          "type": "note",
+          "text": "Two roadmap proposals are ready for your decision. Travel and tourism: the first field after marine, with one template and a fictional example; my recommendation is to start with a design idea run for its look, and guides only at first. Short-career layout: a one-page Flagship layout so a cadet's CV fills a confident page instead of looking thin. Both are pending; nothing is built. I also added a Queued card for deck data, which you asked for on 2026-09-25."
+        },
+        {
+          "type": "link",
+          "url": "https://github.com/jimzord12/cvgen/blob/main/docs/proposals/travel-domain.md",
+          "label": "Proposal: Travel and tourism domain (pending)"
+        },
+        {
+          "type": "link",
+          "url": "https://github.com/jimzord12/cvgen/blob/main/docs/proposals/short-career-layout.md",
+          "label": "Proposal: short-career one-page layout (pending)"
+        },
+        {
+          "type": "link",
+          "url": "https://github.com/jimzord12/cvgen/commit/57fad21",
+          "label": "Commit on main (docs only, no code)"
+        },
+        {
+          "type": "link",
+          "url": "https://trello.com/c/iiB1VyaE",
+          "label": "Trello card travel-domain (Queued)"
+        },
+        {
+          "type": "link",
+          "url": "https://trello.com/c/EKr30oER",
+          "label": "Trello card short-career-layout (Queued)"
+        },
+        {
+          "type": "link",
+          "url": "https://trello.com/c/KFwdZXjO",
+          "label": "Trello card deck-data (Queued)"
+        }
+      ],
+      "recorded_at": "2026-09-28T01:35:59+03:00"
+    }
+  ],
+  "skipped_follow_ups": [
+    {
+      "follow_up": "2026-09-27-a/A3",
+      "reason": "Owner kept the vessel particulars look as it is; nothing to change"
+    }
+  ],
+  "questions": [
+    {
+      "id": "Q1",
+      "task": "T2",
+      "ask": "Which C do we keep in the logo: the needle's eye or the stitch?",
+      "why": "You asked for one custom detail on the C only, tied to the copper thread. Two versions passed design review. The needle's eye: a small slot cut into the thick left stroke of the C, and the copper thread passes through it, so the C itself becomes the needle. The stitch: five small stitch holes along the outer edge of the C, like a seam. The V and everything else stay as you saw them. Picture: evidence/logo/c-options.png (current logo top left, then both options, each also at 32 and 64 px). Your pick then goes into the wordmark and the dark-background versions; the tiny favicon keeps the plain C, because both details close up at that size.",
+      "options": [
+        {
+          "id": "a",
+          "label": "Needle's eye",
+          "detail": "The thread visibly goes through the C. The reviewer's pick: one clear idea, reads as made to measure"
+        },
+        {
+          "id": "b",
+          "label": "Stitch",
+          "detail": "A seam along the C's edge; echoes the stitch in the Text Draft, but white holes on black can look like a stock leather-patch effect"
+        },
+        {
+          "id": "c",
+          "label": "Neither, keep the plain C",
+          "detail": "Keep the faithful redraw as it is"
+        }
+      ],
+      "recommended": "a",
+      "answer": null,
+      "note": null
+    }
+  ],
+  "feedback": [
+    {
+      "id": "F1",
+      "kind": "bad-fit",
+      "title": "A task can follow only one follow-up item",
+      "tags": [
+        "plan",
+        "follow-ups"
+      ],
+      "body": "Two open follow-up items (a decision to remove old concepts and an unfinished housekeeping task) belonged naturally to one housekeeping task, but a task takes a single follow_up ref, so the plan was refused until the task was split in two. Accepting a list of follow-up refs per task would keep the plan shaped like the work.",
+      "sent": null
+    }
+  ],
+  "metrics": null
+}
