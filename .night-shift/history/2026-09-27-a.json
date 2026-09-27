@@ -1,0 +1,573 @@
+{
+  "schema": "night-shift/night@1",
+  "night": "2026-09-27-a",
+  "status": "interrupted",
+  "started_at": "2026-09-27T02:54:10+03:00",
+  "ended_at": "2026-09-27T10:10:49+03:00",
+  "summary": null,
+  "session": {
+    "harness": "claude-code",
+    "id": "798137e0-7880-4a67-a2e3-bfb542264084",
+    "pid": 34100,
+    "transcript": "C:\\Users\\jimzord12\\.claude-personal\\projects\\C--Users-jimzord12-Documents-GitHub-cvgen\\798137e0-7880-4a67-a2e3-bfb542264084.jsonl"
+  },
+  "tasks": [
+    {
+      "id": "T1",
+      "title": "Brand logo: flat SVG options of the v3 mark",
+      "source": "Trello brand-logo; owner answers 12 and 13 (2026-09-25)",
+      "done_when": [
+        "SVG of the mark on a transparent background exists in brand/logos/",
+        "SVG of the full wordmark with 'gen' exists",
+        "A small-size variant with a thicker thread exists and PNG previews at 32 px and 16 px are in the night's evidence",
+        "Ink and copper colour values are recorded in brand/README.md",
+        "Options merged to main as options, not a final logo"
+      ],
+      "outcome": "done",
+      "checks": [
+        {
+          "done_when": "SVG of the mark on a transparent background exists in brand/logos/",
+          "met": true
+        },
+        {
+          "done_when": "SVG of the full wordmark with 'gen' exists",
+          "met": true
+        },
+        {
+          "done_when": "A small-size variant with a thicker thread exists and PNG previews at 32 px and 16 px are in the night's evidence",
+          "met": true
+        },
+        {
+          "done_when": "Ink and copper colour values are recorded in brand/README.md",
+          "met": true
+        },
+        {
+          "done_when": "Options merged to main as options, not a final logo",
+          "met": true
+        }
+      ],
+      "evidence": [
+        {
+          "type": "compare",
+          "before": "evidence/logo/side-by-side.png",
+          "after": "evidence/logo/cvgen-mark.png",
+          "caption": "The v3 raster next to the vector redraw (left), and the redraw on its own (right)"
+        },
+        {
+          "type": "image",
+          "path": "evidence/logo/cvgen-wordmark.png",
+          "caption": "Full wordmark: 'gen' at the thread's tail"
+        },
+        {
+          "type": "image",
+          "path": "evidence/logo/cvgen-mark-bold.png",
+          "caption": "Bold alternative: swelling ribbon, second loop, strict over-under weave"
+        },
+        {
+          "type": "image",
+          "path": "evidence/logo/sizes.png",
+          "caption": "Every option at 128, 64, 32 and 16 px on white and dark, plus the round avatar crop; the small mark keeps a visible copper thread at 32 px"
+        },
+        {
+          "type": "note",
+          "text": "Design review round 1 PASS; its three Minor findings (overlapping outlines, a wrong README sentence, no padded avatar) were fixed and the lead checked the fixed files render pixel-identical to the reviewed ones. Colours: ink #131210, copper #B7713D, recorded in brand/README.md. These are options: the owner picks in Q3."
+        },
+        {
+          "type": "link",
+          "url": "https://github.com/jimzord12/cvgen/tree/main/brand/logos",
+          "label": "The SVG files on main"
+        }
+      ],
+      "recorded_at": "2026-09-27T03:29:39+03:00"
+    },
+    {
+      "id": "T2",
+      "title": "Premium Text Draft: Idea Run with magazine-editor",
+      "source": "Trello premium-text-draft; owner answers 11 and 13",
+      "done_when": [
+        "Two or three bold Text Draft directions with mock-up PDFs in design-concepts/",
+        "Each direction passed design-reviewer (and research-reviewer if research is used) or is marked unresolved at the 5-round cap",
+        "scripts/text-draft.typ is unchanged",
+        "Question 10 (which design concepts to keep) asked again in the Viewer"
+      ],
+      "outcome": "not_started",
+      "checks": [],
+      "evidence": []
+    },
+    {
+      "id": "T3",
+      "title": "Vessel particulars: optional GT/DWT, engine maker and kW/BHP per vessel",
+      "source": "docs/proposals/vessel-particulars.md; owner answer 08 APPROVE",
+      "done_when": [
+        "Schema accepts tonnage, engine and power per vessel; conflicting values on a repeated vessel fail loudly",
+        "A fixture renders the particulars on the experience row",
+        "Engineer example stays pixel-identical to the frozen v11 reference and the suite passes",
+        "code-reviewer PASS",
+        "Merged to main and pushed; rendered page in the evidence"
+      ],
+      "outcome": "done",
+      "checks": [
+        {
+          "done_when": "Schema accepts tonnage, engine and power per vessel; conflicting values on a repeated vessel fail loudly",
+          "met": true
+        },
+        {
+          "done_when": "A fixture renders the particulars on the experience row",
+          "met": true
+        },
+        {
+          "done_when": "Engineer example stays pixel-identical to the frozen v11 reference and the suite passes",
+          "met": true
+        },
+        {
+          "done_when": "code-reviewer PASS",
+          "met": true
+        },
+        {
+          "done_when": "Merged to main and pushed; rendered page in the evidence",
+          "met": true
+        }
+      ],
+      "evidence": [
+        {
+          "type": "image",
+          "path": "evidence/t3/particulars-rows.png",
+          "caption": "Ship size, engine maker and power after the ship's name, on the same row; ships without them look as before"
+        },
+        {
+          "type": "image",
+          "path": "evidence/t3/particulars-page1.png",
+          "caption": "Page 1 of the test CV with particulars on five ships: nothing moved"
+        },
+        {
+          "type": "command",
+          "command": "python tests/run.py (on main after the merge)",
+          "exit_code": 0,
+          "excerpt": "PASS: 50 compilation cases plus PDF/data/layout assertions.\nEngineer example pixel-identical to the frozen v11 reference.\nparticulars-conflict / bad-unit / bad-value / bad-keys / too-long: each fails with its message."
+        },
+        {
+          "type": "link",
+          "url": "https://github.com/jimzord12/cvgen/commit/1cb0c9e",
+          "label": "Merge to main"
+        },
+        {
+          "type": "link",
+          "url": "https://github.com/jimzord12/cvgen/blob/main/docs/work/vessel-particulars/reviews/02.md",
+          "label": "Code review round 2: PASS (round 1 found a test that checked nothing; fixed)"
+        },
+        {
+          "type": "link",
+          "url": "https://trello.com/c/A3fHVefS",
+          "label": "Trello card (Done)"
+        }
+      ],
+      "recorded_at": "2026-09-27T03:28:16+03:00"
+    },
+    {
+      "id": "T4",
+      "title": "Certificate validity check, warnings only",
+      "source": "docs/proposals/certificate-validity-check.md; owner answer 07 WARN-ONLY",
+      "done_when": [
+        "Expired and soon-expiring certificates produce loud warnings in render, status and checks.json without failing the render",
+        "Suite has a case with a fixed reference date covering expired, near, free text and both certificate shapes",
+        "Suite passes and code-reviewer PASS",
+        "Merged to main and pushed"
+      ],
+      "outcome": "done",
+      "checks": [
+        {
+          "done_when": "Expired and soon-expiring certificates produce loud warnings in render, status and checks.json without failing the render",
+          "met": true
+        },
+        {
+          "done_when": "Suite has a case with a fixed reference date covering expired, near, free text and both certificate shapes",
+          "met": true
+        },
+        {
+          "done_when": "Suite passes and code-reviewer PASS",
+          "met": true
+        },
+        {
+          "done_when": "Merged to main and pushed",
+          "met": true
+        }
+      ],
+      "evidence": [
+        {
+          "type": "command",
+          "command": "python scripts/cv.py render <fictional workspace> --reference-date 2026-09-27 (suite step 9)",
+          "exit_code": 0,
+          "excerpt": "WARNING: Certificate \"Expired medical\" EXPIRED on 31 May 2026 (119 days before the render date). Renew and update the date, remove the row, or replace the date with text such as \"Renewal booked\".\nWARNING: Certificate \"Near CoC\" expires on 10 Jan 2027, in 105 days (within 180). Check the candidate has booked the renewal.\nWARNING: Certificate \"Edge of window\" expires on 26 Mar 2027, in 180 days (within 180). Check the candidate has booked the renewal.\nNOTE: 2 certificate date(s) not checked (free text or not written like 14 Jul 2029); 4 checked against 2026-09-27\n(exit 0: the render succeeds; approval then works)"
+        },
+        {
+          "type": "command",
+          "command": "python tests/run.py (on main after both merges)",
+          "exit_code": 0,
+          "excerpt": "PASS: 51 compilation cases plus PDF/data/layout assertions."
+        },
+        {
+          "type": "link",
+          "url": "https://github.com/jimzord12/cvgen/commit/3f93864",
+          "label": "Merge to main"
+        },
+        {
+          "type": "link",
+          "url": "https://github.com/jimzord12/cvgen/actions/runs/36282565285",
+          "label": "CI green on main"
+        },
+        {
+          "type": "link",
+          "url": "https://github.com/jimzord12/cvgen/blob/main/docs/work/certificate-validity-check/reviews/02.md",
+          "label": "Code review round 2: PASS"
+        },
+        {
+          "type": "link",
+          "url": "https://trello.com/c/PMLbsl6C",
+          "label": "Trello card (Done)"
+        }
+      ],
+      "recorded_at": "2026-09-27T03:28:41+03:00"
+    },
+    {
+      "id": "T5",
+      "title": "Revision snapshot includes sibling data files",
+      "source": "Trello revision-snapshot; owner asked for every task doable without him",
+      "done_when": [
+        "A workflow test with a sibling data file renders from the snapshot alone",
+        "A one-off entry importing only the Framework renders in the suite",
+        "Suite passes and code-reviewer PASS",
+        "Merged to main and pushed; card explains the fix in two plain sentences"
+      ],
+      "outcome": "done",
+      "checks": [
+        {
+          "done_when": "A workflow test with a sibling data file renders from the snapshot alone",
+          "met": true
+        },
+        {
+          "done_when": "A one-off entry importing only the Framework renders in the suite",
+          "met": true
+        },
+        {
+          "done_when": "Suite passes and code-reviewer PASS",
+          "met": true
+        },
+        {
+          "done_when": "Merged to main and pushed; card explains the fix in two plain sentences",
+          "met": true
+        }
+      ],
+      "evidence": [
+        {
+          "type": "note",
+          "text": "In plain words: when you approve a client's CV, the approval is meant to lock in exactly the files that made that PDF, so the CV you send is the CV you checked. Until tonight a custom CV that kept extra facts in a side file either failed to build from its saved copy or quietly read the live file, which could change after you approved; now every file the CV reads is saved with the revision, and a CV that still reads a live file cannot be approved."
+        },
+        {
+          "type": "command",
+          "command": "python tests/run.py (on main after all merges), workflow step 10",
+          "exit_code": 0,
+          "excerpt": "PASS: 52 compilation cases plus PDF/data/layout assertions.\nOne-off tour-guide CV (Framework only, 1 page): presentation.json, parts/helper.typ, parts/note.txt, parts/link.txt copied and hashed; compiles again after the live files are deleted.\nREFUSED: cv.typ reads /private/zz-fictional/presentation.json by a root-absolute path, so a revision would read the live file, not a snapshot; write the path relative to cv.typ\nREFUSED: cv.typ reads ../outside.json, which is outside the workspace; ...\nREFUSED: cv.typ reads assets/portrait.png, which is not the portrait but would take its place in the snapshot; rename one of them\nComputed live read: checks fail -> REFUSED: Revision ...: automated checks failed (The compile read ...presentation.json, a live file outside the revision snapshot ...)"
+        },
+        {
+          "type": "link",
+          "url": "https://github.com/jimzord12/cvgen/commit/20622b4",
+          "label": "Merge to main"
+        },
+        {
+          "type": "link",
+          "url": "https://github.com/jimzord12/cvgen/blob/main/docs/work/revision-snapshot/reviews/02.md",
+          "label": "Code review round 2: PASS (round 1 found links could hide reads; fixed with a second safety net)"
+        },
+        {
+          "type": "link",
+          "url": "https://trello.com/c/oUrlmz8I",
+          "label": "Trello card (Done), with three deferred review notes"
+        }
+      ],
+      "recorded_at": "2026-09-27T03:37:55+03:00"
+    },
+    {
+      "id": "T6",
+      "title": "Regenerate the four public example PDFs with CVgen metadata",
+      "source": "owner answer 04 YES",
+      "done_when": [
+        "The four PDFs in exports/ carry CVgen metadata",
+        "Each new PDF renders pixel-identical to the old one, page by page",
+        "Committed and pushed to main"
+      ],
+      "outcome": "done",
+      "checks": [
+        {
+          "done_when": "The four PDFs in exports/ carry CVgen metadata",
+          "met": true
+        },
+        {
+          "done_when": "Each new PDF renders pixel-identical to the old one, page by page",
+          "met": true
+        },
+        {
+          "done_when": "Committed and pushed to main",
+          "met": true
+        }
+      ],
+      "evidence": [
+        {
+          "type": "command",
+          "command": "compare exports/ (old) with a fresh build from main, every page at 150 dpi",
+          "exit_code": 0,
+          "excerpt": "Marine-Engineer-CV-v12.pdf: pages 2->2, pixel-different pages none, text identical True\n  old: title='ALEX MORGAN | SECOND ENGINEER | Marine CV' author='Marine CV Studio'\n  new: title='ALEX MORGAN | SECOND ENGINEER | CVgen' author='CVgen'\nMarine-Captain-CV-Classic-v01.pdf: pages 2->2, pixel-different pages none, text identical True\nMarine-Captain-CV-Silver-v01.pdf: pages 2->2, pixel-different pages none, text identical True\nMarine-Chief-Officer-CV-Silver-v01.pdf: pages 2->2, pixel-different pages none, text identical True\n  (each: title '... | Marine CV' -> '... | CVgen', author 'Marine CV Studio' -> 'CVgen')\nALL PIXEL-IDENTICAL"
+        },
+        {
+          "type": "compare",
+          "before": "evidence/t6/engineer-before.png",
+          "after": "evidence/t6/engineer-after.png",
+          "caption": "Engineer example page 1, old and new file: the same page; only the hidden PDF title and author changed"
+        },
+        {
+          "type": "link",
+          "url": "https://github.com/jimzord12/cvgen/commit/8d80ea5",
+          "label": "Release commit on main"
+        },
+        {
+          "type": "note",
+          "text": "The three older design-study PDFs in exports/ (01-soundings, 02-engine-room, 03-horizon) still say Marine CV Studio. They come from the frozen archive of design studies and were not part of your go; left untouched."
+        }
+      ],
+      "recorded_at": "2026-09-27T03:30:14+03:00"
+    },
+    {
+      "id": "T7",
+      "title": "Housekeeping: review exception, D11, stray file, board",
+      "source": "owner answers 01, 05, 06; Trello",
+      "done_when": [
+        "docs/review.md records the idea-run exception as confirmed by the owner on 2026-09-25",
+        "D11 closed where it is tracked, no reference change",
+        "The stray reviewer file is checked and deleted",
+        "Trello cards in step and session-handoff rewritten"
+      ],
+      "outcome": "not_started",
+      "checks": [],
+      "evidence": []
+    }
+  ],
+  "skipped_follow_ups": [],
+  "questions": [
+    {
+      "id": "Q1",
+      "task": "T2",
+      "ask": "Which of the three 2026-09-25 design concepts do we keep developing into templates?",
+      "why": "Three template concepts from the first idea run wait in design-concepts/ as 'proposed'. Your answer marks them chosen (a template card follows) or rejected (folder removed, history keeps it). Tonight's Text Draft directions are a separate run and do not depend on this.",
+      "options": [
+        {
+          "id": "a",
+          "label": "Feature Opener",
+          "detail": "The CV as a magazine feature: huge serif name, standfirst, vessels as a contents list, months as a pull-quote. PDF: design-concepts/2026-09-25-feature-opener/concept.pdf"
+        },
+        {
+          "id": "b",
+          "label": "Measured in Months",
+          "detail": "The career drawn to scale: one bar per vessel, as long as its months. PDF: design-concepts/2026-09-25-measured-in-months/concept.pdf"
+        },
+        {
+          "id": "c",
+          "label": "Fleet in Signs",
+          "detail": "One pictogram per vessel, shape = ship class, colour = rank. PDF: design-concepts/2026-09-25-fleet-in-signs/concept.pdf"
+        },
+        {
+          "id": "d",
+          "label": "Drop all three",
+          "detail": "None becomes a template; folders removed, Git history keeps them"
+        }
+      ],
+      "recommended": "a",
+      "answer": "d",
+      "note": null,
+      "answered_at": "2026-09-27T23:46:18+03:00"
+    },
+    {
+      "id": "Q2",
+      "task": "T3",
+      "ask": "Do you like how ship size and engine power look on the experience rows?",
+      "why": "You approved the feature on 2026-09-25; the look of every CV that uses it is still your call. Tonight's render: after the ship's name, a small grey line such as '· 49,990 GT · MAN B&W · 9,480 kW', on the same row, so nothing moves. CVs without these facts look exactly as before. Picture: evidence/t3/particulars-rows.png.",
+      "options": [
+        {
+          "id": "a",
+          "label": "Looks good, keep it",
+          "detail": "Nothing to do"
+        },
+        {
+          "id": "b",
+          "label": "Make it quieter",
+          "detail": "Smaller or lighter, e.g. only the numbers, no engine maker"
+        },
+        {
+          "id": "c",
+          "label": "Make it stand out more",
+          "detail": "e.g. in the accent colour, or on its own small line under the name (adds height; long careers may need a page-plan change)"
+        }
+      ],
+      "recommended": "a",
+      "answer": "a",
+      "note": null,
+      "answered_at": "2026-09-27T23:46:25+03:00"
+    },
+    {
+      "id": "Q3",
+      "task": "T1",
+      "ask": "Which CVgen logo direction do we keep?",
+      "why": "Tonight the v3 mark was redrawn as clean vector files: a faithful redraw, a bolder alternative with a swelling copper ribbon and a second loop (closest to 'unafraid of excess'), plus a small version and avatar that stay readable at 32 px, and dark-background versions. Pictures: evidence/logo/side-by-side.png, cvgen-mark.png, cvgen-mark-bold.png, cvgen-wordmark.png, sizes.png. The reviewer's one taste note: the letters are a stock serif (Cormorant Garamond); a custom detail on the C or V would make the mark more ownable.",
+      "options": [
+        {
+          "id": "a",
+          "label": "Faithful redraw",
+          "detail": "Keep the v3 mark as drawn tonight; it becomes the working logo"
+        },
+        {
+          "id": "b",
+          "label": "Bold alternative",
+          "detail": "The swelling ribbon with the second loop; more artist, less law firm"
+        },
+        {
+          "id": "c",
+          "label": "Faithful, plus a custom letter detail",
+          "detail": "Keep v3 but have an agent give the C or V one signature cut so it is not stock type"
+        },
+        {
+          "id": "d",
+          "label": "None yet",
+          "detail": "Keep the raster for now, or brief a human designer"
+        }
+      ],
+      "recommended": "c",
+      "answer": "c",
+      "note": "Do not understand what you mean, please explain.",
+      "answered_at": "2026-09-27T23:50:16+03:00"
+    }
+  ],
+  "feedback": [
+    {
+      "id": "F1",
+      "kind": "missing-block",
+      "title": "Multi-select questions",
+      "tags": [
+        "questions"
+      ],
+      "body": "A question about which of several items to keep is naturally multi-select (keep A and B, drop C). The ask command documents only single-choice options with one recommended id, so the agent had to recommend one item and let the developer add the second in a note. A 'multiple: true' flag with a recommended list would fit such keep/drop questions.",
+      "sent": {
+        "at": "2026-09-27T22:47:37+03:00",
+        "via": "gh",
+        "url": "https://github.com/jimzord12/night-shift/issues/3"
+      }
+    }
+  ],
+  "metrics": {
+    "source": "claude-code",
+    "harness_version": "2.1.283",
+    "session_id": "798137e0-7880-4a67-a2e3-bfb542264084",
+    "measured_at": "2026-09-27T10:10:49+03:00",
+    "duration_min": {
+      "total": 76.33,
+      "model": null,
+      "tools": null
+    },
+    "models": {
+      "claude-opus-5-5": {
+        "tokens": {
+          "input": 1938,
+          "output": 220543,
+          "reasoning": 36669,
+          "cache_read": 157941945,
+          "cache_write": 3985834
+        },
+        "cost_usd": 57.38
+      }
+    },
+    "cost_usd": 57.38,
+    "sub_agents": [
+      {
+        "type": "code-reviewer",
+        "model": "claude-opus-5-5",
+        "purpose": "Review certificate check round 1"
+      },
+      {
+        "type": "design-reviewer",
+        "model": "claude-opus-5-5",
+        "purpose": "Design gate round 2 Text Draft"
+      },
+      {
+        "type": "code-reviewer",
+        "model": "claude-opus-5-5",
+        "purpose": "Review vessel-particulars round 1"
+      },
+      {
+        "type": "code-reviewer",
+        "model": "claude-opus-5-5",
+        "purpose": "Review certificate check round 2"
+      },
+      {
+        "type": "research-reviewer",
+        "model": "claude-opus-5-5",
+        "purpose": "Research gate for Text Draft run"
+      },
+      {
+        "type": "magazine-editor",
+        "model": "claude-opus-5-5",
+        "purpose": "Text Draft idea run directions"
+      },
+      {
+        "type": "research-reviewer",
+        "model": "claude-opus-5-5",
+        "purpose": "Research gate round 4 Text Draft"
+      },
+      {
+        "type": "code-reviewer",
+        "model": "claude-opus-5-5",
+        "purpose": "Review vessel-particulars round 2"
+      },
+      {
+        "type": "code-reviewer",
+        "model": "claude-opus-5-5",
+        "purpose": "Review revision-snapshot round 1"
+      },
+      {
+        "type": "design-reviewer",
+        "model": "claude-opus-5-5",
+        "purpose": "Design gate round 1 Text Draft"
+      },
+      {
+        "type": "research-reviewer",
+        "model": "claude-opus-5-5",
+        "purpose": "Research gate round 2 Text Draft"
+      },
+      {
+        "type": "general-purpose",
+        "model": "claude-opus-5-5",
+        "purpose": "Draw CVgen logo SVG options"
+      },
+      {
+        "type": "design-reviewer",
+        "model": "claude-opus-5-5",
+        "purpose": "Design gate round 3 Text Draft"
+      },
+      {
+        "type": "design-reviewer",
+        "model": "claude-opus-5-5",
+        "purpose": "Review logo SVG options round 1"
+      },
+      {
+        "type": "research-reviewer",
+        "model": "claude-opus-5-5",
+        "purpose": "Research gate round 3 Text Draft"
+      },
+      {
+        "type": "code-reviewer",
+        "model": "claude-opus-5-5",
+        "purpose": "Review revision-snapshot round 2"
+      }
+    ],
+    "lines": {
+      "added": null,
+      "removed": null
+    }
+  }
+}

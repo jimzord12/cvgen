@@ -22,6 +22,9 @@ warnings.
 
 | Concept | Idea | Date | Status | PDF |
 |---|---|---|---|---|
-| Measured in Months | The career drawn to scale: one bar per vessel, length = service months; marine and travel variants | 2026-09-25 | proposed | [marine](2026-09-25-measured-in-months/concept.pdf) · [travel](2026-09-25-measured-in-months/concept-travel.pdf) |
-| Feature Opener | The CV as a magazine feature opener: headline name, standfirst, contents list, pull-quote; marine and travel variants | 2026-09-25 | proposed | [marine](2026-09-25-feature-opener/concept.pdf) · [travel](2026-09-25-feature-opener/concept-travel.pdf) |
-| Fleet in Signs | Isotype count of the fleet: one sign per vessel, silhouette = class, colour = rank | 2026-09-25 | proposed | [marine](2026-09-25-fleet-in-signs/concept.pdf) |
+| Measured in Months | The career drawn to scale: one bar per vessel, length = service months; marine and travel variants | 2026-09-25 | rejected (owner, 2026-09-27); removed in 7e9f619 | in Git history |
+| Feature Opener | The CV as a magazine feature opener: headline name, standfirst, contents list, pull-quote; marine and travel variants | 2026-09-25 | rejected (owner, 2026-09-27); removed in 7e9f619 | in Git history |
+| Fleet in Signs | Isotype count of the fleet: one sign per vessel, silhouette = class, colour = rank | 2026-09-25 | rejected (owner, 2026-09-27); removed in 7e9f619 | in Git history |
+| First Fitting | `Text Draft` direction (not a CV template): the draft as a tailor's baste fitting; one copper thread, every fact tacked with a running stitch | 2026-09-27 | chosen (owner, 2026-09-28), built into `scripts/text-draft.typ` with his changes | [2 pages](2026-09-27-first-fitting/concept.pdf) |
+| Stoichedon | `Text Draft` direction (not a CV template): every letter in its own square cell, as Attic inscriptions; facts rubricated in bold red ochre | 2026-09-27 | not picked (owner chose First Fitting, 2026-09-28); kept as inspiration | [2 pages](2026-09-27-stoichedon/concept.pdf) · [long name](2026-09-27-stoichedon/concept-long.pdf) |
+| Two Inks | `Text Draft` direction (not a CV template): black is ours, orange is yours; facts overprint misregistered orange slabs, giant orange draft number and OK | 2026-09-27 | not picked (owner chose First Fitting, 2026-09-28); kept as inspiration | [2 pages](2026-09-27-two-inks/concept.pdf) · [long name](2026-09-27-two-inks/concept-long.pdf) |
