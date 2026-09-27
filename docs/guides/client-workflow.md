@@ -184,16 +184,23 @@ the owner decides to.
 
 ## 8. Text draft and Sign-off
 
-Claude writes the CV's content as a plain document, no design, in the CV's
-language, sized for the `Template` (two pages by default): `draft/draft-01.typ`
-using `scripts/text-draft.typ`, compiled to `draft/draft-01.pdf`:
+Claude writes the CV's content in the CV's language, sized for the
+`Template` (two pages by default), in the house design of the `Text Draft`
+(First Fitting: warm paper, one copper thread): `draft/draft-01.typ` using
+`scripts/text-draft.typ`, compiled to `draft/draft-01.pdf`. Every fact the
+client must check (a name, a date, a number, a title) is wrapped in
+`#fact[...]`, which underlines it with the copper stitch; our wording stays
+plain. The script's header comment shows the parameters: the client's name,
+greeting and label, draft number, date and four sample facts.
 
 ```powershell
 typst compile --root . --font-path packages/cv-framework/fonts private/<envelope>/draft/draft-01.typ private/<envelope>/draft/draft-01.pdf
 ```
 
-Its first page, the check page, in Greek, asks the client to check only
-names, dates, numbers and titles, because the wording is our job. When the
+Its first page, the `Check Page`, in Greek, asks the client to check only
+the underlined facts, because the wording is our job. Its words are plain
+and professional; the tailoring idea lives in the drawing only (owner,
+2026-09-28). When the
 owner sends a draft, Claude writes its SHA-256 in the `Envelope`'s
 `README.md`; a sent draft is never compiled again, and corrections make
 the next number (`draft-02`). The client's "OK" is the `Sign-off`, saved as

@@ -276,13 +276,16 @@ def main():
     with fitz.open(certs) as doc:
         assert len(doc) == 2
         assert all('Scope / record' in p.get_text() for p in doc)
-    # The Sign-off text draft: a Greek check page first, then the content, one embedded font.
+    # The Sign-off text draft (house design First Fitting): the Greek Check Page first, then the
+    # content with its running head, one embedded family (Bona Nova).
     draft = compile_case('text-draft', 'tests/fixtures/text-draft.typ')
     with fitz.open(draft) as doc:
         assert len(doc) == 2, len(doc)
-        assert 'Ελέγξτε' in doc[0].get_text() and 'Profile' in doc[1].get_text()
+        check = doc[0].get_text()
+        assert all(t in check for t in ['προς έλεγχο', 'Ελένη Παράδειγμα', 'Ελέγξτε μόνο', 'Example Tours', '27.09.2026']), check
+        assert 'Profile' in doc[1].get_text() and 'Page 2 of 2' in doc[1].get_text()
         fonts = {f[3] for p in doc for f in p.get_fonts()}
-        assert fonts and all('SourceSans3' in name for name in fonts), fonts
+        assert fonts and all('BonaNova' in name for name in fonts), fonts
     # The candidate workflow, end to end and every refusal, in a fresh fictional workspace.
     for check in run_workflow(out, args.typst):
         results.append({'case': 'workflow-' + check, 'passed': True})
