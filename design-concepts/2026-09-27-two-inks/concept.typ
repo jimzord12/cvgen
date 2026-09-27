@@ -5,18 +5,32 @@
 // Two pages: the Check Page (Greek) and the first CV-content page (English).
 //
 // typst compile --root . --ignore-system-fonts --font-path packages/cv-framework/fonts --font-path design-concepts/fonts design-concepts/2026-09-27-two-inks/concept.typ design-concepts/2026-09-27-two-inks/concept.pdf
+// Long-name case (the typical Greek client; same record, another fictional name):
+// typst compile ... --input client=long design-concepts/2026-09-27-two-inks/concept.typ design-concepts/2026-09-27-two-inks/concept-long.pdf
 
 #let data = json("/examples/candidates/chief-officer-example.json")
 
 // ---- Per-client parameters (words); the design below is fixed ---------------
-#let client = (
-  first-el: "Ελένη",
-  name-en: ("Eleni", "Markou"), // the record says ELENI MARKOU; set here in the CV's own case
-  draft: "01", date-el: "27.09.2026", date-en: "27 Sep 2026", pages: 3,
+// Sizes are per-client values set by hand. A line wider than the measure stops the
+// compile with a message (no automatic shrinking, constitution section 4).
+#let clients = (
+  eleni: (
+    greeting-el: "Ελένη", // vocative
+    name-en: ("Eleni", "Markou"), // the record says ELENI MARKOU; set here in the CV's own case
+    head-size: 52pt, name-size: 84pt,
+  ),
+  long: (
+    greeting-el: "Κωνσταντίνε", // vocative of Κωνσταντίνος
+    name-en: ("Konstantinos", "Papadopoulos"),
+    head-size: 44pt, name-size: 42pt,
+  ),
+)
+#let client = clients.at(sys.inputs.at("client", default: "eleni")) + (
+  draft: "01", date-el: "27.09.2026", date-en: "27 Sep 2026", pages: 4,
 )
 #let check = (
   kicker: "Προσχέδιο κειμένου",
-  head: ([#client.first-el,], [ελέγξτε], [μόνο το]),
+  head: (client.greeting-el + ",", "ελέγξτε", "μόνο το"),
   orange-word: "πορτοκαλί.",
   intro: [Αυτό είναι το κείμενο του βιογραφικού σας, πριν από το σχέδιο. Δικό σας είναι ό,τι έχει πορτοκαλί φόντο:],
   items: (
@@ -27,7 +41,7 @@
   ),
   ours: [Το μαύρο είναι δικό μας: τη διατύπωση την αναλαμβάνουμε εμείς.],
   ok-lead: ([Όλα σωστά;], [Απαντήστε:]),
-  fix: [Κάτι λάθος; Γράψτε μας τη σελίδα και το σωστό.],
+  fix: [Κάτι λάθος; \ Γράψτε μας \ τη σελίδα \ και το σωστό.],
 )
 
 // ---- House design --------------------------------------------------------
@@ -37,16 +51,34 @@
 #let quiet = rgb("#66625C")
 #let face = "Syne"
 // The orange drum is a hair out of register with the black one, the same on the whole page.
-#let drift = (x: 0.7mm, y: 0.3mm)
+#let drift = (x: 0.9mm, y: 0.5mm)
 
 // A fact: black text overprinting an orange slab laid a hair out of register.
-#let fact(body, pad: 0.14em) = box(context {
+#let fact(body, pad: 0.3em) = box(context {
   let m = measure(body)
   // the black letters print over a solid orange slab: a fact is whatever sits on orange
-  place(top + left, dx: -pad + drift.x, dy: -0.16em + drift.y,
-    rect(width: m.width + 2 * pad, height: m.height + 0.38em, fill: orange))
+  place(top + left, dx: -pad + drift.x, dy: -0.18em + drift.y,
+    rect(width: m.width + 2 * pad, height: m.height + 0.42em, fill: orange))
   body
 })
+// Registration target, printed by both drums: the orange copy sits off the black one
+// by exactly the page's drift, so the offset reads as print, not as sloppy padding.
+#let target(r: 3.2mm) = {
+  let t(c) = {
+    place(circle(radius: r, stroke: 0.5pt + c))
+    place(dx: r, dy: -0.8mm, line(length: 2 * r + 1.6mm, angle: 90deg, stroke: 0.5pt + c))
+    place(dx: -0.8mm, dy: r, line(length: 2 * r + 1.6mm, stroke: 0.5pt + c))
+  }
+  place(dx: drift.x, dy: drift.y, t(orange))
+  t(black)
+}
+// A display line must fit the measure; if not, stop and say which size to change.
+#let measure-w = 210mm - 2 * 16mm
+#let must-fit(what, body) = context {
+  let w = measure(body).width
+  assert(w <= measure-w, message: what + " is " + repr(w) + " wide but the measure is " + repr(measure-w) + "; set its size by hand in `clients`")
+  body
+}
 // A giant form printed in orange only.
 #let ink2(dx, dy, body) = place(top + left, dx: dx + drift.x, dy: dy + drift.y, text(fill: orange, body))
 
@@ -61,17 +93,18 @@
 #page(background: {
   // orange drum: the draft number, cropped by the sheet, and the reply disc
   ink2(96mm, 2mm, text(size: 230pt, weight: 800, tracking: -0.05em, client.draft))
-  place(top + left, dx: -38mm + drift.x, dy: 214mm + drift.y, circle(radius: 58mm, fill: orange))
+  place(top + left, dx: -38mm + drift.x, dy: 236mm + drift.y, circle(radius: 58mm, fill: orange))
+  place(top + left, dx: 190mm, dy: 286mm, target())
 })[
   #text(size: 12pt, weight: 800)[CVgen] #h(4mm) #text(size: 10pt, weight: 500, fill: quiet)[#check.kicker #client.draft · #client.date-el]
 
   #v(20mm)
-  #block(text(size: 52pt, weight: 800, tracking: -0.02em, {
-    set par(leading: 0.2em)
-    let h = check.head
-    h.at(0); linebreak(); h.at(1); linebreak(); h.at(2); linebreak()
-    fact(check.orange-word)
-  }))
+  #block({
+    set text(size: client.head-size, weight: 800, tracking: -0.02em)
+    set par(leading: 0.3em)
+    for line in check.head { must-fit("Check Page headline line \"" + line + "\"", line); linebreak() }
+    must-fit("Check Page headline line \"" + check.orange-word + "\"", fact(check.orange-word))
+  })
 
   #v(6mm)
   #block(width: 178mm, text(size: 17pt, weight: 500, check.intro))
@@ -86,9 +119,9 @@
   #v(5mm)
   #text(size: 14pt, weight: 500, fill: quiet, check.ours)
 
-  #place(bottom + left, dy: -52mm, text(size: 26pt, weight: 800, check.ok-lead.join(" ")))
+  #place(bottom + left, dy: -55mm, text(size: 26pt, weight: 800, check.ok-lead.join(" ")))
   #place(bottom + left, dx: -1mm, dy: 4mm, text(size: 140pt, weight: 800, tracking: -0.04em)[OK])
-  #place(bottom + right, dy: -3mm, block(width: 54mm, text(size: 15pt, weight: 600, check.fix)))
+  #place(bottom + right, dy: -1mm, block(width: 52mm, text(size: 18pt, weight: 600, check.fix)))
 ]
 
 // ====================== PAGE 2: FIRST CV-CONTENT PAGE ======================
@@ -96,22 +129,26 @@
 #let vessels-total = data.companies.map(c => c.groups.map(g => g.ships.len()).sum()).sum()
 #let title-case(s) = s.split(" ").map(w => upper(w.first()) + lower(w.slice(1))).join(" ")
 
-#page[
+#page(background: place(top + left, dx: 190mm, dy: 286mm, target()))[
   #set text(lang: "en")
   #label("CV text · draft " + client.draft + " · " + client.date-en) #h(1fr) #label("Page 2 / " + str(client.pages))
 
   #v(10mm)
-  #block(text(size: 84pt, weight: 800, tracking: -0.03em, {
-    set par(leading: 0.42em)
-    fact(client.name-en.at(0)); linebreak(); fact(client.name-en.at(1))
-  }))
+  #block({
+    set text(size: client.name-size, weight: 800, tracking: -0.03em)
+    set par(leading: 0.62em)
+    for (i, n) in client.name-en.enumerate() {
+      if i > 0 { linebreak() }
+      must-fit("Page-2 name line \"" + n + "\"", fact(n))
+    }
+  })
   #v(4mm)
   #text(size: 24pt, weight: 700, fact(title-case(data.identity.rank)))
 
-  #v(8mm)
+  #v(6mm)
   #let contacts = data.contacts.left + data.contacts.right
   #grid(columns: (1fr, 1fr, 1fr), column-gutter: 5mm, row-gutter: 6.5mm,
-    ..contacts.map(c => block({ label(c.label); v(1.6mm); text(size: 10.5pt, weight: 500, fact(c.value)) })))
+    ..contacts.map(c => block({ label(c.label); v(1.6mm); text(size: 11.5pt, weight: 500, fact(c.value)) })))
 
   #v(6mm)
   #block(width: 160mm, {
@@ -120,20 +157,20 @@
     text(size: 12pt, data.profile)
   })
 
-  #v(8mm)
+  #v(5mm)
   #text(size: 22pt, weight: 800)[Sea service] #h(4mm)
   #text(size: 12pt, weight: 600)[#fact(str(months-total) + " months") · #fact(str(vessels-total) + " vessels") · #fact(str(data.companies.len()) + " companies")]
   #v(0.5mm)
   #text(size: 9pt, fill: quiet)[Months as recorded, vessel by vessel.]
 
-  #let row(a, b, c, d) = grid(columns: (40mm, 1fr, 40mm, 20mm), align: (left, left, left, right), a, b, c, d)
+  #let row(a, b, c, d) = grid(columns: (38mm, 1fr, 44mm, 25mm), align: (left, left, left, right), a, b, c, d)
   #for co in data.companies.slice(0, 2) {
     block(above: 6.5mm, below: 0mm, breakable: false, {
       grid(columns: (1fr, auto), align: (left + bottom, right + bottom),
         text(size: 13pt, weight: 700, fact(co.name)), text(size: 11pt, weight: 600, fact(co.period)))
       for g in co.groups {
         for (k, s) in g.ships.enumerate() {
-          block(above: 3.6mm, below: 0mm, text(size: 10.5pt, weight: 500, row(
+          block(above: 3.1mm, below: 0mm, text(size: 12pt, weight: 500, row(
             if k == 0 { text(size: 8pt, weight: 600, tracking: 0.08em, fill: quiet, upper(g.type)) },
             fact(s.name), fact(s.rank), fact(str(s.months) + " months"))))
         }

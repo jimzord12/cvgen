@@ -5,7 +5,9 @@
 down, like a grid you can read in both directions. The whole draft sits on
 one such grid (24 × 36 cells of 7.5 mm, marked by faint crosses). Display
 lines put one letter per cell; running text keeps to the rows. Facts the
-`Client` must check are rubricated in red ochre. Three words: **every letter placed**.
+`Client` must check are rubricated: red ochre *and* the Bold cut, which
+nothing else on the page uses, so the cue survives greyscale printing and
+red-green colour blindness. Three words: **every letter placed**.
 
 Files: `concept.pdf` (two pages), `page-1.png` (the `Check Page`, Greek),
 `page-2.png` (the first CV-content page, English), `concept.typ`.
@@ -16,11 +18,14 @@ consistent with the record's ELENI MARKOU of Piraeus).
 ## What to notice first
 
 1. The client's name cut monumentally, one letter per 30 mm cell, filling the
-   measure exactly (ΕΛΕΝΗ / ΜΑΡΚΟΥ; ELENI / MARKOU on page 2, in red because
-   it is a fact).
+   measure exactly (ΕΛΕΝΗ / ΜΑΡΚΟΥ; ELENI / MARKOU on page 2, in bold red
+   because it is a fact).
 2. The instruction as an inscription: ΕΛΕΓΞΤΕ ΜΟΝΟ / ΤΑ ΚΟΚΚΙΝΑ ("check only
-   the red"), then four real samples in red, then ΟΛΑ ΣΩΣΤΑ; / ΑΠΑΝΤΗΣΤΕ OK.
-   The page is legible at arm's length and on a phone.
+   the red"), glossed underneath "τα κόκκινα, έντονα γράμματα, όπως αυτά:"
+   ("the red, bold letters, like these"), then four real samples in bold red,
+   then ΟΛΑ ΣΩΣΤΑ; / ΑΠΑΝΤΗΣΤΕ OK. Everything that is not a fact, display
+   lines included, is in the Regular cut. The page is legible at arm's length
+   and on a phone, and in a greyscale render the facts still stand out by weight.
 3. Greek capitals without accents, as Greek typography requires (Ελέγξτε →
    ΕΛΕΓΞΤΕ, Όλα σωστά → ΟΛΑ ΣΩΣΤΑ), done by a `caps-el` function that also
    keeps a dialytika where a vowel pair splits (Μάιος → ΜΑΪΟΣ).
@@ -36,7 +41,7 @@ alphabet.
 | Stoichedon: <https://en.wikipedia.org/wiki/Stoichedon> (letters "aligned vertically as well as horizontally"; "the preferred style for official state proclamations" in 5th–4th-century Athens); Production Type, "From Stoichedon to programming": <https://productiontype.com/article/from-stoichedon-to-programming-a-concise-history-of-monospaced-typefaces>; CSAD Oxford: <http://archive.csad.ox.ac.uk/CSAD/Stoichoi.html> | One square cell per letter, identical cells across the whole surface; the cell size is the only scale decision. I keep word spaces (as a faint point, like an interpunct) because a client must read it at a glance; the ancient practice ran words together. |
 | Wim Crouwel, *Vormgevers* poster, 1968, Rijksmuseum: <https://www.rijksmuseum.nl/en/collection/object/Vormgevers--e6df93cffd693e5940fe55d8b2680b26> (lettering "based on a grid" used for the Stedelijk's house style, with the grid shown) | Make the grid visible and let it be the decoration: the page shows how it was built. Here: crosses at every cell corner, nothing else. |
 | Rubrication: <https://en.wikipedia.org/wiki/Rubrication> (in service books the red text told the reader what to *do*, the black text was what to read); etymology from <https://en.wikipedia.org/wiki/Rubric> ("rubrica, meaning red ochre or red chalk") | Red means "act on this". The facts to check are the draft's rubrics; the wording stays black. The ochre red also nods to painted letters on stone. |
-| GFS Neohellenic (Greek Font Society, after the 1927 New Hellenic): <https://raw.githubusercontent.com/google/fonts/main/ofl/gfsneohellenic/DESCRIPTION.en_us.html>, <https://raw.githubusercontent.com/google/fonts/main/ofl/gfsneohellenic/METADATA.pb>. The description traces New Hellenic to "a round, and almost monoline type which had first appeared in 1492 in the edition of Macrobius" (Venice), and says GFS digitised it for the Athens Archaeological Society "with the addition of a new set of epigraphical symbols" | A 1492 Venetian book Greek, digitised with epigraphical symbols: round, almost monoline capitals that sit well in square cells, and a strong native Greek. The unusual wavy Ξ and the Latin companion come with it. |
+| GFS Neohellenic (Greek Font Society, after the 1927 New Hellenic): <https://raw.githubusercontent.com/google/fonts/main/ofl/gfsneohellenic/DESCRIPTION.en_us.html>, <https://raw.githubusercontent.com/google/fonts/main/ofl/gfsneohellenic/METADATA.pb>. The description traces New Hellenic to "a round, and almost monoline type which had first appeared in 1492 in the edition of Macrobius" (Venice), and says GFS digitised it in 1993–1994, "funded by the Athens Archeological Society", "with the addition of a new set of epigraphical symbols" | A 1492 Venetian book Greek, digitised with epigraphical symbols: round, almost monoline capitals that sit well in square cells, and a strong native Greek. The unusual wavy Ξ and the Latin companion come with it. |
 
 No drawing, photo or copy was taken from any of them.
 
@@ -47,8 +52,9 @@ No drawing, photo or copy was taken from any of them.
   reference is Greek public lettering, not a law office.
 - **From Flagship:** no masthead, portrait or condensed display; the grid is
   the only structure.
-- **From the market:** no template sells a draft built on a letter grid; the
-  nearest "grid" CVs are twelve-column web layouts with boxes.
+- **From the market** (my observation, not a survey): I have not seen a
+  template or service sell a draft built on a letter grid; the nearest "grid"
+  CVs are twelve-column web layouts with boxes.
 
 ## Fonts and licences
 
@@ -72,7 +78,15 @@ The bold italic is unused in this mock-up; it is kept so the family is whole.
   months" is the sum of the record's vessel `months`, never calendar
   arithmetic.
 - Per-client words: given and family name in Greek and in the CV's language,
-  draft number, date, page count, the four samples, the check wording.
+  a separate greeting in the vocative (`greeting-el`: "Ελένη", but
+  "Κωνσταντίνε" for Κωνσταντίνος), draft number, date, page count, the four
+  samples, the check wording.
+- Per-client value set by hand: `name-span`, the name's cell size in grid
+  cells (4 = 30 mm, 3 = 22.5 mm, 2 = 15 mm, 1 = 7.5 mm). Any stoichedon line
+  that does not fit the 24-cell measure stops the compile with a message
+  naming the line and the cells it needs (tested: Παπαδόπουλος at span 4
+  fails with "needs 48 cells"). There is no automatic shrinking
+  (constitution section 4).
 - **Missing:** a fact mark for running text (only "six" in the profile is
   marked, by a one-off rule); proposed glossary term below.
 
@@ -80,8 +94,7 @@ The bold italic is unused in this mock-up; it is kept so the family is whole.
 
 A replacement for `scripts/text-draft.typ` (about 130 lines): `stoi` (letters
 into cells), `lines` (text on the row baselines), `caps-el`, the grid marks,
-and a rule for the name: pick the largest cell (30, 22.5, 15 or 7.5 mm) at
-which the longest name word fits the 24-cell measure. Content pages need an
+and the hand-set `name-span` with its overflow check. Content pages need an
 automatic row flow (today rows are counted by hand) and page breaking on the
 row grid, which is the real work: roughly a day.
 
@@ -91,9 +104,15 @@ row grid, which is the real work: roughly a day.
   allocator and must break pages on whole rows.
 - Page 2 fits only two companies at a readable row height; this draft would
   run to four pages for this record.
-- Long Greek names (e.g. ΠΑΝΑΓΙΩΤΟΠΟΥΛΟΣ, 15 letters) drop to the 15 mm cell
-  and lose some drama.
-- In the experience table almost everything is a fact, so most of it is red.
+- Long names lose the monument: a 12-letter word (ΠΑΠΑΔΟΠΟΥΛΟΣ) needs the
+  15 mm cell (span 2), and ΠΑΝΑΓΙΩΤΟΠΟΥΛΟΣ (15 letters, 30 cells at 15 mm)
+  only fits at 7.5 mm (span 1). The 15 mm case still holds up; the 7.5 mm
+  case is ordinary.
+- The Bold name on page 2 is heavier than the thin Regular name on page 1;
+  that is the rule (facts are bold), but it is less elegant.
+- The Regular "1" has no flag and reads as Ι on a phone ("ΣΕΛΙΔΑ 1/4",
+  "01"); fixing it needs a second face, since Bold is now reserved for facts.
+- In the experience table almost everything is a fact, so most of it is bold red.
 - The wavy Ξ in GFS Neohellenic surprises some Greek readers; it is the
   typeface's own historical form.
 - Stoichedon is a scholarly reference; the owner may find it too quiet for

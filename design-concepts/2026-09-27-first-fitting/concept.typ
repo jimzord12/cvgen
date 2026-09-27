@@ -11,7 +11,7 @@
 // ---- Per-client parameters (words); the design below is fixed ---------------
 #let client = (
   name-el: "Ελένη Μάρκου",
-  first-el: "Ελένη",
+  first-el: "Ελένη", // the greeting, in the vocative ("Κωνσταντίνε" for Κωνσταντίνος)
   client-el: "Πελάτισσα", // gendered: "Πελάτης" for a man
   name-en: "Eleni Markou", // the record says ELENI MARKOU; set here in the CV's own case
   draft: "01",
@@ -21,7 +21,9 @@
 )
 #let check = (
   kicker: "Προσχέδιο κειμένου",
-  headline: ("Πρώτη", "πρόβα."),
+  // Fixed house copy with no ordinal ("Time for a fitting."), so draft 02 and 03 use it
+  // unchanged and the thread never moves; the draft number lives on the ticket.
+  headline: ("Ώρα για", "πρόβα."),
   standfirst: [#client.first-el, αυτό είναι το κείμενο του βιογραφικού σας, πρόχειρα τρυπωμένο, για να το δοκιμάσετε πριν το ράψουμε.],
   ask: [Ελέγξτε μόνο ό,τι έχει \ χάλκινη βελονιά από κάτω:],
   items: (
@@ -90,22 +92,22 @@
 // wraps round the first letter of the second line and ends in a loose tail.
 #let thread = place(top + left, dx: -26mm, dy: -20mm, {
   place(top + left, curve(stroke: stitch(1.5pt),
-    curve.move((170.2mm, 37.8mm)),
-    curve.cubic((162mm, 24mm), (147mm, 32mm), (142mm, 48mm)),
-    curve.cubic((138mm, 64mm), (128mm, 76mm), (112mm, 79mm)),
-    curve.cubic((90mm, 83mm), (66mm, 74mm), (46mm, 76mm)),
-    curve.cubic((30mm, 78mm), (26mm, 94mm), (36mm, 102mm)),
-    curve.cubic((46mm, 110mm), (70mm, 108mm), (84mm, 101mm)),
+    curve.move((172.7mm, 37.8mm)),
+    curve.cubic((164mm, 24mm), (149mm, 32mm), (144mm, 48mm)),
+    curve.cubic((139mm, 60mm), (128mm, 70mm), (112mm, 72mm)),
+    curve.cubic((90mm, 75mm), (66mm, 66mm), (46mm, 68.5mm)),
+    curve.cubic((30mm, 70.5mm), (26mm, 85mm), (36mm, 92mm)),
+    curve.cubic((46mm, 100mm), (70mm, 98mm), (84mm, 92mm)),
   ))
   place(top + left, curve(stroke: (paint: copper, thickness: 1.5pt, cap: "round"),
-    curve.move((84mm, 101mm)),
-    curve.cubic((94mm, 96mm), (102mm, 100mm), (108mm, 108mm)),
+    curve.move((84mm, 92mm)),
+    curve.cubic((94mm, 87mm), (102mm, 91mm), (108mm, 98mm)),
   ))
 })
 
 #[
   #place(top + left, dy: -4mm, label-el(check.kicker))
-  #place(top + right, dx: 2mm, dy: 12mm, ticket[
+  #place(top + right, dx: 4.5mm, dy: 12mm, ticket[
     #text(size: 7pt, tracking: 0.14em, fill: quiet, caps-el(client.client-el)) \
     #text(size: 13pt, client.name-el) \
     #v(1mm)
@@ -116,17 +118,17 @@
   ])
 
   #v(10mm)
-  #block(text(size: 124pt, style: "italic", tracking: -0.02em, {
+  #block(text(size: 106pt, style: "italic", tracking: -0.02em, {
     set par(leading: 0.08em)
     check.headline.at(0); linebreak(); h(18mm); check.headline.at(1)
   }))
 
-  #v(20mm)
+  #v(24mm)
   #block(width: 150mm, text(size: 21pt, check.standfirst, hyphenate: false))
 
   #v(9mm)
   #block(width: 150mm, { notch; text(size: 24pt, weight: "bold", check.ask) })
-  #v(4mm)
+  #v(7mm)
   #for (kind, sample) in check.items {
     block(above: 0mm, below: 0mm, height: 13mm, grid(columns: (58mm, 1fr), align: (left + bottom, left + bottom),
       text(size: 21pt, kind),
@@ -156,7 +158,7 @@
 #[
   #set text(lang: "en", size: 11.5pt)
   #place(top + left, dy: -4mm, label-en("CV text · draft " + client.draft + " · " + client.date-en))
-  #place(top + right, dy: -4mm, label-en("Page 2 of " + str(client.pages)))
+  #place(top + right, dy: -5.5mm, text(size: 12pt, tracking: 0.06em, fill: ink)[Page 2 of #client.pages])
 
   #v(6mm)
   #block(below: 7mm, { notch; text(size: 54pt, fact(client.name-en, w: 1.5pt, off: 7pt)) })

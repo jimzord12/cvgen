@@ -1,7 +1,9 @@
 // Stoichedon: a Text Draft direction for CVgen (idea run 2026-09-27).
 // The whole draft sits on one square letter grid, as Attic inscriptions were
 // cut "in rows": display lines put every letter in its own cell; running text
-// keeps to the rows. Facts the Client must check are rubricated in red ochre.
+// keeps to the rows. Facts the Client must check are rubricated: red ochre AND the
+// Bold cut, which nothing else on the page uses (so the cue survives greyscale and
+// red-green colour blindness).
 // Two pages: the Check Page (Greek) and the first CV-content page (English).
 //
 // typst compile --root . --ignore-system-fonts --font-path packages/cv-framework/fonts --font-path design-concepts/fonts design-concepts/2026-09-27-stoichedon/concept.typ design-concepts/2026-09-27-stoichedon/concept.pdf
@@ -11,12 +13,18 @@
 // ---- Per-client parameters (words); the design below is fixed ---------------
 #let client = (
   given-el: "Ελένη", family-el: "Μάρκου",
+  greeting-el: "Ελένη", // vocative: "Κωνσταντίνε" for Κωνσταντίνος
   given-en: "Eleni", family-en: "Markou",
-  draft: "01", date: "27.09.2026", pages: 3,
+  // Name cell size, in grid cells (4 = 30 mm, 3 = 22.5 mm, 2 = 15 mm, 1 = 7.5 mm).
+  // Set by hand per client; a name word that does not fit the 24-cell measure
+  // stops the compile (no automatic shrinking, constitution section 4).
+  name-span: 4,
+  draft: "01", date: "27.09.2026", pages: 4,
 )
 #let check = (
-  intro: [#client.given-el, αυτό είναι το κείμενο του βιογραφικού σας, πριν αρχίσει το σχέδιο.],
-  ask: ("Ελέγξτε μόνο", "τα κόκκινα"), // second line is set in the fact colour
+  intro: [#client.greeting-el, αυτό είναι το κείμενο του βιογραφικού σας, πριν αρχίσει το σχέδιο.],
+  ask: ("Ελέγξτε μόνο", "τα κόκκινα"), // second line is set as a fact
+  cue: [τα κόκκινα, έντονα γράμματα, όπως αυτά:],
   items: (
     ("Ονόματα", "Boreal Gas Carriers"),
     ("Ημερομηνίες", "2023 – 2026"),
@@ -61,13 +69,19 @@
 #let stoi(col, row, segs, span: 1, fill: ink, weight: "regular", align-right: false) = {
   let segs = if type(segs) == str { ((segs, fill),) } else { segs }
   let cells = ()
-  for (s, f) in segs { for ch in caps-el(s).clusters() { cells.push((ch, f)) } }
+  for seg in segs {
+    let w = seg.at(2, default: weight)
+    for ch in caps-el(seg.at(0)).clusters() { cells.push((ch, seg.at(1), w)) }
+  }
   let start = if align-right { col - cells.len() * span } else { col }
-  for (i, (ch, f)) in cells.enumerate() {
+  let word = segs.map(s => s.at(0)).join()
+  assert(start >= 0 and start + cells.len() * span <= 24,
+    message: "stoichedon line does not fit the 24-cell measure at span " + str(span) + ": " + word + " (needs " + str(cells.len() * span) + " cells); set a smaller span by hand")
+  for (i, (ch, f, w)) in cells.enumerate() {
     let body = if ch == " " {
       circle(radius: 0.5mm * calc.sqrt(span), fill: rule)
     } else {
-      text(font: face, size: span * C * (if span > 2 { 1.08 } else { 1.0 }), weight: weight, fill: f, top-edge: "cap-height", bottom-edge: "baseline", ch)
+      text(font: face, size: span * C * (if span > 2 { 1.08 } else { 1.0 }), weight: w, fill: f, top-edge: "cap-height", bottom-edge: "baseline", ch)
     }
     at(start + i * span, row, box(width: span * C, height: span * C, align(center + horizon, body)))
   }
@@ -80,7 +94,7 @@
     set par(leading: C, spacing: C, justify: false)
     body
   }))
-#let fact(body) = text(fill: ochre, body)
+#let fact(body) = text(fill: ochre, weight: "bold", body)
 
 // The cell marks: a small cross at every corner of the grid.
 #let grid-marks = {
@@ -98,26 +112,28 @@
 
 // =========================== PAGE 1: CHECK PAGE ===========================
 #[
-  #stoi(0, 0, "CVgen", weight: "bold")
-  #stoi(24, 0, check.draft + " " + client.draft, weight: "bold", align-right: true)
+  #stoi(0, 0, "CVgen")
+  #stoi(24, 0, check.draft + " " + client.draft, align-right: true)
 
-  #stoi(0, 2, client.given-el, span: 4)
-  #stoi(0, 6, client.family-el, span: 4)
+  #let s = client.name-span
+  #stoi(0, 2, client.given-el, span: s)
+  #stoi(0, 2 + s, client.family-el, span: s)
 
   #lines(0, 11, 22, check.intro, size: 18pt)
 
-  #stoi(0, 14, check.ask.at(0), span: 2, weight: "bold")
+  #stoi(0, 14, check.ask.at(0), span: 2)
   #stoi(0, 16, check.ask.at(1), span: 2, weight: "bold", fill: ochre)
+  #lines(0, 18, 24, text(fill: quiet, check.cue), size: 16pt)
 
   #for (i, (kind, sample)) in check.items.enumerate() {
-    stoi(0, 19 + i, kind)
-    lines(12, 19 + i, 12, text(lang: "en", fact(sample)), size: 20pt)
+    stoi(0, 20 + i, kind)
+    lines(12, 20 + i, 12, text(lang: "en", fact(sample)), size: 20pt)
   }
-  #lines(0, 24, 24, text(fill: quiet, check.ours), size: 18pt)
+  #lines(0, 25, 24, text(fill: quiet, check.ours), size: 18pt)
 
-  #stoi(0, 26, check.ok.at(0), span: 2, weight: "bold")
-  #stoi(0, 28, check.ok.at(1), span: 2, weight: "bold")
-  #lines(0, 31, 24, check.fix, size: 18pt)
+  #stoi(0, 27, check.ok.at(0), span: 2)
+  #stoi(0, 29, check.ok.at(1), span: 2)
+  #lines(0, 32, 24, check.fix, size: 18pt)
 
   #stoi(0, 35, client.date)
   #stoi(24, 35, check.page + " 1/" + str(client.pages), align-right: true)
@@ -132,11 +148,12 @@
 
 #[
   #set text(lang: "en")
-  #stoi(0, 0, "Draft " + client.draft, weight: "bold")
-  #stoi(24, 0, "Page 2/" + str(client.pages), weight: "bold", align-right: true)
+  #stoi(0, 0, "Draft " + client.draft)
+  #stoi(24, 0, "Page 2/" + str(client.pages), align-right: true)
 
-  #stoi(0, 2, client.given-en, span: 4, fill: ochre)
-  #stoi(0, 6, client.family-en, span: 4, fill: ochre)
+  #let s = client.name-span
+  #stoi(0, 2, client.given-en, span: s, fill: ochre, weight: "bold")
+  #stoi(0, 2 + s, client.family-en, span: s, fill: ochre, weight: "bold")
   #stoi(0, 10, data.identity.rank, fill: ochre, weight: "bold")
 
   #let contacts = data.contacts.left + data.contacts.right
@@ -152,8 +169,8 @@
     data.profile
   }, size: 14pt)
 
-  #stoi(0, 20, "Sea service", weight: "bold")
-  #stoi(24, 20, ((str(months-total), ochre), (" months", ink)), weight: "bold", align-right: true)
+  #stoi(0, 20, "Sea service")
+  #stoi(24, 20, ((str(months-total), ochre, "bold"), (" months", ink)), align-right: true)
 
   #let r = 22
   #for co in data.companies.slice(0, 2) {

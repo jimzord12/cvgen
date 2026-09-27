@@ -15,9 +15,11 @@ Fictional record: `examples/candidates/chief-officer-example.json`; the
 
 ## What to notice first
 
-1. The headline "Πρώτη πρόβα." (First fitting) in a very large calligraphic
-   italic, with the thread tied to a tailor's ticket, crossing in front of
-   the letters and wrapping the π, as the brand mark's thread wraps the C.
+1. The headline "Ώρα για πρόβα." (Time for a fitting) in a very large
+   calligraphic italic, with the thread tied to a tailor's ticket, crossing
+   in front of the letters and wrapping the π, as the brand mark's thread
+   wraps the C. The headline has no ordinal, so draft 02 and 03 use it
+   unchanged; the draft number is on the ticket ("Πρόβα 01").
 2. The `Check Page` teaches one visual rule: *check only what has the copper
    stitch under it*, shown on four real samples (a name, a date, a number, a
    title). Page 2 then keeps that promise on every fact.
@@ -71,7 +73,8 @@ Greek: full monotonic Greek, checked in the render (tonos, dialytika, «»).
   `companies[].name/period/groups[].type/ships[].name/rank/months`. The sea
   service totals (129 months, 22 vessels) are sums of the record's `months`,
   never calendar arithmetic.
-- Per-client words (parameters, not design): Greek first name and full name,
+- Per-client words (parameters, not design): Greek greeting (vocative, e.g.
+  "Κωνσταντίνε") and full name,
   the gendered ticket label (Πελάτισσα / Πελάτης), draft number, date, page
   count, the four sample facts, and the check wording. The CV name is set in
   the CV's own case ("Eleni Markou"); the record stores it in capitals.
@@ -84,15 +87,18 @@ Greek: full monotonic Greek, checked in the render (tonos, dialytika, «»).
 A replacement for `scripts/text-draft.typ` (about 150 lines): the `fact`
 mark, the seam and notch, the ticket, `caps-el` for Greek capitals, and a
 `check:` block with the fields above. Page 1's thread is drawn in page
-coordinates for this headline; the house version would fix the headline
-words ("Πρώτη πρόβα.") as brand copy so the thread never has to move, and
-keep the name on the ticket (any length up to about 24 characters). No
-artwork pack; no template changes.
+coordinates for this headline; the headline words ("Ώρα για πρόβα.") are
+fixed brand copy with no ordinal, so the thread never has to move for draft
+02 or 03. The ticket holds about 15 characters of name per line; a longer
+name wraps cleanly onto a second line. No artwork pack; no template changes.
 
 ## Known weaknesses
 
 - The thread's path is tuned to this headline; a different headline wording
-  needs the curve redrawn (fine if the headline is fixed house copy).
+  needs the curve redrawn (fine because the headline is fixed house copy).
+- The closest of the three in feel to the rejected attempt (warm metal on
+  cream, a classical serif); its daring is the headline and the thread.
+- Stitches end in clipped half-dashes where a fact ends mid-dash.
 - Nearly every line of an experience table is a fact, so page 2 carries many
   stitches; it reads as texture, but it is busy at 96 dpi.
 - The dashed stitch is thin (0.7 pt) at body size; on a small phone screen it
