@@ -290,6 +290,7 @@ def run_workflow(out, typst):
         refusal = cv('render', oneoff, '--typst', typst, '--pages', '1', expect=2)
         assert message in refusal and read in refusal, refusal
     # A workspace file that would land on the portrait's place in the snapshot is refused too.
+    (oneoff / 'parts/link.txt').write_text('Read after a URL', encoding='utf-8')
     (oneoff / 'portrait.png').write_bytes((ROOT / 'examples/candidates/fictional-engineer.png').read_bytes())
     (oneoff / 'assets').mkdir()
     (oneoff / 'assets/portrait.png').write_bytes(b'not the portrait')
@@ -305,7 +306,6 @@ def run_workflow(out, typst):
     (oneoff / 'presentation.json').write_text(json.dumps({'headline': 'Live, not snapshotted'}), encoding='utf-8')
     live_path = (oneoff / 'presentation.json').relative_to(ROOT).as_posix()
     (oneoff / 'cv.typ').write_text(without_helper.replace('json("presentation.json")', f'json("/" + "{live_path}")'), encoding='utf-8')
-    (oneoff / 'parts/link.txt').write_text('Read after a URL', encoding='utf-8')
     live = cv('render', oneoff, '--typst', typst, '--pages', '1', expect=1)
     assert live['status'] == 'success' and not live['checks_passed'], live
     assert any('live file outside the revision snapshot' in e and 'presentation.json' in e for e in live['errors']), live
