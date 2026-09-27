@@ -11,24 +11,31 @@ CVgen's own brand assets, not client or template material.
 
 Owner's direction (2026-09-28): keep the faithful redraw and give the C
 alone one custom detail, tied to the thread, so the letters are not stock
-type. Two options drafted the same night, for the owner to pick; each is
-`cvgen-mark.svg` with only the C changed and the V untouched:
+type. Two options drafted the same night; **open: the owner picks eye or
+stitch.** Each is `cvgen-mark.svg` with the C changed and the V untouched:
 
 - `cvgen-mark-c-eye.svg` (the design reviewer's recommendation): a
   needle's eye cut along the axis of the C's stem, and the copper thread
   passes through it (out of the eye, under the stem to the counter), so
-  the C becomes the needle. The thread keeps its path.
+  the C becomes the needle. The thread keeps its path; only its layering
+  at the eye changes.
 - `cvgen-mark-c-stitch.svg`: five stitch holes along the outer edge of the
-  C's stem, each turned to the curve, starting below the thread: the
-  `Text Draft`'s running stitch set into the letter. Thread unchanged.
+  C's stem, each turned to the curve, starting below the thread. It echoes
+  the copper running stitch of the `Text Draft` house design (First
+  Fitting, 2026-09-28), but the holes are white, not copper, and white
+  dashes on a dark shape are also a stock stitched-patch look. Thread
+  unchanged.
 
 The holes are real holes (even-odd subpaths of the C), so they stay
 transparent on any background and render the same under both fill rules.
-At 32 px the detail is faint; the chosen C then also goes into the
-wordmark, the small mark, the avatar and the reversed files. Tried and
-dropped: a knot on the lower terminal (read as a full stop, "C.V") and a
-needle point drawn out of the lower terminal (read as a thorn attached to
-the letter, heavier than the thread). Review reports:
+From 64 px down both details fade (the eye can pass for a highlight). The
+chosen C goes into the wordmark and the reversed files; the small mark and
+the avatar keep the plain C, because their emboldened letters and thick
+thread close the eye and the holes (tried by the reviewer), unless a
+detail is redrawn for them. Tried and dropped during the drafting (renders
+not kept): a knot on the lower terminal (read as a full stop, "C.V"); and,
+reviewed, a needle point drawn out of the lower terminal (read as a thorn
+attached to the letter, heavier than the thread). Review reports:
 `docs/work/brand-logo/reviews/02-design-reviewer.md` onwards.
 
 Vector options drafted 2026-09-27 (options for the owner to pick, not a
