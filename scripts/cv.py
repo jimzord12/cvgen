@@ -1,6 +1,6 @@
 """Local candidate CV workflow: render, approve, export and status for one workspace.
 
-    python scripts/cv.py render  private/<candidate> [--pages 2] [--input key=value] [--typst path]
+    python scripts/cv.py render  private/<candidate> [--pages 2] [--input key=value] [--typst path] [--reference-date YYYY-MM-DD]
     python scripts/cv.py approve private/<candidate> <revision> --approver "<name>" --sha256 <reviewed hash>
     python scripts/cv.py export  private/<candidate> <revision>
     python scripts/cv.py status  private/<candidate>
@@ -8,7 +8,8 @@
 Exit codes: 0 done, 1 the render or its checks failed (the revision is kept),
 2 the operation was refused or the arguments were wrong (the message says why).
 Certificate expiry warnings (expired, or within 180 days) print as WARNING lines
-on stderr for render and status and never change the exit code.
+on stderr for render and status, render adds a NOTE line when some certificate
+dates could not be checked; neither changes the exit code.
 """
 import argparse
 from datetime import date

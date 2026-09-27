@@ -67,7 +67,9 @@ adapter produces it (see "Flagship wording" below).
   `docs/guides/build-a-cv.md`, section 8. Do not convert calendar periods
   into months to make the data fit; constitution section 6 forbids it.
 - **certificates** accept either a four-string array in the order title,
-  scope, issued, review, or an object with those keys.
+  scope, issued, review, or an object with those keys. Write an expiry
+  (`review`) like `14 Jul 2029` to have it checked at render (`Certificate
+  Warning`); free text such as `As required` is allowed and only counted.
 - **education_entries[].note** is optional and renders small under the
   institution.
 

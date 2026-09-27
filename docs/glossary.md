@@ -62,7 +62,7 @@ owner afterwards.
 | `Release` | The public example PDFs that show the product, with fictional people | root `exports/` | 2026-09-25 |
 | `Frozen Reference` | The PDF a `Template`'s public example must reproduce pixel for pixel | `templates/<t>/tests/approved/` | 2026-09-25 |
 | `Framework Gap` | A recorded case of going around the `Framework`, a `Domain` or a `Template` to deliver a CV | `docs/framework-gaps.md` | 2026-09-25 |
-| `Certificate Warning` | A loud note at render that a certificate on the CV has expired or expires within 180 days; it never fails the render or blocks `Approval` (owner, 2026-09-25) | `check_certificates` in `packages/cv-workflow`, `certificates` in `checks.json`, `WARNING:` lines from `scripts/cv.py` | 2026-09-27 |
+| `Certificate Warning` | A `WARNING:` line at render, repeated by `status`, saying a certificate on the CV has expired or expires within 180 days; it never fails the render or blocks `Approval` (owner, 2026-09-25) | `check_certificates` in `packages/cv-workflow`, `certificates` in `checks.json`, `WARNING:` lines from `scripts/cv.py` | 2026-09-27 |
 | `Idea Run` | One closed loop of an idea agent (ceo or magazine-editor) and its reviewers | `.claude/skills/idea-run/`, `docs/work/idea-runs/` | 2026-09-25 |
 
 ## Words with two meanings
