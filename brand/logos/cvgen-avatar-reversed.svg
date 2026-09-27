@@ -1,14 +1,14 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1478 1478" width="1478" height="1478">
-  <title>CVgen mark, small sizes</title>
-  <desc>Favicon and avatar variant: emboldened letters, a thread about five times thicker, the loop dropped (the thread enters from the left), shorter tail, square canvas.</desc>
-  <g id="thread-under" fill="none" stroke="#B7713D" stroke-width="72" stroke-linecap="round" stroke-linejoin="round">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-233.5 -233.5 1945 1945" width="1945" height="1945">
+  <title>CVgen avatar, reversed</title>
+  <desc>Avatar cut: the small variant with about 12% padding so a circular crop keeps the serifs and thread ends clear of the rim. Reversed for dark backgrounds (letters #F4EFE6, thread #C07B45). Favicon and avatar variant: emboldened letters, a thread about five times thicker, the loop dropped (the thread enters from the left), shorter tail, square canvas.</desc>
+  <g id="thread-under" fill="none" stroke="#C07B45" stroke-width="72" stroke-linecap="round" stroke-linejoin="round">
     <path d="M 70 721
              C 120 671 200 636 295 636
              C 520 636 710 806 870 806
              C 1000 806 1170 636 1305 636
              C 1345 636 1380 644 1408 656"/>
   </g>
-  <g id="letters" fill="#131210" fill-rule="nonzero" stroke="#131210" stroke-width="28" stroke-linejoin="round">
+  <g id="letters" fill="#F4EFE6" fill-rule="nonzero" stroke="#F4EFE6" stroke-width="28" stroke-linejoin="round">
     <path id="C" d="M 560.5 418 Q 528 415 498 415 Q 418 415 349 439 Q 280 463 228.5 506.5 Q 177 550 148.5 610.5 Q 120 671 120 743
              Q 120 837 168 909.5 Q 216 982 300 1022.5 Q 384 1063 492 1063 Q 535 1063 582.5 1055 Q 630 1047 678 1030 Q 687 1026 689.5 1022.5
              Q 692 1019 693 1007 L 708 883 Q 708 880 703.5 879 Q 699 878 697 881 Q 656 965 609.5 1003.5 Q 563 1042 492 1042
@@ -22,7 +22,7 @@
              Q 764 438 782 456 Q 800 474 817 509 L 1072 1050 Q 1074 1054 1083.5 1054 Q 1093 1054 1094 1050 L 1279 556
              Q 1299 502 1331.5 470 Q 1364 438 1401 438 Q 1404 438 1404 432 Z"/>
   </g>
-  <g id="thread-over" fill="none" stroke="#B7713D" stroke-width="72" stroke-linecap="round" stroke-linejoin="round">
+  <g id="thread-over" fill="none" stroke="#C07B45" stroke-width="72" stroke-linecap="round" stroke-linejoin="round">
     <path d="M 70 721
              C 120 671 200 636 295 636
              C 520 636 710 806 870 806
