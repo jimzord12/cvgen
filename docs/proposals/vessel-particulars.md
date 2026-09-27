@@ -1,6 +1,6 @@
 ---
 kind: proposal
-status: approved
+status: applied
 revision: 1
 ---
 
@@ -163,3 +163,8 @@ when a client asks to see one. Yes adds about half a day.
   the brief for this Night Shift, for every task doable without him, and
   this part is independent of item 3's contract periods (the proposal's
   own pull-forward rule); item 3 will reuse the same schema and row.
+- 2026-09-27, lead: **applied**. Merged to `main` in 1cb0c9e after two
+  `code-reviewer` rounds (round 2 PASS, reports in
+  `docs/work/vessel-particulars/reviews/`); suite 50 cases PASS on `main`,
+  engineer example pixel-identical to v11. The look of the suffix is with
+  the owner as a render (Night Shift question).
