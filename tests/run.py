@@ -299,7 +299,8 @@ def main():
     # Rows grow and the reply stays in the flow: a long company name and seven rows never overprint.
     long_draft = compile_case('text-draft-long', 'tests/fixtures/text-draft.typ', {'case': 'long'})
     with fitz.open(long_draft) as doc:
-        boxes = [fitz.Rect(w[:4]) for w in doc[0].get_text('words')]
+        # Below the tilted tag (its rotated letters overlap as boxes): the intro, rows and reply.
+        boxes = [fitz.Rect(w[:4]) for w in doc[0].get_text('words') if w[1] > 260]
         overlaps = [(a, b) for i, a in enumerate(boxes) for b in boxes[i + 1:] if (a & b).get_area() > 1]
         assert not overlaps, overlaps[:3]
         assert 'Όλα σωστά' in doc[0].get_text() and 'Services S.A.' in doc[0].get_text()
