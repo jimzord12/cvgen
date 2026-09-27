@@ -37,7 +37,7 @@ step; nothing is overwritten on the way.
 | `inputs/<path>` | render | every other workspace file `cv.typ` (or a local `.typ` helper) reads by a literal relative path, at the same place |
 | `render.log` | render | compiler output, also for failed runs |
 | `render.json` | render | status, engine commit and dirty flag, compiler version and command, input hashes and imports (`inputs.files` lists the copied workspace files), the schema the record was checked against, PDF hash |
-| `checks.json` | render | page count, empty pages, fonts, bounds; `pdf_sha256` of the bytes checked |
+| `checks.json` | render | page count, empty pages, fonts, bounds, any `Live Read`; `pdf_sha256` of the bytes checked |
 | `cv.pdf` | render | the PDF, on success |
 | `cv.approval.json` | approve | revision id, sha256, approver, time, scope `owner` or `test-only` |
 
@@ -61,7 +61,11 @@ step; nothing is overwritten on the way.
   as UTF-8 so a Greek name in an error survives the Windows console codec.
 - Render finds the files `cv.typ` reads by a literal path (`json`, `yaml`,
   `toml`, `csv`, `xml`, `cbor`, `read`, `image`, `import`, `include`),
-  follows local `.typ` helpers and copies them into the snapshot. It refuses,
+  follows local `.typ` helpers and copies them into the snapshot (`import`
+  and `include` count when written after `#` or at the start of a statement;
+  an `include` inside an expression, such as a `grid` argument, is not found,
+  and the snapshot compile then fails with "file not found": write it as its
+  own `#include` or `#let`). It refuses,
   before the revision exists, a root-absolute read into `private/` or the
   workspace (the live file), a path that leaves the workspace, a missing
   file, and a file that would take the portrait's place in `inputs/assets/`.
