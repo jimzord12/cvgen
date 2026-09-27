@@ -208,10 +208,10 @@ section 8).
 A client whose `Domain` does not exist yet (a tour guide, today) gets a
 one-off `Template` in the `Envelope`: its `cv.typ` imports
 `/packages/cv-framework/lib.typ` only (ADR 0012), so `scripts/cv.py render`
-checks no schema, and it holds the whole design in that one file, because a
-`Revision` copies only `cv.typ`, `candidate.json` and the portrait
-(`docs/framework-gaps.md`; card revision-snapshot). Record the `Framework
-Gap` for that client's design.
+checks no schema. The design may use files beside `cv.typ` (data such as
+`presentation.json`, local `.typ` helpers, images) read by a path relative
+to it: a `Revision` copies each one it finds (`build-a-cv.md` section 8).
+Record the `Framework Gap` for that client's design.
 
 At `Export`, Claude writes "Delivered <date>. Delete by <date + 12 months>"
 in the `Envelope`'s `README.md` and names the delete-by date in its report

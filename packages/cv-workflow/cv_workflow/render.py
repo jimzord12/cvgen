@@ -9,8 +9,46 @@ from .workspace import (ENGINE, FONTS, ROOT, Workspace, WorkflowError, new_revis
                         repo_relative, sha256_file, utc_now, write_json)
 
 IMPORT = re.compile(r'^\s*#import\s+"([^"]+)"', re.MULTILINE)
+# Every literal file path a Typst source reads: data loaders, read(), image(), import and include.
+READS = re.compile(r'(?<![\w.-])(?:(?:json|yaml|toml|csv|xml|cbor|read|image)\(\s*|(?:import|include)\s+)"([^"]+)"')
+COMMENTS = re.compile(r'/\*.*?\*/|//[^\n]*', re.S)
 # Typst writes UTF-8 whatever the Windows locale says; a Greek name in an error must survive.
 TEXT = {'text': True, 'encoding': 'utf-8', 'errors': 'replace'}
+
+
+def workspace_files(ws):
+    """The workspace files cv.typ reads by a literal path, followed through its local .typ helpers.
+
+    Returned as paths relative to the workspace, so the snapshot keeps them where
+    cv.typ expects them. A path that would read live data outside the snapshot
+    (root-absolute into private/, or climbing out of the workspace) or a missing
+    file is refused, naming the file. A computed path (image(d.photo)) cannot be
+    seen here; if its file is not in the snapshot the compile fails and says so.
+    """
+    found, queue, seen = [], [ws.entry], {ws.entry}
+    while queue:
+        source = queue.pop(0)
+        where = source.relative_to(ws.folder).as_posix()
+        for target in READS.findall(COMMENTS.sub('', source.read_text(encoding='utf-8'))):
+            if target.startswith('@'):  # a Typst package, not a file
+                continue
+            if target.startswith('/'):
+                if target.lstrip('/').split('/')[0] == 'private':
+                    raise WorkflowError(f'{where} reads {target} by a root-absolute path, so a revision would read the live '
+                                        f'file, not a snapshot; write the path relative to {where}')
+                continue  # a repository file (the engine, fonts, examples), recorded by the engine commit
+            path = (source.parent / target).resolve()
+            if not path.is_relative_to(ws.folder):
+                raise WorkflowError(f'{where} reads {target}, which is outside the workspace; copy it into the workspace')
+            if not path.is_file():
+                raise WorkflowError(f'{where} reads {target}, which does not exist ({path})')
+            if path in (ws.entry, ws.record) or path in seen:
+                continue  # cv.typ and candidate.json are always snapshotted, the record rewritten
+            seen.add(path)
+            found.append(path.relative_to(ws.folder))
+            if path.suffix == '.typ':
+                queue.append(path)
+    return found
 
 
 def render_revision(workspace, typst='typst', pages=2, inputs=None):
@@ -38,6 +76,10 @@ def render_revision(workspace, typst='typst', pages=2, inputs=None):
         source = ROOT / portrait.lstrip('/') if portrait.startswith('/') else ws.folder / portrait
         if not source.is_file():
             raise WorkflowError(f'identity.portrait {portrait!r} resolves to {source}, which does not exist')
+    files = workspace_files(ws)
+    if source and any(f.as_posix() == 'assets/' + source.name and ws.folder / f != source.resolve() for f in files):
+        raise WorkflowError(f'cv.typ reads assets/{source.name}, which is not the portrait but would take its place '
+                            'in the snapshot; rename one of them')
 
     revision = ws.revision(new_revision_id())
     (revision.inputs / 'assets').mkdir(parents=True, exist_ok=False)
@@ -52,6 +94,13 @@ def render_revision(workspace, typst='typst', pages=2, inputs=None):
         assets.append({'field': 'identity.portrait', 'source': portrait, 'path': 'inputs/assets/' + source.name,
                        'sha256': sha256_file(copy)})
     write_json(revision.inputs / 'candidate.json', record)
+    # The other files cv.typ reads, at the same place relative to it.
+    extra = []
+    for relative in files:
+        copy = revision.inputs / relative
+        copy.parent.mkdir(parents=True, exist_ok=True)
+        shutil.copyfile(ws.folder / relative, copy)
+        extra.append({'path': 'inputs/' + relative.as_posix(), 'sha256': sha256_file(copy)})
 
     command = [compiler, 'compile', '--root', str(ROOT), '--font-path', str(FONTS)]
     for key, value in (inputs or {}).items():
@@ -75,6 +124,7 @@ def render_revision(workspace, typst='typst', pages=2, inputs=None):
             'candidate': {'path': 'inputs/candidate.json', 'sha256': sha256_file(revision.inputs / 'candidate.json'),
                           'source_sha256': sha256_file(ws.record), 'schema': schema},
             'assets': assets,
+            'files': extra,
             'compiler_inputs': dict(inputs or {}),
         },
         'settings': {'expected_pages': pages},

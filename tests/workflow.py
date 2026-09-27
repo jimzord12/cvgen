@@ -19,6 +19,19 @@ ENTRY = '''#import "/packages/domains/marine/lib.typ": flagship
 #show: flagship.with(candidate: candidate, theme: theme, artwork: artwork, layout: layout, show-vessel-durations: true)
 '''
 
+# A one-off design for a field with no domain yet: the Framework only, plus files beside cv.typ.
+ONE_OFF = '''#import "/packages/cv-framework/lib.typ": normalize-common
+#import "parts/helper.typ": note
+// A commented read such as json("missing.json") is not a file the page needs.
+#let d = normalize-common(json("candidate.json"))
+#let p = json("presentation.json")
+#set text(font: "Source Sans 3")
+= #d.identity.name
+#p.headline
+
+#note
+'''
+
 
 def run_workflow(out, typst):
     """A fresh fictional workspace under the suite output; returns the list of passed checks."""
@@ -232,6 +245,44 @@ def run_workflow(out, typst):
     assert not exported3['existing'] and sha256_file(conflict / 'cv.pdf') == third['sha256']
     assert cv('status', workspace)['partial_exports'] == [partial.name]  # left for inspection, never used
     passed.append('interrupted-and-conflicting-refused')
+
+    # 9. A one-off design (no domain yet) imports only the Framework, reads sibling files and a local helper;
+    # the revision snapshots them all, and compiles from the snapshot alone (card revision-snapshot).
+    oneoff = base / 'fictional-tour-guide'
+    (oneoff / 'parts').mkdir(parents=True)
+    (oneoff / 'cv.typ').write_text(ONE_OFF, encoding='utf-8')
+    (oneoff / 'parts/helper.typ').write_text('#let note = read("note.txt")\n', encoding='utf-8')
+    (oneoff / 'parts/note.txt').write_text('Licensed guide, fictional record', encoding='utf-8')
+    (oneoff / 'presentation.json').write_text(json.dumps({'headline': 'Walks through old Athens'}), encoding='utf-8')
+    (oneoff / 'candidate.json').write_text(json.dumps({'identity': {'name': 'Ada Example', 'rank': 'Tour guide'}}), encoding='utf-8')
+    guide = cv('render', oneoff, '--typst', typst, '--pages', '1')
+    assert guide['status'] == 'success' and guide['checks_passed'] and guide['schema'] is None, guide
+    snap = oneoff / 'revisions' / guide['revision']
+    files = json.loads((snap / 'render.json').read_text(encoding='utf-8'))['inputs']['files']
+    assert sorted(f['path'] for f in files) == ['inputs/parts/helper.typ', 'inputs/parts/note.txt', 'inputs/presentation.json'], files
+    assert all(f['sha256'] == sha256_file(snap / f['path']) for f in files), files
+    import pymupdf as fitz
+    with fitz.open(snap / 'cv.pdf') as doc:
+        assert 'Walks through old Athens' in doc[0].get_text() and 'Licensed guide' in doc[0].get_text()
+    # Change and then remove the live files: the snapshot still compiles, with what was rendered.
+    (oneoff / 'presentation.json').write_text(json.dumps({'headline': 'Changed after the render'}), encoding='utf-8')
+    for name in ['presentation.json', 'parts/helper.typ', 'parts/note.txt']:
+        os.remove(oneoff / name)
+    again = base / 'oneoff-from-snapshot.pdf'
+    subprocess.run([typst, 'compile', '--root', str(ROOT), '--font-path', str(ROOT / 'packages/cv-framework/fonts'),
+                    str(snap / 'inputs/cv.typ'), str(again)], check=True, capture_output=True)
+    with fitz.open(again) as doc:
+        assert 'Walks through old Athens' in doc[0].get_text() and 'Licensed guide' in doc[0].get_text()
+    # Reads the snapshot cannot hold are refused before anything is written, naming the file.
+    count = len(list((oneoff / 'revisions').iterdir()))
+    without_helper = ONE_OFF.replace('#import "parts/helper.typ": note\n', '').replace('#note\n', '')
+    for read, message in [('/private/zz-fictional/presentation.json', 'root-absolute path'),
+                          ('../outside.json', 'outside the workspace'), ('presentation.json', 'does not exist')]:
+        (oneoff / 'cv.typ').write_text(without_helper.replace('presentation.json', read), encoding='utf-8')
+        refusal = cv('render', oneoff, '--typst', typst, '--pages', '1', expect=2)
+        assert message in refusal and read in refusal, refusal
+    assert len(list((oneoff / 'revisions').iterdir())) == count
+    passed.append('snapshot-holds-sibling-files')
 
     log.close()
     (base / 'report.json').write_text(json.dumps({'passed': passed, 'workspace': str(workspace)}, indent=2), encoding='utf-8')
