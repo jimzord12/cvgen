@@ -1,5 +1,7 @@
 # Review round 1: premium-text-draft (code-reviewer)
 
+Lead's summary of the returned report (the original text was not kept).
+
 Snapshot: eac00ec (feat/text-draft-first-fitting) against 25469c9 (main),
 2026-09-28. Lead lenses: Contracts/API (real-client variants); Tests and
 visible evidence.

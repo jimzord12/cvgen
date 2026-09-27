@@ -1,5 +1,7 @@
 # Review round 2: premium-text-draft (code-reviewer)
 
+Lead's summary of the returned report (the original text was not kept).
+
 Snapshot: 8a7ddfb (fixes b753b89, 8a7ddfb on eac00ec), base 25469c9,
 2026-09-28. Lead lenses: Tests and visible evidence; Failure handling and
 layout.

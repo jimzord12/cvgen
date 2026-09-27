@@ -1,5 +1,7 @@
 # Design review round 1: premium-text-draft (design-reviewer)
 
+Lead's summary of the returned report (the original text was not kept).
+
 Snapshot: eac00ec, 2026-09-28. Renders at 96, 150 and 200 dpi, 390 and
 1170 px phone widths, greyscale, close-ups; stress copies (long names,
 6-7 samples, longer intro, 3 content pages). Numbering continues the idea

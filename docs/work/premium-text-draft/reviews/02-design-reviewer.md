@@ -1,5 +1,7 @@
 # Design review round 2: premium-text-draft (design-reviewer)
 
+Lead's summary of the returned report (the original text was not kept).
+
 Snapshot: 8a7ddfb, 2026-09-28. Base, `case=long` and `case=english`
 rendered at 96, 150 and 200 dpi, greyscale, 390 and 1170 px phone widths,
 with variant probes (7 to 10 rows, long tag names, line breaking).

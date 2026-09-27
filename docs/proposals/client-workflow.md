@@ -76,3 +76,7 @@ Approve the workflow as above?
   candidate-intake: yes. Decoupling the `Framework` from the `Domain`s is
   approved in the same session and tracked separately (card
   framework-split).
+- 2026-09-28, owner: the `Text Draft` of item 7 is no longer plain; it
+  gets the house design First Fitting, the owner's pick of the 2026-09-27
+  idea run (`docs/work/idea-runs/2026-09-27-editor/run.md`), built into
+  `scripts/text-draft.typ` (card premium-text-draft).

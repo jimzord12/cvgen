@@ -189,7 +189,7 @@ Claude writes the CV's content in the CV's language, sized for the
 (First Fitting: warm paper, one copper thread): `draft/draft-01.typ` using
 `scripts/text-draft.typ`, compiled to `draft/draft-01.pdf`. Every fact the
 client must check (a name, a date, a number, a title) is wrapped in
-`#fact[...]`, which underlines it with the copper stitch; our wording stays
+`#fact[...]`, which underlines it with the copper `Fact Mark`; our wording stays
 plain. The script's header comment shows the parameters: the client's name,
 greeting and label, draft number, date and four sample facts.
 
