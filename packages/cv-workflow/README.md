@@ -14,10 +14,11 @@ by `scripts/cv.py` today and by the future web backend later:
 
 ```python
 from cv_workflow import render_revision, approve_revision, export_revision, workspace_status, WorkflowError
-render_revision(workspace, typst='typst', pages=2, inputs={})      # -> revision id, sha256, checks_passed
+render_revision(workspace, typst='typst', pages=2, inputs={}, reference_date=None)
+                                                                   # -> revision id, sha256, checks_passed, certificate warnings
 approve_revision(workspace, revision_id, approver, sha256, test_only=False)
 export_revision(workspace, revision_id)                            # -> export folder, existing flag
-workspace_status(workspace)                                        # -> state and hash prefix per revision
+workspace_status(workspace)                                        # -> state, hash prefix and certificate warnings per revision
 ```
 
 A `workspace` is a folder inside the repository checkout (`private/<name>`,
@@ -36,7 +37,7 @@ step; nothing is overwritten on the way.
 | `inputs/assets/` | render | the portrait actually used |
 | `render.log` | render | compiler output, also for failed runs |
 | `render.json` | render | status, engine commit and dirty flag, compiler version and command, input hashes and imports, the schema the record was checked against, PDF hash |
-| `checks.json` | render | page count, empty pages, fonts, bounds; `pdf_sha256` of the bytes checked |
+| `checks.json` | render | page count, empty pages, fonts, bounds; `pdf_sha256` of the bytes checked; `certificates`: expiry dates checked against `reference_date`, warnings for expired or within-180-day certificates (never failing `passed`), counts of checked and unchecked dates |
 | `cv.pdf` | render | the PDF, on success |
 | `cv.approval.json` | approve | revision id, sha256, approver, time, scope `owner` or `test-only` |
 

@@ -3,7 +3,7 @@ import re
 import shutil
 import subprocess
 
-from .checks import check_certificates, check_pdf
+from .checks import certificate_summary, check_certificates, check_pdf
 from .validate import validate_record
 from .workspace import (ENGINE, FONTS, ROOT, Workspace, WorkflowError, new_revision_id, read_json,
                         repo_relative, sha256_file, utc_now, write_json)
@@ -88,6 +88,7 @@ def render_revision(workspace, typst='typst', pages=2, inputs=None, reference_da
         # Read from the snapshot the PDF was compiled from; warnings never change `passed`.
         checks['certificates'] = check_certificates(read_json(revision.inputs / 'candidate.json'), reference_date)
         write_json(revision.checks_record, checks)
+    counts, warnings = certificate_summary(checks)
     return {
         'revision': revision.id,
         'folder': str(revision.folder),
@@ -96,7 +97,8 @@ def render_revision(workspace, typst='typst', pages=2, inputs=None, reference_da
         'sha256': render['pdf']['sha256'] if succeeded else None,
         'checks_passed': bool(checks and checks['passed']),
         'errors': (checks or {}).get('errors', []) if succeeded else [result.stderr.strip()],
-        'warnings': checks['certificates']['warnings'] if checks else [],
+        'certificate_dates': counts,
+        'warnings': warnings,
         'engine_uncommitted_changes': render['engine']['uncommitted_changes'],
     }
 

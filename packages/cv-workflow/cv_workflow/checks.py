@@ -21,7 +21,9 @@ def check_certificates(record, today=None):
     """
     today = today or date.today()
     warnings, checked, unchecked = [], 0, 0
-    for item in (record.get('certificates') or []) if isinstance(record, dict) else []:
+    certificates = record.get('certificates') if isinstance(record, dict) else None
+    # Without a schema (a Framework-only one-off) the key may hold anything; only a list is read.
+    for item in certificates if isinstance(certificates, list) else []:
         if isinstance(item, list) and len(item) == 4:
             title, expiry = item[0], item[3]
         elif isinstance(item, dict):
@@ -39,14 +41,31 @@ def check_certificates(record, today=None):
             continue
         checked += 1
         days = (expires - today).days
+        count = lambda n: f'{n} day' if n == 1 else f'{n} days'
         if days < 0:
-            warnings.append(f'Certificate "{title}" EXPIRED on {expiry.strip()} ({-days} days before the render date). '
+            warnings.append(f'Certificate "{title}" EXPIRED on {expiry.strip()} ({count(-days)} before the render date). '
                             'Renew and update the date, remove the row, or replace the date with text such as "Renewal booked".')
         elif days <= EXPIRY_WARNING_DAYS:
-            warnings.append(f'Certificate "{title}" expires on {expiry.strip()}, in {days} days '
+            warnings.append(f'Certificate "{title}" expires on {expiry.strip()}, in {count(days)} '
                             f'(within {EXPIRY_WARNING_DAYS}). Check the candidate has booked the renewal.')
     return {'reference_date': today.isoformat(), 'window_days': EXPIRY_WARNING_DAYS,
             'date_checked': checked, 'not_date_checked': unchecked, 'warnings': warnings}
+
+
+def certificate_summary(checks):
+    """The certificate block of a checks.json as (counts, warnings); (None, []) when absent or malformed.
+
+    Revisions rendered before the check have no block; a hand-edited block of the wrong
+    shape is ignored rather than crashing `status` (a wrong JSON shape is never a traceback).
+    """
+    block = checks.get('certificates') if isinstance(checks, dict) else None
+    if not isinstance(block, dict):
+        return None, []
+    warnings = block.get('warnings')
+    if not (isinstance(warnings, list) and all(isinstance(w, str) for w in warnings)):
+        return None, []
+    counts = {key: block.get(key) for key in ('reference_date', 'date_checked', 'not_date_checked')}
+    return counts, warnings
 
 
 def check_pdf(pdf, pages):

@@ -253,6 +253,9 @@ def run_workflow(out, typst):
     assert warned['warnings'][1].startswith('Certificate "Near CoC" expires on 10 Jan 2027, in 105 days'), warned['warnings']
     assert warned['warnings'][2].startswith('Certificate "Edge of window" expires on 26 Mar 2027, in 180 days'), warned['warnings']
     assert cv.stderr.count('WARNING: Certificate') == 3, cv.stderr
+    # The unchecked count reaches the output too, so silence is never read as a pass.
+    assert warned['certificate_dates'] == {'reference_date': '2026-09-27', 'date_checked': 4, 'not_date_checked': 2}, warned
+    assert 'NOTE: 2 certificate date(s) not checked' in cv.stderr, cv.stderr
     recorded = json.loads((revision(warned['revision']) / 'checks.json').read_text(encoding='utf-8'))
     assert recorded['passed'] and recorded['certificates'] == {
         'reference_date': '2026-09-27', 'window_days': 180, 'date_checked': 4, 'not_date_checked': 2,
@@ -260,7 +263,16 @@ def run_workflow(out, typst):
     listed = {r['revision']: r['warnings'] for r in cv('status', workspace)['revisions']}
     assert listed[warned['revision']] == warned['warnings']
     assert cv.stderr.count(f'WARNING [{warned["revision"]}]: Certificate') == 3, cv.stderr
+    assert {r['revision']: r['certificate_dates'] for r in cv('status', workspace)['revisions']}[warned['revision']] == warned['certificate_dates']
     cv('approve', workspace, warned['revision'], '--approver', 'suite', '--sha256', warned['sha256'], '--test-only')
+    # A hand-broken certificate block never makes status a traceback: no warnings, no counts, same state.
+    warned_checks = revision(warned['revision']) / 'checks.json'
+    kept = warned_checks.read_text(encoding='utf-8')
+    for broken_block in ['x', ['x'], {'warnings': None}, {'warnings': [1]}]:
+        warned_checks.write_text(json.dumps({**json.loads(kept), 'certificates': broken_block}), encoding='utf-8')
+        row = [r for r in cv('status', workspace)['revisions'] if r['revision'] == warned['revision']][0]
+        assert row['warnings'] == [] and row['certificate_dates'] is None and row['state'] == 'approved', (broken_block, row)
+    warned_checks.write_text(kept, encoding='utf-8')
     (workspace / 'candidate.json').write_text(json.dumps(record, indent=2), encoding='utf-8')
     passed.append('certificate-dates-warn-only')
 

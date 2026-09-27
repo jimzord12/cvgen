@@ -24,10 +24,15 @@ from cv_workflow import WorkflowError, approve_revision, export_revision, render
 
 def warn(warnings, revision=None):
     """Certificate warnings, loud on stderr; they never change the exit code (owner, 2026-09-25)."""
-    if warnings:
-        sys.stderr.reconfigure(errors='backslashreplace')  # a cp1252 console must not crash on a Greek title
     for text in warnings:
         print(f'WARNING{f" [{revision}]" if revision else ""}: {text}', file=sys.stderr)
+
+
+def unchecked(counts):
+    """Say how many certificate dates were not checked, so silence is never read as a pass."""
+    if counts and counts.get('not_date_checked'):
+        print(f'NOTE: {counts["not_date_checked"]} certificate date(s) not checked (free text or not written like '
+              f'14 Jul 2029); {counts["date_checked"]} checked against {counts["reference_date"]}', file=sys.stderr)
 
 
 def main(argv=None):
@@ -69,6 +74,7 @@ def main(argv=None):
                                      reference_date=args.reference_date)
             code = 0 if result['status'] == 'success' and result['checks_passed'] else 1
             warn(result['warnings'])
+            unchecked(result['certificate_dates'])
         elif args.command == 'approve':
             result = approve_revision(args.workspace, args.revision, args.approver, args.sha256, test_only=args.test_only)
             code = 0

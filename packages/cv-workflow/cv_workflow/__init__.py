@@ -5,6 +5,7 @@ commands under scripts/ call these functions today; the future web backend
 calls the same ones. Nothing here sends or publishes a PDF.
 """
 from .approve import approve_revision
+from .checks import certificate_summary
 from .export import export_revision
 from .render import render_revision
 from .workspace import ROOT, Revision, Workspace, WorkflowError, read_json, sha256_file
@@ -24,8 +25,9 @@ def workspace_status(workspace):
             checks = read_json(revision.checks_record) if revision.checks_record.is_file() else {}
         except WorkflowError:
             checks = {}
-        warnings = (checks.get('certificates') or {}).get('warnings', [])
-        revisions.append({'revision': rid, 'state': revision.state(), 'sha256': sha256, 'warnings': warnings})
+        counts, warnings = certificate_summary(checks)
+        revisions.append({'revision': rid, 'state': revision.state(), 'sha256': sha256,
+                          'certificate_dates': counts, 'warnings': warnings})
     return {'workspace': str(ws.folder), 'revisions': revisions, 'partial_exports': ws.partial_exports()}
 
 
