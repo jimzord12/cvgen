@@ -78,7 +78,7 @@ unmodified, in `design-concepts/fonts/gfs-neohellenic/` with `OFL.txt`.
 | `GFSNeohellenicBoldItalic.ttf` | <https://raw.githubusercontent.com/google/fonts/main/ofl/gfsneohellenic/GFSNeohellenicBoldItalic.ttf> | `b486c325aadd1c7dc4f5a87c41ae9c8823ea7285de9d7ad8f8fa6e836d41cad1` |
 | `OFL.txt` | <https://raw.githubusercontent.com/google/fonts/main/ofl/gfsneohellenic/OFL.txt> | `bfc205682f5454b42a732ec857b665293ab8bc6f0ee901a0967219ba7ffdb190` |
 
-The bold italic is unused in this mock-up; it is kept so the family is whole.
+The regular italic is unused in this mock-up (vessel types use the bold italic); it is kept so the family is whole.
 
 ## Data it needs
 
