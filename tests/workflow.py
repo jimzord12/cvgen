@@ -325,10 +325,12 @@ def run_workflow(out, typst):
     # Reads the snapshot cannot hold are refused before anything is written, naming the file.
     count = len(list((oneoff / 'revisions').iterdir()))
     without_helper = ONE_OFF.replace('#import "parts/helper.typ": note\n', '').replace('#note\n', '')
-    for read, message in [('/private/zz-fictional/presentation.json', 'root-absolute path'),
-                          ('/./Private/zz-fictional/presentation.json', 'root-absolute path'),
-                          ('/' + (oneoff / 'presentation.json').relative_to(ROOT).as_posix(), 'root-absolute path'),
-                          ('../outside.json', 'outside the workspace'), ('presentation.json', 'does not exist')]:
+    refused = [('/private/zz-fictional/presentation.json', 'root-absolute path'),
+               ('/' + (oneoff / 'presentation.json').relative_to(ROOT).as_posix(), 'root-absolute path'),
+               ('../outside.json', 'outside the workspace'), ('presentation.json', 'does not exist')]
+    if os.name == 'nt':  # only a case-insensitive filesystem makes Private/ the same folder as private/
+        refused.append(('/./Private/zz-fictional/presentation.json', 'root-absolute path'))
+    for read, message in refused:
         (oneoff / 'cv.typ').write_text(without_helper.replace('presentation.json', read), encoding='utf-8')
         refusal = cv('render', oneoff, '--typst', typst, '--pages', '1', expect=2)
         assert message in refusal and read in refusal, refusal
