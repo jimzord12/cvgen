@@ -9,6 +9,24 @@ CVgen's own brand assets, not client or template material.
   wraps the C and curves through the V, ending in a loose tail on the right.
   Image-model render, 2048x2048 JPEG: a draft, not a production file.
 
+Owner's direction (2026-09-28): keep the faithful redraw and give the C
+alone one custom detail, tied to the thread, so the letters are not stock
+type. Three options drafted the same night, for the owner to pick; each is
+`cvgen-mark.svg` with only the C changed, V and thread untouched:
+
+- `cvgen-mark-c-stitch.svg`: a column of five stitch holes pierced through
+  the C's stem, the `Text Draft`'s running stitch set into the letter.
+- `cvgen-mark-c-eye.svg`: one needle's eye cut through the C's stem where
+  the thread crosses it.
+- `cvgen-mark-c-point.svg`: the C's lower terminal drawn out into a thin
+  needle point aimed at the V.
+
+The holes are real holes (even-odd subpaths of the C), so they stay
+transparent on any background. At 32 px every detail all but disappears;
+the small mark and avatar stay plain until the owner picks, then get the
+chosen detail where it survives. A knot on the lower terminal was tried
+and dropped: it read as a full stop ("C.V").
+
 Vector options drafted 2026-09-27 (options for the owner to pick, not a
 final logo). Hand-authored SVG: letters are outline paths, no `<text>`, no
 embedded raster, transparent background, tight `viewBox` (except the
