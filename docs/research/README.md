@@ -43,3 +43,4 @@ the end.
 | Note | Question | Checked |
 |---|---|---|
 | [cv-intake-practice.md](cv-intake-practice.md) | How professional CV writers, coaches and recruiters run client intake, and what our intake should ask | 2026-09-25 |
+| [greece-japan-tour-leaders.md](greece-japan-tour-leaders.md) | Who hires tour leaders for group trips from Greece to Japan, what they screen for, and what a newcomer needs to show | 2026-09-28 |
