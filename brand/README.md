@@ -158,3 +158,8 @@ wordmark, one copper running stitch). No words beyond the wordmark,
 because Forms shows the header at phone width. Source
 `intake-header.typ`; the command is in its first lines. The theme steps
 that go with it are in `docs/guides/client-workflow.md`, section 2.
+
+Open brand item (design review, 2026-09-28): the logo files use copper
+`#B7713D`, the house design First Fitting and the form theme `#B0602B`.
+The header recolours the wordmark to `#B0602B` when it reads it; the logo
+files are unchanged until the owner picks one copper.

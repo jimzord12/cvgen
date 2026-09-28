@@ -91,8 +91,10 @@ the project's link back, and Claude lists them under "Google" in the
 `Envelope`'s `README.md`. Before sending the link, the owner gives the
 form the house theme (the palette icon in the form's editor; about a
 minute): Header, upload `brand/forms/intake-header.png`; Color, custom,
-`#B0602B`; Background, the lightest swatch; Text style, Header "Bona
-Nova" (under More fonts), Question and Text "Source Sans 3". A client can edit an answer only through the
+`#B0602B`; Background, the swatch closest to the header's warm paper
+(usually the lightest); Text style, Header "Bona
+Nova" (under More fonts), Question and Text "Source Sans 3"; a font the
+menu does not offer stays at the default. A client can edit an answer only through the
 edit link shown once, after sending, so the owner downloads the answers
 when the client says he is done: in the form's Responses tab, the
 three-dot menu, then Download responses (.csv). It arrives as a ZIP;

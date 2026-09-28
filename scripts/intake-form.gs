@@ -28,7 +28,9 @@
  *   short     one line; validate: 'email' | 'url' | 'number'
  *   long      a paragraph
  *   choice    one of options (radio); other: true adds "Other";
- *             goTo maps an option to a page id, or 'submit'
+ *             goTo maps an option to a later page id, or 'submit'. A
+ *             jump only skips ahead; after it, pages follow in order.
+ *             A choice with goTo must be required.
  *   checks    any of options (tick boxes); other: true adds "Other"
  *   dropdown  one of options, in a drop-down list
  *   scale     a number from `from` (0 or 1) to `to` (3-10), with low
@@ -70,6 +72,8 @@ const FORM = {
 
 const KINDS = ['page', 'section', 'consent', 'short', 'long', 'choice', 'checks',
   'dropdown', 'scale', 'grid', 'date'];
+const KEYS = KINDS.concat(['id', 'help', 'required', 'agree', 'validate', 'options',
+  'other', 'goTo', 'from', 'to', 'low', 'high', 'rows', 'columns']);
 
 function createIntakeForm() {
   checkForm_(FORM);
@@ -111,12 +115,17 @@ function createIntakeForm() {
 
 // A mistake in FORM fails here, before anything is created.
 function checkForm_(spec) {
-  const pageIds = {};
-  spec.items.forEach(function (item) {
-    if (item.page && item.id) pageIds[item.id] = true;
+  const pageAt = {};
+  spec.items.forEach(function (item, index) {
+    if (!(item.page && item.id)) return;
+    if (item.id in pageAt) throw new Error('Two pages share the id "' + item.id + '"');
+    pageAt[item.id] = index;
   });
-  spec.items.forEach(function (item) {
+  spec.items.forEach(function (item, index) {
     const where = ': ' + JSON.stringify(item);
+    Object.keys(item).forEach(function (key) {
+      if (KEYS.indexOf(key) < 0) throw new Error('Unknown key "' + key + '"' + where);
+    });
     const kinds = KINDS.filter(function (k) {
       return typeof item[k] === 'string' && item[k].length > 0;
     });
@@ -140,10 +149,13 @@ function checkForm_(spec) {
     if (item.goTo) {
       if (kind !== 'choice') throw new Error('Only a choice item can have goTo' + where);
       if (item.other) throw new Error('A choice with goTo cannot also have other' + where);
+      if (item.required !== true) throw new Error('A choice with goTo must be required' + where);
       Object.keys(item.goTo).forEach(function (option) {
         const target = item.goTo[option];
         if (item.options.indexOf(option) < 0) throw new Error('goTo names an unknown option "' + option + '"' + where);
-        if (target !== 'submit' && !pageIds[target]) throw new Error('goTo names an unknown page "' + target + '"' + where);
+        if (target === 'submit') return;
+        if (!(target in pageAt)) throw new Error('goTo names an unknown page "' + target + '"' + where);
+        if (pageAt[target] < index) throw new Error('goTo can only jump ahead, not to "' + target + '"' + where);
       });
     }
   });
