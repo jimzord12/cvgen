@@ -13,7 +13,8 @@ python tests/run.py
 
 Requires Typst 0.15.1 on PATH and Python with `pymupdf`, `pillow` and `jsonschema`. Pass
 `--typst <path>` if Typst is elsewhere. Every run writes to a new
-`builds/tests-<timestamp>/` folder.
+`builds/tests-<timestamp>/` folder, one sub-folder per case with its PDF,
+`compile.log` and, for a checked case, `page-N.png` and `check/`.
 
 ## Read the result
 
@@ -21,11 +22,11 @@ Requires Typst 0.15.1 on PATH and Python with `pymupdf`, `pillow` and `jsonschem
 - `Frozen file changed: <path>`: an input in `tests/baseline.json` was
   edited. Revert it unless the change is a deliberate new reference
   following `docs/constitution.md` section 1.
-- `Raster mismatch on page N`: open `<evidence>/exact/diff-N.png`. Any
+- `Raster mismatch on page N`: open `<evidence>/engineer/check/diff-N.png`. Any
   non-black pixel is a deviation from v11. Decide whether the change was
   intended; if not, fix the cause.
 - `AssertionError: ('<case>', '<stderr>')`: a fixture failed to compile or
-  compiled when it should have failed. Read `<evidence>/<case>.log`.
+  compiled when it should have failed. Read `<evidence>/<case>/compile.log`.
 - `Text mismatch on page N`: the page looks the same but its extractable text
   differs from v11 (wording, order or a hidden character). Compare the page
   text of both PDFs.
@@ -50,12 +51,15 @@ Requires Typst 0.15.1 on PATH and Python with `pymupdf`, `pillow` and `jsonschem
 
 ## Visual evidence for a visual change
 
-Render the changed page at 96 dpi and include the PNG path in the report:
+The suite renders every page of each checked case: use
+`<evidence>/<case>/page-N.png` and include its path in the report. Render
+by hand only a PDF the suite does not render (a real client's revision,
+say), at 96 dpi:
 
 ```python
 import pymupdf
-doc = pymupdf.open("builds/.../engineer.pdf")
-doc[0].get_pixmap(dpi=96).save("builds/.../engineer-p1.png")
+doc = pymupdf.open("private/<envelope>/revisions/<id>/cv.pdf")
+doc[0].get_pixmap(dpi=96).save("builds/<new-folder>/cv-p1.png")
 ```
 
 ## Report

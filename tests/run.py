@@ -116,39 +116,52 @@ def main():
     out.mkdir(parents=True, exist_ok=False)
     results = []
 
+    # One folder per case holds all its evidence (ADR 0013): <case>.pdf, compile.log, and for a
+    # checked case check/result.json (plus diff-N.png on a mismatch) and page-N.png renders.
     def compile_case(name, source, inputs=None, error=None):
-        pdf = out / (name + '.pdf')
+        assert name != 'workflow', 'the candidate workflow owns the workflow/ folder'
+        folder = out / name
+        folder.mkdir(exist_ok=False)
+        pdf = folder / (name + '.pdf')
         command = [args.typst, 'compile', '--root', str(ROOT), '--font-path', str(ROOT / FONTS)]
         for key, value in (inputs or {}).items():
             command.extend(['--input', key + '=' + value])
         command.extend([str(ROOT / source), str(pdf)])
         result = subprocess.run(command, capture_output=True, text=True)
-        (out / (name + '.log')).write_text(result.stderr, encoding='utf-8')
+        (folder / 'compile.log').write_text(result.stderr, encoding='utf-8')
         if error:
             assert result.returncode != 0 and error in result.stderr, (name, result.stderr)
         else:
             assert result.returncode == 0, (name, result.stderr)
-        results.append({'case': name, 'passed': True})
+        results.append({'case': name, 'passed': True, 'folder': name})
         return pdf
+
+    def check_case(pdf, reference=None, pages=2):
+        """The PDF checks of verify.py into the case's own folder, plus a PNG of every page to look at."""
+        outcome = verify(pdf, reference, pages=pages, output=pdf.parent / 'check')
+        with fitz.open(pdf) as doc:
+            for i, page in enumerate(doc):
+                page.get_pixmap(dpi=110).save(pdf.parent / f'page-{i + 1}.png')
+        return outcome
 
     check_frozen()
     check_example_records()
     results.append({'case': 'example-records-match-schema', 'passed': True})
     compile_case('configuration', 'tests/fixtures/configuration.typ')
     content = compile_case('content', 'tests/fixtures/content.typ')
-    assert verify(content, pages=1, output=out / 'content-check')['passed']
+    assert check_case(content, pages=1)['passed']
     with fitz.open(content) as doc:
         text = ' '.join(doc[0].get_text().split())
         for phrase in ['Northline Marine', 'TOTAL EXPERIENCE', 'Certificates & endorsements', 'Education & languages']:
             assert phrase in text, phrase
     skills = compile_case('skills', 'tests/fixtures/skills.typ')
-    assert verify(skills, pages=1, output=out / 'skills-check')['passed']
+    assert check_case(skills, pages=1)['passed']
     with fitz.open(skills) as doc:
         text = ' '.join(doc[0].get_text().split())
         for phrase in ['Professional Skills', 'Technical Skills', 'Three columns', 'Navigation', 'Plain bullet', 'Third']:
             assert text.count(phrase) == 1, phrase
     engineer = compile_case('engineer', 'examples/marine/flagship/engineer.typ')
-    result = verify(engineer, ROOT / FLAGSHIP / 'tests/approved/Marine-Engineer-CV-v11.pdf', output=out / 'exact')
+    result = check_case(engineer, ROOT / FLAGSHIP / 'tests/approved/Marine-Engineer-CV-v11.pdf')
     assert result['passed'], result
     hidden = compile_case('engineer-hidden', 'examples/marine/flagship/engineer.typ', {'vessel-durations': 'false'})
     with fitz.open(engineer) as a, fitz.open(hidden) as b:
@@ -163,13 +176,13 @@ def main():
     classic = compile_case('captain', 'examples/marine/flagship/captain.typ')
     silver = compile_case('captain-silver', 'examples/marine/flagship/captain-silver.typ')
     for pdf in [hidden, classic, silver]:
-        assert verify(pdf, output=out / (pdf.stem + '-check'))['passed']
+        assert check_case(pdf)['passed']
     with fitz.open(classic) as a, fitz.open(silver) as b:
         assert [' '.join(p.get_text().split()) for p in a] == [' '.join(p.get_text().split()) for p in b]
         assert 'Engineer' not in ''.join(p.get_text() for p in a)
     # Third dataset: deck officer without a portrait, on the same page plan.
     officer = compile_case('chief-officer', 'examples/marine/flagship/chief-officer.typ')
-    assert verify(officer, output=out / 'chief-officer-check')['passed']
+    assert check_case(officer)['passed']
     with fitz.open(officer) as doc:
         text = ' '.join(' '.join(p.get_text().split()) for p in doc)
         for phrase in ['ELENI MARKOU', 'Boreal Gas Carriers', 'Aegean Coastal Shipping', '10 years 9 months',
@@ -186,7 +199,7 @@ def main():
             assert keep(pa) == keep(pb)
     # Short career on the one-page profile: the whole record on one page, whatever its company count.
     cadet = compile_case('deck-cadet', 'examples/marine/flagship/deck-cadet.typ')
-    assert verify(cadet, pages=1, output=out / 'deck-cadet-check')['passed']
+    assert check_case(cadet, pages=1)['passed']
     with fitz.open(cadet) as doc:
         text = ' '.join(doc[0].get_text().split())
         for phrase in ['NIKOS PETRIDIS', 'Northwind Container Lines', 'Saronic Bulk Carriers', '1 year 3 months',
@@ -194,7 +207,7 @@ def main():
             assert phrase in text, phrase
     for mode, companies in [('one', 1), ('three', 3)]:
         short = compile_case('one-page-' + mode, 'tests/fixtures/one-page.typ', {'case': mode})
-        assert verify(short, pages=1, output=out / ('one-page-' + mode + '-check'))['passed']
+        assert check_case(short, pages=1)['passed']
         with fitz.open(short) as doc:
             captions = ['1 VESSEL ', '1 COMPANY '] if companies == 1 else ['3 VESSELS', '3 COMPANIES']
             text = ' '.join(doc[0].get_text().split()).upper()
@@ -205,14 +218,14 @@ def main():
     # wider `stack-gap` between blocks (owner): wider than the tight default, far from a shared gap.
     def top(page, word, edge=1):
         return next(w[edge] for w in page.get_text('words') if w[4] == word) / 72 * 25.4
-    with fitz.open(out / 'one-page-one.pdf') as doc:
+    with fitz.open(out / 'one-page-one' / 'one-page-one.pdf') as doc:
         page = doc[0]
         attached = top(page, 'TOTAL') - top(page, 'Grace', 3)
         first, second = top(page, 'Certificates') - top(page, 'TOTAL', 3), top(page, 'Education') - top(page, 'medical', 3)
         assert attached < 17 and first > 15 and second > 15 and abs(first - second) < 8, (attached, first, second)
     for mode, heading in [('no-education', 'Certificates'), ('no-certificates', 'Education')]:
         packed = compile_case('one-page-' + mode, 'tests/fixtures/one-page.typ', {'case': mode})
-        assert verify(packed, pages=1, output=out / ('one-page-' + mode + '-check'))['passed']
+        assert check_case(packed, pages=1)['passed']
         with fitz.open(packed) as doc:
             page = doc[0]
             gaps = (top(page, 'TOTAL') - top(page, 'Grace', 3), top(page, heading) - top(page, 'TOTAL', 3))
@@ -266,16 +279,16 @@ def main():
         compile_case('hero-' + mode, 'tests/fixtures/components.typ', {'case': mode}, error='exceeds')
     for mode in ['missing-months', 'optional', 'long-vessel']:
         pdf = compile_case('options-' + mode, 'tests/fixtures/options.typ', {'case': mode})
-        assert verify(pdf, output=out / ('options-' + mode + '-check'))['passed']
+        assert check_case(pdf)['passed']
     long_hidden = compile_case('long-hidden', 'tests/fixtures/options.typ', {'case': 'long-vessel', 'times': 'false'})
-    with fitz.open(out / 'options-long-vessel.pdf') as a, fitz.open(long_hidden) as b:
+    with fitz.open(out / 'options-long-vessel' / 'options-long-vessel.pdf') as a, fitz.open(long_hidden) as b:
         for pa, pb in zip(a, b):
             for token in ['MV Aurora', 'MV Caspian', 'Second Engineer']:
                 assert pa.search_for(token) == pb.search_for(token), token
     # Optional vessel particulars: a muted suffix on the vessel's own row, in the documented unit, so no
     # row moves; a repeated vessel must agree, units are closed, and a row that would wrap fails loudly.
     particulars = compile_case('particulars', 'tests/fixtures/particulars.typ')
-    assert verify(particulars, output=out / 'particulars-check')['passed']
+    assert check_case(particulars)['passed']
     with fitz.open(engineer) as a, fitz.open(particulars) as b:
         lines = [line for page in b for line in page.get_text().splitlines()]
         for expected in ['MV Meridian · 49,990 GT · MAN B&W · 9,480 kW', 'MV Aurora · MAN B&W · 9,480 kW',
@@ -293,7 +306,7 @@ def main():
                           ('too-long', 'do not fit on one row')]:
         compile_case('particulars-' + mode, 'tests/fixtures/particulars.typ', {'case': mode}, error=message)
     three = compile_case('three-pages', 'tests/fixtures/pagination.typ')
-    assert verify(three, pages=3, output=out / 'three-check')['passed']
+    assert check_case(three, pages=3)['passed']
     with fitz.open(three) as doc:
         text = ' '.join(' '.join(p.get_text().split()) for p in doc)
         assert 'Northline Marine (continued)' in text
@@ -343,7 +356,7 @@ def main():
     compile_case('text-draft-english', 'tests/fixtures/text-draft.typ', {'case': 'english'}, error='no house copy for check-lang "en"')
     # The candidate workflow, end to end and every refusal, in a fresh fictional workspace.
     for check in run_workflow(out, args.typst):
-        results.append({'case': 'workflow-' + check, 'passed': True})
+        results.append({'case': 'workflow-' + check, 'passed': True, 'folder': 'workflow'})
     check_frozen()
     check_core_boundary()
     report = {'passed': True, 'cases': results, 'exact_reference': result, 'output': str(out)}
