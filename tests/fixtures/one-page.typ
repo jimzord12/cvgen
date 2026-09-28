@@ -1,6 +1,6 @@
-// The one-page profile's plan helper on records of one and three companies
-// (the deck cadet example has two), and on one record too long for a page,
-// which must fail loudly rather than shrink.
+// The one-page profile's plan helper on a record of one company with one
+// vessel and one of three companies (the deck cadet example has two), and
+// on one record too long for a page, which must fail loudly, never shrink.
 #import "../../packages/domains/marine/lib.typ": flagship
 #import "../../packages/domains/marine/roles/deck/role.typ": role
 #import "../../packages/domains/marine/templates/flagship/themes/golden-blue.typ": theme
@@ -8,14 +8,17 @@
 #import "../../packages/domains/marine/templates/flagship/layouts/flagship-one-page.typ": one-page
 #let raw = json("../../examples/candidates/deck-cadet-example.json")
 #let vessel(n) = (id: "test-vessel-" + str(n), name: "MV Test Vessel " + str(n), rank: "Deck Cadet", months: 3)
-#let extra(ships) = (name: "Ionian Coastal Lines", period: "2023", id: "ionian-coastal-lines",
+#let extra(n, ships) = (name: "Coastal Line " + str(n), period: "2023", id: "coastal-line-" + str(n),
   groups: ((type: "General cargo", ships: ships),))
 #let case = sys.inputs.at("case", default: "three")
-#let companies = {
-  if case == "one" {raw.companies.slice(0, 1)}
-  else if case == "three" {(..raw.companies, extra((vessel(1),)))}
-  else if case == "overflow" {(..raw.companies, extra((vessel(1), vessel(2))))}
+// Three companies with three vessels and three certificate rows sit at the measured
+// edge (docs/reference/layout-and-pagination.md); one vessel more must overflow.
+#let three = (raw.companies.at(1), extra(1, (vessel(1),)), extra(2, (vessel(2),)))
+#let (companies, certificates) = {
+  if case == "one" {(raw.companies.slice(1, 2), raw.certificates)}
+  else if case == "three" {(three, raw.certificates.slice(0, 3))}
+  else if case == "overflow" {(three.slice(0, 2) + (extra(2, (vessel(2), vessel(3))),), raw.certificates.slice(0, 3))}
   else {panic("unknown case: " + case)}
 }
-#let candidate = (..raw, companies: companies)
+#let candidate = (..raw, companies: companies, certificates: certificates)
 #show: flagship.with(candidate: candidate, role: role, theme: theme, artwork: artwork, layout: one-page(candidate))

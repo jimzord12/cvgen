@@ -46,6 +46,10 @@ fitting the page.
    indices. The shipped plan assumes six companies and fails with
    `Page plan company index out of bounds` for fewer, or
    `Page plan must cover each vessel row once, in candidate order` for more.
+   A short career (a cadet or junior, see the capacity rule in
+   `docs/reference/layout-and-pagination.md`, "Choosing a profile") uses
+   `flagship-one-page.typ` instead: `layout: one-page(candidate)`, no
+   override, and `--pages 1` in step 4.
    If the data does not fit `flagship` (the known cases are in
    `docs/framework-gaps.md`: contract periods instead of months, a
    three-column certificate table, a skills block), use the
@@ -56,7 +60,7 @@ fitting the page.
    `copy: (certificates-subtitle: ..., brand: ...)` in `cv.typ` (guide
    section 2, "Replace the example wording").
 4. Real person: `python scripts/cv.py render private/<name>-<rank>` (add
-   `--pages 3` for a three-page plan); the revision id, hash and check
+   `--pages 3` for a three-page plan, `--pages 1` for the one-page profile); the revision id, hash and check
    result are printed and kept under `revisions/<id>/`. Public example:
    `typst compile --root . --font-path packages/cv-framework/fonts <entry> builds/<name>-01.pdf`.
 5. On a fit or overflow error, apply the fix the message names. Page plan

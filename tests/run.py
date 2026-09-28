@@ -196,8 +196,9 @@ def main():
         short = compile_case('one-page-' + mode, 'tests/fixtures/one-page.typ', {'case': mode})
         assert verify(short, pages=1, output=out / ('one-page-' + mode + '-check'))['passed']
         with fitz.open(short) as doc:
-            caption = '1 COMPANY ' if companies == 1 else '3 COMPANIES'
-            assert caption in ' '.join(doc[0].get_text().split()).upper(), mode
+            captions = ['1 VESSEL ', '1 COMPANY '] if companies == 1 else ['3 VESSELS', '3 COMPANIES']
+            text = ' '.join(doc[0].get_text().split()).upper()
+            assert all(c in text for c in captions), (mode, captions)
     compile_case('one-page-overflow', 'tests/fixtures/one-page.typ', {'case': 'overflow'}, error='Content overflow on planned page 1')
     compile_case('data-valid', 'tests/fixtures/data.typ')
     # ADR 0008 fixtures: 31 of the 32 ctx-first components rendered alone, one page each, headed by

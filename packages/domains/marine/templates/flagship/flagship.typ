@@ -41,9 +41,17 @@
           spacing: if opening {layout.experience.opening} else {layout.experience.continuation})
       }
       if page-plan.at("synopsis", default: false) {synopsis(ctx, (domain.experience.totals)(d.companies))}
-      if page-plan.at("certificates", default: false) and d.certificates.len() > 0 {certificates-section(ctx, d.certificates)}
+      // `spread` (one-page profile) shares the free space between the certificates and education
+      // gaps instead of leaving it all above education. A heading's own gap collapses next to
+      // flexible space, so it is restated as the minimum.
+      let spread = layout.at("spread", default: false)
+      if page-plan.at("certificates", default: false) and d.certificates.len() > 0 {
+        if spread {v(1fr); v(layout.headings.certificates.above)}
+        certificates-section(ctx, d.certificates)
+      }
       if page-plan.at("education", default: false) and (d.education.len() + d.languages.len() > 0) {
         if layout.anchor-education {v(1fr)}
+        if spread {v(layout.headings.education.above)}
         education-languages-section(ctx, (education: d.education, languages: d.languages))
       }
       context assert.eq(counter(page).get().first(), i + 1,

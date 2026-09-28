@@ -50,6 +50,13 @@ synopsis, certificates and education. Adjust the split after looking at the
 render. Splitting one large company across pages is shown in
 `../reference/layout-and-pagination.md`.
 
+A short career (a cadet or junior officer) goes on one page with
+`flagship-one-page.typ` instead: import `one-page` from it and pass
+`layout: one-page(candidate)`; it plans the candidate's own companies, so
+no override is needed. Render with `python scripts/cv.py render <folder>
+--pages 1`. Whether a record fits is in
+`../reference/layout-and-pagination.md`, "Choosing a profile".
+
 ## 2. Fill the data
 
 Copy `examples/candidates/engineer-example.json` or `examples/candidates/captain-example.json` and

@@ -12,19 +12,30 @@ nothing switches automatically.
 
 | Profile | For | Page plan |
 |---|---|---|
-| `flagship-v11.typ` | A full career: about five companies or more, two pages | Written for six companies; any other count needs a `pages` override (below) |
-| `flagship-one-page.typ` | A cadet or junior officer: up to about three companies and four vessels with a short certificate list, one page | Built from the record: `one-page(candidate)` |
+| `flagship-one-page.typ` | A cadet or junior officer whose record passes the capacity rule below, one page | Built from the record: `one-page(candidate)` |
+| `flagship-v11.typ` | Everything else, from about four companies up: two pages or more | Written for six companies; any other count needs a `pages` override (below) |
 
-Start from the record's size. If a short record overflows the one-page
-profile, move to `flagship-v11.typ` with a two-page `pages` override; never
-shrink type to make it fit. A long record on one page is not a goal.
+Capacity rule, measured on the deck cadet record (a three-line profile,
+one education entry, two languages): count 3 per company, 1 per vessel
+row and 1 per certificate row. A total of 14 or less fits one page (two
+companies, three vessels and five certificates; one company, one vessel
+and ten certificates); 15 may fit; 16 or more did not in any
+measured case. A longer profile
+text or more education lowers it. The render decides: if a record
+overflows the one-page profile, move to `flagship-v11.typ` with a
+two-page `pages` override; never shrink type to make it fit.
 
-The one-page profile is the v11 geometry with tighter vertical gaps (hero
-flow, company and row gaps, heading spacing, certificate rows, synopsis and
-language boxes); the hero band, its artwork and every type size are
-unchanged. Its `one-page` function returns the profile with one page that
-lists every company and closes with the synopsis, certificates and
-education, so it serves one, two or three companies without an override:
+The one-page profile is the v11 geometry with tighter vertical gaps in
+the upper half (hero flow 5mm shorter, company and row gaps, the
+Experience heading, certificate rows, synopsis and language boxes); the
+hero band, its artwork, the margins (so the footer sits where v11 puts
+it) and every type size are unchanged. It sets `spread: true`: the page
+loop shares the free space equally above the certificates and above
+education, each keeping its heading gap as a minimum, so a thin record
+has two even gaps rather than one hole. Its `one-page` function returns
+the profile with one page that lists every company and closes with the
+synopsis, certificates and education, so it serves one, two or three
+companies without an override:
 
 ```typst
 #import "/packages/domains/marine/templates/flagship/layouts/flagship-one-page.typ": one-page
@@ -92,11 +103,13 @@ The second fragment renders the company name with "(continued)". Company
 duration and totals are unchanged because they come from the full candidate.
 `tests/fixtures/pagination.typ` is a working three-page example.
 
-## anchor-education
+## anchor-education and spread
 
-When `true`, the template inserts flexible space before the education
-section so it sits at the bottom of its page. Set `false` for a compact
-finish.
+When `anchor-education` is `true`, the template inserts flexible space
+before the education section so it sits at the bottom of its page. Set
+`false` for a compact finish. `spread: true` (default `false`) adds a
+second, equal flexible space before the certificates and restates both
+heading gaps as minimums; the one-page profile uses it.
 
 ## When something does not fit
 
