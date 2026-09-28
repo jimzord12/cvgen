@@ -98,10 +98,14 @@ minute): Header, upload `brand/forms/intake-header.png`; Color, custom,
 Nova" (under More fonts), Question and Text "Source Sans 3"; a font the
 menu does not offer stays at the default. A client can edit an answer only through the
 edit link shown once, after sending, so the owner downloads the answers
-when the client says he is done: in the form's Responses tab, the
-three-dot menu, then Download responses (.csv). It arrives as a ZIP;
-the CSV inside is saved as `intake/answers-NN.csv`. Claude
-copies them into `intake/messages.md`. The form has no upload questions
+when the client says he is done: in the answers Sheet, File, Download,
+Comma-separated values, which gives the "Form Responses 1" tab as a
+plain CSV (first run, 2026-09-28), saved as `intake/answers-NN.csv`: one
+column per question and one per grid row, dates as month/day/year, a
+skipped page's questions empty. Claude copies the answers into
+`intake/messages.md`. A test answer the owner makes is deleted in both
+places before the client answers: the form's Responses tab (Individual,
+the bin icon) and its row in the Sheet, which the form does not remove. The form has no upload questions
 (they force a Google sign-in), so photos and documents still come by chat.
 The form, its Sheet and the script project live in the owner's Google
 account and are deleted with the `Envelope`.
