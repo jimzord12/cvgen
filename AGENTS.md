@@ -204,8 +204,9 @@ propose; the owner decides.
   `python tests/run.py` passing and the evidence path reported; a visual
   change also needs a rendered page. Every change gets an independent
   review round, documentation, rules, proposals and assets included; only
-  truly trivial changes are exempt, and idea runs use their own gates
-  (`docs/review.md`, "When a review is required"). Reports go in the
+  truly trivial changes are exempt, idea runs use their own gates, and
+  pure record-keeping commits need no round (`docs/review.md`, "When a
+  review is required"). Reports go in the
   task's `reviews/` folder.
 - If you had to go around a component, template or the contract to deliver
   what the owner wanted, add an entry to `docs/framework-gaps.md` before

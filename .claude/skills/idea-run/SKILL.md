@@ -59,7 +59,7 @@ ideas weekly at most (the roadmap is long, the owner's attention is not).
 7. Store every report as `docs/work/idea-runs/<run>/reviews/NN-<reviewer>.md`.
 8. Integrate. Output confined to new files in `design-concepts/`, the run's
    rows in `design-concepts/README.md`, the run folder and passed proposals
-   in `docs/proposals/` is covered by the idea gates (`docs/review.md` names this exception); say so in `run.md`. An item
+   in `docs/proposals/` is covered by the idea gates (`docs/review.md`: idea runs use their own gates); say so in `run.md`. An item
    left `unresolved` at the cap is not covered: its README row or proposal
    says `unresolved`, and it merges only as such. Any other change (agent files, skills, engine,
    docs outside those) goes through `docs/review.md` first. Then commit,

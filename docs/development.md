@@ -57,14 +57,16 @@ communication profile.
 
 ## Ending a session
 
-First, sweep the repository for loose ends (owner, 2026-09-28). The list
+First, run the `Session Sweep` for loose ends (owner, 2026-09-28). The list
 says where to look, never what is open; check each place from its real
 source, then act on what you find or name it in the handoff and the
 report:
 
-- **Reviews:** every commit on `main` since the handoff card's last
-  `Written` date, from any author or session (an interrupted session never
-  ran its sweep), documentation included, has a review report under
+- **Reviews:** every commit on `main` from the start of the handoff card's
+  last `Written` date (`git log main --since='<date> 00:00'`; a bare date
+  means that date at the current clock time and silently lists less), from
+  any author or session (an interrupted session never ran its sweep),
+  documentation included, has a review report under
   `docs/work/<id>/reviews/`, or is trivial or record-keeping
   (`docs/review.md`); run the missing round before stopping.
 - **Proposals:** `status: approved` in `docs/proposals/*.md` is approved
@@ -72,16 +74,18 @@ report:
 - **Board:** cards in Active, Review or Ready, and any card labelled
   Blocked.
 - **Night Shift:** `night-shift status` and `night-shift follow-up list`
-  show open follow-ups only. Also read the last night's
-  `.night-shift/nights/<id>/night.json`: questions with `"answer": null`
-  and feedback with `"sent": null` still wait on the owner.
+  show open follow-ups only. Also read the `night.json` of every night
+  dated on or after the `Written` date, in the main checkout (the
+  `.night-shift/nights/` folder is ignored by Git): questions with
+  `"answer": null` and feedback with `"sent": null` still wait on the
+  owner.
 - **Git:** `git worktree list` and local or remote branches already merged
   into `main`; anything uncommitted or unpushed.
 - **CI:** `gh run list --commit <main head>` shows the run on the current
   `main` head, green (not `--branch main`: see `docs/git-workflow.md`).
 - **`builds/`:** clear old folders by path when they pile up.
 
-A report says everything is finished only after this sweep.
+A report says everything is finished only after the `Session Sweep`.
 
 Then rewrite the session-handoff card's description in place (one card, never a
 new one, never deleted; Trello keeps its history). Keep the card's heading and

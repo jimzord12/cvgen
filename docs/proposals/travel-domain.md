@@ -79,3 +79,8 @@ one-off, with the one-off CV and its `Envelope` notes as the evidence.
   out of it… do auditing, maybe more research, decompose it into
   components, think of ways to extend it"). Revision 2 records it and is
   **deferred** until the revisit condition ("yes, rewrite and defer it").
+- 2026-09-28, lead, after review (docs-2026-09-28 round 1, F1): revision 2
+  edited in place without changing its scope: the revisit condition is the
+  one-off CV reaching `Export` (not its `Sign-off`), the proposal then
+  returns to `pending` for the owner's approval, and the fictional twin is
+  described as invented facts in the real CV's shape.

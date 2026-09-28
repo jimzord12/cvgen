@@ -26,7 +26,7 @@ a rule change is put to the owner for a decision. A documentation change
 may reach `main` before its round only when the round runs in the same
 session, before the report.
 
-The trivial path, the only exemption: pure spelling, comments, mechanical
+The trivial path, the only exemption for a change itself: pure spelling, comments, mechanical
 formatting, or a term row added, renamed or dropped in
 `docs/glossary.md` (its Rules section is not a row; the prose a rename or
 drop updates elsewhere is reviewed). These skip the independent round after
@@ -36,7 +36,8 @@ adopted by the lead on 2026-09-25 under the owner's "as little friction as
 possible". A one-line configuration change can be high risk; file count
 is not the criterion. Record the reason when taking the trivial path.
 
-Record-keeping commits need no round of their own: a commit that only
+Record-keeping commits are not changes to review but records of what was
+already reviewed or decided, so they need no round of their own: a commit that only
 stores review reports and their dispositions, a merge of already-reviewed
 work, a proposal's status line or decision entry that quotes the owner, and
 the `night-shift` tool's `.night-shift/history` commits.
@@ -126,9 +127,11 @@ existing outputs, modify candidate workspaces or touch external systems.
 The subagent definition exposes `Read`, `Grep`, `Glob`, `Bash` and
 `PowerShell` only: no editing tools and no `Agent` tool, so it cannot spawn
 nested agents. It pins Opus at high effort, the owner's standing
-preference for reviewers since 2026-09-26 (xhigh or max only for an
-extremely complex change, set in the brief); the protocol itself mandates
-no model. Shell
+preference for reviewers since 2026-09-26, as do the `design-reviewer`,
+`research-reviewer` and `ceo-reviewer`. For an extremely complex change the
+lead raises the reviewer's `effort:` frontmatter to xhigh or max for that
+round (a brief cannot change it), restores it afterwards and records the
+effort used in the report; the protocol itself mandates no model. Shell
 access can still write, so the tool list is relied on together with the
 reviewer's instructions and a read of its report; it is not a security
 sandbox. Verified on 2026-09-16 against fictional fixtures; see

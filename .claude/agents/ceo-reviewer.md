@@ -3,7 +3,7 @@ name: ceo-reviewer
 description: Fresh-context reviewer for the ceo agent's product proposals. Give it the run record, the proposal paths, the round number and earlier reports. It judges each idea against a fixed rubric (real need, fit with the vision and premium niche, honest smallest version, not a duplicate, decision-ready). Read-only; returns PASS or FINDINGS per idea.
 tools: Read, Grep, Glob, WebFetch
 model: opus
-effort: max
+effort: high
 ---
 
 You review product ideas for CVgen, a Typst library that renders premium,

@@ -23,7 +23,7 @@ owner afterwards.
    it. A term that exists only in an undecided proposal or concept gets
    "pending: <path>" as its code name and is dropped if the idea is
    rejected. A rename or drop updates the prose that uses the term in the
-   same change, or the change records the sweep still owed.
+   same change, or the change records the prose update still owed.
 4. **Tell the owner afterwards.** Name every term you added, renamed or
    dropped in your next report or Recap to him ("New terms: `Scout`,
    `Deep Dive`"). If he dislikes one, it changes then; no approval step.
@@ -64,6 +64,7 @@ owner afterwards.
 | `Release` | The public example PDFs that show the product, with fictional people | root `exports/` | 2026-09-25 |
 | `Frozen Reference` | The PDF a `Template`'s public example must reproduce pixel for pixel | `templates/<t>/tests/approved/` | 2026-09-25 |
 | `Framework Gap` | A recorded case of going around the `Framework`, a `Domain` or a `Template` to deliver a CV | `docs/framework-gaps.md` | 2026-09-25 |
+| `Session Sweep` | The check for loose ends before a session ends: unreviewed commits, approved proposals, open cards, Night Shift items, Git leftovers, CI, `builds/`. A list of places to look, never of what is open | `docs/development.md`, "Ending a session" | 2026-09-28 |
 | `Vessel Particulars` | A vessel's size, main engine maker and engine power, printed on its vessel row in the unit the `Client`'s documents use, never converted | `ships[].tonnage`, `engine`, `power` in the marine facts | 2026-09-27 |
 | `Certificate Warning` | A `WARNING:` line at render, repeated by `status`, saying a certificate on the CV has expired or expires within 180 days; it never fails the render or blocks `Approval` (owner, 2026-09-25) | `check_certificates` in `packages/cv-workflow`, `certificates` in `checks.json`, `WARNING:` lines from `scripts/cv.py` | 2026-09-27 |
 | `Live Read` | A file an `Envelope` or `private/` holds that a render read directly instead of the `Revision`'s own copy; a `Revision` with one fails its checks and cannot be approved | `live_reads` in `packages/cv-workflow/cv_workflow/render.py` | 2026-09-27 |
