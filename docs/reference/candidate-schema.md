@@ -96,7 +96,12 @@ combined              "Combined service"
 total                 "Total experience"
 vessels               "Vessels"
 companies             "Companies"
+vessel                "Vessel"     (the synopsis uses it when the total is one)
+company               "Company"    (the same, for companies)
 ```
+
+Override a singular and its plural together: a `copy` that sets only
+`companies` still shows the domain's "Company" for a total of one.
 
 The design's words come from Flagship's adapter
 (`packages/domains/marine/templates/flagship/adapter/adapter.typ`, `flagship-copy`):

@@ -83,7 +83,7 @@ Framework; `M` for `packages/domains/marine`, the marine domain; `F` for
 | `F/tests/approved/` | Frozen v11 PDF that the engineer example must match pixel for pixel | Never |
 | `W/fonts/`, `W/licenses/` | Bundled OFL fonts, licence notices | Adding a font |
 | `W/typst.toml` | Package manifest for the Framework | Releasing |
-| `examples/candidates/` | Fictional candidate records (engineer, captain, chief officer) and the one fictional portrait | Changing example data |
+| `examples/candidates/` | Fictional candidate records (engineer, captain, chief officer, deck cadet) and the one fictional portrait | Changing example data |
 | `examples/marine/flagship/` | Short entry points that wire the six inputs together | Adding an example |
 | `packages/cv-workflow/` | Python package: fresh revisions (snapshot, compile, `render.json`, `checks.json`), explicit approval (`cv.approval.json` bound to the SHA-256), verified export. Never sends anything | Changing how a candidate PDF is produced, approved or exported |
 | `tests/` | `run.py` runner, `verify.py` PDF checks, `workflow.py` end-to-end workflow case, `baseline.json` hash manifest, `fixtures/*.typ` compile cases | Changing behaviour |

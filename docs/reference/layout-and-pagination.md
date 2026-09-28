@@ -1,9 +1,55 @@
 # Layout and pagination
 
 Read this when a page is out of balance, content overflows, or a new
-candidate needs a different page split. The geometry lives in
-`packages/domains/marine/templates/flagship/layouts/flagship-v11.typ`, page plan validation in `packages/cv-framework/core/pagination.typ`,
+candidate needs a different page split. The geometry lives in the layout
+profiles under `packages/domains/marine/templates/flagship/layouts/`, page plan validation in `packages/cv-framework/core/pagination.typ`,
 and the overflow check in the page loop of `packages/domains/marine/templates/flagship/flagship.typ`.
+
+## Choosing a profile
+
+Flagship has two profiles. The agent or owner picks one per candidate;
+nothing switches automatically.
+
+| Profile | For | Page plan |
+|---|---|---|
+| `flagship-one-page.typ` | A cadet or junior officer whose record passes the capacity rule below, one page | Built from the record: `one-page(candidate)` |
+| `flagship-v11.typ` | Everything else, from about four companies up: two pages or more | Written for six companies; any other count needs a `pages` override (below) |
+
+The capacity rule, measured on the deck cadet record (a three-line
+profile, one education entry, two languages): count 3 per company, 1 per
+vessel row and 1 per certificate row, plus 1 per extra vessel-type group
+in a company and 1 per extra line of a wrapped certificate row (a long
+STCW title costs about 3). A total of 14 or less fits one page (two
+companies, three vessels and five certificates; one company, one vessel
+and ten certificates); 15 may fit; 16 or more did not in any measured
+case. A longer profile text or more education lowers it. The render decides: if a record
+overflows the one-page profile, move to `flagship-v11.typ` with a
+two-page `pages` override; never shrink type to make it fit.
+
+The one-page profile is the v11 geometry with tighter vertical gaps (hero
+flow 5mm shorter, company and row gaps, the Experience heading,
+certificate rows, synopsis and language boxes); the
+hero band, its artwork, the margins (so the footer sits where v11 puts
+it) and every type size are unchanged. It sets `spread: true`: the page
+loop shares the free space equally above the certificates and above
+education, each keeping its heading gap as a minimum, so a thin record
+has two even gaps rather than one hole. A record without certificates or
+without education stacks from the top instead (the owner's call,
+2026-09-28): synopsis under Experience, the remaining section under the
+synopsis, with `stack-gap` (12mm) added above each on top of its usual
+gap, the free space at the bottom. Its `one-page` function returns
+the profile with one page that lists every company and closes with the
+synopsis, certificates and education, so it serves one, two or three
+companies without an override:
+
+```typst
+#import "/packages/domains/marine/templates/flagship/layouts/flagship-one-page.typ": one-page
+#let candidate = json("candidate.json")
+#show: flagship.with(candidate: candidate, /* role, theme, artwork */ layout: one-page(candidate))
+```
+
+`examples/marine/flagship/deck-cadet.typ` is the working example. The
+profile's own `layout` (without the function) plans three companies.
 
 ## The layout profile
 
@@ -62,18 +108,26 @@ The second fragment renders the company name with "(continued)". Company
 duration and totals are unchanged because they come from the full candidate.
 `tests/fixtures/pagination.typ` is a working three-page example.
 
-## anchor-education
+## anchor-education and spread
 
-When `true`, the template inserts flexible space before the education
-section so it sits at the bottom of its page. Set `false` for a compact
-finish.
+When `anchor-education` is `true`, the template inserts flexible space
+before the education section so it sits at the bottom of its page. Set
+`false` for a compact finish. `spread: true` (default `false`) is for a
+single page holding synopsis, certificates and education, with
+`anchor-education: true` (the one-page profile). With both sections it
+adds a second, equal flexible space before the certificates and
+restates both heading gaps as minimums; with one of them missing it
+turns the anchor off, so the page stacks from the top with `stack-gap`
+added above the synopsis and above the remaining section. A layout that
+sets `spread` must also set `stack-gap` (the one-page profile does; a
+missing key fails loudly).
 
 ## When something does not fit
 
 | Message | Meaning | Fix |
 |---|---|---|
-| `Page plan company index out of bounds` | The plan names a company index the candidate does not have. The default plan assumes six | Write a `pages` override listing the candidate's own company indices |
-| `Content overflow on planned page N` | The page spilled onto an unplanned page | Move a company to the next page, split it with row ranges, or add a page |
+| `Page plan company index out of bounds` | The plan names a company index the candidate does not have. The v11 plan assumes six | Write a `pages` override listing the candidate's own company indices, or use `one-page(candidate)` for a short record |
+| `Content overflow on planned page N` | The page spilled onto an unplanned page | Move a company to the next page, split it with row ranges, or add a page. On the one-page profile: switch to `flagship-v11.typ` with a two-page override |
 | `Page plan must cover each vessel row once` | A company or row range is missing or duplicated | Check indices against candidate order |
 | `Synopsis must follow the final Experience page` | Flag on the wrong page | Move `synopsis: true` |
 | `Missing page assignment: certificates` | The candidate has certificates but no page shows them | Add the flag to the last page |

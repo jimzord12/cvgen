@@ -184,6 +184,39 @@ def main():
         for pa, pb in zip(a, b):
             keep = lambda page: [w for w in page.get_text('words') if w[4] not in brand]
             assert keep(pa) == keep(pb)
+    # Short career on the one-page profile: the whole record on one page, whatever its company count.
+    cadet = compile_case('deck-cadet', 'examples/marine/flagship/deck-cadet.typ')
+    assert verify(cadet, pages=1, output=out / 'deck-cadet-check')['passed']
+    with fitz.open(cadet) as doc:
+        text = ' '.join(doc[0].get_text().split())
+        for phrase in ['NIKOS PETRIDIS', 'Northwind Container Lines', 'Saronic Bulk Carriers', '1 year 3 months',
+                       'Certificates & endorsements', 'Education & languages', 'Diploma in Nautical Studies']:
+            assert phrase in text, phrase
+    for mode, companies in [('one', 1), ('three', 3)]:
+        short = compile_case('one-page-' + mode, 'tests/fixtures/one-page.typ', {'case': mode})
+        assert verify(short, pages=1, output=out / ('one-page-' + mode + '-check'))['passed']
+        with fitz.open(short) as doc:
+            captions = ['1 VESSEL ', '1 COMPANY '] if companies == 1 else ['3 VESSELS', '3 COMPANIES']
+            text = ' '.join(doc[0].get_text().split()).upper()
+            assert all(c in text for c in captions), (mode, captions)
+    compile_case('one-page-overflow', 'tests/fixtures/one-page.typ', {'case': 'overflow'}, error='Content overflow on planned page 1')
+    # `spread`: with certificates and education, a thin record gets two even gaps above them and the
+    # synopsis stays on the Experience block; with one missing, everything stacks from the top with the
+    # wider `stack-gap` between blocks (owner): wider than the tight default, far from a shared gap.
+    def top(page, word, edge=1):
+        return next(w[edge] for w in page.get_text('words') if w[4] == word) / 72 * 25.4
+    with fitz.open(out / 'one-page-one.pdf') as doc:
+        page = doc[0]
+        attached = top(page, 'TOTAL') - top(page, 'Grace', 3)
+        first, second = top(page, 'Certificates') - top(page, 'TOTAL', 3), top(page, 'Education') - top(page, 'medical', 3)
+        assert attached < 17 and first > 15 and second > 15 and abs(first - second) < 8, (attached, first, second)
+    for mode, heading in [('no-education', 'Certificates'), ('no-certificates', 'Education')]:
+        packed = compile_case('one-page-' + mode, 'tests/fixtures/one-page.typ', {'case': mode})
+        assert verify(packed, pages=1, output=out / ('one-page-' + mode + '-check'))['passed']
+        with fitz.open(packed) as doc:
+            page = doc[0]
+            gaps = (top(page, 'TOTAL') - top(page, 'Grace', 3), top(page, heading) - top(page, 'TOTAL', 3))
+            assert all(17 < g < 32 for g in gaps), (mode, gaps)
     compile_case('data-valid', 'tests/fixtures/data.typ')
     # ADR 0008 fixtures: 31 of the 32 ctx-first components rendered alone, one page each, headed by
     # its name; the 32nd, document-shell, wraps a whole document and is covered by legacy-parity.
