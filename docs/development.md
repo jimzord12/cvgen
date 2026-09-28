@@ -62,6 +62,9 @@ says where to look, never what is open; check each place from its real
 source, then act on what you find or name it in the handoff and the
 report:
 
+- **Reviews:** every commit of the session, documentation included, has a
+  review report under `docs/work/<id>/reviews/` or is truly trivial
+  (`docs/review.md`); run the missing round before stopping.
 - **Proposals:** `status: approved` in `docs/proposals/*.md` is approved
   work not yet applied.
 - **Board:** cards sitting in Review or Ready.

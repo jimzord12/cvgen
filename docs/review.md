@@ -11,11 +11,19 @@ does not satisfy a code review gate.
 
 ## When a review is required
 
-Review behaviour, data-contract, dependency, rendering, persistence, approval,
-security, migration and test-logic changes independently. Pure spelling,
-comments, mechanical formatting or a term row added, renamed or dropped in
-`docs/glossary.md` (its Rules section is not a row) can skip the
-independent round after a focused check; for a term row, that check is
+**Every change is reviewed independently** (owner, 2026-09-28: "our
+philosophy is always do reviews; the only exceptions are truly trivial
+changes"). That covers code, tests and fixtures, and equally documentation,
+process rules (this file, `docs/development.md`, AGENTS.md, CLAUDE.md),
+proposals and their revisions, skills and agent definitions, and brand or
+design assets (with the `design-reviewer` for how they look). Documentation
+is not exempt: a wrong rule or a stale guide misleads every later session.
+Several small changes of one session may go to one round together.
+
+The only exceptions are truly trivial: pure spelling, comments, mechanical
+formatting, or a term row added, renamed or dropped in
+`docs/glossary.md` (its Rules section is not a row). They
+can skip the independent round after a focused check; for a term row, that check is
 that its code name matches the tree at that commit and anything unbuilt
 says so. The term-row path was adopted by the lead on 2026-09-25 under the
 owner's "as little friction as possible". A one-line configuration change can be high risk; file count

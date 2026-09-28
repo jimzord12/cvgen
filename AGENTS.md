@@ -202,9 +202,10 @@ propose; the owner decides.
   Framework never imports from `packages/domains/` (ADR 0012).
 - Every non-trivial change to code, fixtures or inputs ends with
   `python tests/run.py` passing and the evidence path reported; a visual
-  change also needs a rendered page. Whether a change needs an independent
-  `code-reviewer` round is decided by `docs/review.md` ("When a review is
-  required"); reports go in the task's `reviews/` folder.
+  change also needs a rendered page. Every change gets an independent
+  review round, documentation, rules, proposals and assets included; only
+  truly trivial changes are exempt (`docs/review.md`, "When a review is
+  required"). Reports go in the task's `reviews/` folder.
 - If you had to go around a component, template or the contract to deliver
   what the owner wanted, add an entry to `docs/framework-gaps.md` before
   reporting done. A bypass is a lesson, not a fault.
