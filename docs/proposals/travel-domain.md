@@ -1,84 +1,74 @@
 ---
 kind: proposal
-status: pending
-revision: 1
+status: deferred
+revision: 2
 ---
 
-# Travel and tourism: the first non-marine domain
+# Travel and tourism: promote the first one-off into a Domain
 
 Origin: roadmap item 2 in [the vision](../vision.md); the owner asked on
-2026-09-25 for roadmap cards for it. Drafted on the night of 2026-09-28.
+2026-09-25 for roadmap cards for it. Revision 1 (night of 2026-09-28)
+proposed building the `Travel & Tourism` `Domain` up front from fictional
+data; revision 2 (2026-09-28, owner's process) builds it from the first
+real client's one-off CV instead.
 
-**Pitch:** a `Travel & Tourism` `Domain` (folder `travel`) beside `Marine`, with its own facts shape and
-one template, so a tour guide's CV runs through the Framework and
-`scripts/cv.py` like a marine one, instead of as a one-off.
+**Pitch:** do not design the second `Domain` in advance. When the first
+Travel & Tourism client arrives, deliver a one-off CV; then turn that proven
+one-off into the `Domain` and its first `Template`.
 
 ## Problem
 
-Today only seafarers fit the product. A client from any other field, a tour
-guide being the first expected one, gets a one-off `Template` hand-built in
-their `Envelope` ([framework gap of 2026-09-25](../framework-gaps.md), "A
-client whose domain does not exist yet"). That works once, but every such
-client costs a full custom design, has no schema to catch typos, and teaches
-the library nothing. The vision names travel and tourism as the next field,
-and as the proof that the domain split of ADR 0011 and ADR 0012 actually
-works: a second domain added without touching marine or the core.
+Today CVgen only knows seafarers: its facts shape is companies, vessels,
+months at sea, ranks and sea certificates. A tour guide's CV needs other
+facts (licences, guiding languages, employers, tours, guest numbers and
+ratings). Building a whole `Domain` before any such client exists means
+guessing what a guide's CV needs; building a one-off for every guide means
+paying for a full custom design each time, with no schema to catch typos.
 
-## Who it helps
+## The process (owner, 2026-09-28)
 
-- **Tour guides, tour leaders, hotel and hospitality staff:** a premium CV
-  shaped for their field (licences, languages, destinations, guest numbers,
-  ratings), not a seafarer's shape bent to fit.
-- **The owner:** a second product line with the same workflow (render,
-  approve, export), no hand-built template per client.
-- **The codebase:** the first real test that a domain can be added beside
-  `marine` with the core untouched (`check_core_boundary()` in the suite).
+1. **A client of a new type arrives** (here: Travel & Tourism).
+2. **No `Domain` supports it yet:** research the field and deliver a
+   one-off CV. This step exists today: `docs/guides/client-workflow.md`
+   and the `new-client` skill build a one-off `Template` in the client's
+   `Envelope` (importing only the `Framework`) and record a
+   `Framework Gap`.
+3. **Study the one-off and create a `Template` from it:** a
+   `packages/domains/travel/` `Domain` (facts shape, schema, wording) and
+   its first `Template`. Its public example and frozen reference use a
+   **fictional twin**: an invented guide modelled on the real client,
+   because public content is fictional (constitution); the real client's
+   data never leaves `private/`.
+4. **Audit and extend lightly:** review it (the `code-reviewer`, the
+   `design-reviewer`), research where the one-off guessed, split it into
+   components, and record ideas for extension. Build only what the next
+   client needs.
 
-## Smallest suggested change
-
-1. `packages/domains/travel/`: `domain.typ` (id, meta, wording), `data.typ`
-   (normalise and validate), `lib.typ` (the import surface), and
-   `schema/candidate.schema.json`. The facts shape, kept small: identity,
-   contacts, profile, licences (issuer, number, valid until), languages
-   (with level), experience as roles (employer, title, period, places,
-   highlights with numbers), education, certificates. Periods are printed
-   as documented, never converted into service time (constitution rule).
-2. One template, `packages/domains/travel/templates/<name>/`: two pages by
-   default, its own theme and layout profile, reusing the Framework's page
-   shell, pagination and ctx-first components; no artwork pack at first.
-3. One fictional example candidate and entry point under `examples/`, a
-   frozen reference PDF under the template's `tests/approved/`, and its
-   hashes in `tests/baseline.json` (rule 1).
-4. Docs: the domain added to `AGENTS.md`'s map and to
-   `docs/reference/domains-and-roles.md`; the framework gap above closed.
-
-Out of scope for the first version: roles inside travel (guide versus
-hotel), more than one template, artwork, a second language of wording.
+Steps 3 and 4 are one task, started after the first client's one-off is
+signed off; the second Travel & Tourism client then validates the
+`Template`.
 
 ## Consequence
 
-- About the size of the domains move (roadmap item 1): a few days of agent
-  work plus one design round for the template's look, which the owner
-  approves before its frozen reference is taken.
-- Marine is untouched: the engineer example must stay pixel-identical to
-  v11, and the suite already refuses a core file that imports a domain.
-- Every future field (software, hospitality, health) follows the same path,
-  so the cost of the second domain is partly paid for all later ones.
+- Nothing is built now. The first travel client costs a one-off (as any
+  new field does today); every later one runs through the `Domain`.
+- The `Template` reflects a real, delivered CV instead of a guess.
+- Marine is untouched: the engineer example stays pixel-identical to v11,
+  and the suite refuses a core file that imports a `Domain`.
+- The same process applies to every later field (hotel staff, software,
+  health).
 
-## Open questions for the owner
+## Revisit condition
 
-- **Look:** reuse one of the three new `Text Draft` or idea-run directions as
-  the template's starting point, or brief the `magazine-editor` for a travel
-  concept first (recommended: an `Idea Run` first, as with the `Text Draft`).
-- **Scope of "travel":** guides only first, or hotel and hospitality staff
-  too (recommended: guides only; hospitality becomes a role later).
+Return to `pending` (or open the build task directly) when the first
+Travel & Tourism client's one-off CV has its `Sign-off`. Card
+travel-domain stays Queued with this trigger.
 
-## Recommendation
+## Decisions
 
-Approve, with an `Idea Run` for the template's look as the first step. It is
-roadmap item 2 and the next real test of the architecture. Deck data support
-(item 3) is independent and can run before or after it.
-
-## Decision requested
-
-Approve, defer or reject revision 1; answer the two open questions.
+- 2026-09-28, owner, in session: revision 1 not approved as written; the
+  owner set out the process above ("A type of client comes in… do
+  research, create a one-off CV… study the one-off CV, create a template
+  out of it… do auditing, maybe more research, decompose it into
+  components, think of ways to extend it"). Revision 2 records it and is
+  **deferred** until the revisit condition ("yes, rewrite and defer it").
