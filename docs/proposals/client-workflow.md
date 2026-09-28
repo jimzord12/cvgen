@@ -80,3 +80,8 @@ Approve the workflow as above?
   gets the house design First Fitting, the owner's pick of the 2026-09-27
   idea run (`docs/work/idea-runs/2026-09-27-editor/run.md`), built into
   `scripts/text-draft.typ` (card premium-text-draft).
+- 2026-09-28, owner: item 2's "No web form" is relaxed. A Google Form
+  may go beside the `Relay` message, never instead of it ("it would be
+  awesome to create a google form for each of the questions"; "build it,
+  with sheet"): the `Intake Form`, `scripts/intake-form.gs`, guide section
+  2 (card intake-form).

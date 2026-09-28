@@ -74,19 +74,23 @@ and saves photos into `intake/documents/`.
 
 **`Intake Form` (optional; owner, 2026-09-28).** Beside the chat message,
 the client can answer the same questions in a Google Form. Claude writes a
-filled copy of `scripts/intake-form.gs` as `intake/form.gs` (only its
-`FORM` block changes: title, intro, consent, questions). The owner pastes
-it into a new project at script.google.com and runs `createIntakeForm`
-once; the log prints the link to send, the form's edit link and a Google
-Sheet that collects the answers. The first run asks for permission and
-Google warns that the app is unverified (Advanced, then Go to the
-project); that is normal for the owner's own script. When the client has
-answered, the owner downloads the Sheet as CSV into
-`intake/answers-NN.csv`, and Claude copies the answers into
-`intake/messages.md`. The form has no upload questions (they force a
-Google sign-in), so photos and documents still come by chat. The form and
-its Sheet live in the owner's Google Drive: they are deleted with the
-`Envelope`.
+filled copy of `scripts/intake-form.gs` per form as `intake/form-NN.gs`
+(only its `FORM` block changes: title, intro, consent, questions). The
+owner pastes it into a new project at script.google.com, names the
+project after the `Alias`, and runs `createIntakeForm` once; the log
+prints the link to send, the form's edit link and a Google Sheet that
+collects the answers. The first run asks for permission and Google warns
+that the app is unverified (Advanced, then Go to the project); that is
+normal for the owner's own script. The owner passes the three links and
+the project's link back, and Claude lists them under "Google" in the
+`Envelope`'s `README.md`. A client can edit an answer only through the
+edit link on the form's last page, so the owner downloads the answers
+when the client says he is done: in the form's Responses tab, the menu,
+then Download responses (.csv), saved as `intake/answers-NN.csv`. Claude
+copies them into `intake/messages.md`. The form has no upload questions
+(they force a Google sign-in), so photos and documents still come by chat.
+The form, its Sheet and the script project live in the owner's Google
+account and are deleted with the `Envelope`.
 
 The master list, in English (why each question matters:
 [research note](../research/cv-intake-practice.md), "Draft question set"):
@@ -243,8 +247,9 @@ in the `Envelope`'s `README.md` and names the delete-by date in its report
 to the owner. A client who never reaches `Export` (no consent, dropped out)
 is named to the owner, by `Alias`, once three months pass without progress
 since the intake date: the `new-client` skill checks the intake dates every
-time it runs. Deleting anything under `private/`, and any `Intake Form`
-and its Sheet in his Google Drive, stays the owner's act.
+time it runs. Deleting anything under `private/`, and each `Intake Form`,
+its Sheet and its script project listed in the `README.md`, stays the
+owner's act.
 
 ## Rules
 

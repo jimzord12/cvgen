@@ -4,12 +4,16 @@
  *
  * How the owner uses it (docs/guides/client-workflow.md, section 2):
  *   1. script.google.com -> New project -> replace everything with this
- *      file (Claude writes a filled copy per client, in the Envelope).
+ *      file (Claude writes a filled copy per form, intake/form-NN.gs in
+ *      the Envelope). Rename "Untitled project" to the client's Alias.
  *   2. Run createIntakeForm. The first run asks for permission; Google
  *      warns "Google hasn't verified this app": Advanced -> Go to project.
  *   3. The Execution log under the code prints three links: the answer
- *      link for the client, the form's edit link and the Sheet.
- * Each run makes a new form and a new Sheet, so run it once per client.
+ *      link for the client, the form's edit link and the Sheet. Paste
+ *      them, with the project's own link, back to Claude for the
+ *      Envelope's README.md: they are what gets deleted at the delete-by
+ *      date.
+ * Each run makes a new form and a new Sheet, so run it once per form.
  *
  * The FORM block here is an example with generic questions. A per-client
  * copy replaces only FORM; the functions stay as they are.
@@ -19,8 +23,9 @@ const FORM = {
   // What the client sees at the top of the form.
   title: 'Βιογραφικό: λίγες ερωτήσεις',
   description:
-    'Απάντησε όπως σε βολεύει. Πρόχειρα είναι μια χαρά. ' +
-    'Μπορείς να αλλάξεις τις απαντήσεις σου και μετά την αποστολή.',
+    'Απάντησε όπως σε βολεύει. Πρόχειρα είναι μια χαρά. Για να ' +
+    'αλλάξεις κάτι μετά την αποστολή, πάτα «Επεξεργασία της απάντησής ' +
+    'σας» στην τελευταία σελίδα.',
   confirmation: 'Ευχαριστούμε! Τα λέμε σύντομα.',
   // The Sheet's name in the owner's Drive.
   sheetTitle: 'client-yyyy-mm-nn: απαντήσεις',
@@ -65,7 +70,7 @@ function createIntakeForm() {
   Logger.log('Answers Sheet (you only): ' + sheet.getUrl());
 }
 
-// Fails before anything is created, so a typo never leaves half a form.
+// A typo in FORM fails here, before anything is created.
 function checkItem_(item) {
   const kinds = ['consent', 'section', 'short', 'long'].filter(function (k) {
     return typeof item[k] === 'string' && item[k].length > 0;

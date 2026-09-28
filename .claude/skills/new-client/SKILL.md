@@ -22,8 +22,9 @@ owner talks to the client; you never do. Terms: `docs/glossary.md`.
    read the documents, write facts or research. You read text only: ask
    the owner for a transcript of voice messages. Never open a client's
    LinkedIn page; use the PDF they send. If the owner wants an `Intake
-   Form`, also write `intake/form.gs` from `scripts/intake-form.gs`,
-   changing only its `FORM` block (guide section 2).
+   Form`, also write `intake/form-NN.gs` from `scripts/intake-form.gs`,
+   changing only its `FORM` block, and list the links he brings back in
+   `README.md` (guide section 2).
 3. **Facts.** Write `intake/facts.md` from the messages and documents:
    every fact names its source; nothing invented; no calendar period turned
    into service time. End with the gap list. Do not send it yet.
@@ -89,5 +90,7 @@ three months after intake, and any delete-by date that has passed.
 
 Where the client stands (which step), what is waiting on him (a message to
 paste, a Deep Dive choice, a screenshot), new or changed `Research Library`
-notes, and after `Export` the delete-by date. Never paste client data into
+notes, and after `Export` the delete-by date, naming any `Intake Form`,
+Sheet and script project listed in `README.md` for deletion with it.
+Never paste client data into
 the chat beyond what he needs to act.
