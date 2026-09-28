@@ -41,7 +41,7 @@ artwork pack.
 | Role | `domains/marine/roles/<deck or engine>/role.typ`, or none | One level of specialisation inside the domain. Flagship composes the role's `copy` today; both marine roles are bare markers |
 | Theme | `domains/marine/templates/flagship/themes/*.typ` | Colours, fonts, sizes, tracking, leading, and a map from legacy SVG hex colours to theme colours |
 | Artwork | `domains/marine/templates/flagship/artwork/*.typ` | Which SVG under `domains/marine/assets/` fills each named slot, with optional width, x, y and opacity |
-| Layout | `domains/marine/templates/flagship/layouts/*.typ` | Margins, hero geometry, column widths, gaps, spacing scale, page plan, `anchor-education` |
+| Layout | `domains/marine/templates/flagship/layouts/*.typ` | Margins, hero geometry, column widths, gaps, spacing scale, page plan, `anchor-education`, `spread` |
 | Display switch | `show-vessel-durations` on `flagship` | Show or hide every vessel duration at once without moving columns |
 
 A seventh, optional input is `copy` on `flagship`: overrides for the
@@ -166,6 +166,8 @@ flagship → document-shell
   page n: page-header → section-heading + experience-section
   last experience page: synopsis
   then: certificates-section, [v(1fr) if anchor-education], education-languages-section
+  with spread: [v(1fr) + heading gap] before certificates, [heading gap] after the education
+  anchor; [v(1fr)] before the synopsis instead when certificates or education is missing
 ```
 
 ## Who owns spacing
@@ -173,7 +175,8 @@ flagship → document-shell
 The parent owns outer gaps. The child owns its internal layout using its
 geometry slice. Opening versus continuation spacing is chosen by the template
 per page. Education does not decide to sit low on the page; the template's
-`v(1fr)` under `anchor-education` does.
+`v(1fr)` under `anchor-education` does, and `spread` shares the free
+space between two such gaps.
 
 Vessel rows return grid cells, not their own grid, so every row in a group
 shares the parent's column tracks. When durations are hidden the third column

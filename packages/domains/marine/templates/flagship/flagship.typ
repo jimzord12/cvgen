@@ -40,16 +40,22 @@
         experience-section(ctx, page-plan.companies.map(ref => company-fragment(ref, d.companies, domain.experience)),
           spacing: if opening {layout.experience.opening} else {layout.experience.continuation})
       }
-      if page-plan.at("synopsis", default: false) {synopsis(ctx, (domain.experience.totals)(d.companies))}
-      // `spread` (one-page profile) shares the free space between the certificates and education
-      // gaps instead of leaving it all above education. A heading's own gap collapses next to
-      // flexible space, so it is restated as the minimum.
+      // `spread` (one-page profile) shares the free space equally between two gaps, above the last
+      // two closing blocks that render (normally certificates and education; above the synopsis when
+      // one of those is missing), instead of leaving it all in one. A heading's own gap collapses
+      // next to flexible space, so it is restated as the minimum.
       let spread = layout.at("spread", default: false)
-      if page-plan.at("certificates", default: false) and d.certificates.len() > 0 {
+      let has-certificates = page-plan.at("certificates", default: false) and d.certificates.len() > 0
+      let has-education = page-plan.at("education", default: false) and (d.education.len() + d.languages.len() > 0)
+      if page-plan.at("synopsis", default: false) {
+        if spread and not (has-certificates and has-education) {v(1fr)}
+        synopsis(ctx, (domain.experience.totals)(d.companies))
+      }
+      if has-certificates {
         if spread {v(1fr); v(layout.headings.certificates.above)}
         certificates-section(ctx, d.certificates)
       }
-      if page-plan.at("education", default: false) and (d.education.len() + d.languages.len() > 0) {
+      if has-education {
         if layout.anchor-education {v(1fr)}
         if spread {v(layout.headings.education.above)}
         education-languages-section(ctx, (education: d.education, languages: d.languages))

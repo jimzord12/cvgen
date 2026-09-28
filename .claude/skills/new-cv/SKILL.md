@@ -46,7 +46,7 @@ fitting the page.
    indices. The shipped plan assumes six companies and fails with
    `Page plan company index out of bounds` for fewer, or
    `Page plan must cover each vessel row once, in candidate order` for more.
-   A short career (a cadet or junior, see the capacity rule in
+   A short career (a cadet or junior, see the `Capacity Rule` in
    `docs/reference/layout-and-pagination.md`, "Choosing a profile") uses
    `flagship-one-page.typ` instead: `layout: one-page(candidate)`, no
    override, and `--pages 1` in step 4.

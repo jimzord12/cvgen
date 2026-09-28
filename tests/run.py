@@ -200,6 +200,19 @@ def main():
             text = ' '.join(doc[0].get_text().split()).upper()
             assert all(c in text for c in captions), (mode, captions)
     compile_case('one-page-overflow', 'tests/fixtures/one-page.typ', {'case': 'overflow'}, error='Content overflow on planned page 1')
+    # `spread` gives a thin record two even gaps, never one hole: the gap above each of the last two
+    # closing blocks, text to text in mm (the fixed heading minimums differ by a few mm).
+    def top(page, word, edge=1):
+        return next(w[edge] for w in page.get_text('words') if w[4] == word) / 72 * 25.4
+    gaps = {'one': ('TOTAL', 'Certificates', 'medical', 'Education')}
+    for mode, heading in [('no-education', 'Certificates'), ('no-certificates', 'Education')]:
+        compile_case('one-page-' + mode, 'tests/fixtures/one-page.typ', {'case': mode})
+        gaps[mode] = ('Grace', 'TOTAL', 'TOTAL', heading)
+    for mode, (a, b, c, d) in gaps.items():
+        with fitz.open(out / ('one-page-' + mode + '.pdf')) as doc:
+            assert len(doc) == 1, mode
+            first, second = top(doc[0], b) - top(doc[0], a, 3), top(doc[0], d) - top(doc[0], c, 3)
+            assert first > 15 and second > 15 and abs(first - second) < 8, (mode, first, second)
     compile_case('data-valid', 'tests/fixtures/data.typ')
     # ADR 0008 fixtures: 31 of the 32 ctx-first components rendered alone, one page each, headed by
     # its name; the 32nd, document-shell, wraps a whole document and is covered by legacy-parity.
