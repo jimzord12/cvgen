@@ -34,8 +34,8 @@ builds/tests-<timestamp>/
 
 - One place to look per case, and the page images are the tested output,
   so evidence cannot drift from the run it claims.
-- A run takes a few seconds longer and its folder is larger (about 20
-  checked cases render PNGs; internal fixtures that are not checked
+- A run takes a few seconds longer and its folder is larger (17
+  checked cases render PNGs today; internal fixtures that are not checked
   visually do not).
 - Paths in docs and skills change: the v11 diff is now
   `engineer/check/diff-N.png`, a compile log `<case>/compile.log`. Older

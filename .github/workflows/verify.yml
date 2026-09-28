@@ -38,4 +38,5 @@ jobs:
             builds/ci/**/diff-*.png
             builds/ci/**/compile.log
             builds/ci/**/page-*.png
+            builds/ci/workflow/commands.log
           if-no-files-found: ignore
