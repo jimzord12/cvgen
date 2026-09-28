@@ -86,7 +86,8 @@ the question.
 
 Every time this skill runs, first read the intake date in each `Envelope`'s
 `README.md`: name to the owner, by `Alias`, any client with no `Export`
-three months after intake, and any delete-by date that has passed.
+three months after intake, and any delete-by date that has passed, with
+the Google links listed in its `README.md`.
 
 Where the client stands (which step), what is waiting on him (a message to
 paste, a Deep Dive choice, a screenshot), new or changed `Research Library`

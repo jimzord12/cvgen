@@ -34,7 +34,8 @@ drawers to it:
 
 ```text
 private/eleni-example-tour-guide/
-  README.md          alias, intake date, decisions, draft fingerprints, delivery and delete-by dates
+  README.md          alias, intake date, decisions, draft fingerprints, delivery and delete-by dates,
+                     Google links (Intake Form, Sheet, script project)
   intake/
     messages.md      every answer as received, dated, in the client's words
     documents/       the photos and files the client sent
@@ -84,9 +85,10 @@ that the app is unverified (Advanced, then Go to the project); that is
 normal for the owner's own script. The owner passes the three links and
 the project's link back, and Claude lists them under "Google" in the
 `Envelope`'s `README.md`. A client can edit an answer only through the
-edit link on the form's last page, so the owner downloads the answers
-when the client says he is done: in the form's Responses tab, the menu,
-then Download responses (.csv), saved as `intake/answers-NN.csv`. Claude
+edit link shown once, after sending, so the owner downloads the answers
+when the client says he is done: in the form's Responses tab, the
+three-dot menu, then Download responses (.csv). It arrives as a ZIP;
+the CSV inside is saved as `intake/answers-NN.csv`. Claude
 copies them into `intake/messages.md`. The form has no upload questions
 (they force a Google sign-in), so photos and documents still come by chat.
 The form, its Sheet and the script project live in the owner's Google
@@ -248,8 +250,8 @@ to the owner. A client who never reaches `Export` (no consent, dropped out)
 is named to the owner, by `Alias`, once three months pass without progress
 since the intake date: the `new-client` skill checks the intake dates every
 time it runs. Deleting anything under `private/`, and each `Intake Form`,
-its Sheet and its script project listed in the `README.md`, stays the
-owner's act.
+its Sheet and its script project listed in the `README.md` (then empty
+the Drive Trash, which keeps files for 30 days), stays the owner's act.
 
 ## Rules
 
