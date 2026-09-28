@@ -200,19 +200,22 @@ def main():
             text = ' '.join(doc[0].get_text().split()).upper()
             assert all(c in text for c in captions), (mode, captions)
     compile_case('one-page-overflow', 'tests/fixtures/one-page.typ', {'case': 'overflow'}, error='Content overflow on planned page 1')
-    # `spread` gives a thin record two even gaps, never one hole: the gap above each of the last two
-    # closing blocks, text to text in mm (the fixed heading minimums differ by a few mm).
+    # `spread`: with certificates and education, a thin record gets two even gaps above them and the
+    # synopsis stays on the Experience block; with one missing, everything stacks from the top (owner).
     def top(page, word, edge=1):
         return next(w[edge] for w in page.get_text('words') if w[4] == word) / 72 * 25.4
-    gaps = {'one': ('TOTAL', 'Certificates', 'medical', 'Education')}
+    with fitz.open(out / 'one-page-one.pdf') as doc:
+        page = doc[0]
+        attached = top(page, 'TOTAL') - top(page, 'Grace', 3)
+        first, second = top(page, 'Certificates') - top(page, 'TOTAL', 3), top(page, 'Education') - top(page, 'medical', 3)
+        assert attached < 17 and first > 15 and second > 15 and abs(first - second) < 8, (attached, first, second)
     for mode, heading in [('no-education', 'Certificates'), ('no-certificates', 'Education')]:
-        compile_case('one-page-' + mode, 'tests/fixtures/one-page.typ', {'case': mode})
-        gaps[mode] = ('Grace', 'TOTAL', 'TOTAL', heading)
-    for mode, (a, b, c, d) in gaps.items():
-        with fitz.open(out / ('one-page-' + mode + '.pdf')) as doc:
+        packed = compile_case('one-page-' + mode, 'tests/fixtures/one-page.typ', {'case': mode})
+        with fitz.open(packed) as doc:
+            page = doc[0]
             assert len(doc) == 1, mode
-            first, second = top(doc[0], b) - top(doc[0], a, 3), top(doc[0], d) - top(doc[0], c, 3)
-            assert first > 15 and second > 15 and abs(first - second) < 8, (mode, first, second)
+            gaps = (top(page, 'TOTAL') - top(page, 'Grace', 3), top(page, heading) - top(page, 'TOTAL', 3))
+            assert all(g < 17 for g in gaps), (mode, gaps)
     compile_case('data-valid', 'tests/fixtures/data.typ')
     # ADR 0008 fixtures: 31 of the 32 ctx-first components rendered alone, one page each, headed by
     # its name; the 32nd, document-shell, wraps a whole document and is covered by legacy-parity.

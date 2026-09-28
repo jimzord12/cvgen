@@ -166,8 +166,8 @@ flagship → document-shell
   page n: page-header → section-heading + experience-section
   last experience page: synopsis
   then: certificates-section, [v(1fr) if anchor-education], education-languages-section
-  with spread: [v(1fr) + heading gap] before certificates, [heading gap] after the education
-  anchor; [v(1fr)] before the synopsis instead when certificates or education is missing
+  with spread and both sections: [v(1fr) + heading gap] before certificates, [heading gap]
+  after the education anchor; with spread and one missing: no flexible space, stacked from the top
 ```
 
 ## Who owns spacing

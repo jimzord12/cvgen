@@ -1,8 +1,8 @@
 // The one-page profile's plan helper on a record of one company with one
 // vessel and one of three companies (the deck cadet example has two), and
 // on one record too long for a page, which must fail loudly, never shrink.
-// `no-education` and `no-certificates` drop one closing section: `spread`
-// still makes two even gaps.
+// `no-education` and `no-certificates` drop one closing section: the blocks
+// then stack from the top.
 #import "../../packages/domains/marine/lib.typ": flagship
 #import "../../packages/domains/marine/roles/deck/role.typ": role
 #import "../../packages/domains/marine/templates/flagship/themes/golden-blue.typ": theme

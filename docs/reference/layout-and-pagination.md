@@ -34,8 +34,9 @@ it) and every type size are unchanged. It sets `spread: true`: the page
 loop shares the free space equally above the certificates and above
 education, each keeping its heading gap as a minimum, so a thin record
 has two even gaps rather than one hole. A record without certificates or
-without education gets its gaps above the synopsis and above the section
-it has. Its `one-page` function returns
+without education stacks from the top instead (the owner's call,
+2026-09-28): synopsis under Experience, the remaining section under the
+synopsis, the free space at the bottom. Its `one-page` function returns
 the profile with one page that lists every company and closes with the
 synopsis, certificates and education, so it serves one, two or three
 companies without an override:
@@ -110,10 +111,12 @@ duration and totals are unchanged because they come from the full candidate.
 
 When `anchor-education` is `true`, the template inserts flexible space
 before the education section so it sits at the bottom of its page. Set
-`false` for a compact finish. `spread: true` (default `false`) adds a
-second, equal flexible space before the certificates (before the
-synopsis when certificates or education is missing) and restates both
-heading gaps as minimums; the one-page profile uses it.
+`false` for a compact finish. `spread: true` (default `false`) is for a
+single page holding synopsis, certificates and education, with
+`anchor-education: true` (the one-page profile). With both sections it
+adds a second, equal flexible space before the certificates and
+restates both heading gaps as minimums; with one of them missing it
+turns the anchor off, so the page stacks from the top.
 
 ## When something does not fit
 
