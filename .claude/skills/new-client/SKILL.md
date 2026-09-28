@@ -21,7 +21,9 @@ owner talks to the client; you never do. Terms: `docs/glossary.md`.
    the client's "I agree" is in `intake/messages.md`**; before it, do not
    read the documents, write facts or research. You read text only: ask
    the owner for a transcript of voice messages. Never open a client's
-   LinkedIn page; use the PDF they send.
+   LinkedIn page; use the PDF they send. If the owner wants an `Intake
+   Form`, also write `intake/form.gs` from `scripts/intake-form.gs`,
+   changing only its `FORM` block (guide section 2).
 3. **Facts.** Write `intake/facts.md` from the messages and documents:
    every fact names its source; nothing invented; no calendar period turned
    into service time. End with the gap list. Do not send it yet.
@@ -45,7 +47,8 @@ owner talks to the client; you never do. Terms: `docs/glossary.md`.
    text and hash, reports under `docs/work/research-<topic>/reviews/`,
    committed like any documentation.
 7. **Follow-up.** Gap list plus research questions, one batch in simple
-   Greek: aim for 5, never more than 10. Update `facts.md` from the answers.
+   Greek: aim for 5, never more than 10, optionally as an `Intake Form`.
+   Update `facts.md` from the answers.
 8. **Text draft.** `draft/draft-NN.typ` with `scripts/text-draft.typ`: the
    Greek `Check Page` (house copy: "check only the underlined facts; the
    wording is ours; reply OK"), then the content in the CV's language,

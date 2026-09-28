@@ -72,6 +72,22 @@ own transcription, or the owner typing the gist. The owner copies the chat
 text into `intake/messages.md` (a WhatsApp "Export chat" file works as is)
 and saves photos into `intake/documents/`.
 
+**`Intake Form` (optional; owner, 2026-09-28).** Beside the chat message,
+the client can answer the same questions in a Google Form. Claude writes a
+filled copy of `scripts/intake-form.gs` as `intake/form.gs` (only its
+`FORM` block changes: title, intro, consent, questions). The owner pastes
+it into a new project at script.google.com and runs `createIntakeForm`
+once; the log prints the link to send, the form's edit link and a Google
+Sheet that collects the answers. The first run asks for permission and
+Google warns that the app is unverified (Advanced, then Go to the
+project); that is normal for the owner's own script. When the client has
+answered, the owner downloads the Sheet as CSV into
+`intake/answers-NN.csv`, and Claude copies the answers into
+`intake/messages.md`. The form has no upload questions (they force a
+Google sign-in), so photos and documents still come by chat. The form and
+its Sheet live in the owner's Google Drive: they are deleted with the
+`Envelope`.
+
 The master list, in English (why each question matters:
 [research note](../research/cv-intake-practice.md), "Draft question set"):
 
@@ -177,7 +193,8 @@ library when a second client targets the same employer.
 
 The gap list plus any question the research raised, as one batch: aim for
 5 questions, never more than 10. Claude writes them in simple Greek; the
-owner pastes them; the answers go into `intake/messages.md`, and Claude
+owner pastes them, or sends them as an `Intake Form` (section 2); the
+answers go into `intake/messages.md`, and Claude
 updates `facts.md`. Anything still missing after this round is left out
 of the CV or marked as not supplied; the client is not asked again unless
 the owner decides to.
@@ -226,8 +243,8 @@ in the `Envelope`'s `README.md` and names the delete-by date in its report
 to the owner. A client who never reaches `Export` (no consent, dropped out)
 is named to the owner, by `Alias`, once three months pass without progress
 since the intake date: the `new-client` skill checks the intake dates every
-time it runs. Deleting anything under `private/` stays the
-owner's act.
+time it runs. Deleting anything under `private/`, and any `Intake Form`
+and its Sheet in his Google Drive, stays the owner's act.
 
 ## Rules
 
