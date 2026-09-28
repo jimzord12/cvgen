@@ -48,7 +48,8 @@ owner talks to the client; you never do. Terms: `docs/glossary.md`.
    text and hash, reports under `docs/work/research-<topic>/reviews/`,
    committed like any documentation.
 7. **Follow-up.** Gap list plus research questions, one batch in simple
-   Greek: aim for 5, never more than 10, optionally as an `Intake Form`.
+   Greek: aim for 5, never more than 10; as an `Intake Form`, at most
+   about 15 minutes and at most 5 typed answers (guide section 7).
    Update `facts.md` from the answers.
 8. **Text draft.** `draft/draft-NN.typ` with `scripts/text-draft.typ`: the
    Greek `Check Page` (house copy: "check only the underlined facts; the

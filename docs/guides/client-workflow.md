@@ -22,7 +22,7 @@ Intake (Relay) -> Scout -> CV decisions -> Deep Dives -> one follow-up
 | 4. Scout | - | Research Library first, then the web |
 | 5. CV decisions | picks which open ones get a Deep Dive | lists the decisions and what answers them |
 | 6. Deep Dives | - | one agent per question, sources checked |
-| 7. Follow-up | pastes the questions, brings the answers back | one batch, 5 questions (never more than 10) |
+| 7. Follow-up | pastes the questions, brings the answers back | one batch: 5 questions (never more than 10), or a form of at most 15 minutes |
 | 8. Sign-off | sends the text draft, saves the client's OK | writes the draft PDF |
 | 9. Handover | - | `new-cv` builds the CV |
 
@@ -207,9 +207,12 @@ library when a second client targets the same employer.
 
 ## 7. One follow-up
 
-The gap list plus any question the research raised, as one batch: aim for
-5 questions, never more than 10. Claude writes them in simple Greek; the
-owner pastes them, or sends them as an `Intake Form` (section 2); the
+The gap list plus any question the research raised, as one batch. As a
+chat message: aim for 5 questions, never more than 10. As an `Intake
+Form` (section 2) the cap is effort, not a count, because most questions
+there are one tap (owner, 2026-09-28): at most about 15 minutes, and at
+most 5 questions that need typing. Claude writes them in simple Greek; the
+owner pastes them, or sends the form; the
 answers go into `intake/messages.md`, and Claude
 updates `facts.md`. Anything still missing after this round is left out
 of the CV or marked as not supplied; the client is not asked again unless

@@ -85,3 +85,7 @@ Approve the workflow as above?
   awesome to create a google form for each of the questions"; "build it,
   with sheet"): the `Intake Form`, `scripts/intake-form.gs`, guide section
   2 (card intake-form).
+- 2026-09-28, owner: item 6's cap counts effort for an `Intake Form`: at
+  most about 15 minutes and at most 5 questions that need typing (answer
+  "A" to that option); a chat follow-up keeps "aim for 5, never more
+  than 10".
