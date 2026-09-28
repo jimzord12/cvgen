@@ -62,10 +62,10 @@ says where to look, never what is open; check each place from its real
 source, then act on what you find or name it in the handoff and the
 report:
 
-- **Reviews:** every commit on `main` from the start of the handoff card's
-  last `Written` date (`git log main --since='<date> 00:00'`; a bare date
-  means that date at the current clock time and silently lists less), from
-  any author or session (an interrupted session never ran its sweep),
+- **Reviews:** every commit that reached `main` since the handoff card's
+  `Main at` commit (`git log <sha>..main`; this includes older branch
+  commits merged since, which a date window misses), from any author or
+  session (an interrupted session never ran its `Session Sweep`),
   documentation included, has a review report under
   `docs/work/<id>/reviews/`, or is trivial or record-keeping
   (`docs/review.md`); run the missing round before stopping.
@@ -75,7 +75,8 @@ report:
   Blocked.
 - **Night Shift:** `night-shift status` and `night-shift follow-up list`
   show open follow-ups only. Also read the `night.json` of every night
-  dated on or after the `Written` date, in the main checkout (the
+  dated on or after the day before the `Written` date (a night is named by
+  the date it starts), in the main checkout (the
   `.night-shift/nights/` folder is ignored by Git): questions with
   `"answer": null` and feedback with `"sent": null` still wait on the
   owner.
@@ -90,7 +91,9 @@ A report says everything is finished only after the `Session Sweep`.
 Then rewrite the session-handoff card's description in place (one card, never a
 new one, never deleted; Trello keeps its history). Keep the card's heading and
 intro, then a line `**Written:** yyyy-MM-dd, <what the session was> (<agent>)`;
-the trello skill's read-back check looks for that date. Then: where things
+the trello skill's read-back check looks for that date. Next, a line
+`**Main at:** <short sha>` with the `main` head at the time of writing; the
+next `Session Sweep` starts its review check there. Then: where things
 stand, the next step in order, parked owner decisions, pitfalls that cost
 time, constraints in force. Keep only what no task card owns; a task's own
 state goes in its card's Handoff section. Any local handoff file is a

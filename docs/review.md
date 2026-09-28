@@ -26,8 +26,8 @@ a rule change is put to the owner for a decision. A documentation change
 may reach `main` before its round only when the round runs in the same
 session, before the report.
 
-The trivial path, the only exemption for a change itself: pure spelling, comments, mechanical
-formatting, or a term row added, renamed or dropped in
+The trivial path, the only exemption for a change itself: pure spelling,
+comments, mechanical formatting, or a term row added, renamed or dropped in
 `docs/glossary.md` (its Rules section is not a row; the prose a rename or
 drop updates elsewhere is reviewed). These skip the independent round after
 a focused check; for a term row, that check is that its code name matches
@@ -37,8 +37,8 @@ possible". A one-line configuration change can be high risk; file count
 is not the criterion. Record the reason when taking the trivial path.
 
 Record-keeping commits are not changes to review but records of what was
-already reviewed or decided, so they need no round of their own: a commit that only
-stores review reports and their dispositions, a merge of already-reviewed
+already reviewed or decided, so they need no round of their own: a commit
+that only stores review reports and their dispositions, a merge of already-reviewed
 work, a proposal's status line or decision entry that quotes the owner, and
 the `night-shift` tool's `.night-shift/history` commits.
 
@@ -128,10 +128,13 @@ The subagent definition exposes `Read`, `Grep`, `Glob`, `Bash` and
 `PowerShell` only: no editing tools and no `Agent` tool, so it cannot spawn
 nested agents. It pins Opus at high effort, the owner's standing
 preference for reviewers since 2026-09-26, as do the `design-reviewer`,
-`research-reviewer` and `ceo-reviewer`. For an extremely complex change the
-lead raises the reviewer's `effort:` frontmatter to xhigh or max for that
-round (a brief cannot change it), restores it afterwards and records the
-effort used in the report; the protocol itself mandates no model. Shell
+`research-reviewer` and `ceo-reviewer`. For an extremely complex change a
+brief cannot raise the effort, and a subagent definition edited mid-session
+may not load until the next session. So the lead either runs that round in
+a new session after raising the `effort:` frontmatter (and restores it
+afterwards), or runs a general-purpose agent at the higher effort with the
+reviewer's instructions as its brief; either way the lead records the
+effort used in its dispositions. The protocol itself mandates no model. Shell
 access can still write, so the tool list is relied on together with the
 reviewer's instructions and a read of its report; it is not a security
 sandbox. Verified on 2026-09-16 against fictional fixtures; see
