@@ -36,5 +36,6 @@ jobs:
             builds/ci/report.json
             builds/ci/**/result.json
             builds/ci/**/diff-*.png
-            builds/ci/*.log
+            builds/ci/**/compile.log
+            builds/ci/**/page-*.png
           if-no-files-found: ignore

@@ -53,7 +53,7 @@ Requires Typst 0.15.1 on PATH and Python with `pymupdf`, `pillow` and `jsonschem
 
 The suite renders every page of each checked case: use
 `<evidence>/<case>/page-N.png` and include its path in the report. Render
-by hand only a PDF the suite does not produce (a real client's revision,
+by hand only a PDF the suite does not render (a real client's revision,
 say), at 96 dpi:
 
 ```python

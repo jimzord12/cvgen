@@ -18,7 +18,8 @@ Every case gets its own folder in the run folder, holding all of its
 evidence: `<case>.pdf`, `compile.log`, and for a case the suite checks
 visually, `check/result.json` (plus `diff-N.png` on a raster mismatch)
 and a `page-N.png` of every page, rendered by the suite at 110 dpi.
-`report.json` stays at the top and names each case's folder.
+`report.json` stays at the top and names the folder of each case that
+has one (the candidate workflow's checks share `workflow/`).
 
 ```text
 builds/tests-<timestamp>/
