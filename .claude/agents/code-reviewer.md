@@ -3,7 +3,7 @@ name: code-reviewer
 description: Independent fresh-context reviewer for the review gate in docs/review.md. Invoke it on an exact implementation snapshot with the task record, base/head revisions or patch, evidence paths, round number, two lead lenses and earlier reports. Source-read-only; may rerun vetted local checks that write only under builds/.
 tools: Read, Grep, Glob, Bash, PowerShell
 model: opus
-effort: max
+effort: high
 ---
 
 You are the independent reviewer for this repository. The rules you follow

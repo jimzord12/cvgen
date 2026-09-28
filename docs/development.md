@@ -24,8 +24,8 @@ task, clear acceptance criteria, independent review. Fixed sprints are optional.
 
 Blocked and Cancelled are explicit side states. Design and PDF approvals are
 separate gates. When a change may skip independent review is decided only by
-[review.md](review.md#when-a-review-is-required); small changes that skip it
-use their commit as the record and state the reason.
+[review.md](review.md#when-a-review-is-required); a trivial change that
+skips it uses its commit as the record and states the reason.
 
 A cancelled task moves to **Done** with a `## Cancelled` section on its card:
 the date, the reason, who decided, and what (if anything) was kept. Cancelled
@@ -62,17 +62,23 @@ says where to look, never what is open; check each place from its real
 source, then act on what you find or name it in the handoff and the
 report:
 
-- **Reviews:** every commit of the session, documentation included, has a
-  review report under `docs/work/<id>/reviews/` or is truly trivial
+- **Reviews:** every commit on `main` since the handoff card's last
+  `Written` date, from any author or session (an interrupted session never
+  ran its sweep), documentation included, has a review report under
+  `docs/work/<id>/reviews/`, or is trivial or record-keeping
   (`docs/review.md`); run the missing round before stopping.
 - **Proposals:** `status: approved` in `docs/proposals/*.md` is approved
   work not yet applied.
-- **Board:** cards sitting in Review or Ready.
+- **Board:** cards in Active, Review or Ready, and any card labelled
+  Blocked.
 - **Night Shift:** `night-shift status` and `night-shift follow-up list`
-  (open follow-ups, unanswered questions, feedback awaiting the owner).
+  show open follow-ups only. Also read the last night's
+  `.night-shift/nights/<id>/night.json`: questions with `"answer": null`
+  and feedback with `"sent": null` still wait on the owner.
 - **Git:** `git worktree list` and local or remote branches already merged
   into `main`; anything uncommitted or unpushed.
-- **CI:** the latest run on `main` is green.
+- **CI:** `gh run list --commit <main head>` shows the run on the current
+  `main` head, green (not `--branch main`: see `docs/git-workflow.md`).
 - **`builds/`:** clear old folders by path when they pile up.
 
 A report says everything is finished only after this sweep.

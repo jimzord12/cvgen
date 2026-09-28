@@ -36,16 +36,19 @@ paying for a full custom design each time, with no schema to catch typos.
 3. **Study the one-off and create a `Template` from it:** a
    `packages/domains/travel/` `Domain` (facts shape, schema, wording) and
    its first `Template`. Its public example and frozen reference use a
-   **fictional twin**: an invented guide modelled on the real client,
-   because public content is fictional (constitution); the real client's
+   **fictional twin**: an invented guide whose CV has the same shape as the
+   real one (sections, number of roles, kinds of facts), while the name,
+   employers, dates, places and certificates are all invented, because
+   public content is fictional (constitution section 3); the real client's
    data never leaves `private/`.
 4. **Audit and extend lightly:** review it (the `code-reviewer`, the
    `design-reviewer`), research where the one-off guessed, split it into
    components, and record ideas for extension. Build only what the next
    client needs.
 
-Steps 3 and 4 are one task, started after the first client's one-off is
-signed off; the second Travel & Tourism client then validates the
+Steps 3 and 4 are one task. It starts only after the first client's
+one-off CV has reached `Export` and the owner approves this proposal when
+it returns; the second Travel & Tourism client then validates the
 `Template`.
 
 ## Consequence
@@ -60,9 +63,13 @@ signed off; the second Travel & Tourism client then validates the
 
 ## Revisit condition
 
-Return to `pending` (or open the build task directly) when the first
-Travel & Tourism client's one-off CV has its `Sign-off`. Card
-travel-domain stays Queued with this trigger.
+Return to `pending` when the first Travel & Tourism client's one-off CV
+reaches `Export` (not its `Sign-off`, which is the client's OK on the
+`Text Draft` before any CV exists). Card travel-domain stays Queued with
+this trigger.
+
+**Decision requested when it returns:** approve steps 3 and 4 for that
+one-off, with the one-off CV and its `Envelope` notes as the evidence.
 
 ## Decisions
 

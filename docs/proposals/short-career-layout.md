@@ -70,3 +70,18 @@ Approve, defer or reject revision 1.
 
 - 2026-09-28, owner, in session: revision 1 approved ("I do get the
   Short-career layout and I do approve it"). Card short-career-layout.
+
+## Correction for the implementer (2026-09-28, from review)
+
+The Problem section describes today's behaviour loosely. In fact the
+`flagship-v11.typ` page plan fails outright for fewer than six companies
+("Page plan company index out of bounds", `core/pagination.typ`), and the
+documented per-CV `pages` override (`docs/reference/layout-and-pagination.md`)
+can already put a short record on one page with the v11 geometry. The real
+gap is geometry tuned so a short record fills one page. A layout profile's
+`pages` lists company indices, so the profile alone cannot serve records
+with one, two or three companies: the implementation must also give the
+page plan for those records (for example a per-CV `pages` override the
+profile documents, or a plan built from the company count). The approved
+scope (one layout, one fictional cadet example, one suite case, no
+shrinking) stands.

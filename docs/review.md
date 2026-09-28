@@ -18,21 +18,34 @@ process rules (this file, `docs/development.md`, AGENTS.md, CLAUDE.md),
 proposals and their revisions, skills and agent definitions, and brand or
 design assets (with the `design-reviewer` for how they look). Documentation
 is not exempt: a wrong rule or a stale guide misleads every later session.
-Several small changes of one session may go to one round together.
+Size is no exemption either: several changes made since the last handoff
+may go to one round together, but each is reviewed.
 
-The only exceptions are truly trivial: pure spelling, comments, mechanical
+Timing: review before a change is reported done, and before a proposal or
+a rule change is put to the owner for a decision. A documentation change
+may reach `main` before its round only when the round runs in the same
+session, before the report.
+
+The trivial path, the only exemption: pure spelling, comments, mechanical
 formatting, or a term row added, renamed or dropped in
-`docs/glossary.md` (its Rules section is not a row). They
-can skip the independent round after a focused check; for a term row, that check is
-that its code name matches the tree at that commit and anything unbuilt
-says so. The term-row path was adopted by the lead on 2026-09-25 under the
-owner's "as little friction as possible". A one-line configuration change can be high risk; file count
-is not the criterion. Record the reason when taking the small-change path.
+`docs/glossary.md` (its Rules section is not a row; the prose a rename or
+drop updates elsewhere is reviewed). These skip the independent round after
+a focused check; for a term row, that check is that its code name matches
+the tree at that commit and anything unbuilt says so. The term-row path was
+adopted by the lead on 2026-09-25 under the owner's "as little friction as
+possible". A one-line configuration change can be high risk; file count
+is not the criterion. Record the reason when taking the trivial path.
 
-Idea runs are the one other exception (adopted by the lead on 2026-09-25 to
-carry out the owner's instruction that idea work runs in its own closed
-review loop; confirmed by the owner on 2026-09-25, Day Shift question 01):
-new files in
+Record-keeping commits need no round of their own: a commit that only
+stores review reports and their dispositions, a merge of already-reviewed
+work, a proposal's status line or decision entry that quotes the owner, and
+the `night-shift` tool's `.night-shift/history` commits.
+
+Idea runs are not exempt; they are reviewed by their own gates (adopted by
+the lead on 2026-09-25 to carry out the owner's instruction that idea work
+runs in its own closed review loop; confirmed by the owner on 2026-09-25,
+Day Shift question 01). Later revisions of a proposal that came from an
+idea run are reviewed here. The idea gates cover new files in
 `design-concepts/`, the run's rows in `design-concepts/README.md`, an idea
 run's folder under
 `docs/work/idea-runs/` and proposals that passed both gates in
@@ -112,8 +125,10 @@ existing outputs, modify candidate workspaces or touch external systems.
 
 The subagent definition exposes `Read`, `Grep`, `Glob`, `Bash` and
 `PowerShell` only: no editing tools and no `Agent` tool, so it cannot spawn
-nested agents. It pins Opus at maximum effort, the owner's standing
-preference for reviewers; the protocol itself mandates no model. Shell
+nested agents. It pins Opus at high effort, the owner's standing
+preference for reviewers since 2026-09-26 (xhigh or max only for an
+extremely complex change, set in the brief); the protocol itself mandates
+no model. Shell
 access can still write, so the tool list is relied on together with the
 reviewer's instructions and a read of its report; it is not a security
 sandbox. Verified on 2026-09-16 against fictional fixtures; see
