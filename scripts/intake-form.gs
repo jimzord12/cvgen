@@ -115,7 +115,7 @@ function createIntakeForm() {
 
 // A mistake in FORM fails here, before anything is created.
 function checkForm_(spec) {
-  const pageAt = {};
+  const pageAt = Object.create(null);
   spec.items.forEach(function (item, index) {
     if (!(item.page && item.id)) return;
     if (item.id in pageAt) throw new Error('Two pages share the id "' + item.id + '"');

@@ -22,7 +22,7 @@ Intake (Relay) -> Scout -> CV decisions -> Deep Dives -> one follow-up
 | 4. Scout | - | Research Library first, then the web |
 | 5. CV decisions | picks which open ones get a Deep Dive | lists the decisions and what answers them |
 | 6. Deep Dives | - | one agent per question, sources checked |
-| 7. Follow-up | pastes the questions, brings the answers back | one batch: 5 questions (never more than 10), or a form of at most 15 minutes |
+| 7. Follow-up | pastes the questions, brings the answers back | one batch: 5 questions (never more than 10), or a form of about 15 minutes with at most 5 typed answers |
 | 8. Sign-off | sends the text draft, saves the client's OK | writes the draft PDF |
 | 9. Handover | - | `new-cv` builds the CV |
 
@@ -74,7 +74,9 @@ text into `intake/messages.md` (a WhatsApp "Export chat" file works as is)
 and saves photos into `intake/documents/`.
 
 **`Intake Form` (optional; owner, 2026-09-28).** Beside the chat message,
-the client can answer the same questions in a Google Form. Claude writes a
+the client can answer the questions in a Google Form; at the follow-up
+(section 7) the form follows its effort cap, and the chat message carries
+the link and the offer to answer by chat instead. Claude writes a
 filled copy of `scripts/intake-form.gs` per form as `intake/form-NN.gs`
 (only its `FORM` block changes: title, intro, consent, questions). A form
 is designed, not a list of text boxes: pages by topic, and the question
@@ -211,7 +213,10 @@ The gap list plus any question the research raised, as one batch. As a
 chat message: aim for 5 questions, never more than 10. As an `Intake
 Form` (section 2) the cap is effort, not a count, because most questions
 there are one tap (owner, 2026-09-28): at most about 15 minutes, and at
-most 5 questions that need typing. Claude writes them in simple Greek; the
+most 5 questions that need typing (an optional "Other" box does not
+count). The form's intro states Claude's time estimate. The chat message
+then carries the link and offers to answer there instead. Claude writes
+them in simple Greek; the
 owner pastes them, or sends the form; the
 answers go into `intake/messages.md`, and Claude
 updates `facts.md`. Anything still missing after this round is left out
