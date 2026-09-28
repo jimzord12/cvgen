@@ -9,6 +9,7 @@
   copy: (
     experience-subtitle: "Company / vessel type / vessel", continuation: "Continued / earlier companies",
     combined: "Combined service", total: "Total experience", vessels: "Vessels", companies: "Companies",
+    vessel: "Vessel", company: "Company",
   ),
   experience: experience-model,
 )

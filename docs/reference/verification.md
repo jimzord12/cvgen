@@ -33,9 +33,13 @@ and per-check folders with `result.json` and, on a raster mismatch, a
    `brand=SILVER BRIDGE`, the new brand replaces the default and every other
    word keeps its position, which proves the `copy` argument reaches the page
    through the adapter and nothing else moves.
-6. **Every PDF.** Expected page count, no empty page, all fonts embedded, no
+6. **Deck Cadet example.** `deck-cadet.typ` on the one-page profile
+   (`flagship-one-page.typ`) compiles to exactly one page with the name,
+   both companies, the total, and the certificate and education headings.
+   The `one-page.typ` fixture repeats this for one and three companies.
+7. **Every PDF.** Expected page count, no empty page, all fonts embedded, no
    text outside the page.
-7. **Fixtures under `tests/fixtures/`:**
+8. **Fixtures under `tests/fixtures/`:**
 
 | Fixture | Cases |
 |---|---|
@@ -47,6 +51,7 @@ and per-check folders with `result.json` and, on a raster mismatch, a
 | `components.typ` | Hero renders with and without portrait or contacts; rejects a name or email that does not fit |
 | `options.typ` | Company-only months, all optional fields empty, a long vessel name whose duration wraps, with and without durations |
 | `pagination.typ` | Three pages with a company split across pages; rejects overflow and duplicate allocation |
+| `one-page.typ` | The one-page profile's `one-page` plan on the deck cadet record cut to one company (`case=one`, synopsis reads "1 COMPANY") and grown to three (`case=three`), one page each. Refused: `case=overflow` (one vessel more than fits: "Content overflow on planned page 1") |
 | `particulars.typ` | The engineer record with `Vessel Particulars` on five ships: the suffix text on each row and every other word exactly where the engineer example has it; refuses a repeated vessel with a different value, an unknown unit, a zero value, an extra key and a row too long to fit |
 | `certificate-continuation.typ` | Fifty rows, header repeats on page two |
 | `skills.typ` | Titles, one to three columns, wrapping, two themes, SVG and plain bullets (through the `lib.typ` wrapper) |
@@ -54,9 +59,9 @@ and per-check folders with `result.json` and, on a raster mismatch, a
 | `text-draft.typ` | The `Text Draft` (`scripts/text-draft.typ`, house design First Fitting): two pages, the Greek `Check Page` first with the house headline, client name, date and a sample fact; the content second with its running head (`Page 2 of 2`); Bona Nova as the only font; the copper `Fact Mark` under fact words on both pages and none under our wording. `case=long` (a long legal name, seven rows): no overlapping words below the tag. Refused: `case=full` (one row too many: "the Check Page runs past one page") and `case=english` (no house copy: names the missing keys) |
 | `legacy-parity.typ` | One five-page custom composition written with all 32 deprecated pre-contract names marine's `lib.typ` exports (9 from the Framework's `lib.typ`, 23 from Flagship) (`api=legacy`) and with `core-components`/`flagship-components` (`api=contract`); every page must be pixel-identical with the same number of `/Artifact` tags, both PDFs carry the title and author passed to `document-shell`, page 5 (only `page-background`, shell background off) must show more than one colour, and the suite fails if a legacy name exported by `lib.typ` is not called outside a comment (textual check: a call inside a never-invoked `#let` still counts) |
 
-8. **Example records.** Before any compile, every record an example entry
+9. **Example records.** Before any compile, every record an example entry
    point reads validates against the schema its imports select (the Flagship
-   input schema for all four), with the same code `scripts/cv.py render`
+   input schema for all five), with the same code `scripts/cv.py render`
    uses, and every entry point must contribute a record; the
    template-over-domain choice is also pinned for role-first imports, an
    entry importing only marine's `lib.typ` (Flagship's schema), only the
@@ -66,9 +71,9 @@ and per-check folders with `result.json` and, on a raster mismatch, a
    ten lines and a count. The two marine schemas share identical `$defs`;
    a record with vessel particulars is accepted and a `hp` power unit refused.
 
-9. **Framework boundary.** Every `import`/`include` in `packages/cv-framework/core/*.typ` names a bare sibling file; `packages/cv-framework/lib.typ` imports only `core/` files; no Framework `.typ` file names a `domains/` path outside a comment; every domain file that imports a core file does so through `cv-framework/core/` (ADR 0011, 0012).
+10. **Framework boundary.** Every `import`/`include` in `packages/cv-framework/core/*.typ` names a bare sibling file; `packages/cv-framework/lib.typ` imports only `core/` files; no Framework `.typ` file names a `domains/` path outside a comment; every domain file that imports a core file does so through `cv-framework/core/` (ADR 0011, 0012).
 
-10. **Candidate workflow** (`tests/workflow.py`). A fresh fictional workspace
+11. **Candidate workflow** (`tests/workflow.py`). A fresh fictional workspace
    under the run's `workflow/` folder is driven through the real
    `scripts/cv.py`: render (the revision's PDF must equal the frozen v11
    reference, the snapshot must be self-contained, `checks.json` bound to

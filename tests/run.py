@@ -184,6 +184,21 @@ def main():
         for pa, pb in zip(a, b):
             keep = lambda page: [w for w in page.get_text('words') if w[4] not in brand]
             assert keep(pa) == keep(pb)
+    # Short career on the one-page profile: the whole record on one page, whatever its company count.
+    cadet = compile_case('deck-cadet', 'examples/marine/flagship/deck-cadet.typ')
+    assert verify(cadet, pages=1, output=out / 'deck-cadet-check')['passed']
+    with fitz.open(cadet) as doc:
+        text = ' '.join(doc[0].get_text().split())
+        for phrase in ['NIKOS PETRIDIS', 'Northwind Container Lines', 'Saronic Bulk Carriers', '1 year 3 months',
+                       'Certificates & endorsements', 'Education & languages', 'Diploma in Nautical Studies']:
+            assert phrase in text, phrase
+    for mode, companies in [('one', 1), ('three', 3)]:
+        short = compile_case('one-page-' + mode, 'tests/fixtures/one-page.typ', {'case': mode})
+        assert verify(short, pages=1, output=out / ('one-page-' + mode + '-check'))['passed']
+        with fitz.open(short) as doc:
+            caption = '1 COMPANY ' if companies == 1 else '3 COMPANIES'
+            assert caption in ' '.join(doc[0].get_text().split()).upper(), mode
+    compile_case('one-page-overflow', 'tests/fixtures/one-page.typ', {'case': 'overflow'}, error='Content overflow on planned page 1')
     compile_case('data-valid', 'tests/fixtures/data.typ')
     # ADR 0008 fixtures: 31 of the 32 ctx-first components rendered alone, one page each, headed by
     # its name; the 32nd, document-shell, wraps a whole document and is covered by legacy-parity.

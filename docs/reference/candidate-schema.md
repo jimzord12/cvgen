@@ -96,6 +96,8 @@ combined              "Combined service"
 total                 "Total experience"
 vessels               "Vessels"
 companies             "Companies"
+vessel                "Vessel"     (the synopsis uses it when the total is one)
+company               "Company"    (the same, for companies)
 ```
 
 The design's words come from Flagship's adapter

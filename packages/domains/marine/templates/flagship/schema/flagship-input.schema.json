@@ -95,6 +95,8 @@
         "total": { "type": "string" },
         "vessels": { "type": "string" },
         "companies": { "type": "string" },
+        "vessel": { "type": "string", "description": "Singular of vessels, used when the total is one." },
+        "company": { "type": "string", "description": "Singular of companies, used when the total is one." },
         "certificates": { "type": "string" },
         "certificates-subtitle": { "type": "string" },
         "certificate-columns": { "type": "array", "minItems": 4, "maxItems": 4, "items": { "type": "string" } },

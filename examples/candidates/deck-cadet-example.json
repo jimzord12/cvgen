@@ -1,0 +1,128 @@
+{
+  "profile": "Deck Cadet with sea time on bulk and container vessels across two operators, keeping bridge watches under supervision, logging passage plans and assisting with cargo and mooring operations. All details fictional.",
+  "certificates": [
+    [
+      "Basic safety training",
+      "STCW training record",
+      "08 Sep 2023",
+      "07 Sep 2028"
+    ],
+    [
+      "Security awareness",
+      "STCW A-VI/6-1 record",
+      "12 Sep 2023",
+      "No expiry"
+    ],
+    [
+      "Proficiency in survival craft",
+      "Illustrative record",
+      "19 Sep 2023",
+      "18 Sep 2028"
+    ],
+    [
+      "Seafarer medical",
+      "ENG1 example",
+      "04 Jan 2026",
+      "03 Jan 2028"
+    ]
+  ],
+  "companies": [
+    {
+      "name": "Northwind Container Lines",
+      "period": "2025 - 2026",
+      "groups": [
+        {
+          "type": "Container vessels",
+          "ships": [
+            {
+              "id": "baltic-courier",
+              "name": "MV Baltic Courier",
+              "rank": "Deck Cadet",
+              "months": 5
+            },
+            {
+              "id": "corinth-bay",
+              "name": "MV Corinth Bay",
+              "rank": "Deck Cadet",
+              "months": 4
+            }
+          ]
+        }
+      ],
+      "id": "northwind-container-lines"
+    },
+    {
+      "name": "Saronic Bulk Carriers",
+      "period": "2024",
+      "groups": [
+        {
+          "type": "Bulk carriers",
+          "ships": [
+            {
+              "id": "hydra-grace",
+              "name": "MV Hydra Grace",
+              "rank": "Deck Cadet",
+              "months": 6
+            }
+          ]
+        }
+      ],
+      "id": "saronic-bulk-carriers"
+    }
+  ],
+  "education_entries": [
+    {
+      "qualification": "Diploma in Nautical Studies (in progress)",
+      "institution": "Example Merchant Marine Academy",
+      "note": "Illustrative education entry"
+    }
+  ],
+  "language_entries": [
+    {
+      "name": "Greek",
+      "level": "Native"
+    },
+    {
+      "name": "English",
+      "level": "Professional working proficiency"
+    }
+  ],
+  "disclosure": "FICTIONAL CANDIDATE / DESIGN STUDY",
+  "identity": {
+    "name": "NIKOS PETRIDIS",
+    "rank": "DECK CADET",
+    "portrait": null,
+    "portrait-alt": "No portrait supplied for this fictional candidate"
+  },
+  "contacts": {
+    "left": [
+      {
+        "label": "Based in",
+        "value": "Piraeus, Greece"
+      },
+      {
+        "label": "Telephone",
+        "value": "+00 000 000 000"
+      },
+      {
+        "label": "Nationality",
+        "value": "EU citizen / fictional profile"
+      }
+    ],
+    "right": [
+      {
+        "label": "Email",
+        "value": "nikos.petridis@example.com",
+        "href": "mailto:nikos.petridis@example.com"
+      },
+      {
+        "label": "Discipline",
+        "value": "Deck / navigation"
+      },
+      {
+        "label": "Rank",
+        "value": "Deck Cadet"
+      }
+    ]
+  }
+}

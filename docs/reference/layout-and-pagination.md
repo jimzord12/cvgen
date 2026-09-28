@@ -1,9 +1,39 @@
 # Layout and pagination
 
 Read this when a page is out of balance, content overflows, or a new
-candidate needs a different page split. The geometry lives in
-`packages/domains/marine/templates/flagship/layouts/flagship-v11.typ`, page plan validation in `packages/cv-framework/core/pagination.typ`,
+candidate needs a different page split. The geometry lives in the layout
+profiles under `packages/domains/marine/templates/flagship/layouts/`, page plan validation in `packages/cv-framework/core/pagination.typ`,
 and the overflow check in the page loop of `packages/domains/marine/templates/flagship/flagship.typ`.
+
+## Choosing a profile
+
+Flagship has two profiles. The agent or owner picks one per candidate;
+nothing switches automatically.
+
+| Profile | For | Page plan |
+|---|---|---|
+| `flagship-v11.typ` | A full career: about five companies or more, two pages | Written for six companies; any other count needs a `pages` override (below) |
+| `flagship-one-page.typ` | A cadet or junior officer: up to about three companies and four vessels with a short certificate list, one page | Built from the record: `one-page(candidate)` |
+
+Start from the record's size. If a short record overflows the one-page
+profile, move to `flagship-v11.typ` with a two-page `pages` override; never
+shrink type to make it fit. A long record on one page is not a goal.
+
+The one-page profile is the v11 geometry with tighter vertical gaps (hero
+flow, company and row gaps, heading spacing, certificate rows, synopsis and
+language boxes); the hero band, its artwork and every type size are
+unchanged. Its `one-page` function returns the profile with one page that
+lists every company and closes with the synopsis, certificates and
+education, so it serves one, two or three companies without an override:
+
+```typst
+#import "/packages/domains/marine/templates/flagship/layouts/flagship-one-page.typ": one-page
+#let candidate = json("candidate.json")
+#show: flagship.with(candidate: candidate, /* role, theme, artwork */ layout: one-page(candidate))
+```
+
+`examples/marine/flagship/deck-cadet.typ` is the working example. The
+profile's own `layout` (without the function) plans three companies.
 
 ## The layout profile
 
@@ -72,8 +102,8 @@ finish.
 
 | Message | Meaning | Fix |
 |---|---|---|
-| `Page plan company index out of bounds` | The plan names a company index the candidate does not have. The default plan assumes six | Write a `pages` override listing the candidate's own company indices |
-| `Content overflow on planned page N` | The page spilled onto an unplanned page | Move a company to the next page, split it with row ranges, or add a page |
+| `Page plan company index out of bounds` | The plan names a company index the candidate does not have. The v11 plan assumes six | Write a `pages` override listing the candidate's own company indices, or use `one-page(candidate)` for a short record |
+| `Content overflow on planned page N` | The page spilled onto an unplanned page | Move a company to the next page, split it with row ranges, or add a page. On the one-page profile: switch to `flagship-v11.typ` with a two-page override |
 | `Page plan must cover each vessel row once` | A company or row range is missing or duplicated | Check indices against candidate order |
 | `Synopsis must follow the final Experience page` | Flag on the wrong page | Move `synopsis: true` |
 | `Missing page assignment: certificates` | The candidate has certificates but no page shows them | Add the flag to the last page |
