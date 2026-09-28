@@ -177,7 +177,7 @@ The parent owns outer gaps. The child owns its internal layout using its
 geometry slice. Opening versus continuation spacing is chosen by the template
 per page. Education does not decide to sit low on the page; the template's
 `v(1fr)` under `anchor-education` does, and `spread` shares the free
-space between two such gaps.
+space between two such gaps when both closing sections are present.
 
 Vessel rows return grid cells, not their own grid, so every row in a group
 shares the parent's column tracks. When durations are hidden the third column

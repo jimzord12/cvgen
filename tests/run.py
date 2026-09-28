@@ -212,9 +212,9 @@ def main():
         assert attached < 17 and first > 15 and second > 15 and abs(first - second) < 8, (attached, first, second)
     for mode, heading in [('no-education', 'Certificates'), ('no-certificates', 'Education')]:
         packed = compile_case('one-page-' + mode, 'tests/fixtures/one-page.typ', {'case': mode})
+        assert verify(packed, pages=1, output=out / ('one-page-' + mode + '-check'))['passed']
         with fitz.open(packed) as doc:
             page = doc[0]
-            assert len(doc) == 1, mode
             gaps = (top(page, 'TOTAL') - top(page, 'Grace', 3), top(page, heading) - top(page, 'TOTAL', 3))
             assert all(17 < g < 32 for g in gaps), (mode, gaps)
     compile_case('data-valid', 'tests/fixtures/data.typ')
