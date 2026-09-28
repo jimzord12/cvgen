@@ -1,6 +1,6 @@
 ---
 kind: proposal
-status: pending
+status: approved
 revision: 1
 ---
 
@@ -65,3 +65,8 @@ first: it is the smaller job and directly sellable.
 ## Decision requested
 
 Approve, defer or reject revision 1.
+
+## Decisions
+
+- 2026-09-28, owner, in session: revision 1 approved ("I do get the
+  Short-career layout and I do approve it"). Card short-career-layout.
