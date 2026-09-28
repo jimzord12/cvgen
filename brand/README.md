@@ -149,3 +149,12 @@ Status (2026-09-28, card `brand-logo` on the Trello board):
 3. Still open, for when the logo is used widely: a dark-background
    wordmark; a one-colour version; threads flattened to outlines for
    cutting or embroidery; a dedicated 16 px cut.
+
+## forms/
+
+`intake-header.png` (1600 x 400 px, Google Forms' header size): the
+`Intake Form` header, house design First Fitting (warm paper, the
+wordmark, one copper running stitch). No words beyond the wordmark,
+because Forms shows the header at phone width. Source
+`intake-header.typ`; the command is in its first lines. The theme steps
+that go with it are in `docs/guides/client-workflow.md`, section 2.

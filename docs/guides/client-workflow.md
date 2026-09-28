@@ -76,7 +76,11 @@ and saves photos into `intake/documents/`.
 **`Intake Form` (optional; owner, 2026-09-28).** Beside the chat message,
 the client can answer the same questions in a Google Form. Claude writes a
 filled copy of `scripts/intake-form.gs` per form as `intake/form-NN.gs`
-(only its `FORM` block changes: title, intro, consent, questions). The
+(only its `FORM` block changes: title, intro, consent, questions). A form
+is designed, not a list of text boxes: pages by topic, and the question
+type that is quickest to answer (a choice, tick boxes, a drop-down, a
+grid, a date; free text only where a story is wanted), in the polite
+plural of the `Text Draft`. The
 owner pastes it into a new project at script.google.com, names the
 project after the `Alias`, and runs `createIntakeForm` once; the log
 prints the link to send, the form's edit link and a Google Sheet that
@@ -84,7 +88,11 @@ collects the answers. The first run asks for permission and Google warns
 that the app is unverified (Advanced, then Go to the project); that is
 normal for the owner's own script. The owner passes the three links and
 the project's link back, and Claude lists them under "Google" in the
-`Envelope`'s `README.md`. A client can edit an answer only through the
+`Envelope`'s `README.md`. Before sending the link, the owner gives the
+form the house theme (the palette icon in the form's editor; about a
+minute): Header, upload `brand/forms/intake-header.png`; Color, custom,
+`#B0602B`; Background, the lightest swatch; Text style, Header "Bona
+Nova" (under More fonts), Question and Text "Source Sans 3". A client can edit an answer only through the
 edit link shown once, after sending, so the owner downloads the answers
 when the client says he is done: in the form's Responses tab, the
 three-dot menu, then Download responses (.csv). It arrives as a ZIP;
