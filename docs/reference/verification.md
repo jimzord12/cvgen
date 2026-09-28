@@ -10,10 +10,12 @@ python tests/run.py                       # Typst on PATH
 python tests/run.py --typst C:/path/to/typst.exe
 ```
 
-Output goes to a new `builds/tests-<timestamp>/` folder. It contains every
-compiled PDF, a `.log` with the compiler's stderr per case, a `report.json`,
-and per-check folders with `result.json` and, on a raster mismatch, a
-`diff-N.png` highlighting changed pixels.
+Output goes to a new `builds/tests-<timestamp>/` folder with a
+`report.json` and one folder per case (ADR 0013): `<case>.pdf`,
+`compile.log` with the compiler's stderr, and for a case checked visually
+`check/result.json`, a `page-N.png` of every page rendered by the suite,
+and on a raster mismatch `check/diff-N.png` highlighting changed pixels.
+The page images are what to show the owner or a reviewer.
 
 ## What it checks
 
@@ -106,8 +108,8 @@ change.
 ## Reading a failure
 
 - `AssertionError: ('engineer', ...)` with stderr: the example does not
-  compile. Read the `.log`.
-- `Raster mismatch on page N`: open `exact/diff-N.png`. Any non-black pixel
+  compile. Read `engineer/compile.log`.
+- `Raster mismatch on page N`: open `engineer/check/diff-N.png`. Any non-black pixel
   is a change from v11.
 - `Frozen file changed: <path>`: an input under the manifest was edited.
   Either revert it or follow the constitution's procedure for a new
