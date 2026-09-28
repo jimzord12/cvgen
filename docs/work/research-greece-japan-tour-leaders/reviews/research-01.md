@@ -27,14 +27,26 @@ Source: https://elearningekpa.gr/courses/touristikos-sunodos-anaptuksi-epaggelma
 ### Unreachable (not counted as confirmed or false)
 - Embassy of Japan in Greece [70] and MOFA [68][69] returned 403. The file's conclusion is cautious ("unresolved; confirm with the Embassy; never claim the right to work"), so this does not block. What I could read supports it: the ISA short-stay list [71] is as quoted and says nothing about pay.
 - Joy Tours [5][5b] returned 403, so the CV form is unverified. Travel Market [12] does confirm Joy Tours as organiser of «Μεγάλο Πανόραμα Ιαπωνίας» (4 Oct 2026), plus two more autumn 2026 departures.
-- Greek Reporter [32] and TravelDailyNews [33] returned 403. A search confirms that on 27 Sep 2026 the Greek tourism minister pressed JAL for direct flights, and no route has been announced.
+- Greek Reporter [32] and TravelDailyNews [33] returned 403. A search confirms that on 27 Sep 2026 Minister Kefalogianni pressed JAL for direct flights, and no route has been announced.
 
 ### Confirmed
-ν. 5121/2024 art. 33; the Nov 2020 draft decree; Japan's 4 Jan 2018 title-only protection (MLIT, updated 11 Jun 2025); Versus, Cosmorama and Manessis leader wording and dates; [38] first aid mandatory, fixed-term or invoice; [41] freelance, March 2026 training; [34] "very good" English; [84] quotes, Japanese not listed; Red Cross €20/6 h and €50/12 h, valid 3 years; JLPT in Athens December only; Hellas Nature 7–21 Sep 2026, €5,900.
+- ν. 5121/2024 art. 33: the ξεναγός definition centred on museums, monuments and sites.
+- Nov 2020 draft decree: a certificate plus sanctions on agencies.
+- Japan's 4 Jan 2018 switch to title-only protection: MLIT page, updated 11 Jun 2025.
+- Versus wording, with 2026/2027 dates.
+- Cosmorama wording and "leader may wait at the destination".
+- Manessis leader wording and the Air China trip.
+- [38]: first aid mandatory, fixed-term or invoice, posted about 2 weeks ago.
+- [41]: freelance, March 2026 training.
+- [34]: "very good" English.
+- [84]: the quotes; Japanese is not among the languages listed.
+- Red Cross: €20/6 h and €50/12 h, both valid 3 years.
+- JLPT in Athens: December only.
+- Hellas Nature: 7–21 Sep 2026, €5,900.
 
 ## Coverage check
-- Searched for an escort decree signed in 2025–2026: none found; the most recent source (Sep 2024) says it is still unsigned.
-- Searched for JAL direct-flight news: no route announced as of late Sep 2026.
+- Searched for an escort decree signed in 2025–2026: none found. The most recent source (Sep 2024) says it is still unsigned. This supports "no licence currently required".
+- Searched for JAL direct-flight news: no route announced as of late Sep 2026. No change.
 
 ## Verdict: FINDINGS
 Only R1 blocks.
