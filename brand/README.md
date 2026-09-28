@@ -54,7 +54,7 @@ reviewed, a needle point drawn out of the lower terminal (read as a thorn
 attached to the letter, heavier than the thread). Review reports:
 `docs/work/brand-logo/reviews/02-design-reviewer.md` onwards.
 
-Vector options drafted 2026-09-27 (options for the owner to pick, not a
+Vector options drafted 2026-09-27 (then options for the owner to pick, not a
 final logo). Hand-authored SVG: letters are outline paths, no `<text>`, no
 embedded raster, transparent background, tight `viewBox` (except the
 avatar cuts, which are padded on purpose):
@@ -143,8 +143,9 @@ Status (2026-09-28, card `brand-logo` on the Trello board):
    alternative was not picked.
 2. Wordmark, small variant, avatar and colours: in use as drafted on
    2026-09-27 (`cvgen-wordmark.svg`, now with the eye; `cvgen-mark-small.svg`;
-   `cvgen-avatar.svg`; the colour table above). The owner has not reviewed
-   them one by one; he picked only the C.
+   `cvgen-avatar.svg`; the reversed files, where the eye shape is settled
+   and the reversed colours are as drafted; the colour table above). The
+   owner has not reviewed them one by one; he picked only the mark.
 3. Still open, for when the logo is used widely: a dark-background
    wordmark; a one-colour version; threads flattened to outlines for
    cutting or embroidery; a dedicated 16 px cut.
