@@ -41,7 +41,7 @@ artwork pack.
 | Role | `domains/marine/roles/<deck or engine>/role.typ`, or none | One level of specialisation inside the domain. Flagship composes the role's `copy` today; both marine roles are bare markers |
 | Theme | `domains/marine/templates/flagship/themes/*.typ` | Colours, fonts, sizes, tracking, leading, and a map from legacy SVG hex colours to theme colours |
 | Artwork | `domains/marine/templates/flagship/artwork/*.typ` | Which SVG under `domains/marine/assets/` fills each named slot, with optional width, x, y and opacity |
-| Layout | `domains/marine/templates/flagship/layouts/*.typ` | Margins, hero geometry, column widths, gaps, spacing scale, page plan, `anchor-education`, `spread` |
+| Layout | `domains/marine/templates/flagship/layouts/*.typ` | Margins, hero geometry, column widths, gaps, spacing scale, page plan, `anchor-education`, `spread`, `stack-gap` |
 | Display switch | `show-vessel-durations` on `flagship` | Show or hide every vessel duration at once without moving columns |
 
 A seventh, optional input is `copy` on `flagship`: overrides for the
@@ -167,8 +167,8 @@ flagship → document-shell
   last experience page: synopsis
   then: certificates-section, [v(1fr) if anchor-education], education-languages-section
   with spread and both sections: [v(1fr) + heading gap] before certificates, [heading gap]
-  after the education anchor; with spread and one missing: no flexible space, stacked from the top, [stack-gap] above the
-  synopsis and the remaining section
+  after the education anchor; with spread and one or both missing: no flexible space,
+  stacked from the top, [stack-gap] added above the synopsis and the remaining section
 ```
 
 ## Who owns spacing

@@ -36,7 +36,8 @@ education, each keeping its heading gap as a minimum, so a thin record
 has two even gaps rather than one hole. A record without certificates or
 without education stacks from the top instead (the owner's call,
 2026-09-28): synopsis under Experience, the remaining section under the
-synopsis, each `stack-gap` (12mm) apart, the free space at the bottom. Its `one-page` function returns
+synopsis, with `stack-gap` (12mm) added above each on top of its usual
+gap, the free space at the bottom. Its `one-page` function returns
 the profile with one page that lists every company and closes with the
 synopsis, certificates and education, so it serves one, two or three
 companies without an override:
@@ -117,7 +118,9 @@ single page holding synopsis, certificates and education, with
 adds a second, equal flexible space before the certificates and
 restates both heading gaps as minimums; with one of them missing it
 turns the anchor off, so the page stacks from the top with `stack-gap`
-above the synopsis and above the remaining section.
+added above the synopsis and above the remaining section. A layout that
+sets `spread` must also set `stack-gap` (the one-page profile does; a
+missing key fails loudly).
 
 ## When something does not fit
 
