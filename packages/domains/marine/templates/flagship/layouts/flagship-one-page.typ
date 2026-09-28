@@ -17,6 +17,9 @@
   pages: ((companies: (0, 1, 2), synopsis: true, certificates: true, education: true),),
   // Free space goes half above certificates, half above education (flagship.typ).
   spread: true,
+  // With certificates or education missing the page stacks from the top instead, with this gap
+  // above the synopsis and above the remaining section (flagship.typ).
+  stack-gap: 12mm,
 )
 
 // The whole record on one page, whatever its company count; the per-CV

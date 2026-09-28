@@ -43,19 +43,26 @@
       // `spread` (one-page profile): with both certificates and education on the page, the free
       // space is shared equally above each instead of all above education; a heading's own gap
       // collapses next to flexible space, so it is restated as the minimum. With one of them
-      // missing, the blocks stack from the top and the free space falls at the bottom (owner).
+      // missing, the blocks stack from the top with the wider `stack-gap` between them and the free
+      // space falls at the bottom (owner).
       let spread = layout.at("spread", default: false)
       let has-certificates = page-plan.at("certificates", default: false) and d.certificates.len() > 0
       let has-education = page-plan.at("education", default: false) and (d.education.len() + d.languages.len() > 0)
       let shared = spread and has-certificates and has-education
-      if page-plan.at("synopsis", default: false) {synopsis(ctx, (domain.experience.totals)(d.companies))}
+      let stacked = spread and not shared
+      if page-plan.at("synopsis", default: false) {
+        if stacked {v(layout.stack-gap)}
+        synopsis(ctx, (domain.experience.totals)(d.companies))
+      }
       if has-certificates {
         if shared {v(1fr); v(layout.headings.certificates.above)}
+        if stacked {v(layout.stack-gap)}
         certificates-section(ctx, d.certificates)
       }
       if has-education {
         if layout.anchor-education and (shared or not spread) {v(1fr)}
         if shared {v(layout.headings.education.above)}
+        if stacked {v(layout.stack-gap)}
         education-languages-section(ctx, (education: d.education, languages: d.languages))
       }
       context assert.eq(counter(page).get().first(), i + 1,

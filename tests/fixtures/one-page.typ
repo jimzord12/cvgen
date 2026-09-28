@@ -2,7 +2,7 @@
 // vessel and one of three companies (the deck cadet example has two), and
 // on one record too long for a page, which must fail loudly, never shrink.
 // `no-education` and `no-certificates` drop one closing section: the blocks
-// then stack from the top.
+// then stack from the top, `stack-gap` apart.
 #import "../../packages/domains/marine/lib.typ": flagship
 #import "../../packages/domains/marine/roles/deck/role.typ": role
 #import "../../packages/domains/marine/templates/flagship/themes/golden-blue.typ": theme

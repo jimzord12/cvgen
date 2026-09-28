@@ -201,7 +201,8 @@ def main():
             assert all(c in text for c in captions), (mode, captions)
     compile_case('one-page-overflow', 'tests/fixtures/one-page.typ', {'case': 'overflow'}, error='Content overflow on planned page 1')
     # `spread`: with certificates and education, a thin record gets two even gaps above them and the
-    # synopsis stays on the Experience block; with one missing, everything stacks from the top (owner).
+    # synopsis stays on the Experience block; with one missing, everything stacks from the top with the
+    # wider `stack-gap` between blocks (owner): wider than the tight default, far from a shared gap.
     def top(page, word, edge=1):
         return next(w[edge] for w in page.get_text('words') if w[4] == word) / 72 * 25.4
     with fitz.open(out / 'one-page-one.pdf') as doc:
@@ -215,7 +216,7 @@ def main():
             page = doc[0]
             assert len(doc) == 1, mode
             gaps = (top(page, 'TOTAL') - top(page, 'Grace', 3), top(page, heading) - top(page, 'TOTAL', 3))
-            assert all(g < 17 for g in gaps), (mode, gaps)
+            assert all(17 < g < 32 for g in gaps), (mode, gaps)
     compile_case('data-valid', 'tests/fixtures/data.typ')
     # ADR 0008 fixtures: 31 of the 32 ctx-first components rendered alone, one page each, headed by
     # its name; the 32nd, document-shell, wraps a whole document and is covered by legacy-parity.
