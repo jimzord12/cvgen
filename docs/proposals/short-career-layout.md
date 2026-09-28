@@ -1,6 +1,6 @@
 ---
 kind: proposal
-status: approved
+status: applied
 revision: 1
 ---
 
@@ -70,6 +70,12 @@ Approve, defer or reject revision 1.
 
 - 2026-09-28, owner, in session: revision 1 approved ("I do get the
   Short-career layout and I do approve it"). Card short-career-layout.
+- 2026-09-28, applied: merged to `main` at 35c3557 (CI green).
+  `flagship-one-page.typ` with `one-page(candidate)`, the deck cadet
+  example, the `one-page.typ` fixture; five review rounds under
+  `docs/work/short-career-layout/reviews/`. The owner shaped the look in
+  session: more air above 02, even gaps on thin records, and a stacked
+  page with a 12mm `stack-gap` when a closing section is missing.
 
 ## Correction for the implementer (2026-09-28, from review)
 
