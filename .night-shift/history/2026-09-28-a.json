@@ -374,5 +374,84 @@
       "sent": null
     }
   ],
-  "metrics": null
+  "metrics": {
+    "source": "claude-code",
+    "harness_version": "2.1.283",
+    "session_id": "cddc2544-8f5d-4752-8fb5-f677494269d9",
+    "measured_at": "2026-09-28T09:29:59+03:00",
+    "duration_min": {
+      "total": 11.06,
+      "model": 1.04,
+      "tools": 0.25
+    },
+    "models": {
+      "claude-haiku-4-5-20251001": {
+        "tokens": {
+          "input": 1796,
+          "output": 21,
+          "reasoning": 0,
+          "cache_read": 0,
+          "cache_write": 0
+        },
+        "cost_usd": 0
+      },
+      "claude-opus-5-5": {
+        "tokens": {
+          "input": 118,
+          "output": 4598,
+          "reasoning": 1454,
+          "cache_read": 760036,
+          "cache_write": 51475
+        },
+        "cost_usd": 0.66
+      }
+    },
+    "cost_usd": 0.66,
+    "sub_agents": [
+      {
+        "type": "design-reviewer",
+        "model": "claude-opus-5-5",
+        "purpose": "Design review Text Draft round 2"
+      },
+      {
+        "type": "code-reviewer",
+        "model": "claude-opus-5-5",
+        "purpose": "Review Text Draft build round 2"
+      },
+      {
+        "type": "design-reviewer",
+        "model": "claude-opus-5-5",
+        "purpose": "Design review Text Draft build"
+      },
+      {
+        "type": "code-reviewer",
+        "model": "claude-opus-5-5",
+        "purpose": "Review Text Draft build round 3"
+      },
+      {
+        "type": "design-reviewer",
+        "model": "claude-opus-5-5",
+        "purpose": "Design review logo options round 2"
+      },
+      {
+        "type": "code-reviewer",
+        "model": "claude-opus-5-5",
+        "purpose": "Review Text Draft build round 1"
+      },
+      {
+        "type": "design-reviewer",
+        "model": "claude-opus-5-5",
+        "purpose": "Design review logo C options"
+      },
+      {
+        "type": "code-reviewer",
+        "model": "claude-opus-5-5",
+        "purpose": "Review CI test fix round 1"
+      }
+    ],
+    "lines": {
+      "added": 0,
+      "removed": 0
+    }
+  }
 }

@@ -4,15 +4,29 @@ CVgen's own brand assets, not client or template material.
 
 ## logos/
 
-- `CVgen_Logo.v3.jpg`: the working mark, kept by the owner on 2026-09-25.
-  A big black serif "CV" on white, flat, with one thin copper thread that
-  wraps the C and curves through the V, ending in a loose tail on the right.
-  Image-model render, 2048x2048 JPEG: a draft, not a production file.
+**The working logo (owner's pick, 2026-09-28): the needle's eye.** Use
+these files:
+
+| File | Use |
+|---|---|
+| `cvgen-mark-c-eye.svg` | The mark: "CV" with the copper thread through a needle's eye in the C |
+| `cvgen-wordmark.svg` | The mark plus "gen" at the thread's tail (now with the eye) |
+| `cvgen-mark-c-eye-reversed.svg` | The mark on dark backgrounds |
+| `cvgen-mark-small.svg`, `cvgen-avatar.svg` (and their `-reversed`) | Favicon and chat avatar: plain C, because the eye closes up at small sizes |
+
+Everything else in this folder is history: the options that were not
+picked, kept as they are.
+
+- `CVgen_Logo.v3.jpg`: the earlier working mark, kept by the owner on
+  2026-09-25. A big black serif "CV" on white, flat, with one thin copper
+  thread that wraps the C and curves through the V, ending in a loose tail
+  on the right. Image-model render, 2048x2048 JPEG: the source of the
+  vector redraw.
 
 Owner's direction (2026-09-28): keep the faithful redraw and give the C
 alone one custom detail, tied to the thread, so the letters are not stock
-type. Two options drafted the same night; **open: the owner picks eye or
-stitch.** Each is `cvgen-mark.svg` with the C changed and the V untouched:
+type. Two options were drafted the same night, and the owner picked the
+eye. Each is `cvgen-mark.svg` with the C changed and the V untouched:
 
 - `cvgen-mark-c-eye.svg` (the design reviewer's recommendation): a
   needle's eye cut along the axis of the C's stem, and the copper thread
