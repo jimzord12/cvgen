@@ -57,7 +57,24 @@ communication profile.
 
 ## Ending a session
 
-Rewrite the session-handoff card's description in place (one card, never a
+First, sweep the repository for loose ends (owner, 2026-09-28). The list
+says where to look, never what is open; check each place from its real
+source, then act on what you find or name it in the handoff and the
+report:
+
+- **Proposals:** `status: approved` in `docs/proposals/*.md` is approved
+  work not yet applied.
+- **Board:** cards sitting in Review or Ready.
+- **Night Shift:** `night-shift status` and `night-shift follow-up list`
+  (open follow-ups, unanswered questions, feedback awaiting the owner).
+- **Git:** `git worktree list` and local or remote branches already merged
+  into `main`; anything uncommitted or unpushed.
+- **CI:** the latest run on `main` is green.
+- **`builds/`:** clear old folders by path when they pile up.
+
+A report says everything is finished only after this sweep.
+
+Then rewrite the session-handoff card's description in place (one card, never a
 new one, never deleted; Trello keeps its history). Keep the card's heading and
 intro, then a line `**Written:** yyyy-MM-dd, <what the session was> (<agent>)`;
 the trello skill's read-back check looks for that date. Then: where things
