@@ -43,7 +43,9 @@ eye. Each is `cvgen-mark.svg` with the C changed and the V untouched:
 The holes are real holes (even-odd subpaths of the C), so they stay
 transparent on any background and render the same under both fill rules.
 From 64 px down both details fade (the eye can pass for a highlight). The
-chosen C goes into the wordmark and the reversed files; the small mark and
+chosen eye went into the wordmark and a new reversed mark,
+`cvgen-mark-c-eye-reversed.svg` (`cvgen-mark-reversed.svg` keeps the plain
+C as history), on 2026-09-28; the small mark and
 the avatar keep the plain C, because their emboldened letters and thick
 thread close the eye and the holes (tried by the reviewer), unless a
 detail is redrawn for them. Tried and dropped during the drafting (renders
@@ -60,7 +62,7 @@ avatar cuts, which are padded on purpose):
 - `cvgen-mark.svg`: faithful flat redraw of v3. The thread keeps v3's own
   over/under: over the C stem and the V's left stroke, under the V's right
   stroke, its start tucked into the C's bowl.
-- `cvgen-wordmark.svg`: the mark plus "gen" in Jost Light, set small in the
+- `cvgen-wordmark.svg` (eye C since 2026-09-28): the mark plus "gen" in Jost Light, set small in the
   thread's copper at the thread's right-hand tail (the thread "writes" gen;
   gen's stroke weight matches the thread).
 - `cvgen-mark-small.svg`: favicon variant, tight square canvas. Thread
@@ -134,14 +136,15 @@ History: v1 (commit 473c83f) was a 3D mock-up with brushed metal and a
 "gen" at the end of the wire; v2 (never committed) used a thick straight
 bar that read as a crossed-out CV and was dropped.
 
-Still needed before wide use (card `brand-logo` on the Trello board):
+Status (2026-09-28, card `brand-logo` on the Trello board):
 
-1. A flat vector redraw (SVG), transparent background. Drafted as options
-   2026-09-27, owner to pick (`cvgen-mark.svg`, `cvgen-mark-bold.svg`).
-2. The full wordmark: "gen" set small at the thread's right-hand tail, as in v1.
-   Drafted as options 2026-09-27, owner to pick (`cvgen-wordmark.svg`).
-3. A small-size variant (favicon, chat avatar) with a thicker thread; at
-   32 px the current thread disappears. Drafted as options 2026-09-27, owner
-   to pick (`cvgen-mark-small.svg`, avatar cut `cvgen-avatar.svg`).
-4. Colour values for the ink and the copper thread, recorded here. Drafted as
-   options 2026-09-27, owner to pick (table above).
+1. Vector redraw: settled. The owner kept the faithful redraw with a custom
+   C and picked the needle's eye (`cvgen-mark-c-eye.svg`); the bold
+   alternative was not picked.
+2. Wordmark, small variant, avatar and colours: in use as drafted on
+   2026-09-27 (`cvgen-wordmark.svg`, now with the eye; `cvgen-mark-small.svg`;
+   `cvgen-avatar.svg`; the colour table above). The owner has not reviewed
+   them one by one; he picked only the C.
+3. Still open, for when the logo is used widely: a dark-background
+   wordmark; a one-colour version; threads flattened to outlines for
+   cutting or embroidery; a dedicated 16 px cut.
