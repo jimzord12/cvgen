@@ -268,7 +268,10 @@ one-off `Template` in the `Envelope`: its `cv.typ` imports
 checks no schema. The design may use files beside `cv.typ` (data such as
 `presentation.json`, local `.typ` helpers, images) read by a path relative
 to it: a `Revision` copies each one it finds (`build-a-cv.md` section 8).
-Record the `Framework Gap` for that client's design.
+Record the `Framework Gap` for that client's design. The design starts from
+an `Idea Run` on the client's `Domain`, specialty and role, and must pass
+the `Batch Test` and the `Three-Second Test` (`docs/vision.md`, "Design is
+the product"; the `new-cv` skill).
 
 At `Export`, Claude writes "Delivered <date>. Delete by <date + 12 months>"
 in the `Envelope`'s `README.md` and names the delete-by date in its report

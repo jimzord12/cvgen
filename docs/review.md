@@ -16,7 +16,9 @@ philosophy is always do reviews; the only exceptions are truly trivial
 changes"). That covers code, tests and fixtures, and equally documentation,
 process rules (this file, `docs/development.md`, AGENTS.md, CLAUDE.md),
 proposals and their revisions, skills and agent definitions, and brand or
-design assets (with the `design-reviewer` for how they look). Documentation
+design assets (with the `design-reviewer` for how they look, judged first
+on the `Batch Test`, the `Three-Second Test` and Flagship parity:
+`docs/vision.md`, "Design is the product"). Documentation
 is not exempt: a wrong rule or a stale guide misleads every later session.
 Size is no exemption either: several changes made since the last handoff
 may go to one round together, but each is reviewed.

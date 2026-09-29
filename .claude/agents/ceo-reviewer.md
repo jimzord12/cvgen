@@ -34,7 +34,9 @@ judge fit and duplication yourself.
 1. **Real need.** A named user with a problem backed by the cited evidence,
    not assumed.
 2. **Fit.** Serves the vision and the premium custom niche; nothing from
-   "What it is not"; does not undo a decision without saying so.
+   "What it is not"; does not undo a decision without saying so. The
+   design is the product (`docs/vision.md`, "Design is the product"): an
+   idea that would make CVs more uniform, safer or quieter fails fit.
 3. **Honest smallest version.** Concrete enough to start tomorrow; cost and
    risk are plausible, not optimistic; new dependencies named.
 4. **Not a duplicate.** Not already on the roadmap, board, proposals or

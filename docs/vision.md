@@ -35,6 +35,35 @@ themes. Cadets and short careers are to get a one-page layout (direction
 item 6, not built yet). Decided 2026-09-20,
 [ADR 0011](decisions/0011-domains-roles-templates.md).
 
+## Design is the product
+
+The owner's words, 2026-09-29: the design and the styling are CVgen's core
+product. They are what makes it different from the online automated tools,
+which sell thousands of interchangeable, tasteful, forgettable templates.
+Every agent that designs, reviews or proposes works from this section.
+
+- **The `Batch Test`.** An HR reader scans a batch of 100 to 200 CVs. Ours
+  cannot be skipped, even by someone trying to skip it.
+- **The `Three-Second Test`.** Whatever the text says, the page itself
+  shouts the `Domain`, the specialty and the role within three seconds at
+  arm's length, before a word is read: marine, engine room, second
+  engineer; travel and tourism, Japan, tour escort. It does so with the
+  domain's own imagery and codes, drawn with craft, never clip-art.
+- **Beyond "safe professional", elegantly.** We go further than a
+  conventional CV on purpose, and the page shows that its owner spent real
+  extra time to make a good impression. It is still a CV: the facts are
+  found in ten seconds, it prints on A4 and it survives a photocopier.
+- **The bar is the Marine Flagship:** beautiful, elegant, confident, unique,
+  premium, and unmistakably marine (a portrait framed by engine-room tools,
+  a ship and a propeller drawn into the page).
+
+A design that is well crafted but quiet fails. "Safe professional" is a
+defect here, not a neutral outcome: the first tour-leader design (a thin
+rail line with section dots, a plain sidebar, a restrained palette) passed
+four craft reviews and was rejected by the owner as "super boring, no
+character, no uniqueness, no Japan in it" (2026-09-29). Never brief or
+judge a design by banning its domain's imagery; use it, crafted.
+
 The person editing a CV changes data, not layout code. The person designing
 a new look changes a theme or an artwork pack. The person opening a new career area
 writes a domain: its schema, wording, assets and a first template against
@@ -42,6 +71,8 @@ the shared core, then freezes an approved render.
 
 ## What it is not
 
+- Not a tasteful, invisible template. A page that could have come from an
+  online builder has failed, however clean it is ("Design is the product").
 - Not a generic resume builder with one shape for everyone. Each domain
   keeps the facts and wording its career area actually uses. Two pages by default;
   one page for short careers once direction item 6 lands.

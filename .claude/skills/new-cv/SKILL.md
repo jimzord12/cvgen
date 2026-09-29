@@ -5,7 +5,10 @@ description: Produce a CV for a real or new fictional candidate with the CVgen l
 
 # New CV
 
-Follow `docs/guides/build-a-cv.md`. This skill is the checklist. For a real
+Follow `docs/guides/build-a-cv.md`. This skill is the checklist. The
+design is the product (`docs/vision.md`, "Design is the product"): a
+client's CV must pass the `Batch Test` and the `Three-Second Test` at the
+level of the Marine Flagship; tidy but quiet is a failure. For a real
 client it starts after the `new-client` skill: take the facts from the
 `Envelope`'s `intake/facts.md` and the wording from the signed-off text in
 `draft/`; do not re-ask the client or reword what they signed off beyond
@@ -50,6 +53,12 @@ fitting the page.
    `docs/reference/layout-and-pagination.md`, "Choosing a profile") uses
    `flagship-one-page.typ` instead: `layout: one-page(candidate)`, no
    override, and `--pages 1` in step 4.
+   A client whose `Domain` has no `Template` yet starts from a design, not
+   from code: an `Idea Run` of the `magazine-editor` on the client's
+   `Domain`, specialty and role (fictional data only), the owner picks a
+   style and `Design Tier`, and the one-off `Template` is built from it.
+   Its previews go through the `design-reviewer` (the business tests are
+   Blocking) before the owner sees them.
    If the data does not fit `flagship` (the known cases are in
    `docs/framework-gaps.md`: contract periods instead of months, a
    three-column certificate table, a skills block), use the

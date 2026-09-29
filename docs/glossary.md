@@ -70,6 +70,9 @@ owner afterwards.
 | `Vessel Particulars` | A vessel's size, main engine maker and engine power, printed on its vessel row in the unit the `Client`'s documents use, never converted | `ships[].tonnage`, `engine`, `power` in the marine facts | 2026-09-27 |
 | `Certificate Warning` | A `WARNING:` line at render, repeated by `status`, saying a certificate on the CV has expired or expires within 180 days; it never fails the render or blocks `Approval` (owner, 2026-09-25) | `check_certificates` in `packages/cv-workflow`, `certificates` in `checks.json`, `WARNING:` lines from `scripts/cv.py` | 2026-09-27 |
 | `Live Read` | A file an `Envelope` or `private/` holds that a render read directly instead of the `Revision`'s own copy; a `Revision` with one fails its checks and cannot be approved | `live_reads` in `packages/cv-workflow/cv_workflow/render.py` | 2026-09-27 |
+| `Batch Test` | The first design test: in an HR batch of 100 to 200 CVs, ours cannot be skipped, even by someone trying to | `docs/vision.md`, "Design is the product"; `design-reviewer` | 2026-09-29 |
+| `Three-Second Test` | The second design test: before a word is read, the page shouts its `Domain`, specialty and role (travel, Japan, tour escort) | `docs/vision.md`, "Design is the product"; `design-reviewer` | 2026-09-29 |
+| `Design Tier` | One of the three variations the `magazine-editor` draws of each style: Safe (calm, never generic), Stylish (Flagship territory), Creative (editorial, style to the maximum) | `.claude/agents/magazine-editor.md` | 2026-09-29 |
 | `Idea Run` | One closed loop of an idea agent (ceo or magazine-editor) and its reviewers | `.claude/skills/idea-run/`, `docs/work/idea-runs/` | 2026-09-25 |
 
 ## Words with two meanings

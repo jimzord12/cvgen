@@ -14,10 +14,16 @@ a run is built, approved or put on the roadmap without the owner.
 | Run | Author | Reviewers, in order | Output |
 |---|---|---|---|
 | Product ideas | `ceo` (max 3 ideas) | `research-reviewer` on the market research, then `ceo-reviewer` | drafts in the run folder; passed ones moved to `docs/proposals/<slug>.md` (`status: pending`) |
-| Design concepts | `magazine-editor` (2-3 concepts) | `research-reviewer` on the references, then `design-reviewer` | `design-concepts/<date>-<slug>/` with PDF and PNG |
+| Design concepts | `magazine-editor` (3 very distinct styles, each in 3 `Design Tier`s: Safe, Stylish, Creative; 9 pages) | `research-reviewer` on the references, then `design-reviewer` | `design-concepts/<date>-<slug>/` per style, with the three tiers' PDFs and PNGs |
 
-Cadence: design concepts whenever the owner wants inspiration; product
-ideas weekly at most (the roadmap is long, the owner's attention is not).
+Cadence: design concepts whenever the owner wants inspiration or a client
+needs a design; product ideas weekly at most (the roadmap is long, the
+owner's attention is not).
+
+Every run serves `docs/vision.md`, "Design is the product" (owner,
+2026-09-29): the design is CVgen's core product, so a design run is judged
+first on the `Batch Test`, the `Three-Second Test` and parity with the
+Marine Flagship.
 
 ## Loop
 
@@ -26,7 +32,11 @@ ideas weekly at most (the roadmap is long, the owner's attention is not).
    with `-2`, `-3` for a second run the same day. Record the run in its
    `run.md`: brief, rounds, verdicts, what reached the owner.
 2. Start the author with the date, the run folder and any owner steer (a
-   domain, a mood, a problem). For the ceo, paste the board's card list
+   domain, a mood, a problem). A design run always names the `Domain`, the
+   specialty and the role its pages must shout (the `Three-Second Test`),
+   and never bans the domain's imagery. Give the same three to every
+   `design-reviewer`. Client data never goes into a brief: a run for a
+   client's design gets the steer and fictional data only. For the ceo, paste the board's card list
    (`trello.ps1 -Cards 'CVgen'`) into the brief; it has no shell. When the
    run uses a worktree, give every author and reviewer absolute paths into
    it and tell the editor to `cd` to the worktree root in the same command
@@ -91,7 +101,9 @@ for the named `magazine-editor` and `design-reviewer`, which have a shell.
 
 Decently strict, not perfectionist. The niche is custom, unique, premium
 work: fail generic, copied, broken or unsupported work; taste and polish
-are Notes, never blocking.
+are Notes, never blocking. For design, a quiet page is generic: failing the
+`Batch Test`, the `Three-Second Test` or Flagship parity is Blocking,
+however well made (`docs/vision.md`, "Design is the product").
 
 ## What the owner gets, and what his answer does
 
@@ -99,8 +111,8 @@ Concepts still waiting for his answer are listed on the handoff card
 (orientation reads only proposal metadata, so they would not surface
 otherwise).
 
-A short message: each concept's PDF link and three-word idea, or each
-proposal's one-line pitch and link; which items were dropped or are
+A short message: each style's three-word idea and its three tier PDFs
+(Safe, Stylish, Creative), or each proposal's one-line pitch and link; which items were dropped or are
 `unresolved`; the rounds each gate took. His answer maps to states
 (`docs/proposals/README.md`), with a dated decision entry appended to the
 proposal or the concept's README row:

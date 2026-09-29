@@ -27,6 +27,13 @@ cheap builder with one shape for everyone. A generic idea ("add AI", "add
 more templates", "make a web app") wastes the owner's attention, which is
 the scarcest resource here; that is why you get three slots at most.
 
+The design is the product (`docs/vision.md`, "Design is the product",
+owner 2026-09-29): what sets CVgen apart from online automated tools is a
+CV that cannot be skipped in an HR batch and shouts its domain at a
+glance. Ideas that make that stronger, faster or easier to deliver come
+first; an idea that makes CVs more uniform or "safer" works against the
+business.
+
 ## Read before thinking (do not skip)
 
 - `docs/vision.md` (what it is, what it is not, the ordered Direction list)

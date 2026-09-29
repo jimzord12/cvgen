@@ -10,6 +10,15 @@ wording and rules; a role is one level of specialisation; a template may
 override anything (`docs/vision.md`, `docs/reference/domains-and-roles.md`). Read this file and `docs/preferences.md`, then
 open only what your task needs.
 
+**Design is the product** (owner, 2026-09-29; `docs/vision.md`, "Design is
+the product"). The design and styling are what CVgen sells and what sets it
+apart from online automated tools. A CV must pass the `Batch Test` (it
+cannot be skipped in an HR batch of 100 to 200) and the `Three-Second Test`
+(the page itself shouts `Domain`, specialty and role before a word is
+read), going beyond "safe professional", elegantly, at the level of the
+Marine Flagship. A well-crafted but quiet design is a failure. Anyone who
+designs, reviews or proposes a CV design reads that section first.
+
 If `.local/preferences/user-profile.md` exists, read it alongside
 `docs/preferences.md` before replying. It contains local user preferences;
 keep it untracked and do not copy its contents into shared documentation.
@@ -88,7 +97,7 @@ Framework; `M` for `packages/domains/marine`, the marine domain; `F` for
 | `packages/cv-workflow/` | Python package: fresh revisions (snapshot, compile, `render.json`, `checks.json`), explicit approval (`cv.approval.json` bound to the SHA-256), verified export. Never sends anything | Changing how a candidate PDF is produced, approved or exported |
 | `tests/` | `run.py` runner, `verify.py` PDF checks, `workflow.py` end-to-end workflow case, `baseline.json` hash manifest, `fixtures/*.typ` compile cases | Changing behaviour |
 | `archive/design-studies/` | Four frozen, evaluated design studies with their renders | Reading for inspiration only |
-| `design-concepts/` | Template concepts proposed by the `magazine-editor` agent: one folder per concept with `concept.typ`, PDF, PNG and `brief.md`. Proposals, not library code | Running or deciding on an idea run |
+| `design-concepts/` | Template concepts proposed by the `magazine-editor` agent: one folder per style with its three `Design Tier`s (`safe`, `stylish`, `creative`: `.typ`, PDF, PNG) and `brief.md`; earlier runs have one `concept.typ`. Proposals, not library code | Running or deciding on an idea run |
 | `brand/` | CVgen's own brand assets: `logos/` (the working logo is the needle's eye, `cvgen-mark-c-eye.svg` and `cvgen-wordmark.svg`; see `brand/README.md`) | Using or replacing the logo |
 | `exports/` | The four current public example PDFs (the `Release`) | Releasing a new version |
 | `docs/` | Governance and reference documentation, see below | Recording a decision |
@@ -174,7 +183,9 @@ orientation and for any task state change.
 rules of its own and defers to `docs/review.md`.
 `.claude/skills/idea-run` runs the idea agents in a closed review loop:
 `ceo` proposes product ideas (checked by `ceo-reviewer`), `magazine-editor`
-proposes template concepts with mock-up PDFs (checked by `design-reviewer`),
+proposes three very distinct styles, each in three `Design Tier`s, as
+mock-up PDFs (checked by `design-reviewer`, which also judges client CV
+designs, first on the `Batch Test` and the `Three-Second Test`),
 and `research-reviewer` checks the web research behind both. They only
 propose; the owner decides.
 

@@ -11,6 +11,12 @@ the folder layout. Every line of code and documentation in this repository
 was written by AI agents. Treat him as the person who decides what the
 product is and what gets built next, not as someone who will open a file.
 
+He is a designer and judges a CV by looking at it. To him the design is
+the product (`vision.md`, "Design is the product", 2026-09-29): a CV he
+cannot tell apart from an online builder's, or one that does not shout its
+`Domain` at a glance, has failed, however well made. Show him designs that
+are bold and elegant, never "safe professional".
+
 ## How to talk to him
 
 - **Plain language, high level.** Say what happened, what it means for the
