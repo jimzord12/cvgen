@@ -1,6 +1,6 @@
 ---
 kind: proposal
-status: approved
+status: applied
 revision: 1
 ---
 
@@ -36,7 +36,11 @@ starting at `00-bundle-readme.md`), in its recommended variant:
 Not adopted: the shell-carrying `repo-auditor` and its Bash guard, the
 commit hook, any schedule.
 
-Changes made to the bundle: `audit.py` no longer reports a mention of a
+Changes made to the bundle: `SKILL.md` pre-approves only `git status`,
+`git ls-files`, `git rev-parse` and the audit script by its full path (no
+`git diff`, `git log` or `git grep`, which can write files or run a
+program); `audit.py` refuses a `--since` value that looks like an option,
+reads a comment on a key line as no value, and no longer reports a mention of a
 Git-ignored area (`private/`, `.local/`, `builds/`) as a dead path; the
 adapter leaves dated records (`docs/work/`, `docs/decisions/`,
 `docs/history.md`, `docs/now.md`) out of every check. The first audit's
@@ -50,8 +54,9 @@ reading).
   is a priority to me"), then handed over the bundle. Lead defaults, reported
   to him: the variant above, the `Session Sweep` line as the cadence,
   reports in chat unless asked.
-- Review reports in `docs/work/repo-maintenance/reviews/`; moves to
-  `applied` when the branch merges after a PASS.
+- 2026-09-30, applied: reviews `docs/work/repo-maintenance/reviews/01.md`
+  (FINDINGS, fixed) and `02.md` (PASS); `python tests/run.py` PASS (94 cases,
+  25 of them the repo-maintenance self-test).
 
 ## Known limits
 

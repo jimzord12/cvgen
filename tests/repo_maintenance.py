@@ -139,7 +139,7 @@ def main():
         git(c, "init", "-q", ".")
         os.makedirs(os.path.join(c, ".claude"))
         with open(ADAPTER, encoding="utf-8") as f, open(os.path.join(c, ".claude", "repo-maintenance.md"), "w", encoding="utf-8", newline="\n") as g:
-            g.write(f.read())
+            g.write(f.read().replace("\nprotected:\n", "\nprotected:   # a comment on the key line must not empty the list\n", 1))
         pdf = b"%PDF-1.7\n" + os.urandom(1024 * 1024 + 10)
         write(c, "packages/domains/marine/templates/flagship/tests/approved/Marine-Engineer-CV-v11.pdf", binary=pdf)
         write(c, "packages/domains/marine/templates/flagship/layouts/flagship-v11.typ", "// layout\n")
@@ -166,6 +166,15 @@ def main():
         check("empty repository does not crash", de is not None, pe.stderr[-200:])
         p = subprocess.run([sys.executable, AUDIT, "--root", tmp, "--mode", "quick"], capture_output=True, text=True)
         check("outside a git repository it stops with a message", p.returncode != 0 and "git" in (p.stderr + p.stdout).lower())
+
+    # CVgen change: --since never passes an option to git
+    with tempfile.TemporaryDirectory() as tmp:
+        r = os.path.join(tmp, "since")
+        os.makedirs(r)
+        git(r, "init", "-q"); write(r, "README.md", "# R\n"); git(r, "add", "-A"); git(r, "commit", "-q", "-m", "seed")
+        p = subprocess.run([sys.executable, AUDIT, "--root", r, "--mode", "quick", "--since", "--output=x"], capture_output=True, text=True)
+        check("--since refuses an option-like value and writes nothing",
+              p.returncode != 0 and not any(n.startswith("x") for n in os.listdir(r)), p.stderr[-200:])
 
     # CVgen change: a mention of a Git-ignored area (private/, .local/) is not a dead path; a missing one still is.
     with tempfile.TemporaryDirectory() as tmp:

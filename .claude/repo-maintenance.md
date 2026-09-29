@@ -133,8 +133,8 @@ files in `.github/workflows/`. The map in `AGENTS.md` also names paths; those se
 **Records.** The task record is Trello, through the `trello` skill (`docs/development.md`). Each Decide item in a report ends
 with a one-line card-ready title. The agent creates no second status file or backlog.
 
-**`apply` in CVgen's Git.** CVgen's rules win over the skill's generic defaults here, and are not a conflict to stop on:
-the branch is `chore/maintenance-<topic>` (`docs/git-workflow.md`, `<type>/<topic>`); the pure-move commit is
+**`apply` in CVgen's Git.** The floor's rules hold (never the default branch, a new folder per output); only the names
+follow CVgen, and that is not a conflict to stop on: the branch is `chore/maintenance-<topic>` (`docs/git-workflow.md`, `<type>/<topic>`); the pure-move commit is
 `chore: move <what> to <where>` and the reference commit `chore: update references to <where>` (`docs/conventions.md`);
 the baseline JSON goes in a new `builds/repo-health-<UTC yyyymmdd-hhmmss>/` (inside the repo, ignored); after the review
 gate passes, the agent integrates per `docs/git-workflow.md` (agent-owned merge), with nothing left for the owner to do.

@@ -91,7 +91,7 @@ def load_config(root, rel):
         kv = re.match(r"^([A-Za-z_][A-Za-z0-9_]*):\s*(.*)$", line)
         if kv:
             key, v = kv.group(1), kv.group(2).strip()
-            cfg[key] = clean_item(v) if v else []
+            cfg[key] = clean_item(v) if v and not v.startswith("#") else []
     return cfg
 
 
@@ -141,7 +141,9 @@ class Audit:
         self.cache = {}
         self.changed = None
         if args.since:
-            ch = set(git(top, "diff", "--name-only", args.since + "...HEAD").splitlines())
+            if args.since.startswith("-"):
+                sys.exit("audit.py: --since takes a Git ref, not an option: %r" % args.since)
+            ch = set(git(top, "diff", "--name-only", "--end-of-options", args.since + "...HEAD").splitlines())
             ch |= {l[3:].strip('"') for l in git(top, "status", "--porcelain").splitlines()}
             self.changed = ch
         self.now = time.time()
