@@ -6,9 +6,9 @@
 // red-green colour blindness).
 // Two pages: the Check Page (Greek) and the first CV-content page (English).
 //
-// typst compile --root . --ignore-system-fonts --font-path packages/cv-framework/fonts --font-path design-concepts/fonts design-concepts/2026-09-27-stoichedon/concept.typ design-concepts/2026-09-27-stoichedon/concept.pdf
+// typst compile --root . --ignore-system-fonts --font-path packages/cv-framework/fonts --font-path archive/anti-examples/fonts archive/anti-examples/2026-09-27-stoichedon/concept.typ archive/anti-examples/2026-09-27-stoichedon/concept.pdf
 // Long-surname case (span 1; same record, another fictional name):
-// typst compile ... --input client=long design-concepts/2026-09-27-stoichedon/concept.typ design-concepts/2026-09-27-stoichedon/concept-long.pdf
+// typst compile ... --input client=long archive/anti-examples/2026-09-27-stoichedon/concept.typ archive/anti-examples/2026-09-27-stoichedon/concept-long.pdf
 
 #let data = json("/examples/candidates/chief-officer-example.json")
 

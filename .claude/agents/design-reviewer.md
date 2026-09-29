@@ -55,7 +55,10 @@ anything else you need.
   sheets in `builds/` and name them in your report.
 - Compare with the Flagship
   (`archive/design-studies/review/Marine-Engineer-CV-v11-page-*.png`), the
-  design studies and earlier concepts in `design-concepts/`.
+  design studies and earlier concepts in `design-concepts/`, and with the
+  `Anti-example`s in `archive/anti-examples/`: a design that leans on one of
+  those rejected ideas fails `Flagship Parity` unless its brief gives a
+  reason the owner would accept.
 - For concepts, read `brief.md`: the idea, the tiers, the references, the
   fonts.
 

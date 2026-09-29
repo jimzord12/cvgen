@@ -129,5 +129,5 @@ Review` app reads the status from them, not from the README:
 |---|---|---|
 | Build it | `approved` (then a card) | `chosen`, with the `Design Tier` he picked; a template card or the client's CV follows |
 | Later / park | `deferred` | `parked` |
-| Reject | `rejected`, moved to `rejected/` | `rejected`; its folder is removed (Git history keeps it), the README row names the commit, and its font family goes too if no other concept uses it |
+| Reject | `rejected`, moved to `rejected/` | `rejected`; its folder is removed (Git history keeps it), the README row names the commit, and its font family goes too if no other concept uses it. When he rejects it as not his style and wants it kept, it moves to `archive/anti-examples/` instead (with its fonts, its Meta Files removed, a row in that README with his reason) |
 | No answer yet | no change (`pending`) | no change (`proposed`) |

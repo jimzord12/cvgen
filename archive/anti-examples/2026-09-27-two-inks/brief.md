@@ -56,7 +56,7 @@ No artwork, photo or copy was taken from any of them.
 ## Fonts and licences
 
 One family, OFL 1.1, from the Google Fonts repository, unmodified, in
-`design-concepts/fonts/syne/` with `OFL.txt`. Variable weight axis 400–800
+`archive/anti-examples/fonts/syne/` with `OFL.txt`. Variable weight axis 400–800
 (per <https://raw.githubusercontent.com/google/fonts/main/ofl/syne/METADATA.pb>);
 Typst 0.15+ selects weights 400 to 800 from it (variable-font
 support: <https://typst.app/docs/changelog/0.15.0/>).

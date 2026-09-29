@@ -97,6 +97,7 @@ Framework; `M` for `packages/domains/marine`, the marine domain; `F` for
 | `packages/cv-workflow/` | Python package: fresh revisions (snapshot, compile, `render.json`, `checks.json`), explicit approval (`cv.approval.json` bound to the SHA-256), verified export, and the `Output Contract` (`outputs.py`, `output.schema.json`: homes and `Meta File`s). Never sends anything | Changing how a candidate PDF is produced, approved or exported |
 | `tests/` | `run.py` runner, `verify.py` PDF checks, `workflow.py` end-to-end workflow case, `baseline.json` hash manifest, `fixtures/*.typ` compile cases | Changing behaviour |
 | `archive/design-studies/` | Four frozen, evaluated design studies with their renders | Reading for inspiration only |
+| `archive/anti-examples/` | Frozen designs the owner rejected as not his style (`Anti-example`), with their fonts and his reasons; see its `README.md` | Before proposing or reviewing a design: never repeat one |
 | `design-concepts/` | Template concepts proposed by the `magazine-editor` agent: one folder per style with its three `Design Tier`s (`safe`, `stylish`, `creative`: `.typ`, PDF, PNG) and `brief.md`; earlier runs have one `concept.typ`. Every PDF has its `Meta File`. Proposals, not library code | Running or deciding on an idea run |
 | `brand/` | CVgen's own brand assets: `logos/` (the working logo is the needle's eye, `cvgen-mark-c-eye.svg` and `cvgen-wordmark.svg`; see `brand/README.md`) | Using or replacing the logo |
 | `docs/` | Governance and reference documentation, see below | Recording a decision |

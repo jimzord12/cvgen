@@ -4,9 +4,9 @@
 // sits under every fact the Client must check, and prints the giant forms.
 // Two pages: the Check Page (Greek) and the first CV-content page (English).
 //
-// typst compile --root . --ignore-system-fonts --font-path packages/cv-framework/fonts --font-path design-concepts/fonts design-concepts/2026-09-27-two-inks/concept.typ design-concepts/2026-09-27-two-inks/concept.pdf
+// typst compile --root . --ignore-system-fonts --font-path packages/cv-framework/fonts --font-path archive/anti-examples/fonts archive/anti-examples/2026-09-27-two-inks/concept.typ archive/anti-examples/2026-09-27-two-inks/concept.pdf
 // Long-name case (the typical Greek client; same record, another fictional name):
-// typst compile ... --input client=long design-concepts/2026-09-27-two-inks/concept.typ design-concepts/2026-09-27-two-inks/concept-long.pdf
+// typst compile ... --input client=long archive/anti-examples/2026-09-27-two-inks/concept.typ archive/anti-examples/2026-09-27-two-inks/concept-long.pdf
 
 #let data = json("/examples/candidates/chief-officer-example.json")
 
