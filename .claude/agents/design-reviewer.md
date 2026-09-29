@@ -58,7 +58,8 @@ anything else you need.
   Keep the sheets in `builds/` and name them in your report.
 - Compare with the Flagship
   (`archive/design-studies/review/Marine-Engineer-CV-v11-page-*.png`), the
-  design studies and earlier concepts in `design-concepts/`.
+  design studies and earlier concepts in `design-concepts/`, and with the
+  `Anti-example`s in `archive/anti-examples/` (criterion 4).
 - For concepts, read `brief.md`: the idea, the tiers, the densities, the
   references, the fonts.
 
@@ -81,7 +82,9 @@ do not apply.
    confident, crafted and premium. The Safe tier may be calmer, never
    plainer than a generic template.
 4. **Distinct.** One clear idea, visible at arm's length; could not be
-   mistaken for Flagship, an earlier concept or a mass-market template; no
+   mistaken for Flagship, an earlier concept, an `Anti-example`
+   (`archive/anti-examples/`, judged on its organising idea, never on a
+   single device) or a mass-market template; no
    market cliché (`.claude/agents/magazine-editor.md`) used by default. In
    a concept run the three styles are very distinct from each other, and
    the three tiers of a style differ in how far they push (Safe: calm but
@@ -109,7 +112,12 @@ do not apply.
 They are not CVs: no batch sheet and no `Three-Second Test`. Judge them on
 premium and distinct, on-brand (`brand/README.md`, the house design of
 `scripts/text-draft.typ`), fit for purpose (legible at the size it is used,
-works on the medium it lives on), craft and provenance.
+works on the medium it lives on), craft and provenance. Check them against
+the `Anti-example`s too, as in criterion 4.
+
+A design that repeats an `Anti-example`'s whole organising idea is
+Blocking. A partial resemblance (one device) is a Note flagged for the
+owner (his recorded reasons so far are intuition, not named devices).
 
 ## Bar
 

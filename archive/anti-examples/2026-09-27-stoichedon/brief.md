@@ -68,7 +68,7 @@ No drawing, photo or copy was taken from any of them.
 ## Fonts and licences
 
 One family, OFL 1.1, Greek Font Society, from the Google Fonts repository,
-unmodified, in `design-concepts/fonts/gfs-neohellenic/` with `OFL.txt`.
+unmodified, in `archive/anti-examples/fonts/gfs-neohellenic/` with `OFL.txt`.
 
 | File | Source | SHA-256 |
 |---|---|---|

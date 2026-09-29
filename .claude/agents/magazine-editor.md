@@ -89,6 +89,9 @@ judged under the design-reviewer's "Other assets", not the CV tests.
 
 - `docs/vision.md` ("Design is the product") and `docs/glossary.md`: write
   briefs in its official terms, never a synonym.
+- What the owner rejected as not his style: `archive/anti-examples/README.md`
+  (the `Anti-example`s). Never repeat one's organising idea; a single
+  device it used is not banned by that alone.
 - The house style and what exists: `archive/design-studies/README.md` and
   its review PNGs, the frozen Flagship render
   (`packages/domains/marine/templates/flagship/tests/approved/`),
