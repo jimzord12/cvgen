@@ -358,6 +358,11 @@ def main():
     # The candidate workflow, end to end and every refusal, in a fresh fictional workspace.
     for check in run_workflow(out, args.typst):
         results.append({'case': 'workflow-' + check, 'passed': True, 'folder': 'workflow'})
+    # Output Contract: every public PDF sits in its home with a valid, current Meta File.
+    from cv_workflow.outputs import scan  # on the path through design_review
+    indexed, problems = scan(ROOT, include_private=False)
+    assert not problems, [f'{p.relative_to(ROOT).as_posix()}: {r}' for p, r in problems]
+    results.append({'case': f'output-contract ({len(indexed)} PDFs)', 'passed': True, 'folder': None})
     # The owner's Design Review app, through its real server, on a fictional tree.
     for check in run_design_review(out):
         results.append({'case': 'design-review-' + check, 'passed': True, 'folder': 'design-review'})

@@ -41,7 +41,8 @@ hold.
 ## 2. New outputs, never overwrites
 
 Every script and test writes into a new timestamped folder under `builds/`
-and refuses to run if the folder exists. Review renders in `exports/`,
+and refuses to run if the folder exists. The `Release` (the PDFs beside
+their entry points in `examples/`, written by `scripts/build.ps1 -Release`),
 the frozen reference and `archive/design-studies/review/` are replaced only by a deliberate release
 commit with a new version number.
 

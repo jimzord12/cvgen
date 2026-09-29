@@ -51,14 +51,17 @@ choices and act without asking (owner's instruction, 2026-09-25).
   `constitution.md`, and review rounds beyond the cap (`review.md`).
 - **Agents decide and do, without asking:** architecture inside an approved
   item, naming (code, files and the terms in `glossary.md`, reported
-  afterwards), structure, wording, small design choices, the order of work,
+  afterwards), structure (his principle, 2026-09-30: keep the repository
+  nice, simple and clean, and restructure it without fear whenever that
+  makes it easier to navigate, understand and work in), wording, small
+  design choices, the order of work,
   and all routine Git and board work: commits, pushes, merges into `main`,
   amend, rebase, reset, force-push of a feature branch
   (`--force-with-lease`), branch and tag creation, deleting merged or
   abandoned branches locally and on GitHub, deleting tags other than
   `archive/*`, `git worktree` add, remove and prune, clearing `builds/` by
   path (never `git clean -x` or `-X`, which would also wipe the ignored
-  `private/` and `.local/`), editing a candidate workspace's `candidate.json`,
+  `private/` and `.local/`), editing a candidate workspace's `envelope.json`, `candidate.json`,
   `cv.typ`, `presentation.json`, `README.md` and the client workflow's
   `intake/facts.md`, `research/` and `draft/` files for a CV he asked for, and
   editing or moving Trello cards. Do not bring these to him; report them.
@@ -69,8 +72,9 @@ choices and act without asking (owner's instruction, 2026-09-25).
   repository, deleting anything under `private/` or `.local/`, overwriting
   or removing a workspace's revisions, approval receipts, exports, portrait
   or source documents (ignored by Git and, apart from what a revision
-  snapshots, not copied anywhere, so nothing restores them), and replacing or removing the PDFs in the root `exports/`
-  (the public released deliverables).
+  snapshots, not copied anywhere, so nothing restores them), and replacing or removing the `Release`
+  PDFs beside their entry points in `examples/` (the public released
+  deliverables; `scripts/build.ps1 -Release` replaces them).
 - **Ask him for observations, not decisions that are yours:** a screen, a
   render, a log, a yes or no on a look.
 

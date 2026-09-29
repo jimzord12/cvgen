@@ -1,0 +1,16 @@
+{
+  "variant": "long",
+  "kind": "text-draft",
+  "domain": "marine",
+  "candidate": "Eleni Markou",
+  "rank": "Chief Officer",
+  "date": "2026-09-27",
+  "producedBy": "magazine-editor",
+  "style": "Two Inks",
+  "status": "parked",
+  "idea": "black is ours, orange is yours",
+  "source": "design-concepts/2026-09-27-two-inks/concept.typ",
+  "contract": "cvgen.output/1",
+  "pages": 2,
+  "sha256": "c28ece42b5d10c815bc9991cf028f2199515b30becc4fcfdec9009af946ea39a"
+}

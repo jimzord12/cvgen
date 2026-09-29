@@ -18,13 +18,19 @@ fitting the page.
 
 - Real person: the client's `Envelope` under `private/` (ignored), named
   after the person and their `Rank`: `private/<name>-<rank>/` with the
-  client workflow's `intake/`, `research/` and `draft/`, plus
+  client workflow's `envelope.json`, `intake/`, `research/` and `draft/`, plus
   `candidate.json`, `cv.typ`, `portrait.<ext>` and a `README.md` recording
   what was decided and where the evidence is. Renders go to `revisions/` and approved copies
-  to `exports/` through `scripts/cv.py`. Never under `examples/`.
+  to the `Envelope`'s `exports/` through `scripts/cv.py`, which stamps each
+  revision's `Meta File` from `envelope.json` (write it first if the client
+  workflow did not; `docs/guides/build-a-cv.md` section 1). Never under `examples/`.
 - New public example: fictional data under `examples/candidates/<name>-example.json`,
-  entry under `examples/marine/flagship/<name>.typ`, and add it to `scripts/build.ps1` and
-  the compile list in `tests/run.py`.
+  entry under `examples/marine/flagship/<name>.typ`, a line in `$examples`
+  in `scripts/build.ps1` (with its `Title` and `Variant`) and the compile
+  list in `tests/run.py`. Adding it to the `Release` (`./scripts/build.ps1
+  -Release`, which writes `<name>.pdf` and its `Meta File` beside the entry)
+  replaces the other `Release` PDFs too, so it needs the owner's go
+  (`docs/git-workflow.md`, "Releasing a new render").
 
 ## Steps
 

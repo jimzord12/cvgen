@@ -1,0 +1,16 @@
+{
+  "kind": "example",
+  "domain": "marine",
+  "source": "examples/marine/flagship/captain.typ",
+  "candidate": "Daniel Reed",
+  "rank": "Master Mariner",
+  "status": "release",
+  "style": "Flagship",
+  "title": "Marine Captain CV Classic v01",
+  "variant": "Golden Blue",
+  "producedBy": "scripts/build.ps1",
+  "date": "2026-09-30",
+  "contract": "cvgen.output/1",
+  "pages": 2,
+  "sha256": "801347dfd3fb3ef40583a48dbba2effd8a9822abd10c0ff8f229e17530701eab"
+}

@@ -93,34 +93,37 @@ Framework; `M` for `packages/domains/marine`, the marine domain; `F` for
 | `W/fonts/`, `W/licenses/` | Bundled OFL fonts, licence notices | Adding a font |
 | `W/typst.toml` | Package manifest for the Framework | Releasing |
 | `examples/candidates/` | Fictional candidate records (engineer, captain, chief officer, deck cadet) and the one fictional portrait | Changing example data |
-| `examples/marine/flagship/` | Short entry points that wire the six inputs together | Adding an example |
-| `packages/cv-workflow/` | Python package: fresh revisions (snapshot, compile, `render.json`, `checks.json`), explicit approval (`cv.approval.json` bound to the SHA-256), verified export. Never sends anything | Changing how a candidate PDF is produced, approved or exported |
+| `examples/marine/flagship/` | Short entry points that wire the six inputs together, each with its `Release` PDF and `Meta File` beside it (`engineer.typ`, `engineer.pdf`, `engineer.meta.json`), written only by `scripts/build.ps1 -Release` | Adding an example, releasing a new version |
+| `packages/cv-workflow/` | Python package: fresh revisions (snapshot, compile, `render.json`, `checks.json`), explicit approval (`cv.approval.json` bound to the SHA-256), verified export, and the `Output Contract` (`outputs.py`, `output.schema.json`: homes and `Meta File`s). Never sends anything | Changing how a candidate PDF is produced, approved or exported |
 | `tests/` | `run.py` runner, `verify.py` PDF checks, `workflow.py` end-to-end workflow case, `baseline.json` hash manifest, `fixtures/*.typ` compile cases | Changing behaviour |
 | `archive/design-studies/` | Four frozen, evaluated design studies with their renders | Reading for inspiration only |
-| `design-concepts/` | Template concepts proposed by the `magazine-editor` agent: one folder per style with its three `Design Tier`s (`safe`, `stylish`, `creative`: `.typ`, PDF, PNG) and `brief.md`; earlier runs have one `concept.typ`. Proposals, not library code | Running or deciding on an idea run |
+| `design-concepts/` | Template concepts proposed by the `magazine-editor` agent: one folder per style with its three `Design Tier`s (`safe`, `stylish`, `creative`: `.typ`, PDF, PNG) and `brief.md`; earlier runs have one `concept.typ`. Every PDF has its `Meta File`. Proposals, not library code | Running or deciding on an idea run |
 | `brand/` | CVgen's own brand assets: `logos/` (the working logo is the needle's eye, `cvgen-mark-c-eye.svg` and `cvgen-wordmark.svg`; see `brand/README.md`) | Using or replacing the logo |
-| `exports/` | The four current public example PDFs (the `Release`) | Releasing a new version |
 | `docs/` | Governance and reference documentation, see below | Recording a decision |
-| `scripts/build.ps1` | Builds the four examples into a new `builds/` folder | Rarely |
+| `scripts/build.ps1` | Builds the five examples into a new `builds/` folder; `-Release` then copies each beside its entry point and stamps its `Meta File` | Rarely |
 | `scripts/cv.py` | `render`, `approve`, `export`, `status` for one candidate workspace, calling `packages/cv-workflow` | Producing a real CV |
+| `scripts/outputs.py` | The `Output Contract` tool: `stamp` writes a PDF's `Meta File`, `check` lists every PDF with no valid, current one or outside its home (`docs/pdf-workflow.md`) | Writing a PDF someone will review |
 | `scripts/intake-form.gs` | Google Apps Script the owner runs to make a client's optional `Intake Form` and its answers Sheet; Claude writes a filled copy per form as `intake/form-NN.gs` | Changing how the form is built |
-| `scripts/design_review/` | The owner's local Design Review app (`server.py`, `index.html`): every concept and client render as a Board and a Loupe, filters, page previews, compare, a `Batch Test` pile (`plain-cvs.typ`), his review state in `.local/design-review/state.json` (read it for his verdicts and notes), PDFs opened in the default app. Binds to 127.0.0.1 only | Changing how the owner reviews designs |
+| `scripts/design_review/` | The owner's local Design Review app (`server.py`, `index.html`): every PDF with a valid `Meta File` (concepts, the `Release`, client renders and `Text Draft`s) as a Board and a Loupe, the rest listed as unindexed with the reason, filters, page previews, compare, a `Batch Test` pile (`plain-cvs.typ`), his review state in `.local/design-review/state.json` (read it for his verdicts and notes), PDFs opened in the default app. Binds to 127.0.0.1 only | Changing how the owner reviews designs |
 | `scripts/text-draft.typ` | The `Text Draft` a client checks before design (`Sign-off`), house design First Fitting | Changing how the text draft looks |
 | `builds/` | Ignored. Every build and test run writes to a new timestamped folder here | Reading evidence |
-| `private/` | Ignored. One `Envelope` per real client: `intake/`, `research/`, `draft/`, `candidate.json`, `cv.typ`, `revisions/`, `exports/` | Producing a real CV |
+| `private/` | Ignored. One `Envelope` per real client: `envelope.json`, `intake/`, `research/`, `draft/`, `candidate.json`, `cv.typ`, `revisions/`, `exports/` | Producing a real CV |
 
 `apps/web/` from the target tree is not implemented; see the Trello board.
 
 ## Commands
 
 ```powershell
-./scripts/build.ps1                     # four PDFs into builds/library-<timestamp>/
+./scripts/build.ps1                     # five PDFs into builds/library-<timestamp>/
 ./scripts/build.ps1 -HideVesselDurations
+./scripts/build.ps1 -Release            # the same, then the `Release`: copied beside the entry points, stamped
 python tests/run.py                     # full suite, evidence into builds/tests-<timestamp>/
 typst compile --root . --font-path packages/cv-framework/fonts examples/marine/flagship/engineer.typ builds/scratch.pdf
 python scripts/cv.py render private/<candidate>            # new revision: snapshot, PDF, log, checks
 python scripts/cv.py approve private/<candidate> <revision> --approver "<name>" --sha256 <reviewed hash>
-python scripts/cv.py export private/<candidate> <revision>  # verified copy into exports/<revision>/
+python scripts/cv.py export private/<candidate> <revision>  # verified copy into private/<candidate>/exports/<revision>/
+python scripts/outputs.py stamp <pdf> status=<status> [key=value ...]   # write the PDF's Meta File
+python scripts/outputs.py check [--private]   # every PDF in its home with a valid, current Meta File
 python scripts/design_review/server.py   # the owner's Design Review app on http://127.0.0.1:8765/
 ```
 
@@ -149,7 +152,7 @@ Full text in `docs/constitution.md`. The short list:
 | `docs/glossary.md` | Before every reply to the owner, proposal or document: the official terms, backticks in replies, adding terms and reporting them |
 | `docs/vision.md` | Deciding whether a feature belongs here |
 | `docs/architecture.md` | Before changing any module |
-| `docs/pdf-workflow.md` | Target monorepo and the PDF lifecycle, both implemented 2026-09-16 except `apps/web/`; read before structural or workflow changes (ADR 0010). |
+| `docs/pdf-workflow.md` | Target monorepo and the PDF lifecycle, both implemented 2026-09-16 except `apps/web/`, and the `Output Contract` (where every PDF we show lives, its `Meta File`); read before structural or workflow changes (ADR 0010) and before writing a PDF someone will review |
 | `docs/tech-stack.md` | Setting up a machine, or asking "why Typst" |
 | `docs/constitution.md` | Before anything irreversible |
 | `docs/framework-gaps.md` | Before planning framework work, and after any bypass of a component or template |
@@ -203,6 +206,11 @@ propose; the owner decides.
   covers it. Say what you found in a line, then act.
 - Prefer the owning module over a parallel one. Related components stay in
   one small file.
+- Every PDF someone will review sits in its home with a `Meta File`
+  beside it (the `Output Contract`, `docs/pdf-workflow.md`): stamp it with
+  `scripts/outputs.py stamp` after each compile, or let the script that
+  wrote it stamp it. Anything else goes to `builds/`. The suite fails on a
+  public PDF without a valid, current `Meta File`.
 - Every component follows the contract in `docs/conventions.md` (ADR 0008):
   `ctx` first, data, named props, slots; the template builds `ctx` once with
   `make-ctx` (`W/core/component.typ`). All core and Flagship modules are

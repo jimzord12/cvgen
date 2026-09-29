@@ -90,6 +90,9 @@ The page images are what to show the owner or a reviewer.
    field path named) that leave no folder, a receipt rewritten for other bytes, a
    revision without `render.json`, a leftover partial export, a
    conflicting destination and a bundle with a different receipt,
+   a workspace without `envelope.json` refused before anything is written,
+   the revision's `Meta File` (`render`, then `approved`, filled from
+   `envelope.json`),
    certificate dates (against a fixed reference date: expired and
    within-180-day certificates warn in render, `status` and `checks.json`
    without failing the render or blocking approval; unchecked dates are
@@ -101,6 +104,12 @@ The page images are what to show the owner or a reviewer.
    workspace, missing, taking the portrait's place) or, when computed,
    fail the checks and block approval.
    `commands.log` holds every command with its output and exit code.
+
+12. **Output Contract** (`output-contract (N PDFs)`). Every PDF in
+   `design-concepts/`, `examples/` and a stray root `exports/` sits in its
+   home with a valid `Meta File` whose hash matches the PDF
+   (`docs/pdf-workflow.md`, "Output Contract"); the assertion lists each
+   PDF that fails and why.
 
 Negative cases assert on the exact error text so a message change is a test
 change.

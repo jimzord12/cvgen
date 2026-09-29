@@ -20,10 +20,10 @@ None of this approves a pending product design.
 
 ## Branches
 
-- `main` is always releasable: the suite passes and the PDFs in
-  `exports/` match the code. If a merge changes what `exports/` would
-  contain, refreshing them needs the owner's go; until then record the
-  mismatch on the handoff card.
+- `main` is always releasable: the suite passes and the `Release` PDFs
+  beside the entry points in `examples/` match the code. If a merge
+  changes what they would contain, refreshing them needs the owner's go;
+  until then record the mismatch on the handoff card.
 - Small, low-risk, verified fixes and documentation can go directly to `main`.
   Choose a feature branch for new features, migrations, significant changes,
   or work whose readiness is uncertain.
@@ -101,11 +101,11 @@ branch structure is a proportionate choice for this small project.
 |---|---|
 | Source, themes, artwork, layouts, examples, fictional JSON | `private/` with real candidate data |
 | Bundled fonts and licence notices | `builds/` with every build and test output |
-| The current deliverable PDFs in `exports/` | Scratch PDFs and PNGs at the repo root |
+| The `Release`: each example's PDF and `Meta File` beside its entry point in `examples/` | Scratch PDFs and PNGs at the repo root |
 | The frozen reference PDF and hash manifest | `__pycache__/` |
-| Design studies with their review renders | Anything under `previews/` or `exports/review/` from earlier sessions |
+| Design studies with their review renders | Anything under `previews/` or `exports/review/` from earlier sessions (the root `exports/` is retired) |
 | Preview PNGs used by the README | |
-| Template concepts in `design-concepts/` (PDF, one PNG per page, shared OFL or Apache 2.0 fonts in `fonts/<family>/`); a rejected concept's folder is removed | |
+| Template concepts in `design-concepts/` (PDF with its `Meta File`, one PNG per page, shared OFL or Apache 2.0 fonts in `fonts/<family>/`); a rejected concept's folder is removed | |
 
 `.gitattributes` stores and checks out every text file with LF on every
 platform, so the hashes in `tests/baseline.json` match on Windows, macOS,
@@ -114,15 +114,18 @@ portrait is about 2.8 MB, so do not add renders casually. Replace, do not accumu
 
 ## Releasing a new render
 
-Replacing an approved deliverable in `exports/` needs the owner's go
+Replacing the `Release` in `examples/` needs the owner's go
 (preferences.md); get it before step 3.
 
 1. Choose a branch appropriate to the change. Run `python tests/run.py`.
-2. Build with `./scripts/build.ps1`, inspect both pages of every changed
+2. Build with `./scripts/build.ps1`, inspect every page of every changed
    example.
-3. Copy the new PDF into `exports/` with the next version number and remove
-   the old one. Refresh the changed deliverable's page PNGs in `docs/images/`
-   at 96 dpi (one per page).
+3. Raise the changed example's version in the `Title` of its line in
+   `scripts/build.ps1`, then run `./scripts/build.ps1 -Release`: it builds
+   all five into a new `builds/` folder, copies each PDF beside its entry
+   point and stamps its `Meta File` (every PDF changes, since Typst embeds
+   the compile time). Refresh the changed deliverable's page PNGs in
+   `docs/images/` at 96 dpi (one per page).
 4. If the engineer look changed on purpose, write an ADR, replace the frozen
    reference, regenerate `tests/baseline.json`, and tag the commit.
 5. Commit with the evidence folder named, integrate and push under the workflow

@@ -35,7 +35,7 @@ owner afterwards.
 |---|---|---|---|
 | `CVgen` | The product: premium, hand-crafted CVs built with AI on our own Typst `Framework` (owner's words, also in `docs/vision.md`) | the repository | 2026-09-25 |
 | `Framework` | The shared Typst core every CV is built on: page frame, headings, data merge and checks. Knows no `Domain` | `packages/cv-framework/` (core, fonts; its `lib.typ` exports core names only; docs say "core" for `core/`). Each `Domain`'s `lib.typ` re-exports it (ADR 0012) | 2026-09-25 |
-| `Domain` | A career area with its own facts shape, wording, artwork and rules: `Marine`, `Travel & Tourism`, `Software Development`. Not a web address | `packages/domains/<id>/`, each with its own `lib.typ`; only `marine` exists | 2026-09-25, owner |
+| `Domain` | A career area with its own facts shape, wording, artwork and rules: `Marine`, `Travel & Tourism`, `Software Development`. Not a web address | `packages/domains/<id>/`, each with its own `lib.typ`; only `marine` exists. Ids, as `domain` in a `Meta File` and `envelope.json`: `marine`, `travel` (Travel & Tourism, no package yet); a new `Domain` gets its id here first | 2026-09-25, owner; ids 2026-09-30 |
 | `Surface` | A package's `lib.typ`: the one file entry points import. The `Framework`'s holds core names only; each `Domain`'s adds its own | `packages/cv-framework/lib.typ`, `packages/domains/<id>/lib.typ` | 2026-09-25 |
 | `Role` | One specialisation inside a `Domain`, never a fork of it: `Deck` and `Engine` in `Marine` | `domains/marine/roles/deck`, `roles/engine` | 2026-09-25 |
 | `Rank` | The client's job title: second engineer, chief officer, captain, tour guide; inside a `Role` where the `Domain` has roles | `identity.rank` in the marine facts; folder and file names say "role" for it (`jane-doe-second-engineer`) | 2026-09-25 |
@@ -44,8 +44,8 @@ owner afterwards.
 | `Artwork Pack` | Which illustration goes in which slot of a `Template` | `templates/<t>/artwork/` | 2026-09-25 |
 | `Layout` | Margins, gaps and which content lands on which page | `templates/<t>/layouts/`; docs also say "layout profile" | 2026-09-25 |
 | `Client` | The person a CV is for, who also pays for it | the code and the data contract say "candidate" (`candidate.json`) | 2026-09-25 |
-| `Envelope` | One `Client`'s folder: their facts, portrait, their own `Template` tweaks, every `Revision` and `Export` | `private/<envelope>/` with the drawers `intake/`, `research/`, `draft/`; docs also say "candidate workspace" | 2026-09-25, owner |
-| `Alias` | The neutral name for a `Client` outside `private/`: `client-<yyyy>-<mm>-<nn>`, written in the `Envelope`'s `README.md`. The `Envelope` folder name is client data | `docs/guides/client-workflow.md` step 1 | 2026-09-25 |
+| `Envelope` | One `Client`'s folder: their facts, portrait, their own `Template` tweaks, every `Revision` and `Export` | `private/<envelope>/` with `envelope.json` (who the `Client` is: `alias`, `domain`, `candidate`, `rank`) and the drawers `intake/`, `research/`, `draft/`; docs also say "candidate workspace" | 2026-09-25, owner |
+| `Alias` | The neutral name for a `Client` outside `private/`: `client-<yyyy>-<mm>-<nn>`, written in the `Envelope`'s `README.md` and its `envelope.json`. The `Envelope` folder name is client data | `docs/guides/client-workflow.md` step 1; `alias` in `envelope.json` and a client's `Meta File` | 2026-09-25 |
 | `Drawer` | One of the `Envelope`'s workflow folders: `intake/`, `research/`, `draft/` | `docs/guides/client-workflow.md` step 1 | 2026-09-25 |
 | `Intake` | Collecting a `Client`'s facts and goals before research: a question list sent by chat, answers kept in the `Envelope` | `docs/guides/client-workflow.md` step 2, `new-client` skill, `intake/` | 2026-09-25 |
 | `Relay` | The `Intake` method: Claude Code writes the questions and follow-ups, the owner passes them to the `Client` by chat and brings the answers back | `docs/guides/client-workflow.md` steps 2 and 7 | 2026-09-25, owner |
@@ -62,7 +62,9 @@ owner afterwards.
 | `Revision` | One render of a CV in its own folder, never overwritten | `private/<envelope>/revisions/<id>/` | 2026-09-25 |
 | `Approval` | The owner's act on one exact PDF, bound to its SHA-256. Agents never approve a real `Client`'s PDF | `scripts/cv.py approve`, `cv.approval.json` | 2026-09-25 |
 | `Export` | The verified copy of a `Client`'s approved PDF, ready to deliver | `scripts/cv.py export`, `private/<envelope>/exports/` | 2026-09-25 |
-| `Release` | The public example PDFs that show the product, with fictional people | root `exports/` | 2026-09-25 |
+| `Release` | The public example PDFs that show the product, with fictional people | `examples/<domain>/<template>/<name>.pdf` beside each entry point, written by `scripts/build.ps1 -Release` (root `exports/` until 2026-09-30) | 2026-09-25 |
+| `Output Contract` | The rule that every PDF we show sits in the one home its kind has and carries a `Meta File`; the suite and the `Design Review` app list any PDF that breaks it | `docs/pdf-workflow.md`, "Output Contract"; `packages/cv-workflow/cv_workflow/outputs.py`, `scripts/outputs.py` | 2026-09-30, owner |
+| `Meta File` | The small JSON file beside a PDF that says what it is (kind, `Domain`, candidate, status, pages) and holds its SHA-256; stale once the PDF changes without a re-stamp | `<pdf-stem>.meta.json`, written by `scripts/outputs.py stamp`; schema `output.schema.json` in `packages/cv-workflow/cv_workflow/` | 2026-09-30 |
 | `Frozen Reference` | The PDF a `Template`'s public example must reproduce pixel for pixel | `templates/<t>/tests/approved/` | 2026-09-25 |
 | `Framework Gap` | A recorded case of going around the `Framework`, a `Domain` or a `Template` to deliver a CV | `docs/framework-gaps.md` | 2026-09-25 |
 | `Session Sweep` | The check for loose ends before a session ends: unreviewed commits, approved proposals, open cards, Night Shift items, Git leftovers, CI, `builds/`. A list of places to look, never of what is open | `docs/development.md`, "Ending a session" | 2026-09-28 |
@@ -75,7 +77,7 @@ owner afterwards.
 | `Style` | One idea of a `magazine-editor` run, drawn in three `Design Tier`s; a run has three very distinct ones. Its folder and its README row are still called a concept (a concept folder, a concept row), as are earlier runs' one-page proposals | `design-concepts/<date>-<slug>/` | 2026-09-29 |
 | `Flagship Parity` | The third design test: side by side with the Marine Flagship, a CV looks as confident, crafted and premium | `docs/vision.md`, "Design is the product"; `design-reviewer` | 2026-09-29 |
 | `Design Tier` | One of the three variations the `magazine-editor` draws of each `Style`: Safe (calm, never generic), Stylish (Flagship territory), Creative (editorial, style to the maximum) | `.claude/agents/magazine-editor.md` | 2026-09-29 |
-| `Design Review` | The owner's local app for looking through designs and recording his verdicts: the Board shows a run in its `Style` × `Density` × `Design Tier` shape, the Loupe one design at full size; his verdicts and notes are in `.local/design-review/state.json` | `scripts/design_review/` | 2026-09-29 |
+| `Design Review` | The owner's local app for looking through designs and recording his verdicts: the Board shows a run in its `Style` × `Density` × `Design Tier` shape, the Loupe one design at full size; it shows only PDFs with a valid `Meta File`; his verdicts and notes are in `.local/design-review/state.json` | `scripts/design_review/` | 2026-09-29 |
 | `Idea Run` | One closed loop of an idea agent (ceo or magazine-editor) and its reviewers | `.claude/skills/idea-run/`, `docs/work/idea-runs/` | 2026-09-25 |
 
 ## Words with two meanings

@@ -7,6 +7,7 @@ import subprocess
 import tempfile
 
 from .checks import certificate_summary, check_certificates, check_pdf
+from .outputs import envelope, stamp
 from .validate import validate_record
 from .workspace import (ENGINE, FONTS, ROOT, Workspace, WorkflowError, new_revision_id, read_json,
                         repo_relative, sha256_file, utc_now, write_json)
@@ -102,6 +103,7 @@ def render_revision(workspace, typst='typst', pages=2, inputs=None, reference_da
     # Everything that can be refused is checked before the revision folder exists,
     # so a refusal leaves nothing behind.
     record = read_json(ws.record)
+    envelope(ws.folder)  # who the client is, for the revision's Meta File (Output Contract)
     if not isinstance(record, dict):
         raise WorkflowError(f'{ws.record} must hold a JSON object')
     # A misspelt or unknown key would otherwise be dropped silently by the engine.
@@ -181,6 +183,10 @@ def render_revision(workspace, typst='typst', pages=2, inputs=None, reference_da
         # Read from the snapshot the PDF was compiled from; warnings never change `passed`.
         checks['certificates'] = check_certificates(read_json(revision.inputs / 'candidate.json'), reference_date)
         write_json(revision.checks_record, checks)
+        lang = (inputs or {}).get('lang')
+        stamp(revision.pdf, {'kind': 'client-cv', 'status': 'render', 'variant': revision.id,
+                             'lang': lang if lang and len(lang) == 2 else None, 'source': 'cv.typ',
+                             'producedBy': 'scripts/cv.py render'}, envelope_dir=ws.folder)
     counts, warnings = certificate_summary(checks)
     return {
         'revision': revision.id,

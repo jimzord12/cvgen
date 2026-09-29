@@ -1,0 +1,16 @@
+{
+  "kind": "example",
+  "domain": "marine",
+  "source": "examples/marine/flagship/chief-officer.typ",
+  "candidate": "Eleni Markou",
+  "rank": "Chief Officer",
+  "status": "release",
+  "style": "Flagship",
+  "title": "Marine Chief Officer CV Silver v01",
+  "variant": "Silver Bridge",
+  "producedBy": "scripts/build.ps1",
+  "date": "2026-09-30",
+  "contract": "cvgen.output/1",
+  "pages": 2,
+  "sha256": "6364c7e59ba7d6f66b840980e02bebad74f5ca6399122bae87aa28dc19fd7b2f"
+}

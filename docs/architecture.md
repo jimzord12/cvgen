@@ -150,7 +150,9 @@ cv-workflow/cv_workflow/                Python; owns everything around a candida
   checks.py                             page count, empty page, fonts, bounds; bound to the PDF hash; certificate expiry warnings
   approve.py                            explicit approval receipt, bound to revision id and hash
   export.py                             verify, copy into a .partial- folder, verify, rename into place
+  outputs.py, output.schema.json        the Output Contract: each PDF's home, stamp and check its Meta File
 scripts/cv.py                           the four local commands calling that package
+scripts/outputs.py                      stamp and check, calling outputs.py
 ```
 
 The engine renders from its inputs and knows nothing about revisions or

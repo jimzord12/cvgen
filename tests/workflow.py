@@ -46,6 +46,7 @@ def run_workflow(out, typst):
     record = json.loads((ROOT / 'examples/candidates/engineer-example.json').read_text(encoding='utf-8'))
     record['identity']['portrait'] = 'portrait.png'
     (workspace / 'candidate.json').write_text(json.dumps(record, indent=2), encoding='utf-8')
+    envelope = {'alias': 'client-2030-01-01', 'domain': 'marine', 'candidate': 'Alex Morgan', 'rank': 'Second Engineer'}
     log = (base / 'commands.log').open('w', encoding='utf-8')
     passed = []
 
@@ -59,6 +60,11 @@ def run_workflow(out, typst):
 
     def revision(rid):
         return workspace / 'revisions' / rid
+
+    # 0. Output Contract: no envelope.json, no render, and nothing is left behind.
+    assert 'envelope.json is missing' in cv('render', workspace, '--typst', typst, expect=2)
+    assert not (workspace / 'revisions').exists()
+    (workspace / 'envelope.json').write_text(json.dumps(envelope), encoding='utf-8')
 
     # 1. Render: snapshot, records, checks bound to the bytes, PDF identical to the frozen v11 reference.
     first = cv('render', workspace, '--typst', typst)
@@ -81,6 +87,9 @@ def run_workflow(out, typst):
     assert (folder / 'inputs/cv.typ').read_text(encoding='utf-8') == ENTRY
     exact = verify(folder / 'cv.pdf', ROOT / FLAGSHIP / 'tests/approved/Marine-Engineer-CV-v11.pdf', output=base / 'exact')
     assert exact['passed'], exact
+    meta = json.loads((folder / 'cv.meta.json').read_text(encoding='utf-8'))
+    assert meta['sha256'] == sha and meta['status'] == 'render' and meta['kind'] == 'client-cv' and meta['pages'] == 2
+    assert {k: meta[k] for k in envelope} == envelope and meta['variant'] == rid, meta
     passed.append('render-snapshot-and-records')
 
     # 2. Approval needs the reviewed hash, a name, and refuses test-only approvals under private/.
@@ -93,6 +102,8 @@ def run_workflow(out, typst):
     approved = cv('approve', workspace, rid, '--approver', 'suite (fictional fixture)', '--sha256', sha[:12], '--test-only')
     approval = json.loads((folder / 'cv.approval.json').read_text(encoding='utf-8'))
     assert approval == approved['approval'] and approval['scope'] == 'test-only' and approval['sha256'] == sha and approval['revision'] == rid
+    stamped = json.loads((folder / 'cv.meta.json').read_text(encoding='utf-8'))
+    assert stamped['status'] == 'approved' and stamped['date'] == meta['date'] and stamped['sha256'] == sha
     receipt_bytes = (folder / 'cv.approval.json').read_bytes()
     assert cv('approve', workspace, rid, '--approver', 'someone else', '--sha256', sha, '--test-only')['already_approved']
     assert (folder / 'cv.approval.json').read_bytes() == receipt_bytes
@@ -296,6 +307,7 @@ def run_workflow(out, typst):
     # the revision snapshots them all, and compiles from the snapshot alone (card revision-snapshot).
     oneoff = base / 'fictional-tour-guide'
     (oneoff / 'parts').mkdir(parents=True)
+    (oneoff / 'envelope.json').write_text(json.dumps(dict(envelope, domain='travel', rank='Tour Guide')), encoding='utf-8')
     (oneoff / 'cv.typ').write_text(ONE_OFF, encoding='utf-8')
     (oneoff / 'parts/helper.typ').write_text('#let note = read("note.txt")\n', encoding='utf-8')
     (oneoff / 'parts/note.txt').write_text('Licensed guide, fictional record', encoding='utf-8')

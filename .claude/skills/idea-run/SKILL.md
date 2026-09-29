@@ -73,8 +73,11 @@ design-reviewer's "Other assets".
    rows in `design-concepts/README.md`, the run folder and passed proposals
    in `docs/proposals/` is covered by the idea gates (`docs/review.md`: idea runs use their own gates); say so in `run.md`. An item
    left `unresolved` at the cap is not covered: its README row or proposal
-   says `unresolved`, and it merges only as such. Any other change (agent files, skills, engine,
-   docs outside those) goes through `docs/review.md` first. Then commit,
+   (and each of its designs' `Meta File`s) says `unresolved`, and it merges only as such. Any other change (agent files, skills, engine,
+   docs outside those) goes through `docs/review.md` first. Before the
+   commit, `python scripts/outputs.py check` passes: every design the
+   editor drew carries its `Meta File` (the `Output Contract`,
+   `docs/pdf-workflow.md`). Then commit,
    merge to `main`, push (routine Git, no approval needed). Proposals stay
    `pending`; concepts stay `proposed`. Glossary terms an author
    returned go into `docs/glossary.md` and are named in the owner's
@@ -117,7 +120,10 @@ A short message: each style's three-word idea and its three tier PDFs
 (Safe, Stylish, Creative), or each proposal's one-line pitch and link; which items were dropped or are
 `unresolved`; the rounds each gate took. His answer maps to states
 (`docs/proposals/README.md`), with a dated decision entry appended to the
-proposal or the concept's README row:
+proposal or the concept's README row. A concept's new state also goes into
+its designs' `Meta File`s (`python scripts/outputs.py stamp <pdf>
+status=<state>`; for `chosen`, the design he picked), because the `Design
+Review` app reads the status from them, not from the README:
 
 | Answer | Proposal | Concept (`design-concepts/README.md`) |
 |---|---|---|

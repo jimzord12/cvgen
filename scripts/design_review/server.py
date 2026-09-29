@@ -15,7 +15,6 @@ import argparse
 import hashlib
 import json
 import os
-import re
 import subprocess
 import sys
 import threading
@@ -27,6 +26,9 @@ from urllib.parse import parse_qs, urlparse
 
 import pymupdf
 
+sys.path.insert(0, str(Path(__file__).resolve().parents[2] / 'packages/cv-workflow'))
+from cv_workflow import outputs  # noqa: E402
+
 HERE = Path(__file__).resolve().parent
 DENSITIES = ['condensed', 'spacious']
 TIERS = ['safe', 'stylish', 'creative']
@@ -34,165 +36,66 @@ LOCK = threading.Lock()
 
 
 # ---- index --------------------------------------------------------------------
-
-def _read(path):
-    try:
-        return path.read_text(encoding='utf-8')
-    except OSError:
-        return ''
-
-
-def _page_count(pdf, cache={}):
-    key = (str(pdf), pdf.stat().st_mtime_ns)
-    if key not in cache:
-        with pymupdf.open(pdf) as doc:
-            cache[key] = len(doc)
-    return cache[key]
-
-
-def _readme_rows(repo):
-    """Concept folder -> (name, idea, status) from design-concepts/README.md."""
-    rows = {}
-    for line in _read(repo / 'design-concepts' / 'README.md').splitlines():
-        cells = [c.strip() for c in line.strip().strip('|').split('|')]
-        if len(cells) < 5 or cells[0] in ('Concept', '---') or set(cells[0]) <= {'-'}:
-            continue
-        for folder in set(re.findall(r'\]\((\d{4}-\d{2}-\d{2}-[a-z0-9-]+)/', line)):
-            status = cells[3].split(' (')[0].split(';')[0].strip()
-            rows[folder] = {'name': cells[0], 'idea': cells[1], 'status': status, 'statusNote': cells[3]}
-    return rows
-
-
-def _brief(folder):
-    text = _read(folder / 'brief.md')
-    title = re.search(r'^#\s+(.+)$', text, re.M)
-    words = re.search(r'Three words:\s*\*([^*]+)\*', text)
-    domain = re.search(r'`Domain`\s+([^;.\n]+)', text)
-    return {
-        'name': title.group(1).strip() if title else None,
-        'words': words.group(1).strip() if words else None,
-        'domain': domain.group(1).strip() if domain else None,
-    }
-
-
-def _sample_name(folder):
-    try:
-        data = json.loads(_read(folder / 'sample.json') or 'null')
-    except ValueError:
-        return None
-    name = data.get('name') if isinstance(data, dict) else None
-    if isinstance(name, dict):
-        name = next((v for v in name.values() if isinstance(v, str)), None)
-    return name
-
-
-def _concepts(repo):
-    root = repo / 'design-concepts'
-    readme = _readme_rows(repo)
-    items = []
-    for folder in sorted(root.glob('[0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9]-*')):
-        if not folder.is_dir():
-            continue
-        date, slug = folder.name[:10], folder.name[11:]
-        row = readme.get(folder.name, {})
-        brief = _brief(folder)
-        text_draft = '`Text Draft` direction' in row.get('idea', '')
-        base = {
-            'group': 'run:' + date,
-            'groupLabel': date + (' · Text Draft directions' if text_draft else ' · design run'),
-            'kind': 'text-draft' if text_draft else 'concept',
-            'date': date,
-            'sortTime': date + 'T00:00:00',
-            'style': row.get('name') or brief['name'] or slug.replace('-', ' ').title(),
-            'row': slug,
-            'idea': brief['words'] or row.get('idea', ''),
-            'domain': brief['domain'] or ('Text Draft' if text_draft else None),
-            'candidate': _sample_name(folder),
-            'status': row.get('status') or 'proposed',
-            'statusNote': row.get('statusNote'),
-            'brief': _rel(repo, folder / 'brief.md') if (folder / 'brief.md').exists() else None,
-        }
-        found = False
-        for density in DENSITIES:
-            for tier in TIERS:
-                pdf = folder / density / tier / f'{density}-{tier}.pdf'
-                if pdf.exists():
-                    found = True
-                    items.append(dict(base, density=density, tier=tier, variant=None,
-                                      col=f'{density}/{tier}', pdf=pdf))
-        if not found:
-            for pdf in sorted(folder.glob('*.pdf')):
-                variant = pdf.stem.replace('concept', '').strip('-') or None
-                items.append(dict(base, density=None, tier=None, variant=variant,
-                                  col=variant or 'concept', pdf=pdf))
-    return items
-
-
-def _clients(repo):
-    items = []
-    for env in sorted((repo / 'private').glob('*/')):
-        try:
-            identity = json.loads(_read(env / 'candidate.json') or '{}').get('identity', {})
-        except ValueError:
-            identity = {}
-        name = identity.get('name') if isinstance(identity.get('name'), str) else env.name
-        base = {'group': 'client:' + env.name, 'groupLabel': 'Client · ' + name,
-                'candidate': name, 'style': name, 'idea': env.name, 'domain': None,
-                'density': None, 'tier': None, 'status': None, 'statusNote': None,
-                'brief': _rel(repo, env / 'README.md') if (env / 'README.md').exists() else None}
-        for rev in sorted((env / 'revisions').glob('*/')):
-            pdf = rev / 'cv.pdf'
-            if not pdf.exists():
-                continue
-            try:
-                render = json.loads(_read(rev / 'render.json') or '{}')
-            except ValueError:
-                render = {}
-            created = render.get('created_at') or ''
-            command = ' '.join((render.get('compiler') or {}).get('command') or [])
-            lang = re.search(r'\blang=(\w+)', command)
-            lang = lang.group(1) if lang else None
-            label = rev.name[:15] + (f' · {lang}' if lang else '')
-            items.append(dict(base, kind='client-cv', row='CV revisions', col=label, variant=label,
-                              date=(created[:10] or _date_from(rev.name)),
-                              sortTime=created or _date_from(rev.name), pdf=pdf))
-        for pdf in sorted((env / 'draft').glob('*.pdf')):
-            stamp = datetime.fromtimestamp(pdf.stat().st_mtime).isoformat(timespec='seconds')
-            items.append(dict(base, kind='client-draft', row='Text Drafts', col=pdf.stem, variant=pdf.stem,
-                              date=stamp[:10], sortTime=stamp, pdf=pdf))
-    return items
-
-
-def _date_from(name):
-    m = re.match(r'(\d{4})(\d{2})(\d{2})', name)
-    return f'{m.group(1)}-{m.group(2)}-{m.group(3)}' if m else ''
-
+# The app reads Meta Files only (Output Contract, docs/proposals/output-contract.md):
+# a PDF without a valid, current one is listed as unindexed with the reason.
 
 def _rel(repo, path):
-    return path.relative_to(repo).as_posix()
+    return Path(path).resolve().relative_to(Path(repo).resolve()).as_posix()
+
+
+def _item(repo, pdf, meta):
+    rel = _rel(repo, pdf)
+    parts = rel.split('/')
+    kind = meta['kind']
+    item = {k: meta.get(k) for k in ('kind', 'domain', 'candidate', 'alias', 'rank', 'style', 'idea', 'density',
+                                      'tier', 'lang', 'pages', 'date', 'status', 'title')}
+    item.update(id=rel, sortTime=meta['date'], mtime=Path(pdf).stat().st_mtime_ns, brief=None)
+    if kind in ('concept', 'text-draft'):
+        run = parts[1]
+        folder = Path(repo) / 'design-concepts' / run
+        item['group'] = 'run:' + run[:10] + (':text-draft' if kind == 'text-draft' else '')
+        item['groupLabel'] = run[:10] + (' · Text Draft directions' if kind == 'text-draft' else ' · design run')
+        item['brief'] = _rel(repo, folder / 'brief.md') if (folder / 'brief.md').is_file() else None
+        item['row'] = meta['style']
+        item['variant'] = meta.get('variant')
+    elif kind == 'example':
+        item['group'] = 'release:' + meta['domain']
+        item['groupLabel'] = 'Release · ' + meta['domain'].title()
+        item['row'] = meta.get('style') or 'Examples'
+        item['style'] = item['row']
+        item['variant'] = ' · '.join(x for x in [meta.get('rank'), meta.get('variant')] if x)
+        item['brief'] = meta.get('source')
+    else:
+        env = Path(repo) / 'private' / parts[1]
+        item['group'] = 'client:' + parts[1]
+        item['groupLabel'] = 'Client · ' + meta['candidate']
+        item['style'] = meta['candidate']
+        item['brief'] = _rel(repo, env / 'README.md') if (env / 'README.md').is_file() else None
+        if kind == 'client-draft':
+            item['row'], item['variant'] = 'Text Drafts', meta.get('variant')
+        elif parts[-1] == 'reference.pdf':
+            item['row'], item['variant'] = 'Delivered', meta.get('title') or 'reference'
+        else:
+            item['row'] = 'CV revisions'
+            item['variant'] = ' · '.join(x for x in [meta.get('variant', '')[:15], meta.get('lang')] if x)
+    item['col'] = f"{item['density']}/{item['tier']}" if item['density'] else (item['variant'] or item['title'] or parts[-1])
+    return item
 
 
 def build_index(repo, include_private=True):
-    items = _concepts(repo) + (_clients(repo) if include_private else [])
-    out = []
+    """([items], [unindexed]) from the Meta Files under `repo`."""
+    indexed, problems = outputs.scan(repo, include_private)
+    items = [_item(repo, pdf, meta) for pdf, meta in indexed]
+    ids = {i['id'] for i in items}
     for item in items:
-        pdf = item.pop('pdf')
-        item['id'] = _rel(repo, pdf)
-        try:
-            item['pages'] = _page_count(pdf)
-        except Exception:  # half-written by a running compile: skip it until the next rescan
-            continue
-        item['mtime'] = pdf.stat().st_mtime_ns
-        out.append(item)
-    for item in out:
+        twin = None
         if item['density']:
             other = 'spacious' if item['density'] == 'condensed' else 'condensed'
             twin = item['id'].replace(f"/{item['density']}/", f'/{other}/').replace(
                 f"{item['density']}-{item['tier']}", f"{other}-{item['tier']}")
-            item['twin'] = twin if any(o['id'] == twin for o in out) else None
-        else:
-            item['twin'] = None
-    return out
+        item['twin'] = twin if twin in ids else None
+    unindexed = [{'path': _rel(repo, pdf), 'reason': reason} for pdf, reason in problems]
+    return items, unindexed
 
 
 # ---- state --------------------------------------------------------------------
@@ -334,9 +237,10 @@ class App:
         self.include_private = include_private
         self.opener = opener
         self._items = []
+        self.unindexed = []
 
     def items(self):
-        self._items = build_index(self.repo, self.include_private)
+        self._items, self.unindexed = build_index(self.repo, self.include_private)
         return self._items
 
     def find(self, item_id):
@@ -384,7 +288,7 @@ def make_handler(app):
                         state, error = app.store.load(), None
                     except StateError as exc:
                         state, error = {}, str(exc)
-                    return self._send(200, {'items': app.items(), 'state': state, 'stateError': error})
+                    return self._send(200, {'items': app.items(), 'unindexed': app.unindexed, 'state': state, 'stateError': error})
                 if url.path == '/api/page':
                     item = app.find(q.get('id', ''))
                     page, width = int(q.get('page', 1)), min(int(q.get('w', 400)), 2400)

@@ -1,4 +1,5 @@
 """Explicit approval of one revision's exact bytes, written as cv.approval.json."""
+from .outputs import stamp
 from .workspace import Workspace, WorkflowError, hash_matches, is_private_path, read_json, utc_now, write_json
 
 
@@ -35,4 +36,5 @@ def approve_revision(workspace, revision_id, approver, sha256, test_only=False):
         'scope': 'test-only' if test_only else 'owner',
     }
     write_json(revision.approval_record, approval)
+    stamp(revision.pdf, {'status': 'approved'}, envelope_dir=ws.folder)
     return {'revision': revision.id, 'sha256': actual, 'already_approved': False, 'approval': approval}

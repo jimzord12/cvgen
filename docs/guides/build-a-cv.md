@@ -15,6 +15,7 @@ One folder per client, the `Envelope`, named after the person and their
 ```text
 private/jane-doe-second-engineer/
   README.md              how to build, what was decided, where the evidence is
+  envelope.json          who the client is, once: alias, domain, candidate, rank (below)
   intake/, research/, draft/   from the client workflow; not copied into a revision unless cv.typ reads them (it should not)
   candidate.json         candidate data
   cv.typ                 entry point
@@ -22,6 +23,15 @@ private/jane-doe-second-engineer/
   presentation.json      only for the custom path in section 8: data the schema cannot hold
   revisions/             one folder per render, written by scripts/cv.py (section 3)
   exports/               one folder per exported revision, written by scripts/cv.py (section 6)
+```
+
+`envelope.json` names the client for every `Meta File` written in the
+`Envelope` (the `Output Contract`, `../pdf-workflow.md`); `render` refuses
+a workspace without it. `domain` is an id from the glossary's `Domain` row;
+`candidate` is the display name, which never leaves `private/`:
+
+```json
+{"alias": "client-2026-09-01", "domain": "marine", "candidate": "Jane Doe", "rank": "Second Engineer"}
 ```
 
 `cv.typ`. Import the engine by root-absolute path (a leading `/` means the
@@ -105,8 +115,11 @@ python -c "import pymupdf,sys; t=''.join(p.get_text() for p in pymupdf.open(sys.
 ## 3. Render a revision
 
 Every render is a new folder under `revisions/`, named by timestamp plus a
-random suffix, holding a snapshot of the inputs, the compiler log, the PDF
-and its checks. Nothing in an existing revision is ever rewritten.
+random suffix, holding a snapshot of the inputs, the compiler log, the PDF,
+its checks and its `Meta File` (`cv.meta.json`, `status: render`, filled
+from `envelope.json`). Nothing in an existing revision is ever rewritten,
+except that its `Meta File` is re-stamped when its status changes
+(`approved` by section 6, `delivered` when the owner sends it).
 
 ```powershell
 python scripts/cv.py render private/jane-doe-second-engineer            # --pages 3 for a three-page plan
@@ -119,7 +132,7 @@ automated checks passed (page count, no empty page, fonts embedded, text
 inside the page). Exit code 1 means the compiler or a check failed; the
 revision stays, with the error in its `render.log` or `checks.json`, and the
 fix is a new revision. Exit code 2 prints `REFUSED: <reason>`: the inputs
-are not usable (a workspace without `candidate.json` or `cv.typ`, invalid
+are not usable (a workspace without `envelope.json`, `candidate.json` or `cv.typ`, invalid
 JSON, a record that breaks its schema - the offending fields are listed
 with their paths, the first ten and then a count - a missing portrait file, no Typst on PATH), and the reason
 names the fix. Nothing is written on a refusal.
@@ -167,8 +180,8 @@ new revision; the one you looked at is never modified.
 ## 6. Approve and export
 
 Approval is the owner's explicit act on the exact bytes reviewed. It writes
-`cv.approval.json` beside the PDF, bound to the revision id and the hash;
-the command refuses if the bytes changed since the render, if the checks
+`cv.approval.json` beside the PDF, bound to the revision id and the hash,
+and re-stamps the revision's `Meta File` `approved`; the command refuses if the bytes changed since the render, if the checks
 failed or are stale, or if the hash you pass does not match:
 
 ```powershell
@@ -187,6 +200,8 @@ python scripts/cv.py status private/jane-doe-second-engineer               # eve
 ```
 
 Export means ready to deliver; sending the PDF is a separate, manual act.
+Once the owner has sent it, re-stamp the revision:
+`python scripts/outputs.py stamp private/jane-doe-second-engineer/revisions/<id>/cv.pdf status=delivered`.
 A new revision, for any reason, inherits no approval: review, approve and
 export it again. The lifecycle and the records are specified in
 `../pdf-workflow.md`.
@@ -194,7 +209,7 @@ export it again. The lifecycle and the records are specified in
 ## 7. Keep it private
 
 Nothing under `private/` is tracked, revisions and exports included. Do not
-copy renders into the root `exports/`, which is the public fictional gallery.
+copy renders into `examples/`, where the public fictional `Release` lives.
 Do not commit certificate numbers, scans or passport details anywhere.
 
 ## 8. When the template does not fit
