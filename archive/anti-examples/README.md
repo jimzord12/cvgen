@@ -19,7 +19,7 @@ directions worth learning from.
 
 ## Entries
 
-| Anti-example | What it was | The device to avoid | Owner's verdict |
+| Anti-example | What it was | What it leans on (lead's reading, until the owner's words replace it) | Owner's verdict |
 |---|---|---|---|
 | [Stoichedon](2026-09-27-stoichedon/) | A `Text Draft` direction, 2026-09-27: every letter in its own square cell, as Attic inscriptions; facts rubricated in bold red ochre ([PDF](2026-09-27-stoichedon/concept.pdf)) | A letter-by-letter grid as the organising idea; an archaeological, epigraphic voice | Not picked 2026-09-28 (First Fitting chosen); archived as an anti-example 2026-09-30. His reason in his own words: not recorded yet |
 | [Two Inks](2026-09-27-two-inks/) | A `Text Draft` direction, 2026-09-27: black is ours, orange is yours; facts overprint misregistered orange slabs, a giant orange draft number and OK ([PDF](2026-09-27-two-inks/concept.pdf)) | Small-press poster loudness: misregistered overprint, giant numerals, a hot orange as the second ink | Not picked 2026-09-28 (First Fitting chosen); archived as an anti-example 2026-09-30. His reason in his own words: not recorded yet |

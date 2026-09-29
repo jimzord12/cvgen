@@ -53,6 +53,7 @@ examples/
 builds/                         # Disposable public example/test output
 docs/
 archive/design-studies/          # Historical studies, inputs, and previews
+archive/anti-examples/          # Designs the owner rejected as not his style (frozen)
 design-concepts/                # Proposed template concepts (idea-run skill), each PDF
                                 #   with its Meta File; fonts/ shared
 private/                        # Local candidate workspaces; Git-ignored
@@ -114,6 +115,8 @@ alone is not a guarantee that such a development run can be reproduced.
 Every PDF we show someone (a concept, the `Release`, a client's `Text Draft`
 or CV) sits in the one home its kind has, with a `Meta File` beside it that
 says what it is (owner, 2026-09-30; [the proposal](proposals/output-contract.md)).
+`archive/` is outside the contract: its PDFs are frozen records, not review
+targets, and carry no `Meta File`.
 Nothing infers a PDF's meaning from where it happens to lie, and a PDF
 without a valid, current `Meta File` shows up as a problem, never silently.
 
