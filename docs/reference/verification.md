@@ -110,6 +110,12 @@ The page images are what to show the owner or a reviewer.
    home with a valid `Meta File` whose hash matches the PDF
    (`docs/pdf-workflow.md`, "Output Contract"); the assertion lists each
    PDF that fails and why.
+13. **Repo maintenance** (`repo-maintenance: <check>`, `tests/repo_maintenance.py`).
+   The `repo-maintenance` skill's audit script on throwaway Git
+   repositories seeded with known problems (every check fires, tiers,
+   `--baseline`, `--since`, CVgen's layer: protected paths, allowed
+   duplicates and versioned names, a mention of an ignored area is not a
+   dead path), and the auditor agent's read-only frontmatter.
 
 Negative cases assert on the exact error text so a message change is a test
 change.

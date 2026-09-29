@@ -85,6 +85,8 @@ report:
 - **CI:** `gh run list --commit <main head>` shows the run on the current
   `main` head, green (not `--branch main`: see `docs/git-workflow.md`).
 - **`builds/`:** clear old folders by path when they pile up.
+- **Repo health:** `/repo-maintenance quick` (seconds; the `repo-maintenance`
+  skill). Name any finding in the handoff; the owner approves fixes by ID.
 
 A report says everything is finished only after the `Session Sweep`.
 
