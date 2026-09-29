@@ -1,17 +1,20 @@
 # Design concepts
 
-Proposals for new CV templates, each drawn as a real one-page mock-up on
+Proposals for new CV templates, each drawn as real one-page mock-ups on
 fictional data. Produced by the `magazine-editor` agent through the `idea-run`
 skill. Not library code: nothing here is imported by `packages/`, and a concept
 becomes a template only after the owner keeps it and a build task is agreed.
 
-Each folder holds `concept.typ` (self-contained), `concept.pdf`, `page-1.png`
-(96 dpi) and `brief.md` (idea, references, fonts with source and SHA-256,
-data, weaknesses). Downloaded font families live once in `fonts/<family>/`
+Since 2026-09-29 a run has three very distinct styles, one folder each,
+and every style is drawn in three `Design Tier`s: `safe.typ`, `stylish.typ`,
+`creative.typ` (self-contained), their PDFs, a `<tier>.png` of each (96 dpi)
+and one `brief.md` (idea, tiers, references, fonts with source and SHA-256,
+data, weaknesses). Earlier folders hold one `concept.typ`, `concept.pdf`
+and `page-1.png` instead. Downloaded font families live once in `fonts/<family>/`
 with their licence and are shared between concepts. Compile from the repository root:
 
 ```powershell
-typst compile --root . --ignore-system-fonts --font-path packages/cv-framework/fonts --font-path design-concepts/fonts design-concepts/<folder>/concept.typ design-concepts/<folder>/concept.pdf
+typst compile --root . --ignore-system-fonts --font-path packages/cv-framework/fonts --font-path design-concepts/fonts design-concepts/<folder>/<tier>.typ design-concepts/<folder>/<tier>.pdf
 ```
 
 Every compile rewrites the PDF (Typst embeds the compile time). To check a

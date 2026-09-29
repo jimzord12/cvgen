@@ -102,7 +102,7 @@ for the named `magazine-editor` and `design-reviewer`, which have a shell.
 Decently strict, not perfectionist. The niche is custom, unique, premium
 work: fail generic, copied, broken or unsupported work; taste and polish
 are Notes, never blocking. For design, a quiet page is generic: failing the
-`Batch Test`, the `Three-Second Test` or Flagship parity is Blocking,
+`Batch Test`, the `Three-Second Test` or `Flagship Parity` is Blocking,
 however well made (`docs/vision.md`, "Design is the product").
 
 ## What the owner gets, and what his answer does
@@ -119,7 +119,7 @@ proposal or the concept's README row:
 
 | Answer | Proposal | Concept (`design-concepts/README.md`) |
 |---|---|---|
-| Build it | `approved` (then a card) | `chosen`; a template card follows |
+| Build it | `approved` (then a card) | `chosen`, with the `Design Tier` he picked; a template card or the client's CV follows |
 | Later / park | `deferred` | `parked` |
 | Reject | `rejected`, moved to `rejected/` | `rejected`; its folder is removed (Git history keeps it), the README row names the commit, and its font family goes too if no other concept uses it |
 | No answer yet | no change (`pending`) | no change (`proposed`) |

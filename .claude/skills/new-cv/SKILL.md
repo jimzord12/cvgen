@@ -57,8 +57,18 @@ fitting the page.
    from code: an `Idea Run` of the `magazine-editor` on the client's
    `Domain`, specialty and role (fictional data only), the owner picks a
    style and `Design Tier`, and the one-off `Template` is built from it.
-   Its previews go through the `design-reviewer` (the business tests are
-   Blocking) before the owner sees them.
+   Its previews go through the `design-reviewer` before the owner sees
+   them:
+   - compile the previews into `builds/design-review-input-<timestamp>/`
+     (the reviewer never reads `private/`);
+   - brief it with the `Alias` only, the `Domain`, specialty and role, the
+     chosen concept folder and `Design Tier`, and that the text is the
+     signed-off text;
+   - a fresh reviewer per round; cap 5 rounds when the owner is attending,
+     10 unattended, unless he sets another; at the cap the design reaches
+     him marked `unresolved` with the last reason;
+   - store every report verbatim in the `Envelope`'s `reviews/`, never
+     under `docs/work/`.
    If the data does not fit `flagship` (the known cases are in
    `docs/framework-gaps.md`: contract periods instead of months, a
    three-column certificate table, a skills block), use the
