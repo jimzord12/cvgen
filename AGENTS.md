@@ -104,6 +104,7 @@ Framework; `M` for `packages/domains/marine`, the marine domain; `F` for
 | `scripts/build.ps1` | Builds the four examples into a new `builds/` folder | Rarely |
 | `scripts/cv.py` | `render`, `approve`, `export`, `status` for one candidate workspace, calling `packages/cv-workflow` | Producing a real CV |
 | `scripts/intake-form.gs` | Google Apps Script the owner runs to make a client's optional `Intake Form` and its answers Sheet; Claude writes a filled copy per form as `intake/form-NN.gs` | Changing how the form is built |
+| `scripts/design_review/` | The owner's local Design Review app (`server.py`, `index.html`): every concept and client render as a Board and a Loupe, filters, page previews, compare, a `Batch Test` pile (`plain-cvs.typ`), his review state in `.local/design-review/state.json` (read it for his verdicts and notes), PDFs opened in the default app. Binds to 127.0.0.1 only | Changing how the owner reviews designs |
 | `scripts/text-draft.typ` | The `Text Draft` a client checks before design (`Sign-off`), house design First Fitting | Changing how the text draft looks |
 | `builds/` | Ignored. Every build and test run writes to a new timestamped folder here | Reading evidence |
 | `private/` | Ignored. One `Envelope` per real client: `intake/`, `research/`, `draft/`, `candidate.json`, `cv.typ`, `revisions/`, `exports/` | Producing a real CV |
@@ -120,6 +121,7 @@ typst compile --root . --font-path packages/cv-framework/fonts examples/marine/f
 python scripts/cv.py render private/<candidate>            # new revision: snapshot, PDF, log, checks
 python scripts/cv.py approve private/<candidate> <revision> --approver "<name>" --sha256 <reviewed hash>
 python scripts/cv.py export private/<candidate> <revision>  # verified copy into exports/<revision>/
+python scripts/design_review/server.py   # the owner's Design Review app on http://127.0.0.1:8765/
 ```
 
 `tests/run.py` and `scripts/cv.py render` need Typst 0.15.1 on PATH plus
