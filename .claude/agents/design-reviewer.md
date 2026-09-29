@@ -112,7 +112,7 @@ the `Anti-example`s too, as in criterion 4.
 
 A design that repeats an `Anti-example`'s whole organising idea is
 Blocking. A partial resemblance (one device) is a Note flagged for the
-owner, until the `Anti-example`'s row records his own reason.
+owner (his recorded reasons so far are intuition, not named devices).
 
 ## Bar
 
