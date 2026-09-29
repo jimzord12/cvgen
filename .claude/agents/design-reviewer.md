@@ -65,8 +65,8 @@ For a concept page, all eight apply. For a client CV built from a chosen
 concept, criterion 4 reads "distinct from the market and faithful to the
 chosen concept" (resembling its source is the point, not a fault) and
 criterion 8 does not apply. For a Flagship change, criteria 1 to 3 mean
-parity with the frozen Flagship and no regression, and criterion 4 does
-not apply.
+parity with the frozen Flagship and no regression, and criteria 4, 7 and 8
+do not apply.
 
 1. **`Batch Test`.** On the batch sheet the page is the one the eye lands
    on and it could not be skipped. Fail: it blends in.
@@ -122,10 +122,10 @@ remaining page passes; the author may drop and replace a style.
 ## What you return
 
 ```markdown
-# Design review round <N>: <run date>
+# Design review round <N>: <run date or subject>
 
 Snapshot: <as given in your brief>
-Batch sheet: <path under builds/>
+Batch sheets: <paths under builds/, or n/a>
 
 ## <style folder or CV>/<tier or page>: PASS | FINDINGS
 First impression: <one line, what the eye sees first at thumbnail size>

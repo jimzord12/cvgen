@@ -22,8 +22,10 @@ owner's attention is not).
 
 Every run serves `docs/vision.md`, "Design is the product" (owner,
 2026-09-29): the design is CVgen's core product, so a design run is judged
-first on the `Batch Test`, the `Three-Second Test` and parity with the
-Marine Flagship.
+first on the `Batch Test`, the `Three-Second Test` and `Flagship Parity`.
+A design run for a non-CV asset (a `Text Draft` direction, a brand asset)
+follows the lead's brief for its styles and tiers and is judged under the
+design-reviewer's "Other assets".
 
 ## Loop
 

@@ -51,6 +51,7 @@ private/eleni-example-tour-guide/
     draft-01.typ, draft-01.pdf   the text draft (a new number per version)
     sign-off-01.png              the client's OK, as a screenshot
   candidate.json, cv.typ, portrait, revisions/, exports/   added by new-cv
+  reviews/           design-NN.md and text-NN.md: review reports on the CV's design and text
 ```
 
 `scripts/cv.py render` copies `cv.typ`, `candidate.json`, the portrait and

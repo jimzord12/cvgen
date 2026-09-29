@@ -72,9 +72,9 @@ owner afterwards.
 | `Live Read` | A file an `Envelope` or `private/` holds that a render read directly instead of the `Revision`'s own copy; a `Revision` with one fails its checks and cannot be approved | `live_reads` in `packages/cv-workflow/cv_workflow/render.py` | 2026-09-27 |
 | `Batch Test` | The first design test: in an HR batch of 100 to 200 CVs, ours cannot be skipped, even by someone trying to | `docs/vision.md`, "Design is the product"; `design-reviewer` | 2026-09-29 |
 | `Three-Second Test` | The second design test: before a word is read, the page shouts its `Domain`, specialty and role (travel, Japan, tour escort) | `docs/vision.md`, "Design is the product"; `design-reviewer` | 2026-09-29 |
-| `Style` | One idea of a `magazine-editor` run, drawn in three `Design Tier`s; a run has three very distinct ones. Earlier runs called it a concept | `design-concepts/<date>-<slug>/` | 2026-09-29 |
+| `Style` | One idea of a `magazine-editor` run, drawn in three `Design Tier`s; a run has three very distinct ones. Its folder and its README row are still called a concept (a concept folder, a concept row), as are earlier runs' one-page proposals | `design-concepts/<date>-<slug>/` | 2026-09-29 |
 | `Flagship Parity` | The third design test: side by side with the Marine Flagship, a CV looks as confident, crafted and premium | `docs/vision.md`, "Design is the product"; `design-reviewer` | 2026-09-29 |
-| `Design Tier` | One of the three variations the `magazine-editor` draws of each style: Safe (calm, never generic), Stylish (Flagship territory), Creative (editorial, style to the maximum) | `.claude/agents/magazine-editor.md` | 2026-09-29 |
+| `Design Tier` | One of the three variations the `magazine-editor` draws of each `Style`: Safe (calm, never generic), Stylish (Flagship territory), Creative (editorial, style to the maximum) | `.claude/agents/magazine-editor.md` | 2026-09-29 |
 | `Idea Run` | One closed loop of an idea agent (ceo or magazine-editor) and its reviewers | `.claude/skills/idea-run/`, `docs/work/idea-runs/` | 2026-09-25 |
 
 ## Words with two meanings

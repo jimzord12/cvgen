@@ -6,6 +6,9 @@ description: Create a new visual theme or artwork pack for the CVgen library. Us
 # New theme or artwork pack
 
 Read `docs/reference/theme.md` or `docs/reference/artwork-pack.md` first.
+A look or an artwork pack is where a CV wins the `Three-Second Test`: read
+`docs/vision.md`, "Design is the product", before choosing colours or
+drawing.
 
 ## Theme
 

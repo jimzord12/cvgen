@@ -67,6 +67,10 @@ in how far they push it (owner, 2026-09-29):
   more than a CV, editorial design pushed to the maximum. The facts must
   still be findable; convention may bend.
 
+A run for something that is not a CV (a `Text Draft` direction, a brand
+asset) follows the lead's brief for its styles and tiers; its pages are
+judged under the design-reviewer's "Other assets", not the CV tests.
+
 ## Study first (do not skip)
 
 - `docs/vision.md` ("Design is the product") and `docs/glossary.md`: write

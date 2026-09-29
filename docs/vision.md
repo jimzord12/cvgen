@@ -53,7 +53,7 @@ Every agent that designs, reviews or proposes works from this section.
   conventional CV on purpose, and the page shows that its owner spent real
   extra time to make a good impression. It is still a CV: the facts are
   found in ten seconds, it prints on A4 and it survives a photocopier.
-- **The bar is the Marine Flagship:** beautiful, elegant, confident, unique,
+- **`Flagship Parity`.** The bar is the Marine Flagship: beautiful, elegant, confident, unique,
   premium, and unmistakably marine (a portrait framed by engine-room tools,
   a ship and a propeller drawn into the page).
 

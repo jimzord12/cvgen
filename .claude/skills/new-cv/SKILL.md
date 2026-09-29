@@ -67,8 +67,10 @@ fitting the page.
    - a fresh reviewer per round; cap 5 rounds when the owner is attending,
      10 unattended, unless he sets another; at the cap the design reaches
      him marked `unresolved` with the last reason;
-   - store every report verbatim in the `Envelope`'s `reviews/`, never
-     under `docs/work/`.
+   - store every report verbatim in the `Envelope` as
+     `reviews/design-NN.md`, never under `docs/work/`;
+   - when the loop ends, clear the `builds/design-review-input-*` folders
+     by path: they hold a real client's pages outside `private/`.
    If the data does not fit `flagship` (the known cases are in
    `docs/framework-gaps.md`: contract periods instead of months, a
    three-column certificate table, a skills block), use the
