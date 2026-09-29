@@ -160,13 +160,14 @@ class Audit:
             self.cache[p] = txt
         return self.cache[p]
 
-    def git_ignored(self, path, cache={}):
-        """True when the path's first segment is ignored by Git (it may exist only on some machines)."""
-        top = path.strip("/").split("/")[0] + ("/" if "/" in path.strip("/") or path.endswith("/") else "")
-        if top not in cache:
-            r = subprocess.run(["git", "-C", self.root, "check-ignore", "-q", "--no-index", top], capture_output=True)
-            cache[top] = r.returncode == 0
-        return cache[top]
+    def git_ignored(self, path):
+        """True when Git ignores the path (CVgen change): it may exist only on some machines, like private/."""
+        cache = self.__dict__.setdefault("_ignored", {})
+        if path not in cache:
+            r = subprocess.run(["git", "-C", self.root, "check-ignore", "-q", "--no-index", path.lstrip("/")],
+                               capture_output=True)
+            cache[path] = r.returncode == 0
+        return cache[path]
 
     def live(self):
         return [p for p in self.tracked if not self.skip(p) and os.path.lexists(os.path.join(self.root, p))]

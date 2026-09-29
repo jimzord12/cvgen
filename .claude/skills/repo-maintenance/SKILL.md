@@ -2,7 +2,7 @@
 name: repo-maintenance
 description: Keeps a repository easy to navigate, understand and work in. Use when the user asks to tidy, audit, clean up, restructure or check the health of a repo, its folders, docs, links, file names, generated output, config or dependencies; when a feature is finished and the tree may have drifted; or when asked whether the repo is in good shape. Runs a deterministic audit, returns a short decision-ready report for a non-coding owner, and applies only owner-approved moves while preserving git history. Works in any repository; loads the repo's own rules from .claude/repo-maintenance.md when it exists.
 argument-hint: "[quick|audit|deep|apply] [path or git ref]"
-allowed-tools: Bash(git status*) Bash(git ls-files*) Bash(git grep*) Bash(git log*) Bash(git diff*) Bash(git rev-parse*) Bash(python3 *scripts/audit.py*) Bash(python *scripts/audit.py*) Bash(py *scripts/audit.py*)
+allowed-tools: Bash(git status*) Bash(git ls-files*) Bash(git grep*) Bash(git rev-parse*) Bash(python3 .claude/skills/repo-maintenance/scripts/audit.py *) Bash(python .claude/skills/repo-maintenance/scripts/audit.py *) Bash(py -3 .claude/skills/repo-maintenance/scripts/audit.py *)
 effort: medium
 ---
 

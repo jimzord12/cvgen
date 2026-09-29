@@ -1,6 +1,6 @@
 ---
 kind: proposal
-status: applied
+status: approved
 revision: 1
 ---
 
@@ -40,7 +40,9 @@ Changes made to the bundle: `audit.py` no longer reports a mention of a
 Git-ignored area (`private/`, `.local/`, `builds/`) as a dead path; the
 adapter leaves dated records (`docs/work/`, `docs/decisions/`,
 `docs/history.md`, `docs/now.md`) out of every check. The first audit's
-dead-path leads fell from 674 to 29.
+dead-path mentions fell from 674 in 122 docs to 193 in 32 docs (mostly paths
+inside a client's `Envelope`, named relative to it: leads, confirmed by
+reading).
 
 ## Decision
 
@@ -48,8 +50,8 @@ dead-path leads fell from 674 to 29.
   is a priority to me"), then handed over the bundle. Lead defaults, reported
   to him: the variant above, the `Session Sweep` line as the cadence,
   reports in chat unless asked.
-- 2026-09-30, applied on branch `feat/repo-maintenance`; review reports in
-  `docs/work/repo-maintenance/reviews/`.
+- Review reports in `docs/work/repo-maintenance/reviews/`; moves to
+  `applied` when the branch merges after a PASS.
 
 ## Known limits
 

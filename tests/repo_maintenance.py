@@ -4,8 +4,8 @@
 
     python tests/repo_maintenance.py      (also run by tests/run.py)
 
-It builds throwaway git repositories in a temp folder, seeds them with known problems, runs the audit script and
-the Bash guard, and lints the frontmatter of the shipped files. It never touches the repository you run it from.
+It builds throwaway git repositories in a temp folder, seeds them with known problems, runs the audit script
+(and the Bash guard when it is installed; CVgen does not install it) and lints the frontmatter of the shipped files. It never touches the repository you run it from.
 Exit code 0 = all passed. Print the output as evidence when adopting the bundle.
 """
 import json, os, re, subprocess, sys, tempfile
@@ -141,7 +141,8 @@ def main():
         with open(ADAPTER, encoding="utf-8") as f, open(os.path.join(c, ".claude", "repo-maintenance.md"), "w", encoding="utf-8", newline="\n") as g:
             g.write(f.read())
         pdf = b"%PDF-1.7\n" + os.urandom(1024 * 1024 + 10)
-        write(c, "packages/domains/marine/templates/flagship/tests/approved/ref.pdf", binary=pdf)
+        write(c, "packages/domains/marine/templates/flagship/tests/approved/Marine-Engineer-CV-v11.pdf", binary=pdf)
+        write(c, "packages/domains/marine/templates/flagship/layouts/flagship-v11.typ", "// layout\n")
         write(c, "examples/marine/flagship/release.pdf", binary=pdf)
         write(c, "docs/constitution.md", "# Constitution\nSee [gone](docs/missing.md)\n")
         write(c, "README.md", "# CVgen\n")
@@ -154,6 +155,8 @@ def main():
             l1 = [f for f in dc["findings"] if f["id"] == "L1"]
             check("broken link in protected constitution is tier C", bool(l1) and l1[0]["tier"] == "C" and l1[0]["protected"], str(l1))
             check("declared checks are listed for the agent to run", any("outputs.py check" in n for n in dc["not_checked"]))
+            check("allow_names keeps the versioned Frozen Reference and layout out of N2", "N2" not in ids(dc),
+                  str([f["evidence"] for f in dc["findings"] if f["id"] == "N2"]))
 
         # 3. edge cases
         e = os.path.join(tmp, "empty")
@@ -169,13 +172,14 @@ def main():
         r = os.path.join(tmp, "ign")
         os.makedirs(r)
         git(r, "init", "-q")
-        write(r, ".gitignore", "private/\n")
-        write(r, "README.md", "# R\n\nClients live in `private/<name>/cv.pdf` and `private/notes.md`; old notes were in `gone/notes.md`.\n")
+        write(r, ".gitignore", "private/\nstate/*\n!state/history/\n")
+        write(r, "README.md", "# R\n\nClients live in `private/notes.md`; the log is `state/history/2030.md`; old notes were in `gone/notes.md`.\n")
         git(r, "add", "-A"); git(r, "commit", "-q", "-m", "seed")
         d, proc = audit(r, "--mode", "audit", "--config", "none.md")
         dead = [e for f in (d or {}).get("findings", []) if f["id"] == "L2" for e in f["evidence"]]
         check("L2 skips mentions of ignored areas, keeps real dead paths",
-              any("gone/notes.md" in e for e in dead) and not any("private/" in e for e in dead), str(dead))
+              any("gone/notes.md" in e for e in dead) and not any("private/" in e for e in dead)
+              and any("state/history/2030.md" in e for e in dead), str(dead))   # tracked subfolder: still dead
 
     # 4. Bash guard: (command, should_pass). CVgen installs only the no-shell auditor, so no guard.
     if not os.path.isfile(GUARD):
