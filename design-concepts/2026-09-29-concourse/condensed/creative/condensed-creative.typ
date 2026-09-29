@@ -3,11 +3,11 @@
 // the name board at poster size with the portrait in a station clock, the
 // LED departure board, a big yellow meeting-point sign for the escort pitch,
 // white information plates, tactile paving down the edge.
-// Fictional data: sample.json in this folder.
+// Fictional data: sample.json in the style folder.
 //
-// typst compile --root . --ignore-system-fonts --font-path packages/cv-framework/fonts --font-path design-concepts/fonts design-concepts/2026-09-29-concourse/creative.typ design-concepts/2026-09-29-concourse/creative.pdf
+// typst compile --root . --ignore-system-fonts --font-path packages/cv-framework/fonts --font-path design-concepts/fonts design-concepts/2026-09-29-concourse/condensed/creative/condensed-creative.typ design-concepts/2026-09-29-concourse/condensed/creative/condensed-creative.pdf
 
-#let d = json("sample.json")
+#let d = json("../../sample.json")
 
 // ---- palette: sign black, sign white, tactile yellow, three line colours, LED -
 #let C = (
@@ -187,7 +187,7 @@
   svg(s, "0 0 60 60", 60mm)
 }
 #place(top + left, dx: 134mm, dy: BY + 2mm, clock)
-#place(top + left, dx: 141.5mm, dy: BY + 9.5mm, box(width: 45mm, height: 45mm, radius: 22.5mm, clip: true, image("portrait.jpg", width: 45mm)))
+#place(top + left, dx: 141.5mm, dy: BY + 9.5mm, box(width: 45mm, height: 45mm, radius: 22.5mm, clip: true, image("../../portrait.jpg", width: 45mm)))
 #place(top + left, dx: 134mm + 43mm, dy: BY + 1mm, box(fill: col("yellow"), radius: 1mm, inset: (x: 2mm, y: 1.2mm), text(size: 7pt, weight: 800)[ΑΡΧΗΓΟΣ ΟΜΑΔΑΣ]))
 
 // ---- departure indicator ------------------------------------------------------------

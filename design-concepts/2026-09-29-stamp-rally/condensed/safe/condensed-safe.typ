@@ -1,12 +1,11 @@
-// Stamp Rally, Stylish tier. Idea run 2026-09-29 (magazine-editor).
-// The CV as the escort's travel papers: a boarding pass for the identity, a
-// stamp-rally card with one eki-style stamp per Japan trip, a passenger
-// manifest of the groups, and a luggage tag for the duties on the road.
-// Fictional data: sample.json in this folder.
+// Stamp Rally, Safe tier. Idea run 2026-09-29 (magazine-editor).
+// The calm version: a boarding pass as the header, a conventional two-column
+// CV below, small eki-style stamps as the markers of the Japan trips, and a
+// passenger manifest of the groups. Fictional data: sample.json in the style folder.
 //
-// typst compile --root . --ignore-system-fonts --font-path packages/cv-framework/fonts --font-path design-concepts/fonts design-concepts/2026-09-29-stamp-rally/stylish.typ design-concepts/2026-09-29-stamp-rally/stylish.pdf
+// typst compile --root . --ignore-system-fonts --font-path packages/cv-framework/fonts --font-path design-concepts/fonts design-concepts/2026-09-29-stamp-rally/condensed/safe/condensed-safe.typ design-concepts/2026-09-29-stamp-rally/condensed/safe/condensed-safe.pdf
 
-#let d = json("sample.json")
+#let d = json("../../sample.json")
 
 // ---- palette: black print, three stamp inks, a mint security tint, manila tag -
 #let C = (
@@ -172,133 +171,81 @@
 })
 
 #let body = "M PLUS 1p"
-#set page(paper: "a4", margin: 0mm, fill: col("paper"))
-#set text(font: body, size: 8.4pt, fill: col("ink"), lang: "el")
+#set page(paper: "a4", margin: 0mm, fill: rgb("f7f5ef"))
+#set text(font: body, size: 8.6pt, fill: col("ink"), lang: "el")
 #set par(leading: 0.55em, spacing: 0.8em)
 
-// ---- the boarding pass --------------------------------------------------------
-#let PX = 12mm
-#let PY = 10mm
-#let PW = 186mm
-#let PH = 76mm
-#let SX = 146mm // stub starts here
+// ---- a calm boarding pass as the header -------------------------------------
+#let PX = 14mm
+#let PY = 12mm
+#let PW = 182mm
+#let PH = 60mm
+#let SX = 144mm
 
-#place(top + left, dx: PX, dy: PY, rect(width: PW, height: PH, radius: 3mm, fill: col("stock"), stroke: 0.6pt + col("ink")))
-#place(top + left, dx: PX + 1mm, dy: PY + 11mm, svg(guilloche(143, 64, C.tint, n: 22, amp: 1.8), "0 0 143 64", 143mm))
-#place(top + left, dx: PX, dy: PY, rect(width: SX, height: 11mm, radius: (top-left: 3mm), fill: col("ink")))
-#place(top + left, dx: PX + SX, dy: PY, rect(width: PW - SX, height: 11mm, radius: (top-right: 3mm), fill: col("crimson")))
-#place(top + left, dx: PX + 6mm, dy: PY + 2.6mm, text(fill: white, {
-  text(font: cond, size: 13pt, weight: 800, tracking: 0.12em)[ΚΑΡΤΑ ΕΠΙΒΙΒΑΣΗΣ]
+#place(top + left, dx: PX, dy: PY, rect(width: PW, height: PH, radius: 2.5mm, fill: col("stock"), stroke: 0.6pt + col("ink")))
+#place(top + left, dx: PX + 1mm, dy: PY + 10mm, svg(guilloche(142, 49, C.tint, n: 16, amp: 1.6, op: 0.8), "0 0 142 49", 142mm))
+#place(top + left, dx: PX, dy: PY, rect(width: SX, height: 9mm, radius: (top-left: 2.5mm), fill: col("ink")))
+#place(top + left, dx: PX + SX, dy: PY, rect(width: PW - SX, height: 9mm, radius: (top-right: 2.5mm), fill: col("crimson")))
+#place(top + left, dx: PX + 6mm, dy: PY + 2.1mm, text(fill: white, {
+  text(font: cond, size: 11.5pt, weight: 800, tracking: 0.12em)[ΚΑΡΤΑ ΕΠΙΒΙΒΑΣΗΣ]
   h(3mm)
-  text(font: mono, size: 6.4pt)[BOARDING PASS · GROUP DEPARTURE]
+  text(font: mono, size: 6pt)[BOARDING PASS · ATH → TYO]
 }))
-#place(top + left, dx: PX + SX, dy: PY + 2.6mm, box(width: PW - SX, align(center, text(font: cond, size: 13pt, weight: 800, tracking: 0.14em, fill: white)[ΑΡΧΗΓΟΣ])))
+#place(top + left, dx: PX + SX, dy: PY + 2.1mm, box(width: PW - SX, align(center, text(font: cond, size: 11.5pt, weight: 800, tracking: 0.14em, fill: white)[ΑΡΧΗΓΟΣ])))
 
-// passenger
-#place(top + left, dx: PX + 6mm, dy: PY + 13.5mm, label("ΕΠΙΒΑΤΗΣ / PASSENGER"))
-#place(top + left, dx: PX + 5.4mm, dy: PY + 16.4mm, text(font: cond, size: 48pt, weight: 900, tracking: -0.005em, d.name.caps))
-
-// route
-#place(top + left, dx: PX + 6mm, dy: PY + 38mm, label("ΑΠΟ / FROM"))
-#place(top + left, dx: PX + 50mm, dy: PY + 38mm, label("ΠΡΟΣ / TO"))
-#place(top + left, dx: PX + 5.4mm, dy: PY + 40.6mm, text(font: cond, size: 32pt, weight: 900, fill: col("ink"))[ATH])
-#place(top + left, dx: PX + 25mm, dy: PY + 44.4mm, svg("<line x1='0' y1='4' x2='22' y2='4' stroke='#" + C.grey + "' stroke-width='0.35' stroke-dasharray='1 0.8'/><g transform='translate(11,4) scale(1.2)' fill='#" + C.crimson + "'><path d='M-3.2,0 L3.4,0 Q4.4,0.3 3.4,0.6 L-3.2,0.6 Z M0.6,0.3 L-1.4,-2.6 L-0.5,-2.6 L2.0,0.3 Z M0.6,0.3 L-1.4,3.0 L-0.5,3.0 L2.0,0.4 Z M-3.2,0.3 L-4.0,-1.3 L-3.4,-1.3 L-2.4,0.3 Z'/></g>", "0 0 22 8", 22mm))
-#place(top + left, dx: PX + 49.4mm, dy: PY + 40.6mm, text(font: cond, size: 32pt, weight: 900, fill: col("crimson"))[TYO])
-#place(top + left, dx: PX + 6mm, dy: PY + 53mm, text(font: mono, size: 6.4pt, fill: col("grey"))[ΑΘΗΝΑ])
-#place(top + left, dx: PX + 50mm, dy: PY + 53mm, text(font: mono, size: 6.4pt, fill: col("grey"))[ΤΟΚΙΟ])
-
-// class and specialty
-#place(top + left, dx: PX + 76mm, dy: PY + 38mm, block(width: 66mm, {
-  field("ΘΕΣΗ / ROLE", text(font: cond, size: 15pt, weight: 800, d.title.caps), font: cond)
-  v(1.2mm)
-  field("ΕΞΕΙΔΙΚΕΥΣΗ / SPECIALTY", text(font: cond, size: 15pt, weight: 800, fill: col("crimson"))[ΙΑΠΩΝΙΑ #text(font: jp, size: 11pt, weight: 700)[日本]], font: cond)
-}))
-
-// contact fields
-#place(top + left, dx: PX + 6mm, dy: PY + 60mm, grid(columns: (22mm, 34mm, 54mm), column-gutter: 2mm,
+#place(top + left, dx: PX + 6mm, dy: PY + 11.5mm, label("ΕΠΙΒΑΤΗΣ / PASSENGER"))
+#place(top + left, dx: PX + 5.4mm, dy: PY + 14mm, text(font: cond, size: 40pt, weight: 900, d.name.caps))
+#place(top + left, dx: PX + 6mm, dy: PY + 32mm, grid(columns: (74mm, 56mm), column-gutter: 3mm,
+  field("ΘΕΣΗ / ROLE", text(font: cond, size: 14pt, weight: 800, d.title.caps), font: cond),
+  field("ΕΞΕΙΔΙΚΕΥΣΗ / SPECIALTY", text(font: cond, size: 14pt, weight: 800, fill: col("crimson"))[ΙΑΠΩΝΙΑ #text(font: jp, size: 10pt, weight: 700)[日本]], font: cond),
+))
+#place(top + left, dx: PX + 6mm, dy: PY + 47mm, grid(columns: (24mm, 36mm, 60mm), column-gutter: 3mm,
   field("ΒΑΣΗ", d.contact.city, size: 7.8pt),
   field("ΤΗΛΕΦΩΝΟ", d.contact.phone, size: 7.8pt),
   field("EMAIL", d.contact.email, size: 7.8pt),
 ))
+#perf-v(PH, PX + SX, PY, paper: "f7f5ef")
+#place(top + left, dx: PX + 112mm, dy: PY + 9.4mm, stamp(25, "violet", "ΙΑΠΩΝΙΑ · " + str(trips.len()) + " ΤΑΞΙΔΙΑ · " + str(jdays) + " ΗΜΕΡΕΣ · ", "日本", "fuji", rot: -12deg, seed: 5))
+#place(top + left, dx: PX + SX + 6.5mm, dy: PY + 12mm, box(stroke: 0.5pt + col("ink"), inset: 1pt, fill: white, box(clip: true, width: 25mm, height: 30mm, image("../../portrait.jpg", width: 30mm))))
+#place(top + left, dx: PX + SX + 4.5mm, dy: PY + 46mm, barcode(29, 8, 4))
+#place(top + left, dx: PX + SX + 4.5mm, dy: PY + 55mm, text(font: mono, size: 5.4pt)[ΗΛΙΑΔΗΣ/ΜΑΡΚΟΣ])
 
-// stub
-#perf-v(PH, PX + SX, PY, paper: C.paper)
-#place(top + left, dx: PX + SX + 6mm, dy: PY + 14mm, box(stroke: 0.5pt + col("ink"), inset: 1pt, fill: white, box(clip: true, width: 26mm, height: 31mm, image("portrait.jpg", width: 31mm))))
-#place(top + left, dx: PX + SX + 4mm, dy: PY + 48.5mm, block(width: 34mm, {
-  set text(font: mono, size: 6.4pt)
-  set par(leading: 0.4em)
-  [#text(weight: 700)[ΗΛΙΑΔΗΣ/ΜΑΡΚΟΣ] \ ATH → TYO · ΟΜΑΔΑ \ ΑΤΟΜΑ #gpax · ΟΜΑΔΕΣ #d.groups.len()]
-}))
-#place(top + left, dx: PX + SX + 4mm, dy: PY + 62mm, barcode(32, 9, 4))
-
-// overprinted stamps on the pass
-#place(top + left, dx: PX + 110mm, dy: PY + 2.5mm, stamp(33, "violet", "ΙΑΠΩΝΙΑ · " + str(trips.len()) + " ΤΑΞΙΔΙΑ · " + str(jdays) + " ΗΜΕΡΕΣ · ", "日本", "fuji", rot: -14deg, seed: 5))
-#place(top + left, dx: PX + 116mm, dy: PY + 55.5mm, rstamp(27, "green", (text(size: 7pt)[ΠΡΩΤΕΣ ΒΟΗΘΕΙΕΣ · ΚΑΡΠΑ], text(size: 12pt)[ΕΓΚΥΡΟ], text(size: 7pt)[ΕΩΣ 03/2028]), rot: 7deg))
-
-// ---- profile, as the ticket's printed conditions ------------------------------
-#place(top + left, dx: 12mm, dy: 89.4mm, block(width: 141mm, {
-  text(font: cond, size: 12pt, weight: 800, tracking: 0.08em, fill: col("crimson"))[ΠΡΟΦΙΛ]
-  h(2mm)
-  text(size: 8.5pt, d.profile)
-}))
-#place(top + left, dx: 156.5mm, dy: 89mm, rstamp(36, "crimson", (text(size: 8.6pt)[ΔΩΡΕΑΝ ΒΡΑΔΙΑ ΕΝΗΜΕΡΩΣΗΣ], text(size: 7.6pt, weight: 600)[για την Ιαπωνία στους πελάτες σας], text(size: 7.6pt, weight: 600)[πριν την αναχώρηση]), rot: -3deg, seed: 41))
-
-// ---- the stamp-rally card: one stamp per Japan trip -----------------------------
-#let inks = ("crimson", "violet", "green", "violet", "crimson")
-#let arts = (travel: none)
-#let kinds = ("torii", "study", "maple", "snow", "flag")
-#let CY = 110.5mm
-#place(top + left, dx: 12mm, dy: CY, rect(width: 186mm, height: 64mm, radius: 2mm, fill: col("stock"), stroke: 0.5pt + col("ink")))
-#place(top + left, dx: 12mm, dy: CY, rect(width: 186mm, height: 9mm, radius: (top: 2mm), fill: col("tint")))
-#place(top + left, dx: 17mm, dy: CY + 1.8mm, {
-  text(font: cond, size: 13pt, weight: 800, tracking: 0.1em)[ΚΑΡΤΑ ΣΦΡΑΓΙΔΩΝ · ΙΑΠΩΝΙΑ]
-  h(3mm)
-  text(font: jp, size: 9pt, weight: 700)[スタンプラリー]
-  h(3mm)
-  text(font: mono, size: 6.6pt, fill: col("grey"))[ΜΙΑ ΣΦΡΑΓΙΔΑ ΓΙΑ ΚΑΘΕ ΤΑΞΙΔΙ, #trips.first().year–#trips.last().year]
-})
-#for (i, t) in trips.enumerate() {
-  let x = 16mm + i * 36.4mm
-  let pro = t.kind == "colead"
-  place(top + left, dx: x + 0.8mm, dy: CY + 11.6mm, circle(radius: 16mm, fill: none, stroke: (paint: col("rule"), thickness: 0.7pt, dash: (2pt, 2pt))))
-  place(top + left, dx: x + 0.8mm, dy: CY + 11.6mm, stamp(32, inks.at(i), caps(t.places.join(" · ")) + " · " + str(t.year) + " · ", t.kanji, kinds.at(i), rot: (-9deg, 6deg, -4deg, 11deg, -7deg).at(i), seed: 20 + i))
-  place(top + left, dx: x, dy: CY + 46mm, block(width: 34mm, {
-    set par(leading: 0.36em)
-    text(font: cond, size: 12pt, weight: 800, t.when)
-    h(1fr)
-    text(font: cond, size: 12pt, weight: 900, fill: col(inks.at(i)), str(t.days) + " ΗΜ.")
-    linebreak()
-    text(size: 7.2pt, t.places.join(", "))
-    linebreak()
-    text(font: cond, size: 9pt, weight: 800, tracking: 0.06em, fill: (if pro { col("crimson") } else { col("grey") }), caps(t.kind_el))
-  }))
-}
-
-// ---- lower half: manifest and duties (left), languages, papers, tag (right) ----
-#let head(t, en) = block(above: 0mm, below: 1.6mm, {
+// ---- body --------------------------------------------------------------------
+#let head(t, en) = block(above: 3.6mm, below: 1.8mm, {
   text(font: cond, size: 14pt, weight: 800, tracking: 0.06em, t)
   h(2mm)
   text(font: mono, size: 6pt, fill: col("grey"), en)
   v(-1.7mm)
   line(length: 100%, stroke: (paint: col("ink"), thickness: 0.7pt, dash: (3pt, 1.6pt)))
 })
+#let inks = ("crimson", "violet", "green", "violet", "crimson")
+#let kinds = ("torii", "study", "maple", "snow", "flag")
 
-#let lcol = block(width: 112mm, {
+#let main = block(width: 118mm, {
+  block(above: 0mm, text(size: 9pt, d.profile))
   head("ΕΜΠΕΙΡΙΑ", "EXPERIENCE")
   for e in d.experience {
     block(below: 2.2mm, {
       set par(leading: 0.45em)
-      grid(columns: (1fr, auto), text(size: 9.2pt, weight: 700, e.role), text(font: mono, size: 7.2pt, weight: 700, fill: col("crimson"), e.from + "–" + e.to))
+      grid(columns: (1fr, auto), text(size: 9.4pt, weight: 700, e.role), text(font: mono, size: 7.2pt, weight: 700, fill: col("crimson"), e.from + "–" + e.to))
       text(font: cond, size: 10.5pt, weight: 700, fill: col("violet"), e.company + " · " + caps(e.city))
       linebreak()
       for p in e.points.slice(0, calc.min(3, e.points.len())) [#grid(columns: (3mm, 1fr), text(fill: col("crimson"), "›"), p)]
     })
   }
-  v(0.6mm)
+  head("ΙΑΠΩΝΙΑ", "ONE STAMP PER TRIP")
+  for (i, t) in trips.enumerate() {
+    block(below: 0.6mm, grid(columns: (17mm, 30mm, 1fr, 14mm), column-gutter: 2mm, align: horizon,
+      stamp(16.5, inks.at(i), str(t.year) + " · " + caps(t.places.first()) + " · ", t.kanji, kinds.at(i), rot: (-8deg, 5deg, -3deg, 9deg, -6deg).at(i), seed: 30 + i, label-size: 5.2pt),
+      [#text(font: cond, size: 11pt, weight: 800, t.when) \ #text(font: cond, size: 9pt, weight: 700, tracking: 0.04em, fill: (if t.kind == "colead" { col("crimson") } else { col("grey") }), caps(t.kind_el))],
+      text(size: 8.4pt, t.places.join(", ")),
+      align(right, text(font: cond, size: 13pt, weight: 900, fill: col(inks.at(i)), str(t.days) + " ΗΜ.")),
+    ))
+  }
   head("ΛΙΣΤΑ ΕΠΙΒΑΤΩΝ", "MANIFEST · ΟΜΑΔΕΣ ΠΟΥ ΣΥΝΟΔΕΥΣΕ")
   set text(font: mono, size: 7.2pt)
   table(
-    columns: (14mm, 1fr, 13mm, 10mm), stroke: none, inset: (x: 1mm, y: 0.9mm),
+    columns: (15mm, 1fr, 14mm, 11mm), stroke: none, inset: (x: 1mm, y: 0.95mm),
     fill: (_, y) => if calc.odd(y) and y <= d.groups.len() { col("stock") } else { none },
     ..("ΠΟΤΕ", "ΠΡΟΟΡΙΣΜΟΣ · ΡΟΛΟΣ", "ΑΤΟΜΑ", "ΗΜ.").map(h => text(size: 6pt, fill: col("grey"), h)),
     table.hline(stroke: 0.5pt + col("ink")),
@@ -308,48 +255,28 @@
   )
 })
 
-#let rcol = block(width: 66mm, {
+#let side = block(width: 56mm, {
+  block(above: 0mm, width: 100%, fill: col("stock"), stroke: 0.5pt + col("ink"), radius: 1.5mm, inset: (x: 3mm, y: 2.6mm), {
+    set par(leading: 0.3em)
+    for (n, l) in ((str(trips.len()), "ΤΑΞΙΔΙΑ ΣΤΗΝ ΙΑΠΩΝΙΑ"), (str(jdays), "ΗΜΕΡΕΣ ΣΤΗ ΧΩΡΑ"), ("N4", "JLPT · 12/2024")) {
+      grid(columns: (19mm, 1fr), align: horizon, text(font: cond, size: 24pt, weight: 900, fill: col("crimson"), n), text(font: cond, size: 10pt, weight: 800, l))
+    }
+  })
   head("ΓΛΩΣΣΕΣ", "LANGUAGES")
-  for l in d.languages {
-    grid(columns: (20mm, 1fr), text(weight: 700, l.name), l.level)
-  }
-  v(2.4mm)
+  for l in d.languages { grid(columns: (18mm, 1fr), text(weight: 700, l.name), l.level) }
   head("ΧΑΡΤΙΑ", "PAPERS")
   set par(leading: 0.42em)
-  for e in d.education.slice(0, 2) {
-    block(below: 1.3mm)[#text(weight: 700, e.title) #h(1fr) #text(font: mono, size: 7pt, fill: col("crimson"), e.years) \ #text(size: 7.4pt, fill: col("grey"), e.school)]
-  }
-  v(1.2mm)
+  for c in d.certificates { block(below: 1.3mm)[#text(weight: 700, c.title) \ #text(size: 7.4pt, fill: col("grey"), c.issuer + ", " + c.valid)] }
+  for e in d.education.slice(0, 2) { block(below: 1.3mm)[#grid(columns: (1fr, auto), column-gutter: 1mm, text(weight: 700, e.title), text(font: mono, size: 7pt, fill: col("crimson"), e.years)) #v(-1.4mm) #text(size: 7.4pt, fill: col("grey"), e.school)] }
   head("ΣΤΗΝ ΙΑΠΩΝΙΑ", "KNOW-HOW")
   for k in d.knowhow [#grid(columns: (3mm, 1fr), text(fill: col("crimson"), "›"), k)]
+  head("ΔΙΑΘΕΣΙΜΟΤΗΤΑ", "AVAILABILITY")
+  for k in d.availability [#grid(columns: (3mm, 1fr), text(fill: col("crimson"), "›"), k)]
 })
 
-#place(top + left, dx: 12mm, dy: 180mm, lcol)
-#place(top + left, dx: 132mm, dy: 180mm, rcol)
+#place(top + left, dx: 14mm, dy: 78mm, main)
+#place(top + left, dx: 140mm, dy: 78mm, side)
 
-// ---- the bag tag: a long airline-style strip with the duties on the road ------
-#let TY = 271mm
-#place(top + left, dx: 10mm, dy: TY, rotate(-0.6deg, reflow: false, box(width: 190mm, height: 23mm, {
-  place(top + left, rect(width: 190mm, height: 23mm, radius: 1.5mm, fill: col("stock"), stroke: 0.5pt + col("ink")))
-  place(top + left, rect(width: 36mm, height: 23mm, radius: (left: 1.5mm), fill: col("crimson")))
-  place(top + left, dx: 5.4mm, dy: 7.4mm, circle(radius: 2.4mm, fill: col("paper"), stroke: 1.2pt + col("manila")))
-  place(top + left, dx: 12.5mm, dy: 1.2mm, text(font: cond, size: 30pt, weight: 900, fill: white)[TYO])
-  place(top + left, dx: 12.5mm, dy: 15.6mm, text(font: mono, size: 5.6pt, fill: white)[ΑΡΧΗΓΟΣ ΟΜΑΔΑΣ])
-  place(top + left, dx: 40mm, dy: 2mm, block(width: 120mm, {
-    set par(leading: 0.42em)
-    text(font: cond, size: 12pt, weight: 900, tracking: 0.08em)[ΣΤΗ ΣΥΝΟΔΕΙΑ]
-    h(2mm)
-    text(font: mono, size: 5.8pt, fill: col("grey"))[ON THE ROAD]
-    linebreak()
-    set text(size: 7.3pt)
-    d.operations.join([ #text(fill: col("crimson"), "·") ])
-    linebreak()
-    text(font: cond, size: 10pt, weight: 800, fill: col("crimson"))[ΔΙΑΘΕΣΙΜΟΣ]
-    h(1mm)
-    d.availability.join(" · ")
-  }))
-  place(top + left, dx: 164mm, dy: 3mm, barcode(22, 12, 9))
-  place(top + left, dx: 164mm, dy: 16.5mm, text(font: mono, size: 5.6pt)[JPN 0426 · #gpax PAX])
-})))
-
-#place(bottom + right, dx: -3mm, dy: -2mm, text(font: mono, size: 4.8pt, fill: col("grey"))[ΦΑΝΤΑΣΤΙΚΟ ΠΡΟΣΩΠΟ · ΣΧΕΔΙΟ CVGEN])
+// the offer, a single stamp at the foot
+#place(top + left, dx: 138mm, dy: 268mm, rstamp(50, "crimson", (text(size: 9.4pt)[ΔΩΡΕΑΝ ΒΡΑΔΙΑ ΕΝΗΜΕΡΩΣΗΣ], text(size: 7.8pt, weight: 600)[για την Ιαπωνία στους πελάτες σας]), rot: -2deg, seed: 41))
+#place(bottom + left, dx: 14mm, dy: -5mm, text(font: mono, size: 5pt, fill: col("grey"))[ΦΑΝΤΑΣΤΙΚΟ ΠΡΟΣΩΠΟ · ΣΧΕΔΙΟ CVGEN])

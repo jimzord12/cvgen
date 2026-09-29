@@ -97,7 +97,7 @@ Framework; `M` for `packages/domains/marine`, the marine domain; `F` for
 | `packages/cv-workflow/` | Python package: fresh revisions (snapshot, compile, `render.json`, `checks.json`), explicit approval (`cv.approval.json` bound to the SHA-256), verified export. Never sends anything | Changing how a candidate PDF is produced, approved or exported |
 | `tests/` | `run.py` runner, `verify.py` PDF checks, `workflow.py` end-to-end workflow case, `baseline.json` hash manifest, `fixtures/*.typ` compile cases | Changing behaviour |
 | `archive/design-studies/` | Four frozen, evaluated design studies with their renders | Reading for inspiration only |
-| `design-concepts/` | Template concepts proposed by the `magazine-editor` agent: one folder per style with its three `Design Tier`s (`safe`, `stylish`, `creative`: `.typ`, PDF, PNG) and `brief.md`; earlier runs have one `concept.typ`. Proposals, not library code | Running or deciding on an idea run |
+| `design-concepts/` | Template concepts proposed by the `magazine-editor` agent: one folder per style with `brief.md` (and, when the `Domain` has no record yet, `sample.json`) shared by its two `Density`s (`condensed/`, `spacious/`), each holding three `Design Tier`s (`<tier>/<density>-<tier>.typ`, PDF, PNG per page; see its `README.md`); earlier runs have one `concept.typ`. Proposals, not library code | Running or deciding on an idea run |
 | `brand/` | CVgen's own brand assets: `logos/` (the working logo is the needle's eye, `cvgen-mark-c-eye.svg` and `cvgen-wordmark.svg`; see `brand/README.md`) | Using or replacing the logo |
 | `exports/` | The four current public example PDFs (the `Release`) | Releasing a new version |
 | `docs/` | Governance and reference documentation, see below | Recording a decision |
@@ -183,8 +183,8 @@ orientation and for any task state change.
 rules of its own and defers to `docs/review.md`.
 `.claude/skills/idea-run` runs the idea agents in a closed review loop:
 `ceo` proposes product ideas (checked by `ceo-reviewer`), `magazine-editor`
-proposes three very distinct styles, each in three `Design Tier`s, as
-mock-up PDFs (checked by `design-reviewer`, which also judges client CV
+proposes three very distinct styles, each in two `Density`s and three
+`Design Tier`s, as mock-up PDFs (checked by `design-reviewer`, which also judges client CV
 designs, first on the `Batch Test` and the `Three-Second Test`),
 and `research-reviewer` checks the web research behind both. They only
 propose; the owner decides.

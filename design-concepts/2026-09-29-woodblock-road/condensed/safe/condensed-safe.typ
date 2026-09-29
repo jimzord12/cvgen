@@ -1,11 +1,11 @@
 // Woodblock Road, Safe tier. Idea run 2026-09-29 (magazine-editor).
 // The calm version: the travel print is a mounted strip across the top, the
 // body is a conventional two-column CV, and every Japan trip carries its season
-// kanji. Fictional data: sample.json in this folder.
+// kanji. Fictional data: sample.json in the style folder.
 //
-// typst compile --root . --ignore-system-fonts --font-path packages/cv-framework/fonts --font-path design-concepts/fonts design-concepts/2026-09-29-woodblock-road/safe.typ design-concepts/2026-09-29-woodblock-road/safe.pdf
+// typst compile --root . --ignore-system-fonts --font-path packages/cv-framework/fonts --font-path design-concepts/fonts design-concepts/2026-09-29-woodblock-road/condensed/safe/condensed-safe.typ design-concepts/2026-09-29-woodblock-road/condensed/safe/condensed-safe.pdf
 
-#let d = json("sample.json")
+#let d = json("../../sample.json")
 
 // ---- palette ---------------------------------------------------------------
 #let hx(c) = c // hex strings are reused inside SVG
@@ -140,7 +140,7 @@
 }))
 // portrait, mounted like a small print
 #place(top + left, dx: 164mm, dy: 70mm, box(stroke: 0.9pt + col("sumi"), inset: 1.3pt, fill: col("paperhi"),
-  box(stroke: 0.35pt + col("sumi"), clip: true, width: 29mm, height: 35mm, image("portrait.jpg", width: 35mm))))
+  box(stroke: 0.35pt + col("sumi"), clip: true, width: 29mm, height: 35mm, image("../../portrait.jpg", width: 35mm))))
 
 #let rule-double(w) = stack(spacing: 0.7pt, line(length: w, stroke: 0.8pt + col("sumi")), line(length: w, stroke: 0.3pt + col("sumi")))
 #place(top + left, dx: 14mm, dy: 109mm, rule-double(182mm))

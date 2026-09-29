@@ -14,7 +14,7 @@ a run is built, approved or put on the roadmap without the owner.
 | Run | Author | Reviewers, in order | Output |
 |---|---|---|---|
 | Product ideas | `ceo` (max 3 ideas) | `research-reviewer` on the market research, then `ceo-reviewer` | drafts in the run folder; passed ones moved to `docs/proposals/<slug>.md` (`status: pending`) |
-| Design concepts | `magazine-editor` (3 very distinct styles, each in 3 `Design Tier`s: Safe, Stylish, Creative; 9 pages) | `research-reviewer` on the references, then `design-reviewer` | `design-concepts/<date>-<slug>/` per style, with the three tiers' PDFs and PNGs |
+| Design concepts | `magazine-editor` (3 very distinct styles, each in 2 `Density`s, Condensed and Spacious, and 3 `Design Tier`s, Safe, Stylish, Creative: 18 designs) | `research-reviewer` on the references, then `design-reviewer` | `design-concepts/<date>-<slug>/` per style, with `condensed/<tier>/` and `spacious/<tier>/` PDFs and PNGs |
 
 Cadence: design concepts whenever the owner wants inspiration or a client
 needs a design; product ideas weekly at most (the roadmap is long, the
@@ -24,7 +24,7 @@ Every run serves `docs/vision.md`, "Design is the product" (owner,
 2026-09-29): the design is CVgen's core product, so a design run is judged
 first on the `Batch Test`, the `Three-Second Test` and `Flagship Parity`.
 A design run for a non-CV asset (a `Text Draft` direction, a brand asset)
-follows the lead's brief for its styles and tiers and is judged under the
+follows the lead's brief for its styles, densities and tiers and is judged under the
 design-reviewer's "Other assets".
 
 ## Loop
@@ -36,7 +36,8 @@ design-reviewer's "Other assets".
 2. Start the author with the date, the run folder and any owner steer (a
    domain, a mood, a problem). A design run always names the `Domain`, the
    specialty and the role its pages must shout (the `Three-Second Test`),
-   and never bans the domain's imagery. Give the same three to every
+   and never bans the domain's imagery; it also gives the Spacious page
+   count (1 to 3) that fits the size of the fictional record. Give the same three, and the page count, to every
    `design-reviewer`. Client data never goes into a brief: a run for a
    client's design gets the steer and fictional data only. For the ceo, paste the board's card list
    (`trello.ps1 -Cards 'CVgen'`) into the brief; it has no shell. When the
@@ -113,15 +114,15 @@ Concepts still waiting for his answer are listed on the handoff card
 (orientation reads only proposal metadata, so they would not surface
 otherwise).
 
-A short message: each style's three-word idea and its three tier PDFs
-(Safe, Stylish, Creative), or each proposal's one-line pitch and link; which items were dropped or are
+A short message: each style's three-word idea and its six PDFs (Safe,
+Stylish, Creative in each `Density`), or each proposal's one-line pitch and link; which items were dropped or are
 `unresolved`; the rounds each gate took. His answer maps to states
 (`docs/proposals/README.md`), with a dated decision entry appended to the
 proposal or the concept's README row:
 
 | Answer | Proposal | Concept (`design-concepts/README.md`) |
 |---|---|---|
-| Build it | `approved` (then a card) | `chosen`, with the `Design Tier` he picked; a template card or the client's CV follows |
+| Build it | `approved` (then a card) | `chosen`, with the `Design Tier` and the `Density` he picked; a template card or the client's CV follows |
 | Later / park | `deferred` | `parked` |
 | Reject | `rejected`, moved to `rejected/` | `rejected`; its folder is removed (Git history keeps it), the README row names the commit, and its font family goes too if no other concept uses it |
 | No answer yet | no change (`pending`) | no change (`proposed`) |

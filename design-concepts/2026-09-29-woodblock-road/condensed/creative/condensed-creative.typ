@@ -2,11 +2,11 @@
 // The whole page is one tall pillar print: the name runs down a title
 // cartouche, the portrait sits in a folding fan, the CV is written into the
 // kasumi mist bands over the lake, and the group crosses the bridge at the foot
-// behind its leader's flag. Fictional data: sample.json in this folder.
+// behind its leader's flag. Fictional data: sample.json in the style folder.
 //
-// typst compile --root . --ignore-system-fonts --font-path packages/cv-framework/fonts --font-path design-concepts/fonts design-concepts/2026-09-29-woodblock-road/creative.typ design-concepts/2026-09-29-woodblock-road/creative.pdf
+// typst compile --root . --ignore-system-fonts --font-path packages/cv-framework/fonts --font-path design-concepts/fonts design-concepts/2026-09-29-woodblock-road/condensed/creative/condensed-creative.typ design-concepts/2026-09-29-woodblock-road/condensed/creative/condensed-creative.pdf
 
-#let d = json("sample.json")
+#let d = json("../../sample.json")
 
 // ---- palette ---------------------------------------------------------------
 #let hx(c) = c // hex strings are reused inside SVG
@@ -164,7 +164,7 @@
 
 // the lake wave pattern is a paper-coloured gradient above y=160; keep it
 #place(top + left, layer-under)
-#place(top + left, dx: 12mm, dy: 11mm, image("portrait.jpg", width: 60mm))
+#place(top + left, dx: 12mm, dy: 11mm, image("../../portrait.jpg", width: 60mm))
 #place(top + left, layer-over)
 
 // ---- vertical title cartouche: the name, set like a print title ---------------

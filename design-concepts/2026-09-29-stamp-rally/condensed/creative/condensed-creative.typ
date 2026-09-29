@@ -3,11 +3,11 @@
 // on a giant luggage tag, the photo on a pass stub, the Japan trips on a
 // stamp-rally card, the job on a boarding pass, the groups on a thermal
 // receipt, the credentials on a rail ticket, and loose stamps over it all.
-// Fictional data: sample.json in this folder.
+// Fictional data: sample.json in the style folder.
 //
-// typst compile --root . --ignore-system-fonts --font-path packages/cv-framework/fonts --font-path design-concepts/fonts design-concepts/2026-09-29-stamp-rally/creative.typ design-concepts/2026-09-29-stamp-rally/creative.pdf
+// typst compile --root . --ignore-system-fonts --font-path packages/cv-framework/fonts --font-path design-concepts/fonts design-concepts/2026-09-29-stamp-rally/condensed/creative/condensed-creative.typ design-concepts/2026-09-29-stamp-rally/condensed/creative/condensed-creative.pdf
 
-#let d = json("sample.json")
+#let d = json("../../sample.json")
 
 // ---- palette: black print, three stamp inks, a mint security tint, manila tag -
 #let C = (
@@ -215,7 +215,7 @@
   place(top + left, rect(width: 46mm, height: 70mm, radius: 1.5mm, fill: col("stock"), stroke: 0.5pt + col("ink")))
   place(top + left, rect(width: 46mm, height: 8mm, radius: (top: 1.5mm), fill: col("ink")))
   place(top + left, dx: 0mm, dy: 1.8mm, box(width: 46mm, align(center, text(font: cond, size: 11pt, weight: 800, tracking: 0.14em, fill: white)[ΑΡΧΗΓΟΣ])))
-  place(top + left, dx: 5.5mm, dy: 11mm, box(stroke: 0.5pt + col("ink"), inset: 1pt, fill: white, box(clip: true, width: 33mm, height: 40mm, image("portrait.jpg", width: 40mm))))
+  place(top + left, dx: 5.5mm, dy: 11mm, box(stroke: 0.5pt + col("ink"), inset: 1pt, fill: white, box(clip: true, width: 33mm, height: 40mm, image("../../portrait.jpg", width: 40mm))))
   place(top + left, dx: 5mm, dy: 55mm, text(font: mono, size: 6pt, weight: 700)[ΗΛΙΑΔΗΣ/ΜΑΡΚΟΣ])
   place(top + left, dx: 5mm, dy: 59mm, barcode(36, 8, 4))
 })

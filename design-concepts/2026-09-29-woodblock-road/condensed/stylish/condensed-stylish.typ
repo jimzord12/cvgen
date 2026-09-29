@@ -2,11 +2,11 @@
 // The CV opens as a travel print: flat colour, bokashi sky, kasumi mist bands,
 // a title cartouche, and a modern tour group crossing a bridge behind its
 // leader's flag. The career below is told as a numbered series of small views.
-// Fictional data: sample.json in this folder.
+// Fictional data: sample.json in the style folder.
 //
-// typst compile --root . --ignore-system-fonts --font-path packages/cv-framework/fonts --font-path design-concepts/fonts design-concepts/2026-09-29-woodblock-road/stylish.typ design-concepts/2026-09-29-woodblock-road/stylish.pdf
+// typst compile --root . --ignore-system-fonts --font-path packages/cv-framework/fonts --font-path design-concepts/fonts design-concepts/2026-09-29-woodblock-road/condensed/stylish/condensed-stylish.typ design-concepts/2026-09-29-woodblock-road/condensed/stylish/condensed-stylish.pdf
 
-#let d = json("sample.json")
+#let d = json("../../sample.json")
 
 // ---- palette ---------------------------------------------------------------
 #let hx(c) = c // hex strings are reused inside SVG
@@ -166,7 +166,7 @@
   circle(radius: 27mm, fill: col("ochre"), stroke: 0.9pt + col("sumi"))
 })
 #place(top + left, dx: 16.4mm, dy: 16.4mm, circle(radius: 24.6mm, fill: none, stroke: 0.5pt + col("sumi")))
-#place(top + left, dx: 17mm, dy: 17mm, box(width: 48mm, height: 48mm, radius: 24mm, clip: true, image("portrait.jpg", width: 48mm)))
+#place(top + left, dx: 17mm, dy: 17mm, box(width: 48mm, height: 48mm, radius: 24mm, clip: true, image("../../portrait.jpg", width: 48mm)))
 
 // ---- name block ------------------------------------------------------------
 #let trips = d.japan_trips

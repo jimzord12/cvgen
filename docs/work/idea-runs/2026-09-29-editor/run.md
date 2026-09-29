@@ -2,7 +2,8 @@
 
 Branch `docs/idea-run-2026-09-29-editor`, no worktree (no other work running).
 First run under the new brief (commits 53adb1f, 76a899b, cae0828: "Design is
-the product"; three `Style`s, each in three `Design Tier`s).
+the product"; three `Style`s, each in three `Design Tier`s; two `Density`s
+added mid-run, see "Density added").
 
 ## Why
 
@@ -51,12 +52,31 @@ got less polish than the Stylish ones and Concourse Safe is the weakest.
 3. `design-concepts/2026-09-29-concourse/`: "Japanese station wayfinding".
    Fonts Fira Sans, M PLUS 1p.
 
+Each folder: `brief.md`, `sample.json`, `portrait.jpg` shared, the first
+nine designs under `condensed/<tier>/condensed-<tier>.*`, the Spacious nine
+under `spacious/<tier>/spacious-<tier>.*` (see "Density added" below).
 Fictional data (`sample.json` per style: Μάρκος Ηλιάδης, Lazuli Travel).
 Contact sheet: `builds/editor-2026-09-29/contact-sheet.png` (not committed).
 
+## Density added (owner, 2026-09-29)
+
+After seeing the nine pages, the owner asked for a second layout type beside
+the three styles and three tiers: the dense one-page designs drawn so far
+(Condensed) and a Spacious one that runs 1 to 3 pages depending on how much
+the person has to say, 2 pages for this run's steer. Because the files
+multiply, he asked to group them by `condensed/` and `spacious/`, then by
+tier. New glossary term `Density`; a run is now 3 `Style`s × 2 `Density`s ×
+3 `Design Tier`s = 18 designs. The nine existing designs were moved to
+`condensed/<tier>/` (renamed `condensed-<tier>.*`, reading `../../sample.json`
+and `../../portrait.jpg`), and the `magazine-editor` was commissioned to draw
+the Spacious nine (2 pages each) under `spacious/<tier>/`. The agent files,
+the `idea-run` and `new-cv` skills, the glossary, `design-concepts/README.md`
+and `AGENTS.md` were updated to the new shape.
+
 ## Open for the next session
 
-- Research gate, then design gate (with the Codex reviewer if built).
+- Research gate, then design gate (with the Codex reviewer if built), on
+  all 18 designs once the Spacious nine are drawn.
 - Repository size: the new Japanese font families are large
   (`kaisei-tokumin` 4.4 MB, `m-plus-1p` 3.4 MB); consider subsetting
   before integration.

@@ -270,7 +270,8 @@ checks no schema. The design may use files beside `cv.typ` (data such as
 `presentation.json`, local `.typ` helpers, images) read by a path relative
 to it: a `Revision` copies each one it finds (`build-a-cv.md` section 8).
 Record the `Framework Gap` for that client's design. The design starts from
-an `Idea Run` on the client's `Domain`, specialty and role, and must pass
+an `Idea Run` on the client's `Domain`, specialty and role, from which the
+owner picks a `Style`, `Design Tier` and `Density`, and must pass
 the `Batch Test` and the `Three-Second Test` (`docs/vision.md`, "Design is
 the product"; the `new-cv` skill).
 
