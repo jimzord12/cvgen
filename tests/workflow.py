@@ -107,8 +107,15 @@ def run_workflow(out, typst):
     stamped = json.loads((folder / 'cv.meta.json').read_text(encoding='utf-8'))
     assert stamped['status'] == 'approved' and stamped['date'] == meta['date'] and stamped['sha256'] == sha
     receipt_bytes = (folder / 'cv.approval.json').read_bytes()
+    meta_file = folder / 'cv.meta.json'
+    meta_file.write_text(json.dumps(dict(stamped, status='render')), encoding='utf-8')     # a missed stamp
     assert cv('approve', workspace, rid, '--approver', 'someone else', '--sha256', sha, '--test-only')['already_approved']
     assert (folder / 'cv.approval.json').read_bytes() == receipt_bytes
+    assert json.loads(meta_file.read_text(encoding='utf-8'))['status'] == 'approved'       # healed
+    meta_file.write_text(json.dumps(dict(stamped, status='delivered')), encoding='utf-8')
+    cv('approve', workspace, rid, '--approver', 'suite', '--sha256', sha, '--test-only')
+    assert json.loads(meta_file.read_text(encoding='utf-8'))['status'] == 'delivered'      # never downgraded
+    meta_file.write_text(json.dumps(stamped), encoding='utf-8')
     passed.append('approve-explicit-and-bound')
 
     # 3. Export copies the bytes without a compiler on PATH, verifies them, and repeats without touching the bundle.
@@ -137,6 +144,11 @@ def run_workflow(out, typst):
     passed.append('later-revision-inherits-nothing')
 
     # 5. Bytes changed after approval: export refuses; a mismatched receipt is refused before any copy.
+    (workspace / 'envelope.json').write_text(json.dumps(dict(envelope, alias='client-2030-1-1')), encoding='utf-8')
+    assert "alias='client-2030-1-1'" in cv('approve', workspace, rid2, '--approver', 'suite', '--sha256', second['sha256'],
+                                           '--test-only', expect=2)
+    assert not (revision(rid2) / 'cv.approval.json').exists()    # refused before the receipt
+    (workspace / 'envelope.json').write_text(json.dumps(envelope), encoding='utf-8')
     cv('approve', workspace, rid2, '--approver', 'suite', '--sha256', second['sha256'], '--test-only')
     with (revision(rid2) / 'cv.pdf').open('ab') as handle:
         handle.write(b'\n%tampered')

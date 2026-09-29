@@ -25,7 +25,10 @@ def approve_revision(workspace, revision_id, approver, sha256, test_only=False):
     if revision.approval_record.is_file():
         existing = read_json(revision.approval_record)
         if existing.get('revision') == revision.id and existing.get('sha256') == actual:
-            stamp(revision.pdf, {'status': 'approved'}, envelope_dir=ws.folder)  # heals a missed stamp
+            meta = revision.pdf.with_name('cv.meta.json')
+            current = read_json(meta).get('status') if meta.is_file() else None
+            if current not in ('approved', 'delivered'):  # heals a missed stamp, never downgrades delivered
+                stamp(revision.pdf, {'status': 'approved'}, envelope_dir=ws.folder)
             return {'revision': revision.id, 'sha256': actual, 'already_approved': True, 'approval': existing}
         raise WorkflowError(f'Revision {revision.id} already has a cv.approval.json for other bytes; it is not overwritten')
     approval = {

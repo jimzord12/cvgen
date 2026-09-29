@@ -185,7 +185,7 @@ def render_revision(workspace, typst='typst', pages=2, inputs=None, reference_da
         write_json(revision.checks_record, checks)
         lang = str((inputs or {}).get('lang') or '').lower()
         stamp(revision.pdf, {'kind': 'client-cv', 'status': 'render', 'variant': revision.id,
-                             'lang': lang if len(lang) == 2 and lang.isalpha() else None, 'source': 'cv.typ',
+                             'lang': lang if re.fullmatch('[a-z]{2}', lang) else None, 'source': 'cv.typ',
                              'producedBy': 'scripts/cv.py render'}, envelope_dir=ws.folder)
     counts, warnings = certificate_summary(checks)
     return {

@@ -1,6 +1,6 @@
 ---
 kind: proposal
-status: approved
+status: applied
 revision: 1
 ---
 
@@ -178,3 +178,10 @@ round per `docs/review.md` (code and context).
   direction. Lead defaults inside it (reported to the owner): the file name
   `<pdf-stem>.meta.json`, `envelope.json`, the status vocabularies, and
   `build.ps1 -Release` as the one way to refresh the `Release`.
+- 2026-09-30, applied: branch `feat/output-contract`. Reviews:
+  `docs/work/output-contract/reviews/01-code.md`, `01-context.md` (both
+  FINDINGS, fixed) and `02.md` (PASS). Evidence: `python tests/run.py` PASS
+  (69 cases, including `output-contract` and the workflow and app checks);
+  the four moved `Release` PDFs are pixel-identical to the old `exports/`
+  copies. The 2026-09-29 run's designs and the client files are stamped
+  after the merge.
