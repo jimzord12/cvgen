@@ -1,0 +1,573 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Design Review</title>
+<style>
+:root{
+  --bg:#141518;--bg2:#1b1c20;--panel:#202126;--panel2:#292a30;--line:#33353c;--line2:#42444c;
+  --text:#ecebe7;--mute:#9b9a94;--dim:#6d6c67;--acc:#e9b441;--acc2:#3a3120;
+  --keep:#62bd82;--maybe:#d8ae3f;--reject:#df6450;--h:240px;
+  --ui:"Segoe UI Variable Text","Segoe UI",system-ui,sans-serif;
+}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--bg);color:var(--text);font:13.5px/1.45 var(--ui)}
+button,input,select,textarea{font:inherit;color:inherit}
+button{cursor:pointer}
+.hidden{display:none!important}
+/* header */
+.top{position:sticky;top:0;z-index:20;background:rgba(20,21,24,.94);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.bar1{display:flex;align-items:center;gap:14px;padding:11px 20px}
+.brand{font-weight:650;letter-spacing:.01em;font-size:15px;display:flex;align-items:center;gap:9px}
+.brand i{width:10px;height:10px;border-radius:50%;background:var(--acc);display:inline-block;box-shadow:0 0 0 3px var(--acc2)}
+.seg{display:flex;background:var(--bg2);border:1px solid var(--line);border-radius:8px;padding:2px}
+.seg button{background:none;border:0;padding:5px 13px;border-radius:6px;color:var(--mute)}
+.seg button.on{background:var(--panel2);color:var(--text);box-shadow:inset 0 0 0 1px var(--line2)}
+.seg button kbd{margin-left:6px}
+.spacer{flex:1}
+.count{color:var(--mute);font-size:12.5px}
+.count b{color:var(--text);font-weight:600}
+.btn{background:var(--panel);border:1px solid var(--line);border-radius:7px;padding:5px 11px;color:var(--text);white-space:nowrap}
+.btn:hover{border-color:var(--line2);background:var(--panel2)}
+.btn.acc{background:var(--acc);border-color:var(--acc);color:#1a1405;font-weight:600}
+.btn.acc:hover{filter:brightness(1.06)}
+.btn.sm{padding:3px 8px;font-size:12px}
+.range{display:flex;align-items:center;gap:7px;color:var(--mute);font-size:12px}
+.range input{accent-color:var(--acc);width:90px}
+.bar2{display:flex;flex-wrap:wrap;align-items:center;gap:8px 14px;padding:0 20px 11px}
+.search{background:var(--bg2);border:1px solid var(--line);border-radius:7px;padding:5px 10px;width:210px}
+.search:focus,select:focus,textarea:focus,input[type=date]:focus{outline:1px solid var(--acc);border-color:var(--acc)}
+.fg{display:flex;align-items:center;gap:4px}
+.fg>span{font-size:10.5px;letter-spacing:.09em;text-transform:uppercase;color:var(--dim);margin-right:3px}
+.chip{background:var(--bg2);border:1px solid var(--line);border-radius:14px;padding:2px 9px;font-size:12px;color:var(--mute)}
+.chip:hover{border-color:var(--line2)}
+.chip.on{background:var(--acc2);border-color:#6d5520;color:var(--acc)}
+select,input[type=date]{background:var(--bg2);border:1px solid var(--line);border-radius:7px;padding:4px 7px;font-size:12px;color-scheme:dark}
+.linkbtn{background:none;border:0;color:var(--mute);text-decoration:underline;font-size:12px;padding:0}
+kbd{font:10.5px ui-monospace,Consolas,monospace;background:var(--panel2);border:1px solid var(--line2);border-bottom-width:2px;border-radius:4px;padding:0 5px;color:var(--mute)}
+main{padding:18px 20px 90px}
+.empty{color:var(--mute);padding:60px;text-align:center}
+/* board */
+.group{margin:0 0 34px}
+.ghead{display:flex;align-items:baseline;gap:12px;margin:0 0 12px;flex-wrap:wrap}
+.ghead h2{margin:0;font-size:17px;font-weight:620}
+.ghead .sub{color:var(--mute);font-size:12.5px}
+.progress{height:4px;width:120px;background:var(--panel2);border-radius:3px;overflow:hidden;align-self:center}
+.progress i{display:block;height:100%;background:var(--keep)}
+.matrix{display:grid;gap:10px 12px;overflow-x:auto;padding-bottom:6px;align-items:start}
+.mh{font-size:10.5px;letter-spacing:.09em;text-transform:uppercase;color:var(--mute);padding:2px 2px 0}
+.mh.den{color:var(--text);border-bottom:1px solid var(--line2);padding-bottom:5px;font-size:11px}
+.mh.den small{color:var(--dim);letter-spacing:0;text-transform:none;margin-left:6px;font-size:11px}
+.rowh{padding:8px 4px 0 0;min-width:0}
+.rowh b{display:block;font-size:14px;font-weight:620}
+.rowh .idea{color:var(--mute);font-size:12px;font-style:italic;margin:2px 0 6px}
+.pill{display:inline-block;font-size:10.5px;padding:1px 7px;border-radius:9px;border:1px solid var(--line2);color:var(--mute);text-transform:lowercase}
+.pill.proposed{color:var(--acc);border-color:#6d5520}
+.pill.chosen{color:var(--keep);border-color:#2f6b45}
+.pill.rejected{color:var(--reject);border-color:#7a3328}
+.strip-row{display:flex;gap:12px;flex-wrap:wrap}
+.cell{position:relative;background:var(--panel);border:1px solid var(--line);border-radius:9px;padding:7px;cursor:pointer;transition:border-color .12s, transform .12s}
+.cell:hover{border-color:var(--line2);transform:translateY(-1px)}
+.cell.gone{opacity:.14;pointer-events:none}
+.cell.placeholder{background:none;border:1px dashed var(--line);min-height:calc(var(--h) + 16px);cursor:default}
+.pages{display:flex;gap:4px}
+.pages img{height:var(--h);width:auto;aspect-ratio:210/297;display:block;background:#fff;border-radius:2px;object-fit:contain}
+.cell .lab{display:flex;align-items:center;gap:6px;margin-top:6px;font-size:12px;color:var(--mute);min-height:18px}
+.cell .lab .t{flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.cell.v-keep{box-shadow:inset 0 -3px 0 var(--keep)}
+.cell.v-maybe{box-shadow:inset 0 -3px 0 var(--maybe)}
+.cell.v-reject{box-shadow:inset 0 -3px 0 var(--reject)}
+.cell.v-reject .pages{opacity:.5}
+.tick{position:absolute;top:12px;left:12px;background:rgba(20,21,24,.86);border-radius:10px;padding:1px 7px;font-size:11px;color:var(--keep);border:1px solid #2f6b45}
+.new{position:absolute;top:12px;left:12px;background:var(--acc);color:#1a1405;border-radius:10px;padding:0 7px;font-size:10.5px;font-weight:650}
+.star{color:var(--acc)}
+.vtag{font-size:11px;font-weight:600}
+.vtag.keep{color:var(--keep)}.vtag.maybe{color:var(--maybe)}.vtag.reject{color:var(--reject)}
+.note-dot{color:var(--mute);font-size:11px}
+.hov{position:absolute;top:10px;right:10px;display:none;gap:4px}
+.cell:hover .hov{display:flex}
+.hov button{background:rgba(20,21,24,.9);border:1px solid var(--line2);border-radius:6px;font-size:11.5px;padding:2px 7px}
+.hov button:hover{border-color:var(--acc);color:var(--acc)}
+.cell.cmp{outline:2px solid #6aa5e8;outline-offset:1px}
+/* grid */
+.flat{display:flex;flex-wrap:wrap;gap:14px}
+/* batch */
+.batch-help{color:var(--mute);margin:0 0 14px;display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+.pile{display:flex;flex-wrap:wrap;gap:10px;background:#d9d6cf;padding:16px;border-radius:10px}
+.pile img{width:132px;aspect-ratio:210/297;background:#fff;box-shadow:0 2px 6px rgba(0,0,0,.25);border-radius:1px;display:block}
+.pile .d{cursor:pointer}
+.pile.reveal .d img{outline:3px solid var(--acc);outline-offset:2px}
+/* overlays */
+.ov{position:fixed;inset:0;z-index:50;background:#0d0e10;display:grid}
+.lo{grid-template-columns:1fr 330px;grid-template-rows:52px 1fr 126px}
+.lo .lt{grid-column:1/3;display:flex;align-items:center;gap:12px;padding:0 16px;border-bottom:1px solid var(--line);background:var(--bg)}
+.lo .lt h3{margin:0;font-size:15px;font-weight:620}
+.lo .lt .meta{color:var(--mute);font-size:12.5px}
+.stage{display:flex;justify-content:center;align-items:center;gap:18px;padding:18px;overflow:auto;min-height:0}
+.stage img{height:100%;max-height:100%;width:auto;background:#fff;box-shadow:0 10px 40px rgba(0,0,0,.55);border-radius:2px;cursor:zoom-in}
+.stage.zoom{align-items:flex-start;justify-content:flex-start;flex-direction:column}
+.stage.zoom img{height:auto;max-height:none;width:min(1400px,100%);cursor:zoom-out;align-self:center}
+.side{grid-row:2/4;grid-column:2;background:var(--bg);border-left:1px solid var(--line);padding:16px;overflow:auto}
+.side h4{margin:16px 0 7px;font-size:10.5px;letter-spacing:.09em;text-transform:uppercase;color:var(--dim)}
+.side dl{margin:0;display:grid;grid-template-columns:86px 1fr;gap:3px 8px;font-size:12.5px}
+.side dt{color:var(--mute)}.side dd{margin:0}
+.vbtns{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}
+.vbtns button{background:var(--panel);border:1px solid var(--line);border-radius:7px;padding:7px 0}
+.vbtns button.on.keep{background:#1f3a2a;border-color:var(--keep);color:var(--keep)}
+.vbtns button.on.maybe{background:#3a3220;border-color:var(--maybe);color:var(--maybe)}
+.vbtns button.on.reject{background:#3d231f;border-color:var(--reject);color:var(--reject)}
+.toggles{display:flex;gap:6px;margin-top:6px}
+.toggles button{flex:1;background:var(--panel);border:1px solid var(--line);border-radius:7px;padding:6px 0}
+.toggles button.on{border-color:var(--keep);color:var(--keep);background:#1f3a2a}
+.toggles button.on.st{border-color:var(--acc);color:var(--acc);background:var(--acc2)}
+textarea{width:100%;min-height:120px;resize:vertical;background:var(--bg2);border:1px solid var(--line);border-radius:7px;padding:8px}
+.saved{font-size:11.5px;color:var(--dim);height:16px;margin-top:3px}
+.acts{display:flex;flex-wrap:wrap;gap:6px}
+.keys{color:var(--mute);font-size:12px;line-height:1.9}
+.film{grid-column:1;display:flex;gap:8px;overflow-x:auto;padding:10px 14px;border-top:1px solid var(--line);background:var(--bg)}
+.film .f{flex:0 0 auto;cursor:pointer;opacity:.55;position:relative;transition:opacity .1s}
+.film .f:hover{opacity:.85}
+.film .f.on{opacity:1}
+.film .f.on img{outline:2px solid var(--acc);outline-offset:2px}
+.film img{height:84px;width:auto;aspect-ratio:210/297;background:#fff;border-radius:2px;display:block}
+.film .f span{display:block;font-size:10px;color:var(--mute);text-align:center;max-width:70px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.film .f .dot{position:absolute;top:3px;right:3px;width:8px;height:8px;border-radius:50%}
+.co{grid-template-rows:52px 1fr}
+.co .lt{display:flex;align-items:center;gap:12px;padding:0 16px;border-bottom:1px solid var(--line);background:var(--bg)}
+.co .rows{display:flex;flex-direction:column;min-height:0;overflow:auto}
+.co .crow{flex:1;min-height:260px;display:flex;align-items:center;gap:14px;padding:12px 18px;border-bottom:1px solid var(--line)}
+.co .crow .cl{width:170px;flex:0 0 auto}
+.co .crow .cl b{display:block}
+.co .crow .cl span{color:var(--mute);font-size:12px}
+.co .crow .cp{flex:1;display:flex;gap:12px;height:100%;min-height:0}
+.co .crow img{height:100%;width:auto;aspect-ratio:210/297;background:#fff;border-radius:2px;cursor:pointer}
+.tray{position:fixed;right:20px;bottom:20px;z-index:30;background:var(--panel2);border:1px solid var(--line2);border-radius:10px;padding:8px 10px;display:flex;gap:8px;align-items:center;box-shadow:0 8px 30px rgba(0,0,0,.5)}
+.toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);z-index:90;background:var(--panel2);border:1px solid var(--line2);padding:8px 14px;border-radius:8px;box-shadow:0 8px 30px rgba(0,0,0,.5);max-width:80vw}
+.err{border-color:var(--reject)}
+</style>
+</head>
+<body>
+<div class="top">
+  <div class="bar1">
+    <div class="brand"><i></i>Design Review</div>
+    <div class="seg" id="views">
+      <button data-v="board">Board <kbd>B</kbd></button>
+      <button data-v="grid">Grid <kbd>G</kbd></button>
+      <button data-v="batch">Batch <kbd>X</kbd></button>
+    </div>
+    <div class="count" id="count"></div>
+    <div class="spacer"></div>
+    <label class="range">Size <input type="range" id="size" min="120" max="420" step="10"></label>
+    <button class="btn" id="rescan" title="Look for new designs">Rescan</button>
+    <button class="btn acc" id="export" title="Write your verdicts and notes to a Markdown file">Export review</button>
+  </div>
+  <div class="bar2" id="filters"></div>
+</div>
+<main id="main"></main>
+
+<div class="ov lo hidden" id="loupe">
+  <div class="lt"><button class="btn sm" data-close>✕ Close <kbd>Esc</kbd></button><h3 id="lTitle"></h3><span class="meta" id="lMeta"></span><div class="spacer"></div><span class="meta" id="lPos"></span><button class="btn sm" id="lPrev">‹</button><button class="btn sm" id="lNext">›</button></div>
+  <div class="stage" id="lStage"></div>
+  <div class="side" id="lSide"></div>
+  <div class="film" id="lFilm"></div>
+</div>
+
+<div class="ov co hidden" id="compare">
+  <div class="lt"><button class="btn sm" data-close>✕ Close <kbd>Esc</kbd></button><h3 style="margin:0;font-size:15px">Compare</h3><div class="spacer"></div><button class="btn sm" id="cClear">Clear</button></div>
+  <div class="rows" id="cRows"></div>
+</div>
+
+<div class="tray hidden" id="tray"><span id="trayN"></span><button class="btn sm acc" id="trayGo">Compare</button><button class="btn sm" id="trayClear">Clear</button></div>
+<div class="toast hidden" id="toast"></div>
+
+<script>
+"use strict";
+const $ = s => document.querySelector(s);
+const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const cap = s => s ? s[0].toUpperCase() + s.slice(1) : "";
+const DENS = ["spacious","condensed"];           // Spacious first: the owner's preference
+const TIERS = ["safe","stylish","creative"];
+const KINDS = {"concept":"Concept","text-draft":"Text Draft","client-cv":"Client CV","client-draft":"Client draft"};
+const VERD = {keep:"Keep",maybe:"Maybe",reject:"Reject"};
+
+const store = {
+  get(k, d){ try { const v = localStorage.getItem("dr." + k); return v == null ? d : JSON.parse(v); } catch { return d; } },
+  set(k, v){ try { localStorage.setItem("dr." + k, JSON.stringify(v)); } catch {} },
+};
+const DEFAULT_F = {q:"", kinds:[], dens:[], tiers:[], review:"all", verdicts:[], star:false, cand:"", domain:"", group:"", from:"", to:"", sort:"newest"};
+let F = Object.assign({}, DEFAULT_F, store.get("filters", {}));
+let view = store.get("view", "board");
+let items = [], state = {}, compareIds = [];
+let loupe = {list:[], i:0, zoom:false};
+
+async function api(path, body){
+  const r = await fetch(path, body ? {method:"POST", headers:{"Content-Type":"application/json"}, body:JSON.stringify(body)} : {});
+  const j = await r.json().catch(() => ({}));
+  if (!r.ok) throw new Error(j.error || r.statusText);
+  return j;
+}
+function toast(msg, err){
+  const t = $("#toast"); t.textContent = msg; t.classList.toggle("err", !!err); t.classList.remove("hidden");
+  clearTimeout(toast.t); toast.t = setTimeout(() => t.classList.add("hidden"), err ? 6000 : 3500);
+}
+const img = (it, page, w) => `/api/page?id=${encodeURIComponent(it.id)}&page=${page}&w=${w}&v=${it.mtime}`;
+const st = it => state[it.id] || {};
+const label = it => [it.density && cap(it.density), it.tier && cap(it.tier), !it.density && it.variant].filter(Boolean).join(" · ") || "Concept";
+
+async function load(quiet){
+  try {
+    const j = await api("/api/items");
+    items = j.items; state = j.state;
+    render();
+    if (!$("#loupe").classList.contains("hidden")) refreshLoupeList();
+    if (!quiet) toast(`${items.length} designs indexed`);
+  } catch (e) { toast("Could not load: " + e.message, true); }
+}
+
+async function save(it, patch){
+  try {
+    state[it.id] = await api("/api/state", {id: it.id, patch});
+    render();
+    if (!$("#loupe").classList.contains("hidden")) { drawSide(); drawFilm(); }
+    return true;
+  } catch (e) { toast("Not saved: " + e.message, true); return false; }
+}
+function setVerdict(it, v){
+  const cur = st(it).verdict || null;
+  const next = cur === v ? null : v;
+  save(it, next ? {verdict: next, reviewed: true} : {verdict: null});
+}
+
+/* ---------- filters ---------- */
+function pass(it){
+  const s = st(it);
+  if (F.q){ const hay = [it.style, it.idea, it.candidate, it.domain, it.groupLabel, it.variant, it.density, it.tier, s.notes].join(" ").toLowerCase(); if (!hay.includes(F.q.toLowerCase())) return false; }
+  if (F.kinds.length && !F.kinds.includes(it.kind)) return false;
+  if (F.dens.length && !F.dens.includes(it.density || "none")) return false;
+  if (F.tiers.length && !F.tiers.includes(it.tier || "none")) return false;
+  if (F.review === "todo" && s.reviewed) return false;
+  if (F.review === "done" && !s.reviewed) return false;
+  if (F.verdicts.length && !F.verdicts.includes(s.verdict || "none")) return false;
+  if (F.star && !s.star) return false;
+  if (F.cand && it.candidate !== F.cand) return false;
+  if (F.domain && it.domain !== F.domain) return false;
+  if (F.group && it.group !== F.group) return false;
+  if (F.from && it.date < F.from) return false;
+  if (F.to && it.date > F.to) return false;
+  return true;
+}
+function setF(k, v){ F[k] = v; store.set("filters", F); render(); }
+function toggleIn(k, v){ const a = F[k]; setF(k, a.includes(v) ? a.filter(x => x !== v) : a.concat(v)); }
+
+function drawFilters(){
+  const uniq = k => [...new Set(items.map(i => i[k]).filter(Boolean))].sort();
+  const groups = [...new Map(items.map(i => [i.group, i.groupLabel]))];
+  const chips = (k, pairs) => pairs.map(([v, l]) => `<button class="chip ${F[k].includes(v) ? "on" : ""}" data-t="${k}" data-v="${v}">${esc(l)}</button>`).join("");
+  const opts = (vals, cur, all) => `<option value="">${all}</option>` + vals.map(v => `<option ${v === cur ? "selected" : ""} value="${esc(v)}">${esc(v)}</option>`).join("");
+  $("#filters").innerHTML = `
+    <input class="search" id="q" placeholder="Search style, candidate, notes…  /" value="${esc(F.q)}">
+    <div class="fg"><span>Kind</span>${chips("kinds", Object.entries(KINDS).filter(([k]) => items.some(i => i.kind === k)))}</div>
+    <div class="fg"><span>Density</span>${chips("dens", DENS.map(d => [d, cap(d)]))}</div>
+    <div class="fg"><span>Tier</span>${chips("tiers", TIERS.map(t => [t, cap(t)]))}</div>
+    <div class="fg"><span>Review</span><select id="review">
+      <option value="all">All</option><option value="todo" ${F.review === "todo" ? "selected" : ""}>Not reviewed</option><option value="done" ${F.review === "done" ? "selected" : ""}>Reviewed</option></select>
+      ${chips("verdicts", [["keep","Keep"],["maybe","Maybe"],["reject","Reject"],["none","No verdict"]])}
+      <button class="chip ${F.star ? "on" : ""}" id="star">★</button></div>
+    <div class="fg"><span>Run</span><select id="group"><option value="">All</option>${groups.map(([g, l]) => `<option value="${esc(g)}" ${g === F.group ? "selected" : ""}>${esc(l)}</option>`).join("")}</select></div>
+    <div class="fg"><span>Candidate</span><select id="cand">${opts(uniq("candidate"), F.cand, "All")}</select></div>
+    <div class="fg"><span>Domain</span><select id="domain">${opts(uniq("domain"), F.domain, "All")}</select></div>
+    <div class="fg"><span>Date</span><input type="date" id="from" value="${F.from}"> – <input type="date" id="to" value="${F.to}"></div>
+    ${view === "grid" ? `<div class="fg"><span>Sort</span><select id="sort">${[["newest","Newest"],["oldest","Oldest"],["style","Style"],["tier","Density, tier"],["todo","Not reviewed first"],["verdict","Verdict"]].map(([v, l]) => `<option value="${v}" ${F.sort === v ? "selected" : ""}>${l}</option>`).join("")}</select></div>` : ""}
+    <button class="linkbtn" id="reset">Reset</button>`;
+  $("#filters").querySelectorAll(".chip[data-t]").forEach(b => b.onclick = () => toggleIn(b.dataset.t, b.dataset.v));
+  $("#q").oninput = e => { F.q = e.target.value; store.set("filters", F); clearTimeout(drawFilters.t); drawFilters.t = setTimeout(drawMain, 120); };
+  for (const k of ["review","group","cand","domain","from","to","sort"]) { const el = $("#" + k); if (el) el.onchange = e => setF(k, e.target.value); }
+  $("#star").onclick = () => setF("star", !F.star);
+  $("#reset").onclick = () => { F = Object.assign({}, DEFAULT_F); store.set("filters", F); render(); };
+}
+
+/* ---------- cells ---------- */
+function cell(it, list){
+  const s = st(it);
+  const pages = Array.from({length: it.pages}, (_, n) => `<img loading="lazy" src="${img(it, n + 1, 360)}" alt="">`).join("");
+  const el = document.createElement("div");
+  el.className = `cell ${s.verdict ? "v-" + s.verdict : ""} ${compareIds.includes(it.id) ? "cmp" : ""}`;
+  el.innerHTML = `${s.reviewed ? `<span class="tick">✓ reviewed</span>` : `<span class="new">NEW</span>`}
+    <div class="hov"><button data-a="open" title="Open PDF (default app)">PDF</button><button data-a="cmp" title="Add to compare">${compareIds.includes(it.id) ? "− Compare" : "+ Compare"}</button></div>
+    <div class="pages">${pages}</div>
+    <div class="lab"><span class="t">${esc(list === "flat" ? it.style + " · " + label(it) : label(it))}</span>
+      ${s.notes && s.notes.trim() ? `<span class="note-dot" title="${esc(s.notes)}">✎</span>` : ""}
+      ${s.star ? `<span class="star">★</span>` : ""}
+      ${s.verdict ? `<span class="vtag ${s.verdict}">${VERD[s.verdict]}</span>` : ""}</div>`;
+  el.onclick = e => {
+    const a = e.target.closest("button")?.dataset.a;
+    if (a === "open") return openFile(it, "pdf");
+    if (a === "cmp") return toggleCompare(it);
+    openLoupe(it);
+  };
+  return el;
+}
+function groupOrder(list){
+  const latest = {};
+  for (const it of list) latest[it.group] = latest[it.group] > it.sortTime ? latest[it.group] : it.sortTime;
+  const client = g => g.startsWith("client:") ? 1 : 0;   // design runs first, then clients
+  return Object.keys(latest).sort((a, b) => client(a) - client(b) || latest[b].localeCompare(latest[a]));
+}
+function boardOrder(list){
+  const out = [];
+  for (const g of groupOrder(list)) {
+    const gi = list.filter(i => i.group === g);
+    const rows = [...new Set(gi.map(rowOf))].sort();
+    for (const r of rows) {
+      const ri = gi.filter(i => rowOf(i) === r);
+      ri.sort((a, b) => colKey(a) - colKey(b) || a.col.localeCompare(b.col));
+      out.push(...ri);
+    }
+  }
+  return out;
+}
+const rowOf = it => it.kind.startsWith("client") ? it.row : it.style;
+const colKey = it => it.density ? DENS.indexOf(it.density) * 3 + TIERS.indexOf(it.tier) : 99;
+
+/* ---------- views ---------- */
+function drawBoard(vis){
+  const main = $("#main"); main.innerHTML = "";
+  const all = boardOrder(items);
+  for (const g of groupOrder(vis)) {
+    const gi = all.filter(i => i.group === g);
+    const shown = gi.filter(pass);
+    const done = gi.filter(i => st(i).reviewed).length;
+    const sec = document.createElement("section"); sec.className = "group";
+    const dom = gi.find(i => i.domain)?.domain;
+    sec.innerHTML = `<div class="ghead"><h2>${esc(gi[0].groupLabel)}</h2>
+      <span class="sub">${dom ? esc(dom) + " · " : ""}${gi.length} designs · ${done} reviewed</span>
+      <span class="progress"><i style="width:${gi.length ? done / gi.length * 100 : 0}%"></i></span>
+      <button class="btn sm" data-g>Review in Loupe ›</button></div>`;
+    sec.querySelector("[data-g]").onclick = () => shown.length && openLoupe(shown[0], shown);
+    const matrix = gi.some(i => i.density);
+    const rows = [...new Set(shown.map(rowOf))].sort();
+    if (matrix) {
+      const cols = [];
+      for (const d of DENS) for (const t of TIERS) if (shown.some(i => i.density === d && i.tier === t)) cols.push([d, t]);
+      const m = document.createElement("div"); m.className = "matrix";
+      m.style.gridTemplateColumns = `170px repeat(${cols.length}, max-content)`;
+      let h = `<div></div>`;
+      for (const d of DENS) { const n = cols.filter(c => c[0] === d).length; if (n) { const p = gi.find(i => i.density === d)?.pages; h += `<div class="mh den" style="grid-column:span ${n}">${cap(d)}<small>${p ? p + (p > 1 ? " pages" : " page") : ""}</small></div>`; } }
+      h += `<div></div>` + cols.map(c => `<div class="mh">${cap(c[1])}</div>`).join("");
+      m.innerHTML = h;
+      for (const r of rows) {
+        const any = gi.find(i => i.style === r);
+        const rh = document.createElement("div"); rh.className = "rowh";
+        rh.innerHTML = `<b>${esc(r)}</b><div class="idea">${esc(any.idea || "")}</div>${any.status ? `<span class="pill ${esc(any.status.split(" ")[0])}" title="${esc(any.statusNote || "")}">${esc(any.status)}</span>` : ""}`;
+        m.appendChild(rh);
+        for (const [d, t] of cols) {
+          const it = shown.find(i => i.style === r && i.density === d && i.tier === t);
+          if (it) m.appendChild(cell(it));
+          else { const p = document.createElement("div"); p.className = "cell placeholder"; m.appendChild(p); }
+        }
+      }
+      sec.appendChild(m);
+    } else {
+      for (const r of rows) {
+        const any = gi.find(i => rowOf(i) === r);
+        const wrap = document.createElement("div"); wrap.className = "matrix"; wrap.style.gridTemplateColumns = "170px 1fr";
+        wrap.innerHTML = `<div class="rowh"><b>${esc(r)}</b><div class="idea">${esc(any.kind.startsWith("client") ? KINDS[any.kind] : any.idea || "")}</div>${any.status ? `<span class="pill ${esc(any.status.split(" ")[0])}" title="${esc(any.statusNote || "")}">${esc(any.status)}</span>` : ""}</div>`;
+        const strip = document.createElement("div"); strip.className = "strip-row";
+        for (const it of shown.filter(i => rowOf(i) === r).sort((a, b) => a.col.localeCompare(b.col))) strip.appendChild(cell(it));
+        wrap.appendChild(strip); sec.appendChild(wrap);
+      }
+    }
+    main.appendChild(sec);
+  }
+  if (!vis.length) main.innerHTML = `<div class="empty">Nothing matches these filters.</div>`;
+}
+function sorted(vis){
+  const v = x => ({keep:0, maybe:1, reject:2})[st(x).verdict] ?? 3;
+  const by = {
+    newest: (a, b) => b.sortTime.localeCompare(a.sortTime) || a.style.localeCompare(b.style) || colKey(a) - colKey(b),
+    oldest: (a, b) => a.sortTime.localeCompare(b.sortTime) || a.style.localeCompare(b.style) || colKey(a) - colKey(b),
+    style: (a, b) => a.style.localeCompare(b.style) || colKey(a) - colKey(b),
+    tier: (a, b) => colKey(a) - colKey(b) || a.style.localeCompare(b.style),
+    todo: (a, b) => (!!st(a).reviewed - !!st(b).reviewed) || b.sortTime.localeCompare(a.sortTime),
+    verdict: (a, b) => v(a) - v(b) || a.style.localeCompare(b.style),
+  }[F.sort] || (() => 0);
+  return vis.slice().sort(by);
+}
+function drawGrid(vis){
+  const main = $("#main"); main.innerHTML = "";
+  const box = document.createElement("div"); box.className = "flat";
+  for (const it of sorted(vis)) box.appendChild(cell(it, "flat"));
+  main.appendChild(box);
+  if (!vis.length) main.innerHTML = `<div class="empty">Nothing matches these filters.</div>`;
+}
+let plain = null, pileSeed = 1;
+async function drawBatch(vis){
+  const main = $("#main");
+  main.innerHTML = `<div class="batch-help"><span>The <b>Batch Test</b>: page 1 of every design in the current filter, shuffled into a pile of plain market CVs at thumbnail size. Scan it fast, as an HR reader would. Which ones can you not skip?</span>
+    <button class="btn sm" id="shuffle">Shuffle</button><button class="btn sm" id="reveal">Reveal designs</button></div><div class="pile" id="pile"></div>`;
+  if (!plain) { try { plain = (await api("/api/plain")).pages; } catch (e) { plain = []; toast("Plain CVs unavailable: " + e.message, true); } }
+  const tiles = vis.filter(i => i.kind === "concept" || i.kind === "client-cv").map(i => ({it: i})).concat(plain.map(p => ({p})));
+  let seed = pileSeed; const rnd = () => (seed = (seed * 16807) % 2147483647) / 2147483647;
+  for (let k = tiles.length - 1; k > 0; k--) { const j = Math.floor(rnd() * (k + 1)); [tiles[k], tiles[j]] = [tiles[j], tiles[k]]; }
+  const pile = $("#pile");
+  pile.innerHTML = tiles.map((t, k) => t.it ? `<div class="d" data-k="${k}"><img src="${img(t.it, 1, 280)}" alt=""></div>` : `<div><img src="/api/plain/${t.p}" alt=""></div>`).join("");
+  pile.querySelectorAll(".d").forEach(d => d.onclick = () => openLoupe(tiles[d.dataset.k].it));
+  $("#shuffle").onclick = () => { pileSeed = Math.floor(Math.random() * 1e9) + 1; drawBatch(vis); };
+  $("#reveal").onclick = () => pile.classList.toggle("reveal");
+}
+function drawMain(){
+  const vis = items.filter(pass);
+  const done = items.filter(i => st(i).reviewed).length;
+  $("#count").innerHTML = `<b>${vis.length}</b> shown · ${done}/${items.length} reviewed`;
+  if (view === "board") drawBoard(vis); else if (view === "grid") drawGrid(vis); else drawBatch(vis);
+}
+function render(){
+  document.querySelectorAll("#views button").forEach(b => b.classList.toggle("on", b.dataset.v === view));
+  drawFilters(); drawMain(); drawTray();
+}
+
+/* ---------- loupe ---------- */
+function openLoupe(it, list){
+  const vis = items.filter(pass);
+  loupe.list = (list || (view === "grid" ? sorted(vis) : boardOrder(vis))).map(i => i.id);
+  if (!loupe.list.includes(it.id)) loupe.list.unshift(it.id);
+  loupe.i = loupe.list.indexOf(it.id); loupe.zoom = false;
+  $("#loupe").classList.remove("hidden"); document.body.style.overflow = "hidden";
+  drawLoupe();
+}
+function refreshLoupeList(){ loupe.list = loupe.list.filter(id => items.some(i => i.id === id)); loupe.i = Math.min(loupe.i, loupe.list.length - 1); if (loupe.list.length) drawLoupe(); else closeAll(); }
+const cur = () => items.find(i => i.id === loupe.list[loupe.i]);
+function drawLoupe(){
+  const it = cur(); if (!it) return;
+  $("#lTitle").textContent = it.style;
+  $("#lMeta").textContent = `${label(it)} · ${it.pages} page${it.pages > 1 ? "s" : ""} · ${it.groupLabel}`;
+  $("#lPos").textContent = `${loupe.i + 1} / ${loupe.list.length}`;
+  const stage = $("#lStage"); stage.classList.toggle("zoom", loupe.zoom);
+  stage.innerHTML = Array.from({length: it.pages}, (_, n) => `<img src="${img(it, n + 1, 1500)}" alt="page ${n + 1}">`).join("");
+  stage.querySelectorAll("img").forEach(im => im.onclick = () => { loupe.zoom = !loupe.zoom; drawLoupe(); });
+  stage.scrollTop = 0;
+  drawSide(); drawFilm();
+}
+function drawSide(){
+  const it = cur(), s = st(it);
+  const side = $("#lSide");
+  const notesFocused = document.activeElement && document.activeElement.id === "notes";
+  if (notesFocused) { // keep typing undisturbed; only refresh the buttons
+    side.querySelectorAll(".vbtns button").forEach(b => b.classList.toggle("on", s.verdict === b.dataset.v));
+    side.querySelector("#tRev").classList.toggle("on", !!s.reviewed); side.querySelector("#tStar").classList.toggle("on", !!s.star);
+    return;
+  }
+  side.innerHTML = `
+    <div class="vbtns">${Object.entries(VERD).map(([v, l], n) => `<button class="${v} ${s.verdict === v ? "on" : ""}" data-v="${v}">${l} <kbd>${n + 1}</kbd></button>`).join("")}</div>
+    <div class="toggles"><button id="tRev" class="${s.reviewed ? "on" : ""}">✓ Reviewed <kbd>R</kbd></button><button id="tStar" class="st ${s.star ? "on" : ""}">★ Star <kbd>S</kbd></button></div>
+    <h4>Notes <span style="text-transform:none;letter-spacing:0">(Claude reads these)</span></h4>
+    <textarea id="notes" placeholder="What works, what doesn't, what to change…">${esc(s.notes || "")}</textarea>
+    <div class="saved" id="savedMsg">${s.updated ? "Saved " + s.updated.replace("T", " ") : ""}</div>
+    <h4>Open</h4>
+    <div class="acts"><button class="btn sm acc" data-o="pdf">PDF <kbd>O</kbd></button><button class="btn sm" data-o="folder">Show in folder <kbd>F</kbd></button>${it.brief ? `<button class="btn sm" data-o="brief">${it.kind.startsWith("client") ? "README" : "Brief"}</button>` : ""}</div>
+    <h4>Compare</h4>
+    <div class="acts">${it.twin ? `<button class="btn sm" id="twin">With its ${it.density === "spacious" ? "Condensed" : "Spacious"} twin <kbd>T</kbd></button>` : ""}<button class="btn sm" id="addc">${compareIds.includes(it.id) ? "− Remove from compare" : "+ Add to compare"} <kbd>C</kbd></button></div>
+    <h4>Details</h4>
+    <dl>
+      <dt>Kind</dt><dd>${esc(KINDS[it.kind])}</dd>
+      ${it.status ? `<dt>Status</dt><dd>${esc(it.statusNote || it.status)}</dd>` : ""}
+      ${it.idea && !it.kind.startsWith("client") ? `<dt>Idea</dt><dd><i>${esc(it.idea)}</i></dd>` : ""}
+      ${it.domain ? `<dt>Domain</dt><dd>${esc(it.domain)}</dd>` : ""}
+      ${it.candidate ? `<dt>Candidate</dt><dd>${esc(it.candidate)}</dd>` : ""}
+      <dt>Date</dt><dd>${esc(it.date)}</dd>
+      <dt>File</dt><dd style="word-break:break-all;color:var(--mute)">${esc(it.id)}</dd>
+    </dl>
+    <h4>Keys</h4>
+    <div class="keys"><kbd>←</kbd> <kbd>→</kbd> previous / next · click a page to zoom<br><kbd>1</kbd> <kbd>2</kbd> <kbd>3</kbd> verdict (again to clear) · <kbd>Esc</kbd> close</div>`;
+  side.querySelectorAll(".vbtns button").forEach(b => b.onclick = () => setVerdict(it, b.dataset.v));
+  $("#tRev").onclick = () => save(it, {reviewed: !st(it).reviewed});
+  $("#tStar").onclick = () => save(it, {star: !st(it).star});
+  side.querySelectorAll("[data-o]").forEach(b => b.onclick = () => openFile(it, b.dataset.o));
+  if ($("#twin")) $("#twin").onclick = () => showCompare(twinPair(it));
+  $("#addc").onclick = () => { toggleCompare(it); drawSide(); };
+  const ta = $("#notes");
+  ta.oninput = () => { $("#savedMsg").textContent = "…"; clearTimeout(ta.t); ta.t = setTimeout(async () => { if (await save(it, {notes: ta.value})) $("#savedMsg").textContent = "Saved"; }, 600); };
+}
+function drawFilm(){
+  const film = $("#lFilm");
+  film.innerHTML = loupe.list.map((id, k) => { const it = items.find(i => i.id === id); if (!it) return ""; const s = st(it);
+    const c = s.verdict ? `var(--${s.verdict})` : s.reviewed ? "var(--mute)" : "var(--acc)";
+    return `<div class="f ${k === loupe.i ? "on" : ""}" data-k="${k}"><span class="dot" style="background:${c}"></span><img loading="lazy" src="${img(it, 1, 200)}" alt=""><span>${esc(it.style.split(" ")[0])} · ${esc(label(it))}</span></div>`; }).join("");
+  film.querySelectorAll(".f").forEach(f => f.onclick = () => { loupe.i = +f.dataset.k; loupe.zoom = false; drawLoupe(); });
+  film.querySelector(".f.on")?.scrollIntoView({block: "nearest", inline: "center"});
+}
+function step(d){ const n = loupe.i + d; if (n >= 0 && n < loupe.list.length) { loupe.i = n; loupe.zoom = false; drawLoupe(); } }
+
+/* ---------- compare ---------- */
+const twinPair = it => [it.twin, it.id].sort(a => a.includes("/spacious/") ? -1 : 1);
+function toggleCompare(it){
+  compareIds = compareIds.includes(it.id) ? compareIds.filter(x => x !== it.id) : compareIds.concat(it.id).slice(-4);
+  drawMain(); drawTray();
+}
+function drawTray(){ $("#tray").classList.toggle("hidden", !compareIds.length); $("#trayN").textContent = `${compareIds.length} to compare`; }
+function showCompare(ids){
+  const list = ids.map(id => items.find(i => i.id === id)).filter(Boolean);
+  if (list.length < 1) return;
+  $("#cRows").innerHTML = list.map(it => `<div class="crow"><div class="cl"><b>${esc(it.style)}</b><span>${esc(label(it))}</span><br>
+      ${st(it).verdict ? `<span class="vtag ${st(it).verdict}">${VERD[st(it).verdict]}</span>` : ""}</div>
+      <div class="cp">${Array.from({length: it.pages}, (_, n) => `<img data-id="${esc(it.id)}" src="${img(it, n + 1, 1000)}" alt="">`).join("")}</div></div>`).join("");
+  $("#cRows").querySelectorAll("img").forEach(im => im.onclick = () => { $("#compare").classList.add("hidden"); openLoupe(items.find(i => i.id === im.dataset.id), list); });
+  $("#compare").classList.remove("hidden"); document.body.style.overflow = "hidden";
+}
+
+/* ---------- actions ---------- */
+async function openFile(it, what){
+  try { await api("/api/open", {id: it.id, what}); toast(what === "folder" ? "Shown in Explorer" : "Opened in the default app"); }
+  catch (e) { toast("Could not open: " + e.message, true); }
+}
+function closeAll(){
+  $("#loupe").classList.add("hidden"); $("#compare").classList.add("hidden"); document.body.style.overflow = "";
+}
+
+document.querySelectorAll("#views button").forEach(b => b.onclick = () => { view = b.dataset.v; store.set("view", view); render(); });
+document.querySelectorAll("[data-close]").forEach(b => b.onclick = closeAll);
+$("#lPrev").onclick = () => step(-1); $("#lNext").onclick = () => step(1);
+$("#rescan").onclick = () => load();
+$("#export").onclick = async () => { try { const j = await api("/api/export", {}); toast("Review written to " + j.path); } catch (e) { toast("Export failed: " + e.message, true); } };
+$("#trayGo").onclick = () => showCompare(compareIds);
+$("#trayClear").onclick = () => { compareIds = []; drawMain(); drawTray(); };
+$("#cClear").onclick = () => { compareIds = []; closeAll(); drawMain(); drawTray(); };
+const size = $("#size"); size.value = store.get("size", 190);
+const applySize = () => document.documentElement.style.setProperty("--h", size.value + "px");
+size.oninput = () => { applySize(); store.set("size", +size.value); }; applySize();
+
+document.addEventListener("keydown", e => {
+  const typing = /INPUT|TEXTAREA|SELECT/.test(document.activeElement?.tagName);
+  if (e.key === "Escape") { if (typing) { document.activeElement.blur(); return; } closeAll(); return; }
+  if (typing || e.ctrlKey || e.metaKey || e.altKey) return;
+  const inLoupe = !$("#loupe").classList.contains("hidden");
+  if (inLoupe) {
+    const it = cur(); const k = e.key.toLowerCase();
+    if (e.key === "ArrowRight" || k === "j") step(1);
+    else if (e.key === "ArrowLeft" || k === "k") step(-1);
+    else if (k === "1") setVerdict(it, "keep"); else if (k === "2") setVerdict(it, "maybe"); else if (k === "3") setVerdict(it, "reject");
+    else if (k === "r") save(it, {reviewed: !st(it).reviewed});
+    else if (k === "s") save(it, {star: !st(it).star});
+    else if (k === "o") openFile(it, "pdf"); else if (k === "f") openFile(it, "folder");
+    else if (k === "t" && it.twin) showCompare(twinPair(it));
+    else if (k === "c") { toggleCompare(it); drawSide(); }
+    else if (k === "n") { e.preventDefault(); $("#notes").focus(); }
+    else return;
+    e.preventDefault(); return;
+  }
+  if (!$("#compare").classList.contains("hidden")) return;
+  const k = e.key.toLowerCase();
+  if (e.key === "/") { e.preventDefault(); $("#q").focus(); }
+  else if (k === "b" || k === "g" || k === "x") { view = {b: "board", g: "grid", x: "batch"}[k]; store.set("view", view); render(); }
+});
+let lastFocus = 0;
+window.addEventListener("focus", () => { if (Date.now() - lastFocus > 3000) { lastFocus = Date.now(); load(true); } });
+load(true).then(() => {   // deep links: #open=<design id> opens it in the Loupe
+  const m = location.hash.match(/^#open=(.+)$/);
+  const it = m && items.find(i => i.id === decodeURIComponent(m[1]));
+  if (it) openLoupe(it);
+});
+</script>
+</body>
+</html>

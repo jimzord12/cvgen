@@ -9,6 +9,7 @@ import subprocess
 import pymupdf as fitz
 from verify import ROOT, FONTS, FLAGSHIP, verify, check_frozen
 from workflow import run_workflow
+from design_review import run_design_review
 
 
 def check_core_boundary():
@@ -119,7 +120,7 @@ def main():
     # One folder per case holds all its evidence (ADR 0013): <case>.pdf, compile.log, and for a
     # checked case check/result.json (plus diff-N.png on a mismatch) and page-N.png renders.
     def compile_case(name, source, inputs=None, error=None):
-        assert name != 'workflow', 'the candidate workflow owns the workflow/ folder'
+        assert name not in ('workflow', 'design-review'), 'the workflow and app checks own those folders'
         folder = out / name
         folder.mkdir(exist_ok=False)
         pdf = folder / (name + '.pdf')
@@ -357,6 +358,9 @@ def main():
     # The candidate workflow, end to end and every refusal, in a fresh fictional workspace.
     for check in run_workflow(out, args.typst):
         results.append({'case': 'workflow-' + check, 'passed': True, 'folder': 'workflow'})
+    # The owner's Design Review app, through its real server, on a fictional tree.
+    for check in run_design_review(out):
+        results.append({'case': 'design-review-' + check, 'passed': True, 'folder': 'design-review'})
     check_frozen()
     check_core_boundary()
     report = {'passed': True, 'cases': results, 'exact_reference': result, 'output': str(out)}
