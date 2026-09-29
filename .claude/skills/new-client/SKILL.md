@@ -72,7 +72,8 @@ owner talks to the client; you never do. Terms: `docs/glossary.md`.
    one `cv.typ` that imports only `/packages/cv-framework/lib.typ` (guide
    section 9). Record decisions and evidence paths in the `Envelope`'s
    `README.md`. At `Export`, write "Delivered <date>. Delete by <date + 12
-   months>" there and re-stamp the delivered revision `status=delivered`.
+   months>" there; once the owner has sent it, re-stamp the delivered
+   revision `status=delivered`.
 
 ## Brief for a Scout or Deep Dive agent
 

@@ -33,8 +33,8 @@ python scripts/outputs.py stamp <pdf> domain=<id> "candidate=<sample name>" "sty
 
 The `Design Review` app and the suite read these files, not this table: when
 a concept's status changes, re-stamp its PDFs with the new status
-(`status=chosen`, `parked`, `rejected` or `unresolved`) as well as updating
-its row. An earlier flat run's `concept.pdf` also passes `kind=text-draft`.
+(`parked`, `rejected` or `unresolved`; for `chosen`, only the `Design Tier`
+he picked, `idea-run` step 8) as well as updating its row. An earlier flat run's `concept.pdf` also passes `kind=text-draft`.
 
 | Concept | Idea | Date | Status | PDF |
 |---|---|---|---|---|

@@ -183,9 +183,9 @@ def render_revision(workspace, typst='typst', pages=2, inputs=None, reference_da
         # Read from the snapshot the PDF was compiled from; warnings never change `passed`.
         checks['certificates'] = check_certificates(read_json(revision.inputs / 'candidate.json'), reference_date)
         write_json(revision.checks_record, checks)
-        lang = (inputs or {}).get('lang')
+        lang = str((inputs or {}).get('lang') or '').lower()
         stamp(revision.pdf, {'kind': 'client-cv', 'status': 'render', 'variant': revision.id,
-                             'lang': lang if lang and len(lang) == 2 else None, 'source': 'cv.typ',
+                             'lang': lang if len(lang) == 2 and lang.isalpha() else None, 'source': 'cv.typ',
                              'producedBy': 'scripts/cv.py render'}, envelope_dir=ws.folder)
     counts, warnings = certificate_summary(checks)
     return {

@@ -63,11 +63,13 @@ def run_workflow(out, typst):
 
     # 0. Output Contract: no envelope.json, no render, and nothing is left behind.
     assert 'envelope.json is missing' in cv('render', workspace, '--typst', typst, expect=2)
+    (workspace / 'envelope.json').write_text(json.dumps(dict(envelope, domain='Marine')), encoding='utf-8')
+    assert "domain='Marine'" in cv('render', workspace, '--typst', typst, expect=2)
     assert not (workspace / 'revisions').exists()
     (workspace / 'envelope.json').write_text(json.dumps(envelope), encoding='utf-8')
 
     # 1. Render: snapshot, records, checks bound to the bytes, PDF identical to the frozen v11 reference.
-    first = cv('render', workspace, '--typst', typst)
+    first = cv('render', workspace, '--typst', typst, '--input', 'lang=EN')
     rid = first['revision']
     assert first['schema'] == '/packages/domains/marine/templates/flagship/schema/flagship-input.schema.json', first
     assert first['status'] == 'success' and first['checks_passed'] and first['engine_uncommitted_changes'] is False, first
@@ -89,7 +91,7 @@ def run_workflow(out, typst):
     assert exact['passed'], exact
     meta = json.loads((folder / 'cv.meta.json').read_text(encoding='utf-8'))
     assert meta['sha256'] == sha and meta['status'] == 'render' and meta['kind'] == 'client-cv' and meta['pages'] == 2
-    assert {k: meta[k] for k in envelope} == envelope and meta['variant'] == rid, meta
+    assert {k: meta[k] for k in envelope} == envelope and meta['variant'] == rid and meta['lang'] == 'en', meta
     passed.append('render-snapshot-and-records')
 
     # 2. Approval needs the reviewed hash, a name, and refuses test-only approvals under private/.

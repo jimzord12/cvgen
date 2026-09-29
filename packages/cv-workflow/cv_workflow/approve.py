@@ -1,5 +1,5 @@
 """Explicit approval of one revision's exact bytes, written as cv.approval.json."""
-from .outputs import stamp
+from .outputs import envelope, stamp
 from .workspace import Workspace, WorkflowError, hash_matches, is_private_path, read_json, utc_now, write_json
 
 
@@ -15,6 +15,7 @@ def approve_revision(workspace, revision_id, approver, sha256, test_only=False):
     if test_only and is_private_path(workspace):
         raise WorkflowError('Test-only approval is refused under private/: a real candidate PDF is approved by the owner only')
     ws = Workspace(workspace)
+    envelope(ws.folder)  # checked before the receipt, so the Meta File can always follow it
     revision = ws.revision(revision_id)
     render, actual = revision.require_rendered()
     revision.require_checks(actual)
@@ -24,6 +25,7 @@ def approve_revision(workspace, revision_id, approver, sha256, test_only=False):
     if revision.approval_record.is_file():
         existing = read_json(revision.approval_record)
         if existing.get('revision') == revision.id and existing.get('sha256') == actual:
+            stamp(revision.pdf, {'status': 'approved'}, envelope_dir=ws.folder)  # heals a missed stamp
             return {'revision': revision.id, 'sha256': actual, 'already_approved': True, 'approval': existing}
         raise WorkflowError(f'Revision {revision.id} already has a cv.approval.json for other bytes; it is not overwritten')
     approval = {

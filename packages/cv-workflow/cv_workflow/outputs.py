@@ -38,7 +38,8 @@ def home_of(pdf, root=ROOT):
         density, tier = parts[2], parts[3]
         if density in DENSITIES and tier in TIERS and name == f'{density}-{tier}.pdf':
             return {'kind': 'concept', 'density': density, 'tier': tier}
-    if parts[0] == 'design-concepts' and len(parts) == 3 and re.match(r'\d{4}-\d{2}-\d{2}-', parts[1]):
+    if parts[0] == 'design-concepts' and len(parts) == 3 and re.match(r'\d{4}-\d{2}-\d{2}-', parts[1]) \
+            and re.fullmatch(r'concept(-[a-z0-9-]+)?\.pdf', name):
         variant = name[:-4].replace('concept', '').strip('-')
         return {'variant': variant} if variant else {}
     if parts[0] == 'examples' and len(parts) == 4 and (Path(root) / Path(*parts[:-1]) / (name[:-4] + '.typ')).is_file():
@@ -62,6 +63,13 @@ def envelope(folder):
     missing = [k for k in ENVELOPE_FIELDS if not isinstance(data.get(k), str) or not data[k].strip()]
     if missing:
         raise WorkflowError(f'{path} lacks {", ".join(missing)}')
+    import jsonschema
+    rules = json.loads(SCHEMA_PATH.read_text(encoding='utf-8'))['properties']
+    bad = [f'{k}={data[k]!r}' for k in ENVELOPE_FIELDS
+           if not jsonschema.Draft202012Validator(rules[k]).is_valid(data[k])]
+    if bad:
+        raise WorkflowError(f'{path} has values the Output Contract refuses: {", ".join(bad)} '
+                            '(domain is a lowercase id such as "marine"; alias is client-YYYY-MM-NN)')
     return {k: data[k] for k in ENVELOPE_FIELDS}
 
 

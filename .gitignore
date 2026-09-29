@@ -22,13 +22,10 @@ __pycache__/
 .DS_Store
 Thumbs.db
 
-# Local scratch renders from earlier sessions. Tracked deliverables are only
-# the named PDFs directly under exports/.
+# Local scratch renders from earlier sessions. The root exports/ is retired
+# (Output Contract, 2026-09-30): a PDF left there shows in git status and
+# fails the suite until it is deleted.
 previews/
-exports/prototypes/
-exports/review/
-exports/local/
-exports/0*.pdf
 
 # Night Shift: its working files stay local; the history of nights is committed.
 .night-shift/*

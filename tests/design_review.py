@@ -3,6 +3,7 @@ server on a free port, real HTTP calls. Only the operating system's "open this
 file" is replaced, so the suite never launches a PDF viewer."""
 
 import json
+from datetime import date
 import sys
 import threading
 import urllib.error
@@ -103,7 +104,17 @@ def run_design_review(out):
         assert 'retired' in unindexed.pop('exports/Old-CV.pdf')
         assert 'no Meta File' in unindexed.pop('design-concepts/2030-01-02-nomad/condensed/safe/condensed-safe.pdf')
         assert not unindexed, unindexed
-        outputs.stamp(repo / cs, {}, root=repo)
+        outputs.stamp(repo / cs, {'date': '2030-01-05'}, root=repo)
+        assert outputs.stamp(repo / cs, {}, root=repo)['date'] == '2030-01-05'      # same bytes: date kept
+        (repo / cs).write_bytes((repo / cs).read_bytes() + b'\n')
+        assert outputs.stamp(repo / cs, {}, root=repo)['date'] == date.today().isoformat()  # new bytes: today
+        wrong = outputs.meta_path(repo / cc)
+        good_meta = wrong.read_text(encoding='utf-8')
+        wrong.write_text(good_meta.replace('"creative"', '"safe"'), encoding='utf-8')
+        mismatch = {u['path']: u['reason'] for u in json.loads(_call(base, '/api/items')[2])['unindexed']}
+        assert "tier='safe' but its place says 'creative'" in mismatch[cc], mismatch
+        wrong.write_text(good_meta, encoding='utf-8')
+        assert outputs.home_of(repo / 'design-concepts/2030-01-01-old-draft/old-render.pdf', repo) is None
         items = {i['id']: i for i in json.loads(_call(base, '/api/items')[2])['items']}
         assert items[cs]['style'] == 'Harbour Lights' and items[cs]['idea'] == 'lights on water'
         assert items[cs]['domain'] == 'travel' and items[cs]['candidate'] == 'Δοκιμή Παράδειγμα'

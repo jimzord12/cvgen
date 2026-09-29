@@ -209,7 +209,7 @@ propose; the owner decides.
 - Every PDF someone will review sits in its home with a `Meta File`
   beside it (the `Output Contract`, `docs/pdf-workflow.md`): stamp it with
   `scripts/outputs.py stamp` after each compile, or let the script that
-  wrote it stamp it. Anything else goes to `builds/`. The suite fails on a
+  wrote it stamp it. Scratch renders go to `builds/`. The suite fails on a
   public PDF without a valid, current `Meta File`.
 - Every component follows the contract in `docs/conventions.md` (ADR 0008):
   `ctx` first, data, named props, slots; the template builds `ctx` once with

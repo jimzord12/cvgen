@@ -87,7 +87,7 @@ private/<candidate>/
     render.log                  # Compiler output, including failed runs
     checks.json                 # Automated checks and their result
     cv.pdf                      # Created on successful rendering
-    cv.meta.json                # Its Meta File: status render, then approved
+    cv.meta.json                # Its Meta File: status render, approved, then delivered
     cv.approval.json            # Created only after explicit owner approval
   exports/<revision-id>/
     cv.pdf                      # Byte-identical delivery copy

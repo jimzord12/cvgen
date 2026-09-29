@@ -295,7 +295,7 @@ the product"; the `new-cv` skill).
 
 At `Export`, Claude writes "Delivered <date>. Delete by <date + 12 months>"
 in the `Envelope`'s `README.md`, re-stamps the delivered revision
-`status=delivered` (`build-a-cv.md` section 6) and names the delete-by date in its report
+`status=delivered` once the owner has sent it (`build-a-cv.md` section 6) and names the delete-by date in its report
 to the owner. A client who never reaches `Export` (no consent, dropped out)
 is named to the owner, by `Alias`, once three months pass without progress
 since the intake date: the `new-client` skill checks the intake dates every

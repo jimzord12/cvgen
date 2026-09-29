@@ -7,7 +7,7 @@ verdict, star, notes) in .local/design-review/state.json, and opens a PDF in
 the operating system's default program. It binds to 127.0.0.1 and never
 sends anything anywhere.
 
-    python scripts/design_review/server.py            # opens the browser
+    python scripts/design_review/server.py            # opens the browser (needs pymupdf, jsonschema)
     python scripts/design_review/server.py --port 8766 --no-browser
 """
 
