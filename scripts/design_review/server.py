@@ -249,7 +249,7 @@ def export_markdown(items, state, folder):
             groups.setdefault(item['groupLabel'], []).append(item)
     known = {item['id'] for item in items}
     for gone in sorted(set(state) - known):
-        groups.setdefault('No longer found (moved or deleted)', []).append(
+        groups.setdefault('Not in this index (moved, deleted, unreadable or left out)', []).append(
             {'id': gone, 'style': gone.rsplit('/', 1)[-1], 'density': None, 'tier': None, 'variant': None})
     for label, group in groups.items():
         lines += [f'## {label}', '']

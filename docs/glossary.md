@@ -75,7 +75,7 @@ owner afterwards.
 | `Style` | One idea of a `magazine-editor` run, drawn in three `Design Tier`s; a run has three very distinct ones. Its folder and its README row are still called a concept (a concept folder, a concept row), as are earlier runs' one-page proposals | `design-concepts/<date>-<slug>/` | 2026-09-29 |
 | `Flagship Parity` | The third design test: side by side with the Marine Flagship, a CV looks as confident, crafted and premium | `docs/vision.md`, "Design is the product"; `design-reviewer` | 2026-09-29 |
 | `Design Tier` | One of the three variations the `magazine-editor` draws of each `Style`: Safe (calm, never generic), Stylish (Flagship territory), Creative (editorial, style to the maximum) | `.claude/agents/magazine-editor.md` | 2026-09-29 |
-| `Design Review` | The owner's local app for looking through designs and recording his verdicts: the `Board` shows a run in its `Style` × `Density` × `Design Tier` shape, the `Loupe` one design at full size; his verdicts and notes are in `.local/design-review/state.json` | `scripts/design_review/` | 2026-09-29 |
+| `Design Review` | The owner's local app for looking through designs and recording his verdicts: the Board shows a run in its `Style` × `Density` × `Design Tier` shape, the Loupe one design at full size; his verdicts and notes are in `.local/design-review/state.json` | `scripts/design_review/` | 2026-09-29 |
 | `Idea Run` | One closed loop of an idea agent (ceo or magazine-editor) and its reviewers | `.claude/skills/idea-run/`, `docs/work/idea-runs/` | 2026-09-25 |
 
 ## Words with two meanings

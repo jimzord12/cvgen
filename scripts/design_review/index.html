@@ -174,7 +174,7 @@ textarea{width:100%;min-height:120px;resize:vertical;background:var(--bg2);borde
 </div>
 
 <div class="ov co hidden" id="compare">
-  <div class="lt"><button class="btn sm" data-close>✕ Close <kbd>Esc</kbd></button><h3 style="margin:0;font-size:15px">Compare</h3><div class="spacer"></div><button class="btn sm" id="cClear">Clear</button></div>
+  <div class="lt"><button class="btn sm" id="cClose">✕ Close <kbd>Esc</kbd></button><h3 style="margin:0;font-size:15px">Compare</h3><div class="spacer"></div><button class="btn sm" id="cClear">Clear</button></div>
   <div class="rows" id="cRows"></div>
 </div>
 
@@ -222,7 +222,7 @@ async function load(quiet){
     render();
     if (j.stateError) toast("Your review file cannot be read, so nothing will be saved: " + j.stateError, true);
     if (!$("#loupe").classList.contains("hidden")) refreshLoupeList();
-    if (!quiet) toast(`${items.length} designs indexed`);
+    if (!quiet && !j.stateError) toast(`${items.length} designs indexed`);
   } catch (e) { toast("Could not load: " + e.message, true); }
 }
 
@@ -534,12 +534,14 @@ async function openFile(it, what){
   try { await api("/api/open", {id: it.id, what}); toast(what === "folder" ? "Shown in Explorer" : "Opened in the default app"); }
   catch (e) { toast("Could not open: " + e.message, true); }
 }
+function closeCompare(){ $("#compare").classList.add("hidden"); if ($("#loupe").classList.contains("hidden")) document.body.style.overflow = ""; }
 function closeAll(){
   $("#loupe").classList.add("hidden"); $("#compare").classList.add("hidden"); document.body.style.overflow = "";
 }
 
 document.querySelectorAll("#views button").forEach(b => b.onclick = () => { view = b.dataset.v; store.set("view", view); render(); });
 document.querySelectorAll("[data-close]").forEach(b => b.onclick = closeAll);
+$("#cClose").onclick = closeCompare;
 $("#lPrev").onclick = () => step(-1); $("#lNext").onclick = () => step(1);
 $("#rescan").onclick = () => load();
 $("#export").onclick = async () => { try { const j = await api("/api/export", {}); toast("Review written to " + j.path); } catch (e) { toast("Export failed: " + e.message, true); } };
@@ -553,7 +555,7 @@ size.oninput = () => { applySize(); store.set("size", +size.value); }; applySize
 document.addEventListener("keydown", e => {
   const typing = /INPUT|TEXTAREA|SELECT/.test(document.activeElement?.tagName);
   if (!$("#compare").classList.contains("hidden")) {
-    if (e.key === "Escape") { $("#compare").classList.add("hidden"); if ($("#loupe").classList.contains("hidden")) document.body.style.overflow = ""; }
+    if (e.key === "Escape") closeCompare();
     return;
   }
   if (e.key === "Escape") { if (typing) { document.activeElement.blur(); return; } closeAll(); return; }

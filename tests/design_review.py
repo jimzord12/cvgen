@@ -145,7 +145,7 @@ def run_design_review(out):
         code, _, body = _call(base, '/api/export', {})
         text = Path(json.loads(body)['path']).read_text(encoding='utf-8')
         assert '**Harbour Lights** (spacious · safe): Keep, starred, reviewed.' in text and '  Καλό' in text
-        assert '## No longer found (moved or deleted)' in text and 'condensed-creative.pdf' in text
+        assert '## Not in this index (moved, deleted, unreadable or left out)' in text and 'condensed-creative.pdf' in text
         passed.append('export')
 
         code, _, body = _call(base, '/api/plain')
