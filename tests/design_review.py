@@ -52,11 +52,12 @@ def _tree(repo):
     (rev / 'render.json').write_text(json.dumps({'created_at': '2030-01-03T10:10:10Z', 'compiler': {
         'command': ['typst', 'compile', '--input', 'lang=el', 'cv.typ']}}), encoding='utf-8')
     _pdf(env / 'draft' / 'draft-01.pdf', 1)
+    _pdf(env / 'stray.pdf', 1)          # exists, but is not a revision or a draft
 
 
-def _call(base, path, body=None):
+def _call(base, path, body=None, headers=None):
     data = json.dumps(body).encode() if body is not None else None
-    req = urllib.request.Request(base + path, data=data, headers={'Content-Type': 'application/json'})
+    req = urllib.request.Request(base + path, data=data, headers=dict({'Content-Type': 'application/json'}, **(headers or {})))
     try:
         with urllib.request.urlopen(req, timeout=60) as r:
             return r.status, r.headers.get('Content-Type'), r.read()
@@ -101,7 +102,9 @@ def run_design_review(out):
         assert code == 200 and ctype == 'image/png' and png[:8] == b'\x89PNG\r\n\x1a\n'
         assert pymupdf.Pixmap(png).width == 300
         assert _call(base, f'/api/page?id={ss}&page=3&w=300')[0] == 404
-        assert _call(base, '/api/page?id=../secret.pdf&page=1')[0] == 404
+        assert _call(base, '/api/page?id=private/fictional-client/stray.pdf&page=1')[0] == 404
+        assert _call(base, '/api/items', headers={'Host': 'evil.example:80'})[0] == 403
+        assert _call(base, '/api/state', {'id': ss, 'patch': {'star': True}}, {'Content-Type': 'text/plain'})[0] == 415
         passed.append('page-images')
 
         code, _, body = _call(base, '/api/state', {'id': ss, 'patch': {'verdict': 'keep', 'reviewed': True, 'notes': 'Καλό'}})
@@ -113,6 +116,17 @@ def run_design_review(out):
         saved = json.loads((repo / '.local/design-review/state.json').read_text(encoding='utf-8'))
         assert saved[ss]['verdict'] == 'keep' and saved[ss]['star'] is True and saved[ss]['notes'] == 'Καλό'
         assert json.loads(_call(base, '/api/items')[2])['state'][ss]['star'] is True
+        state_file = repo / '.local/design-review/state.json'
+        good = state_file.read_text(encoding='utf-8')
+        state_file.write_text(good, encoding='utf-8-sig')      # a BOM (PowerShell 5, Notepad) still reads
+        assert json.loads(_call(base, '/api/items')[2])['state'][ss]['verdict'] == 'keep'
+        state_file.write_text(good.rstrip()[:-1] + ',}', encoding='utf-8')   # a hand edit gone wrong
+        broken = state_file.read_bytes()
+        code, _, body = _call(base, '/api/items')
+        assert code == 200 and json.loads(body)['stateError'] and json.loads(body)['state'] == {}
+        assert _call(base, '/api/state', {'id': cs, 'patch': {'star': True}})[0] == 409
+        assert state_file.read_bytes() == broken      # never overwritten
+        state_file.write_text(good, encoding='utf-8')
         passed.append('state')
 
         assert _call(base, '/api/open', {'id': ss, 'what': 'pdf'})[0] == 200
@@ -123,9 +137,15 @@ def run_design_review(out):
         assert opened == [(repo / ss, False), (repo / ss, True), (style / 'brief.md', False)], opened
         passed.append('open')
 
+        (repo / cc).unlink()       # a reviewed design that moved away still reaches the export
+        _call(base, '/api/items')
+        saved = json.loads(state_file.read_text(encoding='utf-8'))
+        saved[cc] = {'verdict': 'reject', 'notes': 'gone'}
+        state_file.write_text(json.dumps(saved), encoding='utf-8')
         code, _, body = _call(base, '/api/export', {})
         text = Path(json.loads(body)['path']).read_text(encoding='utf-8')
         assert '**Harbour Lights** (spacious · safe): Keep, starred, reviewed.' in text and '  Καλό' in text
+        assert '## No longer found (moved or deleted)' in text and 'condensed-creative.pdf' in text
         passed.append('export')
 
         code, _, body = _call(base, '/api/plain')

@@ -220,6 +220,7 @@ async function load(quiet){
     const j = await api("/api/items");
     items = j.items; state = j.state;
     render();
+    if (j.stateError) toast("Your review file cannot be read, so nothing will be saved: " + j.stateError, true);
     if (!$("#loupe").classList.contains("hidden")) refreshLoupeList();
     if (!quiet) toast(`${items.length} designs indexed`);
   } catch (e) { toast("Could not load: " + e.message, true); }
@@ -358,9 +359,14 @@ function drawBoard(vis){
       m.innerHTML = h;
       for (const r of rows) {
         const any = gi.find(i => i.style === r);
+        const flat = shown.filter(i => rowOf(i) === r && !i.density);
         const rh = document.createElement("div"); rh.className = "rowh";
         rh.innerHTML = `<b>${esc(r)}</b><div class="idea">${esc(any.idea || "")}</div>${any.status ? `<span class="pill ${esc(any.status.split(" ")[0])}" title="${esc(any.statusNote || "")}">${esc(any.status)}</span>` : ""}`;
         m.appendChild(rh);
+        if (flat.length) {
+          const strip = document.createElement("div"); strip.className = "strip-row"; strip.style.gridColumn = "2 / -1";
+          flat.forEach(it => strip.appendChild(cell(it))); m.appendChild(strip); continue;
+        }
         for (const [d, t] of cols) {
           const it = shown.find(i => i.style === r && i.density === d && i.tier === t);
           if (it) m.appendChild(cell(it));
@@ -406,8 +412,8 @@ async function drawBatch(vis){
   const main = $("#main");
   main.innerHTML = `<div class="batch-help"><span>The <b>Batch Test</b>: page 1 of every design in the current filter, shuffled into a pile of plain market CVs at thumbnail size. Scan it fast, as an HR reader would. Which ones can you not skip?</span>
     <button class="btn sm" id="shuffle">Shuffle</button><button class="btn sm" id="reveal">Reveal designs</button></div><div class="pile" id="pile"></div>`;
-  if (!plain) { try { plain = (await api("/api/plain")).pages; } catch (e) { plain = []; toast("Plain CVs unavailable: " + e.message, true); } }
-  const tiles = vis.filter(i => i.kind === "concept" || i.kind === "client-cv").map(i => ({it: i})).concat(plain.map(p => ({p})));
+  if (!plain) { try { plain = (await api("/api/plain")).pages; } catch (e) { toast("Plain CVs unavailable: " + e.message, true); } }
+  const tiles = vis.filter(i => i.kind === "concept" || i.kind === "client-cv").map(i => ({it: i})).concat((plain || []).map(p => ({p})));
   let seed = pileSeed; const rnd = () => (seed = (seed * 16807) % 2147483647) / 2147483647;
   for (let k = tiles.length - 1; k > 0; k--) { const j = Math.floor(rnd() * (k + 1)); [tiles[k], tiles[j]] = [tiles[j], tiles[k]]; }
   const pile = $("#pile");
@@ -436,7 +442,14 @@ function openLoupe(it, list){
   $("#loupe").classList.remove("hidden"); document.body.style.overflow = "hidden";
   drawLoupe();
 }
-function refreshLoupeList(){ loupe.list = loupe.list.filter(id => items.some(i => i.id === id)); loupe.i = Math.min(loupe.i, loupe.list.length - 1); if (loupe.list.length) drawLoupe(); else closeAll(); }
+function refreshLoupeList(){
+  const id = loupe.list[loupe.i];
+  loupe.list = loupe.list.filter(x => items.some(i => i.id === x));
+  const k = loupe.list.indexOf(id);
+  if (k < 0) { if (document.activeElement?.id === "notes") document.activeElement.blur(); loupe.i = Math.min(loupe.i, loupe.list.length - 1); }
+  else loupe.i = k;
+  if (loupe.list.length) drawLoupe(); else closeAll();
+}
 const cur = () => items.find(i => i.id === loupe.list[loupe.i]);
 function drawLoupe(){
   const it = cur(); if (!it) return;
@@ -539,6 +552,10 @@ size.oninput = () => { applySize(); store.set("size", +size.value); }; applySize
 
 document.addEventListener("keydown", e => {
   const typing = /INPUT|TEXTAREA|SELECT/.test(document.activeElement?.tagName);
+  if (!$("#compare").classList.contains("hidden")) {
+    if (e.key === "Escape") { $("#compare").classList.add("hidden"); if ($("#loupe").classList.contains("hidden")) document.body.style.overflow = ""; }
+    return;
+  }
   if (e.key === "Escape") { if (typing) { document.activeElement.blur(); return; } closeAll(); return; }
   if (typing || e.ctrlKey || e.metaKey || e.altKey) return;
   const inLoupe = !$("#loupe").classList.contains("hidden");
@@ -556,7 +573,6 @@ document.addEventListener("keydown", e => {
     else return;
     e.preventDefault(); return;
   }
-  if (!$("#compare").classList.contains("hidden")) return;
   const k = e.key.toLowerCase();
   if (e.key === "/") { e.preventDefault(); $("#q").focus(); }
   else if (k === "b" || k === "g" || k === "x") { view = {b: "board", g: "grid", x: "batch"}[k]; store.set("view", view); render(); }

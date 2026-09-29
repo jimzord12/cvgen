@@ -178,7 +178,10 @@ def build_index(repo, include_private=True):
     for item in items:
         pdf = item.pop('pdf')
         item['id'] = _rel(repo, pdf)
-        item['pages'] = _page_count(pdf)
+        try:
+            item['pages'] = _page_count(pdf)
+        except Exception:  # half-written by a running compile: skip it until the next rescan
+            continue
         item['mtime'] = pdf.stat().st_mtime_ns
         out.append(item)
     for item in out:
@@ -194,6 +197,10 @@ def build_index(repo, include_private=True):
 
 # ---- state --------------------------------------------------------------------
 
+class StateError(Exception):
+    pass
+
+
 class Store:
     FIELDS = {'reviewed': bool, 'verdict': (str, type(None)), 'star': bool, 'notes': str}
     VERDICTS = {None, 'keep', 'maybe', 'reject'}
@@ -202,10 +209,15 @@ class Store:
         self.path = path
 
     def load(self):
-        try:
-            return json.loads(self.path.read_text(encoding='utf-8'))
-        except (OSError, ValueError):
+        if not self.path.exists():
             return {}
+        try:
+            state = json.loads(self.path.read_text(encoding='utf-8-sig'))
+        except (OSError, ValueError) as exc:
+            raise StateError(f'{self.path} cannot be read ({exc}); fix or move it, nothing was saved') from exc
+        if not isinstance(state, dict):
+            raise StateError(f'{self.path} is not a JSON object; fix or move it, nothing was saved')
+        return state
 
     def update(self, item_id, patch):
         for key, value in patch.items():
@@ -235,6 +247,10 @@ def export_markdown(items, state, folder):
     for item in items:
         if item['id'] in state:
             groups.setdefault(item['groupLabel'], []).append(item)
+    known = {item['id'] for item in items}
+    for gone in sorted(set(state) - known):
+        groups.setdefault('No longer found (moved or deleted)', []).append(
+            {'id': gone, 'style': gone.rsplit('/', 1)[-1], 'density': None, 'tier': None, 'variant': None})
     for label, group in groups.items():
         lines += [f'## {label}', '']
         for item in group:
@@ -272,6 +288,11 @@ def render_page(pdf, page, width, cache_dir):
 
 def plain_pages(local):
     """Render plain-cvs.typ once: generic market CVs for the batch view (this checkout's fonts)."""
+    with LOCK:
+        return _plain_pages(local)
+
+
+def _plain_pages(local):
     repo = HERE.parents[1]
     source = HERE / 'plain-cvs.typ'
     digest = hashlib.sha1(source.read_bytes()).hexdigest()[:12]
@@ -343,18 +364,27 @@ def make_handler(app):
             self.end_headers()
             self.wfile.write(body)
 
-        def _body(self):
-            length = int(self.headers.get('Content-Length') or 0)
-            return json.loads(self.rfile.read(length) or b'{}')
+        def _foreign(self):
+            port = self.server.server_address[1]
+            if self.headers.get('Host') not in (f'127.0.0.1:{port}', f'localhost:{port}'):
+                self._send(403, {'error': 'wrong host'})
+                return True
+            return False
 
         def do_GET(self):
+            if self._foreign():
+                return
             url = urlparse(self.path)
             q = {k: v[0] for k, v in parse_qs(url.query).items()}
             try:
                 if url.path == '/':
                     return self._send(200, (HERE / 'index.html').read_bytes(), 'text/html; charset=utf-8')
                 if url.path == '/api/items':
-                    return self._send(200, {'items': app.items(), 'state': app.store.load()})
+                    try:
+                        state, error = app.store.load(), None
+                    except StateError as exc:
+                        state, error = {}, str(exc)
+                    return self._send(200, {'items': app.items(), 'state': state, 'stateError': error})
                 if url.path == '/api/page':
                     item = app.find(q.get('id', ''))
                     page, width = int(q.get('page', 1)), min(int(q.get('w', 400)), 2400)
@@ -376,9 +406,14 @@ def make_handler(app):
                 return self._send(500, {'error': str(exc)})
 
         def do_POST(self):
+            raw = self.rfile.read(int(self.headers.get('Content-Length') or 0))  # drain before any reply
+            if self._foreign():
+                return
+            if not (self.headers.get('Content-Type') or '').startswith('application/json'):
+                return self._send(415, {'error': 'JSON only'})
             url = urlparse(self.path)
             try:
-                body = self._body()
+                body = json.loads(raw or b'{}')
                 if url.path == '/api/state':
                     if not app.find(body.get('id', '')):
                         return self._send(404, {'error': 'unknown design'})
@@ -399,6 +434,8 @@ def make_handler(app):
                     path = export_markdown(app.items(), app.store.load(), app.local / 'exports')
                     return self._send(200, {'path': str(path)})
                 return self._send(404, {'error': 'not found'})
+            except StateError as exc:
+                return self._send(409, {'error': str(exc)})
             except ValueError as exc:
                 return self._send(400, {'error': str(exc)})
             except Exception as exc:
