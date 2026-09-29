@@ -137,7 +137,9 @@ backs the change.
 
 ## Versioning of deliverables
 
-Rendered PDFs are named `<Domain>-<Role>-CV-<Variant>-vNN.pdf`, for example
-`Marine-Engineer-CV-v11.pdf`. A new render with visible changes gets a new
-number and a new file. Old files are removed
-in the same commit unless they are a frozen reference.
+A `Release` PDF is named after its entry point (`engineer.pdf` beside
+`engineer.typ`) and carries its version in the `Title` of its `$examples`
+line in `scripts/build.ps1`, which becomes the `Meta File`'s `title`
+(`Marine Engineer CV v12`). A release with visible changes raises that
+number; Git keeps the earlier bytes. Only a frozen reference keeps a
+versioned file name (`Marine-Engineer-CV-v11.pdf`).

@@ -33,6 +33,19 @@ under `builds/` instead. A wrong `--font-path` still exits 0 but falls back
 to another font; Typst then warns `unknown font family`, so read the
 warnings.
 
+Every PDF here has a `Meta File` beside it (`<pdf-stem>.meta.json`: its
+`Domain`, `Style`, idea, status and hash; the `Output Contract`,
+`docs/pdf-workflow.md`), so stamp it after every compile:
+
+```powershell
+python scripts/outputs.py stamp <pdf> domain=<id> "candidate=<sample name>" "style=<Style name>" "idea=<three words>" status=proposed producedBy=magazine-editor
+```
+
+The `Design Review` app and the suite read these files, not this table: when
+a concept's status changes, re-stamp its PDFs with the new status
+(`parked`, `rejected` or `unresolved`; for `chosen`, only the `Design Tier`
+he picked, `idea-run`, "What the owner gets, and what his answer does") as well as updating its row. An earlier flat run's `concept.pdf` also passes `kind=text-draft`.
+
 | Concept | Idea | Date | Status | PDF |
 |---|---|---|---|---|
 | Measured in Months | The career drawn to scale: one bar per vessel, length = service months; marine and travel variants | 2026-09-25 | rejected (owner, 2026-09-27); removed in 7e9f619 | in Git history |

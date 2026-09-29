@@ -1,6 +1,7 @@
 # PDF workflow and storage
 
-Read when discussing the monorepo boundaries or where a candidate PDF lives.
+Read when discussing the monorepo boundaries, where a candidate PDF lives,
+or where any PDF someone will review goes (the `Output Contract`, below).
 Status: Approved by the owner in conversation on 2026-09-15; recorded in
 [ADR 0010](decisions/0010-public-monorepo-and-pdf-workflow.md). The source
 tree below is implemented for the engine (`packages/cv-framework/` and
@@ -47,12 +48,13 @@ packages/
 scripts/                        # Local commands calling the workflow
 examples/
   candidates/                   # 3-5 fictional datasets
-  marine/flagship/              # Builds using those datasets
-exports/                        # Published fictional example PDFs only
+  marine/flagship/              # Entry points using those datasets, each with its
+                                #   Release PDF and Meta File beside it
 builds/                         # Disposable public example/test output
 docs/
 archive/design-studies/          # Historical studies, inputs, and previews
-design-concepts/                # Proposed template concepts (idea-run skill); fonts/ shared
+design-concepts/                # Proposed template concepts (idea-run skill), each PDF
+                                #   with its Meta File; fonts/ shared
 private/                        # Local candidate workspaces; Git-ignored
 ```
 
@@ -67,6 +69,8 @@ This schematic candidate name does not identify a real person:
 
 ```text
 private/<candidate>/
+  envelope.json                 # Who the client is: alias, domain, candidate, rank;
+                                #   render refuses without it
   candidate.json                # Working candidate record
   cv.typ                        # Entry point: template, theme, artwork, layout, page plan
   intake/ research/ draft/      # Client workflow drawers: messages and documents,
@@ -83,6 +87,7 @@ private/<candidate>/
     render.log                  # Compiler output, including failed runs
     checks.json                 # Automated checks and their result
     cv.pdf                      # Created on successful rendering
+    cv.meta.json                # Its Meta File: status render, approved, then delivered
     cv.approval.json            # Created only after explicit owner approval
   exports/<revision-id>/
     cv.pdf                      # Byte-identical delivery copy
@@ -104,16 +109,62 @@ version, the entry point's imports (template, theme, artwork, layout) and the
 compiler inputs, and flags uncommitted engine changes; recording a version
 alone is not a guarantee that such a development run can be reproduced.
 
+## Output Contract
+
+Every PDF we show someone (a concept, the `Release`, a client's `Text Draft`
+or CV) sits in the one home its kind has, with a `Meta File` beside it that
+says what it is (owner, 2026-09-30; [the proposal](proposals/output-contract.md)).
+Nothing infers a PDF's meaning from where it happens to lie, and a PDF
+without a valid, current `Meta File` shows up as a problem, never silently.
+
+| `kind` | Home | `status` |
+|---|---|---|
+| `concept` | `design-concepts/<date>-<slug>/<density>/<tier>/<density>-<tier>.pdf` | `proposed`, `chosen`, `parked`, `rejected`, `unresolved` |
+| `text-draft` (a `Text Draft` direction, earlier flat runs) | `design-concepts/<date>-<slug>/concept.pdf`, `concept-<variant>.pdf` | as `concept` |
+| `example` (the `Release`) | `examples/<domain>/<template>/<name>.pdf`, beside `<name>.typ` | `release` |
+| `client-draft` (a client's `Text Draft`) | `private/<envelope>/draft/draft-NN.pdf` | `sent`, `signed-off`, `superseded` |
+| `client-cv` | `private/<envelope>/revisions/<id>/cv.pdf`; `private/<envelope>/reference.pdf` for a CV delivered before `cv.py` | `render`, `approved`, `delivered` |
+
+- The `Meta File` is `<pdf-stem>.meta.json`, valid against
+  `packages/cv-workflow/cv_workflow/output.schema.json` (`contract:
+  cvgen.output/1`). It always holds `kind`, `domain`, `candidate`, `pages`,
+  `date`, `status` and the PDF's `sha256`; a concept also `style`, `density`
+  and `tier`, an example `style` and `source`, a client PDF `alias`.
+  `domain` is an id from the glossary's `Domain` row (`marine`, `travel`).
+- `python scripts/outputs.py stamp <pdf> status=<status> [key=value ...]`
+  writes it. It computes `pages`, `sha256` and `date`, takes `kind` (and
+  `density`, `tier`, `source`) from the PDF's place (a flat earlier run
+  passes `kind=text-draft`), copies `alias`,
+  `domain`, `candidate` and `rank` from the client's `envelope.json`, keeps
+  an earlier `Meta File`'s other fields, and refuses a PDF outside a home.
+- A `Meta File` whose hash no longer matches its PDF is stale. Every
+  recompile needs a re-stamp (Typst embeds the compile time).
+- Who stamps: `cv.py render` (`render`) and `cv.py approve` (`approved`);
+  `scripts/build.ps1 -Release` (`release`); the `magazine-editor` after
+  every compile (`proposed`); the lead for a client's `Text Draft` and for
+  every later status change (an owner's verdict on a concept, a
+  `Sign-off`, a delivery).
+- `python scripts/outputs.py check` lists every PDF in `design-concepts/`
+  and `examples/` (and a stray root `exports/`, which is retired) with no
+  valid, current `Meta File` or outside a home; `--private` adds the client
+  homes. `python tests/run.py` fails on any, and the `Design Review` app,
+  which reads `Meta File`s only, lists them as unindexed with the reason.
+  `builds/`, an `Envelope`'s `exports/` bundles and its `intake/` documents
+  are not review targets and are never indexed.
+
 ## Lifecycle
 
 1. **Prepare and render.** Snapshot the working inputs into a new revision and
    ask the engine to render there. Keep compiler errors with that revision.
+   A workspace without `envelope.json` is refused before anything is
+   written; a new PDF gets its `Meta File` (`status: render`).
 2. **Check and review.** Automated checks must pass before approval. The owner
    reviews that revision's `cv.pdf`; review does not move or regenerate it.
 3. **Approve.** An explicit owner action tied to the reviewed revision and hash
    creates `cv.approval.json`. It records revision ID, SHA-256, approver, and
    approval time. Before writing it, verify that the reviewed bytes still match.
-   A passing test or an agent's quality judgment cannot grant approval.
+   A passing test or an agent's quality judgment cannot grant approval. The
+   revision's `Meta File` is re-stamped `approved`.
 4. **Export.** Read the authoritative receipt from the revision, verify the PDF
    hash and passing checks, copy into a fresh export folder, and verify the copy.
    A missing receipt, failed check, or mismatch blocks export. Never recompile
@@ -150,8 +201,9 @@ revisions can be cleanup candidates; removing one needs the owner's go
 ([preferences.md](preferences.md#what-he-decides-and-what-agents-decide)).
 They are not part of a general `builds/` cleanup.
 
-Root `exports/` remains a public fictional gallery; candidate exports stay in
-`private/`. A template's `tests/approved/` protects its design against unintended
+The public fictional gallery is the `Release` beside its entry points in
+`examples/` (the root `exports/` was retired on 2026-09-30); candidate
+exports stay in `private/`. A template's `tests/approved/` protects its design against unintended
 changes; a candidate's approval sidecar records authorization to deliver that PDF.
 
 ADR 0010 approves a change to output locations: candidate runs use fresh

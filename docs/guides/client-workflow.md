@@ -16,7 +16,7 @@ Intake (Relay) -> Scout -> CV decisions -> Deep Dives -> one follow-up
 
 | Step | Owner | Claude |
 |---|---|---|
-| 1. Envelope | names the client | creates the folder and its alias |
+| 1. Envelope | names the client | creates the folder, its alias and `envelope.json` |
 | 2. Intake | pastes the questions, brings the answers back | writes the questions in simple Greek |
 | 3. Facts | - | turns answers into facts and a gap list |
 | 4. Scout | - | Research Library first, then the web |
@@ -36,6 +36,7 @@ drawers to it:
 private/eleni-example-tour-guide/
   README.md          alias, intake date, decisions, draft fingerprints, delivery and delete-by dates,
                      Google links (Intake Form, Sheet, script project)
+  envelope.json      who the client is, once: alias, domain, candidate, rank
   intake/
     messages.md      every answer as received, dated, in the client's words
     documents/       the photos and files the client sent
@@ -49,6 +50,7 @@ private/eleni-example-tour-guide/
     reviews/         research-reviewer reports: <topic>-NN.md per Deep Dive and round
   draft/
     draft-01.typ, draft-01.pdf   the text draft (a new number per version)
+    draft-01.meta.json           its Meta File: sent, then signed-off or superseded
     sign-off-01.png              the client's OK, as a screenshot
   candidate.json, cv.typ, portrait, revisions/, exports/   added by new-cv
   reviews/           design-NN.md and text-NN.md: review reports on the CV's design and text
@@ -63,6 +65,16 @@ the files `cv.typ` reads into a `Revision`; the drawers enter one only if
 top of the `Envelope`'s `README.md` with the date intake started. Outside `private/` (Trello cards,
 commit messages, briefs to agents, anything public) the client is only ever
 the alias.
+
+Claude also writes `envelope.json` when it opens the `Envelope`. Every
+`Meta File` in the `Envelope` copies it (the `Output Contract`,
+`../pdf-workflow.md`), and `scripts/cv.py render` refuses to run without
+it. `domain` is an id from the glossary's `Domain` row (`travel` for a tour
+guide), `candidate` the client's display name:
+
+```json
+{"alias": "client-2026-09-01", "domain": "travel", "candidate": "Eleni Example", "rank": "Tour Guide"}
+```
 
 ## 2. Intake by Relay
 
@@ -245,7 +257,14 @@ greeting and label, draft number, date and four sample facts.
 
 ```powershell
 typst compile --root . --font-path packages/cv-framework/fonts private/<envelope>/draft/draft-01.typ private/<envelope>/draft/draft-01.pdf
+python scripts/outputs.py stamp private/<envelope>/draft/draft-01.pdf status=sent
 ```
+
+The stamp writes the draft's `Meta File` from `envelope.json` (the
+`Output Contract`, `../pdf-workflow.md`), so the owner finds it in the
+`Design Review` app. At the `Sign-off` Claude re-stamps it
+`status=signed-off`; a draft replaced by the next number becomes
+`status=superseded`.
 
 Its first page, the `Check Page`, in Greek, asks the client to check only
 the underlined facts, because the wording is our job. Its words are plain
@@ -276,7 +295,8 @@ the `Batch Test` and the `Three-Second Test` (`docs/vision.md`, "Design is
 the product"; the `new-cv` skill).
 
 At `Export`, Claude writes "Delivered <date>. Delete by <date + 12 months>"
-in the `Envelope`'s `README.md` and names the delete-by date in its report
+in the `Envelope`'s `README.md`, re-stamps the delivered revision
+`status=delivered` once the owner has sent it (`build-a-cv.md` section 6) and names the delete-by date in its report
 to the owner. A client who never reaches `Export` (no consent, dropped out)
 is named to the owner, by `Alias`, once three months pass without progress
 since the intake date: the `new-client` skill checks the intake dates every

@@ -44,7 +44,8 @@ business.
   format and states you must follow)
 - The board: the card list the lead pastes into your brief (you have no
   shell and never touch the board yourself)
-- What the product looks like today: `exports/` PDFs, `docs/images/`
+- What the product looks like today: the `Release` PDFs beside the entry
+  points in `examples/marine/flagship/`, `docs/images/`
 - Your previous run records under `docs/work/idea-runs/`, so you do not
   repeat an idea already proposed, rejected or deferred without new evidence
 

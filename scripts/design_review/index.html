@@ -145,6 +145,9 @@ textarea{width:100%;min-height:120px;resize:vertical;background:var(--bg2);borde
 .tray{position:fixed;right:20px;bottom:20px;z-index:30;background:var(--panel2);border:1px solid var(--line2);border-radius:10px;padding:8px 10px;display:flex;gap:8px;align-items:center;box-shadow:0 8px 30px rgba(0,0,0,.5)}
 .toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);z-index:90;background:var(--panel2);border:1px solid var(--line2);padding:8px 14px;border-radius:8px;box-shadow:0 8px 30px rgba(0,0,0,.5);max-width:80vw}
 .err{border-color:var(--reject)}
+.unindexed{background:#2a1f1c;border:1px solid #7a3328;border-radius:9px;padding:9px 13px;margin:0 0 20px;font-size:12.5px;color:var(--mute)}
+.unindexed summary{cursor:pointer;color:var(--text)}
+.unindexed div{margin-top:4px}.unindexed code{color:var(--text)}
 </style>
 </head>
 <body>
@@ -188,7 +191,7 @@ const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt
 const cap = s => s ? s[0].toUpperCase() + s.slice(1) : "";
 const DENS = ["spacious","condensed"];           // Spacious first: the owner's preference
 const TIERS = ["safe","stylish","creative"];
-const KINDS = {"concept":"Concept","text-draft":"Text Draft","client-cv":"Client CV","client-draft":"Client draft"};
+const KINDS = {"concept":"Concept","text-draft":"Text Draft direction","example":"Release example","client-cv":"Client CV","client-draft":"Client draft"};
 const VERD = {keep:"Keep",maybe:"Maybe",reject:"Reject"};
 
 const store = {
@@ -198,7 +201,7 @@ const store = {
 const DEFAULT_F = {q:"", kinds:[], dens:[], tiers:[], review:"all", verdicts:[], star:false, cand:"", domain:"", group:"", from:"", to:"", sort:"newest"};
 let F = Object.assign({}, DEFAULT_F, store.get("filters", {}));
 let view = store.get("view", "board");
-let items = [], state = {}, compareIds = [];
+let items = [], state = {}, compareIds = [], unindexed = [];
 let loupe = {list:[], i:0, zoom:false};
 
 async function api(path, body){
@@ -213,12 +216,12 @@ function toast(msg, err){
 }
 const img = (it, page, w) => `/api/page?id=${encodeURIComponent(it.id)}&page=${page}&w=${w}&v=${it.mtime}`;
 const st = it => state[it.id] || {};
-const label = it => [it.density && cap(it.density), it.tier && cap(it.tier), !it.density && it.variant].filter(Boolean).join(" · ") || "Concept";
+const label = it => [it.density && cap(it.density), it.tier && cap(it.tier), !it.density && it.variant].filter(Boolean).join(" · ") || it.title || "Concept";
 
 async function load(quiet){
   try {
     const j = await api("/api/items");
-    items = j.items; state = j.state;
+    items = j.items; state = j.state; unindexed = j.unindexed || [];
     render();
     if (j.stateError) toast("Your review file cannot be read, so nothing will be saved: " + j.stateError, true);
     if (!$("#loupe").classList.contains("hidden")) refreshLoupeList();
@@ -277,7 +280,7 @@ function drawFilters(){
       <button class="chip ${F.star ? "on" : ""}" id="star">★</button></div>
     <div class="fg"><span>Run</span><select id="group"><option value="">All</option>${groups.map(([g, l]) => `<option value="${esc(g)}" ${g === F.group ? "selected" : ""}>${esc(l)}</option>`).join("")}</select></div>
     <div class="fg"><span>Candidate</span><select id="cand">${opts(uniq("candidate"), F.cand, "All")}</select></div>
-    <div class="fg"><span>Domain</span><select id="domain">${opts(uniq("domain"), F.domain, "All")}</select></div>
+    <div class="fg"><span>Domain</span><select id="domain"><option value="">All</option>${uniq("domain").map(v => `<option value="${esc(v)}" ${v === F.domain ? "selected" : ""}>${esc(cap(v))}</option>`).join("")}</select></div>
     <div class="fg"><span>Date</span><input type="date" id="from" value="${F.from}"> – <input type="date" id="to" value="${F.to}"></div>
     ${view === "grid" ? `<div class="fg"><span>Sort</span><select id="sort">${[["newest","Newest"],["oldest","Oldest"],["style","Style"],["tier","Density, tier"],["todo","Not reviewed first"],["verdict","Verdict"]].map(([v, l]) => `<option value="${v}" ${F.sort === v ? "selected" : ""}>${l}</option>`).join("")}</select></div>` : ""}
     <button class="linkbtn" id="reset">Reset</button>`;
@@ -334,6 +337,12 @@ const colKey = it => it.density ? DENS.indexOf(it.density) * 3 + TIERS.indexOf(i
 /* ---------- views ---------- */
 function drawBoard(vis){
   const main = $("#main"); main.innerHTML = "";
+  if (unindexed.length) {
+    const u = document.createElement("details"); u.className = "unindexed";
+    u.innerHTML = `<summary><b>${unindexed.length} PDF${unindexed.length > 1 ? "s" : ""} not indexed</b> — no valid, current Meta File (Output Contract). Ask Claude to stamp them.</summary>` +
+      unindexed.map(x => `<div><code>${esc(x.path)}</code> — ${esc(x.reason)}</div>`).join("");
+    main.appendChild(u);
+  }
   const all = boardOrder(items);
   for (const g of groupOrder(vis)) {
     const gi = all.filter(i => i.group === g);
@@ -378,7 +387,7 @@ function drawBoard(vis){
       for (const r of rows) {
         const any = gi.find(i => rowOf(i) === r);
         const wrap = document.createElement("div"); wrap.className = "matrix"; wrap.style.gridTemplateColumns = "170px 1fr";
-        wrap.innerHTML = `<div class="rowh"><b>${esc(r)}</b><div class="idea">${esc(any.kind.startsWith("client") ? KINDS[any.kind] : any.idea || "")}</div>${any.status ? `<span class="pill ${esc(any.status.split(" ")[0])}" title="${esc(any.statusNote || "")}">${esc(any.status)}</span>` : ""}</div>`;
+        wrap.innerHTML = `<div class="rowh"><b>${esc(r)}</b><div class="idea">${esc(any.kind.startsWith("client") ? KINDS[any.kind] : any.idea || "")}</div>${any.status && !any.kind.startsWith("client") ? `<span class="pill ${esc(any.status.split(" ")[0])}" title="${esc(any.statusNote || "")}">${esc(any.status)}</span>` : ""}</div>`;
         const strip = document.createElement("div"); strip.className = "strip-row";
         for (const it of shown.filter(i => rowOf(i) === r).sort((a, b) => a.col.localeCompare(b.col))) strip.appendChild(cell(it));
         wrap.appendChild(strip); sec.appendChild(wrap);
@@ -413,7 +422,7 @@ async function drawBatch(vis){
   main.innerHTML = `<div class="batch-help"><span>The <b>Batch Test</b>: page 1 of every design in the current filter, shuffled into a pile of plain market CVs at thumbnail size. Scan it fast, as an HR reader would. Which ones can you not skip?</span>
     <button class="btn sm" id="shuffle">Shuffle</button><button class="btn sm" id="reveal">Reveal designs</button></div><div class="pile" id="pile"></div>`;
   if (!plain) { try { plain = (await api("/api/plain")).pages; } catch (e) { toast("Plain CVs unavailable: " + e.message, true); } }
-  const tiles = vis.filter(i => i.kind === "concept" || i.kind === "client-cv").map(i => ({it: i})).concat((plain || []).map(p => ({p})));
+  const tiles = vis.filter(i => ["concept", "example", "client-cv"].includes(i.kind)).map(i => ({it: i})).concat((plain || []).map(p => ({p})));
   let seed = pileSeed; const rnd = () => (seed = (seed * 16807) % 2147483647) / 2147483647;
   for (let k = tiles.length - 1; k > 0; k--) { const j = Math.floor(rnd() * (k + 1)); [tiles[k], tiles[j]] = [tiles[j], tiles[k]]; }
   const pile = $("#pile");

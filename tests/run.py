@@ -5,6 +5,7 @@ import json
 from pathlib import Path
 import shutil
 import subprocess
+import sys
 
 import pymupdf as fitz
 from verify import ROOT, FONTS, FLAGSHIP, verify, check_frozen
@@ -358,6 +359,12 @@ def main():
     # The candidate workflow, end to end and every refusal, in a fresh fictional workspace.
     for check in run_workflow(out, args.typst):
         results.append({'case': 'workflow-' + check, 'passed': True, 'folder': 'workflow'})
+    # Output Contract: every public PDF sits in its home with a valid, current Meta File.
+    sys.path.insert(0, str(ROOT / 'packages/cv-workflow'))
+    from cv_workflow.outputs import scan
+    indexed, problems = scan(ROOT, include_private=False)
+    assert not problems, [f'{p.relative_to(ROOT).as_posix()}: {r}' for p, r in problems]
+    results.append({'case': f'output-contract ({len(indexed)} PDFs)', 'passed': True, 'folder': None})
     # The owner's Design Review app, through its real server, on a fictional tree.
     for check in run_design_review(out):
         results.append({'case': 'design-review-' + check, 'passed': True, 'folder': 'design-review'})

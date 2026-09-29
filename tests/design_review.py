@@ -3,6 +3,7 @@ server on a free port, real HTTP calls. Only the operating system's "open this
 file" is replaced, so the suite never launches a PDF viewer."""
 
 import json
+from datetime import date
 import sys
 import threading
 import urllib.error
@@ -13,16 +14,9 @@ import pymupdf
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / 'scripts' / 'design_review'))
+sys.path.insert(0, str(ROOT / 'packages' / 'cv-workflow'))
 import server  # noqa: E402
-
-README = '''# Design concepts
-
-| Concept | Idea | Date | Status | PDF |
-|---|---|---|---|---|
-| Harbour Lights | Test style | 2030-01-02 | proposed | [safe](2030-01-02-harbour-lights/condensed/safe/condensed-safe.pdf) |
-| Old Draft | `Text Draft` direction (not a CV template): test | 2030-01-01 | not picked (owner chose another, 2030-01-02); kept | [2 pages](2030-01-01-old-draft/concept.pdf) |
-'''
-
+from cv_workflow import outputs  # noqa: E402
 
 def _pdf(path, pages):
     path.parent.mkdir(parents=True, exist_ok=True)
@@ -33,26 +27,42 @@ def _pdf(path, pages):
 
 
 def _tree(repo):
-    concepts = repo / 'design-concepts'
-    style = concepts / '2030-01-02-harbour-lights'
-    for tier in ('safe', 'stylish', 'creative'):
-        _pdf(style / 'condensed' / tier / f'condensed-{tier}.pdf', 1)
-    for tier in ('safe', 'stylish'):
-        _pdf(style / 'spacious' / tier / f'spacious-{tier}.pdf', 2)
-    (style / 'brief.md').write_text('# Harbour Lights\n\nThree words: *lights on water*.\n\n'
-                                    'Idea run. `Domain` Travel & Tourism; specialty test.\n', encoding='utf-8')
-    (style / 'sample.json').write_text(json.dumps({'name': {'el': 'Δοκιμή Παράδειγμα', 'en': 'Test Example'}}), encoding='utf-8')
-    _pdf(concepts / '2030-01-01-old-draft' / 'concept.pdf', 2)
-    (concepts / 'README.md').write_text(README, encoding='utf-8')
+    """A fictional tree in every home, stamped the way the writers stamp, plus the drift the app must show."""
+    style = repo / 'design-concepts' / '2030-01-02-harbour-lights'
+    common = {'domain': 'travel', 'candidate': 'Δοκιμή Παράδειγμα', 'style': 'Harbour Lights', 'idea': 'lights on water',
+              'status': 'proposed', 'producedBy': 'magazine-editor'}
+    for density, tiers, pages in (('condensed', ('safe', 'stylish', 'creative'), 1), ('spacious', ('safe', 'stylish'), 2)):
+        for tier in tiers:
+            pdf = style / density / tier / f'{density}-{tier}.pdf'
+            _pdf(pdf, pages)
+            outputs.stamp(pdf, common, root=repo)
+    (style / 'brief.md').write_text('# Harbour Lights\n', encoding='utf-8')
+    old = repo / 'design-concepts' / '2030-01-01-old-draft' / 'concept.pdf'
+    _pdf(old, 2)
+    outputs.stamp(old, dict(common, kind='text-draft', style='Old Draft', status='parked'), root=repo)
+    entry = repo / 'examples' / 'marine' / 'flagship' / 'cadet.typ'
+    entry.parent.mkdir(parents=True)
+    (repo / 'examples' / 'candidates').mkdir()
+    (repo / 'examples' / 'candidates' / 'cadet.json').write_text(json.dumps({'identity': {'name': 'NIKOS TEST', 'rank': 'DECK CADET'}}), encoding='utf-8')
+    entry.write_text('#let candidate = json("../../candidates/cadet.json")\n', encoding='utf-8')
+    _pdf(entry.with_suffix('.pdf'), 1)
+    outputs.stamp(entry.with_suffix('.pdf'), {'status': 'release', 'style': 'Flagship', 'variant': 'Golden Blue, one page'}, root=repo)
     env = repo / 'private' / 'fictional-client'
-    (env / 'candidate.json').parent.mkdir(parents=True)
-    (env / 'candidate.json').write_text(json.dumps({'identity': {'name': 'Fictional Client'}}), encoding='utf-8')
-    rev = env / 'revisions' / '20300103-101010-abcdef'
-    _pdf(rev / 'cv.pdf', 2)
-    (rev / 'render.json').write_text(json.dumps({'created_at': '2030-01-03T10:10:10Z', 'compiler': {
-        'command': ['typst', 'compile', '--input', 'lang=el', 'cv.typ']}}), encoding='utf-8')
+    env.mkdir(parents=True)
+    (env / 'envelope.json').write_text(json.dumps({'alias': 'client-2030-01-03', 'domain': 'marine',
+                                                   'candidate': 'Fictional Client', 'rank': 'Chief Officer'}), encoding='utf-8')
+    rev = env / 'revisions' / '20300103-101010-abcdef' / 'cv.pdf'
+    _pdf(rev, 2)
+    outputs.stamp(rev, {'status': 'render', 'lang': 'el'}, root=repo)
     _pdf(env / 'draft' / 'draft-01.pdf', 1)
-    _pdf(env / 'stray.pdf', 1)          # exists, but is not a revision or a draft
+    outputs.stamp(env / 'draft' / 'draft-01.pdf', {'status': 'signed-off'}, root=repo)
+    _pdf(env / 'reference.pdf', 2)
+    outputs.stamp(env / 'reference.pdf', {'status': 'delivered', 'title': 'Delivered CV'}, root=repo)
+    _pdf(env / 'stray.pdf', 1)                                  # exists, but not in a home: never shown
+    _pdf(style / 'condensed' / 'safe' / 'draft-notes.pdf', 1)   # drift: outside a home
+    _pdf(repo / 'exports' / 'Old-CV.pdf', 1)                    # drift: the retired root exports/
+    fresh = repo / 'design-concepts' / '2030-01-02-nomad' / 'condensed' / 'safe' / 'condensed-safe.pdf'
+    _pdf(fresh, 1)                                              # drift: never stamped
 
 
 def _call(base, path, body=None, headers=None):
@@ -80,22 +90,46 @@ def run_design_review(out):
         assert code == 200 and 'text/html' in ctype and b'Design Review' in body
         passed.append('page')
 
-        code, _, body = _call(base, '/api/items')
-        items = {i['id']: i for i in json.loads(body)['items']}
         cs = 'design-concepts/2030-01-02-harbour-lights/condensed/safe/condensed-safe.pdf'
         ss = 'design-concepts/2030-01-02-harbour-lights/spacious/safe/spacious-safe.pdf'
         cc = 'design-concepts/2030-01-02-harbour-lights/condensed/creative/condensed-creative.pdf'
-        assert len(items) == 8, sorted(items)
+        (repo / cs).write_bytes((repo / cs).read_bytes() + b'\n')   # drift: re-rendered after stamping
+        code, _, body = _call(base, '/api/items')
+        payload = json.loads(body)
+        items = {i['id']: i for i in payload['items']}
+        unindexed = {u['path']: u['reason'] for u in payload['unindexed']}
+        assert len(items) == 9, sorted(items)
+        assert 'stale' in unindexed.pop(cs)
+        assert 'not in a home' in unindexed.pop('design-concepts/2030-01-02-harbour-lights/condensed/safe/draft-notes.pdf')
+        assert 'retired' in unindexed.pop('exports/Old-CV.pdf')
+        assert 'no Meta File' in unindexed.pop('design-concepts/2030-01-02-nomad/condensed/safe/condensed-safe.pdf')
+        assert not unindexed, unindexed
+        outputs.stamp(repo / cs, {'date': '2030-01-05'}, root=repo)
+        assert outputs.stamp(repo / cs, {}, root=repo)['date'] == '2030-01-05'      # same bytes: date kept
+        (repo / cs).write_bytes((repo / cs).read_bytes() + b'\n')
+        assert outputs.stamp(repo / cs, {}, root=repo)['date'] == date.today().isoformat()  # new bytes: today
+        wrong = outputs.meta_path(repo / cc)
+        good_meta = wrong.read_text(encoding='utf-8')
+        wrong.write_text(good_meta.replace('"creative"', '"safe"'), encoding='utf-8')
+        mismatch = {u['path']: u['reason'] for u in json.loads(_call(base, '/api/items')[2])['unindexed']}
+        assert "tier='safe' but its place says 'creative'" in mismatch[cc], mismatch
+        wrong.write_text(good_meta, encoding='utf-8')
+        assert outputs.home_of(repo / 'design-concepts/2030-01-01-old-draft/old-render.pdf', repo) is None
+        items = {i['id']: i for i in json.loads(_call(base, '/api/items')[2])['items']}
         assert items[cs]['style'] == 'Harbour Lights' and items[cs]['idea'] == 'lights on water'
-        assert items[cs]['domain'] == 'Travel & Tourism' and items[cs]['candidate'] == 'Δοκιμή Παράδειγμα'
+        assert items[cs]['domain'] == 'travel' and items[cs]['candidate'] == 'Δοκιμή Παράδειγμα'
         assert (items[cs]['density'], items[cs]['tier'], items[cs]['pages']) == ('condensed', 'safe', 1)
         assert items[ss]['pages'] == 2 and items[cs]['twin'] == ss and items[ss]['twin'] == cs
         assert items[cc]['twin'] is None  # no spacious creative was drawn
         old = items['design-concepts/2030-01-01-old-draft/concept.pdf']
-        assert old['kind'] == 'text-draft' and old['status'] == 'not picked' and old['density'] is None
+        assert old['kind'] == 'text-draft' and old['status'] == 'parked' and old['density'] is None
+        cadet = items['examples/marine/flagship/cadet.pdf']
+        assert (cadet['kind'], cadet['domain'], cadet['candidate'], cadet['rank']) == ('example', 'marine', 'Nikos Test', 'Deck Cadet')
         rev = items['private/fictional-client/revisions/20300103-101010-abcdef/cv.pdf']
         assert rev['kind'] == 'client-cv' and rev['candidate'] == 'Fictional Client' and rev['variant'].endswith('· el')
+        assert rev['domain'] == 'marine' and rev['alias'] == 'client-2030-01-03'
         assert items['private/fictional-client/draft/draft-01.pdf']['kind'] == 'client-draft'
+        assert items['private/fictional-client/reference.pdf']['status'] == 'delivered'
         passed.append('index')
 
         code, ctype, png = _call(base, f'/api/page?id={ss}&page=2&w=300')
@@ -138,6 +172,7 @@ def run_design_review(out):
         passed.append('open')
 
         (repo / cc).unlink()       # a reviewed design that moved away still reaches the export
+        outputs.meta_path(repo / cc).unlink()
         _call(base, '/api/items')
         saved = json.loads(state_file.read_text(encoding='utf-8'))
         saved[cc] = {'verdict': 'reject', 'notes': 'gone'}

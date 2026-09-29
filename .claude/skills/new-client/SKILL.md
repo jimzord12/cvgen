@@ -14,7 +14,10 @@ owner talks to the client; you never do. Terms: `docs/glossary.md`.
    (`messages.md`, `documents/`), `research/` (`reviews/`), `draft/`. Never
    under `examples/`. Give the client an alias `client-<yyyy>-<mm>-<nn>`,
    written at the top of `README.md` with the intake date; outside `private/` (cards, commits,
-   agent briefs, public files) use only the alias.
+   agent briefs, public files) use only the alias. Write `envelope.json`
+   (`alias`, `domain` as the glossary's `Domain` id, `candidate`, `rank`;
+   guide section 1): every `Meta File` in the `Envelope` copies it and
+   `cv.py render` refuses without it.
 2. **Intake.** Write the guide's question list (section 2, consent first)
    as one message in simple, friendly Greek, adapted to the client's
    `Domain` and target. Give it to the owner ready to paste. **Stop until
@@ -56,18 +59,21 @@ owner talks to the client; you never do. Terms: `docs/glossary.md`.
    Greek `Check Page` (house copy: "check only the underlined facts; the
    wording is ours; reply OK"), then the content in the CV's language,
    sized for the `Template`, every checkable fact wrapped in `#fact[...]` (a `Fact Mark`); set
-   `lang: "el"` for a Greek CV. Compile it (guide section 8), look at every
+   `lang: "el"` for a Greek CV. Compile it and stamp it `status=sent`
+   with `scripts/outputs.py` (guide section 8), look at every
    page (every name, date, number and title underlined, since the client
    checks only those), give the owner the PDF path. When he sends it, write its SHA-256
    in `README.md`; never compile a sent number again, corrections make the
-   next one. His screenshot of the client's OK goes in `draft/` as
-   `sign-off-NN.png`.
+   next one (re-stamp the old one `status=superseded`). His screenshot of
+   the client's OK goes in `draft/` as `sign-off-NN.png`; re-stamp that
+   draft `status=signed-off`.
 9. **Handover.** Run the `new-cv` skill from `facts.md` and the signed-off
    draft; for a `Domain` that does not exist yet, a one-off `Template` in
    one `cv.typ` that imports only `/packages/cv-framework/lib.typ` (guide
    section 9). Record decisions and evidence paths in the `Envelope`'s
    `README.md`. At `Export`, write "Delivered <date>. Delete by <date + 12
-   months>" there.
+   months>" there; once the owner has sent it, re-stamp the delivered
+   revision `status=delivered`.
 
 ## Brief for a Scout or Deep Dive agent
 
