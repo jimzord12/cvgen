@@ -11,9 +11,17 @@ The print. Flat Prussian-blue and vermilion colour, a bokashi sky, Fuji, kasumi 
 
 ## The three `Design Tier`s
 
-- **Safe** (`safe.pdf`): the print is a mounted strip across the top; below it is a conventional two-column CV, with each Japan trip marked by its season kanji (春 夏 秋 冬) and a rectangular framed portrait.
-- **Stylish** (`stylish.pdf`): a full-bleed print over the top 37% of the page, the portrait in a round inset (koma-e) and a title cartouche (日本の旅 plus the name in katakana). The five Japan trips appear as five miniature prints numbered 一 to 五, followed by two mist bands (know-how in Japan, duties on the road) and three columns.
-- **Creative** (`creative.pdf`): the whole page is one tall pillar print. The name runs down a vertical title cartouche in stacked Greek capitals, the portrait sits in a folding fan, and the CV is written into kasumi mist bands over the lake. Fourteen travellers cross the bridge along the foot of the page behind the leader's flag.
+Condensed `Density` (one dense A4 page):
+
+- **Safe** (`condensed/safe/condensed-safe.pdf`): the print is a mounted strip across the top; below it is a conventional two-column CV, with each Japan trip marked by its season kanji (春 夏 秋 冬) and a rectangular framed portrait.
+- **Stylish** (`condensed/stylish/condensed-stylish.pdf`): a full-bleed print over the top 37% of the page, the portrait in a round inset (koma-e) and a title cartouche (日本の旅 plus the name in katakana). The five Japan trips appear as five miniature prints numbered 一 to 五, followed by two mist bands (know-how in Japan, duties on the road) and three columns.
+- **Creative** (`condensed/creative/condensed-creative.pdf`): the whole page is one tall pillar print. The name runs down a vertical title cartouche in stacked Greek capitals, the portrait sits in a folding fan, and the CV is written into kasumi mist bands over the lake. Fourteen travellers cross the bridge along the foot of the page behind the leader's flag.
+
+Spacious `Density` (same facts, more room: body text at 10 to 10.5 pt, larger artwork; two A4 pages for this record, and page 2 carries its own crafted element and the name):
+
+- **Safe** (`spacious/safe/spacious-safe.pdf`): the mounted print grows taller (more sky and sea, a shinkansen on its viaduct beside the procession) over two calm columns at 10 pt. Page 2 carries a second, upright pillar print: the group arriving at a road of vermilion torii under a full moon and a blossom branch, with its own cartouche (鳥居の道), beside the Japan record by season kanji, the groups, the studies, the duties and the offer in a framed inscription with the 旅 seal. The name and seal head page 2.
+- **Stylish** (`spacious/stylish/spacious-stylish.pdf`): page 1's full-bleed print gains 24 mm of sky, a larger inset portrait and a bigger procession, followed by the name, profile, three numbers and the whole working record. Page 2 opens on a second full-bleed print, the same journey at dusk (a pagoda, a machiya street, paper lanterns, the group behind the flag, the two cartouches), with the name as its margin title, then the five views as taller miniature prints, the two mist bands and the credentials.
+- **Creative** (`spacious/creative/spacious-creative.pdf`): the two pages are one hanging scroll. Page 1 is sky, fan portrait, a full-height name cartouche, Fuji and the train, with the lake beginning under one mist band that says who he is (name, role, profile, current job, the three numbers) and a second with the contacts. Page 2 is the lake itself: a torii standing in the water, the katakana and 日本の旅 cartouches, the career in four mist bands (headed by the name), and thirteen travellers crossing the bridge behind the leader's flag.
 
 ## `Three-Second Test`
 
@@ -58,3 +66,6 @@ A travel `Domain` with a facts schema for trips (season, kind, places) and group
 - Creative's stacked Greek capitals read vertically, which is slower than a horizontal name. The name is repeated horizontally in the first mist band for findability.
 - On a black-and-white photocopy the blue print turns into a mid-grey mass. The text sits on paper or paper-coloured bands, so it survives; the picture loses its colour story.
 - The Safe tier leaves a little empty space near the foot.
+- Spacious Creative keeps the career on page 2. Page 1 holds name, role, specialty, profile, current job, the three numbers and the contacts: enough for the ten-second read, not for the whole record.
+- Spacious Creative's scroll reads as one picture only when the pages are viewed stacked, as in a PDF viewer; printed side by side it is two prints of one lake.
+- The Spacious pages were balanced by hand for this record. A `Template` needs a page-plan rule for one to three pages (which sections move to page 2, when a third page is needed).

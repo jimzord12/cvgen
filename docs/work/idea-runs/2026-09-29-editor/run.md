@@ -73,6 +73,14 @@ the Spacious nine (2 pages each) under `spacious/<tier>/`. The agent files,
 the `idea-run` and `new-cv` skills, the glossary, `design-concepts/README.md`
 and `AGENTS.md` were updated to the new shape.
 
+The Spacious nine were delivered the same day: every PDF 2 pages, 121 to
+297 KB, body 10 to 10.5 pt, each page 2 with its own crafted element and the
+name (contact sheet `builds/editor-2026-09-29-spacious/`, not committed). The
+author proposed the term `Page Plan` (which sections go on which page); the
+lead did not add it, since `Layout` already means that. Still unverified: the
+new Japanese words (鳥居の道, 添乗員, のりば, 集合場所, 郵便, 出発). Docs review:
+`docs/work/density/reviews/01-context-reviewer.md` (PASS).
+
 ## Open for the next session
 
 - Research gate, then design gate (with the Codex reviewer if built), on

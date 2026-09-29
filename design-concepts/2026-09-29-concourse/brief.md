@@ -11,9 +11,17 @@ The station board. マルコス・イリアディス over «Μάρκος Ηλι�
 
 ## The three `Design Tier`s
 
-- **Safe** (`safe.pdf`): a white page with the station board as header, a rectangular portrait with a yellow ΑΡΧΗΓΟΣ ΟΜΑΔΑΣ plate, and a two-column CV with pictogram section heads, a compact LED board for the Japan trips and a thin tactile strip at the foot.
-- **Stylish** (`stylish.pdf`): the board mounted on a charcoal wall with a portrait panel and a direction strip for contacts, a full-width LED departure board with a summary ticker line, a six-pictogram row for Japan know-how, two columns, and a yellow ΣΗΜΕΙΟ ΣΥΝΑΝΤΗΣΗΣ / 集合場所 sign carrying availability and the offer. Tactile paving runs along the foot.
-- **Creative** (`creative.pdf`): the page is the concourse wall. A hanging sign reads 日本 · ΙΑΠΩΝΙΑ with a giant yellow arrow, the name board is at poster size with the portrait inside a station clock, the LED board sits mid-page, a large yellow meeting-point sign holds the escort pictogram, white information plates carry the facts, and tactile paving runs down the left edge.
+Condensed `Density` (one dense A4 page):
+
+- **Safe** (`condensed/safe/condensed-safe.pdf`): a white page with the station board as header, a rectangular portrait with a yellow ΑΡΧΗΓΟΣ ΟΜΑΔΑΣ plate, and a two-column CV with pictogram section heads, a compact LED board for the Japan trips and a thin tactile strip at the foot.
+- **Stylish** (`condensed/stylish/condensed-stylish.pdf`): the board mounted on a charcoal wall with a portrait panel and a direction strip for contacts, a full-width LED departure board with a summary ticker line, a six-pictogram row for Japan know-how, two columns, and a yellow ΣΗΜΕΙΟ ΣΥΝΑΝΤΗΣΗΣ / 集合場所 sign carrying availability and the offer. Tactile paving runs along the foot.
+- **Creative** (`condensed/creative/condensed-creative.pdf`): the page is the concourse wall. A hanging sign reads 日本 · ΙΑΠΩΝΙΑ with a giant yellow arrow, the name board is at poster size with the portrait inside a station clock, the LED board sits mid-page, a large yellow meeting-point sign holds the escort pictogram, white information plates carry the facts, and tactile paving runs down the left edge.
+
+Spacious `Density` (same facts, more room: body text at 10 to 10.5 pt, larger artwork; two A4 pages for this record, and page 2 carries its own crafted element and the name):
+
+- **Safe** (`spacious/safe/spacious-safe.pdf`): the station-name board heads a white page at a larger size, over two columns at 10 pt, and the LED record allows two-line destinations. Page 2 opens on a smaller name board beside a platform-number sign (のりば 2), with its neighbour line used as page navigation, then the groups, the know-how and the duties as pictogram grids (new pictograms: headcount, vouchers, cash, coach) and the yellow meeting-point sign with the offer.
+- **Stylish** (`spacious/stylish/spacious-stylish.pdf`): page 1 is a taller wall (the board with its neighbours, the portrait panel, the direction sign), the profile set as an announcement, a larger departure indicator with kanji destinations, and the know-how pictograms. Page 2 repeats the wall with a hanging platform sign (のりば 2, the name, → 日本), then the experience, groups, numbers, languages and papers, the duties as pictograms, and the meeting-point sign that holds the offer, availability and contacts.
+- **Creative** (`spacious/creative/spacious-creative.pdf`): page 1 is the concourse poster: the hanging sign 日本 → ΙΑΠΩΝΙΑ, the name board with the portrait in a station clock and the current job, the departure board, the profile as an announcement plate, the direction strip with the contacts. Page 2 is the platform: a hanging sign with a giant 2 and the name, white information plates under black wayfinding headers with yellow arrows, the know-how plate and the meeting point. Tactile paving runs down the left edge of both pages.
 
 ## `Three-Second Test`
 
@@ -62,3 +70,7 @@ Components: `station-board` (three name scripts, line colour, previous and next 
 - The LED dot mask darkens amber text slightly on photocopy. Legible, but the weakest element in black and white.
 - A station clock around the portrait is a strong Japan-rail cue, but clocks are also generic. It is kept to the Creative tier only.
 - The katakana of the name must be checked by a Japanese speaker for every client (here マルコス・イリアディス).
+- Spacious Safe is the quietest of the nine Spacious pages: the domain rests on the board, the LED record, the pictograms and the paving strip.
+- Spacious Stylish has no experience section on page 1; the current job is on the board's neighbour line (Lazuli Travel, τώρα · 03/2023–) and the jobs are on page 2.
+- The new pictograms (headcount, vouchers, yen, coach, speaker) are original but plain; a `Template` would need one checked, consistent set.
+- The Spacious pages were balanced by hand for this record. A `Template` needs a page-plan rule for one to three pages.

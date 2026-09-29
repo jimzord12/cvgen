@@ -11,9 +11,17 @@ The five round stamps. Each is in its own ink (crimson, violet, green), rotated,
 
 ## The three `Design Tier`s
 
-- **Safe** (`safe.pdf`): a calm boarding pass as the header (one Fuji stamp overprinted), a conventional two-column CV, small stamps as the row markers of the Japan trips, and the groups as a mono manifest.
-- **Stylish** (`stylish.pdf`): a full boarding pass with overprinted stamps (a Japan stamp and a green first-aid "ΕΓΚΥΡΟ" entry stamp), the stamp-rally card across the page, the manifest and the experience, and a long airline-style bag tag (TYO) across the foot for the duties and availability.
-- **Creative** (`creative.pdf`): a flat-lay on passport-burgundy. The name is on a giant luggage tag, the photo on a pass stub, the Japan trips on the stamp-rally card, the job on a boarding pass, the groups and know-how on a thermal receipt, and the credentials on a rail ticket (乗車券). Loose stamps lie over everything.
+Condensed `Density` (one dense A4 page):
+
+- **Safe** (`condensed/safe/condensed-safe.pdf`): a calm boarding pass as the header (one Fuji stamp overprinted), a conventional two-column CV, small stamps as the row markers of the Japan trips, and the groups as a mono manifest.
+- **Stylish** (`condensed/stylish/condensed-stylish.pdf`): a full boarding pass with overprinted stamps (a Japan stamp and a green first-aid "ΕΓΚΥΡΟ" entry stamp), the stamp-rally card across the page, the manifest and the experience, and a long airline-style bag tag (TYO) across the foot for the duties and availability.
+- **Creative** (`condensed/creative/condensed-creative.pdf`): a flat-lay on passport-burgundy. The name is on a giant luggage tag, the photo on a pass stub, the Japan trips on the stamp-rally card, the job on a boarding pass, the groups and know-how on a thermal receipt, and the credentials on a rail ticket (乗車券). Loose stamps lie over everything.
+
+Spacious `Density` (same facts, more room: body text at 10 to 10.5 pt, larger artwork; two A4 pages for this record, and page 2 carries its own crafted element and the name):
+
+- **Safe** (`spacious/safe/spacious-safe.pdf`): a larger boarding pass (name at 46 pt, contact fields at 9 pt, the web address) over two columns with the full experience and the passenger manifest. Page 2 opens on a second ticket, a rail ticket (乗車券) carrying the name, with 2/2 in its crimson stub and a JLPT stamp, then gives each Japan trip a full-width row under a 24 mm eki stamp with its places in kanji, then the know-how, the duties and the offer stamp.
+- **Stylish** (`spacious/stylish/spacious-stylish.pdf`): page 1 gives the boarding pass the route in 38 pt (ATH → TYO) with the Japan stamp struck across the tear line, then the profile with the offer stamp, the stamp-rally card with 35 mm stamps, and both jobs. Page 2 turns the airline bag tag into the header that carries the name, then the manifest, the papers as entry stamps on an open passport page (degree, tour-leader course, first aid, Fukuoka course, JLPT, English), the know-how and duties, and a baggage-claim stub with the name and contacts.
+- **Creative** (`spacious/creative/spacious-creative.pdf`): page 1 is the flat-lay with a bigger luggage tag, the photo stub, the stamp-rally card, a boarding pass with both jobs and the escort's own stamp (添乗員, 6 groups, 162 travellers). Page 2 brings new objects: a group-leader badge on its lanyard (the name, 添乗員, the emergency phone), the thermal receipt with the manifest and know-how, the rail ticket with languages and papers, and the offer as a postcard under a drawn Fuji postage stamp with a postmark.
 
 ## `Three-Second Test`
 
@@ -59,3 +67,7 @@ A travel `Domain` schema as in the other styles. Components: `boarding-pass` (fi
 - Worn-ink speckle is deliberately imperfect, and on the green entry stamp it nibbles a letter. The owner may prefer a cleaner ink.
 - Creative's items are tilted up to 7°, so the receipt columns look slightly stepped. That reads as real paper but is a little harder to scan.
 - ATH → TYO is symbolic (groups fly via hubs, per the research note); it states the destination, not an itinerary.
+- On the Spacious Stylish passport page the papers live inside the entry stamps (8.6 to 14 pt, rotated a few degrees). They read, but more slowly than a list, and a faint photocopy may lose the thinner lines.
+- Spacious Creative shows the first-aid certificate twice on purpose (a loose stamp on page 1, a line on page 2's rail ticket); a reviewer may call it redundant.
+- The Spacious PDFs are 230 to 300 KB (stamps, speckle and guilloche are many vector paths), still well under 1 MB.
+- The Spacious pages were balanced by hand for this record. A `Template` needs a page-plan rule for one to three pages.
