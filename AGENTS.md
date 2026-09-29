@@ -187,6 +187,12 @@ through the REST API; every task's record is a card there, so use it for
 orientation and for any task state change.
 `.claude/agents/code-reviewer.md` is the independent reviewer; it holds no
 rules of its own and defers to `docs/review.md`.
+`.claude/skills/repo-maintenance` keeps the tree easy to navigate
+(`/repo-maintenance quick|audit|deep|apply`): a read-only audit script, the
+read-only `repo-auditor-lite` agent for the judgement checks, and CVgen's own
+rules in `.claude/repo-maintenance.md`. It reports; the owner approves fixes
+by ID; `apply` moves only those, on a branch. `quick` is in the `Session
+Sweep`.
 `.claude/skills/idea-run` runs the idea agents in a closed review loop:
 `ceo` proposes product ideas (checked by `ceo-reviewer`), `magazine-editor`
 proposes three very distinct styles, each in three `Design Tier`s, as

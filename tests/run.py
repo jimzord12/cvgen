@@ -11,6 +11,7 @@ import pymupdf as fitz
 from verify import ROOT, FONTS, FLAGSHIP, verify, check_frozen
 from workflow import run_workflow
 from design_review import run_design_review
+from repo_maintenance import run_repo_maintenance
 
 
 def check_core_boundary():
@@ -365,6 +366,9 @@ def main():
     indexed, problems = scan(ROOT, include_private=False)
     assert not problems, [f'{p.relative_to(ROOT).as_posix()}: {r}' for p, r in problems]
     results.append({'case': f'output-contract ({len(indexed)} PDFs)', 'passed': True, 'folder': None})
+    # The repo-maintenance skill's audit script and agent files, on throwaway repositories.
+    for check in run_repo_maintenance():
+        results.append({'case': 'repo-maintenance: ' + check, 'passed': True, 'folder': None})
     # The owner's Design Review app, through its real server, on a fictional tree.
     for check in run_design_review(out):
         results.append({'case': 'design-review-' + check, 'passed': True, 'folder': 'design-review'})
