@@ -6,8 +6,16 @@ since 2026-09-16 under the approved
 specification is [review-protocol.md](proposals/review-protocol.md) and stays
 there as history. Implementation reviews run in Claude Code through the
 `code-reviewer` subagent defined in `.claude/agents/code-reviewer.md`, which
-is a thin wrapper around this file. Codex may critique design proposals; that
-does not satisfy a code review gate.
+is a thin wrapper around this file. A change to the agent context
+(`AGENTS.md`, `CLAUDE.md`, the rules, guides and references in `docs/`, the
+glossary, proposals, skills and agent definitions) is reviewed by a fresh
+`context-reviewer` (`.claude/agents/context-reviewer.md`) instead, and a
+change that mixes code and context gets both. Owner feedback that changes
+how agents behave is first integrated by the `context-maintainer`
+(`.claude/agents/context-maintainer.md`), which finds the file that owns
+the rule and consolidates rather than appends (owner, 2026-09-29, after the
+same pair in the sibling night-shift repository). Codex may critique design
+proposals; that does not satisfy a code review gate.
 
 ## When a review is required
 
@@ -67,8 +75,9 @@ themselves, is reviewed here.
 - Affected PDFs/screens and direct visual evidence from the reviewed version.
 - Round number, two lead lenses, and prior reports with finding dispositions.
 
-Invoke `code-reviewer` fresh for every round (the Agent tool with
-`subagent_type: code-reviewer`), never a fork of the implementation
+Invoke the reviewer fresh for every round (the Agent tool with
+`subagent_type: code-reviewer`, or `context-reviewer` for the agent
+context), never a fork of the implementation
 conversation and never an author self-review. It reads surrounding code
 independently and gets facts and evidence rather than the author's account
 of correctness.

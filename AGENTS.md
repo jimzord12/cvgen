@@ -180,7 +180,11 @@ builds the CV from there.
 through the REST API; every task's record is a card there, so use it for
 orientation and for any task state change.
 `.claude/agents/code-reviewer.md` is the independent reviewer; it holds no
-rules of its own and defers to `docs/review.md`.
+rules of its own and defers to `docs/review.md`. For the agent context
+(this file, `docs/`, skills, agent definitions) the pair is
+`context-maintainer`, which integrates owner feedback into the file that
+owns the rule, and `context-reviewer`, the independent gate for such
+changes (`docs/review.md`).
 `.claude/skills/idea-run` runs the idea agents in a closed review loop:
 `ceo` proposes product ideas (checked by `ceo-reviewer`), `magazine-editor`
 proposes three very distinct styles, each in three `Design Tier`s, as
