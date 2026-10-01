@@ -1184,7 +1184,7 @@ window.ATLAS = {
        "summary": "Three very distinct `Styles`, each drawn Condensed (one dense page) and Spacious (1 to 3 pages), each in Safe, Stylish and Creative.",
        "does": [
         "Studies the vision, the glossary, the `Anti-examples` (never repeat their idea), the design studies and the `Flagship`.",
-        "Builds each Style's folder in `design-concepts/` with a brief, fictional sample data, a portrait, and every PDF with its PNG pages.",
+        "Builds each Style's folder in `design-concepts/` with a brief, fictional sample data, a portrait when the idea needs one, and every PDF with its PNG pages.",
         "At most two open-licence font families per Style. Never touches the engine, examples, tests, archive or `private/`.",
         "Stamps every PDF `proposed` so it shows up in the `Design Review` app."
        ],
@@ -1214,7 +1214,7 @@ window.ATLAS = {
      "steps": [
       {
        "id": "own-look",
-       "title": "Your own look (optional)",
+       "title": "Your own look",
        "actor": "owner",
        "summary": "Any time, before or after the gates: the Board shows the run as Style × Density × Tier, the Loupe one design full size, plus a `Batch Test` pile. Nothing waits for it.",
        "you": "Start the app, go through the 18, mark each keep, maybe or reject, star favourites, write notes. Agents read your verdicts from there.",
@@ -1378,7 +1378,7 @@ window.ATLAS = {
        "you": "For each Style: build it (say which `Design Tier` and `Density`), later, reject, or \"not my style\".",
        "gate": {
         "type": "owner",
-        "label": "Build it → `chosen` · Later → `parked` · Reject → `rejected` · Not my style → `Anti-example`. No answer: stays `proposed`."
+        "label": "Build it → `chosen` · Later → `parked` · Reject → `rejected` · Not my style, keep it → `Anti-example`. No answer: stays `proposed`."
        },
        "sources": [
         "git:docs/idea-run-2026-09-29-editor:.claude/skills/idea-run/SKILL.md:122-134",
@@ -1447,7 +1447,7 @@ window.ATLAS = {
      "owner"
     ],
     "title": "codex-visual-tools: two reviews open, set aside",
-    "note": "Both reports on that branch are FINDINGS and stay open for the next session working on it. On 2026-10-01 you set your pending decisions aside, including whether to merge the two context agents now (my recommendation) and park the Codex build. The board's handoff card predates the last changes on `main` (board read 2026-10-01).",
+    "note": "Both reports on that branch are FINDINGS and stay open for the next session working on it. On 2026-10-01 you set your pending decisions aside, including whether to merge the two context agents now (Claude's recommendation) and park the Codex build. The board's handoff card predates the last changes on `main` (board read 2026-10-01).",
     "move": "Decide: merge the context agents now, or keep that branch parked",
     "ref": "board: session-handoff"
    },
@@ -1640,14 +1640,15 @@ window.ATLAS = {
         "Reviews: every commit on `main` since the card's sha has a report or is trivial.",
         "Proposals marked `approved` but not applied; cards in Active, Review, Ready or Blocked.",
         "Night Shift follow-ups, Git leftovers, CI on `main`, old `builds/` folders.",
-        "Repo health: `/repo-maintenance quick`, a few seconds."
+        "Repo health: `/repo-maintenance quick`, a few seconds.",
+        "`Atlas`: `atlas.py check`; a stale or unverified page is re-checked against its sources."
        ],
        "uses": [
         "repo-maintenance",
         "night-shift"
        ],
        "sources": [
-        "docs/development.md:58-91"
+        "docs/development.md:58-92"
        ]
       },
       {
@@ -1887,7 +1888,7 @@ window.ATLAS = {
        "title": "design-concepts/",
        "path": "design-concepts/",
        "actor": "magazine-editor",
-       "blurb": "Every design run's Styles, Densities and Tiers, with a README row each."
+       "blurb": "Every design run's Styles and Tiers, with a README row each (Densities arrive with the 2026-09-29 run, on its branch)."
       },
       {
        "id": "n-anti",
@@ -2032,7 +2033,7 @@ window.ATLAS = {
        "title": "GitHub CI",
        "path": ".github/workflows/verify.yml",
        "actor": "github-ci",
-       "blurb": "The suite on every push to `main`."
+       "blurb": "The suite on every push and every pull request."
       }
      ]
     },
@@ -2276,10 +2277,31 @@ window.ATLAS = {
   }
  ],
  "build": {
-  "builtAt": "2026-10-01 17:25 UTC",
-  "commit": "7aabd70",
+  "builtAt": "2026-10-01 17:37 UTC",
+  "commit": "5c4c825",
   "kit": "1.0",
   "stale": {},
-  "verified": {}
+  "verified": {
+   "client-journey": {
+    "at": "2026-10-01",
+    "commit": "5c4c825"
+   },
+   "design-run": {
+    "at": "2026-10-01",
+    "commit": "5c4c825"
+   },
+   "change-review": {
+    "at": "2026-10-01",
+    "commit": "5c4c825"
+   },
+   "system-map": {
+    "at": "2026-10-01",
+    "commit": "5c4c825"
+   },
+   "roster": {
+    "at": "2026-10-01",
+    "commit": "5c4c825"
+   }
+  }
  }
 };

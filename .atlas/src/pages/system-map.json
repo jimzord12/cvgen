@@ -201,7 +201,7 @@
           "title": "design-concepts/",
           "path": "design-concepts/",
           "actor": "magazine-editor",
-          "blurb": "Every design run's Styles, Densities and Tiers, with a README row each."
+          "blurb": "Every design run's Styles and Tiers, with a README row each (Densities arrive with the 2026-09-29 run, on its branch)."
         },
         {
           "id": "n-anti",
@@ -346,7 +346,7 @@
           "title": "GitHub CI",
           "path": ".github/workflows/verify.yml",
           "actor": "github-ci",
-          "blurb": "The suite on every push to `main`."
+          "blurb": "The suite on every push and every pull request."
         }
       ]
     },

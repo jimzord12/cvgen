@@ -91,7 +91,7 @@
           "summary": "Three very distinct `Styles`, each drawn Condensed (one dense page) and Spacious (1 to 3 pages), each in Safe, Stylish and Creative.",
           "does": [
             "Studies the vision, the glossary, the `Anti-examples` (never repeat their idea), the design studies and the `Flagship`.",
-            "Builds each Style's folder in `design-concepts/` with a brief, fictional sample data, a portrait, and every PDF with its PNG pages.",
+            "Builds each Style's folder in `design-concepts/` with a brief, fictional sample data, a portrait when the idea needs one, and every PDF with its PNG pages.",
             "At most two open-licence font families per Style. Never touches the engine, examples, tests, archive or `private/`.",
             "Stamps every PDF `proposed` so it shows up in the `Design Review` app."
           ],
@@ -121,7 +121,7 @@
       "steps": [
         {
           "id": "own-look",
-          "title": "Your own look (optional)",
+          "title": "Your own look",
           "actor": "owner",
           "summary": "Any time, before or after the gates: the Board shows the run as Style × Density × Tier, the Loupe one design full size, plus a `Batch Test` pile. Nothing waits for it.",
           "you": "Start the app, go through the 18, mark each keep, maybe or reject, star favourites, write notes. Agents read your verdicts from there.",
@@ -285,7 +285,7 @@
           "you": "For each Style: build it (say which `Design Tier` and `Density`), later, reject, or \"not my style\".",
           "gate": {
             "type": "owner",
-            "label": "Build it → `chosen` · Later → `parked` · Reject → `rejected` · Not my style → `Anti-example`. No answer: stays `proposed`."
+            "label": "Build it → `chosen` · Later → `parked` · Reject → `rejected` · Not my style, keep it → `Anti-example`. No answer: stays `proposed`."
           },
           "sources": [
             "git:docs/idea-run-2026-09-29-editor:.claude/skills/idea-run/SKILL.md:122-134",

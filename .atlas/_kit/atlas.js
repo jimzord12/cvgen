@@ -250,7 +250,7 @@
       h('a.brand', { href: 'index.html', html: MARK + '<span>' + esc(site.repo) + ' <small>Atlas</small></span>' }),
       nav,
       h('div.tb-actions', null,
-        h('button.btn-ghost.nav-more', { type: 'button', 'aria-label': 'More pages', onclick: function () { var n = document.querySelector('.nav'); n.scrollBy({ left: 160, behavior: 'smooth' }); } }, icon('right')),
+        h('button.btn-ghost.nav-more', { type: 'button', 'aria-label': 'All pages', onclick: openPalette }, icon('list'), 'Pages'),
         h('button.btn-ghost', { type: 'button', onclick: openPalette, 'aria-label': 'Search the atlas' }, icon('search'), h('span.lbl', null, 'Search'), h('kbd.kbd-hint', null, 'Ctrl K')),
         themeBtn)));
   }
@@ -740,6 +740,7 @@
         var l = wrap.scrollLeft, r = l + wrap.clientWidth, left = 0, right = 0;
         steps.forEach(function (s) {
           var x = nx(s._i), inv = x + NODE_W > l + LABEL_W + 10 && x < r - 10;
+          if (nodeEls[s.id]) nodeEls[s.id].classList.toggle('under', x < l + LABEL_W + 30);
           if (x + NODE_W <= l + LABEL_W + 10) left++; else if (x >= r - 10) right++;
           if (metroDots[s.id]) metroDots[s.id].classList.toggle('inview', inv);
         });
@@ -779,7 +780,15 @@
       var f = hashState().focus;
       setTimeout(function () {
         if (f && byS[f]) { center(byS[f]); openStep(byS[f]); }
-        else if (nowS) center(nowS);
+        else if (nowS) {
+          center(nowS);
+          var el = nodeEls[nowS.id], r = el.getBoundingClientRect();
+          if (!NARROW && r.bottom + NODE_H + 40 > innerHeight && !hashState().view) {
+            // land on today: the map panel's top under the bar, or the current card at 40% height, whichever scrolls less
+            var target = Math.min(shell.getBoundingClientRect().top + scrollY - 76, r.top + scrollY - innerHeight * 0.4);
+            if (target > 0) requestAnimationFrame(function () { setTimeout(function () { scrollTo(0, target); }, 120); });
+          }
+        }
         visible();
       }, 0);
     }
@@ -961,7 +970,11 @@
     if (flows.length) {
       var t = h('table.matrix');
       add(t, h('tr', null, h('th', null, 'Who'), flows.map(function (f) {
-        return h('th', null, h('a', { href: pageFile(f.id) }, f.nav || f.title), h('span.ph-key', null, f.phases.map(function (ph) { return h('span', { style: { flex: ph.steps.length + ' 0 0' }, title: ph.title }, ph.title); })));
+        var n0 = 0;
+        return h('th', null, h('a', { href: pageFile(f.id) }, f.nav || f.title), h('span.ph-key', null, f.phases.map(function (ph) {
+          var a = n0 + 1, b = n0 + ph.steps.length; n0 = b;
+          return h('span', { style: { width: (ph.steps.length * 16 - 3) + 'px' }, title: ph.title + ': steps ' + a + (b > a ? '–' + b : '') }, a === b ? String(a) : a + '–' + b);
+        })));
       })));
       var idle = [];
       ids.forEach(function (id) {
@@ -1062,7 +1075,7 @@
     var waits = pages.filter(function (p) { return p.status && !p.status.paused && p.status.waitingOn && ![].concat(p.status.waitingOn).some(function (w) { return kindOf(w) === 'owner'; }); });
     var paused = pages.filter(function (p) { return p.status && p.status.paused; });
     add(root, h('section.section', { style: { 'padding-top': '0' } }, h('div.wrap', null,
-      h('div.section-h', null, h('div', null, h('h2', null, 'Your moves'), h('p', null, moves.some(function (m) { return !m.opt; }) ? 'What cannot move until you act comes first.' : 'Nothing is blocked on you right now.'))),
+      h('div.section-h', null, h('div', null, h('h2', null, 'Your moves'), h('p', null, moves.some(function (m) { return !m.opt; }) ? 'What cannot move until you act comes first.' : 'Nothing is blocked on you right now' + (paused.length ? '; ' + paused.length + (paused.length > 1 ? ' decisions' : ' decision') + ' parked by you.' : '.')))),
       moves.length ? h('div.moves', null, moves.slice().sort(function (a, b) { return (a.opt ? 1 : 0) - (b.opt ? 1 : 0); }).map(function (m) {
         return h(m.href ? 'a.move' : 'div.move', { href: m.href, class: m.opt ? 'opt' : null }, h('span.ic', null, icon('hand')),
           h('div', null, h('div.tt', null, m.opt ? h('span.badge.optional', null, 'Optional') : null, h('span', { html: md(m.t) })), m.d ? h('div.ds', { html: md(m.d) }) : null),

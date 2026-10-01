@@ -512,7 +512,7 @@ def cmd_shots(root, out, only, themes, mobile, height):
         if p["kind"] == "flow":
             steps = [s for ph in p["phases"] for s in ph["steps"]]
             pick = (p.get("status") or {}).get("step") or steps[0]["id"]
-            plan += [(p["id"], f, "view=map", "map"), (p["id"], f, "view=story", "story"),
+            plan += [(p["id"], f, "", "map"), (p["id"], f, "view=story", "story"),
                      (p["id"], f, "view=map&focus=%s&open=1" % pick, "drawer")]
         elif p["kind"] == "system":
             deg = {}

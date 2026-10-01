@@ -23,7 +23,7 @@
       "owner"
     ],
     "title": "codex-visual-tools: two reviews open, set aside",
-    "note": "Both reports on that branch are FINDINGS and stay open for the next session working on it. On 2026-10-01 you set your pending decisions aside, including whether to merge the two context agents now (my recommendation) and park the Codex build. The board's handoff card predates the last changes on `main` (board read 2026-10-01).",
+    "note": "Both reports on that branch are FINDINGS and stay open for the next session working on it. On 2026-10-01 you set your pending decisions aside, including whether to merge the two context agents now (Claude's recommendation) and park the Codex build. The board's handoff card predates the last changes on `main` (board read 2026-10-01).",
     "move": "Decide: merge the context agents now, or keep that branch parked",
     "ref": "board: session-handoff"
   },
@@ -216,14 +216,15 @@
             "Reviews: every commit on `main` since the card's sha has a report or is trivial.",
             "Proposals marked `approved` but not applied; cards in Active, Review, Ready or Blocked.",
             "Night Shift follow-ups, Git leftovers, CI on `main`, old `builds/` folders.",
-            "Repo health: `/repo-maintenance quick`, a few seconds."
+            "Repo health: `/repo-maintenance quick`, a few seconds.",
+            "`Atlas`: `atlas.py check`; a stale or unverified page is re-checked against its sources."
           ],
           "uses": [
             "repo-maintenance",
             "night-shift"
           ],
           "sources": [
-            "docs/development.md:58-91"
+            "docs/development.md:58-92"
           ]
         },
         {
