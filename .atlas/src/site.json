@@ -1,7 +1,7 @@
 {
   "repo": "CVgen",
   "title": "How CVgen works",
-  "tagline": "Premium, hand-crafted CVs made with AI on our own Typst `Framework`. Four questions, answered as pictures: what to do with a new `Client`, what happens to a design run, how any change lands, and who does the work.",
+  "tagline": "Premium, hand-crafted CVs made with AI on our own Typst `Framework`. Five questions, answered as pictures: what to do with a new `Client`, what happens to a design run, how any change lands, how the parts connect, and who does the work.",
   "lang": "en",
   "sourceBase": "../",
   "branch": "main",
@@ -40,7 +40,8 @@
       "sources": [
         "docs/preferences.md:49-77",
         "docs/guides/client-workflow.md:9-10"
-      ]
+      ],
+      "short": "You"
     },
     "client": {
       "label": "The client",
@@ -53,7 +54,8 @@
       "sources": [
         "docs/guides/client-workflow.md:316-318",
         "docs/guides/client-workflow.md:63-67"
-      ]
+      ],
+      "short": "Client"
     },
     "lead": {
       "label": "Claude (lead)",
@@ -67,7 +69,8 @@
       "sources": [
         "AGENTS.md:28-44",
         "docs/development.md:34-56"
-      ]
+      ],
+      "short": "Claude"
     },
     "magazine-editor": {
       "label": "magazine-editor",
@@ -83,7 +86,8 @@
       "sources": [
         ".claude/agents/magazine-editor.md:1-23",
         ".claude/agents/magazine-editor.md:50-82"
-      ]
+      ],
+      "short": "Editor"
     },
     "design-reviewer": {
       "label": "design-reviewer",
@@ -103,7 +107,8 @@
       "sources": [
         ".claude/agents/design-reviewer.md:1-17",
         ".claude/agents/design-reviewer.md:66-133"
-      ]
+      ],
+      "short": "Design rev."
     },
     "research-reviewer": {
       "label": "research-reviewer",
@@ -121,7 +126,8 @@
       ],
       "sources": [
         ".claude/agents/research-reviewer.md:1-20"
-      ]
+      ],
+      "short": "Research rev."
     },
     "ceo": {
       "label": "ceo",
@@ -172,7 +178,8 @@
       "sources": [
         ".claude/agents/code-reviewer.md:1-7",
         "docs/review.md:122-140"
-      ]
+      ],
+      "short": "Code rev."
     },
     "repo-auditor-lite": {
       "label": "repo-auditor-lite",
@@ -210,7 +217,8 @@
       "sources": [
         "git:docs/codex-visual-tools:.claude/agents/context-reviewer.md",
         "docs/work/anti-examples/reviews/01-context.md"
-      ]
+      ],
+      "short": "Context rev."
     },
     "context-maintainer": {
       "label": "context-maintainer",
@@ -242,7 +250,8 @@
       "sources": [
         ".claude/skills/new-client/SKILL.md:34-47",
         ".claude/skills/idea-run/SKILL.md:87-104"
-      ]
+      ],
+      "short": "General"
     },
     "codex-reviewer": {
       "label": "codex-visual-reviewer",
@@ -259,7 +268,8 @@
       "sources": [
         "git:docs/codex-visual-tools:docs/proposals/codex-visual-tools.md",
         "git:docs/codex-visual-tools:docs/work/codex-visual-tools/reviews/01.md"
-      ]
+      ],
+      "short": "Codex rev."
     },
     "codex-image": {
       "label": "Codex image step",
@@ -435,7 +445,8 @@
       "sources": [
         ".claude/skills/trello/SKILL.md:25-33",
         "docs/development.md:17-32"
-      ]
+      ],
+      "short": "Trello"
     },
     "chat": {
       "label": "Chat app",
@@ -443,7 +454,8 @@
       "role": "Viber, WhatsApp or email: how you pass questions and drafts to the client and bring answers back.",
       "sources": [
         "docs/guides/client-workflow.md:81-89"
-      ]
+      ],
+      "short": "Chat"
     },
     "github-ci": {
       "label": "GitHub CI",
@@ -452,7 +464,8 @@
       "sources": [
         ".github/workflows/verify.yml",
         "docs/git-workflow.md:66-79"
-      ]
+      ],
+      "short": "CI"
     }
   },
   "terms": {

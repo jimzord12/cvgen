@@ -102,6 +102,7 @@
     return el;
   }
   function add(el, kid) {
+    if (arguments.length > 2) { for (var i = 1; i < arguments.length; i++) add(el, arguments[i]); return; }
     if (kid == null || kid === false) return;
     if (Array.isArray(kid)) { kid.forEach(function (k) { add(el, k); }); return; }
     el.appendChild(typeof kid === 'object' ? kid : document.createTextNode(String(kid)));
@@ -289,7 +290,7 @@
   /* ---------------- drawer ---------------- */
   var scrim = h('div.scrim', { onclick: function () { closeDrawer(); } });
   var dCrumb = h('div.crumbs'), dNav = h('div.dnav'), dBody = h('div.db'), dFoot = h('div.df');
-  var drawer = h('aside.drawer', { 'aria-label': 'Details', role: 'dialog', 'aria-modal': 'true' },
+  var drawer = h('aside.drawer', { 'aria-label': 'Details', role: 'dialog', 'aria-modal': 'true', tabindex: '-1' },
     h('div.dh', null, dCrumb, dNav, h('button.iconbtn', { type: 'button', 'aria-label': 'Close', onclick: function () { closeDrawer(); } }, icon('x'))),
     dBody, dFoot);
   var drawerClose = null, lastFocus = null;
@@ -300,7 +301,7 @@
     dFoot.innerHTML = ''; add(dFoot, opts.foot); dFoot.style.display = opts.foot ? '' : 'none';
     drawerClose = opts.onClose || null;
     drawer.classList.add('on'); scrim.classList.add('on');
-    setTimeout(function () { var b = drawer.querySelector('.dh .iconbtn'); if (b) b.focus({ preventScroll: true }); }, 30);
+    setTimeout(function () { drawer.focus({ preventScroll: true }); }, 30);
   }
   function closeDrawer() {
     if (!drawer.classList.contains('on')) return;
@@ -438,6 +439,7 @@
     var key = 'atlas-tldr-' + p.id, open = lsGet(key);
     var d = h('details.tldr-d', { open: open === '1' ? true : null },
       h('summary', null, icon('list'), 'The short version', h('span.c', null, p.tldr.length + ' points')),
+      p.summary ? h('p.lede.tl-sum', { html: md(p.summary) }) : null,
       h('ol.tldr', null, p.tldr.map(function (t, i) { return h('li', null, h('b', null, i + 1), h('span', { html: md(t) })); })));
     d.addEventListener('toggle', function () { lsSet(key, d.open ? '1' : '0'); });
     return d;
@@ -449,7 +451,7 @@
           h('div.eyebrow', null, h('span.pill', null, eyebrow)),
           h('h1', { html: md(p.title) }),
           p.question ? h('p.q', null, '“' + p.question + '”') : null,
-          p.summary ? h('p.lede', { html: md(p.summary) }) : null,
+          p.tldr && p.tldr.length ? null : (p.summary ? h('p.lede', { html: md(p.summary) }) : null),
           tldrEl(p),
           staleBanner()),
         side || null)));
@@ -457,12 +459,13 @@
   function nowCard(p, steps, onJump) {
     var st = p.status; if (!st) return null;
     var s = steps && st.step ? steps.filter(function (x) { return x.id === st.step; })[0] : null;
-    var waits = [].concat(st.waitingOn || []), mine = waits.some(function (w) { return kindOf(w) === 'owner'; });
+    var waits = [].concat(st.waitingOn || []), mine = !st.paused && waits.some(function (w) { return kindOf(w) === 'owner'; });
     return h('aside.now-card' + (mine ? '.mine' : ''), { 'aria-label': 'Where it stands' },
       h('div.label', null, h('span.pulse'), 'Where it stands', h('span.when', null, 'as of ' + (st.asOf || (site.snapshot || {}).asOf || '?'))),
       h('h3', null, st.title || (s ? 'Step ' + (s._i + 1) + ': ' + s.title : '')),
-      st.note ? h('p', { html: md(st.note) }) : null,
+      st.note ? h('p.clamp', { html: md(st.note), title: 'Click to read all', onclick: function (e) { if (e.target.tagName !== 'A') e.currentTarget.classList.toggle('open'); } }) : null,
       h('div.now-foot', null,
+        st.paused ? h('div.waiting.paused', null, icon('clock'), h('span', null, 'Paused at your request')) :
         waits.length ? h('div.waiting', null, h('span', null, 'Waiting on'), waits.map(function (w) { return chip(w); })) : null,
         s && onJump ? h('button.btn.sm', { type: 'button', onclick: function () { onJump(s); } }, icon('pin'), 'Show step ' + (s._i + 1)) : null));
   }
@@ -587,6 +590,8 @@
     var onMapFocus = null, metroDots = {};
     function paint() {
       metroBox.innerHTML = ''; add(metroBox, metro());
+      var mEl = metroBox.firstChild, cp = mEl && mEl.querySelector('.metro-phase.cur');
+      if (cp && mEl.scrollWidth > mEl.clientWidth) mEl.scrollLeft = Math.max(0, cp.offsetLeft - 16);
       stage.innerHTML = ''; onMapFocus = null; mapNav = null;
       if (view === 'story') paintStory(); else paintMap();
     }
@@ -606,7 +611,7 @@
             'aria-label': 'Step ' + (s._i + 1) + ': ' + s.title, onclick: function () { go(s); } });
           metroDots[s.id] = b; return b;
         })));
-      }), nowS ? h('button.now-jump', { type: 'button', onclick: function () { go(nowS); }, title: 'Jump to where things stand' }, icon('pin'), 'Now · ' + (nowS._i + 1)) : null);
+      }), nowS ? h('button.now-jump', { type: 'button', onclick: function () { go(nowS); }, title: 'Jump to where things stand' }, icon('pin'), 'Now · ' + nowS._ph.title + ' · ' + (nowS._i + 1) + ' of ' + steps.length) : null);
     }
 
     /* walk through */
@@ -639,8 +644,8 @@
 
     /* map: swimlanes */
     function paintMap() {
-      var LABEL_W = NARROW ? 62 : 200, COL_W = NARROW ? 168 : 188, NODE_W = NARROW ? 148 : 160, NODE_H = 74, TOP = 64, BOTTOM = 54;
-      var MAIN_H = 104, HELP_H = 52;
+      var LABEL_W = NARROW ? 74 : 200, COL_W = NARROW ? 168 : 188, NODE_W = NARROW ? 148 : 160, NODE_H = 74, TOP = 64, BOTTOM = 54;
+      var MAIN_H = 96, HELP_H = 50;
       var primary = {}; steps.forEach(function (s) { primary[s.actor] = true; });
       var rows = used, rIdx = {}, rowTop = [], rowH = [], y = TOP;
       rows.forEach(function (a, i) { rIdx[a] = i; rowTop.push(y); rowH.push(primary[a] ? MAIN_H : HELP_H); y += rowH[i]; });
@@ -648,13 +653,15 @@
       function nx(i) { return LABEL_W + i * COL_W + (COL_W - NODE_W) / 2; }
       function ny(r) { return rowTop[r] + (rowH[r] - NODE_H) / 2; }
       function cy(r) { return rowTop[r] + rowH[r] / 2; }
-      var lanes = h('div.lanes', { style: { width: W + 'px', height: H + 'px', 'padding-top': TOP + 'px' } });
+      var lanes = h('div.lanes', { style: { width: W + 'px', height: H + 'px' } });
+      add(lanes, h('div.lrow.corner', { style: { height: TOP + 'px' } }, h('div.lane-label', { style: { width: LABEL_W + 'px' } })));
       rows.forEach(function (id, i) {
         var a = actor(id);
         add(lanes, h('div.lrow' + (primary[id] ? '' : '.helper'), { style: { height: rowH[i] + 'px' } },
           h('div.lane-label.k-' + (a.kind || 'tool'), { style: { width: LABEL_W + 'px' }, title: a.label + (a.model ? ' · ' + a.model + (a.effort ? ' · ' + a.effort : '') : '') },
-            av(id), NARROW ? null : h('span', null, a.label, primary[id] ? h('span.sub', null, a.model ? a.model + (a.effort ? ' · ' + a.effort : '') : KIND_LABEL[a.kind] || '') : h('span.sub', null, 'helps')))));
+            av(id), NARROW ? h('span.mini', null, a.short || a.label) : h('span', null, a.label, primary[id] ? h('span.sub', null, a.model ? a.model + (a.effort ? ' · ' + a.effort : '') : KIND_LABEL[a.kind] || '') : h('span.sub', null, 'helps')))));
       });
+      add(lanes, h('div.lrow.corner.bottom', { style: { height: BOTTOM + 'px' } }, h('div.lane-label', { style: { width: LABEL_W + 'px' } })));
       p.phases.forEach(function (ph, pi) {
         var a = ph.steps[0]._i, b = ph.steps[ph.steps.length - 1]._i, x = LABEL_W + a * COL_W, w = (b - a + 1) * COL_W;
         add(lanes, h('div.ph-band' + (pi % 2 ? '.odd' : ''), { style: { left: x + 'px', width: w + 'px' } }));
@@ -682,6 +689,7 @@
           var x = nx(s._i) + NODE_W - 22, yy = cy(rIdx[w]), r0 = rIdx[s.actor], sy = rIdx[w] < r0 ? ny(r0) : ny(r0) + NODE_H;
           path('M' + x + ' ' + sy + 'V' + yy, 'with', s.id, s.id);
           add(lanes, h('div.ghost.k-' + kindOf(w), { title: actor(w).label + ' helps on step ' + (s._i + 1), style: { left: (x - 7) + 'px', top: (yy - 7) + 'px' } }));
+          if (NARROW) add(lanes, h('div.ghost-name.k-' + kindOf(w), { style: { left: (x + 12) + 'px', top: (yy - 8) + 'px' } }, actor(w).label));
         });
       });
       var depth = {};
@@ -696,7 +704,7 @@
         }
         (s.branch || []).forEach(function (b) {
           var t = byS[b.to]; if (!t) return;
-          var x1 = nx(s._i) + NODE_W / 2, y1 = ny(rIdx[s.actor]), x2 = nx(t._i) + NODE_W / 2, y2 = ny(rIdx[t.actor]), up = Math.min(y1, y2) - 24;
+          var x1 = nx(s._i) + NODE_W * 0.3, y1 = ny(rIdx[s.actor]), x2 = nx(t._i) + NODE_W * 0.3, y2 = ny(rIdx[t.actor]), up = Math.min(y1, y2) - 24;
           path('M' + x1 + ' ' + y1 + 'C' + x1 + ' ' + up + ',' + x2 + ' ' + up + ',' + x2 + ' ' + (y2 - 2), 'branch', s.id, t.id, 'ahb');
           label((x1 + x2) / 2, up + 6, b.short || b.when || 'if…', 'branch', 'branch');
         });
@@ -714,13 +722,14 @@
           h('span.t', null, s.title),
           gt && !(gt === 'owner' && s.optional) ? h('span.flag' + (GATE[gt].cls ? '.' + GATE[gt].cls : ''), null, icon(GATE[gt].ic), GATE[gt].flag) : null);
         nodeEls[s.id] = el; add(lanes, el);
-        if (nowS === s) add(lanes, h('div.here-pin', { style: { left: (x + NODE_W / 2) + 'px', top: (yy - 32) + 'px' } }, h('span.pulse'), 'You are here'));
+        if (nowS === s) add(lanes, h('div.here-pin', { style: { left: (x + NODE_W / 2 - (gt ? 22 : 0)) + 'px', top: (yy - (gt ? 40 : 32)) + 'px' } }, h('span.pulse'), 'You are here'));
       });
       function hlEdges(id, on) { Array.prototype.forEach.call(g.querySelectorAll('path'), function (e) { if (e.getAttribute('data-a') === id || e.getAttribute('data-b') === id) e.classList.toggle('hl', on); }); }
       var wrap = h('div.lanes-wrap', null, lanes);
       var cueL = h('button.cue.l', { type: 'button', onclick: function () { wrap.scrollBy({ left: -(wrap.clientWidth - LABEL_W) * 0.8, behavior: 'smooth' }); } }, icon('left'), h('span'));
       var cueR = h('button.cue.r', { type: 'button', onclick: function () { wrap.scrollBy({ left: (wrap.clientWidth - LABEL_W) * 0.8, behavior: 'smooth' }); } }, h('span'), icon('right'));
-      var shell = h('div.panel.lanes-shell', { style: { '--lw': LABEL_W + 'px' } }, wrap, cueL, cueR);
+      var shell = h('div.panel.lanes-shell', { style: { '--lw': LABEL_W + 'px' } },
+        h('div.lanes-bar', null, cueL, h('span.bar-hint', null, steps.length + ' steps · ' + rows.length + ' rows'), cueR), wrap);
       add(stage, shell);
       add(stage, h('p.foot-note', null, NARROW ? 'Rows are who acts; tap a card for details. Gold = your decision; dashed blue = loops back.'
         : 'Each row is who acts; each card is one step, left to right. Click a card for the details. Gold = your decision. Dashed blue = loops back. Rings = someone helping on that step.'));
@@ -749,7 +758,7 @@
         mapNav = function (d) { var t = steps[s._i + d]; if (t) openStep(t); };
         var prev = steps[s._i - 1], nxt = steps[s._i + 1];
         openDrawer({
-          crumb: [h('span', null, p.nav || p.title), icon('right'), h('span', null, 'Step ' + (s._i + 1) + ' of ' + steps.length)],
+          crumb: [h('span', null, p.nav || p.title), icon('right'), h('span', null, s._ph.title)],
           nav: [h('button.iconbtn', { type: 'button', 'aria-label': 'Previous step', title: prev ? 'Back: ' + prev.title : '', disabled: prev ? null : true, onclick: function () { mapNav(-1); } }, icon('left')),
             h('button.iconbtn', { type: 'button', 'aria-label': 'Next step', title: nxt ? 'Next: ' + nxt.title : '', disabled: nxt ? null : true, onclick: function () { mapNav(1); } }, icon('right'))],
           body: stepCard(p, s, steps, { go: function (t) { openStep(t); } }),
@@ -765,7 +774,7 @@
       onMapFocus = function (s) { openStep(s); };
       var f = hashState().focus;
       setTimeout(function () {
-        if (f && byS[f]) { center(byS[f]); if (hashState().open === '1' || true) openStep(byS[f]); }
+        if (f && byS[f]) { center(byS[f]); openStep(byS[f]); }
         else if (nowS) center(nowS);
         visible();
       }, 0);
@@ -882,7 +891,7 @@
       var body = h('article.stepcard.k-' + k, null,
         h('div.sc-top', null, h('div.sc-meta', null, h('span.phase', null, gr ? gr.title : 'Area'), n.state === 'planned' ? h('span.badge.planned', null, 'Planned, not built yet') : null),
           h('h2', null, n.title), n.path ? h('p', { style: { margin: '0 0 8px' } }, h('code', null, n.path)) : null, n.blurb ? h('p.summary', { html: md(n.blurb) }) : null,
-          n.actor ? h('div.sc-actors', null, chip(n.actor, true)) : null),
+          n.actor && actor(n.actor).label !== n.title ? h('div.sc-actors', null, chip(n.actor, true)) : null),
         h('div.sc-body', null,
           n.detail ? h('div.blk', null, h('h5', null, 'What it does'), [].concat(n.detail).length > 1 ? h('ol.does', null, [].concat(n.detail).map(function (d) { return h('li', null, h('span', { html: md(d) })); })) : h('p.para', { html: md(n.detail) })) : null,
           n.touch ? h('div.callout.loop', null, h('span.ic', null, icon('cog')), h('div.t', null, 'Touch it when'), h('p', { html: md(n.touch) })) : null,
@@ -1040,7 +1049,8 @@
       var s = st.step ? findItem(p, st.step) : null;
       moves.unshift({ t: st.move || (s ? s.title : p.title), d: st.note, href: pageFile(p.id) + (st.step ? '#focus=' + st.step : ''), pg: p.nav || p.title });
     });
-    var waits = pages.filter(function (p) { return p.status && p.status.waitingOn && ![].concat(p.status.waitingOn).some(function (w) { return kindOf(w) === 'owner'; }); });
+    var waits = pages.filter(function (p) { return p.status && !p.status.paused && p.status.waitingOn && ![].concat(p.status.waitingOn).some(function (w) { return kindOf(w) === 'owner'; }); });
+    var paused = pages.filter(function (p) { return p.status && p.status.paused; });
     add(root, h('section.section', { style: { 'padding-top': '0' } }, h('div.wrap', null,
       h('div.section-h', null, h('div', null, h('h2', null, 'Your moves'), h('p', null, moves.some(function (m) { return !m.opt; }) ? 'Things that cannot move until you act.' : 'Nothing is blocked on you. These are yours whenever you are ready.'))),
       moves.length ? h('div.moves', null, moves.map(function (m) {
@@ -1050,6 +1060,10 @@
       })) : h('p.para.faint', null, 'Nothing waits on you.'),
       waits.length ? h('div.others', null, h('span.lbl', null, 'Moving without you:'), waits.map(function (p) {
         return h('a.other', { href: pageFile(p.id) + (p.status.step ? '#focus=' + p.status.step : '') }, [].concat(p.status.waitingOn).map(function (w) { return av(w); }),
+          h('span', null, h('b', null, p.nav || p.title), ' · ' + (p.status.title || '')));
+      })) : null,
+      paused.length ? h('div.others', null, h('span.lbl', null, 'Paused at your request:'), paused.map(function (p) {
+        return h('a.other.paused', { href: pageFile(p.id) + (p.status.step ? '#focus=' + p.status.step : '') }, icon('clock'),
           h('span', null, h('b', null, p.nav || p.title), ' · ' + (p.status.title || '')));
       })) : null)));
 

@@ -328,7 +328,7 @@
           "loop": {
             "to": "text-draft",
             "label": "Corrections: a new draft number; the old one is marked `superseded`",
-            "short": "draft-02…"
+            "short": "Revise the draft"
           },
           "branch": [
             {

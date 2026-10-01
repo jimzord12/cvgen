@@ -3,7 +3,7 @@ window.ATLAS = {
  "site": {
   "repo": "CVgen",
   "title": "How CVgen works",
-  "tagline": "Premium, hand-crafted CVs made with AI on our own Typst `Framework`. Four questions, answered as pictures: what to do with a new `Client`, what happens to a design run, how any change lands, and who does the work.",
+  "tagline": "Premium, hand-crafted CVs made with AI on our own Typst `Framework`. Five questions, answered as pictures: what to do with a new `Client`, what happens to a design run, how any change lands, how the parts connect, and who does the work.",
   "lang": "en",
   "sourceBase": "../",
   "branch": "main",
@@ -42,7 +42,8 @@ window.ATLAS = {
     "sources": [
      "docs/preferences.md:49-77",
      "docs/guides/client-workflow.md:9-10"
-    ]
+    ],
+    "short": "You"
    },
    "client": {
     "label": "The client",
@@ -55,7 +56,8 @@ window.ATLAS = {
     "sources": [
      "docs/guides/client-workflow.md:316-318",
      "docs/guides/client-workflow.md:63-67"
-    ]
+    ],
+    "short": "Client"
    },
    "lead": {
     "label": "Claude (lead)",
@@ -69,7 +71,8 @@ window.ATLAS = {
     "sources": [
      "AGENTS.md:28-44",
      "docs/development.md:34-56"
-    ]
+    ],
+    "short": "Claude"
    },
    "magazine-editor": {
     "label": "magazine-editor",
@@ -85,7 +88,8 @@ window.ATLAS = {
     "sources": [
      ".claude/agents/magazine-editor.md:1-23",
      ".claude/agents/magazine-editor.md:50-82"
-    ]
+    ],
+    "short": "Editor"
    },
    "design-reviewer": {
     "label": "design-reviewer",
@@ -105,7 +109,8 @@ window.ATLAS = {
     "sources": [
      ".claude/agents/design-reviewer.md:1-17",
      ".claude/agents/design-reviewer.md:66-133"
-    ]
+    ],
+    "short": "Design rev."
    },
    "research-reviewer": {
     "label": "research-reviewer",
@@ -123,7 +128,8 @@ window.ATLAS = {
     ],
     "sources": [
      ".claude/agents/research-reviewer.md:1-20"
-    ]
+    ],
+    "short": "Research rev."
    },
    "ceo": {
     "label": "ceo",
@@ -174,7 +180,8 @@ window.ATLAS = {
     "sources": [
      ".claude/agents/code-reviewer.md:1-7",
      "docs/review.md:122-140"
-    ]
+    ],
+    "short": "Code rev."
    },
    "repo-auditor-lite": {
     "label": "repo-auditor-lite",
@@ -212,7 +219,8 @@ window.ATLAS = {
     "sources": [
      "git:docs/codex-visual-tools:.claude/agents/context-reviewer.md",
      "docs/work/anti-examples/reviews/01-context.md"
-    ]
+    ],
+    "short": "Context rev."
    },
    "context-maintainer": {
     "label": "context-maintainer",
@@ -244,7 +252,8 @@ window.ATLAS = {
     "sources": [
      ".claude/skills/new-client/SKILL.md:34-47",
      ".claude/skills/idea-run/SKILL.md:87-104"
-    ]
+    ],
+    "short": "General"
    },
    "codex-reviewer": {
     "label": "codex-visual-reviewer",
@@ -261,7 +270,8 @@ window.ATLAS = {
     "sources": [
      "git:docs/codex-visual-tools:docs/proposals/codex-visual-tools.md",
      "git:docs/codex-visual-tools:docs/work/codex-visual-tools/reviews/01.md"
-    ]
+    ],
+    "short": "Codex rev."
    },
    "codex-image": {
     "label": "Codex image step",
@@ -437,7 +447,8 @@ window.ATLAS = {
     "sources": [
      ".claude/skills/trello/SKILL.md:25-33",
      "docs/development.md:17-32"
-    ]
+    ],
+    "short": "Trello"
    },
    "chat": {
     "label": "Chat app",
@@ -445,7 +456,8 @@ window.ATLAS = {
     "role": "Viber, WhatsApp or email: how you pass questions and drafts to the client and bring answers back.",
     "sources": [
      "docs/guides/client-workflow.md:81-89"
-    ]
+    ],
+    "short": "Chat"
    },
    "github-ci": {
     "label": "GitHub CI",
@@ -454,7 +466,8 @@ window.ATLAS = {
     "sources": [
      ".github/workflows/verify.yml",
      "docs/git-workflow.md:66-79"
-    ]
+    ],
+    "short": "CI"
    }
   },
   "terms": {
@@ -834,7 +847,7 @@ window.ATLAS = {
        "loop": {
         "to": "text-draft",
         "label": "Corrections: a new draft number; the old one is marked `superseded`",
-        "short": "draft-02…"
+        "short": "Revise the draft"
        },
        "branch": [
         {
@@ -1087,7 +1100,7 @@ window.ATLAS = {
    "status": {
     "step": "research-gate",
     "asOf": "2026-10-01",
-    "title": "Run 2026-09-29: 18 drawn, the gates are next",
+    "title": "Run 2026-09-29: 18 drawn; Claude runs the research gate next",
     "note": "Travel & Tourism, Japan, tour leader. Three styles: Woodblock Road, Stamp Rally, Concourse. All 18 are stamped `proposed`; neither gate has run. Your look in the app is optional; you said you would give verdicts later.",
     "waitingOn": [
      "lead"
@@ -1418,11 +1431,12 @@ window.ATLAS = {
    "status": {
     "step": "fix",
     "asOf": "2026-10-01",
-    "title": "Two open reviews on the codex-visual-tools branch",
-    "note": "Both reports are FINDINGS and not applied yet (you asked to stop). That branch also holds the two context agents. Separately, the handoff card still says Main at cae0828; main is b83795e.",
+    "paused": true,
     "waitingOn": [
-     "lead"
+     "owner"
     ],
+    "title": "codex-visual-tools: two reviews to apply, paused",
+    "note": "Both reports on that branch are FINDINGS, not applied: you asked to stop that work for now. The branch also holds the two context agents. Separately, the handoff card on the board is out of date: it was written before the last twelve changes on main.",
     "ref": "board: session-handoff"
    },
    "phases": [
@@ -2247,8 +2261,8 @@ window.ATLAS = {
   }
  ],
  "build": {
-  "builtAt": "2026-10-01 17:07 UTC",
-  "commit": "eb61c9b",
+  "builtAt": "2026-10-01 17:15 UTC",
+  "commit": "c5803fb",
   "kit": "1.0",
   "stale": {},
   "verified": {}
