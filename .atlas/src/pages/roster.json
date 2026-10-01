@@ -1,0 +1,14 @@
+{
+  "id": "roster",
+  "kind": "roster",
+  "nav": "Who",
+  "title": "Who does the work",
+  "question": "Which agents, skills and tools exist, and on which model?",
+  "summary": "Everyone and everything that acts in the flows: the model and effort each agent runs on, what it may touch, and every step it appears in.",
+  "tldr": [
+    "Every author and reviewer agent in the repo runs on Opus at high effort: your standing choice for reviewers since 2026-09-26.",
+    "A reviewer is always fresh: a new agent each round, given the earlier reports, never a fork of the author.",
+    "\"Planned\" means approved but not built: the two context agents and the two Codex steps."
+  ],
+  "sources": ["docs/review.md:130-140"]
+}
