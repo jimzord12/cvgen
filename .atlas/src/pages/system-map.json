@@ -4,127 +4,571 @@
   "nav": "The parts",
   "title": "What lives where",
   "question": "What are the parts of CVgen and how do they feed each other?",
-  "summary": "The repository in nine areas. Hover a box to light up what it feeds and what feeds it; click it for what it does and when to touch it.",
+  "summary": "The repository in nine areas. The main line runs across the top; hover or tap any part to light up what it feeds and what feeds it.",
   "tldr": [
     "A CV is facts (`candidate.json`) poured into a `Template` built on the `Framework`; `cv.py` turns it into a never-overwritten `Revision`.",
     "Every PDF anyone reviews carries a `Meta File`, which is how the `Design Review` app finds it.",
     "Client data lives only in `private/`; everything in Git is fictional."
   ],
-  "sources": ["AGENTS.md", "docs/architecture.md", "docs/pdf-workflow.md"],
+  "sources": [
+    "AGENTS.md",
+    "docs/architecture.md",
+    "docs/pdf-workflow.md"
+  ],
   "columns": 12,
   "groups": [
     {
-      "id": "g-private", "title": "Client Envelopes", "icon": "lock", "kind": "client", "col": 1, "w": 4, "row": 1,
+      "id": "g-private",
+      "title": "Client Envelopes",
+      "icon": "lock",
+      "kind": "client",
+      "col": 1,
+      "w": 4,
+      "row": 1,
       "blurb": "`private/`: one folder per real client. Ignored by Git, never in a brief.",
       "nodes": [
-        { "id": "n-envelope", "title": "envelope.json + README", "path": "private/<envelope>/", "blurb": "Who the client is: `Alias`, `Domain`, `Rank`; dates and links.", "detail": "`cv.py render` refuses to run without `envelope.json`; every client `Meta File` copies it.", "sources": ["docs/guides/client-workflow.md:29-77"] },
-        { "id": "n-intake", "title": "intake/ · research/", "path": "private/<envelope>/intake/", "blurb": "Messages, documents, `facts.md`, the `Scout`, `CV Decisions`, `Deep Dives`.", "sources": ["docs/guides/client-workflow.md:35-57"] },
-        { "id": "n-draft", "title": "draft/", "path": "private/<envelope>/draft/", "blurb": "The `Text Drafts` and the `Sign-off` screenshots.", "sources": ["docs/guides/client-workflow.md:249-276"] },
-        { "id": "n-cvtyp", "title": "candidate.json + cv.typ", "path": "private/<envelope>/cv.typ", "blurb": "The client's facts and the entry point that composes their CV.", "sources": ["docs/guides/build-a-cv.md:37-68"] },
-        { "id": "n-revisions", "title": "revisions/ · exports/", "path": "private/<envelope>/revisions/<id>/", "blurb": "Every render in its own folder; approved copies in `exports/`.", "sources": ["docs/pdf-workflow.md:71-96"] }
+        {
+          "id": "n-envelope",
+          "title": "envelope.json + README",
+          "path": "private/<envelope>/",
+          "blurb": "Who the client is: `Alias`, `Domain`, `Rank`; dates and links.",
+          "detail": "`cv.py render` refuses to run without `envelope.json`; every client `Meta File` copies it.",
+          "sources": [
+            "docs/guides/client-workflow.md:29-77"
+          ]
+        },
+        {
+          "id": "n-intake",
+          "title": "intake/ · research/",
+          "path": "private/<envelope>/intake/",
+          "blurb": "Messages, documents, `facts.md`, the `Scout`, `CV Decisions`, `Deep Dives`.",
+          "sources": [
+            "docs/guides/client-workflow.md:35-57"
+          ]
+        },
+        {
+          "id": "n-draft",
+          "title": "draft/",
+          "path": "private/<envelope>/draft/",
+          "blurb": "The `Text Drafts` and the `Sign-off` screenshots.",
+          "sources": [
+            "docs/guides/client-workflow.md:249-276"
+          ]
+        },
+        {
+          "id": "n-cvtyp",
+          "title": "candidate.json + cv.typ",
+          "path": "private/<envelope>/cv.typ",
+          "blurb": "The client's facts and the entry point that composes their CV.",
+          "sources": [
+            "docs/guides/build-a-cv.md:37-68"
+          ]
+        },
+        {
+          "id": "n-revisions",
+          "title": "revisions/ · exports/",
+          "path": "private/<envelope>/revisions/<id>/",
+          "blurb": "Every render in its own folder; approved copies in `exports/`.",
+          "sources": [
+            "docs/pdf-workflow.md:71-96"
+          ]
+        }
       ]
     },
     {
-      "id": "g-engine", "title": "The engine", "icon": "package", "kind": "lead", "col": 5, "w": 4, "row": 1,
+      "id": "g-engine",
+      "title": "The engine",
+      "icon": "package",
+      "kind": "lead",
+      "col": 5,
+      "w": 4,
+      "row": 1,
       "blurb": "Typst code that turns facts into pages.",
       "nodes": [
-        { "id": "n-framework", "title": "Framework", "path": "packages/cv-framework/", "blurb": "The domain-neutral core: page frame, components, data merge, pagination, fonts.", "touch": "Changing behaviour every `Domain` shares. It never imports a `Domain`; the suite checks that." },
-        { "id": "n-marine", "title": "Marine Domain", "path": "packages/domains/marine/", "blurb": "Marine facts, wording, rules and artwork; roles Deck and Engine.", "touch": "Changing what the marine `Domain` means." },
-        { "id": "n-flagship", "title": "Flagship Template", "path": "packages/domains/marine/templates/flagship/", "blurb": "The marine CV design: adapter, sections, themes, artwork, layouts.", "detail": "Six inputs: facts, role, `Theme`, `Artwork Pack`, `Layout`, durations switch.", "touch": "Changing what the `Flagship` renders." },
-        { "id": "n-frozen", "title": "Frozen Reference", "path": "packages/domains/marine/templates/flagship/tests/approved/", "blurb": "The v11 PDF the engineer example must match pixel for pixel.", "touch": "Never, without a new reference and an ADR." }
+        {
+          "id": "n-framework",
+          "title": "Framework",
+          "path": "packages/cv-framework/",
+          "blurb": "The domain-neutral core: page frame, components, data merge, pagination, fonts.",
+          "touch": "Changing behaviour every `Domain` shares. It never imports a `Domain`; the suite checks that."
+        },
+        {
+          "id": "n-marine",
+          "title": "Marine Domain",
+          "path": "packages/domains/marine/",
+          "blurb": "Marine facts, wording, rules and artwork; roles Deck and Engine.",
+          "touch": "Changing what the marine `Domain` means."
+        },
+        {
+          "id": "n-flagship",
+          "title": "Flagship Template",
+          "path": "packages/domains/marine/templates/flagship/",
+          "blurb": "The marine CV design: adapter, sections, themes, artwork, layouts.",
+          "detail": "Six inputs: facts, role, `Theme`, `Artwork Pack`, `Layout`, durations switch.",
+          "touch": "Changing what the `Flagship` renders."
+        },
+        {
+          "id": "n-frozen",
+          "title": "Frozen Reference",
+          "path": "packages/domains/marine/templates/flagship/tests/approved/",
+          "blurb": "The v11 PDF the engineer example must match pixel for pixel.",
+          "touch": "Never, without a new reference and an ADR."
+        }
       ]
     },
     {
-      "id": "g-produce", "title": "Produce & approve", "icon": "term", "kind": "tool", "col": 9, "w": 4, "row": 1,
+      "id": "g-produce",
+      "title": "Produce & approve",
+      "icon": "term",
+      "kind": "tool",
+      "col": 9,
+      "w": 4,
+      "row": 1,
       "blurb": "The scripts that render, approve, export and stamp.",
       "nodes": [
-        { "id": "n-cvpy", "title": "cv.py", "path": "scripts/cv.py", "actor": "cv-py", "blurb": "render · approve · export · status for one `Envelope`.", "cmd": ["python scripts/cv.py render private/<envelope>"] },
-        { "id": "n-workflow", "title": "cv-workflow", "path": "packages/cv-workflow/", "blurb": "The Python behind it: snapshots, checks, approval bound to a hash, verified export." },
-        { "id": "n-outputs", "title": "outputs.py", "path": "scripts/outputs.py", "actor": "outputs-py", "blurb": "Stamps a PDF's `Meta File`; `check` lists every PDF without a valid one.", "cmd": ["python scripts/outputs.py check"] },
-        { "id": "n-build", "title": "build.ps1", "path": "scripts/build.ps1", "actor": "build-ps1", "blurb": "Builds the five examples; `-Release` writes the `Release`." }
+        {
+          "id": "n-cvpy",
+          "title": "cv.py",
+          "path": "scripts/cv.py",
+          "actor": "cv-py",
+          "blurb": "render · approve · export · status for one `Envelope`.",
+          "cmd": [
+            "python scripts/cv.py render private/<envelope>"
+          ]
+        },
+        {
+          "id": "n-workflow",
+          "title": "cv-workflow",
+          "path": "packages/cv-workflow/",
+          "blurb": "The Python behind it: snapshots, checks, approval bound to a hash, verified export."
+        },
+        {
+          "id": "n-outputs",
+          "title": "outputs.py",
+          "path": "scripts/outputs.py",
+          "actor": "outputs-py",
+          "blurb": "Stamps a PDF's `Meta File`; `check` lists every PDF without a valid one.",
+          "cmd": [
+            "python scripts/outputs.py check"
+          ]
+        },
+        {
+          "id": "n-build",
+          "title": "build.ps1",
+          "path": "scripts/build.ps1",
+          "actor": "build-ps1",
+          "blurb": "Builds the five examples; `-Release` writes the `Release`."
+        }
       ]
     },
     {
-      "id": "g-public", "title": "Public examples", "icon": "image", "kind": "tool", "col": 1, "w": 4, "row": 2,
+      "id": "g-public",
+      "title": "Public examples",
+      "icon": "image",
+      "kind": "tool",
+      "col": 1,
+      "w": 4,
+      "row": 2,
       "blurb": "Fictional people only. What the product shows the world.",
       "nodes": [
-        { "id": "n-candidates", "title": "Example candidates", "path": "examples/candidates/", "blurb": "Engineer, captain, chief officer, deck cadet, one fictional portrait." },
-        { "id": "n-release", "title": "The Release", "path": "examples/marine/flagship/", "blurb": "Five entry points, each with its PDF and `Meta File` beside it.", "touch": "Replacing the `Release` needs your go." }
+        {
+          "id": "n-candidates",
+          "title": "Example candidates",
+          "path": "examples/candidates/",
+          "blurb": "Engineer, captain, chief officer, deck cadet, one fictional portrait."
+        },
+        {
+          "id": "n-release",
+          "title": "The Release",
+          "path": "examples/marine/flagship/",
+          "blurb": "Five entry points, each with its PDF and `Meta File` beside it.",
+          "touch": "Replacing the `Release` needs your go."
+        }
       ]
     },
     {
-      "id": "g-design", "title": "Design", "icon": "palette", "kind": "agent", "col": 5, "w": 4, "row": 2,
+      "id": "g-design",
+      "title": "Design",
+      "icon": "palette",
+      "kind": "agent",
+      "col": 5,
+      "w": 4,
+      "row": 2,
       "blurb": "Ideas, references and the house design.",
       "nodes": [
-        { "id": "n-concepts", "title": "design-concepts/", "path": "design-concepts/", "actor": "magazine-editor", "blurb": "Every design run's Styles, Densities and Tiers, with a README row each." },
-        { "id": "n-anti", "title": "Anti-examples", "path": "archive/anti-examples/", "blurb": "Designs you rejected as not your style. Never repeat their idea." },
-        { "id": "n-studies", "title": "Design studies", "path": "archive/design-studies/", "blurb": "Four frozen studies, for inspiration only." },
-        { "id": "n-textdraft", "title": "First Fitting", "path": "scripts/text-draft.typ", "blurb": "The house design every `Text Draft` uses." },
-        { "id": "n-brand", "title": "brand/", "path": "brand/", "blurb": "The needle's-eye logo, the wordmark, the form header." }
+        {
+          "id": "n-concepts",
+          "title": "design-concepts/",
+          "path": "design-concepts/",
+          "actor": "magazine-editor",
+          "blurb": "Every design run's Styles, Densities and Tiers, with a README row each."
+        },
+        {
+          "id": "n-anti",
+          "title": "Anti-examples",
+          "path": "archive/anti-examples/",
+          "blurb": "Designs you rejected as not your style. Never repeat their idea."
+        },
+        {
+          "id": "n-studies",
+          "title": "Design studies",
+          "path": "archive/design-studies/",
+          "blurb": "Four frozen studies, for inspiration only."
+        },
+        {
+          "id": "n-textdraft",
+          "title": "First Fitting",
+          "path": "scripts/text-draft.typ",
+          "blurb": "The house design every `Text Draft` uses."
+        },
+        {
+          "id": "n-brand",
+          "title": "brand/",
+          "path": "brand/",
+          "blurb": "The needle's-eye logo, the wordmark, the form header."
+        }
       ]
     },
     {
-      "id": "g-review", "title": "Your review", "icon": "eye", "kind": "owner", "col": 9, "w": 4, "row": 2,
+      "id": "g-review",
+      "title": "Your review",
+      "icon": "eye",
+      "kind": "owner",
+      "col": 9,
+      "w": 4,
+      "row": 2,
       "blurb": "Where you look and decide.",
       "nodes": [
-        { "id": "n-app", "title": "Design Review app", "path": "scripts/design_review/", "actor": "design-review-app", "blurb": "Board, Loupe, compare, `Batch Test` pile. Reads only `Meta Files`.", "cmd": ["python scripts/design_review/server.py"], "sources": ["scripts/design_review/server.py"] },
-        { "id": "n-state", "title": "Your verdicts", "path": ".local/design-review/state.json", "blurb": "keep / maybe / reject, stars, notes. On this machine only; empty today.", "sources": ["AGENTS.md"] }
+        {
+          "id": "n-app",
+          "title": "Design Review app",
+          "path": "scripts/design_review/",
+          "actor": "design-review-app",
+          "blurb": "Board, Loupe, compare, `Batch Test` pile. Reads only `Meta Files`.",
+          "cmd": [
+            "python scripts/design_review/server.py"
+          ],
+          "sources": [
+            "scripts/design_review/server.py"
+          ]
+        },
+        {
+          "id": "n-state",
+          "title": "Your verdicts",
+          "path": ".local/design-review/state.json",
+          "blurb": "keep / maybe / reject, stars, notes. On this machine only; empty today.",
+          "sources": [
+            "AGENTS.md"
+          ]
+        }
       ]
     },
     {
-      "id": "g-context", "title": "Agent context", "icon": "book", "kind": "lead", "col": 1, "w": 6, "row": 3, "cols": 2,
+      "id": "g-context",
+      "title": "Agent context",
+      "icon": "book",
+      "kind": "lead",
+      "col": 1,
+      "w": 6,
+      "row": 3,
+      "cols": 2,
       "blurb": "What every agent reads before acting.",
       "nodes": [
-        { "id": "n-agents-md", "title": "AGENTS.md", "path": "AGENTS.md", "blurb": "The one map: what is where, the commands, the rules." },
-        { "id": "n-docs", "title": "docs/", "path": "docs/", "blurb": "Vision, constitution, architecture, guides, references, ADRs." },
-        { "id": "n-glossary", "title": "Glossary", "path": "docs/glossary.md", "blurb": "The official words. Hover any dotted word here to see one." },
-        { "id": "n-agent-files", "title": ".claude/agents/", "path": ".claude/agents/", "blurb": "The seven agent profiles, with model and tools." },
-        { "id": "n-skills", "title": ".claude/skills/", "path": ".claude/skills/", "blurb": "The nine checklists agents load." },
-        { "id": "n-work", "title": "docs/work/", "path": "docs/work/", "blurb": "Dated records: review reports, run records. Never re-worded." }
+        {
+          "id": "n-agents-md",
+          "title": "AGENTS.md",
+          "path": "AGENTS.md",
+          "blurb": "The one map: what is where, the commands, the rules."
+        },
+        {
+          "id": "n-docs",
+          "title": "docs/",
+          "path": "docs/",
+          "blurb": "Vision, constitution, architecture, guides, references, ADRs."
+        },
+        {
+          "id": "n-glossary",
+          "title": "Glossary",
+          "path": "docs/glossary.md",
+          "blurb": "The official words. Hover any dotted word here to see one."
+        },
+        {
+          "id": "n-agent-files",
+          "title": ".claude/agents/",
+          "path": ".claude/agents/",
+          "blurb": "The seven agent profiles, with model and tools."
+        },
+        {
+          "id": "n-skills",
+          "title": ".claude/skills/",
+          "path": ".claude/skills/",
+          "blurb": "The nine checklists agents load."
+        },
+        {
+          "id": "n-work",
+          "title": "docs/work/",
+          "path": "docs/work/",
+          "blurb": "Dated records: review reports, run records. Never re-worded."
+        }
       ]
     },
     {
-      "id": "g-proof", "title": "Proof", "icon": "beaker", "kind": "tool", "col": 7, "w": 3, "row": 3,
+      "id": "g-proof",
+      "title": "Proof",
+      "icon": "beaker",
+      "kind": "tool",
+      "col": 7,
+      "w": 3,
+      "row": 3,
       "blurb": "Evidence before \"done\".",
       "nodes": [
-        { "id": "n-suite", "title": "tests/run.py", "path": "tests/run.py", "actor": "suite", "blurb": "The full suite.", "cmd": ["python tests/run.py"] },
-        { "id": "n-builds", "title": "builds/", "path": "builds/<timestamp>/", "blurb": "Ignored. Every run writes a new folder.", "sources": ["AGENTS.md"] },
-        { "id": "n-ci", "title": "GitHub CI", "path": ".github/workflows/verify.yml", "actor": "github-ci", "blurb": "The suite on every push to `main`." }
+        {
+          "id": "n-suite",
+          "title": "tests/run.py",
+          "path": "tests/run.py",
+          "actor": "suite",
+          "blurb": "The full suite.",
+          "cmd": [
+            "python tests/run.py"
+          ]
+        },
+        {
+          "id": "n-builds",
+          "title": "builds/",
+          "path": "builds/<timestamp>/",
+          "blurb": "Ignored. Every run writes a new folder.",
+          "sources": [
+            "AGENTS.md"
+          ]
+        },
+        {
+          "id": "n-ci",
+          "title": "GitHub CI",
+          "path": ".github/workflows/verify.yml",
+          "actor": "github-ci",
+          "blurb": "The suite on every push to `main`."
+        }
       ]
     },
     {
-      "id": "g-outside", "title": "Outside the repo", "icon": "cloud", "kind": "service", "col": 10, "w": 3, "row": 3,
+      "id": "g-outside",
+      "title": "Outside the repo",
+      "icon": "cloud",
+      "kind": "service",
+      "col": 10,
+      "w": 3,
+      "row": 3,
       "blurb": "Services the flows use.",
       "nodes": [
-        { "id": "n-board", "title": "Trello board", "path": "board \"CVgen\"", "actor": "board", "blurb": "Every task is a card; sessions start at `session-handoff`.", "sources": [".claude/skills/trello/SKILL.md:25-33"] },
-        { "id": "n-forms", "title": "Google Forms", "path": "your Google account", "actor": "intake-form", "blurb": "Optional `Intake Forms` and their answer Sheets.", "sources": ["docs/guides/client-workflow.md:91-128"] },
-        { "id": "n-chat", "title": "Chat app", "path": "Viber · WhatsApp · email", "actor": "chat", "blurb": "Questions out, answers back, via you.", "sources": ["docs/guides/client-workflow.md:81-89"] }
+        {
+          "id": "n-board",
+          "title": "Trello board",
+          "path": "board \"CVgen\"",
+          "actor": "board",
+          "blurb": "Every task is a card; sessions start at `session-handoff`.",
+          "sources": [
+            ".claude/skills/trello/SKILL.md:25-33"
+          ]
+        },
+        {
+          "id": "n-forms",
+          "title": "Google Forms",
+          "path": "your Google account",
+          "actor": "intake-form",
+          "blurb": "Optional `Intake Forms` and their answer Sheets.",
+          "sources": [
+            "docs/guides/client-workflow.md:91-128"
+          ]
+        },
+        {
+          "id": "n-chat",
+          "title": "Chat app",
+          "path": "Viber · WhatsApp · email",
+          "actor": "chat",
+          "blurb": "Questions out, answers back, via you.",
+          "sources": [
+            "docs/guides/client-workflow.md:81-89"
+          ]
+        }
       ]
     }
   ],
   "edges": [
-    { "from": "n-chat", "to": "n-intake", "label": "answers, via you", "type": "data" },
-    { "from": "n-forms", "to": "n-intake", "label": "answers CSV", "type": "data" },
-    { "from": "n-cvtyp", "to": "n-marine", "label": "imports", "type": "calls" },
-    { "from": "n-marine", "to": "n-framework", "label": "builds on", "type": "calls" },
-    { "from": "n-flagship", "to": "n-marine", "label": "belongs to", "type": "calls" },
-    { "from": "n-cvpy", "to": "n-cvtyp", "label": "renders", "type": "calls" },
-    { "from": "n-cvpy", "to": "n-revisions", "label": "new Revision", "type": "writes" },
-    { "from": "n-cvpy", "to": "n-workflow", "label": "runs", "type": "calls" },
-    { "from": "n-revisions", "to": "n-app", "label": "Meta File", "type": "data" },
-    { "from": "n-draft", "to": "n-app", "label": "Meta File", "type": "data" },
-    { "from": "n-textdraft", "to": "n-draft", "label": "house design", "type": "calls" },
-    { "from": "n-build", "to": "n-release", "label": "writes the Release", "type": "writes" },
-    { "from": "n-release", "to": "n-flagship", "label": "renders with", "type": "calls" },
-    { "from": "n-candidates", "to": "n-release", "label": "facts", "type": "data" },
-    { "from": "n-release", "to": "n-app", "label": "Meta File", "type": "data" },
-    { "from": "n-concepts", "to": "n-app", "label": "Meta File", "type": "data" },
-    { "from": "n-outputs", "to": "n-concepts", "label": "stamps", "type": "writes" },
-    { "from": "n-anti", "to": "n-concepts", "label": "never repeat", "type": "data" },
-    { "from": "n-app", "to": "n-state", "label": "your verdicts", "type": "writes" },
-    { "from": "n-suite", "to": "n-frozen", "label": "pixel check", "type": "calls" },
-    { "from": "n-suite", "to": "n-builds", "label": "evidence", "type": "writes" },
-    { "from": "n-ci", "to": "n-suite", "label": "runs", "type": "calls" },
-    { "from": "n-skills", "to": "n-board", "label": "trello skill", "type": "calls" }
+    {
+      "from": "n-chat",
+      "to": "n-intake",
+      "label": "answers, via you",
+      "type": "data"
+    },
+    {
+      "from": "n-forms",
+      "to": "n-intake",
+      "label": "answers CSV",
+      "type": "data"
+    },
+    {
+      "from": "n-cvtyp",
+      "to": "n-marine",
+      "label": "imports",
+      "type": "calls"
+    },
+    {
+      "from": "n-marine",
+      "to": "n-framework",
+      "label": "builds on",
+      "type": "calls"
+    },
+    {
+      "from": "n-flagship",
+      "to": "n-marine",
+      "label": "belongs to",
+      "type": "calls"
+    },
+    {
+      "from": "n-cvpy",
+      "to": "n-cvtyp",
+      "label": "renders",
+      "type": "calls"
+    },
+    {
+      "from": "n-cvpy",
+      "to": "n-revisions",
+      "label": "new Revision",
+      "type": "writes"
+    },
+    {
+      "from": "n-cvpy",
+      "to": "n-workflow",
+      "label": "runs",
+      "type": "calls"
+    },
+    {
+      "from": "n-revisions",
+      "to": "n-app",
+      "label": "Meta File",
+      "type": "data"
+    },
+    {
+      "from": "n-draft",
+      "to": "n-app",
+      "label": "Meta File",
+      "type": "data"
+    },
+    {
+      "from": "n-textdraft",
+      "to": "n-draft",
+      "label": "house design",
+      "type": "calls"
+    },
+    {
+      "from": "n-build",
+      "to": "n-release",
+      "label": "writes the Release",
+      "type": "writes"
+    },
+    {
+      "from": "n-release",
+      "to": "n-flagship",
+      "label": "renders with",
+      "type": "calls"
+    },
+    {
+      "from": "n-candidates",
+      "to": "n-release",
+      "label": "facts",
+      "type": "data"
+    },
+    {
+      "from": "n-release",
+      "to": "n-app",
+      "label": "Meta File",
+      "type": "data"
+    },
+    {
+      "from": "n-concepts",
+      "to": "n-app",
+      "label": "Meta File",
+      "type": "data"
+    },
+    {
+      "from": "n-outputs",
+      "to": "n-concepts",
+      "label": "stamps",
+      "type": "writes"
+    },
+    {
+      "from": "n-anti",
+      "to": "n-concepts",
+      "label": "never repeat",
+      "type": "data"
+    },
+    {
+      "from": "n-app",
+      "to": "n-state",
+      "label": "your verdicts",
+      "type": "writes"
+    },
+    {
+      "from": "n-suite",
+      "to": "n-frozen",
+      "label": "pixel check",
+      "type": "calls"
+    },
+    {
+      "from": "n-suite",
+      "to": "n-builds",
+      "label": "evidence",
+      "type": "writes"
+    },
+    {
+      "from": "n-ci",
+      "to": "n-suite",
+      "label": "runs",
+      "type": "calls"
+    },
+    {
+      "from": "n-skills",
+      "to": "n-board",
+      "label": "trello skill",
+      "type": "calls"
+    },
+    {
+      "from": "n-envelope",
+      "to": "n-cvpy",
+      "label": "render needs it",
+      "type": "data"
+    }
+  ],
+  "backboneTitle": "The main line: from a client to a PDF you review",
+  "backbone": [
+    {
+      "node": "n-intake",
+      "label": "Facts"
+    },
+    {
+      "node": "n-cvtyp",
+      "label": "candidate.json + cv.typ",
+      "via": "written from"
+    },
+    {
+      "node": "n-flagship",
+      "label": "A Template",
+      "via": "imports"
+    },
+    {
+      "node": "n-cvpy",
+      "label": "cv.py render",
+      "via": "rendered by"
+    },
+    {
+      "node": "n-revisions",
+      "label": "A Revision",
+      "via": "writes"
+    },
+    {
+      "node": "n-app",
+      "label": "Your review",
+      "via": "Meta File"
+    }
   ]
 }

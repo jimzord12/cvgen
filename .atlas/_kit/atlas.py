@@ -511,13 +511,18 @@ def cmd_shots(root, out, only, themes, mobile, height):
         if p["kind"] == "flow":
             steps = [s for ph in p["phases"] for s in ph["steps"]]
             pick = (p.get("status") or {}).get("step") or steps[0]["id"]
-            plan += [(p["id"], f, "view=map", "map"), (p["id"], f, "view=story&focus=" + steps[0]["id"], "story"),
+            plan += [(p["id"], f, "view=map", "map"), (p["id"], f, "view=story", "story"),
                      (p["id"], f, "view=map&focus=%s&open=1" % pick, "drawer")]
         elif p["kind"] == "system":
-            first = next((n["id"] for g in p["groups"] for n in g.get("nodes", [])), None)
-            plan += [(p["id"], f, "", "map")] + ([(p["id"], f, "focus=%s&open=1" % first, "drawer")] if first else [])
+            deg = {}
+            for e in p.get("edges", []):
+                for end in (e["from"], e["to"]):
+                    deg[end] = deg.get(end, 0) + 1
+            nodes = [n["id"] for g in p["groups"] for n in g.get("nodes", [])]
+            busiest = max(nodes, key=lambda n: deg.get(n, 0)) if nodes else None
+            plan += [(p["id"], f, "", "map")] + ([(p["id"], f, "focus=%s&open=1" % busiest, "drawer")] if busiest else [])
         else:
-            plan += [(p["id"], f, "", "cards")]
+            plan += [(p["id"], f, "", "cards"), (p["id"], f, "tab=matrix", "matrix")]
     # Chromium will not render a window narrower than about 500 px on Windows
     sizes = [(1600, height)] + ([(500, max(height, 2400))] if mobile else [])
     n = 0
@@ -531,7 +536,7 @@ def cmd_shots(root, out, only, themes, mobile, height):
                 fr = "&".join(x for x in (frag, "theme=" + th) if x)
                 png = os.path.join(out, "%s__%s__%s__%d.png" % (pid, label, th, w))
                 subprocess.run([br, "--headless=new", "--disable-gpu", "--hide-scrollbars", "--force-device-scale-factor=1",
-                                "--window-size=%d,%d" % (w, hgt), "--virtual-time-budget=6000",
+                                "--window-size=%d,%d" % (w, hgt), "--virtual-time-budget=9000",
                                 "--screenshot=" + png, file_url(os.path.join(at, f), fr)], capture_output=True, timeout=120)
                 if os.path.isfile(png):
                     n += 1

@@ -10,224 +10,552 @@
     "Research and one follow-up, then a `Text Draft`. The client checks only the facts and says OK: that is the `Sign-off`.",
     "Then the design, a `Revision`, your `Approval`, the `Export`, and you send it. Data is deleted 12 months after delivery."
   ],
-  "sources": ["docs/guides/client-workflow.md", "docs/guides/build-a-cv.md"],
+  "sources": [
+    "docs/guides/client-workflow.md",
+    "docs/guides/build-a-cv.md"
+  ],
   "status": {
     "step": "design-run",
     "asOf": "2026-10-01",
     "title": "client-2026-09-01 is at the design step",
-    "note": "Travel & Tourism, a tour leader for Japan. Signed off `draft-02` on 2026-09-29. You rejected the one-off design \"Line Diagram\" (\"super boring! No character, no uniqueness, no Japan in it\"), so a new design run drew 18 designs. They wait for their review gates, then your pick.",
-    "waitingOn": ["lead"],
+    "note": "Travel & Tourism, a tour leader for Japan. Signed off `draft-02` on 2026-09-29. You rejected the one-off design \"Line Diagram\" (\"super boring! No character, no uniqueness, no Japan in it\"), so a new design run drew 18 designs. Their review gates run next: [[design-run#research-gate|follow it on the Design run page]].",
+    "waitingOn": [
+      "lead"
+    ],
     "ref": "board: session-handoff"
   },
   "phases": [
     {
-      "id": "open", "title": "Open",
+      "id": "open",
+      "title": "Open",
       "steps": [
         {
-          "id": "arrives", "title": "A new client writes to you", "actor": "owner", "with": ["lead"],
+          "id": "arrives",
+          "title": "A new client writes to you",
+          "actor": "owner",
+          "with": [
+            "lead"
+          ],
           "summary": "Tell Claude a new client arrived: who, which job, which career area. That starts the `new-client` skill.",
           "you": "Say \"new client\" with the person's name, `Rank` and `Domain`. Everything after this is a checklist Claude follows.",
-          "does": ["Claude loads the `new-client` checklist.", "It also checks every open client for a stall (no `Export` 3 months after intake) and for a passed delete-by date."],
-          "uses": ["new-client"],
-          "sources": ["docs/guides/client-workflow.md:9-10", ".claude/skills/new-client/SKILL.md:1-9", ".claude/skills/new-client/SKILL.md:95-98"]
+          "does": [
+            "Claude loads the `new-client` checklist.",
+            "It also checks every open client for a stall (no `Export` 3 months after intake) and for a passed delete-by date."
+          ],
+          "uses": [
+            "new-client"
+          ],
+          "sources": [
+            "docs/guides/client-workflow.md:9-10",
+            ".claude/skills/new-client/SKILL.md:1-9",
+            ".claude/skills/new-client/SKILL.md:95-98"
+          ]
         },
         {
-          "id": "envelope", "title": "Open the Envelope", "actor": "lead",
+          "id": "envelope",
+          "title": "Open the Envelope",
+          "actor": "lead",
           "summary": "One private folder per client, never in Git. Outside it the client is only an `Alias`.",
           "does": [
             "Creates `private/<name>-<rank>/` with the drawers `intake/`, `research/`, `draft/`.",
             "Gives the client an `Alias` (`client-2026-09-01` style) and writes it in the folder's `README.md`.",
             "Writes `envelope.json`: alias, `Domain` id (`marine` or `travel`), name, `Rank`."
           ],
-          "out": ["`private/<envelope>/`", "`envelope.json`", "`README.md` (alias, dates, links)"],
+          "out": [
+            "`private/<envelope>/`",
+            "`envelope.json`",
+            "`README.md` (alias, dates, links)"
+          ],
           "note": "`scripts/cv.py render` refuses to run without `envelope.json`, and every `Meta File` in the `Envelope` copies it.",
-          "uses": ["new-client"],
-          "sources": ["docs/guides/client-workflow.md:19", "docs/guides/client-workflow.md:29-77"]
+          "uses": [
+            "new-client"
+          ],
+          "sources": [
+            "docs/guides/client-workflow.md:19",
+            "docs/guides/client-workflow.md:29-77"
+          ]
         }
       ]
     },
     {
-      "id": "intake", "title": "Intake",
+      "id": "intake",
+      "title": "Intake",
       "steps": [
         {
-          "id": "questions", "title": "Write the question list", "actor": "lead",
+          "id": "questions",
+          "title": "Write the question list",
+          "actor": "lead",
           "summary": "13 questions in one message, simple friendly Greek, adapted to the `Domain`. Question 1 is consent.",
           "does": [
             "Writes the master list as one chat message.",
             "Consent first: AI tools and web research, private files, never published, deleted 12 months after delivery.",
             "Optional: a designed Google `Intake Form` instead. Claude writes `intake/form-NN.gs` from the template script."
           ],
-          "out": ["The question message", "or `intake/form-NN.gs`"],
-          "uses": ["new-client", "intake-form"],
-          "sources": ["docs/guides/client-workflow.md:81-84", "docs/guides/client-workflow.md:130-156", "docs/guides/client-workflow.md:91-108"]
+          "out": [
+            "The question message",
+            "or `intake/form-NN.gs`"
+          ],
+          "uses": [
+            "new-client",
+            "intake-form"
+          ],
+          "sources": [
+            "docs/guides/client-workflow.md:81-84",
+            "docs/guides/client-workflow.md:130-156",
+            "docs/guides/client-workflow.md:91-108"
+          ]
         },
         {
-          "id": "relay", "title": "Send it; the client answers", "actor": "owner", "with": ["client"],
+          "id": "relay",
+          "title": "Send it; the client answers",
+          "actor": "owner",
+          "with": [
+            "client"
+          ],
           "summary": "You are the relay. The client answers in any order, text or voice, over a few days.",
           "you": "Paste the message into Viber, WhatsApp or email (or run the form script at script.google.com and send the link). When answers come, copy the chat into `intake/messages.md` and photos into `intake/documents/`.",
-          "gate": { "type": "client", "label": "Waits for the client's answers, usually a few days." },
-          "does": ["Voice messages need a transcript: your phone's or your gist.", "Claude never opens the client's LinkedIn page; its PDF export is enough."],
-          "in": ["The question list"], "out": ["`intake/messages.md`", "`intake/documents/`"],
-          "cmd": [{ "cmd": "createIntakeForm", "who": "you", "note": "Only for the optional form: run it once in script.google.com; the log prints the client link and the answers Sheet." }],
-          "sources": ["docs/guides/client-workflow.md:20", "docs/guides/client-workflow.md:86-89", "docs/guides/client-workflow.md:162-163"]
+          "gate": {
+            "type": "client",
+            "label": "Waits for the client's answers, usually a few days."
+          },
+          "does": [
+            "Voice messages need a transcript: your phone's or your gist.",
+            "Claude never opens the client's LinkedIn page; its PDF export is enough."
+          ],
+          "in": [
+            "The question list"
+          ],
+          "out": [
+            "`intake/messages.md`",
+            "`intake/documents/`"
+          ],
+          "cmd": [
+            {
+              "cmd": "createIntakeForm",
+              "who": "you",
+              "note": "Only for the optional form: run it once in script.google.com; the log prints the client link and the answers Sheet."
+            }
+          ],
+          "sources": [
+            "docs/guides/client-workflow.md:20",
+            "docs/guides/client-workflow.md:86-89",
+            "docs/guides/client-workflow.md:162-163"
+          ]
         },
         {
-          "id": "consent", "title": "Consent check", "actor": "lead",
+          "id": "consent",
+          "title": "Consent check",
+          "actor": "lead",
           "summary": "A hard stop. Nothing is read, written or researched until the client's \"I agree\" is in the `Envelope`.",
-          "gate": { "type": "check", "label": "The client's \"I agree\" is in `intake/messages.md`.", "pass": "consent is there" },
-          "does": ["No consent: you decide whether to ask again or stop."],
-          "sources": ["docs/guides/client-workflow.md:158-162", ".claude/skills/new-client/SKILL.md:23-25"]
+          "gate": {
+            "type": "check",
+            "label": "The client's \"I agree\" is in `intake/messages.md`.",
+            "pass": "consent is there"
+          },
+          "does": [
+            "No consent: you decide whether to ask again or stop."
+          ],
+          "sources": [
+            "docs/guides/client-workflow.md:158-162",
+            ".claude/skills/new-client/SKILL.md:23-25"
+          ]
         }
       ]
     },
     {
-      "id": "research", "title": "Research",
+      "id": "research",
+      "title": "Research",
       "steps": [
         {
-          "id": "facts", "title": "Facts and the gap list", "actor": "lead",
+          "id": "facts",
+          "title": "Facts and the gap list",
+          "actor": "lead",
           "summary": "Every fact from the answers, each naming the message or document it came from. Nothing invented.",
-          "does": ["Identity, target, each job with scope and results, certificates, education, languages, what may be shown.", "Calendar dates are never turned into service time.", "The gap list waits for the one follow-up, so the client is asked only once."],
-          "in": ["`intake/messages.md`", "`intake/documents/`"], "out": ["`intake/facts.md`"],
-          "sources": ["docs/guides/client-workflow.md:167-172"]
+          "does": [
+            "Identity, target, each job with scope and results, certificates, education, languages, what may be shown.",
+            "Calendar dates are never turned into service time.",
+            "The gap list waits for the one follow-up, so the client is asked only once."
+          ],
+          "in": [
+            "`intake/messages.md`",
+            "`intake/documents/`"
+          ],
+          "out": [
+            "`intake/facts.md`"
+          ],
+          "sources": [
+            "docs/guides/client-workflow.md:167-172"
+          ]
         },
         {
-          "id": "scout", "title": "Scout", "actor": "lead", "with": ["general-purpose"],
+          "id": "scout",
+          "title": "Scout",
+          "actor": "lead",
+          "with": [
+            "general-purpose"
+          ],
           "summary": "A wide, shallow search: the country's CV norms, what employers expect of this `Rank`, how CVs are sent.",
-          "does": ["Reads the `Research Library` first; a note past its recheck date is rechecked before use.", "Then the web for what is missing.", "Web searches never contain the client's name or an identifying combination."],
-          "out": ["`research/scout.md`: numbered findings with source and date"],
-          "sources": ["docs/guides/client-workflow.md:176-184", "docs/guides/client-workflow.md:309-312"]
+          "does": [
+            "Reads the `Research Library` first; a note past its recheck date is rechecked before use.",
+            "Then the web for what is missing.",
+            "Web searches never contain the client's name or an identifying combination."
+          ],
+          "out": [
+            "`research/scout.md`: numbered findings with source and date"
+          ],
+          "sources": [
+            "docs/guides/client-workflow.md:176-184",
+            "docs/guides/client-workflow.md:309-312"
+          ]
         },
         {
-          "id": "decisions", "title": "CV Decisions", "actor": "lead", "with": ["owner"],
+          "id": "decisions",
+          "title": "CV Decisions",
+          "actor": "lead",
+          "with": [
+            "owner"
+          ],
           "summary": "One line per choice the CV must make: title, length, photo, language, `Template`, what leads. Each sourced, a judgement, or open.",
           "you": "Pick which open decisions deserve a `Deep Dive`. Claude shows each with a recommendation.",
-          "gate": { "type": "owner" },
-          "out": ["`research/decisions.md`"],
+          "gate": {
+            "type": "owner"
+          },
+          "out": [
+            "`research/decisions.md`"
+          ],
           "note": "Research is enough when every decision has an answer; a new source that changes nothing is the signal to stop.",
-          "sources": ["docs/guides/client-workflow.md:188-206"]
+          "sources": [
+            "docs/guides/client-workflow.md:188-206"
+          ]
         },
         {
-          "id": "deep-dives", "title": "Deep Dives", "actor": "general-purpose", "with": ["research-reviewer"],
+          "id": "deep-dives",
+          "title": "Deep Dives",
+          "actor": "general-purpose",
+          "with": [
+            "research-reviewer"
+          ],
           "summary": "0 to 3 per client (up to 6 for an executive). One background agent per question, each checked by a fresh reviewer until PASS.",
-          "does": ["The agent gets only the `Alias`, never the folder path.", "Claude checks the text for client details, then gives it to a fresh `research-reviewer` with its SHA-256.", "A finding about a country or `Rank` with no client detail also goes to the `Research Library`."],
-          "gate": { "type": "review", "label": "Fresh research-reviewer per round.", "pass": "PASS", "cap": "5 rounds with you around, 10 unattended" },
-          "loop": { "to": "deep-dives", "label": "FINDINGS: the same author revises", "short": "≤5 / 10", "cap": "5 rounds attended, 10 unattended; then it reaches you as unresolved" },
-          "out": ["`research/deep-dive-<topic>.md`", "`research/reviews/<topic>-NN.md`"],
-          "sources": ["docs/guides/client-workflow.md:210-229", ".claude/skills/new-client/SKILL.md:40-47"]
+          "does": [
+            "The agent gets only the `Alias`, never the folder path.",
+            "Claude checks the text for client details, then gives it to a fresh `research-reviewer` with its SHA-256.",
+            "A finding about a country or `Rank` with no client detail also goes to the `Research Library`."
+          ],
+          "gate": {
+            "type": "review",
+            "label": "Fresh research-reviewer per round.",
+            "pass": "PASS",
+            "cap": "5 rounds with you around, 10 unattended"
+          },
+          "loop": {
+            "to": "deep-dives",
+            "label": "FINDINGS: the same author revises",
+            "short": "≤5 / 10",
+            "cap": "5 rounds attended, 10 unattended; then it reaches you as unresolved"
+          },
+          "out": [
+            "`research/deep-dive-<topic>.md`",
+            "`research/reviews/<topic>-NN.md`"
+          ],
+          "sources": [
+            "docs/guides/client-workflow.md:210-229",
+            ".claude/skills/new-client/SKILL.md:40-47"
+          ]
         },
         {
-          "id": "follow-up", "title": "One follow-up", "actor": "lead", "with": ["owner", "client"],
+          "id": "follow-up",
+          "title": "One follow-up",
+          "actor": "lead",
+          "with": [
+            "owner",
+            "client"
+          ],
           "summary": "The gap list plus research questions, in one batch, simple Greek. Then the client is not asked again unless you decide.",
-          "does": ["Chat: aim for 5 questions, never more than 10.", "As a form: about 15 minutes, at most 5 typed answers.", "Claude updates `facts.md`; anything still missing is left out or marked not supplied."],
+          "does": [
+            "Chat: aim for 5 questions, never more than 10.",
+            "As a form: about 15 minutes, at most 5 typed answers.",
+            "Claude updates `facts.md`; anything still missing is left out or marked not supplied."
+          ],
           "you": "Send the follow-up and bring the answers back, like the first time.",
-          "out": ["Updated `intake/facts.md`"],
-          "sources": ["docs/guides/client-workflow.md:233-245"]
+          "out": [
+            "Updated `intake/facts.md`"
+          ],
+          "sources": [
+            "docs/guides/client-workflow.md:233-245"
+          ]
         }
       ]
     },
     {
-      "id": "text", "title": "Text",
+      "id": "text",
+      "title": "Text",
       "steps": [
         {
-          "id": "text-draft", "title": "Text Draft", "actor": "lead",
+          "id": "text-draft",
+          "title": "Text Draft",
+          "actor": "lead",
           "summary": "The CV's words as a PDF in the fixed house design, First Fitting. Every fact to check carries a copper `Fact Mark`.",
-          "does": ["Page 1 is the `Check Page` in Greek: \"check only the underlined facts; the wording is ours; reply OK\".", "Then the content in the CV's language, sized for the `Template`.", "Claude checks every page before giving you the path."],
-          "out": ["`draft/draft-NN.pdf` with its `Meta File` (status `sent`)"],
-          "cmd": ["typst compile --root . --font-path packages/cv-framework/fonts private/<envelope>/draft/draft-01.typ private/<envelope>/draft/draft-01.pdf", "python scripts/outputs.py stamp private/<envelope>/draft/draft-01.pdf status=sent"],
-          "sources": ["docs/guides/client-workflow.md:249-272", "scripts/text-draft.typ:1-6"]
+          "does": [
+            "Page 1 is the `Check Page` in Greek: \"check only the underlined facts; the wording is ours; reply OK\".",
+            "Then the content in the CV's language, sized for the `Template`.",
+            "Claude checks every page before giving you the path."
+          ],
+          "out": [
+            "`draft/draft-NN.pdf` with its `Meta File` (status `sent`)"
+          ],
+          "cmd": [
+            "typst compile --root . --font-path packages/cv-framework/fonts private/<envelope>/draft/draft-01.typ private/<envelope>/draft/draft-01.pdf",
+            "python scripts/outputs.py stamp private/<envelope>/draft/draft-01.pdf status=sent"
+          ],
+          "sources": [
+            "docs/guides/client-workflow.md:249-272",
+            "scripts/text-draft.typ:1-6"
+          ]
         },
         {
-          "id": "sign-off", "title": "Sign-off", "actor": "owner", "with": ["client"],
+          "id": "sign-off",
+          "title": "Sign-off",
+          "actor": "owner",
+          "with": [
+            "client"
+          ],
           "summary": "The client's \"OK, the facts are correct\". Not a signature: usually a chat message.",
           "you": "Send the draft. Save the client's OK as a screenshot, `draft/sign-off-NN.png`.",
-          "gate": { "type": "owner", "label": "The client's OK is saved." },
-          "loop": { "to": "text-draft", "label": "Corrections: a new draft number; the old one is marked `superseded`", "short": "draft-02…" },
-          "branch": [{ "to": "build-cv", "when": "the Domain already has a Template", "short": "marine: skip design", "label": "A marine client goes straight to the build: the `Flagship` exists." }],
-          "does": ["A sent draft is never recompiled; its SHA-256 goes in `README.md`."],
-          "sources": ["docs/guides/client-workflow.md:26", "docs/guides/client-workflow.md:272-276", "docs/glossary.md"]
+          "gate": {
+            "type": "owner",
+            "label": "The client's OK is saved."
+          },
+          "loop": {
+            "to": "text-draft",
+            "label": "Corrections: a new draft number; the old one is marked `superseded`",
+            "short": "draft-02…"
+          },
+          "branch": [
+            {
+              "to": "build-cv",
+              "when": "the Domain already has a Template",
+              "short": "marine: skip design",
+              "label": "A marine client goes straight to the build: the `Flagship` exists."
+            }
+          ],
+          "does": [
+            "A sent draft is never recompiled; its SHA-256 goes in `README.md`."
+          ],
+          "sources": [
+            "docs/guides/client-workflow.md:26",
+            "docs/guides/client-workflow.md:272-276",
+            "docs/glossary.md"
+          ]
         }
       ]
     },
     {
-      "id": "design", "title": "Design",
+      "id": "design",
+      "title": "Design",
       "steps": [
         {
-          "id": "design-run", "title": "A design run for this client", "actor": "lead", "with": ["magazine-editor"],
+          "id": "design-run",
+          "title": "A design run for this client",
+          "actor": "lead",
+          "with": [
+            "magazine-editor"
+          ],
           "summary": "Only when the client's `Domain` has no `Template` yet. A design starts from a design, not from code: 18 mock-ups on fictional data.",
-          "does": ["The `magazine-editor` draws three `Styles` × two `Densities` × three `Design Tiers` for the client's `Domain`, specialty and role.", "Fictional data only; no client detail in any brief.", "The full run, its gates and caps, is its own page: [[design-run]]."],
-          "uses": ["idea-run", "magazine-editor"],
-          "sources": ["docs/guides/client-workflow.md:285-295", ".claude/skills/new-cv/SKILL.md:62-66"]
+          "does": [
+            "The `magazine-editor` draws three `Styles` × two `Densities` × three `Design Tiers` for the client's `Domain`, specialty and role.",
+            "Fictional data only; no client detail in any brief.",
+            "The full run, its gates and caps, is its own page: [[design-run]]."
+          ],
+          "uses": [
+            "idea-run",
+            "magazine-editor"
+          ],
+          "sources": [
+            "docs/guides/client-workflow.md:285-295",
+            ".claude/skills/new-cv/SKILL.md:62-66"
+          ]
         },
         {
-          "id": "pick", "title": "You pick Style, Tier and Density", "actor": "owner",
+          "id": "pick",
+          "title": "You pick Style, Tier and Density",
+          "actor": "owner",
           "summary": "Your choice from the designs that passed their gates.",
           "you": "Pick one `Style`, one `Design Tier`, one `Density`. Look in the `Design Review` app first if you like.",
-          "gate": { "type": "owner" },
-          "uses": ["design-review-app"],
-          "sources": ["docs/guides/client-workflow.md:291-295", ".claude/skills/idea-run/SKILL.md:122-134"]
+          "gate": {
+            "type": "owner"
+          },
+          "uses": [
+            "design-review-app"
+          ],
+          "sources": [
+            "docs/guides/client-workflow.md:291-295",
+            ".claude/skills/idea-run/SKILL.md:122-134"
+          ]
         },
         {
-          "id": "build-cv", "title": "Build the CV", "actor": "lead", "with": ["design-reviewer"],
+          "id": "build-cv",
+          "title": "Build the CV",
+          "actor": "lead",
+          "with": [
+            "design-reviewer"
+          ],
           "summary": "The `new-cv` skill builds from `facts.md` and the signed-off text: no re-asking the client, no rewording beyond fitting the page.",
-          "does": ["Marine: `cv.typ` imports the marine `Domain` with `Flagship`, a `Theme`, artwork and a page plan.", "No `Template` yet: a one-off `Template` in the `Envelope`, recorded as a `Framework Gap`.", "Client-design previews go to a fresh `design-reviewer` before you see them; it never reads `private/`."],
-          "gate": { "type": "review", "label": "Fresh design-reviewer per round on the previews.", "pass": "PASS on `Batch Test`, `Three-Second Test`, `Flagship Parity`", "cap": "5 attended, 10 unattended, unless you set another" },
-          "loop": { "to": "build-cv", "label": "FINDINGS: Claude fixes the design", "short": "≤5 / 10" },
-          "out": ["`candidate.json`, `cv.typ`", "`reviews/design-NN.md` (in the `Envelope`)"],
-          "uses": ["new-cv", "design-reviewer"],
-          "sources": [".claude/skills/new-cv/SKILL.md:12-15", ".claude/skills/new-cv/SKILL.md:67-85", "docs/guides/build-a-cv.md:37-68"]
+          "does": [
+            "Marine: `cv.typ` imports the marine `Domain` with `Flagship`, a `Theme`, artwork and a page plan.",
+            "No `Template` yet: a one-off `Template` in the `Envelope`, recorded as a `Framework Gap`.",
+            "Client-design previews go to a fresh `design-reviewer` before you see them; it never reads `private/`."
+          ],
+          "gate": {
+            "type": "review",
+            "label": "Fresh design-reviewer per round on the previews.",
+            "pass": "PASS on `Batch Test`, `Three-Second Test`, `Flagship Parity`",
+            "cap": "5 attended, 10 unattended, unless you set another"
+          },
+          "loop": {
+            "to": "build-cv",
+            "label": "FINDINGS: Claude fixes the design",
+            "short": "≤5 / 10"
+          },
+          "out": [
+            "`candidate.json`, `cv.typ`",
+            "`reviews/design-NN.md` (in the `Envelope`)"
+          ],
+          "uses": [
+            "new-cv",
+            "design-reviewer"
+          ],
+          "sources": [
+            ".claude/skills/new-cv/SKILL.md:12-15",
+            ".claude/skills/new-cv/SKILL.md:67-85",
+            "docs/guides/build-a-cv.md:37-68"
+          ]
         }
       ]
     },
     {
-      "id": "deliver", "title": "Deliver",
+      "id": "deliver",
+      "title": "Deliver",
       "steps": [
         {
-          "id": "render", "title": "Render a Revision", "actor": "lead",
+          "id": "render",
+          "title": "Render a Revision",
+          "actor": "lead",
           "summary": "Every render is a new, never-overwritten folder with a snapshot of its inputs, the PDF, its checks and a `Meta File`.",
-          "does": ["Checks: page count, no empty page, fonts embedded, text inside the page.", "A certificate expired or expiring within 180 days prints a `Certificate Warning`; it never blocks.", "Claude stops here and reports the folder, the PDF's hash, the pages and every WARNING word for word."],
-          "out": ["`revisions/<id>/cv.pdf`", "`render.json`, `checks.json`, `cv.meta.json` (status `render`)"],
-          "cmd": [{ "cmd": "python scripts/cv.py render private/<envelope>", "note": "Add `--pages 1` for the one-page profile, `--pages 3` for three. Exit 2 means refused, nothing written." }],
-          "uses": ["cv-py"],
-          "sources": ["docs/guides/build-a-cv.md:117-149", ".claude/skills/new-cv/SKILL.md:104-114"]
+          "does": [
+            "Checks: page count, no empty page, fonts embedded, text inside the page.",
+            "A certificate expired or expiring within 180 days prints a `Certificate Warning`; it never blocks.",
+            "Claude stops here and reports the folder, the PDF's hash, the pages and every WARNING word for word."
+          ],
+          "out": [
+            "`revisions/<id>/cv.pdf`",
+            "`render.json`, `checks.json`, `cv.meta.json` (status `render`)"
+          ],
+          "cmd": [
+            {
+              "cmd": "python scripts/cv.py render private/<envelope>",
+              "note": "Add `--pages 1` for the one-page profile, `--pages 3` for three. Exit 2 means refused, nothing written."
+            }
+          ],
+          "uses": [
+            "cv-py"
+          ],
+          "sources": [
+            "docs/guides/build-a-cv.md:117-149",
+            ".claude/skills/new-cv/SKILL.md:104-114"
+          ]
         },
         {
-          "id": "approve", "title": "Approval", "actor": "owner",
+          "id": "approve",
+          "title": "Approval",
+          "actor": "owner",
           "summary": "Your act on the exact bytes you reviewed. Agents never approve a real client's PDF.",
           "you": "Open the PDF, check it, then approve it by its hash.",
-          "gate": { "type": "owner", "label": "Bound to the revision and its SHA-256. Refused if the bytes changed or the checks failed." },
-          "cmd": [{ "cmd": "python scripts/cv.py approve private/<envelope> <revision-id> --approver \"<name>\" --sha256 <hash>", "who": "you" }],
-          "out": ["`cv.approval.json`", "`Meta File` re-stamped `approved`"],
-          "uses": ["cv-py"],
-          "sources": ["docs/guides/build-a-cv.md:182-189", "docs/pdf-workflow.md:166-170"]
+          "gate": {
+            "type": "owner",
+            "label": "Bound to the revision and its SHA-256. Refused if the bytes changed or the checks failed."
+          },
+          "cmd": [
+            {
+              "cmd": "python scripts/cv.py approve private/<envelope> <revision-id> --approver \"<name>\" --sha256 <hash>",
+              "who": "you"
+            }
+          ],
+          "out": [
+            "`cv.approval.json`",
+            "`Meta File` re-stamped `approved`"
+          ],
+          "uses": [
+            "cv-py"
+          ],
+          "sources": [
+            "docs/guides/build-a-cv.md:182-189",
+            "docs/pdf-workflow.md:166-170"
+          ]
         },
         {
-          "id": "export", "title": "Export", "actor": "lead",
+          "id": "export",
+          "title": "Export",
+          "actor": "lead",
           "summary": "A verified copy of the approved bytes, ready to send. It never compiles anything.",
-          "does": ["Checks render, checks and approval, copies PDF and receipt, verifies the copy.", "A new `Revision` inherits no approval."],
-          "cmd": ["python scripts/cv.py export private/<envelope> <revision-id>"],
-          "out": ["`exports/<revision-id>/cv.pdf`"],
-          "uses": ["cv-py"],
-          "sources": ["docs/guides/build-a-cv.md:191-206", "docs/pdf-workflow.md:171-182"]
+          "does": [
+            "Checks render, checks and approval, copies PDF and receipt, verifies the copy.",
+            "A new `Revision` inherits no approval."
+          ],
+          "cmd": [
+            "python scripts/cv.py export private/<envelope> <revision-id>"
+          ],
+          "out": [
+            "`exports/<revision-id>/cv.pdf`"
+          ],
+          "uses": [
+            "cv-py"
+          ],
+          "sources": [
+            "docs/guides/build-a-cv.md:191-206",
+            "docs/pdf-workflow.md:171-182"
+          ]
         },
         {
-          "id": "deliver", "title": "Send it", "actor": "owner", "with": ["client"],
+          "id": "deliver",
+          "title": "Send it",
+          "actor": "owner",
+          "with": [
+            "client"
+          ],
           "summary": "Sending is a separate act, by you. Then the record says delivered, with a delete-by date.",
           "you": "Send the exported PDF to the client.",
-          "does": ["Claude re-stamps the PDF `delivered`.", "Writes \"Delivered <date>. Delete by <date + 12 months>\" in the `Envelope`'s `README.md`."],
-          "cmd": ["python scripts/outputs.py stamp private/<envelope>/revisions/<id>/cv.pdf status=delivered"],
-          "sources": ["docs/guides/build-a-cv.md:202-204", "docs/guides/client-workflow.md:297-300"]
+          "does": [
+            "Claude re-stamps the PDF `delivered`.",
+            "Writes \"Delivered <date>. Delete by <date + 12 months>\" in the `Envelope`'s `README.md`."
+          ],
+          "cmd": [
+            "python scripts/outputs.py stamp private/<envelope>/revisions/<id>/cv.pdf status=delivered"
+          ],
+          "sources": [
+            "docs/guides/build-a-cv.md:202-204",
+            "docs/guides/client-workflow.md:297-300"
+          ]
         }
       ]
     },
     {
-      "id": "after", "title": "After",
+      "id": "after",
+      "title": "After",
       "steps": [
         {
-          "id": "retention", "title": "12 months later: delete", "actor": "owner",
+          "id": "retention",
+          "title": "12 months later: delete",
+          "actor": "owner",
           "summary": "Client data goes 12 months after delivery, unless the client asked to keep it. Deleting is always yours.",
           "you": "Delete the `Envelope`, the `Intake Form`, its Sheet and script project, then empty Drive's Trash (it keeps files 30 days).",
-          "gate": { "type": "owner", "label": "Claude names passed delete-by dates; you do the deleting." },
-          "sources": ["docs/guides/client-workflow.md:297-305", "docs/preferences.md:68-77"]
+          "gate": {
+            "type": "owner",
+            "label": "Claude names passed delete-by dates; you do the deleting."
+          },
+          "sources": [
+            "docs/guides/client-workflow.md:297-305",
+            "docs/preferences.md:68-77"
+          ]
         }
       ]
     }

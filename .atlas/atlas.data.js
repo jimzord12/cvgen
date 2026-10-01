@@ -22,7 +22,14 @@ window.ATLAS = {
    "system-map",
    "roster"
   ],
-  "moves": [],
+  "moves": [
+   {
+    "title": "Look through the 18 designs in the Design Review app",
+    "detail": "Optional, any time: mark keep, maybe or reject; agents read your verdicts. You said you would do it later.",
+    "to": "design-run#own-look",
+    "optional": true
+   }
+  ],
   "actors": {
    "owner": {
     "label": "You",
@@ -517,7 +524,7 @@ window.ATLAS = {
     "step": "design-run",
     "asOf": "2026-10-01",
     "title": "client-2026-09-01 is at the design step",
-    "note": "Travel & Tourism, a tour leader for Japan. Signed off `draft-02` on 2026-09-29. You rejected the one-off design \"Line Diagram\" (\"super boring! No character, no uniqueness, no Japan in it\"), so a new design run drew 18 designs. They wait for their review gates, then your pick.",
+    "note": "Travel & Tourism, a tour leader for Japan. Signed off `draft-02` on 2026-09-29. You rejected the one-off design \"Line Diagram\" (\"super boring! No character, no uniqueness, no Japan in it\"), so a new design run drew 18 designs. Their review gates run next: [[design-run#research-gate|follow it on the Design run page]].",
     "waitingOn": [
      "lead"
     ],
@@ -1069,7 +1076,7 @@ window.ATLAS = {
    "summary": "The `idea-run` skill in its design form. One author draws, two kinds of reviewer judge in closed loops, and only you decide. Nothing is built, approved or put on the roadmap without you.",
    "tldr": [
     "The `magazine-editor` draws 3 `Styles` × 2 `Densities` × 3 `Design Tiers` = 18 Typst mock-ups on fictional data.",
-    "You can look any time in the `Design Review` app. Then two gates, each a fresh Opus-high reviewer per round: research first, then design, until PASS (cap 5 with you around, 10 unattended).",
+    "Two gates, each a fresh Opus-high reviewer per round: research first, then design, until PASS (cap 5 with you around, 10 unattended). Your own look in the `Design Review` app is optional, any time.",
     "You get a short message with every passed style; your answer becomes `chosen`, `parked`, `rejected` or an `Anti-example`."
    ],
    "sources": [
@@ -1078,14 +1085,13 @@ window.ATLAS = {
     ".claude/agents/design-reviewer.md"
    ],
    "status": {
-    "step": "own-look",
+    "step": "research-gate",
     "asOf": "2026-10-01",
-    "title": "Run 2026-09-29: 18 drawn, your look next",
-    "note": "Travel & Tourism, Japan, tour leader. Three styles: Woodblock Road, Stamp Rally, Concourse. All 18 are stamped `proposed`. Neither gate has run. You said you will give your verdicts in the app later; no verdicts are recorded yet.",
+    "title": "Run 2026-09-29: 18 drawn, the gates are next",
+    "note": "Travel & Tourism, Japan, tour leader. Three styles: Woodblock Road, Stamp Rally, Concourse. All 18 are stamped `proposed`; neither gate has run. Your look in the app is optional; you said you would give verdicts later.",
     "waitingOn": [
-     "owner"
+     "lead"
     ],
-    "move": "Look through the 18 designs in the Design Review app",
     "ref": "branch docs/idea-run-2026-09-29-editor"
    },
    "phases": [
@@ -1184,14 +1190,10 @@ window.ATLAS = {
      "steps": [
       {
        "id": "own-look",
-       "title": "Your own look, in the Design Review app",
+       "title": "Your own look (optional)",
        "actor": "owner",
-       "summary": "Optional and any time: the Board shows the run as Style × Density × Tier, the Loupe one design full size, plus a `Batch Test` pile.",
+       "summary": "Any time, before or after the gates: the Board shows the run as Style × Density × Tier, the Loupe one design full size, plus a `Batch Test` pile. Nothing waits for it.",
        "you": "Start the app, go through the 18, mark each keep, maybe or reject, star favourites, write notes. Agents read your verdicts from there.",
-       "gate": {
-        "type": "owner",
-        "label": "Optional. Your verdicts and notes are saved on this machine only."
-       },
        "cmd": [
         {
          "cmd": "python scripts/design_review/server.py",
@@ -1210,7 +1212,8 @@ window.ATLAS = {
         "scripts/design_review/server.py:1-12",
         "AGENTS.md",
         "docs/glossary.md"
-       ]
+       ],
+       "optional": true
       }
      ]
     },
@@ -1658,7 +1661,7 @@ window.ATLAS = {
    "nav": "The parts",
    "title": "What lives where",
    "question": "What are the parts of CVgen and how do they feed each other?",
-   "summary": "The repository in nine areas. Hover a box to light up what it feeds and what feeds it; click it for what it does and when to touch it.",
+   "summary": "The repository in nine areas. The main line runs across the top; hover or tap any part to light up what it feeds and what feeds it.",
    "tldr": [
     "A CV is facts (`candidate.json`) poured into a `Template` built on the `Framework`; `cv.py` turns it into a never-overwritten `Revision`.",
     "Every PDF anyone reviews carries a `Meta File`, which is how the `Design Review` app finds it.",
@@ -2185,6 +2188,44 @@ window.ATLAS = {
      "to": "n-board",
      "label": "trello skill",
      "type": "calls"
+    },
+    {
+     "from": "n-envelope",
+     "to": "n-cvpy",
+     "label": "render needs it",
+     "type": "data"
+    }
+   ],
+   "backboneTitle": "The main line: from a client to a PDF you review",
+   "backbone": [
+    {
+     "node": "n-intake",
+     "label": "Facts"
+    },
+    {
+     "node": "n-cvtyp",
+     "label": "candidate.json + cv.typ",
+     "via": "written from"
+    },
+    {
+     "node": "n-flagship",
+     "label": "A Template",
+     "via": "imports"
+    },
+    {
+     "node": "n-cvpy",
+     "label": "cv.py render",
+     "via": "rendered by"
+    },
+    {
+     "node": "n-revisions",
+     "label": "A Revision",
+     "via": "writes"
+    },
+    {
+     "node": "n-app",
+     "label": "Your review",
+     "via": "Meta File"
     }
    ]
   },
@@ -2206,8 +2247,8 @@ window.ATLAS = {
   }
  ],
  "build": {
-  "builtAt": "2026-10-01 16:51 UTC",
-  "commit": "b83795e",
+  "builtAt": "2026-10-01 17:07 UTC",
+  "commit": "eb61c9b",
   "kit": "1.0",
   "stale": {},
   "verified": {}

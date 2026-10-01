@@ -9,231 +9,450 @@
     "asOf": "2026-10-01",
     "note": "Read from main b83795e, the design-run branch and the Trello board on 2026-10-01. Client data is never shown here: a client is only their `Alias`."
   },
-  "sources": ["AGENTS.md", "docs/glossary.md"],
-  "pages": ["client-journey", "design-run", "change-review", "system-map", "roster"],
-  "moves": [],
+  "sources": [
+    "AGENTS.md",
+    "docs/glossary.md"
+  ],
+  "pages": [
+    "client-journey",
+    "design-run",
+    "change-review",
+    "system-map",
+    "roster"
+  ],
+  "moves": [
+    {
+      "title": "Look through the 18 designs in the Design Review app",
+      "detail": "Optional, any time: mark keep, maybe or reject; agents read your verdicts. You said you would do it later.",
+      "to": "design-run#own-look",
+      "optional": true
+    }
+  ],
   "actors": {
     "owner": {
-      "label": "You", "kind": "owner",
+      "label": "You",
+      "kind": "owner",
       "role": "The product owner. The only one who talks to a `Client`, picks the designs and approves a real client's PDF.",
       "notes": [
         "Owner-only: `Approval` of a real client's PDF, product decisions, deleting anything under `private/`, replacing the `Release`.",
         "Everything routine (commits, merges to `main`, board updates) is the agents' job."
       ],
-      "sources": ["docs/preferences.md:49-77", "docs/guides/client-workflow.md:9-10"]
+      "sources": [
+        "docs/preferences.md:49-77",
+        "docs/guides/client-workflow.md:9-10"
+      ]
     },
     "client": {
-      "label": "The client", "kind": "client",
+      "label": "The client",
+      "kind": "client",
       "role": "The person the CV is for. Answers the questions, checks the facts in the `Text Draft`, says OK.",
-      "notes": ["Gets at most three messages before `Sign-off`: the question list, one follow-up, the `Text Draft`.", "Outside `private/` a client is only their `Alias`, like `client-2026-09-01`."],
-      "sources": ["docs/guides/client-workflow.md:316-318", "docs/guides/client-workflow.md:63-67"]
+      "notes": [
+        "Gets at most three messages before `Sign-off`: the question list, one follow-up, the `Text Draft`.",
+        "Outside `private/` a client is only their `Alias`, like `client-2026-09-01`."
+      ],
+      "sources": [
+        "docs/guides/client-workflow.md:316-318",
+        "docs/guides/client-workflow.md:63-67"
+      ]
     },
     "lead": {
-      "label": "Claude (lead)", "kind": "lead", "model": "Session model",
+      "label": "Claude (lead)",
+      "kind": "lead",
+      "model": "Session model",
       "role": "The main Claude Code session you talk to. Plans, writes, researches, builds, runs the review loops and integrates.",
-      "notes": ["Runs on whatever model the session uses; the repo pins no model for the lead.", "Starts every session from the `session-handoff` card on the Trello board and rewrites it before stopping."],
-      "sources": ["AGENTS.md:28-44", "docs/development.md:34-56"]
+      "notes": [
+        "Runs on whatever model the session uses; the repo pins no model for the lead.",
+        "Starts every session from the `session-handoff` card on the Trello board and rewrites it before stopping."
+      ],
+      "sources": [
+        "AGENTS.md:28-44",
+        "docs/development.md:34-56"
+      ]
     },
     "magazine-editor": {
-      "label": "magazine-editor", "kind": "agent", "model": "Opus", "effort": "high",
+      "label": "magazine-editor",
+      "kind": "agent",
+      "model": "Opus",
+      "effort": "high",
       "file": ".claude/agents/magazine-editor.md",
       "role": "Art director. Draws three very distinct `Styles`, each in two `Densities` and three `Design Tiers`: 18 real Typst mock-ups on fictional data.",
       "tools": "Read, Grep, Glob, Bash, PowerShell, WebSearch, WebFetch, Write, Edit",
       "access": "Writes only its concept folders, the concepts README and fonts. Never git, Trello or `private/`.",
       "calledBy": "The lead, through the `idea-run` skill.",
       "when": "A design run, for inspiration or for a client whose `Domain` has no `Template` yet.",
-      "sources": [".claude/agents/magazine-editor.md:1-23", ".claude/agents/magazine-editor.md:50-82"]
+      "sources": [
+        ".claude/agents/magazine-editor.md:1-23",
+        ".claude/agents/magazine-editor.md:50-82"
+      ]
     },
     "design-reviewer": {
-      "label": "design-reviewer", "kind": "agent", "model": "Opus", "effort": "high",
+      "label": "design-reviewer",
+      "kind": "agent",
+      "model": "Opus",
+      "effort": "high",
       "file": ".claude/agents/design-reviewer.md",
       "role": "Art-direction gate. Judges every page on the `Batch Test`, the `Three-Second Test` and `Flagship Parity` first; any of those failing is Blocking.",
-      "tools": "Read, Grep, Glob, Bash, PowerShell, WebFetch", "readOnly": true,
+      "tools": "Read, Grep, Glob, Bash, PowerShell, WebFetch",
+      "readOnly": true,
       "calledBy": "The lead: a fresh one every round.",
       "when": "Design runs, client designs, Flagship changes, brand assets.",
-      "notes": ["Rubric: 1 `Batch Test`, 2 `Three-Second Test`, 3 `Flagship Parity`, 4 distinct, 5 reads as a CV, 6 craft, 7 provenance, 8 buildable and honest.", "Makes batch sheets: each page shrunk among 8+ plain market CVs."],
-      "sources": [".claude/agents/design-reviewer.md:1-17", ".claude/agents/design-reviewer.md:66-133"]
+      "notes": [
+        "Rubric: 1 `Batch Test`, 2 `Three-Second Test`, 3 `Flagship Parity`, 4 distinct, 5 reads as a CV, 6 craft, 7 provenance, 8 buildable and honest.",
+        "Makes batch sheets: each page shrunk among 8+ plain market CVs."
+      ],
+      "sources": [
+        ".claude/agents/design-reviewer.md:1-17",
+        ".claude/agents/design-reviewer.md:66-133"
+      ]
     },
     "research-reviewer": {
-      "label": "research-reviewer", "kind": "agent", "model": "Opus", "effort": "high",
+      "label": "research-reviewer",
+      "kind": "agent",
+      "model": "Opus",
+      "effort": "high",
       "file": ".claude/agents/research-reviewer.md",
       "role": "Checks that every source exists, is current and says what is claimed.",
-      "tools": "Read, Grep, Glob, WebSearch, WebFetch", "readOnly": true,
+      "tools": "Read, Grep, Glob, WebSearch, WebFetch",
+      "readOnly": true,
       "calledBy": "The lead: a fresh one every round.",
       "when": "A design run's references, a client's `Deep Dives`, `Research Library` notes.",
-      "notes": ["Never reads `private/`: the lead passes client research inline, checked for client details, with its SHA-256."],
-      "sources": [".claude/agents/research-reviewer.md:1-20"]
+      "notes": [
+        "Never reads `private/`: the lead passes client research inline, checked for client details, with its SHA-256."
+      ],
+      "sources": [
+        ".claude/agents/research-reviewer.md:1-20"
+      ]
     },
     "ceo": {
-      "label": "ceo", "kind": "agent", "model": "Opus", "effort": "high",
+      "label": "ceo",
+      "kind": "agent",
+      "model": "Opus",
+      "effort": "high",
       "file": ".claude/agents/ceo.md",
       "role": "Product strategist. Proposes at most three researched product ideas as pending proposals.",
       "tools": "Read, Grep, Glob, WebSearch, WebFetch, Write, Edit",
       "access": "Writes only in its run folder. No shell.",
-      "calledBy": "The lead, through the `idea-run` skill.", "when": "A product `Idea Run`, weekly at most.",
-      "sources": [".claude/agents/ceo.md:1-17"]
+      "calledBy": "The lead, through the `idea-run` skill.",
+      "when": "A product `Idea Run`, weekly at most.",
+      "sources": [
+        ".claude/agents/ceo.md:1-17"
+      ]
     },
     "ceo-reviewer": {
-      "label": "ceo-reviewer", "kind": "agent", "model": "Opus", "effort": "high",
+      "label": "ceo-reviewer",
+      "kind": "agent",
+      "model": "Opus",
+      "effort": "high",
       "file": ".claude/agents/ceo-reviewer.md",
       "role": "Judges each product idea: real need, fit, honest smallest version, not a duplicate, decision-ready.",
-      "tools": "Read, Grep, Glob, WebFetch", "readOnly": true,
-      "calledBy": "The lead.", "when": "A product `Idea Run`.",
-      "sources": [".claude/agents/ceo-reviewer.md:1-7", ".claude/agents/ceo-reviewer.md:32-59"]
+      "tools": "Read, Grep, Glob, WebFetch",
+      "readOnly": true,
+      "calledBy": "The lead.",
+      "when": "A product `Idea Run`.",
+      "sources": [
+        ".claude/agents/ceo-reviewer.md:1-7",
+        ".claude/agents/ceo-reviewer.md:32-59"
+      ]
     },
     "code-reviewer": {
-      "label": "code-reviewer", "kind": "agent", "model": "Opus", "effort": "high",
+      "label": "code-reviewer",
+      "kind": "agent",
+      "model": "Opus",
+      "effort": "high",
       "file": ".claude/agents/code-reviewer.md",
       "role": "The independent review gate for every non-trivial change. Fresh context, eight lenses, verdict PASS or FINDINGS.",
-      "tools": "Read, Grep, Glob, Bash, PowerShell", "readOnly": true,
+      "tools": "Read, Grep, Glob, Bash, PowerShell",
+      "readOnly": true,
       "calledBy": "The lead: a fresh one every round, never a fork, never self-review.",
       "when": "Code, tests, fixtures, and on `main` every other change no other gate covers.",
-      "notes": ["May rerun vetted checks that write only under `builds/`.", "Opus at high is the owner's standing choice for reviewers (since 2026-09-26)."],
-      "sources": [".claude/agents/code-reviewer.md:1-7", "docs/review.md:122-140"]
+      "notes": [
+        "May rerun vetted checks that write only under `builds/`.",
+        "Opus at high is the owner's standing choice for reviewers (since 2026-09-26)."
+      ],
+      "sources": [
+        ".claude/agents/code-reviewer.md:1-7",
+        "docs/review.md:122-140"
+      ]
     },
     "repo-auditor-lite": {
-      "label": "repo-auditor-lite", "kind": "agent", "model": "Session model", "effort": "medium",
+      "label": "repo-auditor-lite",
+      "kind": "agent",
+      "model": "Session model",
+      "effort": "medium",
       "file": ".claude/agents/repo-auditor-lite.md",
       "role": "Read-only repository auditor with no shell. Does the judgement checks after the audit script ran.",
-      "tools": "Read, Glob, Grep", "readOnly": true,
-      "calledBy": "The `repo-maintenance` skill (`audit`, `deep`).", "when": "Tidy-ups and audits.",
-      "notes": ["Inherits the session's model at medium effort: fine, it never gives a review verdict."],
-      "sources": [".claude/agents/repo-auditor-lite.md:1-10"]
+      "tools": "Read, Glob, Grep",
+      "readOnly": true,
+      "calledBy": "The `repo-maintenance` skill (`audit`, `deep`).",
+      "when": "Tidy-ups and audits.",
+      "notes": [
+        "Inherits the session's model at medium effort: fine, it never gives a review verdict."
+      ],
+      "sources": [
+        ".claude/agents/repo-auditor-lite.md:1-10"
+      ]
     },
     "context-reviewer": {
-      "label": "context-reviewer", "kind": "agent", "model": "Opus", "effort": "high", "status": "planned",
+      "label": "context-reviewer",
+      "kind": "agent",
+      "model": "Opus",
+      "effort": "high",
+      "status": "planned",
       "file": ".claude/agents/context-reviewer.md",
       "role": "Review gate for agent context: AGENTS.md, docs rules, glossary, skills, agent files. Checks placement, terms and that no client leaks.",
-      "tools": "Read, Grep, Glob, Bash, PowerShell", "readOnly": true,
-      "calledBy": "The lead.", "when": "Any change to the files agents read.",
-      "notes": ["Exists only on branch `docs/codex-visual-tools` (not merged). On `main` it runs as a general-purpose stand-in told to act as its file."],
-      "sources": ["git:docs/codex-visual-tools:.claude/agents/context-reviewer.md", "docs/work/anti-examples/reviews/01-context.md"]
+      "tools": "Read, Grep, Glob, Bash, PowerShell",
+      "readOnly": true,
+      "calledBy": "The lead.",
+      "when": "Any change to the files agents read.",
+      "notes": [
+        "Exists only on branch `docs/codex-visual-tools` (not merged). On `main` it runs as a general-purpose stand-in told to act as its file."
+      ],
+      "sources": [
+        "git:docs/codex-visual-tools:.claude/agents/context-reviewer.md",
+        "docs/work/anti-examples/reviews/01-context.md"
+      ]
     },
     "context-maintainer": {
-      "label": "context-maintainer", "kind": "agent", "model": "Opus", "effort": "high", "status": "planned",
+      "label": "context-maintainer",
+      "kind": "agent",
+      "model": "Opus",
+      "effort": "high",
+      "status": "planned",
       "file": ".claude/agents/context-maintainer.md",
       "role": "Puts your feedback into the one file that owns the rule. Consolidates, never appends.",
       "tools": "Read, Grep, Glob, Edit, Write, Bash, PowerShell",
-      "calledBy": "The lead.", "when": "Feedback from you that changes how agents behave.",
-      "notes": ["Exists only on branch `docs/codex-visual-tools` (not merged)."],
-      "sources": ["git:docs/codex-visual-tools:.claude/agents/context-maintainer.md"]
+      "calledBy": "The lead.",
+      "when": "Feedback from you that changes how agents behave.",
+      "notes": [
+        "Exists only on branch `docs/codex-visual-tools` (not merged)."
+      ],
+      "sources": [
+        "git:docs/codex-visual-tools:.claude/agents/context-maintainer.md"
+      ]
     },
     "general-purpose": {
-      "label": "general-purpose", "kind": "agent", "model": "Session model",
+      "label": "general-purpose",
+      "kind": "agent",
+      "model": "Session model",
       "role": "Claude Code's built-in agent. Writes each `Deep Dive`, can run the `Scout`, and stands in for any agent file not loaded yet.",
       "calledBy": "The lead.",
-      "notes": ["As a stand-in it is told to act exactly as the agent file, with that file's tools as a hard limit, and the lead records its model and effort."],
-      "sources": [".claude/skills/new-client/SKILL.md:34-47", ".claude/skills/idea-run/SKILL.md:87-104"]
+      "notes": [
+        "As a stand-in it is told to act exactly as the agent file, with that file's tools as a hard limit, and the lead records its model and effort."
+      ],
+      "sources": [
+        ".claude/skills/new-client/SKILL.md:34-47",
+        ".claude/skills/idea-run/SKILL.md:87-104"
+      ]
     },
     "codex-reviewer": {
-      "label": "codex-visual-reviewer", "kind": "external", "model": "GPT-6 Astra", "effort": "high", "status": "planned",
+      "label": "codex-visual-reviewer",
+      "kind": "external",
+      "model": "GPT-6 Astra",
+      "effort": "high",
+      "status": "planned",
       "role": "Second visual reviewer beside the design-reviewer: looks at the page images through the Codex CLI. A design round passes only when both pass.",
-      "access": "Read-only sandbox.", "calledBy": "The lead, every design round (once built).",
-      "notes": ["Approved by you on 2026-09-29, not built. The proposal has two open Material findings: run with `--ephemeral` and `--ignore-user-config`."],
-      "sources": ["git:docs/codex-visual-tools:docs/proposals/codex-visual-tools.md", "git:docs/codex-visual-tools:docs/work/codex-visual-tools/reviews/01.md"]
+      "access": "Read-only sandbox.",
+      "calledBy": "The lead, every design round (once built).",
+      "notes": [
+        "Approved by you on 2026-09-29, not built. The proposal has two open Material findings: run with `--ephemeral` and `--ignore-user-config`."
+      ],
+      "sources": [
+        "git:docs/codex-visual-tools:docs/proposals/codex-visual-tools.md",
+        "git:docs/codex-visual-tools:docs/work/codex-visual-tools/reviews/01.md"
+      ]
     },
     "codex-image": {
-      "label": "Codex image step", "kind": "external", "model": "GPT-6 Sol", "effort": "high", "status": "planned",
+      "label": "Codex image step",
+      "kind": "external",
+      "model": "GPT-6 Sol",
+      "effort": "high",
+      "status": "planned",
       "role": "Generates raster images a design commissions: never a portrait, no real people, brands or text, at most two per page.",
       "calledBy": "The magazine-editor (through the lead) and the lead for client designs.",
-      "notes": ["Approved 2026-09-29, not built."],
-      "sources": ["git:docs/codex-visual-tools:docs/proposals/codex-visual-tools.md"]
+      "notes": [
+        "Approved 2026-09-29, not built."
+      ],
+      "sources": [
+        "git:docs/codex-visual-tools:docs/proposals/codex-visual-tools.md"
+      ]
     },
     "new-client": {
-      "label": "new-client", "kind": "skill", "file": ".claude/skills/new-client/SKILL.md",
+      "label": "new-client",
+      "kind": "skill",
+      "file": ".claude/skills/new-client/SKILL.md",
       "role": "Checklist from a client's first message to signed-off facts: `Envelope`, `Intake`, research, `Text Draft`, `Sign-off`.",
       "when": "You say a new client arrived, or ask to continue their intake or research.",
-      "notes": ["Every time it runs it also checks for stalled clients (3 months, no `Export`) and passed delete-by dates."],
-      "sources": [".claude/skills/new-client/SKILL.md:1-9", ".claude/skills/new-client/SKILL.md:95-98"]
+      "notes": [
+        "Every time it runs it also checks for stalled clients (3 months, no `Export`) and passed delete-by dates."
+      ],
+      "sources": [
+        ".claude/skills/new-client/SKILL.md:1-9",
+        ".claude/skills/new-client/SKILL.md:95-98"
+      ]
     },
     "new-cv": {
-      "label": "new-cv", "kind": "skill", "file": ".claude/skills/new-cv/SKILL.md",
+      "label": "new-cv",
+      "kind": "skill",
+      "file": ".claude/skills/new-cv/SKILL.md",
       "role": "Checklist that builds the CV itself: data, entry point, page plan, the client design loop, the render and its evidence.",
       "when": "After `Sign-off`, or to add a public example.",
-      "sources": [".claude/skills/new-cv/SKILL.md:1-15"]
+      "sources": [
+        ".claude/skills/new-cv/SKILL.md:1-15"
+      ]
     },
     "idea-run": {
-      "label": "idea-run", "kind": "skill", "file": ".claude/skills/idea-run/SKILL.md",
+      "label": "idea-run",
+      "kind": "skill",
+      "file": ".claude/skills/idea-run/SKILL.md",
       "role": "Runs an idea agent (magazine-editor or ceo) in a closed review loop. Authors propose, reviewers judge, you decide.",
       "when": "You ask for design concepts, template inspiration or product ideas.",
-      "sources": [".claude/skills/idea-run/SKILL.md:1-21"]
+      "sources": [
+        ".claude/skills/idea-run/SKILL.md:1-21"
+      ]
     },
     "verify-cv": {
-      "label": "verify-cv", "kind": "skill", "file": ".claude/skills/verify-cv/SKILL.md",
+      "label": "verify-cv",
+      "kind": "skill",
+      "file": ".claude/skills/verify-cv/SKILL.md",
       "role": "Runs the full suite and reads its evidence.",
       "when": "After any change under `packages/`, `examples/` or `tests/`.",
-      "sources": [".claude/skills/verify-cv/SKILL.md:1-17"]
+      "sources": [
+        ".claude/skills/verify-cv/SKILL.md:1-17"
+      ]
     },
     "new-theme": {
-      "label": "new-theme", "kind": "skill", "file": ".claude/skills/new-theme/SKILL.md",
+      "label": "new-theme",
+      "kind": "skill",
+      "file": ".claude/skills/new-theme/SKILL.md",
       "role": "Adds a `Theme` or `Artwork Pack` and proves the `Frozen Reference` is untouched.",
       "when": "A new look, colour scheme or role illustrations.",
-      "sources": [".claude/skills/new-theme/SKILL.md:1-5"]
+      "sources": [
+        ".claude/skills/new-theme/SKILL.md:1-5"
+      ]
     },
     "trello": {
-      "label": "trello", "kind": "skill", "file": ".claude/skills/trello/SKILL.md",
+      "label": "trello",
+      "kind": "skill",
+      "file": ".claude/skills/trello/SKILL.md",
       "role": "Reads and updates the CVgen board through its REST API. Every task's record is a card.",
       "when": "Orientation, and every task state change.",
-      "sources": [".claude/skills/trello/SKILL.md:1-33"]
+      "sources": [
+        ".claude/skills/trello/SKILL.md:1-33"
+      ]
     },
     "repo-maintenance": {
-      "label": "repo-maintenance", "kind": "skill", "file": ".claude/skills/repo-maintenance/SKILL.md",
+      "label": "repo-maintenance",
+      "kind": "skill",
+      "file": ".claude/skills/repo-maintenance/SKILL.md",
       "role": "Keeps the tree easy to navigate: a read-only audit (`quick`, `audit`, `deep`), then `apply` moves only what you approved by ID.",
       "when": "`quick` in every `Session Sweep`; the rest when you ask for a tidy-up.",
-      "sources": [".claude/skills/repo-maintenance/SKILL.md:21-28", ".claude/repo-maintenance.md:136-140"]
+      "sources": [
+        ".claude/skills/repo-maintenance/SKILL.md:21-28",
+        ".claude/repo-maintenance.md:136-140"
+      ]
     },
     "night-shift": {
-      "label": "Night Shift skills", "kind": "skill", "file": ".claude/skills/start-night-shift/SKILL.md",
+      "label": "Night Shift skills",
+      "kind": "skill",
+      "file": ".claude/skills/start-night-shift/SKILL.md",
       "role": "Unattended overnight work (`start-night-shift`) and its follow-up by day (`do-night-shift-follow-up`).",
       "when": "You say \"start night shift\".",
-      "sources": [".claude/skills/start-night-shift/SKILL.md:1-5", ".claude/skills/do-night-shift-follow-up/SKILL.md:1-5"]
+      "sources": [
+        ".claude/skills/start-night-shift/SKILL.md:1-5",
+        ".claude/skills/do-night-shift-follow-up/SKILL.md:1-5"
+      ]
     },
     "cv-py": {
-      "label": "scripts/cv.py", "kind": "tool", "file": "scripts/cv.py",
+      "label": "scripts/cv.py",
+      "kind": "tool",
+      "file": "scripts/cv.py",
       "role": "`render`, `approve`, `export`, `status` for one client's `Envelope`. Each render is a new `Revision`; it never overwrites.",
-      "notes": ["Exit 1: compile or checks failed, the `Revision` is kept. Exit 2: refused, nothing written."],
-      "sources": ["scripts/cv.py:1-12", "docs/guides/build-a-cv.md:117-206"]
+      "notes": [
+        "Exit 1: compile or checks failed, the `Revision` is kept. Exit 2: refused, nothing written."
+      ],
+      "sources": [
+        "scripts/cv.py:1-12",
+        "docs/guides/build-a-cv.md:117-206"
+      ]
     },
     "outputs-py": {
-      "label": "scripts/outputs.py", "kind": "tool", "file": "scripts/outputs.py",
+      "label": "scripts/outputs.py",
+      "kind": "tool",
+      "file": "scripts/outputs.py",
       "role": "The `Output Contract` tool: `stamp` writes a PDF's `Meta File`; `check` lists every PDF without a valid one.",
-      "sources": ["scripts/outputs.py", "docs/pdf-workflow.md:123-156"]
+      "sources": [
+        "scripts/outputs.py",
+        "docs/pdf-workflow.md:123-156"
+      ]
     },
     "suite": {
-      "label": "tests/run.py", "kind": "tool", "file": "tests/run.py",
+      "label": "tests/run.py",
+      "kind": "tool",
+      "file": "tests/run.py",
       "role": "The full test suite: compiles every example, checks the `Frozen Reference` pixel for pixel, the workflow, the contract. Evidence goes to `builds/tests-<timestamp>/`.",
-      "sources": ["tests/run.py", "docs/reference/verification.md"]
+      "sources": [
+        "tests/run.py",
+        "docs/reference/verification.md"
+      ]
     },
     "design-review-app": {
-      "label": "Design Review app", "kind": "tool", "file": "scripts/design_review/server.py",
+      "label": "Design Review app",
+      "kind": "tool",
+      "file": "scripts/design_review/server.py",
       "role": "Your local app for looking through designs: the Board (`Style` × `Density` × `Design Tier`), the Loupe, compare, a `Batch Test` pile, your verdicts and notes.",
-      "notes": ["`python scripts/design_review/server.py`, then http://127.0.0.1:8765/. Binds to this machine only.", "Your verdicts (keep / maybe / reject) live in `.local/design-review/state.json`."],
-      "sources": ["scripts/design_review/server.py:1-12", "AGENTS.md"]
+      "notes": [
+        "`python scripts/design_review/server.py`, then http://127.0.0.1:8765/. Binds to this machine only.",
+        "Your verdicts (keep / maybe / reject) live in `.local/design-review/state.json`."
+      ],
+      "sources": [
+        "scripts/design_review/server.py:1-12",
+        "AGENTS.md"
+      ]
     },
     "build-ps1": {
-      "label": "scripts/build.ps1", "kind": "tool", "file": "scripts/build.ps1",
+      "label": "scripts/build.ps1",
+      "kind": "tool",
+      "file": "scripts/build.ps1",
       "role": "Builds the five public examples into `builds/`; with `-Release` it copies them beside their entry points and stamps them.",
-      "sources": ["scripts/build.ps1"]
+      "sources": [
+        "scripts/build.ps1"
+      ]
     },
     "intake-form": {
-      "label": "Intake Form script", "kind": "tool", "file": "scripts/intake-form.gs",
+      "label": "Intake Form script",
+      "kind": "tool",
+      "file": "scripts/intake-form.gs",
       "role": "Google Apps Script you run once per form: builds the optional `Intake Form` and its answers Sheet in your Google account.",
-      "sources": ["scripts/intake-form.gs:1-21", "docs/guides/client-workflow.md:91-128"]
+      "sources": [
+        "scripts/intake-form.gs:1-21",
+        "docs/guides/client-workflow.md:91-128"
+      ]
     },
     "board": {
-      "label": "Trello board \"CVgen\"", "kind": "service",
+      "label": "Trello board \"CVgen\"",
+      "kind": "service",
       "role": "The task store. Lists: Handoff, Queued, Active, Review, Ready, Done. The `session-handoff` card is where every session starts.",
-      "sources": [".claude/skills/trello/SKILL.md:25-33", "docs/development.md:17-32"]
+      "sources": [
+        ".claude/skills/trello/SKILL.md:25-33",
+        "docs/development.md:17-32"
+      ]
     },
     "chat": {
-      "label": "Chat app", "kind": "service",
+      "label": "Chat app",
+      "kind": "service",
       "role": "Viber, WhatsApp or email: how you pass questions and drafts to the client and bring answers back.",
-      "sources": ["docs/guides/client-workflow.md:81-89"]
+      "sources": [
+        "docs/guides/client-workflow.md:81-89"
+      ]
     },
     "github-ci": {
-      "label": "GitHub CI", "kind": "service",
+      "label": "GitHub CI",
+      "kind": "service",
       "role": "Runs the suite on every push to `main` (Typst 0.15.1). The lead watches it before calling work Done.",
-      "sources": [".github/workflows/verify.yml", "docs/git-workflow.md:66-79"]
+      "sources": [
+        ".github/workflows/verify.yml",
+        "docs/git-workflow.md:66-79"
+      ]
     }
   },
   "terms": {

@@ -107,6 +107,7 @@ Framework; `M` for `packages/domains/marine`, the marine domain; `F` for
 | `scripts/intake-form.gs` | Google Apps Script the owner runs to make a client's optional `Intake Form` and its answers Sheet; Claude writes a filled copy per form as `intake/form-NN.gs` | Changing how the form is built |
 | `scripts/design_review/` | The owner's local Design Review app (`server.py`, `index.html`): every PDF with a valid `Meta File` (concepts, the `Release`, client renders and `Text Draft`s) as a Board and a Loupe, the rest listed as unindexed with the reason, filters, page previews, compare, a `Batch Test` pile (`plain-cvs.typ`), his review state in `.local/design-review/state.json` (read it for his verdicts and notes), PDFs opened in the default app. Binds to 127.0.0.1 only | Changing how the owner reviews designs |
 | `scripts/text-draft.typ` | The `Text Draft` a client checks before design (`Sign-off`), house design First Fitting | Changing how the text draft looks |
+| `.atlas/` | The `Atlas`: open `.atlas/index.html` from disk. Facts in `src/*.json`, each step citing its sources; `python .atlas/_kit/atlas.py build` writes the pages, `check` lists pages whose sources changed | A mapped flow, agent or model changed: update its page, `build`, `stamp` |
 | `builds/` | Ignored. Every build and test run writes to a new timestamped folder here | Reading evidence |
 | `private/` | Ignored. One `Envelope` per real client: `envelope.json`, `intake/`, `research/`, `draft/`, `candidate.json`, `cv.typ`, `revisions/`, `exports/` | Producing a real CV |
 
