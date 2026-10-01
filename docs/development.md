@@ -87,8 +87,8 @@ report:
 - **`builds/`:** clear old folders by path when they pile up.
 - **Repo health:** `/repo-maintenance quick` (seconds; the `repo-maintenance`
   skill). Name any finding in the handoff; the owner approves fixes by ID.
-- **`Atlas`:** `python .atlas/_kit/atlas.py check`. A STALE page is
-  re-checked against its changed sources, rebuilt and stamped in the same
+- **`Atlas`:** `python .atlas/_kit/atlas.py check`. A STALE or UNVERIFIED
+  page is re-checked against its sources, rebuilt and stamped in the same
   session; refresh the `status` of any flow the session moved.
 
 A report says everything is finished only after the `Session Sweep`.

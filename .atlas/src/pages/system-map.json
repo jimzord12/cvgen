@@ -256,7 +256,7 @@
           "id": "n-state",
           "title": "Your verdicts",
           "path": ".local/design-review/state.json",
-          "blurb": "keep / maybe / reject, stars, notes. On this machine only; empty today.",
+          "blurb": "keep / maybe / reject, stars, notes. On this machine only; no verdicts recorded as of 2026-10-01.",
           "sources": [
             "AGENTS.md"
           ]

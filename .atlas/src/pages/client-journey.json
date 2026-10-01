@@ -205,7 +205,7 @@
           ],
           "sources": [
             "docs/guides/client-workflow.md:176-184",
-            "docs/guides/client-workflow.md:309-312"
+            "git:docs/idea-run-2026-09-29-editor:docs/guides/client-workflow.md:309-312"
           ]
         },
         {
@@ -250,7 +250,7 @@
           "loop": {
             "to": "deep-dives",
             "label": "FINDINGS: the same author revises",
-            "short": "≤5 / 10",
+            "short": "max 5 rounds · 10 unattended",
             "cap": "5 rounds attended, 10 unattended; then it reaches you as unresolved"
           },
           "out": [
@@ -371,8 +371,8 @@
             "magazine-editor"
           ],
           "sources": [
-            "docs/guides/client-workflow.md:285-295",
-            ".claude/skills/new-cv/SKILL.md:62-66"
+            "git:docs/idea-run-2026-09-29-editor:docs/guides/client-workflow.md:285-295",
+            "git:docs/idea-run-2026-09-29-editor:.claude/skills/new-cv/SKILL.md:62-66"
           ]
         },
         {
@@ -388,8 +388,8 @@
             "design-review-app"
           ],
           "sources": [
-            "docs/guides/client-workflow.md:291-295",
-            ".claude/skills/idea-run/SKILL.md:122-134"
+            "git:docs/idea-run-2026-09-29-editor:docs/guides/client-workflow.md:291-295",
+            "git:docs/idea-run-2026-09-29-editor:.claude/skills/idea-run/SKILL.md:122-134"
           ]
         },
         {
@@ -414,7 +414,7 @@
           "loop": {
             "to": "build-cv",
             "label": "FINDINGS: Claude fixes the design",
-            "short": "≤5 / 10"
+            "short": "max 5 rounds · 10 unattended"
           },
           "out": [
             "`candidate.json`, `cv.typ`",
@@ -426,7 +426,7 @@
           ],
           "sources": [
             ".claude/skills/new-cv/SKILL.md:12-15",
-            ".claude/skills/new-cv/SKILL.md:67-85",
+            "git:docs/idea-run-2026-09-29-editor:.claude/skills/new-cv/SKILL.md:67-85",
             "docs/guides/build-a-cv.md:37-68"
           ]
         }
@@ -461,7 +461,7 @@
           ],
           "sources": [
             "docs/guides/build-a-cv.md:117-149",
-            ".claude/skills/new-cv/SKILL.md:104-114"
+            "git:docs/idea-run-2026-09-29-editor:.claude/skills/new-cv/SKILL.md:104-114"
           ]
         },
         {
@@ -533,7 +533,7 @@
           ],
           "sources": [
             "docs/guides/build-a-cv.md:202-204",
-            "docs/guides/client-workflow.md:297-300"
+            "git:docs/idea-run-2026-09-29-editor:docs/guides/client-workflow.md:297-300"
           ]
         }
       ]
@@ -553,7 +553,7 @@
             "label": "Claude names passed delete-by dates; you do the deleting."
           },
           "sources": [
-            "docs/guides/client-workflow.md:297-305",
+            "git:docs/idea-run-2026-09-29-editor:docs/guides/client-workflow.md:297-305",
             "docs/preferences.md:68-77"
           ]
         }

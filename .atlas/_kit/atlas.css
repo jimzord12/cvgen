@@ -643,6 +643,19 @@ svg.sedges.focus path:not(.hl) { opacity: 0; }
 .lrow.corner.bottom { border-top: 1px solid var(--line); }
 .lane-label .mini { display: block; max-width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 9.5px; font-weight: 650; color: var(--text-2); }
 .drawer:focus { outline: none; }
+.drawer.instant, .scrim.instant { transition: none !important; }
+.elabel.gone { visibility: hidden; }
+.model-list .mnote { grid-column: 1 / 3; font-size: 12px; color: var(--text-2); line-height: 1.4; }
+.metro-box { display: flex; align-items: center; gap: 12px; padding: 0 14px 0 0; margin-bottom: 18px; }
+.metro-box .metro { flex: 1; min-width: 0; margin: 0; }
+.nav-more { display: none; }
+.sq-gap { width: 7px; }
+table.matrix th .ph-key { display: flex; gap: 2px; margin-top: 6px; font-size: 9.5px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; color: var(--faint); }
+table.matrix th .ph-key span { overflow: hidden; white-space: nowrap; text-overflow: clip; border-top: 2px solid var(--line-2); padding-top: 3px; margin-right: 6px; }
+.moves.paused { margin-top: 10px; }
+.move.paused { background: var(--panel); border-style: dashed; border-color: var(--line-2); }
+.move.paused .ic { background: var(--panel-3); color: var(--k-owner); }
+.lanes-shell::before { width: 72px; background: linear-gradient(90deg, var(--panel) 35%, transparent); }
 .mdot.inview { outline: 2px solid color-mix(in oklab, var(--route) 55%, transparent); outline-offset: 3px; }
 .here-pin { transform: translateX(-50%); }
 .lnode .m .tag { margin-left: auto; color: var(--muted); font-weight: 600; }
@@ -750,7 +763,10 @@ table.matrix tr.idle.show { display: table-row; opacity: .7; }
   .bar-hint { display: none; }
   .lanes-shell::after { width: 36px; }
   .metro { padding: 12px; }
-  .now-jump { position: sticky; right: 0; }
+  .metro-box { flex-direction: column; align-items: stretch; padding: 10px 0 0; gap: 0; }
+  .metro-box .now-jump { order: -1; align-self: flex-start; margin: 0 12px 4px; }
+  .nav-more { display: inline-flex; padding: 0 9px; }
+  .lrow.helper .lane-label .av { width: 22px; height: 22px; }
   .hero p.q { font-size: 17px; }
 }
 

@@ -23,7 +23,7 @@
   "moves": [
     {
       "title": "Look through the 18 designs in the Design Review app",
-      "detail": "Optional, any time: mark keep, maybe or reject; agents read your verdicts. You said you would do it later.",
+      "detail": "Optional, any time: mark keep, maybe or reject; agents read your verdicts. You said you would do it later (2026-10-01).",
       "to": "design-run#own-look",
       "optional": true
     }
@@ -48,11 +48,11 @@
       "kind": "client",
       "role": "The person the CV is for. Answers the questions, checks the facts in the `Text Draft`, says OK.",
       "notes": [
-        "Gets at most three messages before `Sign-off`: the question list, one follow-up, the `Text Draft`.",
+        "Gets at most three messages before `Sign-off`: the question list, one follow-up, the `Text Draft` (plus a corrected draft if asked).",
         "Outside `private/` a client is only their `Alias`, like `client-2026-09-01`."
       ],
       "sources": [
-        "docs/guides/client-workflow.md:316-318",
+        "git:docs/idea-run-2026-09-29-editor:docs/guides/client-workflow.md:316-318",
         "docs/guides/client-workflow.md:63-67"
       ],
       "short": "Client"
@@ -84,10 +84,13 @@
       "calledBy": "The lead, through the `idea-run` skill.",
       "when": "A design run, for inspiration or for a client whose `Domain` has no `Template` yet.",
       "sources": [
-        ".claude/agents/magazine-editor.md:1-23",
-        ".claude/agents/magazine-editor.md:50-82"
+        "git:docs/idea-run-2026-09-29-editor:.claude/agents/magazine-editor.md:1-23",
+        "git:docs/idea-run-2026-09-29-editor:.claude/agents/magazine-editor.md:50-82"
       ],
-      "short": "Editor"
+      "short": "Editor",
+      "notes": [
+        "The two `Densities` (18 designs per run) were added on 2026-09-29 on the run branch `docs/idea-run-2026-09-29-editor`; `main` still says nine pages until that run merges."
+      ]
     },
     "design-reviewer": {
       "label": "design-reviewer",
@@ -105,8 +108,8 @@
         "Makes batch sheets: each page shrunk among 8+ plain market CVs."
       ],
       "sources": [
-        ".claude/agents/design-reviewer.md:1-17",
-        ".claude/agents/design-reviewer.md:66-133"
+        "git:docs/idea-run-2026-09-29-editor:.claude/agents/design-reviewer.md:1-17",
+        "git:docs/idea-run-2026-09-29-editor:.claude/agents/design-reviewer.md:66-133"
       ],
       "short": "Design rev."
     },
@@ -212,13 +215,14 @@
       "calledBy": "The lead.",
       "when": "Any change to the files agents read.",
       "notes": [
-        "Exists only on branch `docs/codex-visual-tools` (not merged). On `main` it runs as a general-purpose stand-in told to act as its file."
+        "Built on branch `docs/codex-visual-tools`, not merged, and its own review there is FINDINGS. On `main` the review gate is still `code-reviewer`; agent-context changes have been reviewed by a general-purpose stand-in told to act as this file."
       ],
       "sources": [
         "git:docs/codex-visual-tools:.claude/agents/context-reviewer.md",
         "docs/work/anti-examples/reviews/01-context.md"
       ],
-      "short": "Context rev."
+      "short": "Context rev.",
+      "statusLabel": "On a branch, not merged"
     },
     "context-maintainer": {
       "label": "context-maintainer",
@@ -236,7 +240,8 @@
       ],
       "sources": [
         "git:docs/codex-visual-tools:.claude/agents/context-maintainer.md"
-      ]
+      ],
+      "statusLabel": "On a branch, not merged"
     },
     "general-purpose": {
       "label": "general-purpose",
@@ -249,7 +254,7 @@
       ],
       "sources": [
         ".claude/skills/new-client/SKILL.md:34-47",
-        ".claude/skills/idea-run/SKILL.md:87-104"
+        "git:docs/idea-run-2026-09-29-editor:.claude/skills/idea-run/SKILL.md:87-104"
       ],
       "short": "General"
     },
@@ -278,7 +283,7 @@
       "effort": "high",
       "status": "planned",
       "role": "Generates raster images a design commissions: never a portrait, no real people, brands or text, at most two per page.",
-      "calledBy": "The magazine-editor (through the lead) and the lead for client designs.",
+      "calledBy": "The magazine-editor commissions images; the lead does for client designs (once built).",
       "notes": [
         "Approved 2026-09-29, not built."
       ],
@@ -317,7 +322,7 @@
       "role": "Runs an idea agent (magazine-editor or ceo) in a closed review loop. Authors propose, reviewers judge, you decide.",
       "when": "You ask for design concepts, template inspiration or product ideas.",
       "sources": [
-        ".claude/skills/idea-run/SKILL.md:1-21"
+        "git:docs/idea-run-2026-09-29-editor:.claude/skills/idea-run/SKILL.md:1-21"
       ]
     },
     "verify-cv": {
@@ -460,7 +465,7 @@
     "github-ci": {
       "label": "GitHub CI",
       "kind": "service",
-      "role": "Runs the suite on every push to `main` (Typst 0.15.1). The lead watches it before calling work Done.",
+      "role": "Runs the suite on every push and pull request (Typst 0.15.1). The lead watches it on `main` before calling work Done.",
       "sources": [
         ".github/workflows/verify.yml",
         "docs/git-workflow.md:66-79"
@@ -489,7 +494,7 @@
     "CV Decisions": "The choices a CV must make (title, length, photo, language, `Template`, what leads), each sourced, a judgement, or open.",
     "Deep Dive": "One agent researching one open question, chosen by you after the `Scout`.",
     "Text Draft": "The CV's content as a PDF in the fixed house design (First Fitting) that the client checks before design starts.",
-    "Check Page": "Page 1 of a `Text Draft`, in Greek: check only the underlined facts, reply OK.",
+    "Check Page": "Page 1 of a `Text Draft`, in the client's language (the house copy is Greek): check only the underlined facts, reply OK.",
     "Fact Mark": "The copper stitch under a fact the client must check in a `Text Draft`.",
     "Sign-off": "The client's \"OK, the facts are correct\" on the `Text Draft`, before design starts. Usually a chat message, screenshot kept.",
     "Revision": "One render of a CV in its own folder, never overwritten.",
@@ -500,7 +505,7 @@
     "Meta File": "The small JSON beside a PDF saying what it is (kind, `Domain`, status, pages) with its SHA-256.",
     "Frozen Reference": "The PDF a `Template`'s public example must reproduce pixel for pixel.",
     "Framework Gap": "A recorded case of going around the `Framework`, a `Domain` or a `Template` to deliver a CV.",
-    "Session Sweep": "The check for loose ends before a session ends: unreviewed commits, approved proposals, open cards, Git leftovers, CI, `builds/`.",
+    "Session Sweep": "The places to look for loose ends before a session ends: unreviewed commits, approved proposals, open cards, Night Shift items, Git leftovers, CI, `builds/`.",
     "Certificate Warning": "A WARNING line at render: a certificate expired or expires within 180 days. Never blocks.",
     "Live Read": "A render that read a private file directly instead of the `Revision`'s copy. It fails its checks.",
     "Batch Test": "Design test 1: in an HR batch of 100 to 200 CVs, ours cannot be skipped.",
@@ -508,9 +513,15 @@
     "Flagship Parity": "Design test 3: side by side with the Marine Flagship, the CV looks as confident and premium.",
     "Style": "One idea of a magazine-editor run. A run has three very distinct ones.",
     "Design Tier": "Safe (calm, never generic), Stylish (Flagship territory), Creative (style to the maximum).",
-    "Density": "Condensed (one dense page) or Spacious (1 to 3 roomier pages). Every `Style` is drawn in both.",
+    "Density": "Condensed (one dense page) or Spacious (1 to 3 roomier pages). Every `Style` is drawn in both. Added 2026-09-29 on the run branch; reaches `main` with the run.",
     "Anti-example": "A design you rejected as not your style, kept frozen only so nobody proposes its idea again.",
     "Design Review": "Your local app for looking through designs and recording verdicts.",
     "Idea Run": "One closed loop of an idea agent (ceo or magazine-editor) and its reviewers."
+  },
+  "modelNotes": {
+    "Session model": "Whatever model your Claude Code session runs; the repo pins none. Today: Opus 5.5.",
+    "Opus": "The `opus` alias in the agent files: the newest Opus, today Opus 5.5.",
+    "GPT-6 Astra": "Planned, not built (approved 2026-09-29).",
+    "GPT-6 Sol": "Planned, not built (approved 2026-09-29)."
   }
 }

@@ -80,7 +80,7 @@ owner afterwards.
 | `Anti-example` | A design the owner rejected as not his style, kept frozen only so nobody proposes its idea again; the opposite of a design study, which is kept to learn from | `archive/anti-examples/` | 2026-09-30, owner |
 | `Design Review` | The owner's local app for looking through designs and recording his verdicts: the Board shows a run in its `Style` × `Density` × `Design Tier` shape, the Loupe one design at full size; it shows only PDFs with a valid `Meta File`; his verdicts and notes are in `.local/design-review/state.json` | `scripts/design_review/` | 2026-09-29 |
 | `Idea Run` | One closed loop of an idea agent (ceo or magazine-editor) and its reviewers | `.claude/skills/idea-run/`, `docs/work/idea-runs/` | 2026-09-25 |
-| `Atlas` | The repository's picture book of how it works: interactive pages for the flows (a Map and a Walk through), the parts and who does the work, each step citing its sources, marked stale when they change. Never the source of a rule | `.atlas/` (`src/` facts, `_kit/` shared renderer and `atlas.py`); the owner's `/atlas` skill | 2026-10-01, owner |
+| `Atlas` | The repository's picture book of how it works: interactive pages for the flows (a Map and a Walk through), the parts and who does the work, each step citing its sources, marked stale when they change. Never the source of a rule | `.atlas/` (`src/` facts, `_kit/` shared renderer and `atlas.py`); the owner's personal `/atlas` skill (outside this repository) | 2026-10-01, owner |
 
 ## Words with two meanings
 

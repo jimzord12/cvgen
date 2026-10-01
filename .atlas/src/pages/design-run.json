@@ -4,16 +4,16 @@
   "nav": "Design run",
   "title": "A design run: 18 designs to your pick",
   "question": "We drew 18 designs. What happens next, who reviews them, on which model?",
-  "summary": "The `idea-run` skill in its design form. One author draws, two kinds of reviewer judge in closed loops, and only you decide. Nothing is built, approved or put on the roadmap without you.",
+  "summary": "The `idea-run` skill in its design form. One author draws, two kinds of reviewer judge in closed loops, and only you decide. Nothing is built, approved or put on the roadmap without you. The two `Densities` (18 designs) are the 2026-09-29 run's change: they sit on its branch and reach `main` when the run merges.",
   "tldr": [
     "The `magazine-editor` draws 3 `Styles` × 2 `Densities` × 3 `Design Tiers` = 18 Typst mock-ups on fictional data.",
     "Two gates, each a fresh Opus-high reviewer per round: research first, then design, until PASS (cap 5 with you around, 10 unattended). Your own look in the `Design Review` app is optional, any time.",
     "You get a short message with every passed style; your answer becomes `chosen`, `parked`, `rejected` or an `Anti-example`."
   ],
   "sources": [
-    ".claude/skills/idea-run/SKILL.md",
-    ".claude/agents/magazine-editor.md",
-    ".claude/agents/design-reviewer.md"
+    "git:docs/idea-run-2026-09-29-editor:.claude/skills/idea-run/SKILL.md",
+    "git:docs/idea-run-2026-09-29-editor:.claude/agents/magazine-editor.md",
+    "git:docs/idea-run-2026-09-29-editor:.claude/agents/design-reviewer.md"
   ],
   "status": {
     "step": "research-gate",
@@ -47,8 +47,8 @@
             "idea-run"
           ],
           "sources": [
-            ".claude/skills/idea-run/SKILL.md:8-21",
-            ".claude/skills/idea-run/SKILL.md:36-42"
+            "git:docs/idea-run-2026-09-29-editor:.claude/skills/idea-run/SKILL.md:8-21",
+            "git:docs/idea-run-2026-09-29-editor:.claude/skills/idea-run/SKILL.md:36-42"
           ]
         },
         {
@@ -75,7 +75,7 @@
             "The lead keeps the author's agent id, so revisions go back to the same author with its memory."
           ],
           "sources": [
-            ".claude/skills/idea-run/SKILL.md:36-49"
+            "git:docs/idea-run-2026-09-29-editor:.claude/skills/idea-run/SKILL.md:36-49"
           ]
         }
       ]
@@ -108,9 +108,9 @@
             "outputs-py"
           ],
           "sources": [
-            ".claude/agents/magazine-editor.md:50-82",
-            ".claude/agents/magazine-editor.md:88-209",
-            "design-concepts/README.md"
+            "git:docs/idea-run-2026-09-29-editor:.claude/agents/magazine-editor.md:50-82",
+            "git:docs/idea-run-2026-09-29-editor:.claude/agents/magazine-editor.md:88-209",
+            "git:docs/idea-run-2026-09-29-editor:design-concepts/README.md"
           ]
         }
       ]
@@ -166,7 +166,7 @@
           "loop": {
             "to": "research-gate",
             "label": "FINDINGS: the author fixes the brief, then a fresh reviewer",
-            "short": "≤5 / 10"
+            "short": "max 5 rounds · 10 unattended"
           },
           "does": [
             "Blocking: a load-bearing claim unsourced, misquoted, dead, stale, or opinion stated as fact."
@@ -178,7 +178,7 @@
             "research-reviewer"
           ],
           "sources": [
-            ".claude/skills/idea-run/SKILL.md:50-56",
+            "git:docs/idea-run-2026-09-29-editor:.claude/skills/idea-run/SKILL.md:50-56",
             ".claude/agents/research-reviewer.md:31-59"
           ]
         },
@@ -210,8 +210,8 @@
             "codex-reviewer"
           ],
           "sources": [
-            ".claude/skills/idea-run/SKILL.md:57-65",
-            ".claude/agents/design-reviewer.md:44-133",
+            "git:docs/idea-run-2026-09-29-editor:.claude/skills/idea-run/SKILL.md:57-65",
+            "git:docs/idea-run-2026-09-29-editor:.claude/agents/design-reviewer.md:44-133",
             "git:docs/codex-visual-tools:docs/proposals/codex-visual-tools.md"
           ]
         },
@@ -228,11 +228,11 @@
           },
           "does": [
             "Notes (taste, polish) are optional.",
-            "After a PASS: a new sourced claim goes back to the research gate; layout or typo fixes only need a lead check noted in `run.md`."
+            "After a PASS: a new sourced claim goes back to the research gate; a change to the Style's idea or to what you decide on goes back to the design gate; layout, typos or sample data need only a lead check noted in `run.md`."
           ],
           "sources": [
-            ".claude/agents/magazine-editor.md:211-219",
-            ".claude/skills/idea-run/SKILL.md:66-71"
+            "git:docs/idea-run-2026-09-29-editor:.claude/agents/magazine-editor.md:211-219",
+            "git:docs/idea-run-2026-09-29-editor:.claude/skills/idea-run/SKILL.md:66-71"
           ]
         }
       ]
@@ -258,7 +258,7 @@
             "outputs-py"
           ],
           "sources": [
-            ".claude/skills/idea-run/SKILL.md:73-85",
+            "git:docs/idea-run-2026-09-29-editor:.claude/skills/idea-run/SKILL.md:73-85",
             "docs/review.md:48-59"
           ]
         },
@@ -274,7 +274,7 @@
             "Styles still waiting for your answer are listed on the handoff card."
           ],
           "sources": [
-            ".claude/skills/idea-run/SKILL.md:114-122"
+            "git:docs/idea-run-2026-09-29-editor:.claude/skills/idea-run/SKILL.md:114-122"
           ]
         },
         {
@@ -288,7 +288,7 @@
             "label": "Build it → `chosen` · Later → `parked` · Reject → `rejected` · Not my style → `Anti-example`. No answer: stays `proposed`."
           },
           "sources": [
-            ".claude/skills/idea-run/SKILL.md:122-134",
+            "git:docs/idea-run-2026-09-29-editor:.claude/skills/idea-run/SKILL.md:122-134",
             "docs/pdf-workflow.md:125"
           ]
         },
@@ -306,8 +306,8 @@
             "python scripts/outputs.py stamp <pdf> status=chosen"
           ],
           "sources": [
-            ".claude/skills/idea-run/SKILL.md:122-134",
-            "design-concepts/README.md:44-47",
+            "git:docs/idea-run-2026-09-29-editor:.claude/skills/idea-run/SKILL.md:122-134",
+            "git:docs/idea-run-2026-09-29-editor:design-concepts/README.md:44-47",
             "archive/anti-examples/README.md"
           ]
         },
@@ -321,8 +321,8 @@
             "A concept becomes a `Template` only after you keep it and a build task is agreed."
           ],
           "sources": [
-            ".claude/skills/idea-run/SKILL.md:129-134",
-            "design-concepts/README.md:3-6"
+            "git:docs/idea-run-2026-09-29-editor:.claude/skills/idea-run/SKILL.md:129-134",
+            "git:docs/idea-run-2026-09-29-editor:design-concepts/README.md:3-6"
           ]
         }
       ]

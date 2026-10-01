@@ -25,7 +25,7 @@ window.ATLAS = {
   "moves": [
    {
     "title": "Look through the 18 designs in the Design Review app",
-    "detail": "Optional, any time: mark keep, maybe or reject; agents read your verdicts. You said you would do it later.",
+    "detail": "Optional, any time: mark keep, maybe or reject; agents read your verdicts. You said you would do it later (2026-10-01).",
     "to": "design-run#own-look",
     "optional": true
    }
@@ -50,11 +50,11 @@ window.ATLAS = {
     "kind": "client",
     "role": "The person the CV is for. Answers the questions, checks the facts in the `Text Draft`, says OK.",
     "notes": [
-     "Gets at most three messages before `Sign-off`: the question list, one follow-up, the `Text Draft`.",
+     "Gets at most three messages before `Sign-off`: the question list, one follow-up, the `Text Draft` (plus a corrected draft if asked).",
      "Outside `private/` a client is only their `Alias`, like `client-2026-09-01`."
     ],
     "sources": [
-     "docs/guides/client-workflow.md:316-318",
+     "git:docs/idea-run-2026-09-29-editor:docs/guides/client-workflow.md:316-318",
      "docs/guides/client-workflow.md:63-67"
     ],
     "short": "Client"
@@ -86,10 +86,13 @@ window.ATLAS = {
     "calledBy": "The lead, through the `idea-run` skill.",
     "when": "A design run, for inspiration or for a client whose `Domain` has no `Template` yet.",
     "sources": [
-     ".claude/agents/magazine-editor.md:1-23",
-     ".claude/agents/magazine-editor.md:50-82"
+     "git:docs/idea-run-2026-09-29-editor:.claude/agents/magazine-editor.md:1-23",
+     "git:docs/idea-run-2026-09-29-editor:.claude/agents/magazine-editor.md:50-82"
     ],
-    "short": "Editor"
+    "short": "Editor",
+    "notes": [
+     "The two `Densities` (18 designs per run) were added on 2026-09-29 on the run branch `docs/idea-run-2026-09-29-editor`; `main` still says nine pages until that run merges."
+    ]
    },
    "design-reviewer": {
     "label": "design-reviewer",
@@ -107,8 +110,8 @@ window.ATLAS = {
      "Makes batch sheets: each page shrunk among 8+ plain market CVs."
     ],
     "sources": [
-     ".claude/agents/design-reviewer.md:1-17",
-     ".claude/agents/design-reviewer.md:66-133"
+     "git:docs/idea-run-2026-09-29-editor:.claude/agents/design-reviewer.md:1-17",
+     "git:docs/idea-run-2026-09-29-editor:.claude/agents/design-reviewer.md:66-133"
     ],
     "short": "Design rev."
    },
@@ -214,13 +217,14 @@ window.ATLAS = {
     "calledBy": "The lead.",
     "when": "Any change to the files agents read.",
     "notes": [
-     "Exists only on branch `docs/codex-visual-tools` (not merged). On `main` it runs as a general-purpose stand-in told to act as its file."
+     "Built on branch `docs/codex-visual-tools`, not merged, and its own review there is FINDINGS. On `main` the review gate is still `code-reviewer`; agent-context changes have been reviewed by a general-purpose stand-in told to act as this file."
     ],
     "sources": [
      "git:docs/codex-visual-tools:.claude/agents/context-reviewer.md",
      "docs/work/anti-examples/reviews/01-context.md"
     ],
-    "short": "Context rev."
+    "short": "Context rev.",
+    "statusLabel": "On a branch, not merged"
    },
    "context-maintainer": {
     "label": "context-maintainer",
@@ -238,7 +242,8 @@ window.ATLAS = {
     ],
     "sources": [
      "git:docs/codex-visual-tools:.claude/agents/context-maintainer.md"
-    ]
+    ],
+    "statusLabel": "On a branch, not merged"
    },
    "general-purpose": {
     "label": "general-purpose",
@@ -251,7 +256,7 @@ window.ATLAS = {
     ],
     "sources": [
      ".claude/skills/new-client/SKILL.md:34-47",
-     ".claude/skills/idea-run/SKILL.md:87-104"
+     "git:docs/idea-run-2026-09-29-editor:.claude/skills/idea-run/SKILL.md:87-104"
     ],
     "short": "General"
    },
@@ -280,7 +285,7 @@ window.ATLAS = {
     "effort": "high",
     "status": "planned",
     "role": "Generates raster images a design commissions: never a portrait, no real people, brands or text, at most two per page.",
-    "calledBy": "The magazine-editor (through the lead) and the lead for client designs.",
+    "calledBy": "The magazine-editor commissions images; the lead does for client designs (once built).",
     "notes": [
      "Approved 2026-09-29, not built."
     ],
@@ -319,7 +324,7 @@ window.ATLAS = {
     "role": "Runs an idea agent (magazine-editor or ceo) in a closed review loop. Authors propose, reviewers judge, you decide.",
     "when": "You ask for design concepts, template inspiration or product ideas.",
     "sources": [
-     ".claude/skills/idea-run/SKILL.md:1-21"
+     "git:docs/idea-run-2026-09-29-editor:.claude/skills/idea-run/SKILL.md:1-21"
     ]
    },
    "verify-cv": {
@@ -462,7 +467,7 @@ window.ATLAS = {
    "github-ci": {
     "label": "GitHub CI",
     "kind": "service",
-    "role": "Runs the suite on every push to `main` (Typst 0.15.1). The lead watches it before calling work Done.",
+    "role": "Runs the suite on every push and pull request (Typst 0.15.1). The lead watches it on `main` before calling work Done.",
     "sources": [
      ".github/workflows/verify.yml",
      "docs/git-workflow.md:66-79"
@@ -491,7 +496,7 @@ window.ATLAS = {
    "CV Decisions": "The choices a CV must make (title, length, photo, language, `Template`, what leads), each sourced, a judgement, or open.",
    "Deep Dive": "One agent researching one open question, chosen by you after the `Scout`.",
    "Text Draft": "The CV's content as a PDF in the fixed house design (First Fitting) that the client checks before design starts.",
-   "Check Page": "Page 1 of a `Text Draft`, in Greek: check only the underlined facts, reply OK.",
+   "Check Page": "Page 1 of a `Text Draft`, in the client's language (the house copy is Greek): check only the underlined facts, reply OK.",
    "Fact Mark": "The copper stitch under a fact the client must check in a `Text Draft`.",
    "Sign-off": "The client's \"OK, the facts are correct\" on the `Text Draft`, before design starts. Usually a chat message, screenshot kept.",
    "Revision": "One render of a CV in its own folder, never overwritten.",
@@ -502,7 +507,7 @@ window.ATLAS = {
    "Meta File": "The small JSON beside a PDF saying what it is (kind, `Domain`, status, pages) with its SHA-256.",
    "Frozen Reference": "The PDF a `Template`'s public example must reproduce pixel for pixel.",
    "Framework Gap": "A recorded case of going around the `Framework`, a `Domain` or a `Template` to deliver a CV.",
-   "Session Sweep": "The check for loose ends before a session ends: unreviewed commits, approved proposals, open cards, Git leftovers, CI, `builds/`.",
+   "Session Sweep": "The places to look for loose ends before a session ends: unreviewed commits, approved proposals, open cards, Night Shift items, Git leftovers, CI, `builds/`.",
    "Certificate Warning": "A WARNING line at render: a certificate expired or expires within 180 days. Never blocks.",
    "Live Read": "A render that read a private file directly instead of the `Revision`'s copy. It fails its checks.",
    "Batch Test": "Design test 1: in an HR batch of 100 to 200 CVs, ours cannot be skipped.",
@@ -510,10 +515,16 @@ window.ATLAS = {
    "Flagship Parity": "Design test 3: side by side with the Marine Flagship, the CV looks as confident and premium.",
    "Style": "One idea of a magazine-editor run. A run has three very distinct ones.",
    "Design Tier": "Safe (calm, never generic), Stylish (Flagship territory), Creative (style to the maximum).",
-   "Density": "Condensed (one dense page) or Spacious (1 to 3 roomier pages). Every `Style` is drawn in both.",
+   "Density": "Condensed (one dense page) or Spacious (1 to 3 roomier pages). Every `Style` is drawn in both. Added 2026-09-29 on the run branch; reaches `main` with the run.",
    "Anti-example": "A design you rejected as not your style, kept frozen only so nobody proposes its idea again.",
    "Design Review": "Your local app for looking through designs and recording verdicts.",
    "Idea Run": "One closed loop of an idea agent (ceo or magazine-editor) and its reviewers."
+  },
+  "modelNotes": {
+   "Session model": "Whatever model your Claude Code session runs; the repo pins none. Today: Opus 5.5.",
+   "Opus": "The `opus` alias in the agent files: the newest Opus, today Opus 5.5.",
+   "GPT-6 Astra": "Planned, not built (approved 2026-09-29).",
+   "GPT-6 Sol": "Planned, not built (approved 2026-09-29)."
   }
  },
  "pages": [
@@ -724,7 +735,7 @@ window.ATLAS = {
        ],
        "sources": [
         "docs/guides/client-workflow.md:176-184",
-        "docs/guides/client-workflow.md:309-312"
+        "git:docs/idea-run-2026-09-29-editor:docs/guides/client-workflow.md:309-312"
        ]
       },
       {
@@ -769,7 +780,7 @@ window.ATLAS = {
        "loop": {
         "to": "deep-dives",
         "label": "FINDINGS: the same author revises",
-        "short": "≤5 / 10",
+        "short": "max 5 rounds · 10 unattended",
         "cap": "5 rounds attended, 10 unattended; then it reaches you as unresolved"
        },
        "out": [
@@ -890,8 +901,8 @@ window.ATLAS = {
         "magazine-editor"
        ],
        "sources": [
-        "docs/guides/client-workflow.md:285-295",
-        ".claude/skills/new-cv/SKILL.md:62-66"
+        "git:docs/idea-run-2026-09-29-editor:docs/guides/client-workflow.md:285-295",
+        "git:docs/idea-run-2026-09-29-editor:.claude/skills/new-cv/SKILL.md:62-66"
        ]
       },
       {
@@ -907,8 +918,8 @@ window.ATLAS = {
         "design-review-app"
        ],
        "sources": [
-        "docs/guides/client-workflow.md:291-295",
-        ".claude/skills/idea-run/SKILL.md:122-134"
+        "git:docs/idea-run-2026-09-29-editor:docs/guides/client-workflow.md:291-295",
+        "git:docs/idea-run-2026-09-29-editor:.claude/skills/idea-run/SKILL.md:122-134"
        ]
       },
       {
@@ -933,7 +944,7 @@ window.ATLAS = {
        "loop": {
         "to": "build-cv",
         "label": "FINDINGS: Claude fixes the design",
-        "short": "≤5 / 10"
+        "short": "max 5 rounds · 10 unattended"
        },
        "out": [
         "`candidate.json`, `cv.typ`",
@@ -945,7 +956,7 @@ window.ATLAS = {
        ],
        "sources": [
         ".claude/skills/new-cv/SKILL.md:12-15",
-        ".claude/skills/new-cv/SKILL.md:67-85",
+        "git:docs/idea-run-2026-09-29-editor:.claude/skills/new-cv/SKILL.md:67-85",
         "docs/guides/build-a-cv.md:37-68"
        ]
       }
@@ -980,7 +991,7 @@ window.ATLAS = {
        ],
        "sources": [
         "docs/guides/build-a-cv.md:117-149",
-        ".claude/skills/new-cv/SKILL.md:104-114"
+        "git:docs/idea-run-2026-09-29-editor:.claude/skills/new-cv/SKILL.md:104-114"
        ]
       },
       {
@@ -1052,7 +1063,7 @@ window.ATLAS = {
        ],
        "sources": [
         "docs/guides/build-a-cv.md:202-204",
-        "docs/guides/client-workflow.md:297-300"
+        "git:docs/idea-run-2026-09-29-editor:docs/guides/client-workflow.md:297-300"
        ]
       }
      ]
@@ -1072,7 +1083,7 @@ window.ATLAS = {
         "label": "Claude names passed delete-by dates; you do the deleting."
        },
        "sources": [
-        "docs/guides/client-workflow.md:297-305",
+        "git:docs/idea-run-2026-09-29-editor:docs/guides/client-workflow.md:297-305",
         "docs/preferences.md:68-77"
        ]
       }
@@ -1086,16 +1097,16 @@ window.ATLAS = {
    "nav": "Design run",
    "title": "A design run: 18 designs to your pick",
    "question": "We drew 18 designs. What happens next, who reviews them, on which model?",
-   "summary": "The `idea-run` skill in its design form. One author draws, two kinds of reviewer judge in closed loops, and only you decide. Nothing is built, approved or put on the roadmap without you.",
+   "summary": "The `idea-run` skill in its design form. One author draws, two kinds of reviewer judge in closed loops, and only you decide. Nothing is built, approved or put on the roadmap without you. The two `Densities` (18 designs) are the 2026-09-29 run's change: they sit on its branch and reach `main` when the run merges.",
    "tldr": [
     "The `magazine-editor` draws 3 `Styles` × 2 `Densities` × 3 `Design Tiers` = 18 Typst mock-ups on fictional data.",
     "Two gates, each a fresh Opus-high reviewer per round: research first, then design, until PASS (cap 5 with you around, 10 unattended). Your own look in the `Design Review` app is optional, any time.",
     "You get a short message with every passed style; your answer becomes `chosen`, `parked`, `rejected` or an `Anti-example`."
    ],
    "sources": [
-    ".claude/skills/idea-run/SKILL.md",
-    ".claude/agents/magazine-editor.md",
-    ".claude/agents/design-reviewer.md"
+    "git:docs/idea-run-2026-09-29-editor:.claude/skills/idea-run/SKILL.md",
+    "git:docs/idea-run-2026-09-29-editor:.claude/agents/magazine-editor.md",
+    "git:docs/idea-run-2026-09-29-editor:.claude/agents/design-reviewer.md"
    ],
    "status": {
     "step": "research-gate",
@@ -1129,8 +1140,8 @@ window.ATLAS = {
         "idea-run"
        ],
        "sources": [
-        ".claude/skills/idea-run/SKILL.md:8-21",
-        ".claude/skills/idea-run/SKILL.md:36-42"
+        "git:docs/idea-run-2026-09-29-editor:.claude/skills/idea-run/SKILL.md:8-21",
+        "git:docs/idea-run-2026-09-29-editor:.claude/skills/idea-run/SKILL.md:36-42"
        ]
       },
       {
@@ -1157,7 +1168,7 @@ window.ATLAS = {
         "The lead keeps the author's agent id, so revisions go back to the same author with its memory."
        ],
        "sources": [
-        ".claude/skills/idea-run/SKILL.md:36-49"
+        "git:docs/idea-run-2026-09-29-editor:.claude/skills/idea-run/SKILL.md:36-49"
        ]
       }
      ]
@@ -1190,9 +1201,9 @@ window.ATLAS = {
         "outputs-py"
        ],
        "sources": [
-        ".claude/agents/magazine-editor.md:50-82",
-        ".claude/agents/magazine-editor.md:88-209",
-        "design-concepts/README.md"
+        "git:docs/idea-run-2026-09-29-editor:.claude/agents/magazine-editor.md:50-82",
+        "git:docs/idea-run-2026-09-29-editor:.claude/agents/magazine-editor.md:88-209",
+        "git:docs/idea-run-2026-09-29-editor:design-concepts/README.md"
        ]
       }
      ]
@@ -1248,7 +1259,7 @@ window.ATLAS = {
        "loop": {
         "to": "research-gate",
         "label": "FINDINGS: the author fixes the brief, then a fresh reviewer",
-        "short": "≤5 / 10"
+        "short": "max 5 rounds · 10 unattended"
        },
        "does": [
         "Blocking: a load-bearing claim unsourced, misquoted, dead, stale, or opinion stated as fact."
@@ -1260,7 +1271,7 @@ window.ATLAS = {
         "research-reviewer"
        ],
        "sources": [
-        ".claude/skills/idea-run/SKILL.md:50-56",
+        "git:docs/idea-run-2026-09-29-editor:.claude/skills/idea-run/SKILL.md:50-56",
         ".claude/agents/research-reviewer.md:31-59"
        ]
       },
@@ -1292,8 +1303,8 @@ window.ATLAS = {
         "codex-reviewer"
        ],
        "sources": [
-        ".claude/skills/idea-run/SKILL.md:57-65",
-        ".claude/agents/design-reviewer.md:44-133",
+        "git:docs/idea-run-2026-09-29-editor:.claude/skills/idea-run/SKILL.md:57-65",
+        "git:docs/idea-run-2026-09-29-editor:.claude/agents/design-reviewer.md:44-133",
         "git:docs/codex-visual-tools:docs/proposals/codex-visual-tools.md"
        ]
       },
@@ -1310,11 +1321,11 @@ window.ATLAS = {
        },
        "does": [
         "Notes (taste, polish) are optional.",
-        "After a PASS: a new sourced claim goes back to the research gate; layout or typo fixes only need a lead check noted in `run.md`."
+        "After a PASS: a new sourced claim goes back to the research gate; a change to the Style's idea or to what you decide on goes back to the design gate; layout, typos or sample data need only a lead check noted in `run.md`."
        ],
        "sources": [
-        ".claude/agents/magazine-editor.md:211-219",
-        ".claude/skills/idea-run/SKILL.md:66-71"
+        "git:docs/idea-run-2026-09-29-editor:.claude/agents/magazine-editor.md:211-219",
+        "git:docs/idea-run-2026-09-29-editor:.claude/skills/idea-run/SKILL.md:66-71"
        ]
       }
      ]
@@ -1340,7 +1351,7 @@ window.ATLAS = {
         "outputs-py"
        ],
        "sources": [
-        ".claude/skills/idea-run/SKILL.md:73-85",
+        "git:docs/idea-run-2026-09-29-editor:.claude/skills/idea-run/SKILL.md:73-85",
         "docs/review.md:48-59"
        ]
       },
@@ -1356,7 +1367,7 @@ window.ATLAS = {
         "Styles still waiting for your answer are listed on the handoff card."
        ],
        "sources": [
-        ".claude/skills/idea-run/SKILL.md:114-122"
+        "git:docs/idea-run-2026-09-29-editor:.claude/skills/idea-run/SKILL.md:114-122"
        ]
       },
       {
@@ -1370,7 +1381,7 @@ window.ATLAS = {
         "label": "Build it → `chosen` · Later → `parked` · Reject → `rejected` · Not my style → `Anti-example`. No answer: stays `proposed`."
        },
        "sources": [
-        ".claude/skills/idea-run/SKILL.md:122-134",
+        "git:docs/idea-run-2026-09-29-editor:.claude/skills/idea-run/SKILL.md:122-134",
         "docs/pdf-workflow.md:125"
        ]
       },
@@ -1388,8 +1399,8 @@ window.ATLAS = {
         "python scripts/outputs.py stamp <pdf> status=chosen"
        ],
        "sources": [
-        ".claude/skills/idea-run/SKILL.md:122-134",
-        "design-concepts/README.md:44-47",
+        "git:docs/idea-run-2026-09-29-editor:.claude/skills/idea-run/SKILL.md:122-134",
+        "git:docs/idea-run-2026-09-29-editor:design-concepts/README.md:44-47",
         "archive/anti-examples/README.md"
        ]
       },
@@ -1403,8 +1414,8 @@ window.ATLAS = {
         "A concept becomes a `Template` only after you keep it and a build task is agreed."
        ],
        "sources": [
-        ".claude/skills/idea-run/SKILL.md:129-134",
-        "design-concepts/README.md:3-6"
+        "git:docs/idea-run-2026-09-29-editor:.claude/skills/idea-run/SKILL.md:129-134",
+        "git:docs/idea-run-2026-09-29-editor:design-concepts/README.md:3-6"
        ]
       }
      ]
@@ -1420,7 +1431,7 @@ window.ATLAS = {
    "summary": "Every change, code or docs or design, goes through an independent review by a fresh agent before it is called done. Routine Git is the agents' job; a short list of irreversible things stays yours.",
    "tldr": [
     "Each session starts from the `session-handoff` card on the Trello board and ends by rewriting it after a `Session Sweep`.",
-    "Build, prove it with `tests/run.py`, then a fresh reviewer per round: code-reviewer for code, design-reviewer for looks, context-reviewer for agent rules.",
+    "Build, prove it with `tests/run.py`, then a fresh reviewer per round: `code-reviewer` for code and, on `main`, everything else; `design-reviewer` for looks. A `context-reviewer` for agent rules is built on a branch, not merged.",
     "Fix every Blocking and Material finding; stop at PASS or after 5 rounds (10 unattended). Then merge, push and watch CI."
    ],
    "sources": [
@@ -1435,8 +1446,9 @@ window.ATLAS = {
     "waitingOn": [
      "owner"
     ],
-    "title": "codex-visual-tools: two reviews to apply, paused",
-    "note": "Both reports on that branch are FINDINGS, not applied: you asked to stop that work for now. The branch also holds the two context agents. Separately, the handoff card on the board is out of date: it was written before the last twelve changes on main.",
+    "title": "codex-visual-tools: two reviews open, set aside",
+    "note": "Both reports on that branch are FINDINGS and stay open for the next session working on it. On 2026-10-01 you set your pending decisions aside, including whether to merge the two context agents now (my recommendation) and park the Codex build. The board's handoff card predates the last changes on `main` (board read 2026-10-01).",
+    "move": "Decide: merge the context agents now, or keep that branch parked",
     "ref": "board: session-handoff"
    },
    "phases": [
@@ -1537,9 +1549,9 @@ window.ATLAS = {
        ],
        "summary": "A fresh agent that never saw the work judges the exact snapshot. Which reviewer depends on what changed.",
        "does": [
-        "Code, tests, fixtures (and on `main` anything else no other gate covers): `code-reviewer`.",
+        "Code, tests, fixtures, and on `main` every change no other gate covers: `code-reviewer`.",
         "Looks: CV pages, brand assets, `Flagship` changes: `design-reviewer`.",
-        "Agent context (AGENTS.md, rules, glossary, skills, agent files): `context-reviewer`, still a stand-in on `main`.",
+        "Agent context (AGENTS.md, rules, glossary, skills): on `main` still `code-reviewer`. A `context-reviewer` exists on branch `docs/codex-visual-tools` (not merged); a general-purpose stand-in acting as it has reviewed recent doc changes.",
         "Eight lenses, from product fit to repository hygiene. Findings are Blocking, Material, Minor or Note."
        ],
        "gate": {
@@ -1560,7 +1572,9 @@ window.ATLAS = {
        "sources": [
         "docs/review.md:7-59",
         "docs/review.md:76-96",
-        "docs/review.md:152-171"
+        "docs/review.md:152-171",
+        "git:docs/codex-visual-tools:docs/review.md",
+        "docs/work/anti-examples/reviews/01-context.md"
        ]
       },
       {
@@ -1571,7 +1585,7 @@ window.ATLAS = {
        "loop": {
         "to": "review",
         "label": "A fresh reviewer, given every earlier report",
-        "short": "≤5 / 10",
+        "short": "max 5 rounds · 10 unattended",
         "cap": "At the cap the task stays unresolved and comes to you; more rounds need your decision."
        },
        "does": [
@@ -1604,7 +1618,7 @@ window.ATLAS = {
         "gh run list --commit <sha>",
         "gh run watch <run-id>"
        ],
-       "note": "Yours only, with the exact command shown first: deleting or force-pushing `main`, `archive/*` tags, repo settings, deleting under `private/`, removing approvals or exports, replacing the `Release`.",
+       "note": "Yours only, with the exact command shown first, including: deleting or force-pushing `main`, rewriting its published history, `archive/*` tags, repo settings, deleting under `private/` or `.local/` or outside the repo, removing revisions, approvals, exports or portraits, replacing the `Release`.",
        "sources": [
         "docs/git-workflow.md:66-79",
         "docs/preferences.md:52-77",
@@ -1662,7 +1676,8 @@ window.ATLAS = {
         "label": "Product decisions and real-client approvals stay yours."
        },
        "sources": [
-        "docs/preferences.md:49-51"
+        "docs/preferences.md:49-51",
+        "docs/preferences.md:83"
        ]
       }
      ]
@@ -1927,7 +1942,7 @@ window.ATLAS = {
        "id": "n-state",
        "title": "Your verdicts",
        "path": ".local/design-review/state.json",
-       "blurb": "keep / maybe / reject, stars, notes. On this machine only; empty today.",
+       "blurb": "keep / maybe / reject, stars, notes. On this machine only; no verdicts recorded as of 2026-10-01.",
        "sources": [
         "AGENTS.md"
        ]
@@ -2253,7 +2268,7 @@ window.ATLAS = {
    "tldr": [
     "Every author and reviewer agent in the repo runs on Opus at high effort: your standing choice for reviewers since 2026-09-26.",
     "A reviewer is always fresh: a new agent each round, given the earlier reports, never a fork of the author.",
-    "\"Planned\" means approved but not built: the two context agents and the two Codex steps."
+    "Not everything here is on `main`: the two Codex steps are approved but not built; the two context agents are built on a branch that has not merged."
    ],
    "sources": [
     "docs/review.md:130-140"
@@ -2261,8 +2276,8 @@ window.ATLAS = {
   }
  ],
  "build": {
-  "builtAt": "2026-10-01 17:15 UTC",
-  "commit": "c5803fb",
+  "builtAt": "2026-10-01 17:25 UTC",
+  "commit": "7aabd70",
   "kit": "1.0",
   "stale": {},
   "verified": {}
