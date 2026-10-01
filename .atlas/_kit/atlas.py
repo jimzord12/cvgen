@@ -100,15 +100,15 @@ def src_hash(root, s, cache):
                 with open(p, "rb") as f:
                     h = hashlib.sha1(f.read()).hexdigest()
         elif os.path.isdir(p):
-            listing = git(root, "ls-files", "-s", "--", key)
+            # a folder source vouches for what the folder holds, not every byte below it:
+            # hash only its direct children (tracked files and subfolders), so ordinary
+            # commits inside it do not mark the page stale
+            listing = git(p, "ls-files")  # relative to the folder: any spelling of it works
             if listing is None:
-                parts = []
-                for d, _, fs in sorted(os.walk(p)):
-                    for fn in sorted(fs):
-                        with open(os.path.join(d, fn), "rb") as f:
-                            parts.append(fn + hashlib.sha1(f.read()).hexdigest())
-                listing = "\n".join(parts)
-            h = "dir:" + hashlib.sha1(listing.encode()).hexdigest()
+                names = sorted(n for n in os.listdir(p) if not n.startswith("."))
+            else:  # git quotes unusual names; the quoted form is still stable
+                names = sorted({l.strip('"').split("/")[0] for l in listing.splitlines()})
+            h = "dir1:" + hashlib.sha1("\n".join(names).encode()).hexdigest()
     cache[key] = h
     return key, h
 
