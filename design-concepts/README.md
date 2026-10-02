@@ -48,6 +48,7 @@ he picked, `idea-run`, "What the owner gets, and what his answer does") as well 
 
 | Concept | Idea | Date | Status | PDF |
 |---|---|---|---|---|
+| Hanami Line | Travel & Tourism, Japan, tour escort: Flagship's skeleton with Stamp Rally's identity (torii-framed portrait, one cinnabar seal, route through the name plate, one upright eki stamp per Japan trip, manifest) and a real cherry branch per page. Second take on the owner's recalibration brief (he judged the first, Japan Passage, far weaker than Stamp Rally) | 2026-10-02 | proposed | spacious: [stylish, 2 pages](2026-10-02-hanami-line/spacious/stylish/spacious-stylish.pdf) |
 | Japan Passage | Travel & Tourism, Japan, tour escort: crafted Japanese journeys; Flagship discipline, selective travel identity and pale cherry margin artwork. One scoped Spacious Stylish concept per the owner's recalibration brief | 2026-10-02 | proposed | spacious: [stylish, 2 pages](2026-10-02-japan-passage/spacious/stylish/spacious-stylish.pdf) |
 | Measured in Months | The career drawn to scale: one bar per vessel, length = service months; marine and travel variants | 2026-09-25 | rejected (owner, 2026-09-27); removed in 7e9f619 | in Git history |
 | Feature Opener | The CV as a magazine feature opener: headline name, standfirst, contents list, pull-quote; marine and travel variants | 2026-09-25 | rejected (owner, 2026-09-27); removed in 7e9f619 | in Git history |
