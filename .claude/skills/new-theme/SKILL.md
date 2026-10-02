@@ -16,7 +16,7 @@ drawing.
    theme, set `name`, replace `colors`, `fonts` and any `sizes`.
 2. Every colour key must exist; `validate-theme` fails otherwise. Fonts must
    be one of the bundled family strings `Source Sans 3`, `Barlow`,
-   `Cormorant Garamond` or `Bona Nova` (the Barlow Condensed file registers as `Barlow`;
+   `Cormorant Garamond`, `Bona Nova`, `Sofia Sans`, `M PLUS 1p` or `Kaisei Tokumin` (the Barlow Condensed file registers as `Barlow`;
    check with `typst fonts --font-path packages/cv-framework/fonts`). An unknown name prints
    `warning: unknown font family` and substitutes; the suite does not catch it.
 3. If the theme changes secondary SVG hues, add the hex values to
