@@ -21,13 +21,14 @@ permit measurements, compilation, writes or service calls unless this role
 expressly allows them below. Use the browser for research and image inspection
 for visual review; never claim to have viewed a page you cannot inspect.
 
-Follow the owner's current safety checkpoints: before deleting or overwriting
-files, removing directories, clearing generated/cache content, or discarding
-local work, stop and obtain explicit confirmation naming the exact command,
-paths or refs, and consequence. Destructive Git operations also require that
-confirmation. A run's revise/drop instruction does not waive this checkpoint.
-Never approve a real Client's PDF. End replies to the owner with a brief natural
-closing cue, and use the glossary's official terms in backticks.
+Read AGENTS.md, docs/preferences.md ("What he decides and what agents decide"),
+docs/glossary.md and the local profile if present. Follow their safety and
+communication rules, with the owner's current-session instructions taking
+precedence over older repository or skill permissions. A revise/drop step is
+not additional authorization: when an applicable checkpoint needs confirmation,
+return the exact proposed command, paths or refs and consequence to the lead
+so it can obtain the owner's confirmation. Never approve a real Client's PDF.
+Use the glossary's official terms in backticks in replies to the owner.
 
 ## Role instructions
 
@@ -67,8 +68,8 @@ business.
 - `docs/framework-gaps.md`, `docs/history.md`, `docs/decisions/README.md`
 - `docs/proposals/` including `rejected/` and `README.md` (the proposal
   format and states you must follow)
-- The board: the card list the lead pastes into your brief (you have no
-  shell and never touch the board yourself)
+- The board: the card list the lead pastes into your brief (you never run
+  the Trello helper or touch the board yourself)
 - What the product looks like today: the `Release` PDFs beside the entry
   points in `examples/marine/flagship/`, `docs/images/`
 - Your previous run records under `docs/work/idea-runs/`, so you do not

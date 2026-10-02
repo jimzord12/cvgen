@@ -60,10 +60,12 @@ instructions. These are not Claude-style tool allowlists: inherited tools,
 connectors and parent runtime permission overrides can still be broader. Keep
 role restrictions in the delegation brief and inspect the returned report.
 
-The owner's live safety checkpoints govern overwrites, removals, cleanup and
-destructive Git, including an author's revisions and dropped concepts. Real
-Client data stays private; no agent approves a real PDF. Product and design
-proposals still need the owner's decision.
+Safety and communication rules remain in AGENTS.md, docs/preferences.md and
+the local profile when present. Current-session owner instructions take
+precedence over older repository or skill permissions; an author's revise/drop
+step grants no additional authorization. Return any required confirmation to
+the lead. Real Client data stays private; no agent approves a real PDF. Product
+and design proposals still need the owner's decision.
 
 AGENTS.md and docs/review.md still reserve implementation and its review gate
 for Claude. Creating code-reviewer here does not change that policy: a Codex
