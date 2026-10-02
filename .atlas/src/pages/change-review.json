@@ -1,0 +1,263 @@
+{
+  "id": "change-review",
+  "kind": "flow",
+  "nav": "A change",
+  "title": "How any change lands",
+  "question": "When Claude changes something, what happens before it is on main?",
+  "summary": "Every change, code or docs or design, goes through an independent review by a fresh agent before it is called done. Routine Git is the agents' job; a short list of irreversible things stays yours.",
+  "tldr": [
+    "Each session starts from the `session-handoff` card on the Trello board and ends by rewriting it after a `Session Sweep`.",
+    "Build, prove it with `tests/run.py`, then a fresh reviewer per round: `code-reviewer` for code and, on `main`, everything else; `design-reviewer` for looks. A `context-reviewer` for agent rules is built on a branch, not merged.",
+    "Fix every Blocking and Material finding; stop at PASS or after 5 rounds (10 unattended). Then merge, push and watch CI."
+  ],
+  "sources": [
+    "docs/development.md",
+    "docs/review.md",
+    "docs/git-workflow.md"
+  ],
+  "status": {
+    "step": "fix",
+    "asOf": "2026-10-01",
+    "paused": true,
+    "waitingOn": [
+      "owner"
+    ],
+    "title": "codex-visual-tools: two reviews open, set aside",
+    "note": "Both reports on that branch are FINDINGS and stay open for the next session working on it. On 2026-10-01 you set your pending decisions aside, including whether to merge the two context agents now (Claude's recommendation) and park the Codex build. The board's handoff card predates the last changes on `main` (board read 2026-10-01).",
+    "move": "Decide: merge the context agents now, or keep that branch parked",
+    "ref": "board: session-handoff"
+  },
+  "phases": [
+    {
+      "id": "start",
+      "title": "Start",
+      "steps": [
+        {
+          "id": "orient",
+          "title": "The session starts from the handoff card",
+          "actor": "lead",
+          "with": [
+            "board"
+          ],
+          "summary": "Claude reads AGENTS.md, your preferences, then the `session-handoff` card, and checks it against Git and the evidence.",
+          "does": [
+            "Gives you a four-line briefing: Goal, Now, Next, You.",
+            "Separates an approved design from built behaviour, and old checks from current proof."
+          ],
+          "uses": [
+            "trello"
+          ],
+          "sources": [
+            "docs/development.md:34-56",
+            "AGENTS.md:35-44"
+          ]
+        },
+        {
+          "id": "card",
+          "title": "A card for the task",
+          "actor": "lead",
+          "with": [
+            "board"
+          ],
+          "summary": "The card is the task record: outcome, acceptance, plan, result and evidence, review, handoff.",
+          "does": [
+            "Lists: Queued → Active → Review → Ready → Done. A red Blocked label when stuck.",
+            "Ready is not Done: Done means on its branch, pushed, CI green, evidence recorded."
+          ],
+          "uses": [
+            "trello"
+          ],
+          "sources": [
+            "docs/development.md:17-32",
+            "docs/development.md:124-184"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "build",
+      "title": "Build",
+      "steps": [
+        {
+          "id": "branch",
+          "title": "A branch, or straight to main",
+          "actor": "lead",
+          "summary": "Small verified fixes and docs may go straight to `main`. Features and anything uncertain get a `<type>/<topic>` branch, often in a worktree. No pull requests.",
+          "sources": [
+            "docs/git-workflow.md:21-33",
+            "docs/git-workflow.md:61-65"
+          ]
+        },
+        {
+          "id": "build",
+          "title": "Build it and prove it",
+          "actor": "lead",
+          "summary": "Understand the seam first, then change it, then run the full suite. A visual change also needs a rendered page.",
+          "does": [
+            "Evidence goes to a new `builds/tests-<timestamp>/` folder; nothing is overwritten.",
+            "Going around a component? It gets a `Framework Gap` entry before \"done\"."
+          ],
+          "cmd": [
+            "python tests/run.py"
+          ],
+          "uses": [
+            "verify-cv",
+            "suite"
+          ],
+          "sources": [
+            "AGENTS.md",
+            ".claude/skills/verify-cv/SKILL.md:10-17"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "review",
+      "title": "Review",
+      "steps": [
+        {
+          "id": "review",
+          "title": "Independent review",
+          "actor": "code-reviewer",
+          "with": [
+            "design-reviewer",
+            "context-reviewer"
+          ],
+          "summary": "A fresh agent that never saw the work judges the exact snapshot. Which reviewer depends on what changed.",
+          "does": [
+            "Code, tests, fixtures, and on `main` every change no other gate covers: `code-reviewer`.",
+            "Looks: CV pages, brand assets, `Flagship` changes: `design-reviewer`.",
+            "Agent context (AGENTS.md, rules, glossary, skills): on `main` still `code-reviewer`. A `context-reviewer` exists on branch `docs/codex-visual-tools` (not merged); a general-purpose stand-in acting as it has reviewed recent doc changes.",
+            "Eight lenses, from product fit to repository hygiene. Findings are Blocking, Material, Minor or Note."
+          ],
+          "gate": {
+            "type": "review",
+            "label": "Verdict PASS, FINDINGS or INCOMPLETE (never treated as PASS).",
+            "pass": "no open Blocking or Material",
+            "cap": "5 rounds with you around, 10 unattended"
+          },
+          "out": [
+            "`docs/work/<task>/reviews/NN.md`, stored unchanged"
+          ],
+          "uses": [
+            "code-reviewer",
+            "design-reviewer",
+            "context-reviewer"
+          ],
+          "note": "Only spelling, comments, formatting or a glossary row skip the round, and record-keeping commits (storing reports, merging reviewed work).",
+          "sources": [
+            "docs/review.md:7-59",
+            "docs/review.md:76-96",
+            "docs/review.md:152-171",
+            "git:docs/codex-visual-tools:docs/review.md",
+            "docs/work/anti-examples/reviews/01-context.md"
+          ]
+        },
+        {
+          "id": "fix",
+          "title": "Fix Blocking and Material",
+          "actor": "lead",
+          "summary": "Each report is kept word for word with the lead's dispositions beside it. Blocking and Material get fixed; the checks run again.",
+          "loop": {
+            "to": "review",
+            "label": "A fresh reviewer, given every earlier report",
+            "short": "max 5 rounds · 10 unattended",
+            "cap": "At the cap the task stays unresolved and comes to you; more rounds need your decision."
+          },
+          "does": [
+            "Minor: fix it or record why it waits. Notes do not block.",
+            "Renaming the task never resets the round count."
+          ],
+          "sources": [
+            "docs/review.md:175-201"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "land",
+      "title": "Land",
+      "steps": [
+        {
+          "id": "merge",
+          "title": "Merge, push, watch CI",
+          "actor": "lead",
+          "with": [
+            "github-ci"
+          ],
+          "summary": "Merging into `main` is routine and the agents' job. `main` must always be releasable.",
+          "does": [
+            "Required checks before the push, then `gh run watch` until CI is green.",
+            "Then the card moves to Done with its evidence."
+          ],
+          "cmd": [
+            "gh run list --commit <sha>",
+            "gh run watch <run-id>"
+          ],
+          "note": "Yours only, with the exact command shown first, including: deleting or force-pushing `main`, rewriting its published history, `archive/*` tags, repo settings, deleting under `private/` or `.local/` or outside the repo, removing revisions, approvals, exports or portraits, replacing the `Release`.",
+          "sources": [
+            "docs/git-workflow.md:66-79",
+            "docs/preferences.md:52-77",
+            ".github/workflows/verify.yml"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "close",
+      "title": "Close",
+      "steps": [
+        {
+          "id": "sweep",
+          "title": "Session Sweep",
+          "actor": "lead",
+          "summary": "Before stopping, Claude looks in fixed places for loose ends: a list of places to look, never a list of what is open.",
+          "does": [
+            "Reviews: every commit on `main` since the card's sha has a report or is trivial.",
+            "Proposals marked `approved` but not applied; cards in Active, Review, Ready or Blocked.",
+            "Night Shift follow-ups, Git leftovers, CI on `main`, old `builds/` folders.",
+            "Repo health: `/repo-maintenance quick`, a few seconds.",
+            "`Atlas`: `atlas.py check`; a stale or unverified page is re-checked against its sources."
+          ],
+          "uses": [
+            "repo-maintenance",
+            "night-shift"
+          ],
+          "sources": [
+            "docs/development.md:58-92"
+          ]
+        },
+        {
+          "id": "handoff",
+          "title": "Rewrite the handoff card",
+          "actor": "lead",
+          "with": [
+            "board"
+          ],
+          "summary": "The next session starts here: written date, `Main at` sha, where things stand, next steps, your parked decisions, pitfalls.",
+          "uses": [
+            "trello"
+          ],
+          "sources": [
+            "docs/development.md:93-104"
+          ]
+        },
+        {
+          "id": "report",
+          "title": "You get the report",
+          "actor": "owner",
+          "summary": "A short verbal report and, for finished work, an HTML page. Decisions that need you are named.",
+          "you": "Read it, use the product, answer the parked decisions when you are ready.",
+          "gate": {
+            "type": "owner",
+            "label": "Product decisions and real-client approvals stay yours."
+          },
+          "sources": [
+            "docs/preferences.md:49-51",
+            "docs/preferences.md:83"
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,331 @@
+{
+  "id": "design-run",
+  "kind": "flow",
+  "nav": "Design run",
+  "title": "A design run: 18 designs to your pick",
+  "question": "We drew 18 designs. What happens next, who reviews them, on which model?",
+  "summary": "The `idea-run` skill in its design form. One author draws, two kinds of reviewer judge in closed loops, and only you decide. Nothing is built, approved or put on the roadmap without you. The two `Densities` (18 designs) are the 2026-09-29 run's change: they sit on its branch and reach `main` when the run merges.",
+  "tldr": [
+    "The `magazine-editor` draws 3 `Styles` × 2 `Densities` × 3 `Design Tiers` = 18 Typst mock-ups on fictional data.",
+    "Two gates, each a fresh Opus-high reviewer per round: research first, then design, until PASS (cap 5 with you around, 10 unattended). Your own look in the `Design Review` app is optional, any time.",
+    "You get a short message with every passed style; your answer becomes `chosen`, `parked`, `rejected` or an `Anti-example`."
+  ],
+  "sources": [
+    "git:docs/idea-run-2026-09-29-editor:.claude/skills/idea-run/SKILL.md",
+    "git:docs/idea-run-2026-09-29-editor:.claude/agents/magazine-editor.md",
+    "git:docs/idea-run-2026-09-29-editor:.claude/agents/design-reviewer.md"
+  ],
+  "status": {
+    "step": "research-gate",
+    "asOf": "2026-10-01",
+    "title": "Run 2026-09-29: 18 drawn; Claude runs the research gate next",
+    "note": "Travel & Tourism, Japan, tour leader. Three styles: Woodblock Road, Stamp Rally, Concourse. All 18 are stamped `proposed`; neither gate has run. Your look in the app is optional; you said you would give verdicts later.",
+    "waitingOn": [
+      "lead"
+    ],
+    "ref": "branch docs/idea-run-2026-09-29-editor"
+  },
+  "phases": [
+    {
+      "id": "setup",
+      "title": "Set up",
+      "steps": [
+        {
+          "id": "ask",
+          "title": "You ask for designs",
+          "actor": "owner",
+          "with": [
+            "lead"
+          ],
+          "summary": "For a client whose `Domain` has no `Template` yet, or when you want inspiration.",
+          "you": "Say which `Domain`, specialty and role the pages must shout, and how many pages Spacious may use (1 to 3).",
+          "does": [
+            "The lead loads the `idea-run` skill.",
+            "A product-ideas run works the same way with `ceo` and `ceo-reviewer` instead; weekly at most."
+          ],
+          "uses": [
+            "idea-run"
+          ],
+          "sources": [
+            "git:docs/idea-run-2026-09-29-editor:.claude/skills/idea-run/SKILL.md:8-21",
+            "git:docs/idea-run-2026-09-29-editor:.claude/skills/idea-run/SKILL.md:36-42"
+          ]
+        },
+        {
+          "id": "branch",
+          "title": "A branch and a run record",
+          "actor": "lead",
+          "summary": "Every run lives on its own branch with one record of the brief, the rounds, the verdicts and what reached you.",
+          "out": [
+            "Branch `docs/idea-run-<date>-editor`",
+            "`docs/work/idea-runs/<date>-editor/run.md`"
+          ],
+          "sources": [
+            ".claude/skills/idea-run/SKILL.md:32-35"
+          ]
+        },
+        {
+          "id": "brief",
+          "title": "The brief",
+          "actor": "lead",
+          "summary": "One steer for the author and the very same steer for every reviewer. Never any client data.",
+          "does": [
+            "Names the `Domain`, specialty and role the page must shout.",
+            "Never bans domain imagery; gives the Spacious page count.",
+            "The lead keeps the author's agent id, so revisions go back to the same author with its memory."
+          ],
+          "sources": [
+            "git:docs/idea-run-2026-09-29-editor:.claude/skills/idea-run/SKILL.md:36-49"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "draw",
+      "title": "Draw",
+      "steps": [
+        {
+          "id": "draw",
+          "title": "Draw the 18 designs",
+          "actor": "magazine-editor",
+          "summary": "Three very distinct `Styles`, each drawn Condensed (one dense page) and Spacious (1 to 3 pages), each in Safe, Stylish and Creative.",
+          "does": [
+            "Studies the vision, the glossary, the `Anti-examples` (never repeat their idea), the design studies and the `Flagship`.",
+            "Builds each Style's folder in `design-concepts/` with a brief, fictional sample data, a portrait when the idea needs one, and every PDF with its PNG pages.",
+            "At most two open-licence font families per Style. Never touches the engine, examples, tests, archive or `private/`.",
+            "Stamps every PDF `proposed` so it shows up in the `Design Review` app."
+          ],
+          "out": [
+            "`design-concepts/<date>-<slug>/condensed/<tier>/…`",
+            "`…/spacious/<tier>/…`",
+            "18 `Meta Files`, status `proposed`"
+          ],
+          "cmd": [
+            "python scripts/outputs.py stamp <pdf> status=proposed producedBy=magazine-editor"
+          ],
+          "uses": [
+            "magazine-editor",
+            "outputs-py"
+          ],
+          "sources": [
+            "git:docs/idea-run-2026-09-29-editor:.claude/agents/magazine-editor.md:50-82",
+            "git:docs/idea-run-2026-09-29-editor:.claude/agents/magazine-editor.md:88-209",
+            "git:docs/idea-run-2026-09-29-editor:design-concepts/README.md"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "look",
+      "title": "Your look",
+      "steps": [
+        {
+          "id": "own-look",
+          "title": "Your own look",
+          "actor": "owner",
+          "summary": "Any time, before or after the gates: the Board shows the run as Style × Density × Tier, the Loupe one design full size, plus a `Batch Test` pile. Nothing waits for it.",
+          "you": "Start the app, go through the 18, mark each keep, maybe or reject, star favourites, write notes. Agents read your verdicts from there.",
+          "cmd": [
+            {
+              "cmd": "python scripts/design_review/server.py",
+              "who": "you",
+              "note": "Then open http://127.0.0.1:8765/"
+            }
+          ],
+          "out": [
+            "`.local/design-review/state.json` (your verdicts)"
+          ],
+          "uses": [
+            "design-review-app"
+          ],
+          "note": "The `idea-run` skill does not place this look at a fixed point in the loop; it is your tool, usable before or after the gates.",
+          "sources": [
+            "scripts/design_review/server.py:1-12",
+            "AGENTS.md",
+            "docs/glossary.md"
+          ],
+          "optional": true
+        }
+      ]
+    },
+    {
+      "id": "gates",
+      "title": "AI gates",
+      "steps": [
+        {
+          "id": "research-gate",
+          "title": "Research gate",
+          "actor": "research-reviewer",
+          "summary": "Every reference a Style rests on is checked: it exists, it is current, it says what is claimed.",
+          "gate": {
+            "type": "review",
+            "label": "Fresh research-reviewer each round, given every earlier report.",
+            "pass": "PASS",
+            "cap": "5 rounds with you around, 10 unattended"
+          },
+          "loop": {
+            "to": "research-gate",
+            "label": "FINDINGS: the author fixes the brief, then a fresh reviewer",
+            "short": "max 5 rounds · 10 unattended"
+          },
+          "does": [
+            "Blocking: a load-bearing claim unsourced, misquoted, dead, stale, or opinion stated as fact."
+          ],
+          "out": [
+            "`reviews/NN-research-reviewer.md`"
+          ],
+          "uses": [
+            "research-reviewer"
+          ],
+          "sources": [
+            "git:docs/idea-run-2026-09-29-editor:.claude/skills/idea-run/SKILL.md:50-56",
+            ".claude/agents/research-reviewer.md:31-59"
+          ]
+        },
+        {
+          "id": "design-gate",
+          "title": "Design gate",
+          "actor": "design-reviewer",
+          "with": [
+            "codex-reviewer"
+          ],
+          "summary": "Every page judged on the three business tests first, then craft. Any of the first three failing is Blocking, however well made.",
+          "does": [
+            "Makes batch sheets: each page shrunk among 8+ plain market CVs, to judge the `Batch Test` honestly.",
+            "Rubric: 1 `Batch Test`, 2 `Three-Second Test`, 3 `Flagship Parity`, 4 distinct, 5 reads as a CV, 6 craft, 7 provenance, 8 buildable.",
+            "Also Blocking: a run whose Styles are not very distinct, or a Style repeating an `Anti-example`'s idea.",
+            "Planned: the Codex reviewer (GPT-6 Astra, high) looks at the same pages; a round passes only when both pass."
+          ],
+          "gate": {
+            "type": "review",
+            "label": "Fresh design-reviewer each round (plus the Codex reviewer once built).",
+            "pass": "PASS from every reviewer",
+            "cap": "5 attended, 10 unattended. You set 10 for the 2026-09-29 run."
+          },
+          "out": [
+            "`reviews/NN-design-reviewer.md`"
+          ],
+          "uses": [
+            "design-reviewer",
+            "codex-reviewer"
+          ],
+          "sources": [
+            "git:docs/idea-run-2026-09-29-editor:.claude/skills/idea-run/SKILL.md:57-65",
+            "git:docs/idea-run-2026-09-29-editor:.claude/agents/design-reviewer.md:44-133",
+            "git:docs/codex-visual-tools:docs/proposals/codex-visual-tools.md"
+          ]
+        },
+        {
+          "id": "revise",
+          "title": "The author revises",
+          "actor": "magazine-editor",
+          "summary": "Every Blocking finding is fixed in the page and re-rendered, or argued with evidence. A Style that cannot be saved is replaced: a run always ends with three.",
+          "loop": {
+            "to": "design-gate",
+            "label": "Back to a fresh design-reviewer",
+            "short": "next round",
+            "cap": "At the cap, the Style reaches you marked `unresolved` with the last reason."
+          },
+          "does": [
+            "Notes (taste, polish) are optional.",
+            "After a PASS: a new sourced claim goes back to the research gate; a change to the Style's idea or to what you decide on goes back to the design gate; layout, typos or sample data need only a lead check noted in `run.md`."
+          ],
+          "sources": [
+            "git:docs/idea-run-2026-09-29-editor:.claude/agents/magazine-editor.md:211-219",
+            "git:docs/idea-run-2026-09-29-editor:.claude/skills/idea-run/SKILL.md:66-71"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "decide",
+      "title": "Your decision",
+      "steps": [
+        {
+          "id": "integrate",
+          "title": "Integrate",
+          "actor": "lead",
+          "summary": "The passed run goes to `main`. Designs stay `proposed` until you answer.",
+          "does": [
+            "`outputs.py check` must pass: every PDF in its home with a valid `Meta File`.",
+            "Commit, merge to `main`, push: routine, no approval needed.",
+            "Any new glossary terms the author used are added by the lead."
+          ],
+          "cmd": [
+            "python scripts/outputs.py check"
+          ],
+          "uses": [
+            "outputs-py"
+          ],
+          "sources": [
+            "git:docs/idea-run-2026-09-29-editor:.claude/skills/idea-run/SKILL.md:73-85",
+            "docs/review.md:48-59"
+          ]
+        },
+        {
+          "id": "message",
+          "title": "You get a short message",
+          "actor": "lead",
+          "with": [
+            "owner"
+          ],
+          "summary": "Each Style's three-word idea with its six PDFs, anything dropped or `unresolved`, and how many rounds each gate took.",
+          "does": [
+            "Styles still waiting for your answer are listed on the handoff card."
+          ],
+          "sources": [
+            "git:docs/idea-run-2026-09-29-editor:.claude/skills/idea-run/SKILL.md:114-122"
+          ]
+        },
+        {
+          "id": "decide",
+          "title": "You decide each Style",
+          "actor": "owner",
+          "summary": "Your answer becomes the Style's state, written into its `Meta Files` so the app shows it.",
+          "you": "For each Style: build it (say which `Design Tier` and `Density`), later, reject, or \"not my style\".",
+          "gate": {
+            "type": "owner",
+            "label": "Build it → `chosen` · Later → `parked` · Reject → `rejected` · Not my style, keep it → `Anti-example`. No answer: stays `proposed`."
+          },
+          "sources": [
+            "git:docs/idea-run-2026-09-29-editor:.claude/skills/idea-run/SKILL.md:122-134",
+            "docs/pdf-workflow.md:125"
+          ]
+        },
+        {
+          "id": "restamp",
+          "title": "States are recorded",
+          "actor": "lead",
+          "summary": "A dated decision line in the concepts README, and the new state re-stamped into the designs' `Meta Files`.",
+          "does": [
+            "`chosen`: only the picked tier's PDFs are re-stamped.",
+            "`rejected`: the folder is removed (Git keeps it) and unused fonts go.",
+            "`Anti-example`: moves to `archive/anti-examples/` with its fonts and your reason."
+          ],
+          "cmd": [
+            "python scripts/outputs.py stamp <pdf> status=chosen"
+          ],
+          "sources": [
+            "git:docs/idea-run-2026-09-29-editor:.claude/skills/idea-run/SKILL.md:122-134",
+            "git:docs/idea-run-2026-09-29-editor:design-concepts/README.md:44-47",
+            "archive/anti-examples/README.md"
+          ]
+        },
+        {
+          "id": "follows",
+          "title": "What follows",
+          "actor": "lead",
+          "summary": "A chosen Style becomes either a `Template` card on the board or the client's own CV.",
+          "does": [
+            "For a client: the one-off design is built and reviewed in their `Envelope`: [[client-journey#build-cv]].",
+            "A concept becomes a `Template` only after you keep it and a build task is agreed."
+          ],
+          "sources": [
+            "git:docs/idea-run-2026-09-29-editor:.claude/skills/idea-run/SKILL.md:129-134",
+            "git:docs/idea-run-2026-09-29-editor:design-concepts/README.md:3-6"
+          ]
+        }
+      ]
+    }
+  ]
+}

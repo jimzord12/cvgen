@@ -81,6 +81,7 @@ owner afterwards.
 | `Density` | How much room a `Style`'s design takes (not a `Layout`), one of two: Condensed (one dense A4 page) or Spacious (the same `Style`, `Design Tier` and facts with more room: larger type, more air, bigger artwork; 1 to 3 pages as the person's facts need, every page carrying the `Style`, never a plain continuation sheet). A run draws 3 `Style`s × 2 `Density`s × 3 `Design Tier`s = 18 designs; a client's design is picked by `Style`, `Design Tier` and `Density` | `condensed/` and `spacious/` in a concept folder; `.claude/agents/magazine-editor.md` | 2026-09-29, owner |
 | `Design Review` | The owner's local app for looking through designs and recording his verdicts: the Board shows a run in its `Style` × `Density` × `Design Tier` shape, the Loupe one design at full size; it shows only PDFs with a valid `Meta File`; his verdicts and notes are in `.local/design-review/state.json` | `scripts/design_review/` | 2026-09-29 |
 | `Idea Run` | One closed loop of an idea agent (ceo or magazine-editor) and its reviewers | `.claude/skills/idea-run/`, `docs/work/idea-runs/` | 2026-09-25 |
+| `Atlas` | The repository's picture book of how it works: interactive pages for the flows (a Map and a Walk through), the parts and who does the work, each step citing its sources, marked stale when they change. Never the source of a rule | `.atlas/` (`src/` facts, `_kit/` shared renderer and `atlas.py`); the owner's personal `/atlas` skill (outside this repository) | 2026-10-01, owner |
 
 ## Words with two meanings
 
