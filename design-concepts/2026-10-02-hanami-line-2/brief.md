@@ -9,8 +9,9 @@ One-design run 2026-10-02 (magazine-editor). `Domain` Travel & Tourism; specialt
 |---|---|---|
 | `spacious/stylish/spacious-stylish.pdf` (main) | **Soft**: dusty sakura band, aubergine type and line art, cinnabar seals, rose-gold numbers | Hanami Line 2 |
 | `concept-indigo.pdf` | v1's **indigo**, with every v2 change applied: the palettes can be compared with everything else equal | Hanami Line 2 indigo (variant `indigo`, density spacious, tier stylish) |
+| `concept-blue.pdf` | **Light blue** (owner's third variation): a mizu-iro sky band, navy type and line art, the same cinnabar and gold | Hanami Line 2 blue (variant `blue`, density spacious, tier stylish) |
 
-Both come from one source, `hanami.typ` (`render("soft")` / `render("indigo")`). The entry points are `spacious/stylish/spacious-stylish.typ` and `concept-indigo.typ`. The indigo PDF sits at the concept root because the `Output Contract` accepts only `safe`, `stylish` and `creative` as tier folders, so a `stylish-indigo/` folder would fail `scripts/outputs.py check`.
+All three come from one source, `hanami.typ` (`render("soft")`, `render("indigo")`, `render("blue")`). The entry points are `spacious/stylish/spacious-stylish.typ`, `concept-indigo.typ` and `concept-blue.typ`. The indigo and blue PDFs sit at the concept root because the `Output Contract` accepts only `safe`, `stylish` and `creative` as tier folders, so a `stylish-indigo/` folder would fail `scripts/outputs.py check`.
 
 ## What the owner should notice first
 
@@ -63,19 +64,37 @@ The soft palette: a dusty sakura band (`#dea1ae`) with a lighter bloom behind th
 - D5: the metrics are centred in four equal cells.
 - Nits: the nuki is shortened and the page-2 Fuji (38 mm) clears it; en dashes inside Barlow figures (years, date column) are set in Source Sans so they read as dashes; the Fuji sun is a single soft disc with a faint halo; the seasons icon is now one clean mark (a blossom in a ring, four season points); the Fuji body is tinted indigo-grey on indigo (a separate tone token).
 
+**Owner review of v2, done (round 3):**
+1. **Portrait ring:** now a gold ring (2.1 pt) with a warm soft glow, built from eleven stacked translucent discs (vector, prints cleanly). The halo is softer on indigo. Both solid seals get a thin cream outline. Gold and cinnabar were compared side by side on the pink band, and **gold was chosen** for all three palettes: a cinnabar ring merges with the cinnabar 日本 seal sitting on it and competes with the ΑΡΧΗΓΟΣ tab, while gold pairs with both and lifts the portrait on pink, blue and indigo alike.
+2. **Page-1 seigaiha:** one continuous band, full width, under the bloom, running behind the name plate and its shadow. Its top row is complete arcs (centres one radius below the edge), so the band ends in a clean scalloped line with no cut arcs or vertical cuts.
+3. **Route:** on both pages the plane's centre axis and the dotted line sit on the middle of the ATH/TYO cap height, measured in Typst rather than placed by eye. At 300 dpi the plane, dots and TYO centres agree within 1 px (about 0.1 mm).
+4. **Distant petals restored:** about a quarter of the petals (23 of 97) are distant ones: 1.45–1.8× larger or 3.4–4.8 mm, rounder, 45–60 % opacity and blurred with a Gaussian blur. The rest are crisp. Their blur keeps a 2.2 mm reach beyond their size, clear of text and small labels; a few drift off the page edge. 0 collisions with text on all three PDFs.
+5. **Page-2 seigaiha:** **kept, softened**. It now has complete top scallops and a gradient mask that fades its right half to nothing before the travellers, so there is no hard vertical cut. It reads as a quiet sea under the name, which was worth keeping; removing it would leave the left half of the band flat against the page-1 band.
+6. **Third palette, light blue:** tokens below. Band text measures 7.8:1 and band labels 6.0:1.
+
+**Reviewer leftovers, done:**
+- Petals no longer bead along the profile rule: three drift across it, off the line.
+- The last three words of every bullet hold together, so "ρυοκάν." is never alone.
+- Page 1 was lifted 1.2 mm from the profile down and the experience gaps trimmed; the last line now ends about 7 mm above the footer rule.
+- The page-2 right-margin run beside section 03 is thinned.
+- The escort seal now reads ΣΥΝΟΔΟΣ · 6 ΟΜΑΔΕΣ · 162 ΘΕΣΕΙΣ.
+- The indigo sun is warm cream-brass, and the indigo paper labels are `#7a5d29` (5.4:1).
+
 ## Palette tokens
 
-| Token | Soft | Indigo |
-|---|---|---|
-| Band / bloom | `#dea1ae` / `#f3d0d5` (radial, behind the portrait) | `#1e2852` / none |
-| Text and line art on the band | `#2a1f3d` / `#3a2c55` | `#fbf7ee` / `#c4a265` |
-| Labels on the band (5.4:1 on the band) | `#5a2840` | `#c4a265` |
-| Paper / ink / muted | `#faf6ef` / `#231f38` / `#625d72` | `#f8f4ea` / `#1b2036` / `#5d6377` |
-| Section numbers, hairlines, plate keyline | rose-gold `#b5835e` | brass `#c4a265` |
-| Field labels, icons | `#8a5f3e` | `#8f7037` |
-| Dates, rules, table header, metrics strip | `#3a2c55`, `#2e2448` | `#28356a`, `#1e2852` |
-| Cinnabar (seals, stamps, plane, tab, day counts, the Japan manifest row; never text on the pink band) | `#c23a2b` | `#c23a2b` (lightened on the band) |
-| Sakura on the band | white-pink petals, aubergine bark at 42 % | warm pink petals at 100 % (flying) and 82 % (canopy) |
+| Token | Soft | Indigo | Blue |
+|---|---|---|---|
+| Band / bloom | `#dea1ae` / `#f3d0d5` (radial, behind the portrait) | `#1e2852` / none | `#9cc2de` / `#d9e9f4` |
+| Text and line art on the band | `#2a1f3d` / `#3a2c55` | `#fbf7ee` / `#c4a265` | `#13284a` / `#1f3562` |
+| Labels on the band | `#5a2840` (5.4:1) | `#c4a265` | `#1d3a66` (6.0:1) |
+| Paper / ink / muted | `#faf6ef` / `#231f38` / `#625d72` | `#f8f4ea` / `#1b2036` / `#5d6377` | `#faf6ee` / `#1b2238` / `#5b6274` |
+| Section numbers, hairlines, plate keyline | rose-gold `#b5835e` | brass `#c4a265` | soft gold `#b08a4c` |
+| Field labels, icons | `#8a5f3e` (5.2:1) | `#7a5d29` (5.4:1) | `#75582a` (6.1:1) |
+| Dates, rules, table header, metrics strip | `#3a2c55`, `#2e2448` | `#28356a`, `#1e2852` | `#1f3562`, `#1c3157` |
+| Cinnabar (seals, stamps, plane, tab, day counts, the Japan manifest row; never text on a light band) | `#c23a2b` | `#c23a2b` (lightened on the band) | `#c23a2b` |
+| Sakura on the band | white-pink petals, aubergine bark at 42 % | warm pink petals at 100 % (flying) and 82 % (canopy) | white-pink petals, navy bark at 38 % |
+| Portrait ring / glow | gold `#a77a2c` / cream `#fff1d6` | gold `#d9b46a` / `#f1d79c` (softer) | gold `#a77a2c` / cream `#fff3d8` |
+| Sun behind Fuji | `#fbf3ef` | warm `#e8cf98` | `#fbf0d6` |
 
 ## `Three-Second Test` (each page alone)
 
@@ -92,7 +111,7 @@ The soft palette: a dusty sakura band (`#dea1ae`) with a lighter bloom behind th
 | `torii.svg`, `fuji.svg`, `group.svg`, `plane.svg` | Band line art |
 | `stamp-torii`, `-book`, `-maple`, `-snow`, `-flag`, `-fuji.svg` | Single-ink stamp drawings (40 × 40) |
 | `icon-seasons`, `-flag`, `-check`, `-calendar.svg` | Profile icons (24 × 24) |
-| `bg-seigaiha`, `-shinkansen`, `-lanterns`, `-fan`, `-pagoda.svg` | Pale background pieces |
+| `bg-seigaiha-band`, `bg-seigaiha-p2`, `bg-shinkansen`, `bg-lanterns`, `bg-fan`, `bg-pagoda.svg` | Pale background pieces: the continuous page-1 sea, the faded page-2 strip, and four paper pieces |
 
 Colours are tokens (listed in the generator's docstring) that `hanami.typ` swaps per palette and per ground.
 
@@ -121,5 +140,6 @@ The v1 list (hero band with a portrait frame slot, route plate, eki stamp, stamp
 - The petal keep-outs are copied by hand from the page plan. Moving a block without regenerating the petals could put petals near text; the collision check catches it.
 - A light band stands out less in a batch than the indigo one. The soft version passes through its contrast, artwork and red seal, but the indigo variant is still the louder of the two.
 - Page 2's band is calmer than page 1's.
-- The PDFs are about 435 KB each, with the portrait as the only raster; the petals, blossoms and stamps are many vector paths.
+- The PDFs are about 620 KB each (under 1 MB). The 23 distant petals are blurred, and the PDF writer rasterizes each blur locally; everything else is vector apart from the portrait.
+- The light-blue band, like the pink, stands out less in a batch than indigo. Navy type, the gold ring and the red seal carry it.
 - The background pieces are simple shapes on purpose; at 7 % they give depth but are not meant to be read.

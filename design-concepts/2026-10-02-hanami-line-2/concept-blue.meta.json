@@ -1,9 +1,9 @@
 {
-  "variant": "indigo",
+  "variant": "blue",
   "domain": "travel",
   "candidate": "\u039c\u03ac\u03c1\u03ba\u03bf\u03c2 \u0397\u03bb\u03b9\u03ac\u03b4\u03b7\u03c2",
   "rank": "Tour Leader",
-  "style": "Hanami Line 2 indigo",
+  "style": "Hanami Line 2 blue",
   "idea": "travel, Japan, blossom",
   "status": "proposed",
   "producedBy": "magazine-editor",
@@ -13,5 +13,5 @@
   "date": "2026-10-02",
   "contract": "cvgen.output/1",
   "pages": 2,
-  "sha256": "be472ba6019879f1e7a479999544a89558f8018b3a95e9c971e00a1ba0b23f61"
+  "sha256": "dfb8126d284f3b6f621d2da68ad431818e8b7ab37d6cd458e1cbcc6b05fa6428"
 }

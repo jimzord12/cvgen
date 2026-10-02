@@ -1,6 +1,6 @@
-// Hanami Line 2: the shared design, one source for both palettes (magazine-editor, 2026-10-02).
-// Entry points: spacious/stylish/spacious-stylish.typ (soft, the main design) and
-// concept-indigo.typ (the same page in v1's indigo). Fictional data: sample.json.
+// Hanami Line 2: the shared design, one source for three palettes (magazine-editor, 2026-10-02).
+// Entry points: spacious/stylish/spacious-stylish.typ (soft pink, the main design),
+// concept-indigo.typ (v1's indigo) and concept-blue.typ (light blue). Fictional data: sample.json.
 // Artwork: assets/ (assets/make_assets.py writes every SVG; colours are tokens swapped here).
 // Paths below resolve relative to this file.
 
@@ -19,6 +19,7 @@
     dark: rgb("2e2448"), on-dark: rgb("fbf3ef"), dark-label: rgb("eab2bd"),
     shu: rgb("c23a2b"), shu-hero: rgb("c23a2b"), shu-soft: rgb("5a2840"), tone: rgb("3a2c55"),
     seigaiha: 0.12, art-fill: 0.14,
+    ring: rgb("a77a2c"), ring-glow: rgb("fff1d6"), glow-a: 94%, sun: rgb("fbf3ef"),
     s-hero: (bark: rgb("3a2c55"), petal: rgb("fff3f3"), deep: rgb("f6c6ce"), edge: rgb("c97b8f"), heart: rgb("a8405e"), anther: rgb("e2b14e"), lent: rgb("ffffff"), kb: 0.42, kp: 0.95),
     s-paper: (bark: rgb("5e4a55"), petal: rgb("f6d2da"), deep: rgb("e595aa"), edge: rgb("d4869c"), heart: rgb("b0405f"), anther: rgb("e0b04c"), lent: rgb("ffffff"), kb: 0.28, kp: 0.78),
     s-fly: none,
@@ -30,13 +31,30 @@
     hero-text: rgb("fbf7ee"), hero-label: rgb("c4a265"), hero-line: rgb("c4a265"), cap: rgb("fbf7ee"),
     plate: rgb("fffcf4"), keyline: rgb("c4a265"), shadow: rgb("0e1430"),
     paper: rgb("f8f4ea"), ink: rgb("1b2036"), muted: rgb("5d6377"), wash: rgb("efe8d9"), rule: rgb("dcd2bd"),
-    num: rgb("c4a265"), label: rgb("8f7037"), date: rgb("28356a"), icon: rgb("8f7037"),
+    num: rgb("c4a265"), label: rgb("7a5d29"), date: rgb("28356a"), icon: rgb("7a5d29"),
     dark: rgb("1e2852"), on-dark: rgb("fbf7ee"), dark-label: rgb("c4a265"),
     shu: rgb("c23a2b"), shu-hero: rgb("d65445"), shu-soft: rgb("f2907a"), tone: rgb("9aa4cf"),
     seigaiha: 0.1, art-fill: 0.07,
+    ring: rgb("d9b46a"), ring-glow: rgb("f1d79c"), glow-a: 96.4%, sun: rgb("e8cf98"),
     s-hero: (bark: rgb("eadad8"), petal: rgb("ffe4e0"), deep: rgb("ffbcb8"), edge: rgb("f3a3ae"), heart: rgb("e98a8f"), anther: rgb("f0c66a"), lent: rgb("ffffff"), kb: 0.3, kp: 0.82),
     s-paper: (bark: rgb("5e4a55"), petal: rgb("f6d2da"), deep: rgb("e595aa"), edge: rgb("d4869c"), heart: rgb("b0405f"), anther: rgb("e0b04c"), lent: rgb("ffffff"), kb: 0.28, kp: 0.78),
     s-fly: (bark: rgb("eadad8"), petal: rgb("ffe2dd"), deep: rgb("ffb8b4"), edge: rgb("f7a9b2"), heart: rgb("e98a8f"), anther: rgb("f0c66a"), lent: rgb("ffffff"), kb: 0.3, kp: 1.0),
+    bg-k: 0.07,
+  ),
+  blue: (
+    name: "blue",
+    hero: rgb("9cc2de"), glow: rgb("d9e9f4"),       // mizu-iro sky band, a lighter bloom behind the portrait
+    hero-text: rgb("13284a"), hero-label: rgb("1d3a66"), hero-line: rgb("1f3562"), cap: rgb("f7f9fc"),
+    plate: rgb("fffbf4"), keyline: rgb("b08a4c"), shadow: rgb("13284a"),
+    paper: rgb("faf6ee"), ink: rgb("1b2238"), muted: rgb("5b6274"), wash: rgb("efe9de"), rule: rgb("ddd4c4"),
+    num: rgb("b08a4c"), label: rgb("75582a"), date: rgb("1f3562"), icon: rgb("75582a"),
+    dark: rgb("1c3157"), on-dark: rgb("f7f9fc"), dark-label: rgb("9cc2de"),
+    shu: rgb("c23a2b"), shu-hero: rgb("c23a2b"), shu-soft: rgb("1d3a66"), tone: rgb("1f3562"),
+    seigaiha: 0.13, art-fill: 0.12,
+    ring: rgb("a77a2c"), ring-glow: rgb("fff3d8"), glow-a: 94%, sun: rgb("fbf0d6"),
+    s-hero: (bark: rgb("1f3562"), petal: rgb("fff1f3"), deep: rgb("f6c2cc"), edge: rgb("c97b8f"), heart: rgb("a8405e"), anther: rgb("e2b14e"), lent: rgb("ffffff"), kb: 0.38, kp: 0.95),
+    s-paper: (bark: rgb("5e4a55"), petal: rgb("f6d2da"), deep: rgb("e595aa"), edge: rgb("d4869c"), heart: rgb("b0405f"), anther: rgb("e0b04c"), lent: rgb("ffffff"), kb: 0.28, kp: 0.78),
+    s-fly: none,
     bg-k: 0.07,
   ),
 )
@@ -75,7 +93,7 @@
 )
 // line art on the band
 #let line-art(P, band: none) = (
-  "#c9a86a": hex(P.hero-line), "#f3ead8": hex(P.cap), "#d2462f": hex(P.shu-hero), "#7f8fa6": hex(P.tone),
+  "#c9a86a": hex(P.hero-line), "#f3ead8": hex(P.cap), "#d2462f": hex(P.shu-hero), "#7f8fa6": hex(P.tone), "#f1dcae": hex(P.sun),
   "#0b0b0b": (if band == none { "none" } else { hex(band) }), "#fefefe": hex(if band == none { P.hero } else { band }),
   "fill-opacity='0.14'": "fill-opacity='" + str(P.art-fill) + "'",
 )
@@ -106,6 +124,7 @@
   let rr = size / 2 - size * 0.13
   let ring(r, t) = place(center + horizon, circle(radius: r * 1mm, fill: none, stroke: (paint: fg, thickness: t * 1mm)))
   box(width: S, height: S, {
+    if solid { place(center + horizon, circle(radius: S / 2 + size * 0.04 * 1mm, fill: ground, stroke: none)) }
     place(center + horizon, circle(radius: S / 2, fill: bg, stroke: none))
     ring(size / 2 - size * 0.025, size * 0.036)
     ring(size / 2 - size * 0.068, size * 0.009)
@@ -136,6 +155,11 @@
 )
 // figures in Barlow, with any en dash set in Source Sans so it reads as a dash, not a hyphen
 #let figs(s, size, fill) = s.split("–").map(x => text(font: num, size: size, fill: fill, x)).join(text(font: body-font, size: size * 0.9, weight: 600, fill: fill)[–])
+// the last three words of a bullet hold together, so no word is left alone on a line
+#let keep-end(s) = {
+  let w = s.split(" ")
+  if w.len() <= 4 { s } else { w.slice(0, -3).join(" ") + " " + w.slice(-3).join("\u{a0}") }
+}
 #let diamond(P) = box(baseline: -0.15em, rotate(45deg, rect(width: 1.25mm, height: 1.25mm, fill: P.num)))
 #let item(P, t) = grid(columns: (4mm, 1fr), diamond(P), t)
 
@@ -145,8 +169,9 @@
   at(x - s + 0.6mm, y + 2.2mm - s * 0.5, rect(width: w + 2 * s - 1.2mm, height: h + 2 * s - 0.8mm, radius: s + 0.6mm, fill: col.transparentize(98%)))
 }
 
-#let render(pal) = {
+#let render(pal, ring: auto) = {
   let P = palettes.at(pal)
+  if ring != auto { P.insert("ring", ring) }
   set page(paper: "a4", margin: 0mm, fill: P.paper)
   set text(font: body-font, size: 10.5pt, fill: P.ink, lang: "el")
   set par(leading: 0.6em, spacing: 0.6em)
@@ -157,12 +182,12 @@
   // =============================== PAGE 1 =========================================
   let BAND = 86mm
   at(0mm, 0mm, rect(width: 210mm, height: BAND, fill: P.hero))
+  // seigaiha: one continuous sea under the horizon, full width, complete scallops along its top;
+  // the name plate and its shadow sit on top of it
+  at(0mm, 63mm, art("bg-seigaiha-band.svg", width: 210mm, swaps: bg-band(P)))
   if P.glow != none {
     at(105mm - 75mm, 36mm - 52mm, ellipse(width: 150mm, height: 104mm, fill: gradient.radial((P.glow, 0%), (P.glow.transparentize(40%), 45%), (P.hero.transparentize(100%), 100%))))
   }
-  // seigaiha: the sea under the horizon, tone-on-tone, in both lower corners of the band
-  at(0mm, 63mm, box(width: 56mm, height: 23mm, clip: true, art("bg-seigaiha.svg", width: 60mm, swaps: bg-band(P))))
-  at(154mm, 63mm, box(width: 56mm, height: 23mm, clip: true, art("bg-seigaiha.svg", width: 60mm, swaps: bg-band(P))))
   // the cherry canopy along the band's top edge
   place(top + right, art("sakura-canopy.svg", width: 80mm, swaps: H))
 
@@ -172,8 +197,13 @@
   at(148mm, 62mm - 44mm * 26 / 56, art("fuji.svg", width: 44mm, swaps: line-art(P)))
 
   let PD = 42mm
-  at(105mm - PD / 2 - 2.6mm, 15mm - 2.6mm, circle(radius: PD / 2 + 2.6mm, fill: P.hero, stroke: 0.5pt + P.keyline))
-  at(105mm - PD / 2, 15mm, box(width: PD, height: PD, radius: 50%, clip: true, stroke: 1.4pt + P.keyline,
+  let RR = PD / 2 + 2.6mm
+  for i in range(11).rev() {
+    let r = RR + 0.6mm + i * 0.42mm
+    at(105mm - r, 36mm - r, circle(radius: r, fill: P.ring-glow.transparentize(P.glow-a), stroke: none))
+  }
+  at(105mm - RR, 36mm - RR, circle(radius: RR, fill: P.hero, stroke: 2.1pt + P.ring))
+  at(105mm - PD / 2, 15mm, box(width: PD, height: PD, radius: 50%, clip: true, stroke: 0.9pt + P.ring,
     image("portrait.jpg", width: PD, height: PD, fit: "cover")))
   at(116mm, 41mm, stamp(21, ("ΙΑΠΩΝΙΑ", str(trips.len()) + " ΤΑΞΙΔΙΑ", str(jdays) + " ΗΜΕΡΕΣ"), "fuji", "日本", ink: P.shu, ground: P.plate, solid: true, kanji-font: jpd))
   // petals in flight through the band (laid out clear of every line of text)
@@ -199,9 +229,13 @@
   // the route runs through the name plate
   at(16mm, 67.6mm, label("Από · Αθήνα", fill: P.hero-label))
   at(15.4mm, 70.2mm, text(font: num, size: 30pt, fill: P.hero-text)[ATH])
-  at(37mm, 79mm, line(length: 16mm, stroke: (paint: P.hero-line, thickness: 0.7pt, dash: (0.6pt, 2pt), cap: "round")))
-  at(157mm, 79mm, line(length: 10mm, stroke: (paint: P.hero-line, thickness: 0.7pt, dash: (0.6pt, 2pt), cap: "round")))
-  at(168mm, 75.6mm, art("plane.svg", width: 9mm, swaps: ("#d2462f": hex(P.shu-hero))))
+  context {
+    // the text box spans cap height to baseline, so its middle is the codes' optical centre
+    let ym = 70.2mm + measure(text(font: num, size: 30pt)[ATH]).height / 2
+    at(37mm, ym, line(length: 16mm, stroke: (paint: P.hero-line, thickness: 0.7pt, dash: (0.6pt, 2pt), cap: "round")))
+    at(157mm, ym, line(length: 10mm, stroke: (paint: P.hero-line, thickness: 0.7pt, dash: (0.6pt, 2pt), cap: "round")))
+    at(168mm, ym - 9mm * 12 / 24 / 2, art("plane.svg", width: 9mm, swaps: ("#d2462f": hex(P.shu-hero))))
+  }
   place(top + right, dx: -16mm, dy: 67.6mm, label("Προς · Τόκιο", fill: P.hero-label))
   place(top + right, dx: -15.6mm, dy: 70.2mm, text(font: num, size: 30pt, fill: P.hero-text)[TYO])
 
@@ -220,20 +254,20 @@
 
   // ---- the field ----------------------------------------------------------------
   at(0mm, BAND, art("petals-p1-field.svg", width: 210mm, swaps: W))
-  at(139mm, 136mm, art("bg-shinkansen.svg", width: 66mm, swaps: bg-paper(P)))
-  at(166mm, 212mm, art("bg-lanterns.svg", width: 26mm, swaps: bg-paper(P)))
+  at(139mm, 134.8mm, art("bg-shinkansen.svg", width: 66mm, swaps: bg-paper(P)))
+  at(166mm, 210.8mm, art("bg-lanterns.svg", width: 26mm, swaps: bg-paper(P)))
 
   // profile, structured: the lead statement, the offer, then four facts from the profile
-  at(16mm, 99.6mm, block(width: 112mm, {
+  at(16mm, 98.4mm, block(width: 112mm, {
     text(size: 15pt, weight: 600, fill: P.ink)[Αρχηγός-συνοδός με εξειδίκευση στην Ιαπωνία]
   }))
-  at(132mm, 96.8mm, slot("offer", 62mm, 13.4mm, block(stroke: (left: 1.6pt + P.shu), inset: (left: 3mm, y: 0.4mm), {
+  at(132mm, 95.6mm, slot("offer", 62mm, 13.4mm, block(stroke: (left: 1.6pt + P.shu), inset: (left: 3mm, y: 0.4mm), {
     set par(leading: 0.42em)
     label("Για τους πελάτες σας", fill: P.shu, size: 6.8pt, track: 1.1pt)
     linebreak()
     text(size: 8.8pt, d.offer)
   })))
-  at(16mm, 111mm, line(length: 178mm, stroke: 0.5pt + P.keyline.transparentize(30%)))
+  at(16mm, 109.8mm, line(length: 178mm, stroke: 0.5pt + P.keyline.transparentize(30%)))
   let cell(icon, title, body) = grid(columns: (8.6mm, 1fr), column-gutter: 2.2mm,
     pad(top: 0.2mm, art("icon-" + icon + ".svg", width: 8.6mm, swaps: ("#7a5a3a": hex(P.icon), "#fefefe": hex(P.paper)))),
     {
@@ -243,7 +277,7 @@
       text(size: 9.2pt, fill: P.muted, body)
     },
   )
-  at(16mm, 113.8mm, slot("profile cells", 178mm, 19mm, grid(columns: (1fr, 1fr, 1fr, 1fr), column-gutter: 4.4mm,
+  at(16mm, 112.6mm, slot("profile cells", 178mm, 19mm, grid(columns: (1fr, 1fr, 1fr, 1fr), column-gutter: 4.4mm,
     cell("seasons", "Όλες οι εποχές", [Ταξίδια σε όλες τις εποχές, σπουδές ιαπωνικών στη Φουκουόκα]),
     cell("flag", "Συν-αρχηγία", [Ομαδική εκδρομή στην Ιαπωνία, άνοιξη 2026]),
     cell("check", "Ακρίβεια", [Καταμετρήσεις, vouchers, καθημερινή αναφορά· ψύχραιμος στα απρόοπτα]),
@@ -251,8 +285,8 @@
   )))
 
   // 01 Japan, trip by trip
-  at(16mm, 136mm, heading(P, "01", "Η Ιαπωνία, ταξίδι προς ταξίδι", [Μία σφραγίδα για κάθε ταξίδι · #trips.len() ταξίδια · #jdays ημέρες στη χώρα · #trips.first().year–#trips.last().year]))
-  let SY = 153mm
+  at(16mm, 134.8mm, heading(P, "01", "Η Ιαπωνία, ταξίδι προς ταξίδι", [Μία σφραγίδα για κάθε ταξίδι · #trips.len() ταξίδια · #jdays ημέρες στη χώρα · #trips.first().year–#trips.last().year]))
+  let SY = 151.8mm
   let SD = 25
   let CW = 35.6mm
   at(16mm + SD / 2 * 1mm, SY + SD / 2 * 1mm, line(length: CW * 4, stroke: (paint: P.num, thickness: 0.7pt, dash: (0.6pt, 2.2pt), cap: "round")))
@@ -279,7 +313,7 @@
   }
 
   // 02 Experience
-  at(16mm, 214.5mm, heading(P, "02", "Επαγγελματική εμπειρία", [Συνοδεία ομάδων, προγράμματα Ιαπωνίας, φιλοξενία]))
+  at(16mm, 213.3mm, heading(P, "02", "Επαγγελματική εμπειρία", [Συνοδεία ομάδων, προγράμματα Ιαπωνίας, φιλοξενία]))
   let job(e) = grid(columns: (31mm, 1fr), column-gutter: 5mm,
     {
       set par(leading: 0.3em)
@@ -298,12 +332,12 @@
       linebreak()
       label(e.company, fill: P.label, size: 7.6pt, track: 1.4pt)
       v(0.2mm)
-      for p in e.points { block(above: 2.4mm, below: 0mm, item(P, p)) }
+      for p in e.points { block(above: 2.4mm, below: 0mm, item(P, keep-end(p))) }
     }),
   )
-  at(16mm, 230.5mm, slot("experience", 178mm, 52.2mm, {
+  at(16mm, 228.5mm, slot("experience", 178mm, 52.2mm, {
     job(d.experience.at(0))
-    v(4.2mm)
+    v(3.0mm)
     job(d.experience.at(1))
   }))
   at(16mm, 284mm, line(length: 178mm, stroke: 0.4pt + P.rule))
@@ -315,7 +349,7 @@
   // =============================== PAGE 2 =========================================
   let BAND2 = 46mm
   at(0mm, 0mm, rect(width: 210mm, height: BAND2, fill: P.hero))
-  at(0mm, 38mm, box(width: 100mm, height: 8mm, clip: true, art("bg-seigaiha.svg", width: 100mm, swaps: bg-band(P))))
+  at(0mm, 38mm, art("bg-seigaiha-p2.svg", width: 100mm, swaps: bg-band(P)))
   at(0mm, 0mm, art("petals-p2-hero.svg", width: 210mm, swaps: FH))
   at(16mm, 10.5mm, block(width: 92mm, {
     set par(leading: 0.5em)
@@ -331,21 +365,26 @@
     v(1.2mm)
     text(size: 9pt, fill: P.hero-text)[#d.contact.phone #h(1.6mm) · #h(1.6mm) #d.contact.email \ #d.contact.city #h(1.6mm) · #h(1.6mm) #d.contact.link]
   }))
-  at(84mm, 7.4mm, stamp(17, ("ΑΡΧΗΓΟΣ", str(groups.len()) + " ΟΜΑΔΕΣ", str(gpax) + " ΘΕΣΕΙΣ"), "flag", "添乗員", ink: P.shu, ground: P.plate, solid: true, kanji-size: 4.6pt))
+  at(84mm, 7.4mm, stamp(17, ("ΣΥΝΟΔΟΣ", str(groups.len()) + " ΟΜΑΔΕΣ", str(gpax) + " ΘΕΣΕΙΣ"), "flag", "添乗員", ink: P.shu, ground: P.plate, solid: true, kanji-size: 4.6pt))
   let HZ = 41mm
   at(103mm, HZ, line(length: 91mm, stroke: 0.45pt + P.hero-line.transparentize(35%)))
   at(158mm, HZ - 38mm * 26 / 56, art("fuji.svg", width: 38mm, swaps: line-art(P, band: P.hero)))
   at(144.6mm, HZ - 28mm * 58 / 80, art("torii.svg", width: 28mm, swaps: line-art(P, band: P.hero)))
   at(101mm, HZ - 46mm * 23 / 56, art("group.svg", width: 46mm, swaps: line-art(P)))
-  place(top + right, dx: -16mm, dy: 5.4mm, {
-    text(font: num, size: 19pt, fill: P.hero-text)[ATH]
-    h(1.8mm)
-    box(baseline: -1.2mm, line(length: 12mm, stroke: (paint: P.hero-line, thickness: 0.8pt, dash: (0.6pt, 2.2pt), cap: "round")))
-    h(1.2mm)
-    box(baseline: 0.2mm, art("plane.svg", width: 7.6mm, swaps: ("#d2462f": hex(P.shu-hero))))
-    h(1.8mm)
-    text(font: num, size: 19pt, fill: P.hero-text)[TYO]
-  })
+  context {
+    // the page-2 route, right-aligned to the margin, centred on the codes' cap height
+    let ath = text(font: num, size: 19pt, fill: P.hero-text)[ATH]
+    let tyo = text(font: num, size: 19pt, fill: P.hero-text)[TYO]
+    let y0 = 5.4mm
+    let ym = y0 + measure(tyo).height / 2
+    let xt = 194mm - measure(tyo).width
+    let xp = xt - 1.8mm - 7.6mm
+    let xl = xp - 1.2mm - 12mm
+    at(xt, y0, tyo)
+    at(xp, ym - 7.6mm * 12 / 24 / 2, art("plane.svg", width: 7.6mm, swaps: ("#d2462f": hex(P.shu-hero))))
+    at(xl, ym, line(length: 12mm, stroke: (paint: P.hero-line, thickness: 0.8pt, dash: (0.6pt, 2.2pt), cap: "round")))
+    at(xl - 1.8mm - measure(ath).width, y0, ath)
+  }
 
   // the field: the page-2 branch 2 mm under the band (frame 90 x 20 mm, 6 mm clear of the table)
   at(120mm, BAND2 + 2mm, art("sakura-field-2.svg", width: 90mm, swaps: W))
