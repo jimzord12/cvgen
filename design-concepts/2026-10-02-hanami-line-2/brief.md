@@ -21,7 +21,7 @@ The soft palette: a dusty sakura band (`#dea1ae`) with a lighter bloom behind th
 1. **Nature.**
    - Kept: the band canopy and the page-2 branch. The page-2 branch now has a closed top, sits 2 mm under the band and is 6 mm clear of the table header.
    - Removed: the page-1 branch beside section 01.
-   - Added: petals in flight on both pages (92 in total). They follow wind trails (cubic paths), vary in size, rotation, foreshortening, skew and opacity, about 14 % are soft-focus (`feGaussianBlur`), and some ride in tiny clusters.
+   - Added: petals in flight on both pages (51 on page 1, 40 on page 2). They follow wind trails (cubic paths) and vary in size, rotation, foreshortening, skew and opacity. All are crisp: about 14 % are simply fainter, with no blur, so nothing is rasterised. Some ride in tiny clusters. Each page is laid out once and split at the band edge, so trails cross the edge without a petal being sliced. The margins are thinned to irregular drift, and trails cross the open gaps: along the profile rule, between the stamps and section 02, between sections 04 and 05, under the lists, and across both band edges.
    - They avoid every text block by construction: the generator works from keep-out rectangles copied from the page plan. A check (`builds/hanami-scratch/petalcheck.py`) parses every petal and every text span in the PDF and finds 0 collisions on both PDFs.
 2. **Depth.** Five pale background pieces, one calm layer, never behind text or the table:
    - seigaiha waves, tone-on-tone, as the sea under the horizon in both lower corners of the page-1 band and along the page-2 band;
@@ -55,18 +55,26 @@ The soft palette: a dusty sakura band (`#dea1ae`) with a lighter bloom behind th
 
 **Kept as liked:** the hero composition, the torii around the portrait, the stamp row, the breathing room (no spacing was tightened; every slot still asserts its height and fails loudly), the manifest, the metrics strip, the numbered sections, the date column.
 
+**Round 1 review, done:**
+- D4: the page-2 "Ιαπωνία 日本" on the soft band is now in the band's label ink, with only a small cinnabar dot (cinnabar text on the pink measured 2.5:1).
+- D3: band labels deepened to `#5a2840` (5.4:1).
+- D1: blur dropped.
+- D2: petals re-laid out (see note 1).
+- D5: the metrics are centred in four equal cells.
+- Nits: the nuki is shortened and the page-2 Fuji (38 mm) clears it; en dashes inside Barlow figures (years, date column) are set in Source Sans so they read as dashes; the Fuji sun is a single soft disc with a faint halo; the seasons icon is now one clean mark (a blossom in a ring, four season points); the Fuji body is tinted indigo-grey on indigo (a separate tone token).
+
 ## Palette tokens
 
 | Token | Soft | Indigo |
 |---|---|---|
 | Band / bloom | `#dea1ae` / `#f3d0d5` (radial, behind the portrait) | `#1e2852` / none |
 | Text and line art on the band | `#2a1f3d` / `#3a2c55` | `#fbf7ee` / `#c4a265` |
-| Labels on the band | `#6e3450` | `#c4a265` |
+| Labels on the band (5.4:1 on the band) | `#5a2840` | `#c4a265` |
 | Paper / ink / muted | `#faf6ef` / `#231f38` / `#625d72` | `#f8f4ea` / `#1b2036` / `#5d6377` |
 | Section numbers, hairlines, plate keyline | rose-gold `#b5835e` | brass `#c4a265` |
 | Field labels, icons | `#8a5f3e` | `#8f7037` |
 | Dates, rules, table header, metrics strip | `#3a2c55`, `#2e2448` | `#28356a`, `#1e2852` |
-| Cinnabar (seals, stamps, plane, tab, day counts, the Japan manifest row) | `#c23a2b` | `#c23a2b` (lightened on the band) |
+| Cinnabar (seals, stamps, plane, tab, day counts, the Japan manifest row; never text on the pink band) | `#c23a2b` | `#c23a2b` (lightened on the band) |
 | Sakura on the band | white-pink petals, aubergine bark at 42 % | warm pink petals at 100 % (flying) and 82 % (canopy) |
 
 ## `Three-Second Test` (each page alone)
@@ -113,5 +121,5 @@ The v1 list (hero band with a portrait frame slot, route plate, eki stamp, stamp
 - The petal keep-outs are copied by hand from the page plan. Moving a block without regenerating the petals could put petals near text; the collision check catches it.
 - A light band stands out less in a batch than the indigo one. The soft version passes through its contrast, artwork and red seal, but the indigo variant is still the louder of the two.
 - Page 2's band is calmer than page 1's.
-- The soft-focus petals are rasterized by the PDF writer, so the PDFs grew to about 465 KB each (still under 1 MB).
+- The PDFs are about 435 KB each, with the portrait as the only raster; the petals, blossoms and stamps are many vector paths.
 - The background pieces are simple shapes on purpose; at 7 % they give depth but are not meant to be read.

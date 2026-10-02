@@ -23,14 +23,14 @@ import random
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 
-LINE, CAP, ACC, BAND = "#c9a86a", "#f3ead8", "#d2462f", "#0b0b0b"
+LINE, CAP, ACC, BAND, TONE = "#c9a86a", "#f3ead8", "#d2462f", "#0b0b0b", "#7f8fa6"
 INK, GROUND, ICON = "#c23a2b", "#fefefe", "#7a5a3a"
 BARK, PETAL, DEEP, EDGE, HEART, ANTHER, LENT = "#5e4a55", "#f6d2da", "#e595aa", "#d4869c", "#b0405f", "#e0b04c", "#f6efe2"
 BGF, BGS = "#bbbbbb", "#999999"
 
 PETAL_DEFS = (f"<defs><linearGradient id='pg' x1='0' y1='1' x2='0' y2='0'>"
               f"<stop offset='0' stop-color='{DEEP}'/><stop offset='0.55' stop-color='{PETAL}'/><stop offset='1' stop-color='{PETAL}'/></linearGradient>"
-              f"<filter id='soft' x='-60%' y='-60%' width='220%' height='220%'><feGaussianBlur stdDeviation='0.45'/></filter></defs>")
+              f"</defs>")
 
 
 def f(x):
@@ -103,7 +103,7 @@ def bud(x, y, r, ang):
 
 
 def flying_petal(x, y, r, rot, squash, skew, opacity, soft):
-    flt = " filter='url(#soft)'" if soft else ""
+    flt = ""   # crisp petals only: soft ones are simply fainter (no blur, nothing rasterised)
     return (f"<g transform='translate({f(x)},{f(y)}) rotate({f(rot)}) skewX({f(skew)}) scale(1,{f(squash)})' opacity='{f(opacity)}'{flt}>"
             f"<path d='{petal_path(r, notch=0.3)}' transform='translate(0,{f(r*0.5)})' fill='url(#pg)' stroke='{EDGE}' stroke-width='{f(0.035*r)}'/>"
             f"<path d='M0,{f(r*0.42)} Q{f(r*0.12)},{f(-r*0.05)} 0,{f(-r*0.3)}' fill='none' stroke='{EDGE}' stroke-opacity='0.5' stroke-width='{f(0.05*r)}'/></g>")
@@ -252,57 +252,60 @@ def window_svg(name, seed, start, ang, length, w0, window, open_edges, depth=2, 
 
 
 # ------------------------------------------------------- petals in flight --
-def petal_overlay(name, region, keepouts, trails, scatter, seed):
-    """Petals drifting in page coordinates (mm) inside `region` (x0, y0, x1, y1).
+def page_petals(prefix, band, keepouts, trails, scatter, seed, page=(210, 297)):
+    """Petals drifting over one page, laid out once in page coordinates (mm) and split
+    at the band edge into <prefix>-hero.svg (on the band) and <prefix>-field.svg (on
+    paper), so a trail can cross the edge without any petal being sliced.
     trails: (p0, p1, p2, p3, count, r_start, r_end) cubic paths the wind carries them along.
-    scatter: number of loose petals placed at random. Nothing lands in a keep-out."""
+    scatter: loose petals placed at random in the open areas. Nothing lands in a keep-out."""
     rng = random.Random(seed)
-    x0, y0, x1, y1 = region
+    W, H = page
     placed = []
 
     def free(x, y, r):
-        if not (x0 + r < x < x1 - r and y0 + r < y < y1 - r):
+        if not (r < x < W - r and r < y < H - r) or abs(y - band) < r * 1.15:
             return False
         for (a, b, c, d) in keepouts:
             if a - r < x < c + r and b - r < y < d + r:
                 return False
-        return all(math.hypot(x - px, y - py) > (r + pr) * 1.15 for px, py, pr in placed)
+        return all(math.hypot(x - px, y - py) > (r + pr) * 1.25 for px, py, pr, _ in placed)
 
     def bez(p0, p1, p2, p3, t):
         u = 1 - t
         return tuple(u**3 * a + 3 * u * u * t * b + 3 * u * t * t * c + t**3 * d for a, b, c, d in zip(p0, p1, p2, p3))
 
-    body = ""
     def put(x, y, r, heading):
-        nonlocal body
         if not free(x, y, r):
             return False
-        placed.append((x, y, r))
         soft = rng.random() < 0.14
-        body += flying_petal(x, y, r, heading + rng.uniform(-80, 80), rng.uniform(0.45, 1.0), rng.uniform(-14, 14),
-                             rng.uniform(0.5, 0.95) * (0.75 if soft else 1), soft)
+        placed.append((x, y, r, flying_petal(x, y, r, heading + rng.uniform(-80, 80), rng.uniform(0.45, 1.0), rng.uniform(-14, 14),
+                                             rng.uniform(0.55, 0.95) * (0.5 if soft else 1), soft)))
         return True
 
     for (p0, p1, p2, p3, count, ra, rb) in trails:
-        ts = sorted(rng.uniform(0, 1) for _ in range(count))
-        for t in ts:
+        for t in sorted(rng.uniform(0, 1) for _ in range(count)):
             x, y = bez(p0, p1, p2, p3, t)
             x2, y2 = bez(p0, p1, p2, p3, min(1, t + 0.01))
             heading = math.degrees(math.atan2(y2 - y, x2 - x)) + 90
-            r = ra + (rb - ra) * t
-            r *= rng.uniform(0.75, 1.2)
-            jx, jy = rng.uniform(-3.0, 3.0), rng.uniform(-3.0, 3.0)
-            if put(x + jx, y + jy, r, heading) and rng.random() < 0.16:
-                for _ in range(rng.choice([1, 2])):   # a tiny cluster riding together
-                    put(x + jx + rng.uniform(-2.4, 2.4), y + jy + rng.uniform(-2.4, 2.4), r * rng.uniform(0.6, 0.85), heading)
-    tries = 0
-    n = 0
-    while n < scatter and tries < 4000:
+            r = (ra + (rb - ra) * t) * rng.uniform(0.78, 1.18)
+            for attempt in range(8):          # nudge across the wind until it lands in the open
+                j = 0.4 + attempt * 0.45      # start close to the path, so narrow gaps still get their petals
+                jx, jy = rng.uniform(-3.0, 3.0), rng.uniform(-j, j)
+                if put(x + jx, y + jy, r, heading):
+                    if rng.random() < 0.16:   # a tiny cluster riding together
+                        for _ in range(rng.choice([1, 2])):
+                            put(x + jx + rng.uniform(-2.6, 2.6), y + jy + rng.uniform(-2.6, 2.6), r * rng.uniform(0.6, 0.85), heading)
+                    break
+    n, tries = 0, 0
+    while n < scatter and tries < 6000:
         tries += 1
-        if put(rng.uniform(x0, x1), rng.uniform(y0, y1), rng.uniform(1.5, 2.6), rng.uniform(0, 360)):
+        if put(rng.uniform(0, W), rng.uniform(0, H), rng.uniform(1.5, 2.6), rng.uniform(0, 360)):
             n += 1
-    print(f"{name}: {len(placed)} petals")
-    write(name, PETAL_DEFS + body, f"{x0} {y0} {x1-x0} {y1-y0}")
+    hero = [s for x, y, r, s in placed if y < band]
+    field = [s for x, y, r, s in placed if y > band]
+    print(f"{prefix}: {len(placed)} petals ({len(hero)} on the band)")
+    write(f"{prefix}-hero.svg", PETAL_DEFS + "".join(hero), f"0 0 {W} {band}")
+    write(f"{prefix}-field.svg", PETAL_DEFS + "".join(field), f"0 {band} {W} {H - band}")
 
 
 # ====================================================== hero line drawings ===
@@ -322,7 +325,7 @@ def torii(name, w=80, h=58, sw=0.5):
     # gakuzuka: central strut with a tablet
     parts.append(f"M{f(c-3.2)},12.6 L{f(c+3.2)},12.6 L{f(c+3.2)},19.4 L{f(c-3.2)},19.4 Z")
     # nuki: tie beam running through and past the posts
-    parts.append(f"M3.4,19.4 L{f(w-3.4)},19.4 L{f(w-3.4)},22.6 L3.4,22.6 Z")
+    parts.append(f"M6.4,19.4 L{f(w-6.4)},19.4 L{f(w-6.4)},22.6 L6.4,22.6 Z")
     for side in (-1, 1):
         top_c = c + side * (c - 14.6)      # post centre at the top
         bot_c = c + side * (c - 13.2)      # wider at the foot (uchikorobi)
@@ -351,13 +354,13 @@ def fuji(name, sw=0.45):
     S = f" stroke='{LINE}' stroke-width='{f(sw)}' stroke-linecap='round' stroke-linejoin='round'"
     s = "<g id='art'>"
     # a subtle sun
-    s += f"<circle cx='42.5' cy='7.2' r='4.6' fill='{LINE}' fill-opacity='0.16'{S}/>"
-    s += f"<circle cx='42.5' cy='7.2' r='3.3' fill='none' stroke='{LINE}' stroke-width='{f(sw*0.5)}' stroke-opacity='0.6'/>"
+    s += f"<circle cx='42.5' cy='7.2' r='6.6' fill='{CAP}' fill-opacity='0.16'/>"
+    s += f"<circle cx='42.5' cy='7.2' r='4.4' fill='{CAP}' fill-opacity='0.72'/>"
     body = "M0.6,25.4 C9,24 16.5,19.6 22.4,6.2 L33.6,6.2 C39.5,19.6 47,24 55.4,25.4 Z"
-    s += f"<path d='{body}' fill='{BAND}'/><path d='{body}' fill='{LINE}' fill-opacity='0.12'{S}/>"
+    s += f"<path d='{body}' fill='{BAND}'/><path d='{body}' fill='{TONE}' fill-opacity='0.12'{S}/>"
     # strata: two lower bands, a little deeper
-    s += f"<path d='M4.6,24.9 C11,23.2 15.6,20.6 18.6,16.4 C22,18.6 27,17.2 30.6,19.2 C34.4,17.4 37.4,18.8 40.6,17.6 C43.4,21 48,23.4 51.4,24.9 Z' fill='{LINE}' fill-opacity='0.14'/>"
-    s += f"<path d='M8.6,25.4 C13,24.2 16.4,22.6 18.8,21 C23,22.6 27.4,21.6 31.4,23 C35.4,21.6 39.6,22.6 43,21.4 C45.2,23 48.4,24.4 50.6,25.4 Z' fill='{LINE}' fill-opacity='0.16'/>"
+    s += f"<path d='M4.6,24.9 C11,23.2 15.6,20.6 18.6,16.4 C22,18.6 27,17.2 30.6,19.2 C34.4,17.4 37.4,18.8 40.6,17.6 C43.4,21 48,23.4 51.4,24.9 Z' fill='{TONE}' fill-opacity='0.14'/>"
+    s += f"<path d='M8.6,25.4 C13,24.2 16.4,22.6 18.8,21 C23,22.6 27.4,21.6 31.4,23 C35.4,21.6 39.6,22.6 43,21.4 C45.2,23 48.4,24.4 50.6,25.4 Z' fill='{TONE}' fill-opacity='0.16'/>"
     # snow cap: uneven tongues running down the gullies
     cap = ("M22.4,6.2 L33.6,6.2 C34.5,8.3 35.4,10.1 36.4,11.7 L35.3,11.2 L34.6,13.6 L33.5,11.4 L32.5,15.6 L31.2,11.9 "
            "L29.9,14.4 L28.9,11.5 L27.8,16.2 L26.6,11.9 L25.3,13.4 L24.4,11.4 L23.0,12.9 L21.8,11.6 L19.9,12.4 "
@@ -564,12 +567,10 @@ def icons():
     F = f" fill='{ICON}'"
     out = {
         # all seasons: a blossom, a sun ray, a leaf and a flake around one circle
-        "seasons": ("".join(f"<path d='{petal_path(3.3, 0.7)}' transform='translate(6.2,6.2) rotate({a})'{F}/>" for a in range(0, 360, 72))
-                    + f"<circle cx='6.2' cy='6.2' r='0.8' fill='{GROUND}'/>"
-                    + f"<circle cx='17.8' cy='6.2' r='2.6'{F}/>"
-                    + "".join(f"<path d='M{f(17.8+3.7*math.cos(math.radians(a)))},{f(6.2+3.7*math.sin(math.radians(a)))} L{f(17.8+5.2*math.cos(math.radians(a)))},{f(6.2+5.2*math.sin(math.radians(a)))}'{W(1.4)}/>" for a in range(0, 360, 45))
-                    + f"<g transform='translate(6.2,17.6) scale(1.35) translate(-6.4,-17.1)'><path d='M6.4,12.6 L7.5,15.4 L10.4,14.6 L8.8,17.0 L10.6,19.2 L7.6,18.8 L6.4,21.6 L5.2,18.8 L2.2,19.2 L4.0,17.0 L2.4,14.6 L5.3,15.4 Z'{F}/></g>"
-                    + "".join(f"<path d='M{f(17.8-4.4*math.cos(math.radians(a)))},{f(17.8-4.4*math.sin(math.radians(a)))} L{f(17.8+4.4*math.cos(math.radians(a)))},{f(17.8+4.4*math.sin(math.radians(a)))}'{W(1.6)}/>" for a in (90, 30, 150))),
+        "seasons": (f"<circle cx='12' cy='12' r='9.6'{W(1.5)}/>"
+                    + "".join(f"<circle cx='{f(12+9.6*math.cos(math.radians(a)))}' cy='{f(12+9.6*math.sin(math.radians(a)))}' r='1.5'{F}/>" for a in (-90, 0, 90, 180))
+                    + "".join(f"<path d='{petal_path(4.6, 0.8)}' transform='translate(12,12) rotate({a})'{F}/>" for a in range(0, 360, 72))
+                    + f"<circle cx='12' cy='12' r='1.1' fill='{GROUND}'/>"),
         # co-leading: the leader's flag over two travellers
         "flag": (f"<path d='M17.4,2.2 L17.4,21.6'{W(1.6)}/><path d='M17.4,2.4 L23.4,4.6 L17.4,7.6 Z'{F}/>"
                  + f"<circle cx='5.6' cy='11.4' r='2.2'{F}/><path d='M2.0,22 C2.0,16.6 3.4,14.4 5.6,14.4 C7.8,14.4 9.2,16.6 9.2,22 Z'{F}/>"
@@ -654,39 +655,35 @@ if __name__ == "__main__":
     window_svg("sakura-canopy.svg", 1141, (84, 2), math.radians(177), 60, 3.4, (0, 0, 80, 16), {"top", "right"}, min_blossoms=11)
     window_svg("sakura-field-2.svg", 4248, (92, 6), math.radians(176), 70, 4.0, (0, 0, 90, 20), {"right"}, min_blossoms=11)
 
-    # Petals in flight, page coordinates (mm). Keep-outs mirror the page plan in hanami.typ.
-    p1_hero_keep = [(14, 15, 63, 41), (142, 15, 196, 41), (80, 9, 131, 61), (113, 39, 139, 64), (16, 40, 66, 63),
-                    (146, 38, 195, 63), (13, 64, 57, 86), (153, 64, 197, 86), (53, 59, 157, 96)]
-    petal_overlay("petals-p1-hero.svg", (0, 0, 210, 86), p1_hero_keep,
-                  [((178, 9), (150, 2), (110, 18), (60, 6), 22, 3.0, 2.2),       # off the canopy, across the top
-                   ((204, 14), (209, 36), (196, 60), (205, 85), 7, 2.8, 2.4),   # down the right edge
-                   ((66, 14), (74, 24), (64, 34), (72, 44), 5, 2.4, 2.0),       # into the gap by the left post
-                   ((8, 6), (2, 30), (11, 50), (4, 84), 6, 2.2, 2.6)],
-                  scatter=3, seed=11)
-    p1_field_keep = [(53, 59, 157, 96), (15, 96, 195, 133), (15, 134, 140, 152), (15, 151, 195, 213), (15, 214, 137, 231),
-                     (15, 230, 195, 283), (15, 283, 195, 292),
-                     (137, 134, 208, 151)]   # the Shinkansen keeps its own room
-    petal_overlay("petals-p1-field.svg", (0, 86, 210, 297), p1_field_keep,
-                  [((203, 86), (210, 140), (194, 190), (205, 296), 16, 3.0, 2.0),
-                   ((205, 200), (190, 206), (160, 214), (140, 226), 8, 2.6, 1.8),
-                   ((10, 88), (2, 150), (13, 220), (5, 295), 14, 2.8, 1.9),
-                   ((60, 96), (40, 92), (24, 98), (8, 104), 4, 2.4, 2.0)],
-                  scatter=4, seed=23)
-    p2_hero_keep = [(14, 6, 104, 39), (147, 3, 197, 15), (100, 16, 197, 46), (0, 38, 104, 46)]
-    petal_overlay("petals-p2-hero.svg", (0, 0, 210, 46), p2_hero_keep,
-                  [((150, 6), (136, 0), (118, 14), (100, 6), 11, 2.8, 2.0),
-                   ((204, 4), (209, 20), (198, 32), (205, 46), 5, 2.6, 2.2),
-                   ((6, 4), (2, 20), (10, 30), (4, 44), 4, 2.2, 2.4)],
-                  scatter=2, seed=31)
-    p2_field_keep = [(15, 55, 116, 73), (119, 47, 210, 69), (15, 73, 195, 148), (15, 152, 151, 170), (15, 169, 119, 229),
-                     (121, 169, 197, 229), (15, 226, 151, 245), (15, 245, 195, 283), (15, 283, 195, 292),
-                     (158, 149, 196, 169), (166, 223, 192, 245)]  # fan and pagoda keep their room
-    petal_overlay("petals-p2-field.svg", (0, 46, 210, 297), p2_field_keep,
-                  [((200, 70), (209, 140), (194, 210), (205, 296), 16, 2.9, 1.9),
-                   ((205, 150), (196, 150), (170, 148), (152, 150), 5, 2.4, 1.8),
-                   ((12, 50), (2, 130), (13, 210), (5, 295), 14, 2.7, 1.9),
-                   ((119, 72), (100, 70), (60, 72), (20, 72), 4, 2.2, 1.8)],
-                  scatter=4, seed=47)
+    # Petals in flight, page coordinates (mm). Keep-outs mirror the page plan in ../hanami.typ:
+    # every text block, the portrait, seal, plate, group and Fuji, and the background pieces.
+    page_petals("petals-p1", 86,
+        [(14, 15, 63, 41), (142, 15, 196, 41), (80, 9, 131, 61), (113, 39, 139, 64), (16, 40, 66, 63), (146, 38, 195, 63),
+         (13, 64, 37, 84), (166, 64, 197, 84), (53, 59, 157, 96),                       # band
+         (15, 97, 130, 107.5), (130, 95.5, 195, 111), (15, 113, 195, 133),            # profile
+         (15, 134, 140, 152), (137, 134, 208, 152), (15, 151, 195, 209.5),             # 01, Shinkansen, stamps
+         (15, 213.5, 137, 231), (164, 210, 194, 232), (15, 230, 195, 283), (15, 283, 195, 292)],
+        [((178, 9), (150, 2), (110, 18), (60, 6), 18, 3.0, 2.2),        # off the canopy, across the top of the band
+         ((204, 14), (209, 60), (196, 150), (205, 296), 12, 2.8, 2.0),  # down the right edge, thinned
+         ((8, 6), (2, 100), (12, 200), (5, 295), 10, 2.4, 2.0),         # down the left edge, thinned
+         ((42, 60), (48, 74), (38, 88), (26, 96), 5, 2.4, 2.0),         # across the band edge, left of the plate
+         ((160, 60), (164, 72), (162, 86), (180, 93), 5, 2.4, 2.0),     # across the band edge, right of the plate
+         ((20, 110.2), (60, 109.6), (100, 110.8), (128, 110.2), 5, 2.0, 1.7),   # along the profile rule
+         ((24, 211.5), (80, 210.8), (130, 212.2), (190, 211.5), 6, 1.8, 1.6),   # between the stamps and section 02
+         ((205, 200), (185, 214), (160, 222), (140, 226), 5, 2.4, 1.8)],        # into the gap by heading 02
+        scatter=8, seed=23)
+    page_petals("petals-p2", 46,
+        [(14, 6, 104, 39), (147, 3, 197, 15), (100, 16, 197, 44),                    # band
+         (15, 55, 116, 73), (119, 47, 210, 69), (15, 73, 195, 148),                    # 03, branch, table, strip, note
+         (15, 152, 151, 170), (158, 149, 196, 170), (15, 169, 119, 220), (121, 169, 197, 223.5),   # 04, fan
+         (15, 227, 151, 245), (15, 223.5, 31, 245), (166, 221, 192, 246), (15, 245, 195, 276), (15, 283, 195, 292)],     # 05, pagoda, lists
+        [((150, 6), (136, 0), (118, 14), (100, 6), 9, 2.8, 2.0),
+         ((204, 4), (209, 90), (196, 180), (205, 296), 11, 2.8, 2.0),
+         ((6, 4), (2, 100), (12, 200), (5, 295), 9, 2.4, 2.0),
+         ((60, 42), (80, 40), (96, 50), (112, 52), 6, 2.2, 1.8),        # across the band edge
+         ((36, 223.4), (64, 223.0), (92, 224.0), (117, 223.4), 5, 1.9, 1.6),  # between sections 04 and 05, left half
+         ((30, 279.5), (90, 279), (140, 280), (190, 279.5), 4, 1.6, 1.4)],
+        scatter=7, seed=47)
 
     torii("torii.svg")
     group("group.svg")

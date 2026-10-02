@@ -12,12 +12,12 @@
   soft: (
     name: "soft",
     hero: rgb("dea1ae"), glow: rgb("f3d0d5"),       // dusty sakura band, a lighter bloom behind the portrait
-    hero-text: rgb("2a1f3d"), hero-label: rgb("6e3450"), hero-line: rgb("3a2c55"), cap: rgb("fbf3ef"),
+    hero-text: rgb("2a1f3d"), hero-label: rgb("5a2840"), hero-line: rgb("3a2c55"), cap: rgb("fbf3ef"),
     plate: rgb("fffaf5"), keyline: rgb("b5835e"), shadow: rgb("2a1f3d"),
     paper: rgb("faf6ef"), ink: rgb("231f38"), muted: rgb("625d72"), wash: rgb("f3e9e5"), rule: rgb("e2d5cc"),
     num: rgb("b5835e"), label: rgb("8a5f3e"), date: rgb("3a2c55"), icon: rgb("8a5f3e"),
     dark: rgb("2e2448"), on-dark: rgb("fbf3ef"), dark-label: rgb("eab2bd"),
-    shu: rgb("c23a2b"), shu-hero: rgb("c23a2b"), shu-soft: rgb("c23a2b"),
+    shu: rgb("c23a2b"), shu-hero: rgb("c23a2b"), shu-soft: rgb("5a2840"), tone: rgb("3a2c55"),
     seigaiha: 0.12, art-fill: 0.14,
     s-hero: (bark: rgb("3a2c55"), petal: rgb("fff3f3"), deep: rgb("f6c6ce"), edge: rgb("c97b8f"), heart: rgb("a8405e"), anther: rgb("e2b14e"), lent: rgb("ffffff"), kb: 0.42, kp: 0.95),
     s-paper: (bark: rgb("5e4a55"), petal: rgb("f6d2da"), deep: rgb("e595aa"), edge: rgb("d4869c"), heart: rgb("b0405f"), anther: rgb("e0b04c"), lent: rgb("ffffff"), kb: 0.28, kp: 0.78),
@@ -32,7 +32,7 @@
     paper: rgb("f8f4ea"), ink: rgb("1b2036"), muted: rgb("5d6377"), wash: rgb("efe8d9"), rule: rgb("dcd2bd"),
     num: rgb("c4a265"), label: rgb("8f7037"), date: rgb("28356a"), icon: rgb("8f7037"),
     dark: rgb("1e2852"), on-dark: rgb("fbf7ee"), dark-label: rgb("c4a265"),
-    shu: rgb("c23a2b"), shu-hero: rgb("d65445"), shu-soft: rgb("f2907a"),
+    shu: rgb("c23a2b"), shu-hero: rgb("d65445"), shu-soft: rgb("f2907a"), tone: rgb("9aa4cf"),
     seigaiha: 0.1, art-fill: 0.07,
     s-hero: (bark: rgb("eadad8"), petal: rgb("ffe4e0"), deep: rgb("ffbcb8"), edge: rgb("f3a3ae"), heart: rgb("e98a8f"), anther: rgb("f0c66a"), lent: rgb("ffffff"), kb: 0.3, kp: 0.82),
     s-paper: (bark: rgb("5e4a55"), petal: rgb("f6d2da"), deep: rgb("e595aa"), edge: rgb("d4869c"), heart: rgb("b0405f"), anther: rgb("e0b04c"), lent: rgb("ffffff"), kb: 0.28, kp: 0.78),
@@ -75,7 +75,7 @@
 )
 // line art on the band
 #let line-art(P, band: none) = (
-  "#c9a86a": hex(P.hero-line), "#f3ead8": hex(P.cap), "#d2462f": hex(P.shu-hero),
+  "#c9a86a": hex(P.hero-line), "#f3ead8": hex(P.cap), "#d2462f": hex(P.shu-hero), "#7f8fa6": hex(P.tone),
   "#0b0b0b": (if band == none { "none" } else { hex(band) }), "#fefefe": hex(if band == none { P.hero } else { band }),
   "fill-opacity='0.14'": "fill-opacity='" + str(P.art-fill) + "'",
 )
@@ -134,6 +134,8 @@
     text(font: body-font, size: 9pt, fill: P.muted, top-edge: "cap-height", bottom-edge: "baseline", sub),
   )),
 )
+// figures in Barlow, with any en dash set in Source Sans so it reads as a dash, not a hyphen
+#let figs(s, size, fill) = s.split("–").map(x => text(font: num, size: size, fill: fill, x)).join(text(font: body-font, size: size * 0.9, weight: 600, fill: fill)[–])
 #let diamond(P) = box(baseline: -0.15em, rotate(45deg, rect(width: 1.25mm, height: 1.25mm, fill: P.num)))
 #let item(P, t) = grid(columns: (4mm, 1fr), diamond(P), t)
 
@@ -283,7 +285,7 @@
       set par(leading: 0.3em)
       text(font: num, size: 15pt, fill: P.date, e.from)
       linebreak()
-      text(font: num, size: 15pt, fill: P.date)[–]
+      text(font: body-font, size: 13pt, weight: 600, fill: P.date)[–]
       h(1.2mm)
       if e.current { text(size: 12.5pt, weight: 600, fill: P.date)[σήμερα] } else { text(font: num, size: 15pt, fill: P.date, e.to) }
       linebreak()
@@ -321,7 +323,9 @@
     v(1.4mm)
     label(d.title.caps, fill: P.hero-label, size: 7.8pt, track: 1.5pt)
     h(1.2mm)
-    label("· Ιαπωνία", fill: P.shu-soft, size: 7.8pt, track: 1.5pt)
+    text(size: 7.8pt, weight: 700, fill: P.shu)[·]
+    h(1.2mm)
+    label("Ιαπωνία", fill: P.shu-soft, size: 7.8pt, track: 1.5pt)
     h(1.8mm)
     text(font: jp, size: 7.8pt, weight: 400, fill: P.shu-soft)[日本]
     v(1.2mm)
@@ -330,7 +334,7 @@
   at(84mm, 7.4mm, stamp(17, ("ΑΡΧΗΓΟΣ", str(groups.len()) + " ΟΜΑΔΕΣ", str(gpax) + " ΘΕΣΕΙΣ"), "flag", "添乗員", ink: P.shu, ground: P.plate, solid: true, kanji-size: 4.6pt))
   let HZ = 41mm
   at(103mm, HZ, line(length: 91mm, stroke: 0.45pt + P.hero-line.transparentize(35%)))
-  at(155.4mm, HZ - 40mm * 26 / 56, art("fuji.svg", width: 40mm, swaps: line-art(P, band: P.hero)))
+  at(158mm, HZ - 38mm * 26 / 56, art("fuji.svg", width: 38mm, swaps: line-art(P, band: P.hero)))
   at(144.6mm, HZ - 28mm * 58 / 80, art("torii.svg", width: 28mm, swaps: line-art(P, band: P.hero)))
   at(101mm, HZ - 46mm * 23 / 56, art("group.svg", width: 46mm, swaps: line-art(P)))
   place(top + right, dx: -16mm, dy: 5.4mm, {
@@ -367,11 +371,11 @@
       table.hline(stroke: 0.5pt + P.rule),
     )
   }))
-  let metric(n, l) = stack(spacing: 1.4mm,
+  let metric(n, l) = align(center, stack(spacing: 1.4mm,
     text(font: num, size: 24pt, fill: P.on-dark, top-edge: "cap-height", bottom-edge: "baseline", n),
     label(l, fill: P.dark-label, size: 6.8pt, track: 1.2pt),
-  )
-  at(16mm, 123mm, block(width: 178mm, height: 18mm, fill: P.dark, inset: (x: 8mm), align(horizon, grid(columns: (1fr, 1fr, 1fr, 1fr),
+  ))
+  at(16mm, 123mm, block(width: 178mm, height: 18mm, fill: P.dark, inset: (x: 4mm), align(horizon, grid(columns: (1fr, 1fr, 1fr, 1fr),
     metric(str(groups.len()), "Ομάδες"),
     metric(str(gpax), "Θέσεις συμμετεχόντων"),
     metric(str(gdays), "Ημέρες συνοδείας"),
@@ -382,7 +386,7 @@
   at(16mm, 154mm, heading(P, "04", "Σπουδές, γλώσσες, διαθεσιμότητα", [Τουρισμός, συνοδεία ομάδων, ιαπωνική γλώσσα, πρώτες βοήθειες]))
   let entry(title, school, when, note: none) = block(below: 4.4mm, stroke: (left: 1.6pt + P.num), inset: (left: 4mm, y: 0.6mm), {
     set par(leading: 0.42em)
-    grid(columns: (1fr, auto), text(size: 11pt, weight: 700, title), text(font: num, size: 12pt, fill: P.date, when))
+    grid(columns: (1fr, auto), text(size: 11pt, weight: 700, title), figs(when, 12pt, P.date))
     v(-0.6mm)
     text(size: 9.4pt, fill: P.muted, school)
     if note != none { linebreak(); text(size: 9pt, weight: 700, fill: P.date, note) }
