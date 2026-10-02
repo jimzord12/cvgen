@@ -407,9 +407,10 @@ if __name__ == "__main__":
     # Page 1 field: between the profile and section 01, entering from the right page edge (78 x 29).
     window_svg("sakura-field.svg", 217, (80, 10), math.radians(188), 64, 4.0, (0, 0, 78, 29), {"right"},
                petals=[(10, 22, 2.0), (22, 26, 1.6)], min_blossoms=10)
-    # Page 2 field: hangs in from the right page edge just under the band (90 x 26).
-    window_svg("sakura-field-2.svg", 286, (92, 3), math.radians(170), 72, 4.0, (0, 0, 90, 26), {"top", "right"},
-               petals=[(10, 20, 1.9), (24, 23, 1.5)], min_blossoms=13)    # Drift: a few loose petals for the outer margin (10 x 120 mm)
+    # Page 2 field: reaches in from the right page edge, 2.5 mm below the band (90 x 24); the top edge is closed.
+    window_svg("sakura-field-2.svg", 5766, (92, 7), math.radians(176), 70, 4.0, (0, 0, 90, 24), {"right"},
+               petals=[(10, 18, 1.9), (24, 21, 1.5)], min_blossoms=12)
+    # Drift: a few loose petals for the outer margin (10 x 120 mm)
     rng = random.Random(5)
     drift = "<g id='art' opacity='1.00'>"
     for i in range(7):

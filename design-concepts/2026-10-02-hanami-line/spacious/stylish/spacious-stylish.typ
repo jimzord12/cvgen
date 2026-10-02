@@ -119,8 +119,8 @@
 
 #at(0mm, 0mm, rect(width: 210mm, height: BAND, fill: C.hero))
 // the cherry runs along the band's top edge from the right, above the contacts (frame 80 x 16 mm)
-#let on-band = (base: C.hero, bark: rgb("e8d6dd"), petal: rgb("f8d3dc"), edge: rgb("f3b3c3"), heart: rgb("ffffff"))
-#place(top + right, sakura("sakura-canopy.svg", 0.28, 0.52, ..on-band, width: 80mm))
+#let on-band = (base: C.hero, bark: rgb("eadad8"), petal: rgb("ffdcd6"), edge: rgb("ffbcb8"), heart: rgb("e98a8f"))
+#place(top + right, sakura("sakura-canopy.svg", 0.3, 0.8, ..on-band, width: 80mm))
 
 // the torii frames the portrait, the way Flagship's tools frame the engineer
 #at(65mm, 4mm, art("torii.svg", width: 80mm))
@@ -222,13 +222,13 @@
 }
 
 // 02 Experience, Flagship's date column and rule
-#at(16mm, 216mm, heading("02", "Επαγγελματική εμπειρία", [Συνοδεία ομάδων, προγράμματα Ιαπωνίας, φιλοξενία]))
+#at(16mm, 213mm, heading("02", "Επαγγελματική εμπειρία", [Συνοδεία ομάδων, προγράμματα Ιαπωνίας, φιλοξενία]))
 #let job(e) = grid(columns: (31mm, 1fr), column-gutter: 5mm,
   {
     set par(leading: 0.3em)
     text(font: num, size: 15pt, fill: C.hero2, e.from)
     linebreak()
-    if e.current { text(size: 10.5pt, weight: 700, fill: C.hero2)[– σήμερα] } else { text(font: num, size: 15pt, fill: C.hero2)[– #e.to] }
+    if e.current { text(size: 12.5pt, weight: 600, fill: C.hero2)[– σήμερα] } else { text(font: num, size: 15pt, fill: C.hero2)[– #e.to] }
     linebreak()
     v(0.6mm)
     text(size: 8.6pt, fill: C.muted, e.city)
@@ -237,12 +237,12 @@
     set par(leading: 0.5em)
     text(size: 13pt, weight: 700, e.role)
     linebreak()
-    label(e.company, fill: C.shu, size: 7.6pt, track: 1.4pt)
+    label(e.company, fill: C.brass-dk, size: 7.6pt, track: 1.4pt)
     v(0.2mm)
-    for p in e.points { block(above: 1.2mm, below: 0mm, item(p)) }
+    for p in e.points { block(above: 2.4mm, below: 0mm, item(p)) }
   }),
 )
-#at(16mm, 233mm, slot("experience", 178mm, 48mm, {
+#at(16mm, 229mm, slot("experience", 178mm, 53mm, {
   job(d.experience.at(0))
   v(4.2mm)
   job(d.experience.at(1))
@@ -265,31 +265,33 @@
   label(d.title.caps, size: 7.8pt, track: 1.5pt)
   h(1.2mm)
   label("· Ιαπωνία", fill: rgb("f2907a"), size: 7.8pt, track: 1.5pt)
-  h(0.8mm)
-  text(font: jp, size: 7.8pt, weight: 700, fill: rgb("f2907a"))[日本]
+  h(1.8mm)
+  text(font: jp, size: 7.8pt, weight: 400, fill: rgb("f2907a"))[日本]
   v(1.2mm)
   text(size: 9pt, fill: C.on-hero)[#d.contact.phone #h(1.6mm) · #h(1.6mm) #d.contact.email \ #d.contact.city #h(1.6mm) · #h(1.6mm) #d.contact.link]
 }))
 // the escort's own seal beside the name, as a hanko beside a signature
 #at(84mm, 7.4mm, stamp(17, "ΑΡΧΗΓΟΣ · " + str(groups.len()) + " ΟΜΑΔΕΣ · " + str(gpax) + " ΘΕΣΕΙΣ · ", "flag", "添乗員", solid: true, ground: C.on-hero, kanji-size: 4.6pt))
 // the escort drawing at full size: the group walks to the gate under the leader's flag, Fuji beyond
-#at(104mm, 39mm, line(length: 90mm, stroke: 0.45pt + C.brass.transparentize(30%)))
-#at(156mm, 20.4mm, art("fuji.svg", width: 40mm, swaps: ("#c9a86a": hex(C.brass), "#f3ead8": hex(C.on-hero))))
-#at(145mm, 20.1mm, art("torii.svg", width: 26mm, swaps: ("fill='none'": "fill='" + hex(C.hero) + "'")))
-#at(104mm, 23mm, art("group.svg", width: 38mm, swaps: ("#c9a86a": hex(C.brass), "#d2462f": hex(C.shu.lighten(8%)))))
-#place(top + right, dx: -16mm, dy: 7mm, {
-  text(font: num, size: 13pt, fill: C.on-hero)[ATH]
+// (group, torii and Fuji at about 1.2-1.3x the first round; horizon at 41 mm)
+#let HZ = 41mm
+#at(103mm, HZ, line(length: 91mm, stroke: 0.45pt + C.brass.transparentize(30%)))
+#at(148.6mm, HZ - 46mm * 26 / 56, art("fuji.svg", width: 46mm, swaps: ("#c9a86a": hex(C.brass), "#f3ead8": hex(C.on-hero))))
+#at(144.6mm, HZ - 28mm * 58 / 80, art("torii.svg", width: 28mm, swaps: ("fill='none'": "fill='" + hex(C.hero) + "'")))
+#at(102mm, HZ - 45mm * 21 / 50, art("group.svg", width: 45mm, swaps: ("#c9a86a": hex(C.brass), "#d2462f": hex(C.shu.lighten(8%)))))
+#place(top + right, dx: -16mm, dy: 5.4mm, {
+  text(font: num, size: 19pt, fill: C.on-hero)[ATH]
+  h(1.8mm)
+  box(baseline: -1.2mm, line(length: 12mm, stroke: (paint: C.brass, thickness: 0.8pt, dash: (0.6pt, 2.2pt), cap: "round")))
   h(1.2mm)
-  box(baseline: -0.6mm, line(length: 8mm, stroke: (paint: C.brass, thickness: 0.7pt, dash: (0.6pt, 2pt), cap: "round")))
-  h(0.8mm)
-  box(baseline: 0.4mm, art("plane.svg", width: 5mm, swaps: ("#c23a2b": hex(C.shu.lighten(10%)))))
-  h(1.2mm)
-  text(font: num, size: 13pt, fill: C.on-hero)[TYO]
+  box(baseline: 0.2mm, art("plane.svg", width: 7.4mm, swaps: ("#c23a2b": hex(C.shu.lighten(10%)))))
+  h(1.8mm)
+  text(font: num, size: 19pt, fill: C.on-hero)[TYO]
 })
 
 // nature in the field: a branch hanging in from the right edge just under the band
-// (frame 90 x 26 mm, clear of the heading and the table), petals in the margin
-#at(120mm, BAND2, sakura("sakura-field-2.svg", 0.2, 0.5, ..on-paper, width: 90mm))
+// (frame 90 x 24 mm from 2.5 mm below the band, clear of the heading and the table), petals in the margin
+#at(120mm, BAND2 + 2.5mm, sakura("sakura-field-2.svg", 0.2, 0.5, ..on-paper, width: 90mm))
 #at(199mm, 150mm, sakura("petals-drift.svg", 0.2, 0.42, ..on-paper, width: 10mm))
 
 // 03 The groups he escorted: the manifest, with the totals in a band below it
@@ -327,7 +329,7 @@
 #at(16mm, 154mm, heading("04", "Σπουδές, γλώσσες, διαθεσιμότητα", [Τουρισμός, συνοδεία ομάδων, ιαπωνική γλώσσα, πρώτες βοήθειες]))
 #let entry(title, school, when, note: none) = block(below: 4.4mm, stroke: (left: 1.6pt + C.brass), inset: (left: 4mm, y: 0.6mm), {
   set par(leading: 0.42em)
-  grid(columns: (1fr, auto), text(size: 11pt, weight: 700, title), text(font: num, size: 12pt, fill: C.shu, when))
+  grid(columns: (1fr, auto), text(size: 11pt, weight: 700, title), text(font: num, size: 12pt, fill: C.hero2, when))
   v(-0.6mm)
   text(size: 9.4pt, fill: C.muted, school)
   if note != none { linebreak(); text(size: 9pt, weight: 700, fill: C.shu, note) }
@@ -344,23 +346,23 @@
       text(size: 10.5pt, weight: 700, l.name)
       h(1fr)
       text(size: 9.6pt, l.level)
-      if "note" in l { linebreak(); h(1fr); text(size: 8.6pt, fill: C.shu, l.note) }
+      if "note" in l { linebreak(); h(1fr); text(size: 8.6pt, fill: C.muted, l.note) }
     })
   }
   v(1.6mm)
-  label("Διαθεσιμότητα", fill: C.shu)
-  for k in d.availability { block(above: 1.1mm, below: 0mm, item(text(size: 9.6pt, k))) }
+  label("Διαθεσιμότητα", fill: C.brass-dk)
+  for k in d.availability { block(above: 2.4mm, below: 0mm, item(text(size: 9.6pt, k))) }
 }))
 
 // 05 On the ground in Japan, and on the road with a group
-#at(16mm, 232mm, heading("05", "Στην Ιαπωνία · Στη συνοδεία", [Πρακτική γνώση της χώρας και καθήκοντα αρχηγού στον δρόμο]))
-#at(16mm, 249mm, slot("know-how", 86mm, 33mm, {
+#at(16mm, 228mm, heading("05", "Στην Ιαπωνία · Στη συνοδεία", [Πρακτική γνώση της χώρας και καθήκοντα αρχηγού στον δρόμο]))
+#at(16mm, 245mm, slot("know-how", 86mm, 37mm, {
   label("Στην Ιαπωνία", fill: C.brass-dk)
-  for k in d.knowhow { block(above: 1.6mm, below: 0mm, item(text(size: 10.5pt, k))) }
+  for k in d.knowhow { block(above: 2.4mm, below: 0mm, item(text(size: 10.5pt, k))) }
 }))
-#at(108mm, 249mm, slot("on the road", 86mm, 33mm, {
+#at(108mm, 245mm, slot("on the road", 86mm, 37mm, {
   label("Στη συνοδεία", fill: C.brass-dk)
-  for k in d.operations { block(above: 1.6mm, below: 0mm, item(text(size: 10.5pt, k))) }
+  for k in d.operations { block(above: 2.4mm, below: 0mm, item(text(size: 10.5pt, k))) }
 }))
 
 #at(16mm, 284mm, line(length: 178mm, stroke: 0.4pt + C.rule))
