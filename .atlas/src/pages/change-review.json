@@ -7,7 +7,7 @@
   "summary": "Every change, code or docs or design, goes through an independent review by a fresh agent before it is called done. Routine Git is the agents' job; a short list of irreversible things stays yours.",
   "tldr": [
     "Each session starts from the `session-handoff` card on the Trello board and ends by rewriting it after a `Session Sweep`.",
-    "Build, prove it with `tests/run.py`, then a fresh reviewer per round: `code-reviewer` for code and, on `main`, everything else; `design-reviewer` for looks. A `context-reviewer` for agent rules is built on a branch, not merged.",
+    "Build, prove it with `tests/run.py`, then a fresh reviewer per round: `code-reviewer` for code and, on `main`, everything else; `design-reviewer` for looks. A `context-reviewer` reviews changes to agent rules.",
     "Fix every Blocking and Material finding; stop at PASS or after 5 rounds (10 unattended). Then merge, push and watch CI."
   ],
   "sources": [
@@ -16,16 +16,14 @@
     "docs/git-workflow.md"
   ],
   "status": {
-    "step": "fix",
-    "asOf": "2026-10-01",
-    "paused": true,
+    "step": "merge",
+    "asOf": "2026-10-04",
     "waitingOn": [
-      "owner"
+      "lead"
     ],
-    "title": "codex-visual-tools: two reviews open, set aside",
-    "note": "Both reports on that branch are FINDINGS and stay open for the next session working on it. On 2026-10-01 you set your pending decisions aside, including whether to merge the two context agents now (Claude's recommendation) and park the Codex build. The board's handoff card predates the last changes on `main` (board read 2026-10-01).",
-    "move": "Decide: merge the context agents now, or keep that branch parked",
-    "ref": "board: session-handoff"
+    "title": "All branches merged into main",
+    "note": "On 2026-10-04 you asked for every branch to be merged so only `main` remains, including `codex-visual-tools` (the two context agents and the approved, not yet built, Codex image and visual-review plan). Its two review reports were FINDINGS and stay open.",
+    "ref": "git: main"
   },
   "phases": [
     {
@@ -127,7 +125,7 @@
           "does": [
             "Code, tests, fixtures, and on `main` every change no other gate covers: `code-reviewer`.",
             "Looks: CV pages, brand assets, `Flagship` changes: `design-reviewer`.",
-            "Agent context (AGENTS.md, rules, glossary, skills): on `main` still `code-reviewer`. A `context-reviewer` exists on branch `docs/codex-visual-tools` (not merged); a general-purpose stand-in acting as it has reviewed recent doc changes.",
+            "Agent context (AGENTS.md, rules, glossary, skills): `context-reviewer`; a change that mixes code and context gets both.",
             "Eight lenses, from product fit to repository hygiene. Findings are Blocking, Material, Minor or Note."
           ],
           "gate": {
@@ -149,7 +147,7 @@
             "docs/review.md:7-59",
             "docs/review.md:76-96",
             "docs/review.md:152-171",
-            "git:docs/codex-visual-tools:docs/review.md",
+            "docs/review.md",
             "docs/work/anti-examples/reviews/01-context.md"
           ]
         },

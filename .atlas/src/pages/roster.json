@@ -8,7 +8,7 @@
   "tldr": [
     "Every author and reviewer agent in the repo runs on Opus at high effort: your standing choice for reviewers since 2026-09-26.",
     "A reviewer is always fresh: a new agent each round, given the earlier reports, never a fork of the author.",
-    "Not everything here is on `main`: the two Codex steps are approved but not built; the two context agents are built on a branch that has not merged."
+    "Not everything here is on `main`: the two Codex steps are approved but not built; the two context agents are on `main` since 2026-10-04."
   ],
   "sources": [
     "docs/review.md:130-140"

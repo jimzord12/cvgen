@@ -6,8 +6,8 @@
   "sourceBase": "../",
   "branch": "main",
   "snapshot": {
-    "asOf": "2026-10-01",
-    "note": "Read from main b83795e, the design-run branch and the Trello board on 2026-10-01. Client data is never shown here: a client is only their `Alias`."
+    "asOf": "2026-10-04",
+    "note": "Read from main on 2026-10-04, after every open branch was merged into it. The Trello board was not read for this update. Client data is never shown here: a client is only their `Alias`."
   },
   "sources": [
     "AGENTS.md",
@@ -52,7 +52,7 @@
         "Outside `private/` a client is only their `Alias`, like `client-2026-09-01`."
       ],
       "sources": [
-        "git:docs/idea-run-2026-09-29-editor:docs/guides/client-workflow.md:316-318",
+        "docs/guides/client-workflow.md:316-318",
         "docs/guides/client-workflow.md:63-67"
       ],
       "short": "Client"
@@ -84,12 +84,12 @@
       "calledBy": "The lead, through the `idea-run` skill.",
       "when": "A design run, for inspiration or for a client whose `Domain` has no `Template` yet.",
       "sources": [
-        "git:docs/idea-run-2026-09-29-editor:.claude/agents/magazine-editor.md:1-23",
-        "git:docs/idea-run-2026-09-29-editor:.claude/agents/magazine-editor.md:50-82"
+        ".claude/agents/magazine-editor.md:1-23",
+        ".claude/agents/magazine-editor.md:50-82"
       ],
       "short": "Editor",
       "notes": [
-        "The two `Densities` (18 designs per run) were added on 2026-09-29 on the run branch `docs/idea-run-2026-09-29-editor`; `main` still says nine pages until that run merges."
+        "The two `Densities` (18 designs per run) were added on 2026-09-29 and reached `main` on 2026-10-04."
       ]
     },
     "design-reviewer": {
@@ -108,8 +108,8 @@
         "Makes batch sheets: each page shrunk among 8+ plain market CVs."
       ],
       "sources": [
-        "git:docs/idea-run-2026-09-29-editor:.claude/agents/design-reviewer.md:1-17",
-        "git:docs/idea-run-2026-09-29-editor:.claude/agents/design-reviewer.md:66-133"
+        ".claude/agents/design-reviewer.md:1-17",
+        ".claude/agents/design-reviewer.md:66-133"
       ],
       "short": "Design rev."
     },
@@ -207,7 +207,7 @@
       "kind": "agent",
       "model": "Opus",
       "effort": "high",
-      "status": "planned",
+      "status": "built",
       "file": ".claude/agents/context-reviewer.md",
       "role": "Review gate for agent context: AGENTS.md, docs rules, glossary, skills, agent files. Checks placement, terms and that no client leaks.",
       "tools": "Read, Grep, Glob, Bash, PowerShell",
@@ -215,33 +215,31 @@
       "calledBy": "The lead.",
       "when": "Any change to the files agents read.",
       "notes": [
-        "Built on branch `docs/codex-visual-tools`, not merged, and its own review there is FINDINGS. On `main` the review gate is still `code-reviewer`; agent-context changes have been reviewed by a general-purpose stand-in told to act as this file."
+        "Merged into `main` on 2026-10-04 (owner's decision). The two review reports from its branch were FINDINGS and stay open: `docs/work/codex-visual-tools/reviews/01.md`."
       ],
       "sources": [
-        "git:docs/codex-visual-tools:.claude/agents/context-reviewer.md",
+        ".claude/agents/context-reviewer.md",
         "docs/work/anti-examples/reviews/01-context.md"
       ],
-      "short": "Context rev.",
-      "statusLabel": "On a branch, not merged"
+      "short": "Context rev."
     },
     "context-maintainer": {
       "label": "context-maintainer",
       "kind": "agent",
       "model": "Opus",
       "effort": "high",
-      "status": "planned",
+      "status": "built",
       "file": ".claude/agents/context-maintainer.md",
       "role": "Puts your feedback into the one file that owns the rule. Consolidates, never appends.",
       "tools": "Read, Grep, Glob, Edit, Write, Bash, PowerShell",
       "calledBy": "The lead.",
       "when": "Feedback from you that changes how agents behave.",
       "notes": [
-        "Exists only on branch `docs/codex-visual-tools` (not merged)."
+        "Merged into `main` on 2026-10-04 (owner's decision). The two review reports from its branch were FINDINGS and stay open: `docs/work/codex-visual-tools/reviews/01.md`."
       ],
       "sources": [
-        "git:docs/codex-visual-tools:.claude/agents/context-maintainer.md"
-      ],
-      "statusLabel": "On a branch, not merged"
+        ".claude/agents/context-maintainer.md"
+      ]
     },
     "general-purpose": {
       "label": "general-purpose",
@@ -254,7 +252,7 @@
       ],
       "sources": [
         ".claude/skills/new-client/SKILL.md:34-47",
-        "git:docs/idea-run-2026-09-29-editor:.claude/skills/idea-run/SKILL.md:87-104"
+        ".claude/skills/idea-run/SKILL.md:87-104"
       ],
       "short": "General"
     },
@@ -271,8 +269,8 @@
         "Approved by you on 2026-09-29, not built. The proposal has two open Material findings: run with `--ephemeral` and `--ignore-user-config`."
       ],
       "sources": [
-        "git:docs/codex-visual-tools:docs/proposals/codex-visual-tools.md",
-        "git:docs/codex-visual-tools:docs/work/codex-visual-tools/reviews/01.md"
+        "docs/proposals/codex-visual-tools.md",
+        "docs/work/codex-visual-tools/reviews/01.md"
       ],
       "short": "Codex rev."
     },
@@ -288,7 +286,7 @@
         "Approved 2026-09-29, not built."
       ],
       "sources": [
-        "git:docs/codex-visual-tools:docs/proposals/codex-visual-tools.md"
+        "docs/proposals/codex-visual-tools.md"
       ]
     },
     "new-client": {
@@ -322,7 +320,7 @@
       "role": "Runs an idea agent (magazine-editor or ceo) in a closed review loop. Authors propose, reviewers judge, you decide.",
       "when": "You ask for design concepts, template inspiration or product ideas.",
       "sources": [
-        "git:docs/idea-run-2026-09-29-editor:.claude/skills/idea-run/SKILL.md:1-21"
+        ".claude/skills/idea-run/SKILL.md:1-21"
       ]
     },
     "verify-cv": {
@@ -513,7 +511,7 @@
     "Flagship Parity": "Design test 3: side by side with the Marine Flagship, the CV looks as confident and premium.",
     "Style": "One idea of a magazine-editor run. A run has three very distinct ones.",
     "Design Tier": "Safe (calm, never generic), Stylish (Flagship territory), Creative (style to the maximum).",
-    "Density": "Condensed (one dense page) or Spacious (1 to 3 roomier pages). Every `Style` is drawn in both. Added 2026-09-29 on the run branch; reaches `main` with the run.",
+    "Density": "Condensed (one dense page) or Spacious (1 to 3 roomier pages). Every `Style` is drawn in both (since 2026-09-29).",
     "Anti-example": "A design you rejected as not your style, kept frozen only so nobody proposes its idea again.",
     "Design Review": "Your local app for looking through designs and recording verdicts.",
     "Idea Run": "One closed loop of an idea agent (ceo or magazine-editor) and its reviewers."
