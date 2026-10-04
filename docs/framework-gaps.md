@@ -110,3 +110,9 @@ Lesson:   The Travel & Tourism domain should start from this design: a
           language input with one text file per language, a route-diagram
           component, and a Greek-capitals helper in the Framework (where
           `label` in `core/primitives.typ` already upper-cases).
+
+### 2026-10-02  A second one-off travel CV, in a chosen concept (Hanami Line 2)   Status: open until the Travel & Tourism domain exists (card travel-domain)
+Needed:   The owner's chosen travel design (`design-concepts/2026-10-02-hanami-line-2/`, three palettes) built for client-2026-09-01 in Greek and English, with the client's portrait and a footer logo.
+Bypassed: Every template and domain component again (no Travel & Tourism `Domain`): a one-off Template in the client's Envelope (`design-hanami.typ`, text slots in `text-hanami-*.typ`, generated SVG art in `assets/`), chosen by `--input design=hanami --input palette=pink|indigo|blue --input lang=el|en`.
+Built:    Three font families the design needs (Sofia Sans Extra Condensed, M PLUS 1p, Kaisei Tokumin) moved into `packages/cv-framework/fonts/` because `scripts/cv.py` only searches that folder; a petal-layer script that lays out decoration against the text boxes of the compiled PDF and checks for collisions.
+Lesson:   (1) A render needs `private/` to be a real folder in the checkout that runs it: both Python (`Path.resolve()`) and Typst (project-root check) refuse an Envelope reached through a junction, so a worktree cannot borrow another checkout's `private/`. (2) `typst query` is deprecated in 0.15.1 (`typst eval` replaces it). (3) A requested italic is silently drawn upright because the bundled Source Sans 3 has no italic file. (4) A language input with one text file per language, a route-diagram component and a Greek-capitals helper (the 2026-09-29 lesson) are still the first things the Travel & Tourism domain needs; the petal-layer script could become a Framework decoration tool.

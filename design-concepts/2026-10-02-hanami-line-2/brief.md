@@ -3,7 +3,7 @@
 **Idea in one line:** version 2 of Hanami Line, built from the owner's notes on v1 ("a nice blend between the two templates, and I do like the breather room"). It keeps Flagship's skeleton with Stamp Rally's identity. On top of that it adds a soft sakura palette, petals in flight instead of a third branch, a calm layer of pale Japan background pieces, a structured profile, a lifted name plate, and redrawn artwork throughout.
 Three words: *travel, Japan, blossom*.
 
-One-design run 2026-10-02 (magazine-editor). `Domain` Travel & Tourism; specialty Japan; role Αρχηγός-Συνοδός Εκδρομών. Spacious `Density`, Stylish `Design Tier`, two A4 pages. Status: proposed. v1 stays untouched in `../2026-10-02-hanami-line/` for comparison.
+One-design run 2026-10-02 (magazine-editor). `Domain` Travel & Tourism; specialty Japan; role Αρχηγός-Συνοδός Εκδρομών. Spacious `Density`, Stylish `Design Tier`, two A4 pages. Status: chosen by the owner, 2026-10-02 (all three palettes; first client build is a real `Travel & Tourism` client's CV). v1 stays untouched in `../2026-10-02-hanami-line/` for comparison.
 
 | PDF | Palette | Meta File style |
 |---|---|---|
@@ -121,7 +121,7 @@ The v1 references stand, with their round-1 wording. Eki stamps (https://www.jap
 
 ## Fonts (all already in the repo; nothing downloaded)
 
-Source Sans 3 (body) and Barlow Condensed SemiBold (figures, IATA codes) from `packages/cv-framework/fonts/`. Sofia Sans Extra Condensed (`69b42c88…fc45`), M PLUS 1p Regular/Bold (`2f294ad4…1ed1`, `76eb077b…afc1`) and Kaisei Tokumin ExtraBold (`bf44bb3e…bc53`) from `design-concepts/fonts/`. All are OFL 1.1, with sources as in v1's brief. The embedded fonts in both PDFs were checked: no fallback, and Typst printed no warnings.
+Source Sans 3 (body) and Barlow Condensed SemiBold (figures, IATA codes) from `packages/cv-framework/fonts/`. Sofia Sans Extra Condensed (`69b42c88…fc45`), M PLUS 1p Regular/Bold (`2f294ad4…1ed1`, `76eb077b…afc1`) and Kaisei Tokumin ExtraBold (`bf44bb3e…bc53`) from `packages/cv-framework/fonts/` too (moved there on 2026-10-02 so `scripts/cv.py` finds them). All are OFL 1.1, with sources as in v1's brief. The embedded fonts in both PDFs were checked: no fallback, and Typst printed no warnings.
 
 ## Data
 
