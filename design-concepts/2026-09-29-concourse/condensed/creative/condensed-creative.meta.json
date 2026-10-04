@@ -1,0 +1,16 @@
+{
+  "kind": "concept",
+  "density": "condensed",
+  "tier": "creative",
+  "domain": "travel",
+  "candidate": "\u039c\u03ac\u03c1\u03ba\u03bf\u03c2 \u0397\u03bb\u03b9\u03ac\u03b4\u03b7\u03c2",
+  "rank": "Tour Leader",
+  "style": "Concourse",
+  "idea": "Japanese station wayfinding",
+  "status": "proposed",
+  "date": "2026-09-29",
+  "producedBy": "magazine-editor",
+  "contract": "cvgen.output/1",
+  "pages": 1,
+  "sha256": "7a460d6418429e486ce84f7695b73e09eca814a9c8e8e258b01ea6aef4015384"
+}

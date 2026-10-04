@@ -1,0 +1,16 @@
+{
+  "kind": "concept",
+  "density": "spacious",
+  "tier": "safe",
+  "domain": "travel",
+  "candidate": "\u039c\u03ac\u03c1\u03ba\u03bf\u03c2 \u0397\u03bb\u03b9\u03ac\u03b4\u03b7\u03c2",
+  "rank": "Tour Leader",
+  "style": "Stamp Rally",
+  "idea": "tickets, tags, stamps",
+  "status": "proposed",
+  "date": "2026-09-29",
+  "producedBy": "magazine-editor",
+  "contract": "cvgen.output/1",
+  "pages": 2,
+  "sha256": "cf078845bfe2a9d1adf52c66e354fd8b2fd178764d4d4158dcca1d4820f347b8"
+}

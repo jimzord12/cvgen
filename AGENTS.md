@@ -98,7 +98,7 @@ Framework; `M` for `packages/domains/marine`, the marine domain; `F` for
 | `tests/` | `run.py` runner, `verify.py` PDF checks, `workflow.py` end-to-end workflow case, `baseline.json` hash manifest, `fixtures/*.typ` compile cases | Changing behaviour |
 | `archive/design-studies/` | Four frozen, evaluated design studies with their renders | Reading for inspiration only |
 | `archive/anti-examples/` | Frozen designs the owner rejected as not his style (`Anti-example`), with their fonts and his reasons; see its `README.md` | Before proposing or reviewing a design: never repeat one |
-| `design-concepts/` | Template concepts proposed by the `magazine-editor` agent: one folder per style with its three `Design Tier`s (`safe`, `stylish`, `creative`: `.typ`, PDF, PNG) and `brief.md`; earlier runs have one `concept.typ`. Every PDF has its `Meta File`. Proposals, not library code | Running or deciding on an idea run |
+| `design-concepts/` | Template concepts proposed by the `magazine-editor` agent: one folder per style with `brief.md` (and, when the `Domain` has no record yet, `sample.json`) shared by its two `Density`s (`condensed/`, `spacious/`), each holding three `Design Tier`s (`<tier>/<density>-<tier>.typ`, PDF, PNG per page, and every PDF its `Meta File`; see its `README.md`); earlier runs have one `concept.typ`. Proposals, not library code | Running or deciding on an idea run |
 | `brand/` | CVgen's own brand assets: `logos/` (the working logo is the needle's eye, `cvgen-mark-c-eye.svg` and `cvgen-wordmark.svg`; see `brand/README.md`) | Using or replacing the logo |
 | `docs/` | Governance and reference documentation, see below | Recording a decision |
 | `scripts/build.ps1` | Builds the five examples into a new `builds/` folder; `-Release` then copies each beside its entry point and stamps its `Meta File` | Rarely |
@@ -196,8 +196,8 @@ by ID; `apply` moves only those, on a branch. `quick` is in the `Session
 Sweep`.
 `.claude/skills/idea-run` runs the idea agents in a closed review loop:
 `ceo` proposes product ideas (checked by `ceo-reviewer`), `magazine-editor`
-proposes three very distinct styles, each in three `Design Tier`s, as
-mock-up PDFs (checked by `design-reviewer`, which also judges client CV
+proposes three very distinct styles, each in two `Density`s and three
+`Design Tier`s, as mock-up PDFs (checked by `design-reviewer`, which also judges client CV
 designs, first on the `Batch Test` and the `Three-Second Test`),
 and `research-reviewer` checks the web research behind both. They only
 propose; the owner decides.

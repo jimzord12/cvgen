@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 230">
+ <g fill="none" stroke="#647078" stroke-opacity=".10" stroke-linecap="round">
+  <path d="M196 229Q163 183 165 137Q170 92 117 51Q95 33 76 3" stroke-width="3.1"/>
+  <path d="M166 157Q127 134 109 97Q93 71 54 57M163 126Q187 102 182 68M123 58Q141 39 135 13M115 108Q72 104 39 84" stroke-width="1.6"/>
+ </g>
+ <defs><g id="flower" fill="#bb746f" fill-opacity=".095" stroke="#b96560" stroke-opacity=".11" stroke-width=".5"><path d="M0 0Q-11 -7 -6 -16Q0 -21 4 -11Q14 -18 18 -9Q19 -2 8 2Q18 9 11 16Q5 21 0 9Q-4 22 -13 15Q-17 8 -6 2Q-21 0 -17 -8Q-13 -13 0 0Z"/><circle r="2" fill="#b58c67"/></g></defs>
+ <use href="#flower" transform="translate(76 15) rotate(18)"/><use href="#flower" transform="translate(119 59) scale(.85)"/>
+ <use href="#flower" transform="translate(137 20) scale(.7) rotate(13)"/><use href="#flower" transform="translate(60 62) scale(.9)"/>
+ <use href="#flower" transform="translate(103 95) scale(.7) rotate(55)"/><use href="#flower" transform="translate(40 85) scale(.65)"/>
+ <use href="#flower" transform="translate(178 76) scale(.8)"/><use href="#flower" transform="translate(165 142) scale(.9) rotate(25)"/>
+ <path d="M41 146Q48 139 51 145Q51 151 42 154Z M98 183Q106 178 106 184Q103 191 97 190Z M70 119Q76 111 81 116Q82 122 72 125Z" fill="#bb746f" fill-opacity=".085"/>
+</svg>

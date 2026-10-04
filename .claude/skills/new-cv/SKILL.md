@@ -62,13 +62,14 @@ fitting the page.
    A client whose `Domain` has no `Template` yet starts from a design, not
    from code: an `Idea Run` of the `magazine-editor` on the client's
    `Domain`, specialty and role (fictional data only), the owner picks a
-   style and `Design Tier`, and the one-off `Template` is built from it.
+   `Style`, `Design Tier` and `Density`, and the one-off `Template` is built
+   from it.
    Its previews go through the `design-reviewer` before the owner sees
    them:
    - compile the previews into `builds/design-review-input-<timestamp>/`
      (the reviewer never reads `private/`);
    - brief it with the `Alias` only, the `Domain`, specialty and role, the
-     chosen concept folder and `Design Tier`, and that the text is the
+     chosen concept folder, `Design Tier` and `Density`, and that the text is the
      signed-off text;
    - a fresh reviewer per round; cap 5 rounds when the owner is attending,
      10 unattended, unless he sets another; at the cap the design reaches
