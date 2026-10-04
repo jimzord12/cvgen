@@ -187,7 +187,11 @@ builds the CV from there.
 through the REST API; every task's record is a card there, so use it for
 orientation and for any task state change.
 `.claude/agents/code-reviewer.md` is the independent reviewer; it holds no
-rules of its own and defers to `docs/review.md`.
+rules of its own and defers to `docs/review.md`. For the agent context
+(this file, `docs/`, skills, agent definitions) the pair is
+`context-maintainer`, which integrates owner feedback into the file that
+owns the rule, and `context-reviewer`, the independent gate for such
+changes (`docs/review.md`).
 `.claude/skills/repo-maintenance` keeps the tree easy to navigate
 (`/repo-maintenance quick|audit|deep|apply`): a read-only audit script, the
 read-only `repo-auditor-lite` agent for the judgement checks, and CVgen's own
