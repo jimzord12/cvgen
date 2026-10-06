@@ -13,12 +13,14 @@ Read this when setting up a machine or asking why a tool was chosen.
 | Candidate workflow | Python package `packages/cv-workflow` behind `scripts/cv.py` | `pymupdf` for the render checks, `jsonschema` for the record check; standard library otherwise | Revisions, checks, approval receipts and verified exports without a web stack, database or job service; the future web backend calls the same functions |
 | CI | GitHub Actions, `.github/workflows/verify.yml` | | Runs `tests/run.py` on every push and pull request |
 | Agents | `AGENTS.md`, `CLAUDE.md`, `.claude/skills/` | | Entry map, invariants and repeatable checklists for coding agents |
+| Task store | [Backlog.md](https://github.com/MrLesk/Backlog.md) (`backlog` CLI, on Node) | 1.52.0, pinned (1.53.0 has an open web-server memory leak, issue #1038) | Task files travel with Git, plain output for agents, local terminal and browser boards; no credentials or network (ADR 0014) |
 
 ## Setup
 
 ```powershell
 winget install --id Typst.Typst --exact        # Windows
 pip install pymupdf pillow jsonschema           # tests/run.py and scripts/cv.py render
+npm i -g backlog.md@1.52.0                       # the task store CLI (needs Node); expect `backlog --version` 1.52.0
 typst --version                                 # expect 0.15.1
 ```
 

@@ -62,7 +62,7 @@ the files `cv.typ` reads into a `Revision`; the drawers enter one only if
 
 **The folder name is client data.** Claude gives each client an alias,
 `client-<yyyy>-<mm>-<nn>` (for example `client-2026-09-01`), written at the
-top of the `Envelope`'s `README.md` with the date intake started. Outside `private/` (Trello cards,
+top of the `Envelope`'s `README.md` with the date intake started. Outside `private/` (tasks in `backlog/`,
 commit messages, briefs to agents, anything public) the client is only ever
 the alias.
 
@@ -311,7 +311,7 @@ the Drive Trash, which keeps files for 30 days), stays the owner's act.
   with their `Rank` and dates, a vessel with its crew position). Search for
   "chief officers applying to Norwegian shipowners", never the person.
 - **Client data stays in the `Envelope`.** Research Library notes, review
-  reports outside the `Envelope`, commit messages, cards and public
+  reports outside the `Envelope`, commit messages, tasks and public
   documents never contain it; they use the alias.
 - **One batch per round.** Up to `Sign-off`, the client gets three
   messages from us: the question list, one follow-up, the text draft

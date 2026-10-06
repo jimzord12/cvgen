@@ -39,3 +39,4 @@ What becomes easier, what becomes harder, what the suite enforces.
 | [0011](0011-domains-roles-templates.md) | A CV library for any field: domain > role > template, dictionaries merged domain < role < template, neutral core, marine as the first domain, project renamed. Amends 0002, 0007 and 0010; amended by 0012. |
 | [0012](0012-framework-and-domain-packages.md) | The Framework (`packages/cv-framework`, core only) and the domains (`packages/domains/<domain>`, each with its own `lib.typ`) are separate; the Framework imports no domain. Amends 0011 and the paths of 0001, 0008 and 0010. |
 | [0013](0013-one-evidence-folder-per-test-case.md) | Every test case writes all its evidence into its own folder of the run: PDF, compile log, check result and suite-rendered page PNGs. |
+| [0014](0014-backlog-md-task-store.md) | Backlog.md files in `backlog/` are the task store; the Trello board was migrated, exported and closed. |

@@ -6,7 +6,7 @@
   "question": "When Claude changes something, what happens before it is on main?",
   "summary": "Every change, code or docs or design, goes through an independent review by a fresh agent before it is called done. Routine Git is the agents' job; a short list of irreversible things stays yours.",
   "tldr": [
-    "Each session starts from the `session-handoff` card on the Trello board and ends by rewriting it after a `Session Sweep`.",
+    "Each session starts from the `session-handoff` doc on `main` (`backlog/docs/`) and ends by rewriting it after a `Session Sweep`.",
     "Build, prove it with `tests/run.py`, then a fresh reviewer per round: `code-reviewer` for code and, on `main`, everything else; `design-reviewer` for looks. A `context-reviewer` reviews changes to agent rules.",
     "Fix every Blocking and Material finding; stop at PASS or after 5 rounds (10 unattended). Then merge, push and watch CI."
   ],
@@ -32,18 +32,18 @@
       "steps": [
         {
           "id": "orient",
-          "title": "The session starts from the handoff card",
+          "title": "The session starts from the handoff doc",
           "actor": "lead",
           "with": [
             "board"
           ],
-          "summary": "Claude reads AGENTS.md, your preferences, then the `session-handoff` card, and checks it against Git and the evidence.",
+          "summary": "Claude reads AGENTS.md, your preferences, then the `session-handoff` doc as it stands on `main`, and checks it against Git and the evidence.",
           "does": [
             "Gives you a four-line briefing: Goal, Now, Next, You.",
             "Separates an approved design from built behaviour, and old checks from current proof."
           ],
           "uses": [
-            "trello"
+            "backlog"
           ],
           "sources": [
             "docs/development.md:34-56",
@@ -52,22 +52,22 @@
         },
         {
           "id": "card",
-          "title": "A card for the task",
+          "title": "A task file for the task",
           "actor": "lead",
           "with": [
             "board"
           ],
-          "summary": "The card is the task record: outcome, acceptance, plan, result and evidence, review, handoff.",
+          "summary": "A Backlog.md task in `backlog/tasks/` is the task record: outcome, acceptance, plan, result and evidence, review, handoff. It changes on the branch doing the work.",
           "does": [
-            "Lists: Queued → Active → Review → Ready → Done. A red Blocked label when stuck.",
+            "Statuses: Queued → Active → Review → Ready → Done. The `blocked` label when stuck.",
             "Ready is not Done: Done means on its branch, pushed, CI green, evidence recorded."
           ],
           "uses": [
-            "trello"
+            "backlog"
           ],
           "sources": [
             "docs/development.md:17-32",
-            "docs/development.md:124-184"
+            "docs/development.md:113-201"
           ]
         }
       ]
@@ -144,9 +144,9 @@
           ],
           "note": "Only spelling, comments, formatting or a glossary row skip the round, and record-keeping commits (storing reports, merging reviewed work).",
           "sources": [
-            "docs/review.md:7-59",
-            "docs/review.md:76-96",
-            "docs/review.md:152-171",
+            "docs/review.md:7-63",
+            "docs/review.md:80-100",
+            "docs/review.md:156-175",
             "docs/review.md",
             "docs/work/anti-examples/reviews/01-context.md"
           ]
@@ -167,7 +167,7 @@
             "Renaming the task never resets the round count."
           ],
           "sources": [
-            "docs/review.md:175-201"
+            "docs/review.md:179-205"
           ]
         }
       ]
@@ -186,7 +186,7 @@
           "summary": "Merging into `main` is routine and the agents' job. `main` must always be releasable.",
           "does": [
             "Required checks before the push, then `gh run watch` until CI is green.",
-            "Then the card moves to Done with its evidence."
+            "Then the task moves to Done with its evidence, as a record commit on `main`."
           ],
           "cmd": [
             "gh run list --commit <sha>",
@@ -195,7 +195,7 @@
           "note": "Yours only, with the exact command shown first, including: deleting or force-pushing `main`, rewriting its published history, `archive/*` tags, repo settings, deleting under `private/` or `.local/` or outside the repo, removing revisions, approvals, exports or portraits, replacing the `Release`.",
           "sources": [
             "docs/git-workflow.md:66-79",
-            "docs/preferences.md:52-77",
+            "docs/preferences.md:52-78",
             ".github/workflows/verify.yml"
           ]
         }
@@ -211,8 +211,8 @@
           "actor": "lead",
           "summary": "Before stopping, Claude looks in fixed places for loose ends: a list of places to look, never a list of what is open.",
           "does": [
-            "Reviews: every commit on `main` since the card's sha has a report or is trivial.",
-            "Proposals marked `approved` but not applied; cards in Active, Review, Ready or Blocked.",
+            "Reviews: every commit on `main` since the handoff doc's `Main at` sha has a report or is trivial.",
+            "Proposals marked `approved` but not applied; tasks in Active, Review, Ready or labelled `blocked`.",
             "Night Shift follow-ups, Git leftovers, CI on `main`, old `builds/` folders.",
             "Repo health: `/repo-maintenance quick`, a few seconds.",
             "`Atlas`: `atlas.py check`; a stale or unverified page is re-checked against its sources."
@@ -222,22 +222,22 @@
             "night-shift"
           ],
           "sources": [
-            "docs/development.md:58-92"
+            "docs/development.md:58-95"
           ]
         },
         {
           "id": "handoff",
-          "title": "Rewrite the handoff card",
+          "title": "Rewrite the handoff doc on main",
           "actor": "lead",
           "with": [
             "board"
           ],
           "summary": "The next session starts here: written date, `Main at` sha, where things stand, next steps, your parked decisions, pitfalls.",
           "uses": [
-            "trello"
+            "backlog"
           ],
           "sources": [
-            "docs/development.md:93-104"
+            "docs/development.md:97-111"
           ]
         },
         {
@@ -252,7 +252,7 @@
           },
           "sources": [
             "docs/preferences.md:49-51",
-            "docs/preferences.md:83"
+            "docs/preferences.md:84"
           ]
         }
       ]

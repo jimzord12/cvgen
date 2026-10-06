@@ -27,19 +27,19 @@ separate gates. When a change may skip independent review is decided only by
 [review.md](review.md#when-a-review-is-required); a trivial change that
 skips it uses its commit as the record and states the reason.
 
-A cancelled task moves to **Done** with a `## Cancelled` section on its card:
-the date, the reason, who decided, and what (if anything) was kept. Cancelled
-work never counts as delivered.
+A cancelled task moves to **Done** with a `## Cancelled` section in its
+notes: the date, the reason, who decided, and what (if anything) was kept.
+Cancelled work never counts as delivered.
 
 ## A fresh session
 
 1. Read `AGENTS.md`, `docs/preferences.md` and the local profile if present.
-2. Read the **session-handoff** card (list **Handoff** on the board, through
-   the trello skill): the previous session's resume point, parked owner
-   decisions and pitfalls. Then derive state from the vision, relevant
-   decisions/proposals, the task cards, Git state and evidence for the
-   examined revision. The handoff card orients; the task cards, Git and
-   evidence are the authority when they disagree. Flag missing or
+2. Read the **session-handoff** doc as it stands on `main` (the backlog
+   skill says how; a branch's copy may be stale): the previous session's
+   resume point, parked owner decisions and pitfalls. Then derive state from
+   the vision, relevant decisions/proposals, the tasks in `backlog/`, Git
+   state and evidence for the examined revision. The handoff doc orients;
+   the tasks, Git and evidence are the authority when they disagree. Flag missing or
    conflicting evidence rather than inventing certainty. Orientation is
    read-only and repeatable.
 3. Give the four-line briefing, then continue within authorized scope:
@@ -62,7 +62,7 @@ says where to look, never what is open; check each place from its real
 source, then act on what you find or name it in the handoff and the
 report:
 
-- **Reviews:** every commit that reached `main` since the handoff card's
+- **Reviews:** every commit that reached `main` since the handoff doc's
   `Main at` commit (`git log <sha>..main`; this includes older branch
   commits merged since, which a date window misses), from any author or
   session (an interrupted session never ran its `Session Sweep`),
@@ -71,8 +71,11 @@ report:
   (`docs/review.md`); run the missing round before stopping.
 - **Proposals:** `status: approved` in `docs/proposals/*.md` is approved
   work not yet applied.
-- **Board:** cards in Active, Review or Ready, and any card labelled
-  Blocked.
+- **Tasks:** after `git fetch`, from a checkout that has `backlog/` (`main`,
+  or a branch made after the migration): `backlog task list --plain -s Active
+  -s Review -s Ready`, then separately `backlog task list --plain -l blocked`
+  (filters combine, so one command would miss a blocked Queued task; the
+  lists include active branches).
 - **Night Shift:** `night-shift status` and `night-shift follow-up list`
   show open follow-ups only. Also read the `night.json` of every night
   dated on or after the day before the `Written` date (a night is named by
@@ -93,83 +96,93 @@ report:
 
 A report says everything is finished only after the `Session Sweep`.
 
-Then rewrite the session-handoff card's description in place (one card, never a
-new one, never deleted; Trello keeps its history). Keep the card's heading and
-intro, then a line `**Written:** yyyy-MM-dd, <what the session was> (<agent>)`;
-the trello skill's read-back check looks for that date. Next, a line
+Then rewrite the session-handoff doc in place on `main` (one file, never a
+new one, never deleted; Git keeps its history), through the route in the
+backlog skill. Keep its heading and intro, then a line
+`**Written:** yyyy-MM-dd, <what the session was> (<agent>)`; the skill's
+read-back check looks for that date. Next, a line
 `**Main at:** <short sha>` with the `main` head at the time of writing; the
 next `Session Sweep` starts its review check there. Then: where things
 stand, the next step in order, parked owner decisions, pitfalls that cost
-time, constraints in force. Keep only what no task card owns; a task's own
-state goes in its card's Handoff section. Any local handoff file is a
-mirror of the card, not a second source. An agent that stops without
-rewriting the card leaves the next session to reconstruct the state from
-the task cards and Git, which is slower but always possible.
+time, constraints in force. Keep only what no task owns; a task's own
+state goes in its Handoff note. Any other handoff file is a mirror of the
+doc, not a second source. An agent that stops without rewriting the doc
+leaves the next session to reconstruct the state from the tasks and Git,
+which is slower but always possible.
 
 ## Where the information belongs
 
 One authoritative home per task, decision and rule. Status is generated on
-demand from those sources; no second status page, dashboard or backlog.
+demand from those sources; `backlog/` is the one task store, and there is
+no second status page, dashboard or backlog.
 
 ```text
 CLAUDE.md, AGENTS.md              # Entry, roles, routing, essential constraints
 docs/development.md               # This protocol
 docs/review.md                    # Review protocol
-Trello board "CVgen"              # One authoritative brief and status per task (a card)
-  list Handoff, session-handoff   # Cross-session resume point, rewritten at the end of each session
+backlog/tasks/                    # One authoritative brief and status per task (Backlog.md)
+backlog/docs/doc-1 - session-handoff.md  # Cross-session resume point, rewritten on main at the end of each session
 docs/work/<id>/reviews/NN.md      # Review reports, created only when review runs
 docs/decisions/                   # Accepted architecture decisions
 docs/proposals/                   # Proposals with status; rejected/ keeps declined ones
 .claude/agents/code-reviewer.md   # Thin wrapper around docs/review.md
-.claude/skills/trello/            # How agents read and update the board
+.claude/skills/backlog/           # How agents read and update the tasks
 ```
 
-Task ids are short kebab-case slugs (`dev-setup`, `monorepo-migration`) and
-start the card name. The board (adopted 2026-09-16 under
-[trello-free-trial](proposals/trello-free-trial.md)) is the task store:
-its lists are Handoff plus the five stages, a card's description holds the sections
-below, its checklist holds the acceptance items, and the list plus the red
-**Blocked** label are its status: a blocked card keeps its stage, gains the
-label and a `## Blocked` section with the reason, the dependency card link
-and the unblock condition, and loses the label only when that condition is
-met. Read and write the board only through the trello skill.
-`docs/work/<id>/task.md` is no longer created; the one that exists
-(`dev-setup`) is history. Review reports stay in the repository and are
-linked from the card. A card reaching Done proves nothing by itself.
+The task store is [Backlog.md](https://github.com/MrLesk/Backlog.md)
+(ADR 0014, 2026-10-06; it replaced the Trello board adopted under
+[trello-free-trial](proposals/trello-free-trial.md)). Each task is a file in
+`backlog/tasks/` with a number Backlog.md gives it (`TASK-27`); its title
+starts with the task id, a short kebab-case slug (`dev-setup`,
+`monorepo-migration`), which also names its `docs/work/<id>/` folder. Its
+status is one of the five stages; the label `blocked` marks a blocked task,
+which keeps its stage, gains a `## Blocked` note with the reason, the
+dependency task and the unblock condition, and loses the label only when
+that condition is met. Read and write tasks through the backlog skill (the
+`backlog` CLI). Review reports stay under `docs/work/<id>/reviews/` and are
+linked from the task. `docs/work/<id>/task.md` is no longer created; the one
+that exists (`dev-setup`) is history. A task reaching Done proves nothing by
+itself.
+
+Where a task file changes (so two branches never edit the same one): a
+task a branch is working on changes only on that branch, in the same commits
+as its work. Two kinds of record commit go straight to `main`, by the route
+in the backlog skill: the handoff doc, and edits to tasks no branch is
+working on (a new Queued task, a cancellation, the move to Done after a
+merge into `main`; a child task's Done goes on its parent branch). Both are
+record-keeping under `docs/review.md`. Create a task on `main` first, as
+Queued (so two branches never take the same number); it moves to Active on
+the branch that picks it up. When a branch is abandoned, cancel its task on
+`main` once the branch is gone, copying any notes worth keeping.
 
 ## The task record
 
-Keep the brief and result together on the card. Small fixes can use the
-commit body; multi-session work, contract changes and migrations get a card.
+Keep the brief and result together in the task. Small fixes can use the
+commit body; multi-session work, contract changes and migrations get a task.
+The sections map onto Backlog.md's own sections:
 
-```markdown
-# <id>: <Outcome>
+| Section | Where in the task | How to write it |
+|---|---|---|
+| Header (Owner, Branch/worktree, Integration target, Depends on) and **Outcome and boundaries** | Description | `-d` on create |
+| **Acceptance** | Acceptance Criteria | `--ac`, then `--check-ac N` |
+| **Plan** | Implementation Plan | `--plan` |
+| **Result and evidence**, **Review**, **Handoff** (each a `##` heading) | Implementation Notes | `--append-notes` |
+| One-paragraph result at Done | Final Summary | `--final-summary` |
 
-Owner: <Claude session or agent responsible>
-Branch/worktree: <location>
-Integration target: <main or the named parent feature branch>
-Depends on: <task/decision links, or none>
-
-## Outcome and boundaries
-<What becomes possible. What this task changes and excludes.>
-
-## Acceptance
-- [ ] <Observable behaviour and the evidence that will establish it.>
-
-## Plan
-<A few steps; omit for a small obvious change.>
-
-## Result and evidence
-<Implemented behaviour; exact revision or patch snapshot; commands, exit
-results, artifact locations. Distinguish old evidence from current proof.>
-
-## Review
-<Report links, Blocking/Material finding dispositions, remaining limitations.>
-
-## Handoff
-<Current state, unresolved issue, one exact next action, and any owner
-authorization already given with its scope.>
+```powershell
+backlog task create "<id>: <Outcome>" -s Queued --no-dod-defaults --plain `
+  -d "Owner: <Claude session or agent>`nBranch/worktree: <location>`nIntegration target: <main or parent feature branch>`nDepends on: <task/decision links, or none>`n`n## Outcome and boundaries`n<What becomes possible. What this task changes and excludes.>" `
+  --ac "<Observable behaviour and the evidence that will establish it>"
+backlog task edit TASK-N -s Active --plan "<a few steps; omit for a small obvious change>" --plain
+backlog task edit TASK-N --append-notes "## Result and evidence`n<behaviour; exact revision; commands, exit results, artifact locations; old evidence vs current proof>" --plain
+backlog task edit TASK-N --append-notes "## Review`n<report links, Blocking/Material dispositions, remaining limitations>" --plain
+backlog task edit TASK-N --append-notes "## Handoff`n<current state, unresolved issue, one exact next action, owner authorization given and its scope>" --plain
 ```
+
+Tasks migrated from Trello keep every section inside their description, as
+the cards had them; that text is history and is not reshaped. A later fact,
+or the acceptance refined when a Queued task is picked up, goes in its notes
+and acceptance criteria.
 
 Acceptance describes product behaviour, not functions to write. A material
 scope change records its decision and reason so acceptance cannot quietly
@@ -189,7 +202,7 @@ feature branch is not the whole feature reaching `main`.
 ## Guardrails without constant interruptions
 
 - The owner chooses outcomes and approved looks/PDFs. Agents choose the
-  technical design and every routine implementation, Git and board step within
+  technical design and every routine implementation, Git and task step within
   that scope, under [preferences.md](preferences.md#what-he-decides-and-what-agents-decide)
   and [git-workflow.md](git-workflow.md).
 - One writer per checkout. Parallel implementation needs separate worktrees,
@@ -199,5 +212,5 @@ feature branch is not the whole feature reaching `main`.
   owner to re-approve accepted designs or routine choices.
 - Record out-of-scope discoveries. Escalate boundary changes; log bypasses in
   [framework-gaps.md](framework-gaps.md).
-- At handoff, update the owning records and the card; do not create a
-  second mandatory handoff document when the card holds the state.
+- At handoff, update the owning records and the task; do not create a
+  second mandatory handoff document when the task holds the state.

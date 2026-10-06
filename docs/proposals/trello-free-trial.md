@@ -6,6 +6,10 @@ revision: 2
 
 # Trial Trello Free for task tracking
 
+> **Superseded 2026-10-06 by [ADR 0014](../decisions/0014-backlog-md-task-store.md):**
+> the task store is now Backlog.md in `backlog/`; the board was exported to
+> `docs/work/backlog-migration/` and closed. The record below is history.
+
 Authorized 2026-09-16. The owner selected a Trello Free trial instead of Kanboard,
 explicitly relaxing the open-source requirement. No paid subscription or paid
 add-ons. This authorizes two fictional tasks, not permanent adoption or a task

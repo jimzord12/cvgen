@@ -32,19 +32,20 @@ keep it untracked and do not copy its contents into shared documentation.
 - Codex is optional for discussion, research, proposals, design decisions, and
   their documentation. Reading code for design context is allowed; it does not
   take over implementation or provide the implementation test/review verdict.
-- On a fresh or resumed session, read the `session-handoff` card first (list
-  Handoff on the Trello board "CVgen", through the trello skill), then
+- On a fresh or resumed session, read the `session-handoff` doc first, as it
+  stands on `main` (`backlog/docs/`, through the backlog skill), then
   derive a brief Goal / Now / Next / You report from the vision, relevant
-  decisions/proposals, the task cards (the authoritative task records), Git
-  state, and evidence for the examined revision. If the board cannot be
-  read, say so rather than inferring state from an export. Distinguish an
+  decisions/proposals, the tasks in `backlog/tasks/` (the authoritative task
+  records), Git state, and evidence for the examined revision. If the tasks
+  cannot be read, say so rather than guessing. Distinguish an
   approved design from implemented behavior, and historical checks from
-  current proof. Before stopping, rewrite the handoff card
+  current proof. Before stopping, rewrite the handoff doc on `main`
   (`docs/development.md`, "Ending a session"). Do not use `docs/now.md`; it
   is a retired historical snapshot.
 - State reporting is read-only and repeatable: unchanged inputs yield the same
   factual state. No dedicated reporting command exists yet; inspect the sources
-  directly. Do not maintain a second status file or backlog. In proposals and
+  directly. `backlog/` is the one task store; do not maintain a second
+  status file or backlog. In proposals and
   protocols, prefer derived views over manually synchronized summaries.
 - Use `docs/proposals/README.md` for proposal states and decision handling. At
   orientation, inspect proposal metadata and surface pending owner decisions
@@ -108,10 +109,11 @@ Framework; `M` for `packages/domains/marine`, the marine domain; `F` for
 | `scripts/design_review/` | The owner's local Design Review app (`server.py`, `index.html`): every PDF with a valid `Meta File` (concepts, the `Release`, client renders and `Text Draft`s) as a Board and a Loupe, the rest listed as unindexed with the reason, filters, page previews, compare, a `Batch Test` pile (`plain-cvs.typ`), his review state in `.local/design-review/state.json` (read it for his verdicts and notes), PDFs opened in the default app. Binds to 127.0.0.1 only | Changing how the owner reviews designs |
 | `scripts/text-draft.typ` | The `Text Draft` a client checks before design (`Sign-off`), house design First Fitting | Changing how the text draft looks |
 | `.atlas/` | The `Atlas`: open `.atlas/index.html` from disk. Facts in `src/*.json`, each step citing its sources; `python .atlas/_kit/atlas.py build` writes the pages, `check` lists pages whose sources changed or were never checked | A mapped flow, agent or model changed: update its page, `build`, `stamp` |
+| `backlog/` | The task store (Backlog.md, ADR 0014): one file per task in `tasks/`, the `session-handoff` doc in `docs/`, `config.yml`. Read and write through the backlog skill | Any task state change; session start and end |
 | `builds/` | Ignored. Every build and test run writes to a new timestamped folder here | Reading evidence |
 | `private/` | Ignored. One `Envelope` per real client: `envelope.json`, `intake/`, `research/`, `draft/`, `candidate.json`, `cv.typ`, `revisions/`, `exports/` | Producing a real CV |
 
-`apps/web/` from the target tree is not implemented; see the Trello board.
+`apps/web/` from the target tree is not implemented; see `backlog/tasks/`.
 
 ## Commands
 
@@ -159,10 +161,10 @@ Full text in `docs/constitution.md`. The short list:
 | `docs/constitution.md` | Before anything irreversible |
 | `docs/framework-gaps.md` | Before planning framework work, and after any bypass of a component or template |
 | `docs/conventions.md` | Before writing code, docs or a commit message |
-| `docs/development.md` | Starting, resuming or handing off a task: stages, the card as task record, review reports under `docs/work/<id>/reviews/`, guardrails |
+| `docs/development.md` | Starting, resuming or handing off a task: stages, the task record in `backlog/`, review reports under `docs/work/<id>/reviews/`, guardrails |
 | `docs/review.md` | Requesting, performing or recording an independent review; the `code-reviewer` subagent follows it |
 | `docs/proposals/README.md` | Proposal states, owner decisions, and orientation of pending/approved work |
-| `docs/proposals/trello-free-trial.md` | Why Trello is the task store: the trial, its evidence, the adoption decision |
+| `docs/decisions/0014-backlog-md-task-store.md` | Why Backlog.md is the task store, and what replaced the Trello board |
 | `docs/git-workflow.md` | Agent-owned Git, direct pushes, feature branches, integration and tags |
 | `docs/reference/domains-and-roles.md` | Adding a domain, a role or a template; how domain, role and template compose |
 | `docs/reference/candidate-schema.md` | Editing a marine candidate JSON |
@@ -183,9 +185,10 @@ Full text in `docs/constitution.md`. The short list:
 that names the files to copy, the commands to run and the evidence to report.
 `new-client` takes a client from first message to signed-off facts; `new-cv`
 builds the CV from there.
-`.claude/skills/trello` reads and updates the Trello board "CVgen"
-through the REST API; every task's record is a card there, so use it for
-orientation and for any task state change.
+`.claude/skills/backlog` reads and updates the tasks in `backlog/` through
+the `backlog` CLI, and reads and rewrites the session handoff on `main`;
+every task's record is a task there, so use it for orientation and for any
+task state change.
 `.claude/agents/code-reviewer.md` is the independent reviewer; it holds no
 rules of its own and defers to `docs/review.md`. For the agent context
 (this file, `docs/`, skills, agent definitions) the pair is
@@ -247,7 +250,7 @@ propose; the owner decides.
   reporting done. A bypass is a lesson, not a fault.
 - Agents act as senior developers and do not ask for routine work: commits,
   pushes, merges to `main`, history edits on feature work, branch, worktree
-  and (non-`archive/*`) tag cleanup, clearing `builds/` by path, board
+  and (non-`archive/*`) tag cleanup, clearing `builds/` by path, task-store
   updates (owner's instruction, 2026-09-25). Product decisions, real-candidate
   approval and a short list of irreversible operations stay with the owner.
   That list lives only in `docs/preferences.md` ("What he decides and what
