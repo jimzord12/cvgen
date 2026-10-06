@@ -55,7 +55,7 @@
           "id": "envelope",
           "title": "Open the Envelope",
           "actor": "lead",
-          "summary": "One private folder per client, never in Git. Outside it the client is only an `Alias`.",
+          "summary": "One private folder per client, in its own private Git repo, never in the public one. Outside it the client is only an `Alias`.",
           "does": [
             "Creates `private/<name>-<rank>/` with the drawers `intake/`, `research/`, `draft/`.",
             "Gives the client an `Alias` (`client-2026-09-01` style) and writes it in the folder's `README.md`.",

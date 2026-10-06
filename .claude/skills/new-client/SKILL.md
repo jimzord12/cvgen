@@ -100,6 +100,9 @@ the Google links listed in its `README.md`.
 Where the client stands (which step), what is waiting on him (a message to
 paste, a Deep Dive choice, a screenshot), new or changed `Research Library`
 notes, and after `Export` the delete-by date, naming any `Intake Form`,
-Sheet and script project listed in `README.md` for deletion with it.
+Sheet and script project listed in `README.md` for deletion with it. When a
+delete-by date has passed, give him the history-erase commands from
+`docs/guides/client-workflow.md` (section 9, end of the deletion
+paragraph) filled in with the folder name; he runs them, you never do.
 Never paste client data into
 the chat beyond what he needs to act.

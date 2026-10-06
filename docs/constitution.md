@@ -49,11 +49,13 @@ commit with a new version number.
 ## 3. Public content is fictional
 
 Names, employers, vessels, dates, certificates and the portrait are invented.
-Real candidate data lives in `private/`, which git ignores, one folder per
+Real candidate data lives in `private/`, which this repository ignores, one folder per
 candidate with its own entry point, importing its `Domain`'s `lib.typ`
 (`packages/domains/marine/lib.typ`), or the `Framework`'s
-(`packages/cv-framework/lib.typ`) for a one-off `Template`. Certificate numbers, scans and passport details
-never enter this repository.
+(`packages/cv-framework/lib.typ`) for a one-off `Template`. `private/` is its own private
+Git repository (`AGENTS.md`), where everything in an `Envelope` may be committed,
+scans included. Certificate numbers, scans and passport details never enter this
+public repository. (Narrowed by the owner, 2026-10-06.)
 
 ## 4. The system does not lie to fit
 

@@ -69,11 +69,13 @@ choices and act without asking (owner's instruction, 2026-09-25).
 - **Still needs his explicit go, with the exact command shown first:**
   deleting or force-pushing `main`, rewriting published `main` history,
   deleting or moving `archive/*` tags, deleting the GitHub repository or
-  changing its visibility or settings, deleting anything outside this
+  changing its visibility or settings (both this repository and the private
+  `cvgen-private` one that holds `private/`), rewriting or force-pushing the
+  private repository's history (the delete-by erase, which he runs himself), deleting anything outside this
   repository, deleting anything under `private/` or `.local/`, overwriting
   or removing a workspace's revisions, approval receipts, exports, portrait
-  or source documents (ignored by Git and, apart from what a revision
-  snapshots, not copied anywhere, so nothing restores them), and replacing or removing the `Release`
+  or source documents (the private repository's history can restore
+  them, but only what was committed and pushed), and replacing or removing the `Release`
   PDFs beside their entry points in `examples/` (the public released
   deliverables; `scripts/build.ps1 -Release` replaces them).
 - **Ask him for observations, not decisions that are yours:** a screen, a
