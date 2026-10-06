@@ -30,7 +30,7 @@
    "verifiedAt": "2026-10-06"
   },
   "design-run": {
-   "commit": "9765962",
+   "commit": "a4f1da0",
    "sources": {
     ".claude/agents/design-reviewer.md": "7e0353ea63b3b40eb7d36489a58a1d1a5af2f580",
     ".claude/agents/magazine-editor.md": "d938346a7a932b47e2dfb9df87bb0a4e9250ab19",
@@ -38,7 +38,7 @@
     ".claude/skills/idea-run/SKILL.md": "3ed1f44d9e79df7588fbe6f5527378f897a430fc",
     "AGENTS.md": "c928dc2b4eb234aacc1cfc1135c77e830f63e3ec",
     "archive/anti-examples/README.md": "71f837077cc3870025458f8a4cd1f05df9a820d1",
-    "design-concepts/README.md": "d0264d3fa38acf30dd16b3ef4ce5b4742becfc73",
+    "design-concepts/README.md": "605720f41df7ea454f8316c00f3505e2fded8ae6",
     "docs/glossary.md": "e59b24605a6dbf4e5262dc29d9bb0eaf8e232eec",
     "docs/pdf-workflow.md": "3bfa09a91c1ec9c970650c88ed15842c477645de",
     "docs/proposals/codex-visual-tools.md": "6922b19a3f91c8a180ee716e0bfaf5bba4b36278",
@@ -93,7 +93,7 @@
    "verifiedAt": "2026-10-06"
   },
   "system-map": {
-   "commit": "9765962",
+   "commit": "a4f1da0",
    "sources": {
     ".claude/agents": "dir1:4f4154394888bb9d69a0ed790d8f4b484a790fdd",
     ".claude/skills": "dir1:11b44f76e26cbbb8bdd5b634a6d8663fac208431",
@@ -103,7 +103,7 @@
     "archive/anti-examples": "dir1:dacb2a2e30bc6a5d49178d2bcbf382c4de52a88c",
     "archive/design-studies": "dir1:3934f2dbb33587fa8b485e7b99d2b37fa3784798",
     "brand": "dir1:c556e0f8d17363d5e9ddc92e7142a253a16d1be2",
-    "design-concepts": "dir1:a0698e7bd97975b2c297c92deb3841a3e3c19a5f",
+    "design-concepts": "dir1:d3bd60991a5441279a325e9aa73ea4e20ad7f1c7",
     "docs": "dir1:a51621d5593b02876b9a6e4c8eae3d3db09f6d23",
     "docs/architecture.md": "9dbe80e8a5147f20f4102dacbee60198d04d3e90",
     "docs/glossary.md": "e59b24605a6dbf4e5262dc29d9bb0eaf8e232eec",
