@@ -9,12 +9,12 @@ created_date: '2026-10-06 07:25'
 
 Rewritten in place at the end of every session; the first thing a fresh session reads after AGENTS.md. Holds only what no task owns: what is next, parked owner decisions, machine facts, pitfalls. Task state stays in the tasks in `backlog/tasks/`.
 
-**Written:** 2026-10-06, Hanami Line travel design built for a real client and the Design Review verdicts applied (Claude Code).
-**Main at:** see `git log -1` (updated 2026-10-06, after the workflow-model merge)
+**Written:** 2026-10-06, Hanami Line travel design built for a real client, the Design Review verdicts applied, then the repo walk-through, branch clean-up and the workflow-model merge (Claude Code).
+**Main at:** the merge of `docs/workflow-model` (2026-10-06); everything older is on `main`
 
 ## Where things stand
 - Task store: Backlog.md in `backlog/` (ADR 0014). Read and write tasks only through `.claude/skills/backlog/SKILL.md`; read this doc with `git show origin/main:"backlog/docs/doc-1 - session-handoff.md"`.
-- Open tasks: Queued TASK-2 travel-domain, TASK-3 deck-data, TASK-4 codex-visual-tools. TASK-5 travel-recalibration is Done (Japan Passage rejected and removed in f78a181; Hanami Line 2 met the brief).
+- Open tasks: Queued TASK-2 travel-domain, TASK-3 deck-data, TASK-4 codex-visual-tools, TASK-28 to TASK-32 (Next, item 4). TASK-5 travel-recalibration is Done (Japan Passage rejected and removed in f78a181; Hanami Line 2 met the brief).
 - **Hanami Line 2 is the owner's chosen Travel & Tourism design** (`design-concepts/2026-10-02-hanami-line-2/`: Spacious, stylish, pink / indigo / light blue). It was built as a one-off `Template` in a real client's `Envelope` (`client-2026-09-01`, Greek and English, plus a Stamp Rally edition), all reviewed (design, fact, code) and reported in `docs/work/idea-runs/2026-10-02-editor-2/run.md`. The three Japanese-capable font families it needs are now in `packages/cv-framework/fonts/`. The first real production `Travel & Tourism` `Domain` (TASK-2) should start from this design and from the Framework Gap entries of 2026-09-29 and 2026-10-02 (`docs/framework-gaps.md`).
 - The owner's Design Review verdicts are applied: rejected variants removed, `keep` and `maybe` variants stay `parked` (`design-concepts/README.md`, review in `docs/work/design-verdicts/reviews/`).
 - Client `client-2026-09-01`: the owner forwarded all eight revisions (Hanami x3 palettes x2 languages, Stamp Rally x2) to the client, who confirmed the details are OK. All eight are stamped `status=delivered` and the `Envelope`'s README holds the single deadline (one per client, not per CV): delete by 2027-10-02. `approve` and `export` were never run (optional; the owner's act).
