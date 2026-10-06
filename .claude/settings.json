@@ -1,4 +1,14 @@
 {
+  "permissions": {
+    "allow": [
+      "PowerShell(backlog task list:*)",
+      "PowerShell(backlog task view:*)",
+      "PowerShell(backlog search:*)",
+      "Bash(backlog task list:*)",
+      "Bash(backlog task view:*)",
+      "Bash(backlog search:*)"
+    ]
+  },
   "hooks": {
     "SessionEnd": [
       {

@@ -6,8 +6,8 @@
   "sourceBase": "../",
   "branch": "main",
   "snapshot": {
-    "asOf": "2026-10-04",
-    "note": "Read from main on 2026-10-04, after every open branch was merged into it. The Trello board was not read for this update. Client data is never shown here: a client is only their `Alias`."
+    "asOf": "2026-10-06",
+    "note": "Read from main on 2026-10-04, after every open branch was merged into it; the task-store pages were updated on 2026-10-06 for the move to Backlog.md (ADR 0014). Client data is never shown here: a client is only their `Alias`."
   },
   "sources": [
     "AGENTS.md",
@@ -38,7 +38,7 @@
         "Everything routine (commits, merges to `main`, board updates) is the agents' job."
       ],
       "sources": [
-        "docs/preferences.md:49-77",
+        "docs/preferences.md:49-78",
         "docs/guides/client-workflow.md:9-10"
       ],
       "short": "You"
@@ -64,7 +64,7 @@
       "role": "The main Claude Code session you talk to. Plans, writes, researches, builds, runs the review loops and integrates.",
       "notes": [
         "Runs on whatever model the session uses; the repo pins no model for the lead.",
-        "Starts every session from the `session-handoff` card on the Trello board and rewrites it before stopping."
+        "Starts every session from the `session-handoff` doc on `main` (`backlog/docs/`) and rewrites it before stopping."
       ],
       "sources": [
         "AGENTS.md:28-44",
@@ -80,7 +80,7 @@
       "file": ".claude/agents/magazine-editor.md",
       "role": "Art director. Draws three very distinct `Styles`, each in two `Densities` and three `Design Tiers`: 18 real Typst mock-ups on fictional data.",
       "tools": "Read, Grep, Glob, Bash, PowerShell, WebSearch, WebFetch, Write, Edit",
-      "access": "Writes only its concept folders, the concepts README and fonts. Never git, Trello or `private/`.",
+      "access": "Writes only its concept folders, the concepts README and fonts. Never git, the `backlog` CLI or `private/`.",
       "calledBy": "The lead, through the `idea-run` skill.",
       "when": "A design run, for inspiration or for a client whose `Domain` has no `Template` yet.",
       "sources": [
@@ -180,7 +180,7 @@
       ],
       "sources": [
         ".claude/agents/code-reviewer.md:1-7",
-        "docs/review.md:122-140"
+        "docs/review.md:126-144"
       ],
       "short": "Code rev."
     },
@@ -343,14 +343,14 @@
         ".claude/skills/new-theme/SKILL.md:1-5"
       ]
     },
-    "trello": {
-      "label": "trello",
+    "backlog": {
+      "label": "backlog",
       "kind": "skill",
-      "file": ".claude/skills/trello/SKILL.md",
-      "role": "Reads and updates the CVgen board through its REST API. Every task's record is a card.",
+      "file": ".claude/skills/backlog/SKILL.md",
+      "role": "Reads and updates the tasks in `backlog/` through the `backlog` CLI, and reads and rewrites the `session-handoff` doc on `main`. Every task's record is a task file.",
       "when": "Orientation, and every task state change.",
       "sources": [
-        ".claude/skills/trello/SKILL.md:1-33"
+        ".claude/skills/backlog/SKILL.md:1-102"
       ]
     },
     "repo-maintenance": {
@@ -442,14 +442,15 @@
       ]
     },
     "board": {
-      "label": "Trello board \"CVgen\"",
+      "label": "Task store `backlog/`",
       "kind": "service",
-      "role": "The task store. Lists: Handoff, Queued, Active, Review, Ready, Done. The `session-handoff` card is where every session starts.",
+      "role": "The task store (Backlog.md, ADR 0014): one file per task, statuses Queued, Active, Review, Ready, Done, label `blocked`. The `session-handoff` doc is where every session starts. Boards: `backlog board`, `backlog browser`.",
       "sources": [
-        ".claude/skills/trello/SKILL.md:25-33",
-        "docs/development.md:17-32"
+        ".claude/skills/backlog/SKILL.md:1-34",
+        "docs/development.md:17-32",
+        "docs/decisions/0014-backlog-md-task-store.md"
       ],
-      "short": "Trello"
+      "short": "Backlog"
     },
     "chat": {
       "label": "Chat app",
@@ -503,7 +504,7 @@
     "Meta File": "The small JSON beside a PDF saying what it is (kind, `Domain`, status, pages) with its SHA-256.",
     "Frozen Reference": "The PDF a `Template`'s public example must reproduce pixel for pixel.",
     "Framework Gap": "A recorded case of going around the `Framework`, a `Domain` or a `Template` to deliver a CV.",
-    "Session Sweep": "The places to look for loose ends before a session ends: unreviewed commits, approved proposals, open cards, Night Shift items, Git leftovers, CI, `builds/`.",
+    "Session Sweep": "The places to look for loose ends before a session ends: unreviewed commits, approved proposals, open tasks, Night Shift items, Git leftovers, CI, `builds/`.",
     "Certificate Warning": "A WARNING line at render: a certificate expired or expires within 180 days. Never blocks.",
     "Live Read": "A render that read a private file directly instead of the `Revision`'s copy. It fails its checks.",
     "Batch Test": "Design test 1: in an HR batch of 100 to 200 CVs, ours cannot be skipped.",

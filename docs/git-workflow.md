@@ -23,7 +23,7 @@ None of this approves a pending product design.
 - `main` is always releasable: the suite passes and the `Release` PDFs
   beside the entry points in `examples/` match the code. If a merge
   changes what they would contain, refreshing them needs the owner's go;
-  until then record the mismatch on the handoff card.
+  until then record the mismatch in the session-handoff doc.
 - Small, low-risk, verified fixes and documentation can go directly to `main`.
   Choose a feature branch for new features, migrations, significant changes,
   or work whose readiness is uncertain.

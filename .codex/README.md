@@ -33,14 +33,14 @@ specialty, tour escort Rank. Use fictional facts. Follow the repo's idea-run
 skill, including fresh research-reviewer and design-reviewer agents per round.
 ```
 
-The lead owns delegation, Git, Trello, report persistence and round limits.
+The lead owns delegation, Git, the task store (`backlog/`), report persistence and round limits. A Codex session reads tasks as the Markdown files in `backlog/tasks/` (or `backlog task list --plain` where its sandbox allows the command; the hardened `codex exec` flags refuse it, checked 2026-10-06).
 Reviewers return reports; the lead saves them unchanged. Give each agent the
 exact snapshot and the minimum context its role requires. No role delegates.
 
 ## Shared workflows and deliberate adaptations
 
 All nine repo skills were inspected. They remain in `.claude/skills/`: new-client,
-new-cv, verify-cv, new-theme, trello, repo-maintenance, idea-run, start-night-shift
+new-cv, verify-cv, new-theme, backlog, repo-maintenance, idea-run, start-night-shift
 and do-night-shift-follow-up. Read their SKILL.md files directly when relevant;
 they have not been installed into Codex's skill selector. Read the associated
 references or run vetted helpers by their existing paths. Translate Claude's

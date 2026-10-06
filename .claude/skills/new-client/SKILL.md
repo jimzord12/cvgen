@@ -13,7 +13,7 @@ owner talks to the client; you never do. Terms: `docs/glossary.md`.
 1. **Envelope.** `private/<name>-<rank>/` with `README.md`, `intake/`
    (`messages.md`, `documents/`), `research/` (`reviews/`), `draft/`. Never
    under `examples/`. Give the client an alias `client-<yyyy>-<mm>-<nn>`,
-   written at the top of `README.md` with the intake date; outside `private/` (cards, commits,
+   written at the top of `README.md` with the intake date; outside `private/` (tasks, commits,
    agent briefs, public files) use only the alias. Write `envelope.json`
    (`alias`, `domain` as the glossary's `Domain` id, `candidate`, `rank`;
    guide section 1): every `Meta File` in the `Envelope` copies it and

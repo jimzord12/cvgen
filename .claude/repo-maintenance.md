@@ -65,6 +65,7 @@ allow_large:
 allow_names:
   - "**/tests/approved/*-v??.pdf"
   - "**/layouts/flagship-v??.typ"
+  - "backlog/**/*.md"               # named by Backlog.md itself (`task-27 - <title>.md`, ADR 0014); keep its naming
 
 max_top_level: 18                 # 18 entries on 2026-09-30, dotfiles included
 doc_stale_days: 60                # the docs move fast (hundreds of commits)
@@ -130,8 +131,8 @@ basename (`#import`, `#include`, `image(`, `read(`, `csv(`, `json(`, `bibliograp
 `scripts/`, `tests/`), `scripts/build.ps1`, `tests/baseline.json`, JSON schemas, Markdown links and the workflow
 files in `.github/workflows/`. The map in `AGENTS.md` also names paths; those sentences are handed to whoever edits `AGENTS.md`.
 
-**Records.** The task record is Trello, through the `trello` skill (`docs/development.md`). Each Decide item in a report ends
-with a one-line card-ready title. The agent creates no second status file or backlog.
+**Records.** The task record is a Backlog.md task in `backlog/`, through the `backlog` skill (`docs/development.md`). Each Decide item in a report ends
+with a one-line task-ready title. `backlog/` is the one task store; the agent creates no second status file or backlog.
 
 **`apply` in CVgen's Git.** The floor's rules hold (never the default branch, a new folder per output); only the names
 follow CVgen, and that is not a conflict to stop on: the branch is `chore/maintenance-<topic>` (`docs/git-workflow.md`, `<type>/<topic>`); the pure-move commit is

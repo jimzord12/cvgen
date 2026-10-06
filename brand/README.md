@@ -136,7 +136,7 @@ History: v1 (commit 473c83f) was a 3D mock-up with brushed metal and a
 "gen" at the end of the wire; v2 (never committed) used a thick straight
 bar that read as a crossed-out CV and was dropped.
 
-Status (2026-09-28, card `brand-logo` on the Trello board):
+Status (2026-09-28, task `brand-logo`, now in `backlog/tasks/`):
 
 1. Vector redraw: settled. The owner kept the faithful redraw with a custom
    C and picked the needle's eye (`cvgen-mark-c-eye.svg`); the bold

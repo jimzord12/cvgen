@@ -55,7 +55,7 @@ choices and act without asking (owner's instruction, 2026-09-25).
   nice, simple and clean, and restructure it without fear whenever that
   makes it easier to navigate, understand and work in), wording, small
   design choices, the order of work,
-  and all routine Git and board work: commits, pushes, merges into `main`,
+  and all routine Git and task-store work: commits, pushes, merges into `main`,
   amend, rebase, reset, force-push of a feature branch
   (`--force-with-lease`), branch and tag creation, deleting merged or
   abandoned branches locally and on GitHub, deleting tags other than
@@ -64,7 +64,8 @@ choices and act without asking (owner's instruction, 2026-09-25).
   `private/` and `.local/`), editing a candidate workspace's `envelope.json`, `candidate.json`,
   `cv.typ`, `presentation.json`, `README.md` and the client workflow's
   `intake/facts.md`, `research/` and `draft/` files for a CV he asked for, and
-  editing or moving Trello cards. Do not bring these to him; report them.
+  creating, editing or moving tasks in `backlog/`. Do not bring these to
+  him; report them.
 - **Still needs his explicit go, with the exact command shown first:**
   deleting or force-pushing `main`, rewriting published `main` history,
   deleting or moving `archive/*` tags, deleting the GitHub repository or

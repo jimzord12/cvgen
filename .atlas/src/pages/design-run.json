@@ -259,7 +259,7 @@
           ],
           "sources": [
             ".claude/skills/idea-run/SKILL.md:73-85",
-            "docs/review.md:48-59"
+            "docs/review.md:48-63"
           ]
         },
         {
@@ -271,7 +271,7 @@
           ],
           "summary": "Each Style's three-word idea with its six PDFs, anything dropped or `unresolved`, and how many rounds each gate took.",
           "does": [
-            "Styles still waiting for your answer are listed on the handoff card."
+            "Styles still waiting for your answer are listed in the `session-handoff` doc."
           ],
           "sources": [
             ".claude/skills/idea-run/SKILL.md:114-122"
@@ -315,7 +315,7 @@
           "id": "follows",
           "title": "What follows",
           "actor": "lead",
-          "summary": "A chosen Style becomes either a `Template` card on the board or the client's own CV.",
+          "summary": "A chosen Style becomes either a `Template` task in `backlog/` or the client's own CV.",
           "does": [
             "For a client: the one-off design is built and reviewed in their `Envelope`: [[client-journey#build-cv]].",
             "A concept becomes a `Template` only after you keep it and a build task is agreed."

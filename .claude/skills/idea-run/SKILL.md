@@ -39,8 +39,8 @@ design-reviewer's "Other assets".
    and never bans the domain's imagery; it also gives the Spacious page
    count (1 to 3) that fits the size of the fictional record. Give the same three, and the page count, to every
    `design-reviewer`. Client data never goes into a brief: a run for a
-   client's design gets the steer and fictional data only. For the ceo, paste the board's card list
-   (`trello.ps1 -Cards 'CVgen'`) into the brief; it has no shell. When the
+   client's design gets the steer and fictional data only. For the ceo, paste the task list
+   (`backlog task list --plain`) into the brief; it has no shell. When the
    run uses a worktree, give every author and reviewer absolute paths into
    it and tell the editor to `cd` to the worktree root in the same command
    as each Typst call: a subagent's shell starts in the session's main
@@ -56,7 +56,7 @@ design-reviewer's "Other assets".
    author, then review again.
 4. Quality gate: a fresh `ceo-reviewer` or `design-reviewer` per round, with
    all earlier reports and the author's replies (the ceo-reviewer also gets
-   the same board card list, to check for duplicates). FINDINGS -> author revises
+   the same task list, to check for duplicates). FINDINGS -> author revises
    -> review again. A reviewer starts fresh each round on purpose: judges
    drift towards whatever they have already seen.
 5. Round cap per gate (owner, 2026-09-25): **5 when the owner is attending,
@@ -113,7 +113,7 @@ however well made (`docs/vision.md`, "Design is the product").
 
 ## What the owner gets, and what his answer does
 
-Concepts still waiting for his answer are listed on the handoff card
+Concepts still waiting for his answer are listed in the session-handoff doc
 (orientation reads only proposal metadata, so they would not surface
 otherwise).
 
@@ -128,7 +128,7 @@ Review` app reads the status from them, not from the README:
 
 | Answer | Proposal | Concept (`design-concepts/README.md`) |
 |---|---|---|
-| Build it | `approved` (then a card) | `chosen`, with the `Design Tier` and the `Density` he picked; a template card or the client's CV follows |
+| Build it | `approved` (then a task) | `chosen`, with the `Design Tier` and the `Density` he picked; a template task or the client's CV follows |
 | Later / park | `deferred` | `parked` |
 | Reject | `rejected`, moved to `rejected/` | `rejected`; its folder is removed (Git history keeps it), the README row names the commit, and its font family goes too if no other concept uses it. When he rejects it as not his style and wants it kept, it moves to `archive/anti-examples/` instead (with its fonts, its Meta Files removed, a row in that README with his reason) |
 | No answer yet | no change (`pending`) | no change (`proposed`) |
