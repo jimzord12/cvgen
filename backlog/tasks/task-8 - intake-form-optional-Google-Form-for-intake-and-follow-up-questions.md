@@ -4,6 +4,7 @@ title: 'intake-form: optional Google Form for intake and follow-up questions'
 status: Done
 assignee: []
 created_date: '2026-10-06 07:25'
+updated_date: '2026-10-06 07:49'
 labels: []
 dependencies: []
 references:
@@ -24,3 +25,23 @@ ordinal: 8000
 
 **Open.** Stays in Review until the owner's first real run (client-2026-09-01) confirms: link opens without sign-in, form published, theme fonts offered, CSV download is a ZIP.
 <!-- SECTION:DESCRIPTION:END -->
+
+## Comments
+
+<!-- COMMENTS:BEGIN -->
+author: Trello
+created: 2026-10-06 07:49
+---
+Trello comment, 2026-09-28 18:30 UTC (migrated):
+
+2026-09-28 21:29, first real run (client-2026-09-01): script ran, three links logged. Checked from outside: answer link HTTP 200 with no sign-in redirect, form published and accepting, title and questions as written. Still to confirm: theme fonts offered, CSV download is a ZIP.
+---
+
+author: Trello
+created: 2026-10-06 07:49
+---
+Trello comment, 2026-09-28 18:53 UTC (migrated):
+
+2026-09-28 21:50, owner's test answer: the Sheet's File, Download, CSV gives a plain UTF-8 CSV (not a ZIP), one column per question and grid row, skipped page empty, dates M/D/YYYY (Sheet locale). Theme applied: header image and Bona Nova live; Source Sans 3 not detected (questions likely keep Google's default font; the guide's fallback covers it, not a regression). Review round 5 PASS. All first-run checks done: card to Done.
+---
+<!-- COMMENTS:END -->

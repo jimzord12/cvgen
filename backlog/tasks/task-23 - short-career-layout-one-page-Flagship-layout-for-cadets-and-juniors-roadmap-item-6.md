@@ -6,6 +6,7 @@ title: >-
 status: Done
 assignee: []
 created_date: '2026-10-06 07:25'
+updated_date: '2026-10-06 07:49'
 labels: []
 dependencies: []
 references:
@@ -41,3 +42,15 @@ Five rounds, `code-reviewer` + `design-reviewer`, reports and dispositions in do
 ## Handoff
 Done. Open owner taste calls, not blocking: the wheel's top knob touches the page edge on no-portrait deck pages (existing); education stays numbered "03" when certificates are missing (existing). Whether the cadet becomes a `Release` example with its own `Frozen Reference` is the owner's call.
 <!-- SECTION:DESCRIPTION:END -->
+
+## Comments
+
+<!-- COMMENTS:BEGIN -->
+author: Trello
+created: 2026-10-06 07:49
+---
+Trello comment, 2026-09-28 08:01 UTC (migrated):
+
+Owner approved revision 1 on 2026-09-28. Ready to be built when he opens it (roadmap item 6).
+---
+<!-- COMMENTS:END -->

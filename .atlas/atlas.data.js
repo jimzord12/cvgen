@@ -37,7 +37,7 @@ window.ATLAS = {
     "role": "The product owner. The only one who talks to a `Client`, picks the designs and approves a real client's PDF.",
     "notes": [
      "Owner-only: `Approval` of a real client's PDF, product decisions, deleting anything under `private/`, replacing the `Release`.",
-     "Everything routine (commits, merges to `main`, board updates) is the agents' job."
+     "Everything routine (commits, merges to `main`, task-store updates) is the agents' job."
     ],
     "sources": [
      "docs/preferences.md:49-78",
@@ -2274,30 +2274,30 @@ window.ATLAS = {
   }
  ],
  "build": {
-  "builtAt": "2026-10-06 07:48 UTC",
-  "commit": "63c157d",
+  "builtAt": "2026-10-06 07:51 UTC",
+  "commit": "75046f3",
   "kit": "1.0",
   "stale": {},
   "verified": {
    "client-journey": {
     "at": "2026-10-06",
-    "commit": "63c157d"
+    "commit": "75046f3"
    },
    "design-run": {
     "at": "2026-10-06",
-    "commit": "63c157d"
+    "commit": "75046f3"
    },
    "change-review": {
     "at": "2026-10-06",
-    "commit": "63c157d"
+    "commit": "75046f3"
    },
    "system-map": {
     "at": "2026-10-06",
-    "commit": "63c157d"
+    "commit": "75046f3"
    },
    "roster": {
     "at": "2026-10-06",
-    "commit": "63c157d"
+    "commit": "75046f3"
    }
   }
  }

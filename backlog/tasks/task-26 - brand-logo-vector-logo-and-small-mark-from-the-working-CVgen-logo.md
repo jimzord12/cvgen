@@ -4,6 +4,7 @@ title: 'brand-logo: vector logo and small mark from the working CVgen logo'
 status: Done
 assignee: []
 created_date: '2026-10-06 07:25'
+updated_date: '2026-10-06 07:49'
 labels: []
 dependencies: []
 references:
@@ -41,3 +42,40 @@ ordinal: 26000
 ## Handoff
 Next action after the owner's pick: make the chosen file the working logo in brand/README.md and delete nothing (options stay as history); if he picks "custom letter detail", brief an agent for one signature cut on the C or V.
 <!-- SECTION:DESCRIPTION:END -->
+
+## Comments
+
+<!-- COMMENTS:BEGIN -->
+author: Trello
+created: 2026-10-06 07:49
+---
+Trello comment, 2026-09-27 21:55 UTC (migrated):
+
+Owner, 2026-09-28: logo direction = faithful v3 redraw plus ONE custom detail on the C only (tie it to the copper thread). V stays stock. Next night: 2-3 variations for the owner to pick.
+---
+
+author: Trello
+created: 2026-10-06 07:49
+---
+Trello comment, 2026-09-27 23:22 UTC (migrated):
+
+Night Shift 2026-09-28: two C-only options on main, both design review PASS (round 2): needle's eye (reviewer's pick; the thread passes through the C) and stitch holes. Knot and needle point tried and dropped. Files: https://github.com/jimzord12/cvgen/tree/main/brand/logos  Reviews: https://github.com/jimzord12/cvgen/blob/main/docs/work/brand-logo/reviews/03-design-reviewer.md
+Waiting on the owner's pick (Night Shift question). Then: the chosen C into the wordmark and reversed files; small mark and avatar keep the plain C.
+---
+
+author: Trello
+created: 2026-10-06 07:49
+---
+Trello comment, 2026-09-28 06:56 UTC (migrated):
+
+Owner's pick 2026-09-28 (Night Shift Q1): needle's eye. Working logo files on main (f91987f): cvgen-mark-c-eye.svg, cvgen-wordmark.svg (eye), cvgen-mark-c-eye-reversed.svg; small mark and avatar keep the plain C. README: https://github.com/jimzord12/cvgen/blob/main/brand/README.md
+---
+
+author: Trello
+created: 2026-10-06 07:49
+---
+Trello comment, 2026-09-28 07:13 UTC (migrated):
+
+Done 2026-09-28: working logo applied and reviewed (design review PASS, reports 04-05 under docs/work/brand-logo/reviews/). Open for later use (not blocking): dark wordmark, one-colour version, flattened outlines, 16 px cut (brand/README.md status).
+---
+<!-- COMMENTS:END -->

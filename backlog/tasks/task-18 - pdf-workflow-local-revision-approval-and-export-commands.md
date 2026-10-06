@@ -4,9 +4,10 @@ title: 'pdf-workflow: local revision, approval and export commands'
 status: Done
 assignee: []
 created_date: '2026-10-06 07:25'
-updated_date: '2026-10-06 07:25'
+updated_date: '2026-10-06 07:49'
 labels: []
-dependencies: []
+dependencies:
+  - TASK-14
 references:
   - 'https://trello.com/c/iG8cLU6L'
 ordinal: 18000

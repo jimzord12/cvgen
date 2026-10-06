@@ -35,7 +35,7 @@
       "role": "The product owner. The only one who talks to a `Client`, picks the designs and approves a real client's PDF.",
       "notes": [
         "Owner-only: `Approval` of a real client's PDF, product decisions, deleting anything under `private/`, replacing the `Release`.",
-        "Everything routine (commits, merges to `main`, board updates) is the agents' job."
+        "Everything routine (commits, merges to `main`, task-store updates) is the agents' job."
       ],
       "sources": [
         "docs/preferences.md:49-78",
