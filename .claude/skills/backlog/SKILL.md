@@ -77,8 +77,8 @@ branch's task is cancelled on `main` (`docs/development.md`).
 out, pushed with plain `git push origin main`: the owner's local settings
 refuse any push whose refspec names `:main` (`HEAD:main` included).
 
-- If `git worktree list` shows a checkout on `[main]` with no uncommitted
-  changes, use it.
+- If `git worktree list` shows a checkout on `[main]` (your own checkout
+  counts) with no uncommitted changes other than this record edit, use it.
 - If no checkout has `main`, add a short-lived one and remove it after:
 
 ```powershell
@@ -89,12 +89,15 @@ git -C <scratchpad>/records push origin main
 git worktree remove <scratchpad>/records
 ```
 
-- If the only checkout on `main` has someone else's uncommitted changes,
-  do not touch it: carry the edit in your own branch's next merge instead,
-  and say so in your report.
+- If the only checkout on `main` has uncommitted changes that are not part
+  of this record edit, do not touch it: carry a task edit in your own
+  branch's next merge, or leave the handoff unwritten, and say so in your
+  report.
 
 Pull with `git pull --rebase origin main` before editing; if the push is
 rejected because `main` moved, pull again the same way and push again.
+Before pushing, `git status -sb` must show your record commit as the only
+one ahead of `origin/main`; never publish someone else's unpushed commits.
 
 ## The session handoff
 

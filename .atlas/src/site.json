@@ -350,7 +350,7 @@
       "role": "Reads and updates the tasks in `backlog/` through the `backlog` CLI, and reads and rewrites the `session-handoff` doc on `main`. Every task's record is a task file.",
       "when": "Orientation, and every task state change.",
       "sources": [
-        ".claude/skills/backlog/SKILL.md:1-113"
+        ".claude/skills/backlog/SKILL.md:1-116"
       ]
     },
     "repo-maintenance": {

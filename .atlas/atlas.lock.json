@@ -1,7 +1,7 @@
 {
  "pages": {
   "change-review": {
-   "commit": "5961013",
+   "commit": "3db25c2",
    "sources": {
     ".claude/skills/verify-cv/SKILL.md": "6c74c1e3aeba015daf7b6872afbefa08dddc9863",
     ".github/workflows/verify.yml": "2d52e619deca2d621a01a451f8c24d23c692bbb4",
@@ -15,7 +15,7 @@
    "verifiedAt": "2026-10-06"
   },
   "client-journey": {
-   "commit": "5961013",
+   "commit": "3db25c2",
    "sources": {
     ".claude/skills/idea-run/SKILL.md": "3ed1f44d9e79df7588fbe6f5527378f897a430fc",
     ".claude/skills/new-client/SKILL.md": "87ca43161a495ddaf799351240d7e201bb900a12",
@@ -30,7 +30,7 @@
    "verifiedAt": "2026-10-06"
   },
   "design-run": {
-   "commit": "5961013",
+   "commit": "3db25c2",
    "sources": {
     ".claude/agents/design-reviewer.md": "7e0353ea63b3b40eb7d36489a58a1d1a5af2f580",
     ".claude/agents/magazine-editor.md": "d938346a7a932b47e2dfb9df87bb0a4e9250ab19",
@@ -48,7 +48,7 @@
    "verifiedAt": "2026-10-06"
   },
   "roster": {
-   "commit": "5961013",
+   "commit": "3db25c2",
    "sources": {
     ".claude/agents/ceo-reviewer.md": "058811a51ac27c65a93dc8915db4afd58676d33d",
     ".claude/agents/ceo.md": "3a3dd4071d60d0127d75036dfb67444cfdf72c0b",
@@ -60,7 +60,7 @@
     ".claude/agents/repo-auditor-lite.md": "99c2e868259168afc5e9a3a087e4d3cc1ef88354",
     ".claude/agents/research-reviewer.md": "5c4ca50e19c0afaffde30e28555b9479dc28ccc2",
     ".claude/repo-maintenance.md": "ba9bd4019a38050fd767af81eb2c8897d98c23e8",
-    ".claude/skills/backlog/SKILL.md": "c5d336d321a0d8d8765f92046d81e767232aba28",
+    ".claude/skills/backlog/SKILL.md": "79f4e4fcfd694f2112869362d5504b46a94318ee",
     ".claude/skills/do-night-shift-follow-up/SKILL.md": "bd026799dfcfb8035889439f3e582a46c3ed0a73",
     ".claude/skills/idea-run/SKILL.md": "3ed1f44d9e79df7588fbe6f5527378f897a430fc",
     ".claude/skills/new-client/SKILL.md": "87ca43161a495ddaf799351240d7e201bb900a12",
@@ -93,11 +93,11 @@
    "verifiedAt": "2026-10-06"
   },
   "system-map": {
-   "commit": "5961013",
+   "commit": "3db25c2",
    "sources": {
     ".claude/agents": "dir1:4f4154394888bb9d69a0ed790d8f4b484a790fdd",
     ".claude/skills": "dir1:11b44f76e26cbbb8bdd5b634a6d8663fac208431",
-    ".claude/skills/backlog/SKILL.md": "c5d336d321a0d8d8765f92046d81e767232aba28",
+    ".claude/skills/backlog/SKILL.md": "79f4e4fcfd694f2112869362d5504b46a94318ee",
     ".github/workflows/verify.yml": "2d52e619deca2d621a01a451f8c24d23c692bbb4",
     "AGENTS.md": "c928dc2b4eb234aacc1cfc1135c77e830f63e3ec",
     "archive/anti-examples": "dir1:dacb2a2e30bc6a5d49178d2bcbf382c4de52a88c",
