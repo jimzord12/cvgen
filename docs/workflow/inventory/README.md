@@ -16,7 +16,10 @@ own private Git repository with a delete-by history erase
 per client rather than per CV. The anchors below point at the docs as they
 were at `1e684eb`; line numbers in `client-workflow.md`, `build-a-cv.md`,
 `new-client` and `development.md` have shifted. Re-anchor before building
-the model.
+the model. The code anchors in `c-catalog-and-drift.md` (`outputs.py`,
+`render.py`, `export.py`, `validate.py`, `output.schema.json`) are wrong:
+they point past the end of those files. Take code anchors from the a and b
+files (for example `envelope()` is `outputs.py:56-73`) or re-read the code.
 
 ## The three lists
 
@@ -32,8 +35,8 @@ the model.
 |---|---|---|---|
 | Stages | 4 | 3 | |
 | Steps | 41 | 40 | |
-| Artifacts (files, records, messages) | 42 | 43 | 27 `Envelope` sub-paths |
-| Actions (commands, skills, agents, manual acts) | 31 | 27 | 19 commands |
+| Artifacts (files, records, messages) | 42 | 43 | 28 `Envelope` sub-paths |
+| Actions (commands, skills, agents, manual acts) | 31 | 27 | 17 commands |
 | Gates | 23 | 23 | |
 | Actors | 6 | 7 | 15 (7 take part in a client job) |
 | Schemas / contracts | | | 13 (3 as JSON files, 10 only in code or prose) |
@@ -44,7 +47,7 @@ Some entities appear in more than one list; the model will merge them.
 ## What the inventory shows
 
 - **The workflow is written three times over.** The guide, the skills and the
-  Atlas each restate every stage; each stage is described in 4 to 11 places.
+  `Atlas` each restate every stage; each stage is described in 4 to 11 places.
   Only render, approval and export are enforced by code.
 - **No missing files.** Every path and command the sources name exists
   (23 paths checked on disk, every `cv.py` flag found in its argument parser).
@@ -82,10 +85,10 @@ Examples:
 
 - The `Envelope` placeholder has six spellings; use `<envelope>` everywhere.
 - "Workspace" in code and CLI vs `Envelope` in prose.
-- The Atlas says the `Intake Form` replaces the chat message; your decision says beside it.
+- The `Atlas` says the `Intake Form` replaces the chat message; your decision says beside it.
 - Two stall rules ("no progress" vs "no `Export`" after three months).
 - `new-client` says a one-off lives "in one `cv.typ`"; code and the real build use files beside it.
-- Meta File kind `text-draft` (a concept) vs the client's `Text Draft` (`client-draft`).
+- `Meta File` kind `text-draft` (a concept) vs the client's `Text Draft` (`client-draft`).
 - Two state vocabularies for a `Revision` (`cv.py status` vs Meta File status) with no map.
 - `Idea Run` vs "design run" for the same sub-flow.
 - Client page renders left in `builds/` with no clearing rule.

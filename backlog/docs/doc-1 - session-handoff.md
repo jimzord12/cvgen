@@ -10,7 +10,7 @@ created_date: '2026-10-06 07:25'
 Rewritten in place at the end of every session; the first thing a fresh session reads after AGENTS.md. Holds only what no task owns: what is next, parked owner decisions, machine facts, pitfalls. Task state stays in the tasks in `backlog/tasks/`.
 
 **Written:** 2026-10-06, Hanami Line travel design built for a real client and the Design Review verdicts applied (Claude Code).
-**Main at:** 58aa859
+**Main at:** see `git log -1` (updated 2026-10-06, after the workflow-model merge)
 
 ## Where things stand
 - Task store: Backlog.md in `backlog/` (ADR 0014). Read and write tasks only through `.claude/skills/backlog/SKILL.md`; read this doc with `git show origin/main:"backlog/docs/doc-1 - session-handoff.md"`.
@@ -21,10 +21,11 @@ Rewritten in place at the end of every session; the first thing a fresh session 
 
 ## Next
 1. Client `client-2026-09-01` (alias only; real data stays in `private/`): delivery is recorded (see above). Open: if the client holds an early Stamp Rally edition (white strip under the boarding-pass portrait, fixed 2026-10-02), the owner may send him the fixed one.
-2. Owner-only clean-up for that client: delete its Intake Form, answers Sheet and script project (links in the `Envelope`'s README, then empty the Drive Trash); delete `private/<envelope>/` and the review copies in `Documents\Pavlos CVs\` at the delete-by date.
-3. Session Sweep gap: 30 commits from other sessions reached `main` between 0488c4f and 1e684eb (merges of docs/codex-visual-tools, feature/hanami-client-cv, docs/idea-run-2026-10-02-editor-b, plus an Atlas refresh). The Hanami branch has its review summaries in `docs/work/idea-runs/2026-10-02-editor-2/run.md` (the reviewers' full reports were not stored: observation recorded there); check the rest of `git log 0488c4f..1e684eb` against `docs/work/*/reviews/` and run any missing round.
-4. Open branches made before the migration (`fix/atlas-step-under-labels`, `docs/private-repo`, the idea-run branches) still carry Trello wording and the old trello skill. On their next merge, resolve toward `main` and re-run `rg -i --hidden trello` outside `docs/work`, `docs/proposals`, `.night-shift`, `backlog/tasks`, ADRs and history.
-5. The main checkout (`C:\Users\jimzord12\Documents\GitHub\cvgen`) is on another session's branch `docs/idea-run-2026-10-02-editor-2` and holds an untracked `design-concepts/2026-10-02-sakura-passage/`; it is not this session's work, leave it alone.
+2. Owner-only clean-up for that client: delete its Intake Form, answers Sheet and script project (links in the `Envelope`'s README, then empty the Drive Trash); delete `private/<envelope>/` and the folder of review copies kept outside the repo at the delete-by date.
+3. Session Sweep gap: the merge-time changes of 2026-10-04 (`a66b448`, `1db32e8`, `74a6f82`, `1e684eb`) have no stored review report. The workflow-model handoff proposes the task (`merge-review-2026-10-04`).
+4. Queued from the owner's 2026-10-06 repo walk-through: TASK-28 (proposals snapshot), TASK-29 (remove `.night-shift`), TASK-30 (`Main Folder` glossary term), TASK-31 (rename `docs/reference`), TASK-32 (one tree for every client folder, confirmed by the owner). None started.
+5. The workflow-model work (inventory of the client workflow, nine open owner decisions, 12 suggested tasks plus 13 restructure tasks) is in `docs/work/workflow-model/handoff.md` and `docs/workflow/inventory/`. Those suggested tasks are not yet created in Backlog; the owner decides when.
+6. The repository is down to the `main` branch and the main folder (no other branches or worktrees), as of 2026-10-06.
 
 ## Owner decisions parked
 - Parked reference concepts (`keep` / `maybe` in the gallery): Woodblock Road (condensed safe and stylish, spacious stylish), Stamp Rally (condensed safe, creative, stylish, spacious safe), Concourse (spacious stylish), Hanami Line v1. Stamp Rally spacious/stylish is `chosen` (built for the client).

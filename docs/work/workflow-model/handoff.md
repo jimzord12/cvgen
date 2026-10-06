@@ -10,7 +10,7 @@ halted by the owner.
 ## 1. How to integrate the branch
 
 **Branch:** `docs/workflow-model` (pushed to GitHub).
-**Contents beyond `main`:** one commit with a new folder, `docs/workflow/inventory/`
+**Contents beyond `main`:** two commits (the inventory, then this handoff) with a new folder, `docs/workflow/inventory/`
 (a README plus three inventory files), and this handoff. `main` was merged into
 the branch at `57a6c32`, with no conflicts. Nothing outside these two folders
 changes, so no code, fixture or PDF is touched.
@@ -20,7 +20,7 @@ Steps:
 1. `git fetch origin` and check that the branch still merges cleanly:
    `git merge-tree $(git merge-base origin/main origin/docs/workflow-model) origin/main origin/docs/workflow-model`
    should list no conflicts. If `main` has moved, merge `main` into the branch first.
-2. Review. Both folders are work records (`docs/review.md`, record-keeping), so no
+2. Review. Both folders are treated as work records (`docs/review.md`, record-keeping), so no
    full round is required. One fresh `context-reviewer` pass on
    `docs/workflow/inventory/` is still worth it, for one reason: it is public and
    describes a real client's workflow. Confirm that it names no client other than
@@ -228,7 +228,9 @@ hand-written.
 
 Two have partly moved on `main` since then:
 - **#1 (when the delete-by date starts).** `main` now records one delete-by date
-  per client, written at delivery (2027-10-02 for `client-2026-09-01`).
+  per client, written at delivery (2027-10-02 for `client-2026-09-01`). That is one
+  client's practice; `client-workflow.md` still says "At `Export`", so decision #1
+  is not settled.
 - **#7.** It now reads "a Backlog.md task per `Alias`", not a Trello card.
 
 Re-ask the owner before encoding. Answers go into a proposal (task 2), and the
@@ -253,8 +255,10 @@ model encodes them.
 
 **Before creating any, check for duplicates** with
 `backlog search "<words>" --plain`. TASK-28 (proposals snapshot), TASK-29
-(remove night-shift), TASK-30 (Main Folder term) and TASK-4 (codex-visual-tools)
-already exist.
+(remove night-shift), TASK-30 (Main Folder term), TASK-31 (docs/reference rename),
+TASK-32 (client folder layout) and TASK-4 (codex-visual-tools) already exist.
+TASK-32 overlaps task 11 below and the `Envelope` layout drift items in
+`docs/workflow/inventory/c-catalog-and-drift.md`.
 
 Create on `main` with:
 
@@ -278,7 +282,7 @@ Each id names its `docs/work/<id>/` folder.
 | 8 | `workflow-prose`: the stage READMEs and the journey README | Hand-written purpose, judgement and branches per stage; the top README at the length the owner chose. Refers to IDs and never restates contracts. | A context-reviewer PASS; a newcomer test: an agent answers five "what happens if" questions from these files alone |
 | 9 | `atlas-from-model`: the Atlas client journey is built from the model | Port the Atlas build to TypeScript (or feed the existing page format from the model); retire hand-written `client-journey.json` facts. Later pages follow. | The client-journey page is generated; `atlas check` (or its successor) passes; the old page data is deleted |
 | 10 | `workflow-reality-check`: level 3, the model checked against a real run | Extend `tests/workflow.py`, or drive it from the engine, so a fictional client runs every automated step in a temporary `Envelope`; declared artifacts must exist and validate; labelled stand-ins cover human steps. Add a read-only local mode for a real `Envelope` that never copies data. | Suite step passes; changing a script's output name makes it fail with the step ID |
-| 11 | `workflow-consolidate`: one source for the client workflow | Replace `client-workflow.md`, `build-a-cv.md` and the lifecycle half of `pdf-workflow.md` with the model; reduce `new-client`/`new-cv` to step-ID pointers; fix the about 60 naming-drift items (inventory README, "Fixed without asking"); update `AGENTS.md`; delete `docs/workflow/inventory/`. | No second description of any step remains (grep checks); the skills still run a fictional client end to end |
+| 11 | `workflow-consolidate`: one source for the client workflow | Replace `client-workflow.md`, `build-a-cv.md` and the lifecycle half of `pdf-workflow.md` with the model; reduce `new-client`/`new-cv` to step-ID pointers; fix the naming-drift items (inventory README: 34 drift items and 53 conflicts, "Fixed without asking"); update `AGENTS.md`; delete `docs/workflow/inventory/`. | No second description of any step remains (grep checks); the skills still run a fictional client end to end |
 | 12 | `workflow-guards`: scripts enforce the workflow's state order | Per decisions #2 and #8: a `ready` status for the `Text Draft`; `outputs.py stamp` refuses `approved` without a receipt, `delivered` without an approval (or export, per decision), and `signed-off` without the screenshot; rename Meta File kind `text-draft` (the concept) so it no longer collides with the client's `Text Draft`. Code change: `code-reviewer` round. Depends on task 2 only. | Tests for each refusal; schema updated; the suite passes |
 
 ### B. Restructure backlog from the 2026-10-04 audit (independent of A; the owner's "A+" goal)
