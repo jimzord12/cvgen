@@ -28,7 +28,8 @@ Intake (Relay) -> Scout -> CV decisions -> Deep Dives -> one follow-up
 
 ## 1. Open the Envelope
 
-One folder per client under `private/` (ignored by Git), named after the
+One folder per client under `private/` (ignored by this repository, tracked by the
+private one, `AGENTS.md`), named after the
 person and their `Rank`, as in `build-a-cv.md`. The workflow adds three
 drawers to it:
 
@@ -62,7 +63,7 @@ the files `cv.typ` reads into a `Revision`; the drawers enter one only if
 
 **The folder name is client data.** Claude gives each client an alias,
 `client-<yyyy>-<mm>-<nn>` (for example `client-2026-09-01`), written at the
-top of the `Envelope`'s `README.md` with the date intake started. Outside `private/` (Trello cards,
+top of the `Envelope`'s `README.md` with the date intake started. Outside `private/` (tasks in `backlog/`,
 commit messages, briefs to agents, anything public) the client is only ever
 the alias.
 
@@ -303,6 +304,27 @@ since the intake date: the `new-client` skill checks the intake dates every
 time it runs. Deleting anything under `private/`, and each `Intake Form`,
 its Sheet and its script project listed in the `README.md` (then empty
 the Drive Trash, which keeps files for 30 days), stays the owner's act.
+Deleting the folder is not enough: the private Git repository keeps it in its
+history. Claude hands the owner the exact commands to erase the `Envelope` from
+that history and overwrite GitHub's copy, which he runs. First, in
+`private/`, `git status` and `git log origin/main..` must both print nothing
+(commit and push everything else); the erase then runs in a fresh clone, so no
+working copy is touched:
+
+```powershell
+git clone https://github.com/jimzord12/cvgen-private.git $env:TEMP\cvgen-private-erase
+cd $env:TEMP\cvgen-private-erase
+git filter-repo --path <envelope-folder>/ --invert-paths
+git remote add origin https://github.com/jimzord12/cvgen-private.git
+git push --force --all origin
+git push --force --tags origin
+```
+
+(`git filter-repo` is a separate install, `pip install git-filter-repo`; it
+removes the `origin` remote, hence the re-add.) Then delete that temporary
+folder and every clone of the private repository, `private/` included, and
+clone it again. GitHub may keep the erased commits reachable by their hash
+until its own clean-up runs; full erasure means asking GitHub Support.
 
 ## Rules
 
@@ -311,7 +333,7 @@ the Drive Trash, which keeps files for 30 days), stays the owner's act.
   with their `Rank` and dates, a vessel with its crew position). Search for
   "chief officers applying to Norwegian shipowners", never the person.
 - **Client data stays in the `Envelope`.** Research Library notes, review
-  reports outside the `Envelope`, commit messages, cards and public
+  reports outside the `Envelope`, commit messages, tasks and public
   documents never contain it; they use the alias.
 - **One batch per round.** Up to `Sign-off`, the client gets three
   messages from us: the question list, one follow-up, the text draft

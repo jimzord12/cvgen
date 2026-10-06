@@ -242,3 +242,15 @@ rewritten by a script; the engineer example stayed pixel-identical to v11,
 and both private compositions, whose engine paths are updated at the
 merge with the owner's consent, render pixel-identical to their approved
 references.
+
+## 2026-10-06 — the task store moves into the repository
+
+The owner moved the task store from the Trello board to Backlog.md
+(ADR 0014). All 26 task cards became files in `backlog/tasks/`, word for
+word, and the session-handoff card became `backlog/docs/`; a parity script
+confirmed every title, status, description and acceptance item. Agents now
+use the `backlog` CLI through the `backlog` skill, with no credentials or
+network, and a task's record merges together with its work. The board was
+exported to `docs/work/backlog-migration/` and closed, not deleted. The
+cost is the phone board: on a phone the tasks are readable on GitHub, but
+with no Kanban view.

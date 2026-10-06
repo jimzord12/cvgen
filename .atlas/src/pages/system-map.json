@@ -25,7 +25,7 @@
       "col": 1,
       "w": 4,
       "row": 1,
-      "blurb": "`private/`: one folder per real client. Ignored by Git, never in a brief.",
+      "blurb": "`private/`: one folder per real client. Its own private Git repo, ignored by the public one, never in a brief.",
       "nodes": [
         {
           "id": "n-envelope",
@@ -362,12 +362,12 @@
       "nodes": [
         {
           "id": "n-board",
-          "title": "Trello board",
-          "path": "board \"CVgen\"",
+          "title": "Task store",
+          "path": "backlog/",
           "actor": "board",
-          "blurb": "Every task is a card; sessions start at `session-handoff`.",
+          "blurb": "Every task is a Backlog.md file; sessions start at the `session-handoff` doc on `main`.",
           "sources": [
-            ".claude/skills/trello/SKILL.md:25-33"
+            ".claude/skills/backlog/SKILL.md:1-35"
           ]
         },
         {
@@ -529,7 +529,7 @@
     {
       "from": "n-skills",
       "to": "n-board",
-      "label": "trello skill",
+      "label": "backlog skill",
       "type": "calls"
     },
     {

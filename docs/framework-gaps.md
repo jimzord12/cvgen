@@ -70,7 +70,7 @@ Built:    Nothing; the rendering is unchanged and pixel-identical.
 Lesson:   Move styling into style blocks one component at a time under the
           pixel gate, when a component is changed for another reason.
 
-### 2026-09-25  A client whose domain does not exist yet           Status: open until the domain exists; the snapshot limit closed by card revision-snapshot (2026-09-27)
+### 2026-09-25  A client whose domain does not exist yet           Status: open until the domain exists; the snapshot limit closed by task revision-snapshot (2026-09-27)
 Needed:   A CV for a client outside marine (a tour guide) through
           `scripts/cv.py render`, `approve` and `export`, before the
           `Travel & Tourism` domain exists.
@@ -91,7 +91,7 @@ Update:   2026-09-27: a revision now copies the files `cv.typ` reads by a
           longer has to fit in `cv.typ` (`build-a-cv.md` section 8).
 Update:   2026-09-29: first used, by client-2026-09-01 (next entry).
 
-### 2026-09-29  A bilingual one-off CV with no domain components   Status: open until the Travel & Tourism domain exists (card travel-domain)
+### 2026-09-29  A bilingual one-off CV with no domain components   Status: open until the Travel & Tourism domain exists (task travel-domain)
 Needed:   A two-page tour-leader CV for client-2026-09-01 in Greek and
           English from one design, with a page about the client's trips
           drawn as rail line diagrams.
@@ -111,7 +111,7 @@ Lesson:   The Travel & Tourism domain should start from this design: a
           component, and a Greek-capitals helper in the Framework (where
           `label` in `core/primitives.typ` already upper-cases).
 
-### 2026-10-02  A second one-off travel CV, in a chosen concept (Hanami Line 2)   Status: open until the Travel & Tourism domain exists (card travel-domain)
+### 2026-10-02  A second one-off travel CV, in a chosen concept (Hanami Line 2)   Status: open until the Travel & Tourism domain exists (task travel-domain)
 Needed:   The owner's chosen travel design (`design-concepts/2026-10-02-hanami-line-2/`, three palettes) built for client-2026-09-01 in Greek and English, with the client's portrait and a footer logo.
 Bypassed: Every template and domain component again (no Travel & Tourism `Domain`): a one-off Template in the client's Envelope (`design-hanami.typ`, text slots in `text-hanami-*.typ`, generated SVG art in `assets/`), chosen by `--input design=hanami --input palette=pink|indigo|blue --input lang=el|en`.
 Built:    Three font families the design needs (Sofia Sans Extra Condensed, M PLUS 1p, Kaisei Tokumin) moved into `packages/cv-framework/fonts/` because `scripts/cv.py` only searches that folder; a petal-layer script that lays out decoration against the text boxes of the compiled PDF and checks for collisions.

@@ -8,8 +8,8 @@ window.ATLAS = {
   "sourceBase": "../",
   "branch": "main",
   "snapshot": {
-   "asOf": "2026-10-04",
-   "note": "Read from main on 2026-10-04, after every open branch was merged into it. The Trello board was not read for this update. Client data is never shown here: a client is only their `Alias`."
+   "asOf": "2026-10-06",
+   "note": "Read from main on 2026-10-04, after every open branch was merged into it; the task-store pages were updated on 2026-10-06 for the move to Backlog.md (ADR 0014). Client data is never shown here: a client is only their `Alias`."
   },
   "sources": [
    "AGENTS.md",
@@ -37,10 +37,10 @@ window.ATLAS = {
     "role": "The product owner. The only one who talks to a `Client`, picks the designs and approves a real client's PDF.",
     "notes": [
      "Owner-only: `Approval` of a real client's PDF, product decisions, deleting anything under `private/`, replacing the `Release`.",
-     "Everything routine (commits, merges to `main`, board updates) is the agents' job."
+     "Everything routine (commits, merges to `main`, task-store updates) is the agents' job."
     ],
     "sources": [
-     "docs/preferences.md:49-77",
+     "docs/preferences.md:49-78",
      "docs/guides/client-workflow.md:9-10"
     ],
     "short": "You"
@@ -66,7 +66,7 @@ window.ATLAS = {
     "role": "The main Claude Code session you talk to. Plans, writes, researches, builds, runs the review loops and integrates.",
     "notes": [
      "Runs on whatever model the session uses; the repo pins no model for the lead.",
-     "Starts every session from the `session-handoff` card on the Trello board and rewrites it before stopping."
+     "Starts every session from the `session-handoff` doc on `main` (`backlog/docs/`) and rewrites it before stopping."
     ],
     "sources": [
      "AGENTS.md:28-44",
@@ -82,7 +82,7 @@ window.ATLAS = {
     "file": ".claude/agents/magazine-editor.md",
     "role": "Art director. Draws three very distinct `Styles`, each in two `Densities` and three `Design Tiers`: 18 real Typst mock-ups on fictional data.",
     "tools": "Read, Grep, Glob, Bash, PowerShell, WebSearch, WebFetch, Write, Edit",
-    "access": "Writes only its concept folders, the concepts README and fonts. Never git, Trello or `private/`.",
+    "access": "Writes only its concept folders, the concepts README and fonts. Never git, the `backlog` CLI or `private/`.",
     "calledBy": "The lead, through the `idea-run` skill.",
     "when": "A design run, for inspiration or for a client whose `Domain` has no `Template` yet.",
     "sources": [
@@ -182,7 +182,7 @@ window.ATLAS = {
     ],
     "sources": [
      ".claude/agents/code-reviewer.md:1-7",
-     "docs/review.md:122-140"
+     "docs/review.md:126-144"
     ],
     "short": "Code rev."
    },
@@ -345,14 +345,14 @@ window.ATLAS = {
      ".claude/skills/new-theme/SKILL.md:1-5"
     ]
    },
-   "trello": {
-    "label": "trello",
+   "backlog": {
+    "label": "backlog",
     "kind": "skill",
-    "file": ".claude/skills/trello/SKILL.md",
-    "role": "Reads and updates the CVgen board through its REST API. Every task's record is a card.",
+    "file": ".claude/skills/backlog/SKILL.md",
+    "role": "Reads and updates the tasks in `backlog/` through the `backlog` CLI, and reads and rewrites the `session-handoff` doc on `main`. Every task's record is a task file.",
     "when": "Orientation, and every task state change.",
     "sources": [
-     ".claude/skills/trello/SKILL.md:1-33"
+     ".claude/skills/backlog/SKILL.md:1-117"
     ]
    },
    "repo-maintenance": {
@@ -444,14 +444,15 @@ window.ATLAS = {
     ]
    },
    "board": {
-    "label": "Trello board \"CVgen\"",
+    "label": "Task store `backlog/`",
     "kind": "service",
-    "role": "The task store. Lists: Handoff, Queued, Active, Review, Ready, Done. The `session-handoff` card is where every session starts.",
+    "role": "The task store (Backlog.md, ADR 0014): one file per task, statuses Queued, Active, Review, Ready, Done, label `blocked`. The `session-handoff` doc is where every session starts. Boards: `backlog board`, `backlog browser`.",
     "sources": [
-     ".claude/skills/trello/SKILL.md:25-33",
-     "docs/development.md:17-32"
+     ".claude/skills/backlog/SKILL.md:1-35",
+     "docs/development.md:17-32",
+     "docs/decisions/0014-backlog-md-task-store.md"
     ],
-    "short": "Trello"
+    "short": "Backlog"
    },
    "chat": {
     "label": "Chat app",
@@ -484,7 +485,7 @@ window.ATLAS = {
    "Theme": "A `Template`'s colours, fonts and sizes only.",
    "Artwork Pack": "Which illustration goes in which slot of a `Template`.",
    "Client": "The person a CV is for, who also pays for it. The code says \"candidate\".",
-   "Envelope": "One client's private folder: facts, portrait, `Template` tweaks, every `Revision` and `Export`. Lives in `private/`, never in Git.",
+   "Envelope": "One client's private folder: facts, portrait, `Template` tweaks, every `Revision` and `Export`. Lives in `private/`: its own private Git repo, never in the public one.",
    "Alias": "The neutral name for a client outside `private/`: client-yyyy-mm-nn.",
    "Intake": "Collecting a client's facts and goals before research: a question list sent by chat, answers kept in the `Envelope`.",
    "Relay": "The `Intake` method: Claude writes the questions, you pass them to the client by chat and bring the answers back.",
@@ -505,7 +506,7 @@ window.ATLAS = {
    "Meta File": "The small JSON beside a PDF saying what it is (kind, `Domain`, status, pages) with its SHA-256.",
    "Frozen Reference": "The PDF a `Template`'s public example must reproduce pixel for pixel.",
    "Framework Gap": "A recorded case of going around the `Framework`, a `Domain` or a `Template` to deliver a CV.",
-   "Session Sweep": "The places to look for loose ends before a session ends: unreviewed commits, approved proposals, open cards, Night Shift items, Git leftovers, CI, `builds/`.",
+   "Session Sweep": "The places to look for loose ends before a session ends: unreviewed commits, approved proposals, open tasks, Night Shift items, Git leftovers, CI, `builds/`.",
    "Certificate Warning": "A WARNING line at render: a certificate expired or expires within 180 days. Never blocks.",
    "Live Read": "A render that read a private file directly instead of the `Revision`'s copy. It fails its checks.",
    "Batch Test": "Design test 1: in an HR batch of 100 to 200 CVs, ours cannot be skipped.",
@@ -583,7 +584,7 @@ window.ATLAS = {
        "id": "envelope",
        "title": "Open the Envelope",
        "actor": "lead",
-       "summary": "One private folder per client, never in Git. Outside it the client is only an `Alias`.",
+       "summary": "One private folder per client, in its own private Git repo, never in the public one. Outside it the client is only an `Alias`.",
        "does": [
         "Creates `private/<name>-<rank>/` with the drawers `intake/`, `research/`, `draft/`.",
         "Gives the client an `Alias` (`client-2026-09-01` style) and writes it in the folder's `README.md`.",
@@ -1082,7 +1083,7 @@ window.ATLAS = {
        },
        "sources": [
         "docs/guides/client-workflow.md:297-305",
-        "docs/preferences.md:68-77"
+        "docs/preferences.md:69-78"
        ]
       }
      ]
@@ -1350,7 +1351,7 @@ window.ATLAS = {
        ],
        "sources": [
         ".claude/skills/idea-run/SKILL.md:73-85",
-        "docs/review.md:48-59"
+        "docs/review.md:48-63"
        ]
       },
       {
@@ -1362,7 +1363,7 @@ window.ATLAS = {
        ],
        "summary": "Each Style's three-word idea with its six PDFs, anything dropped or `unresolved`, and how many rounds each gate took.",
        "does": [
-        "Styles still waiting for your answer are listed on the handoff card."
+        "Styles still waiting for your answer are listed in the `session-handoff` doc."
        ],
        "sources": [
         ".claude/skills/idea-run/SKILL.md:114-122"
@@ -1406,7 +1407,7 @@ window.ATLAS = {
        "id": "follows",
        "title": "What follows",
        "actor": "lead",
-       "summary": "A chosen Style becomes either a `Template` card on the board or the client's own CV.",
+       "summary": "A chosen Style becomes either a `Template` task in `backlog/` or the client's own CV.",
        "does": [
         "For a client: the one-off design is built and reviewed in their `Envelope`: [[client-journey#build-cv]].",
         "A concept becomes a `Template` only after you keep it and a build task is agreed."
@@ -1428,7 +1429,7 @@ window.ATLAS = {
    "question": "When Claude changes something, what happens before it is on main?",
    "summary": "Every change, code or docs or design, goes through an independent review by a fresh agent before it is called done. Routine Git is the agents' job; a short list of irreversible things stays yours.",
    "tldr": [
-    "Each session starts from the `session-handoff` card on the Trello board and ends by rewriting it after a `Session Sweep`.",
+    "Each session starts from the `session-handoff` doc on `main` (`backlog/docs/`) and ends by rewriting it after a `Session Sweep`.",
     "Build, prove it with `tests/run.py`, then a fresh reviewer per round: `code-reviewer` for code and, on `main`, everything else; `design-reviewer` for looks. A `context-reviewer` reviews changes to agent rules.",
     "Fix every Blocking and Material finding; stop at PASS or after 5 rounds (10 unattended). Then merge, push and watch CI."
    ],
@@ -1454,18 +1455,18 @@ window.ATLAS = {
      "steps": [
       {
        "id": "orient",
-       "title": "The session starts from the handoff card",
+       "title": "The session starts from the handoff doc",
        "actor": "lead",
        "with": [
         "board"
        ],
-       "summary": "Claude reads AGENTS.md, your preferences, then the `session-handoff` card, and checks it against Git and the evidence.",
+       "summary": "Claude reads AGENTS.md, your preferences, then the `session-handoff` doc as it stands on `main`, and checks it against Git and the evidence.",
        "does": [
         "Gives you a four-line briefing: Goal, Now, Next, You.",
         "Separates an approved design from built behaviour, and old checks from current proof."
        ],
        "uses": [
-        "trello"
+        "backlog"
        ],
        "sources": [
         "docs/development.md:34-56",
@@ -1474,22 +1475,22 @@ window.ATLAS = {
       },
       {
        "id": "card",
-       "title": "A card for the task",
+       "title": "A task file for the task",
        "actor": "lead",
        "with": [
         "board"
        ],
-       "summary": "The card is the task record: outcome, acceptance, plan, result and evidence, review, handoff.",
+       "summary": "A Backlog.md task in `backlog/tasks/` is the task record: outcome, acceptance, plan, result and evidence, review, handoff. It changes on the branch doing the work.",
        "does": [
-        "Lists: Queued → Active → Review → Ready → Done. A red Blocked label when stuck.",
+        "Statuses: Queued → Active → Review → Ready → Done. The `blocked` label when stuck.",
         "Ready is not Done: Done means on its branch, pushed, CI green, evidence recorded."
        ],
        "uses": [
-        "trello"
+        "backlog"
        ],
        "sources": [
         "docs/development.md:17-32",
-        "docs/development.md:124-184"
+        "docs/development.md:113-201"
        ]
       }
      ]
@@ -1566,9 +1567,9 @@ window.ATLAS = {
        ],
        "note": "Only spelling, comments, formatting or a glossary row skip the round, and record-keeping commits (storing reports, merging reviewed work).",
        "sources": [
-        "docs/review.md:7-59",
-        "docs/review.md:76-96",
-        "docs/review.md:152-171",
+        "docs/review.md:7-63",
+        "docs/review.md:80-100",
+        "docs/review.md:156-175",
         "docs/review.md",
         "docs/work/anti-examples/reviews/01-context.md"
        ]
@@ -1589,7 +1590,7 @@ window.ATLAS = {
         "Renaming the task never resets the round count."
        ],
        "sources": [
-        "docs/review.md:175-201"
+        "docs/review.md:179-205"
        ]
       }
      ]
@@ -1608,7 +1609,7 @@ window.ATLAS = {
        "summary": "Merging into `main` is routine and the agents' job. `main` must always be releasable.",
        "does": [
         "Required checks before the push, then `gh run watch` until CI is green.",
-        "Then the card moves to Done with its evidence."
+        "Then the task moves to Done with its evidence, as a record commit on `main`."
        ],
        "cmd": [
         "gh run list --commit <sha>",
@@ -1617,7 +1618,7 @@ window.ATLAS = {
        "note": "Yours only, with the exact command shown first, including: deleting or force-pushing `main`, rewriting its published history, `archive/*` tags, repo settings, deleting under `private/` or `.local/` or outside the repo, removing revisions, approvals, exports or portraits, replacing the `Release`.",
        "sources": [
         "docs/git-workflow.md:66-79",
-        "docs/preferences.md:52-77",
+        "docs/preferences.md:52-78",
         ".github/workflows/verify.yml"
        ]
       }
@@ -1633,8 +1634,8 @@ window.ATLAS = {
        "actor": "lead",
        "summary": "Before stopping, Claude looks in fixed places for loose ends: a list of places to look, never a list of what is open.",
        "does": [
-        "Reviews: every commit on `main` since the card's sha has a report or is trivial.",
-        "Proposals marked `approved` but not applied; cards in Active, Review, Ready or Blocked.",
+        "Reviews: every commit on `main` since the handoff doc's `Main at` sha has a report or is trivial.",
+        "Proposals marked `approved` but not applied; tasks in Active, Review, Ready or labelled `blocked`.",
         "Night Shift follow-ups, Git leftovers, CI on `main`, old `builds/` folders.",
         "Repo health: `/repo-maintenance quick`, a few seconds.",
         "`Atlas`: `atlas.py check`; a stale or unverified page is re-checked against its sources."
@@ -1644,22 +1645,22 @@ window.ATLAS = {
         "night-shift"
        ],
        "sources": [
-        "docs/development.md:58-92"
+        "docs/development.md:58-95"
        ]
       },
       {
        "id": "handoff",
-       "title": "Rewrite the handoff card",
+       "title": "Rewrite the handoff doc on main",
        "actor": "lead",
        "with": [
         "board"
        ],
        "summary": "The next session starts here: written date, `Main at` sha, where things stand, next steps, your parked decisions, pitfalls.",
        "uses": [
-        "trello"
+        "backlog"
        ],
        "sources": [
-        "docs/development.md:93-104"
+        "docs/development.md:97-111"
        ]
       },
       {
@@ -1674,7 +1675,7 @@ window.ATLAS = {
        },
        "sources": [
         "docs/preferences.md:49-51",
-        "docs/preferences.md:83"
+        "docs/preferences.md:84"
        ]
       }
      ]
@@ -1708,7 +1709,7 @@ window.ATLAS = {
      "col": 1,
      "w": 4,
      "row": 1,
-     "blurb": "`private/`: one folder per real client. Ignored by Git, never in a brief.",
+     "blurb": "`private/`: one folder per real client. Its own private Git repo, ignored by the public one, never in a brief.",
      "nodes": [
       {
        "id": "n-envelope",
@@ -2045,12 +2046,12 @@ window.ATLAS = {
      "nodes": [
       {
        "id": "n-board",
-       "title": "Trello board",
-       "path": "board \"CVgen\"",
+       "title": "Task store",
+       "path": "backlog/",
        "actor": "board",
-       "blurb": "Every task is a card; sessions start at `session-handoff`.",
+       "blurb": "Every task is a Backlog.md file; sessions start at the `session-handoff` doc on `main`.",
        "sources": [
-        ".claude/skills/trello/SKILL.md:25-33"
+        ".claude/skills/backlog/SKILL.md:1-35"
        ]
       },
       {
@@ -2212,7 +2213,7 @@ window.ATLAS = {
     {
      "from": "n-skills",
      "to": "n-board",
-     "label": "trello skill",
+     "label": "backlog skill",
      "type": "calls"
     },
     {
@@ -2268,35 +2269,62 @@ window.ATLAS = {
     "Not everything here is on `main`: the two Codex steps are approved but not built; the two context agents are on `main` since 2026-10-04."
    ],
    "sources": [
-    "docs/review.md:130-140"
+    "docs/review.md:134-144"
    ]
   }
  ],
  "build": {
-  "builtAt": "2026-10-04 20:59 UTC",
-  "commit": "19aeef7",
+  "builtAt": "2026-10-06 08:36 UTC",
+  "commit": "f5875a3",
   "kit": "1.0",
-  "stale": {},
+  "stale": {
+   "client-journey": [
+    "docs/guides/client-workflow.md",
+    "docs/guides/build-a-cv.md",
+    ".claude/skills/new-client/SKILL.md",
+    "docs/preferences.md"
+   ],
+   "design-run": [
+    "AGENTS.md"
+   ],
+   "change-review": [
+    "AGENTS.md",
+    "docs/preferences.md"
+   ],
+   "system-map": [
+    "AGENTS.md",
+    "docs/guides/client-workflow.md",
+    "docs/guides/build-a-cv.md",
+    "docs/work"
+   ],
+   "roster": [
+    "docs/preferences.md",
+    "docs/guides/client-workflow.md",
+    "AGENTS.md",
+    ".claude/skills/new-client/SKILL.md",
+    "docs/guides/build-a-cv.md"
+   ]
+  },
   "verified": {
    "client-journey": {
-    "at": "2026-10-04",
-    "commit": "74a6f82"
+    "at": "2026-10-06",
+    "commit": "9765962"
    },
    "design-run": {
-    "at": "2026-10-04",
-    "commit": "74a6f82"
+    "at": "2026-10-06",
+    "commit": "a4f1da0"
    },
    "change-review": {
-    "at": "2026-10-04",
-    "commit": "74a6f82"
+    "at": "2026-10-06",
+    "commit": "9765962"
    },
    "system-map": {
-    "at": "2026-10-04",
-    "commit": "74a6f82"
+    "at": "2026-10-06",
+    "commit": "a4f1da0"
    },
    "roster": {
-    "at": "2026-10-04",
-    "commit": "74a6f82"
+    "at": "2026-10-06",
+    "commit": "9765962"
    }
   }
  }

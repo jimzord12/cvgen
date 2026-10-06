@@ -23,7 +23,7 @@ None of this approves a pending product design.
 - `main` is always releasable: the suite passes and the `Release` PDFs
   beside the entry points in `examples/` match the code. If a merge
   changes what they would contain, refreshing them needs the owner's go;
-  until then record the mismatch on the handoff card.
+  until then record the mismatch in the session-handoff doc.
 - Small, low-risk, verified fixes and documentation can go directly to `main`.
   Choose a feature branch for new features, migrations, significant changes,
   or work whose readiness is uncertain.
@@ -40,6 +40,14 @@ None of this approves a pending product design.
   Use separate worktrees and one writer per checkout; routine fixes to the same
   feature can stay on its branch. Feature-specific fixes target the feature;
   fixes to existing `main` behavior should reach `main` and then the feature.
+- Worktrees live inside the repository at `.worktrees/<branch-topic>`, the
+  branch name without its type prefix: `git worktree add -b fix/duration-wrap
+  .worktrees/duration-wrap`. If that folder exists, use the full branch name
+  with `/` replaced by `-`. The folder is ignored by Git. Never create one
+  beside the repository. The one exception is the short-lived checkout of
+  `main` that the backlog skill makes in the session's scratchpad to write
+  records (`.claude/skills/backlog/SKILL.md`). Worktrees created before this
+  rule stay where they are until their work is merged and they are removed.
 
 ## Commits
 

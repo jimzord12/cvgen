@@ -4,6 +4,10 @@ kind: reference
 
 # Kanban tooling: first trial
 
+> **2026-10-06:** the owner adopted Backlog.md after all, replacing Trello
+> ([ADR 0014](../decisions/0014-backlog-md-task-store.md)). The text below is
+> the dated 2026-09-15 research.
+
 Historical research and recommendation, 2026-09-15. The owner subsequently chose
 the [Trello Free trial](trello-free-trial.md) on 2026-09-16. That decision supersedes
 the first-trial recommendation below; retain this comparison as dated background.

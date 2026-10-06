@@ -10,6 +10,9 @@ private/
 builds/*
 !builds/.gitkeep
 
+# Git worktrees: every extra checkout lives here (docs/git-workflow.md).
+/.worktrees/
+
 # Local scratch renders at the repo root.
 /*.pdf
 /*.png

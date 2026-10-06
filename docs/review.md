@@ -50,8 +50,12 @@ is not the criterion. Record the reason when taking the trivial path.
 Record-keeping commits are not changes to review but records of what was
 already reviewed or decided, so they need no round of their own: a commit
 that only stores review reports and their dispositions, a merge of already-reviewed
-work, a proposal's status line or decision entry that quotes the owner, and
-the `night-shift` tool's `.night-shift/history` commits.
+work, a proposal's status line or decision entry that quotes the owner, the
+`night-shift` tool's `.night-shift/history` commits, the session-handoff
+doc's rewrite, and a task-store edit to a task no branch is working on (a
+new Queued task, a cancellation, the move to Done after a merge into `main`; see
+`docs/development.md`). A task's own record changing with its work is
+reviewed with that work.
 
 Idea runs are not exempt; they are reviewed by their own gates (adopted by
 the lead on 2026-09-25 to carry out the owner's instruction that idea work
