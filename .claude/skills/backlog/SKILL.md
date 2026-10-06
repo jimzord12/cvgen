@@ -83,7 +83,7 @@ refuse any push whose refspec names `:main` (`HEAD:main` included).
 
 ```powershell
 git worktree add <scratchpad>/records main
-git -C <scratchpad>/records pull --rebase origin main   # so **Main at:** is the real head
+git -C <scratchpad>/records pull --rebase --autostash origin main   # so **Main at:** is the real head
 # edit and commit inside <scratchpad>/records, then:
 git -C <scratchpad>/records push origin main
 git worktree remove <scratchpad>/records
@@ -94,10 +94,11 @@ git worktree remove <scratchpad>/records
   branch's next merge, or leave the handoff unwritten, and say so in your
   report.
 
-Pull with `git pull --rebase origin main` before editing; if the push is
-rejected because `main` moved, pull again the same way and push again.
-Before pushing, `git status -sb` must show your record commit as the only
-one ahead of `origin/main`; never publish someone else's unpushed commits.
+Pull with `git pull --rebase --autostash origin main` before editing (and
+again, the same way, if the push is rejected because `main` moved). Before
+pushing, `git status -sb` must show `[ahead 1]`: your record commit only. If
+it shows more, do not push; never publish someone else's unpushed commits.
+Treat it like the third case above.
 
 ## The session handoff
 
