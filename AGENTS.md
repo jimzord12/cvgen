@@ -109,6 +109,7 @@ Framework; `M` for `packages/domains/marine`, the marine domain; `F` for
 | `scripts/text-draft.typ` | The `Text Draft` a client checks before design (`Sign-off`), house design First Fitting | Changing how the text draft looks |
 | `.atlas/` | The `Atlas`: open `.atlas/index.html` from disk. Facts in `src/*.json`, each step citing its sources; `python .atlas/_kit/atlas.py build` writes the pages, `check` lists pages whose sources changed or were never checked | A mapped flow, agent or model changed: update its page, `build`, `stamp` |
 | `builds/` | Ignored. Every build and test run writes to a new timestamped folder here | Reading evidence |
+| `.worktrees/` | Ignored. Extra Git checkouts, one per parallel branch (`docs/git-workflow.md`) | Never edit another session's |
 | `private/` | Ignored. One `Envelope` per real client: `envelope.json`, `intake/`, `research/`, `draft/`, `candidate.json`, `cv.typ`, `revisions/`, `exports/` | Producing a real CV |
 
 `apps/web/` from the target tree is not implemented; see the Trello board.
