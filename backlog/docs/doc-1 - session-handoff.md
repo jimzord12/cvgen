@@ -7,7 +7,7 @@ created_date: '2026-10-06 07:25'
 
 # session-handoff
 
-Rewritten in place at the end of every session; the first thing a fresh session reads after AGENTS.md. Holds only what no task card owns: what is next, parked owner decisions, machine facts, pitfalls. Task state stays on the task cards.
+Rewritten in place at the end of every session; the first thing a fresh session reads after AGENTS.md. Holds only what no task owns: what is next, parked owner decisions, machine facts, pitfalls. Task state stays in the tasks in `backlog/tasks/`.
 
 **Written:** 2026-10-02, professional Travel & Tourism recalibration (Codex).
 **Main at:** 0488c4f8496b06af201db4969e88f7298b52d7f5

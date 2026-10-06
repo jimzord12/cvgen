@@ -71,8 +71,9 @@ report:
   (`docs/review.md`); run the missing round before stopping.
 - **Proposals:** `status: approved` in `docs/proposals/*.md` is approved
   work not yet applied.
-- **Tasks:** `backlog task list --plain -s Active -s Review -s Ready` and any task
-  labelled `blocked` (the board view includes active branches).
+- **Tasks:** after `git fetch`, from a checkout that has `backlog/` (a
+  `main` checkout or branch from it), `backlog task list --plain -s Active
+  -s Review -s Ready` and `-l blocked` (the lists include active branches).
 - **Night Shift:** `night-shift status` and `night-shift follow-up list`
   show open follow-ups only. Also read the `night.json` of every night
   dated on or after the day before the `Written` date (a night is named by
@@ -166,14 +167,16 @@ The sections map onto Backlog.md's own sections:
 backlog task create "<id>: <Outcome>" -s Queued --no-dod-defaults --plain `
   -d "Owner: <Claude session or agent>`nBranch/worktree: <location>`nIntegration target: <main or parent feature branch>`nDepends on: <task/decision links, or none>`n`n## Outcome and boundaries`n<What becomes possible. What this task changes and excludes.>" `
   --ac "<Observable behaviour and the evidence that will establish it>"
-backlog task edit TASK-N -s Active --plan "<a few steps; omit for a small obvious change>"
-backlog task edit TASK-N --append-notes "## Result and evidence`n<behaviour; exact revision; commands, exit results, artifact locations; old evidence vs current proof>"
-backlog task edit TASK-N --append-notes "## Review`n<report links, Blocking/Material dispositions, remaining limitations>"
-backlog task edit TASK-N --append-notes "## Handoff`n<current state, unresolved issue, one exact next action, owner authorization given and its scope>"
+backlog task edit TASK-N -s Active --plan "<a few steps; omit for a small obvious change>" --plain
+backlog task edit TASK-N --append-notes "## Result and evidence`n<behaviour; exact revision; commands, exit results, artifact locations; old evidence vs current proof>" --plain
+backlog task edit TASK-N --append-notes "## Review`n<report links, Blocking/Material dispositions, remaining limitations>" --plain
+backlog task edit TASK-N --append-notes "## Handoff`n<current state, unresolved issue, one exact next action, owner authorization given and its scope>" --plain
 ```
 
 Tasks migrated from Trello keep every section inside their description, as
-the cards had them; they are history and are not reshaped.
+the cards had them; that text is history and is not reshaped. A later fact,
+or the acceptance refined when a Queued task is picked up, goes in its notes
+and acceptance criteria.
 
 Acceptance describes product behaviour, not functions to write. A material
 scope change records its decision and reason so acceptance cannot quietly

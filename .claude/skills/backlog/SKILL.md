@@ -30,8 +30,9 @@ backlog browser --no-open                        # web board on http://127.0.0.1
 
 The board and the lists include tasks changed on other local and remote
 branches touched in the last 30 days (`check_active_branches`), so they
-show work in progress before it merges. A branch untouched for longer drops
-out of that view.
+show work in progress before it merges. Remote branches are only as fresh
+as your last `git fetch` (the CLI never fetches: `remote_operations` is off),
+so fetch first. A branch untouched for longer drops out of that view.
 
 ## Writing
 
@@ -82,8 +83,14 @@ git -C <scratchpad>/records push origin HEAD:main
 git worktree remove <scratchpad>/records
 ```
 
-If the push is rejected because `main` moved, `git pull --rebase` inside the
-worktree and push again.
+If the push is rejected because `main` moved, rebase and push again (the
+worktree is detached, so `git pull` would fail):
+
+```powershell
+git -C <scratchpad>/records fetch origin
+git -C <scratchpad>/records rebase origin/main
+git -C <scratchpad>/records push origin HEAD:main
+```
 
 ## The session handoff
 
