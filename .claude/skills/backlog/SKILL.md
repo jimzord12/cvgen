@@ -68,11 +68,14 @@ backlog task edit TASK-N --add-label blocked --plain        # and --remove-label
 A task a branch is working on changes only on that branch, committed with
 its work. Two kinds of record commit go straight to `main`, by the route
 below: the session-handoff doc, and edits to tasks no branch is working on
-(a new Queued task, a cancellation, the move to Done after a merge). Both
-are record-keeping (`docs/review.md`).
+(a new Queued task, a cancellation, the move to Done after a merge into
+`main`; a child task's Done goes on its parent branch). Both are
+record-keeping (`docs/review.md`). Create new tasks on `main`; an abandoned
+branch's task is cancelled on `main` (`docs/development.md`).
 
 **Route to `main`.** If the main checkout is on `main` and has no
-uncommitted changes, commit there, `git pull --rebase`, push. Otherwise use
+uncommitted changes, `git pull --rebase` first (so `**Main at:**` is the real
+head), then edit, commit and push. Otherwise use
 a short-lived worktree so you never write into someone else's checkout:
 
 ```powershell

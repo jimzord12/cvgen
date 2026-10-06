@@ -1,21 +1,21 @@
 {
  "pages": {
   "change-review": {
-   "commit": "0fbc85d",
+   "commit": "63c157d",
    "sources": {
     ".claude/skills/verify-cv/SKILL.md": "6c74c1e3aeba015daf7b6872afbefa08dddc9863",
     ".github/workflows/verify.yml": "2d52e619deca2d621a01a451f8c24d23c692bbb4",
     "AGENTS.md": "c928dc2b4eb234aacc1cfc1135c77e830f63e3ec",
-    "docs/development.md": "b43666bbe4e05d87dca3f5ab07d3d8c89090f0c2",
+    "docs/development.md": "bf214635666e42ee6d56341f88b059058c168c3e",
     "docs/git-workflow.md": "4571c0bde2dabc956d2fb7505fb6117e9d591f8f",
     "docs/preferences.md": "da828711f52fb8ac6d49a7dc12c10f48bc644c32",
-    "docs/review.md": "ecedf73c3cb9aebc04d2c0c0830f627651fdfbe5",
+    "docs/review.md": "53a6497b2007282afc3337ac348133143ee8d824",
     "docs/work/anti-examples/reviews/01-context.md": "29eb150ea6949a2020956433f29947eac7d31c5d"
    },
    "verifiedAt": "2026-10-06"
   },
   "client-journey": {
-   "commit": "0fbc85d",
+   "commit": "63c157d",
    "sources": {
     ".claude/skills/idea-run/SKILL.md": "3ed1f44d9e79df7588fbe6f5527378f897a430fc",
     ".claude/skills/new-client/SKILL.md": "87ca43161a495ddaf799351240d7e201bb900a12",
@@ -30,7 +30,7 @@
    "verifiedAt": "2026-10-06"
   },
   "design-run": {
-   "commit": "0fbc85d",
+   "commit": "63c157d",
    "sources": {
     ".claude/agents/design-reviewer.md": "7e0353ea63b3b40eb7d36489a58a1d1a5af2f580",
     ".claude/agents/magazine-editor.md": "d938346a7a932b47e2dfb9df87bb0a4e9250ab19",
@@ -42,13 +42,13 @@
     "docs/glossary.md": "e59b24605a6dbf4e5262dc29d9bb0eaf8e232eec",
     "docs/pdf-workflow.md": "3bfa09a91c1ec9c970650c88ed15842c477645de",
     "docs/proposals/codex-visual-tools.md": "6922b19a3f91c8a180ee716e0bfaf5bba4b36278",
-    "docs/review.md": "ecedf73c3cb9aebc04d2c0c0830f627651fdfbe5",
+    "docs/review.md": "53a6497b2007282afc3337ac348133143ee8d824",
     "scripts/design_review/server.py": "0d1258af97e31db980fcd7a98e64e88f431f9840"
    },
    "verifiedAt": "2026-10-06"
   },
   "roster": {
-   "commit": "0fbc85d",
+   "commit": "63c157d",
    "sources": {
     ".claude/agents/ceo-reviewer.md": "058811a51ac27c65a93dc8915db4afd58676d33d",
     ".claude/agents/ceo.md": "3a3dd4071d60d0127d75036dfb67444cfdf72c0b",
@@ -60,7 +60,7 @@
     ".claude/agents/repo-auditor-lite.md": "99c2e868259168afc5e9a3a087e4d3cc1ef88354",
     ".claude/agents/research-reviewer.md": "5c4ca50e19c0afaffde30e28555b9479dc28ccc2",
     ".claude/repo-maintenance.md": "ba9bd4019a38050fd767af81eb2c8897d98c23e8",
-    ".claude/skills/backlog/SKILL.md": "eacc035a6700337304597e0cb52f89bdb005beeb",
+    ".claude/skills/backlog/SKILL.md": "96eae53e0677a19444279779ecfddabb2b0c4efe",
     ".claude/skills/do-night-shift-follow-up/SKILL.md": "bd026799dfcfb8035889439f3e582a46c3ed0a73",
     ".claude/skills/idea-run/SKILL.md": "3ed1f44d9e79df7588fbe6f5527378f897a430fc",
     ".claude/skills/new-client/SKILL.md": "87ca43161a495ddaf799351240d7e201bb900a12",
@@ -72,7 +72,7 @@
     ".github/workflows/verify.yml": "2d52e619deca2d621a01a451f8c24d23c692bbb4",
     "AGENTS.md": "c928dc2b4eb234aacc1cfc1135c77e830f63e3ec",
     "docs/decisions/0014-backlog-md-task-store.md": "429c351d5a2d313fb6945f26e646028d3d43c72b",
-    "docs/development.md": "b43666bbe4e05d87dca3f5ab07d3d8c89090f0c2",
+    "docs/development.md": "bf214635666e42ee6d56341f88b059058c168c3e",
     "docs/git-workflow.md": "4571c0bde2dabc956d2fb7505fb6117e9d591f8f",
     "docs/guides/build-a-cv.md": "4e4dbad4cbb37544809b69e864b03e2cdd8f3204",
     "docs/guides/client-workflow.md": "ee8e7fbd8f99cb97703305e384423ed6181da7d8",
@@ -80,7 +80,7 @@
     "docs/preferences.md": "da828711f52fb8ac6d49a7dc12c10f48bc644c32",
     "docs/proposals/codex-visual-tools.md": "6922b19a3f91c8a180ee716e0bfaf5bba4b36278",
     "docs/reference/verification.md": "5762ed8aef73efe9437a1f05ad713d3b6ed9e3c0",
-    "docs/review.md": "ecedf73c3cb9aebc04d2c0c0830f627651fdfbe5",
+    "docs/review.md": "53a6497b2007282afc3337ac348133143ee8d824",
     "docs/work/anti-examples/reviews/01-context.md": "29eb150ea6949a2020956433f29947eac7d31c5d",
     "docs/work/codex-visual-tools/reviews/01.md": "b072308514f194affa6e445472c96731fac43918",
     "scripts/build.ps1": "a181f1213a8549a38d8c5817cb8b3cb8e779e7cc",
@@ -93,11 +93,11 @@
    "verifiedAt": "2026-10-06"
   },
   "system-map": {
-   "commit": "0fbc85d",
+   "commit": "63c157d",
    "sources": {
     ".claude/agents": "dir1:4f4154394888bb9d69a0ed790d8f4b484a790fdd",
     ".claude/skills": "dir1:0782f90cfffe011126a078d958dc4e2828954b41",
-    ".claude/skills/backlog/SKILL.md": "eacc035a6700337304597e0cb52f89bdb005beeb",
+    ".claude/skills/backlog/SKILL.md": "96eae53e0677a19444279779ecfddabb2b0c4efe",
     ".github/workflows/verify.yml": "2d52e619deca2d621a01a451f8c24d23c692bbb4",
     "AGENTS.md": "c928dc2b4eb234aacc1cfc1135c77e830f63e3ec",
     "archive/anti-examples": "dir1:dacb2a2e30bc6a5d49178d2bcbf382c4de52a88c",

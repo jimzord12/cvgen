@@ -71,9 +71,11 @@ report:
   (`docs/review.md`); run the missing round before stopping.
 - **Proposals:** `status: approved` in `docs/proposals/*.md` is approved
   work not yet applied.
-- **Tasks:** after `git fetch`, from a checkout that has `backlog/` (a
-  `main` checkout or branch from it), `backlog task list --plain -s Active
-  -s Review -s Ready` and `-l blocked` (the lists include active branches).
+- **Tasks:** after `git fetch`, from a checkout that has `backlog/` (`main`,
+  or a branch made after the migration): `backlog task list --plain -s Active
+  -s Review -s Ready`, then separately `backlog task list --plain -l blocked`
+  (filters combine, so one command would miss a blocked Queued task; the
+  lists include active branches).
 - **Night Shift:** `night-shift status` and `night-shift follow-up list`
   show open follow-ups only. Also read the `night.json` of every night
   dated on or after the day before the `Written` date (a night is named by
@@ -147,7 +149,11 @@ task a branch is working on changes only on that branch, in the same commits
 as its work. Two kinds of record commit go straight to `main`, by the route
 in the backlog skill: the handoff doc, and edits to tasks no branch is
 working on (a new Queued task, a cancellation, the move to Done after a
-merge). Both are record-keeping under `docs/review.md`.
+merge into `main`; a child task's Done goes on its parent branch). Both are
+record-keeping under `docs/review.md`. Create a task on `main` first, as
+Queued (so two branches never take the same number); it moves to Active on
+the branch that picks it up. When a branch is abandoned, cancel its task on
+`main` once the branch is gone, copying any notes worth keeping.
 
 ## The task record
 

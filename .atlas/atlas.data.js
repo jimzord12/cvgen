@@ -352,7 +352,7 @@ window.ATLAS = {
     "role": "Reads and updates the tasks in `backlog/` through the `backlog` CLI, and reads and rewrites the `session-handoff` doc on `main`. Every task's record is a task file.",
     "when": "Orientation, and every task state change.",
     "sources": [
-     ".claude/skills/backlog/SKILL.md:1-109"
+     ".claude/skills/backlog/SKILL.md:1-112"
     ]
    },
    "repo-maintenance": {
@@ -1490,7 +1490,7 @@ window.ATLAS = {
        ],
        "sources": [
         "docs/development.md:17-32",
-        "docs/development.md:111-195"
+        "docs/development.md:113-201"
        ]
       }
      ]
@@ -1645,7 +1645,7 @@ window.ATLAS = {
         "night-shift"
        ],
        "sources": [
-        "docs/development.md:58-93"
+        "docs/development.md:58-95"
        ]
       },
       {
@@ -1660,7 +1660,7 @@ window.ATLAS = {
         "backlog"
        ],
        "sources": [
-        "docs/development.md:95-109"
+        "docs/development.md:97-111"
        ]
       },
       {
@@ -2274,30 +2274,30 @@ window.ATLAS = {
   }
  ],
  "build": {
-  "builtAt": "2026-10-06 07:44 UTC",
-  "commit": "0fbc85d",
+  "builtAt": "2026-10-06 07:48 UTC",
+  "commit": "63c157d",
   "kit": "1.0",
   "stale": {},
   "verified": {
    "client-journey": {
     "at": "2026-10-06",
-    "commit": "0fbc85d"
+    "commit": "63c157d"
    },
    "design-run": {
     "at": "2026-10-06",
-    "commit": "0fbc85d"
+    "commit": "63c157d"
    },
    "change-review": {
     "at": "2026-10-06",
-    "commit": "0fbc85d"
+    "commit": "63c157d"
    },
    "system-map": {
     "at": "2026-10-06",
-    "commit": "0fbc85d"
+    "commit": "63c157d"
    },
    "roster": {
     "at": "2026-10-06",
-    "commit": "0fbc85d"
+    "commit": "63c157d"
    }
   }
  }
