@@ -40,6 +40,14 @@ None of this approves a pending product design.
   Use separate worktrees and one writer per checkout; routine fixes to the same
   feature can stay on its branch. Feature-specific fixes target the feature;
   fixes to existing `main` behavior should reach `main` and then the feature.
+- Worktrees live inside the repository at `.worktrees/<branch-topic>`, the
+  branch name without its type prefix: `git worktree add -b fix/duration-wrap
+  .worktrees/duration-wrap`. If that folder exists, use the full branch name
+  with `/` replaced by `-`. The folder is ignored by Git. Never create one
+  beside the repository. The one exception is the short-lived checkout of
+  `main` that the backlog skill makes in the session's scratchpad to write
+  records (`.claude/skills/backlog/SKILL.md`). Worktrees created before this
+  rule stay where they are until their work is merged and they are removed.
 
 ## Commits
 

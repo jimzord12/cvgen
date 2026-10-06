@@ -205,7 +205,8 @@ feature branch is not the whole feature reaching `main`.
   technical design and every routine implementation, Git and task step within
   that scope, under [preferences.md](preferences.md#what-he-decides-and-what-agents-decide)
   and [git-workflow.md](git-workflow.md).
-- One writer per checkout. Parallel implementation needs separate worktrees,
+- One writer per checkout. Parallel implementation needs separate worktrees
+  (under `.worktrees/`, [git-workflow.md](git-workflow.md#branches)),
   explicit ownership and a useful reason.
 - Ask for missing product intent, architecture outside an approved item or
   an operation reserved for the owner (preferences.md), with a recommendation and consequence. Do not ask the

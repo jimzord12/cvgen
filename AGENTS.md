@@ -111,6 +111,7 @@ Framework; `M` for `packages/domains/marine`, the marine domain; `F` for
 | `.atlas/` | The `Atlas`: open `.atlas/index.html` from disk. Facts in `src/*.json`, each step citing its sources; `python .atlas/_kit/atlas.py build` writes the pages, `check` lists pages whose sources changed or were never checked | A mapped flow, agent or model changed: update its page, `build`, `stamp` |
 | `backlog/` | The task store (Backlog.md, ADR 0014): one file per task in `tasks/`, the `session-handoff` doc in `docs/`, `config.yml`. Read and write through the backlog skill | Any task state change; session start and end |
 | `builds/` | Ignored. Every build and test run writes to a new timestamped folder here | Reading evidence |
+| `.worktrees/` | Ignored. Extra Git checkouts, one per parallel branch (`docs/git-workflow.md`) | Never edit another session's |
 | `private/` | Ignored here, and its own private Git repo (`jimzord12/cvgen-private`): commit and push client work from inside `private/` (same Git rules as here, commit messages name the client only by `Alias`); on a new machine clone it into `private/`. Scans may go there, never here (constitution section 3). One `Envelope` per real client: `envelope.json`, `intake/`, `research/`, `draft/`, `candidate.json`, `cv.typ`, `revisions/`, `exports/` | Producing a real CV |
 
 `apps/web/` from the target tree is not implemented; see `backlog/tasks/`.

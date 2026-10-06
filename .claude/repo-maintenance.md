@@ -45,6 +45,7 @@ protected:
   - ".night-shift/**"                                                # Night Shift tool: its committed history of nights
   - "private/**"                                                     # ignored, real client data; never inspected
   - ".local/**"                                                      # ignored, local preferences
+  - ".worktrees/**"                                                  # ignored, other sessions' checkouts
 
 # The Output Contract (every PDF has one home and a Meta File) is owned by scripts/outputs.py.
 # Do not re-implement it here; run it as a check. No `homes` rules on purpose.

@@ -29,8 +29,9 @@ design-reviewer's "Other assets".
 
 ## Loop
 
-1. Branch `docs/idea-run-<date>-<ceo|editor>` (worktree if other work is
-   running). The run folder is `docs/work/idea-runs/<date>-<ceo|editor>/`,
+1. Branch `docs/idea-run-<date>-<ceo|editor>` (a worktree at
+   `.worktrees/idea-run-<date>-<ceo|editor>` if other work is running;
+   `docs/git-workflow.md`, "Branches"). The run folder is `docs/work/idea-runs/<date>-<ceo|editor>/`,
    with `-2`, `-3` for a second run the same day. Record the run in its
    `run.md`: brief, rounds, verdicts, what reached the owner.
 2. Start the author with the date, the run folder and any owner steer (a
