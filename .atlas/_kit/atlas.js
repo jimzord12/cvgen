@@ -739,8 +739,8 @@
       function visible() {
         var l = wrap.scrollLeft, r = l + wrap.clientWidth, left = 0, right = 0;
         steps.forEach(function (s) {
-          var x = nx(s._i), inv = x + NODE_W > l + LABEL_W + 10 && x < r - 10;
-          var under = x + NODE_W / 2 < l + LABEL_W; // more than half behind the name column: hide it and count it as earlier
+          var x = nx(s._i), under = x + NODE_W / 2 < l + LABEL_W; // more than half behind the name column: hide it and count it as earlier
+          var inv = !under && x < r - 10;
           if (nodeEls[s.id]) nodeEls[s.id].classList.toggle('under', under);
           if (under) left++; else if (x >= r - 10) right++;
           if (metroDots[s.id]) metroDots[s.id].classList.toggle('inview', inv);
