@@ -639,6 +639,7 @@ svg.sedges.focus path:not(.hl) { opacity: 0; }
 .bar-hint { color: var(--faint); font-size: 12px; font-weight: 600; }
 .lanes-shell::after { content: ""; position: absolute; top: 51px; bottom: 0; right: 0; width: 70px; pointer-events: none; background: linear-gradient(90deg, transparent, var(--panel)); z-index: 8; }
 .lanes-shell::before { content: ""; position: absolute; top: 51px; bottom: 0; left: var(--lw); width: 44px; pointer-events: none; background: linear-gradient(90deg, var(--panel), transparent); z-index: 7; }
+.lanes-shell:not(.scrolled)::before { display: none; }
 .lrow.corner { border-top: 0; }
 .lrow.corner .lane-label { box-shadow: 1px 0 0 var(--line); }
 .lrow.corner.bottom { border-top: 1px solid var(--line); }

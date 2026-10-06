@@ -740,13 +740,15 @@
         var l = wrap.scrollLeft, r = l + wrap.clientWidth, left = 0, right = 0;
         steps.forEach(function (s) {
           var x = nx(s._i), inv = x + NODE_W > l + LABEL_W + 10 && x < r - 10;
-          if (nodeEls[s.id]) nodeEls[s.id].classList.toggle('under', x < l + LABEL_W + 30);
-          if (x + NODE_W <= l + LABEL_W + 10) left++; else if (x >= r - 10) right++;
+          var under = x + NODE_W / 2 < l + LABEL_W; // more than half behind the name column: hide it and count it as earlier
+          if (nodeEls[s.id]) nodeEls[s.id].classList.toggle('under', under);
+          if (under) left++; else if (x >= r - 10) right++;
           if (metroDots[s.id]) metroDots[s.id].classList.toggle('inview', inv);
         });
         cueL.lastChild.textContent = left + ' earlier'; cueR.firstChild.textContent = right + ' more';
         elabels.forEach(function (el) { el.classList.toggle('gone', el.__x - el.offsetWidth / 2 < l + LABEL_W + 8); });
         cueL.classList.toggle('on', left > 0); cueR.classList.toggle('on', right > 0);
+        shell.classList.toggle('scrolled', l > 0);
       }
       wrap.addEventListener('scroll', visible, { passive: true });
       if (window.ResizeObserver) new ResizeObserver(visible).observe(wrap);
