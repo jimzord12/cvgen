@@ -9,6 +9,15 @@ docs and code, and guesses are marked "(inferred)".
 
 Superseded once the model in `docs/workflow/` is built; then this folder goes.
 
+**Read with `main` as of 2026-10-06.** Since this inventory was taken, `main`
+moved the task store from Trello to Backlog.md (ADR 0014), made `private/` its
+own private Git repository with a delete-by history erase
+(`docs/guides/client-workflow.md` section 9), and recorded one delete-by date
+per client rather than per CV. The anchors below point at the docs as they
+were at `1e684eb`; line numbers in `client-workflow.md`, `build-a-cv.md`,
+`new-client` and `development.md` have shifted. Re-anchor before building
+the model.
+
 ## The three lists
 
 | File | Covers |
@@ -61,7 +70,7 @@ the model will encode whatever is decided.
 | 4 | Does a marine client's CV get a `design-reviewer` round? | `new-cv` puts the loop only under "no `Template` yet"; the Atlas applies it to every client | Yes, every client CV, since every one must pass the `Batch Test` |
 | 5 | Who runs `Export`? | Atlas: Claude; `new-cv` and `build-a-cv`: nobody named | Claude, after your `Approval` |
 | 6 | Can one client's job change the public engine? | The tour-leader build moved fonts into `packages/cv-framework/fonts/` with no step or review gate describing it | Allowed only through the normal code review; a one-off's own assets stay in its `Envelope` |
-| 7 | Does a client have a Trello card, and is there a "closed" step? | AGENTS says every task is a card; no source creates, moves or closes a client card; no step closes the record after deletion | One card per `Alias`; a final `after.close` step at deletion |
+| 7 | Is a client tracked as a task, and is there a "closed" step? | The inventory predates the move to Backlog.md (ADR 0014); no source creates, moves or closes a client's record, and no step closes it after deletion | One Backlog.md task per `Alias` (alias only, `backlog/` is public); a final `after.close` step at deletion |
 | 8 | Should the scripts enforce the order of states? | Stamping `approved`, `delivered` or `signed-off` succeeds with no receipt, export or screenshot | Yes: the model names the order and the stamp command checks it |
 | 9 | The `reviews/text-NN.md` file | Named in the `Envelope` tree; nothing writes or reads it; no text reviewer exists | Remove it |
 
