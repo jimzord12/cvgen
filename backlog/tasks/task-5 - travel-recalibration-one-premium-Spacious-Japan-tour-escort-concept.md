@@ -1,9 +1,10 @@
 ---
 id: TASK-5
 title: 'travel-recalibration: one premium Spacious Japan tour-escort concept'
-status: Review
+status: Done
 assignee: []
 created_date: '2026-10-06 07:25'
+updated_date: '2026-10-06 08:20'
 labels: []
 dependencies: []
 references:
@@ -44,3 +45,9 @@ The owner rejected the first Japan Passage result as boring and not beautiful, a
 
 Rebuild one two-page Spacious proposal with the existing fictional portrait prominent in a crafted Japanese travel composition, richer stamp identity and tasteful botanical artwork. Preserve the professional factual structure. New files and render paths only; first delivery stays preserved as history. Branch docs/idea-run-2026-10-02-editor-2. Run record docs/work/idea-runs/2026-10-02-editor-2. The closed review loop continues, with explicit beauty/composition scrutiny and the owner's rejection included in every brief.
 <!-- SECTION:DESCRIPTION:END -->
+
+## Final Summary
+
+<!-- SECTION:FINAL_SUMMARY:BEGIN -->
+Superseded and closed 2026-10-06. The owner rejected the first Japan Passage result (far weaker than Stamp Rally) and it was removed in f78a181 (README row, Git history keeps it). The brief was met by Hanami Line 2 (design-concepts/2026-10-02-hanami-line-2/): chosen by the owner on 2026-10-02 in three palettes, built as Greek and English CVs for a real Travel & Tourism client (the three Hanami palettes plus a Stamp Rally edition), merged into main via feature/hanami-client-cv. The owner's gallery review (kept or maybe, rejected variants removed) was applied in 4f1b41c.
+<!-- SECTION:FINAL_SUMMARY:END -->
