@@ -73,27 +73,28 @@ below: the session-handoff doc, and edits to tasks no branch is working on
 record-keeping (`docs/review.md`). Create new tasks on `main`; an abandoned
 branch's task is cancelled on `main` (`docs/development.md`).
 
-**Route to `main`.** If the main checkout is on `main` and has no
-uncommitted changes, `git pull --rebase` first (so `**Main at:**` is the real
-head), then edit, commit and push. Otherwise use
-a short-lived worktree so you never write into someone else's checkout:
+**Route to `main`.** Always from a checkout that has `main` itself checked
+out, pushed with plain `git push origin main`: the owner's local settings
+refuse any push whose refspec names `:main` (`HEAD:main` included).
+
+- If `git worktree list` shows a checkout on `[main]` with no uncommitted
+  changes, use it.
+- If no checkout has `main`, add a short-lived one and remove it after:
 
 ```powershell
-git fetch origin
-git worktree add <scratchpad>/records origin/main --detach
+git worktree add <scratchpad>/records main
+git -C <scratchpad>/records pull --rebase origin main   # so **Main at:** is the real head
 # edit and commit inside <scratchpad>/records, then:
-git -C <scratchpad>/records push origin HEAD:main
+git -C <scratchpad>/records push origin main
 git worktree remove <scratchpad>/records
 ```
 
-If the push is rejected because `main` moved, rebase and push again (the
-worktree is detached, so `git pull` would fail):
+- If the only checkout on `main` has someone else's uncommitted changes,
+  do not touch it: carry the edit in your own branch's next merge instead,
+  and say so in your report.
 
-```powershell
-git -C <scratchpad>/records fetch origin
-git -C <scratchpad>/records rebase origin/main
-git -C <scratchpad>/records push origin HEAD:main
-```
+Pull with `git pull --rebase origin main` before editing; if the push is
+rejected because `main` moved, pull again the same way and push again.
 
 ## The session handoff
 
