@@ -28,7 +28,8 @@ Intake (Relay) -> Scout -> CV decisions -> Deep Dives -> one follow-up
 
 ## 1. Open the Envelope
 
-One folder per client under `private/` (ignored by Git), named after the
+One folder per client under `private/` (ignored by this repository, tracked by the
+private one, `AGENTS.md`), named after the
 person and their `Rank`, as in `build-a-cv.md`. The workflow adds three
 drawers to it:
 
@@ -303,6 +304,20 @@ since the intake date: the `new-client` skill checks the intake dates every
 time it runs. Deleting anything under `private/`, and each `Intake Form`,
 its Sheet and its script project listed in the `README.md` (then empty
 the Drive Trash, which keeps files for 30 days), stays the owner's act.
+Deleting the folder is not enough: the private Git repository keeps it in its
+history. Claude hands the owner the exact commands to erase the `Envelope` from
+that history and overwrite GitHub's copy, which he runs:
+
+```powershell
+cd private
+git filter-repo --path <envelope-folder>/ --invert-paths --force
+git remote add origin https://github.com/jimzord12/cvgen-private.git
+git push --force origin main
+```
+
+(`git filter-repo` is a separate install, `pip install git-filter-repo`; it
+removes the `origin` remote, hence the re-add.) Every other clone of the
+private repository must then be deleted and cloned again.
 
 ## Rules
 

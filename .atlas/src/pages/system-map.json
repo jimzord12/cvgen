@@ -25,7 +25,7 @@
       "col": 1,
       "w": 4,
       "row": 1,
-      "blurb": "`private/`: one folder per real client. Ignored by Git, never in a brief.",
+      "blurb": "`private/`: one folder per real client. Its own private Git repo, ignored by the public one, never in a brief.",
       "nodes": [
         {
           "id": "n-envelope",

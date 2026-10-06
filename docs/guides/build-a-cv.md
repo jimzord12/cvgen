@@ -208,9 +208,11 @@ export it again. The lifecycle and the records are specified in
 
 ## 7. Keep it private
 
-Nothing under `private/` is tracked, revisions and exports included. Do not
-copy renders into `examples/`, where the public fictional `Release` lives.
-Do not commit certificate numbers, scans or passport details anywhere.
+Nothing under `private/` is tracked by this repository. `private/` is its own
+private Git repository: commit and push the `Envelope` there, scans included,
+with commit messages that name the client only by `Alias`. Do not copy renders
+into `examples/`, where the public fictional `Release` lives. Never commit
+certificate numbers, scans or passport details to this public repository.
 
 ## 8. When the template does not fit
 

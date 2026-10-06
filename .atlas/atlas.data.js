@@ -484,7 +484,7 @@ window.ATLAS = {
    "Theme": "A `Template`'s colours, fonts and sizes only.",
    "Artwork Pack": "Which illustration goes in which slot of a `Template`.",
    "Client": "The person a CV is for, who also pays for it. The code says \"candidate\".",
-   "Envelope": "One client's private folder: facts, portrait, `Template` tweaks, every `Revision` and `Export`. Lives in `private/`, never in Git.",
+   "Envelope": "One client's private folder: facts, portrait, `Template` tweaks, every `Revision` and `Export`. Lives in `private/`: its own private Git repo, never in the public one.",
    "Alias": "The neutral name for a client outside `private/`: client-yyyy-mm-nn.",
    "Intake": "Collecting a client's facts and goals before research: a question list sent by chat, answers kept in the `Envelope`.",
    "Relay": "The `Intake` method: Claude writes the questions, you pass them to the client by chat and bring the answers back.",
@@ -583,7 +583,7 @@ window.ATLAS = {
        "id": "envelope",
        "title": "Open the Envelope",
        "actor": "lead",
-       "summary": "One private folder per client, never in Git. Outside it the client is only an `Alias`.",
+       "summary": "One private folder per client, in its own private Git repo, never in the public one. Outside it the client is only an `Alias`.",
        "does": [
         "Creates `private/<name>-<rank>/` with the drawers `intake/`, `research/`, `draft/`.",
         "Gives the client an `Alias` (`client-2026-09-01` style) and writes it in the folder's `README.md`.",
@@ -1708,7 +1708,7 @@ window.ATLAS = {
      "col": 1,
      "w": 4,
      "row": 1,
-     "blurb": "`private/`: one folder per real client. Ignored by Git, never in a brief.",
+     "blurb": "`private/`: one folder per real client. Its own private Git repo, ignored by the public one, never in a brief.",
      "nodes": [
       {
        "id": "n-envelope",
@@ -2273,10 +2273,36 @@ window.ATLAS = {
   }
  ],
  "build": {
-  "builtAt": "2026-10-04 20:59 UTC",
-  "commit": "19aeef7",
+  "builtAt": "2026-10-06 08:27 UTC",
+  "commit": "f0337ee",
   "kit": "1.0",
-  "stale": {},
+  "stale": {
+   "client-journey": [
+    "docs/guides/client-workflow.md",
+    "docs/guides/build-a-cv.md",
+    ".claude/skills/new-client/SKILL.md",
+    "docs/preferences.md"
+   ],
+   "design-run": [
+    "AGENTS.md"
+   ],
+   "change-review": [
+    "AGENTS.md",
+    "docs/preferences.md"
+   ],
+   "system-map": [
+    "AGENTS.md",
+    "docs/guides/client-workflow.md",
+    "docs/guides/build-a-cv.md"
+   ],
+   "roster": [
+    "docs/preferences.md",
+    "docs/guides/client-workflow.md",
+    "AGENTS.md",
+    ".claude/skills/new-client/SKILL.md",
+    "docs/guides/build-a-cv.md"
+   ]
+  },
   "verified": {
    "client-journey": {
     "at": "2026-10-04",
