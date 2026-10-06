@@ -70,7 +70,7 @@ choices and act without asking (owner's instruction, 2026-09-25).
   deleting or moving `archive/*` tags, deleting the GitHub repository or
   changing its visibility or settings (both this repository and the private
   `cvgen-private` one that holds `private/`), rewriting or force-pushing the
-  private repository's history (the delete-by erase), deleting anything outside this
+  private repository's history (the delete-by erase, which he runs himself), deleting anything outside this
   repository, deleting anything under `private/` or `.local/`, overwriting
   or removing a workspace's revisions, approval receipts, exports, portrait
   or source documents (the private repository's history can restore
