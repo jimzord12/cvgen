@@ -15,13 +15,13 @@
    "verifiedAt": "2026-10-14"
   },
   "client-journey": {
-   "commit": "8e2b9c5",
+   "commit": "a0a2b5e",
    "sources": {
     ".claude/skills/idea-run/SKILL.md": "4dcf0596b55a936ab478bb8ee18e1a87fa638090",
     ".claude/skills/new-client/SKILL.md": "a2038f0c0349bc1febbc4a67670e68acb157e6c4",
     ".claude/skills/new-cv/SKILL.md": "2bf81d8a5a01446e0a7ce76d1bb35bbbb95cb870",
     "docs/glossary.md": "39cc6e4b9a6e2aab7a8b9c1c89302de237fe54d9",
-    "docs/guides/build-a-cv.md": "f87718bf258017b6a37a85eb826559ad2d9f933d",
+    "docs/guides/build-a-cv.md": "8585890a227c775e0f99042ac143314bfc267029",
     "docs/guides/client-workflow.md": "6c2f8d2de47abe2812f82b9bcb40dac2f42c499b",
     "docs/pdf-workflow.md": "3bfa09a91c1ec9c970650c88ed15842c477645de",
     "docs/preferences.md": "d5a47c23326acce8c81102142ed152450e510dcd",
@@ -30,13 +30,13 @@
    "verifiedAt": "2026-10-14"
   },
   "design-run": {
-   "commit": "298fc49",
+   "commit": "a0a2b5e",
    "sources": {
     ".claude/agents/design-reviewer.md": "7e0353ea63b3b40eb7d36489a58a1d1a5af2f580",
     ".claude/agents/magazine-editor.md": "d938346a7a932b47e2dfb9df87bb0a4e9250ab19",
     ".claude/agents/research-reviewer.md": "5c4ca50e19c0afaffde30e28555b9479dc28ccc2",
     ".claude/skills/idea-run/SKILL.md": "4dcf0596b55a936ab478bb8ee18e1a87fa638090",
-    "AGENTS.md": "db88f084a38039d9ecf693a24f0e23c40de3e285",
+    "AGENTS.md": "bd1d14a225239b3d18dafc958d5aa0ec7467f618",
     "archive/anti-examples/README.md": "71f837077cc3870025458f8a4cd1f05df9a820d1",
     "design-concepts/README.md": "605720f41df7ea454f8316c00f3505e2fded8ae6",
     "docs/glossary.md": "39cc6e4b9a6e2aab7a8b9c1c89302de237fe54d9",
@@ -91,7 +91,7 @@
    "verifiedAt": "2026-10-14"
   },
   "system-map": {
-   "commit": "a9d151d",
+   "commit": "a0a2b5e",
    "sources": {
     ".claude/agents": "dir1:4f4154394888bb9d69a0ed790d8f4b484a790fdd",
     ".claude/skills": "dir1:5eeafda0c9ef9a6037a3fcc2879f73f098fa3e55",
