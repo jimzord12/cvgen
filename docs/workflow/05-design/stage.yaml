@@ -7,7 +7,7 @@ purpose: >-
   the Flagship for a Domain that has it, a custom composition when the data
   does not fit it, or a one-off Template from an Idea Run when the Domain has
   no Template; every client CV's design passes the design-reviewer.
-entry: The client's Sign-off is saved and the draft stamped signed-off (stage text).
+entry: The client's Sign-off is saved and the draft stamped signed-off (stage text-draft).
 exit: >-
   candidate.json and typst/cv.typ (with their design files and portrait) are
   in the Envelope, a fresh design-reviewer passed the previews (or they reached
@@ -118,11 +118,9 @@ steps:
     inputs: [art.owner-pick, art.concept-pdf]
     outputs: [art.chosen-concept, art.concept-decision]
 
-  # No source says what happens to the client's CV when the owner parks or
-  # rejects every concept (GAPS.md).
   - id: design.record-other-answer
     name: Record a parked or rejected answer
-    sources: [".claude/skills/idea-run/SKILL.md:133-135", "design-concepts/README.md:46-49"]
+    sources: [".claude/skills/idea-run/SKILL.md:133-135", "design-concepts/README.md:46-49", "docs/workflow/GAPS.md:48-49"]
     actor: actor.lead
     action: cmd.stamp-concept-status
     inputs: [art.owner-pick]
@@ -158,7 +156,7 @@ steps:
 
   - id: design.custom-composition
     name: Compose the page by hand
-    sources: ["docs/guides/build-a-cv.md:217-284", ".claude/skills/new-cv/SKILL.md:87-91"]
+    sources: ["docs/guides/build-a-cv.md:217-281", ".claude/skills/new-cv/SKILL.md:87-91"]
     actor: actor.lead
     action: lead.compose-by-hand
     inputs: [art.candidate-json, art.flagship-template]
@@ -170,7 +168,7 @@ steps:
   # brought into the Envelope.
   - id: design.port-concept
     name: Port the chosen concept into the Envelope
-    sources: ["docs/framework-gaps.md:121-125", "docs/guides/client-workflow.md:317-324", "docs/work/workflow-model/handoff.md:290"]
+    sources: ["docs/framework-gaps.md:125-129", "docs/guides/client-workflow.md:317-324", "docs/work/workflow-model/handoff.md:290"]
     actor: actor.lead
     action: lead.port-concept
     inputs: [art.chosen-concept, art.candidate-json]
@@ -179,7 +177,7 @@ steps:
 
   - id: design.framework-gap
     name: Record the Framework Gap
-    sources: ["docs/guides/build-a-cv.md:278-284", ".claude/skills/new-cv/SKILL.md:87-91", "docs/guides/client-workflow.md:312-315", "docs/guides/client-workflow.md:324"]
+    sources: ["docs/guides/build-a-cv.md:275-281", ".claude/skills/new-cv/SKILL.md:87-91", "docs/guides/client-workflow.md:312-315", "docs/guides/client-workflow.md:324"]
     actor: actor.lead
     action: lead.record-framework-gap
     inputs: [art.cv-typ]
@@ -190,7 +188,7 @@ steps:
   # through the normal code-reviewer gate.
   - id: design.engine-change
     name: Change the public engine for the design
-    sources: ["docs/proposals/workflow-model.md:59", "docs/framework-gaps.md:124"]
+    sources: ["docs/proposals/workflow-model.md:59", "docs/framework-gaps.md:128"]
     actor: actor.lead
     action: lead.change-engine
     inputs: [art.cv-typ]
@@ -341,7 +339,7 @@ loops:
 artifacts:
   - id: art.readme-cv-record
     name: README.md, what was decided and where the evidence is
-    sources: [".claude/skills/new-client/SKILL.md:75-76", ".claude/skills/new-cv/SKILL.md:25-26", "docs/guides/build-a-cv.md:279-281"]
+    sources: [".claude/skills/new-client/SKILL.md:75-76", ".claude/skills/new-cv/SKILL.md:25-26", "docs/guides/build-a-cv.md:276-278"]
     path: private/<envelope>/README.md
     format: Markdown lines; for a custom composition, why it exists and what it matched
     visibility: private
@@ -461,7 +459,7 @@ artifacts:
 
   - id: art.engine-change
     name: A change to the public engine
-    sources: ["docs/proposals/workflow-model.md:59", "docs/framework-gaps.md:124"]
+    sources: ["docs/proposals/workflow-model.md:59", "docs/framework-gaps.md:128"]
     path: packages/
     format: a change to the Framework or a Domain, on a branch
     visibility: public
@@ -581,7 +579,7 @@ actions:
   - id: lead.compose-by-hand
     kind: lead
     name: Compose by hand
-    sources: ["docs/guides/build-a-cv.md:217-284"]
+    sources: ["docs/guides/build-a-cv.md:217-281"]
     does: >-
       Writes typst/cv.typ from the lib.typ components (core-components,
       flagship-components), with data the schema cannot hold in
@@ -590,7 +588,7 @@ actions:
   - id: lead.port-concept
     kind: lead
     name: Port the chosen concept
-    sources: ["docs/framework-gaps.md:121-125", "docs/guides/client-workflow.md:317-324"]
+    sources: ["docs/framework-gaps.md:125-129", "docs/guides/client-workflow.md:317-324"]
     does: >-
       Builds the one-off Template in the Envelope from the chosen concept's
       Typst: typst/cv.typ importing /packages/cv-framework/lib.typ only, the
@@ -600,7 +598,7 @@ actions:
   - id: lead.record-framework-gap
     kind: lead
     name: Record the Framework Gap
-    sources: ["docs/guides/build-a-cv.md:278-284", ".claude/skills/new-cv/SKILL.md:87-91"]
+    sources: ["docs/guides/build-a-cv.md:275-281", ".claude/skills/new-cv/SKILL.md:87-91"]
     does: >-
       Adds an entry to docs/framework-gaps.md (what was needed, what was gone
       around, what was built) and records the reason in the Envelope's

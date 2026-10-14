@@ -159,25 +159,23 @@ gates:
     fail: deliver.fix
 
 loops:
-  # No source caps the rounds of fixing and rendering again; the caps are
-  # docs/review.md's general ones (GAPS.md).
   - id: loop.revision-fix
-    name: Fix and render again after a failed render
-    sources: ["docs/guides/build-a-cv.md:128-130", "docs/review.md:198-202"]
+    name: Fix and render again after a failed render (placeholder cap)
+    sources: ["docs/guides/build-a-cv.md:128-130", "docs/workflow/GAPS.md:27"]
     gate: gate.render-ok
     cap: { attended: 5, unattended: 10 }
     escalate: deliver.cap-reached
 
   - id: loop.wording-fix
-    name: Fix and render again after example wording
-    sources: ["docs/guides/build-a-cv.md:98-103", "docs/review.md:198-202"]
+    name: Fix and render again after example wording (placeholder cap)
+    sources: ["docs/guides/build-a-cv.md:98-103", "docs/workflow/GAPS.md:28"]
     gate: gate.example-wording
     cap: { attended: 5, unattended: 10 }
     escalate: deliver.cap-reached
 
   - id: loop.owner-changes
-    name: The owner's changes, as new Revisions
-    sources: ["docs/guides/build-a-cv.md:174-176", "docs/review.md:198-202"]
+    name: The owner's changes, as new Revisions (placeholder cap)
+    sources: ["docs/guides/build-a-cv.md:174-176", "docs/workflow/GAPS.md:29"]
     gate: gate.owner-review
     cap: { attended: 5 }
     escalate: deliver.cap-reached

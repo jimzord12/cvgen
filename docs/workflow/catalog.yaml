@@ -127,10 +127,12 @@ actions:
   - id: manual.decide-at-cap
     kind: manual
     name: The owner decides at the cap
-    sources: ["docs/review.md:198-202", ".claude/skills/idea-run/SKILL.md:63-66"]
+    sources: ["docs/review.md:198-202", ".claude/skills/idea-run/SKILL.md:63-66", "docs/workflow/GAPS.md:20-29"]
     does: >-
-      At a loop's round cap the item reaches the owner marked unresolved with
-      the last reason; another round needs his explicit decision.
+      At a loop's cap (a review loop, the client's draft corrections, the
+      owner's own changes or a render that keeps failing) the lead stops and
+      brings the owner the open item with its last reason; another round
+      needs his decision.
 
 artifacts:
   # --- The Envelope's identity and bookkeeping.

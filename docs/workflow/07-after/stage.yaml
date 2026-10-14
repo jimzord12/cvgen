@@ -21,7 +21,7 @@ steps:
     actor: actor.lead
     action: skill.new-client
     inputs: [art.envelope-readme]
-    outputs: [art.stall-report]
+    outputs: [art.retention-report]
     when: Every time the new-client skill runs.
 
   - id: after.delete-by-check
@@ -30,11 +30,11 @@ steps:
     actor: actor.lead
     action: skill.new-client
     inputs: [art.readme-delete-by]
-    outputs: [art.delete-by-report]
+    outputs: [art.retention-report]
     when: Every time the new-client skill runs.
 
   # Implicit (named by the handoff's task 5), decided 2026-10-14 (#3): a keep
-  # request is a field in envelope.json. The field's name is not set (GAPS.md).
+  # request is a field in envelope.json.
   - id: after.keep-request
     name: The client asks to keep his data
     sources: ["docs/guides/client-workflow.md:164-167", "docs/proposals/workflow-model.md:56", "docs/work/workflow-model/handoff.md:290"]
@@ -45,7 +45,7 @@ steps:
 
   - id: after.keep-record
     name: Record the keep request in envelope.json
-    sources: ["docs/proposals/workflow-model.md:56"]
+    sources: ["docs/proposals/workflow-model.md:56", "docs/workflow/GAPS.md:40-43"]
     actor: actor.lead
     action: lead.record-keep-request
     inputs: [art.keep-request]
@@ -54,29 +54,29 @@ steps:
 
   - id: after.erase-commands
     name: Hand the owner the history-erase commands
-    sources: [".claude/skills/new-client/SKILL.md:105-108", "docs/guides/client-workflow.md:339-345"]
+    sources: [".claude/skills/new-client/SKILL.md:105-108", "docs/guides/client-workflow.md:339-345", "docs/guides/client-workflow.md:333-338"]
     actor: actor.lead
     action: lead.fill-erase-commands
-    inputs: [art.delete-by-report]
+    inputs: [art.retention-report]
     outputs: [art.erase-commands]
-    when: The delete-by date has passed and envelope.json records no keep request.
+    when: The delete-by date has passed and envelope.json records no keep request, or the owner decides to delete a client who never reached Export (no consent, dropped out).
 
   - id: after.delete-google
     name: Delete the Intake Forms, Sheets and script projects
-    sources: ["docs/guides/client-workflow.md:336-338", "docs/guides/client-workflow.md:158-159"]
+    sources: ["docs/guides/client-workflow.md:333-338", "docs/guides/client-workflow.md:158-159"]
     actor: actor.owner
     action: manual.delete-google-items
-    inputs: [art.readme-google-links, art.delete-by-report]
-    when: The delete-by date has passed, no keep request is recorded, and the client had an Intake Form.
+    inputs: [art.readme-google-links, art.retention-report]
+    when: The client had an Intake Form, and the delete-by date has passed with no keep request recorded, or the owner decides to delete a client who never reached Export (no consent, dropped out).
 
   - id: after.erase-envelope
     name: Delete the Envelope and erase it from the private history
-    sources: ["docs/guides/client-workflow.md:336-359", "docs/preferences.md:69-77"]
+    sources: ["docs/guides/client-workflow.md:333-359", "docs/preferences.md:69-77", "docs/workflow/GAPS.md:44-47"]
     actor: actor.owner
     action: manual.erase-envelope
     inputs: [art.erase-commands]
     outputs: [art.private-history]
-    when: The delete-by date has passed and envelope.json records no keep request.
+    when: The delete-by date has passed and envelope.json records no keep request, or the owner decides to delete a client who never reached Export (no consent, dropped out).
 
   # Decision #7 (2026-10-14): the final step, named after.close there.
   - id: after.close
@@ -95,16 +95,10 @@ steps:
     when: The owner wants failed or unapproved Revisions removed before the delete-by date.
 
 artifacts:
-  - id: art.stall-report
-    name: Stalled clients, by Alias
-    sources: [".claude/skills/new-client/SKILL.md:97-99", "docs/guides/client-workflow.md:333-336"]
-    format: a line in the lead's report, naming any client with no Export three months after intake
-    visibility: ephemeral
-
-  - id: art.delete-by-report
-    name: Passed delete-by dates, with the Google links
-    sources: [".claude/skills/new-client/SKILL.md:99-100"]
-    format: a line in the lead's report, with the Google links listed in the README.md
+  - id: art.retention-report
+    name: Stalled clients and passed delete-by dates, by Alias
+    sources: [".claude/skills/new-client/SKILL.md:97-100", "docs/guides/client-workflow.md:333-336"]
+    format: lines in the lead's report to the owner, with the Google links listed in each README.md
     visibility: ephemeral
 
   - id: art.keep-request

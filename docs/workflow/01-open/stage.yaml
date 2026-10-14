@@ -49,7 +49,7 @@ steps:
   # when it is created (GAPS.md).
   - id: open.task-create
     name: Create the client's task, by Alias only
-    sources: ["docs/proposals/workflow-model.md:60", "docs/guides/client-workflow.md:96-98"]
+    sources: ["docs/proposals/workflow-model.md:60", "docs/guides/client-workflow.md:96-98", "docs/workflow/GAPS.md:37-39"]
     actor: actor.lead
     action: lead.create-client-task
     inputs: [art.envelope-readme]

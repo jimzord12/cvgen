@@ -1,97 +1,60 @@
-# Workflow Model: gaps found while encoding (TASK-37)
+# Workflow Model: what the YAML holds in place of a source (TASK-37)
 
-The YAML in this folder encodes what the sources say today (`main` at
-`70631ed`, the owner's decisions of 2026-10-14 in
-`docs/proposals/workflow-model.md`). Where the sources are silent or
-disagree, the entity follows them and the gap is listed here. Nothing below
-is decided by the model; each item waits for the owner (product) or for a
-later task (model and prose). Goes when the items are settled.
+The YAML in this folder encodes what the sources say (`main` after TASK-58,
+and the owner's decisions of 2026-10-14 in `docs/proposals/workflow-model.md`).
+Where the sources are silent, the YAML holds a placeholder or an inference,
+and points here. This file explains each one; it decides nothing and tracks
+nothing:
 
-## For the owner
+- the owner's decisions wait in the pending proposal
+  [`docs/proposals/workflow-gaps.md`](../proposals/workflow-gaps.md) (P-0018);
+- the model's open questions are in the notes of TASK-38 (workflow-check);
+- the prose that still says otherwise is in the notes of TASK-43
+  (workflow-consolidate).
 
-1. **Loop caps no source sets.** The types need a cap on every loop. These
-   carry a placeholder:
-   - `loop.draft-correction`: 1, from "one batch per round" (the text draft
-     "plus a corrected draft", `docs/guides/client-workflow.md:370-372`).
-   - `loop.revision-fix`, `loop.wording-fix`, `loop.owner-changes`
-     (`06-deliver`) and `loop.library-review` (`03-research`): the general
-     review cap of `docs/review.md:198-202`, 5 attended and 10 unattended
-     (`loop.owner-changes` 5 only).
-   - `loop.research-rounds`: 3, the `Deep Dive` count; the executive's 6
-     (`client-workflow.md:241-242`) cannot be written as a second cap.
-2. **Repeats the owner decides, with no path or cap.** Asking for consent
-   again (`client-workflow.md:191-192`) and a second follow-up
-   (`client-workflow.md:275-276`) are one owner step each
-   (`intake.no-consent`; the follow-up rule sits in `lead.update-facts`), not
-   loops.
-3. **The client's task (decision #7).** No source says when it is created,
-   or its title and stage; encoded as `open.task-create`, once the `Alias`
-   exists, and closed by `after.close`.
-4. **The keep request (decision #3).** The `envelope.json` field has no
-   name, and `envelope()` (`packages/cv-workflow/cv_workflow/outputs.py:57-74`)
-   reads only alias, domain, candidate and rank, so nothing checks it.
-5. **Concepts parked or rejected for a client.** `design.record-other-answer`
-   records the answer; no source says what happens to that client's CV.
-6. **Where `Text Draft` corrections go.** "Corrections make the next number"
-   (`client-workflow.md:306-307`) does not say where they are kept before it;
-   encoded as `facts.md` (`text.corrections`).
-7. **Library-note review reports, two places.** `client-workflow.md:257-258`
-   and `new-client` (`SKILL.md:51-52`) say `docs/work/research-<topic>/reviews/`;
-   `docs/research/README.md:29-30` says `docs/work/<task or client-free id>/reviews/`.
-   Encoded with the guide.
-8. **The preview command for the `design-reviewer`.** `new-cv`
-   (`SKILL.md:75-76`) names the folder, not the command; encoded as the
-   lead's own act (`lead.compile-previews`).
+It goes once those are settled.
 
-## Decisions the prose does not carry yet (for TASK-43)
+## Placeholder loop caps
 
-The model follows the decisions of 2026-10-14; these sources still say
-otherwise or nothing:
+The types need a cap on every loop; these loops name themselves "(placeholder
+cap)" and cite their row here.
 
-- #1: `client-workflow.md:330` and `new-client` (`SKILL.md:76-77`) write
-  "Delivered <date>. Delete by ..."; the model writes "Exported <date>,
-  delete by <date>" at `Export` (the lead's default wording).
-- #3: `docs/pdf-workflow.md:211` retains approved revisions and their copies
-  with no limit; the model deletes 12 months after `Export` unless the
-  client asks to keep.
-- #4: `new-cv` (`SKILL.md:68-86`) runs the `design-reviewer` loop only when
-  the `Domain` has no `Template`; the model runs it for every client CV.
-- #5: `new-cv` (`SKILL.md:111-112`) names no one for `Export`; the model
-  gives it to the lead, after `Approval`.
-- #6, #7: no guide or skill has the engine change through code review
-  (`design.engine-change`, `design.engine-review`) or the client's task
-  (`open.task-create`, `after.close`).
-- The stall rule: "three months without progress"
-  (`client-workflow.md:333-336`) against "no `Export` three months after
-  intake" (`new-client`, `SKILL.md:97-99`); the model cites both.
+| Loop | Cap in the YAML | What the sources say |
+|---|---|---|
+| `loop.draft-correction` | 1 attended | No cap; "one batch per round" allows the text draft "plus a corrected draft" (`docs/guides/client-workflow.md:370-372`) |
+| `loop.research-rounds` | 3 attended | No cap on rounds; 0-3 Deep Dives per client, up to 6 for an executive (`client-workflow.md:241-242`), which a second cap cannot express |
+| `loop.library-review` | 5 attended, 10 unattended | No cap for a library note; `docs/review.md:198-202`'s general reviewer cap |
+| `loop.revision-fix` | 5 attended, 10 unattended | No cap; a failed render's fix is a new Revision (`docs/guides/build-a-cv.md:128-130`) |
+| `loop.wording-fix` | 5 attended, 10 unattended | No cap; the example wording must go before approving (`build-a-cv.md:98-103`) |
+| `loop.owner-changes` | 5 attended | No cap; the owner's change means a new Revision (`build-a-cv.md:174-176`) |
 
-## For the workflow tool (TASK-38)
+## Inferences
 
-- **Gates are binary.** A three-way choice is a chain of two gates:
-  `gate.template-exists` (fail: an `Idea Run`), then `gate.template-fits` on
-  `design.flagship-fit` (Flagship or a custom composition). A choice that is
-  not a check (chat or form, voice messages, a test answer) is a `when` text.
-  A code refusal with no stated next step (`approve`, `export`, `stamp`)
-  stays in its action's description; `render`'s is `gate.render-ok`, since
-  `build-a-cv.md:128-136` states the next step (a new `Revision`).
-- **The per-item repeat** is the `when` text "Once per Deep Dive question the
-  owner chose." on every `Deep Dive` step.
-- **Versions of one file.** A file rewritten later in the flow and read
-  earlier gets one ID per version, so derived edges run forward:
-  `facts.md` (`art.facts-md`, `art.facts-final`), `messages.md`
-  (`art.messages-md`, `art.messages-follow-up`), `README.md` (one ID per line
-  or section).
-- **In-place edits still join loops.** `typst/cv.typ` and `candidate.json`
-  are written in design and edited again by `design.fix` and `deliver.fix`,
-  so the derived edges merge the design and deliver loops into one cycle of
-  16 steps with five declared loops. The check needs a rule for this, or
-  those steps their own artifact IDs.
-- **Order with no data between steps.** `design.clear-review-input` before
-  `deliver.render`, and `design.record-choice` before `design.fill-data` on
-  the one-off path, follow only from the gates.
-- **Visibility of `builds/`.** The reviewer's previews and the page PNGs are
-  neither tracked, under `private/` nor with a third party; encoded
-  `ephemeral`. The types may want a value for an ignored local file.
-- **Anchors.** All resolve on disk today, with no backslashes. The implicit
-  steps cite `docs/work/workflow-model/handoff.md:290`, which TASK-52 may
-  move.
+- **Where `Text Draft` corrections go** (`text-draft.corrections`): "corrections
+  make the next number" (`client-workflow.md:306-307`) does not say where
+  they are kept before it; the YAML uses `facts.md`, where every other fact
+  lives.
+- **The client's task** (`open.task-create`): decision #7 names the task and
+  `after.close`, not when the task is created; the YAML creates it once the
+  `Alias` exists.
+- **The keep request** (`art.envelope-keep`): decision #3 makes it a field in
+  `envelope.json` with no name; `envelope()`
+  (`packages/cv-workflow/cv_workflow/outputs.py:57-74`) reads only alias,
+  domain, candidate and rank.
+- **Stopped clients** (`intake.no-consent`, the `after` erase steps): a client
+  who never reaches `Export` is named to the owner after three months and
+  deleted on his word (`client-workflow.md:333-338`); no step records that
+  the client stopped.
+- **Concepts parked or rejected for a client** (`design.record-other-answer`):
+  no source says what happens to that client's CV.
+- **Repeats the owner decides**: asking for consent again
+  (`client-workflow.md:191-192`) and a second follow-up
+  (`client-workflow.md:275-276`) are one owner step each, not loops.
+
+## What the YAML leaves out
+
+- **The refusals of `approve`, `export` and `stamp`.** A `cmd` action holds
+  only its command line, so their refusals (bytes changed, no receipt, a
+  status without its proof) are not encoded anywhere in the model; only
+  `render`'s is, as `gate.render-ok`, because `build-a-cv.md:128-136` states
+  the next step.

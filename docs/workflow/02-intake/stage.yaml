@@ -135,10 +135,11 @@ steps:
     gate: gate.consent
 
   # Asking again or stopping is the owner's call; no source caps or details
-  # the retry, so it is not encoded as a loop (GAPS.md).
+  # the retry, so it is not a loop. A stopped client goes to stage after: the
+  # stall check names him and the owner may delete him.
   - id: intake.no-consent
     name: No consent; the owner decides
-    sources: ["docs/guides/client-workflow.md:191-192", "docs/guides/client-workflow.md:333-338"]
+    sources: ["docs/guides/client-workflow.md:191-192", "docs/guides/client-workflow.md:333-338", "docs/workflow/GAPS.md:50-52"]
     actor: actor.owner
     action: manual.decide-on-no-consent
     inputs: [art.messages-md]
@@ -310,4 +311,7 @@ actions:
     kind: manual
     name: Decide on a client without consent
     sources: ["docs/guides/client-workflow.md:191-192"]
-    does: The owner decides whether to ask the client again or to stop.
+    does: >-
+      The owner decides whether to ask the client again or to stop; a stopped
+      client is named by after.stall-check after three months and deleted on
+      the owner's word (after.erase-commands, after.erase-envelope).

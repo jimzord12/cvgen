@@ -163,7 +163,7 @@ steps:
     sources: ["docs/guides/client-workflow.md:262-271", ".claude/skills/new-client/SKILL.md:54-57"]
     actor: actor.lead
     action: lead.write-follow-up
-    inputs: [art.facts-md, art.scout-md]
+    inputs: [art.facts-md, art.scout-md, art.decisions-md]
     outputs: [art.follow-up-questions]
 
   - id: research.follow-up-form-script
@@ -252,20 +252,16 @@ loops:
     cap: { attended: 5, unattended: 10 }
     escalate: research.cap-reached
 
-  # No source caps a library note's rounds: the cap is docs/review.md's
-  # general one (GAPS.md).
   - id: loop.library-review
-    name: Library note review rounds
-    sources: ["docs/research/README.md:28-30", "docs/review.md:198-202"]
+    name: Library note review rounds (placeholder cap)
+    sources: ["docs/research/README.md:28-30", "docs/workflow/GAPS.md:26"]
     gate: gate.library-review
     cap: { attended: 5, unattended: 10 }
     escalate: research.cap-reached
 
-  # The Deep Dive count bounds the rounds: each round picks at least one.
-  # The executive's 6 cannot be written as a second cap (GAPS.md).
   - id: loop.research-rounds
-    name: More Deep Dives until research is enough
-    sources: ["docs/guides/client-workflow.md:235-242"]
+    name: More Deep Dives until research is enough (placeholder cap)
+    sources: ["docs/guides/client-workflow.md:235-242", "docs/workflow/GAPS.md:25"]
     gate: gate.research-enough
     cap: { attended: 3 }
     escalate: research.cap-reached
@@ -488,8 +484,10 @@ actions:
     name: Write the follow-up
     sources: ["docs/guides/client-workflow.md:262-271", ".claude/skills/new-client/SKILL.md:54-57"]
     does: >-
-      Writes the gap list plus any question the research raised as one batch
-      in simple Greek, within the cap for a chat message or an Intake Form.
+      Writes the gap list plus any question the research raised (the Scout's
+      open questions, and what the Deep Dives left in decisions.md) as one
+      batch in simple Greek, within the cap for a chat message or an Intake
+      Form.
 
   - id: lead.update-facts
     kind: lead

@@ -1,5 +1,5 @@
 # yaml-language-server: $schema=../../../tools/workflow/schema/stage.schema.json
-id: text
+id: text-draft
 name: Text Draft and Sign-off
 sources: ["docs/guides/client-workflow.md:278-308", ".claude/skills/new-client/SKILL.md:59-71"]
 purpose: The client checks every fact of the CV in the Text Draft before any design work starts.
@@ -9,7 +9,7 @@ exit: >-
   answers, and that draft's Meta File says signed-off.
 
 steps:
-  - id: text.draft-write
+  - id: text-draft.draft-write
     name: Write the Text Draft
     sources: ["docs/guides/client-workflow.md:280-287", ".claude/skills/new-client/SKILL.md:59-63", "scripts/text-draft.typ:8-25"]
     actor: actor.lead
@@ -17,7 +17,7 @@ steps:
     inputs: [art.facts-final, art.decisions-md, art.text-draft-lib]
     outputs: [art.draft-typ]
 
-  - id: text.draft-compile
+  - id: text-draft.draft-compile
     name: Compile the draft and stamp it ready
     sources: ["docs/guides/client-workflow.md:289-296", ".claude/skills/new-client/SKILL.md:63-64", "docs/proposals/workflow-model.md:55"]
     actor: actor.lead
@@ -25,7 +25,7 @@ steps:
     inputs: [art.draft-typ, art.text-draft-lib, art.framework-fonts, art.envelope-json, art.output-schema]
     outputs: [art.draft-pdf, art.draft-meta]
 
-  - id: text.draft-inspect
+  - id: text-draft.draft-inspect
     name: Look at every page; give the owner the path
     sources: [".claude/skills/new-client/SKILL.md:64-66"]
     actor: actor.lead
@@ -33,7 +33,7 @@ steps:
     inputs: [art.draft-pdf]
     outputs: [art.draft-ready-note]
 
-  - id: text.draft-send
+  - id: text-draft.draft-send
     name: The owner sends the draft
     sources: ["docs/guides/client-workflow.md:26", "docs/guides/client-workflow.md:296-297"]
     actor: actor.owner
@@ -41,7 +41,7 @@ steps:
     inputs: [art.draft-ready-note, art.draft-pdf]
     outputs: [art.draft-message]
 
-  - id: text.draft-sent
+  - id: text-draft.draft-sent
     name: Stamp the draft sent
     sources: ["docs/guides/client-workflow.md:296-297", ".claude/skills/new-client/SKILL.md:66-67", "docs/proposals/workflow-model.md:55"]
     actor: actor.lead
@@ -49,7 +49,7 @@ steps:
     inputs: [art.draft-message]
     outputs: [art.draft-meta]
 
-  - id: text.draft-fingerprint
+  - id: text-draft.draft-fingerprint
     name: Write the sent draft's SHA-256 in README.md
     sources: ["docs/guides/client-workflow.md:305-307", ".claude/skills/new-client/SKILL.md:66-68"]
     actor: actor.lead
@@ -57,7 +57,7 @@ steps:
     inputs: [art.draft-message]
     outputs: [art.readme-draft-fingerprint]
 
-  - id: text.client-check
+  - id: text-draft.client-check
     name: The client checks the underlined facts
     sources: ["docs/guides/client-workflow.md:302-308", "docs/glossary.md:59", "docs/glossary.md:62"]
     actor: actor.client
@@ -66,7 +66,7 @@ steps:
     outputs: [art.client-reply]
     gate: gate.sign-off
 
-  - id: text.draft-supersede
+  - id: text-draft.draft-supersede
     name: Stamp the old draft superseded
     sources: ["docs/guides/client-workflow.md:299-300", ".claude/skills/new-client/SKILL.md:68-69"]
     actor: actor.lead
@@ -75,18 +75,16 @@ steps:
     outputs: [art.draft-meta]
     when: The client asked for corrections.
 
-  # Where the corrections are kept before the next number is not stated;
-  # encoded as facts.md, where every other fact lives (GAPS.md).
-  - id: text.corrections
+  - id: text-draft.corrections
     name: Take the corrections into the next number
-    sources: ["docs/guides/client-workflow.md:306-307", ".claude/skills/new-client/SKILL.md:68-69"]
+    sources: ["docs/guides/client-workflow.md:306-307", ".claude/skills/new-client/SKILL.md:68-69", "docs/workflow/GAPS.md:33-36"]
     actor: actor.lead
     action: lead.take-corrections
     inputs: [art.client-reply]
     outputs: [art.facts-final]
     when: The client asked for corrections.
 
-  - id: text.sign-off-save
+  - id: text-draft.sign-off-save
     name: The owner saves the Sign-off screenshot
     sources: ["docs/guides/client-workflow.md:26", "docs/guides/client-workflow.md:307-308", ".claude/skills/new-client/SKILL.md:69-70"]
     actor: actor.owner
@@ -94,7 +92,7 @@ steps:
     inputs: [art.client-reply]
     outputs: [art.sign-off-png]
 
-  - id: text.sign-off-stamp
+  - id: text-draft.sign-off-stamp
     name: Stamp the draft signed-off
     sources: ["docs/guides/client-workflow.md:297-299", ".claude/skills/new-client/SKILL.md:70-71", "packages/cv-workflow/cv_workflow/outputs.py:168-174"]
     actor: actor.lead
@@ -102,7 +100,7 @@ steps:
     inputs: [art.sign-off-png, art.draft-pdf]
     outputs: [art.draft-meta]
 
-  - id: text.cap-reached
+  - id: text-draft.cap-reached
     name: At the cap, the owner decides
     sources: ["docs/guides/client-workflow.md:370-372", "docs/review.md:198-202"]
     actor: actor.owner
@@ -113,18 +111,16 @@ gates:
     name: Sign-off
     sources: ["docs/guides/client-workflow.md:306-308", "docs/glossary.md:62"]
     check: The client replied OK to the underlined facts.
-    pass: text.sign-off-save
-    fail: text.corrections
+    pass: text-draft.sign-off-save
+    fail: text-draft.corrections
 
 loops:
-  # The sources set no cap on correction rounds. The message budget allows
-  # one corrected draft; the cap follows it (GAPS.md).
   - id: loop.draft-correction
-    name: Draft correction rounds
-    sources: ["docs/guides/client-workflow.md:370-372", "docs/guides/client-workflow.md:306-307"]
+    name: Draft correction rounds (placeholder cap)
+    sources: ["docs/guides/client-workflow.md:370-372", "docs/guides/client-workflow.md:306-307", "docs/workflow/GAPS.md:24"]
     gate: gate.sign-off
     cap: { attended: 1 }
-    escalate: text.cap-reached
+    escalate: text-draft.cap-reached
 
 artifacts:
   - id: art.text-draft-lib
