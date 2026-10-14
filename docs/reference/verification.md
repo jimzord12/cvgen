@@ -49,10 +49,10 @@ The page images are what to show the owner or a reviewer.
 | `content.typ` | Experience, synopsis, certificates and education compose on one page |
 | `data.typ` | The core leaves `copy` empty and the adapter composes it domain < role < template < record < argument (a role overrides only domain words; arrays are replaced); duration parts, totals 138 months / 23 vessels / 6 companies, vessel dedup, company-only months; rejects missing months, mismatched totals, negative months, a blank identity name |
 | `role.typ` | A role's wording reaches page one through `flagship` |
-| `core-model.typ` | The core paginates a domain with no ships (row model supplied by the domain); `merge`/`compose` semantics |
+| `core-model.typ` | The core paginates a domain with no ships (row model supplied by the domain) and accepts a plan with no synopsis (closing sections are a template's rule); `merge`/`compose` semantics |
 | `components.typ` | Hero renders with and without portrait or contacts; rejects a name or email that does not fit |
 | `options.typ` | Company-only months, all optional fields empty, a long vessel name whose duration wraps, with and without durations |
-| `pagination.typ` | Three pages with a company split across pages; rejects overflow and duplicate allocation |
+| `pagination.typ` | Three pages with a company split across pages; rejects overflow and duplicate allocation, and through Flagship's `validate-plan` a plan with no synopsis and certificates before the last Experience page |
 | `one-page.typ` | The one-page profile's `one-page` plan on the deck cadet record cut to one company with one vessel (`case=one`, synopsis reads "1 VESSEL" and "1 COMPANY") and on three companies with three vessels and three certificate rows, the measured edge (`case=three`), one page each. Refused: `case=overflow` (the same with one vessel more: "Content overflow on planned page 1"). `spread`: on `case=one` the synopsis stays within 17mm of the Experience block and the two flexible gaps are each over 15mm and differ by less than 8mm, so a thin record never gets one hole; on `case=no-education` and `case=no-certificates` (one closing section missing) the blocks stack from the top `stack-gap` apart, each gap text to text between 17 and 32mm |
 | `particulars.typ` | The engineer record with `Vessel Particulars` on five ships: the suffix text on each row and every other word exactly where the engineer example has it; refuses a repeated vessel with a different value, an unknown unit, a zero value, an extra key and a row too long to fit |
 | `certificate-continuation.typ` | Fifty rows, header repeats on page two |
@@ -73,7 +73,7 @@ The page images are what to show the owner or a reviewer.
    ten lines and a count. The two marine schemas share identical `$defs`;
    a record with vessel particulars is accepted and a `hp` power unit refused.
 
-10. **Framework boundary.** Every `import`/`include` in `packages/cv-framework/core/*.typ` names a bare sibling file; `packages/cv-framework/lib.typ` imports only `core/` files; no Framework `.typ` file names a `domains/` path outside a comment; every domain file that imports a core file does so through `cv-framework/core/` (ADR 0011, 0012).
+10. **Framework boundary.** Every `import`/`include` in `packages/cv-framework/core/*.typ` names a bare sibling file; `packages/cv-framework/lib.typ` imports only `core/` files; no Framework `.typ` file names a `domains/` path outside a comment; every domain file that imports a core file does so through `cv-framework/core/` (ADR 0011, 0012). Outside comments, Framework code also uses no marine or Flagship word (vessel, ship, marine, flagship, synopsis, rank, ...) or Flagship layout key (`opening-margin`, `band-height`, ...), reads no layout key or artwork slot it does not own (an allowlist: `paper`, `width`, `height`, `shell`, `header`, `footer`; `background-first`, `background-continuation`), and holds no colour literal (TASK-45).
 
 11. **Candidate workflow** (`tests/workflow.py`). A fresh fictional workspace
    under the run's `workflow/` folder is driven through the real

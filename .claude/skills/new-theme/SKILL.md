@@ -20,7 +20,9 @@ drawing.
    check with `typst fonts --font-path packages/cv-framework/fonts`). An unknown name prints
    `warning: unknown font family` and substitutes; the suite does not catch it.
 3. If the theme changes secondary SVG hues, add the hex values to
-   `art-colors`.
+   `art-colors`. Spreading `golden-blue` keeps `art-palette` (the marine
+   art's own colours, from `domain.typ`); a theme written from scratch sets
+   `art-palette: domain.art-palette` itself.
 4. Add an example under `examples/marine/flagship/` that differs from an existing one by the
    theme import only. Add it to `scripts/build.ps1` and `tests/run.py`.
 
