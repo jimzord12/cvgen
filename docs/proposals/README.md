@@ -26,25 +26,25 @@ Each decision-ready proposal starts with this metadata:
 
 ```yaml
 ---
-id: P-0018
+id: P-NNNN
 kind: proposal
 status: pending
 revision: 1
-created: 2026-10-14
+created: YYYY-MM-DD
 ---
 ```
 
 Read metadata only from the opening block, not from examples in the document.
-`id` is stable for the file's life, moves included: take the snapshot's
-`next_id`, never reuse one; when two branches took the same one, the later
-to merge renumbers before it merges. `created` is the date the file was
-added (never in the future); it gives the proposal's age. Use
-`kind: reference` for supporting material, with an `id` but no independent
-status or approval request. A proposal names any supporting documents included in
-its scope. The README is the tracking convention, not a pending proposal.
+`id` is stable for the file's life, moves included: take the `next_id` of
+`python scripts/proposals.py --json`, never reuse one; when two branches took
+the same one, the later to merge renumbers before it merges. `created` is the
+date the file was added (never in the future); it gives the proposal's age.
+Use `kind: reference` for supporting material, with an `id` but no
+independent status or approval request. A proposal names any supporting
+documents included in its scope. The README is the tracking convention, not a pending proposal.
 
-`python scripts/proposals.py` reads every file here, refuses by name any whose
-opening block lacks a valid `id`, `kind` or status, and prints the one line a
+`python scripts/proposals.py` reads every file here, refuses by name any file
+that breaks the rules above, and prints the one line a
 session gives the owner (`N proposals: X pending (Y older than 7 days), ...`).
 With `--json` it also writes the snapshot (id, title, status, revision, age in
 days, path, `next_id`) into a new `builds/proposals-<timestamp>/`: a derived

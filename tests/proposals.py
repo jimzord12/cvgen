@@ -36,11 +36,12 @@ VALID = {
     'week-old.md': proposal('P-0004', 'pending', '2026-10-07'),  # exactly 7 days: not yet "older than 7"
     'older-idea.md': proposal('P-0005', 'pending', '2026-09-30'),
     'oldest-idea.md': proposal('P-0006', 'pending', '2026-09-29'),
+    'today-idea.md': proposal('P-0007', 'pending', '2026-10-14', title='Today'),  # created on --today: accepted, age 0
 }
-# Every count in the summary differs (1 trial, 2 approved, 3 stale, 4 deferred, 5 pending, 6 applied,
-# 7 rejected), so a mixed-up slot fails the exact line.
-_next = 7
-for _status, _count in [('trial', 1), ('approved', 2), ('deferred', 4), ('applied', 6), ('rejected', 7)]:
+# Every count in the summary differs (1 trial, 2 approved, 3 stale, 4 deferred, 6 pending, 7 applied,
+# 8 rejected), so a mixed-up slot fails the exact line.
+_next = 8
+for _status, _count in [('trial', 1), ('approved', 2), ('deferred', 4), ('applied', 7), ('rejected', 8)]:
     for _n in range(_count):
         _folder = 'rejected/' if _status == 'rejected' else ''
         _pid = 'P-0030' if (_status, _n) == ('rejected', _count - 1) else f'P-{_next:04d}'  # a gap: next_id is max + 1
@@ -76,8 +77,8 @@ def run_proposals(out):
     valid = write(base / 'valid', VALID)
     code, stdout, stderr = run('--proposals', valid, '--today', '2026-10-14')
     assert code == 0, stderr
-    assert stdout.strip() == ('25 proposals: 5 pending (3 older than 7 days), 1 trial, 2 approved-not-applied, '
-                              '4 deferred, 6 applied, 7 rejected'), stdout
+    assert stdout.strip() == ('28 proposals: 6 pending (3 older than 7 days), 1 trial, 2 approved-not-applied, '
+                              '4 deferred, 7 applied, 8 rejected'), stdout
     checks.append('summary line on a fixture folder')
 
     snap = base / 'valid-snapshot'
@@ -85,10 +86,11 @@ def run_proposals(out):
     assert code == 0, stderr
     data = json.loads((snap / 'snapshot.json').read_text(encoding='utf-8'))
     by_id = {i['id']: i for i in data['items']}
-    assert sorted(by_id) == [f'P-{n:04d}' for n in [*range(1, 26), 30]], sorted(by_id)
+    assert sorted(by_id) == [f'P-{n:04d}' for n in [*range(1, 29), 30]], sorted(by_id)
     assert by_id['P-0003'] == {'id': 'P-0003', 'kind': 'proposal', 'title': 'Fresh idea', 'status': 'pending', 'revision': 2,
                                'created': '2026-10-10', 'age_days': 4, 'path': 'fresh-idea.md'}, by_id['P-0003']
-    assert by_id['P-0030']['path'] == 'rejected/rejected-7.md' and by_id['P-0001']['status'] is None
+    assert by_id['P-0030']['path'] == 'rejected/rejected-8.md' and by_id['P-0001']['status'] is None
+    assert by_id['P-0007']['age_days'] == 0 and by_id['P-0007']['created'] == '2026-10-14', by_id['P-0007']
     assert data['next_id'] == 'P-0031' and data['summary'] == stdout.splitlines()[0], data
     checks.append('JSON snapshot: id, title, status, revision, age, path')
 
@@ -105,7 +107,8 @@ def run_proposals(out):
         assert code == 2 and message in stderr and not stdout and not target.exists(), (case, code, stdout, stderr)
         checks.append('refuses ' + case)
 
-    code, stdout, stderr = run()
+    today = date.today()  # read once: the script and the oracle count ages to the same day
+    code, stdout, stderr = run('--today', today.isoformat())
     assert code == 0, stderr
     # Counted independently of the script: 'kind: proposal' inside the opening block, not in a later example.
     def opening(path):
@@ -113,7 +116,7 @@ def run_proposals(out):
         return lines[:lines.index('---')]
     blocks = [opening(p) for p in (ROOT / 'docs/proposals').rglob('*.md')]
     statuses = [next(l[len('status: '):] for l in b if l.startswith('status: ')) for b in blocks if 'kind: proposal' in b]
-    stale = sum(1 for b in blocks if 'status: pending' in b and (date.today() - date.fromisoformat(
+    stale = sum(1 for b in blocks if 'status: pending' in b and (today - date.fromisoformat(
         next(l[len('created: '):] for l in b if l.startswith('created: ')))).days > 7)
     assert len(statuses) >= 10, statuses
     n = {s: statuses.count(s) for s in ('pending', 'trial', 'approved', 'deferred', 'applied', 'rejected')}

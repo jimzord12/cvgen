@@ -37,8 +37,8 @@ Cancelled work never counts as delivered.
 2. Read the **session-handoff** doc as it stands on `main` (the backlog
    skill says how; a branch's copy may be stale): the previous session's
    resume point, parked owner decisions and pitfalls. Then derive state from
-   the vision, relevant decisions/proposals, the tasks in `backlog/`, Git
-   state and evidence for the examined revision. The handoff doc orients;
+   the vision, relevant decisions, the proposals (`python scripts/proposals.py`
+   prints their line), the tasks in `backlog/`, Git state and evidence for the examined revision. The handoff doc orients;
    the tasks, Git and evidence are the authority when they disagree. Flag missing or
    conflicting evidence rather than inventing certainty. Orientation is
    read-only and repeatable.
@@ -69,8 +69,8 @@ report:
   documentation included, has a review report under
   `docs/work/<id>/reviews/`, or is trivial or record-keeping
   (`docs/review.md`); run the missing round before stopping.
-- **Proposals:** `status: approved` in `docs/proposals/*.md` is approved
-  work not yet applied.
+- **Proposals:** the approved-not-applied count of `python scripts/proposals.py`
+  is approved work not yet applied (`--json` names each one).
 - **Tasks:** after `git fetch`, from a checkout that has `backlog/` (`main`,
   or a branch made after the migration): `backlog task list --plain -s Active
   -s Review -s Ready`, then separately `backlog task list --plain -l blocked`
