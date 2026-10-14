@@ -77,7 +77,7 @@ steps:
 
   - id: text-draft.corrections
     name: Take the corrections into the next number
-    sources: ["docs/guides/client-workflow.md:306-307", ".claude/skills/new-client/SKILL.md:68-69", "docs/workflow/GAPS.md:33-36"]
+    sources: ["docs/guides/client-workflow.md:306-307", ".claude/skills/new-client/SKILL.md:68-69", "docs/workflow/GAPS.md:34-37"]
     actor: actor.lead
     action: lead.take-corrections
     inputs: [art.client-reply]
@@ -117,7 +117,7 @@ gates:
 loops:
   - id: loop.draft-correction
     name: Draft correction rounds (placeholder cap)
-    sources: ["docs/guides/client-workflow.md:370-372", "docs/guides/client-workflow.md:306-307", "docs/workflow/GAPS.md:24"]
+    sources: ["docs/guides/client-workflow.md:370-372", "docs/guides/client-workflow.md:306-307", "docs/workflow/GAPS.md:25"]
     gate: gate.sign-off
     cap: { attended: 1 }
     escalate: text-draft.cap-reached

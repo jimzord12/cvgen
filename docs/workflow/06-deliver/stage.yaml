@@ -33,7 +33,7 @@ steps:
 
   - id: deliver.page-png
     name: Render every page to PNG and look at it
-    sources: [".claude/skills/new-cv/SKILL.md:104-105", "docs/guides/build-a-cv.md:170-176", ".claude/skills/verify-cv/SKILL.md:65-76"]
+    sources: [".claude/skills/new-cv/SKILL.md:104-105", "docs/guides/build-a-cv.md:170-176", ".claude/skills/verify-cv/SKILL.md:68-79"]
     actor: actor.lead
     action: cmd.page-png
     inputs: [art.cv-pdf]
@@ -161,21 +161,21 @@ gates:
 loops:
   - id: loop.revision-fix
     name: Fix and render again after a failed render (placeholder cap)
-    sources: ["docs/guides/build-a-cv.md:128-130", "docs/workflow/GAPS.md:27"]
+    sources: ["docs/guides/build-a-cv.md:128-130", "docs/workflow/GAPS.md:28"]
     gate: gate.render-ok
     cap: { attended: 5, unattended: 10 }
     escalate: deliver.cap-reached
 
   - id: loop.wording-fix
     name: Fix and render again after example wording (placeholder cap)
-    sources: ["docs/guides/build-a-cv.md:98-103", "docs/workflow/GAPS.md:28"]
+    sources: ["docs/guides/build-a-cv.md:98-103", "docs/workflow/GAPS.md:29"]
     gate: gate.example-wording
     cap: { attended: 5, unattended: 10 }
     escalate: deliver.cap-reached
 
   - id: loop.owner-changes
     name: The owner's changes, as new Revisions (placeholder cap)
-    sources: ["docs/guides/build-a-cv.md:174-176", "docs/workflow/GAPS.md:29"]
+    sources: ["docs/guides/build-a-cv.md:174-176", "docs/workflow/GAPS.md:30"]
     gate: gate.owner-review
     cap: { attended: 5 }
     escalate: deliver.cap-reached
@@ -241,7 +241,7 @@ artifacts:
   # builds/ is ignored: neither tracked nor under private/ (GAPS.md).
   - id: art.page-png
     name: The page PNGs
-    sources: [".claude/skills/verify-cv/SKILL.md:65-76", ".claude/skills/new-cv/SKILL.md:104-105"]
+    sources: [".claude/skills/verify-cv/SKILL.md:68-79", ".claude/skills/new-cv/SKILL.md:104-105"]
     path: builds/<new-folder>/cv-p<N>.png
     format: PNG at 96 dpi
     visibility: ephemeral
@@ -315,7 +315,7 @@ actions:
   - id: cmd.page-png
     kind: cmd
     name: Render a page to PNG
-    sources: [".claude/skills/verify-cv/SKILL.md:72-76", ".claude/skills/new-cv/SKILL.md:104-105"]
+    sources: [".claude/skills/verify-cv/SKILL.md:75-79", ".claude/skills/new-cv/SKILL.md:104-105"]
     run: >-
       python -c "import pymupdf; doc = pymupdf.open('private/<envelope>/revisions/<revision>/cv.pdf');
       doc[<N>].get_pixmap(dpi=96).save('builds/<new-folder>/cv-p<N>.png')"

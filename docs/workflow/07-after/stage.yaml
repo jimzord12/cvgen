@@ -45,7 +45,7 @@ steps:
 
   - id: after.keep-record
     name: Record the keep request in envelope.json
-    sources: ["docs/proposals/workflow-model.md:56", "docs/workflow/GAPS.md:40-43"]
+    sources: ["docs/proposals/workflow-model.md:56", "docs/workflow/GAPS.md:41-44"]
     actor: actor.lead
     action: lead.record-keep-request
     inputs: [art.keep-request]
@@ -71,7 +71,7 @@ steps:
 
   - id: after.erase-envelope
     name: Delete the Envelope and erase it from the private history
-    sources: ["docs/guides/client-workflow.md:333-359", "docs/preferences.md:69-77", "docs/workflow/GAPS.md:44-47"]
+    sources: ["docs/guides/client-workflow.md:333-359", "docs/preferences.md:69-77", "docs/workflow/GAPS.md:45-48"]
     actor: actor.owner
     action: manual.erase-envelope
     inputs: [art.erase-commands]

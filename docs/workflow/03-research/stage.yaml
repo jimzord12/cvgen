@@ -254,14 +254,14 @@ loops:
 
   - id: loop.library-review
     name: Library note review rounds (placeholder cap)
-    sources: ["docs/research/README.md:28-30", "docs/workflow/GAPS.md:26"]
+    sources: ["docs/research/README.md:28-30", "docs/workflow/GAPS.md:27"]
     gate: gate.library-review
     cap: { attended: 5, unattended: 10 }
     escalate: research.cap-reached
 
   - id: loop.research-rounds
     name: More Deep Dives until research is enough (placeholder cap)
-    sources: ["docs/guides/client-workflow.md:235-242", "docs/workflow/GAPS.md:25"]
+    sources: ["docs/guides/client-workflow.md:235-242", "docs/workflow/GAPS.md:26"]
     gate: gate.research-enough
     cap: { attended: 3 }
     escalate: research.cap-reached

@@ -139,7 +139,7 @@ steps:
   # stall check names him and the owner may delete him.
   - id: intake.no-consent
     name: No consent; the owner decides
-    sources: ["docs/guides/client-workflow.md:191-192", "docs/guides/client-workflow.md:333-338", "docs/workflow/GAPS.md:50-52"]
+    sources: ["docs/guides/client-workflow.md:191-192", "docs/guides/client-workflow.md:333-338", "docs/workflow/GAPS.md:51-53"]
     actor: actor.owner
     action: manual.decide-on-no-consent
     inputs: [art.messages-md]
