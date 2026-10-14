@@ -108,15 +108,15 @@
    "verifiedAt": "2026-10-14"
   },
   "system-map": {
-   "commit": "a36ab4a",
+   "commit": "b71c2a3",
    "sources": {
     ".claude/agents": "dir1:4f4154394888bb9d69a0ed790d8f4b484a790fdd",
     ".claude/skills": "dir1:5eeafda0c9ef9a6037a3fcc2879f73f098fa3e55",
     ".claude/skills/backlog/SKILL.md": "24c2914e3331741a0d013d29cfd4ce2adfc8015e",
-    ".github/workflows/verify.yml": "33d94223ccb27be2edad22098555a4a484676398",
-    "AGENTS.md": "0218a8fe08fa6fe216a38ed89fc36ed3bae7350a",
+    ".github/workflows/verify.yml": "1863e738e0ff361cd4add4977517cbb333043871",
+    "AGENTS.md": "ac5ea4af55f0ae77cf59c0729172e670eb030c4f",
     "apps/design-review/server.py": "65b42af8bcf0a971e19ec97fa39b874cad91c3c1",
-    "archive/work-records": "dir1:3acfbaab6dab9e0603976438cba5836ce624dbca",
+    "archive/work-records": "dir1:c5b536fe41d499a2678bbadebfeef9031a05f61a",
     "docs": "dir1:139adff443cb7a07dd0d5fae04941c8c0785eb30",
     "docs/architecture.md": "350372a56955f34608761fc4876da91260b0042f",
     "docs/glossary.md": "a22ba830448d82a3480ab7d0d34fe9f6a3d94df9",
@@ -138,7 +138,7 @@
     "studio/archive/design-studies": "dir1:3934f2dbb33587fa8b485e7b99d2b37fa3784798",
     "studio/brand": "dir1:c556e0f8d17363d5e9ddc92e7142a253a16d1be2",
     "studio/design-concepts": "dir1:d3bd60991a5441279a325e9aa73ea4e20ad7f1c7",
-    "tests/run.py": "9456a0fcdbe47bbb2adaaceba13c3018a7d93b1c"
+    "tests/run.py": "ac78cef74b09d5dd4319be4cc867206840f62755"
    },
    "verifiedAt": "2026-10-14"
   }
