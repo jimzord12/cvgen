@@ -16,12 +16,12 @@
    "verifiedAt": "2026-10-14"
   },
   "client-journey": {
-   "commit": "ce6fe1f",
+   "commit": "930100b",
    "sources": {
     ".claude/skills/idea-run/SKILL.md": "88b55544d074640759cf193c3d212d1f15ad91f8",
     ".claude/skills/new-client/SKILL.md": "db4910a38f348ba06564eff199447763662e4f87",
     ".claude/skills/new-cv/SKILL.md": "7f2041feec36dbc8d38fbf1e878f91be37943716",
-    "docs/glossary.md": "adbf57743fea29356883b5f7ace4be8a895bfe91",
+    "docs/glossary.md": "a22ba830448d82a3480ab7d0d34fe9f6a3d94df9",
     "docs/guides/build-a-cv.md": "02e9d6923ad03aa7ca6d753d9bf09ff4f4544b4a",
     "docs/guides/client-workflow.md": "90b150c846d6b646a901280bacb6258f8868286b",
     "docs/pdf-workflow.md": "3065a7dbb83a26f70e82fee96aca46f34a99c7f6",
@@ -31,7 +31,7 @@
    "verifiedAt": "2026-10-14"
   },
   "design-run": {
-   "commit": "ce6fe1f",
+   "commit": "930100b",
    "sources": {
     ".claude/agents/design-reviewer.md": "ae20d720149ac73aaca62505035b9855c2829911",
     ".claude/agents/magazine-editor.md": "ba0807df9b3f5124f87172a454dcb9484476cfe8",
@@ -39,7 +39,7 @@
     ".claude/skills/idea-run/SKILL.md": "88b55544d074640759cf193c3d212d1f15ad91f8",
     "AGENTS.md": "0218a8fe08fa6fe216a38ed89fc36ed3bae7350a",
     "apps/design-review/server.py": "65b42af8bcf0a971e19ec97fa39b874cad91c3c1",
-    "docs/glossary.md": "adbf57743fea29356883b5f7ace4be8a895bfe91",
+    "docs/glossary.md": "a22ba830448d82a3480ab7d0d34fe9f6a3d94df9",
     "docs/pdf-workflow.md": "3065a7dbb83a26f70e82fee96aca46f34a99c7f6",
     "docs/proposals/codex-visual-tools.md": "fc15df33da11954399c27f1df2fa0bd74a0e4716",
     "docs/review.md": "cb74994f6d95ed83eaeced64fe16a3525882dee6",
