@@ -30,7 +30,7 @@
     ".claude/skills/new-cv/SKILL.md:21-54",
     "docs/guides/build-a-cv.md:1-100",
     "docs/guides/build-a-cv.md:102-182",
-    "docs/pdf-workflow.md:171-193",
+    "docs/pdf-workflow.md:172-194",
     ".claude/skills/new-cv/SKILL.md:56-78",
     "docs/workflow/07-after/README.md:15-53",
     ".claude/skills/new-client/SKILL.md:16-29",
@@ -2080,7 +2080,7 @@
           "sources": [
             "docs/workflow/05-design/README.md:49-50",
             ".claude/skills/new-cv/SKILL.md:54",
-            "docs/preferences.md:62-64",
+            "docs/preferences.md:67-69",
             ".claude/agents/design-reviewer.md:46-50"
           ]
         },
@@ -2346,7 +2346,7 @@
           "note": "Model step `deliver.approve`, action `cmd.cv-approve`, in `docs/workflow/06-deliver/stage.yaml`.",
           "sources": [
             "docs/guides/build-a-cv.md:153-158",
-            "docs/pdf-workflow.md:179-181",
+            "docs/pdf-workflow.md:180-182",
             "docs/proposals/workflow-model.md:58",
             "docs/glossary.md:64"
           ]
@@ -2379,7 +2379,7 @@
           "sources": [
             "docs/proposals/workflow-model.md:58",
             "docs/guides/build-a-cv.md:160-164",
-            "docs/pdf-workflow.md:182-186"
+            "docs/pdf-workflow.md:183-187"
           ]
         },
         {
@@ -2421,7 +2421,7 @@
           "note": "Model step `deliver.send`, action `manual.send-pdf`, in `docs/workflow/06-deliver/stage.yaml`.",
           "sources": [
             "docs/workflow/06-deliver/README.md:48-50",
-            "docs/pdf-workflow.md:184-186"
+            "docs/pdf-workflow.md:185-187"
           ]
         },
         {
@@ -2670,7 +2670,7 @@
           "sources": [
             "docs/workflow/07-after/README.md:27-34",
             "docs/guides/client-workflow.md:197-222",
-            "docs/preferences.md:69-77",
+            "docs/preferences.md:74-82",
             "docs/workflow/GAPS.md:45-48"
           ]
         },
@@ -2706,8 +2706,8 @@
           ],
           "note": "Model step `after.revision-cleanup`, action `manual.go-remove-revisions`, in `docs/workflow/07-after/stage.yaml`.",
           "sources": [
-            "docs/pdf-workflow.md:214-217",
-            "docs/preferences.md:75-77",
+            "docs/pdf-workflow.md:215-218",
+            "docs/preferences.md:80-82",
             "docs/workflow/GAPS.md:58-61"
           ]
         }

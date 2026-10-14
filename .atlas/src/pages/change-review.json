@@ -44,9 +44,8 @@
             "backlog"
           ],
           "sources": [
-            "docs/development.md:34-56",
-            "AGENTS.md:35-44",
-            "AGENTS.md:49-54",
+            "docs/development.md:42-58",
+            "docs/development.md:109-121",
             "docs/proposals/README.md:46-51",
             "docs/proposals/README.md:89-97"
           ]
@@ -67,8 +66,8 @@
             "backlog"
           ],
           "sources": [
-            "docs/development.md:17-32",
-            "docs/development.md:107-196"
+            "docs/development.md:25-40",
+            "docs/development.md:121-212"
           ]
         }
       ]
@@ -84,8 +83,8 @@
           "summary": "Small verified fixes and docs may go straight to `main`. Features and anything uncertain get a `<type>/<topic>` branch, in a worktree under `.worktrees/`. No pull requests.",
           "sources": [
             "docs/git-workflow.md:21-33",
-            "docs/git-workflow.md:40-66",
-            "docs/git-workflow.md:85-89"
+            "docs/git-workflow.md:40-67",
+            "docs/git-workflow.md:86-90"
           ]
         },
         {
@@ -107,6 +106,7 @@
           ],
           "sources": [
             "AGENTS.md",
+            "docs/development.md:214-221",
             ".claude/skills/verify-cv/SKILL.md:10-19"
           ]
         }
@@ -197,8 +197,8 @@
           ],
           "note": "Yours only, with the exact command shown first, including: deleting or force-pushing `main`, rewriting its published history, rewriting the private repo's history (the delete-by erase, which you run), `archive/*` tags, repo settings (public and private repo), deleting under `private/` or `.local/` or outside the repo, removing revisions, approvals, exports or portraits, replacing the `Release`.",
           "sources": [
-            "docs/git-workflow.md:90-103",
-            "docs/preferences.md:52-81",
+            "docs/git-workflow.md:91-104",
+            "docs/preferences.md:57-86",
             ".github/workflows/verify.yml"
           ]
         }
@@ -224,7 +224,7 @@
             "repo-maintenance"
           ],
           "sources": [
-            "docs/development.md:58-89"
+            "docs/development.md:72-103"
           ]
         },
         {
@@ -239,7 +239,7 @@
             "backlog"
           ],
           "sources": [
-            "docs/development.md:91-105"
+            "docs/development.md:105-119"
           ]
         },
         {
@@ -253,8 +253,8 @@
             "label": "Product decisions and real-client approvals stay yours."
           },
           "sources": [
-            "docs/preferences.md:49-51",
-            "docs/preferences.md:87"
+            "docs/preferences.md:51-53",
+            "docs/preferences.md:92"
           ]
         }
       ]
