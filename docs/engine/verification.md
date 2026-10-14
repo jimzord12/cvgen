@@ -205,7 +205,10 @@ change.
   (`tools/workflow/README.md`). Fix the YAML in `docs/workflow`, or rerun
   `bun run check` in `tools/workflow/` to iterate. A `STALE <README>` line
   instead: the YAML changed without `bun run render`, or a generated block
-  was edited by hand; run `bun run render` and commit the READMEs.
+  was edited by hand, or `tools/workflow/src/render.ts` changed without a
+  re-render; run `bun run render` and commit the READMEs. `FAILED render`
+  with a `README.md:<line>`: a malformed, unknown, repeated, nested or
+  unclosed marker there; fix the marker line.
 - `AssertionError: entry points not in examples/release.json, ...`: an
   example was added without its line in `examples/release.json` (or a
   line was removed); add the line with its `title` and `variant`.

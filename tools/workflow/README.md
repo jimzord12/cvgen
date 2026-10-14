@@ -137,13 +137,15 @@ it. It writes named blocks between markers, each alone on its line:
 Everything outside the markers is hand-written and never touched. A README
 that does not exist is created with a heading and every block; a block
 missing from a README is added at its end; a block may be moved anywhere and
-stays there. A malformed, unknown, repeated or unclosed marker stops
+stays there. A marker quoted inside a code fence is text. A malformed,
+unknown, repeated, nested or unclosed marker stops
 `render` with the file and line, and nothing is written. The output is the
 same on every run: model order or sorted, LF, no dates.
 
 Diagrams leave out an arrow that a longer path already implies, unless that
-path runs through an optional step (one with `when`); the tables list every
-input. GitHub draws a `mermaid` block in the browser, so a broken one
+path runs through an optional step (one with `when`) whose condition differs
+from the arrow's source; the tables list every input.
+GitHub draws a `mermaid` block in the browser, so a broken one
 would only show as an error box there: `render` checks each diagram it
 writes against the small subset in `src/mermaid.ts` (`flowchart TD` or `LR`,
 quoted one-line labels with no HTML, model IDs mapped to safe node IDs such
