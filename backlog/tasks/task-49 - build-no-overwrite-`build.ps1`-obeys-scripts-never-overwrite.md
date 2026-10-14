@@ -1,10 +1,10 @@
 ---
 id: TASK-49
 title: 'build-no-overwrite: `build.ps1` obeys "scripts never overwrite"'
-status: Active
+status: Done
 assignee: []
 created_date: '2026-10-14 04:48'
-updated_date: '2026-10-14 06:52'
+updated_date: '2026-10-14 07:01'
 labels:
   - restructure
 dependencies: []
@@ -67,3 +67,9 @@ Atlas: facts for build.ps1 and the suite updated (site.json, system-map), shifte
 
 Both PASS; reports in docs/work/build-no-overwrite/reviews/. Fixed: second malformed case (an entry without title; mutation removing the field check -> AssertionError ('no-title', '1 CVs created ...')); key-check comment simplified; README count from examples/release.json; AGENTS.md repeats trimmed; refusal text 'with it, run ./scripts/build.ps1 -ReplaceRelease'; new-theme restores 'and its assertions in tests/run.py'; verify-cv rewrapped with a pointer to docs/preferences.md.
 <!-- SECTION:NOTES:END -->
+
+## Final Summary
+
+<!-- SECTION:FINAL_SUMMARY:BEGIN -->
+scripts/build.ps1 -Release refuses while any Release exists (checked before Typst runs or a folder is made); -ReplaceRelease replaces it and is the owner's go only (docs/preferences.md); examples/release.json is the one list of examples read by build.ps1 and tests/run.py, and a malformed list is refused before anything is written. The suite runs the real build.ps1 under pwsh and Windows PowerShell 5.1; CI uploads its logs. Code review rounds 1 and 2 PASS, context review round 1 PASS, minors fixed. Suite PASS 115 (builds/tests-20261014-095416-066468 in the worktree); CI run 38525298418 green on ubuntu-24.04 and windows-2025; manual walks in builds/t49-walk2.
+<!-- SECTION:FINAL_SUMMARY:END -->
