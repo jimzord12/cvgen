@@ -94,7 +94,7 @@
    "verifiedAt": "2026-10-14"
   },
   "system-map": {
-   "commit": "102ba3e",
+   "commit": "7b9722c",
    "sources": {
     ".claude/agents": "dir1:4f4154394888bb9d69a0ed790d8f4b484a790fdd",
     ".claude/skills": "dir1:5eeafda0c9ef9a6037a3fcc2879f73f098fa3e55",
@@ -124,7 +124,7 @@
     "studio/archive/design-studies": "dir1:3934f2dbb33587fa8b485e7b99d2b37fa3784798",
     "studio/brand": "dir1:c556e0f8d17363d5e9ddc92e7142a253a16d1be2",
     "studio/design-concepts": "dir1:d3bd60991a5441279a325e9aa73ea4e20ad7f1c7",
-    "tests/run.py": "6c7c892de63a0d9b2dc48babe4497b27ce413f94"
+    "tests/run.py": "9456a0fcdbe47bbb2adaaceba13c3018a7d93b1c"
    },
    "verifiedAt": "2026-10-14"
   }
