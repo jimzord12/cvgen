@@ -279,13 +279,15 @@ closed tasks that name `docs/work/...` describe the past; read them with
 ## 2026-10-14 — studio/ and apps/: fewer top-level folders
 
 TASK-55 (owner's go, unattended, report after) grouped `brand/`,
-`design-concepts/` and `archive/` under `studio/` (design work beside the
-engine) and moved `scripts/design_review/` to `apps/design-review/`, where
-ADR 0010's target tree already keeps `apps/web/`; all by `git mv`, so
+`design-concepts/` and the frozen design records (`archive/design-studies/`,
+`archive/anti-examples/`) under `studio/` (design work beside the engine);
+`archive/work-records/` stays top-level, where TASK-52 put it. It also
+moved `scripts/design_review/` to `apps/design-review/`, where ADR 0010's
+target tree already keeps `apps/web/`; all by `git mv`, so
 `git log --follow` works. The `Output Contract`'s concept home is now
 `studio/design-concepts/`, and `tests/baseline.json` pins the same design
 study hashes under `studio/archive/design-studies/`. `tools/` stays at the
-top level (16 visible entries against the limit of 18, and TASK-38 was
+top level (17 visible entries against the limit of 18, and TASK-38 was
 wiring `tools/workflow/` into the suite at the time). `docs/conventions.md`
 gained one case per file type (eight README images and the source logo
 renamed), and the marine `lib.typ` now exports `roles`,
@@ -293,4 +295,6 @@ renamed), and the marine `lib.typ` now exports `roles`,
 needs one import. Entries above, ADRs, closed tasks and the work records
 that name `archive/`, `design-concepts/`, `brand/` or
 `scripts/design_review/` describe the past; read them under `studio/` and
-`apps/design-review/`.
+`apps/design-review/` (the work records excepted). The Design Review app
+reads the owner's earlier `design-concepts/...` review keys under their new
+paths.
