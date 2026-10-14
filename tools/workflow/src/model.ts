@@ -10,17 +10,24 @@ import { z } from "zod";
 // --- IDs: stable kebab-case, with a kind prefix where the handoff gives one.
 
 const kebab = "[a-z][a-z0-9]*(?:-[a-z0-9]+)*";
+// `patternErrorMessage` carries the same message into the JSON Schema, so the
+// VS Code YAML extension shows it instead of the raw pattern.
 const id = (prefix: string, example: string, error = `must be a kebab-case ID like "${example}"`) =>
   z
     .string()
     .regex(new RegExp(`^${prefix}${kebab}$`), { error })
-    .meta({ description: `ID, kebab-case, e.g. ${example}` });
+    .meta({ description: `ID, kebab-case, e.g. ${example}`, patternErrorMessage: error });
 
 export const ActionKinds = ["cmd", "skill", "agent", "manual", "lead"] as const;
 // The prefixes the other IDs use; a stage may not be named after one.
 const reserved = `(?:art|actor|gate|loop|${ActionKinds.join("|")})`;
-export const StageId = id(`(?!${reserved}$)`, "intake");
-export const StepId = id(`(?!${reserved}\\.)${kebab}\\.`, "intake.relay-send");
+const notReserved = `may not be one of the ID prefixes art, actor, gate, loop, ${ActionKinds.join(", ")}`;
+export const StageId = id(`(?!${reserved}$)`, "intake", `must be a kebab-case ID like "intake" that ${notReserved}`);
+export const StepId = id(
+  `(?!${reserved}\\.)${kebab}\\.`,
+  "intake.relay-send",
+  `must be "<stage>.<name>" in kebab-case, like "intake.relay-send"; the stage part ${notReserved}`,
+);
 export const ArtifactId = id("art\\.", "art.envelope-json");
 export const ActorId = id("actor\\.", "actor.owner");
 export const GateId = id("gate\\.", "gate.sign-off");
@@ -39,13 +46,23 @@ export const ActorRef = ActorId;
 export const GateRef = GateId;
 export const ActionRef = ActionId;
 
-/** Where a fact comes from: `path`, `path:12` or `path:12-30`, repo-relative. */
+/**
+ * Where a fact comes from: `path`, `path:12` or `path:12-30`, repo-relative.
+ * A path may contain spaces (backlog task files do), not a colon. A reversed
+ * range is refused by the workflow tool only: JSON Schema cannot compare numbers in a string.
+ */
+const sourceError = 'must be "path", "path:12" or "path:12-30"';
 export const Source = z
   .string()
-  .regex(/^[^\s:]+(?::\d+(?:-\d+)?)?$/, {
-    error: 'must be "path", "path:12" or "path:12-30"',
-  })
-  .meta({ description: "Source anchor: path, path:12 or path:12-30" });
+  .regex(/^[^\s:](?:[^:]*[^\s:])?(?::\d+(?:-\d+)?)?$/, { error: sourceError })
+  .refine(
+    (s) => {
+      const range = /:(\d+)-(\d+)$/.exec(s);
+      return !range || Number(range[1]) <= Number(range[2]);
+    },
+    { error: "range runs backwards: write the lower line first, as path:12-30" },
+  )
+  .meta({ description: "Source anchor: path, path:12 or path:12-30", patternErrorMessage: sourceError });
 
 // Every entity has an ID, a short human name and at least one source anchor.
 const base = {

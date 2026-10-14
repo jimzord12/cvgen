@@ -13,6 +13,7 @@ const root = join(import.meta.dirname, "..");
 const sample = readFileSync(join(root, "sample", "stage.yaml"), "utf8").replace(/\r\n/g, "\n");
 
 const ajv = new Ajv({ allErrors: true });
+ajv.addKeyword("patternErrorMessage"); // read by the VS Code YAML extension, not a validation rule
 const editor = {
   stage: ajv.compile(JSON.parse(readFileSync(join(schemaDir, "stage.schema.json"), "utf8"))),
   catalog: ajv.compile(JSON.parse(readFileSync(join(schemaDir, "catalog.schema.json"), "utf8"))),
@@ -43,6 +44,12 @@ describe("the sample stage", () => {
     // defaults are filled in: a step without outputs has an empty list, an artifact is not external
     expect(data?.steps.find((s) => s.id === "text.correction-cap")?.outputs).toEqual([]);
     expect(data?.artifacts.find((a) => a.id === "art.draft-pdf")?.external).toBe(false);
+  });
+
+  test("a source path may contain spaces", () => {
+    const text = broken('sources: ["scripts/text-draft.typ"]', 'sources: ["backlog/tasks/task-37 - workflow-facts.md:3-9"]');
+    expect(loadText(text, "stage.yaml", "stage").issues).toEqual([]);
+    expect(editor.stage(parse(text))).toBe(true);
   });
 
   test("passes the committed JSON Schema, as VS Code reads it", () => {
@@ -100,8 +107,24 @@ describe("broken stages fail with a path and a line", () => {
   });
 
   test("a bad source anchor", () => {
-    const text = broken('sources: ["scripts/text-draft.typ"]', 'sources: ["scripts/text-draft.typ line 4"]');
+    const text = broken('sources: ["scripts/text-draft.typ"]', 'sources: ["scripts/text-draft.typ:L4"]');
     expect(rejected(text)[0]?.path).toBe("artifacts[3].sources[0]");
+  });
+
+  test("a step ID that starts with a reserved prefix names the prefixes", () => {
+    const text = broken("  - id: text.draft-write", "  - id: art.draft-write");
+    const [issue] = rejected(text);
+    expect(issue?.path).toBe("steps[0].id");
+    expect(issue?.message).toContain("may not be one of the ID prefixes art, actor, gate, loop");
+  });
+
+  test("a source range that runs backwards (the workflow tool only)", () => {
+    const text = broken('sources: ["docs/guides/client-workflow.md:248-278"]', 'sources: ["docs/guides/client-workflow.md:278-248"]');
+    const { data, issues } = loadText(text, "broken.yaml", "stage");
+    expect(data).toBeUndefined();
+    expect(issues).toEqual([
+      { file: "broken.yaml", line: lineOf(text, "278-248"), path: "sources[0]", message: expect.stringContaining("runs backwards") },
+    ]);
   });
 
   test("broken YAML reports the line", () => {

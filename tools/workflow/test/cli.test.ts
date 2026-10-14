@@ -1,7 +1,7 @@
 // The workflow tool as a person runs it: real process, real files, exit codes.
 import { describe, expect, test } from "bun:test";
 import { spawnSync } from "node:child_process";
-import { mkdtempSync, readFileSync, writeFileSync } from "node:fs";
+import { mkdtempSync, readFileSync, rmSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { schemaText, staleSchemas } from "../src/schema";
@@ -21,14 +21,18 @@ describe("check", () => {
 
   test("a broken file fails with exit 1, file, line, path and reason", () => {
     const dir = mkdtempSync(join(tmpdir(), "workflow-cli-"));
-    const file = join(dir, "stage.yaml");
-    const sample = readFileSync(join(root, "sample", "stage.yaml"), "utf8").replace(/\r\n/g, "\n");
-    writeFileSync(file, sample.replace("    actor: actor.client\n", "    actor: actor.client\n    actors: [actor.owner]\n"));
-    const line = sample.split("\n").findIndex((l) => l.includes("actor: actor.client")) + 2;
-    const r = run("check", file);
-    expect(r.code).toBe(1);
-    expect(r.err).toContain(`${file}:${line}: steps[2].actors: unknown key`);
-    expect(r.err).toContain("FAILED");
+    try {
+      const file = join(dir, "stage.yaml");
+      const sample = readFileSync(join(root, "sample", "stage.yaml"), "utf8").replace(/\r\n/g, "\n");
+      writeFileSync(file, sample.replace("    actor: actor.client\n", "    actor: actor.client\n    actors: [actor.owner]\n"));
+      const line = sample.split("\n").findIndex((l) => l.includes("actor: actor.client")) + 2;
+      const r = run("check", file);
+      expect(r.code).toBe(1);
+      expect(r.err).toContain(`${file}:${line}: steps[2].actors: unknown key`);
+      expect(r.err).toContain("FAILED");
+    } finally {
+      rmSync(dir, { recursive: true, force: true });
+    }
   });
 
   test("a missing file fails, a missing argument is a usage error", () => {

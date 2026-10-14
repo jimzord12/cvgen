@@ -45,12 +45,20 @@ steps:
     outputs: [art.facts-md]
 
   - id: text.sign-off-record
-    name: Save the Sign-off and stamp signed-off
+    name: Save the Sign-off screenshot
     sources: ["docs/guides/client-workflow.md:266-269"]
     actor: actor.owner
     action: manual.screenshot-sign-off
     inputs: [art.client-reply]
     outputs: [art.sign-off-png]
+
+  - id: text.sign-off-stamp
+    name: Stamp the draft signed-off
+    sources: ["docs/guides/client-workflow.md:266-269"]
+    actor: actor.lead
+    action: cmd.stamp-draft-signed-off
+    inputs: [art.sign-off-png, art.draft-pdf]
+    outputs: [art.draft-meta]
 
   - id: text.correction-cap
     name: Too many correction rounds; the owner decides
@@ -105,6 +113,14 @@ artifacts:
     visibility: public
     external: true
 
+  - id: art.draft-meta
+    name: The draft's Meta File
+    sources: ["docs/guides/client-workflow.md:54"]
+    path: private/<envelope>/draft/draft-NN.meta.json
+    format: JSON
+    schema: art.output-schema
+    visibility: private
+
 actions:
   - id: cmd.compile-and-stamp-draft
     kind: cmd
@@ -144,3 +160,9 @@ actions:
     name: Decide after the cap
     sources: ["docs/workflow/inventory/a-stages-1-4.md:251"]
     does: The owner decides whether another correction round is worth it.
+
+  - id: cmd.stamp-draft-signed-off
+    kind: cmd
+    name: Stamp the draft signed-off
+    sources: ["docs/guides/client-workflow.md:266-269"]
+    run: python scripts/outputs.py stamp private/<envelope>/draft/draft-NN.pdf status=signed-off

@@ -18,7 +18,7 @@ rendering with TASK-39.
 Run every command from `tools/workflow/`. Once, after a clone:
 
 ```powershell
-bun install            # installs the exact versions in bun.lock
+bun install --frozen-lockfile   # the exact versions in bun.lock; fails rather than rewrite it
 ```
 
 Day to day:

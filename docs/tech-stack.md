@@ -24,7 +24,7 @@ pip install pymupdf pillow jsonschema           # tests/run.py and scripts/cv.py
 npm i -g backlog.md@1.52.0                       # the task store CLI (needs Node); expect `backlog --version` 1.52.0
 typst --version                                 # expect 0.15.1
 powershell -c "irm bun.sh/install.ps1 | iex"     # Bun for tools/workflow/; `bun upgrade` if older than 1.4.2
-cd tools/workflow; bun install; cd ../..         # the workflow tool's pinned dependencies
+cd tools/workflow; bun install --frozen-lockfile; cd ../..   # the workflow tool's pinned dependencies, exactly as in bun.lock
 ```
 
 On macOS or Linux install Typst from the GitHub releases and use the same

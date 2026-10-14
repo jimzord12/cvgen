@@ -4,7 +4,7 @@ title: 'workflow-schema: typed entity definitions for the workflow model'
 status: Active
 assignee: []
 created_date: '2026-10-14 04:47'
-updated_date: '2026-10-14 07:55'
+updated_date: '2026-10-14 08:04'
 labels:
   - workflow-model
 dependencies:
@@ -35,4 +35,6 @@ Bun project in tools/workflow/ (Bun 1.4.3 locally, .bun-version 1.4.2 for CI; zo
 
 ## Handoff
 Left for TASK-38: wire bun test, typecheck and schema --check into tests/run.py and .github/workflows/verify.yml (oven-sh/setup-bun with bun-version-file tools/workflow/.bun-version); model-wide checks (ID uniqueness, references resolve, step ID prefix = stage ID, loop gate fail goes back) take loadFile().data. Independent code-reviewer round not yet run.
+
+## Review round 1 (code-reviewer): FINDINGS, one Material. F1 fixed: yaml-language-server 1.24.0 (the engine of the Red Hat VS Code YAML extension) run headlessly over stdio on the sample (0 diagnostics) and a broken copy (all five breaks flagged, same lines as the workflow tool); evidence builds/task-36-lsp/diagnostics.txt (worktree), driver lsp.mjs beside it, not a repo dependency. The owner opening the sample in VS Code stays the final check. F2 fixed (reserved prefixes named in the error; patternErrorMessage carries every ID message into the JSON Schema so VS Code shows it). F3 fixed (test temp folder removed in finally; 14 old folders deleted). F4 fixed (glossary). F5 fixed (spaces allowed in source paths, reversed ranges refused by the workflow tool; JSON Schema cannot compare them). F6 fixed (--frozen-lockfile). F7: sample now stamps signed-off (text.sign-off-stamp); the rest appended to TASK-37. F8: context-reviewer round still to run. Report: docs/work/workflow-schema/reviews/01-code-reviewer.md.
 <!-- SECTION:NOTES:END -->

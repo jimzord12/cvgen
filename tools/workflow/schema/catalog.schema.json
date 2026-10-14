@@ -11,7 +11,8 @@
           "id": {
             "type": "string",
             "pattern": "^actor\\.[a-z][a-z0-9]*(?:-[a-z0-9]+)*$",
-            "description": "ID, kebab-case, e.g. actor.owner"
+            "description": "ID, kebab-case, e.g. actor.owner",
+            "patternErrorMessage": "must be a kebab-case ID like \"actor.owner\""
           },
           "name": {
             "type": "string",
@@ -23,8 +24,9 @@
             "type": "array",
             "items": {
               "type": "string",
-              "pattern": "^[^\\s:]+(?::\\d+(?:-\\d+)?)?$",
-              "description": "Source anchor: path, path:12 or path:12-30"
+              "pattern": "^[^\\s:](?:[^:]*[^\\s:])?(?::\\d+(?:-\\d+)?)?$",
+              "description": "Source anchor: path, path:12 or path:12-30",
+              "patternErrorMessage": "must be \"path\", \"path:12\" or \"path:12-30\""
             },
             "description": "Where this fact is written today"
           },
@@ -65,7 +67,8 @@
               "id": {
                 "type": "string",
                 "pattern": "^cmd\\.[a-z][a-z0-9]*(?:-[a-z0-9]+)*$",
-                "description": "ID, kebab-case, e.g. cmd.example"
+                "description": "ID, kebab-case, e.g. cmd.example",
+                "patternErrorMessage": "must be a kebab-case ID like \"cmd.example\""
               },
               "kind": {
                 "type": "string",
@@ -81,8 +84,9 @@
                 "type": "array",
                 "items": {
                   "type": "string",
-                  "pattern": "^[^\\s:]+(?::\\d+(?:-\\d+)?)?$",
-                  "description": "Source anchor: path, path:12 or path:12-30"
+                  "pattern": "^[^\\s:](?:[^:]*[^\\s:])?(?::\\d+(?:-\\d+)?)?$",
+                  "description": "Source anchor: path, path:12 or path:12-30",
+                  "patternErrorMessage": "must be \"path\", \"path:12\" or \"path:12-30\""
                 },
                 "description": "Where this fact is written today"
               },
@@ -107,7 +111,8 @@
               "id": {
                 "type": "string",
                 "pattern": "^skill\\.[a-z][a-z0-9]*(?:-[a-z0-9]+)*$",
-                "description": "ID, kebab-case, e.g. skill.example"
+                "description": "ID, kebab-case, e.g. skill.example",
+                "patternErrorMessage": "must be a kebab-case ID like \"skill.example\""
               },
               "kind": {
                 "type": "string",
@@ -123,8 +128,9 @@
                 "type": "array",
                 "items": {
                   "type": "string",
-                  "pattern": "^[^\\s:]+(?::\\d+(?:-\\d+)?)?$",
-                  "description": "Source anchor: path, path:12 or path:12-30"
+                  "pattern": "^[^\\s:](?:[^:]*[^\\s:])?(?::\\d+(?:-\\d+)?)?$",
+                  "description": "Source anchor: path, path:12 or path:12-30",
+                  "patternErrorMessage": "must be \"path\", \"path:12\" or \"path:12-30\""
                 },
                 "description": "Where this fact is written today"
               },
@@ -149,7 +155,8 @@
               "id": {
                 "type": "string",
                 "pattern": "^agent\\.[a-z][a-z0-9]*(?:-[a-z0-9]+)*$",
-                "description": "ID, kebab-case, e.g. agent.example"
+                "description": "ID, kebab-case, e.g. agent.example",
+                "patternErrorMessage": "must be a kebab-case ID like \"agent.example\""
               },
               "kind": {
                 "type": "string",
@@ -165,8 +172,9 @@
                 "type": "array",
                 "items": {
                   "type": "string",
-                  "pattern": "^[^\\s:]+(?::\\d+(?:-\\d+)?)?$",
-                  "description": "Source anchor: path, path:12 or path:12-30"
+                  "pattern": "^[^\\s:](?:[^:]*[^\\s:])?(?::\\d+(?:-\\d+)?)?$",
+                  "description": "Source anchor: path, path:12 or path:12-30",
+                  "patternErrorMessage": "must be \"path\", \"path:12\" or \"path:12-30\""
                 },
                 "description": "Where this fact is written today"
               },
@@ -191,7 +199,8 @@
               "id": {
                 "type": "string",
                 "pattern": "^manual\\.[a-z][a-z0-9]*(?:-[a-z0-9]+)*$",
-                "description": "ID, kebab-case, e.g. manual.example"
+                "description": "ID, kebab-case, e.g. manual.example",
+                "patternErrorMessage": "must be a kebab-case ID like \"manual.example\""
               },
               "kind": {
                 "type": "string",
@@ -207,8 +216,9 @@
                 "type": "array",
                 "items": {
                   "type": "string",
-                  "pattern": "^[^\\s:]+(?::\\d+(?:-\\d+)?)?$",
-                  "description": "Source anchor: path, path:12 or path:12-30"
+                  "pattern": "^[^\\s:](?:[^:]*[^\\s:])?(?::\\d+(?:-\\d+)?)?$",
+                  "description": "Source anchor: path, path:12 or path:12-30",
+                  "patternErrorMessage": "must be \"path\", \"path:12\" or \"path:12-30\""
                 },
                 "description": "Where this fact is written today"
               },
@@ -233,7 +243,8 @@
               "id": {
                 "type": "string",
                 "pattern": "^lead\\.[a-z][a-z0-9]*(?:-[a-z0-9]+)*$",
-                "description": "ID, kebab-case, e.g. lead.example"
+                "description": "ID, kebab-case, e.g. lead.example",
+                "patternErrorMessage": "must be a kebab-case ID like \"lead.example\""
               },
               "kind": {
                 "type": "string",
@@ -249,8 +260,9 @@
                 "type": "array",
                 "items": {
                   "type": "string",
-                  "pattern": "^[^\\s:]+(?::\\d+(?:-\\d+)?)?$",
-                  "description": "Source anchor: path, path:12 or path:12-30"
+                  "pattern": "^[^\\s:](?:[^:]*[^\\s:])?(?::\\d+(?:-\\d+)?)?$",
+                  "description": "Source anchor: path, path:12 or path:12-30",
+                  "patternErrorMessage": "must be \"path\", \"path:12\" or \"path:12-30\""
                 },
                 "description": "Where this fact is written today"
               },
@@ -281,7 +293,8 @@
           "id": {
             "type": "string",
             "pattern": "^art\\.[a-z][a-z0-9]*(?:-[a-z0-9]+)*$",
-            "description": "ID, kebab-case, e.g. art.envelope-json"
+            "description": "ID, kebab-case, e.g. art.envelope-json",
+            "patternErrorMessage": "must be a kebab-case ID like \"art.envelope-json\""
           },
           "name": {
             "type": "string",
@@ -293,8 +306,9 @@
             "type": "array",
             "items": {
               "type": "string",
-              "pattern": "^[^\\s:]+(?::\\d+(?:-\\d+)?)?$",
-              "description": "Source anchor: path, path:12 or path:12-30"
+              "pattern": "^[^\\s:](?:[^:]*[^\\s:])?(?::\\d+(?:-\\d+)?)?$",
+              "description": "Source anchor: path, path:12 or path:12-30",
+              "patternErrorMessage": "must be \"path\", \"path:12\" or \"path:12-30\""
             },
             "description": "Where this fact is written today"
           },
@@ -311,7 +325,8 @@
           "schema": {
             "description": "The artifact holding its JSON Schema, if any",
             "type": "string",
-            "pattern": "^art\\.[a-z][a-z0-9]*(?:-[a-z0-9]+)*$"
+            "pattern": "^art\\.[a-z][a-z0-9]*(?:-[a-z0-9]+)*$",
+            "patternErrorMessage": "must be a kebab-case ID like \"art.envelope-json\""
           },
           "visibility": {
             "type": "string",
