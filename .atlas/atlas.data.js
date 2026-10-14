@@ -2269,27 +2269,15 @@ window.ATLAS = {
   }
  ],
  "build": {
-  "builtAt": "2026-10-14 07:10 UTC",
-  "commit": "be1d073",
+  "builtAt": "2026-10-14 07:13 UTC",
+  "commit": "1b0b5d4",
   "kit": "1.0",
   "stale": {
-   "design-run": [
-    "AGENTS.md"
-   ],
-   "change-review": [
-    "AGENTS.md"
-   ],
    "system-map": [
     "AGENTS.md",
     "docs/architecture.md",
     "docs/work",
     "tests/run.py"
-   ],
-   "roster": [
-    "AGENTS.md",
-    ".claude/skills/new-theme/SKILL.md",
-    "tests/run.py",
-    "docs/reference/verification.md"
    ]
   },
   "verified": {
@@ -2299,11 +2287,11 @@ window.ATLAS = {
    },
    "design-run": {
     "at": "2026-10-14",
-    "commit": "575fd07"
+    "commit": "1b0b5d4"
    },
    "change-review": {
     "at": "2026-10-14",
-    "commit": "575fd07"
+    "commit": "1b0b5d4"
    },
    "system-map": {
     "at": "2026-10-14",
@@ -2311,7 +2299,7 @@ window.ATLAS = {
    },
    "roster": {
     "at": "2026-10-14",
-    "commit": "575fd07"
+    "commit": "1b0b5d4"
    }
   }
  }
