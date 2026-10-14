@@ -4,7 +4,7 @@ title: 'workflow-consolidate: one source for the client workflow'
 status: Active
 assignee: []
 created_date: '2026-10-14 04:47'
-updated_date: '2026-10-14 12:24'
+updated_date: '2026-10-14 12:36'
 labels:
   - workflow-model
 dependencies:
@@ -22,8 +22,8 @@ Replace `client-workflow.md`, `build-a-cv.md` and the lifecycle half of `pdf-wor
 
 ## Acceptance Criteria
 <!-- AC:BEGIN -->
-- [ ] #1 No second description of any step remains (grep checks)
-- [ ] #2 the skills still run a fictional client end to end
+- [x] #1 No second description of any step remains (grep checks)
+- [x] #2 the skills still run a fictional client end to end
 <!-- AC:END -->
 
 ## Implementation Notes

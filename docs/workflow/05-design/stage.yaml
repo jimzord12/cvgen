@@ -481,9 +481,9 @@ artifacts:
   # no visibility for an ignored local file (GAPS.md).
   - id: art.design-review-input
     name: The client's preview pages for the reviewer
-    sources: [".claude/skills/new-cv/SKILL.md:42-47", "docs/workflow/05-design/README.md:49-50", ".claude/skills/new-cv/SKILL.md:54", ".claude/agents/design-reviewer.md:46-50"]
+    sources: [".claude/skills/new-cv/SKILL.md:42-47", "docs/workflow/05-design/README.md:49-50", ".claude/skills/new-cv/SKILL.md:54", ".claude/agents/design-reviewer.md:46-50", ".claude/agents/design-reviewer.md:60-61"]
     path: builds/design-review-input-<timestamp>/
-    format: PDF previews of the client's pages, and the page PNGs the reviewer renders there, outside private/
+    format: PDF previews of the client's pages, and the page PNGs and batch sheets the reviewer makes there, outside private/
     visibility: ephemeral
 
   - id: art.design-review-report
