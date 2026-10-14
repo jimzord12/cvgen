@@ -94,21 +94,21 @@
    "verifiedAt": "2026-10-14"
   },
   "system-map": {
-   "commit": "e65b5a5",
+   "commit": "e9a67bf",
    "sources": {
     ".claude/agents": "dir1:4f4154394888bb9d69a0ed790d8f4b484a790fdd",
     ".claude/skills": "dir1:5eeafda0c9ef9a6037a3fcc2879f73f098fa3e55",
     ".claude/skills/backlog/SKILL.md": "22562281e7901acef008942775142d478ec85948",
     ".github/workflows/verify.yml": "61647a15c7431cdf5d9b5610123ea1c74f25bb23",
-    "AGENTS.md": "f69946928af8d88d401bba219678ce8f70de51f4",
+    "AGENTS.md": "7d12abcd1f73743103f6006bdc50b08647735ea3",
     "archive/anti-examples": "dir1:dacb2a2e30bc6a5d49178d2bcbf382c4de52a88c",
     "archive/design-studies": "dir1:3934f2dbb33587fa8b485e7b99d2b37fa3784798",
     "brand": "dir1:c556e0f8d17363d5e9ddc92e7142a253a16d1be2",
     "design-concepts": "dir1:d3bd60991a5441279a325e9aa73ea4e20ad7f1c7",
     "docs": "dir1:1524eeecbb91977c608e30377da8cd2745b0067f",
-    "docs/architecture.md": "3701cad9233eee36d3edce8453a33c69c9a0af80",
+    "docs/architecture.md": "350372a56955f34608761fc4876da91260b0042f",
     "docs/glossary.md": "93d16a259129d9973a0e85b50315c422e6fb5dce",
-    "docs/guides/build-a-cv.md": "8162504b4102423046695a6e1dff7ebb90d082c1",
+    "docs/guides/build-a-cv.md": "b9bb387d1a7a592cad21657474f90e1891aa8d18",
     "docs/guides/client-workflow.md": "76f0ab9b43aad41d0c0de8a6ef84fcca3abe23aa",
     "docs/pdf-workflow.md": "1c474509f2f8ea3fdad3f76d996e7c9f9f32d199",
     "docs/work": "dir1:eb2d11442ae8d85f124ac02835d02d187fc931d2",
@@ -117,14 +117,14 @@
     "packages/cv-framework": "dir1:e26fc6cd0be31cb5f9c4f61215ae5f3cfdc05a78",
     "packages/cv-workflow": "dir1:28d3de6382387ab25cbaf6902b31bde4f371aedf",
     "packages/domains/marine": "dir1:9c4a644121e8b145ed99f4134de96a479df442e6",
-    "packages/domains/marine/templates/flagship": "dir1:c1500c155801e647ec739a9825e21815ede4f30d",
+    "packages/domains/marine/templates/flagship": "dir1:962903d4233207023b11c7738f3d52487c3b6ea4",
     "packages/domains/marine/templates/flagship/tests/approved": "dir1:937263ba14b899950b2c4f58a1ff6c6fd2275f3a",
     "scripts/build.ps1": "cc1eed5fa9bb4acf4b8955ae94eb6768f3e1de5e",
     "scripts/cv.py": "d21197a5887e4f7aa6bf778c0ca2fd50229d2a11",
     "scripts/design_review/server.py": "9d9d6be943f9cc5aa8eb9882b90e54668410ee05",
     "scripts/outputs.py": "6e79e3d72163c249c328633379952f93837ffe1c",
     "scripts/text-draft.typ": "c6f61f2253a2105d3334f3edc4e9b12137f54fa1",
-    "tests/run.py": "8a39e2d10fba3718a65ecf208e8f7c0b05581655"
+    "tests/run.py": "94e804679d3205e26450550c8782b1c90dd9779d"
    },
    "verifiedAt": "2026-10-14"
   }

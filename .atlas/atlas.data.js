@@ -2275,17 +2275,9 @@ window.ATLAS = {
  ],
  "build": {
   "builtAt": "2026-10-14 08:31 UTC",
-  "commit": "1826338",
+  "commit": "e9a67bf",
   "kit": "1.0",
-  "stale": {
-   "system-map": [
-    "AGENTS.md",
-    "docs/architecture.md",
-    "docs/guides/build-a-cv.md",
-    "packages/domains/marine/templates/flagship",
-    "tests/run.py"
-   ]
-  },
+  "stale": {},
   "verified": {
    "client-journey": {
     "at": "2026-10-14",
@@ -2301,7 +2293,7 @@ window.ATLAS = {
    },
    "system-map": {
     "at": "2026-10-14",
-    "commit": "e65b5a5"
+    "commit": "e9a67bf"
    },
    "roster": {
     "at": "2026-10-14",
