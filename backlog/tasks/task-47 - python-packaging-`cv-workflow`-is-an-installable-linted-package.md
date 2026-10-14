@@ -1,7 +1,7 @@
 ---
 id: TASK-47
 title: 'python-packaging: `cv-workflow` is an installable, linted package'
-status: Active
+status: Done
 assignee: []
 created_date: '2026-10-14 04:48'
 updated_date: '2026-10-14 08:58'
@@ -31,3 +31,9 @@ A `pyproject.toml` with pinned dependencies (pillow is unpinned in CI); drop the
 
 Round-2 context fixes also touched README.md, .claude/skills/verify-cv/SKILL.md, docs/guides/build-a-cv.md and the jsonschema message in validate.py. Reviews: code round 1 PASS, context round 1 FINDINGS, context round 2 PASS (docs/work/python-packaging/reviews/).
 <!-- SECTION:NOTES:END -->
+
+## Final Summary
+
+<!-- SECTION:FINAL_SUMMARY:BEGIN -->
+cv-workflow has a pyproject, a uv-hashed requirements.lock, ruff 0.16.10 in the suite docs and CI; docs point to docs/tech-stack.md for install. Code round 1 PASS, context rounds FINDINGS then PASS. Suite PASS 142 (builds/tests-20261014-115315-528337), CI 38538410299 green on ubuntu and windows.
+<!-- SECTION:FINAL_SUMMARY:END -->
