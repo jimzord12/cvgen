@@ -12,6 +12,75 @@
 
 <!-- generated:end summary -->
 
+## Judgement
+
+- **Only a `Revision` counts.** What the owner reviews, approves and sends
+  is always a PDF that `deliver.render` wrote under `revisions/`, never a
+  preview from `builds/`. A `Revision` is never edited: any fix, however
+  small, is a new one (`deliver.fix`), and a new one inherits no
+  `Approval`.
+- **Read the render before reporting it.** `deliver.page-png` looks at
+  every page, and `deliver.wording-check` searches for the fictional
+  example wording, with the one exception its gate states. The lead then
+  stops at the render (`deliver.report`) and passes on every certificate
+  warning and note word for word: a `Certificate Warning` never blocks,
+  but the owner weighs it before he approves.
+- **`Approval` is the owner's act alone.** He approves the exact bytes he
+  reviewed, by their hash (`deliver.approve`). An agent never runs
+  `approve` on a real `Client`; the lead runs `Export` only after it
+  (`deliver.export`, owner's decision #5 in
+  [P-0017](../../proposals/workflow-model.md)) and checks the copy.
+- **Dates go with the act.** The delete-by date is written at `Export`
+  (`deliver.record-delete-by`, decisions #1 and #3) and named to the owner
+  (`deliver.report-delete-by`); the `Revision` is stamped delivered only
+  once the owner says he sent it (`deliver.stamp-delivered`).
+- **Done looks like this:** an exported, approved `Revision`, the
+  delete-by line in `README.md`, and after sending, a delivered stamp.
+  `deliver.status` shows every `Revision` and its state at any time.
+
+## Branches
+
+All three gates fail to the same place, `deliver.fix`, and each has its
+own loop:
+
+- **The render fails or is refused** (`gate.render-ok`): the gate's check
+  tells a refusal (nothing written) from a failed compile or check (the
+  `Revision` stays with its log). Apply the fix the message names; an
+  overflow is fixed in the page plan, never by shrinking the type.
+  `loop.revision-fix` has a placeholder cap.
+- **Example wording is still on the page** (`gate.example-wording`):
+  replace it in the record or the entry point, never by editing the
+  `Client`'s own words to pass the check (`loop.wording-fix`, placeholder
+  cap).
+- **The owner wants a change** (`gate.owner-review`): a new `Revision`
+  (`loop.owner-changes`). Its placeholder cap is a check-in, not a stop:
+  at `deliver.cap-reached` the owner decides whether to go on
+  ([P-0018](../../proposals/workflow-gaps.md) item 1c).
+
+`deliver.fix` rewrites the same `typst/cv.typ` and `candidate.json` that
+design wrote, which is why the journey shows a dotted arrow back to
+`design`: in the model, the changed files go through `design.preview` and
+`design.client-review` again before the next render.
+
+## Common mistakes
+
+- Approving a real `Client`'s PDF as an agent, or approving a hash that
+  was not the one the owner looked at.
+- Sending, or showing the owner, a preview instead of the `Revision`.
+- Exporting before `Approval`; stamping delivered before the owner sent it.
+- Forgetting the delete-by line at `Export`: `after` reads it.
+- Changing a file inside `revisions/` or `exports/`; both are only ever
+  added to.
+
+## Where the detail lives until TASK-43
+
+- `docs/guides/build-a-cv.md` sections 3-7: render output, exit codes,
+  certificate warnings, the wording check, approve and export.
+- The `new-cv` skill, steps 4-8 and "Report"; `docs/pdf-workflow.md`,
+  "Lifecycle".
+
+## Diagram
+
 <!-- generated:start diagram -->
 
 ```mermaid
@@ -60,6 +129,8 @@ flowchart TD
 
 <!-- generated:end diagram -->
 
+## Steps
+
 <!-- generated:start steps -->
 
 | ID | Name | Actor | Action | Inputs | Outputs | Gate | When |
@@ -81,6 +152,8 @@ flowchart TD
 
 <!-- generated:end steps -->
 
+## Gates
+
 <!-- generated:start gates -->
 
 | ID | Name | Checked by | Check | Pass | Fail |
@@ -91,6 +164,8 @@ flowchart TD
 
 <!-- generated:end gates -->
 
+## Loops
+
 <!-- generated:start loops -->
 
 | ID | Name | Gate | Cap | At the cap |
@@ -100,6 +175,8 @@ flowchart TD
 | `loop.owner-changes` | The owner's changes, as new Revisions (placeholder cap) | `gate.owner-review` | 5 attended, **placeholder** ([GAPS.md](../GAPS.md)) | `deliver.cap-reached` |
 
 <!-- generated:end loops -->
+
+## Artifacts
 
 <!-- generated:start artifacts -->
 
@@ -128,6 +205,8 @@ flowchart TD
 | `art.wording-hits` | The wording check's result |  | ephemeral | `deliver.wording-check` |
 
 <!-- generated:end artifacts -->
+
+## Actions
 
 <!-- generated:start actions -->
 

@@ -12,6 +12,62 @@
 
 <!-- generated:end summary -->
 
+## Judgement
+
+- **The checks run every time, not on a calendar.** Each run of the
+  `new-client` skill reads every `Envelope`'s `README.md`: a `Client` with
+  no `Export` three months after intake (`after.stall-check`) and a
+  delete-by date that has passed (`after.delete-by-check`) are named to the
+  owner, by `Alias` only.
+- **Delete what was promised, when it was promised.** The consent text the
+  `Client` agreed to promises deletion after delivery unless he asks to
+  keep his data; the date is the one `deliver.record-delete-by` wrote at
+  `Export` (owner's decisions #1 and #3 in
+  [P-0017](../../proposals/workflow-model.md)).
+- **The owner deletes; the lead prepares.** The lead fills in the
+  history-erase commands with the folder name (`after.erase-commands`); the
+  owner runs them (`after.erase-envelope`) and deletes the Google items
+  (`after.delete-google`). Deleting the folder is not enough: the private
+  repository keeps it in its history until the erase runs, and Drive keeps
+  deleted files in its Trash until it is emptied.
+- **Close the task last.** `after.close` reads the erased history, so the
+  `Client`'s task closes only once his data is gone.
+
+## Branches
+
+- **A keep request** (`after.keep-request`): the `Client` asks, through
+  the owner, at any time. `after.keep-record` writes it into
+  `envelope.json` and the delete-by check skips him. The field's name is
+  still an inference ([P-0018](../../proposals/workflow-gaps.md) item 5).
+- **No keep request and the date has passed**: the erase steps run, then
+  `after.close`.
+- **A stalled `Client`** (no consent, dropped out, never answered): named
+  once three months pass; the owner decides to wait or delete, and on
+  delete the same erase steps run. Recording that a `Client` stopped is an
+  open question ([P-0018](../../proposals/workflow-gaps.md) item 6).
+- **No `Intake Form`**: `after.delete-google` is skipped.
+- **Old `Revision`s** may be removed before the date on the owner's
+  explicit go only (`after.revision-cleanup`), from what `deliver.status`
+  lists.
+
+## Common mistakes
+
+- The lead running the erase, or deleting anything under `private/`
+  itself.
+- Deleting the local folder and calling it done.
+- Forgetting the Google items listed in the `README.md`, or the Drive
+  Trash.
+- Naming the `Client` by name in the report, the task or a commit.
+
+## Where the detail lives until TASK-43
+
+- `docs/guides/client-workflow.md` section 9, from "At `Export`" on: the
+  stall rule and the history-erase commands.
+- The `new-client` skill, "Report to the owner"; `docs/pdf-workflow.md`,
+  "Retention and migration".
+
+## Diagram
+
 <!-- generated:start diagram -->
 
 ```mermaid
@@ -37,6 +93,8 @@ flowchart TD
 
 <!-- generated:end diagram -->
 
+## Steps
+
 <!-- generated:start steps -->
 
 | ID | Name | Actor | Action | Inputs | Outputs | Gate | When |
@@ -53,17 +111,23 @@ flowchart TD
 
 <!-- generated:end steps -->
 
+## Gates
+
 <!-- generated:start gates -->
 
 No gates in this stage.
 
 <!-- generated:end gates -->
 
+## Loops
+
 <!-- generated:start loops -->
 
 No loops in this stage.
 
 <!-- generated:end loops -->
+
+## Artifacts
 
 <!-- generated:start artifacts -->
 
@@ -82,6 +146,8 @@ No loops in this stage.
 | `art.status-listing` | What status prints |  | ephemeral | `deliver.status` |
 
 <!-- generated:end artifacts -->
+
+## Actions
 
 <!-- generated:start actions -->
 

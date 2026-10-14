@@ -323,3 +323,18 @@ leaves the text outside the markers to hand-written prose (TASK-40). CI and
 the suite's `workflow-model` case run `bun run render --check`, which fails
 when a README differs from what the model renders to. Each diagram is
 checked against the small Mermaid subset the tool writes.
+
+## 2026-10-14 — the workflow READMEs get their prose
+
+TASK-40 wrote the hand-written half of the `Workflow Model`'s READMEs,
+outside the generated blocks. `docs/workflow/README.md` (about 250 lines,
+the owner's 200-300) says what the journey is for, how to read the folder,
+the main branches by gate, who decides what, where the placeholders are,
+and which guide sections still hold the detail until TASK-43. Each stage's
+README adds its judgement (when to stop, what good looks like), its
+branches in words with their IDs, and its common mistakes; the generated
+blocks got section headings. One model fix came with it:
+`gate.template-exists` passed straight into `design.fill-data`, so the
+no-`Template` path read as if `candidate.json` were never written. It now
+passes to `design.flagship-fit`, and `design.fill-data` follows the
+`Sign-off` on every path.
