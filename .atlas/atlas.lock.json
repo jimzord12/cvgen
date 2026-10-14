@@ -1,7 +1,7 @@
 {
  "pages": {
   "change-review": {
-   "commit": "ca29b23",
+   "commit": "0654a73",
    "sources": {
     ".claude/skills/verify-cv/SKILL.md": "237f6e30e3ad135618b688d729c2cdfa8bca24fa",
     ".github/workflows/verify.yml": "100de5fc82ad3ce2e740a3036892d3886ffa6384",
@@ -16,12 +16,12 @@
    "verifiedAt": "2026-10-14"
   },
   "client-journey": {
-   "commit": "ca29b23",
+   "commit": "0654a73",
    "sources": {
     ".claude/skills/idea-run/SKILL.md": "d84228de9ec4293dd7cb37b2aeb05743257b5652",
     ".claude/skills/new-client/SKILL.md": "7cd5b4e53785c1feea8417306189e9b0365e13c7",
     ".claude/skills/new-cv/SKILL.md": "42a051fd1800a85c1fc0e37fdc8c865a2fcf010f",
-    "docs/glossary.md": "93d16a259129d9973a0e85b50315c422e6fb5dce",
+    "docs/glossary.md": "8b14830a686a9439b38b7ce370f07252bf3dc75f",
     "docs/guides/build-a-cv.md": "9a2e3a46da3676098b56086c5199e0cf449629a9",
     "docs/guides/client-workflow.md": "76f0ab9b43aad41d0c0de8a6ef84fcca3abe23aa",
     "docs/pdf-workflow.md": "1c474509f2f8ea3fdad3f76d996e7c9f9f32d199",
@@ -31,7 +31,7 @@
    "verifiedAt": "2026-10-14"
   },
   "design-run": {
-   "commit": "ca29b23",
+   "commit": "0654a73",
    "sources": {
     ".claude/agents/design-reviewer.md": "d2161b7fa4228c17bdd8956598615082ef3312dc",
     ".claude/agents/magazine-editor.md": "f47803d38885710cb347867908574cfa4cc23ba1",
@@ -40,7 +40,7 @@
     "AGENTS.md": "4ec8bbab7191a79640549a06b935778fdecf9249",
     "archive/anti-examples/README.md": "71f837077cc3870025458f8a4cd1f05df9a820d1",
     "design-concepts/README.md": "a4ff141fd51551106785e5d19ce8e563c2a3b9af",
-    "docs/glossary.md": "93d16a259129d9973a0e85b50315c422e6fb5dce",
+    "docs/glossary.md": "8b14830a686a9439b38b7ce370f07252bf3dc75f",
     "docs/pdf-workflow.md": "1c474509f2f8ea3fdad3f76d996e7c9f9f32d199",
     "docs/proposals/codex-visual-tools.md": "75c618572d0396a2b9f3349af28aa7f11a74b3c6",
     "docs/review.md": "4cd2448fe5192a91ad51104705b262ed6fcf3f54",
@@ -49,7 +49,7 @@
    "verifiedAt": "2026-10-14"
   },
   "roster": {
-   "commit": "ca29b23",
+   "commit": "0654a73",
    "sources": {
     ".claude/agents/ceo-reviewer.md": "058811a51ac27c65a93dc8915db4afd58676d33d",
     ".claude/agents/ceo.md": "2d1259232a06d6c853aaf321471260734a3be424",
@@ -94,7 +94,7 @@
    "verifiedAt": "2026-10-14"
   },
   "system-map": {
-   "commit": "7b5fd11",
+   "commit": "c5a3f64",
    "sources": {
     ".claude/agents": "dir1:4f4154394888bb9d69a0ed790d8f4b484a790fdd",
     ".claude/skills": "dir1:5eeafda0c9ef9a6037a3fcc2879f73f098fa3e55",
@@ -107,11 +107,11 @@
     "design-concepts": "dir1:d3bd60991a5441279a325e9aa73ea4e20ad7f1c7",
     "docs": "dir1:1524eeecbb91977c608e30377da8cd2745b0067f",
     "docs/architecture.md": "350372a56955f34608761fc4876da91260b0042f",
-    "docs/glossary.md": "93d16a259129d9973a0e85b50315c422e6fb5dce",
+    "docs/glossary.md": "8b14830a686a9439b38b7ce370f07252bf3dc75f",
     "docs/guides/build-a-cv.md": "9a2e3a46da3676098b56086c5199e0cf449629a9",
     "docs/guides/client-workflow.md": "76f0ab9b43aad41d0c0de8a6ef84fcca3abe23aa",
     "docs/pdf-workflow.md": "1c474509f2f8ea3fdad3f76d996e7c9f9f32d199",
-    "docs/work": "dir1:bd88ae2f0da9f9cef2f6f250cc0f59b8dcf26938",
+    "docs/work": "dir1:06b717a84d7896051867b3553cb98e11df908400",
     "examples/candidates": "dir1:69fb38eee30dc425761a0cb80a577613cf3bdab4",
     "examples/marine/flagship": "dir1:2badfd3042bcd2c5ef709a6596945aefe8848eb1",
     "packages/cv-framework": "dir1:e26fc6cd0be31cb5f9c4f61215ae5f3cfdc05a78",

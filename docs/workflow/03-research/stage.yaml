@@ -1,0 +1,499 @@
+# yaml-language-server: $schema=../../../tools/workflow/schema/stage.schema.json
+id: research
+name: Facts, Scout, CV Decisions, Deep Dives and one follow-up
+sources: ["docs/guides/client-workflow.md:196-276", ".claude/skills/new-client/SKILL.md:32-58"]
+purpose: >-
+  Turn the client's answers into sourced facts, research what this client's
+  target expects, decide what the CV must say, and ask the client once more,
+  in one batch, for what is still missing.
+entry: The client's "I agree" is in intake/messages.md (gate.consent passed).
+exit: >-
+  intake/facts.md is final after the one follow-up, research/decisions.md
+  answers every decision with a source or a stated judgement, and every Deep
+  Dive has a research-reviewer PASS or reached the owner marked unresolved.
+
+steps:
+  - id: research.facts
+    name: Write the facts and the gap list
+    sources: ["docs/guides/client-workflow.md:196-203", ".claude/skills/new-client/SKILL.md:32-34"]
+    actor: actor.lead
+    action: lead.write-facts
+    inputs: [art.messages-md, art.documents]
+    outputs: [art.facts-md]
+
+  - id: research.library-read
+    name: Read the Research Library first
+    sources: ["docs/guides/client-workflow.md:211-212", ".claude/skills/new-client/SKILL.md:35-36", "docs/research/README.md:3-6"]
+    actor: actor.lead
+    action: lead.read-library
+    inputs: [art.research-library]
+    outputs: [art.library-findings]
+
+  - id: research.library-recheck
+    name: Recheck a library note past its date
+    sources: ["docs/guides/client-workflow.md:211-212", "docs/research/README.md:31-33", ".claude/skills/new-client/SKILL.md:35-36"]
+    actor: actor.lead
+    action: lead.recheck-library-note
+    inputs: [art.research-library]
+    outputs: [art.research-note]
+    when: A note the Scout needs is past its "Recheck after" date.
+
+  - id: research.scout
+    name: Scout the client's target
+    sources: ["docs/guides/client-workflow.md:205-215", ".claude/skills/new-client/SKILL.md:35-37", "docs/glossary.md:54"]
+    actor: actor.lead
+    action: lead.scout
+    inputs: [art.facts-md, art.library-findings, art.envelope-json]
+    outputs: [art.scout-md]
+
+  - id: research.decisions
+    name: Write the CV Decisions
+    sources: ["docs/guides/client-workflow.md:217-233", ".claude/skills/new-client/SKILL.md:38-40"]
+    actor: actor.lead
+    action: lead.write-decisions
+    inputs: [art.facts-md, art.scout-md]
+    outputs: [art.decisions-md, art.open-decisions]
+
+  - id: research.pick-deep-dives
+    name: The owner picks the Deep Dives
+    sources: ["docs/guides/client-workflow.md:235", "docs/guides/client-workflow.md:241-242", ".claude/skills/new-client/SKILL.md:38-40"]
+    actor: actor.owner
+    action: manual.pick-deep-dives
+    inputs: [art.open-decisions]
+    outputs: [art.deep-dive-choice]
+    gate: gate.deep-dives-chosen
+
+  # One Deep Dive per question the owner chose: the per-item repeat is the
+  # `when` text, the same on every step of the Deep Dive.
+  - id: research.dive-brief
+    name: Brief the Deep Dive author
+    sources: [".claude/skills/new-client/SKILL.md:41-43", ".claude/skills/new-client/SKILL.md:80-93", "docs/guides/client-workflow.md:242-243"]
+    actor: actor.lead
+    action: lead.brief-deep-dive
+    inputs: [art.deep-dive-choice]
+    outputs: [art.dive-brief]
+    when: Once per Deep Dive question the owner chose.
+
+  - id: research.deep-dive
+    name: Write the Deep Dive
+    sources: ["docs/guides/client-workflow.md:241-244", ".claude/skills/new-client/SKILL.md:41-43"]
+    actor: actor.general-purpose
+    action: agent.general-purpose
+    inputs: [art.dive-brief]
+    outputs: [art.deep-dive-text]
+    when: Once per Deep Dive question the owner chose.
+
+  - id: research.dive-save
+    name: Save the Deep Dive and check it for client details
+    sources: ["docs/guides/client-workflow.md:244", "docs/guides/client-workflow.md:248-250", ".claude/skills/new-client/SKILL.md:42-43"]
+    actor: actor.lead
+    action: lead.save-deep-dive
+    inputs: [art.deep-dive-text]
+    outputs: [art.deep-dive-md]
+    when: Once per Deep Dive question the owner chose.
+
+  - id: research.dive-review
+    name: A fresh research-reviewer checks the Deep Dive
+    sources: ["docs/guides/client-workflow.md:246-252", ".claude/skills/new-client/SKILL.md:43-48"]
+    actor: actor.research-reviewer
+    action: agent.research-reviewer
+    inputs: [art.deep-dive-md]
+    outputs: [art.deep-dive-review]
+    gate: gate.deep-dive-review
+    when: Once per Deep Dive question the owner chose.
+
+  - id: research.dive-revise
+    name: The same author revises
+    sources: [".claude/skills/new-client/SKILL.md:47-48"]
+    actor: actor.general-purpose
+    action: agent.general-purpose-revise
+    inputs: [art.deep-dive-review]
+    outputs: [art.deep-dive-text]
+    when: Once per Deep Dive question the owner chose, after a FINDINGS verdict.
+
+  - id: research.library-note
+    name: Write or update a Research Library note
+    sources: ["docs/guides/client-workflow.md:254-260", ".claude/skills/new-client/SKILL.md:48-53", "docs/research/README.md:34-39"]
+    actor: actor.lead
+    action: lead.write-library-note
+    inputs: [art.deep-dive-md, art.deep-dive-review]
+    outputs: [art.research-note]
+    when: A Deep Dive found something about a country, a Domain or a Rank, with nothing about the client.
+
+  - id: research.library-review
+    name: A fresh research-reviewer checks the note
+    sources: ["docs/guides/client-workflow.md:256-258", "docs/research/README.md:28-30", ".claude/skills/new-client/SKILL.md:51-53"]
+    actor: actor.research-reviewer
+    action: agent.research-reviewer
+    inputs: [art.research-note]
+    outputs: [art.library-review-report]
+    gate: gate.library-review
+    when: A library note was written, updated or rechecked.
+
+  - id: research.library-revise
+    name: Revise the library note
+    sources: ["docs/research/README.md:28-30", "docs/guides/client-workflow.md:256-258"]
+    actor: actor.lead
+    action: lead.revise-library-note
+    inputs: [art.library-review-report]
+    outputs: [art.research-note]
+    when: The note's review returned FINDINGS.
+
+  - id: research.library-commit
+    name: Commit the reviewed note
+    sources: [".claude/skills/new-client/SKILL.md:51-53", "docs/research/README.md:28-30"]
+    actor: actor.lead
+    action: lead.commit-library-note
+    inputs: [art.research-note, art.library-review-report]
+    when: The note's review returned PASS.
+
+  # Implicit in the sources (named by the handoff's task 5): the stop rule
+  # needs decisions.md updated from the Deep Dives, and no source names the step.
+  - id: research.decisions-update
+    name: Update the CV Decisions from the Deep Dives
+    sources: ["docs/guides/client-workflow.md:235-237", "docs/work/workflow-model/handoff.md:290"]
+    actor: actor.lead
+    action: lead.update-decisions
+    inputs: [art.deep-dive-md, art.deep-dive-review]
+    outputs: [art.decisions-md, art.open-decisions]
+    gate: gate.research-enough
+
+  - id: research.follow-up-write
+    name: Write the one follow-up batch
+    sources: ["docs/guides/client-workflow.md:262-271", ".claude/skills/new-client/SKILL.md:54-57"]
+    actor: actor.lead
+    action: lead.write-follow-up
+    inputs: [art.facts-md, art.scout-md, art.decisions-md]
+    outputs: [art.follow-up-questions]
+
+  - id: research.follow-up-form-script
+    name: Write the follow-up Intake Form script
+    sources: ["docs/guides/client-workflow.md:264-270", ".claude/skills/new-client/SKILL.md:55-57"]
+    actor: actor.lead
+    action: lead.write-form-script
+    inputs: [art.follow-up-questions, art.intake-form-lib]
+    outputs: [art.follow-up-form-gs]
+    when: The follow-up goes as an Intake Form.
+
+  - id: research.follow-up-send
+    name: Send the follow-up
+    sources: ["docs/guides/client-workflow.md:270-273"]
+    actor: actor.owner
+    action: manual.paste-message
+    inputs: [art.follow-up-questions]
+    outputs: [art.follow-up-message]
+
+  - id: research.follow-up-answers
+    name: The client answers the follow-up
+    sources: ["docs/guides/client-workflow.md:272-273"]
+    actor: actor.client
+    action: manual.client-answer
+    inputs: [art.follow-up-message]
+    outputs: [art.follow-up-answers]
+
+  - id: research.follow-up-capture
+    name: Bring the follow-up answers into the Envelope
+    sources: ["docs/guides/client-workflow.md:272-274"]
+    actor: actor.owner
+    action: manual.copy-chat-to-envelope
+    inputs: [art.follow-up-answers]
+    outputs: [art.messages-follow-up]
+
+  - id: research.facts-update
+    name: Make facts.md final
+    sources: ["docs/guides/client-workflow.md:273-276", ".claude/skills/new-client/SKILL.md:58"]
+    actor: actor.lead
+    action: lead.update-facts
+    inputs: [art.messages-follow-up, art.facts-md]
+    outputs: [art.facts-final]
+
+  - id: research.cap-reached
+    name: At a loop's cap, the owner decides
+    sources: ["docs/guides/client-workflow.md:246-248", "docs/review.md:198-202"]
+    actor: actor.owner
+    action: manual.decide-at-cap
+
+gates:
+  - id: gate.deep-dives-chosen
+    name: Any Deep Dive chosen
+    sources: ["docs/guides/client-workflow.md:235", "docs/guides/client-workflow.md:241-242"]
+    check: The owner chose at least one open decision for a Deep Dive (0-3 per client, up to 6 for an executive aiming at named companies).
+    pass: research.dive-brief
+    fail: research.follow-up-write
+
+  - id: gate.deep-dive-review
+    name: Deep Dive review
+    sources: ["docs/guides/client-workflow.md:246-248", ".claude/skills/new-client/SKILL.md:43-45"]
+    check: A fresh research-reviewer returns PASS on the Deep Dive's text and SHA-256.
+    pass: research.decisions-update
+    fail: research.dive-revise
+
+  - id: gate.library-review
+    name: Library note review
+    sources: ["docs/research/README.md:28-30", "docs/guides/client-workflow.md:256-258"]
+    check: A fresh research-reviewer returns PASS on the note's own text and hash.
+    pass: research.library-commit
+    fail: research.library-revise
+
+  - id: gate.research-enough
+    name: Research is enough
+    sources: ["docs/guides/client-workflow.md:235-237"]
+    check: >-
+      Every decision has a sourced answer or a stated judgement (a new source
+      that changes no decision is the signal to stop).
+    pass: research.follow-up-write
+    fail: research.pick-deep-dives
+
+loops:
+  - id: loop.deep-dive-review
+    name: Deep Dive review rounds
+    sources: ["docs/guides/client-workflow.md:246-248", ".claude/skills/new-client/SKILL.md:43-45"]
+    gate: gate.deep-dive-review
+    cap: { attended: 5, unattended: 10 }
+    escalate: research.cap-reached
+
+  - id: loop.library-review
+    name: Library note review rounds (placeholder cap)
+    sources: ["docs/research/README.md:28-30", "docs/workflow/GAPS.md:26"]
+    gate: gate.library-review
+    cap: { attended: 5, unattended: 10 }
+    escalate: research.cap-reached
+
+  - id: loop.research-rounds
+    name: More Deep Dives until research is enough (placeholder cap)
+    sources: ["docs/guides/client-workflow.md:235-242", "docs/workflow/GAPS.md:25"]
+    gate: gate.research-enough
+    cap: { attended: 3 }
+    escalate: research.cap-reached
+
+artifacts:
+  - id: art.facts-md
+    name: facts.md with the gap list
+    sources: ["docs/guides/client-workflow.md:48", "docs/guides/client-workflow.md:198-203", ".claude/skills/new-client/SKILL.md:32-34"]
+    path: private/<envelope>/intake/facts.md
+    format: Markdown, identity, target, jobs, certificates, education, languages, what may be shown; every fact with its source; the gap list at the end
+    visibility: private
+
+  - id: art.research-library
+    name: The Research Library
+    sources: ["docs/research/README.md:1-46", "docs/glossary.md:53"]
+    path: docs/research/
+    format: dated Markdown notes and the README index
+    visibility: public
+    given: true
+
+  - id: art.library-findings
+    name: What the library already answers
+    sources: ["docs/guides/client-workflow.md:211-213"]
+    format: the lead's reading of the notes, in the session
+    visibility: ephemeral
+
+  - id: art.research-note
+    name: A Research Library note
+    sources: ["docs/research/README.md:8-24", "docs/guides/client-workflow.md:254-260"]
+    path: docs/research/<scope>-<topic>.md
+    format: Markdown with Checked, Recheck after, Question and Review lines, numbered claims with sources
+    visibility: public
+
+  - id: art.library-review-report
+    name: A library note's review report
+    sources: ["docs/guides/client-workflow.md:257-258", "docs/research/README.md:28-30", ".claude/skills/new-client/SKILL.md:51-52"]
+    path: docs/work/research-<topic>/reviews/
+    format: research-reviewer report, PASS or FINDINGS
+    visibility: public
+
+  - id: art.scout-md
+    name: The Scout's findings
+    sources: ["docs/guides/client-workflow.md:52", "docs/guides/client-workflow.md:214-215"]
+    path: private/<envelope>/research/scout.md
+    format: Markdown, numbered findings each with a source and its date, then the open questions
+    visibility: private
+
+  - id: art.open-decisions
+    name: The open decisions, with a recommendation each
+    sources: [".claude/skills/new-client/SKILL.md:38-40"]
+    format: the lead's message to the owner
+    visibility: ephemeral
+
+  - id: art.deep-dive-choice
+    name: The owner's Deep Dive choice
+    sources: ["docs/guides/client-workflow.md:235", ".claude/skills/new-client/SKILL.md:39-40"]
+    format: the owner's answer in the session
+    visibility: ephemeral
+
+  - id: art.dive-brief
+    name: The Deep Dive brief
+    sources: [".claude/skills/new-client/SKILL.md:80-93"]
+    format: the brief template's text (question, why, already known, rules, Alias only)
+    visibility: ephemeral
+
+  - id: art.deep-dive-text
+    name: The Deep Dive's returned text
+    sources: ["docs/guides/client-workflow.md:243-244", ".claude/skills/new-client/SKILL.md:90-92"]
+    format: numbered, sourced claims, then the sources and the 3-5 findings that answer the question
+    visibility: ephemeral
+
+  - id: art.deep-dive-md
+    name: The saved Deep Dive
+    sources: ["docs/guides/client-workflow.md:54", "docs/guides/client-workflow.md:244"]
+    path: private/<envelope>/research/deep-dive-<topic>.md
+    format: Markdown
+    visibility: private
+
+  - id: art.deep-dive-review
+    name: A Deep Dive's review report
+    sources: ["docs/guides/client-workflow.md:55", "docs/guides/client-workflow.md:250-252", ".claude/skills/new-client/SKILL.md:47"]
+    path: private/<envelope>/research/reviews/<topic>-NN.md
+    format: research-reviewer report, PASS or FINDINGS
+    visibility: private
+
+  - id: art.follow-up-questions
+    name: The follow-up batch, ready to send
+    sources: ["docs/guides/client-workflow.md:264-271"]
+    format: "simple Greek: as a chat message aim for 5, never more than 10; as a form, at most about 15 minutes and 5 typed answers"
+    visibility: ephemeral
+
+  - id: art.follow-up-form-gs
+    name: The follow-up Intake Form script copy
+    sources: ["docs/guides/client-workflow.md:49", "docs/guides/client-workflow.md:264-270"]
+    path: private/<envelope>/intake/form-NN.gs
+    format: Google Apps Script, only FORM changed
+    visibility: private
+
+  - id: art.follow-up-message
+    name: The follow-up in the client's chat
+    sources: ["docs/guides/client-workflow.md:269-273"]
+    format: chat message (with the form's link and the offer to answer by chat, when there is a form)
+    visibility: third-party
+
+  - id: art.follow-up-answers
+    name: The client's follow-up answers
+    sources: ["docs/guides/client-workflow.md:272-273"]
+    format: chat messages or form answers
+    visibility: third-party
+
+  - id: art.messages-follow-up
+    name: messages.md (follow-up answers)
+    sources: ["docs/guides/client-workflow.md:46", "docs/guides/client-workflow.md:272-273"]
+    path: private/<envelope>/intake/messages.md
+    format: Markdown, the follow-up answers added as received, dated
+    visibility: private
+
+actions:
+  - id: lead.write-facts
+    kind: lead
+    name: Write the facts
+    sources: ["docs/guides/client-workflow.md:198-203", ".claude/skills/new-client/SKILL.md:32-34"]
+    does: >-
+      Writes intake/facts.md: every fact names the message or document it came
+      from, nothing is invented, no calendar period is turned into service
+      time; what is missing goes in a gap list at the end, held for the
+      follow-up.
+
+  - id: lead.read-library
+    kind: lead
+    name: Read the Research Library
+    sources: ["docs/guides/client-workflow.md:211-212"]
+    does: Reads docs/research/ before searching the web.
+
+  - id: lead.recheck-library-note
+    kind: lead
+    name: Recheck a library note
+    sources: ["docs/research/README.md:31-33"]
+    does: Checks the note's load-bearing claims again, moves both dates and records what changed.
+
+  - id: lead.scout
+    kind: lead
+    name: Scout
+    sources: ["docs/guides/client-workflow.md:205-215", ".claude/skills/new-client/SKILL.md:35-37", "docs/guides/client-workflow.md:363-366"]
+    does: >-
+      Searches the web for what the library lacks (or briefs one
+      general-purpose agent): the country's CV norms, what the employers and
+      the Rank expect, how CVs are sent; never with the client's name or an
+      identifying combination; writes research/scout.md.
+
+  - id: lead.write-decisions
+    kind: lead
+    name: Write the CV Decisions
+    sources: ["docs/guides/client-workflow.md:217-233", ".claude/skills/new-client/SKILL.md:38-40"]
+    does: >-
+      Writes research/decisions.md, one line per decision, and shows the
+      owner the open ones with a recommendation for each.
+
+  - id: manual.pick-deep-dives
+    kind: manual
+    name: Pick the Deep Dives
+    sources: ["docs/guides/client-workflow.md:235", ".claude/skills/new-client/SKILL.md:39-40"]
+    does: The owner picks which open decisions get a Deep Dive.
+
+  - id: lead.brief-deep-dive
+    kind: lead
+    name: Brief a Deep Dive author
+    sources: [".claude/skills/new-client/SKILL.md:80-93"]
+    does: Fills the skill's brief with one question, why it matters, what is known, the rules and the Alias only, never the Envelope path.
+
+  - id: agent.general-purpose
+    kind: agent
+    name: A background general-purpose agent
+    sources: [".claude/skills/new-client/SKILL.md:41-43"]
+    agent: general-purpose
+
+  - id: agent.general-purpose-revise
+    kind: agent
+    name: The same general-purpose author, by SendMessage
+    sources: [".claude/skills/new-client/SKILL.md:47-48"]
+    agent: general-purpose
+
+  - id: lead.save-deep-dive
+    kind: lead
+    name: Save and clean the Deep Dive
+    sources: ["docs/guides/client-workflow.md:244", "docs/guides/client-workflow.md:248-250"]
+    does: >-
+      Saves the returned text as research/deep-dive-<topic>.md and checks it
+      for client details before any reviewer sees it.
+
+  - id: lead.write-library-note
+    kind: lead
+    name: Write the library note
+    sources: ["docs/guides/client-workflow.md:254-260", ".claude/skills/new-client/SKILL.md:48-53"]
+    does: >-
+      Writes or updates the note in docs/research/ in the same session, free
+      of client detail first; a finding about one employer stays in the
+      Envelope until a second client targets it.
+
+  - id: lead.revise-library-note
+    kind: lead
+    name: Revise the library note
+    sources: ["docs/research/README.md:28-30"]
+    does: Fixes the note on the reviewer's findings before the next fresh round.
+
+  - id: lead.commit-library-note
+    kind: lead
+    name: Commit the library note
+    sources: [".claude/skills/new-client/SKILL.md:51-53"]
+    does: Commits the note and its reports like any documentation.
+
+  - id: lead.update-decisions
+    kind: lead
+    name: Update the CV Decisions
+    sources: ["docs/guides/client-workflow.md:235-237"]
+    does: Answers the open lines of research/decisions.md from the reviewed Deep Dives, each with its source.
+
+  - id: lead.write-follow-up
+    kind: lead
+    name: Write the follow-up
+    sources: ["docs/guides/client-workflow.md:262-271", ".claude/skills/new-client/SKILL.md:54-57"]
+    does: >-
+      Writes the gap list plus any question the research raised (the Scout's
+      open questions, and what the Deep Dives left in decisions.md) as one
+      batch in simple Greek, within the cap for a chat message or an Intake
+      Form.
+
+  - id: lead.update-facts
+    kind: lead
+    name: Make the facts final
+    sources: ["docs/guides/client-workflow.md:273-276"]
+    does: >-
+      Updates facts.md from the answers; anything still missing is left out
+      or marked not supplied, and the client is not asked again unless the
+      owner decides to.
