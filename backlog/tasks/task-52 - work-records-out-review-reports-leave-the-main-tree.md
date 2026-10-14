@@ -1,10 +1,10 @@
 ---
 id: TASK-52
 title: 'work-records-out: review reports leave the main tree'
-status: Active
+status: Done
 assignee: []
 created_date: '2026-10-14 04:48'
-updated_date: '2026-10-14 09:15'
+updated_date: '2026-10-14 09:24'
 labels:
   - restructure
 dependencies: []
@@ -30,3 +30,9 @@ Owner decision 2026-10-14 recorded in docs/proposals/workflow-model.md: move doc
 
 Done 2026-10-14. docs/work moved to archive/work-records by one git mv (history follows). New reports: archive/work-records/<task-slug>/reviews/NN-<reviewer>.md. Updated live files: AGENTS.md (new archive row), docs development/review/glossary/guides/research, open proposals P-0011/P-0014/P-0017, skills, agent and codex profiles, .claude/repo-maintenance.md (ignore and protected), docs/workflow stage.yaml paths and sources, Atlas src pages and site.json (restamped). Decisions: relative markdown links in applied or rejected proposals were repointed (path only) so they do not 404; plain-text old paths in ADRs, history.md entries, closed proposals, closed task notes and the moved reports keep docs/work, and the history entry says to read them as archive/work-records. docs/workflow/inventory (superseded) and proposals/workflow-model.md line 78 (the decision record) keep the old wording. Suite PASS 142 cases, evidence builds/tests-20261014-121454-448075.
 <!-- SECTION:NOTES:END -->
+
+## Final Summary
+
+<!-- SECTION:FINAL_SUMMARY:BEGIN -->
+docs/work moved to archive/work-records with history kept (one git mv); new review reports go to archive/work-records/<task-slug>/reviews/NN-<reviewer>.md, named once in docs/review.md; live rules, skills, agents, Atlas, workflow YAML and open tasks repointed; historical records keep old paths. Context rounds: FINDINGS then PASS. Suite PASS 142 builds/tests-20261014-121454-448075, CI 38541082904 green.
+<!-- SECTION:FINAL_SUMMARY:END -->
