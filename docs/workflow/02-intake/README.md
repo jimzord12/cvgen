@@ -109,7 +109,7 @@ No loops in this stage.
 | `art.google-form-themed` | The Intake Form with the house theme |  | third-party | `intake.form-theme` |
 | `art.google-sheet` | The answers Sheet |  | third-party | `intake.form-create` |
 | `art.intake-form-lib` | The Intake Form script | `scripts/intake-form.gs` | public | given |
-| `art.intake-header-png` | The Intake Form header image | `brand/forms/intake-header.png` | public | given |
+| `art.intake-header-png` | The Intake Form header image | `studio/brand/forms/intake-header.png` | public | given |
 | `art.intake-message` | The questions in the client's chat |  | third-party | `intake.relay-send` |
 | `art.master-question-list` | The master question list | `docs/guides/client-workflow.md` | public | given |
 | `art.messages-md` | messages.md (intake answers) | `private/<envelope>/intake/messages.md` | private | `intake.transcribe`, `intake.capture`, `intake.form-copy` |
@@ -128,7 +128,7 @@ No loops in this stage.
 | `lead.list-google-links` | lead | List the Google links | Lists the links the owner brings back under "Google" in the Envelope's README.md. |
 | `lead.write-form-script` | lead | Write the Intake Form script | Writes intake/form-NN.gs, a copy of scripts/intake-form.gs with only its FORM block changed: title, intro, consent, questions; pages by topic and the quickest question type, in the polite plural. |
 | `lead.write-question-list` | lead | Write the question list | Writes the guide's 13 questions, consent first, as one message in simple, friendly Greek adapted to the client's Domain and target, ready for the owner to paste. |
-| `manual.apply-form-theme` | manual | Apply the house theme | Before sending the link, the owner sets the form's theme: header brand/forms/intake-header.png, colour #B0602B, the warm-paper background swatch, Bona Nova for the header and Source Sans 3 for questions and text. |
+| `manual.apply-form-theme` | manual | Apply the house theme | Before sending the link, the owner sets the form's theme: header studio/brand/forms/intake-header.png, colour #B0602B, the warm-paper background swatch, Bona Nova for the header and Source Sans 3 for questions and text. |
 | `manual.client-answer` | manual | The client answers | The client answers in any order, in text or voice messages, over a few days, or in the Intake Form. |
 | `manual.copy-chat-to-envelope` | manual | Bring the answers into the Envelope | The owner copies the chat text into intake/messages.md (a WhatsApp "Export chat" file works as is) and saves photos and files into intake/documents/. |
 | `manual.decide-on-no-consent` | manual | Decide on a client without consent | The owner decides whether to ask the client again or to stop; a stopped client is named by after.stall-check after three months and deleted on the owner's word (after.erase-commands, after.erase-envelope). |

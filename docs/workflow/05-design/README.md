@@ -176,12 +176,12 @@ flowchart TD
 | ID | Name | Path | Visibility | Made by |
 |---|---|---|---|---|
 | `art.candidate-json` | candidate.json | `private/<envelope>/candidate.json` | private | `design.fill-data`, `deliver.fix` |
-| `art.chosen-concept` | The design the owner picked | `design-concepts/<date>-<slug>/<density>/<tier>/` | public | `design.record-choice` |
-| `art.concept-brief` | A Style's brief | `design-concepts/<date>-<slug>/brief.md` | public | `design.run-draw`, `design.run-revise-sources` |
-| `art.concept-decision` | The owner's answer, recorded | `design-concepts/README.md` | public | `design.record-choice`, `design.record-other-answer` |
-| `art.concept-meta` | A concept's Meta File | `design-concepts/<date>-<slug>/<density>/<tier>/<density>-<tier>.meta.json` | public | `design.run-draw`, `design.run-revise-design` |
-| `art.concept-pdf` | A concept design | `design-concepts/<date>-<slug>/<density>/<tier>/<density>-<tier>.pdf` | public | `design.run-draw`, `design.run-revise-design` |
-| `art.concepts-readme` | The concepts index | `design-concepts/README.md` | public | `design.run-integrate` |
+| `art.chosen-concept` | The design the owner picked | `studio/design-concepts/<date>-<slug>/<density>/<tier>/` | public | `design.record-choice` |
+| `art.concept-brief` | A Style's brief | `studio/design-concepts/<date>-<slug>/brief.md` | public | `design.run-draw`, `design.run-revise-sources` |
+| `art.concept-decision` | The owner's answer, recorded | `studio/design-concepts/README.md` | public | `design.record-choice`, `design.record-other-answer` |
+| `art.concept-meta` | A concept's Meta File | `studio/design-concepts/<date>-<slug>/<density>/<tier>/<density>-<tier>.meta.json` | public | `design.run-draw`, `design.run-revise-design` |
+| `art.concept-pdf` | A concept design | `studio/design-concepts/<date>-<slug>/<density>/<tier>/<density>-<tier>.pdf` | public | `design.run-draw`, `design.run-revise-design` |
+| `art.concepts-readme` | The concepts index | `studio/design-concepts/README.md` | public | `design.run-integrate` |
 | `art.cv-typ` | The CV's entry point | `private/<envelope>/typst/cv.typ` | private | `design.entry-point`, `design.custom-composition`, `design.port-concept`, `design.fix`, `deliver.fix` |
 | `art.decisions-md` | CV Decisions (decisions.md) | `private/<envelope>/research/decisions.md` | private | `research.decisions`, `research.decisions-update` |
 | `art.design-review-input` | The client's preview pages for the reviewer | `builds/design-review-input-<timestamp>/` | ephemeral | `design.preview` |
