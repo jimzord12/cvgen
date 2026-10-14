@@ -4,7 +4,7 @@ title: 'workflow-prose: the stage READMEs and the journey README'
 status: Active
 assignee: []
 created_date: '2026-10-14 04:47'
-updated_date: '2026-10-14 11:08'
+updated_date: '2026-10-14 11:14'
 labels:
   - workflow-model
 dependencies:
@@ -20,8 +20,8 @@ Hand-written purpose, judgement and branches per stage; the top README at 200-30
 
 ## Acceptance Criteria
 <!-- AC:BEGIN -->
-- [ ] #1 A context-reviewer PASS
-- [ ] #2 a newcomer test: an agent answers five "what happens if" questions from these files alone
+- [x] #1 A context-reviewer PASS
+- [x] #2 a newcomer test: an agent answers five "what happens if" questions from these files alone
 <!-- AC:END -->
 
 ## Implementation Notes
@@ -34,4 +34,6 @@ Decisions (TASK-40): (1) fill-data on the no-Template path: the guides write can
 Newcomer test (AC #2), five questions with the expected answers, each findable in docs/workflow alone. Q1 The client never answers the follow-up? A: no step models it; research.facts-update waits for the answers; three months after intake after.stall-check names the client to the owner, who decides to wait, ask again or delete; a second follow-up is only the owner's call (P-0018 item 3). Where: 03-research/README.md, Branches; README.md, The main branches (two kinds of waiting). Q2 The Template does not fit the data? A: gate.template-fits fails, design.custom-composition composes the page by hand from the same components (never copied library code), design.framework-gap records it, then the design review as usual. Where: 05-design/README.md, Branches (table and bullet); README.md, The main branches. Q3 The owner rejects every concept? A: gate.owner-pick fails, design.record-other-answer records parked or rejected; no source says what happens next (GAPS.md inference); P-0018 item 7 recommends a new Idea Run steered by his reasons with the owner telling the client of the delay; until he answers, the lead asks him. Where: 05-design/README.md, Branches; README.md, Where the model holds a placeholder. Q4 A render fails the checks? A: gate.render-ok fails to deliver.fix; a refusal writes nothing, a failed compile or check keeps the Revision with its log; the fix is a new Revision, never an edit, and goes back through design.preview and design.client-review; loop.revision-fix has a placeholder cap, then deliver.cap-reached and the owner decides. Where: 06-deliver/README.md, Judgement and Branches. Q5 The client asks us to keep his data? A: after.keep-request through the owner, after.keep-record writes it into envelope.json, the delete-by check then skips him; the field name waits on P-0018 item 5. Where: 07-after/README.md, Branches; README.md, Where the model holds a placeholder.
 
 Correction to Q4 after context round 1: the 06-deliver README now says only that deliver.fix's files feed design.preview again in the model; whether a fix needs another design review is an inference recorded in TASK-43's notes. Round 1 fixes: Atlas pages re-verified and stamped after the glossary edit; one stalled-client wording (wait or delete) in both READMEs; the P-0017 sentence narrowed; glossary Domain row cited in 01-open; inference list says among them.
+
+Newcomer test (AC 2), run by the lead 2026-10-14: an independent Sonnet agent given only docs/workflow answered all five questions matching the expected answers (Q1-Q4 sure, Q5 partly, rightly flagging the keep-request field name as P-0018 item 5). It found one model gap: after.delete-by-check does not read art.envelope-keep, so the skip for a keep request lives only in prose; recorded in TASK-43's notes.
 <!-- SECTION:NOTES:END -->

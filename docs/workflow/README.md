@@ -184,8 +184,10 @@ the owner's open decisions on them are
   `Client` whose concepts are parked or rejected
   (`design.record-other-answer`), and how a keep request is recorded
   (`after.keep-record`).
-- **Left out:** the refusals of `approve`, `export` and `stamp` live only in
-  the scripts; only `render`'s is modelled (`gate.render-ok`).
+- **Left out**, among them (`GAPS.md`, "What the YAML leaves out"): the
+  refusals of `approve`, `export` and `stamp` live only in the scripts; only
+  `render`'s is modelled (`gate.render-ok`); and order with no data between
+  two steps, such as the design review before the render.
 
 Until the owner answers P-0018, follow the YAML's placeholder and say so
 in the report; do not invent a different rule in prose.
