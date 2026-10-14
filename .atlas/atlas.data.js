@@ -2273,50 +2273,28 @@ window.ATLAS = {
   }
  ],
  "build": {
-  "builtAt": "2026-10-14 07:11 UTC",
-  "commit": "0cb5fbb",
+  "builtAt": "2026-10-14 07:12 UTC",
+  "commit": "b897c85",
   "kit": "1.0",
   "stale": {
-   "client-journey": [
-    ".claude/skills/idea-run/SKILL.md"
-   ],
-   "design-run": [
-    ".claude/skills/idea-run/SKILL.md",
-    "AGENTS.md",
-    "docs/proposals/codex-visual-tools.md"
-   ],
-   "change-review": [
-    "docs/development.md",
-    "AGENTS.md",
-    "docs/proposals/README.md"
-   ],
    "system-map": [
     "AGENTS.md",
     "docs/work",
     "tests/run.py"
-   ],
-   "roster": [
-    "AGENTS.md",
-    "docs/development.md",
-    ".claude/agents/ceo.md",
-    ".claude/skills/idea-run/SKILL.md",
-    "docs/proposals/codex-visual-tools.md",
-    "tests/run.py",
-    "docs/reference/verification.md"
    ]
   },
   "verified": {
    "client-journey": {
     "at": "2026-10-14",
-    "commit": "575fd07"
+    "commit": "b897c85"
    },
    "design-run": {
     "at": "2026-10-14",
-    "commit": "575fd07"
+    "commit": "b897c85"
    },
    "change-review": {
     "at": "2026-10-14",
-    "commit": "575fd07"
+    "commit": "b897c85"
    },
    "system-map": {
     "at": "2026-10-14",
@@ -2324,7 +2302,7 @@ window.ATLAS = {
    },
    "roster": {
     "at": "2026-10-14",
-    "commit": "575fd07"
+    "commit": "b897c85"
    }
   }
  }
