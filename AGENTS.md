@@ -9,9 +9,9 @@ starts and ends as `docs/development.md` says.
 
 ## Hard rules
 
-- The rules that never change, owned by `docs/constitution.md`: frozen
-  references, a new folder per output, public content fictional, no font
-  shrinking, evidence before "done", bypasses recorded and the totals rule.
+- The rules that never change, owned by `docs/constitution.md`; among them:
+  frozen references, a new folder per output, public content fictional, no
+  font shrinking, evidence before "done", bypasses recorded, the totals rule.
   Read it before changing a template, a layout, an output path or anything
   irreversible.
 - **Design is the product.** A CV passes the `Batch Test` and the
