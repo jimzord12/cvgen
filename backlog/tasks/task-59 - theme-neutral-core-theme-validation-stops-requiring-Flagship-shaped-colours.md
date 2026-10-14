@@ -1,9 +1,10 @@
 ---
 id: TASK-59
 title: 'theme-neutral: core theme validation stops requiring Flagship-shaped colours'
-status: Queued
+status: Active
 assignee: []
 created_date: '2026-10-14 06:23'
+updated_date: '2026-10-14 06:46'
 labels:
   - restructure
 dependencies: []
