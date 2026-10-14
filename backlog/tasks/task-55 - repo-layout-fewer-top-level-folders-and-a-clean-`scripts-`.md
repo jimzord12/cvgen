@@ -34,9 +34,9 @@ Owner decision 2026-10-14 recorded in docs/proposals/workflow-model.md: go ahead
 
 From TASK-52 review: regrouping archive/ moves archive/work-records again; repoint the same live files TASK-52 touched (git show --stat of the TASK-52 merge: AGENTS.md, docs/development.md, docs/review.md, glossary, guides, research notes, open proposals, .claude agents and skills, .codex agents, .claude/repo-maintenance.md, docs/workflow stage.yaml 03/05/07, .atlas/src).
 
-Decision (grouping folder): brand/, design-concepts/ and archive/ moved under studio/ (studio/brand, studio/design-concepts, studio/archive with design-studies, anti-examples and work-records); inner names kept so glossary terms and globs only gain a prefix. 'studio' because three of its four parts are design work beside the engine.
+[Superseded in part by round 1, N1: the work records stay at archive/work-records/] Decision (grouping folder): brand/, design-concepts/ and archive/ moved under studio/ (studio/brand, studio/design-concepts, studio/archive with design-studies, anti-examples and work-records); inner names kept so glossary terms and globs only gain a prefix. 'studio' because three of its four parts are design work beside the engine.
 
-Decision (tools/): tools/ stays top-level. Visible top-level entries go from 17 to 16 (limit 18 in .claude/repo-maintenance.md); TASK-38 is wiring tools/workflow into the suite and CI right now, and ADR 0015 docs and docs/workflow anchors name it. apps/ is for apps a person runs, tools/ for developer tooling, scripts/ for local commands.
+Decision (tools/): tools/ stays top-level. Visible top-level entries go from 17 to 16 (17 again after round 1, N1, brought archive/ back) (limit 18 in .claude/repo-maintenance.md); TASK-38 is wiring tools/workflow into the suite and CI right now, and ADR 0015 docs and docs/workflow anchors name it. apps/ is for apps a person runs, tools/ for developer tooling, scripts/ for local commands.
 
 Decision (frozen and protected): tests/baseline.json keys repointed to studio/archive/design-studies/ with identical hashes (the frozen check stays intact). The one concept Meta File whose source field named the old path (2026-09-27-first-fitting) had only that string changed; sha256 and date untouched. Frozen anti-example sources and briefs keep their old compile comments; their README now gives the new command.
 
