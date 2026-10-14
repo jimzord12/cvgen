@@ -3,6 +3,7 @@
 //   check <dir>         the same for the model in another folder (the test fixtures)
 //   check <file...>     shape-check single Workflow Model YAML files
 //   anchors <base> [--fix] [<dir>]   source anchors whose cited lines moved or changed since commit <base>
+//   render [--check] [<dir>]   write the generated blocks of the workflow READMEs; --check only reports the files it would change (exit 1)
 //   schema [--check]    regenerate the committed JSON Schema files; --check only reports stale ones (exit 1)
 // Usage errors exit 2.
 import { existsSync, statSync } from "node:fs";
@@ -10,9 +11,10 @@ import { relative } from "node:path";
 import { anchors } from "./anchors";
 import { checkModel, modelDir, repoRoot } from "./check";
 import { formatIssue, loadFile } from "./load";
+import { render } from "./render";
 import { schemaDir, staleSchemas, writeSchemas } from "./schema";
 
-const usage = "usage: bun src/cli.ts check [<model dir> | <file.yaml...>] | anchors <base> [--fix] [<model dir>] | schema [--check]";
+const usage = "usage: bun src/cli.ts check [<model dir> | <file.yaml...>] | anchors <base> [--fix] [<model dir>] | render [--check] [<model dir>] | schema [--check]";
 
 const isDir = (path: string) => existsSync(path) && statSync(path).isDirectory();
 const shown = (dir: string) => relative(repoRoot, dir).replaceAll("\\", "/") || ".";
@@ -66,6 +68,30 @@ export function main(args: string[]): number {
       return 2;
     }
     return anchors({ base, fix, dir: dir ?? modelDir, root: repoRoot, log: console.log });
+  }
+  if (command === "render") {
+    const check = rest.includes("--check");
+    const [dir, ...extra] = rest.filter((a) => a !== "--check");
+    if (extra.length > 0 || (dir !== undefined && !isDir(dir))) {
+      console.error(usage);
+      return 2;
+    }
+    const { problems, files } = render(dir ?? modelDir, repoRoot, { write: !check });
+    if (problems.length > 0) {
+      for (const p of problems) console.error(p);
+      console.error(`FAILED render: ${problems.length} problem(s); nothing written`);
+      return 1;
+    }
+    const changed = files.filter((f) => f.changed);
+    if (check) {
+      for (const f of changed) console.error(`STALE ${f.file}: run "bun run render" in tools/workflow`);
+      if (changed.length > 0) return 1;
+      console.log(`OK ${files.length} generated READMEs match the model`);
+      return 0;
+    }
+    for (const f of changed) console.log(`wrote ${f.file}`);
+    console.log(`OK ${files.length} READMEs rendered, ${changed.length} changed`);
+    return 0;
   }
   if (command === "schema" && (rest.length === 0 || (rest.length === 1 && rest[0] === "--check"))) {
     if (rest[0] === "--check") {

@@ -310,3 +310,16 @@ that name `brand/`, `design-concepts/`, `archive/design-studies/`,
 read the first four under `studio/` and the last as `apps/design-review/`;
 `archive/work-records/` did not move. The Design Review app reads the
 owner's earlier `design-concepts/...` review keys under their new paths.
+
+## 2026-10-14 — the workflow READMEs are generated from the model
+
+TASK-39 added `bun run render` to the workflow tool: it writes named blocks
+between `<!-- generated:start <name> -->` and `<!-- generated:end <name> -->`
+markers in `docs/workflow/README.md` (the stages, the journey diagram, the
+handovers between stages, the actors) and in each stage's `README.md` (its
+summary, a Mermaid diagram of steps, gates and loops, and tables of steps,
+gates, loops with placeholder caps marked, artifacts and actions), and
+leaves the text outside the markers to hand-written prose (TASK-40). CI and
+the suite's `workflow-model` case run `bun run render --check`, which fails
+when a README differs from what the model renders to. Each diagram is
+checked against the small Mermaid subset the tool writes.

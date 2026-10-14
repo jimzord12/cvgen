@@ -6,6 +6,7 @@
   "scripts": {
     "check": "bun src/cli.ts check",
     "anchors": "bun src/cli.ts anchors",
+    "render": "bun src/cli.ts render",
     "schema": "bun src/cli.ts schema",
     "typecheck": "tsc --noEmit",
     "test": "bun test"

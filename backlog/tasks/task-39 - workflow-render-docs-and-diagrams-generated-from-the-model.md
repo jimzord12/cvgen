@@ -1,10 +1,10 @@
 ---
 id: TASK-39
 title: 'workflow-render: docs and diagrams generated from the model'
-status: Active
+status: Done
 assignee: []
 created_date: '2026-10-14 04:47'
-updated_date: '2026-10-14 10:02'
+updated_date: '2026-10-14 10:44'
 labels:
   - workflow-model
 dependencies:
@@ -20,6 +20,20 @@ ordinal: 39000
 
 ## Acceptance Criteria
 <!-- AC:BEGIN -->
-- [ ] #1 The regenerated tree is identical in CI
-- [ ] #2 diagrams render on GitHub
+- [x] #1 The regenerated tree is identical in CI
+- [x] #2 diagrams render on GitHub
 <!-- AC:END -->
+
+## Implementation Notes
+
+<!-- SECTION:NOTES:BEGIN -->
+TASK-39 decisions (lead, 2026-10-14): (1) Markers: <!-- generated:start <name> --> and <!-- generated:end <name> -->, each alone on its line, the name on both so pairs are checked. (2) Blocks: docs/workflow/README.md has stages, journey, handovers, actors; each NN-<stage>/README.md has summary, diagram, steps, gates, loops, artifacts, actions. A missing README is created with a placeholder heading and an HTML comment explaining the blocks; a missing block is appended at the end; a moved block stays where it is; an unknown, repeated, nested, unclosed or malformed marker (a line starting <!-- generated:) stops render with file:line and nothing is written. (3) render runs the full check first and refuses a model that fails it; it reuses check.ts (deriveGraph, placeholderCap, the indexed defs) rather than a second graph. (4) Diagrams: steps boxes, gates diamonds with pass/fail, a loop's fail edge and its cap escalation dotted with the cap (placeholder marked), steps of another stage as rounded boxes; an arrow implied by a longer path is left out unless that path runs through an optional (when) step; the journey draws forward handovers solid (transitively reduced) and back ones (deliver to design) dotted; the tables list every input and handover. (5) Diagram validation: a validator for the emitted Mermaid subset (src/mermaid.ts), run by render on every diagram and by the tests; the real Mermaid parser is not a dependency because it needs a DOM shim and about 140 packages; a one-off run of Mermaid 11.4.1 under happy-dom in the scratchpad parsed all 8 diagrams and refused two broken controls. (6) Tests render a temp copy of test/fixtures/valid (no new fixture folder: check.test.ts pins the fixture list). (7) A README with CRLF and the same text counts as current. (8) The top README is 77 generated lines today, leaving TASK-40 room for 120-200 lines of prose within the owner's 200-300.
+
+AC 2 evidence (lead, 2026-10-14): docs/workflow/05-design/README.md, the largest diagram (33 nodes), viewed on github.com at e9a6acb in a browser: the Mermaid flowchart draws (screenshot in the lead's session evidence). The author's gh api HTML check found the mermaid container in the top README, 01-open and 05-design; all 8 diagrams parsed once under Mermaid 11.4.1 with happy-dom.
+<!-- SECTION:NOTES:END -->
+
+## Final Summary
+
+<!-- SECTION:FINAL_SUMMARY:BEGIN -->
+bun run render writes generated blocks (between generated:start/end markers, fence-aware) in docs/workflow/README.md and the seven stage READMEs: stage overview, journey, step/gate/loop/artifact/action tables and Mermaid flowcharts; render --check fails CI and the suite on drift. Diagrams viewed on GitHub (05-design). Context round 1 PASS; code rounds FINDINGS, FINDINGS, PASS. Suite builds/tests-20261014-133656-303179, CI 38550979274 green, 91 bun tests.
+<!-- SECTION:FINAL_SUMMARY:END -->

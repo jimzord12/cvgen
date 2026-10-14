@@ -168,7 +168,9 @@ Windows one also holds the PDFs that build wrote, one per example in
    `bun run check` on `docs/workflow`: levels 1 and 2 of ADR 0015, every
    rule in `tools/workflow/README.md` ("What `check` proves"), with this
    run's Python for the `--help` calls; its output, the placeholder-cap
-   `NOTE` included, is in `workflow-model/check.log`. A checkout without
+   `NOTE` included, is in `workflow-model/check.log`. Then
+   `bun run render --check`: the generated blocks of the workflow READMEs
+   must be what the model renders to (`render.log`). A checkout without
    `tools/workflow/node_modules` gets `bun install --frozen-lockfile` first
    (`install.log`). The rules' own broken fixtures run in `bun test`, not
    here. With no Bun on the machine the case is `SKIPPED`; on CI that fails
@@ -201,7 +203,12 @@ change.
 - `AssertionError: ('workflow-model', ...)`: the Workflow Model check
   failed; each problem names its file, line, path and `[rule]`
   (`tools/workflow/README.md`). Fix the YAML in `docs/workflow`, or rerun
-  `bun run check` in `tools/workflow/` to iterate.
+  `bun run check` in `tools/workflow/` to iterate. A `STALE <README>` line
+  instead: the YAML changed without `bun run render`, or a generated block
+  was edited by hand, or `tools/workflow/src/render.ts` changed without a
+  re-render; run `bun run render` and commit the READMEs. `FAILED render`
+  with a `README.md:<line>`: a malformed, unknown, repeated, nested or
+  unclosed marker there; fix the marker line.
 - `AssertionError: entry points not in examples/release.json, ...`: an
   example was added without its line in `examples/release.json` (or a
   line was removed); add the line with its `title` and `variant`.
