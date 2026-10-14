@@ -377,7 +377,7 @@ export function reality(opts: { dir: string; out: string; scenario?: Scenario; p
           }
         }
         // A declared output already on disk (a Meta File restamped) must come out changed: a command
-        // that leaves it as it was (a no-op stamp, a wrong status) did not do the step.
+        // that leaves it as it was (a no-op stamp, a status equal to the old one) did not do the step.
         const before = new Map<string, { id: string; hash: string }>();
         for (const id of step.outputs) {
           const p = art(id).path;

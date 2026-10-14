@@ -473,7 +473,7 @@ def main():
         rendered = bun_run('render.log', 'run', 'render', '--check')
         assert rendered.returncode == 0, ('workflow-model', rendered.stdout + rendered.stderr)
         results.append({'case': 'workflow-model', 'passed': True, 'folder': 'workflow-model'})
-        # Level 3 (TASK-42): a fictional client runs the model through the real scripts; two disagreeing copies fail.
+        # Level 3 (TASK-42): a fictional client runs the model through the real scripts; three disagreeing copies fail.
         for check in run_reality(folder, bun_run):
             results.append({'case': 'workflow-model-' + check, 'passed': True, 'folder': 'workflow-model'})
     else:

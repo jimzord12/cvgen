@@ -215,7 +215,9 @@ opens only `envelope.json` (for the `Alias`; it also lists folders to match
 the model's paths, and prints none of their names) and prints the `Alias`, model
 paths and counts, never a file name inside the `Envelope` or its content. A
 file several artifacts share (`README.md` and its sections) counts as
-present for each; a `NOTE` line lists them.
+present for each; a `NOTE` line lists them. On a real client run
+`bun src/cli.ts envelope <folder>` instead: `bun run` echoes its
+arguments, the folder name included.
 
 ## Keeping anchors honest: `anchors`
 

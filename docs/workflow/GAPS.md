@@ -56,7 +56,7 @@ cap)" and cite their row here.
   offers it (`client-workflow.md:164-167`). Added by TASK-38: a step with no
   inputs is reached only as a loop's escalation step.
 - **How Revisions to remove are found** (`after.revision-cleanup`):
-  `pdf-workflow.md:211-214` names failed or unapproved Revisions as
+  `pdf-workflow.md:213-216` names failed or unapproved Revisions as
   candidates, not how they are listed; the YAML reads `cv.py status`, which
   lists every Revision with its state. Added by TASK-38, for the same reason.
 
