@@ -19,7 +19,7 @@ from cv_workflow.render import STRICT_FONTS, font_fallbacks  # on the path throu
 def check_core_boundary():
     """The Framework never reaches a domain (ADR 0011, 0012): core files import only their siblings, lib.typ
     only core files, and no Framework file names packages/domains, speaks marine or Flagship, reads a
-    template's layout key or hard-codes a colour; every domain file that reaches the core goes through
+    template's layout key or colour, names a Flagship colour or hard-codes a colour; every domain file that reaches the core goes through
     packages/cv-framework."""
     import re
     imports = re.compile(r'(?<![\w-])(?:import|include)\s+"([^"]+)"')
@@ -34,10 +34,11 @@ def check_core_boundary():
     # comment-free code, each chosen so that it cannot fire on neutral code by accident:
     # 1. Vocabulary: no word that only a marine fact or a Flagship part uses, and no Flagship layout key
     #    (whole words, so `relationship` or `ranking` pass). Common facts (certificates, education) are the
-    #    core's own words. The colour names `core/theme.typ` requires (`hero`, `plate`, `on-hero`, ...) are
-    #    Flagship-shaped but stay off the list until a follow-up task splits the theme check.
-    # 2. What it reads: the core reads only the layout keys and artwork slots it owns. An allowlist, so a
-    #    template key fails whatever it is called; a template gives the shell its say through `shell`.
+    #    core's own words.
+    # 2. What it reads: the core reads only the layout keys, artwork slots and theme colours it owns. An
+    #    allowlist, so a template key fails whatever it is called; a template gives the shell its say
+    #    through `shell`. `hero` is read only by the shell's optional band, so the core never requires it,
+    #    and no core string names a Flagship colour, so `core/theme.typ` cannot require one (TASK-59).
     # 3. Colour: no colour literal (a hex string, a colour constructor, a named colour other than white and
     #    black, which mark the unpainted canvas); colours come from the theme, source-art colours from the
     #    theme's `art-palette`, which the domain supplies. A hard-coded palette is exactly what this catches.
@@ -45,7 +46,9 @@ def check_core_boundary():
     vocabulary = re.compile(r'(?<![a-z])(vessels?|ships?|marine|maritime|seafar\w*|flagship|synopsis|tonnage|voyages?'
                             r'|crew|rank|opening-margin|continuation-margin|band-height|anchor-education|stack-gap)(?![a-z])', re.I)
     owned = {'layout': {'paper', 'width', 'height', 'shell', 'header', 'footer'},
-             'artwork': {'background-first', 'background-continuation'}}
+             'artwork': {'background-first', 'background-continuation'},
+             'colors': {'ink', 'accent', 'metal', 'muted', 'paper', 'hero'}}
+    flagship_colours = re.compile(r'"(?:hero|plate|on-hero|surface|rule)"')
     colour = re.compile(r'"#[0-9a-fA-F]{3,8}"|(?<![\w-])(?:rgb|cmyk|luma|oklab|oklch|hsl|hsv|linear-rgb)\(')
     named = re.compile(r'(?:(?<![\w.-])|(?<=color\.))(?:gray|silver|navy|blue|aqua|teal|eastern|purple|fuchsia|maroon|red'
                        r'|orange|yellow|olive|green|lime)(?![\w-])')
@@ -57,8 +60,11 @@ def check_core_boundary():
         words = sorted({m.group(0) for m in vocabulary.finditer(code)})
         assert not words, f'{name} speaks marine or Flagship: {words}'
         for owner, keys in owned.items():
-            read = set(re.findall(rf'(?<![\w-]){owner}\.(?!at\()([\w-]+)', code)) | set(re.findall(rf'(?<![\w-]){owner}\.at\("([^"]+)"', code))
+            # A method call (`colors.keys()`, `layout.at(...)`) is not a key read.
+            read = set(re.findall(rf'(?<![\w-]){owner}\.([\w-]+)(?![\w(-])', code)) | set(re.findall(rf'(?<![\w-]){owner}\.at\("([^"]+)"', code))
             assert read <= keys, f'{name} reads {owner} keys the Framework does not own: {sorted(read - keys)}'
+        named_colours = flagship_colours.findall(code)
+        assert not named_colours, f'{name} names a Flagship colour: {named_colours}'
         literals = colour.findall(code) + named.findall(re.sub(string, '""', code))
         assert not literals, f'{name} hard-codes colours instead of reading the theme: {literals}'
     for source in sorted((ROOT / 'packages/domains').rglob('*.typ')):
@@ -190,6 +196,13 @@ def main():
     check_example_records()
     results.append({'case': 'example-records-match-schema', 'passed': True})
     compile_case('configuration', 'tests/fixtures/configuration.typ')
+    # Theme checks (TASK-59): the core accepts a theme with only its own colours and still refuses one
+    # without them; Flagship refuses a theme that lacks any of its own colours, with the same messages.
+    compile_case('theme-core', 'tests/fixtures/theme.typ', {'case': 'core'})
+    compile_case('theme-core-missing', 'tests/fixtures/theme.typ', {'case': 'core-missing', 'key': 'muted'}, error='Missing theme color: muted')
+    for key in ['hero', 'surface', 'plate', 'rule', 'on-hero']:
+        compile_case('theme-flagship-missing-' + key, 'tests/fixtures/theme.typ', {'case': 'missing', 'key': key}, error='Missing theme color: ' + key)
+    compile_case('theme-flagship-not-color', 'tests/fixtures/theme.typ', {'case': 'not-color', 'key': 'plate'}, error='Theme color must be a color: plate')
     content = compile_case('content', 'tests/fixtures/content.typ')
     assert check_case(content, pages=1)['passed']
     with fitz.open(content) as doc:
