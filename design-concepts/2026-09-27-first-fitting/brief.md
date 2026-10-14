@@ -56,14 +56,15 @@ No drawing, photo or copy was taken from any of them.
 ## Fonts and licences
 
 One family, OFL 1.1, from the Google Fonts repository, unmodified, in
-`design-concepts/fonts/bona-nova/` with `OFL.txt`.
+`packages/cv-framework/fonts/` (the Framework's copy, shared with the `Text Draft`), licence in
+`packages/cv-framework/licenses/bonanova-OFL.txt`.
 
 | File | Source | SHA-256 |
 |---|---|---|
 | `BonaNova-Regular.ttf` | <https://raw.githubusercontent.com/google/fonts/main/ofl/bonanova/BonaNova-Regular.ttf> | `d72f7715b6b66096e0cc2971e4954f8be33bdced1f143f9c5739a03cdb60bede` |
 | `BonaNova-Italic.ttf` | <https://raw.githubusercontent.com/google/fonts/main/ofl/bonanova/BonaNova-Italic.ttf> | `0d61c160a521b072d1af19e9683754f3f5761bbce35f73fdf091ecdf495bc6c2` |
 | `BonaNova-Bold.ttf` | <https://raw.githubusercontent.com/google/fonts/main/ofl/bonanova/BonaNova-Bold.ttf> | `c59ccb3ba8f0151236b1b427b58bee0c90607c82ef747cc6e19d5e20138385dd` |
-| `OFL.txt` | <https://raw.githubusercontent.com/google/fonts/main/ofl/bonanova/OFL.txt> | `38f7dca74a98bbcc13858c9f56e9c7d86e12b4242f2a5ccbecf6e9277c9fd363` |
+| `bonanova-OFL.txt` (in `packages/cv-framework/licenses/`) | <https://raw.githubusercontent.com/google/fonts/main/ofl/bonanova/OFL.txt> | `38f7dca74a98bbcc13858c9f56e9c7d86e12b4242f2a5ccbecf6e9277c9fd363` |
 
 Greek: full monotonic Greek, checked in the render (tonos, dialytika, «»).
 

@@ -182,13 +182,15 @@ required, and your job is to draw it better than anyone else.
   `typst compile --root . --ignore-system-fonts --font-path packages/cv-framework/fonts --font-path design-concepts/fonts design-concepts/<folder>/<density>/<tier>/<density>-<tier>.typ design-concepts/<folder>/<density>/<tier>/<density>-<tier>.pdf`
   (or one `--font-path design-concepts/fonts/<family>` per family you use).
   Available without bringing one: Source Sans 3, Barlow (condensed),
-  Cormorant Garamond, Bona Nova, Libertinus Serif, New Computer Modern,
+  Cormorant Garamond, Bona Nova, Sofia Sans Extra Condensed, M PLUS 1p,
+  Kaisei Tokumin, Libertinus Serif, New Computer Modern,
   DejaVu Sans Mono. Check the language: a Greek-market CV needs fonts that
   cover Greek.
 - You may bring at most two families per style: OFL (or Apache 2.0) only,
   from the Google Fonts repository or the foundry, `.ttf` or `.otf`,
   unmodified, with the licence file, in the shared folder
-  `design-concepts/fonts/<family>/` (reuse a family already there). Record
+  `design-concepts/fonts/<family>/` (reuse a family already there, and never copy one the Framework bundles in
+  `packages/cv-framework/fonts/`: each family is stored once). Record
   each file's source URL and SHA-256 in `brief.md`. Never "free for
   personal use", Adobe Fonts or commercial fonts.
 - Artwork is original SVG or Typst drawing you make yourself. Draw the
