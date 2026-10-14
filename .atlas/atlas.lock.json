@@ -48,7 +48,7 @@
    "verifiedAt": "2026-10-14"
   },
   "roster": {
-   "commit": "a3c4fe9",
+   "commit": "3052f11",
    "sources": {
     ".claude/agents/ceo-reviewer.md": "058811a51ac27c65a93dc8915db4afd58676d33d",
     ".claude/agents/ceo.md": "3a3dd4071d60d0127d75036dfb67444cfdf72c0b",
@@ -77,7 +77,7 @@
     "docs/pdf-workflow.md": "3bfa09a91c1ec9c970650c88ed15842c477645de",
     "docs/preferences.md": "d5a47c23326acce8c81102142ed152450e510dcd",
     "docs/proposals/codex-visual-tools.md": "750a66a50911f5dd7573d71fb7d2b6a0ce992437",
-    "docs/reference/verification.md": "68e2f0935708fcf1e0e066df2b4112bc732789b6",
+    "docs/reference/verification.md": "32c581ee96eeff79436d9d590f852834adc1b251",
     "docs/review.md": "bd9dea389e91018c0876526ca37d5154ddde238e",
     "docs/work/anti-examples/reviews/01-context.md": "29eb150ea6949a2020956433f29947eac7d31c5d",
     "docs/work/codex-visual-tools/reviews/01.md": "b072308514f194affa6e445472c96731fac43918",
@@ -87,7 +87,7 @@
     "scripts/design_review/server.py": "0d1258af97e31db980fcd7a98e64e88f431f9840",
     "scripts/intake-form.gs": "876f3d78ab118a965fe39179569ddad1713ea40c",
     "scripts/outputs.py": "6e79e3d72163c249c328633379952f93837ffe1c",
-    "tests/run.py": "e121c5c2e2713aa253919169dfbce58794c691b0"
+    "tests/run.py": "f6d4c86687f3fe69a7fead63a8a7dbe6bdcb174f"
    },
    "verifiedAt": "2026-10-14"
   },
