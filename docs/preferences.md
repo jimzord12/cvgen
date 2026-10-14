@@ -62,7 +62,7 @@ choices and act without asking (owner's instruction, 2026-09-25).
   `archive/*`, `git worktree` add, remove and prune, clearing `builds/` by
   path (never `git clean -x` or `-X`, which would also wipe the ignored
   `private/` and `.local/`), editing a candidate workspace's `envelope.json`, `candidate.json`,
-  `cv.typ`, `presentation.json`, `README.md` and the client workflow's
+  `README.md`, the `typst/` sources, the portrait in `images/portrait/` and the client workflow's
   `intake/facts.md`, `research/` and `draft/` files for a CV he asked for, and
   creating, editing or moving tasks in `backlog/`. Do not bring these to
   him; report them.

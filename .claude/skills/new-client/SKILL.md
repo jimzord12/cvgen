@@ -10,9 +10,10 @@ owner talks to the client; you never do. Terms: `docs/glossary.md`.
 
 ## Steps
 
-1. **Envelope.** `private/<name>-<rank>/` with `README.md`, `intake/`
-   (`messages.md`, `documents/`), `research/` (`reviews/`), `draft/`. Never
-   under `examples/`. Give the client an alias `client-<yyyy>-<mm>-<nn>`,
+1. **Envelope.** `private/<name>-<rank>/` in the one `Envelope` tree
+   (guide section 1, which says where every file goes): start with
+   `README.md`, `intake/` (`messages.md`, `documents/`), `research/`
+   (`reviews/`), `draft/`. Never under `examples/`. Give the client an alias `client-<yyyy>-<mm>-<nn>`,
    written at the top of `README.md` with the intake date; outside `private/` (tasks, commits,
    agent briefs, public files) use only the alias. Write `envelope.json`
    (`alias`, `domain` as the glossary's `Domain` id, `candidate`, `rank`;
@@ -70,7 +71,7 @@ owner talks to the client; you never do. Terms: `docs/glossary.md`.
    draft `status=signed-off` (the stamp refuses it without the screenshot).
 9. **Handover.** Run the `new-cv` skill from `facts.md` and the signed-off
    draft; for a `Domain` that does not exist yet, a one-off `Template` in
-   one `cv.typ` that imports only `/packages/cv-framework/lib.typ` (guide
+   one `typst/cv.typ` that imports only `/packages/cv-framework/lib.typ` (guide
    section 9). Record decisions and evidence paths in the `Envelope`'s
    `README.md`. At `Export`, write "Delivered <date>. Delete by <date + 12
    months>" there; once the owner has sent it, re-stamp the delivered

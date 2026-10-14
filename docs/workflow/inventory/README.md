@@ -20,6 +20,10 @@ the model. The code anchors in `c-catalog-and-drift.md` (`outputs.py`,
 `render.py`, `export.py`, `validate.py`, `output.schema.json`) are wrong:
 they point past the end of those files. Take code anchors from the a and b
 files (for example `envelope()` is `outputs.py:56-73`) or re-read the code.
+On 2026-10-14 TASK-32 moved every `Envelope` to one tree
+(`docs/guides/client-workflow.md` section 1): the entry point is
+`typst/cv.typ`, the portrait sits in `images/portrait/`, and a root
+`cv.typ`, as these files show it, is now refused by `scripts/cv.py`.
 
 ## The three lists
 

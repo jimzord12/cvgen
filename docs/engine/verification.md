@@ -107,6 +107,9 @@ Windows one also holds the PDFs that build wrote, one per example in
    revision without `render.json`, a leftover partial export, a
    conflicting destination and a bundle with a different receipt,
    a workspace without `envelope.json` refused before anything is written,
+   the `Envelope` layout (`typst/cv.typ` reading `../candidate.json`, the
+   snapshot mirroring it under `inputs/`) and the old flat layout (a root
+   `cv.typ`) refused by all four commands with the move to make,
    the revision's `Meta File` (`render`, then `approved`, filled from
    `envelope.json`),
    certificate dates (against a fixed reference date: expired and

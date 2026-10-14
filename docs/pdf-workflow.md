@@ -69,19 +69,19 @@ it. These are ordinary package boundaries, not separate network services.
 This schematic candidate name does not identify a real person:
 
 ```text
-private/<candidate>/
+private/<candidate>/             # The full Envelope tree: docs/guides/client-workflow.md, section 1
   envelope.json                 # Who the client is: alias, domain, candidate, rank;
                                 #   render refuses without it
   candidate.json                # Working candidate record
-  cv.typ                        # Entry point: template, theme, artwork, layout, page plan
+  typst/cv.typ                  # Entry point: template, theme, artwork, layout, page plan;
+                                #   a cv.typ at the root (the layout before 2026-10-14) is refused
+  images/portrait/              # The portrait the record names
   intake/ research/ draft/      # Client workflow drawers: messages and documents,
                                 #   research, text drafts and Sign-off
-                                #   (docs/guides/client-workflow.md)
-  assets/                       # Optional: prepared portrait; a portrait at the
-                                #   folder root works too (docs/guides/build-a-cv.md)
+  reviews/                      # Design review reports on the CV
   revisions/<revision-id>/       # Fresh timestamp + unique suffix for each run
-    inputs/
-      cv.typ                    # Entry point as it was, verbatim
+    inputs/                     # The workspace's own layout (flat inputs/cv.typ before 2026-10-14)
+      typst/cv.typ              # Entry point as it was, verbatim
       candidate.json            # Snapshot used by this revision
       assets/                   # Copies of candidate assets actually used
     render.json                 # Selection, effective settings, versions, PDF hash

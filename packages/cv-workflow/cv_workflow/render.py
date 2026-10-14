@@ -9,7 +9,7 @@ import tempfile
 from .checks import certificate_summary, check_certificates, check_pdf
 from .outputs import envelope, stamp
 from .validate import validate_record
-from .workspace import (ENGINE, FONTS, ROOT, Workspace, WorkflowError, new_revision_id, read_json,
+from .workspace import (ENGINE, ENTRY, FONTS, ROOT, Workspace, WorkflowError, new_revision_id, read_json,
                         repo_relative, sha256_file, utc_now, write_json)
 
 IMPORT = re.compile(r'^\s*#import\s+"([^"]+)"', re.MULTILINE)
@@ -62,10 +62,10 @@ def live_reads(deps, ws, revision):
 
 
 def workspace_files(ws):
-    """The workspace files cv.typ reads by a literal path, followed through its local .typ helpers.
+    """The workspace files typst/cv.typ reads by a literal path, followed through its local .typ helpers.
 
-    Returned as paths relative to the workspace, so the snapshot keeps them where
-    cv.typ expects them. A path that would read live data outside the snapshot
+    Returned as paths relative to the workspace, so the snapshot (which mirrors the
+    workspace under inputs/) keeps them where cv.typ expects them. A path that would read live data outside the snapshot
     (root-absolute into private/, or climbing out of the workspace) or a missing
     file is refused, naming the file. A computed path (image(d.photo)) cannot be
     seen here; render_revision catches it after the compile (live_reads).
@@ -89,7 +89,7 @@ def workspace_files(ws):
             if not path.is_file():
                 raise WorkflowError(f'{where} reads {target}, which does not exist ({path})')
             if path in (ws.entry, ws.record) or path in seen:
-                continue  # cv.typ and candidate.json are always snapshotted, the record rewritten
+                continue  # typst/cv.typ and candidate.json are always snapshotted, the record rewritten
             seen.add(path)
             found.append(path.relative_to(ws.folder))
             if path.suffix == '.typ':
@@ -126,14 +126,17 @@ def render_revision(workspace, typst='typst', pages=2, inputs=None, reference_da
             raise WorkflowError(f'identity.portrait {portrait!r} resolves to {source}, which does not exist')
     files = workspace_files(ws)
     if source and any(f.as_posix() == 'assets/' + source.name and ws.folder / f != source.resolve() for f in files):
-        raise WorkflowError(f'cv.typ reads assets/{source.name}, which is not the portrait but would take its place '
+        raise WorkflowError(f'{ENTRY} reads the workspace file assets/{source.name}, which is not the portrait but would take its place '
                             'in the snapshot; rename one of them')
 
     revision = ws.revision(new_revision_id())
     (revision.inputs / 'assets').mkdir(parents=True, exist_ok=False)
-    # Snapshot: the entry point verbatim, the record with its portrait repointed
-    # at the copied asset, so the revision compiles from its own files alone.
-    shutil.copyfile(ws.entry, revision.inputs / 'cv.typ')
+    # Snapshot: the workspace's own layout under inputs/ (TASK-32): the entry point verbatim at
+    # inputs/typst/cv.typ, the record with its portrait repointed at the copied asset, so the
+    # revision compiles from its own files alone and every relative read lands where it did.
+    entry = revision.inputs / ENTRY
+    entry.parent.mkdir(parents=True, exist_ok=True)
+    shutil.copyfile(ws.entry, entry)
     assets = []
     if source:
         copy = revision.inputs / 'assets' / source.name
@@ -153,7 +156,7 @@ def render_revision(workspace, typst='typst', pages=2, inputs=None, reference_da
     command = [compiler, 'compile', '--root', str(ROOT), *STRICT_FONTS, '--font-path', str(FONTS)]
     for key, value in (inputs or {}).items():
         command += ['--input', f'{key}={value}']
-    command += [str(revision.inputs / 'cv.typ'), str(revision.pdf)]
+    command += [str(entry), str(revision.pdf)]
     with tempfile.TemporaryDirectory() as scratch:
         deps = Path(scratch) / 'deps.json'
         result = subprocess.run(command[:2] + ['--deps', str(deps)] + command[2:], capture_output=True, cwd=ROOT, **TEXT)
@@ -170,8 +173,8 @@ def render_revision(workspace, typst='typst', pages=2, inputs=None, reference_da
         'engine': engine_state(),
         'compiler': {'version': version, 'command': command},
         'inputs': {
-            'entry': {'path': 'inputs/cv.typ', 'sha256': sha256_file(revision.inputs / 'cv.typ'),
-                      'imports': IMPORT.findall((revision.inputs / 'cv.typ').read_text(encoding='utf-8'))},
+            'entry': {'path': 'inputs/' + ENTRY, 'sha256': sha256_file(entry),
+                      'imports': IMPORT.findall(entry.read_text(encoding='utf-8'))},
             'candidate': {'path': 'inputs/candidate.json', 'sha256': sha256_file(revision.inputs / 'candidate.json'),
                           'source_sha256': sha256_file(ws.record), 'schema': schema},
             'assets': assets,
@@ -200,7 +203,7 @@ def render_revision(workspace, typst='typst', pages=2, inputs=None, reference_da
         write_json(revision.checks_record, checks)
         lang = str((inputs or {}).get('lang') or '').lower()
         stamp(revision.pdf, {'kind': 'client-cv', 'status': 'render', 'variant': revision.id,
-                             'lang': lang if re.fullmatch('[a-z]{2}', lang) else None, 'source': 'cv.typ',
+                             'lang': lang if re.fullmatch('[a-z]{2}', lang) else None, 'source': ENTRY,
                              'producedBy': 'scripts/cv.py render'}, envelope_dir=ws.folder)
     counts, warnings = certificate_summary(checks)
     return {

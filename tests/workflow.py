@@ -36,19 +36,21 @@ ENTRY = '''#import "/packages/domains/marine/lib.typ": flagship
 #import "/packages/domains/marine/templates/flagship/themes/golden-blue.typ": theme
 #import "/packages/domains/marine/templates/flagship/artwork/engineer.typ": artwork
 #import "/packages/domains/marine/templates/flagship/layouts/flagship-v11.typ": layout
-#let candidate = json("candidate.json")
+#let candidate = json("../candidate.json")
 #show: flagship.with(candidate: candidate, theme: theme, artwork: artwork, layout: layout, show-vessel-durations: true)
 '''
 
-# A one-off design for a field with no domain yet: the Framework only, plus files beside cv.typ.
+# A one-off design for a field with no domain yet: the Framework only, plus files beside typst/cv.typ
+# and one from another Envelope folder (images/), read by a path relative to cv.typ.
 ONE_OFF = '''#import "/packages/cv-framework/lib.typ": normalize-common
 #import "parts/helper.typ": note
 // A commented read such as json("missing.json") is not a file the page needs.
-#let d = normalize-common(json("candidate.json"))
+#let d = normalize-common(json("../candidate.json"))
 #let p = json("presentation.json")
 #set text(font: "Source Sans 3")
 = #d.identity.name
 #p.headline
+#image("../images/badge.png", width: 1cm)
 
 #note
 
@@ -64,11 +66,13 @@ def run_workflow(out, typst, system_family=None):
     caller reports it as skipped."""
     base = out / 'workflow'
     workspace = base / 'fictional-engineer'
-    workspace.mkdir(parents=True, exist_ok=False)
-    (workspace / 'cv.typ').write_text(ENTRY, encoding='utf-8')
-    shutil.copyfile(ROOT / 'examples/candidates/fictional-engineer.png', workspace / 'portrait.png')
+    (workspace / 'typst').mkdir(parents=True, exist_ok=False)
+    (workspace / 'images/portrait').mkdir(parents=True)
+    entry = workspace / 'typst/cv.typ'           # the Envelope layout (TASK-32)
+    entry.write_text(ENTRY, encoding='utf-8')
+    shutil.copyfile(ROOT / 'examples/candidates/fictional-engineer.png', workspace / 'images/portrait/portrait.png')
     record = json.loads((ROOT / 'examples/candidates/engineer-example.json').read_text(encoding='utf-8'))
-    record['identity']['portrait'] = 'portrait.png'
+    record['identity']['portrait'] = 'images/portrait/portrait.png'
     (workspace / 'candidate.json').write_text(json.dumps(record, indent=2), encoding='utf-8')
     envelope = {'alias': 'client-2030-01-01', 'domain': 'marine', 'candidate': 'Alex Morgan', 'rank': 'Second Engineer'}
     log = (base / 'commands.log').open('w', encoding='utf-8')
@@ -98,24 +102,27 @@ def run_workflow(out, typst, system_family=None):
     assert first['schema'] == '/packages/domains/marine/templates/flagship/schema/flagship-input.schema.json', first
     assert first['status'] == 'success' and first['checks_passed'] and first['engine_uncommitted_changes'] is False, first
     folder = revision(rid)
-    for name in ['inputs/cv.typ', 'inputs/candidate.json', 'inputs/assets/portrait.png', 'render.log', 'render.json', 'checks.json', 'cv.pdf']:
+    for name in ['inputs/typst/cv.typ', 'inputs/candidate.json', 'inputs/assets/portrait.png', 'render.log', 'render.json', 'checks.json', 'cv.pdf']:
         assert (folder / name).is_file(), name
+    assert not (folder / 'inputs/cv.typ').exists()   # the snapshot mirrors the Envelope layout
     render = json.loads((folder / 'render.json').read_text(encoding='utf-8'))
     checks = json.loads((folder / 'checks.json').read_text(encoding='utf-8'))
     sha = sha256_file(folder / 'cv.pdf')
     assert render['pdf']['sha256'] == sha == first['sha256'] == checks['pdf_sha256'] and checks['passed']
     assert render['compiler']['version'].startswith('typst 0.15.1') and render['engine']['commit']
     assert render['inputs']['entry']['imports'][0] == '/packages/domains/marine/lib.typ'
+    assert render['inputs']['entry']['path'] == 'inputs/typst/cv.typ' and render['compiler']['command'][-2].endswith('cv.typ')
     assert render['inputs']['candidate']['schema'].endswith('/templates/flagship/schema/flagship-input.schema.json')
     snapshot = json.loads((folder / 'inputs/candidate.json').read_text(encoding='utf-8'))
     assert snapshot['identity']['portrait'] == '/' + (folder / 'inputs/assets/portrait.png').relative_to(ROOT).as_posix()
     assert sha256_file(folder / 'inputs/assets/portrait.png') == sha256_file(ROOT / 'examples/candidates/fictional-engineer.png')
-    assert (folder / 'inputs/cv.typ').read_text(encoding='utf-8') == ENTRY
+    assert (folder / 'inputs/typst/cv.typ').read_text(encoding='utf-8') == ENTRY
     exact = verify(folder / 'cv.pdf', ROOT / FLAGSHIP / 'tests/approved/Marine-Engineer-CV-v11.pdf', output=base / 'exact')
     assert exact['passed'], exact
     meta = json.loads((folder / 'cv.meta.json').read_text(encoding='utf-8'))
     assert meta['sha256'] == sha and meta['status'] == 'render' and meta['kind'] == 'client-cv' and meta['pages'] == 2
     assert {k: meta[k] for k in envelope} == envelope and meta['variant'] == rid and meta['lang'] == 'en', meta
+    assert meta['source'] == 'typst/cv.typ', meta
     passed.append('render-snapshot-and-records')
 
     # 2. Approval needs the reviewed hash, a name, and refuses test-only approvals under private/.
@@ -209,12 +216,12 @@ def run_workflow(out, typst, system_family=None):
     render_path.write_text('[]', encoding='utf-8')
     assert 'must hold a JSON object' in cv('approve', workspace, rid3, '--approver', 'suite', '--sha256', third['sha256'], '--test-only', expect=2)
     render_path.write_text(original_render, encoding='utf-8')
-    (workspace / 'cv.typ').write_text(ENTRY.replace('flagship.with', 'flagship.wit'), encoding='utf-8')
+    entry.write_text(ENTRY.replace('flagship.with', 'flagship.wit'), encoding='utf-8')
     broken = cv('render', workspace, '--typst', typst, expect=1)
     assert broken['status'] == 'failed' and 'error' in (revision(broken['revision']) / 'render.log').read_text(encoding='utf-8')
     assert json.loads((revision(broken['revision']) / 'render.json').read_text(encoding='utf-8'))['pdf'] is None
     assert 'did not render' in cv('approve', workspace, broken['revision'], '--approver', 'suite', '--sha256', sha, '--test-only', expect=2)
-    (workspace / 'cv.typ').write_text(ENTRY, encoding='utf-8')
+    entry.write_text(ENTRY, encoding='utf-8')
     # A data error naming a Greek company must reach render.log intact whatever the console codec.
     # A wrong company total passes the schema (it cannot add up months) and fails in the engine.
     greek = json.loads(json.dumps(record))
@@ -344,63 +351,70 @@ def run_workflow(out, typst, system_family=None):
     # 10. A one-off design (no domain yet) imports only the Framework, reads sibling files and a local helper;
     # the revision snapshots them all, and compiles from the snapshot alone (card revision-snapshot).
     oneoff = base / 'fictional-tour-guide'
-    (oneoff / 'parts').mkdir(parents=True)
+    typst_dir = oneoff / 'typst'
+    (typst_dir / 'parts').mkdir(parents=True)
+    (oneoff / 'images').mkdir()
+    badge = (ROOT / 'examples/candidates/fictional-engineer.png').read_bytes()
+    (oneoff / 'images/badge.png').write_bytes(badge)
     (oneoff / 'envelope.json').write_text(json.dumps(dict(envelope, domain='travel', rank='Tour Guide')), encoding='utf-8')
-    (oneoff / 'cv.typ').write_text(ONE_OFF, encoding='utf-8')
-    (oneoff / 'parts/helper.typ').write_text('#let note = read("note.txt")\n', encoding='utf-8')
-    (oneoff / 'parts/note.txt').write_text('Licensed guide, fictional record', encoding='utf-8')
-    (oneoff / 'parts/link.txt').write_text('Read after a URL', encoding='utf-8')
-    (oneoff / 'presentation.json').write_text(json.dumps({'headline': 'Walks through old Athens'}), encoding='utf-8')
+    (typst_dir / 'cv.typ').write_text(ONE_OFF, encoding='utf-8')
+    (typst_dir / 'parts/helper.typ').write_text('#let note = read("note.txt")\n', encoding='utf-8')
+    (typst_dir / 'parts/note.txt').write_text('Licensed guide, fictional record', encoding='utf-8')
+    (typst_dir / 'parts/link.txt').write_text('Read after a URL', encoding='utf-8')
+    (typst_dir / 'presentation.json').write_text(json.dumps({'headline': 'Walks through old Athens'}), encoding='utf-8')
     (oneoff / 'candidate.json').write_text(json.dumps({'identity': {'name': 'Ada Example', 'rank': 'Tour guide'}}), encoding='utf-8')
     guide = cv('render', oneoff, '--typst', typst, '--pages', '1')
     assert guide['status'] == 'success' and guide['checks_passed'] and guide['schema'] is None, guide
     snap = oneoff / 'revisions' / guide['revision']
     files = json.loads((snap / 'render.json').read_text(encoding='utf-8'))['inputs']['files']
     # The read after a URL is found (a // in a string is not a comment); the word "include" in prose is not a read.
-    assert sorted(f['path'] for f in files) == ['inputs/parts/helper.typ', 'inputs/parts/link.txt', 'inputs/parts/note.txt',
-                                                'inputs/presentation.json'], files
+    assert sorted(f['path'] for f in files) == ['inputs/images/badge.png', 'inputs/typst/parts/helper.typ',
+                                                'inputs/typst/parts/link.txt', 'inputs/typst/parts/note.txt',
+                                                'inputs/typst/presentation.json'], files
     assert all(f['sha256'] == sha256_file(snap / f['path']) for f in files), files
     import pymupdf as fitz
     with fitz.open(snap / 'cv.pdf') as doc:
         assert all(t in doc[0].get_text() for t in ['Walks through old Athens', 'Licensed guide', 'Read after a URL'])
     # Change and then remove the live files: the snapshot still compiles, with what was rendered.
-    (oneoff / 'presentation.json').write_text(json.dumps({'headline': 'Changed after the render'}), encoding='utf-8')
-    for name in ['presentation.json', 'parts/helper.typ', 'parts/note.txt', 'parts/link.txt']:
+    (typst_dir / 'presentation.json').write_text(json.dumps({'headline': 'Changed after the render'}), encoding='utf-8')
+    for name in ['typst/presentation.json', 'typst/parts/helper.typ', 'typst/parts/note.txt', 'typst/parts/link.txt',
+                 'images/badge.png']:
         os.remove(oneoff / name)
     again = base / 'oneoff-from-snapshot.pdf'
     subprocess.run([typst, 'compile', '--root', str(ROOT), *STRICT_FONTS, '--font-path', str(ROOT / 'packages/cv-framework/fonts'),
-                    str(snap / 'inputs/cv.typ'), str(again)], check=True, capture_output=True)
+                    str(snap / 'inputs/typst/cv.typ'), str(again)], check=True, capture_output=True)
     with fitz.open(again) as doc:
         assert 'Walks through old Athens' in doc[0].get_text() and 'Licensed guide' in doc[0].get_text()
     # Reads the snapshot cannot hold are refused before anything is written, naming the file.
     count = len(list((oneoff / 'revisions').iterdir()))
     without_helper = ONE_OFF.replace('#import "parts/helper.typ": note\n', '').replace('#note\n', '')
+    (oneoff / 'images/badge.png').write_bytes(badge)
     refused = [('/private/zz-fictional/presentation.json', 'root-absolute path'),
-               ('/' + (oneoff / 'presentation.json').relative_to(ROOT).as_posix(), 'root-absolute path'),
-               ('../outside.json', 'outside the workspace'), ('presentation.json', 'does not exist')]
+               ('/' + (typst_dir / 'presentation.json').relative_to(ROOT).as_posix(), 'root-absolute path'),
+               ('../../outside.json', 'outside the workspace'), ('presentation.json', 'does not exist')]
     if os.name == 'nt':  # only a case-insensitive filesystem makes Private/ the same folder as private/
         refused.append(('/./Private/zz-fictional/presentation.json', 'root-absolute path'))
     for read, message in refused:
-        (oneoff / 'cv.typ').write_text(without_helper.replace('presentation.json', read), encoding='utf-8')
+        (typst_dir / 'cv.typ').write_text(without_helper.replace('presentation.json', read), encoding='utf-8')
         refusal = cv('render', oneoff, '--typst', typst, '--pages', '1', expect=2)
         assert message in refusal and read in refusal, refusal
     # A workspace file that would land on the portrait's place in the snapshot is refused too.
-    (oneoff / 'parts/link.txt').write_text('Read after a URL', encoding='utf-8')
+    (typst_dir / 'parts/link.txt').write_text('Read after a URL', encoding='utf-8')
     (oneoff / 'portrait.png').write_bytes((ROOT / 'examples/candidates/fictional-engineer.png').read_bytes())
     (oneoff / 'assets').mkdir()
     (oneoff / 'assets/portrait.png').write_bytes(b'not the portrait')
     (oneoff / 'candidate.json').write_text(json.dumps({'identity': {'name': 'Ada Example', 'rank': 'Tour guide',
                                                                     'portrait': 'portrait.png'}}), encoding='utf-8')
-    (oneoff / 'cv.typ').write_text(without_helper.replace('json("presentation.json")', '(headline: read("assets/portrait.png"))'),
-                                   encoding='utf-8')
+    (typst_dir / 'cv.typ').write_text(without_helper.replace('json("presentation.json")', '(headline: read("../assets/portrait.png"))'),
+                                      encoding='utf-8')
     assert 'would take its place' in cv('render', oneoff, '--typst', typst, '--pages', '1', expect=2)
     assert len(list((oneoff / 'revisions').iterdir())) == count
     # A computed path the scan cannot see still cannot make a live read approvable: Typst's dependency list
     # names the live file, the checks fail and approval is refused.
     (oneoff / 'candidate.json').write_text(json.dumps({'identity': {'name': 'Ada Example', 'rank': 'Tour guide'}}), encoding='utf-8')
-    (oneoff / 'presentation.json').write_text(json.dumps({'headline': 'Live, not snapshotted'}), encoding='utf-8')
-    live_path = (oneoff / 'presentation.json').relative_to(ROOT).as_posix()
-    (oneoff / 'cv.typ').write_text(without_helper.replace('json("presentation.json")', f'json("/" + "{live_path}")'), encoding='utf-8')
+    (typst_dir / 'presentation.json').write_text(json.dumps({'headline': 'Live, not snapshotted'}), encoding='utf-8')
+    live_path = (typst_dir / 'presentation.json').relative_to(ROOT).as_posix()
+    (typst_dir / 'cv.typ').write_text(without_helper.replace('json("presentation.json")', f'json("/" + "{live_path}")'), encoding='utf-8')
     live = cv('render', oneoff, '--typst', typst, '--pages', '1', expect=1)
     assert live['status'] == 'success' and not live['checks_passed'], live
     assert any('live file outside the revision snapshot' in e and 'presentation.json' in e for e in live['errors']), live
@@ -414,13 +428,34 @@ def run_workflow(out, typst, system_family=None):
     if system_family:
         fonts.append(('system-font-fails-checks', system_family))
     for check, family in fonts:
-        (oneoff / 'cv.typ').write_text(without_helper.replace('font: "Source Sans 3"', f'font: "{family}"'), encoding='utf-8')
+        (typst_dir / 'cv.typ').write_text(without_helper.replace('font: "Source Sans 3"', f'font: "{family}"'), encoding='utf-8')
         fallback = cv('render', oneoff, '--typst', typst, '--pages', '1', expect=1)
         assert fallback['status'] == 'success' and not fallback['checks_passed'], fallback
         assert any(f'Font family "{family.lower()}" is not in packages/cv-framework/fonts' in e for e in fallback['errors']), fallback
         assert 'checks failed' in cv('approve', oneoff, fallback['revision'], '--approver', 'suite', '--sha256', fallback['sha256'],
                                      '--test-only', expect=2)
         passed.append(check)
+
+    # 11b. The old flat layout (cv.typ at the Envelope root, TASK-32) is refused by every command before anything
+    # is written, and the message says how to migrate; a stray root cv.typ beside typst/cv.typ is refused too.
+    flat = base / 'fictional-flat'
+    flat.mkdir()
+    (flat / 'envelope.json').write_text(json.dumps(envelope), encoding='utf-8')
+    (flat / 'candidate.json').write_text(json.dumps(record, indent=2), encoding='utf-8')
+    (flat / 'cv.typ').write_text(ENTRY.replace('../candidate.json', 'candidate.json'), encoding='utf-8')
+    for args in (('render', flat, '--typst', typst), ('approve', flat, rid, '--approver', 'suite', '--sha256', sha, '--test-only'),
+                 ('export', flat, rid), ('status', flat)):
+        refusal = cv(*args, expect=2)
+        assert 'old flat layout' in refusal and 'typst/cv.typ' in refusal and '../candidate.json' in refusal, (args, refusal)
+        assert 'images/portrait/' in refusal and 'identity.portrait' in refusal, (args, refusal)
+    assert sorted(p.name for p in flat.iterdir()) == ['candidate.json', 'cv.typ', 'envelope.json']
+    (flat / 'typst').mkdir()
+    (flat / 'typst/cv.typ').write_text(ENTRY, encoding='utf-8')
+    assert 'old flat layout' in cv('render', flat, '--typst', typst, expect=2)
+    (flat / 'cv.typ').unlink()
+    (flat / 'typst/cv.typ').unlink()
+    assert 'has no typst/cv.typ' in cv('status', flat, expect=2)
+    passed.append('flat-layout-refused')
 
     # 12. Stamp guards (decision #8, docs/proposals/workflow-model.md): a status that records an owner's act is
     # refused without its proof on disk, and the refusal leaves the Meta File as it was.
