@@ -1,11 +1,11 @@
 {
  "pages": {
   "change-review": {
-   "commit": "b01e51a",
+   "commit": "f9831e7",
    "sources": {
     ".claude/skills/verify-cv/SKILL.md": "1e1b505ef0ab6b10c1b2c57896a0e57b823f5b41",
     ".github/workflows/verify.yml": "61647a15c7431cdf5d9b5610123ea1c74f25bb23",
-    "AGENTS.md": "d9156600779b63a633df9103c9adca012a39df78",
+    "AGENTS.md": "3fcd7030f1311482ea19a8271107bff355001475",
     "docs/development.md": "92f757ef604f50a984f0a6151a28c18406d9fb00",
     "docs/git-workflow.md": "3721c4bfa0da82b02000b1a676502e5a97e7e917",
     "docs/preferences.md": "563b0ab6c940c8d4dacecfa440fd405744607ea3",
@@ -31,13 +31,13 @@
    "verifiedAt": "2026-10-14"
   },
   "design-run": {
-   "commit": "b01e51a",
+   "commit": "f9831e7",
    "sources": {
     ".claude/agents/design-reviewer.md": "d2161b7fa4228c17bdd8956598615082ef3312dc",
     ".claude/agents/magazine-editor.md": "ce4d9e4667d37dcde7edd9030a67d10d097c0667",
     ".claude/agents/research-reviewer.md": "5c4ca50e19c0afaffde30e28555b9479dc28ccc2",
     ".claude/skills/idea-run/SKILL.md": "d84228de9ec4293dd7cb37b2aeb05743257b5652",
-    "AGENTS.md": "d9156600779b63a633df9103c9adca012a39df78",
+    "AGENTS.md": "3fcd7030f1311482ea19a8271107bff355001475",
     "archive/anti-examples/README.md": "71f837077cc3870025458f8a4cd1f05df9a820d1",
     "design-concepts/README.md": "a4ff141fd51551106785e5d19ce8e563c2a3b9af",
     "docs/glossary.md": "54ce95ffa66e62ac9984f8e8b170c0a36af440a9",
@@ -49,7 +49,7 @@
    "verifiedAt": "2026-10-14"
   },
   "roster": {
-   "commit": "b01e51a",
+   "commit": "f9831e7",
    "sources": {
     ".claude/agents/ceo-reviewer.md": "058811a51ac27c65a93dc8915db4afd58676d33d",
     ".claude/agents/ceo.md": "2d1259232a06d6c853aaf321471260734a3be424",
@@ -69,7 +69,7 @@
     ".claude/skills/repo-maintenance/SKILL.md": "b2b1e33465db21e605c59cf0255371ec59809228",
     ".claude/skills/verify-cv/SKILL.md": "1e1b505ef0ab6b10c1b2c57896a0e57b823f5b41",
     ".github/workflows/verify.yml": "61647a15c7431cdf5d9b5610123ea1c74f25bb23",
-    "AGENTS.md": "d9156600779b63a633df9103c9adca012a39df78",
+    "AGENTS.md": "3fcd7030f1311482ea19a8271107bff355001475",
     "docs/decisions/0014-backlog-md-task-store.md": "429c351d5a2d313fb6945f26e646028d3d43c72b",
     "docs/development.md": "92f757ef604f50a984f0a6151a28c18406d9fb00",
     "docs/git-workflow.md": "3721c4bfa0da82b02000b1a676502e5a97e7e917",
