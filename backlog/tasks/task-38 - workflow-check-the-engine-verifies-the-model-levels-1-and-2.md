@@ -1,10 +1,10 @@
 ---
 id: TASK-38
 title: 'workflow-check: the workflow tool verifies the model (levels 1 and 2)'
-status: Active
+status: Done
 assignee: []
 created_date: '2026-10-14 04:47'
-updated_date: '2026-10-14 09:30'
+updated_date: '2026-10-14 10:00'
 labels:
   - workflow-model
 dependencies:
@@ -62,3 +62,9 @@ Observation: TASK-52 moves docs/work/ to archive/; the model cites docs/work/wor
 
 Evidence (code head f36c93f, after merging main, code rounds 1-2 and context round 1): suite PASS builds/tests-20261014-125438-286027 (workflow-model/check.log: OK model docs/workflow, 7 stages, 104 steps, 100 artifacts, 16 gates, 11 loops); bun test 60 pass; typecheck clean; ruff clean; Atlas check --strict exit 0; CI run 38545801603 green on ubuntu-24.04 and windows-2025 (the bun step and the suite). Reviews in archive/work-records/workflow-check/reviews/: code round 1 FINDINGS (settled in 0f49f98), code round 2 PASS, context round 1 FINDINGS (settled in f36c93f).
 <!-- SECTION:NOTES:END -->
+
+## Final Summary
+
+<!-- SECTION:FINAL_SUMMARY:BEGIN -->
+bun run check (no argument) checks the whole Workflow Model in docs/workflow: 20 rules over shape, references, files, skills, agents, commands (--help, scripts/ only, no ..), source anchors, and flow with declared loops; each rule has a failing fixture; placeholder caps print as a NOTE. bun run anchors <commit> [--fix] finds anchor drift. Wired into tests/run.py (skip without Bun locally, fail in CI) and verify.yml. Code rounds FINDINGS then PASS; context rounds FINDINGS then PASS. Suite builds/tests-20261014-125438-286027, CI 38545801603 green, 60 bun tests.
+<!-- SECTION:FINAL_SUMMARY:END -->
