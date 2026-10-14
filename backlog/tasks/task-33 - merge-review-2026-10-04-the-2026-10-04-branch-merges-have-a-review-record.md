@@ -1,7 +1,7 @@
 ---
 id: TASK-33
 title: 'merge-review-2026-10-04: the 2026-10-04 branch merges have a review record'
-status: Active
+status: Done
 assignee: []
 created_date: '2026-10-14 04:47'
 updated_date: '2026-10-14 06:26'
@@ -57,3 +57,9 @@ Review: docs/work/workflow-model/reviews/01-context-reviewer.md (FINDINGS) with 
 Checks: python tests/run.py PASS, 98 cases, builds/tests-20261014-092033-460057; atlas.py check --strict exit 0 after stamping.
 Criterion 3 (the `main` handoff item) is closed by the lead's session-end rewrite of backlog/docs/doc-1.
 <!-- SECTION:NOTES:END -->
+
+## Final Summary
+
+<!-- SECTION:FINAL_SUMMARY:BEGIN -->
+Retroactive context review of merges that reached main without their gates (a66b448 idea-run designs, 74a6f82 context agents). Three context-reviewer rounds (FINDINGS, FINDINGS, PASS). Fixed: dated correction lines in the handoff and run records; reviewer naming (design-core F1); Three-Second Test wording now Domain, specialty and Rank everywhere incl. Codex mirrors (F2); Codex review findings handed to TASK-4; Atlas notes and ranges; hanami-line brief parked. Suite PASS 98 (builds/tests-20261014-092033-460057), atlas check --strict 0. Reports: docs/work/workflow-model/reviews/01-03.
+<!-- SECTION:FINAL_SUMMARY:END -->
