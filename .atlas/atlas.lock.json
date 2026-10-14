@@ -1,10 +1,10 @@
 {
  "pages": {
   "change-review": {
-   "commit": "966dbf9",
+   "commit": "0f49f98",
    "sources": {
     ".claude/skills/verify-cv/SKILL.md": "237f6e30e3ad135618b688d729c2cdfa8bca24fa",
-    ".github/workflows/verify.yml": "c68527ee9ef87752a18348704639f30c52f0ea51",
+    ".github/workflows/verify.yml": "fce7f19c5e9373e4a47f53c4362b377c3dbdbc76",
     "AGENTS.md": "a1e81dbeb05262bd8db0b20c021c5238b7000122",
     "archive/work-records/anti-examples/reviews/01-context.md": "29eb150ea6949a2020956433f29947eac7d31c5d",
     "docs/development.md": "1ced3d1a4334f43e00c72dc811588299c945d414",
@@ -49,7 +49,7 @@
    "verifiedAt": "2026-10-14"
   },
   "roster": {
-   "commit": "966dbf9",
+   "commit": "0f49f98",
    "sources": {
     ".claude/agents/ceo-reviewer.md": "058811a51ac27c65a93dc8915db4afd58676d33d",
     ".claude/agents/ceo.md": "e6291c8d2282c325db11302b1be9ee8364edd3aa",
@@ -68,7 +68,7 @@
     ".claude/skills/new-theme/SKILL.md": "70b455c51593332b962ce581033e1e59a6071d00",
     ".claude/skills/repo-maintenance/SKILL.md": "b2b1e33465db21e605c59cf0255371ec59809228",
     ".claude/skills/verify-cv/SKILL.md": "237f6e30e3ad135618b688d729c2cdfa8bca24fa",
-    ".github/workflows/verify.yml": "c68527ee9ef87752a18348704639f30c52f0ea51",
+    ".github/workflows/verify.yml": "fce7f19c5e9373e4a47f53c4362b377c3dbdbc76",
     "AGENTS.md": "a1e81dbeb05262bd8db0b20c021c5238b7000122",
     "archive/work-records/anti-examples/reviews/01-context.md": "29eb150ea6949a2020956433f29947eac7d31c5d",
     "archive/work-records/codex-visual-tools/reviews/01.md": "b072308514f194affa6e445472c96731fac43918",

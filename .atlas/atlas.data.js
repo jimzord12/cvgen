@@ -2275,10 +2275,15 @@ window.ATLAS = {
   }
  ],
  "build": {
-  "builtAt": "2026-10-14 09:35 UTC",
-  "commit": "c2a7815",
+  "builtAt": "2026-10-14 09:43 UTC",
+  "commit": "0f49f98",
   "kit": "1.0",
-  "stale": {},
+  "stale": {
+   "system-map": [
+    "archive/work-records",
+    ".github/workflows/verify.yml"
+   ]
+  },
   "verified": {
    "client-journey": {
     "at": "2026-10-14",
@@ -2290,7 +2295,7 @@ window.ATLAS = {
    },
    "change-review": {
     "at": "2026-10-14",
-    "commit": "966dbf9"
+    "commit": "0f49f98"
    },
    "system-map": {
     "at": "2026-10-14",
@@ -2298,7 +2303,7 @@ window.ATLAS = {
    },
    "roster": {
     "at": "2026-10-14",
-    "commit": "966dbf9"
+    "commit": "0f49f98"
    }
   }
  }
