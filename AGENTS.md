@@ -123,7 +123,7 @@ Framework; `M` for `packages/domains/marine`, the marine domain; `F` for
 ./scripts/build.ps1 -HideVesselDurations
 ./scripts/build.ps1 -Release            # the same, then the `Release`: copied beside the entry points, stamped
 python tests/run.py                     # full suite, evidence into builds/tests-<timestamp>/
-typst compile --root . --font-path packages/cv-framework/fonts examples/marine/flagship/engineer.typ builds/scratch.pdf
+typst compile --root . --ignore-system-fonts --font-path packages/cv-framework/fonts examples/marine/flagship/engineer.typ builds/scratch.pdf
 python scripts/cv.py render private/<candidate>            # new revision: snapshot, PDF, log, checks
 python scripts/cv.py approve private/<candidate> <revision> --approver "<name>" --sha256 <reviewed hash>
 python scripts/cv.py export private/<candidate> <revision>  # verified copy into private/<candidate>/exports/<revision>/

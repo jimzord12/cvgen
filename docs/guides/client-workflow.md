@@ -257,7 +257,7 @@ plain. The script's header comment shows the parameters: the client's name,
 greeting and label, draft number, date and four sample facts.
 
 ```powershell
-typst compile --root . --font-path packages/cv-framework/fonts private/<envelope>/draft/draft-01.typ private/<envelope>/draft/draft-01.pdf
+typst compile --root . --ignore-system-fonts --font-path packages/cv-framework/fonts private/<envelope>/draft/draft-01.typ private/<envelope>/draft/draft-01.pdf
 python scripts/outputs.py stamp private/<envelope>/draft/draft-01.pdf status=sent
 ```
 

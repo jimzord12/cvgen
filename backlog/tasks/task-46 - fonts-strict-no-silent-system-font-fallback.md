@@ -4,7 +4,7 @@ title: 'fonts-strict: no silent system-font fallback'
 status: Active
 assignee: []
 created_date: '2026-10-14 04:47'
-updated_date: '2026-10-14 05:27'
+updated_date: '2026-10-14 05:42'
 labels:
   - restructure
 dependencies: []
@@ -54,4 +54,14 @@ Manual walk (fictional workspace builds/task-46-manual/fictional-engineer, built
 - ./scripts/build.ps1 -OutputDirectory builds/task-46-build-ok -> 5 CVs created. With golden-blue's display font changed to "Barlow Typo" (restored after) -> throws "A font family is not bundled, so Typst used another font: examples/marine/flagship/engineer.typ" after printing the warnings.
 
 Verification: python tests/run.py PASS, 97 cases, exact v11 reference passed, evidence builds/tests-20261014-082621-592052. python scripts/outputs.py check: 19 PDFs indexed, 0 problems.
+
+## Review
+
+Round 1 (code-reviewer, docs/work/fonts-strict/reviews/01-code-reviewer.md): PASS with two Minor findings and three Notes.
+- M1 fixed: `--ignore-system-fonts` added to the documented manual commands (AGENTS.md, new-cv skill, build-a-cv.md `typst watch`, client-workflow.md, the Atlas client-journey page, brand/forms/intake-header.typ comment; the header still compiles clean with the flag). Left as is: archive/ (frozen history) and docs/workflow/inventory/ (a dated inventory). The Atlas render step now also names the font check. Atlas: every page was already stale on main (stamped 2026-10-06; drift: private/ as its own repo, .worktrees/, the delete-by erase); checked each page against that drift and this change, no contradiction, stamped all five; `atlas.py check --strict` clean.
+- M2 fixed: the system-font case no longer names Arial. tests/workflow.py `system_font_family` picks the first plain family `typst fonts` lists that the bundled set lacks (here "3270 Nerd Font Mono"); `fonts-system` (fixture input `family`) and workflow step 11 (`system-font-fails-checks`) use it. With none on the machine both print `SKIPPED <case>: <reason>`, land in report.json with the reason and in the final line. Proof: flag removed from compile_case -> exit 1, `AssertionError: ('fonts-system', '')` (builds/mutation-46-r1-flag-console.txt); skip path forced -> both cases SKIPPED, suite PASS 96 (builds/probe-46-r1-skip-console.txt).
+- N1: follow-up task by the lead (PDF font-subset check for glyph-level fallback).
+- N2: reported to the owner by the lead (runner guard instead of `validate-theme`; context-reviewer round added).
+- N3: accepted; mutation consoles are now saved.
+Merged origin/main (clean). Suite PASS 98 cases, exact v11 match, builds/tests-20261014-084056-354234 (console builds/task-46-r1-final-console.txt); `scripts/outputs.py check` 19 PDFs, 0 problems.
 <!-- SECTION:NOTES:END -->

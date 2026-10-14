@@ -152,7 +152,7 @@ For live editing while you adjust the page plan, the compiler still works
 directly; write to a fresh name under `builds/`:
 
 ```powershell
-typst watch --root . --font-path packages/cv-framework/fonts private/jane-doe-second-engineer/cv.typ builds/jane-doe-preview.pdf
+typst watch --root . --ignore-system-fonts --font-path packages/cv-framework/fonts private/jane-doe-second-engineer/cv.typ builds/jane-doe-preview.pdf
 ```
 
 A preview is not a revision: what you approve and export is always a

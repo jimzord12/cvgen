@@ -9,7 +9,7 @@ import sys
 
 import pymupdf as fitz
 from verify import ROOT, FONTS, FLAGSHIP, verify, check_frozen
-from workflow import run_workflow
+from workflow import run_workflow, system_font_family
 from design_review import run_design_review
 from repo_maintenance import run_repo_maintenance
 from cv_workflow.render import STRICT_FONTS, font_fallbacks  # on the path through workflow.py
@@ -142,6 +142,12 @@ def main():
         results.append({'case': name, 'passed': True, 'folder': name})
         return pdf
 
+    def skip(*cases, reason):
+        """A case that cannot run on this machine: said loudly now, in report.json and in the final line."""
+        for name in cases:
+            print(f'SKIPPED {name}: {reason}')
+            results.append({'case': name, 'passed': None, 'skipped': reason})
+
     def check_case(pdf, reference=None, pages=2):
         """The PDF checks of verify.py into the case's own folder, plus a PNG of every page to look at."""
         outcome = verify(pdf, reference, pages=pages, output=pdf.parent / 'check')
@@ -236,9 +242,16 @@ def main():
             page = doc[0]
             gaps = (top(page, 'TOTAL') - top(page, 'Grace', 3), top(page, heading) - top(page, 'TOTAL', 3))
             assert all(17 < g < 32 for g in gaps), (mode, gaps)
-    # Fonts strict (task-46): a family that is not bundled fails the case instead of rendering in another font.
-    for mode, family in [('missing', 'cvgen missing family'), ('system', 'arial')]:
-        compile_case('fonts-' + mode, 'tests/fixtures/fonts.typ', {'case': mode}, error='unknown font family: ' + family)
+    # Fonts strict (task-46): a family that is not bundled fails the case instead of rendering in another font,
+    # whether it exists nowhere or only among this machine's fonts (which proves --ignore-system-fonts).
+    compile_case('fonts-missing', 'tests/fixtures/fonts.typ', {'case': 'missing'}, error='unknown font family: cvgen missing family')
+    system_family = system_font_family(args.typst)
+    if system_family:
+        compile_case('fonts-system', 'tests/fixtures/fonts.typ', {'case': 'system', 'family': system_family},
+                     error='unknown font family: ' + system_family.lower())
+    else:
+        skip('fonts-system', 'workflow-system-font-fails-checks',
+             reason='this machine has no font outside the bundled ones, so --ignore-system-fonts is not proven here')
     compile_case('data-valid', 'tests/fixtures/data.typ')
     # ADR 0008 fixtures: 31 of the 32 ctx-first components rendered alone, one page each, headed by
     # its name; the 32nd, document-shell, wraps a whole document and is covered by legacy-parity.
@@ -364,7 +377,7 @@ def main():
     compile_case('text-draft-full', 'tests/fixtures/text-draft.typ', {'case': 'full'}, error='the Check Page runs past one page')
     compile_case('text-draft-english', 'tests/fixtures/text-draft.typ', {'case': 'english'}, error='no house copy for check-lang "en"')
     # The candidate workflow, end to end and every refusal, in a fresh fictional workspace.
-    for check in run_workflow(out, args.typst):
+    for check in run_workflow(out, args.typst, system_family):
         results.append({'case': 'workflow-' + check, 'passed': True, 'folder': 'workflow'})
     # Output Contract: every public PDF sits in its home with a valid, current Meta File.
     sys.path.insert(0, str(ROOT / 'packages/cv-workflow'))
@@ -382,7 +395,10 @@ def main():
     check_core_boundary()
     report = {'passed': True, 'cases': results, 'exact_reference': result, 'output': str(out)}
     (out / 'report.json').write_text(json.dumps(report, indent=2), encoding='utf-8')
-    print(f'PASS: {len(results)} compilation cases plus PDF/data/layout assertions. Evidence: {out}')
+    skipped = [r['case'] for r in results if r.get('skipped')]
+    print(f'PASS: {len(results) - len(skipped)} compilation cases plus PDF/data/layout assertions. Evidence: {out}')
+    if skipped:
+        print(f'SKIPPED {len(skipped)}: {", ".join(skipped)} (reasons in report.json)')
 
 
 if __name__ == '__main__':

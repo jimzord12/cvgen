@@ -304,7 +304,7 @@
             "`draft/draft-NN.pdf` with its `Meta File` (status `sent`)"
           ],
           "cmd": [
-            "typst compile --root . --font-path packages/cv-framework/fonts private/<envelope>/draft/draft-01.typ private/<envelope>/draft/draft-01.pdf",
+            "typst compile --root . --ignore-system-fonts --font-path packages/cv-framework/fonts private/<envelope>/draft/draft-01.typ private/<envelope>/draft/draft-01.pdf",
             "python scripts/outputs.py stamp private/<envelope>/draft/draft-01.pdf status=sent"
           ],
           "sources": [
@@ -442,7 +442,7 @@
           "actor": "lead",
           "summary": "Every render is a new, never-overwritten folder with a snapshot of its inputs, the PDF, its checks and a `Meta File`.",
           "does": [
-            "Checks: page count, no empty page, fonts embedded, text inside the page.",
+            "Checks: page count, no empty page, fonts embedded, text inside the page, every font family bundled (a missing one is set in another font, so the checks fail).",
             "A certificate expired or expiring within 180 days prints a `Certificate Warning`; it never blocks.",
             "Claude stops here and reports the folder, the PDF's hash, the pages and every WARNING word for word."
           ],

@@ -90,7 +90,7 @@ fitting the page.
 4. Real person: `python scripts/cv.py render private/<name>-<rank>` (add
    `--pages 3` for a three-page plan, `--pages 1` for the one-page profile); the revision id, hash and check
    result are printed and kept under `revisions/<id>/`. Public example:
-   `typst compile --root . --font-path packages/cv-framework/fonts <entry> builds/<name>-01.pdf`.
+   `typst compile --root . --ignore-system-fonts --font-path packages/cv-framework/fonts <entry> builds/<name>-01.pdf`.
 5. On a fit or overflow error, apply the fix the message names. Page plan
    changes go in the entry point as a layout override, see
    `docs/reference/layout-and-pagination.md`. Never shrink body fonts.

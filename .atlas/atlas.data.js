@@ -833,7 +833,7 @@ window.ATLAS = {
         "`draft/draft-NN.pdf` with its `Meta File` (status `sent`)"
        ],
        "cmd": [
-        "typst compile --root . --font-path packages/cv-framework/fonts private/<envelope>/draft/draft-01.typ private/<envelope>/draft/draft-01.pdf",
+        "typst compile --root . --ignore-system-fonts --font-path packages/cv-framework/fonts private/<envelope>/draft/draft-01.typ private/<envelope>/draft/draft-01.pdf",
         "python scripts/outputs.py stamp private/<envelope>/draft/draft-01.pdf status=sent"
        ],
        "sources": [
@@ -971,7 +971,7 @@ window.ATLAS = {
        "actor": "lead",
        "summary": "Every render is a new, never-overwritten folder with a snapshot of its inputs, the PDF, its checks and a `Meta File`.",
        "does": [
-        "Checks: page count, no empty page, fonts embedded, text inside the page.",
+        "Checks: page count, no empty page, fonts embedded, text inside the page, every font family bundled (a missing one is set in another font, so the checks fail).",
         "A certificate expired or expiring within 180 days prints a `Certificate Warning`; it never blocks.",
         "Claude stops here and reports the folder, the PDF's hash, the pages and every WARNING word for word."
        ],
@@ -2274,57 +2274,30 @@ window.ATLAS = {
   }
  ],
  "build": {
-  "builtAt": "2026-10-06 08:36 UTC",
-  "commit": "f5875a3",
+  "builtAt": "2026-10-14 05:40 UTC",
+  "commit": "55ed27a",
   "kit": "1.0",
-  "stale": {
-   "client-journey": [
-    "docs/guides/client-workflow.md",
-    "docs/guides/build-a-cv.md",
-    ".claude/skills/new-client/SKILL.md",
-    "docs/preferences.md"
-   ],
-   "design-run": [
-    "AGENTS.md"
-   ],
-   "change-review": [
-    "AGENTS.md",
-    "docs/preferences.md"
-   ],
-   "system-map": [
-    "AGENTS.md",
-    "docs/guides/client-workflow.md",
-    "docs/guides/build-a-cv.md",
-    "docs/work"
-   ],
-   "roster": [
-    "docs/preferences.md",
-    "docs/guides/client-workflow.md",
-    "AGENTS.md",
-    ".claude/skills/new-client/SKILL.md",
-    "docs/guides/build-a-cv.md"
-   ]
-  },
+  "stale": {},
   "verified": {
    "client-journey": {
-    "at": "2026-10-06",
-    "commit": "9765962"
+    "at": "2026-10-14",
+    "commit": "55ed27a"
    },
    "design-run": {
-    "at": "2026-10-06",
-    "commit": "a4f1da0"
+    "at": "2026-10-14",
+    "commit": "55ed27a"
    },
    "change-review": {
-    "at": "2026-10-06",
-    "commit": "9765962"
+    "at": "2026-10-14",
+    "commit": "55ed27a"
    },
    "system-map": {
-    "at": "2026-10-06",
-    "commit": "a4f1da0"
+    "at": "2026-10-14",
+    "commit": "55ed27a"
    },
    "roster": {
-    "at": "2026-10-06",
-    "commit": "9765962"
+    "at": "2026-10-14",
+    "commit": "55ed27a"
    }
   }
  }
