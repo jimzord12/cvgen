@@ -3910,6 +3910,9 @@ window.ATLAS = {
         "docs/pdf-workflow.md:73-98"
        ]
       }
+     ],
+     "sources": [
+      "docs/git-workflow.md:140-149"
      ]
     },
     {
@@ -3994,7 +3997,10 @@ window.ATLAS = {
        "title": "build.ps1",
        "path": "scripts/build.ps1",
        "actor": "build-ps1",
-       "blurb": "Builds the listed examples; `-Release` writes a new `Release`, `-ReplaceRelease` (owner's go) replaces one."
+       "blurb": "Builds the listed examples; `-Release` writes a new `Release`, `-ReplaceRelease` (owner's go) replaces one.",
+       "sources": [
+        "scripts/build.ps1:1-13"
+       ]
       }
      ]
     },
@@ -4012,14 +4018,20 @@ window.ATLAS = {
        "id": "n-candidates",
        "title": "Example candidates",
        "path": "examples/candidates/",
-       "blurb": "Engineer, captain, chief officer, deck cadet, one fictional portrait."
+       "blurb": "Engineer, captain, chief officer, deck cadet, one fictional portrait.",
+       "sources": [
+        "examples/candidates"
+       ]
       },
       {
        "id": "n-release",
        "title": "The Release",
        "path": "examples/marine/flagship/",
        "blurb": "Five entry points, each with its PDF and `Meta File` beside it.",
-       "touch": "Replacing the `Release` needs your go."
+       "touch": "Replacing the `Release` needs your go.",
+       "sources": [
+        "examples/marine/flagship"
+       ]
       }
      ]
     },
@@ -4038,31 +4050,46 @@ window.ATLAS = {
        "title": "Design concepts",
        "path": "studio/design-concepts/",
        "actor": "magazine-editor",
-       "blurb": "Every design `Idea Run`'s Styles and Tiers, with a README row each (two Densities since the 2026-09-29 run)."
+       "blurb": "Every design `Idea Run`'s Styles and Tiers, with a README row each (two Densities since the 2026-09-29 run).",
+       "sources": [
+        "studio/design-concepts/README.md:1-22"
+       ]
       },
       {
        "id": "n-anti",
        "title": "Anti-examples",
        "path": "studio/archive/anti-examples/",
-       "blurb": "Designs you rejected as not your style. Never repeat their idea."
+       "blurb": "Designs you rejected as not your style. Never repeat their idea.",
+       "sources": [
+        "studio/archive/anti-examples/README.md"
+       ]
       },
       {
        "id": "n-studies",
        "title": "Design studies",
        "path": "studio/archive/design-studies/",
-       "blurb": "Four frozen studies, for inspiration only."
+       "blurb": "Four frozen studies, for inspiration only.",
+       "sources": [
+        "studio/archive/design-studies/README.md"
+       ]
       },
       {
        "id": "n-textdraft",
        "title": "First Fitting",
        "path": "scripts/text-draft.typ",
-       "blurb": "The house design every `Text Draft` uses."
+       "blurb": "The house design every `Text Draft` uses.",
+       "sources": [
+        "docs/glossary.md:57-58"
+       ]
       },
       {
        "id": "n-brand",
        "title": "Brand",
        "path": "studio/brand/",
-       "blurb": "The needle's-eye logo, the wordmark, the form header."
+       "blurb": "The needle's-eye logo, the wordmark, the form header.",
+       "sources": [
+        "studio/brand/README.md"
+       ]
       }
      ]
     },
@@ -4095,7 +4122,7 @@ window.ATLAS = {
        "path": ".local/design-review/state.json",
        "blurb": "keep / maybe / reject, stars, notes. On this machine only; no verdicts recorded as of 2026-10-01.",
        "sources": [
-        "AGENTS.md"
+        "apps/design-review/README.md"
        ]
       }
      ]
@@ -4121,7 +4148,10 @@ window.ATLAS = {
        "id": "n-docs",
        "title": "docs/",
        "path": "docs/",
-       "blurb": "Vision, constitution, architecture, guides, engine manuals, ADRs."
+       "blurb": "Vision, constitution, architecture, guides, engine manuals, ADRs.",
+       "sources": [
+        "docs"
+       ]
       },
       {
        "id": "n-glossary",
@@ -4133,13 +4163,19 @@ window.ATLAS = {
        "id": "n-agent-files",
        "title": ".claude/agents/",
        "path": ".claude/agents/",
-       "blurb": "The nine agent profiles, with model and tools."
+       "blurb": "The nine agent profiles, with model and tools.",
+       "sources": [
+        ".claude/agents"
+       ]
       },
       {
        "id": "n-skills",
        "title": ".claude/skills/",
        "path": ".claude/skills/",
-       "blurb": "The seven checklists agents load."
+       "blurb": "The seven checklists agents load.",
+       "sources": [
+        ".claude/skills"
+       ]
       },
       {
        "id": "n-work",
@@ -4183,7 +4219,10 @@ window.ATLAS = {
        "title": "GitHub CI",
        "path": ".github/workflows/verify.yml",
        "actor": "github-ci",
-       "blurb": "Ruff, the `Workflow Model` check, its generated READMEs and `Atlas` page, then the suite once per push (its head commit), Linux and Windows."
+       "blurb": "Ruff, the `Workflow Model` check, its generated READMEs and `Atlas` page, then the suite once per push (its head commit), Linux and Windows.",
+       "sources": [
+        "docs/engine/verification.md:26-38"
+       ]
       }
      ]
     },
@@ -4427,17 +4466,10 @@ window.ATLAS = {
   }
  ],
  "build": {
-  "builtAt": "2026-10-14 12:51 UTC",
-  "commit": "775cbc6",
+  "builtAt": "2026-10-14 12:52 UTC",
+  "commit": "ba0c8a8",
   "kit": "1.0",
-  "stale": {
-   "system-map": [
-    "AGENTS.md",
-    "docs/architecture.md",
-    "docs/pdf-workflow.md",
-    "docs/guides/client-workflow.md"
-   ]
-  },
+  "stale": {},
   "verified": {
    "client-journey": {
     "at": "2026-10-14",
@@ -4453,7 +4485,7 @@ window.ATLAS = {
    },
    "system-map": {
     "at": "2026-10-14",
-    "commit": "d9edaa7"
+    "commit": "ba0c8a8"
    },
    "roster": {
     "at": "2026-10-14",
