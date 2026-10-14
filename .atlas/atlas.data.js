@@ -2263,10 +2263,31 @@ window.ATLAS = {
   }
  ],
  "build": {
-  "builtAt": "2026-10-14 05:38 UTC",
-  "commit": "298fc49",
+  "builtAt": "2026-10-14 05:47 UTC",
+  "commit": "c1999c0",
   "kit": "1.0",
-  "stale": {},
+  "stale": {
+   "client-journey": [
+    "docs/guides/build-a-cv.md"
+   ],
+   "design-run": [
+    "AGENTS.md"
+   ],
+   "change-review": [
+    "AGENTS.md"
+   ],
+   "system-map": [
+    "AGENTS.md",
+    "docs/architecture.md",
+    "docs/guides/build-a-cv.md",
+    "docs/work"
+   ],
+   "roster": [
+    "AGENTS.md",
+    "docs/guides/build-a-cv.md",
+    "docs/reference/verification.md"
+   ]
+  },
   "verified": {
    "client-journey": {
     "at": "2026-10-14",

@@ -4,7 +4,7 @@ title: 'legacy-removal: the deprecated component layer has a removal date'
 status: Active
 assignee: []
 created_date: '2026-10-14 04:48'
-updated_date: '2026-10-14 05:44'
+updated_date: '2026-10-14 05:49'
 labels:
   - restructure
 dependencies: []
@@ -58,4 +58,11 @@ Round 1, code-reviewer, 2026-10-14: PASS with minors (`docs/work/legacy-removal/
 - n2 and lead's settled decision: the owner authorized TASK-32 in this run, so TASK-58 now depends on TASK-56 and TASK-32; its precondition is TASK-32's migration of the two clients' cv.typ to ctx-first calls (no separate owner go); 2026-10-31 stays as the backstop. TASK-32 has a note naming the 12 names and the table.
 
 Merged origin/main (TASK-29) cleanly. After the fixes: `python tests/run.py` PASS, 94 cases, evidence `builds/tests-20261014-084152-662927`; `scripts/outputs.py check` 19 PDFs, 0 problems; Atlas: the five pages went stale only on this branch's files, no cited line range or page fact touches the changed passages, all five restamped (`ok`). A context-reviewer round for the doc changes follows (lead).
+
+Round 2, context-reviewer, 2026-10-14: FINDINGS (`docs/work/legacy-removal/reviews/02-context-reviewer.md`). Fixed in 0b64301:
+- M1: the date 2026-10-31 now lives only in TASK-58 (due date, description) and the framework-gaps Update line; AGENTS.md, architecture.md, conventions.md, build-a-cv.md, domains-and-roles.md, skills-component.md, both lib.typ and both legacy.typ comments say "removal planned (TASK-58)" with the table pointer where one was. framework-gaps Status: "open, removal planned in TASK-58 once TASK-32 re-points the private compositions". TASK-58 retitled "legacy-delete: remove the deprecated component layer" (file name unchanged).
+- m1: conventions.md and architecture.md say "Apart from the parity fixture, no public file calls them".
+- m2: the framework-gaps Update line records that re-pointing is authorized by the owner inside TASK-32 (2026-10-14).
+
+Merged origin/main (TASK-54); Atlas lock/data conflicts taken from main, rebuilt and restamped. `python tests/run.py` PASS, 94 cases, evidence `builds/tests-20261014-084759-494599`; `scripts/outputs.py check` 19 PDFs, 0 problems.
 <!-- SECTION:NOTES:END -->
