@@ -4412,27 +4412,14 @@ window.ATLAS = {
   }
  ],
  "build": {
-  "builtAt": "2026-10-14 11:20 UTC",
-  "commit": "9319c70",
+  "builtAt": "2026-10-14 11:22 UTC",
+  "commit": "24fa022",
   "kit": "1.0",
   "stale": {
-   "design-run": [
-    "AGENTS.md"
-   ],
-   "change-review": [
-    "AGENTS.md",
-    ".github/workflows/verify.yml"
-   ],
    "system-map": [
     "AGENTS.md",
     "archive/work-records",
     "tests/run.py",
-    ".github/workflows/verify.yml"
-   ],
-   "roster": [
-    "AGENTS.md",
-    "tests/run.py",
-    "docs/engine/verification.md",
     ".github/workflows/verify.yml"
    ]
   },
@@ -4443,11 +4430,11 @@ window.ATLAS = {
    },
    "design-run": {
     "at": "2026-10-14",
-    "commit": "930100b"
+    "commit": "24fa022"
    },
    "change-review": {
     "at": "2026-10-14",
-    "commit": "ce6fe1f"
+    "commit": "24fa022"
    },
    "system-map": {
     "at": "2026-10-14",
@@ -4455,7 +4442,7 @@ window.ATLAS = {
    },
    "roster": {
     "at": "2026-10-14",
-    "commit": "0db3ba7"
+    "commit": "24fa022"
    }
   }
  }
