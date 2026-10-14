@@ -21,6 +21,16 @@ READS = re.compile(r'(?:(?<![\w.-])(?:json|yaml|toml|csv|xml|cbor|read|image)\(\
 COMMENTS = re.compile(r'("(?:\\.|[^"\\\n])*")|/\*.*?\*/|(?<!:)//[^\n]*', re.S)
 # Typst writes UTF-8 whatever the Windows locale says; a Greek name in an error must survive.
 TEXT = {'text': True, 'encoding': 'utf-8', 'errors': 'replace'}
+# Fonts strict (task-46): every compile reads only the fonts it is given (--font-path) plus Typst's own
+# embedded ones, never the machine's. A family that is not there still compiles, set in another font,
+# with only a warning and exit code 0, so the runners read that warning and fail on it.
+STRICT_FONTS = ['--ignore-system-fonts']
+FONT_FALLBACK = re.compile(r'warning: unknown font family: ([^\r\n]+)')
+
+
+def font_fallbacks(log):
+    """The font families Typst could not find and replaced with another font, from its compile output."""
+    return list(dict.fromkeys(name.strip() for name in FONT_FALLBACK.findall(log)))
 
 
 def without_comments(source):
@@ -140,7 +150,7 @@ def render_revision(workspace, typst='typst', pages=2, inputs=None, reference_da
         shutil.copyfile(ws.folder / relative, copy)
         extra.append({'path': 'inputs/' + relative.as_posix(), 'sha256': sha256_file(copy)})
 
-    command = [compiler, 'compile', '--root', str(ROOT), '--font-path', str(FONTS)]
+    command = [compiler, 'compile', '--root', str(ROOT), *STRICT_FONTS, '--font-path', str(FONTS)]
     for key, value in (inputs or {}).items():
         command += ['--input', f'{key}={value}']
     command += [str(revision.inputs / 'cv.typ'), str(revision.pdf)]
@@ -179,6 +189,11 @@ def render_revision(workspace, typst='typst', pages=2, inputs=None, reference_da
         for path in live:
             checks['errors'].append(f'The compile read {path}, a live file outside the revision snapshot; '
                                     'read it by a literal path relative to cv.typ')
+        # A missing font family makes the page look wrong while it still compiles: never approvable.
+        for family in font_fallbacks(result.stderr):
+            checks['errors'].append(f'Font family "{family}" is not in {repo_relative(FONTS).lstrip("/")}, so Typst set '
+                                    'that text in another font; fix the name or bundle the font there (render.log '
+                                    'shows where it is used)')
         checks['passed'] = not checks['errors']
         # Read from the snapshot the PDF was compiled from; warnings never change `passed`.
         checks['certificates'] = check_certificates(read_json(revision.inputs / 'candidate.json'), reference_date)

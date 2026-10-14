@@ -129,10 +129,12 @@ Run every `scripts/cv.py` command from the repository root; the workspace
 path is relative to it. The command prints the revision id, the PDF's
 SHA-256, the schema the record was checked against and whether the
 automated checks passed (page count, no empty page, fonts embedded, text
-inside the page). Exit code 1 means the compiler or a check failed; the
-revision stays, with the error in its `render.log` or `checks.json`, and the
-fix is a new revision. Exit code 2 prints `REFUSED: <reason>`: the inputs
-are not usable (a workspace without `envelope.json`, `candidate.json` or `cv.typ`, invalid
+inside the page, every font family bundled: Typst sets a missing one in
+another font, so it fails the checks). Exit code 1 means the compiler or
+a check failed; the revision stays, with the error in its `render.log` or
+`checks.json`, and the fix is a new revision. Exit code 2 prints
+`REFUSED: <reason>`: the inputs are not usable (a workspace without
+`envelope.json`, `candidate.json` or `cv.typ`, invalid
 JSON, a record that breaks its schema - the offending fields are listed
 with their paths, the first ten and then a count - a missing portrait file, no Typst on PATH), and the reason
 names the fix. Nothing is written on a refusal.
@@ -152,7 +154,7 @@ For live editing while you adjust the page plan, the compiler still works
 directly; write to a fresh name under `builds/`:
 
 ```powershell
-typst watch --root . --font-path packages/cv-framework/fonts private/jane-doe-second-engineer/cv.typ builds/jane-doe-preview.pdf
+typst watch --root . --ignore-system-fonts --font-path packages/cv-framework/fonts private/jane-doe-second-engineer/cv.typ builds/jane-doe-preview.pdf
 ```
 
 A preview is not a revision: what you approve and export is always a
