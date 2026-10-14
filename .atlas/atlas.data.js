@@ -2276,18 +2276,9 @@ window.ATLAS = {
  ],
  "build": {
   "builtAt": "2026-10-14 09:55 UTC",
-  "commit": "59600d0",
+  "commit": "b64d4cd",
   "kit": "1.0",
-  "stale": {
-   "system-map": [
-    "AGENTS.md",
-    "docs/pdf-workflow.md",
-    "docs/guides/client-workflow.md",
-    "apps/design-review/server.py",
-    "docs/glossary.md",
-    ".claude/skills/backlog/SKILL.md"
-   ]
-  },
+  "stale": {},
   "verified": {
    "client-journey": {
     "at": "2026-10-14",
@@ -2303,7 +2294,7 @@ window.ATLAS = {
    },
    "system-map": {
     "at": "2026-10-14",
-    "commit": "ca27050"
+    "commit": "b64d4cd"
    },
    "roster": {
     "at": "2026-10-14",
