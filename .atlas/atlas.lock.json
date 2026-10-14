@@ -1,7 +1,7 @@
 {
  "pages": {
   "change-review": {
-   "commit": "f6aebb4",
+   "commit": "9db5894",
    "sources": {
     ".claude/skills/verify-cv/SKILL.md": "1e1b505ef0ab6b10c1b2c57896a0e57b823f5b41",
     ".github/workflows/verify.yml": "61647a15c7431cdf5d9b5610123ea1c74f25bb23",
@@ -10,18 +10,18 @@
     "docs/git-workflow.md": "3721c4bfa0da82b02000b1a676502e5a97e7e917",
     "docs/preferences.md": "563b0ab6c940c8d4dacecfa440fd405744607ea3",
     "docs/proposals/README.md": "1510574614d3a04fca59d903a6502dda90f96018",
-    "docs/review.md": "bd9dea389e91018c0876526ca37d5154ddde238e",
+    "docs/review.md": "4cd2448fe5192a91ad51104705b262ed6fcf3f54",
     "docs/work/anti-examples/reviews/01-context.md": "29eb150ea6949a2020956433f29947eac7d31c5d"
    },
    "verifiedAt": "2026-10-14"
   },
   "client-journey": {
-   "commit": "f6aebb4",
+   "commit": "9db5894",
    "sources": {
     ".claude/skills/idea-run/SKILL.md": "d84228de9ec4293dd7cb37b2aeb05743257b5652",
     ".claude/skills/new-client/SKILL.md": "4619102081174ff251f3e6a877b32383a833efc7",
     ".claude/skills/new-cv/SKILL.md": "21fbddbcb9868141b92fca1ffb4441b035731d14",
-    "docs/glossary.md": "332ce825423889c9c0acd99d2236f11aea86f688",
+    "docs/glossary.md": "d172db94eb457b470f46a7a264edf226c567693a",
     "docs/guides/build-a-cv.md": "0b8e6a2c535e2c1f3f6a9246be2b685829251c6c",
     "docs/guides/client-workflow.md": "bffa3464130cd2929ce44cf0965706a6cd158812",
     "docs/pdf-workflow.md": "c0c245619e8dd2d44e9b3ab39f5555126baab33c",
@@ -31,7 +31,7 @@
    "verifiedAt": "2026-10-14"
   },
   "design-run": {
-   "commit": "f6aebb4",
+   "commit": "9db5894",
    "sources": {
     ".claude/agents/design-reviewer.md": "d2161b7fa4228c17bdd8956598615082ef3312dc",
     ".claude/agents/magazine-editor.md": "f47803d38885710cb347867908574cfa4cc23ba1",
@@ -40,22 +40,22 @@
     "AGENTS.md": "50e1033c2e466356a2c39ca63ff041af39a6e8b5",
     "archive/anti-examples/README.md": "71f837077cc3870025458f8a4cd1f05df9a820d1",
     "design-concepts/README.md": "a4ff141fd51551106785e5d19ce8e563c2a3b9af",
-    "docs/glossary.md": "332ce825423889c9c0acd99d2236f11aea86f688",
+    "docs/glossary.md": "d172db94eb457b470f46a7a264edf226c567693a",
     "docs/pdf-workflow.md": "c0c245619e8dd2d44e9b3ab39f5555126baab33c",
     "docs/proposals/codex-visual-tools.md": "75c618572d0396a2b9f3349af28aa7f11a74b3c6",
-    "docs/review.md": "bd9dea389e91018c0876526ca37d5154ddde238e",
+    "docs/review.md": "4cd2448fe5192a91ad51104705b262ed6fcf3f54",
     "scripts/design_review/server.py": "9d9d6be943f9cc5aa8eb9882b90e54668410ee05"
    },
    "verifiedAt": "2026-10-14"
   },
   "roster": {
-   "commit": "f6aebb4",
+   "commit": "9db5894",
    "sources": {
     ".claude/agents/ceo-reviewer.md": "058811a51ac27c65a93dc8915db4afd58676d33d",
     ".claude/agents/ceo.md": "2d1259232a06d6c853aaf321471260734a3be424",
     ".claude/agents/code-reviewer.md": "7dc8681cc1567d31c532660f0a394a0b717392d2",
-    ".claude/agents/context-maintainer.md": "9be68fe5a8dd36e76ada2fb9167b380c645c1018",
-    ".claude/agents/context-reviewer.md": "479875ffae1b4e1c76b5c71c99220a470d8a3c55",
+    ".claude/agents/context-maintainer.md": "d5687f833b18d326e84db8f92298e06086389baa",
+    ".claude/agents/context-reviewer.md": "68205bcdf72a4c0b36c4c4ca2a8a3baadcd5f34a",
     ".claude/agents/design-reviewer.md": "d2161b7fa4228c17bdd8956598615082ef3312dc",
     ".claude/agents/magazine-editor.md": "f47803d38885710cb347867908574cfa4cc23ba1",
     ".claude/agents/repo-auditor-lite.md": "99c2e868259168afc5e9a3a087e4d3cc1ef88354",
@@ -79,7 +79,7 @@
     "docs/pdf-workflow.md": "c0c245619e8dd2d44e9b3ab39f5555126baab33c",
     "docs/preferences.md": "563b0ab6c940c8d4dacecfa440fd405744607ea3",
     "docs/proposals/codex-visual-tools.md": "75c618572d0396a2b9f3349af28aa7f11a74b3c6",
-    "docs/review.md": "bd9dea389e91018c0876526ca37d5154ddde238e",
+    "docs/review.md": "4cd2448fe5192a91ad51104705b262ed6fcf3f54",
     "docs/work/anti-examples/reviews/01-context.md": "29eb150ea6949a2020956433f29947eac7d31c5d",
     "docs/work/codex-visual-tools/reviews/01.md": "b072308514f194affa6e445472c96731fac43918",
     "docs/work/design-core/reviews/03-context-reviewer.md": "f526d0ba3f0dd76ce5164c323047a78de133c2aa",
