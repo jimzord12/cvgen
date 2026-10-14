@@ -1,10 +1,10 @@
 ---
 id: TASK-58
 title: 'legacy-delete: remove the deprecated component layer'
-status: Active
+status: Done
 assignee: []
 created_date: '2026-10-14 05:31'
-updated_date: '2026-10-14 08:31'
+updated_date: '2026-10-14 08:38'
 due_date: '2026-10-31'
 labels:
   - restructure
@@ -32,3 +32,9 @@ Removal date set by TASK-56. On 2026-10-14 the only callers of the 32 deprecated
 <!-- SECTION:NOTES:BEGIN -->
 2026-10-14: implemented on refactor/task-58-legacy-delete. No caller left: public tree imports no flat name; both private compositions use cc./fc. only. Suite PASS (142 cases, frozen v11 pixel-identical); both private compositions render pixel-identical to reference.pdf at 150 dpi (staged copy). Awaiting independent review.
 <!-- SECTION:NOTES:END -->
+
+## Final Summary
+
+<!-- SECTION:FINAL_SUMMARY:BEGIN -->
+The deprecated flat-signature layer is gone: core/legacy.typ, Flagship legacy.typ and the legacy-parity fixture deleted, both lib.typ files export only module names and non-component names, check-layout stays in flagship(). No live caller was left (the two private marine compositions were re-pointed by TASK-32). A new suite check asserts the engineer PDF title and author (what document-shell sets). Docs updated; build-a-cv section 8 points to the old mapping table in git history (70631ed). Code review round 1 PASS, context reviews FINDINGS then PASS. Suite PASS 142 (builds/tests-20261014-113438-279670 in the worktree); frozen v11 and both private marine CVs pixel-identical.
+<!-- SECTION:FINAL_SUMMARY:END -->
