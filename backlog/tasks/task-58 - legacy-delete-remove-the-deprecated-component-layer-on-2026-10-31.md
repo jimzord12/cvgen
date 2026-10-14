@@ -1,10 +1,10 @@
 ---
 id: TASK-58
 title: 'legacy-delete: remove the deprecated component layer'
-status: Queued
+status: Done
 assignee: []
 created_date: '2026-10-14 05:31'
-updated_date: '2026-10-14 05:47'
+updated_date: '2026-10-14 08:38'
 due_date: '2026-10-31'
 labels:
   - restructure
@@ -22,7 +22,19 @@ Removal date set by TASK-56. On 2026-10-14 the only callers of the 32 deprecated
 
 ## Acceptance Criteria
 <!-- AC:BEGIN -->
-- [ ] #1 No file in this repository or in the two private compositions imports a deprecated flat component name; both private compositions render pixel-identical to their pre-migration renders
-- [ ] #2 Both legacy.typ files, their lib.typ exports and the legacy-parity fixture are gone; python tests/run.py passes with the frozen v11 reference pixel-identical
-- [ ] #3 The docs/framework-gaps.md entry 'Legacy component signatures' is closed and the docs no longer describe legacy.typ
+- [x] #1 No file in this repository or in the two private compositions imports a deprecated flat component name; both private compositions render pixel-identical to their pre-migration renders
+- [x] #2 Both legacy.typ files, their lib.typ exports and the legacy-parity fixture are gone; python tests/run.py passes with the frozen v11 reference pixel-identical
+- [x] #3 The docs/framework-gaps.md entry 'Legacy component signatures' is closed and the docs no longer describe legacy.typ
 <!-- AC:END -->
+
+## Implementation Notes
+
+<!-- SECTION:NOTES:BEGIN -->
+2026-10-14: implemented on refactor/task-58-legacy-delete. No caller left: public tree imports no flat name; both private compositions use cc./fc. only. Suite PASS (142 cases, frozen v11 pixel-identical); both private compositions render pixel-identical to reference.pdf at 150 dpi (staged copy). Awaiting independent review.
+<!-- SECTION:NOTES:END -->
+
+## Final Summary
+
+<!-- SECTION:FINAL_SUMMARY:BEGIN -->
+The deprecated flat-signature layer is gone: core/legacy.typ, Flagship legacy.typ and the legacy-parity fixture deleted, both lib.typ files export only module names and non-component names, check-layout stays in flagship(). No live caller was left (the two private marine compositions were re-pointed by TASK-32). A new suite check asserts the engineer PDF title and author (what document-shell sets). Docs updated; build-a-cv section 8 points to the old mapping table in git history (70631ed). Code review round 1 PASS, context reviews FINDINGS then PASS. Suite PASS 142 (builds/tests-20261014-113438-279670 in the worktree); frozen v11 and both private marine CVs pixel-identical.
+<!-- SECTION:FINAL_SUMMARY:END -->

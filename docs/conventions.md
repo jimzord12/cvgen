@@ -28,7 +28,7 @@ them. These evolve; the rules that do not are in `constitution.md`.
   page shell; in both) and `flagship-components` (every Flagship section,
   in marine's). A template's components are always exported as one module
   named `<template>-components`, never as flat names, so they cannot clash
-  with each other or with the deprecated flat names. Each domain's `lib.typ`
+  with each other. Each domain's `lib.typ`
   is its own namespace (`docs/engine/domains-and-roles.md`, "Naming rule
   for exports"). Example:
   `#import "/packages/domains/marine/lib.typ": make-ctx, flagship-components as fc`,
@@ -36,16 +36,10 @@ them. These evolve; the rules that do not are in `constitution.md`.
   directly; a domain file reaches the core by a relative path through
   `cv-framework/core/` (`../../cv-framework/core/data.typ` from a domain's
   `data.typ`).
-- **Legacy signatures stay in `legacy.typ`.** Every core and Flagship module
-  follows the contract since 2026-09-25. The flat component names marine's
-  `lib.typ` exports (`hero`, `section-heading`, ...) are thin wrappers with the old
-  order (data, theme, geometry slice) so custom compositions written earlier
-  render unchanged; `tests/fixtures/legacy-parity.typ` calls all 32 and
-  proves identical pixels, artifact tags and PDF metadata (the suite rejects a name called
-  only in a comment, and a page-background that draws nothing). Deprecated: new code never calls them, and no new
-  legacy wrapper is added. Apart from the parity fixture, no public file
-  calls them; removal planned (TASK-58), once the two private compositions are re-pointed
-  with the mapping table in `docs/guides/build-a-cv.md` section 8.
+- **One signature per component.** Every core and Flagship module follows
+  the contract since 2026-09-25. The flat names with the old order (data,
+  theme, geometry slice) that `lib.typ` kept for earlier compositions were
+  removed on 2026-10-14 (TASK-58); `docs/history.md` has the story.
 - **Style block: not applied yet.** ADR 0008 asks each component to group
   its `set` and `show` rules at the top of its block; the 2026-09-25
   migration changed signatures only, and most components still style inline

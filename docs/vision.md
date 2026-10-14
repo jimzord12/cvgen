@@ -134,8 +134,8 @@ started on an agent's initiative.
 4. **The component contract.** Migrate the Flagship modules to the shape in
    ADR 0008, one module per commit under the pixel gate. Opened and
    **done** 2026-09-25: core and Flagship components are ctx-first, exported
-   as `core-components` and `flagship-components`; the old signatures stay
-   as deprecated wrappers (`docs/framework-gaps.md`).
+   as `core-components` and `flagship-components`; the old signatures stayed
+   as deprecated wrappers until TASK-58 removed them on 2026-10-14.
 5. **A second marine template.** A named design with its own sections and
    frozen reference, likely grown from one of the studies under
    `archive/design-studies/`.

@@ -31,10 +31,6 @@ as the module `flagship-components`; it is not part of the locked
   has no `skills` slice. `skills-layout` exposes `heading-gap`,
   `rule-weight`, `content-gap`, `column-gap`, `bullet-size`, `body-indent`,
   `item-gap`.
-- Older compositions call `lib.typ`'s flat `skills-section(groups, theme,
-  title:, bullet:, geometry:)`; that deprecated wrapper draws the same pixels
-  and its removal is planned (TASK-58; mapping table in
-  `docs/guides/build-a-cv.md` section 8).
 
 `tests/fixtures/skills.typ` covers titles, one to three columns, wrapping,
 both themes and both bullet kinds through `flagship-components`, with the
