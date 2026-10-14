@@ -81,7 +81,7 @@ jobs:
       - name: Install verification dependencies
         run: pip install -r requirements.lock
 
-      # ruff.toml says what is checked: scripts/, tests/ and packages/cv-workflow/.
+      # ruff.toml says what is checked: apps/, scripts/, tests/ and packages/cv-workflow/.
       - name: Lint with ruff
         run: ruff check
 

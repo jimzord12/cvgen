@@ -5,7 +5,7 @@ or where any PDF someone will review goes (the `Output Contract`, below).
 Status: Approved by the owner in conversation on 2026-09-15; recorded in
 [ADR 0010](decisions/0010-public-monorepo-and-pdf-workflow.md). The source
 tree below is implemented for the engine (`packages/cv-framework/` and
-`packages/domains/` since ADR 0012, `examples/`, `archive/`) and for the local workflow (`packages/cv-workflow/`,
+`packages/domains/` since ADR 0012, `examples/`, `studio/archive/`) and for the local workflow (`packages/cv-workflow/`,
 `scripts/cv.py`) since 2026-09-16; `apps/web/` is not implemented.
 The commands are in `docs/guides/build-a-cv.md`; the package's own README
 describes the records it writes.
@@ -20,8 +20,8 @@ since ADR 0011 (2026-09-21) and split into the Framework and the domains
 since ADR 0012 (2026-09-25), is:
 
 ```text
-apps/
-  web/                          # Future submission, review, and download UI
+apps/                           # web/: future submission, review, and download UI
+  design-review/                # The owner's local Design Review app (since TASK-55)
 packages/
   cv-framework/                 # The Framework; imports no domain
     lib.typ                     # Core exports only
@@ -52,10 +52,10 @@ examples/
                                 #   Release PDF and Meta File beside it
 builds/                         # Disposable public example/test output
 docs/
-archive/design-studies/          # Historical studies, inputs, and previews
-archive/anti-examples/          # Designs the owner rejected as not his style (frozen)
-design-concepts/                # Proposed template concepts (idea-run skill), each PDF
-                                #   with its Meta File; fonts/ shared
+studio/                         # Design work beside the engine (TASK-55): brand/ (our logo),
+  design-concepts/              #   proposed template concepts (idea-run skill), each PDF with
+                                #   its Meta File, fonts/ shared; archive/: design-studies/,
+                                #   anti-examples/ (frozen) and work-records/ (review reports)
 private/                        # Local candidate workspaces; Git-ignored
 ```
 
@@ -115,15 +115,15 @@ alone is not a guarantee that such a development run can be reproduced.
 Every PDF we show someone (a concept, the `Release`, a client's `Text Draft`
 or CV) sits in the one home its kind has, with a `Meta File` beside it that
 says what it is (owner, 2026-09-30; [the proposal](proposals/output-contract.md)).
-`archive/` is outside the contract: its PDFs are frozen records, not review
+`studio/archive/` is outside the contract: its PDFs are frozen records, not review
 targets, and carry no `Meta File`.
 Nothing infers a PDF's meaning from where it happens to lie, and a PDF
 without a valid, current `Meta File` shows up as a problem, never silently.
 
 | `kind` | Home | `status` |
 |---|---|---|
-| `concept` | `design-concepts/<date>-<slug>/<density>/<tier>/<density>-<tier>.pdf` | `proposed`, `chosen`, `parked`, `rejected`, `unresolved` |
-| `house-design` (a proposed `House Design`, such as the `Text Draft`'s First Fitting; `text-draft` until 2026-10-14) | `design-concepts/<date>-<slug>/concept.pdf`, `concept-<variant>.pdf` (a flat run's palette variants of a CV `Style`, such as Hanami Line 2's, are kind `concept`) | as `concept` |
+| `concept` | `studio/design-concepts/<date>-<slug>/<density>/<tier>/<density>-<tier>.pdf` | `proposed`, `chosen`, `parked`, `rejected`, `unresolved` |
+| `house-design` (a proposed `House Design`, such as the `Text Draft`'s First Fitting; `text-draft` until 2026-10-14) | `studio/design-concepts/<date>-<slug>/concept.pdf`, `concept-<variant>.pdf` (a flat run's palette variants of a CV `Style`, such as Hanami Line 2's, are kind `concept`) | as `concept` |
 | `example` (the `Release`) | `examples/<domain>/<template>/<name>.pdf`, beside `<name>.typ` | `release` |
 | `client-draft` (a client's `Text Draft`) | `private/<envelope>/draft/draft-NN.pdf` | `ready` (compiled), `sent` (the owner confirmed he sent it), `signed-off`, `superseded` |
 | `client-cv` | `private/<envelope>/revisions/<id>/cv.pdf`; `private/<envelope>/reference.pdf` for a CV delivered before `cv.py` | `render`, `approved`, `delivered` |
@@ -156,7 +156,7 @@ without a valid, current `Meta File` shows up as a problem, never silently.
   at compile) and for every later status change (`sent` once the owner
   confirms he sent it, an owner's verdict on a concept, a `Sign-off`, a
   delivery).
-- `python scripts/outputs.py check` lists every PDF in `design-concepts/`
+- `python scripts/outputs.py check` lists every PDF in `studio/design-concepts/`
   and `examples/` (and a stray root `exports/`, which is retired) with no
   valid, current `Meta File` or outside a home; `--private` adds the client
   homes. `python tests/run.py` fails on any, and the `Design Review` app,

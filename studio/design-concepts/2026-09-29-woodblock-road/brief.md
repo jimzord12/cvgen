@@ -43,14 +43,14 @@ Spacious `Density` (same facts, more room: body text at 10 to 10.5 pt, larger ar
 - **From the other two styles:** it is pictorial and printmaking-based (serif, Prussian blue, vermilion, washi paper). Stamp Rally is ephemera and ink (condensed sans, mono, stamps on cream or burgundy). Concourse is hard signage (Fira, charcoal, yellow, LED).
 - **From the market:** no skill bars, icons or sidebar. The domain imagery is drawn as original vector art, not clip-art.
 
-## Fonts (OFL 1.1, shipped unmodified with their licence: Alegreya in `design-concepts/fonts/`, Kaisei Tokumin in `packages/cv-framework/fonts/`)
+## Fonts (OFL 1.1, shipped unmodified with their licence: Alegreya in `studio/design-concepts/fonts/`, Kaisei Tokumin in `packages/cv-framework/fonts/`)
 
 | Family | File | Source | SHA-256 |
 |---|---|---|---|
 | Alegreya (Greek covered) | `alegreya/Alegreya[wght].ttf` | https://raw.githubusercontent.com/google/fonts/main/ofl/alegreya/Alegreya%5Bwght%5D.ttf | `ba5564634b93a8f8ba57b48cd4f1ae7417d2b4656fbac779028679b00de3cf12` |
 | Kaisei Tokumin (Japanese, used only for kanji and kana) | `KaiseiTokumin-ExtraBold.ttf` | https://raw.githubusercontent.com/google/fonts/main/ofl/kaiseitokumin/KaiseiTokumin-ExtraBold.ttf | `bf44bb3e23cc703bfb19111833f78e651998d0a2b1863eff9e88cecb38a8bc53` |
 
-Licences: `alegreya/OFL.txt` (in `design-concepts/fonts/`), `kaiseitokumin-OFL.txt` (in `packages/cv-framework/licenses/`). The Kaisei file is 4.5 MB, but Typst embeds only the subset used, so PDFs stay between 100 and 135 KB. All Greek text is set in Alegreya; Kaisei lacks accented Greek and is never used for it.
+Licences: `alegreya/OFL.txt` (in `studio/design-concepts/fonts/`), `kaiseitokumin-OFL.txt` (in `packages/cv-framework/licenses/`). The Kaisei file is 4.5 MB, but Typst embeds only the subset used, so PDFs stay between 100 and 135 KB. All Greek text is set in Alegreya; Kaisei lacks accented Greek and is never used for it.
 
 ## Data
 

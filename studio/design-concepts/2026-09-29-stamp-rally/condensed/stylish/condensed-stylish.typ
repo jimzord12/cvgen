@@ -4,7 +4,7 @@
 // manifest of the groups, and a luggage tag for the duties on the road.
 // Fictional data: sample.json in the style folder.
 //
-// typst compile --root . --ignore-system-fonts --font-path packages/cv-framework/fonts --font-path design-concepts/fonts design-concepts/2026-09-29-stamp-rally/condensed/stylish/condensed-stylish.typ design-concepts/2026-09-29-stamp-rally/condensed/stylish/condensed-stylish.pdf
+// typst compile --root . --ignore-system-fonts --font-path packages/cv-framework/fonts --font-path studio/design-concepts/fonts studio/design-concepts/2026-09-29-stamp-rally/condensed/stylish/condensed-stylish.typ studio/design-concepts/2026-09-29-stamp-rally/condensed/stylish/condensed-stylish.pdf
 
 #let d = json("../../sample.json")
 

@@ -5,7 +5,7 @@
 // each page. Three inks on washi paper: ai indigo, one cinnabar, brass; sakura pink only
 // in the nature artwork. Fictional data: ../../sample.json. Artwork: ../../assets/ (make_assets.py).
 //
-// typst compile --root . --ignore-system-fonts --font-path packages/cv-framework/fonts --font-path design-concepts/fonts design-concepts/2026-10-02-hanami-line/spacious/stylish/spacious-stylish.typ design-concepts/2026-10-02-hanami-line/spacious/stylish/spacious-stylish.pdf
+// typst compile --root . --ignore-system-fonts --font-path packages/cv-framework/fonts --font-path studio/design-concepts/fonts studio/design-concepts/2026-10-02-hanami-line/spacious/stylish/spacious-stylish.typ studio/design-concepts/2026-10-02-hanami-line/spacious/stylish/spacious-stylish.pdf
 
 #let d = json("../../sample.json")
 #let A = "../../assets/"

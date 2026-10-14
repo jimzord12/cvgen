@@ -8,7 +8,7 @@
 // pictograms and the yellow meeting-point sign. Tactile paving underfoot.
 // Fictional data: sample.json in the style folder.
 //
-// typst compile --root . --ignore-system-fonts --font-path packages/cv-framework/fonts --font-path design-concepts/fonts design-concepts/2026-09-29-concourse/spacious/stylish/spacious-stylish.typ design-concepts/2026-09-29-concourse/spacious/stylish/spacious-stylish.pdf
+// typst compile --root . --ignore-system-fonts --font-path packages/cv-framework/fonts --font-path studio/design-concepts/fonts studio/design-concepts/2026-09-29-concourse/spacious/stylish/spacious-stylish.typ studio/design-concepts/2026-09-29-concourse/spacious/stylish/spacious-stylish.pdf
 
 #let d = json("../../sample.json")
 

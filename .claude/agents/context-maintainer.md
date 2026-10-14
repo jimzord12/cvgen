@@ -49,7 +49,7 @@ say which file owns which kind of guidance. In short:
 
 Dated records are never edited to carry a rule: ADRs in `docs/decisions/`,
 `docs/history.md`, the entries of `docs/framework-gaps.md` (a later fact is
-an `Update:` line), review reports under `archive/work-records/`, proposal decision
+an `Update:` line), review reports under `studio/archive/work-records/`, proposal decision
 entries, `docs/research/` notes and the descriptions of the tasks migrated
 from Trello in `backlog/tasks/` (a later fact goes in the task's notes or
 acceptance criteria). A changed decision is a new ADR or decision entry,
@@ -96,8 +96,8 @@ written by the lead, not by you.
 - Documentation only: `AGENTS.md`, `CLAUDE.md`, `docs/` (not the dated
   records above), `.claude/skills/`, `.claude/agents/`, and
   `.local/preferences/` when the feedback is personal to the owner. Never
-  `packages/`, `examples/`, `tests/`, `scripts/`, `exports/`, `brand/`
-  files other than `brand/README.md`, configuration or lockfiles.
+  `packages/`, `examples/`, `tests/`, `scripts/`, `exports/`, `studio/brand/`
+  files other than `studio/brand/README.md`, configuration or lockfiles.
 - **The repository is public.** A real client is only ever their `Alias`
   (`client-<yyyy>-<mm>-<nn>`); never a name, employer, place or detail
   that identifies them, and never anything from `private/`, which you do

@@ -19,14 +19,14 @@ glossary:
 # Docs that are reached by process, not by links from other docs.
 entry_points:
   - "docs/decisions/**"           # ADRs are cited by number
-  - "archive/work-records/**"     # task records and review reports
+  - "studio/archive/work-records/**"     # task records and review reports
   - "docs/research/**"            # Research Library
   - "docs/proposals/**"
 
 # Dated records: never link-fixed or re-worded. `ignore` leaves them out of EVERY check (secrets, size and
 # stray-file checks too); accepted, since they are reviewed text; the Output Contract and the suite still cover them.
 ignore:
-  - "archive/work-records/**"
+  - "studio/archive/work-records/**"
   - "docs/decisions/**"
   - docs/history.md
 
@@ -38,8 +38,8 @@ protected:
   - "archive/**"                                                     # frozen design studies, Anti-examples and work records
   - "examples/**/*.pdf"                                              # the Release: replaced only by build.ps1 -ReplaceRelease, the owner's go
   - "examples/**/*.meta.json"                                        # its Meta Files (Output Contract)
-  - "design-concepts/**/*.meta.json"                                 # stamped by scripts/outputs.py, never by hand
-  - "archive/work-records/**/reviews/**"                             # independent review reports are records
+  - "studio/design-concepts/**/*.meta.json"                                 # stamped by scripts/outputs.py, never by hand
+  - "studio/archive/work-records/**/reviews/**"                             # independent review reports are records
   - "private/**"                                                     # ignored, real client data; never inspected
   - ".local/**"                                                      # ignored, local preferences
   - ".worktrees/**"                                                  # ignored, other sessions' checkouts
@@ -55,9 +55,9 @@ allow_large:
   - "packages/cv-framework/fonts/**"
   - "**/tests/approved/**"
   - "examples/**"
-  - "brand/**"
+  - "studio/brand/**"
   - "archive/**"
-  - "design-concepts/fonts/**"
+  - "studio/design-concepts/fonts/**"
 
 # Versioned on purpose: the Frozen Reference and its layout (conventions.md).
 allow_names:
@@ -115,7 +115,7 @@ and refuses to run if the folder exists. So maintenance never moves, renames, ov
 its `Meta File`. `python scripts/outputs.py check` (prints `FAIL <path>: <reason>`, exit 1 on any problem) is the
 authority on the Output Contract. A failure is High and goes to the owner. The audit script itself writes nothing.
 
-**Frozen things.** The `Frozen Reference`, `tests/baseline.json`, its pinned inputs, `archive/design-studies/`, `Release`
+**Frozen things.** The `Frozen Reference`, `tests/baseline.json`, its pinned inputs, `studio/archive/design-studies/`, `Release`
 and `Export` PDFs and review reports are protected. A moved file or a changed hash is never "cosmetic". After any applied
 change, `python tests/run.py` must pass, the new evidence folder must be named, and a visual change needs a rendered page
 someone looked at (constitution rule 5).

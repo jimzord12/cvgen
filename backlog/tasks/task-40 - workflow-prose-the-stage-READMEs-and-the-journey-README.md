@@ -15,7 +15,7 @@ ordinal: 40000
 ## Description
 
 <!-- SECTION:DESCRIPTION:BEGIN -->
-Hand-written purpose, judgement and branches per stage; the top README at 200-300 lines (owner decision, docs/proposals/workflow-model.md). Refers to IDs and never restates contracts. Source: archive/work-records/workflow-model/handoff.md, section 4, item 8 (A. Workflow model). Created 2026-10-14 at the owner's request; not started.
+Hand-written purpose, judgement and branches per stage; the top README at 200-300 lines (owner decision, docs/proposals/workflow-model.md). Refers to IDs and never restates contracts. Source: studio/archive/work-records/workflow-model/handoff.md, section 4, item 8 (A. Workflow model). Created 2026-10-14 at the owner's request; not started.
 <!-- SECTION:DESCRIPTION:END -->
 
 ## Acceptance Criteria

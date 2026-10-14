@@ -8,7 +8,7 @@ created: 2026-09-25
 
 # Candidate intake questionnaire
 
-Origin: ceo agent run 2026-09-25 ([run record](../../../archive/work-records/idea-runs/2026-09-25-ceo/run.md)).
+Origin: ceo agent run 2026-09-25 ([run record](../../../studio/archive/work-records/idea-runs/2026-09-25-ceo/run.md)).
 
 **Pitch:** one intake questionnaire that collects every fact the CV needs,
 in the form the record needs it, before a client's CV is started: marine

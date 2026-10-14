@@ -68,7 +68,7 @@ to change margins and which companies sit on which page.
 - How the pieces fit: [docs/architecture.md](docs/architecture.md)
 - Rules, conventions and workflow: [docs/constitution.md](docs/constitution.md), [docs/conventions.md](docs/conventions.md), [docs/git-workflow.md](docs/git-workflow.md)
 - Working with a coding agent: [AGENTS.md](AGENTS.md)
-- The frozen design studies this library grew from: [archive/design-studies/](archive/design-studies/README.md)
+- The frozen design studies this library grew from: [studio/archive/design-studies/](studio/archive/design-studies/README.md)
 
 ## Verification
 

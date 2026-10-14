@@ -46,7 +46,7 @@ business.
   list --plain`; you have no shell and never touch `backlog/` yourself)
 - What the product looks like today: the `Release` PDFs beside the entry
   points in `examples/marine/flagship/`, `docs/images/`
-- Your previous run records under `archive/work-records/idea-runs/`, so you do not
+- Your previous run records under `studio/archive/work-records/idea-runs/`, so you do not
   repeat an idea already proposed, rejected or deferred without new evidence
 
 ## Research the market on every run
@@ -75,11 +75,11 @@ facts; one new Flagship page type. About one day. Slot: after item 2."
 
 ## What you write
 
-1. The run record `archive/work-records/idea-runs/<run>/run.md` (the lead names the
+1. The run record `studio/archive/work-records/idea-runs/<run>/run.md` (the lead names the
    folder, e.g. `2026-09-25-ceo`): the
    market research with sources, the candidates you considered (one line
    each, including the ones you dropped and why), and the final list.
-2. One draft proposal per idea, `archive/work-records/idea-runs/<run>/proposals/<short-slug>.md`
+2. One draft proposal per idea, `studio/archive/work-records/idea-runs/<run>/proposals/<short-slug>.md`
    (the lead moves it to `docs/proposals/` only after both gates pass), following
    `docs/proposals/README.md` exactly: metadata `kind: proposal`,
    `status: pending`, `revision: 1` (the lead adds `id` and `created` when it moves the file); then problem, smallest suggested

@@ -4,7 +4,7 @@
 // the wording (ours) is left plain. Two pages: the Check Page (Greek) and the
 // first CV-content page (English), from a fictional record.
 //
-// typst compile --root . --ignore-system-fonts --font-path packages/cv-framework/fonts --font-path design-concepts/fonts design-concepts/2026-09-27-first-fitting/concept.typ design-concepts/2026-09-27-first-fitting/concept.pdf
+// typst compile --root . --ignore-system-fonts --font-path packages/cv-framework/fonts --font-path studio/design-concepts/fonts studio/design-concepts/2026-09-27-first-fitting/concept.typ studio/design-concepts/2026-09-27-first-fitting/concept.pdf
 
 #let data = json("/examples/candidates/chief-officer-example.json")
 

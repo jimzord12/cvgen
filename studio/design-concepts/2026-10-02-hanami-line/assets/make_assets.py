@@ -8,7 +8,7 @@ Fuji, a plane, and six single-ink eki-style stamp drawings. Nothing is traced.
 Colours are the light-field defaults; the Typst file swaps them by string
 replacement for the dark hero (see `recolor` in spacious-stylish.typ).
 
-    python design-concepts/2026-10-02-hanami-line/assets/make_assets.py
+    python studio/design-concepts/2026-10-02-hanami-line/assets/make_assets.py
 """
 import math
 import os

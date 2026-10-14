@@ -8,7 +8,7 @@ created: 2026-09-25
 
 # Certificate dates checked at render
 
-Origin: ceo agent run 2026-09-25 ([run record](../../archive/work-records/idea-runs/2026-09-25-ceo/run.md)).
+Origin: ceo agent run 2026-09-25 ([run record](../../studio/archive/work-records/idea-runs/2026-09-25-ceo/run.md)).
 
 **Pitch:** a CV that shows an expired certificate fails its render checks,
 so it cannot be approved or exported, and one expiring within six months

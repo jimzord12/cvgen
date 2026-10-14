@@ -138,7 +138,7 @@ started on an agent's initiative.
    as deprecated wrappers until TASK-58 removed them on 2026-10-14.
 5. **A second marine template.** A named design with its own sections and
    frozen reference, likely grown from one of the studies under
-   `archive/design-studies/`.
+   `studio/archive/design-studies/`.
 6. **Short-career layout.** A one-page layout profile for cadets, juniors
    and short careers, for every template.
 7. **More themes.** Two to four per template.

@@ -11,7 +11,7 @@ or to compare a library render against an approved look.
 | `01-soundings.typ` | Deep petrol sidebar, compass geometry, condensed name | Reviewed one-page study | [PDF](review/01-soundings.pdf) · [PNG](review/01-soundings.png) |
 | `02-engine-room.typ` | Graphite masthead, copper accents, shaft-line drawing, numbered sections | Reviewed one-page study | [PDF](review/02-engine-room.pdf) · [PNG](review/02-engine-room.png) |
 | `03-horizon.typ` | Editorial serif name, teal detailing, hull-line drawing | Reviewed one-page study | [PDF](review/03-horizon.pdf) · [PNG](review/03-horizon.png) |
-| `11-flagship-balance.typ` | Two-page portrait hero, company / vessel-type / vessel experience | **Approved and frozen.** The library reproduces it exactly | [PDF](../../packages/domains/marine/templates/flagship/tests/approved/Marine-Engineer-CV-v11.pdf) · [p1](review/Marine-Engineer-CV-v11-page-1.png) · [p2](review/Marine-Engineer-CV-v11-page-2.png) |
+| `11-flagship-balance.typ` | Two-page portrait hero, company / vessel-type / vessel experience | **Approved and frozen.** The library reproduces it exactly | [PDF](../../../packages/domains/marine/templates/flagship/tests/approved/Marine-Engineer-CV-v11.pdf) · [p1](review/Marine-Engineer-CV-v11-page-1.png) · [p2](review/Marine-Engineer-CV-v11-page-2.png) |
 
 `review/comparison.png` shows the three one-page studies side by side.
 

@@ -8,7 +8,7 @@ kind: reference
 Approved with the development protocol on 2026-09-16 and applied the same day:
 the active protocol is [`docs/review.md`](../review.md), the Claude wrapper is
 `.claude/agents/code-reviewer.md`, and the validation evidence is under
-[dev-setup](../../archive/work-records/dev-setup/task.md). This file is the specification history.
+[dev-setup](../../studio/archive/work-records/dev-setup/task.md). This file is the specification history.
 Implementation reviews run in Claude Code.
 Codex may critique design proposals; that does not satisfy a code review gate.
 Companion to the [development protocol](development-protocol.md).

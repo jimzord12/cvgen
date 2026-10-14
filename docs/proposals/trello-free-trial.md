@@ -173,7 +173,7 @@ Checked 2026-09-16:
 ### Review of the skill
 
 Round 1 on `ec5c23d..045f68d`, in-session `code-reviewer`, lead lenses 4
-and 1: [docs/work/trello-trial/reviews/01.md](../../archive/work-records/trello-trial/reviews/01.md).
+and 1: [docs/work/trello-trial/reviews/01.md](../../studio/archive/work-records/trello-trial/reviews/01.md).
 Verdict **FINDINGS**.
 
 | Finding | Disposition |
@@ -186,7 +186,7 @@ Verdict **FINDINGS**.
 | T1-06 Note: orientation bullet after adoption | Deferred to the adoption decision. |
 
 Round 2 on `045f68d..eeeb24d`, lead lenses 4 and 6:
-[reviews/02.md](../../archive/work-records/trello-trial/reviews/02.md). Verdict **FINDINGS**.
+[reviews/02.md](../../studio/archive/work-records/trello-trial/reviews/02.md). Verdict **FINDINGS**.
 
 | Finding | Disposition |
 |---|---|
@@ -196,7 +196,7 @@ Round 2 on `045f68d..eeeb24d`, lead lenses 4 and 6:
 | T2-04 Note: failure line bypasses PowerShell redirection | Fixed: one sentence in SKILL.md. |
 
 Round 3 on `eeeb24d..ea4459b`, lead lenses 4 and 6:
-[reviews/03.md](../../archive/work-records/trello-trial/reviews/03.md). Verdict **FINDINGS**.
+[reviews/03.md](../../studio/archive/work-records/trello-trial/reviews/03.md). Verdict **FINDINGS**.
 
 | Finding | Disposition |
 |---|---|
@@ -205,7 +205,7 @@ Round 3 on `eeeb24d..ea4459b`, lead lenses 4 and 6:
 | T3-03 Note: forced `-Debug` via `$PSDefaultParameterValues` in an interactive session | Fixed: `Debug = $false` passed explicitly on the request. |
 
 Round 4 on `ea4459b..8d231af`, lead lenses 4 and 6:
-[reviews/04.md](../../archive/work-records/trello-trial/reviews/04.md). Verdict **FINDINGS**.
+[reviews/04.md](../../studio/archive/work-records/trello-trial/reviews/04.md). Verdict **FINDINGS**.
 
 | Finding | Disposition |
 |---|---|
@@ -213,7 +213,7 @@ Round 4 on `ea4459b..8d231af`, lead lenses 4 and 6:
 | T4-02 Note: SKILL.md diagnostics sentence | Fixed: states that `$Error`/`Get-Error` are empty by design and `-ErrorVariable` carries a scrubbed record. |
 
 Round 5 on `8d231af..cddd379`, lead lenses 4 and 6:
-[reviews/05.md](../../archive/work-records/trello-trial/reviews/05.md). Verdict **FINDINGS**;
+[reviews/05.md](../../studio/archive/work-records/trello-trial/reviews/05.md). Verdict **FINDINGS**;
 the reviewer states the credential-exposure class closed for well-formed
 values, with one malformed-value path left.
 
@@ -224,7 +224,7 @@ values, with one malformed-value path left.
 | T5-03 Note: "user-scope" wording | Fixed: the values are exported by the owner's PowerShell profile (confirmed: user and machine scopes are empty); helper messages and SKILL.md now say so. |
 
 Round 6 on `cddd379..6df9343`, lead lenses 4 and 6:
-[reviews/06.md](../../archive/work-records/trello-trial/reviews/06.md). Verdict **PASS**; the
+[reviews/06.md](../../studio/archive/work-records/trello-trial/reviews/06.md). Verdict **PASS**; the
 reviewer considers the credential-exposure class closed for the helper as
 designed, including malformed values.
 
@@ -278,6 +278,6 @@ mismatch as "invalid key".
   stay under `docs/work/<id>/reviews/`. `AGENTS.md` orientation reads the
   board through the skill. `dev-setup` keeps its `task.md` as history.
 - The skill's trial-scope wording is removed.
-- Review of this application: [docs/work/trello-adoption/reviews/01.md](../../archive/work-records/trello-adoption/reviews/01.md),
+- Review of this application: [docs/work/trello-adoption/reviews/01.md](../../studio/archive/work-records/trello-adoption/reviews/01.md),
   verdict PASS; five Minor/Note wording items fixed in the same commit
   (A1-A4, A7), trial-b left in Active as history (A5).

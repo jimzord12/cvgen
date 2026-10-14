@@ -1,14 +1,14 @@
 """Design Review: a local app for the owner to look through every CV design.
 
-It indexes the magazine-editor's concepts (design-concepts/) and, on this
+It indexes the magazine-editor's concepts (studio/design-concepts/) and, on this
 machine only, the client renders under private/ (CV revisions and Text
 Drafts). It shows page previews, keeps the owner's review state (reviewed,
 verdict, star, notes) in .local/design-review/state.json, and opens a PDF in
 the operating system's default program. It binds to 127.0.0.1 and never
 sends anything anywhere.
 
-    python scripts/design_review/server.py            # opens the browser (needs pymupdf, jsonschema)
-    python scripts/design_review/server.py --port 8766 --no-browser
+    python apps/design-review/server.py            # opens the browser (needs pymupdf, jsonschema)
+    python apps/design-review/server.py --port 8766 --no-browser
 """
 
 import argparse
@@ -51,8 +51,8 @@ def _item(repo, pdf, meta):
                                       'tier', 'lang', 'pages', 'date', 'status', 'title')}
     item.update(id=rel, sortTime=meta['date'], mtime=Path(pdf).stat().st_mtime_ns, brief=None)
     if kind in ('concept', 'house-design'):
-        run = parts[1]
-        folder = Path(repo) / 'design-concepts' / run
+        run = rel[len(outputs.CONCEPTS) + 1:].split('/')[0]
+        folder = Path(repo) / outputs.CONCEPTS / run
         item['group'] = 'run:' + run[:10] + (':house-design' if kind == 'house-design' else '')
         item['groupLabel'] = run[:10] + (' · House Design proposals' if kind == 'house-design' else ' · design run')
         item['brief'] = _rel(repo, folder / 'brief.md') if (folder / 'brief.md').is_file() else None

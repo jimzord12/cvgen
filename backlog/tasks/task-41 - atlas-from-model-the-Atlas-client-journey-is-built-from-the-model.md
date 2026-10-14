@@ -14,7 +14,7 @@ ordinal: 41000
 ## Description
 
 <!-- SECTION:DESCRIPTION:BEGIN -->
-Port the Atlas build to TypeScript (or feed the existing page format from the model); retire hand-written `client-journey.json` facts. Later pages follow. Source: archive/work-records/workflow-model/handoff.md, section 4, item 9 (A. Workflow model). Created 2026-10-14 at the owner's request; not started.
+Port the Atlas build to TypeScript (or feed the existing page format from the model); retire hand-written `client-journey.json` facts. Later pages follow. Source: studio/archive/work-records/workflow-model/handoff.md, section 4, item 9 (A. Workflow model). Created 2026-10-14 at the owner's request; not started.
 <!-- SECTION:DESCRIPTION:END -->
 
 ## Acceptance Criteria

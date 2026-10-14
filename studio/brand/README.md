@@ -52,7 +52,7 @@ detail is redrawn for them. Tried and dropped during the drafting (renders
 not kept): a knot on the lower terminal (read as a full stop, "C.V"); and,
 reviewed, a needle point drawn out of the lower terminal (read as a thorn
 attached to the letter, heavier than the thread). Review reports:
-`archive/work-records/brand-logo/reviews/02-design-reviewer.md` onwards.
+`studio/archive/work-records/brand-logo/reviews/02-design-reviewer.md` onwards.
 
 Vector options drafted 2026-09-27 (then options for the owner to pick, not a
 final logo). Hand-authored SVG: letters are outline paths, no `<text>`, no
@@ -107,9 +107,9 @@ Fonts (both SIL Open Font License 1.1, outlines converted to paths):
   height). It ships with the Framework's bundled fonts, but no current
   template uses it (Flagship's themes use Source Sans 3 and Barlow); it
   appears only in the archived design study `03-horizon`.
-- "gen": Jost Light (weight 300), `design-concepts/fonts/jost/Jost[wght].ttf`,
+- "gen": Jost Light (weight 300), `studio/design-concepts/fonts/jost/Jost[wght].ttf`,
   SHA-256 `6343b70971000b04c5d401c96ae08ce371086135e999d5e1e1413039c0213076`,
-  licence `design-concepts/fonts/jost/OFL.txt`. Tracked +0.05 em (50 font
+  licence `studio/design-concepts/fonts/jost/OFL.txt`. Tracked +0.05 em (50 font
   units added between letters).
 
 Outlines are overlap-free. The variable fonts' overlapping contours (the V

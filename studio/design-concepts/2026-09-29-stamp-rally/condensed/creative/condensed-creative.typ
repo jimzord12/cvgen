@@ -5,7 +5,7 @@
 // receipt, the credentials on a rail ticket, and loose stamps over it all.
 // Fictional data: sample.json in the style folder.
 //
-// typst compile --root . --ignore-system-fonts --font-path packages/cv-framework/fonts --font-path design-concepts/fonts design-concepts/2026-09-29-stamp-rally/condensed/creative/condensed-creative.typ design-concepts/2026-09-29-stamp-rally/condensed/creative/condensed-creative.pdf
+// typst compile --root . --ignore-system-fonts --font-path packages/cv-framework/fonts --font-path studio/design-concepts/fonts studio/design-concepts/2026-09-29-stamp-rally/condensed/creative/condensed-creative.typ studio/design-concepts/2026-09-29-stamp-rally/condensed/creative/condensed-creative.pdf
 
 #let d = json("../../sample.json")
 

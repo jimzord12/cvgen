@@ -43,7 +43,7 @@ Spacious `Density` (same facts, more room: body text at 10 to 10.5 pt, larger ar
 - **From the other two styles:** a hard, architectural, sans-serif voice (Fira Black, charcoal, signal yellow, orange, LED amber) against Woodblock's painted serif print and Stamp Rally's paper ephemera.
 - **From the rejected "Line Diagram":** no route line, no dots on a rail, no numbered stations down a margin. The only rail reference is the board and the departure display, at full scale.
 
-## Fonts (OFL 1.1, shipped unmodified with their licence: Fira Sans in `design-concepts/fonts/`, M PLUS 1p in `packages/cv-framework/fonts/`)
+## Fonts (OFL 1.1, shipped unmodified with their licence: Fira Sans in `studio/design-concepts/fonts/`, M PLUS 1p in `packages/cv-framework/fonts/`)
 
 | Family | File | Source | SHA-256 |
 |---|---|---|---|

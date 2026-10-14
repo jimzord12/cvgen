@@ -5,7 +5,7 @@
 // Japan trip a full-width row under a larger eki-style stamp.
 // Fictional data: sample.json in the style folder.
 //
-// typst compile --root . --ignore-system-fonts --font-path packages/cv-framework/fonts --font-path design-concepts/fonts design-concepts/2026-09-29-stamp-rally/spacious/safe/spacious-safe.typ design-concepts/2026-09-29-stamp-rally/spacious/safe/spacious-safe.pdf
+// typst compile --root . --ignore-system-fonts --font-path packages/cv-framework/fonts --font-path studio/design-concepts/fonts studio/design-concepts/2026-09-29-stamp-rally/spacious/safe/spacious-safe.typ studio/design-concepts/2026-09-29-stamp-rally/spacious/safe/spacious-safe.pdf
 
 #let d = json("../../sample.json")
 

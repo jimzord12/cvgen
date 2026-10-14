@@ -2,12 +2,12 @@
 
 Designs the owner decided do **not** match his style, kept only so nobody
 proposes them again (owner, 2026-09-30: "things that do not match my
-style"). They are the opposite of `archive/design-studies/`, which holds
+style"). They are the opposite of `studio/archive/design-studies/`, which holds
 directions worth learning from.
 
 ## Rules
 
-- Frozen. Never edit, re-render into `design-concepts/`, or build on one.
+- Frozen. Never edit, re-render into `studio/design-concepts/`, or build on one.
 - Read this folder before proposing or reviewing a design: a new design that
   leans on one of these ideas needs a reason the owner would accept, or it
   fails review.
@@ -15,7 +15,7 @@ directions worth learning from.
   show in the `Design Review` app.
 - Each entry keeps its original `brief.md`, `concept.typ`, PDFs and PNGs.
   Its fonts live in `fonts/` here, used by nothing else. To look again:
-  `typst compile --root . --ignore-system-fonts --font-path packages/cv-framework/fonts --font-path archive/anti-examples/fonts archive/anti-examples/<folder>/concept.typ builds/<new-folder>/concept.pdf`
+  `typst compile --root . --ignore-system-fonts --font-path packages/cv-framework/fonts --font-path studio/archive/anti-examples/fonts studio/archive/anti-examples/<folder>/concept.typ builds/<new-folder>/concept.pdf`
 
 ## Entries
 

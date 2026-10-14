@@ -15,7 +15,7 @@ palette and per ground:
   BARK #5e4a55  PETAL #f6d2da  DEEP #e595aa  EDGE #d4869c  HEART #b0405f  ANTHER #e0b04c  LENT #f6efe2
   BGF #bbbbbb background fill   BGS #999999 background stroke
 
-    python design-concepts/2026-10-02-hanami-line-2/assets/make_assets.py
+    python studio/design-concepts/2026-10-02-hanami-line-2/assets/make_assets.py
 """
 import math
 import os

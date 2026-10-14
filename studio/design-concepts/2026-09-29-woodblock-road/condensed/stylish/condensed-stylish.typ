@@ -4,7 +4,7 @@
 // leader's flag. The career below is told as a numbered series of small views.
 // Fictional data: sample.json in the style folder.
 //
-// typst compile --root . --ignore-system-fonts --font-path packages/cv-framework/fonts --font-path design-concepts/fonts design-concepts/2026-09-29-woodblock-road/condensed/stylish/condensed-stylish.typ design-concepts/2026-09-29-woodblock-road/condensed/stylish/condensed-stylish.pdf
+// typst compile --root . --ignore-system-fonts --font-path packages/cv-framework/fonts --font-path studio/design-concepts/fonts studio/design-concepts/2026-09-29-woodblock-road/condensed/stylish/condensed-stylish.typ studio/design-concepts/2026-09-29-woodblock-road/condensed/stylish/condensed-stylish.pdf
 
 #let d = json("../../sample.json")
 

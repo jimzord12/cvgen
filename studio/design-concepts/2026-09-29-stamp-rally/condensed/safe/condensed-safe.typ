@@ -3,7 +3,7 @@
 // CV below, small eki-style stamps as the markers of the Japan trips, and a
 // passenger manifest of the groups. Fictional data: sample.json in the style folder.
 //
-// typst compile --root . --ignore-system-fonts --font-path packages/cv-framework/fonts --font-path design-concepts/fonts design-concepts/2026-09-29-stamp-rally/condensed/safe/condensed-safe.typ design-concepts/2026-09-29-stamp-rally/condensed/safe/condensed-safe.pdf
+// typst compile --root . --ignore-system-fonts --font-path packages/cv-framework/fonts --font-path studio/design-concepts/fonts studio/design-concepts/2026-09-29-stamp-rally/condensed/safe/condensed-safe.typ studio/design-concepts/2026-09-29-stamp-rally/condensed/safe/condensed-safe.pdf
 
 #let d = json("../../sample.json")
 

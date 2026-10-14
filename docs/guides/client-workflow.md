@@ -138,7 +138,7 @@ normal for the owner's own script. The owner passes the three links and
 the project's link back, and Claude lists them under "Google" in the
 `Envelope`'s `README.md`. Before sending the link, the owner gives the
 form the house theme (the palette icon in the form's editor; about a
-minute): Header, upload `brand/forms/intake-header.png`; Color, custom,
+minute): Header, upload `studio/brand/forms/intake-header.png`; Color, custom,
 `#B0602B`; Background, the swatch closest to the header's warm paper
 (usually the lightest); Text style, Header "Bona
 Nova" (under More fonts), Question and Text "Source Sans 3"; a font the
@@ -255,7 +255,7 @@ A finding about a country, a `Domain` or a `Rank`, with nothing about the
 client, is also written to the `Research Library` (`docs/research/`,
 public) in the same session. The library note is written first, free of
 client detail, and reviewed on its own text and hash; its reports go under
-`archive/work-records/research-<topic>/reviews/`, never under a client's name. A
+`studio/archive/work-records/research-<topic>/reviews/`, never under a client's name. A
 finding about one employer stays in the `Envelope`; it moves to the
 library when a second client targets the same employer.
 

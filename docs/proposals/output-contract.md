@@ -10,7 +10,7 @@ created: 2026-09-30
 
 ## Problem
 
-The owner reviews designs in the `Design Review` app (`scripts/design_review/`).
+The owner reviews designs in the `Design Review` app (`apps/design-review/`).
 On its first day it missed things he expected to see:
 
 - **A delivered client CV.** One client's delivered CV is
@@ -42,8 +42,8 @@ Three pieces. No database, no editing of metadata inside the app.
 
 | Kind (`kind`) | Home | File |
 |---|---|---|
-| `concept` | `design-concepts/<date>-<slug>/<density>/<tier>/` | `<density>-<tier>.pdf` |
-| `text-draft` (a `Text Draft` direction concept) | `design-concepts/<date>-<slug>/` (earlier flat runs) | `concept.pdf`, `concept-<variant>.pdf` |
+| `concept` | `studio/design-concepts/<date>-<slug>/<density>/<tier>/` | `<density>-<tier>.pdf` |
+| `text-draft` (a `Text Draft` direction concept) | `studio/design-concepts/<date>-<slug>/` (earlier flat runs) | `concept.pdf`, `concept-<variant>.pdf` |
 | `example` (the `Release`) | `examples/<domain>/<template>/`, beside its entry point | `<name>.pdf` next to `<name>.typ` |
 | `client-draft` (a client's `Text Draft`) | `private/<envelope>/draft/` | `draft-NN.pdf` |
 | `client-cv` (a render) | `private/<envelope>/revisions/<id>/` | `cv.pdf` |
@@ -90,7 +90,7 @@ Every PDF in the table above has `<pdf-stem>.meta.json` beside it:
   folder name under `packages/domains/` (`marine`) or, for a domain with no
   package yet, the id the glossary's `Domain` row lists (`travel`).
   `status` per kind: concept `proposed | chosen | parked | rejected |
-  unresolved` (as in `design-concepts/README.md`); client-cv `render |
+  unresolved` (as in `studio/design-concepts/README.md`); client-cv `render |
   approved | delivered`; client-draft `sent | signed-off | superseded`;
   example `release`.
 - **Clients** also carry `alias` (`client-2026-09-01`). `candidate` is the
@@ -127,7 +127,7 @@ Who stamps:
 Enforcement:
 
 - `python tests/run.py` runs `outputs.py check` on the public tree
-  (`design-concepts/`, `examples/`). A missing, invalid or stale meta file
+  (`studio/design-concepts/`, `examples/`). A missing, invalid or stale meta file
   fails the suite.
 - The `Design Review` app indexes meta files only. Any PDF in a home without
   a valid meta file shows in an "Unindexed" strip with the reason, so drift is
@@ -146,13 +146,13 @@ Enforcement:
 ## Docs to update
 
 `AGENTS.md` (the "Where things are" rows for `examples/`, `exports/`,
-`design-concepts/`, the new `scripts/outputs.py`, the commands),
+`studio/design-concepts/`, the new `scripts/outputs.py`, the commands),
 `docs/glossary.md` (`Release` location; new terms `Output Contract` and
 `Meta File`), `docs/constitution.md` (rule 2's note on the `Release`),
 `docs/pdf-workflow.md`, `docs/guides/build-a-cv.md` and
 `docs/guides/client-workflow.md` (`envelope.json`, stamping), the `new-cv`,
 `new-client` and `idea-run` skills, the `magazine-editor` and
-`design-reviewer` profiles, `README.md`, `design-concepts/README.md`.
+`design-reviewer` profiles, `README.md`, `studio/design-concepts/README.md`.
 
 ## Consequences
 

@@ -112,7 +112,7 @@ branch structure is a proportionate choice for this small project.
 
 ## Tags
 
-- `archive/<name>` marks a snapshot before a large removal. Files deleted
+- `studio/archive/<name>` marks a snapshot before a large removal. Files deleted
   from the tree remain reachable there.
 - `reference/<name>` tags are meant to mark the commit that produced a frozen
   reference render. None exists yet; the v11 reference predates the
@@ -129,7 +129,7 @@ branch structure is a proportionate choice for this small project.
 | The frozen reference PDF and hash manifest | `__pycache__/` |
 | Design studies with their review renders | Anything under `previews/` or `exports/review/` from earlier sessions (the root `exports/` is retired) |
 | Preview PNGs used by the README | |
-| Template concepts in `design-concepts/` (PDF with its `Meta File`, one PNG per page, shared OFL or Apache 2.0 fonts in `fonts/<family>/`); a rejected concept's folder is removed | |
+| Template concepts in `studio/design-concepts/` (PDF with its `Meta File`, one PNG per page, shared OFL or Apache 2.0 fonts in `fonts/<family>/`); a rejected concept's folder is removed | |
 
 `.gitattributes` stores and checks out every text file with LF on every
 platform, so the hashes in `tests/baseline.json` match on Windows, macOS,

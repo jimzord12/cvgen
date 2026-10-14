@@ -124,7 +124,7 @@ facts and the plan to build.
 ## Notes
 
 - 2026-10-14 (TASK-33): the review of revision 1,
-  `archive/work-records/codex-visual-tools/reviews/01.md`, is still FINDINGS and is
+  `studio/archive/work-records/codex-visual-tools/reviews/01.md`, is still FINDINGS and is
   applied when this is built (TASK-4). It is not a new decision: the two
   commands above also need `--ephemeral` (otherwise Codex keeps the
   attached pages in `~/.codex/sessions`, never cleared; F1) and
