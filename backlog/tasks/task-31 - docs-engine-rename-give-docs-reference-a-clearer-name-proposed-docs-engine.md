@@ -1,10 +1,10 @@
 ---
 id: TASK-31
 title: 'docs-engine-rename: give docs/reference a clearer name (proposed: docs/engine)'
-status: Active
+status: Done
 assignee: []
 created_date: '2026-10-06 09:56'
-updated_date: '2026-10-14 07:56'
+updated_date: '2026-10-14 08:00'
 labels:
   - docs cleanup
 dependencies: []
@@ -32,3 +32,9 @@ Owner decision 2026-10-14 recorded in docs/proposals/workflow-model.md: the new 
 
 Renamed on branch docs/task-31-docs-engine (git mv, 22 live files updated). Remaining docs/reference mentions are dated records only. Suite and Atlas strict check pass.
 <!-- SECTION:NOTES:END -->
+
+## Final Summary
+
+<!-- SECTION:FINAL_SUMMARY:BEGIN -->
+docs/reference renamed to docs/engine with git mv (7 files, history kept); every live mention updated (AGENTS.md, docs, skills, agents, scripts, tests, packages, Atlas); dated records, Done tasks, applied proposals and the owner's decision record left as written. Glossary engine row names docs/engine/; review scope wording now 'guides and engine manuals'. Context review round 1 PASS (minor fixed). Suite PASS 145 (builds/tests-20261014-105517-876753 in the worktree); Atlas check --strict 0.
+<!-- SECTION:FINAL_SUMMARY:END -->
