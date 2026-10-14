@@ -49,7 +49,7 @@
    "verifiedAt": "2026-10-14"
   },
   "roster": {
-   "commit": "ce6fe1f",
+   "commit": "0db3ba7",
    "sources": {
     ".claude/agents/ceo-reviewer.md": "058811a51ac27c65a93dc8915db4afd58676d33d",
     ".claude/agents/ceo.md": "e6291c8d2282c325db11302b1be9ee8364edd3aa",
@@ -89,7 +89,7 @@
     "scripts/cv.py": "d21197a5887e4f7aa6bf778c0ca2fd50229d2a11",
     "scripts/intake-form.gs": "876f3d78ab118a965fe39179569ddad1713ea40c",
     "scripts/outputs.py": "23a4edfb8730fe24462bd0507f37da64673e801c",
-    "tests/run.py": "6c7c892de63a0d9b2dc48babe4497b27ce413f94"
+    "tests/run.py": "9456a0fcdbe47bbb2adaaceba13c3018a7d93b1c"
    },
    "verifiedAt": "2026-10-14"
   },
