@@ -2264,60 +2264,28 @@ window.ATLAS = {
   }
  ],
  "build": {
-  "builtAt": "2026-10-14 06:20 UTC",
-  "commit": "7acccd8",
+  "builtAt": "2026-10-14 06:21 UTC",
+  "commit": "23aef00",
   "kit": "1.0",
   "stale": {
-   "client-journey": [
-    "docs/guides/client-workflow.md",
-    "docs/glossary.md",
-    ".claude/skills/new-cv/SKILL.md",
-    ".claude/skills/idea-run/SKILL.md"
-   ],
-   "design-run": [
-    ".claude/skills/idea-run/SKILL.md",
-    ".claude/agents/magazine-editor.md",
-    ".claude/agents/design-reviewer.md",
-    "AGENTS.md",
-    "docs/glossary.md",
-    "docs/proposals/codex-visual-tools.md",
-    "docs/review.md"
-   ],
-   "change-review": [
-    "docs/development.md",
-    "docs/review.md",
-    "AGENTS.md"
-   ],
    "system-map": [
     "AGENTS.md",
     "docs/guides/client-workflow.md",
     "docs/glossary.md"
-   ],
-   "roster": [
-    "docs/review.md",
-    "docs/guides/client-workflow.md",
-    "AGENTS.md",
-    "docs/development.md",
-    ".claude/agents/magazine-editor.md",
-    ".claude/agents/design-reviewer.md",
-    "docs/work/design-core/reviews/03-context-reviewer.md",
-    ".claude/skills/idea-run/SKILL.md",
-    "docs/proposals/codex-visual-tools.md",
-    ".claude/skills/new-cv/SKILL.md"
    ]
   },
   "verified": {
    "client-journey": {
     "at": "2026-10-14",
-    "commit": "6e09e22"
+    "commit": "23aef00"
    },
    "design-run": {
     "at": "2026-10-14",
-    "commit": "6e09e22"
+    "commit": "23aef00"
    },
    "change-review": {
     "at": "2026-10-14",
-    "commit": "6e09e22"
+    "commit": "23aef00"
    },
    "system-map": {
     "at": "2026-10-14",
@@ -2325,7 +2293,7 @@ window.ATLAS = {
    },
    "roster": {
     "at": "2026-10-14",
-    "commit": "6e09e22"
+    "commit": "23aef00"
    }
   }
  }
