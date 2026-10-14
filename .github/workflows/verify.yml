@@ -1,8 +1,8 @@
 name: verify
 
-# One run per pushed commit, on every branch (task-48). The project works without pull requests
-# (docs/git-workflow.md), so a pull_request trigger would only run the same commit twice; tag pushes
-# are left out for the same reason. workflow_dispatch reruns a branch by hand.
+# One run per push (of its head commit), on every branch (task-48). The project works without pull
+# requests (docs/git-workflow.md), so a pull_request trigger would only run the same commit twice; tag
+# pushes are left out for the same reason. workflow_dispatch reruns a branch by hand.
 on:
   push:
     branches: ['**']
@@ -11,10 +11,11 @@ on:
 permissions:
   contents: read
 
-# A newer push to the same feature branch cancels the older run; every commit on main keeps its run,
-# because docs/git-workflow.md checks the run of each published main commit.
+# A newer push to the same feature branch cancels the older run. On main every push gets a group of
+# its own (its commit SHA): GitHub replaces a pending run in the same group even without
+# cancel-in-progress, and docs/git-workflow.md checks the run of each published main commit.
 concurrency:
-  group: verify-${{ github.ref }}
+  group: verify-${{ github.ref == 'refs/heads/main' && github.sha || github.ref }}
   cancel-in-progress: ${{ github.ref != 'refs/heads/main' }}
 
 env:
@@ -76,7 +77,7 @@ jobs:
           cache-dependency-path: .github/workflows/verify.yml
 
       - name: Install verification dependencies
-        run: pip install pymupdf==1.28.2 pillow jsonschema==4.26.0
+        run: pip install pymupdf==1.28.2 pillow==12.3.0 jsonschema==4.26.0
 
       - name: Run the regression suite
         run: python tests/run.py --output builds/ci
