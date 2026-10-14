@@ -1,10 +1,10 @@
 ---
 id: TASK-36
 title: 'workflow-schema: typed entity definitions for the workflow model'
-status: Active
+status: Done
 assignee: []
 created_date: '2026-10-14 04:47'
-updated_date: '2026-10-14 08:15'
+updated_date: '2026-10-14 08:18'
 labels:
   - workflow-model
 dependencies:
@@ -45,3 +45,9 @@ PASS. R2-1 fixed: a stage named art fails with the reserved-prefix message, and 
 ## Review round 3 (context-reviewer, context round 1)
 FINDINGS, one Material. M1 fixed: the Artifact boolean external is renamed given (no step produces it), so external has no meaning in the types; a chat message is visibility third-party, ephemeral only for what is saved nowhere; README gains Reading the inventory, TASK-37 a pointer. m1 (illustrative steps marked), m2 (will live, from TASK-37), m3 (note headings on their own lines) fixed. TASK-38 title already says the workflow tool. Top-level folder count left to TASK-55. Report: docs/work/workflow-schema/reviews/03-context-reviewer.md.
 <!-- SECTION:NOTES:END -->
+
+## Final Summary
+
+<!-- SECTION:FINAL_SUMMARY:BEGIN -->
+tools/workflow/ (TypeScript on Bun, ADR 0015): Zod types for Stage, Step, Artifact, Action (cmd/skill/agent/manual/lead), Actor, Gate and Loop with strict objects, kebab-case IDs with kind prefixes and source anchors; JSON Schema generated from the types and committed with a drift test; bun run check <file> (exit 0/1/2, file:line: path: reason); sample stage.yaml (Text Draft stage, illustrative cap) validated by the tool and by yaml-language-server 1.24.0, the VS Code YAML extension's engine. Bun 1.4.3 installed (CI pin 1.4.2); zod 4.6.5, yaml 2.9.1. Two code-reviewer rounds (FINDINGS, PASS) and two context-reviewer rounds (FINDINGS, PASS). bun test 24 pass; suite PASS (builds/tests-20261014-111543-214617 in the worktree). CI and suite wiring left to TASK-38. Owner's own look in VS Code is the final check.
+<!-- SECTION:FINAL_SUMMARY:END -->
