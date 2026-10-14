@@ -34,7 +34,7 @@
           "blurb": "Who the client is: `Alias`, `Domain`, `Rank`; dates and links.",
           "detail": "`cv.py render` refuses to run without `envelope.json`; every client `Meta File` copies it.",
           "sources": [
-            "docs/guides/client-workflow.md:29-108"
+            "docs/guides/client-workflow.md:17-94"
           ]
         },
         {
@@ -43,7 +43,7 @@
           "path": "private/<envelope>/intake/",
           "blurb": "Messages, documents, `facts.md`, the `Scout`, `CV Decisions`, `Deep Dives`.",
           "sources": [
-            "docs/guides/client-workflow.md:39-72"
+            "docs/guides/client-workflow.md:29-62"
           ]
         },
         {
@@ -52,7 +52,7 @@
           "path": "private/<envelope>/draft/",
           "blurb": "The `Text Drafts` and the `Sign-off` screenshots.",
           "sources": [
-            "docs/guides/client-workflow.md:280-308"
+            "docs/workflow/04-text-draft/README.md:15-42"
           ]
         },
         {
@@ -61,8 +61,8 @@
           "path": "private/<envelope>/typst/cv.typ",
           "blurb": "The client's facts and the entry point that composes their CV, with its designs, wording and art beside it in typst/.",
           "sources": [
-            "docs/guides/build-a-cv.md:31-63",
-            "docs/guides/client-workflow.md:39-72"
+            "docs/guides/build-a-cv.md:15-53",
+            "docs/guides/client-workflow.md:29-62"
           ]
         },
         {
@@ -71,7 +71,7 @@
           "path": "private/<envelope>/revisions/<id>/",
           "blurb": "Every render in its own folder; approved copies in `exports/`.",
           "sources": [
-            "docs/pdf-workflow.md:71-96"
+            "docs/pdf-workflow.md:73-98"
           ]
         }
       ]
@@ -202,7 +202,7 @@
           "title": "Design concepts",
           "path": "studio/design-concepts/",
           "actor": "magazine-editor",
-          "blurb": "Every design run's Styles and Tiers, with a README row each (two Densities since the 2026-09-29 run)."
+          "blurb": "Every design Idea Run's Styles and Tiers, with a README row each (two Densities since the 2026-09-29 run)."
         },
         {
           "id": "n-anti",
@@ -378,7 +378,7 @@
           "actor": "intake-form",
           "blurb": "Optional `Intake Forms` and their answer Sheets.",
           "sources": [
-            "docs/guides/client-workflow.md:122-159"
+            "docs/guides/client-workflow.md:131-177"
           ]
         },
         {
@@ -388,7 +388,7 @@
           "actor": "chat",
           "blurb": "Questions out, answers back, via you.",
           "sources": [
-            "docs/guides/client-workflow.md:112-120"
+            "docs/workflow/02-intake/README.md:17-36"
           ]
         }
       ]
