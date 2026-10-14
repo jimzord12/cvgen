@@ -23,6 +23,7 @@ winget install --id Typst.Typst --exact        # Windows
 pip install -r requirements.lock                # tests/run.py, scripts/cv.py render and ruff: exact versions, hash-checked (a venv keeps it separate)
 npm i -g backlog.md@1.52.0                       # the task store CLI (needs Node); expect `backlog --version` 1.52.0
 typst --version                                 # expect 0.15.1
+typst compile --root . --ignore-system-fonts --font-path packages/cv-framework/fonts examples/marine/flagship/engineer.typ builds/scratch.pdf   # compile one example; needs only Typst
 powershell -c "irm bun.sh/install.ps1 | iex"     # Bun for tools/workflow/; `bun upgrade` if older than 1.4.2
 cd tools/workflow; bun install --frozen-lockfile; cd ../..   # the workflow tool's pinned dependencies, exactly as in bun.lock
 ```

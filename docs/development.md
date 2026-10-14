@@ -5,9 +5,17 @@ Active since 2026-09-16 under the approved
 [development protocol proposal](proposals/development-protocol.md), revision 2,
 whose companions [review-protocol.md](proposals/review-protocol.md) and
 [work-records.md](proposals/work-records.md) remain the specification history.
-Claude Code implements; Codex optionally supports discussion and design.
-The system is experimental: record concrete friction under
-[proposal tracking](proposals/README.md) rather than changing rules silently.
+The system is experimental ("Improving the process", below).
+
+## Roles
+
+Claude Code is the primary implementation harness: it owns coding, test
+execution, implementation review and integration. Codex is optional, for
+discussion, research, proposals, design decisions and their documentation;
+it may read code for design context, but it does not take over
+implementation or give the implementation's test or review verdict
+([review.md](review.md)). Who manages Git, Codex's own design and
+documentation work included: [git-workflow.md](git-workflow.md#ownership).
 
 ## The flow
 
@@ -38,10 +46,16 @@ Cancelled work never counts as delivered.
    skill says how; a branch's copy may be stale): the previous session's
    resume point, parked owner decisions and pitfalls. Then derive state from
    the vision, relevant decisions, the proposals (`python scripts/proposals.py`
-   prints their line), the tasks in `backlog/`, Git state and evidence for the examined revision. The handoff doc orients;
+   prints their line; pending decisions and approved work awaiting
+   application are reported as [proposal tracking](proposals/README.md#what-the-owner-hears)
+   says), the tasks in `backlog/`, Git state and evidence for the examined revision. The handoff doc orients;
    the tasks, Git and evidence are the authority when they disagree. Flag missing or
-   conflicting evidence rather than inventing certainty. Orientation is
-   read-only and repeatable.
+   conflicting evidence rather than inventing certainty; if the tasks cannot
+   be read, say so rather than guessing. Distinguish an approved design from
+   implemented behaviour, and historical checks from current proof.
+   Orientation is read-only and repeatable: unchanged inputs yield the same
+   factual state, and apart from `scripts/proposals.py` the sources are read
+   directly.
 3. Give the four-line briefing, then continue within authorized scope:
 
 ```text
@@ -110,10 +124,11 @@ which is slower but always possible.
 
 One authoritative home per task, decision and rule. Status is generated on
 demand from those sources; `backlog/` is the one task store, and there is
-no second status page, dashboard or backlog.
+no second status page, dashboard or backlog. In proposals and protocols,
+prefer derived views over manually synchronised summaries.
 
 ```text
-CLAUDE.md, AGENTS.md              # Entry, roles, routing, essential constraints
+CLAUDE.md, AGENTS.md              # Entry and map: where things are, hard rules, pointers to the owning files
 docs/development.md               # This protocol
 docs/review.md                    # Review protocol
 backlog/tasks/                    # One authoritative brief and status per task (Backlog.md)
@@ -196,6 +211,15 @@ complete. Done means the change reached its integration branch, the push and
 CI result are confirmed, and evidence is recorded. A child task reaching a
 feature branch is not the whole feature reaching `main`.
 
+## Author checks
+
+Every non-trivial change to code, fixtures or inputs ends with `ruff check`
+and `python tests/run.py` passing (the `verify-cv` skill) and the evidence
+path reported; a visual change also needs a rendered page (constitution
+section 5). Then comes the independent review
+([review.md](review.md#when-a-review-is-required)); its reports go in the
+task's `archive/work-records/<id>/reviews/` folder.
+
 ## Guardrails without constant interruptions
 
 - The owner chooses outcomes and approved looks/PDFs. Agents choose the
@@ -212,3 +236,16 @@ feature branch is not the whole feature reaching `main`.
   [framework-gaps.md](framework-gaps.md).
 - At handoff, update the owning records and the task; do not create a
   second mandatory handoff document when the task holds the state.
+
+## Improving the process
+
+This development system is experimental. Notice concrete friction, missing
+guidance and useful improvements as work proceeds, and record a brief
+observation in the active task (or the current design proposal) with its
+consequence and a suggested next step. Check for duplicates; do not
+manufacture findings or change an active rule silently. Track a
+decision-ready change under [proposal tracking](proposals/README.md);
+broader process and package ideas stay deferred in
+[process-evolution.md](proposals/process-evolution.md). Keep process work
+proportional: enough to support the next CV task. Package extraction and
+tooling are optional future work, not prerequisites for delivery.

@@ -166,7 +166,8 @@ without a valid, current `Meta File` shows up as a problem, never silently.
   homes. `python tests/run.py` fails on any, and the `Design Review` app,
   which reads `Meta File`s only, lists them as unindexed with the reason.
   `builds/`, an `Envelope`'s `exports/` bundles and its `intake/` documents
-  are not review targets and are never indexed.
+  are not review targets and are never indexed; scratch renders go to
+  `builds/`.
 
 ## Lifecycle
 
