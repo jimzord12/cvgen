@@ -1,7 +1,7 @@
 ---
 id: TASK-40
 title: 'workflow-prose: the stage READMEs and the journey README'
-status: Active
+status: Done
 assignee: []
 created_date: '2026-10-14 04:47'
 updated_date: '2026-10-14 11:14'
@@ -37,3 +37,9 @@ Correction to Q4 after context round 1: the 06-deliver README now says only that
 
 Newcomer test (AC 2), run by the lead 2026-10-14: an independent Sonnet agent given only docs/workflow answered all five questions matching the expected answers (Q1-Q4 sure, Q5 partly, rightly flagging the keep-request field name as P-0018 item 5). It found one model gap: after.delete-by-check does not read art.envelope-keep, so the skip for a keep request lives only in prose; recorded in TASK-43's notes.
 <!-- SECTION:NOTES:END -->
+
+## Final Summary
+
+<!-- SECTION:FINAL_SUMMARY:BEGIN -->
+Hand-written prose around the generated blocks: docs/workflow/README.md (about 253 lines) and the seven stage READMEs (40-74 prose lines each): judgement, branches by ID, who decides, where placeholders and P-0018 items sit. 05-design model fix: design.fill-data follows the Sign-off on both paths. Context rounds FINDINGS then PASS; newcomer test: an independent agent answered five what-happens-if questions from docs/workflow alone. CI 38554640280 green.
+<!-- SECTION:FINAL_SUMMARY:END -->
