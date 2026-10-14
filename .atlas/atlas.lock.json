@@ -94,7 +94,7 @@
    "verifiedAt": "2026-10-14"
   },
   "system-map": {
-   "commit": "7b9722c",
+   "commit": "a36ab4a",
    "sources": {
     ".claude/agents": "dir1:4f4154394888bb9d69a0ed790d8f4b484a790fdd",
     ".claude/skills": "dir1:5eeafda0c9ef9a6037a3fcc2879f73f098fa3e55",
@@ -102,10 +102,10 @@
     ".github/workflows/verify.yml": "33d94223ccb27be2edad22098555a4a484676398",
     "AGENTS.md": "0218a8fe08fa6fe216a38ed89fc36ed3bae7350a",
     "apps/design-review/server.py": "65b42af8bcf0a971e19ec97fa39b874cad91c3c1",
-    "archive/work-records": "dir1:56c5dc2cd04fa76c87a80cbd1944e3a60191f167",
+    "archive/work-records": "dir1:3acfbaab6dab9e0603976438cba5836ce624dbca",
     "docs": "dir1:139adff443cb7a07dd0d5fae04941c8c0785eb30",
     "docs/architecture.md": "350372a56955f34608761fc4876da91260b0042f",
-    "docs/glossary.md": "adbf57743fea29356883b5f7ace4be8a895bfe91",
+    "docs/glossary.md": "a22ba830448d82a3480ab7d0d34fe9f6a3d94df9",
     "docs/guides/build-a-cv.md": "02e9d6923ad03aa7ca6d753d9bf09ff4f4544b4a",
     "docs/guides/client-workflow.md": "90b150c846d6b646a901280bacb6258f8868286b",
     "docs/pdf-workflow.md": "3065a7dbb83a26f70e82fee96aca46f34a99c7f6",
