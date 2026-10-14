@@ -495,7 +495,7 @@ window.ATLAS = {
    "Meta File": "The small JSON beside a PDF saying what it is (kind, `Domain`, status, pages) with its SHA-256.",
    "Frozen Reference": "The PDF a `Template`'s public example must reproduce pixel for pixel.",
    "Framework Gap": "A recorded case of going around the `Framework`, a `Domain` or a `Template` to deliver a CV.",
-   "Session Sweep": "The places to look for loose ends before a session ends: unreviewed commits, approved proposals, open tasks, Git leftovers, CI, `builds/`.",
+   "Session Sweep": "The places to look for loose ends before a session ends: unreviewed commits, approved proposals, open tasks, Git leftovers, CI, `builds/`, repo health (`/repo-maintenance quick`), the `Atlas` check.",
    "Certificate Warning": "A WARNING line at render: a certificate expired or expires within 180 days. Never blocks.",
    "Live Read": "A render that read a private file directly instead of the `Revision`'s copy. It fails its checks.",
    "Batch Test": "Design test 1: in an HR batch of 100 to 200 CVs, ours cannot be skipped.",
@@ -1495,6 +1495,7 @@ window.ATLAS = {
        "summary": "Small verified fixes and docs may go straight to `main`. Features and anything uncertain get a `<type>/<topic>` branch, often in a worktree under `.worktrees/`. No pull requests.",
        "sources": [
         "docs/git-workflow.md:21-33",
+        "docs/git-workflow.md:40-50",
         "docs/git-workflow.md:69-73"
        ]
       },
@@ -1579,7 +1580,7 @@ window.ATLAS = {
         "Renaming the task never resets the round count."
        ],
        "sources": [
-        "docs/review.md:178-204"
+        "docs/review.md:178-213"
        ]
       }
      ]
@@ -2257,35 +2258,35 @@ window.ATLAS = {
     "Not everything here is on `main`: the two Codex steps are approved but not built; the two context agents are on `main` since 2026-10-04."
    ],
    "sources": [
-    "docs/review.md:133-143"
+    "docs/review.md:133-146"
    ]
   }
  ],
  "build": {
-  "builtAt": "2026-10-14 05:25 UTC",
-  "commit": "1b95e5e",
+  "builtAt": "2026-10-14 05:32 UTC",
+  "commit": "8e2b9c5",
   "kit": "1.0",
   "stale": {},
   "verified": {
    "client-journey": {
     "at": "2026-10-14",
-    "commit": "1b95e5e"
+    "commit": "8e2b9c5"
    },
    "design-run": {
     "at": "2026-10-14",
-    "commit": "1b95e5e"
+    "commit": "8e2b9c5"
    },
    "change-review": {
     "at": "2026-10-14",
-    "commit": "1b95e5e"
+    "commit": "8e2b9c5"
    },
    "system-map": {
     "at": "2026-10-14",
-    "commit": "1b95e5e"
+    "commit": "8e2b9c5"
    },
    "roster": {
     "at": "2026-10-14",
-    "commit": "1b95e5e"
+    "commit": "8e2b9c5"
    }
   }
  }

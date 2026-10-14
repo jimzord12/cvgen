@@ -6,7 +6,7 @@ title: >-
 status: Active
 assignee: []
 created_date: '2026-10-06 09:41'
-updated_date: '2026-10-14 05:26'
+updated_date: '2026-10-14 05:32'
 labels:
   - docs cleanup
 dependencies: []
@@ -48,4 +48,12 @@ Checks:
 - `python scripts/outputs.py check`: 19 PDFs indexed, 0 problems.
 - `python .claude/skills/repo-maintenance/scripts/audit.py --mode quick`: no link findings; only the pre-existing AGENTS.md length and deep-path/dir-size notes.
 - `git grep -n -i "night.shift"`: only the dated records listed above.
+
+## Review
+
+Round 1, `context-reviewer`, 2026-10-14: FINDINGS (report `docs/work/remove-night-shift/reviews/01-context-reviewer.md`).
+- M1 fixed: change-review branch step now also cites `docs/git-workflow.md:40-50` (the worktree bullets, 40-50 rather than 40-46 so the whole `.worktrees/` rule is covered).
+- m1 fixed: `docs/review.md` record-keeping paragraph rewrapped to about 75 characters (same line count, no citation shift).
+- Notes done: change-review "fix" step cites `docs/review.md:178-213`, roster tl;dr cites `docs/review.md:133-146`; the `Session Sweep` glossary row and Atlas term now list repo health and the `Atlas` check, matching `docs/development.md`.
+- Merged origin/main (5c61091) cleanly; Atlas rebuilt, all five pages stamped, rebuilt. `python tests/run.py` PASS (`builds/tests-20261014-083204-927112`); `atlas.py check` all ok.
 <!-- SECTION:NOTES:END -->

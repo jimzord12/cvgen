@@ -83,6 +83,7 @@
           "summary": "Small verified fixes and docs may go straight to `main`. Features and anything uncertain get a `<type>/<topic>` branch, often in a worktree under `.worktrees/`. No pull requests.",
           "sources": [
             "docs/git-workflow.md:21-33",
+            "docs/git-workflow.md:40-50",
             "docs/git-workflow.md:69-73"
           ]
         },
@@ -167,7 +168,7 @@
             "Renaming the task never resets the round count."
           ],
           "sources": [
-            "docs/review.md:178-204"
+            "docs/review.md:178-213"
           ]
         }
       ]
