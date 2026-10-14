@@ -93,13 +93,13 @@
    "verifiedAt": "2026-10-14"
   },
   "system-map": {
-   "commit": "3857280",
+   "commit": "9257a00",
    "sources": {
     ".claude/agents": "dir1:4f4154394888bb9d69a0ed790d8f4b484a790fdd",
     ".claude/skills": "dir1:5eeafda0c9ef9a6037a3fcc2879f73f098fa3e55",
     ".claude/skills/backlog/SKILL.md": "22562281e7901acef008942775142d478ec85948",
-    ".github/workflows/verify.yml": "40bc613fee5a49bd14875f60331cf0d24eebaec3",
-    "AGENTS.md": "7006091fddabd93f0c5f2ea9b003eaa7c937c061",
+    ".github/workflows/verify.yml": "61647a15c7431cdf5d9b5610123ea1c74f25bb23",
+    "AGENTS.md": "115f018f301a4eead9bc39d73cfbb78ff5084aeb",
     "archive/anti-examples": "dir1:dacb2a2e30bc6a5d49178d2bcbf382c4de52a88c",
     "archive/design-studies": "dir1:3934f2dbb33587fa8b485e7b99d2b37fa3784798",
     "brand": "dir1:c556e0f8d17363d5e9ddc92e7142a253a16d1be2",
@@ -109,8 +109,8 @@
     "docs/glossary.md": "35c2684aa0f1dd711b3fae786fe12d02f6e7568d",
     "docs/guides/build-a-cv.md": "17fb6155b88307dff5ca55fc8f711dcd53dd824c",
     "docs/guides/client-workflow.md": "65cc8137148bfdfdff23f01d069322503ea9bc13",
-    "docs/pdf-workflow.md": "3bfa09a91c1ec9c970650c88ed15842c477645de",
-    "docs/work": "dir1:efffd601eb832ca3b6ed5ec09de4269607beb74c",
+    "docs/pdf-workflow.md": "e5a01d56e864f0d1d0f296c9d807c8bdc7fa3af0",
+    "docs/work": "dir1:8a56f94809c777ca3951788d05bcf30b7944fada",
     "examples/candidates": "dir1:69fb38eee30dc425761a0cb80a577613cf3bdab4",
     "examples/marine/flagship": "dir1:2badfd3042bcd2c5ef709a6596945aefe8848eb1",
     "packages/cv-framework": "dir1:e26fc6cd0be31cb5f9c4f61215ae5f3cfdc05a78",
@@ -118,12 +118,12 @@
     "packages/domains/marine": "dir1:9c4a644121e8b145ed99f4134de96a479df442e6",
     "packages/domains/marine/templates/flagship": "dir1:c1500c155801e647ec739a9825e21815ede4f30d",
     "packages/domains/marine/templates/flagship/tests/approved": "dir1:937263ba14b899950b2c4f58a1ff6c6fd2275f3a",
-    "scripts/build.ps1": "1e46ca069912d81455046e74e765ec810095004e",
+    "scripts/build.ps1": "cc1eed5fa9bb4acf4b8955ae94eb6768f3e1de5e",
     "scripts/cv.py": "d21197a5887e4f7aa6bf778c0ca2fd50229d2a11",
     "scripts/design_review/server.py": "0d1258af97e31db980fcd7a98e64e88f431f9840",
     "scripts/outputs.py": "6e79e3d72163c249c328633379952f93837ffe1c",
     "scripts/text-draft.typ": "c6f61f2253a2105d3334f3edc4e9b12137f54fa1",
-    "tests/run.py": "4ddd027d4184e48c800c33eaf83d39a84621487d"
+    "tests/run.py": "3e7636157fcc9afbf9d0d5a341c92705b74676ca"
    },
    "verifiedAt": "2026-10-14"
   }
