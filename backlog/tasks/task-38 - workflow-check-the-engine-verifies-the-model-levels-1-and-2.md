@@ -4,7 +4,7 @@ title: 'workflow-check: the workflow tool verifies the model (levels 1 and 2)'
 status: Queued
 assignee: []
 created_date: '2026-10-14 04:47'
-updated_date: '2026-10-14 06:52'
+updated_date: '2026-10-14 08:18'
 labels:
   - workflow-model
 dependencies:
@@ -24,3 +24,9 @@ ordinal: 38000
 - [ ] #2 CI runs it
 - [ ] #3 the real model passes
 <!-- AC:END -->
+
+## Implementation Notes
+
+<!-- SECTION:NOTES:BEGIN -->
+2026-10-14, from TASK-36 context review round 2 (m1): the handoff's flow rule 'produced by an earlier step or marked external' (docs/work/workflow-model/handoff.md:216) means the Artifact flag given: true in the types (tools/workflow/src/model.ts); there is no external flag, and the inventory's 'external' is visibility third-party (tools/workflow/README.md, Reading the inventory).
+<!-- SECTION:NOTES:END -->

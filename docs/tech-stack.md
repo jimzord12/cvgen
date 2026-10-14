@@ -13,7 +13,7 @@ Read this when setting up a machine or asking why a tool was chosen.
 | Candidate workflow | Python package `packages/cv-workflow` behind `scripts/cv.py` | `pymupdf` for the render checks, `jsonschema` for the record check; standard library otherwise | Revisions, checks, approval receipts and verified exports without a web stack, database or job service; the future web backend calls the same functions |
 | CI | GitHub Actions, `.github/workflows/verify.yml` | Runners `ubuntu-24.04` and `windows-2025`, pinned; actions pinned by commit SHA | Runs `tests/run.py` on Linux and Windows (the suite drives `scripts/build.ps1` in a throwaway copy on both), and `scripts/build.ps1` on the checkout on Windows, once per push on any branch, on its head commit (or by hand, `workflow_dispatch`); a newer push to a feature branch cancels the older run, while every push to `main` keeps its run. No `pull_request` trigger: the project works without pull requests, so it would only run the same commit twice. Typst is downloaded from its GitHub release and checked against the SHA-256 recorded in the workflow; the pip downloads are cached. Changing the Typst version means updating both hashes there; moving a runner image is a deliberate commit |
 | Agents | `AGENTS.md`, `CLAUDE.md`, `.claude/skills/` | | Entry map, invariants and repeatable checklists for coding agents |
-| Workflow model | TypeScript on [Bun](https://bun.sh), Zod types with an exported JSON Schema, YAML facts | Bun 1.4.2, pinned (ADR 0015) | Adopted for `tools/workflow/` once TASK-36 lands; not in the repository yet. The owner reads TypeScript, not Python; the workflow scripts it checks stay Python |
+| Workflow model | TypeScript on [Bun](https://bun.sh), Zod types with an exported JSON Schema, YAML facts | Bun 1.4.2, pinned in `tools/workflow/.bun-version` for CI (locally any 1.4.x from 1.4.2); `zod` 4.6.5, `yaml` 2.9.1, pinned in `tools/workflow/package.json` with `bun.lock` (ADR 0015) | The workflow tool in `tools/workflow/` (its `README.md`): the types, the committed JSON Schema and a `check` command. The owner reads TypeScript, not Python; the workflow scripts it checks stay Python |
 | Task store | [Backlog.md](https://github.com/MrLesk/Backlog.md) (`backlog` CLI, on Node) | 1.52.0, pinned (1.53.0 has an open web-server memory leak, issue #1038) | Task files travel with Git, plain output for agents, local terminal and browser boards; no credentials or network (ADR 0014) |
 
 ## Setup
@@ -23,6 +23,8 @@ winget install --id Typst.Typst --exact        # Windows
 pip install pymupdf pillow jsonschema           # tests/run.py and scripts/cv.py render
 npm i -g backlog.md@1.52.0                       # the task store CLI (needs Node); expect `backlog --version` 1.52.0
 typst --version                                 # expect 0.15.1
+powershell -c "irm bun.sh/install.ps1 | iex"     # Bun for tools/workflow/; `bun upgrade` if older than 1.4.2
+cd tools/workflow; bun install --frozen-lockfile; cd ../..   # the workflow tool's pinned dependencies, exactly as in bun.lock
 ```
 
 On macOS or Linux install Typst from the GitHub releases and use the same

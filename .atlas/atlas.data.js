@@ -2273,30 +2273,30 @@ window.ATLAS = {
   }
  ],
  "build": {
-  "builtAt": "2026-10-14 08:00 UTC",
-  "commit": "51584c6",
+  "builtAt": "2026-10-14 08:05 UTC",
+  "commit": "c6910f3",
   "kit": "1.0",
   "stale": {},
   "verified": {
    "client-journey": {
     "at": "2026-10-14",
-    "commit": "9db5894"
+    "commit": "96570a8"
    },
    "design-run": {
     "at": "2026-10-14",
-    "commit": "9db5894"
+    "commit": "96570a8"
    },
    "change-review": {
     "at": "2026-10-14",
-    "commit": "9db5894"
+    "commit": "96570a8"
    },
    "system-map": {
     "at": "2026-10-14",
-    "commit": "51584c6"
+    "commit": "c6910f3"
    },
    "roster": {
     "at": "2026-10-14",
-    "commit": "9db5894"
+    "commit": "96570a8"
    }
   }
  }
