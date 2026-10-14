@@ -400,7 +400,7 @@ window.ATLAS = {
     "role": "The full test suite: compiles every example in `examples/release.json`, runs `build.ps1` in a throwaway copy, checks the `Frozen Reference` pixel for pixel, the workflow, the contract. Evidence goes to `builds/tests-<timestamp>/`.",
     "sources": [
      "tests/run.py",
-     "docs/reference/verification.md"
+     "docs/engine/verification.md"
     ]
    },
    "design-review-app": {
@@ -1967,7 +1967,7 @@ window.ATLAS = {
        "id": "n-docs",
        "title": "docs/",
        "path": "docs/",
-       "blurb": "Vision, constitution, architecture, guides, references, ADRs."
+       "blurb": "Vision, constitution, architecture, guides, engine manuals, ADRs."
       },
       {
        "id": "n-glossary",
@@ -2273,22 +2273,30 @@ window.ATLAS = {
   }
  ],
  "build": {
-  "builtAt": "2026-10-14 07:17 UTC",
-  "commit": "b01e51a",
+  "builtAt": "2026-10-14 07:55 UTC",
+  "commit": "f6aebb4",
   "kit": "1.0",
-  "stale": {},
+  "stale": {
+   "system-map": [
+    "AGENTS.md",
+    "docs/architecture.md",
+    "docs/guides/build-a-cv.md",
+    "docs",
+    "docs/glossary.md"
+   ]
+  },
   "verified": {
    "client-journey": {
     "at": "2026-10-14",
-    "commit": "b01e51a"
+    "commit": "f6aebb4"
    },
    "design-run": {
     "at": "2026-10-14",
-    "commit": "b01e51a"
+    "commit": "f6aebb4"
    },
    "change-review": {
     "at": "2026-10-14",
-    "commit": "b01e51a"
+    "commit": "f6aebb4"
    },
    "system-map": {
     "at": "2026-10-14",
@@ -2296,7 +2304,7 @@ window.ATLAS = {
    },
    "roster": {
     "at": "2026-10-14",
-    "commit": "b01e51a"
+    "commit": "f6aebb4"
    }
   }
  }

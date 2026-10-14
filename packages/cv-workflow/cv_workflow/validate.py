@@ -6,7 +6,7 @@ from .workspace import DOMAINS, WorkflowError, repo_relative
 
 # /packages/domains/<domain>/templates/<template>/... inside an #import path.
 DOMAIN = re.compile(r'domains/([\w-]+)(?:/templates/([\w-]+))?')
-# The marine domain's lib.typ exports marine and Flagship under flat names (docs/reference/domains-and-roles.md);
+# The marine domain's lib.typ exports marine and Flagship under flat names (docs/engine/domains-and-roles.md);
 # an entry importing it, and no other domain, uses Flagship's contract. The Framework's lib.typ names no domain.
 LIB = re.compile(r'(^|/)packages/domains/marine/lib\.typ$')
 LIB_SCHEMA = DOMAINS / 'marine/templates/flagship/schema/flagship-input.schema.json'

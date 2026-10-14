@@ -398,7 +398,7 @@
       "role": "The full test suite: compiles every example in `examples/release.json`, runs `build.ps1` in a throwaway copy, checks the `Frozen Reference` pixel for pixel, the workflow, the contract. Evidence goes to `builds/tests-<timestamp>/`.",
       "sources": [
         "tests/run.py",
-        "docs/reference/verification.md"
+        "docs/engine/verification.md"
       ]
     },
     "design-review-app": {

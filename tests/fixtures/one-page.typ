@@ -14,7 +14,7 @@
   groups: ((type: "General cargo", ships: ships),))
 #let case = sys.inputs.at("case", default: "three")
 // Three companies with three vessels and three certificate rows sit at the measured
-// edge (docs/reference/layout-and-pagination.md); one vessel more must overflow.
+// edge (docs/engine/layout-and-pagination.md); one vessel more must overflow.
 #let three = (raw.companies.at(1), extra(1, (vessel(1),)), extra(2, (vessel(2),)))
 #let (companies, certificates) = {
   if case == "one" {(raw.companies.slice(1, 2), raw.certificates)}

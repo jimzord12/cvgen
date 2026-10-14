@@ -58,20 +58,20 @@ company indices, zero-based, in JSON order:
 Three companies here: two open page one, the third closes page two with the
 synopsis, certificates and education. Adjust the split after looking at the
 render. Splitting one large company across pages is shown in
-`../reference/layout-and-pagination.md`.
+`../engine/layout-and-pagination.md`.
 
 A short career (a cadet or junior officer) goes on one page with
 `flagship-one-page.typ` instead: import `one-page` from it and pass
 `layout: one-page(candidate)`; it plans the candidate's own companies, so
 no override is needed. Render with `python scripts/cv.py render <folder>
 --pages 1`. Whether a record fits is in
-`../reference/layout-and-pagination.md`, "Choosing a profile".
+`../engine/layout-and-pagination.md`, "Choosing a profile".
 
 ## 2. Fill the data
 
 Copy `examples/candidates/engineer-example.json` or `examples/candidates/captain-example.json` and
 replace every value. Field meanings and error messages are in
-`../reference/candidate-schema.md`. Set `identity.portrait` to
+`../engine/candidate-schema.md`. Set `identity.portrait` to
 `/private/jane-doe-second-engineer/portrait.<ext>` (a path from the
 repository root, which both the preview in section 3 and the workflow
 accept) or to `null`. A path relative to the workspace folder,
@@ -169,7 +169,7 @@ Every failure names the fix. The common ones:
 - `Page plan company index out of bounds`: the `pages` override does not
   match the number of companies in the JSON. Fix the indices.
 - Overflow on a page: move a company to the next page or split it as shown
-  in `../reference/layout-and-pagination.md`. Do not shrink the body font.
+  in `../engine/layout-and-pagination.md`. Do not shrink the body font.
 
 ## 5. Look at every page
 
@@ -223,7 +223,7 @@ certificate numbers, scans or passport details to this public repository.
 Some real CVs cannot go through `flagship` yet. The known causes are
 recorded in `../framework-gaps.md`: a career recorded as contract periods
 rather than service months (see the note in
-`../reference/candidate-schema.md`), an approved design that needs a
+`../engine/candidate-schema.md`), an approved design that needs a
 three-column certificate table, and a skills block the template has no
 slot for. Until the template supports these, compose the page by hand from
 the same public exports:
@@ -257,9 +257,9 @@ Flagship section (`docs/conventions.md`). The flat names such as `hero` or
 `section-heading` still work with their old signatures, for compositions
 written before 2026-09-25, but are deprecated; removal planned
 (TASK-58); migrate with the table below. The skills block is
-documented in `../reference/skills-component.md`. The root-absolute import
+documented in `../engine/skills-component.md`. The root-absolute import
 works from any workspace folder. `marine` is the domain node exported by
-`lib.typ` (`docs/reference/domains-and-roles.md`).
+`lib.typ` (`docs/engine/domains-and-roles.md`).
 
 Rules for this path:
 
@@ -334,7 +334,7 @@ requires identical pixels, so the table is checked.
 | `identity-plate(identity, theme, layout.hero)` | `fc.identity-plate(ctx, identity)` | `layout.hero` |
 | `hero(d.identity, d.contacts, theme, artwork, layout.hero)` | `fc.hero(ctx, d)` | `layout.hero`, `artwork` |
 
-The page shell reads `layout.shell` (`docs/reference/layout-and-pagination.md`):
+The page shell reads `layout.shell` (`docs/engine/layout-and-pagination.md`):
 a layout written before TASK-45 renames `opening-margin` to `shell.margin`
 and `hero.band-height` to `shell.band`. The legacy `document-shell` refuses
 the old keys; `cc.document-shell` and `cc.page-background` cannot name them

@@ -7,7 +7,7 @@
 #let rule(ctx, weight: 0.5pt) = line(length: 100%, stroke: weight + ctx.theme.colors.metal)
 
 // The art is recoloured in memory, in this order; no frozen SVG is edited. The theme
-// says how (docs/reference/theme.md): `art-palette` maps a source hex to the name of
+// says how (docs/engine/theme.md): `art-palette` maps a source hex to the name of
 // the theme colour that replaces it (the domain knows its art's colours), `{{name}}`
 // stands for any theme colour, and `art-colors` maps any other hex to a colour.
 #let decoration(ctx, asset, width: auto, height: auto, artifact: true) = {

@@ -1,7 +1,7 @@
 // One-page Flagship for short careers (cadets, junior officers): the v11
 // geometry with tighter vertical gaps so hero, experience, synopsis,
 // certificates and education share one page. Type sizes stay the theme's;
-// overflow still fails loudly. See docs/reference/layout-and-pagination.md.
+// overflow still fails loudly. See docs/engine/layout-and-pagination.md.
 #import "flagship-v11.typ": layout as v11
 
 #let layout = (..v11,

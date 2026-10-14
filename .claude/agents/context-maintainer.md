@@ -42,7 +42,7 @@ say which file owns which kind of guidance. In short:
 | How work is done | `docs/development.md` (stages, task records), `docs/review.md` (reviews), `docs/git-workflow.md`, `docs/conventions.md` |
 | Official terms | `docs/glossary.md` |
 | Clients and real CVs | `docs/guides/client-workflow.md`, `docs/guides/build-a-cv.md` |
-| How the engine is shaped | `docs/architecture.md`, `docs/reference/` |
+| How the engine is shaped | `docs/architecture.md`, `docs/engine/` |
 | Proposal states | `docs/proposals/README.md` |
 | Checklists | `.claude/skills/<skill>/SKILL.md` |
 | Subagents | `.claude/agents/*.md` |
