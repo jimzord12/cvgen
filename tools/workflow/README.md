@@ -120,7 +120,7 @@ without blocking CI.
 the fact was written from: a line added above them shifts every anchor below.
 `bun run anchors <commit>` compares each cited file with `<commit>` (the last
 commit at which the anchors were known good, for example the merge base of
-a branch that edited cited files) through `git diff`:
+a branch that edited cited files) through `git diff`. Only anchors already in the model at `<commit>` are judged; one written since cites the file as it is now.
 
 - `MOVED a:4-5 -> a:6-7`: the lines only shifted; `--fix` rewrites the anchor
   in the YAML.

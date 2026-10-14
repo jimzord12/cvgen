@@ -70,6 +70,15 @@ describe("anchors", () => {
     expect(log).toContain("MOVED notes.md:8 -> notes.md:9");
   });
 
+  test("an anchor written after the base already cites the file as it is now: not judged", () => {
+    writeFileSync(join(root, "notes.md"), `new a\n${lines(10).join("\n")}\n`);
+    writeFileSync(stageFile(), readFileSync(stageFile(), "utf8").replace('"notes.md:8"', '"notes.md:9", "notes.md:11"'));
+    const { log } = run();
+    expect(log).toContain("MOVED notes.md:4-5 -> notes.md:5-6");
+    expect(log).not.toContain("notes.md:9 ->");
+    expect(log).not.toContain("notes.md:11");
+  });
+
   test("a base that is not a commit is a usage error", () => {
     const log: string[] = [];
     expect(anchors({ base: "no-such-ref", fix: false, dir: join(root, "model"), root, log: (l) => log.push(l) })).toBe(2);

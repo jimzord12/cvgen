@@ -67,6 +67,8 @@ export function anchors({ base, fix, dir, root, log }: AnchorOptions): number {
     files.flatMap((f) => (texts.get(f) as string).split("\n").flatMap((l, i) => (l.includes(`"${anchor}"`) ? [`${shown(f)}:${i + 1}`] : [])));
 
   const ranged = [...sourcesOf([model.catalog.data, ...model.stages.map((s) => s.data)])].filter((s) => /:\d+(-\d+)?$/.test(s)).sort();
+  // An anchor written after <base> already cites the file as it is now: only those already in the model at <base> are judged.
+  const before = files.map((f) => git(root, ["show", `${base}:${shown(f)}`]).stdout ?? "").join("\n");
   const cache = new Map<string, Hunk[]>();
   const fixes = new Map<string, string>();
   let edited = 0;
@@ -74,6 +76,7 @@ export function anchors({ base, fix, dir, root, log }: AnchorOptions): number {
     const colon = anchor.lastIndexOf(":");
     const file = anchor.slice(0, colon);
     const [first, last = first] = anchor.slice(colon + 1).split("-").map(Number) as [number, number?];
+    if (!before.includes(`"${anchor}"`)) continue;
     // A file new since <base>, or gone now (check reports that), has nothing to compare.
     if (!existsSync(join(root, file)) || git(root, ["cat-file", "-e", `${base}:${file}`]).status !== 0) continue;
     let changes = cache.get(file);
