@@ -16,7 +16,7 @@
 
 ```mermaid
 flowchart TD
-  %% An arrow implied by a longer path (not through an optional step) is left out; the tables list every input and handover.
+  %% An arrow implied by a longer path is left out, unless that path runs through an optional step with another condition; the tables list every input and handover.
   s_text_draft__draft_write["text-draft.draft-write"]
   s_text_draft__draft_compile["text-draft.draft-compile"]
   s_text_draft__draft_inspect["text-draft.draft-inspect"]

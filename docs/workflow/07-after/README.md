@@ -16,7 +16,7 @@
 
 ```mermaid
 flowchart TD
-  %% An arrow implied by a longer path (not through an optional step) is left out; the tables list every input and handover.
+  %% An arrow implied by a longer path is left out, unless that path runs through an optional step with another condition; the tables list every input and handover.
   s_after__stall_check["after.stall-check"]
   s_after__delete_by_check["after.delete-by-check"]
   s_after__keep_request["after.keep-request"]

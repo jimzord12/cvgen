@@ -27,7 +27,7 @@ flowchart LR
   st_design["05 design: Design and build the CV"]
   st_deliver["06 deliver: Render, Approval, Export and delivery"]
   st_after["07 after: Retention, deletion and closing the record"]
-  %% An arrow implied by a longer path (not through an optional step) is left out; the tables list every input and handover.
+  %% An arrow implied by a longer path is left out, unless that path runs through an optional step with another condition; the tables list every input and handover.
   st_open -->|"1 artifact"| st_intake
   st_intake -->|"2 artifacts, 1 branch"| st_research
   st_research -->|"2 artifacts"| st_text_draft

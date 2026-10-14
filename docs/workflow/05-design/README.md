@@ -16,7 +16,7 @@
 
 ```mermaid
 flowchart TD
-  %% An arrow implied by a longer path (not through an optional step) is left out; the tables list every input and handover.
+  %% An arrow implied by a longer path is left out, unless that path runs through an optional step with another condition; the tables list every input and handover.
   s_design__handover["design.handover"]
   s_design__run_brief["design.run-brief"]
   s_design__run_draw["design.run-draw"]
@@ -52,10 +52,6 @@ flowchart TD
   g_gate__client_design_review{"gate.client-design-review"}
   s_design__run_brief --> s_design__run_draw
   s_design__run_draw --> s_design__run_research_gate
-  s_design__run_draw --> s_design__run_design_gate
-  s_design__run_draw --> s_design__run_integrate
-  s_design__run_draw --> s_design__pick
-  s_design__run_draw --> s_design__record_choice
   s_design__run_revise_sources --> s_design__run_research_gate
   s_design__run_revise_design --> s_design__run_design_gate
   s_design__run_revise_design --> s_design__run_integrate

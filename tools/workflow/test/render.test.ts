@@ -89,7 +89,7 @@ describe("a fixture model rendered through the command line", () => {
     expect(validateFlowchart(diagram?.body ?? "")).toEqual([]);
     expect(diagram?.body.split("\n")).toEqual([
       "flowchart TD",
-      "  %% An arrow implied by a longer path (not through an optional step) is left out; the tables list every input and handover.",
+      "  %% An arrow implied by a longer path is left out, unless that path runs through an optional step with another condition; the tables list every input and handover.",
       '  s_make__start["make.start"]',
       '  s_make__build["make.build"]',
       '  s_make__review["make.review"]',
@@ -154,6 +154,36 @@ describe("a fixture model rendered through the command line", () => {
     expect(read(stage()).trimEnd().endsWith(endMarker("actions"))).toBe(true);
   });
 
+  test("a marker quoted inside a code fence is text: it is neither replaced nor counted", () => {
+    run("render", dir);
+    const quoted = ["```markdown", startMarker("steps"), "an example, by hand", endMarker("steps"), "```", "~~~", startMarker("nosuch"), "~~~"].join("\n");
+    const edited = read(stage()).replace("# 01 make: make\n", `# 01 make: make\n\n${quoted}\n`);
+    writeFileSync(stage(), edited);
+    expect(run("render", "--check", dir).code).toBe(0);
+    expect(run("render", dir).code).toBe(0);
+    expect(read(stage())).toBe(edited);
+  });
+
+  test("an arrow stays when the only longer path runs through a step with another condition, and goes when it is the same", () => {
+    // make.side reads art.draft (from make.start and make.fix) and writes art.note; make.join reads both.
+    // start -> join is implied only through make.side, which has a condition start does not: drawn.
+    // fix -> join is implied through make.side under the same condition as make.fix: left out.
+    const yaml = join(dir, "01-make", "stage.yaml");
+    const step = (id: string, inputs: string, outputs: string, when?: string) =>
+      `  - id: ${id}\n    name: ${id}\n    sources: ["AGENTS.md"]\n    actor: actor.lead\n    action: lead.work\n    inputs: [${inputs}]\n    outputs: [${outputs}]\n${when ? `    when: ${when}\n` : ""}`;
+    const extra = `${step("make.side", "art.draft", "art.note", "The review returned FINDINGS.")}\n${step("make.join", "art.draft, art.note", "art.joined")}\n`;
+    const artifacts = `  - { id: art.note, name: art.note, sources: ["AGENTS.md"], visibility: private }\n  - { id: art.joined, name: art.joined, sources: ["AGENTS.md"], visibility: private }\n`;
+    writeFileSync(yaml, read(yaml).replace(/\r\n/g, "\n").replace("\ngates:\n", `\n${extra}\ngates:\n`).replace("\n\nactions:\n", `\n${artifacts}\nactions:\n`));
+    const r = run("render", dir);
+    expect(r).toMatchObject({ code: 0, err: "" });
+    const edges = (mermaidBlocks(read(stage()))[0]?.body ?? "").split("\n").filter((l) => l.includes("-->"));
+    expect(edges).toContain("  s_make__start --> s_make__side");
+    expect(edges).toContain("  s_make__side --> s_make__join");
+    expect(edges).toContain("  s_make__start --> s_make__join");
+    expect(edges).toContain("  s_make__fix --> s_make__side");
+    expect(edges).not.toContain("  s_make__fix --> s_make__join");
+  });
+
   test("a file with Windows line endings and the same content is current", () => {
     run("render", dir);
     writeFileSync(stage(), read(stage()).replace(/\n/g, "\r\n"));
@@ -198,6 +228,7 @@ describe("a fixture model rendered through the command line", () => {
 describe("the Mermaid subset", () => {
   test("model IDs map to safe node IDs and labels escape what Mermaid reads as syntax", () => {
     expect(nodeId("s", "design.run-brief")).toBe("s_design__run_brief");
+    expect(nodeId("s", "a.b")).not.toBe(nodeId("s", "a-b"));
     expect(nodeId("g", "gate.a-b")).not.toBe(nodeId("g", "gate-a.b"));
     expect(label('a "quoted" <b> #1\n  next')).toBe('"a #quot;quoted#quot; #lt;b#gt; #35;1 next"');
     expect(validateFlowchart(`flowchart LR\n  a[${label('say "hi" <br> #1')}]`)).toEqual([]);

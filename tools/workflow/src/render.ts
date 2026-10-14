@@ -47,10 +47,21 @@ export function applyBlocks(text: string, blocks: Block[], file: string): string
   const known = new Map(blocks);
   const found = new Map<string, [number, number]>();
   let open: [string, number] | undefined;
+  let fence: string | undefined; // the opening ``` or ~~~ of a code fence the line is in
   const fail = (i: number, reason: string) => {
     throw new MarkerError(`${file}:${i + 1}: ${reason}`);
   };
   lines.forEach((line, i) => {
+    // A marker quoted inside a code fence is text, not a marker.
+    const fenceMark = /^ {0,3}(`{3,}|~{3,})/.exec(line)?.[1];
+    if (fence) {
+      if (fenceMark && fenceMark[0] === fence[0] && fenceMark.length >= fence.length && line.trim() === fenceMark) fence = undefined;
+      return;
+    }
+    if (fenceMark) {
+      fence = fenceMark;
+      return;
+    }
     const m = markerLine.exec(line);
     if (!m) {
       // Only a line that starts like a marker can be a broken one; prose may mention markers.
@@ -90,7 +101,8 @@ const blockLines = (name: string, content: string) => [startMarker(name), "", ..
 
 // --- Markdown helpers.
 
-const code = (id: string) => `\`${id}\``;
+/** Inline code; a pipe is escaped, since every use may sit in a table cell. */
+const code = (id: string) => `\`${id.replace(/\|/g, "\\|")}\``;
 const codes = (ids: Iterable<string>) => [...ids].map(code).join(", ");
 /** One table cell: on one line, pipes escaped. */
 const cell = (text: string | undefined) => (text ?? "").replace(/\s+/g, " ").trim().replace(/\|/g, "\\|");
@@ -167,14 +179,15 @@ const stageLink = (v: View, stage: string, from: "journey" | "stage") =>
 /** An edge in a diagram; `droppable` when a longer path may stand for it, `cut` when it goes back (a loop, or a later stage to an earlier one). */
 type Edge = { from: string; to: string; text?: string; dotted?: boolean; droppable?: boolean; cut?: boolean };
 
-const reduced = "An arrow implied by a longer path (not through an optional step) is left out; the tables list every input and handover.";
+const reduced = "An arrow implied by a longer path is left out, unless that path runs through an optional step with another condition; the tables list every input and handover.";
 
 /**
  * Drops each droppable edge whose target its source also reaches by another
- * path. Edges that go back never count as a path, nor does a path through an
- * `optional` node (a step with `when`), which may not run.
+ * path. Edges that go back never count as a path, nor does a path through a
+ * node with a condition (`when` of a step, in `when`) that differs from the
+ * source's: that step may not run when the source does.
  */
-function reduce(edges: Edge[], optional = new Set<string>()): Edge[] {
+function reduce(edges: Edge[], when = new Map<string, string>()): Edge[] {
   const reaches = (skip: Edge): boolean => {
     const seen = new Set([skip.from]);
     for (const queue = [skip.from]; queue.length > 0; ) {
@@ -183,7 +196,8 @@ function reduce(edges: Edge[], optional = new Set<string>()): Edge[] {
         if (e === skip || e.cut || e.from !== node || seen.has(e.to)) continue;
         if (e.to === skip.to) return true;
         seen.add(e.to);
-        if (!optional.has(e.to)) queue.push(e.to);
+        const condition = when.get(e.to);
+        if (condition === undefined || condition === when.get(skip.from)) queue.push(e.to);
       }
     }
     return false;
@@ -236,7 +250,7 @@ function journeyBlocks(v: View): Block[] {
 
   const actors = table(
     ["ID", "Kind", "Name", "Does"],
-    [...v.ix.model.catalog.data.actors].sort((a, b) => a.id.localeCompare(b.id)).map((a) => [code(a.id), a.kind, cell(a.name), cell(a.does)]),
+    [...v.ix.model.catalog.data.actors].sort((a, b) => (a.id < b.id ? -1 : a.id > b.id ? 1 : 0)).map((a) => [code(a.id), a.kind, cell(a.name), cell(a.does)]),
   );
 
   return [
@@ -299,7 +313,7 @@ function stageBlocks(v: View, stage: Stage): Block[] {
     ...stage.steps.map((s) => `  ${nodeId("s", s.id)}[${label(s.id)}]`),
     ...stage.gates.map((g) => `  ${nodeId("g", g.id)}{${label(g.id)}}`),
     ...[...outside].sort().map((s) => `  ${nodeId("x", s)}([${label(s)}])`),
-    ...reduce(edges, new Set(stage.steps.filter((s) => s.when).map((s) => nodeId("s", s.id)))).map(edgeLine),
+    ...reduce(edges, new Map(stage.steps.flatMap((s) => (s.when ? [[nodeId("s", s.id), s.when] as const] : [])))).map(edgeLine),
   ]);
 
   const steps = table(

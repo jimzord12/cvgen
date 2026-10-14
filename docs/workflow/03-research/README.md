@@ -16,7 +16,7 @@
 
 ```mermaid
 flowchart TD
-  %% An arrow implied by a longer path (not through an optional step) is left out; the tables list every input and handover.
+  %% An arrow implied by a longer path is left out, unless that path runs through an optional step with another condition; the tables list every input and handover.
   s_research__facts["research.facts"]
   s_research__library_read["research.library-read"]
   s_research__library_recheck["research.library-recheck"]
@@ -53,8 +53,6 @@ flowchart TD
   s_research__dive_brief --> s_research__deep_dive
   s_research__deep_dive --> s_research__dive_save
   s_research__dive_save --> s_research__dive_review
-  s_research__dive_save --> s_research__library_note
-  s_research__dive_save --> s_research__decisions_update
   s_research__dive_review --> s_research__library_note
   s_research__dive_revise --> s_research__dive_save
   s_research__library_note --> s_research__library_review

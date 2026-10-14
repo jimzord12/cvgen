@@ -16,7 +16,7 @@
 
 ```mermaid
 flowchart TD
-  %% An arrow implied by a longer path (not through an optional step) is left out; the tables list every input and handover.
+  %% An arrow implied by a longer path is left out, unless that path runs through an optional step with another condition; the tables list every input and handover.
   s_intake__questions["intake.questions"]
   s_intake__form_script["intake.form-script"]
   s_intake__form_create["intake.form-create"]
@@ -39,7 +39,6 @@ flowchart TD
   s_intake__form_script --> s_intake__form_create
   s_intake__form_create --> s_intake__form_links
   s_intake__form_create --> s_intake__form_theme
-  s_intake__form_create --> s_intake__form_test_cleanup
   s_intake__form_theme --> s_intake__form_test_cleanup
   s_intake__form_theme --> s_intake__form_fill
   s_intake__relay_send --> s_intake__client_answers
