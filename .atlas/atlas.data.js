@@ -217,13 +217,13 @@ window.ATLAS = {
     "calledBy": "The lead.",
     "when": "Any change to the files agents read.",
     "notes": [
-     "Merged into `main` on 2026-10-04 (owner's decision). The two review reports from its branch were FINDINGS: `docs/work/design-core/reviews/03-context-reviewer.md` (Material F1 and F2 fixed in TASK-33, 2026-10-14; its Minor findings were outside that task) and `docs/work/codex-visual-tools/reviews/01.md` (open; carried to TASK-4)."
+     "Merged into `main` on 2026-10-04 (owner's decision). The two review reports from its branch were FINDINGS: `archive/work-records/design-core/reviews/03-context-reviewer.md` (Material F1 and F2 fixed in TASK-33, 2026-10-14; its Minor findings were outside that task) and `archive/work-records/codex-visual-tools/reviews/01.md` (open; carried to TASK-4)."
     ],
     "sources": [
      ".claude/agents/context-reviewer.md",
-     "docs/work/anti-examples/reviews/01-context.md",
-     "docs/work/design-core/reviews/03-context-reviewer.md",
-     "docs/work/codex-visual-tools/reviews/01.md"
+     "archive/work-records/anti-examples/reviews/01-context.md",
+     "archive/work-records/design-core/reviews/03-context-reviewer.md",
+     "archive/work-records/codex-visual-tools/reviews/01.md"
     ],
     "short": "Context rev."
    },
@@ -239,12 +239,12 @@ window.ATLAS = {
     "calledBy": "The lead.",
     "when": "Feedback from you that changes how agents behave.",
     "notes": [
-     "Merged into `main` on 2026-10-04 (owner's decision). The two review reports from its branch were FINDINGS: `docs/work/design-core/reviews/03-context-reviewer.md` (Material F1 and F2 fixed in TASK-33, 2026-10-14; its Minor findings were outside that task) and `docs/work/codex-visual-tools/reviews/01.md` (open; carried to TASK-4)."
+     "Merged into `main` on 2026-10-04 (owner's decision). The two review reports from its branch were FINDINGS: `archive/work-records/design-core/reviews/03-context-reviewer.md` (Material F1 and F2 fixed in TASK-33, 2026-10-14; its Minor findings were outside that task) and `archive/work-records/codex-visual-tools/reviews/01.md` (open; carried to TASK-4)."
     ],
     "sources": [
      ".claude/agents/context-maintainer.md",
-     "docs/work/design-core/reviews/03-context-reviewer.md",
-     "docs/work/codex-visual-tools/reviews/01.md"
+     "archive/work-records/design-core/reviews/03-context-reviewer.md",
+     "archive/work-records/codex-visual-tools/reviews/01.md"
     ]
    },
    "general-purpose": {
@@ -276,7 +276,7 @@ window.ATLAS = {
     ],
     "sources": [
      "docs/proposals/codex-visual-tools.md",
-     "docs/work/codex-visual-tools/reviews/01.md"
+     "archive/work-records/codex-visual-tools/reviews/01.md"
     ],
     "short": "Codex rev."
    },
@@ -1148,7 +1148,7 @@ window.ATLAS = {
        "summary": "Every run lives on its own branch with one record of the brief, the rounds, the verdicts and what reached you.",
        "out": [
         "Branch `docs/idea-run-<date>-editor`",
-        "`docs/work/idea-runs/<date>-editor/run.md`"
+        "`archive/work-records/idea-runs/<date>-editor/run.md`"
        ],
        "sources": [
         ".claude/skills/idea-run/SKILL.md:32-36"
@@ -1441,7 +1441,7 @@ window.ATLAS = {
     "asOf": "2026-10-14",
     "title": "The 2026-10-04 merges were reviewed after the fact",
     "note": "On 2026-10-04 you asked for every branch to be merged so only `main` remains; those merges had no review report. On 2026-10-14 a `context-reviewer` reviewed them (FINDINGS: ungated designs and open review reports brought onto `main`, stale records), and TASK-33 fixed each finding. Changes in flight are the Active and Review tasks in `backlog/`.",
-    "ref": "docs/work/workflow-model/reviews/01-context-reviewer.md"
+    "ref": "archive/work-records/workflow-model/reviews/01-context-reviewer.md"
    },
    "phases": [
     {
@@ -1559,7 +1559,7 @@ window.ATLAS = {
         "cap": "5 rounds with you around, 10 unattended"
        },
        "out": [
-        "`docs/work/<task>/reviews/NN.md`, stored unchanged"
+        "`archive/work-records/<task-slug>/reviews/NN-<reviewer>.md`, stored unchanged"
        ],
        "uses": [
         "code-reviewer",
@@ -1572,7 +1572,7 @@ window.ATLAS = {
         "docs/review.md:79-99",
         "docs/review.md:155-174",
         "docs/review.md",
-        "docs/work/anti-examples/reviews/01-context.md"
+        "archive/work-records/anti-examples/reviews/01-context.md"
        ]
       },
       {
@@ -1991,8 +1991,8 @@ window.ATLAS = {
       },
       {
        "id": "n-work",
-       "title": "docs/work/",
-       "path": "docs/work/",
+       "title": "archive/work-records/",
+       "path": "archive/work-records/",
        "blurb": "Dated records: review reports, run records. Never re-worded."
       }
      ]
@@ -2275,22 +2275,31 @@ window.ATLAS = {
   }
  ],
  "build": {
-  "builtAt": "2026-10-14 09:28 UTC",
-  "commit": "95a67d6",
+  "builtAt": "2026-10-14 09:35 UTC",
+  "commit": "966dbf9",
   "kit": "1.0",
-  "stale": {},
+  "stale": {
+   "system-map": [
+    "AGENTS.md",
+    "docs/guides/client-workflow.md",
+    "docs",
+    "docs/glossary.md",
+    "archive/work-records",
+    ".claude/skills/backlog/SKILL.md"
+   ]
+  },
   "verified": {
    "client-journey": {
     "at": "2026-10-14",
-    "commit": "5894cc9"
+    "commit": "966dbf9"
    },
    "design-run": {
     "at": "2026-10-14",
-    "commit": "5894cc9"
+    "commit": "966dbf9"
    },
    "change-review": {
     "at": "2026-10-14",
-    "commit": "5894cc9"
+    "commit": "966dbf9"
    },
    "system-map": {
     "at": "2026-10-14",
@@ -2298,7 +2307,7 @@ window.ATLAS = {
    },
    "roster": {
     "at": "2026-10-14",
-    "commit": "5894cc9"
+    "commit": "966dbf9"
    }
   }
  }
