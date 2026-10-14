@@ -4,6 +4,7 @@ title: 'workflow-facts: the client journey encoded as YAML'
 status: Queued
 assignee: []
 created_date: '2026-10-14 04:47'
+updated_date: '2026-10-14 05:21'
 labels:
   - workflow-model
 dependencies:
@@ -15,7 +16,7 @@ ordinal: 37000
 ## Description
 
 <!-- SECTION:DESCRIPTION:BEGIN -->
-`catalog.yaml` plus seven `stage.yaml` files from the inventory, re-anchored to current `main`, applying task 2's decisions. Source: docs/work/workflow-model/handoff.md, section 4, item 5 (A. Workflow model). Created 2026-10-14 at the owner's request; not started.
+`catalog.yaml` plus seven `stage.yaml` files from the inventory, re-anchored to current `main`, applying the owner's decisions in docs/proposals/workflow-model.md (TASK-34). Source: docs/work/workflow-model/handoff.md, section 4, item 5 (A. Workflow model). Created 2026-10-14 at the owner's request; not started.
 <!-- SECTION:DESCRIPTION:END -->
 
 ## Acceptance Criteria
