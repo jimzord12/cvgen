@@ -132,7 +132,7 @@ Windows one also holds the PDFs that build wrote, one per example in
    `commands.log` holds every command with its output and exit code.
 
 12. **Output Contract** (`output-contract (N PDFs)`). Every PDF in
-   `design-concepts/`, `examples/` and a stray root `exports/` sits in its
+   `studio/design-concepts/`, `examples/` and a stray root `exports/` sits in its
    home with a valid `Meta File` whose hash matches the PDF
    (`docs/pdf-workflow.md`, "Output Contract"); the assertion lists each
    PDF that fails and why.

@@ -12,3 +12,9 @@
 #import "templates/flagship/components/skills.typ": skills-layout
 // Flagship's ctx-first components as one module: flagship-components.hero(ctx, d).
 #import "templates/flagship/components.typ" as flagship-components
+// The role, theme, artwork pack and layout as modules, so an entry point needs this one import (TASK-55):
+// roles.engine, flagship-themes.golden-blue, flagship-artwork.engineer, flagship-layouts.flagship-v11.
+#import "roles.typ" as roles
+#import "templates/flagship/themes.typ" as flagship-themes
+#import "templates/flagship/artwork.typ" as flagship-artwork
+#import "templates/flagship/layouts.typ" as flagship-layouts

@@ -23,7 +23,7 @@
     "waitingOn": [
       "lead"
     ],
-    "ref": "design-concepts/README.md"
+    "ref": "studio/design-concepts/README.md"
   },
   "phases": [
     {
@@ -91,12 +91,12 @@
           "summary": "Three very distinct `Styles`, each drawn Condensed (one dense page) and Spacious (1 to 3 pages), each in Safe, Stylish and Creative.",
           "does": [
             "Studies the vision, the glossary, the `Anti-examples` (never repeat their idea), the design studies and the `Flagship`.",
-            "Builds each Style's folder in `design-concepts/` with a brief, fictional sample data, a portrait when the idea needs one, and every PDF with its PNG pages.",
+            "Builds each Style's folder in `studio/design-concepts/` with a brief, fictional sample data, a portrait when the idea needs one, and every PDF with its PNG pages.",
             "At most two open-licence font families per Style. Never touches the engine, examples, tests, archive or `private/`.",
             "Stamps every PDF `proposed` so it shows up in the `Design Review` app."
           ],
           "out": [
-            "`design-concepts/<date>-<slug>/condensed/<tier>/…`",
+            "`studio/design-concepts/<date>-<slug>/condensed/<tier>/…`",
             "`…/spacious/<tier>/…`",
             "18 `Meta Files`, status `proposed`"
           ],
@@ -109,8 +109,8 @@
           ],
           "sources": [
             ".claude/agents/magazine-editor.md:50-82",
-            ".claude/agents/magazine-editor.md:88-210",
-            "design-concepts/README.md"
+            ".claude/agents/magazine-editor.md:88-213",
+            "studio/design-concepts/README.md"
           ]
         }
       ]
@@ -127,7 +127,7 @@
           "you": "Start the app, go through the 18, mark each keep, maybe or reject, star favourites, write notes. Agents read your verdicts from there.",
           "cmd": [
             {
-              "cmd": "python scripts/design_review/server.py",
+              "cmd": "python apps/design-review/server.py",
               "who": "you",
               "note": "Then open http://127.0.0.1:8765/"
             }
@@ -140,7 +140,7 @@
           ],
           "note": "The `idea-run` skill does not place this look at a fixed point in the loop; it is your tool, usable before or after the gates.",
           "sources": [
-            "scripts/design_review/server.py:1-12",
+            "apps/design-review/server.py:1-12",
             "AGENTS.md",
             "docs/glossary.md"
           ],
@@ -231,7 +231,7 @@
             "After a PASS: a new sourced claim goes back to the research gate; a change to the Style's idea or to what you decide on goes back to the design gate; layout, typos or sample data need only a lead check noted in `run.md`."
           ],
           "sources": [
-            ".claude/agents/magazine-editor.md:212-220",
+            ".claude/agents/magazine-editor.md:213-221",
             ".claude/skills/idea-run/SKILL.md:67-72"
           ]
         }
@@ -300,15 +300,15 @@
           "does": [
             "`chosen`: only the picked tier's PDFs are re-stamped.",
             "`rejected`: the folder is removed (Git keeps it) and unused fonts go.",
-            "`Anti-example`: moves to `archive/anti-examples/` with its fonts and your reason."
+            "`Anti-example`: moves to `studio/archive/anti-examples/` with its fonts and your reason."
           ],
           "cmd": [
             "python scripts/outputs.py stamp <pdf> status=chosen"
           ],
           "sources": [
             ".claude/skills/idea-run/SKILL.md:123-135",
-            "design-concepts/README.md:45-48",
-            "archive/anti-examples/README.md"
+            "studio/design-concepts/README.md:45-48",
+            "studio/archive/anti-examples/README.md"
           ]
         },
         {
@@ -322,7 +322,7 @@
           ],
           "sources": [
             ".claude/skills/idea-run/SKILL.md:130-135",
-            "design-concepts/README.md:3-6"
+            "studio/design-concepts/README.md:3-6"
           ]
         }
       ]

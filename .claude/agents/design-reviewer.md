@@ -31,7 +31,7 @@ with craft, is required, not a cliché.
 
 ## What you receive
 
-Concept `Style` folders under `design-concepts/` (`condensed/` and
+Concept `Style` folders under `studio/design-concepts/` (`condensed/` and
 `spacious/`, each with `safe`, `stylish` and `creative` designs, plus
 `brief.md`), a client CV's preview PDFs with the
 concept it was built from, a Flagship change, or a brand asset; the
@@ -57,9 +57,9 @@ anything else you need.
   later page must pass on its own, never as a plain continuation sheet.
   Keep the sheets in `builds/` and name them in your report.
 - Compare with the Flagship
-  (`archive/design-studies/review/Marine-Engineer-CV-v11-page-*.png`), the
-  design studies and earlier concepts in `design-concepts/`, and with the
-  `Anti-example`s in `archive/anti-examples/` (criterion 4).
+  (`studio/archive/design-studies/review/Marine-Engineer-CV-v11-page-*.png`), the
+  design studies and earlier concepts in `studio/design-concepts/`, and with the
+  `Anti-example`s in `studio/archive/anti-examples/` (criterion 4).
 - For concepts, read `brief.md`: the idea, the tiers, the densities, the
   references, the fonts.
 
@@ -83,7 +83,7 @@ do not apply.
    plainer than a generic template.
 4. **Distinct.** One clear idea, visible at arm's length; could not be
    mistaken for Flagship, an earlier concept, an `Anti-example`
-   (`archive/anti-examples/`, judged on its organising idea, never on a
+   (`studio/archive/anti-examples/`, judged on its organising idea, never on a
    single device) or a mass-market template; no
    market cliché (`.claude/agents/magazine-editor.md`) used by default. In
    a concept run the three styles are very distinct from each other, and
@@ -110,7 +110,7 @@ do not apply.
 ## Other assets (logo, `Text Draft`, form header, brand files)
 
 They are not CVs: no batch sheet and no `Three-Second Test`. Judge them on
-premium and distinct, on-brand (`brand/README.md`, the `House Design` of
+premium and distinct, on-brand (`studio/brand/README.md`, the `House Design` of
 `scripts/text-draft.typ`), fit for purpose (legible at the size it is used,
 works on the medium it lives on), craft and provenance. Check them against
 the `Anti-example`s too, as in criterion 4.

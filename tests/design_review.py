@@ -13,7 +13,7 @@ from pathlib import Path
 import pymupdf
 
 ROOT = Path(__file__).resolve().parents[1]
-sys.path.insert(0, str(ROOT / 'scripts' / 'design_review'))
+sys.path.insert(0, str(ROOT / 'apps' / 'design-review'))
 sys.path.insert(0, str(ROOT / 'packages' / 'cv-workflow'))
 import server  # noqa: E402
 from cv_workflow import outputs  # noqa: E402
@@ -28,7 +28,7 @@ def _pdf(path, pages):
 
 def _tree(repo):
     """A fictional tree in every home, stamped the way the writers stamp, plus the drift the app must show."""
-    style = repo / 'design-concepts' / '2030-01-02-harbour-lights'
+    style = repo / 'studio/design-concepts' / '2030-01-02-harbour-lights'
     common = {'domain': 'travel', 'candidate': 'Δοκιμή Παράδειγμα', 'style': 'Harbour Lights', 'idea': 'lights on water',
               'status': 'proposed', 'producedBy': 'magazine-editor'}
     for density, tiers, pages in (('condensed', ('safe', 'stylish', 'creative'), 1), ('spacious', ('safe', 'stylish'), 2)):
@@ -37,7 +37,7 @@ def _tree(repo):
             _pdf(pdf, pages)
             outputs.stamp(pdf, common, root=repo)
     (style / 'brief.md').write_text('# Harbour Lights\n', encoding='utf-8')
-    old = repo / 'design-concepts' / '2030-01-01-old-draft' / 'concept.pdf'
+    old = repo / 'studio/design-concepts' / '2030-01-01-old-draft' / 'concept.pdf'
     _pdf(old, 2)
     outputs.stamp(old, dict(common, kind='house-design', style='Old Draft', status='parked'), root=repo)
     entry = repo / 'examples' / 'marine' / 'flagship' / 'cadet.typ'
@@ -62,7 +62,7 @@ def _tree(repo):
     _pdf(env / 'stray.pdf', 1)                                  # exists, but not in a home: never shown
     _pdf(style / 'condensed' / 'safe' / 'draft-notes.pdf', 1)   # drift: outside a home
     _pdf(repo / 'exports' / 'Old-CV.pdf', 1)                    # drift: the retired root exports/
-    fresh = repo / 'design-concepts' / '2030-01-02-nomad' / 'condensed' / 'safe' / 'condensed-safe.pdf'
+    fresh = repo / 'studio/design-concepts' / '2030-01-02-nomad' / 'condensed' / 'safe' / 'condensed-safe.pdf'
     _pdf(fresh, 1)                                              # drift: never stamped
 
 
@@ -91,9 +91,9 @@ def run_design_review(out):
         assert code == 200 and 'text/html' in ctype and b'Design Review' in body
         passed.append('page')
 
-        cs = 'design-concepts/2030-01-02-harbour-lights/condensed/safe/condensed-safe.pdf'
-        ss = 'design-concepts/2030-01-02-harbour-lights/spacious/safe/spacious-safe.pdf'
-        cc = 'design-concepts/2030-01-02-harbour-lights/condensed/creative/condensed-creative.pdf'
+        cs = 'studio/design-concepts/2030-01-02-harbour-lights/condensed/safe/condensed-safe.pdf'
+        ss = 'studio/design-concepts/2030-01-02-harbour-lights/spacious/safe/spacious-safe.pdf'
+        cc = 'studio/design-concepts/2030-01-02-harbour-lights/condensed/creative/condensed-creative.pdf'
         (repo / cs).write_bytes((repo / cs).read_bytes() + b'\n')   # drift: re-rendered after stamping
         code, _, body = _call(base, '/api/items')
         payload = json.loads(body)
@@ -101,9 +101,9 @@ def run_design_review(out):
         unindexed = {u['path']: u['reason'] for u in payload['unindexed']}
         assert len(items) == 9, sorted(items)
         assert 'stale' in unindexed.pop(cs)
-        assert 'not in a home' in unindexed.pop('design-concepts/2030-01-02-harbour-lights/condensed/safe/draft-notes.pdf')
+        assert 'not in a home' in unindexed.pop('studio/design-concepts/2030-01-02-harbour-lights/condensed/safe/draft-notes.pdf')
         assert 'retired' in unindexed.pop('exports/Old-CV.pdf')
-        assert 'no Meta File' in unindexed.pop('design-concepts/2030-01-02-nomad/condensed/safe/condensed-safe.pdf')
+        assert 'no Meta File' in unindexed.pop('studio/design-concepts/2030-01-02-nomad/condensed/safe/condensed-safe.pdf')
         assert not unindexed, unindexed
         outputs.stamp(repo / cs, {'date': '2030-01-05'}, root=repo)
         assert outputs.stamp(repo / cs, {}, root=repo)['date'] == '2030-01-05'      # same bytes: date kept
@@ -115,14 +115,14 @@ def run_design_review(out):
         mismatch = {u['path']: u['reason'] for u in json.loads(_call(base, '/api/items')[2])['unindexed']}
         assert "tier='safe' but its place says 'creative'" in mismatch[cc], mismatch
         wrong.write_text(good_meta, encoding='utf-8')
-        assert outputs.home_of(repo / 'design-concepts/2030-01-01-old-draft/old-render.pdf', repo) is None
+        assert outputs.home_of(repo / 'studio/design-concepts/2030-01-01-old-draft/old-render.pdf', repo) is None
         items = {i['id']: i for i in json.loads(_call(base, '/api/items')[2])['items']}
         assert items[cs]['style'] == 'Harbour Lights' and items[cs]['idea'] == 'lights on water'
         assert items[cs]['domain'] == 'travel' and items[cs]['candidate'] == 'Δοκιμή Παράδειγμα'
         assert (items[cs]['density'], items[cs]['tier'], items[cs]['pages']) == ('condensed', 'safe', 1)
         assert items[ss]['pages'] == 2 and items[cs]['twin'] == ss and items[ss]['twin'] == cs
         assert items[cc]['twin'] is None  # no spacious creative was drawn
-        old = items['design-concepts/2030-01-01-old-draft/concept.pdf']
+        old = items['studio/design-concepts/2030-01-01-old-draft/concept.pdf']
         assert old['kind'] == 'house-design' and old['status'] == 'parked' and old['density'] is None
         cadet = items['examples/marine/flagship/cadet.pdf']
         assert (cadet['kind'], cadet['domain'], cadet['candidate'], cadet['rank']) == ('example', 'marine', 'Nikos Test', 'Deck Cadet')
@@ -162,13 +162,27 @@ def run_design_review(out):
         assert _call(base, '/api/state', {'id': cs, 'patch': {'star': True}})[0] == 409
         assert state_file.read_bytes() == broken      # never overwritten
         state_file.write_text(good, encoding='utf-8')
+        # Keys from before TASK-55 (design-concepts/...) read under studio/; nothing is written on load,
+        # the next save persists the new key, and a new key already there wins.
+        legacy = json.loads(good)
+        legacy[cs.removeprefix('studio/')] = {'verdict': 'maybe', 'reviewed': True}
+        legacy[ss.removeprefix('studio/')] = {'verdict': 'reject'}
+        state_file.write_text(json.dumps(legacy), encoding='utf-8')
+        before = state_file.read_bytes()
+        state = json.loads(_call(base, '/api/items')[2])['state']
+        assert state[cs] == {'verdict': 'maybe', 'reviewed': True} and state[ss]['verdict'] == 'keep', state
+        assert state_file.read_bytes() == before
+        assert _call(base, '/api/state', {'id': cs, 'patch': {'star': True}})[0] == 200
+        saved = json.loads(state_file.read_text(encoding='utf-8'))
+        assert saved[cs]['verdict'] == 'maybe' and saved[cs]['star'] is True and cs.removeprefix('studio/') not in saved
+        state_file.write_text(good, encoding='utf-8')
         passed.append('state')
 
         assert _call(base, '/api/open', {'id': ss, 'what': 'pdf'})[0] == 200
         assert _call(base, '/api/open', {'id': ss, 'what': 'folder'})[0] == 200
         assert _call(base, '/api/open', {'id': cs, 'what': 'brief'})[0] == 200
         assert _call(base, '/api/open', {'id': 'C:/Windows/notepad.exe'})[0] == 404
-        style = repo / 'design-concepts/2030-01-02-harbour-lights'
+        style = repo / 'studio/design-concepts/2030-01-02-harbour-lights'
         assert opened == [(repo / ss, False), (repo / ss, True), (style / 'brief.md', False)], opened
         passed.append('open')
 

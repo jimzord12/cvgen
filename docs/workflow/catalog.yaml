@@ -139,7 +139,7 @@ artifacts:
 
   - id: art.envelope-json
     name: envelope.json
-    sources: ["docs/guides/client-workflow.md:43", "docs/guides/client-workflow.md:100-108", "packages/cv-workflow/cv_workflow/outputs.py:57-74"]
+    sources: ["docs/guides/client-workflow.md:43", "docs/guides/client-workflow.md:100-108", "packages/cv-workflow/cv_workflow/outputs.py:61-78"]
     path: private/<envelope>/envelope.json
     format: "JSON: alias, domain, candidate, rank (each checked against output.schema.json's property of that name)"
     visibility: private
@@ -215,7 +215,7 @@ artifacts:
 
   - id: art.draft-pdf
     name: Text Draft PDF
-    sources: ["docs/guides/client-workflow.md:57", "docs/guides/client-workflow.md:280-287", "packages/cv-workflow/cv_workflow/outputs.py:48-49"]
+    sources: ["docs/guides/client-workflow.md:57", "docs/guides/client-workflow.md:280-287", "packages/cv-workflow/cv_workflow/outputs.py:52-53"]
     path: private/<envelope>/draft/draft-NN.pdf
     format: PDF, page 1 the Check Page, then the CV's content
     visibility: private

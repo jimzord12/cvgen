@@ -213,7 +213,7 @@ artifacts:
   - id: art.intake-header-png
     name: The Intake Form header image
     sources: ["docs/guides/client-workflow.md:140-141"]
-    path: brand/forms/intake-header.png
+    path: studio/brand/forms/intake-header.png
     format: PNG
     visibility: public
     given: true
@@ -263,7 +263,7 @@ actions:
     sources: ["docs/guides/client-workflow.md:139-145"]
     does: >-
       Before sending the link, the owner sets the form's theme: header
-      brand/forms/intake-header.png, colour #B0602B, the warm-paper
+      studio/brand/forms/intake-header.png, colour #B0602B, the warm-paper
       background swatch, Bona Nova for the header and Source Sans 3 for
       questions and text.
 

@@ -138,7 +138,7 @@ normal for the owner's own script. The owner passes the three links and
 the project's link back, and Claude lists them under "Google" in the
 `Envelope`'s `README.md`. Before sending the link, the owner gives the
 form the house theme (the palette icon in the form's editor; about a
-minute): Header, upload `brand/forms/intake-header.png`; Color, custom,
+minute): Header, upload `studio/brand/forms/intake-header.png`; Color, custom,
 `#B0602B`; Background, the swatch closest to the header's warm paper
 (usually the lightest); Text style, Header "Bona
 Nova" (under More fonts), Question and Text "Source Sans 3"; a font the

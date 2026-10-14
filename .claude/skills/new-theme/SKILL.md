@@ -27,8 +27,8 @@ drawing.
    art's own colours, from `domain.typ`); a theme written from scratch imports `domain` from
    `../../../domain.typ` (as `golden-blue.typ` does) and sets
    `art-palette: domain.art-palette` itself.
-4. Add an example under `examples/marine/flagship/` that differs from an existing one by the
-   theme import only. Add it to `examples/release.json` (read by
+4. Register it in `packages/domains/marine/templates/flagship/themes.typ` (`flagship-themes.<name>`), then add an example under `examples/marine/flagship/` that differs from an existing one by the
+   theme name only. Add it to `examples/release.json` (read by
    `scripts/build.ps1` and `tests/run.py`) and its assertions in `tests/run.py`.
 
 ## Artwork pack
@@ -38,7 +38,7 @@ drawing.
 2. Fill the required slots `background-first` and `background-continuation`;
    others may be `none`.
 3. Tune `width`, `x`, `y`, `opacity` per slot by compiling and looking.
-4. Add an example and register it as above.
+4. Register it in `packages/domains/marine/templates/flagship/artwork.typ` (`flagship-artwork.<name>`), then add an example and register it as above.
 5. Once the pack is reviewed, add its SVGs to `tests/baseline.json`. Adding
    entries is routine; changing a file that is already pinned needs an ADR
    (`docs/constitution.md` section 1).

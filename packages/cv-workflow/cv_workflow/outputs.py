@@ -20,7 +20,9 @@ TIERS = ('safe', 'stylish', 'creative')
 ENVELOPE_FIELDS = ('alias', 'domain', 'candidate', 'rank')
 # Trees whose every PDF must sit in a home (public). private/ is checked only in its homes:
 # a client's own old CV under intake/ or a verified bundle under exports/ is not a review target.
-PUBLIC_TREES = ('design-concepts', 'examples', 'exports')
+# The magazine-editor's concepts live under studio/ since TASK-55 (2026-10-14).
+CONCEPTS = 'studio/design-concepts'
+PUBLIC_TREES = (CONCEPTS, 'examples', 'exports')
 
 
 def meta_path(pdf):
@@ -35,11 +37,13 @@ def home_of(pdf, root=ROOT):
     except ValueError:
         return None
     name = parts[-1]
-    if parts[0] == 'design-concepts' and len(parts) == 5 and re.match(r'\d{4}-\d{2}-\d{2}-', parts[1]):
-        density, tier = parts[2], parts[3]
+    concept = parts[:2] == tuple(CONCEPTS.split('/'))
+    run = parts[2:]  # inside a concept run: <date>-<slug>/...
+    if concept and len(run) == 4 and re.match(r'\d{4}-\d{2}-\d{2}-', run[0]):
+        density, tier = run[1], run[2]
         if density in DENSITIES and tier in TIERS and name == f'{density}-{tier}.pdf':
             return {'kind': 'concept', 'density': density, 'tier': tier}
-    if parts[0] == 'design-concepts' and len(parts) == 3 and re.match(r'\d{4}-\d{2}-\d{2}-', parts[1]) \
+    if concept and len(run) == 2 and re.match(r'\d{4}-\d{2}-\d{2}-', run[0]) \
             and re.fullmatch(r'concept(-[a-z0-9-]+)?\.pdf', name):
         variant = name[:-4].replace('concept', '').strip('-')
         return {'variant': variant} if variant else {}

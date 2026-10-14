@@ -36,18 +36,18 @@ companies, so a real candidate always overrides `pages` with their own
 company indices, zero-based, in JSON order:
 
 ```typst
-#import "/packages/domains/marine/lib.typ": flagship
-#import "/packages/domains/marine/roles/engine/role.typ": role   // or roles/deck
-#import "/packages/domains/marine/templates/flagship/themes/golden-blue.typ": theme
-#import "/packages/domains/marine/templates/flagship/artwork/engineer.typ": artwork
-#import "/packages/domains/marine/templates/flagship/layouts/flagship-v11.typ": layout as base
+#import "/packages/domains/marine/lib.typ": (flagship, roles, flagship-themes,
+  flagship-artwork, flagship-layouts)
+// Pick each input by name: roles.engine or roles.deck, flagship-themes.golden-blue or
+// .silver-bridge, flagship-artwork.engineer or .captain.
+#let base = flagship-layouts.flagship-v11
 #let layout = (..base, pages: (
   (companies: (0, 1)),
   (companies: (2,), synopsis: true, certificates: true, education: true),
 ))
 #let candidate = json("../candidate.json")
-#show: flagship.with(candidate: candidate, role: role, theme: theme, artwork: artwork, layout: layout,
-  show-vessel-durations: true)
+#show: flagship.with(candidate: candidate, role: roles.engine, theme: flagship-themes.golden-blue,
+  artwork: flagship-artwork.engineer, layout: layout, show-vessel-durations: true)
 ```
 
 Three companies here: two open page one, the third closes page two with the
@@ -56,8 +56,8 @@ render. Splitting one large company across pages is shown in
 `../engine/layout-and-pagination.md`.
 
 A short career (a cadet or junior officer) goes on one page with
-`flagship-one-page.typ` instead: import `one-page` from it and pass
-`layout: one-page(candidate)`; it plans the candidate's own companies, so
+`flagship-one-page.typ` instead: pass
+`layout: flagship-layouts.one-page(candidate)`; it plans the candidate's own companies, so
 no override is needed. Render with `python scripts/cv.py render <folder>
 --pages 1`. Whether a record fits is in
 `../engine/layout-and-pagination.md`, "Choosing a profile".
@@ -226,10 +226,10 @@ the same public exports:
 
 ```typst
 #import "/packages/domains/marine/lib.typ": (make-ctx, normalize-candidate, to-flagship-input, marine,
-  core-components as cc, flagship-components as fc)
-#import "/packages/domains/marine/templates/flagship/themes/golden-blue.typ": theme
-#import "/packages/domains/marine/templates/flagship/artwork/engineer.typ": artwork
-#import "/packages/domains/marine/templates/flagship/layouts/flagship-v11.typ": layout
+  core-components as cc, flagship-components as fc, flagship-themes, flagship-artwork, flagship-layouts)
+#let theme = flagship-themes.golden-blue
+#let artwork = flagship-artwork.engineer
+#let layout = flagship-layouts.flagship-v11
 // The shell reads copy.brand and disclosure, so the record goes through the adapter first.
 // copy is not allowed in candidate.json; replace the example wording here (section 2).
 #let d = normalize-candidate(to-flagship-input(json("../candidate.json"),
