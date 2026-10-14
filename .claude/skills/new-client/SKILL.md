@@ -59,14 +59,15 @@ owner talks to the client; you never do. Terms: `docs/glossary.md`.
    Greek `Check Page` (house copy: "check only the underlined facts; the
    wording is ours; reply OK"), then the content in the CV's language,
    sized for the `Template`, every checkable fact wrapped in `#fact[...]` (a `Fact Mark`); set
-   `lang: "el"` for a Greek CV. Compile it and stamp it `status=sent`
+   `lang: "el"` for a Greek CV. Compile it and stamp it `status=ready`
    with `scripts/outputs.py` (guide section 8), look at every
    page (every name, date, number and title underlined, since the client
-   checks only those), give the owner the PDF path. When he sends it, write its SHA-256
+   checks only those), give the owner the PDF path. When he confirms he
+   sent it, re-stamp it `status=sent` and write its SHA-256
    in `README.md`; never compile a sent number again, corrections make the
    next one (re-stamp the old one `status=superseded`). His screenshot of
-   the client's OK goes in `draft/` as `sign-off-NN.png`; re-stamp that
-   draft `status=signed-off`.
+   the client's OK goes in `draft/` as `sign-off-NN.png`; then re-stamp that
+   draft `status=signed-off` (the stamp refuses it without the screenshot).
 9. **Handover.** Run the `new-cv` skill from `facts.md` and the signed-off
    draft; for a `Domain` that does not exist yet, a one-off `Template` in
    one `cv.typ` that imports only `/packages/cv-framework/lib.typ` (guide

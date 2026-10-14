@@ -51,7 +51,7 @@ private/eleni-example-tour-guide/
     reviews/         research-reviewer reports: <topic>-NN.md per Deep Dive and round
   draft/
     draft-01.typ, draft-01.pdf   the text draft (a new number per version)
-    draft-01.meta.json           its Meta File: sent, then signed-off or superseded
+    draft-01.meta.json           its Meta File: ready, sent, then signed-off or superseded
     sign-off-01.png              the client's OK, as a screenshot
   candidate.json, cv.typ, portrait, revisions/, exports/   added by new-cv
   reviews/           design-NN.md and text-NN.md: review reports on the CV's design and text
@@ -258,13 +258,15 @@ greeting and label, draft number, date and four sample facts.
 
 ```powershell
 typst compile --root . --ignore-system-fonts --font-path packages/cv-framework/fonts private/<envelope>/draft/draft-01.typ private/<envelope>/draft/draft-01.pdf
-python scripts/outputs.py stamp private/<envelope>/draft/draft-01.pdf status=sent
+python scripts/outputs.py stamp private/<envelope>/draft/draft-01.pdf status=ready
 ```
 
 The stamp writes the draft's `Meta File` from `envelope.json` (the
 `Output Contract`, `../pdf-workflow.md`), so the owner finds it in the
-`Design Review` app. At the `Sign-off` Claude re-stamps it
-`status=signed-off`; a draft replaced by the next number becomes
+`Design Review` app. Claude re-stamps it `status=sent` only when the owner
+confirms he sent it; at the `Sign-off`, once the screenshot is saved,
+`status=signed-off` (the stamp refuses `signed-off` without
+`draft/sign-off-NN.png`); a draft replaced by the next number becomes
 `status=superseded`.
 
 Its first page, the `Check Page`, in Greek, asks the client to check only

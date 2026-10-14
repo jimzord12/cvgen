@@ -15,22 +15,22 @@
    "verifiedAt": "2026-10-14"
   },
   "client-journey": {
-   "commit": "6e09e22",
+   "commit": "7acccd8",
    "sources": {
     ".claude/skills/idea-run/SKILL.md": "59c0e7e678fb0c24d8473a2239dc0191217443c4",
-    ".claude/skills/new-client/SKILL.md": "a2038f0c0349bc1febbc4a67670e68acb157e6c4",
+    ".claude/skills/new-client/SKILL.md": "4619102081174ff251f3e6a877b32383a833efc7",
     ".claude/skills/new-cv/SKILL.md": "58e534c6bb2d3201e02f64ae52f2c7870ddb33bb",
-    "docs/glossary.md": "8555c8d39255c8c94254778e179bb26caf93bec6",
-    "docs/guides/build-a-cv.md": "07673837d3a5c3a3a6b1eeaef9224ac832d27398",
-    "docs/guides/client-workflow.md": "ff7a174705d71908d4c8fc1e61a564bf5d010db8",
-    "docs/pdf-workflow.md": "3bfa09a91c1ec9c970650c88ed15842c477645de",
+    "docs/glossary.md": "fed4edf8fb9c62e90ba643f168d21372dd65868b",
+    "docs/guides/build-a-cv.md": "c56bc8879e72e5ea95cd7691838eb4590d48a2a3",
+    "docs/guides/client-workflow.md": "6b4f3192fd3e256c1d43e4cb8818c8a1bef17184",
+    "docs/pdf-workflow.md": "874a62c6fe16c7f2c5ddb5227ea307759763b60b",
     "docs/preferences.md": "d5a47c23326acce8c81102142ed152450e510dcd",
     "scripts/text-draft.typ": "c6f61f2253a2105d3334f3edc4e9b12137f54fa1"
    },
    "verifiedAt": "2026-10-14"
   },
   "design-run": {
-   "commit": "6e09e22",
+   "commit": "7acccd8",
    "sources": {
     ".claude/agents/design-reviewer.md": "7e0353ea63b3b40eb7d36489a58a1d1a5af2f580",
     ".claude/agents/magazine-editor.md": "686bfc2069f00487badf17ca67c46728efbadd46",
@@ -38,17 +38,17 @@
     ".claude/skills/idea-run/SKILL.md": "59c0e7e678fb0c24d8473a2239dc0191217443c4",
     "AGENTS.md": "d03adc8043ff05013646cad2c18c97908009e3ae",
     "archive/anti-examples/README.md": "71f837077cc3870025458f8a4cd1f05df9a820d1",
-    "design-concepts/README.md": "bd72605848d8eb5ca45ad5157d21dec6537addc1",
-    "docs/glossary.md": "8555c8d39255c8c94254778e179bb26caf93bec6",
-    "docs/pdf-workflow.md": "3bfa09a91c1ec9c970650c88ed15842c477645de",
+    "design-concepts/README.md": "97b045a5f3df5fbfbe35a8926b04f9dffd6fe67a",
+    "docs/glossary.md": "fed4edf8fb9c62e90ba643f168d21372dd65868b",
+    "docs/pdf-workflow.md": "874a62c6fe16c7f2c5ddb5227ea307759763b60b",
     "docs/proposals/codex-visual-tools.md": "6922b19a3f91c8a180ee716e0bfaf5bba4b36278",
     "docs/review.md": "0b373c976aee73b5e218350b892145aa475bb389",
-    "scripts/design_review/server.py": "0d1258af97e31db980fcd7a98e64e88f431f9840"
+    "scripts/design_review/server.py": "9d9d6be943f9cc5aa8eb9882b90e54668410ee05"
    },
    "verifiedAt": "2026-10-14"
   },
   "roster": {
-   "commit": "6e09e22",
+   "commit": "7acccd8",
    "sources": {
     ".claude/agents/ceo-reviewer.md": "058811a51ac27c65a93dc8915db4afd58676d33d",
     ".claude/agents/ceo.md": "3a3dd4071d60d0127d75036dfb67444cfdf72c0b",
@@ -62,7 +62,7 @@
     ".claude/repo-maintenance.md": "b816d5bc8c27d29b31e630f889d110ccd1d1b6e0",
     ".claude/skills/backlog/SKILL.md": "22562281e7901acef008942775142d478ec85948",
     ".claude/skills/idea-run/SKILL.md": "59c0e7e678fb0c24d8473a2239dc0191217443c4",
-    ".claude/skills/new-client/SKILL.md": "a2038f0c0349bc1febbc4a67670e68acb157e6c4",
+    ".claude/skills/new-client/SKILL.md": "4619102081174ff251f3e6a877b32383a833efc7",
     ".claude/skills/new-cv/SKILL.md": "58e534c6bb2d3201e02f64ae52f2c7870ddb33bb",
     ".claude/skills/new-theme/SKILL.md": "c22ccf8fcb45d2ab5c689808a53b216d03ba262f",
     ".claude/skills/repo-maintenance/SKILL.md": "b2b1e33465db21e605c59cf0255371ec59809228",
@@ -72,9 +72,9 @@
     "docs/decisions/0014-backlog-md-task-store.md": "429c351d5a2d313fb6945f26e646028d3d43c72b",
     "docs/development.md": "bcff887b1f064ce3ef297f8a0dcc08f1089a6cbc",
     "docs/git-workflow.md": "bebdd875fdbdd3f1dd5d62aaf01274cb461fe6b2",
-    "docs/guides/build-a-cv.md": "07673837d3a5c3a3a6b1eeaef9224ac832d27398",
-    "docs/guides/client-workflow.md": "ff7a174705d71908d4c8fc1e61a564bf5d010db8",
-    "docs/pdf-workflow.md": "3bfa09a91c1ec9c970650c88ed15842c477645de",
+    "docs/guides/build-a-cv.md": "c56bc8879e72e5ea95cd7691838eb4590d48a2a3",
+    "docs/guides/client-workflow.md": "6b4f3192fd3e256c1d43e4cb8818c8a1bef17184",
+    "docs/pdf-workflow.md": "874a62c6fe16c7f2c5ddb5227ea307759763b60b",
     "docs/preferences.md": "d5a47c23326acce8c81102142ed152450e510dcd",
     "docs/proposals/codex-visual-tools.md": "6922b19a3f91c8a180ee716e0bfaf5bba4b36278",
     "docs/reference/verification.md": "a5f45c29545b46baaa3d795cd505f1e94afd8ff1",
@@ -83,7 +83,7 @@
     "docs/work/codex-visual-tools/reviews/01.md": "b072308514f194affa6e445472c96731fac43918",
     "scripts/build.ps1": "1e46ca069912d81455046e74e765ec810095004e",
     "scripts/cv.py": "d21197a5887e4f7aa6bf778c0ca2fd50229d2a11",
-    "scripts/design_review/server.py": "0d1258af97e31db980fcd7a98e64e88f431f9840",
+    "scripts/design_review/server.py": "9d9d6be943f9cc5aa8eb9882b90e54668410ee05",
     "scripts/intake-form.gs": "876f3d78ab118a965fe39179569ddad1713ea40c",
     "scripts/outputs.py": "6e79e3d72163c249c328633379952f93837ffe1c",
     "tests/run.py": "3653a980c41720b4123158b88676afbcec4755d6"
@@ -91,7 +91,7 @@
    "verifiedAt": "2026-10-14"
   },
   "system-map": {
-   "commit": "d6fe4fd",
+   "commit": "7acccd8",
    "sources": {
     ".claude/agents": "dir1:4f4154394888bb9d69a0ed790d8f4b484a790fdd",
     ".claude/skills": "dir1:5eeafda0c9ef9a6037a3fcc2879f73f098fa3e55",
@@ -104,10 +104,10 @@
     "design-concepts": "dir1:d3bd60991a5441279a325e9aa73ea4e20ad7f1c7",
     "docs": "dir1:72f884095d947d20236fb2207e85aa7b127337c2",
     "docs/architecture.md": "a92a072e582d70e6481f5c7e4b45369d7d653449",
-    "docs/glossary.md": "8555c8d39255c8c94254778e179bb26caf93bec6",
-    "docs/guides/build-a-cv.md": "07673837d3a5c3a3a6b1eeaef9224ac832d27398",
-    "docs/guides/client-workflow.md": "ff7a174705d71908d4c8fc1e61a564bf5d010db8",
-    "docs/pdf-workflow.md": "3bfa09a91c1ec9c970650c88ed15842c477645de",
+    "docs/glossary.md": "fed4edf8fb9c62e90ba643f168d21372dd65868b",
+    "docs/guides/build-a-cv.md": "c56bc8879e72e5ea95cd7691838eb4590d48a2a3",
+    "docs/guides/client-workflow.md": "6b4f3192fd3e256c1d43e4cb8818c8a1bef17184",
+    "docs/pdf-workflow.md": "874a62c6fe16c7f2c5ddb5227ea307759763b60b",
     "docs/work": "dir1:78de3785af2faf2dc42d9bec806aa6324e43d99a",
     "examples/candidates": "dir1:69fb38eee30dc425761a0cb80a577613cf3bdab4",
     "examples/marine/flagship": "dir1:2badfd3042bcd2c5ef709a6596945aefe8848eb1",
@@ -118,7 +118,7 @@
     "packages/domains/marine/templates/flagship/tests/approved": "dir1:937263ba14b899950b2c4f58a1ff6c6fd2275f3a",
     "scripts/build.ps1": "1e46ca069912d81455046e74e765ec810095004e",
     "scripts/cv.py": "d21197a5887e4f7aa6bf778c0ca2fd50229d2a11",
-    "scripts/design_review/server.py": "0d1258af97e31db980fcd7a98e64e88f431f9840",
+    "scripts/design_review/server.py": "9d9d6be943f9cc5aa8eb9882b90e54668410ee05",
     "scripts/outputs.py": "6e79e3d72163c249c328633379952f93837ffe1c",
     "scripts/text-draft.typ": "c6f61f2253a2105d3334f3edc4e9b12137f54fa1",
     "tests/run.py": "3653a980c41720b4123158b88676afbcec4755d6"

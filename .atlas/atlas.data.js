@@ -54,7 +54,7 @@ window.ATLAS = {
      "Outside `private/` a client is only their `Alias`, like `client-2026-09-01`."
     ],
     "sources": [
-     "docs/guides/client-workflow.md:338-340",
+     "docs/guides/client-workflow.md:340-342",
      "docs/guides/client-workflow.md:64-68"
     ],
     "short": "Client"
@@ -376,7 +376,7 @@ window.ATLAS = {
     ],
     "sources": [
      "scripts/cv.py:1-12",
-     "docs/guides/build-a-cv.md:117-208"
+     "docs/guides/build-a-cv.md:117-211"
     ]
    },
    "outputs-py": {
@@ -386,7 +386,7 @@ window.ATLAS = {
     "role": "The `Output Contract` tool: `stamp` writes a PDF's `Meta File`; `check` lists every PDF without a valid one.",
     "sources": [
      "scripts/outputs.py",
-     "docs/pdf-workflow.md:123-156"
+     "docs/pdf-workflow.md:123-164"
     ]
    },
    "suite": {
@@ -723,7 +723,7 @@ window.ATLAS = {
        ],
        "sources": [
         "docs/guides/client-workflow.md:177-185",
-        "docs/guides/client-workflow.md:331-334"
+        "docs/guides/client-workflow.md:333-336"
        ]
       },
       {
@@ -819,14 +819,14 @@ window.ATLAS = {
         "Claude checks every page before giving you the path."
        ],
        "out": [
-        "`draft/draft-NN.pdf` with its `Meta File` (status `sent`)"
+        "`draft/draft-NN.pdf` with its `Meta File` (status `ready`)"
        ],
        "cmd": [
         "typst compile --root . --ignore-system-fonts --font-path packages/cv-framework/fonts private/<envelope>/draft/draft-01.typ private/<envelope>/draft/draft-01.pdf",
-        "python scripts/outputs.py stamp private/<envelope>/draft/draft-01.pdf status=sent"
+        "python scripts/outputs.py stamp private/<envelope>/draft/draft-01.pdf status=ready"
        ],
        "sources": [
-        "docs/guides/client-workflow.md:250-273",
+        "docs/guides/client-workflow.md:250-270",
         "scripts/text-draft.typ:1-6"
        ]
       },
@@ -857,11 +857,14 @@ window.ATLAS = {
         }
        ],
        "does": [
-        "A sent draft is never recompiled; its SHA-256 goes in `README.md`."
+        "When you confirm you sent it, Claude re-stamps the draft `sent`.",
+        "A sent draft is never recompiled; its SHA-256 goes in `README.md`.",
+        "With the screenshot saved, Claude re-stamps the draft `signed-off`; the stamp refuses it without the screenshot."
        ],
        "sources": [
         "docs/guides/client-workflow.md:26",
-        "docs/guides/client-workflow.md:273-277",
+        "docs/guides/client-workflow.md:264-279",
+        "docs/pdf-workflow.md:143-149",
         "docs/glossary.md"
        ]
       }
@@ -889,7 +892,7 @@ window.ATLAS = {
         "magazine-editor"
        ],
        "sources": [
-        "docs/guides/client-workflow.md:286-296",
+        "docs/guides/client-workflow.md:288-298",
         ".claude/skills/new-cv/SKILL.md:62-66"
        ]
       },
@@ -906,7 +909,7 @@ window.ATLAS = {
         "design-review-app"
        ],
        "sources": [
-        "docs/guides/client-workflow.md:292-296",
+        "docs/guides/client-workflow.md:294-298",
         ".claude/skills/idea-run/SKILL.md:123-135"
        ]
       },
@@ -1007,7 +1010,7 @@ window.ATLAS = {
        ],
        "sources": [
         "docs/guides/build-a-cv.md:184-191",
-        "docs/pdf-workflow.md:166-170"
+        "docs/pdf-workflow.md:174-178"
        ]
       },
       {
@@ -1029,8 +1032,8 @@ window.ATLAS = {
         "cv-py"
        ],
        "sources": [
-        "docs/guides/build-a-cv.md:193-208",
-        "docs/pdf-workflow.md:171-182"
+        "docs/guides/build-a-cv.md:193-211",
+        "docs/pdf-workflow.md:179-190"
        ]
       },
       {
@@ -1043,15 +1046,15 @@ window.ATLAS = {
        "summary": "Sending is a separate act, by you. Then the record says delivered, with a delete-by date.",
        "you": "Send the exported PDF to the client.",
        "does": [
-        "Claude re-stamps the PDF `delivered`.",
+        "Claude re-stamps the PDF `delivered`; the stamp refuses it without the approval receipt and a verified `Export`.",
         "Writes \"Delivered <date>. Delete by <date + 12 months>\" in the `Envelope`'s `README.md`."
        ],
        "cmd": [
         "python scripts/outputs.py stamp private/<envelope>/revisions/<id>/cv.pdf status=delivered"
        ],
        "sources": [
-        "docs/guides/build-a-cv.md:204-206",
-        "docs/guides/client-workflow.md:298-301"
+        "docs/guides/build-a-cv.md:204-211",
+        "docs/guides/client-workflow.md:300-303"
        ]
       }
      ]
@@ -1071,7 +1074,7 @@ window.ATLAS = {
         "label": "Claude names passed delete-by dates and hands you the erase commands; you do the deleting."
        },
        "sources": [
-        "docs/guides/client-workflow.md:298-327",
+        "docs/guides/client-workflow.md:300-329",
         "docs/preferences.md:69-80"
        ]
       }
@@ -1725,7 +1728,7 @@ window.ATLAS = {
        "path": "private/<envelope>/draft/",
        "blurb": "The `Text Drafts` and the `Sign-off` screenshots.",
        "sources": [
-        "docs/guides/client-workflow.md:250-277"
+        "docs/guides/client-workflow.md:250-279"
        ]
       },
       {
@@ -2263,18 +2266,18 @@ window.ATLAS = {
   }
  ],
  "build": {
-  "builtAt": "2026-10-14 06:07 UTC",
-  "commit": "d6fe4fd",
+  "builtAt": "2026-10-14 06:28 UTC",
+  "commit": "7acccd8",
   "kit": "1.0",
   "stale": {},
   "verified": {
    "client-journey": {
     "at": "2026-10-14",
-    "commit": "6e09e22"
+    "commit": "7acccd8"
    },
    "design-run": {
     "at": "2026-10-14",
-    "commit": "6e09e22"
+    "commit": "7acccd8"
    },
    "change-review": {
     "at": "2026-10-14",
@@ -2282,11 +2285,11 @@ window.ATLAS = {
    },
    "system-map": {
     "at": "2026-10-14",
-    "commit": "d6fe4fd"
+    "commit": "7acccd8"
    },
    "roster": {
     "at": "2026-10-14",
-    "commit": "6e09e22"
+    "commit": "7acccd8"
    }
   }
  }

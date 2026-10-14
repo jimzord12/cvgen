@@ -123,9 +123,9 @@ without a valid, current `Meta File` shows up as a problem, never silently.
 | `kind` | Home | `status` |
 |---|---|---|
 | `concept` | `design-concepts/<date>-<slug>/<density>/<tier>/<density>-<tier>.pdf` | `proposed`, `chosen`, `parked`, `rejected`, `unresolved` |
-| `text-draft` (a `Text Draft` direction, earlier flat runs) | `design-concepts/<date>-<slug>/concept.pdf`, `concept-<variant>.pdf` | as `concept` |
+| `house-design` (a proposed `House Design`, such as the `Text Draft`'s First Fitting; `text-draft` until 2026-10-14) | `design-concepts/<date>-<slug>/concept.pdf`, `concept-<variant>.pdf` | as `concept` |
 | `example` (the `Release`) | `examples/<domain>/<template>/<name>.pdf`, beside `<name>.typ` | `release` |
-| `client-draft` (a client's `Text Draft`) | `private/<envelope>/draft/draft-NN.pdf` | `sent`, `signed-off`, `superseded` |
+| `client-draft` (a client's `Text Draft`) | `private/<envelope>/draft/draft-NN.pdf` | `ready` (compiled), `sent` (the owner confirmed he sent it), `signed-off`, `superseded` |
 | `client-cv` | `private/<envelope>/revisions/<id>/cv.pdf`; `private/<envelope>/reference.pdf` for a CV delivered before `cv.py` | `render`, `approved`, `delivered` |
 
 - The `Meta File` is `<pdf-stem>.meta.json`, valid against
@@ -137,16 +137,24 @@ without a valid, current `Meta File` shows up as a problem, never silently.
 - `python scripts/outputs.py stamp <pdf> status=<status> [key=value ...]`
   writes it. It computes `pages`, `sha256` and `date`, takes `kind` (and
   `density`, `tier`, `source`) from the PDF's place (a flat earlier run
-  passes `kind=text-draft`), copies `alias`,
+  passes its `kind`, `kind=house-design` for a proposed `House Design`), copies `alias`,
   `domain`, `candidate` and `rank` from the client's `envelope.json`, keeps
   an earlier `Meta File`'s other fields, and refuses a PDF outside a home.
+- It also refuses a status that records an owner's act without its proof on
+  disk (decision #8, `proposals/workflow-model.md`): `approved` without the
+  revision's `cv.approval.json` for exactly these bytes; `delivered` without
+  that receipt and a verified `Export` in `exports/<revision>/`
+  (`reference.pdf`, delivered before `cv.py`, is exempt); `signed-off`
+  without the `Sign-off` screenshot `sign-off-NN.png` beside `draft-NN.pdf`.
+  `check` does not repeat these checks; they hold at the moment of stamping.
 - A `Meta File` whose hash no longer matches its PDF is stale. Every
   recompile needs a re-stamp (Typst embeds the compile time).
 - Who stamps: `cv.py render` (`render`) and `cv.py approve` (`approved`);
   `scripts/build.ps1 -Release` (`release`); the `magazine-editor` after
-  every compile (`proposed`); the lead for a client's `Text Draft` and for
-  every later status change (an owner's verdict on a concept, a
-  `Sign-off`, a delivery).
+  every compile (`proposed`); the lead for a client's `Text Draft` (`ready`
+  at compile) and for every later status change (`sent` once the owner
+  confirms he sent it, an owner's verdict on a concept, a `Sign-off`, a
+  delivery).
 - `python scripts/outputs.py check` lists every PDF in `design-concepts/`
   and `examples/` (and a stray root `exports/`, which is retired) with no
   valid, current `Meta File` or outside a home; `--private` adds the client

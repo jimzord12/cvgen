@@ -39,7 +39,7 @@ def _tree(repo):
     (style / 'brief.md').write_text('# Harbour Lights\n', encoding='utf-8')
     old = repo / 'design-concepts' / '2030-01-01-old-draft' / 'concept.pdf'
     _pdf(old, 2)
-    outputs.stamp(old, dict(common, kind='text-draft', style='Old Draft', status='parked'), root=repo)
+    outputs.stamp(old, dict(common, kind='house-design', style='Old Draft', status='parked'), root=repo)
     entry = repo / 'examples' / 'marine' / 'flagship' / 'cadet.typ'
     entry.parent.mkdir(parents=True)
     (repo / 'examples' / 'candidates').mkdir()
@@ -55,6 +55,7 @@ def _tree(repo):
     _pdf(rev, 2)
     outputs.stamp(rev, {'status': 'render', 'lang': 'el'}, root=repo)
     _pdf(env / 'draft' / 'draft-01.pdf', 1)
+    (env / 'draft' / 'sign-off-01.png').write_bytes(b'fictional screenshot')   # the Sign-off it needs
     outputs.stamp(env / 'draft' / 'draft-01.pdf', {'status': 'signed-off'}, root=repo)
     _pdf(env / 'reference.pdf', 2)
     outputs.stamp(env / 'reference.pdf', {'status': 'delivered', 'title': 'Delivered CV'}, root=repo)
@@ -122,7 +123,7 @@ def run_design_review(out):
         assert items[ss]['pages'] == 2 and items[cs]['twin'] == ss and items[ss]['twin'] == cs
         assert items[cc]['twin'] is None  # no spacious creative was drawn
         old = items['design-concepts/2030-01-01-old-draft/concept.pdf']
-        assert old['kind'] == 'text-draft' and old['status'] == 'parked' and old['density'] is None
+        assert old['kind'] == 'house-design' and old['status'] == 'parked' and old['density'] is None
         cadet = items['examples/marine/flagship/cadet.pdf']
         assert (cadet['kind'], cadet['domain'], cadet['candidate'], cadet['rank']) == ('example', 'marine', 'Nikos Test', 'Deck Cadet')
         rev = items['private/fictional-client/revisions/20300103-101010-abcdef/cv.pdf']
