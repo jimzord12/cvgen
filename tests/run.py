@@ -2,6 +2,7 @@
 import argparse
 from datetime import datetime
 import json
+import os
 from pathlib import Path
 import shutil
 import subprocess
@@ -250,6 +251,9 @@ def main():
         compile_case('fonts-system', 'tests/fixtures/fonts.typ', {'case': 'system', 'family': system_family},
                      error='unknown font family: ' + system_family.lower())
     else:
+        # CI installs a font for this (verify.yml); finding none there is a broken runner, not a skip.
+        assert not os.environ.get('CI'), ('fonts-system', 'CI has no font outside the bundled ones, so --ignore-system-fonts '
+                                          'is not proven; install one in .github/workflows/verify.yml')
         skip('fonts-system', 'workflow-system-font-fails-checks',
              reason='this machine has no font outside the bundled ones, so --ignore-system-fonts is not proven here')
     compile_case('data-valid', 'tests/fixtures/data.typ')

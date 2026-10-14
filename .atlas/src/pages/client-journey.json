@@ -547,13 +547,13 @@
           "title": "12 months later: delete",
           "actor": "owner",
           "summary": "Client data goes 12 months after delivery, unless the client asked to keep it. Deleting is always yours.",
-          "you": "Delete the `Envelope`, the `Intake Form`, its Sheet and script project, then empty Drive's Trash (it keeps files 30 days).",
+          "you": "Delete the `Envelope`, the `Intake Form`, its Sheet and script project, then empty Drive's Trash (it keeps files 30 days). Deleting the folder is not enough: run the commands Claude hands you that erase the `Envelope` from the private repository's history and overwrite GitHub's copy, then re-clone `private/`.",
           "gate": {
             "type": "owner",
-            "label": "Claude names passed delete-by dates; you do the deleting."
+            "label": "Claude names passed delete-by dates and hands you the history-erase commands; you do the deleting and run the erase."
           },
           "sources": [
-            "docs/guides/client-workflow.md:297-305",
+            "docs/guides/client-workflow.md:297-327",
             "docs/preferences.md:69-78"
           ]
         }

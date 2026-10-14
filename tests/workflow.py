@@ -17,14 +17,17 @@ def system_font_family(typst):
     """A font family this machine has but the bundled fonts do not, or None (task-46).
 
     With --ignore-system-fonts Typst must call it unknown; without the flag it would find it and stay
-    silent, so a case naming it fails only while the flag is passed. Chosen at run time, so the case
-    proves the flag on any machine that has a system font, CI included.
+    silent, so a case naming it fails only while the runners pass the flag. Chosen at run time, so the
+    case proves the flag on any machine that has a system font; CI installs one (verify.yml), and there
+    tests/run.py fails rather than skips when none is found.
+    The probe spells the flag out instead of using STRICT_FONTS: emptying that constant must make the
+    cases fail, not make every system font look bundled and the cases skip.
     """
     def families(*flags):
         listed = subprocess.run([typst, 'fonts', *flags], capture_output=True, text=True, encoding='utf-8',
                                 errors='replace', check=True).stdout
         return {line.strip() for line in listed.splitlines() if line.strip()}
-    bundled = {f.lower() for f in families(*STRICT_FONTS, '--font-path', str(ROOT / 'packages/cv-framework/fonts'))}
+    bundled = {f.lower() for f in families('--ignore-system-fonts', '--font-path', str(ROOT / 'packages/cv-framework/fonts'))}
     # Plain names only, so the family is safe inside a Typst string and in the warning Typst prints.
     found = sorted(f for f in families() if f.lower() not in bundled and f.replace(' ', '').isalnum() and f.isascii())
     return found[0] if found else None
