@@ -202,6 +202,8 @@ layout where `private/client-2030-01-01/` is the temporary `Envelope`,
   after it, every output must exist at its declared path, JSON must parse,
   JSON with a `schema` must match it, and a PDF must have the `Meta File` the
   model declares beside it, valid and current (its `sha256` is the PDF's).
+  An output a command finds already there (a `Meta File` it restamps) must
+  come out changed: one left byte for byte as it was fails the step.
   The first problem stops the run: `FAIL <step id>: <reason>`, then `FAILED
   level 3 at <step id>`, exit 1. A gate that sends the run off its path
   (example wording found, say) fails the same way.

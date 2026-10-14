@@ -1,7 +1,7 @@
 # yaml-language-server: $schema=../../../tools/workflow/schema/stage.schema.json
 id: deliver
 name: Render, Approval, Export and delivery
-sources: ["docs/guides/build-a-cv.md:110-207", "docs/pdf-workflow.md:167-194", ".claude/skills/new-cv/SKILL.md:98-123"]
+sources: ["docs/guides/build-a-cv.md:110-207", "docs/pdf-workflow.md:169-196", ".claude/skills/new-cv/SKILL.md:98-123"]
 purpose: >-
   Render the CV as a Revision, check it, let the owner approve its exact
   bytes, export a verified copy, write the delete-by date, and record the
@@ -58,7 +58,7 @@ steps:
 
   - id: deliver.owner-review
     name: The owner reviews the exact cv.pdf
-    sources: ["docs/pdf-workflow.md:173-174", "docs/guides/build-a-cv.md:170-176", "docs/guides/build-a-cv.md:139-147"]
+    sources: ["docs/pdf-workflow.md:175-176", "docs/guides/build-a-cv.md:170-176", "docs/guides/build-a-cv.md:139-147"]
     actor: actor.owner
     action: manual.review-pdf
     inputs: [art.render-report, art.cv-pdf]
@@ -67,7 +67,7 @@ steps:
 
   - id: deliver.approve
     name: The owner approves the reviewed bytes
-    sources: ["docs/guides/build-a-cv.md:178-187", "docs/pdf-workflow.md:175-179", "docs/proposals/workflow-model.md:58", "docs/glossary.md:64"]
+    sources: ["docs/guides/build-a-cv.md:178-187", "docs/pdf-workflow.md:177-181", "docs/proposals/workflow-model.md:58", "docs/glossary.md:64"]
     actor: actor.owner
     action: cmd.cv-approve
     inputs: [art.cv-pdf, art.render-json, art.checks-json, art.reviewed-hash, art.envelope-json]
@@ -76,7 +76,7 @@ steps:
   # Decision #5 (2026-10-14): Claude runs Export after the owner approves.
   - id: deliver.export
     name: Export the approved Revision
-    sources: ["docs/proposals/workflow-model.md:58", "docs/guides/build-a-cv.md:189-198", "docs/pdf-workflow.md:180-184"]
+    sources: ["docs/proposals/workflow-model.md:58", "docs/guides/build-a-cv.md:189-198", "docs/pdf-workflow.md:182-186"]
     actor: actor.lead
     action: cmd.cv-export
     inputs: [art.approval-json, art.cv-pdf, art.render-json, art.checks-json]
@@ -94,7 +94,7 @@ steps:
 
   - id: deliver.send
     name: The owner sends the exported PDF
-    sources: ["docs/guides/build-a-cv.md:200-201", "docs/pdf-workflow.md:185-188"]
+    sources: ["docs/guides/build-a-cv.md:200-201", "docs/pdf-workflow.md:187-190"]
     actor: actor.owner
     action: manual.send-pdf
     inputs: [art.export-bundle]
@@ -153,7 +153,7 @@ gates:
 
   - id: gate.owner-review
     name: The owner accepts the Revision
-    sources: ["docs/pdf-workflow.md:173-174", "docs/guides/build-a-cv.md:174-176"]
+    sources: ["docs/pdf-workflow.md:175-176", "docs/guides/build-a-cv.md:174-176"]
     check: The owner reviewed this Revision's cv.pdf and wants no change.
     pass: deliver.approve
     fail: deliver.fix
@@ -280,7 +280,7 @@ artifacts:
 
   - id: art.delivery-message
     name: The CV sent to the client
-    sources: ["docs/guides/build-a-cv.md:200-201", "docs/pdf-workflow.md:185-188"]
+    sources: ["docs/guides/build-a-cv.md:200-201", "docs/pdf-workflow.md:187-190"]
     format: the exported PDF, sent by the owner's own channel
     visibility: third-party
 
@@ -335,7 +335,7 @@ actions:
   - id: manual.review-pdf
     kind: manual
     name: Review the PDF
-    sources: ["docs/pdf-workflow.md:173-174", "docs/guides/build-a-cv.md:139-147"]
+    sources: ["docs/pdf-workflow.md:175-176", "docs/guides/build-a-cv.md:139-147"]
     does: >-
       The owner opens revisions/<revision>/cv.pdf (or finds it in the Design
       Review app), weighs the certificate warnings, and approves it or asks
@@ -364,13 +364,13 @@ actions:
   - id: manual.send-pdf
     kind: manual
     name: Send the PDF
-    sources: ["docs/guides/build-a-cv.md:200-201", "docs/pdf-workflow.md:185-188"]
+    sources: ["docs/guides/build-a-cv.md:200-201", "docs/pdf-workflow.md:187-190"]
     does: The owner sends exports/<revision>/cv.pdf to the client, a separate manual act; the receipt is internal and not sent.
 
   - id: cmd.stamp-delivered
     kind: cmd
     name: Stamp the Revision delivered
-    sources: ["docs/guides/build-a-cv.md:200-204", "docs/pdf-workflow.md:144-149"]
+    sources: ["docs/guides/build-a-cv.md:200-204", "docs/pdf-workflow.md:146-151"]
     run: python scripts/outputs.py stamp private/<envelope>/revisions/<revision>/cv.pdf status=delivered
 
   - id: lead.report-delete-by

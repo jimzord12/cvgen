@@ -238,5 +238,5 @@ actions:
   - id: cmd.stamp-draft-signed-off
     kind: cmd
     name: Stamp the draft signed-off
-    sources: ["docs/guides/client-workflow.md:297-299", "docs/pdf-workflow.md:144-149"]
+    sources: ["docs/guides/client-workflow.md:297-299", "docs/pdf-workflow.md:146-151"]
     run: python scripts/outputs.py stamp private/<envelope>/draft/draft-NN.pdf status=signed-off

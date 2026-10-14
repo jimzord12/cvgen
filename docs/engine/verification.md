@@ -181,13 +181,16 @@ Windows one also holds the PDFs that build wrote, one per example in
    `workflow-model/reality/`, every `cmd` step on its path through the real
    script (render, approve with `--test-only`, export, every stamp), every
    other step a labelled stand-in; each declared output must exist and
-   validate (`tools/workflow/README.md`, "Level 3"). Then two copies of the
-   model under `workflow-model/` must fail naming the step:
+   validate (`tools/workflow/README.md`, "Level 3"). Then three copies of
+   the model under `workflow-model/` must fail naming the step:
    `reality-renamed-output` (the model says `render-record.json`, cv.py
    writes `render.json`: `FAILED level 3 at deliver.render`) and
    `reality-export-waits-for-approval` (export without `cv.approval.json`
    among its inputs runs before the approval and the real `cv.py export`
-   refuses it: `FAILED level 3 at deliver.export`, no `Export` written).
+   refuses it: `FAILED level 3 at deliver.export`, no `Export` written) and
+   `reality-unchanged-output-fails` (the sent stamp turned into a second
+   ready stamp leaves `draft-01.meta.json` byte for byte as it was:
+   `FAIL text-draft.draft-sent`).
    Output in `workflow-model/reality*.log`, each run's `reality.log` and
    `report.json` in its folder. Skipped with case 16.
 
@@ -229,10 +232,11 @@ change.
   step declares is not where the model says. Read that run's `reality.log`;
   fix the model (or the script), then rerun `bun run reality` in
   `tools/workflow/`.
-- `AssertionError: ('renamed-output', ...)` or `('export-before-approval', ...)`:
-  a model copy that must fail did not fail at its step (`deliver.render`,
-  `deliver.export`); the run's walk or checks no longer catch that
-  disagreement. Read `workflow-model/reality-<label>.log`.
+- `AssertionError: ('renamed-output', ...)`, `('export-before-approval', ...)`
+  or `('no-op-stamp', ...)`: a model copy that must fail did not fail at its
+  step (`deliver.render`, `deliver.export`, `text-draft.draft-sent`); the
+  run's walk or checks no longer catch that disagreement. Read
+  `workflow-model/reality-<label>.log`.
 - `AssertionError: entry points not in examples/release.json, ...`: an
   example was added without its line in `examples/release.json` (or a
   line was removed); add the line with its `title` and `variant`.
