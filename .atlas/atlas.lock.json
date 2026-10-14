@@ -16,17 +16,31 @@
    "verifiedAt": "2026-10-14"
   },
   "client-journey": {
-   "commit": "414a38e",
+   "commit": "302123d",
    "sources": {
+    ".claude/agents/design-reviewer.md": "ae20d720149ac73aaca62505035b9855c2829911",
     ".claude/skills/idea-run/SKILL.md": "88b55544d074640759cf193c3d212d1f15ad91f8",
     ".claude/skills/new-client/SKILL.md": "db4910a38f348ba06564eff199447763662e4f87",
     ".claude/skills/new-cv/SKILL.md": "7f2041feec36dbc8d38fbf1e878f91be37943716",
+    ".claude/skills/verify-cv/SKILL.md": "7dde190ff38c1f82310a54193f13e6b88717403e",
+    "archive/work-records/workflow-model/handoff.md": "521822f241bc9400adb13f1c9a54a8299c144907",
+    "docs/framework-gaps.md": "c2602b3afaf2bcab33b8fabb6bab27fe7bf4f6fd",
     "docs/glossary.md": "adbf57743fea29356883b5f7ace4be8a895bfe91",
     "docs/guides/build-a-cv.md": "02e9d6923ad03aa7ca6d753d9bf09ff4f4544b4a",
     "docs/guides/client-workflow.md": "90b150c846d6b646a901280bacb6258f8868286b",
     "docs/pdf-workflow.md": "8f5bf7a0067abe3218c2d3d9263c12c79cca4e78",
     "docs/preferences.md": "249fcfff2705b5a654401df74268c40ce4239a66",
-    "scripts/text-draft.typ": "c6f61f2253a2105d3334f3edc4e9b12137f54fa1"
+    "docs/proposals/workflow-model.md": "2a0e28a8b58e6b7ff79ac9fb348b883d4a6cb19d",
+    "docs/research/README.md": "641074b394cb1e91a9163684a7f3f7577d110260",
+    "docs/review.md": "cb74994f6d95ed83eaeced64fe16a3525882dee6",
+    "docs/workflow/GAPS.md": "0d683eeaaf4a2d47a164870bc227093a4ffb1d61",
+    "packages/cv-workflow/cv_workflow/__init__.py": "427c74cfeabc096417b81d7a5cbea539fbae99b2",
+    "packages/cv-workflow/cv_workflow/outputs.py": "241dc75d76a1340d5a2303ab2fde0a7e29fcca3c",
+    "packages/cv-workflow/cv_workflow/render.py": "d1b691ad0b7dc1bcbfec8d5bd66163711352c858",
+    "scripts/cv.py": "d21197a5887e4f7aa6bf778c0ca2fd50229d2a11",
+    "scripts/intake-form.gs": "876f3d78ab118a965fe39179569ddad1713ea40c",
+    "scripts/text-draft.typ": "c6f61f2253a2105d3334f3edc4e9b12137f54fa1",
+    "studio/design-concepts/README.md": "6f9c35abb0affbc80fe19a474d22554a833d1338"
    },
    "verifiedAt": "2026-10-14"
   },
