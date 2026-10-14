@@ -1,0 +1,10 @@
+{
+  "about": "The one list of public examples: scripts/build.ps1 builds these (and with -Release writes the Release beside each entry point), tests/run.py compiles these and fails when an entry point under examples/ is missing here. The title carries the Release version and becomes the Meta File's title.",
+  "examples": [
+    { "source": "examples/marine/flagship/engineer.typ", "title": "Marine Engineer CV v12", "variant": "Golden Blue" },
+    { "source": "examples/marine/flagship/captain.typ", "title": "Marine Captain CV Classic v01", "variant": "Golden Blue" },
+    { "source": "examples/marine/flagship/captain-silver.typ", "title": "Marine Captain CV Silver v01", "variant": "Silver Bridge" },
+    { "source": "examples/marine/flagship/chief-officer.typ", "title": "Marine Chief Officer CV Silver v01", "variant": "Silver Bridge" },
+    { "source": "examples/marine/flagship/deck-cadet.typ", "title": "Marine Deck Cadet CV One-page v01", "variant": "Golden Blue, one page" }
+  ]
+}

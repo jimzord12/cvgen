@@ -13,6 +13,7 @@ from verify import ROOT, FONTS, FLAGSHIP, verify, check_frozen
 from workflow import run_workflow, system_font_family
 from design_review import run_design_review
 from repo_maintenance import run_repo_maintenance
+from release import examples, run_build_script, shells
 from cv_workflow.render import STRICT_FONTS, font_fallbacks  # on the path through workflow.py
 
 
@@ -124,7 +125,7 @@ def main():
     # One folder per case holds all its evidence (ADR 0013): <case>.pdf, compile.log, and for a
     # checked case check/result.json (plus diff-N.png on a mismatch) and page-N.png renders.
     def compile_case(name, source, inputs=None, error=None):
-        assert name not in ('workflow', 'design-review'), 'the workflow and app checks own those folders'
+        assert name not in ('workflow', 'design-review', 'build-script'), 'the workflow, app and build script checks own those folders'
         folder = out / name
         folder.mkdir(exist_ok=False)
         pdf = folder / (name + '.pdf')
@@ -173,7 +174,10 @@ def main():
         text = ' '.join(doc[0].get_text().split())
         for phrase in ['Professional Skills', 'Technical Skills', 'Three columns', 'Navigation', 'Plain bullet', 'Third']:
             assert text.count(phrase) == 1, phrase
-    engineer = compile_case('engineer', 'examples/marine/flagship/engineer.typ')
+    # Every public example, from the one list scripts/build.ps1 also reads (examples/release.json).
+    listed = {Path(e['source']).stem: compile_case(Path(e['source']).stem, e['source']) for e in examples()}
+    results.append({'case': f'example-list ({len(listed)} examples, the list build.ps1 reads)', 'passed': True})
+    engineer = listed['engineer']
     result = check_case(engineer, ROOT / FLAGSHIP / 'tests/approved/Marine-Engineer-CV-v11.pdf')
     assert result['passed'], result
     hidden = compile_case('engineer-hidden', 'examples/marine/flagship/engineer.typ', {'vessel-durations': 'false'})
@@ -186,15 +190,14 @@ def main():
             for name in vessel_names:
                 assert pa.search_for(name) == pb.search_for(name), name
         assert '8 months' not in ' '.join(p.get_text() for p in b)
-    classic = compile_case('captain', 'examples/marine/flagship/captain.typ')
-    silver = compile_case('captain-silver', 'examples/marine/flagship/captain-silver.typ')
+    classic, silver = listed['captain'], listed['captain-silver']
     for pdf in [hidden, classic, silver]:
         assert check_case(pdf)['passed']
     with fitz.open(classic) as a, fitz.open(silver) as b:
         assert [' '.join(p.get_text().split()) for p in a] == [' '.join(p.get_text().split()) for p in b]
         assert 'Engineer' not in ''.join(p.get_text() for p in a)
     # Third dataset: deck officer without a portrait, on the same page plan.
-    officer = compile_case('chief-officer', 'examples/marine/flagship/chief-officer.typ')
+    officer = listed['chief-officer']
     assert check_case(officer)['passed']
     with fitz.open(officer) as doc:
         text = ' '.join(' '.join(p.get_text().split()) for p in doc)
@@ -211,7 +214,7 @@ def main():
             keep = lambda page: [w for w in page.get_text('words') if w[4] not in brand]
             assert keep(pa) == keep(pb)
     # Short career on the one-page profile: the whole record on one page, whatever its company count.
-    cadet = compile_case('deck-cadet', 'examples/marine/flagship/deck-cadet.typ')
+    cadet = listed['deck-cadet']
     assert check_case(cadet, pages=1)['passed']
     with fitz.open(cadet) as doc:
         text = ' '.join(doc[0].get_text().split())
@@ -383,6 +386,13 @@ def main():
     # The candidate workflow, end to end and every refusal, in a fresh fictional workspace.
     for check in run_workflow(out, args.typst, system_family):
         results.append({'case': 'workflow-' + check, 'passed': True, 'folder': 'workflow'})
+    # scripts/build.ps1 in a throwaway copy, under every PowerShell here: the list, and no silent Release overwrite.
+    if shells():
+        for check in run_build_script(out, args.typst):
+            results.append({'case': 'build-script-' + check, 'passed': True, 'folder': 'build-script'})
+    else:
+        assert not os.environ.get('CI'), 'CI has no PowerShell, so scripts/build.ps1 is not tested'
+        skip('build-script', reason='no PowerShell on this machine, so scripts/build.ps1 is not tested here')
     # Output Contract: every public PDF sits in its home with a valid, current Meta File.
     sys.path.insert(0, str(ROOT / 'packages/cv-workflow'))
     from cv_workflow.outputs import scan

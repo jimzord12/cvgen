@@ -128,9 +128,10 @@ Replacing the `Release` in `examples/` needs the owner's go
 1. Choose a branch appropriate to the change. Run `python tests/run.py`.
 2. Build with `./scripts/build.ps1`, inspect every page of every changed
    example.
-3. Raise the changed example's version in the `Title` of its line in
-   `scripts/build.ps1`, then run `./scripts/build.ps1 -Release`: it builds
-   all five into a new `builds/` folder, copies each PDF beside its entry
+3. Raise the changed example's version in the `title` of its entry in
+   `examples/release.json`, then run `./scripts/build.ps1 -ReplaceRelease`
+   (plain `-Release` refuses while a `Release` exists): it builds
+   every listed example into a new `builds/` folder, copies each PDF beside its entry
    point and stamps its `Meta File` (every PDF changes, since Typst embeds
    the compile time). Refresh the changed deliverable's page PNGs in
    `docs/images/` at 96 dpi (one per page).

@@ -372,7 +372,7 @@
           ],
           "sources": [
             "docs/guides/client-workflow.md:286-296",
-            ".claude/skills/new-cv/SKILL.md:62-66"
+            ".claude/skills/new-cv/SKILL.md:64-68"
           ]
         },
         {
@@ -426,7 +426,7 @@
           ],
           "sources": [
             ".claude/skills/new-cv/SKILL.md:12-15",
-            ".claude/skills/new-cv/SKILL.md:67-85",
+            ".claude/skills/new-cv/SKILL.md:69-87",
             "docs/guides/build-a-cv.md:37-68"
           ]
         }
@@ -461,7 +461,7 @@
           ],
           "sources": [
             "docs/guides/build-a-cv.md:117-151",
-            ".claude/skills/new-cv/SKILL.md:105-115"
+            ".claude/skills/new-cv/SKILL.md:107-117"
           ]
         },
         {
@@ -554,7 +554,7 @@
           },
           "sources": [
             "docs/guides/client-workflow.md:298-327",
-            "docs/preferences.md:69-80"
+            "docs/preferences.md:69-81"
           ]
         }
       ]

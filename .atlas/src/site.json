@@ -38,7 +38,7 @@
         "Everything routine (commits, merges to `main`, task-store updates) is the agents' job."
       ],
       "sources": [
-        "docs/preferences.md:49-80",
+        "docs/preferences.md:49-81",
         "docs/guides/client-workflow.md:9-10"
       ],
       "short": "You"
@@ -391,7 +391,7 @@
       "label": "tests/run.py",
       "kind": "tool",
       "file": "tests/run.py",
-      "role": "The full test suite: compiles every example, checks the `Frozen Reference` pixel for pixel, the workflow, the contract. Evidence goes to `builds/tests-<timestamp>/`.",
+      "role": "The full test suite: compiles every example in `examples/release.json`, runs `build.ps1` in a throwaway copy, checks the `Frozen Reference` pixel for pixel, the workflow, the contract. Evidence goes to `builds/tests-<timestamp>/`.",
       "sources": [
         "tests/run.py",
         "docs/reference/verification.md"
@@ -415,9 +415,11 @@
       "label": "scripts/build.ps1",
       "kind": "tool",
       "file": "scripts/build.ps1",
-      "role": "Builds the five public examples into `builds/`; with `-Release` it copies them beside their entry points and stamps them.",
+      "role": "Builds the public examples listed in `examples/release.json` (the list the suite also reads) into `builds/`; with `-Release` it copies them beside their entry points and stamps them, refusing while a `Release` exists; `-ReplaceRelease` (the owner's go) replaces it.",
       "sources": [
-        "scripts/build.ps1"
+        "scripts/build.ps1",
+        "examples/release.json",
+        "docs/pdf-workflow.md:207-213"
       ]
     },
     "intake-form": {

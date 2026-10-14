@@ -23,7 +23,8 @@ drawing.
 3. If the theme changes secondary SVG hues, add the hex values to
    `art-colors`.
 4. Add an example under `examples/marine/flagship/` that differs from an existing one by the
-   theme import only. Add it to `scripts/build.ps1` and `tests/run.py`.
+   theme import only. Add it to `examples/release.json` (read by
+   `scripts/build.ps1` and `tests/run.py`).
 
 ## Artwork pack
 

@@ -124,6 +124,20 @@ The page images are what to show the owner or a reviewer.
    `--baseline`, `--since`, CVgen's layer: protected paths, allowed
    duplicates and versioned names, a mention of an ignored area is not a
    dead path), and the auditor agent's read-only frontmatter.
+14. **Example list and `scripts/build.ps1`** (`example-list`, `build-script-<shell>-<check>`,
+   `tests/release.py`). The examples of checks 2 to 6 are compiled from
+   `examples/release.json`, the list `build.ps1` reads; the suite fails when
+   an entry point under `examples/` is missing from it or it names one that
+   does not exist. Then the real `build.ps1` runs under every PowerShell on
+   the machine (`pwsh`, and on Windows also Windows PowerShell 5.1) in a
+   throwaway copy under the run's `build-script/` folder, with the list cut
+   to `deck-cadet`: the suite refuses that list, a plain build writes only
+   `deck-cadet.pdf`, `-Release` over an existing `Release` exits non-zero
+   with `Refused: the Release already exists` and builds nothing, leaving the
+   PDF and its `Meta File` byte-identical, `-Release` with no `Release`
+   writes it with a current `Meta File`, and `-ReplaceRelease` replaces it.
+   `build-script/<shell>.log` holds each command's output. With no
+   PowerShell at all the case is `SKIPPED`; on CI that fails the suite.
 
 Negative cases assert on the exact error text so a message change is a test
 change.
@@ -144,8 +158,12 @@ change.
   ones, ...')`: the CI runner found no system font for the system-font
   case; check the font install step in `.github/workflows/verify.yml`.
 - `SKIPPED N: <cases> (reasons in report.json)` after the `PASS` line: those
-  cases did not run on this machine (today only the system-font cases, when
-  it has no font outside the bundled ones). The run passed without them.
+  cases did not run on this machine (the system-font cases, when it has no
+  font outside the bundled ones; `build-script`, when it has no
+  PowerShell). The run passed without them.
+- `AssertionError: entry points not in examples/release.json, ...`: an
+  example was added without its line in `examples/release.json` (or a
+  line was removed); add the line with its `title` and `variant`.
 
 ## Adding a check
 
