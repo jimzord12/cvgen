@@ -27,8 +27,15 @@ try {
     $durationMode = if ($HideVesselDurations) { 'false' } else { 'true' }
     foreach ($example in $examples) {
         $destination = Join-Path $OutputDirectory ([IO.Path]::GetFileNameWithoutExtension($example.Source) + '.pdf')
-        & $compiler.Source compile --root . --font-path packages/cv-framework/fonts --input "vessel-durations=$durationMode" $example.Source $destination
-        if ($LASTEXITCODE -ne 0) { throw "Compilation failed: $($example.Source)" }
+        # Fonts strict (task-46): bundled fonts only; a family Typst cannot find is set in another font with
+        # only a warning and exit code 0, so that warning fails the build.
+        $ErrorActionPreference = 'Continue'   # stderr lines from a native command must not throw here
+        $log = (& $compiler.Source compile --root . --ignore-system-fonts --font-path packages/cv-framework/fonts --input "vessel-durations=$durationMode" $example.Source $destination 2>&1 | ForEach-Object { "$_" }) -join "`n"
+        $exitCode = $LASTEXITCODE
+        $ErrorActionPreference = 'Stop'
+        if ($log) { Write-Host $log }
+        if ($exitCode -ne 0) { throw "Compilation failed: $($example.Source)" }
+        if ($log -match 'warning: unknown font family') { throw "A font family is not bundled, so Typst used another font: $($example.Source)" }
     }
     Write-Host "$($examples.Count) CVs created in $OutputDirectory"
     if ($Release) {

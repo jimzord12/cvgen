@@ -38,7 +38,7 @@ step; nothing is overwritten on the way.
 | `inputs/<path>` | render | every other workspace file `cv.typ` (or a local `.typ` helper) reads by a literal relative path, at the same place |
 | `render.log` | render | compiler output, also for failed runs |
 | `render.json` | render | status, engine commit and dirty flag, compiler version and command, input hashes and imports (`inputs.files` lists the copied workspace files), the schema the record was checked against, PDF hash |
-| `checks.json` | render | page count, empty pages, fonts, bounds, any `Live Read`; `pdf_sha256` of the bytes checked; `certificates`: expiry dates checked against `reference_date`, warnings for expired or within-180-day certificates (never failing `passed`), counts of checked and unchecked dates |
+| `checks.json` | render | page count, empty pages, fonts (all embedded, every family bundled), bounds, any `Live Read`; `pdf_sha256` of the bytes checked; `certificates`: expiry dates checked against `reference_date`, warnings for expired or within-180-day certificates (never failing `passed`), counts of checked and unchecked dates |
 | `cv.pdf` | render | the PDF, on success |
 | `cv.approval.json` | approve | revision id, sha256, approver, time, scope `owner` or `test-only` |
 

@@ -352,7 +352,7 @@ window.ATLAS = {
     "role": "Reads and updates the tasks in `backlog/` through the `backlog` CLI, and reads and rewrites the `session-handoff` doc on `main`. Every task's record is a task file.",
     "when": "Orientation, and every task state change.",
     "sources": [
-     ".claude/skills/backlog/SKILL.md:1-117"
+     ".claude/skills/backlog/SKILL.md:1-118"
     ]
    },
    "repo-maintenance": {
@@ -363,7 +363,7 @@ window.ATLAS = {
     "when": "`quick` in every `Session Sweep`; the rest when you ask for a tidy-up.",
     "sources": [
      ".claude/skills/repo-maintenance/SKILL.md:21-28",
-     ".claude/repo-maintenance.md:136-140"
+     ".claude/repo-maintenance.md:135-139"
     ]
    },
    "cv-py": {
@@ -376,7 +376,7 @@ window.ATLAS = {
     ],
     "sources": [
      "scripts/cv.py:1-12",
-     "docs/guides/build-a-cv.md:117-206"
+     "docs/guides/build-a-cv.md:117-208"
     ]
    },
    "outputs-py": {
@@ -458,7 +458,7 @@ window.ATLAS = {
     "role": "Runs the suite on every push and pull request (Typst 0.15.1). The lead watches it on `main` before calling work Done.",
     "sources": [
      ".github/workflows/verify.yml",
-     "docs/git-workflow.md:74-87"
+     "docs/git-workflow.md:90-103"
     ],
     "short": "CI"
    }
@@ -822,7 +822,7 @@ window.ATLAS = {
         "`draft/draft-NN.pdf` with its `Meta File` (status `sent`)"
        ],
        "cmd": [
-        "typst compile --root . --font-path packages/cv-framework/fonts private/<envelope>/draft/draft-01.typ private/<envelope>/draft/draft-01.pdf",
+        "typst compile --root . --ignore-system-fonts --font-path packages/cv-framework/fonts private/<envelope>/draft/draft-01.typ private/<envelope>/draft/draft-01.pdf",
         "python scripts/outputs.py stamp private/<envelope>/draft/draft-01.pdf status=sent"
        ],
        "sources": [
@@ -960,7 +960,7 @@ window.ATLAS = {
        "actor": "lead",
        "summary": "Every render is a new, never-overwritten folder with a snapshot of its inputs, the PDF, its checks and a `Meta File`.",
        "does": [
-        "Checks: page count, no empty page, fonts embedded, text inside the page.",
+        "Checks: page count, no empty page, fonts embedded, text inside the page, every font family bundled (a missing one is set in another font, so the checks fail).",
         "A certificate expired or expiring within 180 days prints a `Certificate Warning`; it never blocks.",
         "Claude stops here and reports the folder, the PDF's hash, the pages and every WARNING word for word."
        ],
@@ -978,8 +978,8 @@ window.ATLAS = {
         "cv-py"
        ],
        "sources": [
-        "docs/guides/build-a-cv.md:117-149",
-        ".claude/skills/new-cv/SKILL.md:104-114"
+        "docs/guides/build-a-cv.md:117-151",
+        ".claude/skills/new-cv/SKILL.md:105-115"
        ]
       },
       {
@@ -1006,7 +1006,7 @@ window.ATLAS = {
         "cv-py"
        ],
        "sources": [
-        "docs/guides/build-a-cv.md:182-189",
+        "docs/guides/build-a-cv.md:184-191",
         "docs/pdf-workflow.md:166-170"
        ]
       },
@@ -1029,7 +1029,7 @@ window.ATLAS = {
         "cv-py"
        ],
        "sources": [
-        "docs/guides/build-a-cv.md:191-206",
+        "docs/guides/build-a-cv.md:193-208",
         "docs/pdf-workflow.md:171-182"
        ]
       },
@@ -1050,7 +1050,7 @@ window.ATLAS = {
         "python scripts/outputs.py stamp private/<envelope>/revisions/<id>/cv.pdf status=delivered"
        ],
        "sources": [
-        "docs/guides/build-a-cv.md:202-204",
+        "docs/guides/build-a-cv.md:204-206",
         "docs/guides/client-workflow.md:298-301"
        ]
       }
@@ -1190,7 +1190,7 @@ window.ATLAS = {
        ],
        "sources": [
         ".claude/agents/magazine-editor.md:50-82",
-        ".claude/agents/magazine-editor.md:88-209",
+        ".claude/agents/magazine-editor.md:88-210",
         "design-concepts/README.md"
        ]
       }
@@ -1312,7 +1312,7 @@ window.ATLAS = {
         "After a PASS: a new sourced claim goes back to the research gate; a change to the Style's idea or to what you decide on goes back to the design gate; layout, typos or sample data need only a lead check noted in `run.md`."
        ],
        "sources": [
-        ".claude/agents/magazine-editor.md:211-219",
+        ".claude/agents/magazine-editor.md:212-220",
         ".claude/skills/idea-run/SKILL.md:67-72"
        ]
       }
@@ -1388,7 +1388,7 @@ window.ATLAS = {
        ],
        "sources": [
         ".claude/skills/idea-run/SKILL.md:123-135",
-        "design-concepts/README.md:44-47",
+        "design-concepts/README.md:45-48",
         "archive/anti-examples/README.md"
        ]
       },
@@ -1479,7 +1479,7 @@ window.ATLAS = {
        ],
        "sources": [
         "docs/development.md:17-32",
-        "docs/development.md:106-194"
+        "docs/development.md:107-195"
        ]
       }
      ]
@@ -1492,11 +1492,11 @@ window.ATLAS = {
        "id": "branch",
        "title": "A branch, or straight to main",
        "actor": "lead",
-       "summary": "Small verified fixes and docs may go straight to `main`. Features and anything uncertain get a `<type>/<topic>` branch, often in a worktree under `.worktrees/`. No pull requests.",
+       "summary": "Small verified fixes and docs may go straight to `main`. Features and anything uncertain get a `<type>/<topic>` branch, in a worktree under `.worktrees/`. No pull requests.",
        "sources": [
         "docs/git-workflow.md:21-33",
-        "docs/git-workflow.md:40-50",
-        "docs/git-workflow.md:69-73"
+        "docs/git-workflow.md:40-66",
+        "docs/git-workflow.md:85-89"
        ]
       },
       {
@@ -1607,7 +1607,7 @@ window.ATLAS = {
        ],
        "note": "Yours only, with the exact command shown first, including: deleting or force-pushing `main`, rewriting its published history, rewriting the private repo's history (the delete-by erase, which you run), `archive/*` tags, repo settings (public and private repo), deleting under `private/` or `.local/` or outside the repo, removing revisions, approvals, exports or portraits, replacing the `Release`.",
        "sources": [
-        "docs/git-workflow.md:74-87",
+        "docs/git-workflow.md:90-103",
         "docs/preferences.md:52-80",
         ".github/workflows/verify.yml"
        ]
@@ -1634,7 +1634,7 @@ window.ATLAS = {
         "repo-maintenance"
        ],
        "sources": [
-        "docs/development.md:58-88"
+        "docs/development.md:58-89"
        ]
       },
       {
@@ -1649,7 +1649,7 @@ window.ATLAS = {
         "backlog"
        ],
        "sources": [
-        "docs/development.md:90-104"
+        "docs/development.md:91-105"
        ]
       },
       {
@@ -1763,7 +1763,7 @@ window.ATLAS = {
        "title": "Framework",
        "path": "packages/cv-framework/",
        "blurb": "The domain-neutral core: page frame, components, data merge, pagination, fonts.",
-       "touch": "Changing behaviour every `Domain` shares. It never imports a `Domain`, and its code names no `Domain` or template word, layout key or colour; the suite checks both."
+       "touch": "Changing behaviour every `Domain` shares. It never imports a `Domain`; the suite checks that."
       },
       {
        "id": "n-marine",
@@ -2263,30 +2263,30 @@ window.ATLAS = {
   }
  ],
  "build": {
-  "builtAt": "2026-10-14 06:05 UTC",
-  "commit": "4a9a729",
+  "builtAt": "2026-10-14 06:07 UTC",
+  "commit": "d6fe4fd",
   "kit": "1.0",
   "stale": {},
   "verified": {
    "client-journey": {
     "at": "2026-10-14",
-    "commit": "a0a2b5e"
+    "commit": "6e09e22"
    },
    "design-run": {
     "at": "2026-10-14",
-    "commit": "b64d994"
+    "commit": "6e09e22"
    },
    "change-review": {
     "at": "2026-10-14",
-    "commit": "b64d994"
+    "commit": "6e09e22"
    },
    "system-map": {
     "at": "2026-10-14",
-    "commit": "4a9a729"
+    "commit": "d6fe4fd"
    },
    "roster": {
     "at": "2026-10-14",
-    "commit": "b64d994"
+    "commit": "6e09e22"
    }
   }
  }

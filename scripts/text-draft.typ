@@ -24,7 +24,8 @@
 // Wrap every name, date, number and title the client must check in #fact[...]: the Check
 // Page tells the client to check only what is underlined.
 //
-// Compile with --font-path packages/cv-framework/fonts (Bona Nova covers Greek).
+// Compile with --ignore-system-fonts --font-path packages/cv-framework/fonts (Bona Nova covers Greek);
+// a `warning: unknown font family` line means the page is not in Bona Nova.
 
 #let paper = rgb("#F3EEE3")
 #let ink = rgb("#1C1814")

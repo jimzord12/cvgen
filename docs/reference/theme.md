@@ -34,7 +34,7 @@ minimal override pattern: spread the base theme, replace what differs.
 | `colors.plate` | yes | Identity plate background |
 | `colors.rule` | yes | Table row rules |
 | `colors.on-hero` | yes | Text on hero-coloured areas |
-| `fonts.body`, `fonts.display` | yes | One of the bundled family strings: `Source Sans 3`, `Barlow`, `Cormorant Garamond`, `Bona Nova` (bundled for the `Text Draft`; a theme may use it), `Sofia Sans` (the Sofia Sans Extra Condensed file), `M PLUS 1p` and `Kaisei Tokumin` (Japanese glyphs; bundled for the Hanami Line travel design). The Barlow Condensed file registers as `Barlow`. Confirm with `typst fonts --font-path packages/cv-framework/fonts`; an unknown name prints `warning: unknown font family` and substitutes |
+| `fonts.body`, `fonts.display` | yes | One of the bundled family strings: `Source Sans 3`, `Barlow`, `Cormorant Garamond`, `Bona Nova` (bundled for the `Text Draft`; a theme may use it), `Sofia Sans` (the Sofia Sans Extra Condensed file), `M PLUS 1p` and `Kaisei Tokumin` (Japanese glyphs; bundled for the Hanami Line travel design). The Barlow Condensed file registers as `Barlow`. Confirm with `typst fonts --ignore-system-fonts --font-path packages/cv-framework/fonts`. An unknown name makes Typst substitute another font with only `warning: unknown font family`; the suite, `scripts/cv.py render` and `scripts/build.ps1` compile with `--ignore-system-fonts` and fail on that warning |
 | `sizes.*` | yes | One entry per text role. See `golden-blue.typ` for the full list. `skill` is optional and defaults to 10pt |
 | `tracking.label`, `tracking.rank` | yes | Letter spacing for uppercase labels and the rank line |
 | `leading.initial`, `leading.body`, `leading.duration` | yes | Line spacing before the body, in the body, and inside the two-line company duration |
@@ -42,7 +42,8 @@ minimal override pattern: spread the base theme, replace what differs.
 | `art-colors` | no | Map of hex strings found in legacy SVGs to theme colours |
 
 `validate-theme` in `packages/cv-framework/core/theme.typ` checks the colour and font keys exist and
-have the right type. Missing sizes fail at the point of use.
+have the right type. Missing sizes fail at the point of use. It cannot check that a font family
+exists, since Typst gives a document no way to ask; the compile runners above do that.
 
 ## How SVG recolouring works
 
