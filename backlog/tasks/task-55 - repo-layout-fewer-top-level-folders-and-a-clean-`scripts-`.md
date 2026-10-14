@@ -1,10 +1,10 @@
 ---
 id: TASK-55
 title: 'repo-layout: fewer top-level folders and a clean `scripts/`'
-status: Queued
+status: Active
 assignee: []
 created_date: '2026-10-14 04:48'
-updated_date: '2026-10-14 09:21'
+updated_date: '2026-10-14 09:25'
 labels:
   - restructure
 dependencies:
