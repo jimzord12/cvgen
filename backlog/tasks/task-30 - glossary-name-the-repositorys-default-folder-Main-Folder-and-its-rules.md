@@ -6,7 +6,7 @@ title: >-
 status: Active
 assignee: []
 created_date: '2026-10-06 09:41'
-updated_date: '2026-10-14 05:49'
+updated_date: '2026-10-14 05:55'
 labels:
   - docs
 dependencies: []
@@ -37,4 +37,6 @@ The `Main Folder` is defined in `docs/glossary.md` (row after `Atlas`). `docs/gi
 ## Review
 Round 1 (`docs/work/main-folder-term/reviews/01-context-reviewer.md`): FINDINGS (2 Material, 1 Minor); fixed the contradictory recovery steps, the duplicated rule in the glossary and Sweep, the reason placement, the Added column and the task record.
 Round 2 (`.../02-context-reviewer.md`): FINDINGS (1 Material, 4 Minor); fixed the six stale Atlas ranges in `change-review.json` plus a wording slip, the overlapping cases (case 1 "with no tracked changes"), a merged branch counting as agent-left, leaving untracked files that are not the session's, the task title prefix `main-folder-term:`, and these notes.
+
+Round 3 (.../03-context-reviewer.md): FINDINGS (1 Material); the CVgen repo-maintenance layer now makes the apply branch in a worktree under .worktrees/, never in the Main Folder. Final: tests/run.py PASS (builds/tests-20261014-085501-701180), atlas check --strict exit 0.
 <!-- SECTION:NOTES:END -->
