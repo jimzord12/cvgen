@@ -4,7 +4,7 @@ title: 'docs-engine-rename: give docs/reference a clearer name (proposed: docs/e
 status: Done
 assignee: []
 created_date: '2026-10-06 09:56'
-updated_date: '2026-10-14 08:00'
+updated_date: '2026-10-14 12:37'
 labels:
   - docs cleanup
 dependencies: []
@@ -20,9 +20,9 @@ Owner 2026-10-06: docs/reference only holds the engine manuals (candidate schema
 
 ## Acceptance Criteria
 <!-- AC:BEGIN -->
-- [ ] #1 docs/reference no longer exists; every live link points to the new folder
-- [ ] #2 git grep 'docs/reference' finds only historical task records and decision logs
-- [ ] #3 tests/run.py and the Atlas check pass
+- [x] #1 docs/reference no longer exists; every live link points to the new folder
+- [x] #2 git grep 'docs/reference' finds only historical task records and decision logs
+- [x] #3 tests/run.py and the Atlas check pass
 <!-- AC:END -->
 
 ## Implementation Notes

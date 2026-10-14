@@ -4,7 +4,7 @@ title: 'theme-neutral: core theme validation stops requiring Flagship-shaped col
 status: Done
 assignee: []
 created_date: '2026-10-14 06:23'
-updated_date: '2026-10-14 07:10'
+updated_date: '2026-10-14 12:37'
 labels:
   - restructure
 dependencies: []
@@ -20,10 +20,16 @@ Follow-up from TASK-45 review round 1 note N1 (2026-10-14). packages/cv-framewor
 
 ## Acceptance Criteria
 <!-- AC:BEGIN -->
-- [ ] #1 core/theme.typ names no Flagship colour key
-- [ ] #2 Flagship checks its own required colours with the same messages
-- [ ] #3 the suite passes; the frozen reference stays pixel-identical
+- [x] #1 core/theme.typ names no Flagship colour key
+- [x] #2 Flagship checks its own required colours with the same messages
+- [x] #3 the suite passes; the frozen reference stays pixel-identical
 <!-- AC:END -->
+
+## Implementation Notes
+
+<!-- SECTION:NOTES:BEGIN -->
+Criteria ticked at the session close (2026-10-14) from the merged, reviewed work: core/theme.typ requires only the colours core primitives use (ink, accent, metal, muted, paper); Flagship checks the rest of its palette.
+<!-- SECTION:NOTES:END -->
 
 ## Final Summary
 
