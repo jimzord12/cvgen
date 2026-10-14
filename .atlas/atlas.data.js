@@ -2268,47 +2268,27 @@ window.ATLAS = {
  ],
  "build": {
   "builtAt": "2026-10-14 06:57 UTC",
-  "commit": "d8c884f",
+  "commit": "d432044",
   "kit": "1.0",
   "stale": {
-   "client-journey": [
-    ".claude/skills/idea-run/SKILL.md"
-   ],
-   "design-run": [
-    ".claude/skills/idea-run/SKILL.md",
-    "AGENTS.md",
-    "docs/proposals/codex-visual-tools.md"
-   ],
-   "change-review": [
-    "AGENTS.md",
-    "docs/proposals/README.md"
-   ],
    "system-map": [
     "AGENTS.md",
     "docs/work",
     "tests/run.py"
-   ],
-   "roster": [
-    "AGENTS.md",
-    ".claude/agents/ceo.md",
-    ".claude/skills/idea-run/SKILL.md",
-    "docs/proposals/codex-visual-tools.md",
-    "tests/run.py",
-    "docs/reference/verification.md"
    ]
   },
   "verified": {
    "client-journey": {
     "at": "2026-10-14",
-    "commit": "b886a7c"
+    "commit": "d432044"
    },
    "design-run": {
     "at": "2026-10-14",
-    "commit": "b886a7c"
+    "commit": "d432044"
    },
    "change-review": {
     "at": "2026-10-14",
-    "commit": "b886a7c"
+    "commit": "d432044"
    },
    "system-map": {
     "at": "2026-10-14",
@@ -2316,7 +2296,7 @@ window.ATLAS = {
    },
    "roster": {
     "at": "2026-10-14",
-    "commit": "b886a7c"
+    "commit": "d432044"
    }
   }
  }
