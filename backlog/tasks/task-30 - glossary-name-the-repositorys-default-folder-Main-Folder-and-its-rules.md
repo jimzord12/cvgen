@@ -17,7 +17,7 @@ ordinal: 30000
 ## Description
 
 <!-- SECTION:DESCRIPTION:BEGIN -->
-Owner coined the need 2026-10-06: a term for the default checkout of the repo (the `Main Folder`), as opposed to extra worktrees. Proposed term: Main Folder. Define it in docs/glossary.md with the rule that agents leave it on main (or on the owner's chosen branch) and do real work in a worktree; today it was left on an old merged branch 48 commits behind main with another session's untracked folders, which made the project look older than it is.
+Owner coined the need 2026-10-06: a term for the default checkout of the repo (the `Main Folder`), as opposed to extra worktrees. Define it in docs/glossary.md with the rule that agents leave it on main (or on the owner's chosen branch) and do real work in a worktree; today it was left on an old merged branch 48 commits behind main with another session's untracked folders, which made the project look older than it is.
 <!-- SECTION:DESCRIPTION:END -->
 
 ## Acceptance Criteria
