@@ -362,7 +362,7 @@
           ],
           "summary": "Only when the client's `Domain` has no `Template` yet. A design starts from a design, not from code: 18 mock-ups on fictional data.",
           "does": [
-            "The `magazine-editor` draws three `Styles` × two `Densities` × three `Design Tiers` for the client's `Domain`, specialty and role.",
+            "The `magazine-editor` draws three `Styles` × two `Densities` × three `Design Tiers` for the client's `Domain`, specialty and `Rank`.",
             "Fictional data only; no client detail in any brief.",
             "The full run, its gates and caps, is its own page: [[design-run]]."
           ],

@@ -45,7 +45,7 @@ Every agent that designs, reviews or proposes works from this section.
 - **The `Batch Test`.** An HR reader scans a batch of 100 to 200 CVs. Ours
   cannot be skipped, even by someone trying to skip it.
 - **The `Three-Second Test`.** Whatever the text says, the page itself
-  shouts the `Domain`, the specialty and the role within three seconds at
+  shouts the `Domain`, the specialty and the `Rank` within three seconds at
   arm's length, before a word is read: marine, engine room, second
   engineer; travel and tourism, Japan, tour escort. It does so with the
   domain's own imagery and codes, drawn with craft, never clip-art.
