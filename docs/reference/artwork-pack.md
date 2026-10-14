@@ -40,8 +40,8 @@ Any descriptor also works as the `bullet` of the skills section.
 
 ## Drawing new SVGs
 
-- Use `{{ink}}`, `{{accent}}` and `{{metal}}` for colours so every theme
-  recolours the file. See `packages/domains/marine/assets/captain/*.svg`.
+- Use `{{ink}}`, `{{accent}}` and `{{metal}}` (any theme colour name works)
+  for colours so every theme recolours the file. See `packages/domains/marine/assets/captain/*.svg`.
 - Keep the file small and vector only. Backgrounds are drawn at low opacity
   so faint detail reads as texture, not clutter.
 - Everything placed through a pack is tagged as a PDF artifact, so it does

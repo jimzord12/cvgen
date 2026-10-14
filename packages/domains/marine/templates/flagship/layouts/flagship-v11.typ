@@ -1,10 +1,13 @@
 // Explicit composition policy; these settings are safe places for the final visual touch.
 #let layout = (
   paper: "a4", width: 210mm, height: 297mm,
-  opening-margin: (x: 16mm, top: 12mm, bottom: 15mm),
+  // The Framework's page shell (core/page.typ): the margin the document opens with, which
+  // Flagship's page loop also gives page 1, and the hero band painted behind the top of
+  // page 1, under the hero's artwork. Replaces the retired opening-margin and hero.band-height.
+  shell: (margin: (x: 16mm, top: 12mm, bottom: 15mm), band: 83mm),
   continuation-margin: (x: 16mm, top: 12mm, bottom: 11mm),
   space: (xs: 1.5mm, sm: 3mm, md: 5mm, lg: 7mm, xl: 9mm),
-  hero: (height: 77mm, band-height: 83mm, portrait-size: 46mm, portrait-y: 3mm,
+  hero: (height: 77mm, portrait-size: 46mm, portrait-y: 3mm,
     contacts-width: 54mm, contacts-y: -2mm, contacts-gap: 4mm,
     plate-width: 100mm, plate-y: 45mm, plate-inset: (x: 5mm, y: 3mm), plate-gap: 2mm),
   experience: (date-width: 31mm, column-gap: 5mm, rank-width: 31mm, duration-width: 28mm,

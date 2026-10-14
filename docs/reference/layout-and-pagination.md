@@ -2,8 +2,10 @@
 
 Read this when a page is out of balance, content overflows, or a new
 candidate needs a different page split. The geometry lives in the layout
-profiles under `packages/domains/marine/templates/flagship/layouts/`, page plan validation in `packages/cv-framework/core/pagination.typ`,
-and the overflow check in the page loop of `packages/domains/marine/templates/flagship/flagship.typ`.
+profiles under `packages/domains/marine/templates/flagship/layouts/`. Page plan validation has two parts:
+the shared row grammar in `packages/cv-framework/core/pagination.typ`, and Flagship's closing-section
+rules in `validate-plan`, which lives with the page loop's overflow check in
+`packages/domains/marine/templates/flagship/flagship.typ`.
 
 ## Choosing a profile
 
@@ -56,7 +58,13 @@ profile's own `layout` (without the function) plans three companies.
 `flagship-v11.typ` holds every geometric decision of the approved
 design: paper size, opening and continuation margins, a spacing scale, and a
 dictionary per component (`hero`, `experience`, `headings`, `profile`,
-`synopsis`, `certificates`, `education`, `footer`, `header`). The template
+`synopsis`, `certificates`, `education`, `footer`, `header`, and `shell`).
+`shell` belongs to the Framework's page shell: `margin` is the margin the
+document opens with and page 1's margin in Flagship's page loop, and `band`
+is the height of the hero band painted behind page 1. It replaced
+`opening-margin` and `hero.band-height` (TASK-45): a layout that still sets
+either fails with a message naming its `shell` key, through `flagship` and
+through the deprecated `document-shell` wrapper alike. The template
 passes the whole profile in `ctx.layout`; each component reads its own
 slice, and a section reads the heading slice it places as well. An optional
 `skills` slice overrides `skills-layout` for the skills block. Change a
@@ -86,7 +94,9 @@ pages: (
 )
 ```
 
-Rules enforced by `validate-pages`:
+Rules enforced by Flagship's `validate-plan` (the first through the
+Framework's `validate-pages`, which knows rows only; the rest are
+Flagship's):
 
 - Every vessel row appears exactly once, in candidate order.
 - Exactly one page has `synopsis: true`, and it is the last page with
