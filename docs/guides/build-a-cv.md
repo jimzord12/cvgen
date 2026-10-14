@@ -252,7 +252,8 @@ Entry points reach components only through `lib.typ`: `core-components`
 holds the page shell and the small pieces, `flagship-components` every
 Flagship section (`docs/conventions.md`). The flat names such as `hero` or
 `section-heading` still work with their old signatures, for compositions
-written before 2026-09-25, but are deprecated. The skills block is
+written before 2026-09-25, but are deprecated; removal planned
+(TASK-58); migrate with the table below. The skills block is
 documented in `../reference/skills-component.md`. The root-absolute import
 works from any workspace folder. `marine` is the domain node exported by
 `lib.typ` (`docs/reference/domains-and-roles.md`).
@@ -281,3 +282,51 @@ Rules for this path:
   rewritten to use `flagship` and compared against the approved revision.
 - Add an entry to `docs/framework-gaps.md` saying what you needed, what
   you went around and what you built. That is how the gap gets closed.
+
+### Migrating a composition written before 2026-09-25
+
+The deprecated flat names have a removal planned (TASK-58). To move a composition
+off them, import `make-ctx`, `core-components as cc` and
+`flagship-components as fc`, build one `ctx` as in the example above
+(`copy: d.copy`, `options: (show-vessel-durations: ...)`), and replace each
+call. The geometry, captions and switches the old call passed as arguments
+are read from `ctx` instead, from the slice named in the last column; if an
+old call passed a value that differs from that slice, give that one call its
+own `ctx`, for example `make-ctx(theme: theme, layout: (..layout, education: tight))`.
+`tests/fixtures/legacy-parity.typ` renders every row both ways and the suite
+requires identical pixels, so the table is checked.
+
+| Old call | ctx-first call | Read from `ctx` |
+|---|---|---|
+| `label(body, theme, color: c)` | `cc.label(ctx, body, color: c)` | `theme` |
+| `rule(theme, weight: w)` | `cc.rule(ctx, weight: w)` | `theme` |
+| `decoration(asset, theme, width:, height:, artifact:)` | `cc.decoration(ctx, asset, width:, height:, artifact:)` | `theme` |
+| `metric(value, caption, theme, gap: g)` | `cc.metric(ctx, value, caption: caption, gap: g)` | `theme` |
+| `duration-value(months, theme)` | `cc.duration-value(ctx, months)` | `theme` |
+| `page-header(name, headline, caption, theme, layout.header)` | `cc.page-header(ctx, (name: name, headline: headline), caption: caption)` | `layout.header` |
+| `page-footer(disclosure, brand, theme, layout.footer)` | `cc.page-footer(ctx, disclosure, brand: brand)` | `layout.footer` |
+| `page-background(theme, artwork, layout)` | `cc.page-background(ctx)` | `layout`, `artwork` |
+| `#show: document-shell.with(d, theme, artwork, layout, title:, author:)` | `#show: cc.document-shell.with(ctx, d, title:, author:)` | `layout`, `artwork`, `copy` |
+| `section-heading(number, title, theme, layout.headings, spacing, subtitle:)` | `fc.section-heading(ctx, title, number: number, spacing: spacing, subtitle:)` | `layout.headings` |
+| `profile-summary(body, illustration, theme, layout.profile)` | `fc.profile-summary(ctx, body)` | `layout.profile`, `artwork.profile-illustration` |
+| `synopsis(totals, d.copy, theme, layout.synopsis)` | `fc.synopsis(ctx, totals)` | `layout.synopsis`, `copy` |
+| `skills-heading(title, theme, geometry:)` | `fc.skills-heading(ctx, title)` | `layout.skills`, else `skills-layout` |
+| `skill-list(items, theme, bullet:, geometry:)` | `fc.skill-list(ctx, items, bullet:)` | `layout.skills`, else `skills-layout` |
+| `skills-section(groups, theme, title:, bullet:, geometry:)` | `fc.skills-section(ctx, groups, title:, bullet:)` | `layout.skills`, else `skills-layout` |
+| `education-entry(entry, theme, layout.education)` | `fc.education-entry(ctx, entry)` | `layout.education` |
+| `language-entry(entry, theme, layout.education)` | `fc.language-entry(ctx, entry)` | `layout.education` |
+| `education-languages-section(education, languages, d.copy, theme, layout)` | `fc.education-languages-section(ctx, (education: education, languages: languages))` | `layout`, `copy` |
+| `certificate-table(records, headings, theme, layout.certificates)` | `fc.certificate-table(ctx, records)` | `layout.certificates`, `copy.certificate-columns` (the old `headings`) |
+| `certificates-section(records, d.copy, theme, layout)` | `fc.certificates-section(ctx, records)` | `layout`, `copy` |
+| `company-period(period, months, caption, theme, layout.experience)` | `fc.company-period(ctx, (period: period, months: months))` | `layout.experience`, `copy.combined` (the old `caption`) |
+| `vessel-row(vessel, show-durations, theme, layout.experience)` | `fc.vessel-row(ctx, vessel)` | `layout.experience`, `options.show-vessel-durations` |
+| `vessel-type-group(group, show-durations, theme, layout.experience, spacing)` | `fc.vessel-type-group(ctx, group, spacing: spacing)` | `layout.experience`, `options.show-vessel-durations` |
+| `company-experience(company, theme, layout.experience, spacing, show-durations, caption, continued:)` | `fc.company-experience(ctx, company, spacing: spacing, continued:)` | `layout.experience`, `options.show-vessel-durations`, `copy.combined` |
+| `experience-section(companies, theme, layout.experience, spacing, show-durations, caption)` | `fc.experience-section(ctx, companies, spacing: spacing)` | `layout.experience`, `options.show-vessel-durations`, `copy.combined` |
+| `portrait(identity, theme, layout.hero)` | `fc.portrait(ctx, identity)` | `layout.hero` |
+| `portrait-frame(asset, theme)` | `fc.portrait-frame(ctx, asset)` | `theme` |
+| `portrait-backdrop(asset, theme)` | `fc.portrait-backdrop(ctx, asset)` | `theme` |
+| `contact-item(item, theme)` | `fc.contact-item(ctx, item)` | `theme` |
+| `contact-group(items, alignment, theme, layout.hero)` | `fc.contact-group(ctx, items, alignment: alignment)` | `layout.hero` |
+| `identity-plate(identity, theme, layout.hero)` | `fc.identity-plate(ctx, identity)` | `layout.hero` |
+| `hero(d.identity, d.contacts, theme, artwork, layout.hero)` | `fc.hero(ctx, d)` | `layout.hero`, `artwork` |

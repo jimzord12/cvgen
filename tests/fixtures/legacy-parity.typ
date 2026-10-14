@@ -85,6 +85,9 @@
   F.company-experience(make-ctx(theme: theme, layout: layout, copy: (combined: "Combined")), company, spacing: exp.continuation, continued: true)}
 #if legacy {L.skills-heading("Technical Skills", theme, geometry: skills-geo)} else {F.skills-heading(skills-ctx, "Technical Skills")}
 #if legacy {L.skill-list(("Welding", "Lathe work"), theme, geometry: skills-geo)} else {F.skill-list(skills-ctx, ("Welding", "Lathe work"))}
+// No geometry: the wrapper's default must match the component's fallback, skills-layout.
+#if legacy {L.skills-section((("Default geometry",), ("Second column",)), theme)} else {
+  F.skills-section(make-ctx(theme: theme), (("Default geometry",), ("Second column",)))}
 #if legacy {L.language-entry(d.languages.first(), theme, tight)} else {F.language-entry(make-ctx(theme: theme, layout: (education: tight)), d.languages.first())}
 #if legacy {L.certificate-table(d.certificates.slice(0, 2), ("A", "B", "C", "D"), theme, layout.certificates)} else {
   F.certificate-table(make-ctx(theme: theme, layout: layout, copy: (certificate-columns: ("A", "B", "C", "D"))), d.certificates.slice(0, 2))}

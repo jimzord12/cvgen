@@ -142,7 +142,7 @@ because a template has dozens of components and one module keeps them out
 of the flat namespace; the Framework's components follow the same form as
 `core-components` (component contract, `conventions.md`). Marine's flat
 component names (`hero`, `section-heading`, ...) remain only as the
-deprecated pre-contract wrappers.
+deprecated pre-contract wrappers; removal planned (TASK-58).
 
 A composition that needs two domains at once imports each `lib.typ` as a
 module (`#import "/packages/domains/marine/lib.typ" as marine-lib`); none
