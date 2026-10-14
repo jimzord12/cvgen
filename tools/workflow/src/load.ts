@@ -1,18 +1,21 @@
 // Loads one Workflow Model YAML file and checks its shape against the Zod
 // types, reporting each problem with file, line and path. Level 1 shape only:
-// references across files are resolved by the model-wide check (TASK-38),
-// which takes the `data` returned here.
+// references across files are resolved by the model-wide check (src/check.ts),
+// which takes the `data` and `lineAt` returned here.
 import { readFileSync } from "node:fs";
 import { basename } from "node:path";
 import { isMap, isNode, LineCounter, parseDocument, type Document } from "yaml";
 import type { z } from "zod";
 import { Catalog, Stage } from "./model";
 
-export type Issue = { file: string; line?: number; path: string; message: string };
+/** A problem in a file; `rule` names the model check that found it (absent for a file's shape check). */
+export type Issue = { file: string; line?: number; path: string; message: string; rule?: string };
 export type FileKind = "stage" | "catalog";
+/** The line of the node at a path in the file, or of its nearest parent that exists. */
+export type LineAt = (path: (string | number)[]) => number | undefined;
 export type Loaded =
-  | { kind: "stage"; data?: Stage; issues: Issue[] }
-  | { kind: "catalog"; data?: Catalog; issues: Issue[] };
+  | { kind: "stage"; data?: Stage; issues: Issue[]; lineAt: LineAt }
+  | { kind: "catalog"; data?: Catalog; issues: Issue[]; lineAt: LineAt };
 
 const types = { stage: Stage, catalog: Catalog } as const;
 
@@ -30,6 +33,7 @@ export function loadText<K extends FileKind>(text: string, file: string, kind: K
 function check(text: string, file: string, kind: FileKind): Loaded {
   const lines = new LineCounter();
   const doc = parseDocument(text, { lineCounter: lines, prettyErrors: true, uniqueKeys: true });
+  const lineAt: LineAt = (path) => lineOf(doc, lines, path);
   if (doc.errors.length > 0) {
     const issues = doc.errors.map((e) => ({
       file,
@@ -37,12 +41,12 @@ function check(text: string, file: string, kind: FileKind): Loaded {
       path: "(yaml)",
       message: e.message.split("\n")[0] ?? e.message,
     }));
-    return { kind, issues };
+    return { kind, issues, lineAt };
   }
   const result = types[kind].safeParse(doc.toJS());
-  if (result.success) return { kind, data: result.data, issues: [] } as Loaded;
+  if (result.success) return { kind, data: result.data, issues: [], lineAt } as Loaded;
   const issues = result.error.issues.flatMap((issue) => toIssues(issue, doc, lines, file));
-  return { kind, issues };
+  return { kind, issues, lineAt };
 }
 
 function toIssues(issue: z.core.$ZodIssue, doc: Document, lines: LineCounter, file: string): Issue[] {
@@ -77,4 +81,5 @@ function lineOf(doc: Document, lines: LineCounter, path: (string | number)[], ke
 export const formatPath = (path: (string | number)[]): string =>
   path.reduce<string>((out, p) => (typeof p === "number" ? `${out}[${p}]` : out ? `${out}.${p}` : p), "") || "(root)";
 
-export const formatIssue = (i: Issue): string => `${i.file}${i.line ? `:${i.line}` : ""}: ${i.path}: ${i.message}`;
+export const formatIssue = (i: Issue): string =>
+  `${i.file}${i.line ? `:${i.line}` : ""}: ${i.path}: ${i.message}${i.rule ? ` [${i.rule}]` : ""}`;

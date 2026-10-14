@@ -1,0 +1,73 @@
+id: make
+name: make
+sources: ["AGENTS.md"]
+purpose: A fixture stage.
+entry: Always.
+exit: Done.
+
+steps:
+  - id: make.start
+    name: make.start
+    sources: ["AGENTS.md:1-3", "docs/review.md"]
+    actor: actor.lead
+    action: lead.work
+    inputs: [art.in]
+    outputs: [art.draft]
+
+  - id: make.build
+    name: make.build
+    sources: ["AGENTS.md"]
+    actor: actor.lead
+    action: cmd.status
+    inputs: [art.draft]
+    outputs: [art.result]
+
+  - id: make.review
+    name: make.review
+    sources: ["AGENTS.md"]
+    actor: actor.code-reviewer
+    action: agent.code-reviewer
+    inputs: [art.result]
+    outputs: [art.report]
+    gate: gate.review
+
+  - id: make.fix
+    name: make.fix
+    sources: ["AGENTS.md"]
+    actor: actor.lead
+    action: lead.fix
+    inputs: [art.report]
+    outputs: [art.draft]
+    when: The review returned FINDINGS.
+
+  # A gate branch that produces nothing: an endpoint.
+  - id: make.ship
+    name: make.ship
+    sources: ["AGENTS.md"]
+    actor: actor.lead
+    action: skill.verify-cv
+    inputs: [art.result]
+
+  # The escalation step: no inputs, reached only through loop.review.
+  - id: make.cap-reached
+    name: make.cap-reached
+    sources: ["AGENTS.md"]
+    actor: actor.owner
+    action: manual.decide-at-cap
+
+gates:
+  - { id: gate.review, name: gate.review, sources: ["AGENTS.md"], check: It holds., pass: make.ship, fail: make.fix }
+
+loops:
+  - { id: loop.review, name: "Review rounds (placeholder cap)", sources: ["AGENTS.md"], gate: gate.review, cap: { attended: 2 }, escalate: make.cap-reached }
+
+artifacts:
+  - { id: art.result, name: art.result, sources: ["AGENTS.md"], visibility: private }
+  - { id: art.report, name: art.report, sources: ["AGENTS.md"], visibility: private }
+
+actions:
+  - { id: lead.work, kind: lead, name: Work, sources: ["AGENTS.md"], does: Does one thing. }
+  - { id: lead.fix, kind: lead, name: Work, sources: ["AGENTS.md"], does: Does one thing. }
+  - { id: cmd.status, kind: cmd, name: Status, sources: ["scripts/cv.py:6"], run: python scripts/cv.py status private/<envelope> }
+  - { id: skill.verify-cv, kind: skill, name: Verify, sources: [".claude/skills/verify-cv/SKILL.md"], skill: verify-cv }
+  - { id: agent.code-reviewer, kind: agent, name: Review, sources: [".claude/agents/code-reviewer.md"], agent: code-reviewer }

@@ -1,0 +1,22 @@
+id: make
+name: make
+sources: ["AGENTS.md"]
+purpose: A fixture stage.
+entry: Always.
+exit: Done.
+
+steps:
+  - id: make.one
+    name: make.one
+    sources: ["AGENTS.md"]
+    actor: actor.lead
+    action: lead.work
+    inputs: [art.in]
+    outputs: [art.out]
+    actors: [actor.lead]
+
+artifacts:
+  - { id: art.out, name: art.out, sources: ["AGENTS.md"], visibility: private }
+
+actions:
+  - { id: lead.work, kind: lead, name: Work, sources: ["AGENTS.md"], does: Does one thing. }

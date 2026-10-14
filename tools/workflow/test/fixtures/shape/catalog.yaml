@@ -1,0 +1,5 @@
+# Broken: a step has an unknown key.
+actors:
+  - { id: actor.lead, name: The lead, sources: ["AGENTS.md"], kind: lead, does: Does the work. }
+artifacts:
+  - { id: art.in, name: Input, sources: ["AGENTS.md"], path: AGENTS.md, visibility: public, given: true }
