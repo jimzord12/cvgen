@@ -18,8 +18,9 @@ from cv_workflow.render import STRICT_FONTS, font_fallbacks  # on the path throu
 
 def check_core_boundary():
     """The Framework never reaches a domain (ADR 0011, 0012): core files import only their siblings, lib.typ
-    only core files, and no Framework file names packages/domains; every domain file that reaches the core
-    goes through packages/cv-framework."""
+    only core files, and no Framework file names packages/domains, speaks marine or Flagship, reads a
+    template's layout key or hard-codes a colour; every domain file that reaches the core goes through
+    packages/cv-framework."""
     import re
     imports = re.compile(r'(?<![\w-])(?:import|include)\s+"([^"]+)"')
     framework = ROOT / 'packages/cv-framework'
@@ -29,9 +30,37 @@ def check_core_boundary():
     for target in imports.findall((framework / 'lib.typ').read_text(encoding='utf-8')):
         assert target.startswith('core/') and '..' not in target, f'the Framework lib.typ imports outside core: {target}'
     # Nor may any Framework code read a file by a domain path (read, image, json); comments may name one.
-    for source in framework.rglob('*.typ'):
-        code = re.sub(r'//[^\n]*', '', re.sub(r'/\*.*?\*/', '', source.read_text(encoding='utf-8'), flags=re.S))
-        assert 'domains/' not in code, f'{source.relative_to(ROOT)} names a domain path'
+    # Beyond imports, the Framework holds no marine or Flagship rule (TASK-45). Three checks on the same
+    # comment-free code, each chosen so that it cannot fire on neutral code by accident:
+    # 1. Vocabulary: no word that only a marine fact or a Flagship part uses, and no Flagship layout key
+    #    (whole words, so `relationship` or `ranking` pass). Common facts (certificates, education) are the
+    #    core's own words. The colour names `core/theme.typ` requires (`hero`, `plate`, `on-hero`, ...) are
+    #    Flagship-shaped but stay off the list until a follow-up task splits the theme check.
+    # 2. What it reads: the core reads only the layout keys and artwork slots it owns. An allowlist, so a
+    #    template key fails whatever it is called; a template gives the shell its say through `shell`.
+    # 3. Colour: no colour literal (a hex string, a colour constructor, a named colour other than white and
+    #    black, which mark the unpainted canvas); colours come from the theme, source-art colours from the
+    #    theme's `art-palette`, which the domain supplies. A hard-coded palette is exactly what this catches.
+    # Comments are removed by one scan that also matches string literals, so `//` inside a string is kept.
+    vocabulary = re.compile(r'(?<![a-z])(vessels?|ships?|marine|maritime|seafar\w*|flagship|synopsis|tonnage|voyages?'
+                            r'|crew|rank|opening-margin|continuation-margin|band-height|anchor-education|stack-gap)(?![a-z])', re.I)
+    owned = {'layout': {'paper', 'width', 'height', 'shell', 'header', 'footer'},
+             'artwork': {'background-first', 'background-continuation'}}
+    colour = re.compile(r'"#[0-9a-fA-F]{3,8}"|(?<![\w-])(?:rgb|cmyk|luma|oklab|oklch|hsl|hsv|linear-rgb)\(')
+    named = re.compile(r'(?:(?<![\w.-])|(?<=color\.))(?:gray|silver|navy|blue|aqua|teal|eastern|purple|fuchsia|maroon|red'
+                       r'|orange|yellow|olive|green|lime)(?![\w-])')
+    string = r'"(?:[^"\\\n]|\\.)*"'
+    for source in sorted(framework.rglob('*.typ')):
+        name = source.relative_to(ROOT).as_posix()
+        code = re.sub(rf'({string})|/\*.*?\*/|//[^\n]*', lambda m: m.group(1) or '', source.read_text(encoding='utf-8'), flags=re.S)
+        assert 'domains/' not in code, f'{name} names a domain path'
+        words = sorted({m.group(0) for m in vocabulary.finditer(code)})
+        assert not words, f'{name} speaks marine or Flagship: {words}'
+        for owner, keys in owned.items():
+            read = set(re.findall(rf'(?<![\w-]){owner}\.(?!at\()([\w-]+)', code)) | set(re.findall(rf'(?<![\w-]){owner}\.at\("([^"]+)"', code))
+            assert read <= keys, f'{name} reads {owner} keys the Framework does not own: {sorted(read - keys)}'
+        literals = colour.findall(code) + named.findall(re.sub(string, '""', code))
+        assert not literals, f'{name} hard-codes colours instead of reading the theme: {literals}'
     for source in sorted((ROOT / 'packages/domains').rglob('*.typ')):
         for target in imports.findall(source.read_text(encoding='utf-8')):
             assert not re.search(r'(^|/)core/', target) or 'cv-framework/core/' in target, \
@@ -173,6 +202,17 @@ def main():
         text = ' '.join(doc[0].get_text().split())
         for phrase in ['Professional Skills', 'Technical Skills', 'Three columns', 'Navigation', 'Plain bullet', 'Third']:
             assert text.count(phrase) == 1, phrase
+        # The theme's art-palette seam (TASK-45): the compass bullet bakes in Golden Blue's brass and teal
+        # (#c8a579, #236a70). Golden Blue keeps them; Silver Bridge's bullets must show neither, which holds
+        # only if its theme carries the domain's art-palette and the core's decoration applies it.
+        page = doc[0]
+        def baked(top, bottom):
+            pix = page.get_pixmap(matrix=fitz.Matrix(2, 2), alpha=False, clip=fitz.Rect(0, top, page.rect.width, bottom))
+            return sum(n for rgb, n in pix.color_count(colors=True).items()
+                       if any(all(abs(c - t) <= 4 for c, t in zip(rgb, target)) for target in ((0xc8, 0xa5, 0x79), (0x23, 0x6a, 0x70))))
+        gold = baked(page.search_for('Professional Skills')[0].y0, page.search_for('Technical Skills')[0].y0)
+        silver = baked(page.search_for('Three columns')[0].y0, page.rect.height)
+        assert gold > 0 and silver == 0, f'art-palette not applied: {silver} gold-art pixels in the Silver Bridge bullets (gold section: {gold})'
     engineer = compile_case('engineer', 'examples/marine/flagship/engineer.typ')
     result = check_case(engineer, ROOT / FLAGSHIP / 'tests/approved/Marine-Engineer-CV-v11.pdf')
     assert result['passed'], result
@@ -264,11 +304,12 @@ def main():
         names = [page.get_text().split()[1] for page in doc]
         assert len(names) == len(set(names)) == 31, names
     # The 32 deprecated pre-contract names (9 from the Framework's lib.typ, 23 from Flagship's, all
-    # re-exported by marine's lib.typ) draw exactly what the ctx-first components draw; the fixture,
-    # which imports marine's lib.typ, must call every one of them.
+    # re-exported by marine's lib.typ, which takes document-shell from Flagship's legacy.typ: the same
+    # wrapper after a check for retired layout keys, counted once) draw exactly what the ctx-first
+    # components draw; the fixture, which imports marine's lib.typ, must call every one of them.
     import re
     lib = '\n'.join((ROOT / p).read_text(encoding='utf-8') for p in ['packages/cv-framework/lib.typ', 'packages/domains/marine/lib.typ'])
-    legacy_names = [n.strip() for line in lib.splitlines() if 'legacy.typ"' in line for n in line.split(':', 1)[1].split(',')]
+    legacy_names = sorted({n.strip() for line in lib.splitlines() if 'legacy.typ"' in line for n in line.split(':', 1)[1].split(',')})
     parity = (ROOT / 'tests/fixtures/legacy-parity.typ').read_text(encoding='utf-8')
     code = re.sub(r'//[^\n]*', '', re.sub(r'/\*.*?\*/', '', parity, flags=re.S))  # a call in a comment does not count
     uncalled = [n for n in legacy_names if not re.search(r'L\.' + re.escape(n) + r'[(.]', code)]
@@ -344,6 +385,13 @@ def main():
             assert text.count('MV Test Vessel ' + str(i + 1)) == 1
     compile_case('overflow', 'tests/fixtures/pagination.typ', {'case': 'overflow'}, error='Content overflow')
     compile_case('duplicate', 'tests/fixtures/pagination.typ', {'case': 'duplicate'}, error='each vessel row once')
+    # The closing-section rules are Flagship's, not the core's (core-model accepts a plan with no synopsis).
+    compile_case('no-synopsis', 'tests/fixtures/pagination.typ', {'case': 'no-synopsis'}, error='exactly one synopsis')
+    compile_case('early-credentials', 'tests/fixtures/pagination.typ', {'case': 'early-credentials'}, error='Credentials must follow Experience')
+    # Layout keys the shell's `shell` slice replaced fail loudly, never silently ignored on page 1.
+    for key, api in [('margin', 'flagship'), ('band', 'flagship'), ('margin', 'legacy'), ('band', 'legacy')]:
+        compile_case(f'retired-{key}-{api}', 'tests/fixtures/retired-keys.typ', {'case': key, 'api': api},
+                     error='retired: set the ' + ("first page's margin as shell.margin" if key == 'margin' else "hero band's height as shell.band"))
     certs = compile_case('certificate-continuation', 'tests/fixtures/certificate-continuation.typ')
     with fitz.open(certs) as doc:
         assert len(doc) == 2

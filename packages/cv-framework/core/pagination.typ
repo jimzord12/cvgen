@@ -1,9 +1,17 @@
 // Explicit page allocations and company fragments. Never changes candidate
 // totals. The row model comes from the domain as `model`: `count(company)`
 // gives the number of rows a company has, `slice(company, rows)` returns the
-// company reduced to a half-open row range. The core uses `count` and
-// `slice` only; a template may add more (marine adds `totals`). Functions
+// company reduced to a half-open row range, and the optional `row` names one
+// row in error messages (marine says "vessel"). The core uses `count`, `slice`
+// and `row` only; a template may add more (marine adds `totals`). Functions
 // stored in a dictionary are called as `(model.count)(company)`.
+//
+// The core checks only the grammar every template shares: a non-empty plan
+// whose `companies` cover every row once, in candidate order. Which page
+// carries the closing sections, and in what order, is the template's rule
+// (Flagship's is `validate-plan` in its flagship.typ).
+#let row-noun(model) = model.at("row", default: "row")
+
 #let selection(ref, companies, model) = {
   let index = if type(ref) == int {ref} else {ref.company}
   assert(type(index) == int and index >= 0 and index < companies.len(), message: "Page plan company index out of bounds")
@@ -11,7 +19,7 @@
   let count = (model.count)(company)
   let rows = if type(ref) == int {(0, count)} else {ref.at("rows", default: (0, count))}
   assert(rows.len() == 2 and rows.all(x => type(x) == int), message: "Row range must contain two integer indices")
-  assert(0 <= rows.at(0) and rows.at(0) < rows.at(1) and rows.at(1) <= count, message: "Page plan vessel row range out of bounds")
+  assert(0 <= rows.at(0) and rows.at(0) < rows.at(1) and rows.at(1) <= count, message: "Page plan " + row-noun(model) + " row range out of bounds")
   (company: index, rows: rows)
 }
 
@@ -35,18 +43,5 @@
       for row in range(..selected.rows) {actual.push(str(selected.company) + ":" + str(row))}
     }
   }
-  assert.eq(actual, expected, message: "Page plan must cover each vessel row once, in candidate order")
-  let synopsis-pages = pages.enumerate().filter(((i, p)) => p.at("synopsis", default: false))
-  assert.eq(synopsis-pages.len(), 1, message: "Page plan requires exactly one synopsis")
-  let final-experience = pages.enumerate().filter(((i, p)) => p.companies.len() > 0)
-  assert(final-experience.len() > 0, message: "Experience requires at least one vessel")
-  assert.eq(synopsis-pages.first().at(0), final-experience.last().at(0), message: "Synopsis must follow the final Experience page")
-  for (key, required) in (("certificates", candidate.certificates.len() > 0), ("education", candidate.education.len() + candidate.languages.len() > 0)) {
-    let assigned = pages.enumerate().filter(((i, p)) => p.at(key, default: false))
-    assert(assigned.len() <= 1, message: "Section assigned more than once: " + key)
-    if required {
-      assert.eq(assigned.len(), 1, message: "Missing page assignment: " + key)
-      assert(assigned.first().at(0) >= final-experience.last().at(0), message: "Credentials must follow Experience")
-    }
-  }
+  assert.eq(actual, expected, message: "Page plan must cover each " + row-noun(model) + " row once, in candidate order")
 }

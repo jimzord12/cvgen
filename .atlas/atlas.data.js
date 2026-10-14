@@ -1764,7 +1764,7 @@ window.ATLAS = {
        "title": "Framework",
        "path": "packages/cv-framework/",
        "blurb": "The domain-neutral core: page frame, components, data merge, pagination, fonts.",
-       "touch": "Changing behaviour every `Domain` shares. It never imports a `Domain`; the suite checks that."
+       "touch": "Changing behaviour every `Domain` shares. It never imports a `Domain`, and its code names no `Domain` or template word, no layout key or artwork slot it does not own, no colour literal; the suite checks both."
       },
       {
        "id": "n-marine",
@@ -2264,30 +2264,30 @@ window.ATLAS = {
   }
  ],
  "build": {
-  "builtAt": "2026-10-14 06:33 UTC",
-  "commit": "7211f8c",
+  "builtAt": "2026-10-14 06:36 UTC",
+  "commit": "3857280",
   "kit": "1.0",
   "stale": {},
   "verified": {
    "client-journey": {
     "at": "2026-10-14",
-    "commit": "23aef00"
+    "commit": "b886a7c"
    },
    "design-run": {
     "at": "2026-10-14",
-    "commit": "23aef00"
+    "commit": "b886a7c"
    },
    "change-review": {
     "at": "2026-10-14",
-    "commit": "7211f8c"
+    "commit": "b886a7c"
    },
    "system-map": {
     "at": "2026-10-14",
-    "commit": "7211f8c"
+    "commit": "3857280"
    },
    "roster": {
     "at": "2026-10-14",
-    "commit": "7211f8c"
+    "commit": "b886a7c"
    }
   }
  }

@@ -6,15 +6,21 @@
 
 #let rule(ctx, weight: 0.5pt) = line(length: 100%, stroke: weight + ctx.theme.colors.metal)
 
-// The original art's palette is mapped in memory; no frozen SVG is edited.
+// The art is recoloured in memory, in this order; no frozen SVG is edited. The theme
+// says how (docs/reference/theme.md): `art-palette` maps a source hex to the name of
+// the theme colour that replaces it (the domain knows its art's colours), `{{name}}`
+// stands for any theme colour, and `art-colors` maps any other hex to a colour.
 #let decoration(ctx, asset, width: auto, height: auto, artifact: true) = {
   if asset != none {
     let theme = ctx.theme
     let source = read(asset.source)
-    let palette = (("#102f3a", theme.colors.ink), ("#236a70", theme.colors.accent),
-      ("#c8a579", theme.colors.metal), ("#546870", theme.colors.muted),
-      ("{{metal}}", theme.colors.metal), ("{{accent}}", theme.colors.accent), ("{{ink}}", theme.colors.ink))
-    for (old, new) in palette { source = source.replace(old, new.to-hex()) }
+    for (old, name) in theme.at("art-palette", default: (:)) {
+      assert(name in theme.colors, message: "art-palette maps " + old + " to " + name + ", which is not a theme colour: name one of " + theme.colors.keys().join(", "))
+      source = source.replace(old, theme.colors.at(name).to-hex())
+    }
+    for (name, value) in theme.colors {
+      if type(value) == color { source = source.replace("{{" + name + "}}", value.to-hex()) }
+    }
     for (old, new) in theme.at("art-colors", default: (:)) { source = source.replace(old, new.to-hex()) }
     if "opacity" in asset {
       assert(0 <= asset.opacity and asset.opacity <= 1, message: "Artwork opacity must be between 0 and 1")
@@ -38,7 +44,7 @@
 }
 
 #let metric(ctx, value, caption: none, gap: 3mm) = {
-  assert(caption != none, message: "metric needs a caption: metric(ctx, value, caption: \"Vessels\")")
+  assert(caption != none, message: "metric needs a caption: metric(ctx, value, caption: \"Total\")")
   stack(spacing: gap,
     text(font: ctx.theme.fonts.display, size: ctx.theme.sizes.metric)[#value],
     label(ctx, caption, color: ctx.theme.colors.metal))
