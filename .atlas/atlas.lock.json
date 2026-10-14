@@ -91,7 +91,7 @@
    "verifiedAt": "2026-10-14"
   },
   "system-map": {
-   "commit": "a0a2b5e",
+   "commit": "243652b",
    "sources": {
     ".claude/agents": "dir1:4f4154394888bb9d69a0ed790d8f4b484a790fdd",
     ".claude/skills": "dir1:5eeafda0c9ef9a6037a3fcc2879f73f098fa3e55",
@@ -108,7 +108,7 @@
     "docs/guides/build-a-cv.md": "8585890a227c775e0f99042ac143314bfc267029",
     "docs/guides/client-workflow.md": "6c2f8d2de47abe2812f82b9bcb40dac2f42c499b",
     "docs/pdf-workflow.md": "3bfa09a91c1ec9c970650c88ed15842c477645de",
-    "docs/work": "dir1:1e400b067271cf65fac1ad602a45e50ff32c352d",
+    "docs/work": "dir1:e08f58a4a87815a71116400cf5af4539a793abac",
     "examples/candidates": "dir1:69fb38eee30dc425761a0cb80a577613cf3bdab4",
     "examples/marine/flagship": "dir1:2badfd3042bcd2c5ef709a6596945aefe8848eb1",
     "packages/cv-framework": "dir1:e26fc6cd0be31cb5f9c4f61215ae5f3cfdc05a78",
