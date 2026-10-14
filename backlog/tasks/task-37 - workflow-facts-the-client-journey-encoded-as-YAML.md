@@ -1,10 +1,10 @@
 ---
 id: TASK-37
 title: 'workflow-facts: the client journey encoded as YAML'
-status: Active
+status: Done
 assignee: []
 created_date: '2026-10-14 04:47'
-updated_date: '2026-10-14 09:06'
+updated_date: '2026-10-14 09:07'
 labels:
   - workflow-model
 dependencies:
@@ -48,3 +48,9 @@ Checks: `bun run check` OK on all eight files; `bun test` 24 pass; `python tests
 
 Review round 2 (context-reviewer): FINDINGS, 1 Material (P-0018 item 1 recommended values the YAML does not hold); fixed by the lead: item 1 split into 1a (keep as held), 1b (research rounds stay 3, the owner decides at the cap for an executive) and 1c (owner changes cap 5 as a check-in). GAPS.md now names main at 362f004. Notes 3 and 4 moved to TASK-38's notes.
 <!-- SECTION:NOTES:END -->
+
+## Final Summary
+
+<!-- SECTION:FINAL_SUMMARY:BEGIN -->
+docs/workflow holds the Workflow Model's facts: catalog.yaml and seven stage.yaml files (104 steps, 683 source anchors, all resolving), GAPS.md explaining placeholders, and pending proposal P-0018 with the owner's nine open points. Model items moved to TASK-38 notes, prose items to TASK-43. Context rounds: FINDINGS, FINDINGS, PASS. bun run check OK on 8 files, bun test 24 pass, suite PASS builds/tests-20261014-115750-968024.
+<!-- SECTION:FINAL_SUMMARY:END -->
