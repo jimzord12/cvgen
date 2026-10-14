@@ -91,7 +91,7 @@
    "verifiedAt": "2026-10-14"
   },
   "system-map": {
-   "commit": "3892911",
+   "commit": "3a71949",
    "sources": {
     ".claude/agents": "dir1:4f4154394888bb9d69a0ed790d8f4b484a790fdd",
     ".claude/skills": "dir1:5eeafda0c9ef9a6037a3fcc2879f73f098fa3e55",
@@ -105,7 +105,7 @@
     "docs": "dir1:72f884095d947d20236fb2207e85aa7b127337c2",
     "docs/architecture.md": "7fa2af242b52b9e9480892cf085fe9f1264acdc4",
     "docs/glossary.md": "8555c8d39255c8c94254778e179bb26caf93bec6",
-    "docs/guides/build-a-cv.md": "07673837d3a5c3a3a6b1eeaef9224ac832d27398",
+    "docs/guides/build-a-cv.md": "17fb6155b88307dff5ca55fc8f711dcd53dd824c",
     "docs/guides/client-workflow.md": "ff7a174705d71908d4c8fc1e61a564bf5d010db8",
     "docs/pdf-workflow.md": "3bfa09a91c1ec9c970650c88ed15842c477645de",
     "docs/work": "dir1:2e385bb0e8a711424d306ffa4a335c86bf083e8d",
