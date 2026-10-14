@@ -307,8 +307,8 @@
         },
         {
           "id": "n-work",
-          "title": "Work records",
-          "path": "studio/archive/work-records/",
+          "title": "archive/work-records/",
+          "path": "archive/work-records/",
           "blurb": "Dated records: review reports, run records. Never re-worded."
         }
       ]
