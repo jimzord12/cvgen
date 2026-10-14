@@ -92,7 +92,7 @@
    "verifiedAt": "2026-10-14"
   },
   "system-map": {
-   "commit": "2155114",
+   "commit": "693af15",
    "sources": {
     ".claude/agents": "dir1:4f4154394888bb9d69a0ed790d8f4b484a790fdd",
     ".claude/skills": "dir1:5eeafda0c9ef9a6037a3fcc2879f73f098fa3e55",
@@ -104,7 +104,7 @@
     "brand": "dir1:c556e0f8d17363d5e9ddc92e7142a253a16d1be2",
     "design-concepts": "dir1:d3bd60991a5441279a325e9aa73ea4e20ad7f1c7",
     "docs": "dir1:72f884095d947d20236fb2207e85aa7b127337c2",
-    "docs/architecture.md": "7481ed458a40bb50abf9cd42329ace1a24a75821",
+    "docs/architecture.md": "0ac5309a0f06c1f997cfae13cc3fa369478821d4",
     "docs/glossary.md": "35c2684aa0f1dd711b3fae786fe12d02f6e7568d",
     "docs/guides/build-a-cv.md": "17fb6155b88307dff5ca55fc8f711dcd53dd824c",
     "docs/guides/client-workflow.md": "65cc8137148bfdfdff23f01d069322503ea9bc13",
