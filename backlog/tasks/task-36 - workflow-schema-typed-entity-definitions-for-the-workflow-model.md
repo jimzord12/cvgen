@@ -1,10 +1,10 @@
 ---
 id: TASK-36
 title: 'workflow-schema: typed entity definitions for the workflow model'
-status: Queued
+status: Active
 assignee: []
 created_date: '2026-10-14 04:47'
-updated_date: '2026-10-14 06:52'
+updated_date: '2026-10-14 07:53'
 labels:
   - workflow-model
 dependencies:

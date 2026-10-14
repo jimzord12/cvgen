@@ -1,0 +1,535 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "pattern": "^(?!(?:art|actor|gate|loop|cmd|skill|agent|manual|lead)$)[a-z][a-z0-9]*(?:-[a-z0-9]+)*$",
+      "description": "ID, kebab-case, e.g. intake"
+    },
+    "name": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Short human name"
+    },
+    "sources": {
+      "minItems": 1,
+      "type": "array",
+      "items": {
+        "type": "string",
+        "pattern": "^[^\\s:]+(?::\\d+(?:-\\d+)?)?$",
+        "description": "Source anchor: path, path:12 or path:12-30"
+      },
+      "description": "Where this fact is written today"
+    },
+    "purpose": {
+      "type": "string",
+      "minLength": 1
+    },
+    "entry": {
+      "type": "string",
+      "minLength": 1,
+      "description": "What must be true before the stage starts"
+    },
+    "exit": {
+      "type": "string",
+      "minLength": 1,
+      "description": "What is true when it ends"
+    },
+    "steps": {
+      "minItems": 1,
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^(?!(?:art|actor|gate|loop|cmd|skill|agent|manual|lead)\\.)[a-z][a-z0-9]*(?:-[a-z0-9]+)*\\.[a-z][a-z0-9]*(?:-[a-z0-9]+)*$",
+            "description": "ID, kebab-case, e.g. intake.relay-send"
+          },
+          "name": {
+            "type": "string",
+            "minLength": 1,
+            "description": "Short human name"
+          },
+          "sources": {
+            "minItems": 1,
+            "type": "array",
+            "items": {
+              "type": "string",
+              "pattern": "^[^\\s:]+(?::\\d+(?:-\\d+)?)?$",
+              "description": "Source anchor: path, path:12 or path:12-30"
+            },
+            "description": "Where this fact is written today"
+          },
+          "actor": {
+            "type": "string",
+            "pattern": "^actor\\.[a-z][a-z0-9]*(?:-[a-z0-9]+)*$",
+            "description": "ID, kebab-case, e.g. actor.owner"
+          },
+          "action": {
+            "type": "string",
+            "pattern": "^(?:cmd|skill|agent|manual|lead)\\.[a-z][a-z0-9]*(?:-[a-z0-9]+)*$",
+            "description": "ID, kebab-case, e.g. cmd.cv-approve"
+          },
+          "inputs": {
+            "default": [],
+            "type": "array",
+            "items": {
+              "type": "string",
+              "pattern": "^art\\.[a-z][a-z0-9]*(?:-[a-z0-9]+)*$",
+              "description": "ID, kebab-case, e.g. art.envelope-json"
+            }
+          },
+          "outputs": {
+            "default": [],
+            "type": "array",
+            "items": {
+              "type": "string",
+              "pattern": "^art\\.[a-z][a-z0-9]*(?:-[a-z0-9]+)*$",
+              "description": "ID, kebab-case, e.g. art.envelope-json"
+            }
+          },
+          "gate": {
+            "description": "The gate checked when this step ends",
+            "type": "string",
+            "pattern": "^gate\\.[a-z][a-z0-9]*(?:-[a-z0-9]+)*$"
+          },
+          "when": {
+            "description": "Condition for an optional step; absent means always",
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "sources",
+          "actor",
+          "action"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "gates": {
+      "default": [],
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^gate\\.[a-z][a-z0-9]*(?:-[a-z0-9]+)*$",
+            "description": "ID, kebab-case, e.g. gate.sign-off"
+          },
+          "name": {
+            "type": "string",
+            "minLength": 1,
+            "description": "Short human name"
+          },
+          "sources": {
+            "minItems": 1,
+            "type": "array",
+            "items": {
+              "type": "string",
+              "pattern": "^[^\\s:]+(?::\\d+(?:-\\d+)?)?$",
+              "description": "Source anchor: path, path:12 or path:12-30"
+            },
+            "description": "Where this fact is written today"
+          },
+          "check": {
+            "type": "string",
+            "minLength": 1,
+            "description": "What is checked, in one sentence"
+          },
+          "pass": {
+            "type": "string",
+            "pattern": "^(?!(?:art|actor|gate|loop|cmd|skill|agent|manual|lead)\\.)[a-z][a-z0-9]*(?:-[a-z0-9]+)*\\.[a-z][a-z0-9]*(?:-[a-z0-9]+)*$",
+            "description": "The step that follows when the check passes"
+          },
+          "fail": {
+            "type": "string",
+            "pattern": "^(?!(?:art|actor|gate|loop|cmd|skill|agent|manual|lead)\\.)[a-z][a-z0-9]*(?:-[a-z0-9]+)*\\.[a-z][a-z0-9]*(?:-[a-z0-9]+)*$",
+            "description": "The step that follows when it fails"
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "sources",
+          "check",
+          "pass",
+          "fail"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "loops": {
+      "default": [],
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^loop\\.[a-z][a-z0-9]*(?:-[a-z0-9]+)*$",
+            "description": "ID, kebab-case, e.g. loop.deep-dive-review"
+          },
+          "name": {
+            "type": "string",
+            "minLength": 1,
+            "description": "Short human name"
+          },
+          "sources": {
+            "minItems": 1,
+            "type": "array",
+            "items": {
+              "type": "string",
+              "pattern": "^[^\\s:]+(?::\\d+(?:-\\d+)?)?$",
+              "description": "Source anchor: path, path:12 or path:12-30"
+            },
+            "description": "Where this fact is written today"
+          },
+          "gate": {
+            "type": "string",
+            "pattern": "^gate\\.[a-z][a-z0-9]*(?:-[a-z0-9]+)*$",
+            "description": "The gate whose fail branch goes back and closes the cycle"
+          },
+          "cap": {
+            "type": "object",
+            "properties": {
+              "attended": {
+                "type": "integer",
+                "exclusiveMinimum": 0,
+                "maximum": 9007199254740991,
+                "description": "Rounds allowed with the owner present"
+              },
+              "unattended": {
+                "description": "Rounds allowed unattended, if different",
+                "type": "integer",
+                "exclusiveMinimum": 0,
+                "maximum": 9007199254740991
+              }
+            },
+            "required": [
+              "attended"
+            ],
+            "additionalProperties": false
+          },
+          "escalate": {
+            "type": "string",
+            "pattern": "^(?!(?:art|actor|gate|loop|cmd|skill|agent|manual|lead)\\.)[a-z][a-z0-9]*(?:-[a-z0-9]+)*\\.[a-z][a-z0-9]*(?:-[a-z0-9]+)*$",
+            "description": "The step taken when the cap is reached"
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "sources",
+          "gate",
+          "cap",
+          "escalate"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "artifacts": {
+      "default": [],
+      "description": "Artifacts used only in this stage",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^art\\.[a-z][a-z0-9]*(?:-[a-z0-9]+)*$",
+            "description": "ID, kebab-case, e.g. art.envelope-json"
+          },
+          "name": {
+            "type": "string",
+            "minLength": 1,
+            "description": "Short human name"
+          },
+          "sources": {
+            "minItems": 1,
+            "type": "array",
+            "items": {
+              "type": "string",
+              "pattern": "^[^\\s:]+(?::\\d+(?:-\\d+)?)?$",
+              "description": "Source anchor: path, path:12 or path:12-30"
+            },
+            "description": "Where this fact is written today"
+          },
+          "path": {
+            "description": "Path pattern, e.g. private/<envelope>/envelope.json; none for a chat message",
+            "type": "string",
+            "minLength": 1
+          },
+          "format": {
+            "description": "e.g. JSON, Markdown, PDF, chat message",
+            "type": "string",
+            "minLength": 1
+          },
+          "schema": {
+            "description": "The artifact holding its JSON Schema, if any",
+            "type": "string",
+            "pattern": "^art\\.[a-z][a-z0-9]*(?:-[a-z0-9]+)*$"
+          },
+          "visibility": {
+            "type": "string",
+            "enum": [
+              "public",
+              "private",
+              "third-party",
+              "ephemeral"
+            ],
+            "description": "public: tracked in Git; private: under private/; third-party: Google, the chat app; ephemeral: a chat or session message"
+          },
+          "external": {
+            "default": false,
+            "description": "true: no step produces it, it enters from outside the workflow (a repo file, the client's first message)",
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "sources",
+          "visibility"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "actions": {
+      "default": [],
+      "description": "Actions used only in this stage",
+      "type": "array",
+      "items": {
+        "oneOf": [
+          {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "pattern": "^cmd\\.[a-z][a-z0-9]*(?:-[a-z0-9]+)*$",
+                "description": "ID, kebab-case, e.g. cmd.example"
+              },
+              "kind": {
+                "type": "string",
+                "const": "cmd"
+              },
+              "name": {
+                "type": "string",
+                "minLength": 1,
+                "description": "Short human name"
+              },
+              "sources": {
+                "minItems": 1,
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "pattern": "^[^\\s:]+(?::\\d+(?:-\\d+)?)?$",
+                  "description": "Source anchor: path, path:12 or path:12-30"
+                },
+                "description": "Where this fact is written today"
+              },
+              "run": {
+                "type": "string",
+                "minLength": 1,
+                "description": "The exact command line, placeholders in <angle brackets>"
+              }
+            },
+            "required": [
+              "id",
+              "kind",
+              "name",
+              "sources",
+              "run"
+            ],
+            "additionalProperties": false
+          },
+          {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "pattern": "^skill\\.[a-z][a-z0-9]*(?:-[a-z0-9]+)*$",
+                "description": "ID, kebab-case, e.g. skill.example"
+              },
+              "kind": {
+                "type": "string",
+                "const": "skill"
+              },
+              "name": {
+                "type": "string",
+                "minLength": 1,
+                "description": "Short human name"
+              },
+              "sources": {
+                "minItems": 1,
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "pattern": "^[^\\s:]+(?::\\d+(?:-\\d+)?)?$",
+                  "description": "Source anchor: path, path:12 or path:12-30"
+                },
+                "description": "Where this fact is written today"
+              },
+              "skill": {
+                "type": "string",
+                "pattern": "^[a-z][a-z0-9]*(?:-[a-z0-9]+)*$",
+                "description": "Folder name under .claude/skills/"
+              }
+            },
+            "required": [
+              "id",
+              "kind",
+              "name",
+              "sources",
+              "skill"
+            ],
+            "additionalProperties": false
+          },
+          {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "pattern": "^agent\\.[a-z][a-z0-9]*(?:-[a-z0-9]+)*$",
+                "description": "ID, kebab-case, e.g. agent.example"
+              },
+              "kind": {
+                "type": "string",
+                "const": "agent"
+              },
+              "name": {
+                "type": "string",
+                "minLength": 1,
+                "description": "Short human name"
+              },
+              "sources": {
+                "minItems": 1,
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "pattern": "^[^\\s:]+(?::\\d+(?:-\\d+)?)?$",
+                  "description": "Source anchor: path, path:12 or path:12-30"
+                },
+                "description": "Where this fact is written today"
+              },
+              "agent": {
+                "type": "string",
+                "pattern": "^[a-z][a-z0-9]*(?:-[a-z0-9]+)*$",
+                "description": "Agent name: a file under .claude/agents/ or a built-in such as general-purpose"
+              }
+            },
+            "required": [
+              "id",
+              "kind",
+              "name",
+              "sources",
+              "agent"
+            ],
+            "additionalProperties": false
+          },
+          {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "pattern": "^manual\\.[a-z][a-z0-9]*(?:-[a-z0-9]+)*$",
+                "description": "ID, kebab-case, e.g. manual.example"
+              },
+              "kind": {
+                "type": "string",
+                "const": "manual"
+              },
+              "name": {
+                "type": "string",
+                "minLength": 1,
+                "description": "Short human name"
+              },
+              "sources": {
+                "minItems": 1,
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "pattern": "^[^\\s:]+(?::\\d+(?:-\\d+)?)?$",
+                  "description": "Source anchor: path, path:12 or path:12-30"
+                },
+                "description": "Where this fact is written today"
+              },
+              "does": {
+                "type": "string",
+                "minLength": 1,
+                "description": "The human act, in one sentence"
+              }
+            },
+            "required": [
+              "id",
+              "kind",
+              "name",
+              "sources",
+              "does"
+            ],
+            "additionalProperties": false
+          },
+          {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "pattern": "^lead\\.[a-z][a-z0-9]*(?:-[a-z0-9]+)*$",
+                "description": "ID, kebab-case, e.g. lead.example"
+              },
+              "kind": {
+                "type": "string",
+                "const": "lead"
+              },
+              "name": {
+                "type": "string",
+                "minLength": 1,
+                "description": "Short human name"
+              },
+              "sources": {
+                "minItems": 1,
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "pattern": "^[^\\s:]+(?::\\d+(?:-\\d+)?)?$",
+                  "description": "Source anchor: path, path:12 or path:12-30"
+                },
+                "description": "Where this fact is written today"
+              },
+              "does": {
+                "type": "string",
+                "minLength": 1,
+                "description": "The lead's own work, in one sentence"
+              }
+            },
+            "required": [
+              "id",
+              "kind",
+              "name",
+              "sources",
+              "does"
+            ],
+            "additionalProperties": false
+          }
+        ]
+      }
+    }
+  },
+  "required": [
+    "id",
+    "name",
+    "sources",
+    "purpose",
+    "entry",
+    "exit",
+    "steps"
+  ],
+  "additionalProperties": false,
+  "title": "CVgen workflow stage",
+  "description": "One stage of the Workflow Model (docs/workflow/NN-<stage>/stage.yaml)"
+}

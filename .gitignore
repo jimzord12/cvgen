@@ -21,6 +21,9 @@ builds/*
 __pycache__/
 *.pyc
 
+# Bun (tools/workflow/; bun.lock is committed)
+node_modules/
+
 # OS
 .DS_Store
 Thumbs.db

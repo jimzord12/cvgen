@@ -1,0 +1,146 @@
+# yaml-language-server: $schema=../schema/stage.schema.json
+# A sample stage for the workflow tool's tests and for reading the types: the
+# `Text Draft` loop, shortened. Not the Workflow Model itself (TASK-37 writes
+# that in docs/workflow/); the actors and some artifacts it names live in
+# docs/workflow/catalog.yaml there.
+id: text
+name: Text Draft and Sign-off
+sources: ["docs/guides/client-workflow.md:248-278"]
+purpose: The client checks every fact of the CV before any design work starts.
+entry: intake/facts.md is final after the one follow-up.
+exit: The client's OK is saved as draft/sign-off-NN.png and the draft is stamped signed-off.
+
+steps:
+  - id: text.draft-write
+    name: Write the Text Draft
+    sources: ["docs/guides/client-workflow.md:250-257"]
+    actor: actor.lead
+    action: lead.write-text-draft
+    inputs: [art.facts-md, art.decisions-md, art.text-draft-lib]
+    outputs: [art.draft-typ]
+
+  - id: text.draft-compile
+    name: Compile and stamp it ready
+    sources: ["docs/guides/client-workflow.md:259-262"]
+    actor: actor.lead
+    action: cmd.compile-and-stamp-draft
+    inputs: [art.draft-typ, art.text-draft-lib]
+    outputs: [art.draft-pdf]
+
+  - id: text.client-check
+    name: The client checks the underlined facts
+    sources: ["docs/guides/client-workflow.md:272-278"]
+    actor: actor.client
+    action: manual.client-checks-draft
+    inputs: [art.draft-pdf]
+    outputs: [art.client-reply]
+    gate: gate.sign-off
+
+  - id: text.draft-supersede
+    name: Corrections make the next number
+    sources: ["docs/guides/client-workflow.md:269-270", "docs/guides/client-workflow.md:276-277"]
+    actor: actor.lead
+    action: lead.supersede-draft
+    inputs: [art.client-reply, art.draft-pdf]
+    outputs: [art.facts-md]
+
+  - id: text.sign-off-record
+    name: Save the Sign-off and stamp signed-off
+    sources: ["docs/guides/client-workflow.md:266-269"]
+    actor: actor.owner
+    action: manual.screenshot-sign-off
+    inputs: [art.client-reply]
+    outputs: [art.sign-off-png]
+
+  - id: text.correction-cap
+    name: Too many correction rounds; the owner decides
+    sources: ["docs/workflow/inventory/a-stages-1-4.md:251"]
+    actor: actor.owner
+    action: manual.decide-next-round
+    inputs: [art.client-reply]
+
+gates:
+  - id: gate.sign-off
+    name: Sign-off
+    sources: ["docs/guides/client-workflow.md:277-278"]
+    check: The client replied OK to every underlined fact.
+    pass: text.sign-off-record
+    fail: text.draft-supersede
+
+loops:
+  # Illustrative cap: today no source sets one (inventory gap 16); TASK-37 records the real rule.
+  - id: loop.draft-correction
+    name: Draft correction rounds
+    sources: ["docs/workflow/inventory/a-stages-1-4.md:251"]
+    gate: gate.sign-off
+    cap: { attended: 3 }
+    escalate: text.correction-cap
+
+artifacts:
+  - id: art.draft-typ
+    name: Text Draft source
+    sources: ["docs/guides/client-workflow.md:53"]
+    path: private/<envelope>/draft/draft-NN.typ
+    format: Typst
+    visibility: private
+
+  - id: art.draft-pdf
+    name: Text Draft PDF
+    sources: ["docs/guides/client-workflow.md:53-54"]
+    path: private/<envelope>/draft/draft-NN.pdf
+    format: PDF with a Meta File
+    visibility: private
+
+  - id: art.client-reply
+    name: The client's reply in chat
+    sources: ["docs/guides/client-workflow.md:277"]
+    format: chat message
+    visibility: third-party
+
+  - id: art.text-draft-lib
+    name: The Text Draft library
+    sources: ["scripts/text-draft.typ"]
+    path: scripts/text-draft.typ
+    format: Typst
+    visibility: public
+    external: true
+
+actions:
+  - id: cmd.compile-and-stamp-draft
+    kind: cmd
+    name: Compile the draft, then stamp it ready
+    sources: ["docs/guides/client-workflow.md:259-262"]
+    run: >-
+      typst compile --root . --ignore-system-fonts --font-path packages/cv-framework/fonts
+      private/<envelope>/draft/draft-NN.typ private/<envelope>/draft/draft-NN.pdf
+      && python scripts/outputs.py stamp private/<envelope>/draft/draft-NN.pdf status=ready
+
+  - id: lead.write-text-draft
+    kind: lead
+    name: Write the Text Draft
+    sources: ["docs/guides/client-workflow.md:250-257"]
+    does: Writes draft-NN.typ from the facts, every checkable fact in a Fact Mark.
+
+  - id: lead.supersede-draft
+    kind: lead
+    name: Supersede the draft
+    sources: ["docs/guides/client-workflow.md:269-270"]
+    does: Stamps the old draft superseded and folds the corrections into facts.md.
+
+  - id: manual.client-checks-draft
+    kind: manual
+    name: The client checks the draft
+    sources: ["docs/guides/client-workflow.md:272-278"]
+    does: The client reads the underlined facts and replies OK or with corrections.
+
+  - id: manual.screenshot-sign-off
+    kind: manual
+    name: Screenshot the Sign-off
+    sources: ["docs/guides/client-workflow.md:277-278"]
+    does: The owner saves the client's OK as draft/sign-off-NN.png.
+
+  - id: manual.decide-next-round
+    kind: manual
+    name: Decide after the cap
+    sources: ["docs/workflow/inventory/a-stages-1-4.md:251"]
+    does: The owner decides whether another correction round is worth it.

@@ -1,0 +1,21 @@
+{
+  "name": "cvgen-workflow",
+  "private": true,
+  "type": "module",
+  "description": "The workflow tool: types and checks for CVgen's Workflow Model (ADR 0015)",
+  "scripts": {
+    "check": "bun src/cli.ts check",
+    "schema": "bun src/cli.ts schema",
+    "typecheck": "tsc --noEmit",
+    "test": "bun test"
+  },
+  "dependencies": {
+    "yaml": "2.9.1",
+    "zod": "4.6.5"
+  },
+  "devDependencies": {
+    "@types/bun": "1.4.2",
+    "ajv": "8.20.0",
+    "typescript": "7.0.2"
+  }
+}

@@ -107,6 +107,7 @@ Framework; `M` for `packages/domains/marine`, the marine domain; `F` for
 | `scripts/intake-form.gs` | Google Apps Script the owner runs to make a client's optional `Intake Form` and its answers Sheet; Claude writes a filled copy per form as `intake/form-NN.gs` | Changing how the form is built |
 | `scripts/design_review/` | The owner's local Design Review app (`server.py`, `index.html`): every PDF with a valid `Meta File` (concepts, the `Release`, client renders and `Text Draft`s) as a Board and a Loupe, the rest listed as unindexed with the reason, filters, page previews, compare, a `Batch Test` pile (`plain-cvs.typ`), his review state in `.local/design-review/state.json` (read it for his verdicts and notes), PDFs opened in the default app. Binds to 127.0.0.1 only | Changing how the owner reviews designs |
 | `scripts/text-draft.typ` | The `Text Draft` a client checks before design (`Sign-off`), `House Design` First Fitting | Changing how the text draft looks |
+| `tools/workflow/` | The workflow tool (TypeScript on Bun, ADR 0015): the `Workflow Model`'s Zod types in `src/model.ts`, the committed JSON Schema in `schema/`, `bun run check <file>`; see its `README.md` | Changing the model's types or checks |
 | `.atlas/` | The `Atlas`: open `.atlas/index.html` from disk. Facts in `src/*.json`, each step citing its sources; `python .atlas/_kit/atlas.py build` writes the pages, `check` lists pages whose sources changed or were never checked | A mapped flow, agent or model changed: update its page, `build`, `stamp` |
 | `backlog/` | The task store (Backlog.md, ADR 0014): one file per task in `tasks/`, the `session-handoff` doc in `docs/`, `config.yml`. Read and write through the backlog skill | Any task state change; session start and end |
 | `builds/` | Ignored. Every build and test run writes to a new timestamped folder here | Reading evidence |
@@ -134,7 +135,7 @@ python scripts/design_review/server.py   # the owner's Design Review app on http
 
 `tests/run.py` and `scripts/cv.py render` need Typst 0.15.1 on PATH plus
 Python with `pymupdf` and `jsonschema` (the suite also `pillow`). Compiling an example needs
-only Typst. From TASK-36, `tools/workflow/` needs Bun 1.4.2 (ADR 0015).
+only Typst. `tools/workflow/` needs Bun 1.4.x from 1.4.2 (ADR 0015).
 Approval is the owner's act: an agent never runs `approve` on a
 real candidate; `--test-only` exists for fictional fixtures and is refused
 under `private/`.
