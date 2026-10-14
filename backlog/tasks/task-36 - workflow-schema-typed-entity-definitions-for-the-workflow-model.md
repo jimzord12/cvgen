@@ -4,7 +4,7 @@ title: 'workflow-schema: typed entity definitions for the workflow model'
 status: Queued
 assignee: []
 created_date: '2026-10-14 04:47'
-updated_date: '2026-10-14 05:21'
+updated_date: '2026-10-14 06:52'
 labels:
   - workflow-model
 dependencies:
@@ -22,7 +22,7 @@ Bun project (suggested `tools/workflow/`), Zod types for Stage, Step, Artifact, 
 <!-- AC:BEGIN -->
 - [ ] #1 `bun test` passes
 - [ ] #2 the JSON Schema is generated
-- [ ] #3 one sample `stage.yaml` validates in VS Code and through the engine
+- [ ] #3 one sample `stage.yaml` validates in VS Code and through the workflow tool
 <!-- AC:END -->
 
 ## Implementation Notes

@@ -1,4 +1,4 @@
-# 0015. The workflow model: YAML facts checked by a TypeScript tool on Bun
+# 0015. The Workflow Model: YAML facts checked by a TypeScript tool on Bun
 
 Date: 2026-10-14
 Status: Accepted (owner, 2026-10-05: data model, YAML facts, the `Atlas`
@@ -33,8 +33,8 @@ does not install it.
 
 ## Decision
 
-The client workflow is described once, as YAML facts checked by a
-TypeScript tool on Bun, and the old prose descriptions go once the model
+The client workflow is described once, as the `Workflow Model`: YAML
+facts checked by a TypeScript tool on Bun (the workflow tool), and the old prose descriptions go once the model
 covers them (TASK-43).
 
 - **Facts.** `docs/workflow/catalog.yaml` (actors, actions, artifacts,
@@ -53,11 +53,11 @@ covers them (TASK-43).
   `docs/workflow/**/README.md`, the Mermaid diagrams and the `Atlas`
   client-journey page facts. Generated output is committed and never
   hand-edited; CI regenerates it and fails on any diff.
-- **Bun 1.4.2, pinned exactly** in one file of `tools/workflow/` that CI
-  reads through `oven-sh/setup-bun`, pinned by commit SHA like the other
-  actions. 1.4.2 is the owner's floor and the newest release older than
-  two weeks (1.4.3 came out on 2026-10-10); a newer version is a
-  deliberate commit, as for Typst.
+- **Bun 1.4.2, pinned exactly for CI** in one file of `tools/workflow/`
+  that CI reads through `oven-sh/setup-bun`, pinned by commit SHA like the
+  other actions. Locally any 1.4.x at or above 1.4.2 is fine. 1.4.2 is the
+  owner's floor; 1.4.3 came out on 2026-10-10 and has no track record
+  here yet. A newer version is a deliberate commit, as for Typst.
 - **Boundaries.** The tool describes and checks the workflow; it never
   renders a CV (ADR 0006 stands) and never reimplements a workflow
   script. `scripts/cv.py`, `scripts/outputs.py` and `packages/cv-workflow`
@@ -67,7 +67,8 @@ covers them (TASK-43).
 - **The `Atlas`.** The model writes the client-journey page facts in the
   format the existing kit (`.atlas/_kit/atlas.py`, a copy of the owner's
   personal `/atlas` skill) already renders. Porting the kit itself is not
-  part of this decision; TASK-41 may propose it.
+  part of this decision; a port would be a new ADR (TASK-41 may propose
+  one).
 
 ## Alternatives considered
 
@@ -88,10 +89,12 @@ covers them (TASK-43).
   small, so the tool uses standard and Node-compatible APIs wherever one
   exists and keeps any Bun-only call in one place: moving to Node 24 stays
   a small change if Bun causes friction.
-- **Keep the hand-written docs, or strict Markdown with an ID convention
-  and a path-only checker.** Half the work, but the connections between
-  steps stay hand-written and unchecked, which is where the 34 drift
-  items came from. Rejected by the owner on 2026-10-05.
+- **Strict Markdown with an ID convention and a path-only checker.** Half
+  the work, but the connections between steps stay hand-written and
+  unchecked, which is where the 34 drift items came from. The owner chose
+  the data model over it on 2026-10-05 (the handoff, section 3). Keeping
+  today's hand-written docs as they are was never an option: his request
+  for one anchored, checked description rules it out.
 - **Pkl or CUE for the facts and types.** Purpose-built, but a third
   language to learn and to install. Rejected.
 - **Hand-written JSON Schema beside hand-written types.** Two sources for
@@ -108,9 +111,11 @@ covers them (TASK-43).
   `.github/workflows/verify.yml` and `tools/workflow/bun.lock`, one lockfile
   for the JavaScript side.
 - Every machine that runs the suite needs Bun once TASK-38 wires `check`
-  into `tests/run.py`; the setup in `docs/tech-stack.md` gains a line. The
-  owner's machine has Bun 1.4.0 today and needs `bun upgrade` to 1.4.2
-  (or newer, within 1.4) before TASK-36.
+  into `tests/run.py`; the setup in `docs/tech-stack.md` gains a line with
+  TASK-36. The owner's machine has Bun 1.4.0 today and needs `bun upgrade`
+  to any 1.4.x at or above 1.4.2 before TASK-36.
+- `tools/` is a new top-level folder while TASK-55 aims for fewer; TASK-55
+  decides its final place.
 - CI cost: a pinned setup step and a cached `bun install` on both runners,
   seconds per run, plus the `check` and the regenerate-and-diff steps.
 - "Deliberately not used" in `docs/tech-stack.md` still holds: no Node,

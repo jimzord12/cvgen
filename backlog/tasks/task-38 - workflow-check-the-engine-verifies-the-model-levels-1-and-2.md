@@ -1,9 +1,10 @@
 ---
 id: TASK-38
-title: 'workflow-check: the engine verifies the model (levels 1 and 2)'
+title: 'workflow-check: the workflow tool verifies the model (levels 1 and 2)'
 status: Queued
 assignee: []
 created_date: '2026-10-14 04:47'
+updated_date: '2026-10-14 06:52'
 labels:
   - workflow-model
 dependencies:
