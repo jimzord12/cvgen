@@ -4,7 +4,7 @@ title: 'fonts-strict: no silent system-font fallback'
 status: Active
 assignee: []
 created_date: '2026-10-14 04:47'
-updated_date: '2026-10-14 05:42'
+updated_date: '2026-10-14 05:51'
 labels:
   - restructure
 dependencies: []
@@ -64,4 +64,15 @@ Round 1 (code-reviewer, docs/work/fonts-strict/reviews/01-code-reviewer.md): PAS
 - N2: reported to the owner by the lead (runner guard instead of `validate-theme`; context-reviewer round added).
 - N3: accepted; mutation consoles are now saved.
 Merged origin/main (clean). Suite PASS 98 cases, exact v11 match, builds/tests-20261014-084056-354234 (console builds/task-46-r1-final-console.txt); `scripts/outputs.py check` 19 PDFs, 0 problems.
+
+## Review
+
+Rounds 2 (context-reviewer, docs/work/fonts-strict/reviews/02-context-reviewer.md) and 3 (code-reviewer, 03-code-reviewer.md): FINDINGS, all fixed.
+- Code F1 (Material) fixed: `system_font_family` probes with the literal `--ignore-system-fonts`, not STRICT_FONTS. Mutation `STRICT_FONTS = []` in render.py, in an isolated `git archive` copy: exit 1, `AssertionError: ('fonts-system', '')` (builds/mutation-46-r3-strict-empty-console.txt).
+- Code F2 fixed: with `CI` set and no non-bundled font, tests/run.py fails instead of skipping (locally it still skips loudly); verify.yml installs `fonts-dejavu-core` (DejaVu Sans is not bundled or embedded) so the case runs on ubuntu-latest. Probe with CI=true and no font: exit 1 with the reason (builds/probe-46-r3-ci-nofont-console.txt). Not verified on the GitHub runner itself (no push).
+- Code F3 / context M1: system-map stamped last, after every report was committed.
+- Context M2: the Atlas retention step names the private-repo history erase; origin/main had made the same fix (another task), so the merge took main's wording and sources (client-workflow.md:298-327, preferences.md:69-80).
+- Context M3: build-a-cv.md render checks list names "every font family bundled".
+- Context m4, m5, notes: text-draft.typ comment and tech-stack.md carry the flag; new-cv skill says a `warning: unknown font family` line is a failure; cv-workflow README says fonts are all embedded and every family bundled.
+Merged origin/main (one conflict in client-journey.json, resolved as above; generated Atlas files rebuilt). Suite PASS 98 cases, exact v11 match, builds/tests-20261014-084944-089231 (console builds/task-46-r3-suite-console.txt); `scripts/outputs.py check` 19 PDFs, 0 problems.
 <!-- SECTION:NOTES:END -->
