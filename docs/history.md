@@ -275,3 +275,22 @@ reports now live at `archive/work-records/<task-slug>/reviews/NN-<reviewer>.md`,
 the same shape as before. Entries above and in the ADRs, closed proposals and
 closed tasks that name `docs/work/...` describe the past; read them with
 `archive/work-records/` in place of `docs/work/`.
+
+## 2026-10-14 — studio/ and apps/: fewer top-level folders
+
+TASK-55 (owner's go, unattended, report after) grouped `brand/`,
+`design-concepts/` and `archive/` under `studio/` (design work beside the
+engine) and moved `scripts/design_review/` to `apps/design-review/`, where
+ADR 0010's target tree already keeps `apps/web/`; all by `git mv`, so
+`git log --follow` works. The `Output Contract`'s concept home is now
+`studio/design-concepts/`, and `tests/baseline.json` pins the same design
+study hashes under `studio/archive/design-studies/`. `tools/` stays at the
+top level (16 visible entries against the limit of 18, and TASK-38 was
+wiring `tools/workflow/` into the suite at the time). `docs/conventions.md`
+gained one case per file type (eight README images and the source logo
+renamed), and the marine `lib.typ` now exports `roles`,
+`flagship-themes`, `flagship-artwork` and `flagship-layouts`, so an example
+needs one import. Entries above, ADRs, closed tasks and the work records
+that name `archive/`, `design-concepts/`, `brand/` or
+`scripts/design_review/` describe the past; read them under `studio/` and
+`apps/design-review/`.
