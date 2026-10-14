@@ -20,7 +20,7 @@
     "asOf": "2026-10-14",
     "title": "The 2026-10-04 merges were reviewed after the fact",
     "note": "On 2026-10-04 you asked for every branch to be merged so only `main` remains; those merges had no review report. On 2026-10-14 a `context-reviewer` reviewed them (FINDINGS: ungated designs and open review reports brought onto `main`, stale records), and TASK-33 fixed each finding. Changes in flight are the Active and Review tasks in `backlog/`.",
-    "ref": "docs/work/workflow-model/reviews/01-context-reviewer.md"
+    "ref": "archive/work-records/workflow-model/reviews/01-context-reviewer.md"
   },
   "phases": [
     {
@@ -138,7 +138,7 @@
             "cap": "5 rounds with you around, 10 unattended"
           },
           "out": [
-            "`docs/work/<task>/reviews/NN.md`, stored unchanged"
+            "`archive/work-records/<task>/reviews/NN.md`, stored unchanged"
           ],
           "uses": [
             "code-reviewer",
@@ -151,7 +151,7 @@
             "docs/review.md:79-99",
             "docs/review.md:155-174",
             "docs/review.md",
-            "docs/work/anti-examples/reviews/01-context.md"
+            "archive/work-records/anti-examples/reviews/01-context.md"
           ]
         },
         {
