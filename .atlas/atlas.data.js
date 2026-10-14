@@ -376,7 +376,7 @@ window.ATLAS = {
     ],
     "sources": [
      "scripts/cv.py:1-12",
-     "docs/guides/build-a-cv.md:117-206"
+     "docs/guides/build-a-cv.md:117-208"
     ]
    },
    "outputs-py": {
@@ -822,7 +822,7 @@ window.ATLAS = {
         "`draft/draft-NN.pdf` with its `Meta File` (status `sent`)"
        ],
        "cmd": [
-        "typst compile --root . --font-path packages/cv-framework/fonts private/<envelope>/draft/draft-01.typ private/<envelope>/draft/draft-01.pdf",
+        "typst compile --root . --ignore-system-fonts --font-path packages/cv-framework/fonts private/<envelope>/draft/draft-01.typ private/<envelope>/draft/draft-01.pdf",
         "python scripts/outputs.py stamp private/<envelope>/draft/draft-01.pdf status=sent"
        ],
        "sources": [
@@ -960,7 +960,7 @@ window.ATLAS = {
        "actor": "lead",
        "summary": "Every render is a new, never-overwritten folder with a snapshot of its inputs, the PDF, its checks and a `Meta File`.",
        "does": [
-        "Checks: page count, no empty page, fonts embedded, text inside the page.",
+        "Checks: page count, no empty page, fonts embedded, text inside the page, every font family bundled (a missing one is set in another font, so the checks fail).",
         "A certificate expired or expiring within 180 days prints a `Certificate Warning`; it never blocks.",
         "Claude stops here and reports the folder, the PDF's hash, the pages and every WARNING word for word."
        ],
@@ -978,8 +978,8 @@ window.ATLAS = {
         "cv-py"
        ],
        "sources": [
-        "docs/guides/build-a-cv.md:117-149",
-        ".claude/skills/new-cv/SKILL.md:104-114"
+        "docs/guides/build-a-cv.md:117-151",
+        ".claude/skills/new-cv/SKILL.md:105-115"
        ]
       },
       {
@@ -1006,7 +1006,7 @@ window.ATLAS = {
         "cv-py"
        ],
        "sources": [
-        "docs/guides/build-a-cv.md:182-189",
+        "docs/guides/build-a-cv.md:184-191",
         "docs/pdf-workflow.md:166-170"
        ]
       },
@@ -1029,7 +1029,7 @@ window.ATLAS = {
         "cv-py"
        ],
        "sources": [
-        "docs/guides/build-a-cv.md:191-206",
+        "docs/guides/build-a-cv.md:193-208",
         "docs/pdf-workflow.md:171-182"
        ]
       },
@@ -1050,7 +1050,7 @@ window.ATLAS = {
         "python scripts/outputs.py stamp private/<envelope>/revisions/<id>/cv.pdf status=delivered"
        ],
        "sources": [
-        "docs/guides/build-a-cv.md:202-204",
+        "docs/guides/build-a-cv.md:204-206",
         "docs/guides/client-workflow.md:298-301"
        ]
       }
@@ -1190,7 +1190,7 @@ window.ATLAS = {
        ],
        "sources": [
         ".claude/agents/magazine-editor.md:50-82",
-        ".claude/agents/magazine-editor.md:88-209",
+        ".claude/agents/magazine-editor.md:88-210",
         "design-concepts/README.md"
        ]
       }
@@ -1312,7 +1312,7 @@ window.ATLAS = {
         "After a PASS: a new sourced claim goes back to the research gate; a change to the Style's idea or to what you decide on goes back to the design gate; layout, typos or sample data need only a lead check noted in `run.md`."
        ],
        "sources": [
-        ".claude/agents/magazine-editor.md:211-219",
+        ".claude/agents/magazine-editor.md:212-220",
         ".claude/skills/idea-run/SKILL.md:67-72"
        ]
       }
@@ -1388,7 +1388,7 @@ window.ATLAS = {
        ],
        "sources": [
         ".claude/skills/idea-run/SKILL.md:123-135",
-        "design-concepts/README.md:44-47",
+        "design-concepts/README.md:45-48",
         "archive/anti-examples/README.md"
        ]
       },
@@ -2263,30 +2263,36 @@ window.ATLAS = {
   }
  ],
  "build": {
-  "builtAt": "2026-10-14 06:00 UTC",
-  "commit": "5109385",
+  "builtAt": "2026-10-14 06:07 UTC",
+  "commit": "6e09e22",
   "kit": "1.0",
-  "stale": {},
+  "stale": {
+   "system-map": [
+    "docs/glossary.md",
+    "docs/work",
+    ".claude/skills/backlog/SKILL.md"
+   ]
+  },
   "verified": {
    "client-journey": {
     "at": "2026-10-14",
-    "commit": "cdf5d9c"
+    "commit": "6e09e22"
    },
    "design-run": {
     "at": "2026-10-14",
-    "commit": "cdf5d9c"
+    "commit": "6e09e22"
    },
    "change-review": {
     "at": "2026-10-14",
-    "commit": "cdf5d9c"
+    "commit": "6e09e22"
    },
    "system-map": {
     "at": "2026-10-14",
-    "commit": "5109385"
+    "commit": "183c7a0"
    },
    "roster": {
     "at": "2026-10-14",
-    "commit": "cdf5d9c"
+    "commit": "6e09e22"
    }
   }
  }

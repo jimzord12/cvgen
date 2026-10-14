@@ -43,15 +43,15 @@ Spacious `Density` (same facts, more room: body text at 10 to 10.5 pt, larger ar
 - **From the other two styles:** it is ephemera, ink and paper (condensed sans with mono and M PLUS 1p; crimson, violet, green on cream; burgundy in Creative). Woodblock Road is a painted print. Concourse is architecture-scale signage.
 - **From the market:** stamps and tickets are the domain's material, drawn as vector with worn ink. Nothing is a rating, bar or icon row.
 
-## Fonts (OFL 1.1, shipped unmodified with their licence in `design-concepts/fonts/`)
+## Fonts (OFL 1.1, shipped unmodified with their licence in `packages/cv-framework/fonts/` and `packages/cv-framework/licenses/`)
 
 | Family | File | Source | SHA-256 |
 |---|---|---|---|
-| Sofia Sans Extra Condensed (registers as "Sofia Sans"; Greek covered) | `sofia-sans-extra-condensed/SofiaSansExtraCondensed[wght].ttf` | https://raw.githubusercontent.com/google/fonts/main/ofl/sofiasansextracondensed/SofiaSansExtraCondensed%5Bwght%5D.ttf | `69b42c883ad334def49b044fffa5391358f6b1a668259f18fdcdc0bfe854fc45` |
-| M PLUS 1p (body Greek and kanji/kana) | `m-plus-1p/MPLUS1p-Regular.ttf` | https://raw.githubusercontent.com/google/fonts/main/ofl/mplus1p/MPLUS1p-Regular.ttf | `2f294ad496432b1608f070d310e3aa2adcf1de4af429f4901df97ec4bd361ed1` |
-| M PLUS 1p | `m-plus-1p/MPLUS1p-Bold.ttf` | https://raw.githubusercontent.com/google/fonts/main/ofl/mplus1p/MPLUS1p-Bold.ttf | `76eb077b0a31ca33ca40238e47da5a17e2786741607cec09678d7d2e5ab1afc1` |
+| Sofia Sans Extra Condensed (registers as "Sofia Sans"; Greek covered) | `SofiaSansExtraCondensed[wght].ttf` | https://raw.githubusercontent.com/google/fonts/main/ofl/sofiasansextracondensed/SofiaSansExtraCondensed%5Bwght%5D.ttf | `69b42c883ad334def49b044fffa5391358f6b1a668259f18fdcdc0bfe854fc45` |
+| M PLUS 1p (body Greek and kanji/kana) | `MPLUS1p-Regular.ttf` | https://raw.githubusercontent.com/google/fonts/main/ofl/mplus1p/MPLUS1p-Regular.ttf | `2f294ad496432b1608f070d310e3aa2adcf1de4af429f4901df97ec4bd361ed1` |
+| M PLUS 1p | `MPLUS1p-Bold.ttf` | https://raw.githubusercontent.com/google/fonts/main/ofl/mplus1p/MPLUS1p-Bold.ttf | `76eb077b0a31ca33ca40238e47da5a17e2786741607cec09678d7d2e5ab1afc1` |
 
-Also DejaVu Sans Mono (embedded in Typst, no download) for the ticket fields and the receipt. Licences: `sofia-sans-extra-condensed/OFL.txt`, `m-plus-1p/OFL.txt`. M PLUS 1p is shared with Concourse. The PDFs are 200 to 250 KB.
+Also DejaVu Sans Mono (embedded in Typst, no download) for the ticket fields and the receipt. Licences: `sofiasansextracondensed-OFL.txt`, `mplus1p-OFL.txt` (in `packages/cv-framework/licenses/`). M PLUS 1p is shared with Concourse. The PDFs are 200 to 250 KB.
 
 ## Data
 

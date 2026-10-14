@@ -10,6 +10,27 @@ from verify import ROOT, FLAGSHIP, verify
 
 sys.path.insert(0, str(ROOT / 'packages/cv-workflow'))
 from cv_workflow import sha256_file  # noqa: E402
+from cv_workflow.render import STRICT_FONTS  # noqa: E402
+
+
+def system_font_family(typst):
+    """A font family this machine has but the bundled fonts do not, or None (task-46).
+
+    With --ignore-system-fonts Typst must call it unknown; without the flag it would find it and stay
+    silent, so a case naming it fails only while the runners pass the flag. Chosen at run time, so the
+    case proves the flag on any machine that has a system font; CI installs one (verify.yml), and there
+    tests/run.py fails rather than skips when none is found.
+    The probe spells the flag out instead of using STRICT_FONTS: emptying that constant must make the
+    cases fail, not make every system font look bundled and the cases skip.
+    """
+    def families(*flags):
+        listed = subprocess.run([typst, 'fonts', *flags], capture_output=True, text=True, encoding='utf-8',
+                                errors='replace', check=True).stdout
+        return {line.strip() for line in listed.splitlines() if line.strip()}
+    bundled = {f.lower() for f in families('--ignore-system-fonts', '--font-path', str(ROOT / 'packages/cv-framework/fonts'))}
+    # Plain names only, so the family is safe inside a Typst string and in the warning Typst prints.
+    found = sorted(f for f in families() if f.lower() not in bundled and f.replace(' ', '').isalnum() and f.isascii())
+    return found[0] if found else None
 
 ENTRY = '''#import "/packages/domains/marine/lib.typ": flagship
 #import "/packages/domains/marine/templates/flagship/themes/golden-blue.typ": theme
@@ -36,8 +57,11 @@ Signature tours include "Athens by Night" and more.
 '''
 
 
-def run_workflow(out, typst):
-    """A fresh fictional workspace under the suite output; returns the list of passed checks."""
+def run_workflow(out, typst, system_family=None):
+    """A fresh fictional workspace under the suite output; returns the list of passed checks.
+
+    `system_family` (from system_font_family) adds the system-font case; None leaves it out, and the
+    caller reports it as skipped."""
     base = out / 'workflow'
     workspace = base / 'fictional-engineer'
     workspace.mkdir(parents=True, exist_ok=False)
@@ -344,7 +368,7 @@ def run_workflow(out, typst):
     for name in ['presentation.json', 'parts/helper.typ', 'parts/note.txt', 'parts/link.txt']:
         os.remove(oneoff / name)
     again = base / 'oneoff-from-snapshot.pdf'
-    subprocess.run([typst, 'compile', '--root', str(ROOT), '--font-path', str(ROOT / 'packages/cv-framework/fonts'),
+    subprocess.run([typst, 'compile', '--root', str(ROOT), *STRICT_FONTS, '--font-path', str(ROOT / 'packages/cv-framework/fonts'),
                     str(snap / 'inputs/cv.typ'), str(again)], check=True, capture_output=True)
     with fitz.open(again) as doc:
         assert 'Walks through old Athens' in doc[0].get_text() and 'Licensed guide' in doc[0].get_text()
@@ -383,6 +407,20 @@ def run_workflow(out, typst):
     assert 'checks failed' in cv('approve', oneoff, live['revision'], '--approver', 'suite', '--sha256', live['sha256'],
                                  '--test-only', expect=2)
     passed.append('snapshot-holds-sibling-files')
+
+    # 11. Fonts strict (task-46): a family that is not bundled, whether it exists nowhere or only among the
+    # machine's fonts, compiles in another font; the checks fail naming it.
+    fonts = [('missing-font-fails-checks', 'CVgen Missing Family')]
+    if system_family:
+        fonts.append(('system-font-fails-checks', system_family))
+    for check, family in fonts:
+        (oneoff / 'cv.typ').write_text(without_helper.replace('font: "Source Sans 3"', f'font: "{family}"'), encoding='utf-8')
+        fallback = cv('render', oneoff, '--typst', typst, '--pages', '1', expect=1)
+        assert fallback['status'] == 'success' and not fallback['checks_passed'], fallback
+        assert any(f'Font family "{family.lower()}" is not in packages/cv-framework/fonts' in e for e in fallback['errors']), fallback
+        assert 'checks failed' in cv('approve', oneoff, fallback['revision'], '--approver', 'suite', '--sha256', fallback['sha256'],
+                                     '--test-only', expect=2)
+        passed.append(check)
 
     log.close()
     (base / 'report.json').write_text(json.dumps({'passed': passed, 'workspace': str(workspace)}, indent=2), encoding='utf-8')

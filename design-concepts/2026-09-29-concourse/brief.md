@@ -43,7 +43,7 @@ Spacious `Density` (same facts, more room: body text at 10 to 10.5 pt, larger ar
 - **From the other two styles:** a hard, architectural, sans-serif voice (Fira Black, charcoal, signal yellow, orange, LED amber) against Woodblock's painted serif print and Stamp Rally's paper ephemera.
 - **From the rejected "Line Diagram":** no route line, no dots on a rail, no numbered stations down a margin. The only rail reference is the board and the departure display, at full scale.
 
-## Fonts (OFL 1.1, shipped unmodified with their licence in `design-concepts/fonts/`)
+## Fonts (OFL 1.1, shipped unmodified with their licence: Fira Sans in `design-concepts/fonts/`, M PLUS 1p in `packages/cv-framework/fonts/`)
 
 | Family | File | Source | SHA-256 |
 |---|---|---|---|
@@ -51,9 +51,9 @@ Spacious `Density` (same facts, more room: body text at 10 to 10.5 pt, larger ar
 | Fira Sans | `fira-sans/FiraSans-Medium.ttf` | https://raw.githubusercontent.com/google/fonts/main/ofl/firasans/FiraSans-Medium.ttf | `cbc1842cbed8c1d1146ba7c9db97d8f28c9bedfd25f41c5b0e1259ca48622328` |
 | Fira Sans | `fira-sans/FiraSans-Bold.ttf` | https://raw.githubusercontent.com/google/fonts/main/ofl/firasans/FiraSans-Bold.ttf | `a4d8e149ecdd4874a0726eb0af894488b3b31c423d6b0017c8f415ed1b795b45` |
 | Fira Sans | `fira-sans/FiraSans-Black.ttf` | https://raw.githubusercontent.com/google/fonts/main/ofl/firasans/FiraSans-Black.ttf | `0ab27e9178d7f74898dd26e3a5f10eb7922bb2a88a2903e00796c4f7c7e08cc0` |
-| M PLUS 1p (kanji and kana only here) | `m-plus-1p/MPLUS1p-Bold.ttf` | https://raw.githubusercontent.com/google/fonts/main/ofl/mplus1p/MPLUS1p-Bold.ttf | `76eb077b0a31ca33ca40238e47da5a17e2786741607cec09678d7d2e5ab1afc1` |
+| M PLUS 1p (kanji and kana only here) | `MPLUS1p-Bold.ttf` | https://raw.githubusercontent.com/google/fonts/main/ofl/mplus1p/MPLUS1p-Bold.ttf | `76eb077b0a31ca33ca40238e47da5a17e2786741607cec09678d7d2e5ab1afc1` |
 
-Licences: `fira-sans/OFL.txt`, `m-plus-1p/OFL.txt` (the family is shared with Stamp Rally). The PDFs are 130 to 160 KB.
+Licences: `fira-sans/OFL.txt`, `packages/cv-framework/licenses/mplus1p-OFL.txt` (the family is the Framework's, shared with Stamp Rally). The PDFs are 130 to 160 KB.
 
 ## Data
 

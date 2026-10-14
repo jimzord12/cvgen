@@ -2,7 +2,7 @@
 // House design First Fitting (scripts/text-draft.typ): warm paper, one copper thread.
 // No words beyond the wordmark: Google Forms shows the header at phone width,
 // where any extra text would be too small to read.
-//   typst compile --root . --font-path packages/cv-framework/fonts --ppi 144 \
+//   typst compile --root . --ignore-system-fonts --font-path packages/cv-framework/fonts --ppi 144 \
 //     brand/forms/intake-header.typ builds/<folder>/intake-header.png
 #let paper = rgb("#F3EEE3")
 #let copper = rgb("#B0602B") // also the form's theme colour
