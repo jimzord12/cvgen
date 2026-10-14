@@ -4,6 +4,7 @@ title: 'docs-engine-rename: give docs/reference a clearer name (proposed: docs/e
 status: Queued
 assignee: []
 created_date: '2026-10-06 09:56'
+updated_date: '2026-10-14 05:15'
 labels:
   - docs cleanup
 dependencies: []
@@ -23,3 +24,9 @@ Owner 2026-10-06: docs/reference only holds the engine manuals (candidate schema
 - [ ] #2 git grep 'docs/reference' finds only historical task records and decision logs
 - [ ] #3 tests/run.py and the Atlas check pass
 <!-- AC:END -->
+
+## Implementation Notes
+
+<!-- SECTION:NOTES:BEGIN -->
+Owner decision 2026-10-14 recorded in docs/proposals/workflow-model.md: the new name is docs/engine.
+<!-- SECTION:NOTES:END -->

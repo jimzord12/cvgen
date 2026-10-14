@@ -62,6 +62,10 @@ Some entities appear in more than one list; the model will merge them.
 
 ## Decisions for the owner
 
+**Answered by the owner on 2026-10-14:** see
+[the workflow-model proposal](../../proposals/workflow-model.md); where an
+answer differs from a recommendation below, the answer wins.
+
 These are the conflicts that change behaviour. Each has a recommendation;
 the model will encode whatever is decided.
 
