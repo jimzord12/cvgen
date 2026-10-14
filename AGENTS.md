@@ -136,7 +136,7 @@ python scripts/design_review/server.py   # the owner's Design Review app on http
 ```
 
 `tests/run.py` and `scripts/cv.py render` need Typst 0.15.1 on PATH plus
-the Python packages pinned in `requirements.lock` (`pip install -r requirements.lock`). Compiling an example needs
+the Python packages pinned in `requirements.lock` (setup: `docs/tech-stack.md`). Compiling an example needs
 only Typst. `tools/workflow/` needs Bun 1.4.x from 1.4.2 (ADR 0015).
 Approval is the owner's act: an agent never runs `approve` on a
 real candidate; `--test-only` exists for fictional fixtures and is refused
@@ -240,7 +240,7 @@ propose; the owner decides.
   variations within a domain, never forks (constitution section 7); the
   Framework never imports from `packages/domains/` (ADR 0012).
 - Every non-trivial change to code, fixtures or inputs ends with
-  `python tests/run.py` passing and the evidence path reported; a visual
+  `ruff check` and `python tests/run.py` passing and the evidence path reported; a visual
   change also needs a rendered page. Every change gets an independent
   review round, documentation, rules, proposals and assets included; only
   truly trivial changes are exempt, idea runs use their own gates, and

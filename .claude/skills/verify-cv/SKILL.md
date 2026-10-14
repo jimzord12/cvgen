@@ -8,10 +8,12 @@ description: Run the CVgen regression suite and produce readable evidence. Use a
 ## Run
 
 ```powershell
+ruff check
 python tests/run.py
 ```
 
-Requires Typst 0.15.1 on PATH and Python with `pymupdf`, `pillow` and `jsonschema`. Pass
+Requires Typst 0.15.1 on PATH and the Python packages in `requirements.lock`
+(`pip install -r requirements.lock`; setup in `docs/tech-stack.md`). Pass
 `--typst <path>` if Typst is elsewhere. Every run writes to a new
 `builds/tests-<timestamp>/` folder, one sub-folder per case with its PDF,
 `compile.log` and, for a checked case, `page-N.png` and `check/`.
@@ -35,8 +37,9 @@ Requires Typst 0.15.1 on PATH and Python with `pymupdf`, `pillow` and `jsonschem
   the field paths (the first ten, then a count). Fix the record (or the
   schema, if the change is meant).
 - `ImportError` or `ModuleNotFoundError` naming `jsonschema` at the start
-  of the run: the dependency is missing or older than 4.0:
-  `pip install "jsonschema>=4"`.
+  of the run, or `the candidate check needs jsonschema`: the dependencies
+  are missing or at other versions: `pip install -r requirements.lock`
+  (`docs/tech-stack.md`).
 - `core/<file> imports outside core: <target>`: a core module reached into a
   domain or `lib.typ`; the core must import only its siblings (ADR 0011).
   `the Framework lib.typ imports outside core`, `... names a domain path` or
