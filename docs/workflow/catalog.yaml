@@ -1,0 +1,269 @@
+# yaml-language-server: $schema=../../tools/workflow/schema/catalog.schema.json
+# The Workflow Model's catalog (ADR 0015): the actors, and the actions and
+# artifacts that steps in more than one stage use. An action or artifact used
+# by one stage only lives in that stage's stage.yaml.
+#
+# Read with docs/workflow/GAPS.md: where the sources are silent or disagree,
+# the entity follows what they say and the gap is listed there.
+#
+# Placeholders: <envelope> is the client's Envelope folder under private/,
+# <revision> a revision id, NN a two-digit draft or round number.
+
+actors:
+  - id: actor.owner
+    name: The owner
+    sources: ["docs/guides/client-workflow.md:9-10", "docs/preferences.md:49-51", "docs/preferences.md:69-81"]
+    kind: human
+    does: >-
+      The only one who talks to the client: names a new client, relays every
+      message both ways, picks the Deep Dives and the design, reviews and
+      approves the client's PDF, sends it, and runs every deletion under
+      private/ and in Google.
+
+  - id: actor.client
+    name: The client
+    sources: ["docs/glossary.md:46", "docs/guides/client-workflow.md:112-115", "docs/guides/client-workflow.md:302-308"]
+    kind: human
+    does: >-
+      Answers the question list and the one follow-up (by chat or an Intake
+      Form), checks the underlined facts of the Text Draft and replies OK or
+      with corrections, and may ask to keep his data.
+
+  - id: actor.lead
+    name: The lead (the main Claude Code session)
+    sources: ["docs/guides/client-workflow.md:9-10", ".claude/skills/new-client/SKILL.md:8-9", "docs/proposals/workflow-model.md:58"]
+    kind: lead
+    does: >-
+      Writes every file of the Envelope, researches, briefs the subagents and
+      runs their review loops, compiles and stamps, renders, runs Export
+      after the owner's Approval, and reports to the owner. Never talks to the
+      client and never approves a client's PDF.
+
+  - id: actor.general-purpose
+    name: General-purpose agent
+    sources: [".claude/skills/new-client/SKILL.md:41-43", ".claude/skills/new-client/SKILL.md:80-93"]
+    kind: agent
+    does: >-
+      Claude Code's built-in agent: writes one Deep Dive per chosen question
+      from a brief that names only the Alias, and revises it on the
+      reviewer's findings. Writes no files.
+
+  - id: actor.research-reviewer
+    name: research-reviewer
+    sources: [".claude/agents/research-reviewer.md:1-6", ".claude/agents/research-reviewer.md:15-27", ".claude/skills/idea-run/SKILL.md:54-57"]
+    kind: agent
+    does: >-
+      Fresh per round: checks that a Deep Dive's, a Research Library note's or
+      a concept brief's sources exist, are current and say what is claimed.
+      Never reads private/.
+
+  - id: actor.design-reviewer
+    name: design-reviewer
+    sources: [".claude/agents/design-reviewer.md:1-6", ".claude/agents/design-reviewer.md:36-42", "docs/proposals/workflow-model.md:57"]
+    kind: agent
+    does: >-
+      Fresh per round: judges the concept pages of an Idea Run and every
+      client CV's preview pages, first on the Batch Test, the Three-Second
+      Test and Flagship Parity. Never reads private/; renders only under
+      builds/.
+
+  - id: actor.magazine-editor
+    name: magazine-editor
+    sources: [".claude/agents/magazine-editor.md:1-6", ".claude/agents/magazine-editor.md:21-22", ".claude/skills/idea-run/SKILL.md:17"]
+    kind: agent
+    does: >-
+      Draws three Styles, each in two Densities and three Design Tiers, as
+      Typst mock-ups on fictional data for the client's Domain, specialty and
+      Rank, stamps each PDF proposed, and revises on the reviewers' findings.
+      Never reads private/.
+
+  - id: actor.code-reviewer
+    name: code-reviewer
+    sources: [".claude/agents/code-reviewer.md:1-6", "docs/review.md:7-9", "docs/proposals/workflow-model.md:59"]
+    kind: agent
+    does: >-
+      Fresh per round: reviews a change to the public engine that a client's
+      job needs; the only way such a change lands.
+
+actions:
+  # Used in intake (the first message) and research (the follow-up).
+  - id: manual.paste-message
+    kind: manual
+    name: Paste the message to the client
+    sources: ["docs/guides/client-workflow.md:112-115", "docs/guides/client-workflow.md:270-273"]
+    does: The owner pastes the lead's message into the chat app the client already uses (Viber, WhatsApp, email).
+
+  - id: manual.client-answer
+    kind: manual
+    name: The client answers
+    sources: ["docs/guides/client-workflow.md:114-115", "docs/guides/client-workflow.md:122-125"]
+    does: The client answers in any order, in text or voice messages, over a few days, or in the Intake Form.
+
+  - id: manual.copy-chat-to-envelope
+    kind: manual
+    name: Bring the answers into the Envelope
+    sources: ["docs/guides/client-workflow.md:117-120", "docs/guides/client-workflow.md:272-273"]
+    does: >-
+      The owner copies the chat text into intake/messages.md (a WhatsApp
+      "Export chat" file works as is) and saves photos and files into
+      intake/documents/.
+
+  - id: lead.write-form-script
+    kind: lead
+    name: Write the Intake Form script
+    sources: ["docs/guides/client-workflow.md:122-131", ".claude/skills/new-client/SKILL.md:28-31", "scripts/intake-form.gs:20-21"]
+    does: >-
+      Writes intake/form-NN.gs, a copy of scripts/intake-form.gs with only its
+      FORM block changed: title, intro, consent, questions; pages by topic and
+      the quickest question type, in the polite plural.
+
+  - id: agent.research-reviewer
+    kind: agent
+    name: A fresh research-reviewer round
+    sources: [".claude/agents/research-reviewer.md:1-6", "docs/guides/client-workflow.md:246-252", ".claude/skills/idea-run/SKILL.md:54-57"]
+    agent: research-reviewer
+
+  # The escalation at every loop's cap.
+  - id: manual.decide-at-cap
+    kind: manual
+    name: The owner decides at the cap
+    sources: ["docs/review.md:198-202", ".claude/skills/idea-run/SKILL.md:63-66"]
+    does: >-
+      At a loop's round cap the item reaches the owner marked unresolved with
+      the last reason; another round needs his explicit decision.
+
+artifacts:
+  # --- The Envelope's identity and bookkeeping.
+
+  - id: art.envelope-json
+    name: envelope.json
+    sources: ["docs/guides/client-workflow.md:43", "docs/guides/client-workflow.md:100-108", "packages/cv-workflow/cv_workflow/outputs.py:57-74"]
+    path: private/<envelope>/envelope.json
+    format: "JSON: alias, domain, candidate, rank (each checked against output.schema.json's property of that name)"
+    visibility: private
+
+  - id: art.envelope-readme
+    name: The Envelope's README.md (Alias and intake date)
+    sources: ["docs/guides/client-workflow.md:41-42", "docs/guides/client-workflow.md:94-96", ".claude/skills/new-client/SKILL.md:16-18"]
+    path: private/<envelope>/README.md
+    format: Markdown, no fixed shape
+    visibility: private
+
+  - id: art.readme-google-links
+    name: README.md, section "Google"
+    sources: ["docs/guides/client-workflow.md:137-139", "scripts/intake-form.gs:11-15"]
+    path: private/<envelope>/README.md
+    format: Markdown lines with the form's answer and edit links, the Sheet and the script project
+    visibility: private
+
+  - id: art.readme-delete-by
+    name: README.md, the Export and delete-by line
+    sources: ["docs/proposals/workflow-model.md:54", "docs/guides/client-workflow.md:330-332"]
+    path: private/<envelope>/README.md
+    format: Markdown line, "Exported <date>, delete by <date + 12 months>" (lead's default wording)
+    visibility: private
+
+  - id: art.client-task
+    name: The client's Backlog.md task
+    sources: ["docs/proposals/workflow-model.md:60", "docs/guides/client-workflow.md:96-98"]
+    path: backlog/tasks/
+    format: Backlog.md task, titled by the Alias only
+    visibility: public
+
+  # --- What the client sends.
+
+  - id: art.messages-md
+    name: messages.md (intake answers)
+    sources: ["docs/guides/client-workflow.md:46", "docs/guides/client-workflow.md:117-120", "docs/guides/client-workflow.md:152-153"]
+    path: private/<envelope>/intake/messages.md
+    format: Markdown, every answer as received, dated, in the client's words
+    visibility: private
+
+  - id: art.documents
+    name: The client's documents
+    sources: ["docs/guides/client-workflow.md:47", "docs/guides/client-workflow.md:119-120", "docs/guides/client-workflow.md:156-157"]
+    path: private/<envelope>/intake/documents/
+    format: photos and files, any format
+    visibility: private
+
+  # --- Facts and decisions every later stage builds on.
+
+  - id: art.facts-final
+    name: facts.md, final
+    sources: ["docs/guides/client-workflow.md:48", "docs/guides/client-workflow.md:272-276", ".claude/skills/new-client/SKILL.md:58"]
+    path: private/<envelope>/intake/facts.md
+    format: Markdown, every fact with its source; what is still missing is left out or marked not supplied
+    visibility: private
+
+  - id: art.decisions-md
+    name: CV Decisions (decisions.md)
+    sources: ["docs/guides/client-workflow.md:53", "docs/guides/client-workflow.md:217-233", "docs/glossary.md:55"]
+    path: private/<envelope>/research/decisions.md
+    format: Markdown, one line per decision with its answer and source, "judgement" and the reason, or "open"
+    visibility: private
+
+  # --- The Text Draft, as signed off.
+
+  - id: art.draft-pdf
+    name: Text Draft PDF
+    sources: ["docs/guides/client-workflow.md:57", "docs/guides/client-workflow.md:280-287", "packages/cv-workflow/cv_workflow/outputs.py:48-49"]
+    path: private/<envelope>/draft/draft-NN.pdf
+    format: PDF, page 1 the Check Page, then the CV's content
+    visibility: private
+
+  - id: art.draft-meta
+    name: The Text Draft's Meta File
+    sources: ["docs/guides/client-workflow.md:58", "docs/pdf-workflow.md:128", "docs/guides/client-workflow.md:294-300"]
+    path: private/<envelope>/draft/draft-NN.meta.json
+    format: "JSON, kind client-draft, status ready, sent, signed-off or superseded"
+    schema: art.output-schema
+    visibility: private
+
+  - id: art.sign-off-png
+    name: The Sign-off screenshot
+    sources: ["docs/guides/client-workflow.md:59", "docs/guides/client-workflow.md:307-308", "docs/glossary.md:62"]
+    path: private/<envelope>/draft/sign-off-NN.png
+    format: PNG screenshot of the client's OK
+    visibility: private
+
+  # --- The CV's build files.
+
+  - id: art.candidate-json
+    name: candidate.json
+    sources: ["docs/guides/client-workflow.md:44", "docs/guides/build-a-cv.md:65-77", "packages/cv-workflow/cv_workflow/workspace.py:93-95"]
+    path: private/<envelope>/candidate.json
+    format: JSON, checked against the schema cv.typ's imports name (Flagship input for marine; none for a one-off)
+    visibility: private
+
+  - id: art.cv-typ
+    name: The CV's entry point
+    sources: ["docs/guides/client-workflow.md:60-61", "docs/guides/build-a-cv.md:31-51", "packages/cv-workflow/cv_workflow/workspace.py:72-73"]
+    path: private/<envelope>/typst/cv.typ
+    format: Typst; reads every file by a path relative to itself
+    visibility: private
+
+  # --- Repository files the workflow reads.
+
+  - id: art.intake-form-lib
+    name: The Intake Form script
+    sources: ["scripts/intake-form.gs:1-21", "docs/glossary.md:52"]
+    path: scripts/intake-form.gs
+    format: Google Apps Script with a FORM block
+    visibility: public
+    given: true
+
+  - id: art.output-schema
+    name: The Meta File schema
+    sources: ["packages/cv-workflow/cv_workflow/output.schema.json:1-41", "docs/pdf-workflow.md:131-136"]
+    path: packages/cv-workflow/cv_workflow/output.schema.json
+    format: JSON Schema 2020-12, $id cvgen.output/1
+    visibility: public
+    given: true
+
+  - id: art.framework-fonts
+    name: The bundled fonts
+    sources: ["scripts/text-draft.typ:27-28", "packages/cv-workflow/cv_workflow/workspace.py:15", "docs/guides/client-workflow.md:290"]
+    path: packages/cv-framework/fonts/
+    format: OFL font files
+    visibility: public
+    given: true

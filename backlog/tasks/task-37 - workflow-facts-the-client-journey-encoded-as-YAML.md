@@ -1,10 +1,10 @@
 ---
 id: TASK-37
 title: 'workflow-facts: the client journey encoded as YAML'
-status: Queued
+status: Active
 assignee: []
 created_date: '2026-10-14 04:47'
-updated_date: '2026-10-14 08:15'
+updated_date: '2026-10-14 08:46'
 labels:
   - workflow-model
 dependencies:
@@ -21,9 +21,9 @@ ordinal: 37000
 
 ## Acceptance Criteria
 <!-- AC:BEGIN -->
-- [ ] #1 All seven stages encoded
-- [ ] #2 every entity carries its source anchor
-- [ ] #3 the inventory's implicit steps (port a concept, update `CV Decisions`, close the record, keep request) are named
+- [x] #1 All seven stages encoded
+- [x] #2 every entity carries its source anchor
+- [x] #3 the inventory's implicit steps (port a concept, update `CV Decisions`, close the record, keep request) are named
 <!-- AC:END -->
 
 ## Implementation Notes
@@ -37,4 +37,10 @@ Source anchors with backslashes (docs\guides\x.md:3) pass the shape check, and a
 
 ## Reading the inventory (TASK-36 context review, M1)
 The types name things differently from the inventory: its artifact visibility external (Google, the chat app) is visibility: third-party, a chat message is third-party, and ephemeral is only for what is saved nowhere. given: true means no step produces the artifact (a repo file, the client's first message); a Google Form is third-party, not given. See tools/workflow/README.md, Reading the inventory. Report: docs/work/workflow-schema/reviews/03-context-reviewer.md.
+
+## Result and evidence
+docs/workflow/catalog.yaml plus seven stage.yaml files (01-open ... 07-after), each with the yaml-language-server hint; docs/workflow/GAPS.md lists what the sources leave open. Counts: 7 stages, 104 steps, 101 artifacts, 90 actions, 8 actors, 16 gates, 11 loops; 674 source anchors, all resolving on disk at 70631ed (throwaway check builds/task-37-refs/check_refs.py: 0 unresolved references, 0 bad anchors, 0 unused definitions, 0 inputs nothing produces; 6 derived cycles, each holding a declared loop).
+Gate encoding: binary only; the three build paths are a chain (gate.template-exists, then gate.template-fits); choices that are not checks are `when` texts; code refusals with no stated next step stay in the action's description. Per-item repeat: "Once per Deep Dive question the owner chose."
+Implicit steps named: research.decisions-update, design.port-concept, after.keep-request (+ after.keep-record), after.close.
+Checks: `bun run check` OK on all eight files; `bun test` 24 pass; `python tests/run.py` PASS (builds/tests-20261014-114524-436513); `python .atlas/_kit/atlas.py check --strict` all ok, nothing to stamp.
 <!-- SECTION:NOTES:END -->
