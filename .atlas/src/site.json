@@ -331,10 +331,10 @@
       "label": "verify-cv",
       "kind": "skill",
       "file": ".claude/skills/verify-cv/SKILL.md",
-      "role": "Runs the full suite and reads its evidence.",
+      "role": "Runs ruff and the full suite and reads its evidence.",
       "when": "After any change under `packages/`, `examples/` or `tests/`.",
       "sources": [
-        ".claude/skills/verify-cv/SKILL.md:1-17"
+        ".claude/skills/verify-cv/SKILL.md:1-19"
       ]
     },
     "new-theme": {
@@ -459,7 +459,7 @@
     "github-ci": {
       "label": "GitHub CI",
       "kind": "service",
-      "role": "Runs the suite once per push (its head commit) on any branch, on Linux and Windows (Typst 0.15.1, checksummed; the suite drives `scripts/build.ps1` in a throwaway copy on both, and Windows also builds the examples with it); a newer push to a feature branch cancels the older run. The lead watches it on `main` before calling work Done.",
+      "role": "Lints the Python with ruff, then runs the suite once per push (its head commit) on any branch, on Linux and Windows (Typst 0.15.1 and the Python packages in `requirements.lock`, checksummed; the suite drives `scripts/build.ps1` in a throwaway copy on both, and Windows also builds the examples with it); a newer push to a feature branch cancels the older run. The lead watches it on `main` before calling work Done.",
       "sources": [
         ".github/workflows/verify.yml",
         "docs/git-workflow.md:90-103"

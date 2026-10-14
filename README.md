@@ -76,7 +76,8 @@ to change margins and which companies sit on which page.
 python tests/run.py
 ```
 
-Needs Python with `pymupdf`, `pillow` and `jsonschema`. The suite runs 44 cases and
+Needs Python 3.11 and `pip install -r requirements.lock` (setup in
+[docs/tech-stack.md](docs/tech-stack.md)). The suite compiles every example and fixture and
 proves the engineer example renders pixel-identical to the frozen
 [v11 reference](packages/domains/marine/templates/flagship/tests/approved/Marine-Engineer-CV-v11.pdf). Details in
 [docs/engine/verification.md](docs/engine/verification.md).

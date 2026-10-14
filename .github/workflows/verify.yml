@@ -74,11 +74,16 @@ jobs:
         with:
           python-version: '3.11'
           cache: pip
-          # The pinned dependencies are listed in this file (next step), so it keys the pip cache.
-          cache-dependency-path: .github/workflows/verify.yml
+          # Every Python dependency, transitive ones included, is pinned with hashes there (TASK-47).
+          cache-dependency-path: requirements.lock
 
+      # Compiled from packages/cv-workflow/pyproject.toml; pip checks every hash the file carries.
       - name: Install verification dependencies
-        run: pip install pymupdf==1.28.2 pillow==12.3.0 jsonschema==4.26.0
+        run: pip install -r requirements.lock
+
+      # ruff.toml says what is checked: scripts/, tests/ and packages/cv-workflow/.
+      - name: Lint with ruff
+        run: ruff check
 
       - name: Run the regression suite
         run: python tests/run.py --output builds/ci

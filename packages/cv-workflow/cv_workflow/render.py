@@ -108,8 +108,8 @@ def render_revision(workspace, typst='typst', pages=2, inputs=None, reference_da
     compiler = shutil.which(typst) or typst
     try:
         version = subprocess.run([compiler, '--version'], capture_output=True, **TEXT, check=True).stdout.strip()
-    except (OSError, subprocess.CalledProcessError):
-        raise WorkflowError(f'Typst compiler not found: {typst!r}; pass --typst path/to/typst')
+    except (OSError, subprocess.CalledProcessError) as error:
+        raise WorkflowError(f'Typst compiler not found: {typst!r}; pass --typst path/to/typst') from error
     # Everything that can be refused is checked before the revision folder exists,
     # so a refusal leaves nothing behind.
     record = read_json(ws.record)

@@ -1,0 +1,28 @@
+# The candidate workflow package. Its direct dependencies, pinned; every transitive one is pinned with
+# hashes in requirements.lock at the repository root, compiled from this file (TASK-47):
+#   uv pip compile packages/cv-workflow/pyproject.toml --all-extras --universal --python-version 3.11 --generate-hashes -o requirements.lock
+# Scripts and the suite import it from the checkout (sys.path), so no install of the package itself is needed.
+[project]
+name = "cv-workflow"
+version = "0.1.0"
+description = "CVgen candidate workflow: fresh revisions, checks, approval receipts, verified exports"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "pymupdf==1.28.2",    # render checks
+    "jsonschema==4.26.0", # record check
+]
+
+[project.optional-dependencies]
+test = ["pillow==12.3.0"] # tests/verify.py: pixel comparison
+lint = ["ruff==0.16.10"]  # ruff.toml at the repository root
+
+[build-system]
+requires = ["setuptools>=77"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools]
+packages = ["cv_workflow"]
+
+[tool.setuptools.package-data]
+cv_workflow = ["*.schema.json"]

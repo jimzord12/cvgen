@@ -347,7 +347,7 @@
           "title": "GitHub CI",
           "path": ".github/workflows/verify.yml",
           "actor": "github-ci",
-          "blurb": "The suite once per push (its head commit), Linux and Windows."
+          "blurb": "Ruff, then the suite once per push (its head commit), Linux and Windows."
         }
       ]
     },

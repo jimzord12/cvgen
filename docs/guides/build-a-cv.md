@@ -134,7 +134,7 @@ a check failed; the revision stays, with the error in its `render.log` or
 JSON, a record that breaks its schema - the offending fields are listed
 with their paths, the first ten and then a count - a missing portrait file, no Typst on PATH), and the reason
 names the fix. Nothing is written on a refusal.
-Needs Python with `pymupdf` and `jsonschema` like the test suite.
+Needs the Python packages in `requirements.lock`, like the test suite.
 
 Certificate dates are checked against the day of the render: a
 certificate whose expiry (the fourth field, or `review`) has passed, or

@@ -8,7 +8,12 @@ It builds throwaway git repositories in a temp folder, seeds them with known pro
 (and the Bash guard when it is installed; CVgen does not install it) and lints the frontmatter of the shipped files. It never touches the repository you run it from.
 Exit code 0 = all passed. Print the output as evidence when adopting the bundle.
 """
-import json, os, re, subprocess, sys, tempfile
+import json
+import os
+import re
+import subprocess
+import sys
+import tempfile
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 INSTALL = os.path.join(os.path.dirname(HERE), ".claude")
