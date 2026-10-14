@@ -94,13 +94,13 @@
    "verifiedAt": "2026-10-14"
   },
   "system-map": {
-   "commit": "419fe8d",
+   "commit": "385aa8b",
    "sources": {
     ".claude/agents": "dir1:4f4154394888bb9d69a0ed790d8f4b484a790fdd",
     ".claude/skills": "dir1:5eeafda0c9ef9a6037a3fcc2879f73f098fa3e55",
     ".claude/skills/backlog/SKILL.md": "22562281e7901acef008942775142d478ec85948",
-    ".github/workflows/verify.yml": "61647a15c7431cdf5d9b5610123ea1c74f25bb23",
-    "AGENTS.md": "7d12abcd1f73743103f6006bdc50b08647735ea3",
+    ".github/workflows/verify.yml": "100de5fc82ad3ce2e740a3036892d3886ffa6384",
+    "AGENTS.md": "979f5bc159e8aae72cb020d1b62c0d01b9201d1a",
     "archive/anti-examples": "dir1:dacb2a2e30bc6a5d49178d2bcbf382c4de52a88c",
     "archive/design-studies": "dir1:3934f2dbb33587fa8b485e7b99d2b37fa3784798",
     "brand": "dir1:c556e0f8d17363d5e9ddc92e7142a253a16d1be2",
@@ -115,7 +115,7 @@
     "examples/candidates": "dir1:69fb38eee30dc425761a0cb80a577613cf3bdab4",
     "examples/marine/flagship": "dir1:2badfd3042bcd2c5ef709a6596945aefe8848eb1",
     "packages/cv-framework": "dir1:e26fc6cd0be31cb5f9c4f61215ae5f3cfdc05a78",
-    "packages/cv-workflow": "dir1:28d3de6382387ab25cbaf6902b31bde4f371aedf",
+    "packages/cv-workflow": "dir1:bbc692ac413f8d712f43ee578f2756df4b64503a",
     "packages/domains/marine": "dir1:9c4a644121e8b145ed99f4134de96a479df442e6",
     "packages/domains/marine/templates/flagship": "dir1:962903d4233207023b11c7738f3d52487c3b6ea4",
     "packages/domains/marine/templates/flagship/tests/approved": "dir1:937263ba14b899950b2c4f58a1ff6c6fd2275f3a",
@@ -124,7 +124,7 @@
     "scripts/design_review/server.py": "9d9d6be943f9cc5aa8eb9882b90e54668410ee05",
     "scripts/outputs.py": "6e79e3d72163c249c328633379952f93837ffe1c",
     "scripts/text-draft.typ": "c6f61f2253a2105d3334f3edc4e9b12137f54fa1",
-    "tests/run.py": "94e804679d3205e26450550c8782b1c90dd9779d"
+    "tests/run.py": "f5173e6f8a63abb3d2a1d856e957718d9653b657"
    },
    "verifiedAt": "2026-10-14"
   }
