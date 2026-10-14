@@ -1,10 +1,10 @@
 ---
 id: TASK-55
 title: 'repo-layout: fewer top-level folders and a clean `scripts/`'
-status: Active
+status: Done
 assignee: []
 created_date: '2026-10-14 04:48'
-updated_date: '2026-10-14 09:52'
+updated_date: '2026-10-14 10:16'
 labels:
   - restructure
 dependencies:
@@ -52,3 +52,9 @@ Round 1 (code-reviewer, FINDINGS, report archive/work-records/repo-layout/review
 
 N2 accepted: Git pairs the byte-identical v11 design-study renders with the README v12 images as R100 renames, so git log --follow on studio/archive/design-studies/review/Marine-Engineer-CV-v11-page-*.png can show the README image's history; read the history with --no-renames or by the old path archive/design-studies/review/.
 <!-- SECTION:NOTES:END -->
+
+## Final Summary
+
+<!-- SECTION:FINAL_SUMMARY:BEGIN -->
+Top level 17 (limit 18): studio/ holds brand, design-concepts and archive/{design-studies,anti-examples}; archive/work-records stays top-level; scripts/design_review -> apps/design-review (old review-state keys mapped on load, no write); tools/ kept; a File names table in docs/conventions.md, 9 renames; M/lib.typ re-exports roles, flagship-themes, flagship-artwork, flagship-layouts, one import per example, frozen reference pixel-identical. Code rounds FINDINGS, PASS; context rounds FINDINGS x3 then PASS. Suite builds/tests-20261014-130441-279869 (143 cases), CI 38547265150 green.
+<!-- SECTION:FINAL_SUMMARY:END -->
