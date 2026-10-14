@@ -60,6 +60,23 @@ cap)" and cite their row here.
   candidates, not how they are listed; the YAML reads `cv.py status`, which
   lists every Revision with its state. Added by TASK-38, for the same reason.
 
+## What a real run showed (level 3, TASK-42)
+
+`bun run reality` (`tools/workflow/README.md`) walks the model with a
+fictional client through the real scripts. Every path the model declares for
+a command's output matched what the script wrote; two things the YAML does
+not say:
+
+- **The page images' folder** (`deliver.page-png`): the command saves into
+  `builds/<new-folder>/` but does not make it; the run makes it first, as the
+  lead does.
+- **Order without data**: a step runs once what it reads exists, so
+  `deliver.render`, `deliver.page-png` and `deliver.wording-check` run beside
+  `design.preview`, before the design review returns: nothing they read comes
+  from the review. `deliver.export`, by contrast, waits for
+  `cv.approval.json`; a model without that input lets export run first, and
+  `cv.py export` refuses it (the suite proves both).
+
 ## What the YAML leaves out
 
 - **The refusals of `approve`, `export` and `stamp`.** A `cmd` action holds
