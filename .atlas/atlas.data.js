@@ -2275,14 +2275,9 @@ window.ATLAS = {
  ],
  "build": {
   "builtAt": "2026-10-14 08:37 UTC",
-  "commit": "39d7f06",
+  "commit": "419fe8d",
   "kit": "1.0",
-  "stale": {
-   "system-map": [
-    "docs/guides/build-a-cv.md",
-    "docs/work"
-   ]
-  },
+  "stale": {},
   "verified": {
    "client-journey": {
     "at": "2026-10-14",
@@ -2298,7 +2293,7 @@ window.ATLAS = {
    },
    "system-map": {
     "at": "2026-10-14",
-    "commit": "e9a67bf"
+    "commit": "419fe8d"
    },
    "roster": {
     "at": "2026-10-14",
