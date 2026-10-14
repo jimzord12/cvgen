@@ -4,7 +4,7 @@ title: 'workflow-render: docs and diagrams generated from the model'
 status: Active
 assignee: []
 created_date: '2026-10-14 04:47'
-updated_date: '2026-10-14 10:25'
+updated_date: '2026-10-14 10:44'
 labels:
   - workflow-model
 dependencies:
@@ -20,8 +20,8 @@ ordinal: 39000
 
 ## Acceptance Criteria
 <!-- AC:BEGIN -->
-- [ ] #1 The regenerated tree is identical in CI
-- [ ] #2 diagrams render on GitHub
+- [x] #1 The regenerated tree is identical in CI
+- [x] #2 diagrams render on GitHub
 <!-- AC:END -->
 
 ## Implementation Notes
