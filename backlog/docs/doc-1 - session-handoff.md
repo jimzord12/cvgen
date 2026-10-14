@@ -9,34 +9,39 @@ created_date: '2026-10-06 07:25'
 
 Rewritten in place at the end of every session; the first thing a fresh session reads after AGENTS.md. Holds only what no task owns: what is next, parked owner decisions, machine facts, pitfalls. Task state stays in the tasks in `backlog/tasks/`.
 
-**Written:** 2026-10-06, Hanami Line travel design built for a real client, the Design Review verdicts applied, then the repo walk-through, branch clean-up and the workflow-model merge (Claude Code).
-**Main at:** the merge of `docs/workflow-model` (2026-10-06); everything older is on `main`
+**Written:** 2026-10-14, the unattended run of TASK-28 to TASK-59 (Claude Code).
+**Main at:** the merge of TASK-51 (`5501c38`); everything older is on `main`. Suite PASS at that head (`builds/tests-20261014-161315-649567`, 147 cases).
 
 ## Where things stand
 - Task store: Backlog.md in `backlog/` (ADR 0014). Read and write tasks only through `.claude/skills/backlog/SKILL.md`; read this doc with `git show origin/main:"backlog/docs/doc-1 - session-handoff.md"`.
-- Open tasks: Queued TASK-2 travel-domain, TASK-3 deck-data, TASK-4 codex-visual-tools, TASK-28 to TASK-32 (Next, item 4). TASK-5 travel-recalibration is Done (Japan Passage rejected and removed in f78a181; Hanami Line 2 met the brief).
-- **Hanami Line 2 is the owner's chosen Travel & Tourism design** (`design-concepts/2026-10-02-hanami-line-2/`: Spacious, stylish, pink / indigo / light blue). It was built as a one-off `Template` in a real client's `Envelope` (`client-2026-09-01`, Greek and English, plus a Stamp Rally edition), all reviewed (design, fact, code) and reported in `docs/work/idea-runs/2026-10-02-editor-2/run.md`. The three Japanese-capable font families it needs are now in `packages/cv-framework/fonts/`. The first real production `Travel & Tourism` `Domain` (TASK-2) should start from this design and from the Framework Gap entries of 2026-09-29 and 2026-10-02 (`docs/framework-gaps.md`).
-- The owner's Design Review verdicts are applied: rejected variants removed, `keep` and `maybe` variants stay `parked` (`design-concepts/README.md`, review in `docs/work/design-verdicts/reviews/`).
-- Client `client-2026-09-01`: the owner forwarded all eight revisions (Hanami x3 palettes x2 languages, Stamp Rally x2) to the client, who confirmed the details are OK. All eight are stamped `status=delivered` and the `Envelope`'s README holds the single deadline (one per client, not per CV): delete by 2027-10-02. `approve` and `export` were never run (optional; the owner's act).
+- Every task from TASK-28 to TASK-59 is Done. Queued: TASK-2 travel-domain, TASK-3 deck-data, TASK-4 codex-visual-tools (untouched), and three follow-ups filed on 2026-10-14: TASK-60 (PDF font-subset check), TASK-61 (integration fallback when the `Main Folder` is not on a clean `main`), TASK-62 (the Atlas check covers `site.json` citations).
+- The client workflow has one source: the `Workflow Model` in `docs/workflow/` (YAML facts, generated tables and diagrams, hand prose). `tools/workflow/` checks it (`bun run check`, levels 1 and 2), runs a fictional client through the real scripts (`bun run reality`, level 3), renders the READMEs (`bun run render`) and the Atlas client-journey page (`bun run atlas`). The guides and the `new-client`/`new-cv` skills point to step IDs.
+- Layout: `studio/` holds brand, design concepts and the frozen design records; `archive/work-records/` holds review reports; the Design Review app is `apps/design-review/`. `AGENTS.md` is a map of about 780 words; rules live in the files that own them.
+- Hanami Line 2 is the owner's chosen Travel & Tourism design (`studio/design-concepts/2026-10-02-hanami-line-2/`), built as a one-off `Template` for `client-2026-09-01`; TASK-2 should start from it and from the Framework Gap entries of 2026-09-29 and 2026-10-02.
 
 ## Next
-1. Client `client-2026-09-01` (alias only; real data stays in `private/`): delivery is recorded (see above). Open: if the client holds an early Stamp Rally edition (white strip under the boarding-pass portrait, fixed 2026-10-02), the owner may send him the fixed one.
-2. Owner-only clean-up for that client: delete its Intake Form, answers Sheet and script project (links in the `Envelope`'s README, then empty the Drive Trash); delete `private/<envelope>/` and the folder of review copies kept outside the repo at the delete-by date.
-3. Session Sweep gap: the merge-time changes of 2026-10-04 (`a66b448`, `1db32e8`, `74a6f82`, `1e684eb`) have no stored review report. The workflow-model handoff proposes the task (`merge-review-2026-10-04`).
-4. Queued from the owner's 2026-10-06 repo walk-through: TASK-28 (proposals snapshot), TASK-29 (remove `.night-shift`), TASK-30 (`Main Folder` glossary term), TASK-31 (rename `docs/reference`), TASK-32 (one tree for every client folder, confirmed by the owner). None started.
-5. The workflow-model work (inventory of the client workflow, nine open owner decisions, 12 suggested tasks plus 13 restructure tasks) is in `docs/work/workflow-model/handoff.md` and `docs/workflow/inventory/`. All 25 are now tasks (owner, 2026-10-14): TASK-33 to TASK-44 (label `workflow-model`, dependencies set) and TASK-45 to TASK-57 (label `restructure`), all Queued. The owner answered every open question on 2026-10-14 (`docs/proposals/workflow-model.md`, approved) and authorized an unattended run of TASK-28 to TASK-57; TASK-33 (the retroactive review of the 2026-10-04 merges; reports in `docs/work/workflow-model/reviews/`), 34, 53 and 57 are Done.
-6. The repository is down to the `main` branch and the main folder (no other branches or worktrees), as of 2026-10-06.
+1. Owner decisions waiting (raise first; details in the 2026-10-14 run report and in the files named):
+   - Two scratch copies of real client files, left by reviewers whose delete was refused: `.worktrees/task-32/builds/review-task32-r1-20261014-110915/` and `.worktrees/task-58/builds/private-stage-task58/`. On "delete both": remove them, then `git worktree remove` both worktrees and delete the local branches `feature/task-32-client-layout` and `refactor/task-58-legacy-delete` (remotes already gone).
+   - `private/`: the `client-2026-09-01` `Envelope` has 9 uncommitted files (README with the delete-by date, 8 `Meta File`s `render` -> `delivered`) from the 2026-10-06 session, matching the delivery recorded then. Committing them was refused by the permission check; commit on the owner's word.
+   - P-0018 (`docs/proposals/workflow-gaps.md`, pending): items 1a-1c and 2-9, each with a recommendation.
+   - The owner's personal `/atlas refresh` skill can overwrite the generated client-journey page; it should skip it or call `bun run atlas`.
+2. After P-0018 is answered: replace each placeholder in `docs/workflow/*/stage.yaml` with the answer, cite the proposal, re-run `bun run check`, `render`, `atlas`; add `art.envelope-keep` as an input of `after.delete-by-check` with item 5 (TASK-43 notes).
+3. Owner's own checks still open: the VS Code YAML hints (TASK-36) and the Atlas client-journey map view (104 steps; walk-through view may suit better as the default).
+4. Client `client-2026-09-01`: if the client holds an early Stamp Rally edition (white strip under the boarding-pass portrait, fixed 2026-10-02), the owner may send the fixed one. Owner-only clean-up at the delete-by date (2027-10-02): delete the Intake Form, answers Sheet and script project, empty the Drive Trash, delete `private/<envelope>/`.
 
 ## Owner decisions parked
 - Parked reference concepts (`keep` / `maybe` in the gallery): Woodblock Road (condensed safe and stylish, spacious stylish), Stamp Rally (condensed safe, creative, stylish, spacious safe), Concourse (spacious stylish), Hanami Line v1. Stamp Rally spacious/stylish is `chosen` (built for the client).
-- Proposals with `status: approved` not yet marked applied: `codex-visual-tools.md`, `client-workflow.md` (the latter is implemented; reconcile its metadata with the evidence).
+- Proposals with `status: approved` not yet marked applied: three (`python scripts/proposals.py`); reconcile their metadata with the evidence.
 
 ## Pitfalls and machine facts
 - The owner's local settings deny any push whose refspec names `:main`; record commits go through a real `main` checkout with plain `git push origin main` (the backlog skill).
-- `scripts/cv.py render` and Typst refuse an `Envelope` reached through a junction: render from a checkout where `private/` is a real folder and `packages/cv-framework/fonts/` holds the fonts. `approve` and `export` only verify files and hashes, so the main folder (which has the real `private/`) can run them.
-- A tall `image(width: ...)` inside a fixed-height box is shrunk by Typst to fit the height (a flat strip and a squashed photo); give the image its full height (`height: IW * 1536 / 1024`).
-- In PowerShell, `-s Active,Review` is split into separate arguments; repeat `-s` instead. `[IO.File]` paths resolve against the process directory, not `Push-Location`: pass absolute paths.
-- The Bash tool can swallow output of `python` here (even a server start); use PowerShell `Start-Process` for background servers. Removing a link: `[System.IO.Directory]::Delete(path, $false)`; the harness blocks `cmd /c rmdir`.
+- Agents in worktrees slipped into the `Main Folder` four times on 2026-10-14 (relative paths, `[IO.File]` calls). Brief every agent to use absolute worktree paths and never run tools with the `Main Folder` as working directory; check `git status` in the `Main Folder` after each agent.
+- `bun run anchors <base> --fix` moves shifted source anchors but never widens a span whose inside was edited: read every EDITED span by hand. Give it the commit the anchors were last checked at; an older base can shift an anchor twice. The next baseline is the head of each merged branch.
+- `bun run atlas` stamps the generated page itself, but refuses (exit 1) when a cited source is already stale: re-check those sources, then `python .atlas/_kit/atlas.py stamp client-journey`.
+- A hung background `git status` (not this session's; likely a status-line poll) once held `.git/index.lock` and blocked a merge: check `Get-CimInstance Win32_Process -Filter "Name='git.exe'"` before removing a lock.
+- The machine runs out of memory ("paging file too small", "memory allocation failed") with more than three agents or two suite runs at once; one such suite failure passed on re-run.
+- `scripts/cv.py render` and Typst refuse an `Envelope` reached through a junction: render from a checkout where `private/` is a real folder. `approve` and `export` only verify files and hashes.
+- In PowerShell, `-s Active,Review` is split into separate arguments; repeat `-s` instead. `[IO.File]` paths resolve against the process directory, not `Push-Location`: pass absolute paths. The Bash tool can swallow `python` output; `bun run` checks exit 1 silently under Git Bash: use PowerShell.
 - Backlog.md 1.52.0 is pinned (1.53.0 has an open web-server memory leak, #1038). `backlog browser --no-open` serves the board on http://127.0.0.1:6420.
 - Codex `exec` with `--ignore-user-config` refuses any shell command; Codex reads tasks as files.
 - Windows cp1252 printing can fail after a successful write with Greek text; run checks with PYTHONIOENCODING=utf-8 and read the file before any retry.
