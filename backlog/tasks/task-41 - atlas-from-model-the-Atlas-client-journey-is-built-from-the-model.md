@@ -1,9 +1,10 @@
 ---
 id: TASK-41
 title: 'atlas-from-model: the Atlas client journey is built from the model'
-status: Queued
+status: Active
 assignee: []
 created_date: '2026-10-14 04:47'
+updated_date: '2026-10-14 10:45'
 labels:
   - workflow-model
 dependencies:
