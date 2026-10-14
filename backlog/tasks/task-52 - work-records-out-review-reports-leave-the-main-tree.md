@@ -4,7 +4,7 @@ title: 'work-records-out: review reports leave the main tree'
 status: Queued
 assignee: []
 created_date: '2026-10-14 04:48'
-updated_date: '2026-10-14 05:18'
+updated_date: '2026-10-14 05:21'
 labels:
   - restructure
 dependencies: []
@@ -19,8 +19,8 @@ ordinal: 52000
 
 ## Acceptance Criteria
 <!-- AC:BEGIN -->
-- [ ] #1 docs/work/ is moved to an archive folder with git history kept; live links and the rules naming docs/work/<id>/reviews/ (docs/development.md, docs/review.md, AGENTS.md, skills) point to the new place
-- [ ] #2 New review reports go to the new place by task; python tests/run.py passes
+- [ ] #1 New review reports go to the new place by task; python tests/run.py passes
+- [ ] #2 docs/work/ is moved to an archive folder with git history kept; every live file that `git grep docs/work` finds (rules, AGENTS.md, skills, agent definitions, .claude/repo-maintenance.md, .atlas/src) points to the new place; historical records may keep old paths
 <!-- AC:END -->
 
 ## Implementation Notes

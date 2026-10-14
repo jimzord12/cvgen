@@ -4,7 +4,7 @@ title: 'workflow-decisions: the owner''s nine workflow decisions are recorded'
 status: Done
 assignee: []
 created_date: '2026-10-14 04:47'
-updated_date: '2026-10-14 05:18'
+updated_date: '2026-10-14 05:21'
 labels:
   - workflow-model
 dependencies: []
@@ -14,7 +14,7 @@ ordinal: 34000
 ## Description
 
 <!-- SECTION:DESCRIPTION:BEGIN -->
-Put the nine questions in `docs/workflow/inventory/README.md` (updated for #1 and #7) to the owner, plus the README-length question. Record the answers in `docs/proposals/workflow-model.md`. Source: docs/work/workflow-model/handoff.md, section 4, item 2 (A. Workflow model). Created 2026-10-14 at the owner's request; not started. The owner answered its open question on 2026-10-14 (docs/proposals/workflow-model.md); the decision overrides this description where they differ.
+Put the nine questions in `docs/workflow/inventory/README.md` (updated for #1 and #7) to the owner, plus the README-length question. Record the answers in `docs/proposals/workflow-model.md`. Source: docs/work/workflow-model/handoff.md, section 4, item 2 (A. Workflow model). Created 2026-10-14 at the owner's request. The owner answered its open question on 2026-10-14 (docs/proposals/workflow-model.md); the decision overrides this description where they differ.
 <!-- SECTION:DESCRIPTION:END -->
 
 ## Acceptance Criteria

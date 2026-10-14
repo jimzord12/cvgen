@@ -27,7 +27,8 @@ The design agreed with the owner on 2026-10-05 (handoff section 3): YAML
 facts per stage, a TypeScript engine that type-checks them and checks the
 flow, generated docs, diagrams and `Atlas` pages, and the old prose
 descriptions removed so the model is the only source. The work is TASK-33
-to TASK-44; the restructure tasks TASK-45 to TASK-57 come from the same audit.
+to TASK-44; the restructure tasks TASK-45 to TASK-57 come from the same audit,
+and TASK-28 to TASK-32 from the owner's repository walk-through of 2026-10-06.
 
 ## Consequence
 
@@ -48,7 +49,7 @@ Tool). The owner's chosen option is quoted.
 
 | # | Question | Owner's answer | What it means |
 |---|---|---|---|
-| 1 | When is "Delivered, delete by" written? | "At export" | The delete-by date is written when the approved `Revision` is exported, together with the export, and the 12 months count from `Export`. With #5, every send now follows an `Export`, so the date is at most a few days earlier than "12 months after delivery" in the consent text, which stays as it is. The `Envelope` README line becomes "Exported <date>, delete by <date>". Lead's default, open to the owner: the one existing record (`client-2026-09-01`, date written at delivery, `Export` never run) keeps its date. |
+| 1 | When is "Delivered, delete by" written? | "At export" | The delete-by date is written when the approved `Revision` is exported, together with the export, and the 12 months count from `Export`. With #5, every send now follows an `Export`, so the date is at most a few days earlier than "12 months after delivery" in the consent text, which stays as it is. Lead's defaults, open to the owner: the `Envelope` README line becomes "Exported <date>, delete by <date>"; the one existing record (`client-2026-09-01`, date written at delivery, `Export` never run) keeps its date. |
 | 2 | The `Text Draft` is stamped `sent` before it is sent | "Add a 'ready' status" | Compiling stamps `ready`; `sent` only when the owner confirms he sent it. |
 | 3 | How long is client data kept? | First "Keep forever"; after the lead's pushback (the consent text already promises deletion 12 months after delivery, and EU data rules need a reason for unlimited keeping), "12 months after all" | Delete 12 months after `Export` unless the client asks to keep; a keep request is a field in `envelope.json`. No consent text change. |
 | 4 | Does every client CV get a `design-reviewer` round? | "Every client CV" | Template-built CVs too, since every one must pass the `Batch Test`. |
@@ -81,7 +82,13 @@ Tool). The owner's chosen option is quoted.
   moves unattended (history kept, links fixed, suite passing); the report
   shows the tree before and after.
 - **TASK-57, GitHub description:** "Hand-crafted, premium CVs made with AI
-  on a custom Typst framework, for any profession."
+  on a custom Typst framework, for any profession." Applied by the lead on
+  2026-10-14 right after the owner chose the text, with
+  `gh repo edit jimzord12/cvgen --description "<that text>"`. The exact
+  command was not shown to him first, as `docs/preferences.md` asks for a
+  repository settings change; the lead discloses this in its report. The
+  previous text was "Three distinctive marine and mechanical engineer resume
+  prototypes built with Typst".
 - **TASK-31, name for `docs/reference`:** "docs/engine".
 - **Scope:** "All 30 queued tasks" (TASK-28 to TASK-57) run unattended, in
   dependency order, each on its own branch, reviewed and merged, with one
