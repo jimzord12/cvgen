@@ -1,10 +1,10 @@
 ---
 id: TASK-42
 title: 'workflow-reality-check: level 3, the model checked against a real run'
-status: Queued
+status: Active
 assignee: []
 created_date: '2026-10-14 04:47'
-updated_date: '2026-10-14 09:42'
+updated_date: '2026-10-14 10:17'
 labels:
   - workflow-model
 dependencies:
