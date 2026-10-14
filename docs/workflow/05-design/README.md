@@ -27,20 +27,31 @@
 - **No `Template` means a design first, not code first.** The `Idea Run`
   draws on fictional data for the `Client`'s `Domain`, specialty and
   `Rank`; the owner picks a `Style`, `Design Tier` and `Density`
-  (`design.pick`); only then is the one-off `Template` built in the
-  `Envelope` (`design.port-concept`).
+  (`design.pick`), and may first look at the concepts, with their status,
+  in the `Design Review` app; only then is the one-off `Template` built in
+  the `Envelope` (`design.port-concept`). Its `typst/cv.typ` imports
+  `/packages/cv-framework/lib.typ` only (ADR 0012), so render checks no
+  schema; the design's other files (`presentation.json`, the `.typ` files
+  in `designs/` and `text/`, the SVGs in `art/`, the portrait) are read by
+  a path relative to `cv.typ`, and a `Revision` copies each one it finds.
 - **The public engine changes only through code review.** A one-off's own
   design, wording and art stay in its `Envelope`; only what the engine
   alone can hold (today: a font render must find in the `Framework`'s
   fonts) goes through `design.engine-change` and a fresh `code-reviewer`
   (`gate.engine-review`, owner's decision #6).
 - **Client pages leave `private/` only as previews.** `design.preview`
-  compiles them into `builds/` for the reviewer, who never reads
-  `private/`; reports are stored in the `Envelope`, and
-  `design.clear-review-input` deletes the previews when the loop ends.
+  compiles them into `builds/design-review-input-<timestamp>/` for the
+  reviewer, who never reads `private/`. Its brief names the `Alias` only,
+  the `Domain`, specialty and `Rank`, the chosen concept folder, `Design
+  Tier` and `Density` when there is one, and that the text is the
+  signed-off text. Every report is stored verbatim in the `Envelope` as
+  `reviews/design-NN.md`, never under `archive/work-records/`, and
+  `design.clear-review-input` deletes the previews by path when the loop
+  ends.
 - **When to stop:** a fresh `design-reviewer` returns PASS, or the cap of
-  `loop.client-design-review` is reached and the design goes to the owner
-  marked unresolved with the last reason (`design.cap-reached`).
+  `loop.client-design-review` (5 rounds while the owner attends, 10
+  unattended, unless he sets another) is reached and the design goes to
+  the owner marked unresolved with the last reason (`design.cap-reached`).
 
 ## Branches
 
@@ -85,14 +96,13 @@ Two gates in a chain choose one of three build paths:
   page plan changes instead.
 - Skipping the design review because the Flagship "is already approved".
 
-## Where the detail lives until TASK-43
+## Reference detail
 
-- `docs/guides/build-a-cv.md` sections 1-2 (record and entry point) and 8
-  (the custom composition); `docs/guides/client-workflow.md` section 9
-  (the one-off `Template`).
-- The `new-cv` skill, steps 1-3; the `idea-run` skill;
-  `docs/engine/layout-and-pagination.md` for page plans;
-  `docs/framework-gaps.md` for the known gaps.
+- `docs/guides/build-a-cv.md` sections 1-2 (the entry point and the
+  record) and 5 (the custom composition).
+- The `new-cv` skill: the checklist, by step ID, with the preview
+  command; the `idea-run` skill; `docs/engine/layout-and-pagination.md`
+  for page plans; `docs/framework-gaps.md` for the known gaps.
 
 ## Diagram
 
@@ -312,7 +322,7 @@ flowchart TD
 | `lead.change-engine` | lead | Change the engine | Makes the engine change the design needs on a branch, for the normal code-reviewer gate; the one-off's own assets stay in its Envelope. |
 | `lead.check-flagship-fit` | lead | Check the Flagship fit | Checks the data against the known Flagship gaps listed in docs/framework-gaps.md. |
 | `lead.clear-review-input` | lead | Clear the previews | Deletes the builds/design-review-input-* folders by path, since they hold a real client's pages outside private/ (never git clean -x or -X). |
-| `lead.compile-previews` | lead | Compile the previews | Compiles the client's pages into builds/design-review-input-<timestamp>/, since the reviewer never reads private/ (no source gives the command). |
+| `lead.compile-previews` | lead | Compile the previews | Compiles typst/cv.typ into builds/design-review-input-<timestamp>/cv.pdf with the typst compile line in the new-cv skill, since the reviewer never reads private/. |
 | `lead.compose-by-hand` | lead | Compose by hand | Writes typst/cv.typ from the lib.typ components (core-components, flagship-components), with data the schema cannot hold in typst/presentation.json, every file read by a literal relative path. |
 | `lead.fix-design` | lead | Fix the design | Fixes the design on the findings and stores the report verbatim as reviews/design-NN.md before the next fresh round. |
 | `lead.integrate-run` | lead | Integrate the Idea Run | Runs python scripts/outputs.py check (every design carries its Meta File), then commits, merges to main and pushes; concepts stay proposed. |

@@ -12,7 +12,7 @@
 actors:
   - id: actor.owner
     name: The owner
-    sources: ["docs/guides/client-workflow.md:9-10", "docs/preferences.md:49-51", "docs/preferences.md:69-81"]
+    sources: ["docs/workflow/README.md:22-24", "docs/preferences.md:49-51", "docs/preferences.md:69-81"]
     kind: human
     does: >-
       The only one who talks to the client: names a new client, relays every
@@ -22,7 +22,7 @@ actors:
 
   - id: actor.client
     name: The client
-    sources: ["docs/glossary.md:46", "docs/guides/client-workflow.md:112-115", "docs/guides/client-workflow.md:302-308"]
+    sources: ["docs/glossary.md:46", "docs/workflow/02-intake/README.md:17-23", "docs/workflow/04-text-draft/README.md:17-21"]
     kind: human
     does: >-
       Answers the question list and the one follow-up (by chat or an Intake
@@ -31,7 +31,7 @@ actors:
 
   - id: actor.lead
     name: The lead (the main Claude Code session)
-    sources: ["docs/guides/client-workflow.md:9-10", ".claude/skills/new-client/SKILL.md:8-9", "docs/proposals/workflow-model.md:58"]
+    sources: ["docs/workflow/README.md:22-24", ".claude/skills/new-client/SKILL.md:8-11", "docs/proposals/workflow-model.md:58"]
     kind: lead
     does: >-
       Writes every file of the Envelope, researches, briefs the subagents and
@@ -41,7 +41,7 @@ actors:
 
   - id: actor.general-purpose
     name: General-purpose agent
-    sources: [".claude/skills/new-client/SKILL.md:41-43", ".claude/skills/new-client/SKILL.md:80-93"]
+    sources: [".claude/skills/new-client/SKILL.md:62-64", ".claude/skills/new-client/SKILL.md:99-112"]
     kind: agent
     does: >-
       Claude Code's built-in agent: writes one Deep Dive per chosen question
@@ -90,19 +90,19 @@ actions:
   - id: manual.paste-message
     kind: manual
     name: Paste the message to the client
-    sources: ["docs/guides/client-workflow.md:112-115", "docs/guides/client-workflow.md:270-273"]
+    sources: ["docs/workflow/02-intake/README.md:17-23", "docs/workflow/README.md:22-24"]
     does: The owner pastes the lead's message into the chat app the client already uses (Viber, WhatsApp, email).
 
   - id: manual.client-answer
     kind: manual
     name: The client answers
-    sources: ["docs/guides/client-workflow.md:114-115", "docs/guides/client-workflow.md:122-125"]
+    sources: ["docs/workflow/02-intake/README.md:21-23", "docs/workflow/02-intake/README.md:45-48"]
     does: The client answers in any order, in text or voice messages, over a few days, or in the Intake Form.
 
   - id: manual.copy-chat-to-envelope
     kind: manual
     name: Bring the answers into the Envelope
-    sources: ["docs/guides/client-workflow.md:117-120", "docs/guides/client-workflow.md:272-273"]
+    sources: ["docs/workflow/02-intake/README.md:33-35", "docs/workflow/README.md:22-24"]
     does: >-
       The owner copies the chat text into intake/messages.md (a WhatsApp
       "Export chat" file works as is) and saves photos and files into
@@ -111,7 +111,7 @@ actions:
   - id: lead.write-form-script
     kind: lead
     name: Write the Intake Form script
-    sources: ["docs/guides/client-workflow.md:122-131", ".claude/skills/new-client/SKILL.md:28-31", "scripts/intake-form.gs:20-21"]
+    sources: ["docs/guides/client-workflow.md:136-141", ".claude/skills/new-client/SKILL.md:45-48", "scripts/intake-form.gs:20-21"]
     does: >-
       Writes intake/form-NN.gs, a copy of scripts/intake-form.gs with only its
       FORM block changed: title, intro, consent, questions; pages by topic and
@@ -120,7 +120,7 @@ actions:
   - id: agent.research-reviewer
     kind: agent
     name: A fresh research-reviewer round
-    sources: [".claude/agents/research-reviewer.md:1-6", "docs/guides/client-workflow.md:246-252", ".claude/skills/idea-run/SKILL.md:54-57"]
+    sources: [".claude/agents/research-reviewer.md:1-6", "docs/workflow/03-research/README.md:43-51", ".claude/skills/idea-run/SKILL.md:54-57"]
     agent: research-reviewer
 
   # The escalation at every loop's cap.
@@ -139,35 +139,35 @@ artifacts:
 
   - id: art.envelope-json
     name: envelope.json
-    sources: ["docs/guides/client-workflow.md:43", "docs/guides/client-workflow.md:100-108", "packages/cv-workflow/cv_workflow/outputs.py:61-78"]
+    sources: ["docs/guides/client-workflow.md:33", "docs/guides/client-workflow.md:85-94", "packages/cv-workflow/cv_workflow/outputs.py:61-78"]
     path: private/<envelope>/envelope.json
     format: "JSON: alias, domain, candidate, rank (each checked against output.schema.json's property of that name)"
     visibility: private
 
   - id: art.envelope-readme
     name: The Envelope's README.md (Alias and intake date)
-    sources: ["docs/guides/client-workflow.md:41-42", "docs/guides/client-workflow.md:94-96", ".claude/skills/new-client/SKILL.md:16-18"]
+    sources: ["docs/guides/client-workflow.md:31-32", "docs/workflow/01-open/README.md:23-26", ".claude/skills/new-client/SKILL.md:33-35"]
     path: private/<envelope>/README.md
     format: Markdown, no fixed shape
     visibility: private
 
   - id: art.readme-google-links
     name: README.md, section "Google"
-    sources: ["docs/guides/client-workflow.md:137-139", "scripts/intake-form.gs:11-15"]
+    sources: ["docs/guides/client-workflow.md:153-155", "scripts/intake-form.gs:11-15"]
     path: private/<envelope>/README.md
     format: Markdown lines with the form's answer and edit links, the Sheet and the script project
     visibility: private
 
   - id: art.readme-delete-by
     name: README.md, the Export and delete-by line
-    sources: ["docs/proposals/workflow-model.md:54", "docs/guides/client-workflow.md:330-332"]
+    sources: ["docs/proposals/workflow-model.md:54", "docs/workflow/06-deliver/README.md:44-46"]
     path: private/<envelope>/README.md
     format: Markdown line, "Exported <date>, delete by <date + 12 months>" (lead's default wording)
     visibility: private
 
   - id: art.client-task
     name: The client's Backlog.md task
-    sources: ["docs/proposals/workflow-model.md:60", "docs/guides/client-workflow.md:96-98"]
+    sources: ["docs/proposals/workflow-model.md:60", "docs/workflow/01-open/README.md:23-26"]
     path: backlog/tasks/
     format: Backlog.md task, titled by the Alias only
     visibility: public
@@ -177,20 +177,20 @@ artifacts:
   # Also read in stage after: its consent text offers to keep his data.
   - id: art.intake-message
     name: The questions in the client's chat
-    sources: ["docs/guides/client-workflow.md:112-115", "docs/guides/client-workflow.md:122-125"]
+    sources: ["docs/workflow/02-intake/README.md:17-23", "docs/workflow/02-intake/README.md:45-48"]
     format: chat message (with the form's answer link when there is a form)
     visibility: third-party
 
   - id: art.messages-md
     name: messages.md (intake answers)
-    sources: ["docs/guides/client-workflow.md:46", "docs/guides/client-workflow.md:117-120", "docs/guides/client-workflow.md:152-153"]
+    sources: ["docs/guides/client-workflow.md:36", "docs/workflow/02-intake/README.md:33-35", ".claude/skills/new-client/SKILL.md:45-48", "docs/workflow/02-intake/README.md:66-67"]
     path: private/<envelope>/intake/messages.md
     format: Markdown, every answer as received, dated, in the client's words
     visibility: private
 
   - id: art.documents
     name: The client's documents
-    sources: ["docs/guides/client-workflow.md:47", "docs/guides/client-workflow.md:119-120", "docs/guides/client-workflow.md:156-157"]
+    sources: ["docs/guides/client-workflow.md:37", "docs/workflow/02-intake/README.md:33-35", "docs/guides/client-workflow.md:141-143"]
     path: private/<envelope>/intake/documents/
     format: photos and files, any format
     visibility: private
@@ -199,14 +199,14 @@ artifacts:
 
   - id: art.facts-final
     name: facts.md, final
-    sources: ["docs/guides/client-workflow.md:48", "docs/guides/client-workflow.md:272-276", ".claude/skills/new-client/SKILL.md:58"]
+    sources: ["docs/guides/client-workflow.md:38", "docs/workflow/03-research/README.md:62-64", ".claude/skills/new-client/SKILL.md:73-74"]
     path: private/<envelope>/intake/facts.md
     format: Markdown, every fact with its source; what is still missing is left out or marked not supplied
     visibility: private
 
   - id: art.decisions-md
     name: CV Decisions (decisions.md)
-    sources: ["docs/guides/client-workflow.md:53", "docs/guides/client-workflow.md:217-233", "docs/glossary.md:55"]
+    sources: ["docs/guides/client-workflow.md:43", "docs/guides/client-workflow.md:179-195", "docs/glossary.md:55"]
     path: private/<envelope>/research/decisions.md
     format: Markdown, one line per decision with its answer and source, "judgement" and the reason, or "open"
     visibility: private
@@ -215,14 +215,14 @@ artifacts:
 
   - id: art.draft-pdf
     name: Text Draft PDF
-    sources: ["docs/guides/client-workflow.md:57", "docs/guides/client-workflow.md:280-287", "packages/cv-workflow/cv_workflow/outputs.py:52-53"]
+    sources: ["docs/guides/client-workflow.md:47", "docs/workflow/04-text-draft/README.md:17-30", "packages/cv-workflow/cv_workflow/outputs.py:52-53"]
     path: private/<envelope>/draft/draft-NN.pdf
     format: PDF, page 1 the Check Page, then the CV's content
     visibility: private
 
   - id: art.draft-meta
     name: The Text Draft's Meta File
-    sources: ["docs/guides/client-workflow.md:58", "docs/pdf-workflow.md:128", "docs/guides/client-workflow.md:294-300"]
+    sources: ["docs/guides/client-workflow.md:48", "docs/pdf-workflow.md:130", "docs/workflow/04-text-draft/README.md:31-35"]
     path: private/<envelope>/draft/draft-NN.meta.json
     format: "JSON, kind client-draft, status ready, sent, signed-off or superseded"
     schema: art.output-schema
@@ -230,7 +230,7 @@ artifacts:
 
   - id: art.sign-off-png
     name: The Sign-off screenshot
-    sources: ["docs/guides/client-workflow.md:59", "docs/guides/client-workflow.md:307-308", "docs/glossary.md:62"]
+    sources: ["docs/guides/client-workflow.md:49", "docs/workflow/04-text-draft/README.md:39-41", "docs/glossary.md:62"]
     path: private/<envelope>/draft/sign-off-NN.png
     format: PNG screenshot of the client's OK
     visibility: private
@@ -239,14 +239,14 @@ artifacts:
 
   - id: art.candidate-json
     name: candidate.json
-    sources: ["docs/guides/client-workflow.md:44", "docs/guides/build-a-cv.md:65-77", "packages/cv-workflow/cv_workflow/workspace.py:93-95"]
+    sources: ["docs/guides/client-workflow.md:34", "docs/guides/build-a-cv.md:55-77", "packages/cv-workflow/cv_workflow/workspace.py:93-95"]
     path: private/<envelope>/candidate.json
     format: JSON, checked against the schema cv.typ's imports name (Flagship input for marine; none for a one-off)
     visibility: private
 
   - id: art.cv-typ
     name: The CV's entry point
-    sources: ["docs/guides/client-workflow.md:60-61", "docs/guides/build-a-cv.md:31-51", "packages/cv-workflow/cv_workflow/workspace.py:72-73"]
+    sources: ["docs/guides/client-workflow.md:50-51", "docs/guides/build-a-cv.md:19-39", "packages/cv-workflow/cv_workflow/workspace.py:72-73"]
     path: private/<envelope>/typst/cv.typ
     format: Typst; reads every file by a path relative to itself
     visibility: private
@@ -270,7 +270,7 @@ artifacts:
 
   - id: art.output-schema
     name: The Meta File schema
-    sources: ["packages/cv-workflow/cv_workflow/output.schema.json:1-41", "docs/pdf-workflow.md:131-136"]
+    sources: ["packages/cv-workflow/cv_workflow/output.schema.json:1-41", "docs/pdf-workflow.md:133-138"]
     path: packages/cv-workflow/cv_workflow/output.schema.json
     format: JSON Schema 2020-12, $id cvgen.output/1
     visibility: public
@@ -278,7 +278,7 @@ artifacts:
 
   - id: art.framework-fonts
     name: The bundled fonts
-    sources: ["scripts/text-draft.typ:27-28", "packages/cv-workflow/cv_workflow/workspace.py:15", "docs/guides/client-workflow.md:290"]
+    sources: ["scripts/text-draft.typ:27-28", "packages/cv-workflow/cv_workflow/workspace.py:15", ".claude/skills/new-client/SKILL.md:83"]
     path: packages/cv-framework/fonts/
     format: OFL font files
     visibility: public

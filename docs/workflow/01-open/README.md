@@ -17,6 +17,9 @@
 This stage is short and has one path, but its mistakes are the expensive
 kind: a real name that leaks into a public file stays in Git history.
 
+- **The owner starts it.** A `Client` writes to the owner, never to the
+  lead; the owner tells the lead, naming the person, the `Rank` and the
+  `Domain` (`open.arrives`), and the lead does the rest of the stage.
 - **The folder name is client data.** `open.envelope` names the folder
   after the person and the `Rank`; `open.alias` gives the `Alias`, and from
   then on the `Alias` is the only name that leaves `private/`: task titles,
@@ -53,11 +56,11 @@ the owner in [P-0018](../../proposals/workflow-gaps.md) item 4.
 - Writing `envelope.json` after the first draft: the draft's stamp then
   has nothing to copy and refuses.
 
-## Where the detail lives until TASK-43
+## Reference detail
 
 - `docs/guides/client-workflow.md` section 1: the `Envelope` tree, which
-  that section owns, and an example `envelope.json`.
-- The `new-client` skill, step 1.
+  that section owns, the `Alias` format and an example `envelope.json`.
+- The `new-client` skill: the checklist, by step ID.
 
 ## Diagram
 
@@ -132,7 +135,7 @@ No loops in this stage.
 | ID | Kind | Name | Runs |
 |---|---|---|---|
 | `lead.create-client-task` | lead | Create the client's task | Creates one Backlog.md task for the client, named by the Alias only, since backlog/ is public. |
-| `lead.open-envelope` | lead | Open the Envelope | Creates private/<name>-<rank>/ in the one Envelope tree with README.md, intake/ (messages.md, documents/), research/ (reviews/) and draft/; never under examples/. |
+| `lead.open-envelope` | lead | Open the Envelope | Creates private/<envelope>/, named after the person and the Rank, in the one Envelope tree with README.md, intake/ (messages.md, documents/), research/ (reviews/) and draft/; never under examples/. |
 | `lead.write-alias` | lead | Write the Alias and intake date | Gives the client an Alias client-<yyyy>-<mm>-<nn> and writes it at the top of the Envelope's README.md with the date intake started; outside private/ the client is only ever the Alias. |
 | `lead.write-envelope-json` | lead | Write envelope.json | Writes alias, domain (an id from the glossary's Domain row), candidate (the display name) and rank; every Meta File in the Envelope copies it and scripts/cv.py render refuses to run without it. |
 | `manual.tell-new-client` | manual | Tell the lead about a new client | The owner tells the lead a new client has arrived, naming the person, the Rank and the Domain. |

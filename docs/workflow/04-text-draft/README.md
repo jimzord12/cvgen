@@ -14,14 +14,20 @@
 
 ## Judgement
 
-- **The `Client` checks facts, not wording.** The `Check Page` asks him to
-  check only what carries a `Fact Mark`; the wording is ours. So every
+- **The `Client` checks facts, not wording.** The `Check Page`, the first
+  page, in Greek, asks him to check only what carries a `Fact Mark` (the
+  copper stitch `#fact[...]` draws under a fact); the wording is ours. So every
   name, date, number and title he must confirm is marked, and nothing else
-  is. A good draft is one he can answer "OK" to in one reading.
+  is. A good draft is one he can answer "OK" to in one reading. The
+  `Check Page`'s words are plain and professional; the tailoring idea
+  lives in the drawing only (owner, 2026-09-28).
 - **Look before the owner sees it.** `text-draft.draft-inspect` reads every
   page for a fact left unmarked or a mark on our own wording, then hands
-  the owner the path. The content is sized for the `Template` the design
-  will use, in the CV's language, so design does not have to cut it later.
+  the owner the path. The draft is the CV's content in the `Text Draft`'s
+  `House Design` (`scripts/text-draft.typ`, whose header comment lists its
+  parameters), not the CV's design; it is sized for the `Template` the
+  design will use (two pages by default), in the CV's language, so design
+  does not have to cut it later.
 - **The stamps follow what happened, never ahead of it.** Compiling stamps
   the draft ready (`text-draft.draft-compile`); only the owner's word that
   he sent it makes it sent (`text-draft.draft-sent`, owner's decision #2 in
@@ -57,12 +63,13 @@
 - Saving the `Sign-off` beside the wrong number, or starting design on an
   OK that was never saved.
 
-## Where the detail lives until TASK-43
+## Reference detail
 
-- `docs/guides/client-workflow.md` section 8; the header comment of
-  `scripts/text-draft.typ` (its parameters).
-- The `new-client` skill, step 8; `docs/pdf-workflow.md`, "Output
-  Contract", for the `Meta File` statuses.
+- The header comment of `scripts/text-draft.typ` (its parameters: the
+  `Client`'s name, greeting and label, draft number, date and four sample
+  facts).
+- The `new-client` skill: the checklist, by step ID, with the commands;
+  `docs/pdf-workflow.md`, "Output Contract", for the `Meta File` statuses.
 
 ## Diagram
 

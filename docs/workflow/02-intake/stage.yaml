@@ -1,7 +1,7 @@
 # yaml-language-server: $schema=../../../tools/workflow/schema/stage.schema.json
 id: intake
 name: Intake by Relay
-sources: ["docs/guides/client-workflow.md:110-194", ".claude/skills/new-client/SKILL.md:22-31"]
+sources: ["docs/workflow/02-intake/README.md:15-41", "docs/guides/client-workflow.md:96-129", ".claude/skills/new-client/SKILL.md:40-51"]
 purpose: >-
   The client answers one question list, consent first, through the owner
   (and optionally an Intake Form beside the chat message); nothing after this
@@ -15,7 +15,7 @@ exit: >-
 steps:
   - id: intake.questions
     name: Write the question list in Greek, consent first
-    sources: ["docs/guides/client-workflow.md:112-114", "docs/guides/client-workflow.md:161-187", ".claude/skills/new-client/SKILL.md:22-24"]
+    sources: ["docs/workflow/02-intake/README.md:17-20", "docs/guides/client-workflow.md:100-126", ".claude/skills/new-client/SKILL.md:42-44"]
     actor: actor.lead
     action: lead.write-question-list
     inputs: [art.envelope-json, art.master-question-list]
@@ -24,7 +24,7 @@ steps:
   # The Intake Form branch: optional, beside the chat message, never instead of it.
   - id: intake.form-script
     name: Write the Intake Form script
-    sources: ["docs/guides/client-workflow.md:122-131", ".claude/skills/new-client/SKILL.md:28-31"]
+    sources: ["docs/guides/client-workflow.md:136-141", ".claude/skills/new-client/SKILL.md:45-48"]
     actor: actor.lead
     action: lead.write-form-script
     inputs: [art.question-list, art.intake-form-lib]
@@ -33,7 +33,7 @@ steps:
 
   - id: intake.form-create
     name: Run createIntakeForm in Google
-    sources: ["docs/guides/client-workflow.md:131-137", "scripts/intake-form.gs:5-18", "scripts/intake-form.gs:78-114"]
+    sources: ["docs/guides/client-workflow.md:148-151", "scripts/intake-form.gs:5-18", "scripts/intake-form.gs:78-114"]
     actor: actor.owner
     action: manual.run-form-script
     inputs: [art.form-gs]
@@ -42,7 +42,7 @@ steps:
 
   - id: intake.form-links
     name: List the Google links in README.md
-    sources: ["docs/guides/client-workflow.md:137-139", ".claude/skills/new-client/SKILL.md:30-31", "scripts/intake-form.gs:11-15"]
+    sources: ["docs/guides/client-workflow.md:153-155", ".claude/skills/new-client/SKILL.md:45-48", "scripts/intake-form.gs:11-15"]
     actor: actor.lead
     action: lead.list-google-links
     inputs: [art.form-links]
@@ -51,7 +51,7 @@ steps:
 
   - id: intake.form-theme
     name: Give the form the house theme
-    sources: ["docs/guides/client-workflow.md:139-145", "scripts/intake-form.gs:16-17"]
+    sources: ["docs/guides/client-workflow.md:158-163", "scripts/intake-form.gs:16-17"]
     actor: actor.owner
     action: manual.apply-form-theme
     inputs: [art.google-form, art.intake-header-png]
@@ -60,7 +60,7 @@ steps:
 
   - id: intake.form-test-cleanup
     name: Delete the owner's test answer
-    sources: ["docs/guides/client-workflow.md:153-156"]
+    sources: ["docs/guides/client-workflow.md:165-168"]
     actor: actor.owner
     action: manual.delete-test-answer
     inputs: [art.google-form-themed, art.google-sheet]
@@ -68,7 +68,7 @@ steps:
 
   - id: intake.relay-send
     name: Paste the questions to the client
-    sources: ["docs/guides/client-workflow.md:112-115", "docs/guides/client-workflow.md:122-125", ".claude/skills/new-client/SKILL.md:24"]
+    sources: ["docs/workflow/02-intake/README.md:17-23", "docs/workflow/02-intake/README.md:45-48", ".claude/skills/new-client/SKILL.md:42-44"]
     actor: actor.owner
     action: manual.paste-message
     inputs: [art.question-list]
@@ -76,7 +76,7 @@ steps:
 
   - id: intake.client-answers
     name: The client answers by chat
-    sources: ["docs/guides/client-workflow.md:114-115"]
+    sources: ["docs/workflow/02-intake/README.md:21-23"]
     actor: actor.client
     action: manual.client-answer
     inputs: [art.intake-message]
@@ -84,7 +84,7 @@ steps:
 
   - id: intake.form-fill
     name: The client answers in the Intake Form
-    sources: ["docs/guides/client-workflow.md:122-125", "docs/guides/client-workflow.md:145-147"]
+    sources: ["docs/workflow/02-intake/README.md:45-48", "docs/guides/client-workflow.md:170-172"]
     actor: actor.client
     action: manual.client-answer
     inputs: [art.intake-message, art.google-form-themed]
@@ -93,7 +93,7 @@ steps:
 
   - id: intake.transcribe
     name: Transcribe voice messages
-    sources: ["docs/guides/client-workflow.md:117-118", ".claude/skills/new-client/SKILL.md:26-27"]
+    sources: ["docs/workflow/02-intake/README.md:31-33"]
     actor: actor.owner
     action: manual.transcribe-voice
     inputs: [art.client-answers]
@@ -102,7 +102,7 @@ steps:
 
   - id: intake.capture
     name: Bring the chat answers into the Envelope
-    sources: ["docs/guides/client-workflow.md:118-120"]
+    sources: ["docs/workflow/02-intake/README.md:33-35"]
     actor: actor.owner
     action: manual.copy-chat-to-envelope
     inputs: [art.client-answers]
@@ -110,7 +110,7 @@ steps:
 
   - id: intake.form-download
     name: Download the form answers as CSV
-    sources: ["docs/guides/client-workflow.md:145-152"]
+    sources: ["docs/guides/client-workflow.md:170-177"]
     actor: actor.owner
     action: manual.download-answers-csv
     inputs: [art.form-responses]
@@ -119,7 +119,7 @@ steps:
 
   - id: intake.form-copy
     name: Copy the form answers into messages.md
-    sources: ["docs/guides/client-workflow.md:152-153"]
+    sources: [".claude/skills/new-client/SKILL.md:45-48", "docs/workflow/02-intake/README.md:66-67"]
     actor: actor.lead
     action: lead.copy-form-answers
     inputs: [art.answers-csv]
@@ -128,7 +128,7 @@ steps:
 
   - id: intake.consent
     name: Check consent (hard stop)
-    sources: ["docs/guides/client-workflow.md:189-191", ".claude/skills/new-client/SKILL.md:24-26"]
+    sources: ["docs/workflow/02-intake/README.md:24-26", ".claude/skills/new-client/SKILL.md:49-51"]
     actor: actor.lead
     action: lead.check-consent
     inputs: [art.messages-md]
@@ -139,7 +139,7 @@ steps:
   # stall check names him and the owner may delete him.
   - id: intake.no-consent
     name: No consent; the owner decides
-    sources: ["docs/guides/client-workflow.md:191-192", "docs/guides/client-workflow.md:333-338", "docs/workflow/GAPS.md:51-53"]
+    sources: ["docs/workflow/02-intake/README.md:52-57", "docs/workflow/07-after/README.md:46-49", "docs/workflow/07-after/README.md:27-34", "docs/workflow/GAPS.md:51-53"]
     actor: actor.owner
     action: manual.decide-on-no-consent
     inputs: [art.messages-md]
@@ -147,7 +147,7 @@ steps:
 gates:
   - id: gate.consent
     name: Consent
-    sources: ["docs/guides/client-workflow.md:189-192", ".claude/skills/new-client/SKILL.md:24-26"]
+    sources: ["docs/workflow/02-intake/README.md:24-26", ".claude/skills/new-client/SKILL.md:49-51"]
     check: The client's "I agree" is in intake/messages.md.
     pass: research.facts
     fail: intake.no-consent
@@ -155,7 +155,7 @@ gates:
 artifacts:
   - id: art.master-question-list
     name: The master question list
-    sources: ["docs/guides/client-workflow.md:161-187"]
+    sources: ["docs/guides/client-workflow.md:100-126"]
     path: docs/guides/client-workflow.md
     format: Markdown list of 13 questions in English, consent first
     visibility: public
@@ -163,56 +163,56 @@ artifacts:
 
   - id: art.question-list
     name: The question list, ready to paste
-    sources: ["docs/guides/client-workflow.md:112-114", ".claude/skills/new-client/SKILL.md:22-24"]
+    sources: ["docs/workflow/02-intake/README.md:17-20", ".claude/skills/new-client/SKILL.md:42-44"]
     format: one message in simple, friendly Greek, adapted to the Domain and target
     visibility: ephemeral
 
   - id: art.client-answers
     name: The client's chat answers
-    sources: ["docs/guides/client-workflow.md:114-118"]
+    sources: ["docs/workflow/02-intake/README.md:21-23"]
     format: chat messages, voice messages, photos and files
     visibility: third-party
 
   - id: art.form-gs
     name: The Intake Form script copy
-    sources: ["docs/guides/client-workflow.md:49", "docs/guides/client-workflow.md:125-127"]
+    sources: ["docs/guides/client-workflow.md:39", "docs/guides/client-workflow.md:136-137"]
     path: private/<envelope>/intake/form-NN.gs
     format: Google Apps Script, only FORM changed
     visibility: private
 
   - id: art.google-form
     name: The Intake Form
-    sources: ["docs/guides/client-workflow.md:131-135", "docs/guides/client-workflow.md:158-159", "scripts/intake-form.gs:78-109"]
+    sources: ["docs/guides/client-workflow.md:148-151", "docs/guides/client-workflow.md:155-156", "scripts/intake-form.gs:78-109"]
     format: Google Form in the owner's account
     visibility: third-party
 
   - id: art.google-form-themed
     name: The Intake Form with the house theme
-    sources: ["docs/guides/client-workflow.md:139-145"]
+    sources: ["docs/guides/client-workflow.md:158-163"]
     format: "Google Form, header image, colour #B0602B, Bona Nova and Source Sans 3"
     visibility: third-party
 
   - id: art.google-sheet
     name: The answers Sheet
-    sources: ["docs/guides/client-workflow.md:133-135", "scripts/intake-form.gs:51-52", "scripts/intake-form.gs:104-105"]
+    sources: ["docs/guides/client-workflow.md:150-151", "scripts/intake-form.gs:51-52", "scripts/intake-form.gs:104-105"]
     format: Google Sheet titled with the Alias, tab "Form Responses 1"
     visibility: third-party
 
   - id: art.script-project
     name: The Apps Script project
-    sources: ["docs/guides/client-workflow.md:131-133", "scripts/intake-form.gs:6-8"]
+    sources: ["docs/guides/client-workflow.md:148-150", "scripts/intake-form.gs:6-8"]
     format: script.google.com project named after the Alias
     visibility: third-party
 
   - id: art.form-links
     name: The four Google links
-    sources: ["docs/guides/client-workflow.md:133-139", "scripts/intake-form.gs:11-15", "scripts/intake-form.gs:111-113"]
+    sources: ["docs/guides/client-workflow.md:150-155", "scripts/intake-form.gs:11-15", "scripts/intake-form.gs:111-113"]
     format: the execution log's answer, edit and Sheet links, plus the project's own link
     visibility: third-party
 
   - id: art.intake-header-png
     name: The Intake Form header image
-    sources: ["docs/guides/client-workflow.md:140-141"]
+    sources: ["docs/guides/client-workflow.md:159-160"]
     path: studio/brand/forms/intake-header.png
     format: PNG
     visibility: public
@@ -220,13 +220,13 @@ artifacts:
 
   - id: art.form-responses
     name: The client's form answers
-    sources: ["docs/guides/client-workflow.md:133-135", "docs/guides/client-workflow.md:145-147"]
+    sources: ["docs/guides/client-workflow.md:150-151", "docs/guides/client-workflow.md:170-172"]
     format: rows in the answers Sheet
     visibility: third-party
 
   - id: art.answers-csv
     name: The downloaded form answers
-    sources: ["docs/guides/client-workflow.md:50", "docs/guides/client-workflow.md:145-152"]
+    sources: ["docs/guides/client-workflow.md:40", "docs/guides/client-workflow.md:170-177"]
     path: private/<envelope>/intake/answers-NN.csv
     format: CSV, one column per question and per grid row, dates in the Sheet's locale
     visibility: private
@@ -235,7 +235,7 @@ actions:
   - id: lead.write-question-list
     kind: lead
     name: Write the question list
-    sources: ["docs/guides/client-workflow.md:112-114", ".claude/skills/new-client/SKILL.md:22-24"]
+    sources: ["docs/workflow/02-intake/README.md:17-20", ".claude/skills/new-client/SKILL.md:42-44"]
     does: >-
       Writes the guide's 13 questions, consent first, as one message in
       simple, friendly Greek adapted to the client's Domain and target, ready
@@ -244,7 +244,7 @@ actions:
   - id: manual.run-form-script
     kind: manual
     name: Run the Intake Form script
-    sources: ["docs/guides/client-workflow.md:131-139", "scripts/intake-form.gs:5-18"]
+    sources: ["docs/guides/client-workflow.md:148-155", "scripts/intake-form.gs:5-18"]
     does: >-
       The owner pastes form-NN.gs into a new script.google.com project named
       after the Alias, runs createIntakeForm once (Advanced, then Go to the
@@ -254,13 +254,13 @@ actions:
   - id: lead.list-google-links
     kind: lead
     name: List the Google links
-    sources: ["docs/guides/client-workflow.md:137-139"]
+    sources: ["docs/guides/client-workflow.md:153-155"]
     does: Lists the links the owner brings back under "Google" in the Envelope's README.md.
 
   - id: manual.apply-form-theme
     kind: manual
     name: Apply the house theme
-    sources: ["docs/guides/client-workflow.md:139-145"]
+    sources: ["docs/guides/client-workflow.md:158-163"]
     does: >-
       Before sending the link, the owner sets the form's theme: header
       studio/brand/forms/intake-header.png, colour #B0602B, the warm-paper
@@ -270,19 +270,19 @@ actions:
   - id: manual.delete-test-answer
     kind: manual
     name: Delete the test answer
-    sources: ["docs/guides/client-workflow.md:153-156"]
+    sources: ["docs/guides/client-workflow.md:165-168"]
     does: The owner deletes his test answer in the form's Responses tab and its row in the Sheet, before the client answers.
 
   - id: manual.transcribe-voice
     kind: manual
     name: Transcribe voice messages
-    sources: ["docs/guides/client-workflow.md:117-118"]
+    sources: ["docs/workflow/02-intake/README.md:31-33"]
     does: The phone transcribes the voice messages, or the owner types the gist; the lead reads text only.
 
   - id: manual.download-answers-csv
     kind: manual
     name: Download the answers as CSV
-    sources: ["docs/guides/client-workflow.md:145-152"]
+    sources: ["docs/guides/client-workflow.md:170-177"]
     does: >-
       In the answers Sheet, with "Form Responses 1" open: File, Download,
       Comma-separated values, saved as intake/answers-NN.csv.
@@ -290,13 +290,13 @@ actions:
   - id: lead.copy-form-answers
     kind: lead
     name: Copy the form answers
-    sources: ["docs/guides/client-workflow.md:152-153"]
+    sources: [".claude/skills/new-client/SKILL.md:45-48", "docs/workflow/02-intake/README.md:66-67"]
     does: Copies the answers from answers-NN.csv into intake/messages.md, reading ambiguous dates such as 3/4 with care.
 
   - id: lead.check-consent
     kind: lead
     name: Check consent
-    sources: ["docs/guides/client-workflow.md:189-191", ".claude/skills/new-client/SKILL.md:24-26"]
+    sources: ["docs/workflow/02-intake/README.md:24-26", ".claude/skills/new-client/SKILL.md:49-51"]
     does: >-
       Looks for the client's "I agree" in intake/messages.md; until it is
       there, reads no documents, writes no facts and does no research.
@@ -304,7 +304,7 @@ actions:
   - id: manual.decide-on-no-consent
     kind: manual
     name: Decide on a client without consent
-    sources: ["docs/guides/client-workflow.md:191-192"]
+    sources: ["docs/workflow/02-intake/README.md:52-57"]
     does: >-
       The owner decides whether to ask the client again or to stop; a stopped
       client is named by after.stall-check after three months and deleted on

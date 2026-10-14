@@ -14,39 +14,54 @@
 
 ## Judgement
 
-- **Facts are sourced or absent.** `research.facts` writes each fact with
-  the message or document it came from. Nothing is invented, and a
+- **Facts are sourced or absent.** `research.facts` writes identity,
+  target, each job with its scope and results, certificates, education,
+  languages and what may be shown, each fact with the message or document
+  it came from. Nothing is invented, and a
   calendar period is never turned into service time (constitution section
   6). What is missing goes in the gap list and waits: asking now would
   spend the one follow-up early.
 - **Library first, then the web.** `research.library-read` comes before
   `research.scout`; a note past its "Recheck after" date is rechecked
-  (`research.library-recheck`) before the `Scout` leans on it. No search
-  ever carries the `Client`'s name or a combination that identifies him
-  (his employer with his `Rank` and dates); search for the kind of person,
-  never the person.
+  (`research.library-recheck`) before the `Scout` leans on it. The `Scout`
+  is wide and shallow: the country's CV norms, what the target employers
+  and the `Rank` expect, how CVs are sent (agency portal, applicant
+  tracking system, email); `scout.md` numbers its findings, each with a
+  source and its date, then lists the open questions. No search
+  ever carries the `Client`'s name, contact details or a combination that
+  identifies him (his employer with his `Rank` and dates, a vessel with
+  its crew position): search for "chief officers applying to Norwegian
+  shipowners", never the person.
 - **Every decision gets an answer, a judgement or "open".**
   `research.decisions` writes one line per choice the CV must make, and
   shows the owner the open ones with a recommendation each. The owner, not
-  the lead, picks which get a `Deep Dive` (`research.pick-deep-dives`).
+  the lead, picks which get a `Deep Dive` (`research.pick-deep-dives`):
+  0-3 per `Client`, up to 6 for an executive aiming at named companies.
 - **When to stop** (`gate.research-enough`): every `CV Decisions` line has
   a sourced answer or a stated judgement. A new source that changes no
   decision is the signal to stop; running out of sources is not the test.
 - **What a `Deep Dive` may hold.** The author gets the `Alias` only, never
   the `Envelope` path (`research.dive-brief`), and returns text, not files.
-  `research.dive-save` checks it for client details before any reviewer
-  sees it; the reviewer gets the text inline with its SHA-256, because it
-  never reads `private/`. The same author revises (`research.dive-revise`);
-  each review round is a fresh reviewer.
+  `research.dive-save` saves it as `research/deep-dive-<topic>.md` and
+  checks it for client details before any reviewer
+  sees it; the reviewer gets the text inline with its SHA-256 and the
+  question it answers, because it never reads `private/`, and its reports
+  stay in the `Envelope` (`research/reviews/<topic>-NN.md`). The same
+  author revises (`research.dive-revise`); each review round is a fresh
+  reviewer.
 - **What goes public.** A finding about a country, a `Domain` or a `Rank`,
   with nothing about the `Client`, also becomes a `Research Library` note
   (`research.library-note`), written free of client detail first and
   reviewed on its own text. A finding about one employer stays in the
   `Envelope` until a second `Client` targets the same employer.
 - **The one follow-up** (`research.follow-up-write`) is the gap list plus
-  the questions research raised, in one batch, within the size limits the
-  guide sets for a chat message or a form. Whatever is still missing after
-  it is left out of the CV or marked not supplied (`research.facts-update`).
+  the questions research raised, in one batch, in simple Greek. As a chat
+  message: aim for 5 questions, never more than 10. As an `Intake Form`
+  the cap is effort, not a count (`docs/guides/client-workflow.md` section
+  3), and the chat message carries the link and offers to answer there
+  instead. Whatever is still missing after
+  it is left out of the CV or marked not supplied (`research.facts-update`);
+  the `Client` is not asked again unless the owner decides to.
 
 ## Branches
 
@@ -82,12 +97,13 @@
 - Treating the caps of `loop.research-rounds` and `loop.library-review` as
   the owner's numbers: they are placeholders ([`GAPS.md`](../GAPS.md)).
 
-## Where the detail lives until TASK-43
+## Reference detail
 
-- `docs/guides/client-workflow.md` sections 3-7 and "Rules": the
-  decisions table, the `Deep Dive` counts, the follow-up's limits.
-- The `new-client` skill, steps 3-7, and its brief for a `Scout` or
-  `Deep Dive` agent; `docs/research/README.md` for library notes.
+- `docs/guides/client-workflow.md` section 4: what `CV Decisions` lines
+  look like; section 3: the follow-up as an `Intake Form`.
+- The `new-client` skill: the checklist, by step ID, and the brief for a
+  `Scout` or `Deep Dive` agent; `docs/research/README.md` for library
+  notes.
 
 ## Diagram
 

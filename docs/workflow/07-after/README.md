@@ -27,9 +27,11 @@
 - **The owner deletes; the lead prepares.** The lead fills in the
   history-erase commands with the folder name (`after.erase-commands`); the
   owner runs them (`after.erase-envelope`) and deletes the Google items
-  (`after.delete-google`). Deleting the folder is not enough: the private
-  repository keeps it in its history until the erase runs, and Drive keeps
-  deleted files in its Trash until it is emptied.
+  (`after.delete-google`): each `Intake Form`, its Sheet and its script
+  project listed in the `README.md`. Deleting the folder is not enough:
+  the private repository keeps it in its history until the erase runs,
+  and Drive keeps deleted files in its Trash for 30 days, so the owner
+  empties it.
 - **Close the task last.** `after.close` reads the erased history, so the
   `Client`'s task closes only once his data is gone.
 
@@ -59,11 +61,11 @@
   Trash.
 - Naming the `Client` by name in the report, the task or a commit.
 
-## Where the detail lives until TASK-43
+## Reference detail
 
-- `docs/guides/client-workflow.md` section 9, from "At `Export`" on: the
-  stall rule and the history-erase commands.
-- The `new-client` skill, "Report to the owner"; `docs/pdf-workflow.md`,
+- `docs/guides/client-workflow.md` section 5: the history-erase commands
+  and what must be clean before they run.
+- The `new-client` skill, "Every run: report first"; `docs/pdf-workflow.md`,
   "Retention and migration".
 
 ## Diagram
