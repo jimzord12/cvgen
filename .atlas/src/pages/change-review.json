@@ -37,14 +37,17 @@
           "summary": "Claude reads AGENTS.md, your preferences, then the `session-handoff` doc as it stands on `main`, and checks it against Git and the evidence.",
           "does": [
             "Gives you a four-line briefing: Goal, Now, Next, You.",
-            "Separates an approved design from built behaviour, and old checks from current proof."
+            "Separates an approved design from built behaviour, and old checks from current proof.",
+            "Runs `scripts/proposals.py` and tells you its one line: how many proposals wait on you, and how many are approved but not applied."
           ],
           "uses": [
             "backlog"
           ],
           "sources": [
             "docs/development.md:34-56",
-            "AGENTS.md:35-44"
+            "AGENTS.md:35-44",
+            "AGENTS.md:49-54",
+            "docs/proposals/README.md:45-50"
           ]
         },
         {
