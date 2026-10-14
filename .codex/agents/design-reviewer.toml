@@ -108,7 +108,7 @@ do not apply.
 1. **`Batch Test`.** On the batch sheet the page is the one the eye lands
    on and it could not be skipped. Fail: it blends in.
 2. **`Three-Second Test`.** Before reading a word, at thumbnail and at arm's
-   length, you can name the `Domain`, the specialty and the role the lead
+   length, you can name the `Domain`, the specialty and the `Rank` the lead
    gave (for example travel, Japan, tour escort). Name the elements that
    say each. Fail: any of the three needs reading.
 3. **`Flagship Parity`.** Side by side with the Flagship it looks as
@@ -175,7 +175,7 @@ Batch sheets: <paths under builds/, or n/a>
 
 ## <concept: style/density/tier[, page N] | client CV: page>: PASS | FINDINGS
 First impression: <one line, what the eye sees first at thumbnail size>
-Three-Second Test: <domain / specialty / role, and the element that says each>
+Three-Second Test: <domain / specialty / rank, and the element that says each>
 - D<n> <Blocking|Note> (<criterion>): <what is wrong, where on the page> - Fix: <smallest fix>
 
 ## Renders made

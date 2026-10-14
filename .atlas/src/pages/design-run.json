@@ -38,7 +38,7 @@
             "lead"
           ],
           "summary": "For a client whose `Domain` has no `Template` yet, or when you want inspiration.",
-          "you": "Say which `Domain`, specialty and role the pages must shout, and how many pages Spacious may use (1 to 3).",
+          "you": "Say which `Domain`, specialty and `Rank` the pages must shout, and how many pages Spacious may use (1 to 3).",
           "does": [
             "The lead loads the `idea-run` skill.",
             "A product-ideas run works the same way with `ceo` and `ceo-reviewer` instead; weekly at most."
@@ -70,7 +70,7 @@
           "actor": "lead",
           "summary": "One steer for the author and the very same steer for every reviewer. Never any client data.",
           "does": [
-            "Names the `Domain`, specialty and role the page must shout.",
+            "Names the `Domain`, specialty and `Rank` the page must shout.",
             "Never bans domain imagery; gives the Spacious page count.",
             "The lead keeps the author's agent id, so revisions go back to the same author with its memory."
           ],
