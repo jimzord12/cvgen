@@ -1,6 +1,6 @@
 // The model-wide check: the whole Workflow Model (docs/workflow/catalog.yaml
 // and every NN-<stage>/stage.yaml) at levels 1 and 2 of the approved design
-// (docs/proposals/workflow-model.md; levels in docs/work/workflow-model/handoff.md).
+// (docs/proposals/workflow-model.md; levels in archive/work-records/workflow-model/handoff.md).
 //
 // Level 1, shape and references: every file matches its type, every ID is
 // unique and resolves, and what the facts name exists: source anchors (file and

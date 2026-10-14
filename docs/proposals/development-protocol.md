@@ -40,7 +40,7 @@ trial proposal's "Owner decision and application" and `docs/development.md`.
 ### Application
 
 2026-09-16: Claude Code established the minimum setup under task
-[dev-setup](../work/dev-setup/task.md): [`docs/development.md`](../development.md),
+[dev-setup](../../archive/work-records/dev-setup/task.md): [`docs/development.md`](../development.md),
 [`docs/review.md`](../review.md) and `.claude/agents/code-reviewer.md`, with
 `AGENTS.md` routing to them. The reviewer was validated against two fictional
 fixtures (defect and evidence gap detected; clean case passed; no file

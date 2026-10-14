@@ -27,7 +27,7 @@ the end.
 
 - **Only reviewed research enters.** A note or a change to one lands after
   a `research-reviewer` PASS; its reports go under
-  `docs/work/<task or client-free id>/reviews/`.
+  `archive/work-records/<task or client-free id>/reviews/`.
 - **Six months, then recheck.** Past its "Recheck after" date, a note is used
   only after its load-bearing claims are checked again; then both dates
   move and the note records what changed.

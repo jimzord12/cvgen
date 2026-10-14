@@ -215,13 +215,13 @@
       "calledBy": "The lead.",
       "when": "Any change to the files agents read.",
       "notes": [
-        "Merged into `main` on 2026-10-04 (owner's decision). The two review reports from its branch were FINDINGS: `docs/work/design-core/reviews/03-context-reviewer.md` (Material F1 and F2 fixed in TASK-33, 2026-10-14; its Minor findings were outside that task) and `docs/work/codex-visual-tools/reviews/01.md` (open; carried to TASK-4)."
+        "Merged into `main` on 2026-10-04 (owner's decision). The two review reports from its branch were FINDINGS: `archive/work-records/design-core/reviews/03-context-reviewer.md` (Material F1 and F2 fixed in TASK-33, 2026-10-14; its Minor findings were outside that task) and `archive/work-records/codex-visual-tools/reviews/01.md` (open; carried to TASK-4)."
       ],
       "sources": [
         ".claude/agents/context-reviewer.md",
-        "docs/work/anti-examples/reviews/01-context.md",
-        "docs/work/design-core/reviews/03-context-reviewer.md",
-        "docs/work/codex-visual-tools/reviews/01.md"
+        "archive/work-records/anti-examples/reviews/01-context.md",
+        "archive/work-records/design-core/reviews/03-context-reviewer.md",
+        "archive/work-records/codex-visual-tools/reviews/01.md"
       ],
       "short": "Context rev."
     },
@@ -237,12 +237,12 @@
       "calledBy": "The lead.",
       "when": "Feedback from you that changes how agents behave.",
       "notes": [
-        "Merged into `main` on 2026-10-04 (owner's decision). The two review reports from its branch were FINDINGS: `docs/work/design-core/reviews/03-context-reviewer.md` (Material F1 and F2 fixed in TASK-33, 2026-10-14; its Minor findings were outside that task) and `docs/work/codex-visual-tools/reviews/01.md` (open; carried to TASK-4)."
+        "Merged into `main` on 2026-10-04 (owner's decision). The two review reports from its branch were FINDINGS: `archive/work-records/design-core/reviews/03-context-reviewer.md` (Material F1 and F2 fixed in TASK-33, 2026-10-14; its Minor findings were outside that task) and `archive/work-records/codex-visual-tools/reviews/01.md` (open; carried to TASK-4)."
       ],
       "sources": [
         ".claude/agents/context-maintainer.md",
-        "docs/work/design-core/reviews/03-context-reviewer.md",
-        "docs/work/codex-visual-tools/reviews/01.md"
+        "archive/work-records/design-core/reviews/03-context-reviewer.md",
+        "archive/work-records/codex-visual-tools/reviews/01.md"
       ]
     },
     "general-purpose": {
@@ -274,7 +274,7 @@
       ],
       "sources": [
         "docs/proposals/codex-visual-tools.md",
-        "docs/work/codex-visual-tools/reviews/01.md"
+        "archive/work-records/codex-visual-tools/reviews/01.md"
       ],
       "short": "Codex rev."
     },

@@ -49,7 +49,7 @@ say which file owns which kind of guidance. In short:
 
 Dated records are never edited to carry a rule: ADRs in `docs/decisions/`,
 `docs/history.md`, the entries of `docs/framework-gaps.md` (a later fact is
-an `Update:` line), review reports under `docs/work/`, proposal decision
+an `Update:` line), review reports under `archive/work-records/`, proposal decision
 entries, `docs/research/` notes and the descriptions of the tasks migrated
 from Trello in `backlog/tasks/` (a later fact goes in the task's notes or
 acceptance criteria). A changed decision is a new ADR or decision entry,
