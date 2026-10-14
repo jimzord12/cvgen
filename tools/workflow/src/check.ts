@@ -52,8 +52,8 @@ export type Rule = keyof typeof rules;
 /** Built-in Claude Code agents an `agent` action may name without a file. */
 const builtInAgents = new Set(["general-purpose"]);
 
-type Src = { file: string; lineAt: LineAt; stage?: string }; // no stage: catalog.yaml
-type Def<T> = { item: T; src: Src; path: (string | number)[] };
+export type Src = { file: string; lineAt: LineAt; stage?: string }; // no stage: catalog.yaml
+export type Def<T> = { item: T; src: Src; path: (string | number)[] };
 type Kind = "actor" | "action" | "artifact" | "gate" | "step";
 
 export type Model = {
@@ -61,7 +61,50 @@ export type Model = {
   stages: { data: Stage; src: Src; folder: string }[];
 };
 
-export type Result = { issues: Issue[]; notes: string[]; summary: string };
+/** Every definition by kind and ID, with the file (and stage) that defines it. */
+export type Defs = {
+  actor: Map<string, Def<Actor>>;
+  action: Map<string, Def<Action>>;
+  artifact: Map<string, Def<Artifact>>;
+  gate: Map<string, Def<Gate>>;
+  loop: Map<string, Def<Loop>>;
+  step: Map<string, Def<Step>>;
+};
+
+/** The derived flow: who writes each artifact, and the edges between steps. */
+export type Graph = {
+  /** Artifact ID -> the steps that write it, in model order. */
+  producers: Map<string, string[]>;
+  /** Step ID -> the steps that follow it: every reader of its outputs, and its gate's pass and fail steps. */
+  next: Map<string, Set<string>>;
+  /** The one step that checks a gate, if exactly one does. */
+  gateStep: (gate: string) => string | undefined;
+};
+
+/** A model that passed every rule, indexed for the renderer (src/render.ts). */
+export type Indexed = { model: Model; defs: Defs; graph: Graph };
+
+export type Result = { issues: Issue[]; notes: string[]; summary: string; indexed?: Indexed };
+
+/** A loop whose cap is a placeholder, waiting for the owner's number (docs/workflow/GAPS.md). */
+export const placeholderCap = (loop: Loop): boolean => loop.name.includes("(placeholder cap)");
+
+/** Edges are derived: producer -> reader for every input, and a gate's step -> its pass and fail steps. */
+export function deriveGraph(steps: Step[], gates: Map<string, { item: Gate }>): Graph {
+  const producers = new Map<string, string[]>();
+  for (const s of steps) for (const a of s.outputs) producers.set(a, [...(producers.get(a) ?? []), s.id]);
+  const next = new Map<string, Set<string>>(steps.map((s) => [s.id, new Set<string>()]));
+  for (const s of steps) {
+    for (const a of s.inputs) for (const p of producers.get(a) ?? []) next.get(p)?.add(s.id);
+    const g = s.gate ? gates.get(s.gate)?.item : undefined;
+    if (g) for (const t of [g.pass, g.fail]) if (next.has(t)) next.get(s.id)?.add(t);
+  }
+  const gateStep = (gate: string) => {
+    const checkers = steps.filter((s) => s.gate === gate);
+    return checkers.length === 1 ? checkers[0]?.id : undefined;
+  };
+  return { producers, next, gateStep };
+}
 
 const show = (root: string, file: string) => relative(root, file).replaceAll("\\", "/");
 
@@ -124,16 +167,17 @@ export function entities(model: Model) {
 class Checker {
   issues: Issue[] = [];
   notes: string[] = [];
-  defs = {
-    actor: new Map<string, Def<Actor>>(),
-    action: new Map<string, Def<Action>>(),
-    artifact: new Map<string, Def<Artifact>>(),
-    gate: new Map<string, Def<Gate>>(),
-    loop: new Map<string, Def<Loop>>(),
-    step: new Map<string, Def<Step>>(),
+  defs: Defs = {
+    actor: new Map(),
+    action: new Map(),
+    artifact: new Map(),
+    gate: new Map(),
+    loop: new Map(),
+    step: new Map(),
   };
   used = new Set<string>();
   steps: Def<Step>[] = []; // model order: stage folders in order, steps in file order
+  graph?: Graph;
 
   constructor(
     readonly model: Model,
@@ -149,7 +193,7 @@ class Checker {
     this.references();
     this.existence();
     this.flow();
-    const placeholders = [...this.defs.loop.values()].filter((d) => d.item.name.includes("(placeholder cap)"));
+    const placeholders = [...this.defs.loop.values()].filter((d) => placeholderCap(d.item));
     if (placeholders.length > 0) {
       const list = placeholders.map((d) => `${d.item.id} (${d.item.cap.attended} attended${d.item.cap.unattended ? `, ${d.item.cap.unattended} unattended` : ""})`);
       this.notes.push(`NOTE ${placeholders.length} placeholder loop cap(s), not from a source (docs/workflow/GAPS.md): ${list.join(", ")}`);
@@ -158,7 +202,8 @@ class Checker {
     const summary = `${this.model.stages.length} stages, ${n(this.defs.step)} steps, ${n(this.defs.artifact)} artifacts, ${n(this.defs.gate)} gates, ${n(this.defs.loop)} loops`;
     const order = (i: Issue) => `${i.file}\u0000${String(i.line ?? 0).padStart(6, "0")}`;
     this.issues.sort((a, b) => (order(a) < order(b) ? -1 : order(a) > order(b) ? 1 : 0));
-    return { issues: this.issues, notes: this.notes, summary };
+    const indexed = this.issues.length === 0 && this.graph ? { model: this.model, defs: this.defs, graph: this.graph } : undefined;
+    return { issues: this.issues, notes: this.notes, summary, indexed };
   }
 
   // --- Level 1: IDs, references, scope, use.
@@ -336,8 +381,8 @@ class Checker {
 
   flow() {
     const artifacts = this.defs.artifact;
-    const producers = new Map<string, string[]>();
-    for (const { item: s } of this.steps) for (const a of s.outputs) producers.set(a, [...(producers.get(a) ?? []), s.id]);
+    this.graph = deriveGraph(this.steps.map((d) => d.item), this.defs.gate);
+    const { producers, next, gateStep } = this.graph;
     const given = (id: string) => artifacts.get(id)?.item.given === true;
 
     for (const { item: s, src, path } of this.steps) {
@@ -350,18 +395,6 @@ class Checker {
         }
       });
     }
-
-    // Edges: producer -> reader for every input, and a gate's step -> its pass and fail steps.
-    const next = new Map<string, Set<string>>(this.steps.map((d) => [d.item.id, new Set<string>()]));
-    for (const { item: s } of this.steps) {
-      for (const a of s.inputs) for (const p of producers.get(a) ?? []) next.get(p)?.add(s.id);
-      const g = s.gate ? this.defs.gate.get(s.gate)?.item : undefined;
-      if (g) for (const t of [g.pass, g.fail]) if (next.has(t)) next.get(s.id)?.add(t);
-    }
-    const gateStep = (gate: string) => {
-      const checkers = this.steps.filter((d) => d.item.gate === gate);
-      return checkers.length === 1 ? checkers[0]?.item.id : undefined;
-    };
 
     // Reach: from the given artifacts, a step runs once all its inputs exist (an input no step
     // produces counts as there: `unproduced` reports it); a gate's step leads to both branches, and a

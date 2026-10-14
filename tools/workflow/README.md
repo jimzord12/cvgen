@@ -3,15 +3,18 @@
 The TypeScript program, on Bun, that holds the `Workflow Model`'s types and
 checks its YAML facts (ADR 0015): the shape of each file, the whole model
 in `docs/workflow/` at levels 1 (shape and references) and 2 (flow) of the
-approved design (`docs/proposals/workflow-model.md`), and level 3: the model
+approved design (`docs/proposals/workflow-model.md`), writes the generated
+half of the workflow READMEs from it (`render`), and runs level 3: the model
 run by a fictional client through the real scripts, plus a read-only walk of
-a real `Envelope`. Rendering comes with TASK-39.
+a real `Envelope`.
 
 | Path | What it holds |
 |---|---|
 | `src/model.ts` | The Zod types: Stage, Step, Artifact, Action, Actor, Gate, Loop, Catalog. The one source of the contract |
 | `src/load.ts` | Reads a YAML file, checks it against the types, reports file, line, path and reason |
 | `src/check.ts` | The model check: every rule below, over the catalog and every stage |
+| `src/render.ts` | Writes the generated blocks of `docs/workflow/README.md` and each stage's `README.md` |
+| `src/mermaid.ts` | The Mermaid subset `render` writes, and the validator that proves each diagram is inside it |
 | `src/reality.ts` | Level 3: the fictional run (`reality`) and the read-only `Envelope` walk (`envelope`) |
 | `src/anchors.ts` | Source anchors whose cited lines moved or changed since a commit |
 | `src/schema.ts` | Exports the JSON Schema files from the types |
@@ -34,6 +37,8 @@ bun run check                             # the whole model in docs/workflow: ex
 bun run check test/fixtures/cycle         # the same for the model in another folder
 bun run check sample/stage.yaml           # shape only, file by file (catalog.yaml is read as the catalog)
 bun run anchors <commit> [--fix]          # anchors whose cited lines moved or changed since <commit>
+bun run render                            # rewrite the generated blocks of the workflow READMEs from the model
+bun run render --check                    # exit 1, naming each README, if render would change it
 bun run reality [<model dir>] [--out <dir>]   # level 3: a fictional client runs the model; exit 0 or 1 naming the step
 bun run envelope <Envelope folder>        # read-only: which artifacts the model declares exist in a real Envelope
 bun test                                  # all tests
@@ -42,9 +47,10 @@ bun run schema                            # regenerate schema/*.json after chang
 bun run schema --check                    # exit 1 if the committed schema is stale (a test does the same)
 ```
 
-CI and the suite's `workflow-model` case run `bun run check`; the suite's
-`workflow-model-reality` cases run `bun run reality` (Typst and the Python
-packages needed, like the suite).
+CI and the suite's `workflow-model` case run `bun run check`, then
+`bun run render --check`: after any change to the YAML, run `bun run render`
+and commit the READMEs with it. The suite's `workflow-model-reality` cases
+run `bun run reality` (Typst and the suite's Python packages needed).
 
 A problem prints as `file:line: path: reason [rule]`, for example
 `docs/workflow/07-after/stage.yaml:38: steps[2]: after.keep-request is never reached: it has no inputs, and no gate branch or loop escalation leads to it [unreachable]`.
@@ -109,7 +115,8 @@ What it accepts on purpose, from the modelling notes of TASK-37:
 - **Optional producers**: an input counts as produced when any step writes
   it, `when` or not. Whether a step's `when` branches cover every case (the
   three build paths all write `art.cv-typ`) is not something the check can
-  read; level 3 (TASK-42) runs it.
+  read, and stays unchecked: level 3 runs one path (`happyPath`), so each
+  build path would need a scenario of its own.
 - **Order without data** (`design.clear-review-input` before `deliver.render`)
   follows from gates only and is not checked here; level 3 shows it
   (`docs/workflow/GAPS.md`).
@@ -119,14 +126,52 @@ What it accepts on purpose, from the modelling notes of TASK-37:
 still waiting for an owner's number (`docs/workflow/GAPS.md`) stay visible
 without blocking CI.
 
+## What `render` writes
+
+`render` runs the check first and renders nothing from a model that fails
+it. It writes named blocks between markers, each alone on its line:
+
+```markdown
+<!-- generated:start steps -->
+...written by render; edit the YAML, not this...
+<!-- generated:end steps -->
+```
+
+| README | Blocks |
+|---|---|
+| `docs/workflow/README.md` | `stages` (a table: steps, gates, loops, which stages each reads from and hands to), `journey` (Mermaid: the stages, an arrow where one hands an artifact or a gate branch to another, dotted where it goes back), `handovers` (each such pair with its artifacts and branches), `actors` |
+| `docs/workflow/NN-<stage>/README.md` | `summary` (purpose, entry, exit, neighbours), `diagram` (Mermaid: steps as boxes, gates as diamonds with their pass and fail, loops dotted with their cap, a step of another stage as a rounded box), `steps`, `gates`, `loops` (placeholder caps marked), `artifacts` (the ones the stage reads or writes, with who makes them), `actions` |
+
+Everything outside the markers is hand-written and never touched. A README
+that does not exist is created with a heading and every block; a block
+missing from a README is added at its end; a block may be moved anywhere and
+stays there. A marker quoted inside a code fence is text. A malformed,
+unknown, repeated, nested or unclosed marker, or a code fence never closed, stops
+`render` with the file and line, and nothing is written. The output is the
+same on every run: model order or sorted, LF, no dates.
+
+Diagrams leave out an arrow that a longer path already implies, unless that
+path runs through an optional step (one with `when`) whose condition differs
+from the arrow's source; the tables list every input. The conditions are
+compared as text, so two unrelated steps with the same generic `when` (such
+as "The review returned FINDINGS.") would count as one branch; none do today.
+GitHub draws a `mermaid` block in the browser, so a broken one
+would only show as an error box there: `render` checks each diagram it
+writes against the small subset in `src/mermaid.ts` (`flowchart TD` or `LR`,
+quoted one-line labels with no HTML, model IDs mapped to safe node IDs such
+as `s_design__run_brief`) and refuses anything outside it. The Mermaid
+parser itself needs a browser DOM and some 140 packages, so it is not a
+dependency; on 2026-10-14 Mermaid 11.4.1 parsed all eight diagrams.
+
 ## Level 3: the model run for real (`reality`, `envelope`)
 
 `bun run reality` first runs `check` (a model that fails levels 1 and 2 is
 not run), then walks one path through the model, the `happyPath` scenario in
-`src/reality.ts`: a fictional marine engineer who consents, gets no Deep
-Dive, signs off the first `Text Draft`, fits the Flagship and passes every
-review. It writes into a new folder (default `builds/workflow-reality-<time>/`;
-it refuses one that exists) holding `repo/`, the run's copy of the repository
+`src/reality.ts`: a fictional marine engineer who consents, gets no `Deep
+Dive`, signs off the first `Text Draft`, fits the Flagship `Template` and
+passes every review. It writes into a new folder (default
+`builds/workflow-reality-<time>/`; `--out` must be inside the repository,
+since Typst compiles from its root, and it refuses a folder that exists) holding `repo/`, the run's copy of the repository
 layout where `private/client-2030-01-01/` is the temporary `Envelope`,
 `reality.log` (every command, its output and each decision) and
 `report.json`.
@@ -149,13 +194,13 @@ layout where `private/client-2030-01-01/` is the temporary `Envelope`,
   fictional content, or for the files later commands read, what the lead
   would write (`envelope.json`, `candidate.json` from the engineer example
   with a client's footer and none of the example wording, the Flagship
-  entry point, the Text Draft from `tests/fixtures/text-draft.typ`, the
-  Sign-off screenshot). What a step declares in the repository outside
+  entry point, the `Text Draft` from `tests/fixtures/text-draft.typ`, the
+  `Sign-off` screenshot). What a step declares in the repository outside
   `private/` (the client's task, research notes) lands in `repo/`, never in
   the repository.
 - **Checks.** Before a step, every input it declares with a path must exist;
   after it, every output must exist at its declared path, JSON must parse,
-  JSON with a `schema` must match it, and a PDF must have the Meta File the
+  JSON with a `schema` must match it, and a PDF must have the `Meta File` the
   model declares beside it, valid and current (its `sha256` is the PDF's).
   The first problem stops the run: `FAIL <step id>: <reason>`, then `FAILED
   level 3 at <step id>`, exit 1. A gate that sends the run off its path
@@ -164,7 +209,8 @@ layout where `private/client-2030-01-01/` is the temporary `Envelope`,
 `bun run envelope <Envelope folder>` does the read-only half on a real
 client: for every step that declares an artifact in the `Envelope`, how many
 of them exist, and which are missing, by model path. It writes nothing,
-opens only `envelope.json` (for the `Alias`) and prints the `Alias`, model
+opens only `envelope.json` (for the `Alias`; it also lists folders to match
+the model's paths, and prints none of their names) and prints the `Alias`, model
 paths and counts, never a file name inside the `Envelope` or its content. A
 file several artifacts share (`README.md` and its sections) counts as
 present for each; a `NOTE` line lists them.

@@ -311,6 +311,19 @@ read the first four under `studio/` and the last as `apps/design-review/`;
 `archive/work-records/` did not move. The Design Review app reads the
 owner's earlier `design-concepts/...` review keys under their new paths.
 
+## 2026-10-14 — the workflow READMEs are generated from the model
+
+TASK-39 added `bun run render` to the workflow tool: it writes named blocks
+between `<!-- generated:start <name> -->` and `<!-- generated:end <name> -->`
+markers in `docs/workflow/README.md` (the stages, the journey diagram, the
+handovers between stages, the actors) and in each stage's `README.md` (its
+summary, a Mermaid diagram of steps, gates and loops, and tables of steps,
+gates, loops with placeholder caps marked, artifacts and actions), and
+leaves the text outside the markers to hand-written prose (TASK-40). CI and
+the suite's `workflow-model` case run `bun run render --check`, which fails
+when a README differs from what the model renders to. Each diagram is
+checked against the small Mermaid subset the tool writes.
+
 ## 2026-10-14 — The Workflow Model run for real (level 3)
 
 TASK-42 added level 3 to the workflow tool: `bun run reality` walks the
@@ -324,5 +337,5 @@ longer waits for the approval (the real `cv.py export` refuses it).
 `bun run envelope <folder>` walks a real `Envelope` read-only. The runner
 lives in `tools/workflow/` beside the model graph it reuses;
 `outputs.py stamp` gained `--root`, so the run can stamp an `Envelope`
-outside `private/`. Every command path the model declares matched the
+outside the repository's `private/`. Every command path the model declares matched the
 scripts; the two things the YAML does not say are in `docs/workflow/GAPS.md`.

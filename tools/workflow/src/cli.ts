@@ -3,6 +3,7 @@
 //   check <dir>         the same for the model in another folder (the test fixtures)
 //   check <file...>     shape-check single Workflow Model YAML files
 //   anchors <base> [--fix] [<dir>]   source anchors whose cited lines moved or changed since commit <base>
+//   render [--check] [<dir>]   write the generated blocks of the workflow READMEs; --check only reports the files it would change (exit 1)
 //   schema [--check]    regenerate the committed JSON Schema files; --check only reports stale ones (exit 1)
 //   reality [<model dir>] [--out <dir>]   level 3: a fictional client runs the model in a new folder under builds/; exit 0 or 1
 //   envelope <envelope dir> [<model dir>] read-only: which artifacts the model declares exist in a real Envelope
@@ -13,11 +14,12 @@ import { anchors } from "./anchors";
 import { checkModel, modelDir, repoRoot } from "./check";
 import { formatIssue, loadFile } from "./load";
 import { envelopeWalk, reality } from "./reality";
+import { render } from "./render";
 import { schemaDir, staleSchemas, writeSchemas } from "./schema";
 
 const usage =
-  "usage: bun src/cli.ts check [<model dir> | <file.yaml...>] | anchors <base> [--fix] [<model dir>] | schema [--check]" +
-  " | reality [<model dir>] [--out <dir>] | envelope <envelope dir> [<model dir>]";
+  "usage: bun src/cli.ts check [<model dir> | <file.yaml...>] | anchors <base> [--fix] [<model dir>] | render [--check] [<model dir>]" +
+  " | schema [--check] | reality [<model dir>] [--out <dir>] | envelope <envelope dir> [<model dir>]";
 const stamp = () => new Date().toISOString().replace(/[-:]/g, "").replace("T", "-").slice(0, 15);
 
 const isDir = (path: string) => existsSync(path) && statSync(path).isDirectory();
@@ -91,7 +93,31 @@ export function main(args: string[]): number {
     }
     return envelopeWalk({ dir: dir ?? modelDir, envelope });
   }
-  if (command === "schema" &&(rest.length === 0 || (rest.length === 1 && rest[0] === "--check"))) {
+  if (command === "render") {
+    const check = rest.includes("--check");
+    const [dir, ...extra] = rest.filter((a) => a !== "--check");
+    if (extra.length > 0 || (dir !== undefined && !isDir(dir))) {
+      console.error(usage);
+      return 2;
+    }
+    const { problems, files } = render(dir ?? modelDir, repoRoot, { write: !check });
+    if (problems.length > 0) {
+      for (const p of problems) console.error(p);
+      console.error(`FAILED render: ${problems.length} problem(s); nothing written`);
+      return 1;
+    }
+    const changed = files.filter((f) => f.changed);
+    if (check) {
+      for (const f of changed) console.error(`STALE ${f.file}: run "bun run render" in tools/workflow`);
+      if (changed.length > 0) return 1;
+      console.log(`OK ${files.length} generated READMEs match the model`);
+      return 0;
+    }
+    for (const f of changed) console.log(`wrote ${f.file}`);
+    console.log(`OK ${files.length} READMEs rendered, ${changed.length} changed`);
+    return 0;
+  }
+  if (command === "schema" && (rest.length === 0 || (rest.length === 1 && rest[0] === "--check"))) {
     if (rest[0] === "--check") {
       const stale = staleSchemas();
       for (const name of stale) console.error(`STALE ${name}: run "bun run schema" in tools/workflow`);
