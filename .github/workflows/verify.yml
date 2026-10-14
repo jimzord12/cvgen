@@ -1,30 +1,79 @@
 name: verify
 
+# One run per pushed commit, on every branch (task-48). The project works without pull requests
+# (docs/git-workflow.md), so a pull_request trigger would only run the same commit twice; tag pushes
+# are left out for the same reason. workflow_dispatch reruns a branch by hand.
 on:
   push:
-  pull_request:
+    branches: ['**']
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+# A newer push to the same feature branch cancels the older run; every commit on main keeps its run,
+# because docs/git-workflow.md checks the run of each published main commit.
+concurrency:
+  group: verify-${{ github.ref }}
+  cancel-in-progress: ${{ github.ref != 'refs/heads/main' }}
+
+env:
+  TYPST_VERSION: '0.15.1'
+  # SHA-256 of the official release assets, from the `digest` GitHub records for each asset of
+  # https://github.com/typst/typst/releases/tag/v0.15.1 (gh api repos/typst/typst/releases/tags/v0.15.1),
+  # cross-checked against a local download on 2026-10-14. A new Typst version needs both updated.
+  TYPST_SHA256_LINUX: a6d077d0a95eed5a2eba715b2dae06be954f624ccbf85758a03f389ded33118c   # typst-x86_64-unknown-linux-musl.tar.xz
+  TYPST_SHA256_WINDOWS: 19ce3551153c2fe7ee9fa2f95208310c8f4d3209fedb699e0333faf8913f6736 # typst-x86_64-pc-windows-msvc.zip
 
 jobs:
   suite:
-    runs-on: ubuntu-latest
+    name: suite (${{ matrix.os }})
+    strategy:
+      fail-fast: false
+      matrix:
+        # Runner images pinned rather than *-latest: ubuntu-latest moves to Ubuntu 26.04 from
+        # 2026-10-19, and an image change should be a deliberate commit, not a surprise red run.
+        # Windows because the owner works there and scripts/build.ps1 runs nowhere else in CI.
+        os: [ubuntu-24.04, windows-2025]
+    runs-on: ${{ matrix.os }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
 
-      - name: Install Typst 0.15.1
+      - name: Install Typst (Linux, checksummed)
+        if: runner.os == 'Linux'
         run: |
-          curl -sSL -o typst.tar.xz https://github.com/typst/typst/releases/download/v0.15.1/typst-x86_64-unknown-linux-musl.tar.xz
-          tar -xJf typst.tar.xz
-          sudo mv typst-x86_64-unknown-linux-musl/typst /usr/local/bin/typst
+          archive="$RUNNER_TEMP/typst.tar.xz"
+          curl -fsSL -o "$archive" "https://github.com/typst/typst/releases/download/v${TYPST_VERSION}/typst-x86_64-unknown-linux-musl.tar.xz"
+          echo "${TYPST_SHA256_LINUX}  $archive" | sha256sum --check --strict -
+          tar -xJf "$archive" -C "$RUNNER_TEMP"
+          sudo mv "$RUNNER_TEMP/typst-x86_64-unknown-linux-musl/typst" /usr/local/bin/typst
           typst --version
 
+      - name: Install Typst (Windows, checksummed)
+        if: runner.os == 'Windows'
+        shell: pwsh
+        run: |
+          $archive = Join-Path $env:RUNNER_TEMP 'typst.zip'
+          Invoke-WebRequest -Uri "https://github.com/typst/typst/releases/download/v$env:TYPST_VERSION/typst-x86_64-pc-windows-msvc.zip" -OutFile $archive
+          $actual = (Get-FileHash -LiteralPath $archive -Algorithm SHA256).Hash.ToLowerInvariant()
+          if ($actual -ne $env:TYPST_SHA256_WINDOWS) { throw "Typst download checksum mismatch: expected $env:TYPST_SHA256_WINDOWS, got $actual" }
+          Expand-Archive -LiteralPath $archive -DestinationPath $env:RUNNER_TEMP
+          $bin = Join-Path $env:RUNNER_TEMP 'typst-x86_64-pc-windows-msvc'
+          Add-Content -LiteralPath $env:GITHUB_PATH -Value $bin
+          & (Join-Path $bin 'typst.exe') --version
+
       # One system font the bundled set lacks (DejaVu Sans), so the suite's system-font case proves
-      # --ignore-system-fonts here; tests/run.py fails on CI when it finds none.
-      - name: Install a system font
+      # --ignore-system-fonts here; tests/run.py fails on CI when it finds none. Windows ships its own.
+      - name: Install a system font (Linux)
+        if: runner.os == 'Linux'
         run: sudo apt-get update && sudo apt-get install -y fonts-dejavu-core
 
-      - uses: actions/setup-python@v5
+      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
         with:
-          python-version: "3.11"
+          python-version: '3.11'
+          cache: pip
+          # The pinned dependencies are listed in this file (next step), so it keys the pip cache.
+          cache-dependency-path: .github/workflows/verify.yml
 
       - name: Install verification dependencies
         run: pip install pymupdf==1.28.2 pillow jsonschema==4.26.0
@@ -32,11 +81,17 @@ jobs:
       - name: Run the regression suite
         run: python tests/run.py --output builds/ci
 
+      # The owner's build command, which no other CI step runs: five examples, fonts strict.
+      - name: Build the examples with scripts/build.ps1 (Windows)
+        if: runner.os == 'Windows'
+        shell: pwsh
+        run: ./scripts/build.ps1 -OutputDirectory builds/ci-library
+
       - name: Upload evidence
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
-          name: verification-evidence
+          name: verification-evidence-${{ runner.os }}
           path: |
             builds/ci/report.json
             builds/ci/**/result.json
@@ -44,4 +99,5 @@ jobs:
             builds/ci/**/compile.log
             builds/ci/**/page-*.png
             builds/ci/workflow/commands.log
+            builds/ci-library/*.pdf
           if-no-files-found: ignore

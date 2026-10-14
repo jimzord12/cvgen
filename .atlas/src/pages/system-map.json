@@ -346,7 +346,7 @@
           "title": "GitHub CI",
           "path": ".github/workflows/verify.yml",
           "actor": "github-ci",
-          "blurb": "The suite on every push and every pull request."
+          "blurb": "The suite on every pushed commit, Linux and Windows."
         }
       ]
     },
