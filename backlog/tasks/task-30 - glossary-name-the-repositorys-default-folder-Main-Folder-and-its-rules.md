@@ -3,10 +3,10 @@ id: TASK-30
 title: >-
   main-folder-term: name the repository's default folder (Main Folder) and its
   rules
-status: Active
+status: Done
 assignee: []
 created_date: '2026-10-06 09:41'
-updated_date: '2026-10-14 05:55'
+updated_date: '2026-10-14 06:08'
 labels:
   - docs
 dependencies: []
@@ -46,3 +46,9 @@ Result: compliant or fixed. Fixed: idea-run step 1, repo-maintenance `apply`, gi
 
 Final: `python tests/run.py` PASS (94 cases, `builds/tests-20261014-085852-556640`), `atlas.py check --strict` exit 0.
 <!-- SECTION:NOTES:END -->
+
+## Final Summary
+
+<!-- SECTION:FINAL_SUMMARY:BEGIN -->
+New glossary term Main Folder (the repository's default checkout, as opposed to worktrees under .worktrees/); its rule lives in docs/git-workflow.md 'Branches': keep it on main (or the owner's chosen branch), clean and synced; branch work always in a worktree; three recovery cases (behind: fast-forward; a branch an agent left, incl. any branch already merged into main, with no tracked changes: switch to main and fast-forward, leaving untracked files that are not the session's; otherwise leave it, use a worktree, name it in the Session Sweep and handoff). development.md's Sweep points to the rule. Every branch-creating instruction swept: idea-run, repo-maintenance apply and the release steps now branch in a worktree. Atlas citations re-pointed. Reviews: context-reviewer rounds 1-4 FINDINGS, round 5 PASS (docs/work/main-folder-term/reviews/). Suite PASS.
+<!-- SECTION:FINAL_SUMMARY:END -->
