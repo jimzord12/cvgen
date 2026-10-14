@@ -94,13 +94,13 @@
    "verifiedAt": "2026-10-14"
   },
   "system-map": {
-   "commit": "002a67a",
+   "commit": "5058ae4",
    "sources": {
     ".claude/agents": "dir1:4f4154394888bb9d69a0ed790d8f4b484a790fdd",
     ".claude/skills": "dir1:5eeafda0c9ef9a6037a3fcc2879f73f098fa3e55",
     ".claude/skills/backlog/SKILL.md": "24c2914e3331741a0d013d29cfd4ce2adfc8015e",
     ".github/workflows/verify.yml": "7b6454156594fa3d0d0a3aafd1d0cc071e2e42ce",
-    "AGENTS.md": "b45d558da1c2894ebd0555f539cbaab64b818f02",
+    "AGENTS.md": "e32f738da225fe2b2f920ceabb2a5f0a47ea51b0",
     "apps/design-review/server.py": "65b42af8bcf0a971e19ec97fa39b874cad91c3c1",
     "archive/work-records": "dir1:5ae41f9478b0bb75c0fe04b69ce61206150f176b",
     "docs": "dir1:139adff443cb7a07dd0d5fae04941c8c0785eb30",
@@ -118,13 +118,13 @@
     "packages/domains/marine/templates/flagship/tests/approved": "dir1:937263ba14b899950b2c4f58a1ff6c6fd2275f3a",
     "scripts/build.ps1": "cc1eed5fa9bb4acf4b8955ae94eb6768f3e1de5e",
     "scripts/cv.py": "d21197a5887e4f7aa6bf778c0ca2fd50229d2a11",
-    "scripts/outputs.py": "6e79e3d72163c249c328633379952f93837ffe1c",
+    "scripts/outputs.py": "23a4edfb8730fe24462bd0507f37da64673e801c",
     "scripts/text-draft.typ": "c6f61f2253a2105d3334f3edc4e9b12137f54fa1",
     "studio/archive/anti-examples": "dir1:dacb2a2e30bc6a5d49178d2bcbf382c4de52a88c",
     "studio/archive/design-studies": "dir1:3934f2dbb33587fa8b485e7b99d2b37fa3784798",
     "studio/brand": "dir1:c556e0f8d17363d5e9ddc92e7142a253a16d1be2",
     "studio/design-concepts": "dir1:d3bd60991a5441279a325e9aa73ea4e20ad7f1c7",
-    "tests/run.py": "e112fff0226ae0fb70b1a884bd7c8444358e44e1"
+    "tests/run.py": "6ef611ce6b8465def342bfa727e2cc1055d10c5f"
    },
    "verifiedAt": "2026-10-14"
   }
