@@ -1,10 +1,10 @@
 ---
 id: TASK-59
 title: 'theme-neutral: core theme validation stops requiring Flagship-shaped colours'
-status: Active
+status: Done
 assignee: []
 created_date: '2026-10-14 06:23'
-updated_date: '2026-10-14 06:46'
+updated_date: '2026-10-14 07:10'
 labels:
   - restructure
 dependencies: []
@@ -24,3 +24,9 @@ Follow-up from TASK-45 review round 1 note N1 (2026-10-14). packages/cv-framewor
 - [ ] #2 Flagship checks its own required colours with the same messages
 - [ ] #3 the suite passes; the frozen reference stays pixel-identical
 <!-- AC:END -->
+
+## Final Summary
+
+<!-- SECTION:FINAL_SUMMARY:BEGIN -->
+Core validate-theme now requires only the colours the core reads (ink, accent, metal, muted, paper) and the two fonts, with a require-colors helper; Flagship's validate-flagship-theme adds hero, surface, plate, rule, on-hero with identical messages; the boundary check refuses Flagship colour names in core. Fixtures theme-core, theme-core-missing-{five}, theme-flagship-missing-{five}, theme-flagship-not-color. Code review round 1 PASS (minor fixed), context review rounds 1 (FINDINGS, fixed) and 2 (PASS). Suite PASS 116 (builds/tests-20261014-095533-905508 in the worktree), engineer frozen reference pixel-identical.
+<!-- SECTION:FINAL_SUMMARY:END -->
