@@ -35,5 +35,5 @@ Owner confirmed the tree on 2026-10-06. Decision 9 (2026-10-14): drop reviews/te
 
 ## Note from TASK-56 (2026-10-14)
 
-The two private marine compositions import 12 deprecated flat component names through marine's lib.typ (document-shell, page-header, hero, section-heading, synopsis, experience-section, education-languages-section, label, metric, profile-summary, education-entry, skills-section). This task's migration re-points them to ctx-first calls (make-ctx, core-components, flagship-components) with the mapping table in docs/guides/build-a-cv.md section 8, and its re-render proves each PDF unchanged. That unblocks TASK-58, which deletes the legacy layer (backstop 2026-10-31).
+The two private marine compositions import 12 deprecated flat component names through marine's lib.typ (document-shell, page-header, hero, section-heading, synopsis, experience-section, education-languages-section, label, metric, profile-summary, education-entry, skills-section). This task's migration re-points them (re-pointing authorized by the owner, 2026-10-14) to ctx-first calls (make-ctx, core-components, flagship-components) with the mapping table in docs/guides/build-a-cv.md section 8, and its re-render proves each PDF unchanged. That unblocks TASK-58, which deletes the legacy layer.
 <!-- SECTION:NOTES:END -->
