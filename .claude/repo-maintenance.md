@@ -29,7 +29,6 @@ ignore:
   - "docs/work/**"
   - "docs/decisions/**"
   - docs/history.md
-  - docs/now.md                     # retired snapshot (AGENTS.md)
 
 # Never moved, edited or proposed for deletion. The owner's call only.
 protected:

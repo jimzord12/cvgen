@@ -40,8 +40,7 @@ keep it untracked and do not copy its contents into shared documentation.
   cannot be read, say so rather than guessing. Distinguish an
   approved design from implemented behavior, and historical checks from
   current proof. Before stopping, rewrite the handoff doc on `main`
-  (`docs/development.md`, "Ending a session"). Do not use `docs/now.md`; it
-  is a retired historical snapshot.
+  (`docs/development.md`, "Ending a session").
 - State reporting is read-only and repeatable: unchanged inputs yield the same
   factual state. No dedicated reporting command exists yet; inspect the sources
   directly. `backlog/` is the one task store; do not maintain a second
