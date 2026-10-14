@@ -1,7 +1,7 @@
 ---
 id: TASK-43
 title: 'workflow-consolidate: one source for the client workflow'
-status: Active
+status: Done
 assignee: []
 created_date: '2026-10-14 04:47'
 updated_date: '2026-10-14 12:36'
@@ -47,3 +47,9 @@ TASK-43 walk (AC #2): followed new-client then new-cv literally for fictional Al
 
 TASK-43 review round 1 fixes applied (content M1, M2, m3-m5, notes; sources minors 1-2, note 4). The next anchor baseline is e9cf613 (bun run anchors e9cf613); against 6e93bad it reports false MOVED for hand-moved anchors. Owner questions drift 11 and a17 are now P-0018 items 8 and 9 (revision 2).
 <!-- SECTION:NOTES:END -->
+
+## Final Summary
+
+<!-- SECTION:FINAL_SUMMARY:BEGIN -->
+The Workflow Model is the one description of the client journey: client-workflow.md (373 to 222 lines), build-a-cv.md and the pdf-workflow Lifecycle now hold only reference detail headed Used by <step id> or Not a step; new-client and new-cv are step-ID checklists; facts the model lacked moved into stage README prose; 25 inventory items fixed, inventory deleted; client review renders and batch sheets now live in the cleared input folder; two new owner questions are P-0018 items 8 and 9. Walked a fictional client through both skills to export; bun run reality passes. Context rounds FINDINGS (2 lenses), FINDINGS, PASS. Suite PASS builds/tests-20261014-151137-713958, CI 38563765531 green.
+<!-- SECTION:FINAL_SUMMARY:END -->
