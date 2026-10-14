@@ -572,7 +572,7 @@ window.ATLAS = {
        "sources": [
         "docs/guides/client-workflow.md:9-10",
         ".claude/skills/new-client/SKILL.md:1-9",
-        ".claude/skills/new-client/SKILL.md:95-98"
+        ".claude/skills/new-client/SKILL.md:96-99"
        ]
       },
       {
@@ -596,7 +596,7 @@ window.ATLAS = {
        ],
        "sources": [
         "docs/guides/client-workflow.md:19",
-        "docs/guides/client-workflow.md:29-78"
+        "docs/guides/client-workflow.md:29-101"
        ]
       }
      ]
@@ -624,9 +624,9 @@ window.ATLAS = {
         "intake-form"
        ],
        "sources": [
-        "docs/guides/client-workflow.md:82-85",
-        "docs/guides/client-workflow.md:131-157",
-        "docs/guides/client-workflow.md:92-109"
+        "docs/guides/client-workflow.md:105-108",
+        "docs/guides/client-workflow.md:154-180",
+        "docs/guides/client-workflow.md:115-132"
        ]
       },
       {
@@ -662,8 +662,8 @@ window.ATLAS = {
        ],
        "sources": [
         "docs/guides/client-workflow.md:20",
-        "docs/guides/client-workflow.md:87-90",
-        "docs/guides/client-workflow.md:163-164"
+        "docs/guides/client-workflow.md:110-113",
+        "docs/guides/client-workflow.md:186-187"
        ]
       },
       {
@@ -680,8 +680,8 @@ window.ATLAS = {
         "No consent: you decide whether to ask again or stop."
        ],
        "sources": [
-        "docs/guides/client-workflow.md:159-163",
-        ".claude/skills/new-client/SKILL.md:23-25"
+        "docs/guides/client-workflow.md:182-186",
+        ".claude/skills/new-client/SKILL.md:24-26"
        ]
       }
      ]
@@ -708,7 +708,7 @@ window.ATLAS = {
         "`intake/facts.md`"
        ],
        "sources": [
-        "docs/guides/client-workflow.md:168-173"
+        "docs/guides/client-workflow.md:191-196"
        ]
       },
       {
@@ -728,8 +728,8 @@ window.ATLAS = {
         "`research/scout.md`: numbered findings with source and date"
        ],
        "sources": [
-        "docs/guides/client-workflow.md:177-185",
-        "docs/guides/client-workflow.md:332-335"
+        "docs/guides/client-workflow.md:200-208",
+        "docs/guides/client-workflow.md:356-359"
        ]
       },
       {
@@ -749,7 +749,7 @@ window.ATLAS = {
        ],
        "note": "Research is enough when every decision has an answer; a new source that changes nothing is the signal to stop.",
        "sources": [
-        "docs/guides/client-workflow.md:189-207"
+        "docs/guides/client-workflow.md:212-230"
        ]
       },
       {
@@ -782,8 +782,8 @@ window.ATLAS = {
         "`research/reviews/<topic>-NN.md`"
        ],
        "sources": [
-        "docs/guides/client-workflow.md:211-230",
-        ".claude/skills/new-client/SKILL.md:40-47"
+        "docs/guides/client-workflow.md:234-253",
+        ".claude/skills/new-client/SKILL.md:41-48"
        ]
       },
       {
@@ -805,7 +805,7 @@ window.ATLAS = {
         "Updated `intake/facts.md`"
        ],
        "sources": [
-        "docs/guides/client-workflow.md:234-246"
+        "docs/guides/client-workflow.md:257-269"
        ]
       }
      ]
@@ -832,7 +832,7 @@ window.ATLAS = {
         "python scripts/outputs.py stamp private/<envelope>/draft/draft-01.pdf status=ready"
        ],
        "sources": [
-        "docs/guides/client-workflow.md:250-270",
+        "docs/guides/client-workflow.md:273-293",
         "scripts/text-draft.typ:1-6"
        ]
       },
@@ -869,7 +869,7 @@ window.ATLAS = {
        ],
        "sources": [
         "docs/guides/client-workflow.md:26",
-        "docs/guides/client-workflow.md:264-278",
+        "docs/guides/client-workflow.md:287-301",
         "docs/pdf-workflow.md:144-150",
         "docs/glossary.md"
        ]
@@ -898,8 +898,8 @@ window.ATLAS = {
         "magazine-editor"
        ],
        "sources": [
-        "docs/guides/client-workflow.md:287-297",
-        ".claude/skills/new-cv/SKILL.md:64-68"
+        "docs/guides/client-workflow.md:310-321",
+        ".claude/skills/new-cv/SKILL.md:68-72"
        ]
       },
       {
@@ -915,7 +915,7 @@ window.ATLAS = {
         "design-review-app"
        ],
        "sources": [
-        "docs/guides/client-workflow.md:293-297",
+        "docs/guides/client-workflow.md:317-321",
         ".claude/skills/idea-run/SKILL.md:123-135"
        ]
       },
@@ -944,7 +944,7 @@ window.ATLAS = {
         "short": "max 5 rounds · 10 unattended"
        },
        "out": [
-        "`candidate.json`, `cv.typ`",
+        "`candidate.json`, `typst/cv.typ`",
         "`reviews/design-NN.md` (in the `Envelope`)"
        ],
        "uses": [
@@ -953,8 +953,8 @@ window.ATLAS = {
        ],
        "sources": [
         ".claude/skills/new-cv/SKILL.md:12-15",
-        ".claude/skills/new-cv/SKILL.md:69-87",
-        "docs/guides/build-a-cv.md:37-68"
+        ".claude/skills/new-cv/SKILL.md:73-91",
+        "docs/guides/build-a-cv.md:31-63"
        ]
       }
      ]
@@ -987,8 +987,8 @@ window.ATLAS = {
         "cv-py"
        ],
        "sources": [
-        "docs/guides/build-a-cv.md:117-151",
-        ".claude/skills/new-cv/SKILL.md:107-117"
+        "docs/guides/build-a-cv.md:112-147",
+        ".claude/skills/new-cv/SKILL.md:111-121"
        ]
       },
       {
@@ -1015,7 +1015,7 @@ window.ATLAS = {
         "cv-py"
        ],
        "sources": [
-        "docs/guides/build-a-cv.md:184-191",
+        "docs/guides/build-a-cv.md:180-187",
         "docs/pdf-workflow.md:175-179"
        ]
       },
@@ -1038,7 +1038,7 @@ window.ATLAS = {
         "cv-py"
        ],
        "sources": [
-        "docs/guides/build-a-cv.md:193-211",
+        "docs/guides/build-a-cv.md:189-207",
         "docs/pdf-workflow.md:180-191"
        ]
       },
@@ -1059,8 +1059,8 @@ window.ATLAS = {
         "python scripts/outputs.py stamp private/<envelope>/revisions/<id>/cv.pdf status=delivered"
        ],
        "sources": [
-        "docs/guides/build-a-cv.md:204-211",
-        "docs/guides/client-workflow.md:299-302"
+        "docs/guides/build-a-cv.md:200-207",
+        "docs/guides/client-workflow.md:323-326"
        ]
       }
      ]
@@ -1080,7 +1080,7 @@ window.ATLAS = {
         "label": "Claude names passed delete-by dates and hands you the erase commands; you do the deleting."
        },
        "sources": [
-        "docs/guides/client-workflow.md:299-328",
+        "docs/guides/client-workflow.md:323-352",
         "docs/preferences.md:69-81"
        ]
       }
@@ -1717,7 +1717,7 @@ window.ATLAS = {
        "blurb": "Who the client is: `Alias`, `Domain`, `Rank`; dates and links.",
        "detail": "`cv.py render` refuses to run without `envelope.json`; every client `Meta File` copies it.",
        "sources": [
-        "docs/guides/client-workflow.md:29-78"
+        "docs/guides/client-workflow.md:29-101"
        ]
       },
       {
@@ -1726,7 +1726,7 @@ window.ATLAS = {
        "path": "private/<envelope>/intake/",
        "blurb": "Messages, documents, `facts.md`, the `Scout`, `CV Decisions`, `Deep Dives`.",
        "sources": [
-        "docs/guides/client-workflow.md:36-58"
+        "docs/guides/client-workflow.md:38-70"
        ]
       },
       {
@@ -1735,16 +1735,17 @@ window.ATLAS = {
        "path": "private/<envelope>/draft/",
        "blurb": "The `Text Drafts` and the `Sign-off` screenshots.",
        "sources": [
-        "docs/guides/client-workflow.md:250-278"
+        "docs/guides/client-workflow.md:273-301"
        ]
       },
       {
        "id": "n-cvtyp",
        "title": "candidate.json + cv.typ",
-       "path": "private/<envelope>/cv.typ",
-       "blurb": "The client's facts and the entry point that composes their CV.",
+       "path": "private/<envelope>/typst/cv.typ",
+       "blurb": "The client's facts and the entry point that composes their CV, with its designs, wording and art beside it in typst/.",
        "sources": [
-        "docs/guides/build-a-cv.md:37-68"
+        "docs/guides/build-a-cv.md:31-63",
+        "docs/guides/client-workflow.md:38-70"
        ]
       },
       {
@@ -2060,7 +2061,7 @@ window.ATLAS = {
        "actor": "intake-form",
        "blurb": "Optional `Intake Forms` and their answer Sheets.",
        "sources": [
-        "docs/guides/client-workflow.md:92-129"
+        "docs/guides/client-workflow.md:115-152"
        ]
       },
       {
@@ -2070,7 +2071,7 @@ window.ATLAS = {
        "actor": "chat",
        "blurb": "Questions out, answers back, via you.",
        "sources": [
-        "docs/guides/client-workflow.md:82-90"
+        "docs/guides/client-workflow.md:105-113"
        ]
       }
      ]
@@ -2273,22 +2274,30 @@ window.ATLAS = {
   }
  ],
  "build": {
-  "builtAt": "2026-10-14 07:17 UTC",
-  "commit": "b01e51a",
+  "builtAt": "2026-10-14 08:00 UTC",
+  "commit": "85741ff",
   "kit": "1.0",
-  "stale": {},
+  "stale": {
+   "system-map": [
+    "AGENTS.md",
+    "docs/pdf-workflow.md",
+    "docs/guides/client-workflow.md",
+    "docs/guides/build-a-cv.md",
+    "docs/glossary.md"
+   ]
+  },
   "verified": {
    "client-journey": {
     "at": "2026-10-14",
-    "commit": "b01e51a"
+    "commit": "85741ff"
    },
    "design-run": {
     "at": "2026-10-14",
-    "commit": "b01e51a"
+    "commit": "85741ff"
    },
    "change-review": {
     "at": "2026-10-14",
-    "commit": "b01e51a"
+    "commit": "85741ff"
    },
    "system-map": {
     "at": "2026-10-14",
@@ -2296,7 +2305,7 @@ window.ATLAS = {
    },
    "roster": {
     "at": "2026-10-14",
-    "commit": "b01e51a"
+    "commit": "85741ff"
    }
   }
  }
