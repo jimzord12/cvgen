@@ -331,10 +331,10 @@
       "label": "verify-cv",
       "kind": "skill",
       "file": ".claude/skills/verify-cv/SKILL.md",
-      "role": "Runs the full suite and reads its evidence.",
+      "role": "Runs ruff and the full suite and reads its evidence.",
       "when": "After any change under `packages/`, `examples/` or `tests/`.",
       "sources": [
-        ".claude/skills/verify-cv/SKILL.md:1-17"
+        ".claude/skills/verify-cv/SKILL.md:1-19"
       ]
     },
     "new-theme": {

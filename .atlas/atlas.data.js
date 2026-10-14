@@ -333,10 +333,10 @@ window.ATLAS = {
     "label": "verify-cv",
     "kind": "skill",
     "file": ".claude/skills/verify-cv/SKILL.md",
-    "role": "Runs the full suite and reads its evidence.",
+    "role": "Runs ruff and the full suite and reads its evidence.",
     "when": "After any change under `packages/`, `examples/` or `tests/`.",
     "sources": [
-     ".claude/skills/verify-cv/SKILL.md:1-17"
+     ".claude/skills/verify-cv/SKILL.md:1-19"
     ]
    },
    "new-theme": {
@@ -1513,12 +1513,13 @@ window.ATLAS = {
        "id": "build",
        "title": "Build it and prove it",
        "actor": "lead",
-       "summary": "Understand the seam first, then change it, then run the full suite. A visual change also needs a rendered page.",
+       "summary": "Understand the seam first, then change it, then run ruff and the full suite. A visual change also needs a rendered page.",
        "does": [
         "Evidence goes to a new `builds/tests-<timestamp>/` folder; nothing is overwritten.",
         "Going around a component? It gets a `Framework Gap` entry before \"done\"."
        ],
        "cmd": [
+        "ruff check",
         "python tests/run.py"
        ],
        "uses": [
@@ -1527,7 +1528,7 @@ window.ATLAS = {
        ],
        "sources": [
         "AGENTS.md",
-        ".claude/skills/verify-cv/SKILL.md:10-17"
+        ".claude/skills/verify-cv/SKILL.md:10-19"
        ]
       }
      ]
@@ -2274,22 +2275,28 @@ window.ATLAS = {
   }
  ],
  "build": {
-  "builtAt": "2026-10-14 08:46 UTC",
-  "commit": "385aa8b",
+  "builtAt": "2026-10-14 08:53 UTC",
+  "commit": "ca29b23",
   "kit": "1.0",
-  "stale": {},
+  "stale": {
+   "system-map": [
+    "AGENTS.md",
+    "docs/guides/build-a-cv.md",
+    "docs/work"
+   ]
+  },
   "verified": {
    "client-journey": {
     "at": "2026-10-14",
-    "commit": "39d7f06"
+    "commit": "ca29b23"
    },
    "design-run": {
     "at": "2026-10-14",
-    "commit": "6207def"
+    "commit": "ca29b23"
    },
    "change-review": {
     "at": "2026-10-14",
-    "commit": "6207def"
+    "commit": "ca29b23"
    },
    "system-map": {
     "at": "2026-10-14",
@@ -2297,7 +2304,7 @@ window.ATLAS = {
    },
    "roster": {
     "at": "2026-10-14",
-    "commit": "6207def"
+    "commit": "ca29b23"
    }
   }
  }
