@@ -461,7 +461,7 @@ window.ATLAS = {
    "github-ci": {
     "label": "GitHub CI",
     "kind": "service",
-    "role": "Lints the Python with ruff, runs the workflow tool's tests and type check, the `Workflow Model` check (`bun run check`, Bun pinned in `tools/workflow/.bun-version`) and that its generated READMEs match it (`bun run render --check`), then runs the suite once per push (its head commit) on any branch, on Linux and Windows (Typst 0.15.1 and the Python packages in `requirements.lock`, checksummed; the suite drives `scripts/build.ps1` in a throwaway copy on both, and Windows also builds the examples with it); a newer push to a feature branch cancels the older run. The lead watches it on `main` before calling work Done.",
+    "role": "Lints the Python with ruff, runs the workflow tool's tests and type check, the `Workflow Model` check (`bun run check`, Bun pinned in `tools/workflow/.bun-version`) and that its generated READMEs and the `Atlas` client-journey page match it (`bun run render --check`, `bun run atlas --check`), then runs the suite once per push (its head commit) on any branch, on Linux and Windows (Typst 0.15.1 and the Python packages in `requirements.lock`, checksummed; the suite drives `scripts/build.ps1` in a throwaway copy on both, and Windows also builds the examples with it); a newer push to a feature branch cancels the older run. The lead watches it on `main` before calling work Done.",
     "sources": [
      ".github/workflows/verify.yml",
      "docs/git-workflow.md:90-103"
@@ -524,564 +524,2701 @@ window.ATLAS = {
  "pages": [
   {
    "id": "client-journey",
+   "generated": "by `bun run atlas` in tools/workflow, from the Workflow Model in docs/workflow; do not edit",
    "kind": "flow",
    "nav": "New client",
    "title": "A new client, start to finish",
    "question": "I just got a new client. What do I do?",
-   "summary": "From the first message to the delivered PDF. You are the only one who talks to the client; Claude writes, researches and builds; nothing reaches the client or gets approved without you.",
+   "summary": "From the first message to deletion: 104 steps in 7 stages, with 16 gates and 11 loops. Generated from the `Workflow Model` (`docs/workflow/`) by `bun run atlas` in `tools/workflow`; change the model, never this page.",
    "tldr": [
-    "Say \"new client\" to Claude. The `new-client` skill opens a private `Envelope` and writes the questions; you pass them on by chat.",
-    "Research and one follow-up, then a `Text Draft`. The client checks only the facts and says OK: that is the `Sign-off`.",
-    "Then the design, a `Revision`, your `Approval`, the `Export`, and you send it. Data is deleted 12 months after delivery."
+    "**Open the Envelope.** A new client gets one Envelope under private/, a neutral Alias, the envelope.json every Meta File copies, and one task record named by the Alias, before any question is asked.",
+    "**Intake by Relay.** The client answers one question list, consent first, through the owner (and optionally an Intake Form beside the chat message); nothing after this stage starts before the client's \"I agree\" is in intake/messages.md.",
+    "**Facts, Scout, CV Decisions, Deep Dives and one follow-up.** Turn the client's answers into sourced facts, research what this client's target expects, decide what the CV must say, and ask the client once more, in one batch, for what is still missing.",
+    "**Text Draft and Sign-off.** The client checks every fact of the CV in the Text Draft before any design work starts.",
+    "**Design and build the CV.** Turn the signed-off facts into the client's CV design and its build files: the Flagship for a Domain that has it, a custom composition when the data does not fit it, or a one-off Template from an Idea Run when the Domain has no Template; every client CV's design passes the design-reviewer.",
+    "**Render, Approval, Export and delivery.** Render the CV as a Revision, check it, let the owner approve its exact bytes, export a verified copy, write the delete-by date, and record the delivery once the owner has sent it.",
+    "**Retention, deletion and closing the record.** Keep a client's data only as long as promised: name stalled clients and passed delete-by dates to the owner, honour a request to keep, have the owner erase the Envelope and its Google items, and close the client's task."
    ],
    "sources": [
-    "docs/guides/client-workflow.md",
-    "docs/guides/build-a-cv.md"
+    "docs/guides/client-workflow.md:17-19",
+    "docs/guides/client-workflow.md:29-108",
+    ".claude/skills/new-client/SKILL.md:13-21",
+    "docs/guides/client-workflow.md:110-194",
+    ".claude/skills/new-client/SKILL.md:22-31",
+    "docs/guides/client-workflow.md:196-276",
+    ".claude/skills/new-client/SKILL.md:32-58",
+    "docs/guides/client-workflow.md:278-308",
+    ".claude/skills/new-client/SKILL.md:59-71",
+    "docs/guides/client-workflow.md:310-328",
+    ".claude/skills/new-cv/SKILL.md:8-97",
+    "docs/guides/build-a-cv.md:1-108",
+    "docs/guides/build-a-cv.md:110-207",
+    "docs/pdf-workflow.md:169-196",
+    ".claude/skills/new-cv/SKILL.md:98-123",
+    "docs/guides/client-workflow.md:330-359",
+    ".claude/skills/new-client/SKILL.md:95-110",
+    "docs/proposals/workflow-model.md:54-60"
    ],
-   "status": {
-    "step": "approve",
-    "asOf": "2026-10-04",
-    "title": "client-2026-09-01: CV built, approval and export are yours",
-    "note": "Travel & Tourism, a tour leader for Japan. You chose Hanami Line 2 on 2026-10-02 (all three palettes) and the CV was built from it as a one-off `Template` in the client's `Envelope`. Approval, export and delivery happen on your machine, where `private/` lives.",
-    "waitingOn": [
-     "owner"
-    ],
-    "ref": "docs/framework-gaps.md"
-   },
    "phases": [
     {
      "id": "open",
-     "title": "Open",
+     "title": "Open the Envelope",
      "steps": [
       {
-       "id": "arrives",
-       "title": "A new client writes to you",
+       "id": "open.arrives",
+       "title": "The owner names a new client",
        "actor": "owner",
-       "with": [
-        "lead"
+       "you": "The owner tells the lead a new client has arrived, naming the person, the Rank and the Domain.",
+       "next": [
+        "open.envelope"
        ],
-       "summary": "Tell Claude a new client arrived: who, which job, which career area. That starts the `new-client` skill.",
-       "you": "Say \"new client\" with the person's name, `Rank` and `Domain`. Everything after this is a checklist Claude follows.",
-       "does": [
-        "Claude loads the `new-client` checklist.",
-        "It also checks every open client for a stall (no `Export` 3 months after intake) and for a passed delete-by date."
+       "in": [
+        "The client's first message"
        ],
-       "uses": [
-        "new-client"
+       "out": [
+        "The owner's \"new client\" in the session"
        ],
+       "note": "Model step `open.arrives`, action `manual.tell-new-client`, in `docs/workflow/01-open/stage.yaml`.",
        "sources": [
-        "docs/guides/client-workflow.md:9-10",
-        ".claude/skills/new-client/SKILL.md:1-9",
-        ".claude/skills/new-client/SKILL.md:96-99"
+        "docs/guides/client-workflow.md:17-19",
+        ".claude/skills/new-client/SKILL.md:1-3"
        ]
       },
       {
-       "id": "envelope",
-       "title": "Open the Envelope",
+       "id": "open.envelope",
+       "title": "Open the Envelope and its Drawers",
        "actor": "lead",
-       "summary": "One private folder per client, in its own private Git repo, never in the public one. Outside it the client is only an `Alias`.",
-       "does": [
-        "Creates `private/<name>-<rank>/` with the drawers `intake/`, `research/`, `draft/`.",
-        "Gives the client an `Alias` (`client-2026-09-01` style) and writes it in the folder's `README.md`.",
-        "Writes `envelope.json`: alias, `Domain` id (`marine` or `travel`), name, `Rank`."
+       "summary": "Creates private/<name>-<rank>/ in the one Envelope tree with README.md, intake/ (messages.md, documents/), research/ (reviews/) and draft/; never under examples/.",
+       "next": [
+        "open.alias"
+       ],
+       "in": [
+        "The owner's \"new client\" in the session"
        ],
        "out": [
-        "`private/<envelope>/`",
-        "`envelope.json`",
-        "`README.md` (alias, dates, links)"
+        "The Envelope folder and its first Drawers: `private/<envelope>/`"
        ],
-       "note": "`scripts/cv.py render` refuses to run without `envelope.json`, and every `Meta File` in the `Envelope` copies it.",
-       "uses": [
-        "new-client"
-       ],
+       "note": "Model step `open.envelope`, action `lead.open-envelope`, in `docs/workflow/01-open/stage.yaml`.",
        "sources": [
-        "docs/guides/client-workflow.md:19",
-        "docs/guides/client-workflow.md:29-108"
+        "docs/guides/client-workflow.md:31-37",
+        ".claude/skills/new-client/SKILL.md:13-16"
+       ]
+      },
+      {
+       "id": "open.alias",
+       "title": "Give the client an Alias",
+       "actor": "lead",
+       "summary": "Gives the client an Alias client-<yyyy>-<mm>-<nn> and writes it at the top of the Envelope's README.md with the date intake started; outside private/ the client is only ever the Alias.",
+       "next": [
+        "open.envelope-json",
+        "open.task-create"
+       ],
+       "in": [
+        "The Envelope folder and its first Drawers: `private/<envelope>/`"
+       ],
+       "out": [
+        "The Envelope's README.md (Alias and intake date): `private/<envelope>/README.md`"
+       ],
+       "note": "Model step `open.alias`, action `lead.write-alias`, in `docs/workflow/01-open/stage.yaml`.",
+       "sources": [
+        "docs/guides/client-workflow.md:94-98",
+        ".claude/skills/new-client/SKILL.md:16-18",
+        "docs/glossary.md:48"
+       ]
+      },
+      {
+       "id": "open.envelope-json",
+       "title": "Write envelope.json",
+       "actor": "lead",
+       "summary": "Writes alias, domain (an id from the glossary's Domain row), candidate (the display name) and rank; every Meta File in the Envelope copies it and scripts/cv.py render refuses to run without it.",
+       "next": [
+        "intake.questions"
+       ],
+       "in": [
+        "The Envelope's README.md (Alias and intake date): `private/<envelope>/README.md`",
+        "The owner's \"new client\" in the session",
+        "The glossary's Domain ids: `docs/glossary.md`"
+       ],
+       "out": [
+        "envelope.json: `private/<envelope>/envelope.json`"
+       ],
+       "note": "Model step `open.envelope-json`, action `lead.write-envelope-json`, in `docs/workflow/01-open/stage.yaml`.",
+       "sources": [
+        "docs/guides/client-workflow.md:100-108",
+        ".claude/skills/new-client/SKILL.md:18-21"
+       ]
+      },
+      {
+       "id": "open.task-create",
+       "title": "Create the client's task, by Alias only",
+       "actor": "lead",
+       "summary": "Creates one Backlog.md task for the client, named by the Alias only, since backlog/ is public.",
+       "next": [],
+       "in": [
+        "The Envelope's README.md (Alias and intake date): `private/<envelope>/README.md`"
+       ],
+       "out": [
+        "The client's Backlog.md task: `backlog/tasks/`"
+       ],
+       "note": "Model step `open.task-create`, action `lead.create-client-task`, in `docs/workflow/01-open/stage.yaml`.",
+       "sources": [
+        "docs/proposals/workflow-model.md:60",
+        "docs/guides/client-workflow.md:96-98",
+        "docs/workflow/GAPS.md:38-40"
        ]
       }
      ]
     },
     {
      "id": "intake",
-     "title": "Intake",
+     "title": "Intake by Relay",
      "steps": [
       {
-       "id": "questions",
-       "title": "Write the question list",
+       "id": "intake.questions",
+       "title": "Write the question list in Greek, consent first",
        "actor": "lead",
-       "summary": "13 questions in one message, simple friendly Greek, adapted to the `Domain`. Question 1 is consent.",
-       "does": [
-        "Writes the master list as one chat message.",
-        "Consent first: AI tools and web research, private files, never published, deleted 12 months after delivery.",
-        "Optional: a designed Google `Intake Form` instead. Claude writes `intake/form-NN.gs` from the template script."
-       ],
-       "out": [
-        "The question message",
-        "or `intake/form-NN.gs`"
-       ],
-       "uses": [
-        "new-client",
-        "intake-form"
-       ],
-       "sources": [
-        "docs/guides/client-workflow.md:112-115",
-        "docs/guides/client-workflow.md:161-187",
-        "docs/guides/client-workflow.md:122-139"
-       ]
-      },
-      {
-       "id": "relay",
-       "title": "Send it; the client answers",
-       "actor": "owner",
-       "with": [
-        "client"
-       ],
-       "summary": "You are the relay. The client answers in any order, text or voice, over a few days.",
-       "you": "Paste the message into Viber, WhatsApp or email (or run the form script at script.google.com and send the link). When answers come, copy the chat into `intake/messages.md` and photos into `intake/documents/`.",
-       "gate": {
-        "type": "client",
-        "label": "Waits for the client's answers, usually a few days."
-       },
-       "does": [
-        "Voice messages need a transcript: your phone's or your gist.",
-        "Claude never opens the client's LinkedIn page; its PDF export is enough."
+       "summary": "Writes the guide's 13 questions, consent first, as one message in simple, friendly Greek adapted to the client's Domain and target, ready for the owner to paste.",
+       "next": [
+        "intake.relay-send"
        ],
        "in": [
-        "The question list"
+        "envelope.json: `private/<envelope>/envelope.json`",
+        "The master question list: `docs/guides/client-workflow.md`"
        ],
        "out": [
-        "`intake/messages.md`",
-        "`intake/documents/`"
+        "The question list, ready to paste"
        ],
-       "cmd": [
-        {
-         "cmd": "createIntakeForm",
-         "who": "you",
-         "note": "Only for the optional form: run it once in script.google.com; the log prints the client link and the answers Sheet."
-        }
-       ],
+       "note": "Model step `intake.questions`, action `lead.write-question-list`, in `docs/workflow/02-intake/stage.yaml`.",
        "sources": [
-        "docs/guides/client-workflow.md:20",
-        "docs/guides/client-workflow.md:117-120",
-        "docs/guides/client-workflow.md:193-194"
+        "docs/guides/client-workflow.md:112-114",
+        "docs/guides/client-workflow.md:161-187",
+        ".claude/skills/new-client/SKILL.md:22-24"
        ]
       },
       {
-       "id": "consent",
-       "title": "Consent check",
+       "id": "intake.form-script",
+       "title": "Write the Intake Form script",
        "actor": "lead",
-       "summary": "A hard stop. Nothing is read, written or researched until the client's \"I agree\" is in the `Envelope`.",
+       "optional": true,
+       "summary": "Writes intake/form-NN.gs, a copy of scripts/intake-form.gs with only its FORM block changed: title, intro, consent, questions; pages by topic and the quickest question type, in the polite plural.",
+       "does": [
+        "Only when: The owner wants an Intake Form."
+       ],
+       "in": [
+        "The question list, ready to paste",
+        "The Intake Form script: `scripts/intake-form.gs`"
+       ],
+       "out": [
+        "The Intake Form script copy: `private/<envelope>/intake/form-NN.gs`"
+       ],
+       "uses": [
+        "intake-form"
+       ],
+       "note": "Model step `intake.form-script`, action `lead.write-form-script`, in `docs/workflow/02-intake/stage.yaml`.",
+       "sources": [
+        "docs/guides/client-workflow.md:122-131",
+        ".claude/skills/new-client/SKILL.md:28-31"
+       ]
+      },
+      {
+       "id": "intake.form-create",
+       "title": "Run createIntakeForm in Google",
+       "actor": "owner",
+       "optional": true,
+       "you": "The owner pastes form-NN.gs into a new script.google.com project named after the Alias, runs createIntakeForm once (Advanced, then Go to the project, on the first run), and passes the three logged links and the project's link back. A mistake in FORM fails before anything is created.",
+       "does": [
+        "Only when: The owner wants an Intake Form."
+       ],
+       "in": [
+        "The Intake Form script copy: `private/<envelope>/intake/form-NN.gs`"
+       ],
+       "out": [
+        "The Intake Form",
+        "The answers Sheet",
+        "The Apps Script project",
+        "The four Google links"
+       ],
+       "note": "Model step `intake.form-create`, action `manual.run-form-script`, in `docs/workflow/02-intake/stage.yaml`.",
+       "sources": [
+        "docs/guides/client-workflow.md:131-137",
+        "scripts/intake-form.gs:5-18",
+        "scripts/intake-form.gs:78-114"
+       ]
+      },
+      {
+       "id": "intake.form-links",
+       "title": "List the Google links in README.md",
+       "actor": "lead",
+       "optional": true,
+       "summary": "Lists the links the owner brings back under \"Google\" in the Envelope's README.md.",
+       "does": [
+        "Only when: The owner wants an Intake Form."
+       ],
+       "in": [
+        "The four Google links"
+       ],
+       "out": [
+        "README.md, section \"Google\": `private/<envelope>/README.md`"
+       ],
+       "note": "Model step `intake.form-links`, action `lead.list-google-links`, in `docs/workflow/02-intake/stage.yaml`.",
+       "sources": [
+        "docs/guides/client-workflow.md:137-139",
+        ".claude/skills/new-client/SKILL.md:30-31",
+        "scripts/intake-form.gs:11-15"
+       ]
+      },
+      {
+       "id": "intake.form-theme",
+       "title": "Give the form the house theme",
+       "actor": "owner",
+       "optional": true,
+       "you": "Before sending the link, the owner sets the form's theme: header studio/brand/forms/intake-header.png, colour #B0602B, the warm-paper background swatch, Bona Nova for the header and Source Sans 3 for questions and text.",
+       "does": [
+        "Only when: The owner wants an Intake Form."
+       ],
+       "in": [
+        "The Intake Form",
+        "The Intake Form header image: `studio/brand/forms/intake-header.png`"
+       ],
+       "out": [
+        "The Intake Form with the house theme"
+       ],
+       "note": "Model step `intake.form-theme`, action `manual.apply-form-theme`, in `docs/workflow/02-intake/stage.yaml`.",
+       "sources": [
+        "docs/guides/client-workflow.md:139-145",
+        "scripts/intake-form.gs:16-17"
+       ]
+      },
+      {
+       "id": "intake.form-test-cleanup",
+       "title": "Delete the owner's test answer",
+       "actor": "owner",
+       "optional": true,
+       "you": "The owner deletes his test answer in the form's Responses tab and its row in the Sheet, before the client answers.",
+       "does": [
+        "Only when: The owner made a test answer."
+       ],
+       "in": [
+        "The Intake Form with the house theme",
+        "The answers Sheet"
+       ],
+       "note": "Model step `intake.form-test-cleanup`, action `manual.delete-test-answer`, in `docs/workflow/02-intake/stage.yaml`.",
+       "sources": [
+        "docs/guides/client-workflow.md:153-156"
+       ]
+      },
+      {
+       "id": "intake.relay-send",
+       "title": "Paste the questions to the client",
+       "actor": "owner",
+       "you": "The owner pastes the lead's message into the chat app the client already uses (Viber, WhatsApp, email).",
+       "next": [
+        "intake.client-answers"
+       ],
+       "in": [
+        "The question list, ready to paste"
+       ],
+       "out": [
+        "The questions in the client's chat"
+       ],
+       "note": "Model step `intake.relay-send`, action `manual.paste-message`, in `docs/workflow/02-intake/stage.yaml`.",
+       "sources": [
+        "docs/guides/client-workflow.md:112-115",
+        "docs/guides/client-workflow.md:122-125",
+        ".claude/skills/new-client/SKILL.md:24"
+       ]
+      },
+      {
+       "id": "intake.client-answers",
+       "title": "The client answers by chat",
+       "actor": "client",
+       "summary": "The client answers in any order, in text or voice messages, over a few days, or in the Intake Form.",
+       "next": [
+        "intake.capture"
+       ],
+       "in": [
+        "The questions in the client's chat"
+       ],
+       "out": [
+        "The client's chat answers"
+       ],
+       "note": "Model step `intake.client-answers`, action `manual.client-answer`, in `docs/workflow/02-intake/stage.yaml`.",
+       "sources": [
+        "docs/guides/client-workflow.md:114-115"
+       ]
+      },
+      {
+       "id": "intake.form-fill",
+       "title": "The client answers in the Intake Form",
+       "actor": "client",
+       "optional": true,
+       "summary": "The client answers in any order, in text or voice messages, over a few days, or in the Intake Form.",
+       "does": [
+        "Only when: An Intake Form was sent."
+       ],
+       "in": [
+        "The questions in the client's chat",
+        "The Intake Form with the house theme"
+       ],
+       "out": [
+        "The client's form answers"
+       ],
+       "note": "Model step `intake.form-fill`, action `manual.client-answer`, in `docs/workflow/02-intake/stage.yaml`.",
+       "sources": [
+        "docs/guides/client-workflow.md:122-125",
+        "docs/guides/client-workflow.md:145-147"
+       ]
+      },
+      {
+       "id": "intake.transcribe",
+       "title": "Transcribe voice messages",
+       "actor": "owner",
+       "optional": true,
+       "you": "The phone transcribes the voice messages, or the owner types the gist; the lead reads text only.",
+       "does": [
+        "Only when: The client sent voice messages."
+       ],
+       "in": [
+        "The client's chat answers"
+       ],
+       "out": [
+        "messages.md (intake answers): `private/<envelope>/intake/messages.md`"
+       ],
+       "note": "Model step `intake.transcribe`, action `manual.transcribe-voice`, in `docs/workflow/02-intake/stage.yaml`.",
+       "sources": [
+        "docs/guides/client-workflow.md:117-118",
+        ".claude/skills/new-client/SKILL.md:26-27"
+       ]
+      },
+      {
+       "id": "intake.capture",
+       "title": "Bring the chat answers into the Envelope",
+       "actor": "owner",
+       "you": "The owner copies the chat text into intake/messages.md (a WhatsApp \"Export chat\" file works as is) and saves photos and files into intake/documents/.",
+       "next": [
+        "intake.consent"
+       ],
+       "in": [
+        "The client's chat answers"
+       ],
+       "out": [
+        "messages.md (intake answers): `private/<envelope>/intake/messages.md`",
+        "The client's documents: `private/<envelope>/intake/documents/`"
+       ],
+       "note": "Model step `intake.capture`, action `manual.copy-chat-to-envelope`, in `docs/workflow/02-intake/stage.yaml`.",
+       "sources": [
+        "docs/guides/client-workflow.md:118-120"
+       ]
+      },
+      {
+       "id": "intake.form-download",
+       "title": "Download the form answers as CSV",
+       "actor": "owner",
+       "optional": true,
+       "you": "In the answers Sheet, with \"Form Responses 1\" open: File, Download, Comma-separated values, saved as intake/answers-NN.csv.",
+       "does": [
+        "Only when: An Intake Form was sent and the client says he is done."
+       ],
+       "in": [
+        "The client's form answers"
+       ],
+       "out": [
+        "The downloaded form answers: `private/<envelope>/intake/answers-NN.csv`"
+       ],
+       "note": "Model step `intake.form-download`, action `manual.download-answers-csv`, in `docs/workflow/02-intake/stage.yaml`.",
+       "sources": [
+        "docs/guides/client-workflow.md:145-152"
+       ]
+      },
+      {
+       "id": "intake.form-copy",
+       "title": "Copy the form answers into messages.md",
+       "actor": "lead",
+       "optional": true,
+       "summary": "Copies the answers from answers-NN.csv into intake/messages.md, reading ambiguous dates such as 3/4 with care.",
+       "does": [
+        "Only when: An Intake Form was sent."
+       ],
+       "in": [
+        "The downloaded form answers: `private/<envelope>/intake/answers-NN.csv`"
+       ],
+       "out": [
+        "messages.md (intake answers): `private/<envelope>/intake/messages.md`"
+       ],
+       "note": "Model step `intake.form-copy`, action `lead.copy-form-answers`, in `docs/workflow/02-intake/stage.yaml`.",
+       "sources": [
+        "docs/guides/client-workflow.md:152-153"
+       ]
+      },
+      {
+       "id": "intake.consent",
+       "title": "Check consent (hard stop)",
+       "actor": "lead",
+       "summary": "Looks for the client's \"I agree\" in intake/messages.md; until it is there, reads no documents, writes no facts and does no research.",
        "gate": {
         "type": "check",
-        "label": "The client's \"I agree\" is in `intake/messages.md`.",
-        "pass": "consent is there"
+        "label": "Consent: The client's \"I agree\" is in intake/messages.md."
        },
-       "does": [
-        "No consent: you decide whether to ask again or stop."
+       "next": [],
+       "branch": [
+        {
+         "to": "research.facts",
+         "when": "it passes",
+         "short": "pass",
+         "label": "Then stage research"
+        },
+        {
+         "to": "intake.no-consent",
+         "when": "it fails",
+         "short": "fail",
+         "label": "Then"
+        }
        ],
+       "in": [
+        "messages.md (intake answers): `private/<envelope>/intake/messages.md`"
+       ],
+       "note": "Model step `intake.consent`, action `lead.check-consent`, in `docs/workflow/02-intake/stage.yaml`.",
        "sources": [
-        "docs/guides/client-workflow.md:189-193",
+        "docs/guides/client-workflow.md:189-191",
         ".claude/skills/new-client/SKILL.md:24-26"
+       ]
+      },
+      {
+       "id": "intake.no-consent",
+       "title": "No consent; the owner decides",
+       "actor": "owner",
+       "you": "The owner decides whether to ask the client again or to stop; a stopped client is named by after.stall-check after three months and deleted on the owner's word (after.erase-commands, after.erase-envelope).",
+       "next": [],
+       "in": [
+        "messages.md (intake answers): `private/<envelope>/intake/messages.md`"
+       ],
+       "note": "Model step `intake.no-consent`, action `manual.decide-on-no-consent`, in `docs/workflow/02-intake/stage.yaml`.",
+       "sources": [
+        "docs/guides/client-workflow.md:191-192",
+        "docs/guides/client-workflow.md:333-338",
+        "docs/workflow/GAPS.md:51-53"
        ]
       }
      ]
     },
     {
      "id": "research",
-     "title": "Research",
+     "title": "Facts, Scout, CV Decisions, Deep Dives and one follow-up",
      "steps": [
       {
-       "id": "facts",
-       "title": "Facts and the gap list",
+       "id": "research.facts",
+       "title": "Write the facts and the gap list",
        "actor": "lead",
-       "summary": "Every fact from the answers, each naming the message or document it came from. Nothing invented.",
-       "does": [
-        "Identity, target, each job with scope and results, certificates, education, languages, what may be shown.",
-        "Calendar dates are never turned into service time.",
-        "The gap list waits for the one follow-up, so the client is asked only once."
+       "summary": "Writes intake/facts.md: every fact names the message or document it came from, nothing is invented, no calendar period is turned into service time; what is missing goes in a gap list at the end, held for the follow-up.",
+       "next": [
+        "research.scout"
        ],
        "in": [
-        "`intake/messages.md`",
-        "`intake/documents/`"
+        "messages.md (intake answers): `private/<envelope>/intake/messages.md`",
+        "The client's documents: `private/<envelope>/intake/documents/`"
        ],
        "out": [
-        "`intake/facts.md`"
+        "facts.md with the gap list: `private/<envelope>/intake/facts.md`"
        ],
+       "note": "Model step `research.facts`, action `lead.write-facts`, in `docs/workflow/03-research/stage.yaml`.",
        "sources": [
-        "docs/guides/client-workflow.md:198-203"
+        "docs/guides/client-workflow.md:196-203",
+        ".claude/skills/new-client/SKILL.md:32-34"
        ]
       },
       {
-       "id": "scout",
-       "title": "Scout",
+       "id": "research.library-read",
+       "title": "Read the Research Library first",
        "actor": "lead",
-       "with": [
-        "general-purpose"
+       "summary": "Reads docs/research/ before searching the web.",
+       "next": [
+        "research.scout"
        ],
-       "summary": "A wide, shallow search: the country's CV norms, what employers expect of this `Rank`, how CVs are sent.",
+       "in": [
+        "The Research Library: `docs/research/`"
+       ],
+       "out": [
+        "What the library already answers"
+       ],
+       "note": "Model step `research.library-read`, action `lead.read-library`, in `docs/workflow/03-research/stage.yaml`.",
+       "sources": [
+        "docs/guides/client-workflow.md:211-212",
+        ".claude/skills/new-client/SKILL.md:35-36",
+        "docs/research/README.md:3-6"
+       ]
+      },
+      {
+       "id": "research.library-recheck",
+       "title": "Recheck a library note past its date",
+       "actor": "lead",
+       "optional": true,
+       "summary": "Checks the note's load-bearing claims again, moves both dates and records what changed.",
        "does": [
-        "Reads the `Research Library` first; a note past its recheck date is rechecked before use.",
-        "Then the web for what is missing.",
-        "Web searches never contain the client's name or an identifying combination."
+        "Only when: A note the Scout needs is past its \"Recheck after\" date."
+       ],
+       "in": [
+        "The Research Library: `docs/research/`"
        ],
        "out": [
-        "`research/scout.md`: numbered findings with source and date"
+        "A Research Library note: `docs/research/<scope>-<topic>.md`"
        ],
+       "note": "Model step `research.library-recheck`, action `lead.recheck-library-note`, in `docs/workflow/03-research/stage.yaml`.",
        "sources": [
-        "docs/guides/client-workflow.md:207-215",
-        "docs/guides/client-workflow.md:363-366"
+        "docs/guides/client-workflow.md:211-212",
+        "docs/research/README.md:31-33",
+        ".claude/skills/new-client/SKILL.md:35-36"
        ]
       },
       {
-       "id": "decisions",
-       "title": "CV Decisions",
+       "id": "research.scout",
+       "title": "Scout the client's target",
        "actor": "lead",
-       "with": [
-        "owner"
+       "summary": "Searches the web for what the library lacks (or briefs one general-purpose agent): the country's CV norms, what the employers and the Rank expect, how CVs are sent; never with the client's name or an identifying combination; writes research/scout.md.",
+       "next": [
+        "research.decisions"
        ],
-       "summary": "One line per choice the CV must make: title, length, photo, language, `Template`, what leads. Each sourced, a judgement, or open.",
-       "you": "Pick which open decisions deserve a `Deep Dive`. Claude shows each with a recommendation.",
+       "in": [
+        "facts.md with the gap list: `private/<envelope>/intake/facts.md`",
+        "What the library already answers",
+        "envelope.json: `private/<envelope>/envelope.json`"
+       ],
+       "out": [
+        "The Scout's findings: `private/<envelope>/research/scout.md`"
+       ],
+       "note": "Model step `research.scout`, action `lead.scout`, in `docs/workflow/03-research/stage.yaml`.",
+       "sources": [
+        "docs/guides/client-workflow.md:205-215",
+        ".claude/skills/new-client/SKILL.md:35-37",
+        "docs/glossary.md:54"
+       ]
+      },
+      {
+       "id": "research.decisions",
+       "title": "Write the CV Decisions",
+       "actor": "lead",
+       "summary": "Writes research/decisions.md, one line per decision, and shows the owner the open ones with a recommendation for each.",
+       "next": [
+        "research.pick-deep-dives"
+       ],
+       "in": [
+        "facts.md with the gap list: `private/<envelope>/intake/facts.md`",
+        "The Scout's findings: `private/<envelope>/research/scout.md`"
+       ],
+       "out": [
+        "CV Decisions (decisions.md): `private/<envelope>/research/decisions.md`",
+        "The open decisions, with a recommendation each"
+       ],
+       "note": "Model step `research.decisions`, action `lead.write-decisions`, in `docs/workflow/03-research/stage.yaml`.",
+       "sources": [
+        "docs/guides/client-workflow.md:217-233",
+        ".claude/skills/new-client/SKILL.md:38-40"
+       ]
+      },
+      {
+       "id": "research.pick-deep-dives",
+       "title": "The owner picks the Deep Dives",
+       "actor": "owner",
+       "you": "The owner picks which open decisions get a Deep Dive.",
        "gate": {
-        "type": "owner"
+        "type": "owner",
+        "label": "Any Deep Dive chosen: The owner chose at least one open decision for a Deep Dive (0-3 per client, up to 6 for an executive aiming at named companies)."
        },
-       "out": [
-        "`research/decisions.md`"
+       "next": [],
+       "branch": [
+        {
+         "to": "research.dive-brief",
+         "when": "it passes",
+         "short": "pass",
+         "label": "Then"
+        },
+        {
+         "to": "research.follow-up-write",
+         "when": "it fails",
+         "short": "fail",
+         "label": "Then"
+        }
        ],
-       "note": "Research is enough when every decision has an answer; a new source that changes nothing is the signal to stop.",
+       "in": [
+        "The open decisions, with a recommendation each"
+       ],
+       "out": [
+        "The owner's Deep Dive choice"
+       ],
+       "note": "Model step `research.pick-deep-dives`, action `manual.pick-deep-dives`, in `docs/workflow/03-research/stage.yaml`.",
        "sources": [
-        "docs/guides/client-workflow.md:219-237"
+        "docs/guides/client-workflow.md:235",
+        "docs/guides/client-workflow.md:241-242",
+        ".claude/skills/new-client/SKILL.md:38-40"
        ]
       },
       {
-       "id": "deep-dives",
-       "title": "Deep Dives",
-       "actor": "general-purpose",
-       "with": [
-        "research-reviewer"
-       ],
-       "summary": "0 to 3 per client (up to 6 for an executive). One background agent per question, each checked by a fresh reviewer until PASS.",
+       "id": "research.dive-brief",
+       "title": "Brief the Deep Dive author",
+       "actor": "lead",
+       "optional": true,
+       "summary": "Fills the skill's brief with one question, why it matters, what is known, the rules and the Alias only, never the Envelope path.",
        "does": [
-        "The agent gets only the `Alias`, never the folder path.",
-        "Claude checks the text for client details, then gives it to a fresh `research-reviewer` with its SHA-256.",
-        "A finding about a country or `Rank` with no client detail also goes to the `Research Library`."
+        "Only when: Once per Deep Dive question the owner chose."
        ],
+       "in": [
+        "The owner's Deep Dive choice"
+       ],
+       "out": [
+        "The Deep Dive brief"
+       ],
+       "note": "Model step `research.dive-brief`, action `lead.brief-deep-dive`, in `docs/workflow/03-research/stage.yaml`.",
+       "sources": [
+        ".claude/skills/new-client/SKILL.md:41-43",
+        ".claude/skills/new-client/SKILL.md:80-93",
+        "docs/guides/client-workflow.md:242-243"
+       ]
+      },
+      {
+       "id": "research.deep-dive",
+       "title": "Write the Deep Dive",
+       "actor": "general-purpose",
+       "optional": true,
+       "summary": "A background general-purpose agent",
+       "does": [
+        "Only when: Once per Deep Dive question the owner chose."
+       ],
+       "in": [
+        "The Deep Dive brief"
+       ],
+       "out": [
+        "The Deep Dive's returned text"
+       ],
+       "note": "Model step `research.deep-dive`, action `agent.general-purpose`, in `docs/workflow/03-research/stage.yaml`.",
+       "sources": [
+        "docs/guides/client-workflow.md:241-244",
+        ".claude/skills/new-client/SKILL.md:41-43"
+       ]
+      },
+      {
+       "id": "research.dive-save",
+       "title": "Save the Deep Dive and check it for client details",
+       "actor": "lead",
+       "optional": true,
+       "summary": "Saves the returned text as research/deep-dive-<topic>.md and checks it for client details before any reviewer sees it.",
+       "does": [
+        "Only when: Once per Deep Dive question the owner chose."
+       ],
+       "in": [
+        "The Deep Dive's returned text"
+       ],
+       "out": [
+        "The saved Deep Dive: `private/<envelope>/research/deep-dive-<topic>.md`"
+       ],
+       "note": "Model step `research.dive-save`, action `lead.save-deep-dive`, in `docs/workflow/03-research/stage.yaml`.",
+       "sources": [
+        "docs/guides/client-workflow.md:244",
+        "docs/guides/client-workflow.md:248-250",
+        ".claude/skills/new-client/SKILL.md:42-43"
+       ]
+      },
+      {
+       "id": "research.dive-review",
+       "title": "A fresh research-reviewer checks the Deep Dive",
+       "actor": "research-reviewer",
+       "optional": true,
+       "summary": "A fresh research-reviewer round",
        "gate": {
         "type": "review",
-        "label": "Fresh research-reviewer per round.",
-        "pass": "PASS",
-        "cap": "5 rounds with you around, 10 unattended"
+        "label": "Deep Dive review: A fresh research-reviewer returns PASS on the Deep Dive's text and SHA-256.",
+        "cap": "5 attended, 10 unattended, then `research.cap-reached`"
        },
-       "loop": {
-        "to": "deep-dives",
-        "label": "FINDINGS: the same author revises",
-        "short": "max 5 rounds · 10 unattended",
-        "cap": "5 rounds attended, 10 unattended; then it reaches you as unresolved"
-       },
-       "out": [
-        "`research/deep-dive-<topic>.md`",
-        "`research/reviews/<topic>-NN.md`"
+       "branch": [
+        {
+         "to": "research.decisions-update",
+         "when": "it passes",
+         "short": "pass",
+         "label": "Then"
+        },
+        {
+         "to": "research.dive-revise",
+         "when": "it fails",
+         "short": "fail",
+         "label": "Then"
+        }
        ],
+       "does": [
+        "Only when: Once per Deep Dive question the owner chose."
+       ],
+       "in": [
+        "The saved Deep Dive: `private/<envelope>/research/deep-dive-<topic>.md`"
+       ],
+       "out": [
+        "A Deep Dive's review report: `private/<envelope>/research/reviews/<topic>-NN.md`"
+       ],
+       "note": "Model step `research.dive-review`, action `agent.research-reviewer`, in `docs/workflow/03-research/stage.yaml`.",
        "sources": [
-        "docs/guides/client-workflow.md:241-260",
-        ".claude/skills/new-client/SKILL.md:41-48"
+        "docs/guides/client-workflow.md:246-252",
+        ".claude/skills/new-client/SKILL.md:43-48"
        ]
       },
       {
-       "id": "follow-up",
-       "title": "One follow-up",
-       "actor": "lead",
-       "with": [
-        "owner",
-        "client"
-       ],
-       "summary": "The gap list plus research questions, in one batch, simple Greek. Then the client is not asked again unless you decide.",
+       "id": "research.dive-revise",
+       "title": "The same author revises",
+       "actor": "general-purpose",
+       "optional": true,
+       "summary": "The same general-purpose author, by SendMessage",
+       "loop": {
+        "to": "research.dive-save",
+        "label": "Deep Dive review rounds",
+        "short": "max 5 · 10 unattended",
+        "cap": "Deep Dive review rounds: 5 attended, 10 unattended, then `research.cap-reached`"
+       },
        "does": [
-        "Chat: aim for 5 questions, never more than 10.",
-        "As a form: about 15 minutes, at most 5 typed answers.",
-        "Claude updates `facts.md`; anything still missing is left out or marked not supplied."
+        "Only when: Once per Deep Dive question the owner chose, after a FINDINGS verdict."
        ],
-       "you": "Send the follow-up and bring the answers back, like the first time.",
+       "in": [
+        "A Deep Dive's review report: `private/<envelope>/research/reviews/<topic>-NN.md`"
+       ],
        "out": [
-        "Updated `intake/facts.md`"
+        "The Deep Dive's returned text"
        ],
+       "note": "Model step `research.dive-revise`, action `agent.general-purpose-revise`, in `docs/workflow/03-research/stage.yaml`.",
        "sources": [
-        "docs/guides/client-workflow.md:264-276"
+        ".claude/skills/new-client/SKILL.md:47-48"
+       ]
+      },
+      {
+       "id": "research.library-note",
+       "title": "Write or update a Research Library note",
+       "actor": "lead",
+       "optional": true,
+       "summary": "Writes or updates the note in docs/research/ in the same session, free of client detail first; a finding about one employer stays in the Envelope until a second client targets it.",
+       "does": [
+        "Only when: A Deep Dive found something about a country, a Domain or a Rank, with nothing about the client."
+       ],
+       "in": [
+        "The saved Deep Dive: `private/<envelope>/research/deep-dive-<topic>.md`",
+        "A Deep Dive's review report: `private/<envelope>/research/reviews/<topic>-NN.md`"
+       ],
+       "out": [
+        "A Research Library note: `docs/research/<scope>-<topic>.md`"
+       ],
+       "note": "Model step `research.library-note`, action `lead.write-library-note`, in `docs/workflow/03-research/stage.yaml`.",
+       "sources": [
+        "docs/guides/client-workflow.md:254-260",
+        ".claude/skills/new-client/SKILL.md:48-53",
+        "docs/research/README.md:34-39"
+       ]
+      },
+      {
+       "id": "research.library-review",
+       "title": "A fresh research-reviewer checks the note",
+       "actor": "research-reviewer",
+       "optional": true,
+       "summary": "A fresh research-reviewer round",
+       "gate": {
+        "type": "review",
+        "label": "Library note review: A fresh research-reviewer returns PASS on the note's own text and hash.",
+        "cap": "5 attended, 10 unattended (placeholder, docs/workflow/GAPS.md), then `research.cap-reached`"
+       },
+       "branch": [
+        {
+         "to": "research.library-commit",
+         "when": "it passes",
+         "short": "pass",
+         "label": "Then"
+        },
+        {
+         "to": "research.library-revise",
+         "when": "it fails",
+         "short": "fail",
+         "label": "Then"
+        }
+       ],
+       "does": [
+        "Only when: A library note was written, updated or rechecked."
+       ],
+       "in": [
+        "A Research Library note: `docs/research/<scope>-<topic>.md`"
+       ],
+       "out": [
+        "A library note's review report: `archive/work-records/research-<topic>/reviews/`"
+       ],
+       "note": "Model step `research.library-review`, action `agent.research-reviewer`, in `docs/workflow/03-research/stage.yaml`.",
+       "sources": [
+        "docs/guides/client-workflow.md:256-258",
+        "docs/research/README.md:28-30",
+        ".claude/skills/new-client/SKILL.md:51-53"
+       ]
+      },
+      {
+       "id": "research.library-revise",
+       "title": "Revise the library note",
+       "actor": "lead",
+       "optional": true,
+       "summary": "Fixes the note on the reviewer's findings before the next fresh round.",
+       "loop": {
+        "to": "research.library-review",
+        "label": "Library note review rounds (placeholder cap)",
+        "short": "max 5 · 10 unattended (placeholder)",
+        "cap": "Library note review rounds (placeholder cap): 5 attended, 10 unattended (placeholder, docs/workflow/GAPS.md), then `research.cap-reached`"
+       },
+       "does": [
+        "Only when: The note's review returned FINDINGS."
+       ],
+       "in": [
+        "A library note's review report: `archive/work-records/research-<topic>/reviews/`"
+       ],
+       "out": [
+        "A Research Library note: `docs/research/<scope>-<topic>.md`"
+       ],
+       "note": "Model step `research.library-revise`, action `lead.revise-library-note`, in `docs/workflow/03-research/stage.yaml`.",
+       "sources": [
+        "docs/research/README.md:28-30",
+        "docs/guides/client-workflow.md:256-258"
+       ]
+      },
+      {
+       "id": "research.library-commit",
+       "title": "Commit the reviewed note",
+       "actor": "lead",
+       "optional": true,
+       "summary": "Commits the note and its reports like any documentation.",
+       "does": [
+        "Only when: The note's review returned PASS."
+       ],
+       "in": [
+        "A Research Library note: `docs/research/<scope>-<topic>.md`",
+        "A library note's review report: `archive/work-records/research-<topic>/reviews/`"
+       ],
+       "note": "Model step `research.library-commit`, action `lead.commit-library-note`, in `docs/workflow/03-research/stage.yaml`.",
+       "sources": [
+        ".claude/skills/new-client/SKILL.md:51-53",
+        "docs/research/README.md:28-30"
+       ]
+      },
+      {
+       "id": "research.decisions-update",
+       "title": "Update the CV Decisions from the Deep Dives",
+       "actor": "lead",
+       "summary": "Answers the open lines of research/decisions.md from the reviewed Deep Dives, each with its source.",
+       "gate": {
+        "type": "check",
+        "label": "Research is enough: Every decision has a sourced answer or a stated judgement (a new source that changes no decision is the signal to stop).",
+        "cap": "3 attended (placeholder, docs/workflow/GAPS.md), then `research.cap-reached`"
+       },
+       "next": [],
+       "loop": {
+        "to": "research.pick-deep-dives",
+        "label": "More Deep Dives until research is enough (placeholder cap)",
+        "short": "max 3 (placeholder)",
+        "cap": "More Deep Dives until research is enough (placeholder cap): 3 attended (placeholder, docs/workflow/GAPS.md), then `research.cap-reached`"
+       },
+       "branch": [
+        {
+         "to": "research.follow-up-write",
+         "when": "it passes",
+         "short": "pass",
+         "label": "Then"
+        }
+       ],
+       "in": [
+        "The saved Deep Dive: `private/<envelope>/research/deep-dive-<topic>.md`",
+        "A Deep Dive's review report: `private/<envelope>/research/reviews/<topic>-NN.md`"
+       ],
+       "out": [
+        "CV Decisions (decisions.md): `private/<envelope>/research/decisions.md`",
+        "The open decisions, with a recommendation each"
+       ],
+       "note": "Model step `research.decisions-update`, action `lead.update-decisions`, in `docs/workflow/03-research/stage.yaml`.",
+       "sources": [
+        "docs/guides/client-workflow.md:235-237",
+        "archive/work-records/workflow-model/handoff.md:290"
+       ]
+      },
+      {
+       "id": "research.follow-up-write",
+       "title": "Write the one follow-up batch",
+       "actor": "lead",
+       "summary": "Writes the gap list plus any question the research raised (the Scout's open questions, and what the Deep Dives left in decisions.md) as one batch in simple Greek, within the cap for a chat message or an Intake Form.",
+       "next": [
+        "research.follow-up-send"
+       ],
+       "in": [
+        "facts.md with the gap list: `private/<envelope>/intake/facts.md`",
+        "The Scout's findings: `private/<envelope>/research/scout.md`",
+        "CV Decisions (decisions.md): `private/<envelope>/research/decisions.md`"
+       ],
+       "out": [
+        "The follow-up batch, ready to send"
+       ],
+       "note": "Model step `research.follow-up-write`, action `lead.write-follow-up`, in `docs/workflow/03-research/stage.yaml`.",
+       "sources": [
+        "docs/guides/client-workflow.md:262-271",
+        ".claude/skills/new-client/SKILL.md:54-57"
+       ]
+      },
+      {
+       "id": "research.follow-up-form-script",
+       "title": "Write the follow-up Intake Form script",
+       "actor": "lead",
+       "optional": true,
+       "summary": "Writes intake/form-NN.gs, a copy of scripts/intake-form.gs with only its FORM block changed: title, intro, consent, questions; pages by topic and the quickest question type, in the polite plural.",
+       "does": [
+        "Only when: The follow-up goes as an Intake Form."
+       ],
+       "in": [
+        "The follow-up batch, ready to send",
+        "The Intake Form script: `scripts/intake-form.gs`"
+       ],
+       "out": [
+        "The follow-up Intake Form script copy: `private/<envelope>/intake/form-NN.gs`"
+       ],
+       "uses": [
+        "intake-form"
+       ],
+       "note": "Model step `research.follow-up-form-script`, action `lead.write-form-script`, in `docs/workflow/03-research/stage.yaml`.",
+       "sources": [
+        "docs/guides/client-workflow.md:264-270",
+        ".claude/skills/new-client/SKILL.md:55-57"
+       ]
+      },
+      {
+       "id": "research.follow-up-send",
+       "title": "Send the follow-up",
+       "actor": "owner",
+       "you": "The owner pastes the lead's message into the chat app the client already uses (Viber, WhatsApp, email).",
+       "next": [
+        "research.follow-up-answers"
+       ],
+       "in": [
+        "The follow-up batch, ready to send"
+       ],
+       "out": [
+        "The follow-up in the client's chat"
+       ],
+       "note": "Model step `research.follow-up-send`, action `manual.paste-message`, in `docs/workflow/03-research/stage.yaml`.",
+       "sources": [
+        "docs/guides/client-workflow.md:270-273"
+       ]
+      },
+      {
+       "id": "research.follow-up-answers",
+       "title": "The client answers the follow-up",
+       "actor": "client",
+       "summary": "The client answers in any order, in text or voice messages, over a few days, or in the Intake Form.",
+       "next": [
+        "research.follow-up-capture"
+       ],
+       "in": [
+        "The follow-up in the client's chat"
+       ],
+       "out": [
+        "The client's follow-up answers"
+       ],
+       "note": "Model step `research.follow-up-answers`, action `manual.client-answer`, in `docs/workflow/03-research/stage.yaml`.",
+       "sources": [
+        "docs/guides/client-workflow.md:272-273"
+       ]
+      },
+      {
+       "id": "research.follow-up-capture",
+       "title": "Bring the follow-up answers into the Envelope",
+       "actor": "owner",
+       "you": "The owner copies the chat text into intake/messages.md (a WhatsApp \"Export chat\" file works as is) and saves photos and files into intake/documents/.",
+       "next": [
+        "research.facts-update"
+       ],
+       "in": [
+        "The client's follow-up answers"
+       ],
+       "out": [
+        "messages.md (follow-up answers): `private/<envelope>/intake/messages.md`"
+       ],
+       "note": "Model step `research.follow-up-capture`, action `manual.copy-chat-to-envelope`, in `docs/workflow/03-research/stage.yaml`.",
+       "sources": [
+        "docs/guides/client-workflow.md:272-274"
+       ]
+      },
+      {
+       "id": "research.facts-update",
+       "title": "Make facts.md final",
+       "actor": "lead",
+       "summary": "Updates facts.md from the answers; anything still missing is left out or marked not supplied, and the client is not asked again unless the owner decides to.",
+       "next": [
+        "text-draft.draft-write"
+       ],
+       "in": [
+        "messages.md (follow-up answers): `private/<envelope>/intake/messages.md`",
+        "facts.md with the gap list: `private/<envelope>/intake/facts.md`"
+       ],
+       "out": [
+        "facts.md, final: `private/<envelope>/intake/facts.md`"
+       ],
+       "note": "Model step `research.facts-update`, action `lead.update-facts`, in `docs/workflow/03-research/stage.yaml`.",
+       "sources": [
+        "docs/guides/client-workflow.md:273-276",
+        ".claude/skills/new-client/SKILL.md:58"
+       ]
+      },
+      {
+       "id": "research.cap-reached",
+       "title": "At a loop's cap, the owner decides",
+       "actor": "owner",
+       "you": "At a loop's cap (a review loop, the client's draft corrections, the owner's own changes or a render that keeps failing) the lead stops and brings the owner the open item with its last reason; another round needs his decision.",
+       "next": [],
+       "does": [
+        "Reached at the cap of: Deep Dive review rounds; Library note review rounds (placeholder cap); More Deep Dives until research is enough (placeholder cap)."
+       ],
+       "note": "Model step `research.cap-reached`, action `manual.decide-at-cap`, in `docs/workflow/03-research/stage.yaml`.",
+       "sources": [
+        "docs/guides/client-workflow.md:246-248",
+        "docs/review.md:198-202"
        ]
       }
      ]
     },
     {
-     "id": "text",
-     "title": "Text",
+     "id": "text-draft",
+     "title": "Text Draft and Sign-off",
      "steps": [
       {
-       "id": "text-draft",
-       "title": "Text Draft",
+       "id": "text-draft.draft-write",
+       "title": "Write the Text Draft",
        "actor": "lead",
-       "summary": "The CV's words as a PDF in the fixed house design, First Fitting. Every fact to check carries a copper `Fact Mark`.",
-       "does": [
-        "Page 1 is the `Check Page` in Greek: \"check only the underlined facts; the wording is ours; reply OK\".",
-        "Then the content in the CV's language, sized for the `Template`.",
-        "Claude checks every page before giving you the path."
+       "summary": "Writes draft/draft-NN.typ with scripts/text-draft.typ: the Greek Check Page, then the content in the CV's language, sized for the Template (two pages by default), every name, date, number and title the client must check wrapped in #fact[...]; lang \"el\" for a Greek CV.",
+       "next": [
+        "text-draft.draft-compile"
+       ],
+       "in": [
+        "facts.md, final: `private/<envelope>/intake/facts.md`",
+        "CV Decisions (decisions.md): `private/<envelope>/research/decisions.md`",
+        "The Text Draft library: `scripts/text-draft.typ`"
        ],
        "out": [
-        "`draft/draft-NN.pdf` with its `Meta File` (status `ready`)"
+        "Text Draft source: `private/<envelope>/draft/draft-NN.typ`"
        ],
-       "cmd": [
-        "typst compile --root . --ignore-system-fonts --font-path packages/cv-framework/fonts private/<envelope>/draft/draft-01.typ private/<envelope>/draft/draft-01.pdf",
-        "python scripts/outputs.py stamp private/<envelope>/draft/draft-01.pdf status=ready"
-       ],
+       "note": "Model step `text-draft.draft-write`, action `lead.write-text-draft`, in `docs/workflow/04-text-draft/stage.yaml`.",
        "sources": [
-        "docs/guides/client-workflow.md:280-300",
-        "scripts/text-draft.typ:1-6"
+        "docs/guides/client-workflow.md:280-287",
+        ".claude/skills/new-client/SKILL.md:59-63",
+        "scripts/text-draft.typ:8-25"
        ]
       },
       {
-       "id": "sign-off",
-       "title": "Sign-off",
+       "id": "text-draft.draft-compile",
+       "title": "Compile the draft and stamp it ready",
+       "actor": "lead",
+       "summary": "Compile the draft, then stamp it ready, with the command below.",
+       "next": [
+        "text-draft.draft-inspect"
+       ],
+       "in": [
+        "Text Draft source: `private/<envelope>/draft/draft-NN.typ`",
+        "The Text Draft library: `scripts/text-draft.typ`",
+        "The bundled fonts: `packages/cv-framework/fonts/`",
+        "envelope.json: `private/<envelope>/envelope.json`",
+        "The Meta File schema: `packages/cv-workflow/cv_workflow/output.schema.json`"
+       ],
+       "out": [
+        "Text Draft PDF: `private/<envelope>/draft/draft-NN.pdf`",
+        "The Text Draft's Meta File: `private/<envelope>/draft/draft-NN.meta.json`"
+       ],
+       "cmd": [
+        "typst compile --root . --ignore-system-fonts --font-path packages/cv-framework/fonts private/<envelope>/draft/draft-NN.typ private/<envelope>/draft/draft-NN.pdf && python scripts/outputs.py stamp private/<envelope>/draft/draft-NN.pdf status=ready"
+       ],
+       "uses": [
+        "outputs-py"
+       ],
+       "note": "Model step `text-draft.draft-compile`, action `cmd.compile-and-stamp-draft-ready`, in `docs/workflow/04-text-draft/stage.yaml`.",
+       "sources": [
+        "docs/guides/client-workflow.md:289-296",
+        ".claude/skills/new-client/SKILL.md:63-64",
+        "docs/proposals/workflow-model.md:55"
+       ]
+      },
+      {
+       "id": "text-draft.draft-inspect",
+       "title": "Look at every page; give the owner the path",
+       "actor": "lead",
+       "summary": "Looks at every page (every name, date, number and title underlined, since the client checks only those) and gives the owner the PDF path.",
+       "next": [
+        "text-draft.draft-send"
+       ],
+       "in": [
+        "Text Draft PDF: `private/<envelope>/draft/draft-NN.pdf`"
+       ],
+       "out": [
+        "The draft's path, for the owner"
+       ],
+       "note": "Model step `text-draft.draft-inspect`, action `lead.inspect-draft`, in `docs/workflow/04-text-draft/stage.yaml`.",
+       "sources": [
+        ".claude/skills/new-client/SKILL.md:64-66"
+       ]
+      },
+      {
+       "id": "text-draft.draft-send",
+       "title": "The owner sends the draft",
        "actor": "owner",
-       "with": [
-        "client"
+       "you": "The owner sends draft-NN.pdf to the client and confirms to the lead that he sent it.",
+       "next": [
+        "text-draft.draft-sent",
+        "text-draft.draft-fingerprint",
+        "text-draft.client-check"
        ],
-       "summary": "The client's \"OK, the facts are correct\". Not a signature: usually a chat message.",
-       "you": "Send the draft. Save the client's OK as a screenshot, `draft/sign-off-NN.png`.",
-       "gate": {
-        "type": "owner",
-        "label": "The client's OK is saved."
-       },
-       "loop": {
-        "to": "text-draft",
-        "label": "Corrections: a new draft number; the old one is marked `superseded`",
-        "short": "Revise the draft"
-       },
-       "branch": [
-        {
-         "to": "build-cv",
-         "when": "the Domain already has a Template",
-         "short": "marine: skip design",
-         "label": "A marine client goes straight to the build: the `Flagship` exists."
-        }
+       "in": [
+        "The draft's path, for the owner",
+        "Text Draft PDF: `private/<envelope>/draft/draft-NN.pdf`"
        ],
-       "does": [
-        "When you confirm you sent it, Claude re-stamps the draft `sent`.",
-        "A sent draft is never recompiled; its SHA-256 goes in `README.md`.",
-        "With the screenshot saved, Claude re-stamps the draft `signed-off`; the stamp refuses it without the screenshot."
+       "out": [
+        "The Text Draft in the client's chat"
        ],
+       "note": "Model step `text-draft.draft-send`, action `manual.send-draft`, in `docs/workflow/04-text-draft/stage.yaml`.",
        "sources": [
         "docs/guides/client-workflow.md:26",
-        "docs/guides/client-workflow.md:294-308",
-        "docs/pdf-workflow.md:146-152",
-        "docs/glossary.md"
+        "docs/guides/client-workflow.md:296-297"
+       ]
+      },
+      {
+       "id": "text-draft.draft-sent",
+       "title": "Stamp the draft sent",
+       "actor": "lead",
+       "summary": "Stamp the draft sent, with the command below.",
+       "next": [
+        "design.handover"
+       ],
+       "in": [
+        "The Text Draft in the client's chat"
+       ],
+       "out": [
+        "The Text Draft's Meta File: `private/<envelope>/draft/draft-NN.meta.json`"
+       ],
+       "cmd": [
+        "python scripts/outputs.py stamp private/<envelope>/draft/draft-NN.pdf status=sent"
+       ],
+       "uses": [
+        "outputs-py"
+       ],
+       "note": "Model step `text-draft.draft-sent`, action `cmd.stamp-draft-sent`, in `docs/workflow/04-text-draft/stage.yaml`.",
+       "sources": [
+        "docs/guides/client-workflow.md:296-297",
+        ".claude/skills/new-client/SKILL.md:66-67",
+        "docs/proposals/workflow-model.md:55"
+       ]
+      },
+      {
+       "id": "text-draft.draft-fingerprint",
+       "title": "Write the sent draft's SHA-256 in README.md",
+       "actor": "lead",
+       "summary": "Writes the sent draft's SHA-256 in the Envelope's README.md; a sent number is never compiled again.",
+       "next": [],
+       "in": [
+        "The Text Draft in the client's chat"
+       ],
+       "out": [
+        "README.md, the sent draft's SHA-256: `private/<envelope>/README.md`"
+       ],
+       "note": "Model step `text-draft.draft-fingerprint`, action `lead.write-draft-fingerprint`, in `docs/workflow/04-text-draft/stage.yaml`.",
+       "sources": [
+        "docs/guides/client-workflow.md:305-307",
+        ".claude/skills/new-client/SKILL.md:66-68"
+       ]
+      },
+      {
+       "id": "text-draft.client-check",
+       "title": "The client checks the underlined facts",
+       "actor": "client",
+       "summary": "The client checks only the underlined facts and replies OK, or writes the page and the correction.",
+       "gate": {
+        "type": "client",
+        "label": "Sign-off: The client replied OK to the underlined facts.",
+        "cap": "1 attended (placeholder, docs/workflow/GAPS.md), then `text-draft.cap-reached`"
+       },
+       "next": [],
+       "branch": [
+        {
+         "to": "text-draft.sign-off-save",
+         "when": "it passes",
+         "short": "pass",
+         "label": "Then"
+        },
+        {
+         "to": "text-draft.corrections",
+         "when": "it fails",
+         "short": "fail",
+         "label": "Then"
+        }
+       ],
+       "in": [
+        "The Text Draft in the client's chat"
+       ],
+       "out": [
+        "The client's reply to the draft"
+       ],
+       "note": "Model step `text-draft.client-check`, action `manual.client-checks-draft`, in `docs/workflow/04-text-draft/stage.yaml`.",
+       "sources": [
+        "docs/guides/client-workflow.md:302-308",
+        "docs/glossary.md:59",
+        "docs/glossary.md:62"
+       ]
+      },
+      {
+       "id": "text-draft.draft-supersede",
+       "title": "Stamp the old draft superseded",
+       "actor": "lead",
+       "optional": true,
+       "summary": "Stamp the draft superseded, with the command below.",
+       "does": [
+        "Only when: The client asked for corrections."
+       ],
+       "in": [
+        "The client's reply to the draft"
+       ],
+       "out": [
+        "The Text Draft's Meta File: `private/<envelope>/draft/draft-NN.meta.json`"
+       ],
+       "cmd": [
+        "python scripts/outputs.py stamp private/<envelope>/draft/draft-NN.pdf status=superseded"
+       ],
+       "uses": [
+        "outputs-py"
+       ],
+       "note": "Model step `text-draft.draft-supersede`, action `cmd.stamp-draft-superseded`, in `docs/workflow/04-text-draft/stage.yaml`.",
+       "sources": [
+        "docs/guides/client-workflow.md:299-300",
+        ".claude/skills/new-client/SKILL.md:68-69"
+       ]
+      },
+      {
+       "id": "text-draft.corrections",
+       "title": "Take the corrections into the next number",
+       "actor": "lead",
+       "optional": true,
+       "summary": "Takes the client's corrections into the facts, so the next number (draft-NN+1) carries them.",
+       "loop": {
+        "to": "text-draft.draft-write",
+        "label": "Draft correction rounds (placeholder cap)",
+        "short": "max 1 (placeholder)",
+        "cap": "Draft correction rounds (placeholder cap): 1 attended (placeholder, docs/workflow/GAPS.md), then `text-draft.cap-reached`"
+       },
+       "does": [
+        "Only when: The client asked for corrections."
+       ],
+       "in": [
+        "The client's reply to the draft"
+       ],
+       "out": [
+        "facts.md, final: `private/<envelope>/intake/facts.md`"
+       ],
+       "note": "Model step `text-draft.corrections`, action `lead.take-corrections`, in `docs/workflow/04-text-draft/stage.yaml`.",
+       "sources": [
+        "docs/guides/client-workflow.md:306-307",
+        ".claude/skills/new-client/SKILL.md:68-69",
+        "docs/workflow/GAPS.md:34-37"
+       ]
+      },
+      {
+       "id": "text-draft.sign-off-save",
+       "title": "The owner saves the Sign-off screenshot",
+       "actor": "owner",
+       "you": "The owner saves the client's OK as a screenshot, draft/sign-off-NN.png beside the draft it answers.",
+       "next": [
+        "text-draft.sign-off-stamp",
+        "design.fill-data"
+       ],
+       "in": [
+        "The client's reply to the draft"
+       ],
+       "out": [
+        "The Sign-off screenshot: `private/<envelope>/draft/sign-off-NN.png`"
+       ],
+       "note": "Model step `text-draft.sign-off-save`, action `manual.screenshot-sign-off`, in `docs/workflow/04-text-draft/stage.yaml`.",
+       "sources": [
+        "docs/guides/client-workflow.md:26",
+        "docs/guides/client-workflow.md:307-308",
+        ".claude/skills/new-client/SKILL.md:69-70"
+       ]
+      },
+      {
+       "id": "text-draft.sign-off-stamp",
+       "title": "Stamp the draft signed-off",
+       "actor": "lead",
+       "summary": "Stamp the draft signed-off, with the command below.",
+       "next": [
+        "design.handover"
+       ],
+       "in": [
+        "The Sign-off screenshot: `private/<envelope>/draft/sign-off-NN.png`",
+        "Text Draft PDF: `private/<envelope>/draft/draft-NN.pdf`"
+       ],
+       "out": [
+        "The Text Draft's Meta File: `private/<envelope>/draft/draft-NN.meta.json`"
+       ],
+       "cmd": [
+        "python scripts/outputs.py stamp private/<envelope>/draft/draft-NN.pdf status=signed-off"
+       ],
+       "uses": [
+        "outputs-py"
+       ],
+       "note": "Model step `text-draft.sign-off-stamp`, action `cmd.stamp-draft-signed-off`, in `docs/workflow/04-text-draft/stage.yaml`.",
+       "sources": [
+        "docs/guides/client-workflow.md:297-299",
+        ".claude/skills/new-client/SKILL.md:70-71",
+        "packages/cv-workflow/cv_workflow/outputs.py:172-178"
+       ]
+      },
+      {
+       "id": "text-draft.cap-reached",
+       "title": "At the cap, the owner decides",
+       "actor": "owner",
+       "you": "At a loop's cap (a review loop, the client's draft corrections, the owner's own changes or a render that keeps failing) the lead stops and brings the owner the open item with its last reason; another round needs his decision.",
+       "next": [],
+       "does": [
+        "Reached at the cap of: Draft correction rounds (placeholder cap)."
+       ],
+       "note": "Model step `text-draft.cap-reached`, action `manual.decide-at-cap`, in `docs/workflow/04-text-draft/stage.yaml`.",
+       "sources": [
+        "docs/guides/client-workflow.md:370-372",
+        "docs/review.md:198-202"
        ]
       }
      ]
     },
     {
      "id": "design",
-     "title": "Design",
+     "title": "Design and build the CV",
      "steps": [
       {
-       "id": "design-run",
-       "title": "A design run for this client",
+       "id": "design.handover",
+       "title": "Hand over to new-cv",
        "actor": "lead",
-       "with": [
-        "magazine-editor"
-       ],
-       "summary": "Only when the client's `Domain` has no `Template` yet. A design starts from a design, not from code: 18 mock-ups on fictional data.",
-       "does": [
-        "The `magazine-editor` draws three `Styles` × two `Densities` × three `Design Tiers` for the client's `Domain`, specialty and `Rank`.",
-        "Fictional data only; no client detail in any brief.",
-        "The full run, its gates and caps, is its own page: [[design-run]]."
-       ],
-       "uses": [
-        "idea-run",
-        "magazine-editor"
-       ],
-       "sources": [
-        "docs/guides/client-workflow.md:317-328",
-        ".claude/skills/new-cv/SKILL.md:70-74"
-       ]
-      },
-      {
-       "id": "pick",
-       "title": "You pick Style, Tier and Density",
-       "actor": "owner",
-       "summary": "Your choice from the designs that passed their gates.",
-       "you": "Pick one `Style`, one `Design Tier`, one `Density`. Look in the `Design Review` app first if you like.",
+       "summary": "Run the new-cv skill",
        "gate": {
-        "type": "owner"
+        "type": "check",
+        "label": "The Domain has a Template: The client's Domain already has a Template (today only marine, the Flagship)."
        },
-       "uses": [
-        "design-review-app"
+       "next": [],
+       "branch": [
+        {
+         "to": "design.flagship-fit",
+         "when": "it passes",
+         "short": "pass",
+         "label": "Then"
+        },
+        {
+         "to": "design.run-brief",
+         "when": "it fails",
+         "short": "fail",
+         "label": "Then"
+        }
        ],
+       "in": [
+        "facts.md, final: `private/<envelope>/intake/facts.md`",
+        "CV Decisions (decisions.md): `private/<envelope>/research/decisions.md`",
+        "Text Draft PDF: `private/<envelope>/draft/draft-NN.pdf`",
+        "The Text Draft's Meta File: `private/<envelope>/draft/draft-NN.meta.json`",
+        "The Sign-off screenshot: `private/<envelope>/draft/sign-off-NN.png`"
+       ],
+       "out": [
+        "README.md, what was decided and where the evidence is: `private/<envelope>/README.md`"
+       ],
+       "uses": [
+        "new-cv"
+       ],
+       "note": "Model step `design.handover`, action `skill.new-cv`, in `docs/workflow/05-design/stage.yaml`.",
        "sources": [
-        "docs/guides/client-workflow.md:324-328",
-        ".claude/skills/idea-run/SKILL.md:123-135"
+        "docs/guides/client-workflow.md:310-315",
+        ".claude/skills/new-client/SKILL.md:72-76",
+        ".claude/skills/new-cv/SKILL.md:11-15"
        ]
       },
       {
-       "id": "build-cv",
-       "title": "Build the CV",
+       "id": "design.run-brief",
+       "title": "Start an Idea Run for the client's Domain",
        "actor": "lead",
-       "with": [
-        "design-reviewer"
-       ],
-       "summary": "The `new-cv` skill builds from `facts.md` and the signed-off text: no re-asking the client, no rewording beyond fitting the page.",
+       "optional": true,
+       "summary": "Run the idea-run skill (design concepts)",
        "does": [
-        "Marine: `cv.typ` imports the marine `Domain` with `Flagship`, a `Theme`, artwork and a page plan.",
-        "No `Template` yet: a one-off `Template` in the `Envelope`, recorded as a `Framework Gap`.",
-        "Client-design previews go to a fresh `design-reviewer` before you see them; it never reads `private/`."
+        "Only when: The client's Domain has no Template."
        ],
+       "in": [
+        "envelope.json: `private/<envelope>/envelope.json`",
+        "CV Decisions (decisions.md): `private/<envelope>/research/decisions.md`"
+       ],
+       "out": [
+        "The Idea Run record: `archive/work-records/idea-runs/<date>-editor/run.md`"
+       ],
+       "uses": [
+        "idea-run"
+       ],
+       "note": "Model step `design.run-brief`, action `skill.idea-run`, in `docs/workflow/05-design/stage.yaml`.",
+       "sources": [
+        ".claude/skills/new-cv/SKILL.md:70-74",
+        ".claude/skills/idea-run/SKILL.md:32-43",
+        "docs/guides/client-workflow.md:324-326"
+       ]
+      },
+      {
+       "id": "design.run-draw",
+       "title": "Draw three Styles in two Densities and three Design Tiers",
+       "actor": "magazine-editor",
+       "optional": true,
+       "summary": "The magazine-editor draws",
+       "does": [
+        "Only when: The client's Domain has no Template."
+       ],
+       "in": [
+        "The Idea Run record: `archive/work-records/idea-runs/<date>-editor/run.md`"
+       ],
+       "out": [
+        "A Style's brief: `studio/design-concepts/<date>-<slug>/brief.md`",
+        "A concept design: `studio/design-concepts/<date>-<slug>/<density>/<tier>/<density>-<tier>.pdf`",
+        "A concept's Meta File: `studio/design-concepts/<date>-<slug>/<density>/<tier>/<density>-<tier>.meta.json`"
+       ],
+       "note": "Model step `design.run-draw`, action `agent.magazine-editor`, in `docs/workflow/05-design/stage.yaml`.",
+       "sources": [
+        ".claude/skills/idea-run/SKILL.md:17",
+        ".claude/skills/idea-run/SKILL.md:37-43",
+        "studio/design-concepts/README.md:38-44"
+       ]
+      },
+      {
+       "id": "design.run-research-gate",
+       "title": "A fresh research-reviewer checks the references",
+       "actor": "research-reviewer",
+       "optional": true,
+       "summary": "A fresh research-reviewer round",
        "gate": {
         "type": "review",
-        "label": "Fresh design-reviewer per round on the previews.",
-        "pass": "PASS on `Batch Test`, `Three-Second Test`, `Flagship Parity`",
-        "cap": "5 attended, 10 unattended, unless you set another"
+        "label": "Idea Run research gate: A fresh research-reviewer returns PASS on the references in each brief.md.",
+        "cap": "5 attended, 10 unattended, then `design.cap-reached`"
        },
-       "loop": {
-        "to": "build-cv",
-        "label": "FINDINGS: Claude fixes the design",
-        "short": "max 5 rounds · 10 unattended"
-       },
+       "branch": [
+        {
+         "to": "design.run-design-gate",
+         "when": "it passes",
+         "short": "pass",
+         "label": "Then"
+        },
+        {
+         "to": "design.run-revise-sources",
+         "when": "it fails",
+         "short": "fail",
+         "label": "Then"
+        }
+       ],
+       "does": [
+        "Only when: The client's Domain has no Template."
+       ],
+       "in": [
+        "A Style's brief: `studio/design-concepts/<date>-<slug>/brief.md`"
+       ],
        "out": [
-        "`candidate.json`, `typst/cv.typ`",
-        "`reviews/design-NN.md` (in the `Envelope`)"
+        "An Idea Run research report: `archive/work-records/idea-runs/<run>/reviews/NN-research-reviewer.md`"
+       ],
+       "note": "Model step `design.run-research-gate`, action `agent.research-reviewer`, in `docs/workflow/05-design/stage.yaml`.",
+       "sources": [
+        ".claude/skills/idea-run/SKILL.md:51-57"
+       ]
+      },
+      {
+       "id": "design.run-revise-sources",
+       "title": "The editor revises the references",
+       "actor": "magazine-editor",
+       "optional": true,
+       "summary": "The same magazine-editor, by SendMessage",
+       "loop": {
+        "to": "design.run-research-gate",
+        "label": "Idea Run research rounds",
+        "short": "max 5 · 10 unattended",
+        "cap": "Idea Run research rounds: 5 attended, 10 unattended, then `design.cap-reached`"
+       },
+       "does": [
+        "Only when: The research gate returned FINDINGS."
+       ],
+       "in": [
+        "An Idea Run research report: `archive/work-records/idea-runs/<run>/reviews/NN-research-reviewer.md`"
+       ],
+       "out": [
+        "A Style's brief: `studio/design-concepts/<date>-<slug>/brief.md`"
+       ],
+       "note": "Model step `design.run-revise-sources`, action `agent.magazine-editor-revise`, in `docs/workflow/05-design/stage.yaml`.",
+       "sources": [
+        ".claude/skills/idea-run/SKILL.md:54-57",
+        ".claude/skills/idea-run/SKILL.md:67-69"
+       ]
+      },
+      {
+       "id": "design.run-design-gate",
+       "title": "A fresh design-reviewer judges every page",
+       "actor": "design-reviewer",
+       "optional": true,
+       "summary": "A fresh design-reviewer round",
+       "gate": {
+        "type": "review",
+        "label": "Idea Run quality gate: A fresh design-reviewer returns PASS; failing the Batch Test, the Three-Second Test or Flagship Parity is Blocking.",
+        "cap": "5 attended, 10 unattended, then `design.cap-reached`"
+       },
+       "branch": [
+        {
+         "to": "design.run-integrate",
+         "when": "it passes",
+         "short": "pass",
+         "label": "Then"
+        },
+        {
+         "to": "design.run-revise-design",
+         "when": "it fails",
+         "short": "fail",
+         "label": "Then"
+        }
+       ],
+       "does": [
+        "Only when: The client's Domain has no Template."
+       ],
+       "in": [
+        "A concept design: `studio/design-concepts/<date>-<slug>/<density>/<tier>/<density>-<tier>.pdf`",
+        "An Idea Run research report: `archive/work-records/idea-runs/<run>/reviews/NN-research-reviewer.md`"
+       ],
+       "out": [
+        "An Idea Run quality report: `archive/work-records/idea-runs/<run>/reviews/NN-design-reviewer.md`"
+       ],
+       "note": "Model step `design.run-design-gate`, action `agent.design-reviewer`, in `docs/workflow/05-design/stage.yaml`.",
+       "sources": [
+        ".claude/skills/idea-run/SKILL.md:58-62",
+        ".claude/skills/idea-run/SKILL.md:107-113"
+       ]
+      },
+      {
+       "id": "design.run-revise-design",
+       "title": "The editor revises the designs",
+       "actor": "magazine-editor",
+       "optional": true,
+       "summary": "The same magazine-editor, by SendMessage",
+       "loop": {
+        "to": "design.run-design-gate",
+        "label": "Idea Run quality rounds",
+        "short": "max 5 · 10 unattended",
+        "cap": "Idea Run quality rounds: 5 attended, 10 unattended, then `design.cap-reached`"
+       },
+       "does": [
+        "Only when: The quality gate returned FINDINGS."
+       ],
+       "in": [
+        "An Idea Run quality report: `archive/work-records/idea-runs/<run>/reviews/NN-design-reviewer.md`"
+       ],
+       "out": [
+        "A concept design: `studio/design-concepts/<date>-<slug>/<density>/<tier>/<density>-<tier>.pdf`",
+        "A concept's Meta File: `studio/design-concepts/<date>-<slug>/<density>/<tier>/<density>-<tier>.meta.json`"
+       ],
+       "note": "Model step `design.run-revise-design`, action `agent.magazine-editor-revise`, in `docs/workflow/05-design/stage.yaml`.",
+       "sources": [
+        ".claude/skills/idea-run/SKILL.md:58-62",
+        ".claude/skills/idea-run/SKILL.md:67-71"
+       ]
+      },
+      {
+       "id": "design.run-integrate",
+       "title": "Check the Meta Files, commit and merge the run",
+       "actor": "lead",
+       "optional": true,
+       "summary": "Runs python scripts/outputs.py check (every design carries its Meta File), then commits, merges to main and pushes; concepts stay proposed.",
+       "does": [
+        "Only when: The client's Domain has no Template."
+       ],
+       "in": [
+        "A concept design: `studio/design-concepts/<date>-<slug>/<density>/<tier>/<density>-<tier>.pdf`",
+        "A concept's Meta File: `studio/design-concepts/<date>-<slug>/<density>/<tier>/<density>-<tier>.meta.json`",
+        "An Idea Run quality report: `archive/work-records/idea-runs/<run>/reviews/NN-design-reviewer.md`"
+       ],
+       "out": [
+        "The concepts index: `studio/design-concepts/README.md`"
+       ],
+       "note": "Model step `design.run-integrate`, action `lead.integrate-run`, in `docs/workflow/05-design/stage.yaml`.",
+       "sources": [
+        ".claude/skills/idea-run/SKILL.md:73-86"
+       ]
+      },
+      {
+       "id": "design.run-report",
+       "title": "Tell the owner what the run drew",
+       "actor": "lead",
+       "optional": true,
+       "summary": "Sends the short message with each Style's six PDFs and lists the concepts still waiting in the session-handoff doc.",
+       "does": [
+        "Only when: The client's Domain has no Template."
+       ],
+       "in": [
+        "The concepts index: `studio/design-concepts/README.md`"
+       ],
+       "out": [
+        "The run's message to the owner"
+       ],
+       "note": "Model step `design.run-report`, action `lead.report-run`, in `docs/workflow/05-design/stage.yaml`.",
+       "sources": [
+        ".claude/skills/idea-run/SKILL.md:117-123"
+       ]
+      },
+      {
+       "id": "design.pick",
+       "title": "The owner picks a Style, Design Tier and Density",
+       "actor": "owner",
+       "optional": true,
+       "you": "The owner answers Build it (with a Style, Design Tier and Density), Later, or Reject.",
+       "gate": {
+        "type": "owner",
+        "label": "The owner builds a concept: The owner answered \"Build it\" with a Style, Design Tier and Density."
+       },
+       "branch": [
+        {
+         "to": "design.record-choice",
+         "when": "it passes",
+         "short": "pass",
+         "label": "Then"
+        },
+        {
+         "to": "design.record-other-answer",
+         "when": "it fails",
+         "short": "fail",
+         "label": "Then"
+        }
+       ],
+       "does": [
+        "Only when: The client's Domain has no Template."
+       ],
+       "in": [
+        "The run's message to the owner",
+        "A concept design: `studio/design-concepts/<date>-<slug>/<density>/<tier>/<density>-<tier>.pdf`"
+       ],
+       "out": [
+        "The owner's answer on the concepts"
+       ],
+       "note": "Model step `design.pick`, action `manual.pick-design`, in `docs/workflow/05-design/stage.yaml`.",
+       "sources": [
+        "docs/guides/client-workflow.md:325-326",
+        ".claude/skills/new-cv/SKILL.md:72-74",
+        ".claude/skills/idea-run/SKILL.md:130-135"
+       ]
+      },
+      {
+       "id": "design.record-choice",
+       "title": "Record the choice and stamp the picked design chosen",
+       "actor": "lead",
+       "summary": "Stamp a concept's new state, with the command below.",
+       "next": [],
+       "in": [
+        "The owner's answer on the concepts",
+        "A concept design: `studio/design-concepts/<date>-<slug>/<density>/<tier>/<density>-<tier>.pdf`"
+       ],
+       "out": [
+        "The design the owner picked: `studio/design-concepts/<date>-<slug>/<density>/<tier>/`",
+        "The owner's answer, recorded: `studio/design-concepts/README.md`"
+       ],
+       "cmd": [
+        "python scripts/outputs.py stamp <pdf> status=<state>"
        ],
        "uses": [
-        "new-cv",
-        "design-reviewer"
+        "outputs-py"
        ],
+       "note": "Model step `design.record-choice`, action `cmd.stamp-concept-status`, in `docs/workflow/05-design/stage.yaml`.",
        "sources": [
-        ".claude/skills/new-cv/SKILL.md:12-15",
-        ".claude/skills/new-cv/SKILL.md:75-93",
+        ".claude/skills/idea-run/SKILL.md:123-128",
+        ".claude/skills/idea-run/SKILL.md:132",
+        "studio/design-concepts/README.md:46-49"
+       ]
+      },
+      {
+       "id": "design.record-other-answer",
+       "title": "Record a parked or rejected answer",
+       "actor": "lead",
+       "optional": true,
+       "summary": "Stamp a concept's new state, with the command below.",
+       "does": [
+        "Only when: The owner parked or rejected the concepts."
+       ],
+       "in": [
+        "The owner's answer on the concepts"
+       ],
+       "out": [
+        "The owner's answer, recorded: `studio/design-concepts/README.md`"
+       ],
+       "cmd": [
+        "python scripts/outputs.py stamp <pdf> status=<state>"
+       ],
+       "uses": [
+        "outputs-py"
+       ],
+       "note": "Model step `design.record-other-answer`, action `cmd.stamp-concept-status`, in `docs/workflow/05-design/stage.yaml`.",
+       "sources": [
+        ".claude/skills/idea-run/SKILL.md:133-135",
+        "studio/design-concepts/README.md:46-49",
+        "docs/workflow/GAPS.md:49-50"
+       ]
+      },
+      {
+       "id": "design.fill-data",
+       "title": "Write candidate.json and place the portrait",
+       "actor": "lead",
+       "summary": "Copies the closest example record and replaces every value from the facts and the signed-off wording (whole months, never months invented from calendar periods), replaces the fictional disclosure, and places the portrait in images/portrait/.",
+       "next": [
+        "design.preview",
+        "deliver.render"
+       ],
+       "in": [
+        "facts.md, final: `private/<envelope>/intake/facts.md`",
+        "Text Draft PDF: `private/<envelope>/draft/draft-NN.pdf`",
+        "The Sign-off screenshot: `private/<envelope>/draft/sign-off-NN.png`",
+        "The client's documents: `private/<envelope>/intake/documents/`",
+        "The fictional example records: `examples/candidates/`"
+       ],
+       "out": [
+        "candidate.json: `private/<envelope>/candidate.json`",
+        "The client's portrait: `private/<envelope>/images/portrait/`"
+       ],
+       "note": "Model step `design.fill-data`, action `lead.write-candidate-json`, in `docs/workflow/05-design/stage.yaml`.",
+       "sources": [
+        ".claude/skills/new-cv/SKILL.md:11-15",
+        ".claude/skills/new-cv/SKILL.md:19-27",
+        ".claude/skills/new-cv/SKILL.md:43-53",
+        "docs/guides/build-a-cv.md:65-77"
+       ]
+      },
+      {
+       "id": "design.flagship-fit",
+       "title": "Check the data fits the Flagship",
+       "actor": "lead",
+       "optional": true,
+       "summary": "Checks the data against the known Flagship gaps listed in docs/framework-gaps.md.",
+       "gate": {
+        "type": "check",
+        "label": "The data fits the Flagship: The client's data fits flagship: whole service months, no three-column certificate table, no skills block (the known cases in docs/framework-gaps.md)."
+       },
+       "branch": [
+        {
+         "to": "design.entry-point",
+         "when": "it passes",
+         "short": "pass",
+         "label": "Then"
+        },
+        {
+         "to": "design.custom-composition",
+         "when": "it fails",
+         "short": "fail",
+         "label": "Then"
+        }
+       ],
+       "does": [
+        "Only when: The client's Domain has a Template (today marine, the Flagship)."
+       ],
+       "in": [
+        "candidate.json: `private/<envelope>/candidate.json`"
+       ],
+       "note": "Model step `design.flagship-fit`, action `lead.check-flagship-fit`, in `docs/workflow/05-design/stage.yaml`.",
+       "sources": [
+        ".claude/skills/new-cv/SKILL.md:89-93",
+        "docs/guides/build-a-cv.md:217-225"
+       ]
+      },
+      {
+       "id": "design.entry-point",
+       "title": "Write the Flagship entry point",
+       "actor": "lead",
+       "optional": true,
+       "summary": "Writes typst/cv.typ importing the engine by root-absolute path: role, theme, artwork, the durations switch and a pages override with this client's company indices (or the one-page profile), and the client's copy in place of the example wording.",
+       "does": [
+        "Only when: The data fits the Flagship."
+       ],
+       "in": [
+        "candidate.json: `private/<envelope>/candidate.json`",
+        "The Flagship Template: `packages/domains/marine/templates/flagship/`"
+       ],
+       "out": [
+        "The CV's entry point: `private/<envelope>/typst/cv.typ`"
+       ],
+       "note": "Model step `design.entry-point`, action `lead.write-flagship-entry`, in `docs/workflow/05-design/stage.yaml`.",
+       "sources": [
+        ".claude/skills/new-cv/SKILL.md:54-69",
+        ".claude/skills/new-cv/SKILL.md:94-97",
         "docs/guides/build-a-cv.md:31-63"
+       ]
+      },
+      {
+       "id": "design.custom-composition",
+       "title": "Compose the page by hand",
+       "actor": "lead",
+       "optional": true,
+       "summary": "Writes typst/cv.typ from the lib.typ components (core-components, flagship-components), with data the schema cannot hold in typst/presentation.json, every file read by a literal relative path.",
+       "does": [
+        "Only when: The data does not fit the Flagship (contract periods, a three-column certificate table, a skills block)."
+       ],
+       "in": [
+        "candidate.json: `private/<envelope>/candidate.json`",
+        "The Flagship Template: `packages/domains/marine/templates/flagship/`"
+       ],
+       "out": [
+        "The CV's entry point: `private/<envelope>/typst/cv.typ`",
+        "The design's own files beside cv.typ: `private/<envelope>/typst/`"
+       ],
+       "note": "Model step `design.custom-composition`, action `lead.compose-by-hand`, in `docs/workflow/05-design/stage.yaml`.",
+       "sources": [
+        "docs/guides/build-a-cv.md:217-281",
+        ".claude/skills/new-cv/SKILL.md:89-93"
+       ]
+      },
+      {
+       "id": "design.port-concept",
+       "title": "Port the chosen concept into the Envelope",
+       "actor": "lead",
+       "optional": true,
+       "summary": "Builds the one-off Template in the Envelope from the chosen concept's Typst: typst/cv.typ importing /packages/cv-framework/lib.typ only, the design code in typst/designs/, the wording in typst/text/, the SVGs in typst/art/.",
+       "does": [
+        "Only when: The client's Domain has no Template and the owner chose a concept."
+       ],
+       "in": [
+        "The design the owner picked: `studio/design-concepts/<date>-<slug>/<density>/<tier>/`",
+        "candidate.json: `private/<envelope>/candidate.json`"
+       ],
+       "out": [
+        "The CV's entry point: `private/<envelope>/typst/cv.typ`",
+        "The design's own files beside cv.typ: `private/<envelope>/typst/`"
+       ],
+       "note": "Model step `design.port-concept`, action `lead.port-concept`, in `docs/workflow/05-design/stage.yaml`.",
+       "sources": [
+        "docs/framework-gaps.md:125-129",
+        "docs/guides/client-workflow.md:317-324",
+        "archive/work-records/workflow-model/handoff.md:290"
+       ]
+      },
+      {
+       "id": "design.framework-gap",
+       "title": "Record the Framework Gap",
+       "actor": "lead",
+       "optional": true,
+       "summary": "Adds an entry to docs/framework-gaps.md (what was needed, what was gone around, what was built) and records the reason in the Envelope's README.md.",
+       "does": [
+        "Only when: A custom composition or a one-off Template was built."
+       ],
+       "in": [
+        "The CV's entry point: `private/<envelope>/typst/cv.typ`"
+       ],
+       "out": [
+        "A Framework Gap entry: `docs/framework-gaps.md`",
+        "README.md, what was decided and where the evidence is: `private/<envelope>/README.md`"
+       ],
+       "note": "Model step `design.framework-gap`, action `lead.record-framework-gap`, in `docs/workflow/05-design/stage.yaml`.",
+       "sources": [
+        "docs/guides/build-a-cv.md:275-281",
+        ".claude/skills/new-cv/SKILL.md:89-93",
+        "docs/guides/client-workflow.md:312-315",
+        "docs/guides/client-workflow.md:324"
+       ]
+      },
+      {
+       "id": "design.engine-change",
+       "title": "Change the public engine for the design",
+       "actor": "lead",
+       "optional": true,
+       "summary": "Makes the engine change the design needs on a branch, for the normal code-reviewer gate; the one-off's own assets stay in its Envelope.",
+       "does": [
+        "Only when: The client's design needs something only the public engine can hold (fonts render finds only in packages/cv-framework/fonts/)."
+       ],
+       "in": [
+        "The CV's entry point: `private/<envelope>/typst/cv.typ`"
+       ],
+       "out": [
+        "A change to the public engine: `packages/`"
+       ],
+       "note": "Model step `design.engine-change`, action `lead.change-engine`, in `docs/workflow/05-design/stage.yaml`.",
+       "sources": [
+        "docs/proposals/workflow-model.md:59",
+        "docs/framework-gaps.md:128"
+       ]
+      },
+      {
+       "id": "design.engine-review",
+       "title": "A fresh code-reviewer reviews the engine change",
+       "actor": "code-reviewer",
+       "optional": true,
+       "summary": "A fresh code-reviewer round",
+       "gate": {
+        "type": "review",
+        "label": "Engine change review: A fresh code-reviewer returns PASS (no Blocking or Material finding) on the engine change.",
+        "cap": "5 attended, 10 unattended, then `design.cap-reached`"
+       },
+       "branch": [
+        {
+         "to": "design.preview",
+         "when": "it passes",
+         "short": "pass",
+         "label": "Then"
+        },
+        {
+         "to": "design.engine-revise",
+         "when": "it fails",
+         "short": "fail",
+         "label": "Then"
+        }
+       ],
+       "does": [
+        "Only when: The client's design needs something only the public engine can hold (fonts render finds only in packages/cv-framework/fonts/)."
+       ],
+       "in": [
+        "A change to the public engine: `packages/`"
+       ],
+       "out": [
+        "The engine change's review report: `archive/work-records/<task-slug>/reviews/NN-<reviewer>.md`"
+       ],
+       "note": "Model step `design.engine-review`, action `agent.code-reviewer`, in `docs/workflow/05-design/stage.yaml`.",
+       "sources": [
+        "docs/proposals/workflow-model.md:59",
+        "docs/review.md:7-9",
+        "docs/review.md:20-27"
+       ]
+      },
+      {
+       "id": "design.engine-revise",
+       "title": "Fix the engine change",
+       "actor": "lead",
+       "optional": true,
+       "summary": "Fixes the Blocking and Material findings and reruns the affected checks before the next fresh round.",
+       "loop": {
+        "to": "design.engine-review",
+        "label": "Engine change review rounds",
+        "short": "max 5 · 10 unattended",
+        "cap": "Engine change review rounds: 5 attended, 10 unattended, then `design.cap-reached`"
+       },
+       "does": [
+        "Only when: The code review returned FINDINGS."
+       ],
+       "in": [
+        "The engine change's review report: `archive/work-records/<task-slug>/reviews/NN-<reviewer>.md`"
+       ],
+       "out": [
+        "A change to the public engine: `packages/`"
+       ],
+       "note": "Model step `design.engine-revise`, action `lead.revise-engine-change`, in `docs/workflow/05-design/stage.yaml`.",
+       "sources": [
+        "docs/review.md:190-197"
+       ]
+      },
+      {
+       "id": "design.preview",
+       "title": "Compile the previews for the reviewer",
+       "actor": "lead",
+       "summary": "Compiles the client's pages into builds/design-review-input-<timestamp>/, since the reviewer never reads private/ (no source gives the command).",
+       "next": [
+        "design.client-review"
+       ],
+       "in": [
+        "The CV's entry point: `private/<envelope>/typst/cv.typ`",
+        "candidate.json: `private/<envelope>/candidate.json`",
+        "The bundled fonts: `packages/cv-framework/fonts/`"
+       ],
+       "out": [
+        "The client's preview pages for the reviewer: `builds/design-review-input-<timestamp>/`"
+       ],
+       "note": "Model step `design.preview`, action `lead.compile-previews`, in `docs/workflow/05-design/stage.yaml`.",
+       "sources": [
+        ".claude/skills/new-cv/SKILL.md:75-78",
+        "docs/proposals/workflow-model.md:57"
+       ]
+      },
+      {
+       "id": "design.client-review",
+       "title": "A fresh design-reviewer judges the client's pages",
+       "actor": "design-reviewer",
+       "summary": "A fresh design-reviewer round",
+       "gate": {
+        "type": "review",
+        "label": "Client design review: A fresh design-reviewer returns PASS on the client's preview pages, first on the Batch Test and the Three-Second Test.",
+        "cap": "5 attended, 10 unattended, then `design.cap-reached`"
+       },
+       "next": [],
+       "branch": [
+        {
+         "to": "design.clear-review-input",
+         "when": "it passes",
+         "short": "pass",
+         "label": "Then"
+        },
+        {
+         "to": "design.fix",
+         "when": "it fails",
+         "short": "fail",
+         "label": "Then"
+        }
+       ],
+       "in": [
+        "The client's preview pages for the reviewer: `builds/design-review-input-<timestamp>/`"
+       ],
+       "out": [
+        "A client design review report: `private/<envelope>/reviews/design-NN.md`"
+       ],
+       "note": "Model step `design.client-review`, action `agent.design-reviewer`, in `docs/workflow/05-design/stage.yaml`.",
+       "sources": [
+        ".claude/skills/new-cv/SKILL.md:75-86",
+        "docs/proposals/workflow-model.md:57",
+        ".claude/agents/design-reviewer.md:34-42"
+       ]
+      },
+      {
+       "id": "design.fix",
+       "title": "Fix the design on the findings",
+       "actor": "lead",
+       "optional": true,
+       "summary": "Fixes the design on the findings and stores the report verbatim as reviews/design-NN.md before the next fresh round.",
+       "loop": {
+        "to": "design.preview",
+        "label": "Client design review rounds",
+        "short": "max 5 · 10 unattended",
+        "cap": "Client design review rounds: 5 attended, 10 unattended, then `design.cap-reached`"
+       },
+       "does": [
+        "Only when: The design review returned FINDINGS."
+       ],
+       "in": [
+        "A client design review report: `private/<envelope>/reviews/design-NN.md`"
+       ],
+       "out": [
+        "The CV's entry point: `private/<envelope>/typst/cv.typ`"
+       ],
+       "note": "Model step `design.fix`, action `lead.fix-design`, in `docs/workflow/05-design/stage.yaml`.",
+       "sources": [
+        ".claude/skills/new-cv/SKILL.md:82-84"
+       ]
+      },
+      {
+       "id": "design.clear-review-input",
+       "title": "Clear the previews from builds/",
+       "actor": "lead",
+       "summary": "Deletes the builds/design-review-input-* folders by path, since they hold a real client's pages outside private/ (never git clean -x or -X).",
+       "next": [],
+       "in": [
+        "A client design review report: `private/<envelope>/reviews/design-NN.md`"
+       ],
+       "note": "Model step `design.clear-review-input`, action `lead.clear-review-input`, in `docs/workflow/05-design/stage.yaml`.",
+       "sources": [
+        ".claude/skills/new-cv/SKILL.md:87-88",
+        "docs/preferences.md:62-64"
+       ]
+      },
+      {
+       "id": "design.cap-reached",
+       "title": "At a loop's cap, the owner decides",
+       "actor": "owner",
+       "you": "At a loop's cap (a review loop, the client's draft corrections, the owner's own changes or a render that keeps failing) the lead stops and brings the owner the open item with its last reason; another round needs his decision.",
+       "next": [],
+       "does": [
+        "Reached at the cap of: Idea Run research rounds; Idea Run quality rounds; Engine change review rounds; Client design review rounds."
+       ],
+       "note": "Model step `design.cap-reached`, action `manual.decide-at-cap`, in `docs/workflow/05-design/stage.yaml`.",
+       "sources": [
+        ".claude/skills/new-cv/SKILL.md:82-84",
+        ".claude/skills/idea-run/SKILL.md:63-66",
+        "docs/review.md:198-202"
        ]
       }
      ]
     },
     {
      "id": "deliver",
-     "title": "Deliver",
+     "title": "Render, Approval, Export and delivery",
      "steps": [
       {
-       "id": "render",
+       "id": "deliver.render",
        "title": "Render a Revision",
        "actor": "lead",
-       "summary": "Every render is a new, never-overwritten folder with a snapshot of its inputs, the PDF, its checks and a `Meta File`.",
-       "does": [
-        "Checks: page count, no empty page, fonts embedded, text inside the page, every font family bundled (a missing one is set in another font, so the checks fail).",
-        "A certificate expired or expiring within 180 days prints a `Certificate Warning`; it never blocks.",
-        "Claude stops here and reports the folder, the PDF's hash, the pages and every WARNING word for word."
+       "summary": "Render a Revision, with the command below.",
+       "gate": {
+        "type": "check",
+        "label": "Render done: scripts/cv.py render exits 0: not refused (exit 2, nothing written), the compile succeeded and every check passed (exit 1 keeps the Revision).",
+        "cap": "5 attended, 10 unattended (placeholder, docs/workflow/GAPS.md), then `deliver.cap-reached`"
+       },
+       "next": [
+        "deliver.wording-check"
+       ],
+       "branch": [
+        {
+         "to": "deliver.page-png",
+         "when": "it passes",
+         "short": "pass",
+         "label": "Then"
+        },
+        {
+         "to": "deliver.fix",
+         "when": "it fails",
+         "short": "fail",
+         "label": "Then"
+        }
+       ],
+       "in": [
+        "envelope.json: `private/<envelope>/envelope.json`",
+        "candidate.json: `private/<envelope>/candidate.json`",
+        "The CV's entry point: `private/<envelope>/typst/cv.typ`",
+        "The public engine: `packages/`"
        ],
        "out": [
-        "`revisions/<id>/cv.pdf`",
-        "`render.json`, `checks.json`, `cv.meta.json` (status `render`)"
+        "The Revision's input snapshot: `private/<envelope>/revisions/<revision>/inputs/`",
+        "render.log: `private/<envelope>/revisions/<revision>/render.log`",
+        "render.json: `private/<envelope>/revisions/<revision>/render.json`",
+        "checks.json: `private/<envelope>/revisions/<revision>/checks.json`",
+        "The Revision's cv.pdf: `private/<envelope>/revisions/<revision>/cv.pdf`",
+        "The Revision's Meta File: `private/<envelope>/revisions/<revision>/cv.meta.json`",
+        "What render prints"
        ],
        "cmd": [
-        {
-         "cmd": "python scripts/cv.py render private/<envelope>",
-         "note": "Add `--pages 1` for the one-page profile, `--pages 3` for three. Exit 2 means refused, nothing written."
-        }
+        "python scripts/cv.py render private/<envelope> [--pages <N>] [--input <key>=<value> ...]"
        ],
        "uses": [
         "cv-py"
        ],
+       "note": "Model step `deliver.render`, action `cmd.cv-render`, in `docs/workflow/06-deliver/stage.yaml`.",
        "sources": [
-        "docs/guides/build-a-cv.md:112-147",
+        "docs/guides/build-a-cv.md:110-137",
+        ".claude/skills/new-cv/SKILL.md:98-100",
+        "packages/cv-workflow/cv_workflow/render.py:100-207"
+       ]
+      },
+      {
+       "id": "deliver.fix",
+       "title": "Fix the inputs; the fix is a new Revision",
+       "actor": "lead",
+       "optional": true,
+       "summary": "Applies the fix the message names, in candidate.json or the entry point's layout override; never shrinks the body font; the Revision it looked at is never modified.",
+       "loop": {
+        "to": "deliver.render",
+        "label": "Fix and render again after a failed render (placeholder cap)",
+        "short": "max 5 · 10 unattended (placeholder)",
+        "cap": "Fix and render again after a failed render (placeholder cap): 5 attended, 10 unattended (placeholder, docs/workflow/GAPS.md), then `deliver.cap-reached`"
+       },
+       "does": [
+        "Only when: The render was refused or failed, the wording check found example wording, or the owner asked for a change."
+       ],
+       "in": [
+        "What render prints"
+       ],
+       "out": [
+        "The CV's entry point: `private/<envelope>/typst/cv.typ`",
+        "candidate.json: `private/<envelope>/candidate.json`"
+       ],
+       "note": "Model step `deliver.fix`, action `lead.fix-inputs`, in `docs/workflow/06-deliver/stage.yaml`.",
+       "sources": [
+        "docs/guides/build-a-cv.md:128-136",
+        "docs/guides/build-a-cv.md:159-168",
+        ".claude/skills/new-cv/SKILL.md:103-105"
+       ]
+      },
+      {
+       "id": "deliver.page-png",
+       "title": "Render every page to PNG and look at it",
+       "actor": "lead",
+       "summary": "Render a page to PNG, with the command below.",
+       "next": [
+        "deliver.report"
+       ],
+       "in": [
+        "The Revision's cv.pdf: `private/<envelope>/revisions/<revision>/cv.pdf`"
+       ],
+       "out": [
+        "The page PNGs: `builds/<new-folder>/cv-p<N>.png`"
+       ],
+       "cmd": [
+        "python -c \"import pymupdf; doc = pymupdf.open('private/<envelope>/revisions/<revision>/cv.pdf'); doc[<N>].get_pixmap(dpi=96).save('builds/<new-folder>/cv-p<N>.png')\""
+       ],
+       "note": "Model step `deliver.page-png`, action `cmd.page-png`, in `docs/workflow/06-deliver/stage.yaml`.",
+       "sources": [
+        ".claude/skills/new-cv/SKILL.md:106-107",
+        "docs/guides/build-a-cv.md:170-176",
+        ".claude/skills/verify-cv/SKILL.md:65-76"
+       ]
+      },
+      {
+       "id": "deliver.wording-check",
+       "title": "Check for the fictional example wording",
+       "actor": "lead",
+       "summary": "Check for example wording, with the command below.",
+       "gate": {
+        "type": "check",
+        "label": "No example wording: The rendered text contains none of \"fictional\", \"illustrative\" and \"flagship\" (the one exception: \"flagship\" in the client's own words, once the footer shows the configured brand).",
+        "cap": "5 attended, 10 unattended (placeholder, docs/workflow/GAPS.md), then `deliver.cap-reached`"
+       },
+       "next": [],
+       "loop": {
+        "to": "deliver.fix",
+        "label": "Fix and render again after example wording (placeholder cap)",
+        "short": "max 5 · 10 unattended (placeholder)",
+        "cap": "Fix and render again after example wording (placeholder cap): 5 attended, 10 unattended (placeholder, docs/workflow/GAPS.md), then `deliver.cap-reached`"
+       },
+       "branch": [
+        {
+         "to": "deliver.report",
+         "when": "it passes",
+         "short": "pass",
+         "label": "Then"
+        }
+       ],
+       "in": [
+        "The Revision's cv.pdf: `private/<envelope>/revisions/<revision>/cv.pdf`"
+       ],
+       "out": [
+        "The wording check's result"
+       ],
+       "cmd": [
+        "python -c \"import pymupdf,sys; t=''.join(p.get_text() for p in pymupdf.open(sys.argv[1])).lower(); print([w for w in ('fictional','illustrative','flagship') if w in t])\" private/<envelope>/revisions/<revision>/cv.pdf"
+       ],
+       "note": "Model step `deliver.wording-check`, action `cmd.wording-check`, in `docs/workflow/06-deliver/stage.yaml`.",
+       "sources": [
+        ".claude/skills/new-cv/SKILL.md:107-111",
+        "docs/guides/build-a-cv.md:98-108"
+       ]
+      },
+      {
+       "id": "deliver.report",
+       "title": "Report the Revision to the owner",
+       "actor": "lead",
+       "summary": "Stops at the render and reports the revision folder, the PDF hash, the page count, what was checked on each page, any override, and every WARNING and NOTE word for word.",
+       "next": [
+        "deliver.owner-review"
+       ],
+       "in": [
+        "What render prints",
+        "The page PNGs: `builds/<new-folder>/cv-p<N>.png`",
+        "The wording check's result"
+       ],
+       "out": [
+        "The render report to the owner"
+       ],
+       "note": "Model step `deliver.report`, action `lead.report-render`, in `docs/workflow/06-deliver/stage.yaml`.",
+       "sources": [
         ".claude/skills/new-cv/SKILL.md:113-123"
        ]
       },
       {
-       "id": "approve",
-       "title": "Approval",
+       "id": "deliver.owner-review",
+       "title": "The owner reviews the exact cv.pdf",
        "actor": "owner",
-       "summary": "Your act on the exact bytes you reviewed. Agents never approve a real client's PDF.",
-       "you": "Open the PDF, check it, then approve it by its hash.",
+       "you": "The owner opens revisions/<revision>/cv.pdf (or finds it in the Design Review app), weighs the certificate warnings, and approves it or asks for a change.",
        "gate": {
         "type": "owner",
-        "label": "Bound to the revision and its SHA-256. Refused if the bytes changed or the checks failed."
+        "label": "The owner accepts the Revision: The owner reviewed this Revision's cv.pdf and wants no change.",
+        "cap": "5 attended (placeholder, docs/workflow/GAPS.md), then `deliver.cap-reached`"
        },
+       "next": [],
+       "loop": {
+        "to": "deliver.fix",
+        "label": "The owner's changes, as new Revisions (placeholder cap)",
+        "short": "max 5 (placeholder)",
+        "cap": "The owner's changes, as new Revisions (placeholder cap): 5 attended (placeholder, docs/workflow/GAPS.md), then `deliver.cap-reached`"
+       },
+       "branch": [
+        {
+         "to": "deliver.approve",
+         "when": "it passes",
+         "short": "pass",
+         "label": "Then"
+        }
+       ],
+       "in": [
+        "The render report to the owner",
+        "The Revision's cv.pdf: `private/<envelope>/revisions/<revision>/cv.pdf`"
+       ],
+       "out": [
+        "The hash the owner reviewed"
+       ],
+       "note": "Model step `deliver.owner-review`, action `manual.review-pdf`, in `docs/workflow/06-deliver/stage.yaml`.",
+       "sources": [
+        "docs/pdf-workflow.md:175-176",
+        "docs/guides/build-a-cv.md:170-176",
+        "docs/guides/build-a-cv.md:139-147"
+       ]
+      },
+      {
+       "id": "deliver.approve",
+       "title": "The owner approves the reviewed bytes",
+       "actor": "owner",
+       "you": "Approve a Revision, with the command below.",
+       "next": [
+        "deliver.export"
+       ],
+       "in": [
+        "The Revision's cv.pdf: `private/<envelope>/revisions/<revision>/cv.pdf`",
+        "render.json: `private/<envelope>/revisions/<revision>/render.json`",
+        "checks.json: `private/<envelope>/revisions/<revision>/checks.json`",
+        "The hash the owner reviewed",
+        "envelope.json: `private/<envelope>/envelope.json`"
+       ],
+       "out": [
+        "The approval receipt: `private/<envelope>/revisions/<revision>/cv.approval.json`",
+        "The Revision's Meta File: `private/<envelope>/revisions/<revision>/cv.meta.json`"
+       ],
        "cmd": [
         {
-         "cmd": "python scripts/cv.py approve private/<envelope> <revision-id> --approver \"<name>\" --sha256 <hash>",
+         "cmd": "python scripts/cv.py approve private/<envelope> <revision> --approver \"<name>\" --sha256 <reviewed hash>",
          "who": "you"
         }
        ],
-       "out": [
-        "`cv.approval.json`",
-        "`Meta File` re-stamped `approved`"
-       ],
        "uses": [
         "cv-py"
        ],
+       "note": "Model step `deliver.approve`, action `cmd.cv-approve`, in `docs/workflow/06-deliver/stage.yaml`.",
        "sources": [
-        "docs/guides/build-a-cv.md:180-187",
-        "docs/pdf-workflow.md:177-181"
+        "docs/guides/build-a-cv.md:178-187",
+        "docs/pdf-workflow.md:177-181",
+        "docs/proposals/workflow-model.md:58",
+        "docs/glossary.md:64"
        ]
       },
       {
-       "id": "export",
-       "title": "Export",
+       "id": "deliver.export",
+       "title": "Export the approved Revision",
        "actor": "lead",
-       "summary": "A verified copy of the approved bytes, ready to send. It never compiles anything.",
-       "does": [
-        "Checks render, checks and approval, copies PDF and receipt, verifies the copy.",
-        "A new `Revision` inherits no approval."
+       "summary": "Export a Revision, with the command below.",
+       "next": [
+        "deliver.record-delete-by",
+        "deliver.send"
        ],
-       "cmd": [
-        "python scripts/cv.py export private/<envelope> <revision-id>"
+       "in": [
+        "The approval receipt: `private/<envelope>/revisions/<revision>/cv.approval.json`",
+        "The Revision's cv.pdf: `private/<envelope>/revisions/<revision>/cv.pdf`",
+        "render.json: `private/<envelope>/revisions/<revision>/render.json`",
+        "checks.json: `private/<envelope>/revisions/<revision>/checks.json`"
        ],
        "out": [
-        "`exports/<revision-id>/cv.pdf`"
+        "The Export: `private/<envelope>/exports/<revision>/`"
+       ],
+       "cmd": [
+        "python scripts/cv.py export private/<envelope> <revision>"
        ],
        "uses": [
         "cv-py"
        ],
+       "note": "Model step `deliver.export`, action `cmd.cv-export`, in `docs/workflow/06-deliver/stage.yaml`.",
        "sources": [
-        "docs/guides/build-a-cv.md:189-207",
-        "docs/pdf-workflow.md:182-193"
+        "docs/proposals/workflow-model.md:58",
+        "docs/guides/build-a-cv.md:189-198",
+        "docs/pdf-workflow.md:182-186"
        ]
       },
       {
-       "id": "deliver",
-       "title": "Send it",
-       "actor": "owner",
-       "with": [
-        "client"
+       "id": "deliver.record-delete-by",
+       "title": "Write the Export and delete-by dates in README.md",
+       "actor": "lead",
+       "summary": "Writes \"Exported <date>, delete by <date + 12 months>\" in the Envelope's README.md, together with the Export.",
+       "next": [
+        "deliver.report-delete-by"
        ],
-       "summary": "Sending is a separate act, by you. Then the record says delivered, with a delete-by date.",
-       "you": "Send the exported PDF to the client.",
-       "does": [
-        "Claude re-stamps the PDF `delivered`; the stamp refuses it without the approval receipt and a verified `Export`.",
-        "Writes \"Delivered <date>. Delete by <date + 12 months>\" in the `Envelope`'s `README.md`."
+       "in": [
+        "The Export: `private/<envelope>/exports/<revision>/`"
+       ],
+       "out": [
+        "README.md, the Export and delete-by line: `private/<envelope>/README.md`"
+       ],
+       "note": "Model step `deliver.record-delete-by`, action `lead.write-delete-by`, in `docs/workflow/06-deliver/stage.yaml`.",
+       "sources": [
+        "docs/proposals/workflow-model.md:54",
+        "docs/proposals/workflow-model.md:56",
+        "docs/guides/client-workflow.md:330-332",
+        ".claude/skills/new-client/SKILL.md:76-77"
+       ]
+      },
+      {
+       "id": "deliver.send",
+       "title": "The owner sends the exported PDF",
+       "actor": "owner",
+       "you": "The owner sends exports/<revision>/cv.pdf to the client, a separate manual act; the receipt is internal and not sent.",
+       "next": [
+        "deliver.stamp-delivered"
+       ],
+       "in": [
+        "The Export: `private/<envelope>/exports/<revision>/`"
+       ],
+       "out": [
+        "The CV sent to the client"
+       ],
+       "note": "Model step `deliver.send`, action `manual.send-pdf`, in `docs/workflow/06-deliver/stage.yaml`.",
+       "sources": [
+        "docs/guides/build-a-cv.md:200-201",
+        "docs/pdf-workflow.md:187-190"
+       ]
+      },
+      {
+       "id": "deliver.stamp-delivered",
+       "title": "Stamp the Revision delivered",
+       "actor": "lead",
+       "summary": "Stamp the Revision delivered, with the command below.",
+       "next": [],
+       "in": [
+        "The CV sent to the client",
+        "The Export: `private/<envelope>/exports/<revision>/`",
+        "The approval receipt: `private/<envelope>/revisions/<revision>/cv.approval.json`"
+       ],
+       "out": [
+        "The Revision's Meta File: `private/<envelope>/revisions/<revision>/cv.meta.json`"
        ],
        "cmd": [
-        "python scripts/outputs.py stamp private/<envelope>/revisions/<id>/cv.pdf status=delivered"
+        "python scripts/outputs.py stamp private/<envelope>/revisions/<revision>/cv.pdf status=delivered"
        ],
+       "uses": [
+        "outputs-py"
+       ],
+       "note": "Model step `deliver.stamp-delivered`, action `cmd.stamp-delivered`, in `docs/workflow/06-deliver/stage.yaml`.",
        "sources": [
-        "docs/guides/build-a-cv.md:200-207",
-        "docs/guides/client-workflow.md:330-333"
+        "docs/guides/build-a-cv.md:200-204",
+        "docs/guides/client-workflow.md:331-332",
+        ".claude/skills/new-client/SKILL.md:77-78"
+       ]
+      },
+      {
+       "id": "deliver.report-delete-by",
+       "title": "Name the delete-by date to the owner",
+       "actor": "lead",
+       "summary": "Names the delete-by date in its report to the owner, with any Intake Form, Sheet and script project listed in README.md for deletion with it.",
+       "next": [],
+       "in": [
+        "README.md, the Export and delete-by line: `private/<envelope>/README.md`"
+       ],
+       "out": [
+        "The delete-by date, named to the owner"
+       ],
+       "note": "Model step `deliver.report-delete-by`, action `lead.report-delete-by`, in `docs/workflow/06-deliver/stage.yaml`.",
+       "sources": [
+        "docs/guides/client-workflow.md:332",
+        ".claude/skills/new-client/SKILL.md:104-105"
+       ]
+      },
+      {
+       "id": "deliver.status",
+       "title": "List the Revisions and their states",
+       "actor": "lead",
+       "optional": true,
+       "summary": "List the Revisions, with the command below.",
+       "does": [
+        "Only when: Any time the state of the Revisions is needed."
+       ],
+       "in": [
+        "render.json: `private/<envelope>/revisions/<revision>/render.json`"
+       ],
+       "out": [
+        "What status prints"
+       ],
+       "cmd": [
+        "python scripts/cv.py status private/<envelope>"
+       ],
+       "uses": [
+        "cv-py"
+       ],
+       "note": "Model step `deliver.status`, action `cmd.cv-status`, in `docs/workflow/06-deliver/stage.yaml`.",
+       "sources": [
+        "docs/guides/build-a-cv.md:197",
+        "scripts/cv.py:62-63",
+        "packages/cv-workflow/cv_workflow/__init__.py:14-31"
+       ]
+      },
+      {
+       "id": "deliver.cap-reached",
+       "title": "At a loop's cap, the owner decides",
+       "actor": "owner",
+       "you": "At a loop's cap (a review loop, the client's draft corrections, the owner's own changes or a render that keeps failing) the lead stops and brings the owner the open item with its last reason; another round needs his decision.",
+       "next": [],
+       "does": [
+        "Reached at the cap of: Fix and render again after a failed render (placeholder cap); Fix and render again after example wording (placeholder cap); The owner's changes, as new Revisions (placeholder cap)."
+       ],
+       "note": "Model step `deliver.cap-reached`, action `manual.decide-at-cap`, in `docs/workflow/06-deliver/stage.yaml`.",
+       "sources": [
+        "docs/review.md:198-202"
        ]
       }
      ]
     },
     {
      "id": "after",
-     "title": "After",
+     "title": "Retention, deletion and closing the record",
      "steps": [
       {
-       "id": "retention",
-       "title": "12 months later: delete",
-       "actor": "owner",
-       "summary": "Client data goes 12 months after delivery, unless the client asked to keep it. Deleting is always yours.",
-       "you": "Delete the `Envelope`, the `Intake Form`, its Sheet and script project, then empty Drive's Trash (it keeps files 30 days). Then run the commands Claude hands you to erase the `Envelope` from the private repo's history.",
-       "gate": {
-        "type": "owner",
-        "label": "Claude names passed delete-by dates and hands you the erase commands; you do the deleting."
-       },
+       "id": "after.stall-check",
+       "title": "Name stalled clients to the owner",
+       "actor": "lead",
+       "optional": true,
+       "summary": "The new-client skill's report to the owner",
+       "does": [
+        "Only when: Every time the new-client skill runs."
+       ],
+       "in": [
+        "The Envelope's README.md (Alias and intake date): `private/<envelope>/README.md`"
+       ],
+       "out": [
+        "Stalled clients and passed delete-by dates, by Alias"
+       ],
+       "uses": [
+        "new-client"
+       ],
+       "note": "Model step `after.stall-check`, action `skill.new-client`, in `docs/workflow/07-after/stage.yaml`.",
        "sources": [
-        "docs/guides/client-workflow.md:330-359",
-        "docs/preferences.md:69-81"
+        ".claude/skills/new-client/SKILL.md:97-100",
+        "docs/guides/client-workflow.md:333-336"
+       ]
+      },
+      {
+       "id": "after.delete-by-check",
+       "title": "Name passed delete-by dates to the owner",
+       "actor": "lead",
+       "optional": true,
+       "summary": "The new-client skill's report to the owner",
+       "does": [
+        "Only when: Every time the new-client skill runs."
+       ],
+       "in": [
+        "README.md, the Export and delete-by line: `private/<envelope>/README.md`"
+       ],
+       "out": [
+        "Stalled clients and passed delete-by dates, by Alias"
+       ],
+       "uses": [
+        "new-client"
+       ],
+       "note": "Model step `after.delete-by-check`, action `skill.new-client`, in `docs/workflow/07-after/stage.yaml`.",
+       "sources": [
+        ".claude/skills/new-client/SKILL.md:97-100",
+        ".claude/skills/new-client/SKILL.md:104-108"
+       ]
+      },
+      {
+       "id": "after.keep-request",
+       "title": "The client asks to keep his data",
+       "actor": "client",
+       "optional": true,
+       "summary": "The client asks, through the owner, that his details be kept beyond 12 months after delivery.",
+       "does": [
+        "Only when: The client asks to keep his data beyond the delete-by date."
+       ],
+       "in": [
+        "The questions in the client's chat"
+       ],
+       "out": [
+        "The client's request to keep his data"
+       ],
+       "note": "Model step `after.keep-request`, action `manual.ask-to-keep`, in `docs/workflow/07-after/stage.yaml`.",
+       "sources": [
+        "docs/guides/client-workflow.md:164-167",
+        "docs/proposals/workflow-model.md:56",
+        "archive/work-records/workflow-model/handoff.md:290",
+        "docs/workflow/GAPS.md:54-57"
+       ]
+      },
+      {
+       "id": "after.keep-record",
+       "title": "Record the keep request in envelope.json",
+       "actor": "lead",
+       "optional": true,
+       "summary": "Records the client's keep request as a field in envelope.json, so the delete-by check skips this client.",
+       "does": [
+        "Only when: The client asked to keep his data."
+       ],
+       "in": [
+        "The client's request to keep his data"
+       ],
+       "out": [
+        "envelope.json, the keep request: `private/<envelope>/envelope.json`"
+       ],
+       "note": "Model step `after.keep-record`, action `lead.record-keep-request`, in `docs/workflow/07-after/stage.yaml`.",
+       "sources": [
+        "docs/proposals/workflow-model.md:56",
+        "docs/workflow/GAPS.md:41-44"
+       ]
+      },
+      {
+       "id": "after.erase-commands",
+       "title": "Hand the owner the history-erase commands",
+       "actor": "lead",
+       "optional": true,
+       "summary": "Gives the owner the guide's history-erase commands filled in with the Envelope's folder name; he runs them, the lead never does.",
+       "does": [
+        "Only when: The delete-by date has passed and envelope.json records no keep request, or the owner decides to delete a client who never reached Export (no consent, dropped out)."
+       ],
+       "in": [
+        "Stalled clients and passed delete-by dates, by Alias"
+       ],
+       "out": [
+        "The filled history-erase commands"
+       ],
+       "note": "Model step `after.erase-commands`, action `lead.fill-erase-commands`, in `docs/workflow/07-after/stage.yaml`.",
+       "sources": [
+        ".claude/skills/new-client/SKILL.md:105-108",
+        "docs/guides/client-workflow.md:339-345",
+        "docs/guides/client-workflow.md:333-338"
+       ]
+      },
+      {
+       "id": "after.delete-google",
+       "title": "Delete the Intake Forms, Sheets and script projects",
+       "actor": "owner",
+       "optional": true,
+       "you": "The owner deletes each Intake Form, its Sheet and its script project listed in README.md, then empties the Drive Trash.",
+       "does": [
+        "Only when: The client had an Intake Form, and the delete-by date has passed with no keep request recorded, or the owner decides to delete a client who never reached Export (no consent, dropped out)."
+       ],
+       "in": [
+        "README.md, section \"Google\": `private/<envelope>/README.md`",
+        "Stalled clients and passed delete-by dates, by Alias"
+       ],
+       "note": "Model step `after.delete-google`, action `manual.delete-google-items`, in `docs/workflow/07-after/stage.yaml`.",
+       "sources": [
+        "docs/guides/client-workflow.md:333-338",
+        "docs/guides/client-workflow.md:158-159"
+       ]
+      },
+      {
+       "id": "after.erase-envelope",
+       "title": "Delete the Envelope and erase it from the private history",
+       "actor": "owner",
+       "optional": true,
+       "you": "With git status and git log origin/main.. empty in private/, the owner runs the erase in a fresh clone (git filter-repo, force-push), then deletes that folder and every clone, private/ included, and clones it again.",
+       "does": [
+        "Only when: The delete-by date has passed and envelope.json records no keep request, or the owner decides to delete a client who never reached Export (no consent, dropped out)."
+       ],
+       "in": [
+        "The filled history-erase commands"
+       ],
+       "out": [
+        "The private repository without the Envelope"
+       ],
+       "note": "Model step `after.erase-envelope`, action `manual.erase-envelope`, in `docs/workflow/07-after/stage.yaml`.",
+       "sources": [
+        "docs/guides/client-workflow.md:333-359",
+        "docs/preferences.md:69-77",
+        "docs/workflow/GAPS.md:45-48"
+       ]
+      },
+      {
+       "id": "after.close",
+       "title": "Close the client's task",
+       "actor": "lead",
+       "summary": "Closes the client's Backlog.md task once the Envelope is deleted.",
+       "next": [],
+       "in": [
+        "The private repository without the Envelope"
+       ],
+       "out": [
+        "The client's Backlog.md task: `backlog/tasks/`"
+       ],
+       "note": "Model step `after.close`, action `lead.close-client-task`, in `docs/workflow/07-after/stage.yaml`.",
+       "sources": [
+        "docs/proposals/workflow-model.md:60",
+        "archive/work-records/workflow-model/handoff.md:290"
+       ]
+      },
+      {
+       "id": "after.revision-cleanup",
+       "title": "Remove failed or unapproved Revisions",
+       "actor": "owner",
+       "optional": true,
+       "you": "The owner gives his explicit go, on the exact command shown first, to remove failed or unapproved Revisions.",
+       "does": [
+        "Only when: The owner wants failed or unapproved Revisions removed before the delete-by date."
+       ],
+       "in": [
+        "What status prints"
+       ],
+       "note": "Model step `after.revision-cleanup`, action `manual.go-remove-revisions`, in `docs/workflow/07-after/stage.yaml`.",
+       "sources": [
+        "docs/pdf-workflow.md:213-216",
+        "docs/preferences.md:75-77",
+        "docs/workflow/GAPS.md:58-61"
        ]
       }
      ]
@@ -1407,7 +3544,7 @@ window.ATLAS = {
        "actor": "lead",
        "summary": "A chosen Style becomes either a `Template` task in `backlog/` or the client's own CV.",
        "does": [
-        "For a client: the one-off design is built and reviewed in their `Envelope`: [[client-journey#build-cv]].",
+        "For a client: the one-off design is built and reviewed in their `Envelope`: [[client-journey#design.port-concept]].",
         "A concept becomes a `Template` only after you keep it and a build task is agreed."
        ],
        "sources": [
@@ -2031,7 +4168,7 @@ window.ATLAS = {
        "title": "GitHub CI",
        "path": ".github/workflows/verify.yml",
        "actor": "github-ci",
-       "blurb": "Ruff, the `Workflow Model` check and its generated READMEs, then the suite once per push (its head commit), Linux and Windows."
+       "blurb": "Ruff, the `Workflow Model` check, its generated READMEs and `Atlas` page, then the suite once per push (its head commit), Linux and Windows."
       }
      ]
     },
@@ -2275,30 +4412,30 @@ window.ATLAS = {
   }
  ],
  "build": {
-  "builtAt": "2026-10-14 11:09 UTC",
-  "commit": "a36ab4a",
+  "builtAt": "2026-10-14 11:34 UTC",
+  "commit": "dbc30bc",
   "kit": "1.0",
   "stale": {},
   "verified": {
    "client-journey": {
     "at": "2026-10-14",
-    "commit": "930100b"
+    "commit": "dbc30bc"
    },
    "design-run": {
     "at": "2026-10-14",
-    "commit": "930100b"
+    "commit": "24fa022"
    },
    "change-review": {
     "at": "2026-10-14",
-    "commit": "ce6fe1f"
+    "commit": "24fa022"
    },
    "system-map": {
     "at": "2026-10-14",
-    "commit": "a36ab4a"
+    "commit": "b71c2a3"
    },
    "roster": {
     "at": "2026-10-14",
-    "commit": "0db3ba7"
+    "commit": "24fa022"
    }
   }
  }

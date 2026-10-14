@@ -454,7 +454,7 @@ def main():
     for check in run_design_review(out):
         results.append({'case': 'design-review-' + check, 'passed': True, 'folder': 'design-review'})
     # The Workflow Model (docs/workflow, ADR 0015): the workflow tool's check, levels 1 and 2 (TASK-38), and its generated
-    # READMEs, which must be what render writes from the model (TASK-39).
+    # READMEs, which must be what render writes from the model (TASK-39), and the Atlas client-journey page (TASK-41).
     bun = shutil.which('bun')
     if bun:
         tool, folder = ROOT / 'tools' / 'workflow', out / 'workflow-model'
@@ -472,6 +472,8 @@ def main():
         assert check.returncode == 0 and 'levels 1 and 2 pass' in check.stdout, ('workflow-model', check.stdout + check.stderr)
         rendered = bun_run('render.log', 'run', 'render', '--check')
         assert rendered.returncode == 0, ('workflow-model', rendered.stdout + rendered.stderr)
+        page = bun_run('atlas.log', 'run', 'atlas', '--check')
+        assert page.returncode == 0, ('workflow-model', page.stdout + page.stderr)
         results.append({'case': 'workflow-model', 'passed': True, 'folder': 'workflow-model'})
         # Level 3 (TASK-42): a fictional client runs the model through the real scripts; three disagreeing copies fail.
         for check in run_reality(folder, bun_run):

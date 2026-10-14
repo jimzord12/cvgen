@@ -3,10 +3,11 @@
 // lines changed are EDITED.
 import { afterEach, beforeEach, describe, expect, test } from "bun:test";
 import { spawnSync } from "node:child_process";
-import { cpSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from "node:fs";
+import { cpSync, mkdtempSync, readFileSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { anchors } from "../src/anchors";
+import { removeTmp } from "./tmp";
 
 let root = "";
 const stageFile = () => join(root, "model", "01-make", "stage.yaml");
@@ -31,7 +32,7 @@ beforeEach(() => {
   git("add", ".");
   git("commit", "-q", "-m", "base");
 });
-afterEach(() => rmSync(root, { recursive: true, force: true }));
+afterEach(() => removeTmp(root));
 
 describe("anchors", () => {
   test("nothing changed: exit 0", () => {

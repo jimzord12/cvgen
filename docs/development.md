@@ -86,7 +86,9 @@ report:
   skill). Name any finding in the handoff; the owner approves fixes by ID.
 - **`Atlas`:** `python .atlas/_kit/atlas.py check`. A STALE or UNVERIFIED
   page is re-checked against its sources, rebuilt and stamped in the same
-  session; refresh the `status` of any flow the session moved.
+  session; refresh the `status` of any flow the session moved. The
+  generated client-journey page has no `status` and is never edited: it
+  follows `tools/workflow/README.md` ("What `atlas` writes").
 
 A report says everything is finished only after the `Session Sweep`.
 

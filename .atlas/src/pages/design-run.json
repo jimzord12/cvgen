@@ -317,7 +317,7 @@
           "actor": "lead",
           "summary": "A chosen Style becomes either a `Template` task in `backlog/` or the client's own CV.",
           "does": [
-            "For a client: the one-off design is built and reviewed in their `Envelope`: [[client-journey#build-cv]].",
+            "For a client: the one-off design is built and reviewed in their `Envelope`: [[client-journey#design.port-concept]].",
             "A concept becomes a `Template` only after you keep it and a build task is agreed."
           ],
           "sources": [

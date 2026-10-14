@@ -4,9 +4,9 @@ The TypeScript program, on Bun, that holds the `Workflow Model`'s types and
 checks its YAML facts (ADR 0015): the shape of each file, the whole model
 in `docs/workflow/` at levels 1 (shape and references) and 2 (flow) of the
 approved design (`docs/proposals/workflow-model.md`), writes the generated
-half of the workflow READMEs from it (`render`), and runs level 3: the model
-run by a fictional client through the real scripts, plus a read-only walk of
-a real `Envelope`.
+half of the workflow READMEs (`render`) and the `Atlas` client-journey page
+(`atlas`) from it, and runs level 3: the model run by a fictional client
+through the real scripts, plus a read-only walk of a real `Envelope`.
 
 | Path | What it holds |
 |---|---|
@@ -14,6 +14,7 @@ a real `Envelope`.
 | `src/load.ts` | Reads a YAML file, checks it against the types, reports file, line, path and reason |
 | `src/check.ts` | The model check: every rule below, over the catalog and every stage |
 | `src/render.ts` | Writes the generated blocks of `docs/workflow/README.md` and each stage's `README.md` |
+| `src/atlas.ts` | Writes the `Atlas` client-journey page, `.atlas/src/pages/client-journey.json` |
 | `src/mermaid.ts` | The Mermaid subset `render` writes, and the validator that proves each diagram is inside it |
 | `src/reality.ts` | Level 3: the fictional run (`reality`) and the read-only `Envelope` walk (`envelope`) |
 | `src/anchors.ts` | Source anchors whose cited lines moved or changed since a commit |
@@ -39,6 +40,8 @@ bun run check sample/stage.yaml           # shape only, file by file (catalog.ya
 bun run anchors <commit> [--fix]          # anchors whose cited lines moved or changed since <commit>
 bun run render                            # rewrite the generated blocks of the workflow READMEs from the model
 bun run render --check                    # exit 1, naming each README, if render would change it
+bun run atlas                             # rewrite the Atlas client-journey page from the model; stamp it when it changed
+bun run atlas --check                     # exit 1 if atlas would change the page
 bun run reality [<model dir>] [--out <dir>]   # level 3: a fictional client runs the model; exit 0 or 1 naming the step
 bun run envelope <Envelope folder>        # read-only: which artifacts the model declares exist in a real Envelope
 bun test                                  # all tests
@@ -48,8 +51,9 @@ bun run schema --check                    # exit 1 if the committed schema is st
 ```
 
 CI and the suite's `workflow-model` case run `bun run check`, then
-`bun run render --check`: after any change to the YAML, run `bun run render`
-and commit the READMEs with it. The suite's `workflow-model-reality` cases
+`bun run render --check` and `bun run atlas --check`: after any change to the
+YAML, run `bun run render` and `bun run atlas` and commit the READMEs and the
+`.atlas/` changes with it. The suite's `workflow-model-reality` cases
 run `bun run reality` (Typst and the suite's Python packages needed).
 
 A problem prints as `file:line: path: reason [rule]`, for example
@@ -162,6 +166,54 @@ quoted one-line labels with no HTML, model IDs mapped to safe node IDs such
 as `s_design__run_brief`) and refuses anything outside it. The Mermaid
 parser itself needs a browser DOM and some 140 packages, so it is not a
 dependency; on 2026-10-14 Mermaid 11.4.1 parsed all eight diagrams.
+
+## What `atlas` writes
+
+The `Atlas` (`.atlas/`, opened from `.atlas/index.html`) shows the client
+journey as a swimlane map and a walk-through. Its page
+`.atlas/src/pages/client-journey.json` is generated from the model and never
+edited by hand (its `generated` field and its summary say so); the kit
+(`.atlas/_kit/atlas.py`) builds it like any other page. `atlas` runs the
+check first and writes nothing from a model that fails it, or when a model
+actor (`actor.x`) has no actor `x` in `.atlas/src/site.json`.
+
+| Model | Atlas page |
+|---|---|
+| Stage | A phase, titled with the stage's name; its purpose is a line of "The short version" |
+| Step | A step with the same ID, title and actor, in model order; a step with `when` is optional and says "Only when" |
+| Action | The step's summary (`does`), or "Your move" on the owner's steps; a `cmd`'s command line, marked "You run" for the owner |
+| Inputs, outputs | "Takes" and "Produces": each artifact's name and path |
+| Gate | On its step: the check, a pass and a fail branch, and the cap of its loops |
+| Loop | Drawn on the step that goes back: the gate's own step when its fail step is earlier, else the fail step, back to the nearest step it feeds at or before the gate's step |
+| Derived edges | Arrows to later steps on the main line, minus gate branches and any arrow a longer path implies; an optional step sits beside the line, as the kit draws it |
+| Skill, agent, script | "Uses": the site actor whose `file` is the skill's `SKILL.md`, the agent's file, a script in the command line or an input's path |
+| Sources | The model step's own anchors, so the kit's `check` tracks the files the facts come from |
+
+Staleness and stamps: the kit's `atlas.lock.json` holds the hash of every
+file a page cites as of its last stamp, and `atlas.py check` lists a page
+whose cited files changed since. When `bun run atlas` writes a changed page,
+it first asks the kit whether any file the page cited has changed since its
+last stamp:
+
+- none has: it stamps the page (`atlas.py stamp client-journey`, which also
+  builds), because its facts come from a model that has just passed `check`;
+  no one stamps it by hand after a model change;
+- one has: it writes and builds the page but does not stamp it, prints the
+  changed files and exits 1. `check` proves only that a cited line exists,
+  not that it still says what the model says, so a model edit must not
+  clear that warning. Check the model's anchors against those files
+  (`bun run anchors <commit>`, fix the YAML, `bun run render`,
+  `bun run atlas`), then stamp by hand:
+  `python .atlas/_kit/atlas.py stamp client-journey`.
+
+The same manual stamp, after the same anchor check, clears a page the kit
+reports stale while the page itself has not changed. Only the real page is
+stamped: `bun run atlas <file>` writes a copy elsewhere and leaves the
+`Atlas` alone (the tests use it).
+
+The page is the same on every run (model order, two-space JSON, LF, no
+dates); `atlas.data.js`, which the kit writes on each build, carries the
+build time and is not checked.
 
 ## Level 3: the model run for real (`reality`, `envelope`)
 

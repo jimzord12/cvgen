@@ -3,10 +3,11 @@
 // cases (tests/workflow.py, run_reality), which drive the real scripts.
 import { describe, expect, test } from "bun:test";
 import { spawnSync } from "node:child_process";
-import { mkdirSync, mkdtempSync, readdirSync, rmSync, statSync, writeFileSync } from "node:fs";
+import { mkdirSync, mkdtempSync, readdirSync, statSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { glob, prepare, substitute, tokenize } from "../src/reality";
+import { removeTmp } from "./tmp";
 
 const root = join(import.meta.dirname, "..");
 
@@ -42,7 +43,7 @@ describe("path patterns", () => {
       expect(glob(dir, "revisions/<revision>/").length).toBe(1);
       expect(glob(dir, "revisions/<revision>/cv.pdf/")).toEqual([]);
     } finally {
-      rmSync(dir, { recursive: true, force: true });
+      removeTmp(dir);
     }
   });
 });
@@ -71,7 +72,7 @@ describe("envelope (read-only)", () => {
       const after = readdirSync(env, { recursive: true }).map((f) => `${f}:${statSync(join(env, String(f))).mtimeMs}`).sort();
       expect(after).toEqual(before);
     } finally {
-      rmSync(dir, { recursive: true, force: true });
+      removeTmp(dir);
     }
   });
 

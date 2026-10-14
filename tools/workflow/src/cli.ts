@@ -4,6 +4,7 @@
 //   check <file...>     shape-check single Workflow Model YAML files
 //   anchors <base> [--fix] [<dir>]   source anchors whose cited lines moved or changed since commit <base>
 //   render [--check] [<dir>]   write the generated blocks of the workflow READMEs; --check only reports the files it would change (exit 1)
+//   atlas [--check] [<page.json>]   write the Atlas client-journey page from the model, and stamp it when it changed; --check only reports a stale page (exit 1)
 //   schema [--check]    regenerate the committed JSON Schema files; --check only reports stale ones (exit 1)
 //   reality [<model dir>] [--out <dir>]   level 3: a fictional client runs the model in a new folder under builds/; exit 0 or 1
 //   envelope <envelope dir> [<model dir>] read-only: which artifacts the model declares exist in a real Envelope
@@ -11,6 +12,7 @@
 import { existsSync, statSync } from "node:fs";
 import { join, relative } from "node:path";
 import { anchors } from "./anchors";
+import { atlas, atlasPagePath, update } from "./atlas";
 import { checkModel, modelDir, repoRoot } from "./check";
 import { formatIssue, loadFile } from "./load";
 import { envelopeWalk, reality } from "./reality";
@@ -19,7 +21,7 @@ import { schemaDir, staleSchemas, writeSchemas } from "./schema";
 
 const usage =
   "usage: bun src/cli.ts check [<model dir> | <file.yaml...>] | anchors <base> [--fix] [<model dir>] | render [--check] [<model dir>]" +
-  " | schema [--check] | reality [<model dir>] [--out <dir>] | envelope <envelope dir> [<model dir>]";
+  " | atlas [--check] [<page.json>] | schema [--check] | reality [<model dir>] [--out <dir>] | envelope <envelope dir> [<model dir>]";
 const stamp = () => new Date().toISOString().replace(/[-:]/g, "").replace("T", "-").slice(0, 15);
 
 const isDir = (path: string) => existsSync(path) && statSync(path).isDirectory();
@@ -115,6 +117,56 @@ export function main(args: string[]): number {
     }
     for (const f of changed) console.log(`wrote ${f.file}`);
     console.log(`OK ${files.length} READMEs rendered, ${changed.length} changed`);
+    return 0;
+  }
+  if (command === "atlas") {
+    const check = rest.includes("--check");
+    const [file, ...extra] = rest.filter((a) => a !== "--check");
+    if (extra.length > 0) {
+      console.error(usage);
+      return 2;
+    }
+    // The real page: written, and stamped unless a cited file had already changed (src/atlas.ts, update).
+    if (!check && file === undefined) {
+      const r = update();
+      const shownFile = shown(atlasPagePath(repoRoot));
+      if (r.output) console.log(r.output);
+      if (r.problems.length > 0) {
+        for (const p of r.problems) console.error(p);
+        console.error(r.changed ? `FAILED atlas: wrote ${shownFile} but did not stamp it` : "FAILED atlas: nothing written");
+        return 1;
+      }
+      if (!r.changed) {
+        console.log(`OK ${shownFile} already matches the model`);
+        return 0;
+      }
+      console.log(`wrote ${shownFile}`);
+      if (r.stale.length > 0) {
+        console.error(`NOT STAMPED ${shownFile}: these cited files changed since its last stamp: ${r.stale.join(", ")}`);
+        console.error('Check the model\'s anchors against them ("bun run anchors <base>", then "bun run render" and "bun run atlas"),');
+        console.error('then stamp by hand: "python .atlas/_kit/atlas.py stamp client-journey" from the repository root.');
+        return 1;
+      }
+      return 0;
+    }
+    // --check, or a copy written elsewhere (never stamped: it is not part of the Atlas).
+    const target = file ?? atlasPagePath(repoRoot);
+    const { problems, changed } = atlas(target, { write: !check });
+    if (problems.length > 0) {
+      for (const p of problems) console.error(p);
+      console.error("FAILED atlas: the page was not generated; nothing written");
+      return 1;
+    }
+    const shownFile = shown(target);
+    if (check) {
+      if (changed) {
+        console.error(`STALE ${shownFile}: run "bun run atlas" in tools/workflow; the page is generated from the model, never edited by hand`);
+        return 1;
+      }
+      console.log(`OK ${shownFile} matches the model`);
+      return 0;
+    }
+    console.log(changed ? `wrote ${shownFile}` : `OK ${shownFile} already matches the model`);
     return 0;
   }
   if (command === "schema" && (rest.length === 0 || (rest.length === 1 && rest[0] === "--check"))) {
