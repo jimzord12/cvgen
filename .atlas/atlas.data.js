@@ -2274,14 +2274,19 @@ window.ATLAS = {
   }
  ],
  "build": {
-  "builtAt": "2026-10-14 08:31 UTC",
-  "commit": "e9a67bf",
+  "builtAt": "2026-10-14 08:37 UTC",
+  "commit": "39d7f06",
   "kit": "1.0",
-  "stale": {},
+  "stale": {
+   "system-map": [
+    "docs/guides/build-a-cv.md",
+    "docs/work"
+   ]
+  },
   "verified": {
    "client-journey": {
     "at": "2026-10-14",
-    "commit": "1826338"
+    "commit": "39d7f06"
    },
    "design-run": {
     "at": "2026-10-14",
@@ -2297,7 +2302,7 @@ window.ATLAS = {
    },
    "roster": {
     "at": "2026-10-14",
-    "commit": "1826338"
+    "commit": "39d7f06"
    }
   }
  }

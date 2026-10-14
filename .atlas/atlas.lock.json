@@ -16,13 +16,13 @@
    "verifiedAt": "2026-10-14"
   },
   "client-journey": {
-   "commit": "1826338",
+   "commit": "39d7f06",
    "sources": {
     ".claude/skills/idea-run/SKILL.md": "d84228de9ec4293dd7cb37b2aeb05743257b5652",
     ".claude/skills/new-client/SKILL.md": "7cd5b4e53785c1feea8417306189e9b0365e13c7",
     ".claude/skills/new-cv/SKILL.md": "42a051fd1800a85c1fc0e37fdc8c865a2fcf010f",
     "docs/glossary.md": "93d16a259129d9973a0e85b50315c422e6fb5dce",
-    "docs/guides/build-a-cv.md": "b9bb387d1a7a592cad21657474f90e1891aa8d18",
+    "docs/guides/build-a-cv.md": "1b2ab76450bd5a517fed481fc9efa5e3efa376a6",
     "docs/guides/client-workflow.md": "76f0ab9b43aad41d0c0de8a6ef84fcca3abe23aa",
     "docs/pdf-workflow.md": "1c474509f2f8ea3fdad3f76d996e7c9f9f32d199",
     "docs/preferences.md": "249fcfff2705b5a654401df74268c40ce4239a66",
@@ -49,7 +49,7 @@
    "verifiedAt": "2026-10-14"
   },
   "roster": {
-   "commit": "1826338",
+   "commit": "39d7f06",
    "sources": {
     ".claude/agents/ceo-reviewer.md": "058811a51ac27c65a93dc8915db4afd58676d33d",
     ".claude/agents/ceo.md": "2d1259232a06d6c853aaf321471260734a3be424",
@@ -74,7 +74,7 @@
     "docs/development.md": "92f757ef604f50a984f0a6151a28c18406d9fb00",
     "docs/engine/verification.md": "c30bdc97c031cf6e5508283a30b9579c63b5f191",
     "docs/git-workflow.md": "3721c4bfa0da82b02000b1a676502e5a97e7e917",
-    "docs/guides/build-a-cv.md": "b9bb387d1a7a592cad21657474f90e1891aa8d18",
+    "docs/guides/build-a-cv.md": "1b2ab76450bd5a517fed481fc9efa5e3efa376a6",
     "docs/guides/client-workflow.md": "76f0ab9b43aad41d0c0de8a6ef84fcca3abe23aa",
     "docs/pdf-workflow.md": "1c474509f2f8ea3fdad3f76d996e7c9f9f32d199",
     "docs/preferences.md": "249fcfff2705b5a654401df74268c40ce4239a66",
