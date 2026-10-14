@@ -60,11 +60,11 @@ design: paper size, opening and continuation margins, a spacing scale, and a
 dictionary per component (`hero`, `experience`, `headings`, `profile`,
 `synopsis`, `certificates`, `education`, `footer`, `header`, and `shell`
 for the Framework's page shell: `margin`, the margin the document opens
-with, and `band`, the height of the hero band painted behind page 1). Both
-`opening-margin`, which Flagship's page loop sets on page 1, and
-`shell.margin`, which a custom composition without that loop gets, come from
-one `opening-margin` binding in the file; an override that changes the
-opening margin sets both. The template
+with and page 1's margin in Flagship's page loop, and `band`, the height of
+the hero band painted behind page 1). `shell` replaced `opening-margin` and
+`hero.band-height` (TASK-45); a layout that still sets either fails with a
+message naming its `shell` key, through `flagship` and through the
+deprecated `document-shell` wrapper alike. The template
 passes the whole profile in `ctx.layout`; each component reads its own
 slice, and a section reads the heading slice it places as well. An optional
 `skills` slice overrides `skills-layout` for the skills block. Change a
