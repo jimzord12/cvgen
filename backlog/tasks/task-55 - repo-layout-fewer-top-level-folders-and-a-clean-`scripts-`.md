@@ -4,7 +4,7 @@ title: 'repo-layout: fewer top-level folders and a clean `scripts/`'
 status: Done
 assignee: []
 created_date: '2026-10-14 04:48'
-updated_date: '2026-10-14 10:16'
+updated_date: '2026-10-14 10:17'
 labels:
   - restructure
 dependencies:
@@ -21,10 +21,10 @@ Group `brand/`, `design-concepts/` and `archive/` under one folder; move `script
 
 ## Acceptance Criteria
 <!-- AC:BEGIN -->
-- [ ] #1 Suite passes, the Design Review app still starts and lists PDFs; the final report shows the tree before and after
-- [ ] #2 Top-level folders grouped and scripts/design_review moved to apps/design-review, history kept, links fixed
-- [ ] #3 One naming case per file type, written in docs/conventions.md and applied
-- [ ] #4 M/lib.typ re-exports themes, artwork and layouts so an example needs one import; frozen reference stays pixel-identical
+- [x] #1 Suite passes, the Design Review app still starts and lists PDFs; the final report shows the tree before and after
+- [x] #2 Top-level folders grouped and scripts/design_review moved to apps/design-review, history kept, links fixed
+- [x] #3 One naming case per file type, written in docs/conventions.md and applied
+- [x] #4 M/lib.typ re-exports themes, artwork and layouts so an example needs one import; frozen reference stays pixel-identical
 <!-- AC:END -->
 
 ## Implementation Notes
