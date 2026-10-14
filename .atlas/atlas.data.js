@@ -458,7 +458,7 @@ window.ATLAS = {
     "role": "Runs the suite on every push and pull request (Typst 0.15.1). The lead watches it on `main` before calling work Done.",
     "sources": [
      ".github/workflows/verify.yml",
-     "docs/git-workflow.md:84-97"
+     "docs/git-workflow.md:87-100"
     ],
     "short": "CI"
    }
@@ -2263,30 +2263,30 @@ window.ATLAS = {
   }
  ],
  "build": {
-  "builtAt": "2026-10-14 05:38 UTC",
-  "commit": "298fc49",
+  "builtAt": "2026-10-14 05:44 UTC",
+  "commit": "dbf63f3",
   "kit": "1.0",
   "stale": {},
   "verified": {
    "client-journey": {
     "at": "2026-10-14",
-    "commit": "298fc49"
+    "commit": "dbf63f3"
    },
    "design-run": {
     "at": "2026-10-14",
-    "commit": "298fc49"
+    "commit": "dbf63f3"
    },
    "change-review": {
     "at": "2026-10-14",
-    "commit": "298fc49"
+    "commit": "dbf63f3"
    },
    "system-map": {
     "at": "2026-10-14",
-    "commit": "298fc49"
+    "commit": "dbf63f3"
    },
    "roster": {
     "at": "2026-10-14",
-    "commit": "298fc49"
+    "commit": "dbf63f3"
    }
   }
  }
