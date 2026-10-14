@@ -4412,14 +4412,14 @@ window.ATLAS = {
   }
  ],
  "build": {
-  "builtAt": "2026-10-14 11:22 UTC",
-  "commit": "b71c2a3",
+  "builtAt": "2026-10-14 11:34 UTC",
+  "commit": "dbc30bc",
   "kit": "1.0",
   "stale": {},
   "verified": {
    "client-journey": {
     "at": "2026-10-14",
-    "commit": "9319c70"
+    "commit": "dbc30bc"
    },
    "design-run": {
     "at": "2026-10-14",

@@ -16,7 +16,7 @@
    "verifiedAt": "2026-10-14"
   },
   "client-journey": {
-   "commit": "9319c70",
+   "commit": "dbc30bc",
    "sources": {
     ".claude/agents/design-reviewer.md": "ae20d720149ac73aaca62505035b9855c2829911",
     ".claude/skills/idea-run/SKILL.md": "88b55544d074640759cf193c3d212d1f15ad91f8",
@@ -33,7 +33,7 @@
     "docs/proposals/workflow-model.md": "2a0e28a8b58e6b7ff79ac9fb348b883d4a6cb19d",
     "docs/research/README.md": "641074b394cb1e91a9163684a7f3f7577d110260",
     "docs/review.md": "cb74994f6d95ed83eaeced64fe16a3525882dee6",
-    "docs/workflow/GAPS.md": "9d1b4ddd349ea1ccefeb6d01ae03a88627d98646",
+    "docs/workflow/GAPS.md": "64bea375466d5061b6b38221f48496e0eeb89ae4",
     "packages/cv-workflow/cv_workflow/__init__.py": "427c74cfeabc096417b81d7a5cbea539fbae99b2",
     "packages/cv-workflow/cv_workflow/outputs.py": "241dc75d76a1340d5a2303ab2fde0a7e29fcca3c",
     "packages/cv-workflow/cv_workflow/render.py": "d1b691ad0b7dc1bcbfec8d5bd66163711352c858",
