@@ -3618,7 +3618,6 @@ window.ATLAS = {
        ],
        "sources": [
         "docs/development.md:42-58",
-        "docs/development.md:109-121",
         "docs/proposals/README.md:46-51",
         "docs/proposals/README.md:89-97"
        ]
@@ -3678,8 +3677,9 @@ window.ATLAS = {
         "suite"
        ],
        "sources": [
-        "AGENTS.md",
+        "docs/conventions.md:6-11",
         "docs/development.md:214-221",
+        "docs/framework-gaps.md:3-6",
         ".claude/skills/verify-cv/SKILL.md:10-19"
        ]
       }
@@ -4466,14 +4466,18 @@ window.ATLAS = {
   }
  ],
  "build": {
-  "builtAt": "2026-10-14 12:52 UTC",
-  "commit": "ba0c8a8",
+  "builtAt": "2026-10-14 13:06 UTC",
+  "commit": "9e7e6e1",
   "kit": "1.0",
-  "stale": {},
+  "stale": {
+   "system-map": [
+    "AGENTS.md"
+   ]
+  },
   "verified": {
    "client-journey": {
     "at": "2026-10-14",
-    "commit": "775cbc6"
+    "commit": "9e7e6e1"
    },
    "design-run": {
     "at": "2026-10-14",
@@ -4481,7 +4485,7 @@ window.ATLAS = {
    },
    "change-review": {
     "at": "2026-10-14",
-    "commit": "775cbc6"
+    "commit": "9e7e6e1"
    },
    "system-map": {
     "at": "2026-10-14",
@@ -4489,7 +4493,7 @@ window.ATLAS = {
    },
    "roster": {
     "at": "2026-10-14",
-    "commit": "775cbc6"
+    "commit": "9e7e6e1"
    }
   }
  }

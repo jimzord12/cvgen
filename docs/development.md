@@ -216,8 +216,8 @@ feature branch is not the whole feature reaching `main`.
 Every non-trivial change to code, fixtures or inputs ends with `ruff check`
 and `python tests/run.py` passing (the `verify-cv` skill) and the evidence
 path reported; a visual change also needs a rendered page (constitution
-section 5). Then comes the independent review
-([review.md](review.md#when-a-review-is-required)); its reports go in the
+section 5). Every change, documentation included, then gets the independent
+review ([review.md](review.md#when-a-review-is-required)); its reports go in the
 task's `archive/work-records/<id>/reviews/` folder.
 
 ## Guardrails without constant interruptions

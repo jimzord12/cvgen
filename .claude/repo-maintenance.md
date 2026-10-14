@@ -105,7 +105,7 @@ authority.
 **Who does what.** `docs/development.md` ("Roles") gives Claude Code the implementation, testing and review gates, and Codex the
 discussion, research, proposals and design decisions with no implementation authority. Codex proposes adopting or changing this
 capability in `docs/proposals/`; Claude Code implements after the owner's decision. `AGENTS.md` is the single map:
-any new folder or agent must be added there, and that edit is reviewed like any other.
+any new top-level folder must be added there (agents and skills are found in their folders), and that edit is reviewed like any other.
 
 **Review.** `docs/review.md` requires an independent `code-reviewer` round for every change except truly trivial ones
 (pure spelling, comments, mechanical formatting, a glossary term row), and it names skills and agent definitions

@@ -9,8 +9,11 @@ starts and ends as `docs/development.md` says.
 
 ## Hard rules
 
-- The rules that never change: `docs/constitution.md`. Read it before
-  anything irreversible.
+- The rules that never change, owned by `docs/constitution.md`: frozen
+  references, a new folder per output, public content fictional, no font
+  shrinking, evidence before "done", bypasses recorded and the totals rule.
+  Read it before changing a template, a layout, an output path or anything
+  irreversible.
 - **Design is the product.** A CV passes the `Batch Test` and the
   `Three-Second Test`; a well-crafted but quiet design fails. Whoever
   designs, reviews or proposes a CV design first reads `docs/vision.md`,
@@ -36,7 +39,7 @@ starts and ends as `docs/development.md` says.
 | `tests/` | The suite (`docs/engine/verification.md`) |
 | `tools/workflow/` | The workflow tool for the `Workflow Model` in `docs/workflow/` (its `README.md`) |
 | `apps/design-review/` | The owner's `Design Review` app (its `README.md`); `apps/web/` is not built |
-| `studio/` | Design work: `brand/`, `design-concepts/`, frozen `archive/` (never repeat an `Anti-example`); each has a `README.md` |
+| `studio/` | Design work: `brand/`, `design-concepts/`, frozen `archive/` (never repeat an `Anti-example`); `brand/`, `design-concepts/` and each `archive/` folder have a `README.md` |
 | `archive/work-records/` | Review reports and dated task records, kept unchanged |
 | `.atlas/` | The `Atlas`: open `index.html` (its `README.md`) |
 | `backlog/` | Tasks and the `session-handoff` doc, through the backlog skill |

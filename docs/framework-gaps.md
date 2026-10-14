@@ -2,7 +2,7 @@
 
 Read this before planning framework work, and add to it whenever you go
 around a component, template or contract to get a CV done (constitution
-section 10). Newest at the bottom. Never delete an entry; mark it closed
+section 10). A bypass is a lesson, not a fault. Newest at the bottom. Never delete an entry; mark it closed
 when the gap is filled.
 
 Each entry is a few lines:
