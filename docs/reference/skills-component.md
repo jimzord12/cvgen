@@ -32,8 +32,11 @@ as the module `flagship-components`; it is not part of the locked
   `rule-weight`, `content-gap`, `column-gap`, `bullet-size`, `body-indent`,
   `item-gap`.
 - Older compositions call `lib.typ`'s flat `skills-section(groups, theme,
-  title:, bullet:, geometry:)`; that deprecated wrapper draws the same pixels.
+  title:, bullet:, geometry:)`; that deprecated wrapper draws the same pixels
+  and goes on 2026-10-31 (TASK-58; mapping table in
+  `docs/guides/build-a-cv.md` section 8).
 
 `tests/fixtures/skills.typ` covers titles, one to three columns, wrapping,
-both themes and both bullet kinds through the `lib.typ` wrapper;
-`tests/fixtures/contract.typ` renders the ctx-first component alone.
+both themes and both bullet kinds through `flagship-components`, with the
+default `skills-layout`; `tests/fixtures/contract.typ` renders the component
+alone.
