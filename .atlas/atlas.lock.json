@@ -92,7 +92,7 @@
    "verifiedAt": "2026-10-14"
   },
   "system-map": {
-   "commit": "3857280",
+   "commit": "f5fdcdc",
    "sources": {
     ".claude/agents": "dir1:4f4154394888bb9d69a0ed790d8f4b484a790fdd",
     ".claude/skills": "dir1:5eeafda0c9ef9a6037a3fcc2879f73f098fa3e55",
@@ -105,11 +105,11 @@
     "design-concepts": "dir1:d3bd60991a5441279a325e9aa73ea4e20ad7f1c7",
     "docs": "dir1:72f884095d947d20236fb2207e85aa7b127337c2",
     "docs/architecture.md": "39ff56cc3daa5c2a19994865c105bf500bdd040b",
-    "docs/glossary.md": "35c2684aa0f1dd711b3fae786fe12d02f6e7568d",
-    "docs/guides/build-a-cv.md": "17fb6155b88307dff5ca55fc8f711dcd53dd824c",
-    "docs/guides/client-workflow.md": "65cc8137148bfdfdff23f01d069322503ea9bc13",
-    "docs/pdf-workflow.md": "3bfa09a91c1ec9c970650c88ed15842c477645de",
-    "docs/work": "dir1:efffd601eb832ca3b6ed5ec09de4269607beb74c",
+    "docs/glossary.md": "e032af203134a0eb3fdc965d662beef92e3ec0ea",
+    "docs/guides/build-a-cv.md": "5a1d6bd5c2ae2f01f02c53a3e1eb80c095e7fa99",
+    "docs/guides/client-workflow.md": "60e448682dcd7abbb17af874adb5ea16e30cfaa2",
+    "docs/pdf-workflow.md": "874a62c6fe16c7f2c5ddb5227ea307759763b60b",
+    "docs/work": "dir1:debd7fffa5980f169feb87f5f771abaf8adb1c29",
     "examples/candidates": "dir1:69fb38eee30dc425761a0cb80a577613cf3bdab4",
     "examples/marine/flagship": "dir1:2badfd3042bcd2c5ef709a6596945aefe8848eb1",
     "packages/cv-framework": "dir1:e26fc6cd0be31cb5f9c4f61215ae5f3cfdc05a78",
@@ -119,7 +119,7 @@
     "packages/domains/marine/templates/flagship/tests/approved": "dir1:937263ba14b899950b2c4f58a1ff6c6fd2275f3a",
     "scripts/build.ps1": "1e46ca069912d81455046e74e765ec810095004e",
     "scripts/cv.py": "d21197a5887e4f7aa6bf778c0ca2fd50229d2a11",
-    "scripts/design_review/server.py": "0d1258af97e31db980fcd7a98e64e88f431f9840",
+    "scripts/design_review/server.py": "9d9d6be943f9cc5aa8eb9882b90e54668410ee05",
     "scripts/outputs.py": "6e79e3d72163c249c328633379952f93837ffe1c",
     "scripts/text-draft.typ": "c6f61f2253a2105d3334f3edc4e9b12137f54fa1",
     "tests/run.py": "4ddd027d4184e48c800c33eaf83d39a84621487d"
