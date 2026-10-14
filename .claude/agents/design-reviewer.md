@@ -110,7 +110,7 @@ do not apply.
 ## Other assets (logo, `Text Draft`, form header, brand files)
 
 They are not CVs: no batch sheet and no `Three-Second Test`. Judge them on
-premium and distinct, on-brand (`brand/README.md`, the house design of
+premium and distinct, on-brand (`brand/README.md`, the `House Design` of
 `scripts/text-draft.typ`), fit for purpose (legible at the size it is used,
 works on the medium it lives on), craft and provenance. Check them against
 the `Anti-example`s too, as in criterion 4.

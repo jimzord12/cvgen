@@ -123,7 +123,7 @@ without a valid, current `Meta File` shows up as a problem, never silently.
 | `kind` | Home | `status` |
 |---|---|---|
 | `concept` | `design-concepts/<date>-<slug>/<density>/<tier>/<density>-<tier>.pdf` | `proposed`, `chosen`, `parked`, `rejected`, `unresolved` |
-| `house-design` (a proposed `House Design`, such as the `Text Draft`'s First Fitting; `text-draft` until 2026-10-14) | `design-concepts/<date>-<slug>/concept.pdf`, `concept-<variant>.pdf` | as `concept` |
+| `house-design` (a proposed `House Design`, such as the `Text Draft`'s First Fitting; `text-draft` until 2026-10-14) | `design-concepts/<date>-<slug>/concept.pdf`, `concept-<variant>.pdf` (a flat run's palette variants of a CV `Style`, such as Hanami Line 2's, are kind `concept`) | as `concept` |
 | `example` (the `Release`) | `examples/<domain>/<template>/<name>.pdf`, beside `<name>.typ` | `release` |
 | `client-draft` (a client's `Text Draft`) | `private/<envelope>/draft/draft-NN.pdf` | `ready` (compiled), `sent` (the owner confirmed he sent it), `signed-off`, `superseded` |
 | `client-cv` | `private/<envelope>/revisions/<id>/cv.pdf`; `private/<envelope>/reference.pdf` for a CV delivered before `cv.py` | `render`, `approved`, `delivered` |
@@ -137,9 +137,10 @@ without a valid, current `Meta File` shows up as a problem, never silently.
 - `python scripts/outputs.py stamp <pdf> status=<status> [key=value ...]`
   writes it. It computes `pages`, `sha256` and `date`, takes `kind` (and
   `density`, `tier`, `source`) from the PDF's place (a flat earlier run
-  passes its `kind`, `kind=house-design` for a proposed `House Design`), copies `alias`,
-  `domain`, `candidate` and `rank` from the client's `envelope.json`, keeps
-  an earlier `Meta File`'s other fields, and refuses a PDF outside a home.
+  passes its `kind`, `kind=house-design` for a proposed `House Design`),
+  copies `alias`, `domain`, `candidate` and `rank` from the client's
+  `envelope.json`, keeps an earlier `Meta File`'s other fields, and refuses a
+  PDF outside a home.
 - It also refuses a status that records an owner's act without its proof on
   disk (decision #8, `proposals/workflow-model.md`): `approved` without the
   revision's `cv.approval.json` for exactly these bytes; `delivered` without

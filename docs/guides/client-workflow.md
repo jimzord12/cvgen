@@ -248,7 +248,7 @@ the owner decides to.
 ## 8. Text draft and Sign-off
 
 Claude writes the CV's content in the CV's language, sized for the
-`Template` (two pages by default), in the house design of the `Text Draft`
+`Template` (two pages by default), in the `Text Draft`'s `House Design`
 (First Fitting: warm paper, one copper thread): `draft/draft-01.typ` using
 `scripts/text-draft.typ`, compiled to `draft/draft-01.pdf`. Every fact the
 client must check (a name, a date, a number, a title) is wrapped in
@@ -272,9 +272,8 @@ confirms he sent it; at the `Sign-off`, once the screenshot is saved,
 Its first page, the `Check Page`, in Greek, asks the client to check only
 the underlined facts, because the wording is our job. Its words are plain
 and professional; the tailoring idea lives in the drawing only (owner,
-2026-09-28). When the
-owner sends a draft, Claude writes its SHA-256 in the `Envelope`'s
-`README.md`; a sent draft is never compiled again, and corrections make
+2026-09-28). With the `status=sent` re-stamp, Claude also writes the
+draft's SHA-256 in the `Envelope`'s `README.md`; a sent draft is never compiled again, and corrections make
 the next number (`draft-02`). The client's "OK" is the `Sign-off`, saved as
 `draft/sign-off-NN.png` next to the draft it answers.
 

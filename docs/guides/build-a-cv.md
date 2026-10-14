@@ -206,9 +206,9 @@ Once the owner has sent it, re-stamp the revision:
 `python scripts/outputs.py stamp private/jane-doe-second-engineer/revisions/<id>/cv.pdf status=delivered`.
 The stamp refuses `delivered` without the revision's approval receipt and
 its verified `Export`, and `approved` without the receipt (`cv.py approve`
-stamps `approved` itself). A new revision, for any reason, inherits no approval: review, approve and
-export it again. The lifecycle and the records are specified in
-`../pdf-workflow.md`.
+stamps `approved` itself). A new revision, for any reason, inherits no
+approval: review, approve and export it again. The lifecycle and the
+records are specified in `../pdf-workflow.md`.
 
 ## 7. Keep it private
 
