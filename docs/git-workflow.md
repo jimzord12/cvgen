@@ -48,6 +48,22 @@ None of this approves a pending product design.
   `main` that the backlog skill makes in the session's scratchpad to write
   records (`.claude/skills/backlog/SKILL.md`). Worktrees created before this
   rule stay where they are until their work is merged and they are removed.
+- The `Main Folder` is the default checkout, the folder the repository was
+  cloned into; every worktree under `.worktrees/` is an extra checkout of
+  it. Keep the `Main Folder` on `main`, clean and synced with `origin/main`
+  (or on the branch the owner chose for it), and do branch work in a
+  worktree, so a stale checkout never makes the project look older than it
+  is. A session never switches it to a feature branch and never leaves it on
+  a branch the session put it on. When a session finds it:
+  - on `main` and behind, with no tracked changes: fast-forward it to
+    `origin/main`;
+  - on a branch an agent left (a branch already merged into `main` counts,
+    unless the handoff or the owner says he chose it), with no tracked
+    changes: switch it to `main` and fast-forward (untracked files survive
+    the switch; leave those that are not the session's);
+  - with tracked changes that are not the session's, on a branch the owner
+    chose, or unclear: leave it alone, work in a worktree, and name it in
+    the `Session Sweep` and the handoff.
 
 ## Commits
 
@@ -125,7 +141,7 @@ portrait is about 2.8 MB, so do not add renders casually. Replace, do not accumu
 Replacing the `Release` in `examples/` needs the owner's go
 (preferences.md); get it before step 3.
 
-1. Choose a branch appropriate to the change. Run `python tests/run.py`.
+1. Choose a branch appropriate to the change, in a worktree. Run `python tests/run.py`.
 2. Build with `./scripts/build.ps1`, inspect every page of every changed
    example.
 3. Raise the changed example's version in the `Title` of its line in

@@ -29,9 +29,9 @@ design-reviewer's "Other assets".
 
 ## Loop
 
-1. Branch `docs/idea-run-<date>-<ceo|editor>` (a worktree at
-   `.worktrees/idea-run-<date>-<ceo|editor>` if other work is running;
-   `docs/git-workflow.md`, "Branches"). The run folder is `docs/work/idea-runs/<date>-<ceo|editor>/`,
+1. Branch `docs/idea-run-<date>-<ceo|editor>` in a worktree at
+   `.worktrees/idea-run-<date>-<ceo|editor>`, never in the `Main Folder`
+   (`docs/git-workflow.md`, "Branches"). The run folder is `docs/work/idea-runs/<date>-<ceo|editor>/`,
    with `-2`, `-3` for a second run the same day. Record the run in its
    `run.md`: brief, rounds, verdicts, what reached the owner.
 2. Start the author with the date, the run folder and any owner steer (a
@@ -41,11 +41,11 @@ design-reviewer's "Other assets".
    count (1 to 3) that fits the size of the fictional record. Give the same three, and the page count, to every
    `design-reviewer`. Client data never goes into a brief: a run for a
    client's design gets the steer and fictional data only. For the ceo, paste the task list
-   (`backlog task list --plain`) into the brief; it has no shell. When the
-   run uses a worktree, give every author and reviewer absolute paths into
+   (`backlog task list --plain`) into the brief; it has no shell. The run
+   uses a worktree: give every author and reviewer absolute paths into
    it and tell the editor to `cd` to the worktree root in the same command
-   as each Typst call: a subagent's shell starts in the session's main
-   folder on every call. Keep the
+   as each Typst call: a subagent's shell starts in the folder the
+   session started in on every call. Keep the
    author's agent id: revisions go back to the same author with SendMessage
    so it keeps its context.
 3. Give every reviewer the snapshot it reviews: a commit on the run branch,
