@@ -4,7 +4,7 @@ title: 'atlas-from-model: the Atlas client journey is built from the model'
 status: Active
 assignee: []
 created_date: '2026-10-14 04:47'
-updated_date: '2026-10-14 11:00'
+updated_date: '2026-10-14 11:41'
 labels:
   - workflow-model
 dependencies:
@@ -20,9 +20,9 @@ Port the Atlas build to TypeScript (or feed the existing page format from the mo
 
 ## Acceptance Criteria
 <!-- AC:BEGIN -->
-- [ ] #1 The client-journey page is generated
-- [ ] #2 `atlas check` (or its successor) passes
-- [ ] #3 the old page data is deleted
+- [x] #1 The client-journey page is generated
+- [x] #2 `atlas check` (or its successor) passes
+- [x] #3 the old page data is deleted
 <!-- AC:END -->
 
 ## Implementation Notes

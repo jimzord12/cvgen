@@ -5,11 +5,13 @@ import { rmSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { isAbsolute, relative, resolve } from "node:path";
 
+export function isInsideTmp(path: string): boolean {
+  if (path === "" || !isAbsolute(path)) return false;
+  const rel = relative(resolve(tmpdir()), resolve(path));
+  return rel !== "" && !rel.startsWith("..") && !isAbsolute(rel);
+}
+
 export function removeTmp(path: string): void {
-  const inside = path !== "" && isAbsolute(path) && (() => {
-    const rel = relative(resolve(tmpdir()), resolve(path));
-    return rel !== "" && !rel.startsWith("..") && !isAbsolute(rel);
-  })();
-  if (!inside) throw new Error(`refusing to remove ${JSON.stringify(path)}: not a folder inside ${tmpdir()}`);
+  if (!isInsideTmp(path)) throw new Error(`refusing to remove ${JSON.stringify(path)}: not a folder inside ${tmpdir()}`);
   rmSync(path, { recursive: true, force: true });
 }
