@@ -459,7 +459,7 @@ window.ATLAS = {
    "github-ci": {
     "label": "GitHub CI",
     "kind": "service",
-    "role": "Runs the suite on every push and pull request (Typst 0.15.1). The lead watches it on `main` before calling work Done.",
+    "role": "Runs the suite once per push (its head commit) on any branch, on Linux and Windows (Typst 0.15.1, checksummed; Windows also runs `scripts/build.ps1`); a newer push to a feature branch cancels the older run. The lead watches it on `main` before calling work Done.",
     "sources": [
      ".github/workflows/verify.yml",
      "docs/git-workflow.md:90-103"
@@ -2020,7 +2020,7 @@ window.ATLAS = {
        "title": "GitHub CI",
        "path": ".github/workflows/verify.yml",
        "actor": "github-ci",
-       "blurb": "The suite on every push and every pull request."
+       "blurb": "The suite once per push (its head commit), Linux and Windows."
       }
      ]
     },
@@ -2264,8 +2264,8 @@ window.ATLAS = {
   }
  ],
  "build": {
-  "builtAt": "2026-10-14 06:22 UTC",
-  "commit": "f422d37",
+  "builtAt": "2026-10-14 06:33 UTC",
+  "commit": "7211f8c",
   "kit": "1.0",
   "stale": {},
   "verified": {
@@ -2279,15 +2279,15 @@ window.ATLAS = {
    },
    "change-review": {
     "at": "2026-10-14",
-    "commit": "23aef00"
+    "commit": "7211f8c"
    },
    "system-map": {
     "at": "2026-10-14",
-    "commit": "f422d37"
+    "commit": "7211f8c"
    },
    "roster": {
     "at": "2026-10-14",
-    "commit": "23aef00"
+    "commit": "7211f8c"
    }
   }
  }
