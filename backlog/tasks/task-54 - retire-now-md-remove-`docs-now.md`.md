@@ -1,10 +1,10 @@
 ---
 id: TASK-54
 title: 'retire-now-md: remove `docs/now.md`'
-status: Active
+status: Done
 assignee: []
 created_date: '2026-10-14 04:48'
-updated_date: '2026-10-14 05:39'
+updated_date: '2026-10-14 05:41'
 labels:
   - restructure
 dependencies: []
@@ -33,3 +33,9 @@ Deleted docs/now.md (its last git version stays in history), the ignore entry fo
 Left as written (dated records): backlog tasks 12 and 25, docs/work/** (docs-audit findings, handoff, test-evidence review, Trello export), docs/proposals/repo-maintenance.md (status applied) and docs/proposals/work-records.md (specification history).
 Checks on the branch worktree: python tests/run.py PASS, 94 compilation cases, evidence builds/tests-20261014-083633-720134. atlas.py check clean. repo-maintenance audit --mode quick: no now.md finding (only unrelated R3 AGENTS.md line count and two N3 notes). git grep for now.md lists only the files named above.
 <!-- SECTION:NOTES:END -->
+
+## Final Summary
+
+<!-- SECTION:FINAL_SUMMARY:BEGIN -->
+Deleted the retired docs/now.md (git history keeps it), its audit ignore line in .claude/repo-maintenance.md and the AGENTS.md sentence pointing at it; dated records keep their mentions. Atlas pages re-stamped. Review: context-reviewer round 1 PASS (docs/work/retire-now-md/reviews/01-context-reviewer.md). Suite PASS.
+<!-- SECTION:FINAL_SUMMARY:END -->
