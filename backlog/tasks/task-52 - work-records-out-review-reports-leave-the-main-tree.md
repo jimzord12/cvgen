@@ -1,10 +1,10 @@
 ---
 id: TASK-52
 title: 'work-records-out: review reports leave the main tree'
-status: Queued
+status: Active
 assignee: []
 created_date: '2026-10-14 04:48'
-updated_date: '2026-10-14 05:21'
+updated_date: '2026-10-14 09:08'
 labels:
   - restructure
 dependencies: []
