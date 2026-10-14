@@ -93,13 +93,13 @@
    "verifiedAt": "2026-10-14"
   },
   "system-map": {
-   "commit": "7211f8c",
+   "commit": "4bb8fc7",
    "sources": {
     ".claude/agents": "dir1:4f4154394888bb9d69a0ed790d8f4b484a790fdd",
     ".claude/skills": "dir1:5eeafda0c9ef9a6037a3fcc2879f73f098fa3e55",
     ".claude/skills/backlog/SKILL.md": "22562281e7901acef008942775142d478ec85948",
     ".github/workflows/verify.yml": "40bc613fee5a49bd14875f60331cf0d24eebaec3",
-    "AGENTS.md": "bd8d3480e96e954807f9cde34a21fb342b089fc9",
+    "AGENTS.md": "c006176aa73a7fe6009802c1f2eb4f6a4f1dd025",
     "archive/anti-examples": "dir1:dacb2a2e30bc6a5d49178d2bcbf382c4de52a88c",
     "archive/design-studies": "dir1:3934f2dbb33587fa8b485e7b99d2b37fa3784798",
     "brand": "dir1:c556e0f8d17363d5e9ddc92e7142a253a16d1be2",
@@ -123,7 +123,7 @@
     "scripts/design_review/server.py": "0d1258af97e31db980fcd7a98e64e88f431f9840",
     "scripts/outputs.py": "6e79e3d72163c249c328633379952f93837ffe1c",
     "scripts/text-draft.typ": "c6f61f2253a2105d3334f3edc4e9b12137f54fa1",
-    "tests/run.py": "3653a980c41720b4123158b88676afbcec4755d6"
+    "tests/run.py": "4ae9eaa682857258e0a55e355157a5a998fdd922"
    },
    "verifiedAt": "2026-10-14"
   }
