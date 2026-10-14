@@ -1,10 +1,10 @@
 ---
 id: TASK-58
 title: 'legacy-delete: remove the deprecated component layer'
-status: Queued
+status: Active
 assignee: []
 created_date: '2026-10-14 05:31'
-updated_date: '2026-10-14 05:47'
+updated_date: '2026-10-14 08:31'
 due_date: '2026-10-31'
 labels:
   - restructure
@@ -22,7 +22,13 @@ Removal date set by TASK-56. On 2026-10-14 the only callers of the 32 deprecated
 
 ## Acceptance Criteria
 <!-- AC:BEGIN -->
-- [ ] #1 No file in this repository or in the two private compositions imports a deprecated flat component name; both private compositions render pixel-identical to their pre-migration renders
-- [ ] #2 Both legacy.typ files, their lib.typ exports and the legacy-parity fixture are gone; python tests/run.py passes with the frozen v11 reference pixel-identical
-- [ ] #3 The docs/framework-gaps.md entry 'Legacy component signatures' is closed and the docs no longer describe legacy.typ
+- [x] #1 No file in this repository or in the two private compositions imports a deprecated flat component name; both private compositions render pixel-identical to their pre-migration renders
+- [x] #2 Both legacy.typ files, their lib.typ exports and the legacy-parity fixture are gone; python tests/run.py passes with the frozen v11 reference pixel-identical
+- [x] #3 The docs/framework-gaps.md entry 'Legacy component signatures' is closed and the docs no longer describe legacy.typ
 <!-- AC:END -->
+
+## Implementation Notes
+
+<!-- SECTION:NOTES:BEGIN -->
+2026-10-14: implemented on refactor/task-58-legacy-delete. No caller left: public tree imports no flat name; both private compositions use cc./fc. only. Suite PASS (142 cases, frozen v11 pixel-identical); both private compositions render pixel-identical to reference.pdf at 150 dpi (staged copy). Awaiting independent review.
+<!-- SECTION:NOTES:END -->
