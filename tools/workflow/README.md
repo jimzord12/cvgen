@@ -3,14 +3,16 @@
 The TypeScript program, on Bun, that holds the `Workflow Model`'s types and
 checks its YAML facts (ADR 0015): the shape of each file, and the whole model
 in `docs/workflow/` at levels 1 (shape and references) and 2 (flow) of the
-approved design (`docs/proposals/workflow-model.md`). Rendering comes with
-TASK-39.
+approved design (`docs/proposals/workflow-model.md`), and writes the generated
+half of the workflow READMEs from it (`render`).
 
 | Path | What it holds |
 |---|---|
 | `src/model.ts` | The Zod types: Stage, Step, Artifact, Action, Actor, Gate, Loop, Catalog. The one source of the contract |
 | `src/load.ts` | Reads a YAML file, checks it against the types, reports file, line, path and reason |
 | `src/check.ts` | The model check: every rule below, over the catalog and every stage |
+| `src/render.ts` | Writes the generated blocks of `docs/workflow/README.md` and each stage's `README.md` |
+| `src/mermaid.ts` | The Mermaid subset `render` writes, and the validator that proves each diagram is inside it |
 | `src/anchors.ts` | Source anchors whose cited lines moved or changed since a commit |
 | `src/schema.ts` | Exports the JSON Schema files from the types |
 | `src/cli.ts` | The command line |
@@ -32,13 +34,17 @@ bun run check                             # the whole model in docs/workflow: ex
 bun run check test/fixtures/cycle         # the same for the model in another folder
 bun run check sample/stage.yaml           # shape only, file by file (catalog.yaml is read as the catalog)
 bun run anchors <commit> [--fix]          # anchors whose cited lines moved or changed since <commit>
+bun run render                            # rewrite the generated blocks of the workflow READMEs from the model
+bun run render --check                    # exit 1, naming each README, if render would change it
 bun test                                  # all tests
 bun run typecheck                         # TypeScript type check (tsc --noEmit)
 bun run schema                            # regenerate schema/*.json after changing src/model.ts
 bun run schema --check                    # exit 1 if the committed schema is stale (a test does the same)
 ```
 
-CI and the suite's `workflow-model` case run `bun run check`.
+CI and the suite's `workflow-model` case run `bun run check`, then
+`bun run render --check`: after any change to the YAML, run `bun run render`
+and commit the READMEs with it.
 
 A problem prints as `file:line: path: reason [rule]`, for example
 `docs/workflow/07-after/stage.yaml:38: steps[2]: after.keep-request is never reached: it has no inputs, and no gate branch or loop escalation leads to it [unreachable]`.
@@ -111,6 +117,39 @@ What it accepts on purpose, from the modelling notes of TASK-37:
 "(placeholder cap)" is listed in a `NOTE` line on every run, so the caps
 still waiting for an owner's number (`docs/workflow/GAPS.md`) stay visible
 without blocking CI.
+
+## What `render` writes
+
+`render` runs the check first and renders nothing from a model that fails
+it. It writes named blocks between markers, each alone on its line:
+
+```markdown
+<!-- generated:start steps -->
+...written by render; edit the YAML, not this...
+<!-- generated:end steps -->
+```
+
+| README | Blocks |
+|---|---|
+| `docs/workflow/README.md` | `stages` (a table: steps, gates, loops, which stages each reads from and hands to), `journey` (Mermaid: the stages, an arrow where one hands an artifact or a gate branch to another, dotted where it goes back), `handovers` (each such pair with its artifacts and branches), `actors` |
+| `docs/workflow/NN-<stage>/README.md` | `summary` (purpose, entry, exit, neighbours), `diagram` (Mermaid: steps as boxes, gates as diamonds with their pass and fail, loops dotted with their cap, a step of another stage as a rounded box), `steps`, `gates`, `loops` (placeholder caps marked), `artifacts` (the ones the stage reads or writes, with who makes them), `actions` |
+
+Everything outside the markers is hand-written and never touched. A README
+that does not exist is created with a heading and every block; a block
+missing from a README is added at its end; a block may be moved anywhere and
+stays there. A malformed, unknown, repeated or unclosed marker stops
+`render` with the file and line, and nothing is written. The output is the
+same on every run: model order or sorted, LF, no dates.
+
+Diagrams leave out an arrow that a longer path already implies, unless that
+path runs through an optional step (one with `when`); the tables list every
+input. GitHub draws a `mermaid` block in the browser, so a broken one
+would only show as an error box there: `render` checks each diagram it
+writes against the small subset in `src/mermaid.ts` (`flowchart TD` or `LR`,
+quoted one-line labels with no HTML, model IDs mapped to safe node IDs such
+as `s_design__run_brief`) and refuses anything outside it. The Mermaid
+parser itself needs a browser DOM and some 140 packages, so it is not a
+dependency; on 2026-10-14 Mermaid 11.4.1 parsed all eight diagrams.
 
 ## Keeping anchors honest: `anchors`
 

@@ -287,3 +287,16 @@ loop breaks them), each rule with a broken fixture under
 as its `workflow-model` case. Two `after` steps that nothing reached gained
 an input (inferences in `docs/workflow/GAPS.md`). `bun run anchors <commit>`
 replaces the TASK-37 script that found drifted source anchors.
+
+## 2026-10-14 — the workflow READMEs are generated from the model
+
+TASK-39 added `bun run render` to the workflow tool: it writes named blocks
+between `<!-- generated:start <name> -->` and `<!-- generated:end <name> -->`
+markers in `docs/workflow/README.md` (the stages, the journey diagram, the
+handovers between stages, the actors) and in each stage's `README.md` (its
+summary, a Mermaid diagram of steps, gates and loops, and tables of steps,
+gates, loops with placeholder caps marked, artifacts and actions), and
+leaves the text outside the markers to hand-written prose (TASK-40). CI and
+the suite's `workflow-model` case run `bun run render --check`, which fails
+when a README differs from what the model renders to. Each diagram is
+checked against the small Mermaid subset the tool writes.
