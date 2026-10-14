@@ -81,7 +81,7 @@ facts:
 The Condensed and Spacious designs of a tier must read as one `Style`: 3
 styles × 2 densities × 3 tiers = 18 designs.
 
-A run for something that is not a CV (a `Text Draft` direction, a brand
+A run for something that is not a CV (a `House Design` proposal, a brand
 asset) follows the lead's brief for its styles, densities and tiers; its pages are
 judged under the design-reviewer's "Other assets", not the CV tests.
 

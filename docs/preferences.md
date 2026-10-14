@@ -77,7 +77,8 @@ choices and act without asking (owner's instruction, 2026-09-25).
   or source documents (the private repository's history can restore
   them, but only what was committed and pushed), and replacing or removing the `Release`
   PDFs beside their entry points in `examples/` (the public released
-  deliverables; `scripts/build.ps1 -Release` replaces them).
+  deliverables; `scripts/build.ps1 -ReplaceRelease` replaces them, and
+  plain `-Release` refuses while they exist).
 - **Ask him for observations, not decisions that are yours:** a screen, a
   render, a log, a yes or no on a look.
 

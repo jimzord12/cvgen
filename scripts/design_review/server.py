@@ -50,11 +50,11 @@ def _item(repo, pdf, meta):
     item = {k: meta.get(k) for k in ('kind', 'domain', 'candidate', 'alias', 'rank', 'style', 'idea', 'density',
                                       'tier', 'lang', 'pages', 'date', 'status', 'title')}
     item.update(id=rel, sortTime=meta['date'], mtime=Path(pdf).stat().st_mtime_ns, brief=None)
-    if kind in ('concept', 'text-draft'):
+    if kind in ('concept', 'house-design'):
         run = parts[1]
         folder = Path(repo) / 'design-concepts' / run
-        item['group'] = 'run:' + run[:10] + (':text-draft' if kind == 'text-draft' else '')
-        item['groupLabel'] = run[:10] + (' · Text Draft directions' if kind == 'text-draft' else ' · design run')
+        item['group'] = 'run:' + run[:10] + (':house-design' if kind == 'house-design' else '')
+        item['groupLabel'] = run[:10] + (' · House Design proposals' if kind == 'house-design' else ' · design run')
         item['brief'] = _rel(repo, folder / 'brief.md') if (folder / 'brief.md').is_file() else None
         item['row'] = meta['style']
         item['variant'] = meta.get('variant')

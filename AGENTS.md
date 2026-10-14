@@ -96,18 +96,18 @@ Framework; `M` for `packages/domains/marine`, the marine domain; `F` for
 | `examples/candidates/` | Fictional candidate records (engineer, captain, chief officer, deck cadet) and the one fictional portrait | Changing example data |
 | `examples/marine/flagship/` | Short entry points that wire the six inputs together, each with its `Release` PDF and `Meta File` beside it (`engineer.typ`, `engineer.pdf`, `engineer.meta.json`), written only by `scripts/build.ps1 -Release` | Adding an example, releasing a new version |
 | `packages/cv-workflow/` | Python package: fresh revisions (snapshot, compile, `render.json`, `checks.json`), explicit approval (`cv.approval.json` bound to the SHA-256), verified export, and the `Output Contract` (`outputs.py`, `output.schema.json`: homes and `Meta File`s). Never sends anything | Changing how a candidate PDF is produced, approved or exported |
-| `tests/` | `run.py` runner, `verify.py` PDF checks, `workflow.py` end-to-end workflow case, `baseline.json` hash manifest, `fixtures/*.typ` compile cases | Changing behaviour |
+| `tests/` | `run.py` runner, `verify.py` PDF checks, `workflow.py` end-to-end workflow case, `release.py` example list and `build.ps1` case, `baseline.json` hash manifest, `fixtures/*.typ` compile cases | Changing behaviour |
 | `archive/design-studies/` | Four frozen, evaluated design studies with their renders | Reading for inspiration only |
 | `archive/anti-examples/` | Frozen designs the owner rejected as not his style (`Anti-example`), with their fonts and his reasons; see its `README.md` | Before proposing or reviewing a design: never repeat one |
 | `design-concepts/` | Template concepts proposed by the `magazine-editor` agent: one folder per style with `brief.md` (and, when the `Domain` has no record yet, `sample.json`) shared by its two `Density`s (`condensed/`, `spacious/`), each holding three `Design Tier`s (`<tier>/<density>-<tier>.typ`, PDF, PNG per page, and every PDF its `Meta File`; see its `README.md`); earlier runs have one `concept.typ`. Proposals, not library code | Running or deciding on an idea run |
 | `brand/` | CVgen's own brand assets: `logos/` (the working logo is the needle's eye, `cvgen-mark-c-eye.svg` and `cvgen-wordmark.svg`; see `brand/README.md`) | Using or replacing the logo |
 | `docs/` | Governance and reference documentation, see below | Recording a decision |
-| `scripts/build.ps1` | Builds the five examples into a new `builds/` folder; `-Release` then copies each beside its entry point and stamps its `Meta File` | Rarely |
+| `scripts/build.ps1` | Builds the examples listed in `examples/release.json` into a new `builds/` folder; `-Release` then copies each beside its entry point and stamps its `Meta File`, and refuses while a `Release` exists | Rarely |
 | `scripts/cv.py` | `render`, `approve`, `export`, `status` for one candidate workspace, calling `packages/cv-workflow` | Producing a real CV |
 | `scripts/outputs.py` | The `Output Contract` tool: `stamp` writes a PDF's `Meta File`, `check` lists every PDF with no valid, current one or outside its home (`docs/pdf-workflow.md`) | Writing a PDF someone will review |
 | `scripts/intake-form.gs` | Google Apps Script the owner runs to make a client's optional `Intake Form` and its answers Sheet; Claude writes a filled copy per form as `intake/form-NN.gs` | Changing how the form is built |
 | `scripts/design_review/` | The owner's local Design Review app (`server.py`, `index.html`): every PDF with a valid `Meta File` (concepts, the `Release`, client renders and `Text Draft`s) as a Board and a Loupe, the rest listed as unindexed with the reason, filters, page previews, compare, a `Batch Test` pile (`plain-cvs.typ`), his review state in `.local/design-review/state.json` (read it for his verdicts and notes), PDFs opened in the default app. Binds to 127.0.0.1 only | Changing how the owner reviews designs |
-| `scripts/text-draft.typ` | The `Text Draft` a client checks before design (`Sign-off`), house design First Fitting | Changing how the text draft looks |
+| `scripts/text-draft.typ` | The `Text Draft` a client checks before design (`Sign-off`), `House Design` First Fitting | Changing how the text draft looks |
 | `.atlas/` | The `Atlas`: open `.atlas/index.html` from disk. Facts in `src/*.json`, each step citing its sources; `python .atlas/_kit/atlas.py build` writes the pages, `check` lists pages whose sources changed or were never checked | A mapped flow, agent or model changed: update its page, `build`, `stamp` |
 | `backlog/` | The task store (Backlog.md, ADR 0014): one file per task in `tasks/`, the `session-handoff` doc in `docs/`, `config.yml`. Read and write through the backlog skill | Any task state change; session start and end |
 | `builds/` | Ignored. Every build and test run writes to a new timestamped folder here | Reading evidence |
@@ -119,9 +119,10 @@ Framework; `M` for `packages/domains/marine`, the marine domain; `F` for
 ## Commands
 
 ```powershell
-./scripts/build.ps1                     # five PDFs into builds/library-<timestamp>/
+./scripts/build.ps1                     # every example in examples/release.json into builds/library-<timestamp>/
 ./scripts/build.ps1 -HideVesselDurations
-./scripts/build.ps1 -Release            # the same, then the `Release`: copied beside the entry points, stamped
+./scripts/build.ps1 -Release            # the same, then the `Release`: copied beside the entry points, stamped; refused while one exists
+./scripts/build.ps1 -ReplaceRelease     # replaces the `Release`: the owner's go only (docs/preferences.md)
 python tests/run.py                     # full suite, evidence into builds/tests-<timestamp>/
 typst compile --root . --ignore-system-fonts --font-path packages/cv-framework/fonts examples/marine/flagship/engineer.typ builds/scratch.pdf
 python scripts/cv.py render private/<candidate>            # new revision: snapshot, PDF, log, checks
@@ -134,7 +135,8 @@ python scripts/design_review/server.py   # the owner's Design Review app on http
 
 `tests/run.py` and `scripts/cv.py render` need Typst 0.15.1 on PATH plus
 Python with `pymupdf` and `jsonschema` (the suite also `pillow`). Compiling an example needs
-only Typst. Approval is the owner's act: an agent never runs `approve` on a
+only Typst. From TASK-36, `tools/workflow/` needs Bun 1.4.2 (ADR 0015).
+Approval is the owner's act: an agent never runs `approve` on a
 real candidate; `--test-only` exists for fictional fixtures and is refused
 under `private/`.
 

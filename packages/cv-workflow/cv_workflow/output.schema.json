@@ -7,7 +7,7 @@
   "required": ["contract", "kind", "domain", "candidate", "pages", "date", "status", "sha256"],
   "properties": {
     "contract": {"const": "cvgen.output/1"},
-    "kind": {"enum": ["concept", "text-draft", "example", "client-cv", "client-draft"]},
+    "kind": {"enum": ["concept", "house-design", "example", "client-cv", "client-draft"]},
     "domain": {"type": "string", "pattern": "^[a-z][a-z0-9-]*$"},
     "candidate": {"type": "string", "minLength": 1},
     "alias": {"type": "string", "pattern": "^client-\\d{4}-\\d{2}-\\d{2}(-\\d+)?$"},
@@ -29,13 +29,13 @@
   "allOf": [
     {"if": {"properties": {"kind": {"const": "concept"}}},
      "then": {"required": ["style", "density", "tier"], "properties": {"status": {"enum": ["proposed", "chosen", "parked", "rejected", "unresolved"]}}}},
-    {"if": {"properties": {"kind": {"const": "text-draft"}}},
+    {"if": {"properties": {"kind": {"const": "house-design"}}},
      "then": {"required": ["style"], "properties": {"status": {"enum": ["proposed", "chosen", "parked", "rejected", "unresolved"]}}}},
     {"if": {"properties": {"kind": {"const": "example"}}},
      "then": {"required": ["style", "source"], "properties": {"status": {"const": "release"}}}},
     {"if": {"properties": {"kind": {"const": "client-cv"}}},
      "then": {"required": ["alias"], "properties": {"status": {"enum": ["render", "approved", "delivered"]}}}},
     {"if": {"properties": {"kind": {"const": "client-draft"}}},
-     "then": {"required": ["alias"], "properties": {"status": {"enum": ["sent", "signed-off", "superseded"]}}}}
+     "then": {"required": ["alias"], "properties": {"status": {"enum": ["ready", "sent", "signed-off", "superseded"]}}}}
   ]
 }

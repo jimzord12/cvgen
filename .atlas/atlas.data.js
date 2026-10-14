@@ -40,7 +40,7 @@ window.ATLAS = {
      "Everything routine (commits, merges to `main`, task-store updates) is the agents' job."
     ],
     "sources": [
-     "docs/preferences.md:49-80",
+     "docs/preferences.md:49-81",
      "docs/guides/client-workflow.md:9-10"
     ],
     "short": "You"
@@ -54,7 +54,7 @@ window.ATLAS = {
      "Outside `private/` a client is only their `Alias`, like `client-2026-09-01`."
     ],
     "sources": [
-     "docs/guides/client-workflow.md:338-340",
+     "docs/guides/client-workflow.md:339-341",
      "docs/guides/client-workflow.md:64-68"
     ],
     "short": "Client"
@@ -380,7 +380,7 @@ window.ATLAS = {
     ],
     "sources": [
      "scripts/cv.py:1-12",
-     "docs/guides/build-a-cv.md:117-208"
+     "docs/guides/build-a-cv.md:117-211"
     ]
    },
    "outputs-py": {
@@ -390,14 +390,14 @@ window.ATLAS = {
     "role": "The `Output Contract` tool: `stamp` writes a PDF's `Meta File`; `check` lists every PDF without a valid one.",
     "sources": [
      "scripts/outputs.py",
-     "docs/pdf-workflow.md:123-156"
+     "docs/pdf-workflow.md:123-165"
     ]
    },
    "suite": {
     "label": "tests/run.py",
     "kind": "tool",
     "file": "tests/run.py",
-    "role": "The full test suite: compiles every example, checks the `Frozen Reference` pixel for pixel, the workflow, the contract. Evidence goes to `builds/tests-<timestamp>/`.",
+    "role": "The full test suite: compiles every example in `examples/release.json`, runs `build.ps1` in a throwaway copy, checks the `Frozen Reference` pixel for pixel, the workflow, the contract. Evidence goes to `builds/tests-<timestamp>/`.",
     "sources": [
      "tests/run.py",
      "docs/reference/verification.md"
@@ -421,9 +421,11 @@ window.ATLAS = {
     "label": "scripts/build.ps1",
     "kind": "tool",
     "file": "scripts/build.ps1",
-    "role": "Builds the five public examples into `builds/`; with `-Release` it copies them beside their entry points and stamps them.",
+    "role": "Builds the public examples listed in `examples/release.json` (the list the suite also reads) into `builds/`; with `-Release` it copies them beside their entry points and stamps them, refusing while a `Release` exists; `-ReplaceRelease` (the owner's go) replaces it.",
     "sources": [
-     "scripts/build.ps1"
+     "scripts/build.ps1",
+     "examples/release.json",
+     "docs/pdf-workflow.md:216-224"
     ]
    },
    "intake-form": {
@@ -459,7 +461,7 @@ window.ATLAS = {
    "github-ci": {
     "label": "GitHub CI",
     "kind": "service",
-    "role": "Runs the suite once per push (its head commit) on any branch, on Linux and Windows (Typst 0.15.1, checksummed; Windows also runs `scripts/build.ps1`); a newer push to a feature branch cancels the older run. The lead watches it on `main` before calling work Done.",
+    "role": "Runs the suite once per push (its head commit) on any branch, on Linux and Windows (Typst 0.15.1, checksummed; the suite drives `scripts/build.ps1` in a throwaway copy on both, and Windows also builds the examples with it); a newer push to a feature branch cancels the older run. The lead watches it on `main` before calling work Done.",
     "sources": [
      ".github/workflows/verify.yml",
      "docs/git-workflow.md:90-103"
@@ -727,7 +729,7 @@ window.ATLAS = {
        ],
        "sources": [
         "docs/guides/client-workflow.md:177-185",
-        "docs/guides/client-workflow.md:331-334"
+        "docs/guides/client-workflow.md:332-335"
        ]
       },
       {
@@ -823,14 +825,14 @@ window.ATLAS = {
         "Claude checks every page before giving you the path."
        ],
        "out": [
-        "`draft/draft-NN.pdf` with its `Meta File` (status `sent`)"
+        "`draft/draft-NN.pdf` with its `Meta File` (status `ready`)"
        ],
        "cmd": [
         "typst compile --root . --ignore-system-fonts --font-path packages/cv-framework/fonts private/<envelope>/draft/draft-01.typ private/<envelope>/draft/draft-01.pdf",
-        "python scripts/outputs.py stamp private/<envelope>/draft/draft-01.pdf status=sent"
+        "python scripts/outputs.py stamp private/<envelope>/draft/draft-01.pdf status=ready"
        ],
        "sources": [
-        "docs/guides/client-workflow.md:250-273",
+        "docs/guides/client-workflow.md:250-270",
         "scripts/text-draft.typ:1-6"
        ]
       },
@@ -861,11 +863,14 @@ window.ATLAS = {
         }
        ],
        "does": [
-        "A sent draft is never recompiled; its SHA-256 goes in `README.md`."
+        "When you confirm you sent it, Claude re-stamps the draft `sent`.",
+        "A sent draft is never recompiled; its SHA-256 goes in `README.md`.",
+        "With the screenshot saved, Claude re-stamps the draft `signed-off`; the stamp refuses it without the screenshot."
        ],
        "sources": [
         "docs/guides/client-workflow.md:26",
-        "docs/guides/client-workflow.md:273-277",
+        "docs/guides/client-workflow.md:264-278",
+        "docs/pdf-workflow.md:144-150",
         "docs/glossary.md"
        ]
       }
@@ -893,8 +898,8 @@ window.ATLAS = {
         "magazine-editor"
        ],
        "sources": [
-        "docs/guides/client-workflow.md:286-296",
-        ".claude/skills/new-cv/SKILL.md:62-66"
+        "docs/guides/client-workflow.md:287-297",
+        ".claude/skills/new-cv/SKILL.md:64-68"
        ]
       },
       {
@@ -910,7 +915,7 @@ window.ATLAS = {
         "design-review-app"
        ],
        "sources": [
-        "docs/guides/client-workflow.md:292-296",
+        "docs/guides/client-workflow.md:293-297",
         ".claude/skills/idea-run/SKILL.md:123-135"
        ]
       },
@@ -948,7 +953,7 @@ window.ATLAS = {
        ],
        "sources": [
         ".claude/skills/new-cv/SKILL.md:12-15",
-        ".claude/skills/new-cv/SKILL.md:67-85",
+        ".claude/skills/new-cv/SKILL.md:69-87",
         "docs/guides/build-a-cv.md:37-68"
        ]
       }
@@ -983,7 +988,7 @@ window.ATLAS = {
        ],
        "sources": [
         "docs/guides/build-a-cv.md:117-151",
-        ".claude/skills/new-cv/SKILL.md:105-115"
+        ".claude/skills/new-cv/SKILL.md:107-117"
        ]
       },
       {
@@ -1011,7 +1016,7 @@ window.ATLAS = {
        ],
        "sources": [
         "docs/guides/build-a-cv.md:184-191",
-        "docs/pdf-workflow.md:166-170"
+        "docs/pdf-workflow.md:175-179"
        ]
       },
       {
@@ -1033,8 +1038,8 @@ window.ATLAS = {
         "cv-py"
        ],
        "sources": [
-        "docs/guides/build-a-cv.md:193-208",
-        "docs/pdf-workflow.md:171-182"
+        "docs/guides/build-a-cv.md:193-211",
+        "docs/pdf-workflow.md:180-191"
        ]
       },
       {
@@ -1047,15 +1052,15 @@ window.ATLAS = {
        "summary": "Sending is a separate act, by you. Then the record says delivered, with a delete-by date.",
        "you": "Send the exported PDF to the client.",
        "does": [
-        "Claude re-stamps the PDF `delivered`.",
+        "Claude re-stamps the PDF `delivered`; the stamp refuses it without the approval receipt and a verified `Export`.",
         "Writes \"Delivered <date>. Delete by <date + 12 months>\" in the `Envelope`'s `README.md`."
        ],
        "cmd": [
         "python scripts/outputs.py stamp private/<envelope>/revisions/<id>/cv.pdf status=delivered"
        ],
        "sources": [
-        "docs/guides/build-a-cv.md:204-206",
-        "docs/guides/client-workflow.md:298-301"
+        "docs/guides/build-a-cv.md:204-211",
+        "docs/guides/client-workflow.md:299-302"
        ]
       }
      ]
@@ -1075,8 +1080,8 @@ window.ATLAS = {
         "label": "Claude names passed delete-by dates and hands you the erase commands; you do the deleting."
        },
        "sources": [
-        "docs/guides/client-workflow.md:298-327",
-        "docs/preferences.md:69-80"
+        "docs/guides/client-workflow.md:299-328",
+        "docs/preferences.md:69-81"
        ]
       }
      ]
@@ -1463,7 +1468,8 @@ window.ATLAS = {
         "docs/development.md:34-56",
         "AGENTS.md:35-44",
         "AGENTS.md:49-54",
-        "docs/proposals/README.md:46-51"
+        "docs/proposals/README.md:46-51",
+        "docs/proposals/README.md:89-97"
        ]
       },
       {
@@ -1612,7 +1618,7 @@ window.ATLAS = {
        "note": "Yours only, with the exact command shown first, including: deleting or force-pushing `main`, rewriting its published history, rewriting the private repo's history (the delete-by erase, which you run), `archive/*` tags, repo settings (public and private repo), deleting under `private/` or `.local/` or outside the repo, removing revisions, approvals, exports or portraits, replacing the `Release`.",
        "sources": [
         "docs/git-workflow.md:90-103",
-        "docs/preferences.md:52-80",
+        "docs/preferences.md:52-81",
         ".github/workflows/verify.yml"
        ]
       }
@@ -1668,7 +1674,7 @@ window.ATLAS = {
        },
        "sources": [
         "docs/preferences.md:49-51",
-        "docs/preferences.md:86"
+        "docs/preferences.md:87"
        ]
       }
      ]
@@ -1729,7 +1735,7 @@ window.ATLAS = {
        "path": "private/<envelope>/draft/",
        "blurb": "The `Text Drafts` and the `Sign-off` screenshots.",
        "sources": [
-        "docs/guides/client-workflow.md:250-277"
+        "docs/guides/client-workflow.md:250-278"
        ]
       },
       {
@@ -1834,7 +1840,7 @@ window.ATLAS = {
        "title": "build.ps1",
        "path": "scripts/build.ps1",
        "actor": "build-ps1",
-       "blurb": "Builds the five examples; `-Release` writes the `Release`."
+       "blurb": "Builds the listed examples; `-Release` writes a new `Release`, `-ReplaceRelease` (owner's go) replaces one."
       }
      ]
     },
@@ -2267,30 +2273,58 @@ window.ATLAS = {
   }
  ],
  "build": {
-  "builtAt": "2026-10-14 06:58 UTC",
-  "commit": "60f15ae",
+  "builtAt": "2026-10-14 07:11 UTC",
+  "commit": "0cb5fbb",
   "kit": "1.0",
-  "stale": {},
+  "stale": {
+   "client-journey": [
+    ".claude/skills/idea-run/SKILL.md"
+   ],
+   "design-run": [
+    ".claude/skills/idea-run/SKILL.md",
+    "AGENTS.md",
+    "docs/proposals/codex-visual-tools.md"
+   ],
+   "change-review": [
+    "docs/development.md",
+    "AGENTS.md",
+    "docs/proposals/README.md"
+   ],
+   "system-map": [
+    "AGENTS.md",
+    "docs/work",
+    "tests/run.py"
+   ],
+   "roster": [
+    "AGENTS.md",
+    "docs/development.md",
+    ".claude/agents/ceo.md",
+    ".claude/skills/idea-run/SKILL.md",
+    "docs/proposals/codex-visual-tools.md",
+    "tests/run.py",
+    "docs/reference/verification.md"
+   ]
+  },
   "verified": {
    "client-journey": {
     "at": "2026-10-14",
-    "commit": "d432044"
+    "commit": "575fd07"
    },
    "design-run": {
     "at": "2026-10-14",
-    "commit": "d432044"
+    "commit": "575fd07"
    },
    "change-review": {
     "at": "2026-10-14",
-    "commit": "d432044"
+    "commit": "575fd07"
    },
    "system-map": {
     "at": "2026-10-14",
-    "commit": "60f15ae"
+    "commit": "575fd07"
    },
    "roster": {
     "at": "2026-10-14",
-    "commit": "d432044"
+    "commit": "575fd07"
    }
   }
  }

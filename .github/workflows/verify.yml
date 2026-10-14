@@ -34,7 +34,8 @@ jobs:
       matrix:
         # Runner images pinned rather than *-latest: ubuntu-latest moves to Ubuntu 26.04 from
         # 2026-10-19, and an image change should be a deliberate commit, not a surprise red run.
-        # Windows because the owner works there and scripts/build.ps1 runs nowhere else in CI.
+        # Windows because the owner works there: the suite drives scripts/build.ps1 under pwsh and
+        # Windows PowerShell 5.1 there (pwsh only on Linux), and the step below runs it on the checkout.
         os: [ubuntu-24.04, windows-2025]
     runs-on: ${{ matrix.os }}
     steps:
@@ -82,7 +83,8 @@ jobs:
       - name: Run the regression suite
         run: python tests/run.py --output builds/ci
 
-      # The owner's build command, which no other CI step runs: five examples, fonts strict.
+      # The owner's build command on the real checkout (the suite runs it only in a throwaway copy with
+      # a cut list): every example in examples/release.json, fonts strict.
       - name: Build the examples with scripts/build.ps1 (Windows)
         if: runner.os == 'Windows'
         shell: pwsh
@@ -100,5 +102,6 @@ jobs:
             builds/ci/**/compile.log
             builds/ci/**/page-*.png
             builds/ci/workflow/commands.log
+            builds/ci/build-script/*.log
             builds/ci-library/*.pdf
           if-no-files-found: ignore
