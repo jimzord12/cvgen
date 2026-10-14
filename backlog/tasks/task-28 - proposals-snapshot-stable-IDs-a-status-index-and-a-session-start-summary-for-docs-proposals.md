@@ -3,10 +3,10 @@ id: TASK-28
 title: >-
   proposals-snapshot: stable IDs, a status index and a session-start summary for
   docs/proposals
-status: Active
+status: Done
 assignee: []
 created_date: '2026-10-06 09:41'
-updated_date: '2026-10-14 06:49'
+updated_date: '2026-10-14 07:15'
 labels:
   - docs process
 dependencies: []
@@ -35,3 +35,9 @@ Owner asked 2026-10-06. Proposals are agent-written improvement ideas; they are 
 - Summary: 13 proposals: 0 pending (0 older than 7 days), 0 trial, 3 approved-not-applied, 2 deferred, 7 applied, 1 rejected
 - Suite: builds/tests-20261014-094600-967800 (10 proposals: checks). Walk: builds/walk-task-28-20261014-094541/walk.txt (worktree).
 <!-- SECTION:NOTES:END -->
+
+## Final Summary
+
+<!-- SECTION:FINAL_SUMMARY:BEGIN -->
+Every file in docs/proposals/ has id P-00NN (git creation order) and proposals have created; scripts/proposals.py (stdlib) prints the one-line summary and --json writes builds/proposals-<timestamp>/snapshot.json, refusing any file that breaks the README rules (exit 2, nothing written). AGENTS.md orientation, docs/development.md session start and Session Sweep, the README and the ceo/idea-run steps point to it. Code review rounds 1 (FINDINGS, fixed) and 2 (PASS, minors fixed), context review round 1 (PASS, minors fixed); 12 of 12 mutants caught. Suite passes (builds/tests-20261014-101305-191682 in the worktree); walk builds/walk-task-28-r2-20261014-101456/walk.txt. Today's line: 13 proposals: 0 pending, 0 trial, 3 approved-not-applied, 2 deferred, 7 applied, 1 rejected.
+<!-- SECTION:FINAL_SUMMARY:END -->
