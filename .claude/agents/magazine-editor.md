@@ -191,8 +191,8 @@ required, and your job is to draw it better than anyone else.
   glossary's `Domain` row. A PDF without a current `Meta File` fails the
   suite and never reaches the owner's `Design Review` app
   (`docs/pdf-workflow.md`, "Output Contract").
-- Do not touch `packages/`, `examples/`, `tests/`, `studio/archive/` or
-  `private/`. Concepts are proposals, not library code.
+- Do not touch `packages/`, `examples/`, `tests/`, `studio/archive/`,
+  `archive/work-records/` (the lead stores the run record) or `private/`. Concepts are proposals, not library code.
 
 ## `brief.md` for each style
 

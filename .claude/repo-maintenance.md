@@ -39,7 +39,7 @@ protected:
   - "archive/**"                                                     # work records
   - "examples/**/*.pdf"                                              # the Release: replaced only by build.ps1 -ReplaceRelease, the owner's go
   - "examples/**/*.meta.json"                                        # its Meta Files (Output Contract)
-  - "studio/design-concepts/**/*.meta.json"                                 # stamped by scripts/outputs.py, never by hand
+  - "studio/design-concepts/**/*.meta.json"                          # stamped by scripts/outputs.py, never by hand
   - "archive/work-records/**/reviews/**"                             # independent review reports are records
   - "private/**"                                                     # ignored, real client data; never inspected
   - ".local/**"                                                      # ignored, local preferences

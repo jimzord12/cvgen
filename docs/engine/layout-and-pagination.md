@@ -45,9 +45,9 @@ synopsis, certificates and education, so it serves one, two or three
 companies without an override:
 
 ```typst
-#import "/packages/domains/marine/templates/flagship/layouts/flagship-one-page.typ": one-page
+#import "/packages/domains/marine/lib.typ": flagship, flagship-layouts
 #let candidate = json("candidate.json")
-#show: flagship.with(candidate: candidate, /* role, theme, artwork */ layout: one-page(candidate))
+#show: flagship.with(candidate: candidate, /* role, theme, artwork */ layout: flagship-layouts.one-page(candidate))
 ```
 
 `examples/marine/flagship/deck-cadet.typ` is the working example. The
@@ -76,7 +76,8 @@ value here and every example follows.
 For one CV, prefer a small override in the entry point over a new file:
 
 ```typst
-#import "/packages/domains/marine/templates/flagship/layouts/flagship-v11.typ": layout as base
+#import "/packages/domains/marine/lib.typ": flagship-layouts
+#let base = flagship-layouts.flagship-v11
 #let layout = (..base, pages: (
   (companies: (0, 1, 2)),
   (companies: (3, 4)),

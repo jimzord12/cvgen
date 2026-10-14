@@ -112,7 +112,7 @@ branch structure is a proportionate choice for this small project.
 
 ## Tags
 
-- `studio/archive/<name>` marks a snapshot before a large removal. Files deleted
+- `archive/<name>` marks a snapshot before a large removal. Files deleted
   from the tree remain reachable there.
 - `reference/<name>` tags are meant to mark the commit that produced a frozen
   reference render. None exists yet; the v11 reference predates the
