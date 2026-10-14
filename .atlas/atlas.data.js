@@ -1199,7 +1199,7 @@ window.ATLAS = {
        ],
        "sources": [
         ".claude/agents/magazine-editor.md:50-82",
-        ".claude/agents/magazine-editor.md:88-211",
+        ".claude/agents/magazine-editor.md:88-213",
         "studio/design-concepts/README.md"
        ]
       }
@@ -2275,8 +2275,8 @@ window.ATLAS = {
   }
  ],
  "build": {
-  "builtAt": "2026-10-14 10:12 UTC",
-  "commit": "414a38e",
+  "builtAt": "2026-10-14 10:15 UTC",
+  "commit": "8bbda11",
   "kit": "1.0",
   "stale": {},
   "verified": {
@@ -2286,7 +2286,7 @@ window.ATLAS = {
    },
    "design-run": {
     "at": "2026-10-14",
-    "commit": "414a38e"
+    "commit": "8bbda11"
    },
    "change-review": {
     "at": "2026-10-14",

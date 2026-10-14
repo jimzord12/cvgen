@@ -1,7 +1,7 @@
 # yaml-language-server: $schema=../../../tools/workflow/schema/stage.schema.json
 id: design
 name: Design and build the CV
-sources: ["docs/guides/client-workflow.md:310-328", ".claude/skills/new-cv/SKILL.md:8-95", "docs/guides/build-a-cv.md:1-108"]
+sources: ["docs/guides/client-workflow.md:310-328", ".claude/skills/new-cv/SKILL.md:8-97", "docs/guides/build-a-cv.md:1-108"]
 purpose: >-
   Turn the signed-off facts into the client's CV design and its build files:
   the Flagship for a Domain that has it, a custom composition when the data
@@ -147,7 +147,7 @@ steps:
 
   - id: design.entry-point
     name: Write the Flagship entry point
-    sources: [".claude/skills/new-cv/SKILL.md:54-67", ".claude/skills/new-cv/SKILL.md:94-97", "docs/guides/build-a-cv.md:31-63"]
+    sources: [".claude/skills/new-cv/SKILL.md:54-69", ".claude/skills/new-cv/SKILL.md:94-97", "docs/guides/build-a-cv.md:31-63"]
     actor: actor.lead
     action: lead.write-flagship-entry
     inputs: [art.candidate-json, art.flagship-template]
@@ -569,7 +569,7 @@ actions:
   - id: lead.write-flagship-entry
     kind: lead
     name: Write the Flagship entry point
-    sources: [".claude/skills/new-cv/SKILL.md:54-67", "docs/guides/build-a-cv.md:31-63"]
+    sources: [".claude/skills/new-cv/SKILL.md:54-69", "docs/guides/build-a-cv.md:31-63"]
     does: >-
       Writes typst/cv.typ importing the engine by root-absolute path: role,
       theme, artwork, the durations switch and a pages override with this

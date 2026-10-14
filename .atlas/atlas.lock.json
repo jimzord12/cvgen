@@ -31,7 +31,7 @@
    "verifiedAt": "2026-10-14"
   },
   "design-run": {
-   "commit": "414a38e",
+   "commit": "8bbda11",
    "sources": {
     ".claude/agents/design-reviewer.md": "ae20d720149ac73aaca62505035b9855c2829911",
     ".claude/agents/magazine-editor.md": "ba0807df9b3f5124f87172a454dcb9484476cfe8",
