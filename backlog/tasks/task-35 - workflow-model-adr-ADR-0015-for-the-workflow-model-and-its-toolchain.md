@@ -4,7 +4,7 @@ title: 'workflow-model-adr: ADR 0015 for the workflow model and its toolchain'
 status: Done
 assignee: []
 created_date: '2026-10-14 04:47'
-updated_date: '2026-10-14 06:56'
+updated_date: '2026-10-14 08:53'
 labels:
   - workflow-model
 dependencies:
@@ -20,8 +20,8 @@ Record YAML facts, the TypeScript/Bun engine, Zod plus JSON Schema, Atlas from t
 
 ## Acceptance Criteria
 <!-- AC:BEGIN -->
-- [ ] #1 ADR 0015 merged
-- [ ] #2 `docs/tech-stack.md` and `AGENTS.md` mention Bun
+- [x] #1 ADR 0015 merged
+- [x] #2 `docs/tech-stack.md` and `AGENTS.md` mention Bun
 <!-- AC:END -->
 
 ## Final Summary
