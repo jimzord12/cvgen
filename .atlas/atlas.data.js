@@ -461,7 +461,7 @@ window.ATLAS = {
    "github-ci": {
     "label": "GitHub CI",
     "kind": "service",
-    "role": "Lints the Python with ruff, then runs the suite once per push (its head commit) on any branch, on Linux and Windows (Typst 0.15.1 and the Python packages in `requirements.lock`, checksummed; the suite drives `scripts/build.ps1` in a throwaway copy on both, and Windows also builds the examples with it); a newer push to a feature branch cancels the older run. The lead watches it on `main` before calling work Done.",
+    "role": "Lints the Python with ruff, runs the workflow tool's tests and type check and the `Workflow Model` check (`bun run check`, Bun pinned in `tools/workflow/.bun-version`), then runs the suite once per push (its head commit) on any branch, on Linux and Windows (Typst 0.15.1 and the Python packages in `requirements.lock`, checksummed; the suite drives `scripts/build.ps1` in a throwaway copy on both, and Windows also builds the examples with it); a newer push to a feature branch cancels the older run. The lead watches it on `main` before calling work Done.",
     "sources": [
      ".github/workflows/verify.yml",
      "docs/git-workflow.md:90-103"
@@ -2031,7 +2031,7 @@ window.ATLAS = {
        "title": "GitHub CI",
        "path": ".github/workflows/verify.yml",
        "actor": "github-ci",
-       "blurb": "Ruff, then the suite once per push (its head commit), Linux and Windows."
+       "blurb": "Ruff, the `Workflow Model` check, then the suite once per push (its head commit), Linux and Windows."
       }
      ]
     },
@@ -2275,30 +2275,30 @@ window.ATLAS = {
   }
  ],
  "build": {
-  "builtAt": "2026-10-14 09:24 UTC",
-  "commit": "fdc6262",
+  "builtAt": "2026-10-14 09:43 UTC",
+  "commit": "5cc0a02",
   "kit": "1.0",
   "stale": {},
   "verified": {
    "client-journey": {
     "at": "2026-10-14",
-    "commit": "b010b2c"
+    "commit": "966dbf9"
    },
    "design-run": {
     "at": "2026-10-14",
-    "commit": "85d0237"
+    "commit": "966dbf9"
    },
    "change-review": {
     "at": "2026-10-14",
-    "commit": "fdc6262"
+    "commit": "0f49f98"
    },
    "system-map": {
     "at": "2026-10-14",
-    "commit": "58775fc"
+    "commit": "5cc0a02"
    },
    "roster": {
     "at": "2026-10-14",
-    "commit": "85d0237"
+    "commit": "0f49f98"
    }
   }
  }

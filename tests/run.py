@@ -164,8 +164,8 @@ def main():
     # One folder per case holds all its evidence (ADR 0013): <case>.pdf, compile.log, and for a
     # checked case check/result.json (plus diff-N.png on a mismatch) and page-N.png renders.
     def compile_case(name, source, inputs=None, error=None):
-        assert name not in ('workflow', 'design-review', 'build-script', 'proposals'), \
-            'the workflow, app, build script and proposal checks own those folders'
+        assert name not in ('workflow', 'design-review', 'build-script', 'proposals', 'workflow-model'), \
+            'the workflow, app, build script, proposal and Workflow Model checks own those folders'
         folder = out / name
         folder.mkdir(exist_ok=False)
         pdf = folder / (name + '.pdf')
@@ -453,6 +453,26 @@ def main():
     # The owner's Design Review app, through its real server, on a fictional tree.
     for check in run_design_review(out):
         results.append({'case': 'design-review-' + check, 'passed': True, 'folder': 'design-review'})
+    # The Workflow Model (docs/workflow, ADR 0015): the workflow tool's check, levels 1 and 2 (TASK-38).
+    bun = shutil.which('bun')
+    if bun:
+        tool, folder = ROOT / 'tools' / 'workflow', out / 'workflow-model'
+        folder.mkdir()
+        def bun_run(log, *command):
+            # PYTHON: the check runs `scripts/cv.py --help` and `scripts/outputs.py --help` with this interpreter.
+            done = subprocess.run([bun, *command], cwd=tool, capture_output=True, text=True, encoding='utf-8',
+                                  errors='replace', env={**os.environ, 'PYTHON': sys.executable})
+            (folder / log).write_text(done.stdout + done.stderr, encoding='utf-8')
+            return done
+        if not (tool / 'node_modules').is_dir():
+            install = bun_run('install.log', 'install', '--frozen-lockfile')
+            assert install.returncode == 0, ('workflow-model', install.stdout + install.stderr)
+        check = bun_run('check.log', 'run', 'check')
+        assert check.returncode == 0 and 'levels 1 and 2 pass' in check.stdout, ('workflow-model', check.stdout + check.stderr)
+        results.append({'case': 'workflow-model', 'passed': True, 'folder': 'workflow-model'})
+    else:
+        assert not os.environ.get('CI'), 'CI has no Bun, so the Workflow Model is not checked; see .github/workflows/verify.yml'
+        skip('workflow-model', reason='no Bun on this machine, so the Workflow Model (docs/workflow) is not checked here')
     check_frozen()
     check_core_boundary()
     report = {'passed': True, 'cases': results, 'exact_reference': result, 'output': str(out)}

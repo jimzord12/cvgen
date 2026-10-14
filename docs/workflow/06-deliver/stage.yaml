@@ -161,21 +161,21 @@ gates:
 loops:
   - id: loop.revision-fix
     name: Fix and render again after a failed render (placeholder cap)
-    sources: ["docs/guides/build-a-cv.md:128-130", "docs/workflow/GAPS.md:27"]
+    sources: ["docs/guides/build-a-cv.md:128-130", "docs/workflow/GAPS.md:28"]
     gate: gate.render-ok
     cap: { attended: 5, unattended: 10 }
     escalate: deliver.cap-reached
 
   - id: loop.wording-fix
     name: Fix and render again after example wording (placeholder cap)
-    sources: ["docs/guides/build-a-cv.md:98-103", "docs/workflow/GAPS.md:28"]
+    sources: ["docs/guides/build-a-cv.md:98-103", "docs/workflow/GAPS.md:29"]
     gate: gate.example-wording
     cap: { attended: 5, unattended: 10 }
     escalate: deliver.cap-reached
 
   - id: loop.owner-changes
     name: The owner's changes, as new Revisions (placeholder cap)
-    sources: ["docs/guides/build-a-cv.md:174-176", "docs/workflow/GAPS.md:29"]
+    sources: ["docs/guides/build-a-cv.md:174-176", "docs/workflow/GAPS.md:30"]
     gate: gate.owner-review
     cap: { attended: 5 }
     escalate: deliver.cap-reached
@@ -288,12 +288,6 @@ artifacts:
     name: The delete-by date, named to the owner
     sources: ["docs/guides/client-workflow.md:332", ".claude/skills/new-client/SKILL.md:104-105"]
     format: a line in the lead's report, with the Intake Form, Sheet and script project to delete with it
-    visibility: ephemeral
-
-  - id: art.status-listing
-    name: What status prints
-    sources: ["packages/cv-workflow/cv_workflow/__init__.py:14-31", "packages/cv-workflow/cv_workflow/workspace.py:189-229"]
-    format: "JSON: every Revision with its state (failed, checks-failed, rendered, approved, exported and others), hash prefix, warnings"
     visibility: ephemeral
 
 actions:

@@ -51,6 +51,14 @@ cap)" and cite their row here.
 - **Repeats the owner decides**: asking for consent again
   (`client-workflow.md:191-192`) and a second follow-up
   (`client-workflow.md:275-276`) are one owner step each, not loops.
+- **What starts a keep request** (`after.keep-request`): no source says when
+  the client asks; the YAML reads the intake questions, whose consent text
+  offers it (`client-workflow.md:164-167`). Added by TASK-38: a step with no
+  inputs is reached only as a loop's escalation step.
+- **How Revisions to remove are found** (`after.revision-cleanup`):
+  `pdf-workflow.md:211-214` names failed or unapproved Revisions as
+  candidates, not how they are listed; the YAML reads `cv.py status`, which
+  lists every Revision with its state. Added by TASK-38, for the same reason.
 
 ## What the YAML leaves out
 

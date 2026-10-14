@@ -1,0 +1,5 @@
+# Broken: a step of stage make is named other.one.
+actors:
+  - { id: actor.lead, name: The lead, sources: ["AGENTS.md"], kind: lead, does: Does the work. }
+artifacts:
+  - { id: art.in, name: Input, sources: ["AGENTS.md"], path: AGENTS.md, visibility: public, given: true }

@@ -4,7 +4,7 @@ title: 'workflow-reality-check: level 3, the model checked against a real run'
 status: Queued
 assignee: []
 created_date: '2026-10-14 04:47'
-updated_date: '2026-10-14 06:52'
+updated_date: '2026-10-14 09:42'
 labels:
   - workflow-model
 dependencies:
@@ -23,3 +23,9 @@ Extend `tests/workflow.py`, or drive it from the workflow tool, so a fictional c
 - [ ] #1 Suite step passes
 - [ ] #2 changing a script's output name makes it fail with the step ID
 <!-- AC:END -->
+
+## Implementation Notes
+
+<!-- SECTION:NOTES:BEGIN -->
+From TASK-38 review: removing art.approval-json from deliver.export's inputs still passes levels 1-2 (order without data is unchecked); level 3 should prove export waits for approval.
+<!-- SECTION:NOTES:END -->

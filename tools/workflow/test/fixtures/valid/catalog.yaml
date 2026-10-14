@@ -1,0 +1,11 @@
+# A small model that passes every rule: a gate, a loop with its escalation step, endpoints, cmd, skill and agent actions.
+actors:
+  - { id: actor.lead, name: The lead, sources: ["AGENTS.md"], kind: lead, does: Does the work. }
+  - { id: actor.owner, name: The owner, sources: ["AGENTS.md"], kind: human, does: Decides. }
+  - { id: actor.code-reviewer, name: code-reviewer, sources: [".claude/agents/code-reviewer.md:1-6"], kind: agent, does: Reviews. }
+actions:
+  - { id: manual.decide-at-cap, kind: manual, name: Decide at the cap, sources: ["AGENTS.md"], does: The owner decides. }
+artifacts:
+  - { id: art.in, name: Input, sources: ["AGENTS.md"], path: AGENTS.md, visibility: public, given: true }
+  - { id: art.schema, name: Schema, sources: ["packages/cv-workflow/cv_workflow/output.schema.json:1-5"], path: packages/cv-workflow/cv_workflow/output.schema.json, visibility: public, given: true }
+  - { id: art.draft, name: Draft, sources: ["AGENTS.md"], path: private/<envelope>/draft.json, schema: art.schema, visibility: private }
