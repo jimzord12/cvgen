@@ -109,7 +109,7 @@
           ],
           "sources": [
             ".claude/agents/magazine-editor.md:50-82",
-            ".claude/agents/magazine-editor.md:88-210",
+            ".claude/agents/magazine-editor.md:88-211",
             "studio/design-concepts/README.md"
           ]
         }
@@ -231,7 +231,7 @@
             "After a PASS: a new sourced claim goes back to the research gate; a change to the Style's idea or to what you decide on goes back to the design gate; layout, typos or sample data need only a lead check noted in `run.md`."
           ],
           "sources": [
-            ".claude/agents/magazine-editor.md:212-220",
+            ".claude/agents/magazine-editor.md:213-221",
             ".claude/skills/idea-run/SKILL.md:67-72"
           ]
         }

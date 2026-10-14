@@ -899,7 +899,7 @@ window.ATLAS = {
        ],
        "sources": [
         "docs/guides/client-workflow.md:317-328",
-        ".claude/skills/new-cv/SKILL.md:68-72"
+        ".claude/skills/new-cv/SKILL.md:70-74"
        ]
       },
       {
@@ -953,7 +953,7 @@ window.ATLAS = {
        ],
        "sources": [
         ".claude/skills/new-cv/SKILL.md:12-15",
-        ".claude/skills/new-cv/SKILL.md:73-91",
+        ".claude/skills/new-cv/SKILL.md:75-93",
         "docs/guides/build-a-cv.md:31-63"
        ]
       }
@@ -988,7 +988,7 @@ window.ATLAS = {
        ],
        "sources": [
         "docs/guides/build-a-cv.md:112-147",
-        ".claude/skills/new-cv/SKILL.md:111-121"
+        ".claude/skills/new-cv/SKILL.md:113-123"
        ]
       },
       {
@@ -1199,7 +1199,7 @@ window.ATLAS = {
        ],
        "sources": [
         ".claude/agents/magazine-editor.md:50-82",
-        ".claude/agents/magazine-editor.md:88-210",
+        ".claude/agents/magazine-editor.md:88-211",
         "studio/design-concepts/README.md"
        ]
       }
@@ -1321,7 +1321,7 @@ window.ATLAS = {
         "After a PASS: a new sourced claim goes back to the research gate; a change to the Style's idea or to what you decide on goes back to the design gate; layout, typos or sample data need only a lead check noted in `run.md`."
        ],
        "sources": [
-        ".claude/agents/magazine-editor.md:212-220",
+        ".claude/agents/magazine-editor.md:213-221",
         ".claude/skills/idea-run/SKILL.md:67-72"
        ]
       }
@@ -2275,18 +2275,18 @@ window.ATLAS = {
   }
  ],
  "build": {
-  "builtAt": "2026-10-14 10:06 UTC",
-  "commit": "002a67a",
+  "builtAt": "2026-10-14 10:12 UTC",
+  "commit": "414a38e",
   "kit": "1.0",
   "stale": {},
   "verified": {
    "client-journey": {
     "at": "2026-10-14",
-    "commit": "f5819d1"
+    "commit": "414a38e"
    },
    "design-run": {
     "at": "2026-10-14",
-    "commit": "f5819d1"
+    "commit": "414a38e"
    },
    "change-review": {
     "at": "2026-10-14",
@@ -2298,7 +2298,7 @@ window.ATLAS = {
    },
    "roster": {
     "at": "2026-10-14",
-    "commit": "f5819d1"
+    "commit": "414a38e"
    }
   }
  }

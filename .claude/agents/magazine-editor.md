@@ -192,7 +192,8 @@ required, and your job is to draw it better than anyone else.
   suite and never reaches the owner's `Design Review` app
   (`docs/pdf-workflow.md`, "Output Contract").
 - Do not touch `packages/`, `examples/`, `tests/`, `studio/archive/`,
-  `archive/work-records/` (the lead stores the run record) or `private/`. Concepts are proposals, not library code.
+  `archive/work-records/` (the lead stores the run record) or `private/`.
+  Concepts are proposals, not library code.
 
 ## `brief.md` for each style
 

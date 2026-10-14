@@ -16,11 +16,11 @@
    "verifiedAt": "2026-10-14"
   },
   "client-journey": {
-   "commit": "f5819d1",
+   "commit": "414a38e",
    "sources": {
     ".claude/skills/idea-run/SKILL.md": "88b55544d074640759cf193c3d212d1f15ad91f8",
     ".claude/skills/new-client/SKILL.md": "db4910a38f348ba06564eff199447763662e4f87",
-    ".claude/skills/new-cv/SKILL.md": "5b5c582efad477806aaf9fe57452c21f1e491217",
+    ".claude/skills/new-cv/SKILL.md": "7f2041feec36dbc8d38fbf1e878f91be37943716",
     "docs/glossary.md": "adbf57743fea29356883b5f7ace4be8a895bfe91",
     "docs/guides/build-a-cv.md": "02e9d6923ad03aa7ca6d753d9bf09ff4f4544b4a",
     "docs/guides/client-workflow.md": "90b150c846d6b646a901280bacb6258f8868286b",
@@ -31,10 +31,10 @@
    "verifiedAt": "2026-10-14"
   },
   "design-run": {
-   "commit": "f5819d1",
+   "commit": "414a38e",
    "sources": {
     ".claude/agents/design-reviewer.md": "ae20d720149ac73aaca62505035b9855c2829911",
-    ".claude/agents/magazine-editor.md": "ecc800405682e0fac0a0ce46c7af288233eb894b",
+    ".claude/agents/magazine-editor.md": "ba0807df9b3f5124f87172a454dcb9484476cfe8",
     ".claude/agents/research-reviewer.md": "5c4ca50e19c0afaffde30e28555b9479dc28ccc2",
     ".claude/skills/idea-run/SKILL.md": "88b55544d074640759cf193c3d212d1f15ad91f8",
     "AGENTS.md": "b45d558da1c2894ebd0555f539cbaab64b818f02",
@@ -49,7 +49,7 @@
    "verifiedAt": "2026-10-14"
   },
   "roster": {
-   "commit": "f5819d1",
+   "commit": "414a38e",
    "sources": {
     ".claude/agents/ceo-reviewer.md": "058811a51ac27c65a93dc8915db4afd58676d33d",
     ".claude/agents/ceo.md": "e6291c8d2282c325db11302b1be9ee8364edd3aa",
@@ -57,14 +57,14 @@
     ".claude/agents/context-maintainer.md": "6741ad2d6dbfd8ce962bce3b298da05100868e55",
     ".claude/agents/context-reviewer.md": "68205bcdf72a4c0b36c4c4ca2a8a3baadcd5f34a",
     ".claude/agents/design-reviewer.md": "ae20d720149ac73aaca62505035b9855c2829911",
-    ".claude/agents/magazine-editor.md": "ecc800405682e0fac0a0ce46c7af288233eb894b",
+    ".claude/agents/magazine-editor.md": "ba0807df9b3f5124f87172a454dcb9484476cfe8",
     ".claude/agents/repo-auditor-lite.md": "99c2e868259168afc5e9a3a087e4d3cc1ef88354",
     ".claude/agents/research-reviewer.md": "5c4ca50e19c0afaffde30e28555b9479dc28ccc2",
     ".claude/repo-maintenance.md": "a8f5d3db3690301a13c3808bdb47ecf6cda7927d",
     ".claude/skills/backlog/SKILL.md": "24c2914e3331741a0d013d29cfd4ce2adfc8015e",
     ".claude/skills/idea-run/SKILL.md": "88b55544d074640759cf193c3d212d1f15ad91f8",
     ".claude/skills/new-client/SKILL.md": "db4910a38f348ba06564eff199447763662e4f87",
-    ".claude/skills/new-cv/SKILL.md": "5b5c582efad477806aaf9fe57452c21f1e491217",
+    ".claude/skills/new-cv/SKILL.md": "7f2041feec36dbc8d38fbf1e878f91be37943716",
     ".claude/skills/new-theme/SKILL.md": "047bbb4ef11c884caacc39344553bf0b7566ca57",
     ".claude/skills/repo-maintenance/SKILL.md": "b2b1e33465db21e605c59cf0255371ec59809228",
     ".claude/skills/verify-cv/SKILL.md": "7dde190ff38c1f82310a54193f13e6b88717403e",

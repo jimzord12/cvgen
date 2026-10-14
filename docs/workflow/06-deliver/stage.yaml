@@ -1,7 +1,7 @@
 # yaml-language-server: $schema=../../../tools/workflow/schema/stage.schema.json
 id: deliver
 name: Render, Approval, Export and delivery
-sources: ["docs/guides/build-a-cv.md:110-207", "docs/pdf-workflow.md:167-194", ".claude/skills/new-cv/SKILL.md:96-121"]
+sources: ["docs/guides/build-a-cv.md:110-207", "docs/pdf-workflow.md:167-194", ".claude/skills/new-cv/SKILL.md:98-123"]
 purpose: >-
   Render the CV as a Revision, check it, let the owner approve its exact
   bytes, export a verified copy, write the delete-by date, and record the
@@ -15,7 +15,7 @@ exit: >-
 steps:
   - id: deliver.render
     name: Render a Revision
-    sources: ["docs/guides/build-a-cv.md:110-137", ".claude/skills/new-cv/SKILL.md:96-98", "packages/cv-workflow/cv_workflow/render.py:100-207"]
+    sources: ["docs/guides/build-a-cv.md:110-137", ".claude/skills/new-cv/SKILL.md:98-100", "packages/cv-workflow/cv_workflow/render.py:100-207"]
     actor: actor.lead
     action: cmd.cv-render
     inputs: [art.envelope-json, art.candidate-json, art.cv-typ, art.engine]
@@ -24,7 +24,7 @@ steps:
 
   - id: deliver.fix
     name: Fix the inputs; the fix is a new Revision
-    sources: ["docs/guides/build-a-cv.md:128-136", "docs/guides/build-a-cv.md:159-168", ".claude/skills/new-cv/SKILL.md:101-103"]
+    sources: ["docs/guides/build-a-cv.md:128-136", "docs/guides/build-a-cv.md:159-168", ".claude/skills/new-cv/SKILL.md:103-105"]
     actor: actor.lead
     action: lead.fix-inputs
     inputs: [art.render-summary]
@@ -33,7 +33,7 @@ steps:
 
   - id: deliver.page-png
     name: Render every page to PNG and look at it
-    sources: [".claude/skills/new-cv/SKILL.md:104-105", "docs/guides/build-a-cv.md:170-176", ".claude/skills/verify-cv/SKILL.md:65-76"]
+    sources: [".claude/skills/new-cv/SKILL.md:106-107", "docs/guides/build-a-cv.md:170-176", ".claude/skills/verify-cv/SKILL.md:65-76"]
     actor: actor.lead
     action: cmd.page-png
     inputs: [art.cv-pdf]
@@ -41,7 +41,7 @@ steps:
 
   - id: deliver.wording-check
     name: Check for the fictional example wording
-    sources: [".claude/skills/new-cv/SKILL.md:105-109", "docs/guides/build-a-cv.md:98-108"]
+    sources: [".claude/skills/new-cv/SKILL.md:107-111", "docs/guides/build-a-cv.md:98-108"]
     actor: actor.lead
     action: cmd.wording-check
     inputs: [art.cv-pdf]
@@ -50,7 +50,7 @@ steps:
 
   - id: deliver.report
     name: Report the Revision to the owner
-    sources: [".claude/skills/new-cv/SKILL.md:111-121"]
+    sources: [".claude/skills/new-cv/SKILL.md:113-123"]
     actor: actor.lead
     action: lead.report-render
     inputs: [art.render-summary, art.page-png, art.wording-hits]
@@ -143,7 +143,7 @@ gates:
 
   - id: gate.example-wording
     name: No example wording
-    sources: ["docs/guides/build-a-cv.md:98-108", ".claude/skills/new-cv/SKILL.md:105-109"]
+    sources: ["docs/guides/build-a-cv.md:98-108", ".claude/skills/new-cv/SKILL.md:107-111"]
     check: >-
       The rendered text contains none of "fictional", "illustrative" and
       "flagship" (the one exception: "flagship" in the client's own words,
@@ -241,7 +241,7 @@ artifacts:
   # builds/ is ignored: neither tracked nor under private/ (GAPS.md).
   - id: art.page-png
     name: The page PNGs
-    sources: [".claude/skills/verify-cv/SKILL.md:65-76", ".claude/skills/new-cv/SKILL.md:104-105"]
+    sources: [".claude/skills/verify-cv/SKILL.md:65-76", ".claude/skills/new-cv/SKILL.md:106-107"]
     path: builds/<new-folder>/cv-p<N>.png
     format: PNG at 96 dpi
     visibility: ephemeral
@@ -254,7 +254,7 @@ artifacts:
 
   - id: art.render-report
     name: The render report to the owner
-    sources: [".claude/skills/new-cv/SKILL.md:115-121"]
+    sources: [".claude/skills/new-cv/SKILL.md:117-123"]
     format: "the lead's message: revision folder, hash, page count, what was checked, every WARNING and NOTE word for word"
     visibility: ephemeral
 
@@ -300,7 +300,7 @@ actions:
   - id: lead.fix-inputs
     kind: lead
     name: Fix the inputs
-    sources: ["docs/guides/build-a-cv.md:159-168", ".claude/skills/new-cv/SKILL.md:101-103"]
+    sources: ["docs/guides/build-a-cv.md:159-168", ".claude/skills/new-cv/SKILL.md:103-105"]
     does: >-
       Applies the fix the message names, in candidate.json or the entry
       point's layout override; never shrinks the body font; the Revision it
@@ -309,7 +309,7 @@ actions:
   - id: cmd.page-png
     kind: cmd
     name: Render a page to PNG
-    sources: [".claude/skills/verify-cv/SKILL.md:72-76", ".claude/skills/new-cv/SKILL.md:104-105"]
+    sources: [".claude/skills/verify-cv/SKILL.md:72-76", ".claude/skills/new-cv/SKILL.md:106-107"]
     run: >-
       python -c "import pymupdf; doc = pymupdf.open('private/<envelope>/revisions/<revision>/cv.pdf');
       doc[<N>].get_pixmap(dpi=96).save('builds/<new-folder>/cv-p<N>.png')"
@@ -326,7 +326,7 @@ actions:
   - id: lead.report-render
     kind: lead
     name: Report the render
-    sources: [".claude/skills/new-cv/SKILL.md:111-121"]
+    sources: [".claude/skills/new-cv/SKILL.md:113-123"]
     does: >-
       Stops at the render and reports the revision folder, the PDF hash, the
       page count, what was checked on each page, any override, and every

@@ -57,14 +57,16 @@ fitting the page.
    `/packages/cv-framework/lib.typ`). Pick the role (`roles.deck` or
    `roles.engine`), theme and artwork by name (`flagship-themes.<name>`,
    `flagship-artwork.<name>`), the durations switch, and take the layout
-   (`flagship-layouts.flagship-v11`) as `base` with a `pages` override that lists this candidate's company
-   indices. The shipped plan assumes six companies and fails with
-   `Page plan company index out of bounds` for fewer, or
-   `Page plan must cover each vessel row once, in candidate order` for more.
+   (`flagship-layouts.flagship-v11`) as `base` with a `pages` override that
+   lists this candidate's company indices. The shipped plan assumes six
+   companies and fails with `Page plan company index out of bounds` for
+   fewer, or `Page plan must cover each vessel row once, in candidate order`
+   for more.
    A short career (a cadet or junior, see the `Capacity Rule` in
    `docs/engine/layout-and-pagination.md`, "Choosing a profile") uses
-   `flagship-one-page.typ` instead: `layout: one-page(candidate)`, no
-   override, and `--pages 1` in step 4.
+   the one-page profile instead:
+   `layout: flagship-layouts.one-page(candidate)`, no override, and
+   `--pages 1` in step 4.
    A client whose `Domain` has no `Template` yet starts from a design, not
    from code: an `Idea Run` of the `magazine-editor` on the client's
    `Domain`, specialty and `Rank` (fictional data only), the owner picks a
