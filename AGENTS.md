@@ -133,7 +133,8 @@ python scripts/design_review/server.py   # the owner's Design Review app on http
 
 `tests/run.py` and `scripts/cv.py render` need Typst 0.15.1 on PATH plus
 Python with `pymupdf` and `jsonschema` (the suite also `pillow`). Compiling an example needs
-only Typst. Approval is the owner's act: an agent never runs `approve` on a
+only Typst. From TASK-36, `tools/workflow/` needs Bun 1.4.2 (ADR 0015).
+Approval is the owner's act: an agent never runs `approve` on a
 real candidate; `--test-only` exists for fictional fixtures and is refused
 under `private/`.
 

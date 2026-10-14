@@ -83,6 +83,7 @@ owner afterwards.
 | `Design Review` | The owner's local app for looking through designs and recording his verdicts: the Board shows a run in its `Style` × `Density` × `Design Tier` shape, the Loupe one design at full size; it shows only PDFs with a valid `Meta File`; his verdicts and notes are in `.local/design-review/state.json` | `scripts/design_review/` | 2026-09-29 |
 | `Idea Run` | One closed loop of an idea agent (ceo or magazine-editor) and its reviewers | `.claude/skills/idea-run/`, `docs/work/idea-runs/` | 2026-09-25 |
 | `Atlas` | The repository's picture book of how it works: interactive pages for the flows (a Map and a Walk through), the parts and who does the work, each step citing its sources, marked stale when they change. Never the source of a rule | `.atlas/` (`src/` facts, `_kit/` shared renderer and `atlas.py`); the owner's personal `/atlas` skill (outside this repository) | 2026-10-01, owner |
+| `Workflow Model` | The one checked description of the client workflow: stages, steps, artifacts, actors, actions, gates and loops as YAML facts, from which the workflow docs, diagrams and the `Atlas` client-journey page are generated | planned (ADR 0015): facts in `docs/workflow/` (TASK-37), the TypeScript tool that checks and renders them in `tools/workflow/` (TASK-36) | 2026-10-14 |
 | `Main Folder` | The repository's default checkout: the folder the repo was cloned into, as opposed to the extra worktrees under `.worktrees/` (owner, 2026-10-06) | the repository root, the first entry of `git worktree list`; rule in `docs/git-workflow.md`, "Branches" | 2026-10-14 |
 
 ## Words with two meanings
@@ -92,7 +93,7 @@ Say the term on the right instead.
 | Word | Say instead |
 |---|---|
 | "approved" | `Approval` for a `Client`'s PDF; `Frozen Reference` for a `Template`'s locked look; plain "approved" only for an owner-approved proposal or design |
-| "engine" | `Framework` for the shared core; the `Engine` `Role` for marine engineers; "the engine" only for the `Framework` and the `Domain`s together; a ship's main engine only inside `Vessel Particulars` (the `engine` field holds its maker) |
+| "engine" | `Framework` for the shared core; the `Engine` `Role` for marine engineers; "the engine" only for the `Framework` and the `Domain`s together; a ship's main engine only inside `Vessel Particulars` (the `engine` field holds its maker); the TypeScript program that checks the `Workflow Model` is "the workflow tool", never an engine |
 | "role" for a job title | `Rank` |
 | "export" for the public PDFs | `Release` |
 | "release" for a version tag | "version tag" (`v0.1.0`) |
