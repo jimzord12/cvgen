@@ -1190,7 +1190,7 @@ window.ATLAS = {
        ],
        "sources": [
         ".claude/agents/magazine-editor.md:50-82",
-        ".claude/agents/magazine-editor.md:88-209",
+        ".claude/agents/magazine-editor.md:88-210",
         "design-concepts/README.md"
        ]
       }
@@ -1312,7 +1312,7 @@ window.ATLAS = {
         "After a PASS: a new sourced claim goes back to the research gate; a change to the Style's idea or to what you decide on goes back to the design gate; layout, typos or sample data need only a lead check noted in `run.md`."
        ],
        "sources": [
-        ".claude/agents/magazine-editor.md:211-219",
+        ".claude/agents/magazine-editor.md:212-220",
         ".claude/skills/idea-run/SKILL.md:67-72"
        ]
       }
@@ -1388,7 +1388,7 @@ window.ATLAS = {
        ],
        "sources": [
         ".claude/skills/idea-run/SKILL.md:123-135",
-        "design-concepts/README.md:44-47",
+        "design-concepts/README.md:45-48",
         "archive/anti-examples/README.md"
        ]
       },
@@ -2263,8 +2263,8 @@ window.ATLAS = {
   }
  ],
  "build": {
-  "builtAt": "2026-10-14 05:49 UTC",
-  "commit": "a0a2b5e",
+  "builtAt": "2026-10-14 06:01 UTC",
+  "commit": "243652b",
   "kit": "1.0",
   "stale": {},
   "verified": {
@@ -2274,7 +2274,7 @@ window.ATLAS = {
    },
    "design-run": {
     "at": "2026-10-14",
-    "commit": "a0a2b5e"
+    "commit": "f193afc"
    },
    "change-review": {
     "at": "2026-10-14",
@@ -2282,11 +2282,11 @@ window.ATLAS = {
    },
    "system-map": {
     "at": "2026-10-14",
-    "commit": "a0a2b5e"
+    "commit": "243652b"
    },
    "roster": {
     "at": "2026-10-14",
-    "commit": "a9d151d"
+    "commit": "f193afc"
    }
   }
  }
