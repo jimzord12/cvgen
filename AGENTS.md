@@ -79,14 +79,14 @@ Framework; `M` for `packages/domains/marine`, the marine domain; `F` for
 |---|---|---|
 | `W/lib.typ` | The Framework's import surface: core names only, no domain, no side effects | Adding or renaming a core export |
 | `M/lib.typ` | The marine import surface every marine entry point uses: the Framework's names plus marine and Flagship, no side effects | Adding or renaming a marine or Flagship export |
-| `W/core/` | Domain-neutral core: `node` (merge, compose), `data` (common facts), `theme` check, `component` (`make-ctx`, which builds `ctx`), `components` (the ctx-first primitives and page shell as one module, exported as `core-components`), `primitives`, `page` shell, `pagination` over a domain row model (rows only; closing sections are a template's rule), `legacy` (deprecated old signatures; removal planned, TASK-58). Never imports a domain, and its code names no domain or template word, no layout key, artwork slot or theme colour it does not own, no colour literal; the suite checks both | Changing behaviour every domain shares |
+| `W/core/` | Domain-neutral core: `node` (merge, compose), `data` (common facts), `theme` check, `component` (`make-ctx`, which builds `ctx`), `components` (the ctx-first primitives and page shell as one module, exported as `core-components`), `primitives`, `page` shell, `pagination` over a domain row model (rows only; closing sections are a template's rule). Never imports a domain, and its code names no domain or template word, no layout key, artwork slot or theme colour it does not own, no colour literal; the suite checks both | Changing behaviour every domain shares |
 | `M/domain.typ`, `M/data.typ` | The marine domain node (id, meta, copy, experience model, `art-palette`: the colours baked into its SVGs) and the marine facts: companies, vessels, months, totals, `normalize-candidate`, `validate-candidate` | Changing what the marine domain means |
 | `M/roles/deck/`, `M/roles/engine/` | Role markers (`role.typ`); bare today | Refining something for one role |
 | `M/schema/candidate.schema.json` | Marine candidate-facts contract: what a record may contain, no template wording | Changing the marine data contract |
 | `F/flagship.typ` | The Flagship composition: its page-plan rules (`validate-plan`), its own theme colours (`validate-flagship-theme`), page loop, section order, overflow check | Changing what Flagship renders |
 | `F/adapter/` | Candidate facts -> Flagship input: adds Flagship wording (`copy`) and merges overrides | Changing Flagship's input shape |
 | `F/schema/flagship-input.schema.json` | Flagship input contract: facts plus `copy` | Same |
-| `F/components/`, `F/components.typ`, `F/legacy.typ` | Flagship sections, ctx-first: hero, experience, sections, certificates, education, skills; `components.typ` gathers them into the one module `M/lib.typ` exports as `flagship-components`; `legacy.typ` keeps their old signatures for `M/lib.typ` (deprecated; removal planned, TASK-58) | Changing how a section renders |
+| `F/components/`, `F/components.typ` | Flagship sections, ctx-first: hero, experience, sections, certificates, education, skills; `components.typ` gathers them into the one module `M/lib.typ` exports as `flagship-components` | Changing how a section renders |
 | `F/themes/` | Visual tokens only: colours, fonts, sizes, tracking, leading, SVG colour map | Adding a look |
 | `F/artwork/`, `M/assets/` | Artwork packs (which SVG in which slot, offsets) and the SVG files | Adding a role's illustrations |
 | `F/layouts/` | Geometry and page plan: margins, gaps, widths, which companies go on which page | Fixing page balance |
@@ -235,11 +235,7 @@ propose; the owner decides.
   `make-ctx` (`W/core/component.typ`). All core and Flagship modules are
   migrated (2026-09-25). Entry points reach them only through a `lib.typ`
   (`M/lib.typ` for marine, `W/lib.typ` for a one-off with no domain), as
-  the modules `core-components` and `flagship-components`. The flat
-  component names `M/lib.typ` exports keep the pre-contract signatures for
-  older custom compositions (`W/core/legacy.typ`, `F/legacy.typ`,
-  deprecated, removal planned (TASK-58); mapping table in
-  `docs/guides/build-a-cv.md` section 8); new code never calls them. Roles are
+  the modules `core-components` and `flagship-components`. Roles are
   variations within a domain, never forks (constitution section 7); the
   Framework never imports from `packages/domains/` (ADR 0012).
 - Every non-trivial change to code, fixtures or inputs ends with

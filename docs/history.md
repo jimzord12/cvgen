@@ -254,3 +254,15 @@ network, and a task's record merges together with its work. The board was
 exported to `docs/work/backlog-migration/` and closed, not deleted. The
 cost is the phone board: on a phone the tasks are readable on GitHub, but
 with no Kanban view.
+
+## 2026-10-14 — the flat component names are removed
+
+TASK-32 moved the two private marine compositions, the last callers of the
+pre-contract flat names, to `core-components` and `flagship-components`,
+and each re-rendered page-identical. TASK-58 then deleted `core/legacy.typ`,
+`templates/flagship/legacy.typ`, their 32 re-exports in the two `lib.typ`
+files and `tests/fixtures/legacy-parity.typ`; the engineer example now
+proves the PDF title and author `document-shell` writes. The old-to-new
+mapping table stays readable in Git history
+(`git show 70631ed:docs/guides/build-a-cv.md`, section 8) for a
+composition that still uses the old names.

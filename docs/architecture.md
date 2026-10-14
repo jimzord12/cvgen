@@ -69,17 +69,11 @@ Inside, in order: validation with a fix in every message, the style block of
 components. `cv-framework/core/component.typ` holds `make-ctx`, the only helper a
 component has needed so far.
 
-`domains/marine/lib.typ` still exports the component names with their
-pre-contract order (data, theme, geometry slice), from the Framework's
-`core/legacy.typ` (through `cv-framework/lib.typ`) and the template's
-`legacy.typ`: each wrapper builds a small `ctx` and calls the ctx-first
-component, so custom compositions written before the migration render the
-same pixels (`tests/fixtures/legacy-parity.typ` calls all 32). Entry
-points reach the ctx-first components through their domain's `lib.typ` as
-the modules `core-components` and `flagship-components`. The wrappers are
-deprecated; removal planned (TASK-58; `docs/framework-gaps.md`). Apart
-from the parity fixture, no public file calls them; two private
-compositions still do.
+Entry points reach the components through their domain's `lib.typ` as the
+modules `core-components` and `flagship-components`. The flat component
+names with the pre-contract order (data, theme, geometry slice) were
+removed on 2026-10-14 (TASK-58), once the last custom compositions had
+moved to the ctx-first calls.
 
 ## One Framework, domains, templates
 
@@ -125,10 +119,9 @@ cv-framework/                           the Framework (ADR 0012); imports no dom
     components.typ                        the core's ctx-first components as one module; cv-framework/lib.typ exports it as core-components
     primitives.typ                        label, rule, decoration (SVG recolour), duration, metric
     page.typ                              page-header, page-footer, page-background, document-shell
-    legacy.typ                            deprecated pre-contract signatures of primitives and page, exported by cv-framework/lib.typ
     pagination.typ                        validate-pages (every row once, in order), company-fragment over a domain row model
 domains/marine/                         the marine domain (ADR 0011)
-  lib.typ                               the marine surface: the Framework's names, marine, Flagship (flat names)
+  lib.typ                               the marine surface: the Framework's names, marine, Flagship (components as modules)
   domain.typ                            id, meta, copy, experience, art-palette
   data.typ                              company-months, experience-totals, normalize-candidate, validate-candidate, experience-model
   schema/candidate.schema.json          marine candidate-facts contract
@@ -138,7 +131,6 @@ domains/marine/                         the marine domain (ADR 0011)
     flagship.typ                          the composition: closing-section rules (validate-plan), page loop, section order, overflow check
     adapter/adapter.typ                   flagship-copy defaults, to-flagship-input
     components.typ                        Flagship's ctx-first components as one module; marine's lib.typ exports it as flagship-components
-    legacy.typ                            deprecated pre-contract signatures of the components, exported by marine's lib.typ
     schema/flagship-input.schema.json     Flagship input contract (facts + copy)
     components/hero.typ                   portrait, frame, backdrop, contact groups, identity plate, hero
     components/experience.typ             company-period, vessel-row, vessel-type-group, company-experience, experience-section
