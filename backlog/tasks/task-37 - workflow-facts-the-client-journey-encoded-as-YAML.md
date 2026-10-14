@@ -4,7 +4,7 @@ title: 'workflow-facts: the client journey encoded as YAML'
 status: Queued
 assignee: []
 created_date: '2026-10-14 04:47'
-updated_date: '2026-10-14 08:11'
+updated_date: '2026-10-14 08:15'
 labels:
   - workflow-model
 dependencies:
@@ -29,7 +29,12 @@ ordinal: 37000
 ## Implementation Notes
 
 <!-- SECTION:NOTES:BEGIN -->
-## Notes from TASK-36 review (round 1, F7) - Gates are pass/fail only (ADR 0015): a multi-outcome or decision gate such as gate.template-exists (marine Template or not) or gate.client-answered (chat and/or form) must be written as pass/fail pairs, or as a chain of gates; decide the encoding before writing stage 5. A per-item repeat (one Deep Dive per chosen question) exists only as a step's when text; name it there consistently. Source anchors may contain spaces; a range must run low to high. Report: docs/work/workflow-schema/reviews/01-code-reviewer.md.
+## Notes from TASK-36 review (round 1, F7)
+Gates are pass/fail only (ADR 0015): a multi-outcome or decision gate such as gate.template-exists (marine Template or not) or gate.client-answered (chat and/or form) must be written as pass/fail pairs, or as a chain of gates; decide the encoding before writing stage 5. A per-item repeat (one Deep Dive per chosen question) exists only as a step's when text; name it there consistently. Source anchors may contain spaces; a range must run low to high. Report: docs/work/workflow-schema/reviews/01-code-reviewer.md.
 
-## Notes from TASK-36 review (round 2, R2-2) - Source anchors with backslashes (docs\guides\x.md:3) pass the shape check, and a quoted newline inside a path matches too. Decide in TASK-37 or TASK-38 whether anchors get resolved against the files on disk (path exists, line range within the file); if they do, refuse backslashes there. Report: docs/work/workflow-schema/reviews/02-code-reviewer.md.
+## Notes from TASK-36 review (round 2, R2-2)
+Source anchors with backslashes (docs\guides\x.md:3) pass the shape check, and a quoted newline inside a path matches too. Decide in TASK-37 or TASK-38 whether anchors get resolved against the files on disk (path exists, line range within the file); if they do, refuse backslashes there. Report: docs/work/workflow-schema/reviews/02-code-reviewer.md.
+
+## Reading the inventory (TASK-36 context review, M1)
+The types name things differently from the inventory: its artifact visibility external (Google, the chat app) is visibility: third-party, a chat message is third-party, and ephemeral is only for what is saved nowhere. given: true means no step produces the artifact (a repo file, the client's first message); a Google Form is third-party, not given. See tools/workflow/README.md, Reading the inventory. Report: docs/work/workflow-schema/reviews/03-context-reviewer.md.
 <!-- SECTION:NOTES:END -->

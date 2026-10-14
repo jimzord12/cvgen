@@ -12,7 +12,7 @@ rendering with TASK-39.
 | `src/schema.ts` | Exports the JSON Schema files from the types |
 | `src/cli.ts` | The command line |
 | `schema/` | The exported JSON Schema files, committed, never hand-edited |
-| `sample/stage.yaml` | A short sample stage, used by the tests |
+| `sample/stage.yaml` | A short sample stage, used by the tests; illustrative, not facts |
 | `.bun-version` | The Bun version CI installs (1.4.2); locally any 1.4.x from 1.4.2 |
 
 Run every command from `tools/workflow/`. Once, after a clone:
@@ -27,7 +27,7 @@ Day to day:
 bun test                                  # all tests
 bun run typecheck                         # TypeScript type check (tsc --noEmit)
 bun run check sample/stage.yaml           # check files: exit 0 clean, 1 with problems, 2 usage
-bun run check ../../docs/workflow/catalog.yaml   # a file named catalog.yaml is read as the catalog
+bun run check ../../docs/workflow/catalog.yaml   # (from TASK-37) a file named catalog.yaml is read as the catalog
 bun run schema                            # regenerate schema/*.json after changing src/model.ts
 bun run schema --check                    # exit 1 if the committed schema is stale (a test does the same)
 ```
@@ -42,3 +42,13 @@ relative to the file:
 ```yaml
 # yaml-language-server: $schema=../../../tools/workflow/schema/stage.schema.json
 ```
+
+## Reading the inventory
+
+The inventory (`docs/workflow/inventory/`) predates the types. Its artifact
+visibility `external` (Google, the chat app) is `visibility: third-party`
+here, and a chat message is `third-party` too, since it lives in the chat
+app; `ephemeral` is only for what is saved nowhere. `given: true` is a
+separate question: set it only when no step produces the artifact (a repo
+file, the client's first message). A Google Form is `third-party` but not
+`given`, because `intake.form-create` makes it.

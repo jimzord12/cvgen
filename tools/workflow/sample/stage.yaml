@@ -1,8 +1,8 @@
 # yaml-language-server: $schema=../schema/stage.schema.json
 # A sample stage for the workflow tool's tests and for reading the types: the
-# `Text Draft` loop, shortened. Not the Workflow Model itself (TASK-37 writes
-# that in docs/workflow/); the actors and some artifacts it names live in
-# docs/workflow/catalog.yaml there.
+# `Text Draft` loop, shortened. Illustrative, not facts: the Workflow Model
+# itself will live in docs/workflow/ (from TASK-37), and the actors and some
+# artifacts named here will live in its catalog.yaml.
 id: text
 name: Text Draft and Sign-off
 sources: ["docs/guides/client-workflow.md:248-278"]
@@ -60,6 +60,7 @@ steps:
     inputs: [art.sign-off-png, art.draft-pdf]
     outputs: [art.draft-meta]
 
+  # Illustrative, with the loop cap below: no source has this step today.
   - id: text.correction-cap
     name: Too many correction rounds; the owner decides
     sources: ["docs/workflow/inventory/a-stages-1-4.md:251"]
@@ -76,7 +77,8 @@ gates:
     fail: text.draft-supersede
 
 loops:
-  # Illustrative cap: today no source sets one (inventory gap 16); TASK-37 records the real rule.
+  # Illustrative cap, with text.correction-cap and manual.decide-next-round: today no
+  # source sets one (inventory gap 16); TASK-37 records the real rule.
   - id: loop.draft-correction
     name: Draft correction rounds
     sources: ["docs/workflow/inventory/a-stages-1-4.md:251"]
@@ -111,7 +113,7 @@ artifacts:
     path: scripts/text-draft.typ
     format: Typst
     visibility: public
-    external: true
+    given: true
 
   - id: art.draft-meta
     name: The draft's Meta File
@@ -155,6 +157,7 @@ actions:
     sources: ["docs/guides/client-workflow.md:277-278"]
     does: The owner saves the client's OK as draft/sign-off-NN.png.
 
+  # Illustrative, with the loop cap.
   - id: manual.decide-next-round
     kind: manual
     name: Decide after the cap

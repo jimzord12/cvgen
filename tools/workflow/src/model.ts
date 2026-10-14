@@ -123,10 +123,10 @@ export const Artifact = z.strictObject({
   schema: ArtifactRef.optional().meta({ description: "The artifact holding its JSON Schema, if any" }),
   visibility: z.enum(["public", "private", "third-party", "ephemeral"]).meta({
     description:
-      "public: tracked in Git; private: under private/; third-party: Google, the chat app; ephemeral: a chat or session message",
+      "public: tracked in Git; private: under private/; third-party: lives with another service (Google, the chat app, so a chat message too); ephemeral: saved nowhere (text in a Claude Code session)",
   }),
-  external: z.boolean().default(false).meta({
-    description: "true: no step produces it, it enters from outside the workflow (a repo file, the client's first message)",
+  given: z.boolean().default(false).meta({
+    description: "Given to the workflow: no step produces it (a repo file, the client's first message)",
   }),
 });
 

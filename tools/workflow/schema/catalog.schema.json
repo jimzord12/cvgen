@@ -336,11 +336,11 @@
               "third-party",
               "ephemeral"
             ],
-            "description": "public: tracked in Git; private: under private/; third-party: Google, the chat app; ephemeral: a chat or session message"
+            "description": "public: tracked in Git; private: under private/; third-party: lives with another service (Google, the chat app, so a chat message too); ephemeral: saved nowhere (text in a Claude Code session)"
           },
-          "external": {
+          "given": {
             "default": false,
-            "description": "true: no step produces it, it enters from outside the workflow (a repo file, the client's first message)",
+            "description": "Given to the workflow: no step produces it (a repo file, the client's first message)",
             "type": "boolean"
           }
         },

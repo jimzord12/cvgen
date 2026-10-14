@@ -41,9 +41,9 @@ describe("the sample stage", () => {
     expect(issues).toEqual([]);
     expect(data?.id).toBe("text");
     expect(data?.steps.map((s) => s.id)).toContain("text.client-check");
-    // defaults are filled in: a step without outputs has an empty list, an artifact is not external
+    // defaults are filled in: a step without outputs has an empty list, an artifact is not given
     expect(data?.steps.find((s) => s.id === "text.correction-cap")?.outputs).toEqual([]);
-    expect(data?.artifacts.find((a) => a.id === "art.draft-pdf")?.external).toBe(false);
+    expect(data?.artifacts.find((a) => a.id === "art.draft-pdf")?.given).toBe(false);
   });
 
   test("a source path may contain spaces", () => {
