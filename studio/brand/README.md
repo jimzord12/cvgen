@@ -17,7 +17,7 @@ these files:
 Everything else in this folder is history: the options that were not
 picked, kept as they are.
 
-- `CVgen_Logo.v3.jpg`: the earlier working mark, kept by the owner on
+- `cvgen-logo-source.jpg` (`CVgen_Logo.v3.jpg` until 2026-10-14): the earlier working mark, kept by the owner on
   2026-09-25. A big black serif "CV" on white, flat, with one thin copper
   thread that wraps the C and curves through the V, ending in a loose tail
   on the right. Image-model render, 2048x2048 JPEG: the source of the

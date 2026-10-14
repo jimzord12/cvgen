@@ -14,19 +14,19 @@ real candidate.
 
 | Example | Inputs | Render |
 |---|---|---|
-| Engineer | Golden Blue theme, engineer artwork | [PDF](examples/marine/flagship/engineer.pdf) · [p1](docs/images/Marine-Engineer-CV-v12-page-1.png) · [p2](docs/images/Marine-Engineer-CV-v12-page-2.png) |
-| Captain Classic | Golden Blue theme, captain artwork | [PDF](examples/marine/flagship/captain.pdf) · [p1](docs/images/Marine-Captain-CV-Classic-v01-page-1.png) · [p2](docs/images/Marine-Captain-CV-Classic-v01-page-2.png) |
-| Captain Silver | Silver Bridge theme, captain artwork | [PDF](examples/marine/flagship/captain-silver.pdf) · [p1](docs/images/Marine-Captain-CV-Silver-v01-page-1.png) · [p2](docs/images/Marine-Captain-CV-Silver-v01-page-2.png) |
-| Chief Officer | Silver Bridge theme, captain artwork, no portrait | [PDF](examples/marine/flagship/chief-officer.pdf) · [p1](docs/images/Marine-Chief-Officer-CV-Silver-v01-page-1.png) · [p2](docs/images/Marine-Chief-Officer-CV-Silver-v01-page-2.png) |
+| Engineer | Golden Blue theme, engineer artwork | [PDF](examples/marine/flagship/engineer.pdf) · [p1](docs/images/marine-engineer-cv-v12-page-1.png) · [p2](docs/images/marine-engineer-cv-v12-page-2.png) |
+| Captain Classic | Golden Blue theme, captain artwork | [PDF](examples/marine/flagship/captain.pdf) · [p1](docs/images/marine-captain-cv-classic-v01-page-1.png) · [p2](docs/images/marine-captain-cv-classic-v01-page-2.png) |
+| Captain Silver | Silver Bridge theme, captain artwork | [PDF](examples/marine/flagship/captain-silver.pdf) · [p1](docs/images/marine-captain-cv-silver-v01-page-1.png) · [p2](docs/images/marine-captain-cv-silver-v01-page-2.png) |
+| Chief Officer | Silver Bridge theme, captain artwork, no portrait | [PDF](examples/marine/flagship/chief-officer.pdf) · [p1](docs/images/marine-chief-officer-cv-silver-v01-page-1.png) · [p2](docs/images/marine-chief-officer-cv-silver-v01-page-2.png) |
 | Deck Cadet | Golden Blue theme, captain artwork, one-page layout | [PDF](examples/marine/flagship/deck-cadet.pdf) |
 
 Each PDF sits beside the entry point that builds it, with a small
 `.meta.json` saying what it is.
 
 <p align="center">
-  <img src="docs/images/Marine-Engineer-CV-v12-page-1.png" width="30%" alt="Engineer page one">
-  <img src="docs/images/Marine-Captain-CV-Classic-v01-page-1.png" width="30%" alt="Captain Classic page one">
-  <img src="docs/images/Marine-Captain-CV-Silver-v01-page-1.png" width="30%" alt="Captain Silver page one">
+  <img src="docs/images/marine-engineer-cv-v12-page-1.png" width="30%" alt="Engineer page one">
+  <img src="docs/images/marine-captain-cv-classic-v01-page-1.png" width="30%" alt="Captain Classic page one">
+  <img src="docs/images/marine-captain-cv-silver-v01-page-1.png" width="30%" alt="Captain Silver page one">
 </p>
 
 ## Quick start

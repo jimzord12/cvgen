@@ -74,7 +74,8 @@ them. These evolve; the rules that do not are in `constitution.md`.
   A new file is justified by a new responsibility, not by line count.
 - **Paths from the project root** for assets: `/packages/domains/marine/assets/...`. Compile with
   `--root .`.
-- **Naming:** kebab-case for functions, keys, folders and files. Domains
+- **Naming:** kebab-case for functions, keys, folders and files (one case
+  per file type: "File names" below). Domains
   are named after the career area (`marine`, `travel-and-tourism`), roles after
   the specialisation (`deck`, `engine`). Templates are named after the
   design, `flagship`, never after a role. Themes and artwork packs are
@@ -82,6 +83,20 @@ them. These evolve; the rules that do not are in `constitution.md`.
   carry the template and the reference they reproduce, `flagship-v11`.
 - **Comments** explain a decision or a trap, never restate the code. One line
   at the top of a file says what the file owns.
+
+## File names
+
+One case per file type (TASK-55, 2026-10-14). A file that breaks it is
+renamed with `git mv` in a move commit of its own; the repo-maintenance
+audit (check N1) flags mixed cases inside one folder.
+
+| Files | Case | Examples |
+|---|---|---|
+| Every folder, and every file of ours: `.typ`, `.json`, `.md`, `.yaml`, `.yml`, `.toml`, `.svg`, `.png`, `.jpg`, `.pdf`, `.html`, `.js`, `.ts`, `.ps1`, `.gs` | kebab-case; a role suffix stays dotted | `flagship-v11.typ`, `golden-blue.typ`, `candidate.schema.json`, `engineer.meta.json`, `model.test.ts`, `apps/design-review/` |
+| Python files and packages | snake_case, because Python imports them by name | `design_review.py`, `cv_workflow/`, `make_assets.py` |
+| Names a tool or an ecosystem fixes | as the tool wants | `README.md`, `AGENTS.md`, `CLAUDE.md`, `SKILL.md`, `LICENSE`, `__init__.py`, dotfiles, Backlog.md's `task-27 - <title>.md`, the Atlas kit's `.atlas/_kit/` |
+| Vendored fonts and their licences | the upstream name, unmodified | `FiraSans-Bold.ttf`, `Jost[wght].ttf`, `OFL.txt`, `bonanova-OFL.txt` |
+| The frozen reference and its archived renders | frozen: never renamed (`tests/baseline.json`, constitution) | `Marine-Engineer-CV-v11.pdf`, `studio/archive/design-studies/review/Marine-Engineer-CV-v11-page-1.png` |
 
 ## Candidate JSON (marine domain)
 
