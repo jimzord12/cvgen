@@ -49,7 +49,7 @@
    "verifiedAt": "2026-10-14"
   },
   "roster": {
-   "commit": "3eafcb7",
+   "commit": "20a96cb",
    "sources": {
     ".claude/agents/ceo-reviewer.md": "058811a51ac27c65a93dc8915db4afd58676d33d",
     ".claude/agents/ceo.md": "e6291c8d2282c325db11302b1be9ee8364edd3aa",
@@ -76,7 +76,7 @@
     "archive/work-records/design-core/reviews/03-context-reviewer.md": "f526d0ba3f0dd76ce5164c323047a78de133c2aa",
     "docs/decisions/0014-backlog-md-task-store.md": "429c351d5a2d313fb6945f26e646028d3d43c72b",
     "docs/development.md": "1ced3d1a4334f43e00c72dc811588299c945d414",
-    "docs/engine/verification.md": "7ea14ce783b775f0da5e240d683361f97782e339",
+    "docs/engine/verification.md": "5e5238bcecc42170f3fe915d235ae122ef392333",
     "docs/git-workflow.md": "b0ce2f558c67086e23f02b7df1faa3997a51d9d9",
     "docs/guides/build-a-cv.md": "02e9d6923ad03aa7ca6d753d9bf09ff4f4544b4a",
     "docs/guides/client-workflow.md": "90b150c846d6b646a901280bacb6258f8868286b",
