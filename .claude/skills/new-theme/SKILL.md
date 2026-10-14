@@ -17,8 +17,9 @@ drawing.
 2. Every colour key must exist; `validate-theme` fails otherwise. Fonts must
    be one of the bundled family strings `Source Sans 3`, `Barlow`,
    `Cormorant Garamond`, `Bona Nova`, `Sofia Sans`, `M PLUS 1p` or `Kaisei Tokumin` (the Barlow Condensed file registers as `Barlow`;
-   check with `typst fonts --font-path packages/cv-framework/fonts`). An unknown name prints
-   `warning: unknown font family` and substitutes; the suite does not catch it.
+   check with `typst fonts --ignore-system-fonts --font-path packages/cv-framework/fonts`). An unknown
+   name prints `warning: unknown font family` and substitutes; `python tests/run.py`,
+   `scripts/cv.py render` and `scripts/build.ps1` fail on that warning.
 3. If the theme changes secondary SVG hues, add the hex values to
    `art-colors`.
 4. Add an example under `examples/marine/flagship/` that differs from an existing one by the

@@ -157,7 +157,8 @@ scripts/outputs.py                      stamp and check, calling outputs.py
 
 The engine renders from its inputs and knows nothing about revisions or
 approval; the workflow calls the compiler like any other user of the engine
-(`typst compile --root <repo> --font-path <fonts>` on the snapshot's `cv.typ`).
+(`typst compile --root <repo> --ignore-system-fonts --font-path <fonts>` on the snapshot's `cv.typ`;
+a font family Typst reports as unknown fails the revision's checks).
 The future web backend calls the same package functions.
 
 ## Composition tree

@@ -40,7 +40,11 @@ The page images are what to show the owner or a reviewer.
    both companies, the total, and the certificate and education headings.
    The `one-page.typ` fixture repeats this for one and three companies.
 7. **Every PDF.** Expected page count, no empty page, all fonts embedded, no
-   text outside the page.
+   text outside the page. Every compile reads only the bundled fonts
+   (`--ignore-system-fonts --font-path packages/cv-framework/fonts`, plus
+   Typst's own embedded fonts), and a case whose output has
+   `warning: unknown font family` fails: Typst would otherwise set that
+   text in another font and exit 0.
 8. **Fixtures under `tests/fixtures/`:**
 
 | Fixture | Cases |
@@ -56,6 +60,7 @@ The page images are what to show the owner or a reviewer.
 | `one-page.typ` | The one-page profile's `one-page` plan on the deck cadet record cut to one company with one vessel (`case=one`, synopsis reads "1 VESSEL" and "1 COMPANY") and on three companies with three vessels and three certificate rows, the measured edge (`case=three`), one page each. Refused: `case=overflow` (the same with one vessel more: "Content overflow on planned page 1"). `spread`: on `case=one` the synopsis stays within 17mm of the Experience block and the two flexible gaps are each over 15mm and differ by less than 8mm, so a thin record never gets one hole; on `case=no-education` and `case=no-certificates` (one closing section missing) the blocks stack from the top `stack-gap` apart, each gap text to text between 17 and 32mm |
 | `particulars.typ` | The engineer record with `Vessel Particulars` on five ships: the suffix text on each row and every other word exactly where the engineer example has it; refuses a repeated vessel with a different value, an unknown unit, a zero value, an extra key and a row too long to fit |
 | `certificate-continuation.typ` | Fifty rows, header repeats on page two |
+| `fonts.typ` | A font family that is not bundled is refused: when a family exists nowhere (`case=missing`) and when it exists only among the machine's fonts (`case=system`, Arial: proves `--ignore-system-fonts` on Windows and macOS; on Linux Arial is absent, so it is refused either way) |
 | `skills.typ` | Titles, one to three columns, wrapping, two themes, SVG and plain bullets (through the `lib.typ` wrapper) |
 | `contract.typ` | 31 of the 32 ctx-first components rendered alone, one per page, headed by its name (ADR 0008 fixtures); `document-shell` wraps a whole document and is covered by `legacy-parity.typ` |
 | `text-draft.typ` | The `Text Draft` (`scripts/text-draft.typ`, house design First Fitting): two pages, the Greek `Check Page` first with the house headline, client name, date and a sample fact; the content second with its running head (`Page 2 of 2`); Bona Nova as the only font; the copper `Fact Mark` under fact words on both pages and none under our wording. `case=long` (a long legal name, seven rows): no overlapping words below the tag. Refused: `case=full` (one row too many: "the Check Page runs past one page") and `case=english` (no house copy: names the missing keys) |
@@ -102,7 +107,9 @@ The page images are what to show the owner or a reviewer.
    hashed and compile after the live files are gone; live reads are
    refused (root-absolute into `private/` or the workspace, outside the
    workspace, missing, taking the portrait's place) or, when computed,
-   fail the checks and block approval.
+   fail the checks and block approval; a one-off naming a font family that
+   is not bundled (one that exists nowhere, and Arial) renders but fails the
+   checks with the family named, and approval is refused.
    `commands.log` holds every command with its output and exit code.
 
 12. **Output Contract** (`output-contract (N PDFs)`). Every PDF in

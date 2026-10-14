@@ -1,9 +1,10 @@
 ---
 id: TASK-46
 title: 'fonts-strict: no silent system-font fallback'
-status: Queued
+status: Active
 assignee: []
 created_date: '2026-10-14 04:47'
+updated_date: '2026-10-14 05:27'
 labels:
   - restructure
 dependencies: []
@@ -15,3 +16,42 @@ ordinal: 46000
 <!-- SECTION:DESCRIPTION:BEGIN -->
 Add `--ignore-system-fonts` to `tests/run.py` and `cv_workflow/render.py` compiles (only `design_review/server.py` has it); make `validate-theme` check that fonts exist. Source: docs/work/workflow-model/handoff.md, section 4, item 14 (B. Restructure, from the 2026-10-04 audit). Created 2026-10-14 at the owner's request; not started.
 <!-- SECTION:DESCRIPTION:END -->
+
+## Acceptance Criteria
+<!-- AC:BEGIN -->
+- [x] #1 Every compile in tests/run.py, cv_workflow/render.py and scripts/build.ps1 passes --ignore-system-fonts (CI runs tests/run.py)
+- [x] #2 A font family Typst reports as unknown fails loudly: a suite case fails, a cv.py render fails its checks (exit 1, approval refused), build.ps1 throws
+- [x] #3 A regression case through the real runners fails if the guard or the flag is removed
+- [x] #4 The frozen reference stays pixel-identical; python tests/run.py and scripts/outputs.py check pass
+<!-- AC:END -->
+
+## Implementation Plan
+
+<!-- SECTION:PLAN:BEGIN -->
+1. Shared helper in cv_workflow/render.py: STRICT_FONTS flag (--ignore-system-fonts) and font_fallbacks(stderr) reading Typst's 'unknown font family' warnings.
+2. tests/run.py compile_case: pass the flag; a fallback warning fails the case.
+3. render.py: pass the flag; a fallback warning is a check error (revision kept, exit 1, approval refused), like a live read.
+4. scripts/build.ps1: pass the flag; a fallback warning throws. CI runs tests/run.py, so it inherits the guard.
+5. Regression cases: tests/fixtures/fonts.typ (missing family and a system-only family) refused by the suite runner; a one-off workspace naming a missing family in tests/workflow.py refused by cv.py render.
+6. Docs: verification.md, theme.md. Manual walk of cv.py render; suite; outputs check.
+<!-- SECTION:PLAN:END -->
+
+## Implementation Notes
+
+<!-- SECTION:NOTES:BEGIN -->
+## Result and evidence (2026-10-14, branch fix/task-46-fonts-strict)
+
+Seams: Typst is called by tests/run.py (compile_case), tests/workflow.py (one direct snapshot compile), cv_workflow/render.py (render_revision), scripts/build.ps1 and scripts/design_review/server.py (already strict). CI runs only tests/run.py. No runner compiles design concepts (the magazine-editor compiles them by hand with --ignore-system-fonts and --font-path design-concepts/fonts; unchanged).
+
+Design: Typst 0.15.1 has no deny-warnings flag and gives a document no way to ask whether a font exists, so validate-theme cannot check fonts (it would also miss fonts named outside a theme). The guard lives in the runners: --ignore-system-fonts on every compile, and Typst's `warning: unknown font family` read from stderr as a failure. Shared in cv_workflow/render.py (STRICT_FONTS, font_fallbacks). In render.py the warning is a check error, like a live read: the revision is kept and stamped, exit 1, approval refused. Limit: Typst's embedded fonts (Libertinus Serif, New Computer Modern, DejaVu Sans Mono) still count as found.
+
+Regression: tests/fixtures/fonts.typ (case=missing, case=system with Arial) through compile_case; tests/workflow.py step 11 (one-off naming a missing family and Arial) through scripts/cv.py. Mutations, each run of python tests/run.py failed as expected: guard removed from compile_case -> fonts-missing failed; flag removed from compile_case -> fonts-system failed; check removed from render.py -> workflow step 11 failed (exit 0, checks passed); flag removed from render.py -> workflow step 11 failed on Arial. Evidence: builds/mutation-46-*.
+
+Manual walk (fictional workspace builds/task-46-manual/fictional-engineer, built like tests/workflow.py):
+- python scripts/cv.py render builds/task-46-manual/fictional-engineer -> exit 0, status success, checks_passed true.
+- cv.typ with `#let theme = theme + (fonts: (body: "Source Sans 3", display: "Barlow Typo"))` -> exit 1, checks_passed false, error: Font family "barlow typo" is not in packages/cv-framework/fonts, so Typst set that text in another font; fix the name or bundle the font there (render.log shows where it is used). render.json command carries --ignore-system-fonts.
+- python scripts/cv.py approve <that revision> --test-only -> exit 2, REFUSED: automated checks failed (Font family "barlow typo" ...).
+- ./scripts/build.ps1 -OutputDirectory builds/task-46-build-ok -> 5 CVs created. With golden-blue's display font changed to "Barlow Typo" (restored after) -> throws "A font family is not bundled, so Typst used another font: examples/marine/flagship/engineer.typ" after printing the warnings.
+
+Verification: python tests/run.py PASS, 97 cases, exact v11 reference passed, evidence builds/tests-20261014-082621-592052. python scripts/outputs.py check: 19 PDFs indexed, 0 problems.
+<!-- SECTION:NOTES:END -->

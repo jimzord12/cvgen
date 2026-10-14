@@ -12,6 +12,7 @@ from verify import ROOT, FONTS, FLAGSHIP, verify, check_frozen
 from workflow import run_workflow
 from design_review import run_design_review
 from repo_maintenance import run_repo_maintenance
+from cv_workflow.render import STRICT_FONTS, font_fallbacks  # on the path through workflow.py
 
 
 def check_core_boundary():
@@ -126,16 +127,18 @@ def main():
         folder = out / name
         folder.mkdir(exist_ok=False)
         pdf = folder / (name + '.pdf')
-        command = [args.typst, 'compile', '--root', str(ROOT), '--font-path', str(ROOT / FONTS)]
+        command = [args.typst, 'compile', '--root', str(ROOT), *STRICT_FONTS, '--font-path', str(ROOT / FONTS)]
         for key, value in (inputs or {}).items():
             command.extend(['--input', key + '=' + value])
         command.extend([str(ROOT / source), str(pdf)])
-        result = subprocess.run(command, capture_output=True, text=True)
+        result = subprocess.run(command, capture_output=True, text=True, encoding='utf-8', errors='replace')
         (folder / 'compile.log').write_text(result.stderr, encoding='utf-8')
+        # A font family that is not bundled compiles in another font with exit code 0: a failure here (task-46).
+        failed = result.returncode != 0 or bool(font_fallbacks(result.stderr))
         if error:
-            assert result.returncode != 0 and error in result.stderr, (name, result.stderr)
+            assert failed and error in result.stderr, (name, result.stderr)
         else:
-            assert result.returncode == 0, (name, result.stderr)
+            assert not failed, (name, result.stderr)
         results.append({'case': name, 'passed': True, 'folder': name})
         return pdf
 
@@ -233,6 +236,9 @@ def main():
             page = doc[0]
             gaps = (top(page, 'TOTAL') - top(page, 'Grace', 3), top(page, heading) - top(page, 'TOTAL', 3))
             assert all(17 < g < 32 for g in gaps), (mode, gaps)
+    # Fonts strict (task-46): a family that is not bundled fails the case instead of rendering in another font.
+    for mode, family in [('missing', 'cvgen missing family'), ('system', 'arial')]:
+        compile_case('fonts-' + mode, 'tests/fixtures/fonts.typ', {'case': mode}, error='unknown font family: ' + family)
     compile_case('data-valid', 'tests/fixtures/data.typ')
     # ADR 0008 fixtures: 31 of the 32 ctx-first components rendered alone, one page each, headed by
     # its name; the 32nd, document-shell, wraps a whole document and is covered by legacy-parity.
