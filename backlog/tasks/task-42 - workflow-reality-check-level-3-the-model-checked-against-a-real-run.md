@@ -1,7 +1,7 @@
 ---
 id: TASK-42
 title: 'workflow-reality-check: level 3, the model checked against a real run'
-status: Active
+status: Done
 assignee: []
 created_date: '2026-10-14 04:47'
 updated_date: '2026-10-14 11:04'
@@ -37,3 +37,9 @@ Evidence: suite PASS 146 cases incl. workflow-model-reality, workflow-model-real
 
 Evidence at close: three failing model copies (renamed output, export before approval, no-op re-stamp) and three GAPS items. Suite PASS 147 builds/tests-20261014-135644-516672 (reviewer rerun at dd0b8fc), CI 38552488374 green; later commits are docs, comments and Atlas stamps.
 <!-- SECTION:NOTES:END -->
+
+## Final Summary
+
+<!-- SECTION:FINAL_SUMMARY:BEGIN -->
+bun run reality runs a fictional client through the Workflow Model in a temporary Envelope: every cmd step on the happy path through the real cv.py, outputs.py and Typst, labelled stand-ins for human steps, each declared artifact checked; three model copies must fail (renamed output, export before approval, no-op re-stamp). bun run envelope walks a real Envelope read-only (hash-verified). outputs.py stamp gained --root (TASK-44 guards kept). Code rounds PASS, PASS; context rounds FINDINGS, PASS. Suite PASS 147, CI 38552488374 green.
+<!-- SECTION:FINAL_SUMMARY:END -->
