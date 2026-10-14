@@ -111,7 +111,7 @@ window.ATLAS = {
     ],
     "sources": [
      ".claude/agents/design-reviewer.md:1-17",
-     ".claude/agents/design-reviewer.md:66-133"
+     ".claude/agents/design-reviewer.md:69-136"
     ],
     "short": "Design rev."
    },
@@ -2605,7 +2605,7 @@ window.ATLAS = {
         "docs/workflow/05-design/README.md:49-50",
         ".claude/skills/new-cv/SKILL.md:54",
         "docs/preferences.md:62-64",
-        ".claude/agents/design-reviewer.md:46-48"
+        ".claude/agents/design-reviewer.md:46-50"
        ]
       },
       {
@@ -3452,7 +3452,7 @@ window.ATLAS = {
        ],
        "sources": [
         ".claude/skills/idea-run/SKILL.md:58-66",
-        ".claude/agents/design-reviewer.md:44-133",
+        ".claude/agents/design-reviewer.md:44-136",
         "docs/proposals/codex-visual-tools.md"
        ]
       },
@@ -4426,22 +4426,22 @@ window.ATLAS = {
   }
  ],
  "build": {
-  "builtAt": "2026-10-14 12:25 UTC",
-  "commit": "d9edaa7",
+  "builtAt": "2026-10-14 12:34 UTC",
+  "commit": "8258db8",
   "kit": "1.0",
   "stale": {},
   "verified": {
    "client-journey": {
     "at": "2026-10-14",
-    "commit": "d60b191"
+    "commit": "8258db8"
    },
    "design-run": {
     "at": "2026-10-14",
-    "commit": "d60b191"
+    "commit": "8258db8"
    },
    "change-review": {
     "at": "2026-10-14",
-    "commit": "d60b191"
+    "commit": "8258db8"
    },
    "system-map": {
     "at": "2026-10-14",
@@ -4449,7 +4449,7 @@ window.ATLAS = {
    },
    "roster": {
     "at": "2026-10-14",
-    "commit": "d60b191"
+    "commit": "8258db8"
    }
   }
  }

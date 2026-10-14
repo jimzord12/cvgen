@@ -245,7 +245,7 @@ steps:
 
   - id: design.clear-review-input
     name: Clear the previews from builds/
-    sources: ["docs/workflow/05-design/README.md:49-50", ".claude/skills/new-cv/SKILL.md:54", "docs/preferences.md:62-64", ".claude/agents/design-reviewer.md:46-48"]
+    sources: ["docs/workflow/05-design/README.md:49-50", ".claude/skills/new-cv/SKILL.md:54", "docs/preferences.md:62-64", ".claude/agents/design-reviewer.md:46-50"]
     actor: actor.lead
     action: lead.clear-review-input
     inputs: [art.design-review-report]
@@ -481,7 +481,7 @@ artifacts:
   # no visibility for an ignored local file (GAPS.md).
   - id: art.design-review-input
     name: The client's preview pages for the reviewer
-    sources: [".claude/skills/new-cv/SKILL.md:42-47", "docs/workflow/05-design/README.md:49-50", ".claude/skills/new-cv/SKILL.md:54", ".claude/agents/design-reviewer.md:46-48"]
+    sources: [".claude/skills/new-cv/SKILL.md:42-47", "docs/workflow/05-design/README.md:49-50", ".claude/skills/new-cv/SKILL.md:54", ".claude/agents/design-reviewer.md:46-50"]
     path: builds/design-review-input-<timestamp>/
     format: PDF previews of the client's pages, and the page PNGs the reviewer renders there, outside private/
     visibility: ephemeral
@@ -642,7 +642,7 @@ actions:
   - id: lead.clear-review-input
     kind: lead
     name: Clear the previews
-    sources: ["docs/workflow/05-design/README.md:49-50", ".claude/skills/new-cv/SKILL.md:54", "docs/preferences.md:62-64", ".claude/agents/design-reviewer.md:46-48"]
+    sources: ["docs/workflow/05-design/README.md:49-50", ".claude/skills/new-cv/SKILL.md:54", "docs/preferences.md:62-64", ".claude/agents/design-reviewer.md:46-50"]
     does: >-
       Deletes the builds/design-review-input-* folders by path, with the page
       PNGs the design-reviewer rendered inside them, since they hold a real

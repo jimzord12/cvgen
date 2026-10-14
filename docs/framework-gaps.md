@@ -102,7 +102,7 @@ Update:   2026-09-27: a revision now copies the files `cv.typ` reads by a
           longer has to fit in `cv.typ` (`build-a-cv.md` section 8).
 Update:   2026-09-29: first used, by client-2026-09-01 (next entry).
 Update:   2026-10-14 (TASK-43): `docs/guides/build-a-cv.md` section 8, named
-          in this entry and in the two above it, is now section 5; the old
+          in this entry and in two earlier entries, is now section 5; the old
           mapping table is in Git history (`git show 70631ed:docs/guides/build-a-cv.md`).
 
 ### 2026-09-29  A bilingual one-off CV with no domain components   Status: open until the Travel & Tourism domain exists (task travel-domain)

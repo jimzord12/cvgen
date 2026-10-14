@@ -66,8 +66,8 @@ Requires Typst 0.15.1 on PATH and the Python packages in `requirements.lock`
 
 The suite renders every page of each checked case: use
 `<evidence>/<case>/page-N.png` and include its path in the report. Render
-by hand only a PDF the suite does not render; a real client's revision is
-`deliver.page-png` (new-cv skill), cleared by path once reported, at 96 dpi:
+by hand, at 96 dpi, only a PDF the suite does not render; a real client's
+revision is `deliver.page-png` (new-cv skill), cleared by path once reported:
 
 ```python
 import pymupdf
