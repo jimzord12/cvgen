@@ -98,8 +98,9 @@ flowchart LR
 
 The dotted arrow back from `deliver` to `design` is `deliver.fix`: after a
 failed render, example wording or the owner's change, it rewrites the same
-`typst/cv.typ` and `candidate.json` that design wrote, so the design review
-and the render run again on the changed files.
+`typst/cv.typ` and `candidate.json` that design wrote. In the model those
+files feed `design.preview` again; whether a fix needs another design
+review is not settled by any source.
 
 ## The stages in short
 
@@ -148,9 +149,8 @@ passed, a keep request, a stalled `Client`), checked every time the
 Two kinds of waiting are not branches in the model. A `Client` who stops
 answering at any point leaves the journey where it is; three months after
 the intake date `after.stall-check` names him to the owner, who decides
-what happens next: wait, ask again or delete. And a review that never
-passes ends at its loop's cap in a `cap-reached` step, marked unresolved,
-with the owner.
+to wait or to delete. And a review that never passes ends at its loop's
+cap in a `cap-reached` step, marked unresolved, with the owner.
 
 ## Who decides what
 
@@ -178,9 +178,9 @@ the owner's open decisions on them are
   `loop.wording-fix` and `loop.owner-changes`. Their names end in
   "(placeholder cap)", the stage's loops table marks them **placeholder**,
   and `bun run check` lists them on every run.
-- **Inferences** where the sources name an outcome but not the step: when
-  the `Client`'s task is created (`open.task-create`), where draft
-  corrections are kept (`text-draft.corrections`), what happens to a
+- **Inferences** where the sources name an outcome but not the step; among
+  them: when the `Client`'s task is created (`open.task-create`), where
+  draft corrections are kept (`text-draft.corrections`), what happens to a
   `Client` whose concepts are parked or rejected
   (`design.record-other-answer`), and how a keep request is recorded
   (`after.keep-record`).
@@ -204,9 +204,9 @@ Until TASK-43, the guides and skills keep the detail this folder points at
 | `deliver` | `build-a-cv.md` sections 3-7; `pdf-workflow.md`, "Lifecycle" | `new-cv` steps 4-8 |
 | `after` | `client-workflow.md` section 9 (deletion); `pdf-workflow.md`, "Retention and migration" | `new-client`, "Report to the owner" |
 
-Where a guide and the model disagree (the list is in TASK-43's notes), the
-model carries the owner's decisions of 2026-10-14 and the guide has not
-caught up yet: follow the model.
+Where a guide has not caught up with an owner's decision in
+[P-0017](../proposals/workflow-model.md), the decision wins (TASK-43's
+notes list these places).
 
 ## Reference
 

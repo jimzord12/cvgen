@@ -59,8 +59,8 @@ own loop:
 
 `deliver.fix` rewrites the same `typst/cv.typ` and `candidate.json` that
 design wrote, which is why the journey shows a dotted arrow back to
-`design`: in the model, the changed files go through `design.preview` and
-`design.client-review` again before the next render.
+`design`: in the model, the changed files feed `design.preview` again. No
+source says whether a fix needs another design review.
 
 ## Common mistakes
 
