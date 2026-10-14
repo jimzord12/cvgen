@@ -13,7 +13,8 @@
 #import "templates/flagship/components/skills.typ": skills-layout
 // Flagship's ctx-first components as one module: flagship-components.hero(ctx, d).
 #import "templates/flagship/components.typ" as flagship-components
-// Flagship's pre-contract signatures, deprecated like the Framework's above.
+// Flagship's pre-contract signatures, deprecated like the Framework's above; removal
+// planned (TASK-58), migrate with docs/guides/build-a-cv.md section 8.
 #import "templates/flagship/legacy.typ": hero, portrait, portrait-frame, portrait-backdrop, contact-item, contact-group, identity-plate
 #import "templates/flagship/legacy.typ": company-period, vessel-row, vessel-type-group, company-experience, experience-section
 #import "templates/flagship/legacy.typ": section-heading, profile-summary, synopsis

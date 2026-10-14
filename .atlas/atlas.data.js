@@ -2263,30 +2263,36 @@ window.ATLAS = {
   }
  ],
  "build": {
-  "builtAt": "2026-10-14 05:51 UTC",
-  "commit": "36c2f06",
+  "builtAt": "2026-10-14 05:54 UTC",
+  "commit": "ce6d38e",
   "kit": "1.0",
-  "stale": {},
+  "stale": {
+   "system-map": [
+    "docs/glossary.md",
+    "docs/work",
+    ".claude/skills/backlog/SKILL.md"
+   ]
+  },
   "verified": {
    "client-journey": {
     "at": "2026-10-14",
-    "commit": "dbf63f3"
+    "commit": "ce6d38e"
    },
    "design-run": {
     "at": "2026-10-14",
-    "commit": "dbf63f3"
+    "commit": "ce6d38e"
    },
    "change-review": {
     "at": "2026-10-14",
-    "commit": "b734ba0"
+    "commit": "ce6d38e"
    },
    "system-map": {
     "at": "2026-10-14",
-    "commit": "36c2f06"
+    "commit": "a0a2b5e"
    },
    "roster": {
     "at": "2026-10-14",
-    "commit": "b734ba0"
+    "commit": "ce6d38e"
    }
   }
  }

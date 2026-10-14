@@ -46,7 +46,7 @@ Bypassed: The `flagship` template, which has no slot for it; the section
 Built:    Placed by hand in a custom composition.
 Lesson:   The template needs a slot for optional sections per page.
 
-### 2026-09-25  Legacy component signatures                         Status: open, remove when no custom composition imports them
+### 2026-09-25  Legacy component signatures                         Status: open, removal planned in TASK-58 once TASK-32 re-points the private compositions
 Needed:   The ADR 0008 migration (ctx first) without breaking the two private
           custom compositions, which import lib.typ's component names with the
           old (data, theme, geometry) order and are never edited by an agent.
@@ -60,6 +60,13 @@ Built:    One wrapper per exported component (32); the ctx-first components
 Lesson:   lib.typ needs a versioned public surface. Once the owner approves
           re-pointing the private entry points at the ctx-first components,
           delete both legacy.typ files and the flat names.
+Update:   2026-10-14 (TASK-56): every public caller is ctx-first
+          (tests/fixtures/skills.typ migrated, pixel-identical); the two
+          private marine compositions are the only callers left, through
+          12 of the 32 names. Re-pointing them is authorized by the owner
+          inside TASK-32 (2026-10-14), with the mapping table in
+          docs/guides/build-a-cv.md section 8; removal planned 2026-10-31
+          (TASK-58) after that migration.
 
 ### 2026-09-25  Style blocks not yet applied                        Status: open, applied when a component is next touched
 Needed:   ADR 0008's style block: each component groups its set and show
