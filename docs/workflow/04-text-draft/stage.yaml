@@ -94,7 +94,7 @@ steps:
 
   - id: text-draft.sign-off-stamp
     name: Stamp the draft signed-off
-    sources: ["docs/guides/client-workflow.md:297-299", ".claude/skills/new-client/SKILL.md:70-71", "packages/cv-workflow/cv_workflow/outputs.py:168-174"]
+    sources: ["docs/guides/client-workflow.md:297-299", ".claude/skills/new-client/SKILL.md:70-71", "packages/cv-workflow/cv_workflow/outputs.py:172-178"]
     actor: actor.lead
     action: cmd.stamp-draft-signed-off
     inputs: [art.sign-off-png, art.draft-pdf]

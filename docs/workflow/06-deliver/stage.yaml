@@ -219,7 +219,7 @@ artifacts:
 
   - id: art.cv-pdf
     name: The Revision's cv.pdf
-    sources: ["docs/pdf-workflow.md:90", "docs/glossary.md:63", "packages/cv-workflow/cv_workflow/outputs.py:50-51"]
+    sources: ["docs/pdf-workflow.md:90", "docs/glossary.md:63", "packages/cv-workflow/cv_workflow/outputs.py:54-55"]
     path: private/<envelope>/revisions/<revision>/cv.pdf
     format: PDF
     visibility: private
