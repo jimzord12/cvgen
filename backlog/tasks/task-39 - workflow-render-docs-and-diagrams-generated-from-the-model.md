@@ -1,9 +1,10 @@
 ---
 id: TASK-39
 title: 'workflow-render: docs and diagrams generated from the model'
-status: Queued
+status: Active
 assignee: []
 created_date: '2026-10-14 04:47'
+updated_date: '2026-10-14 10:02'
 labels:
   - workflow-model
 dependencies:
