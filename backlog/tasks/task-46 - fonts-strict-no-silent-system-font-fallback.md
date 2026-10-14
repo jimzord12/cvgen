@@ -1,10 +1,10 @@
 ---
 id: TASK-46
 title: 'fonts-strict: no silent system-font fallback'
-status: Active
+status: Done
 assignee: []
 created_date: '2026-10-14 04:47'
-updated_date: '2026-10-14 05:58'
+updated_date: '2026-10-14 06:03'
 labels:
   - restructure
 dependencies: []
@@ -85,3 +85,9 @@ Round 4: code-reviewer PASS (docs/work/fonts-strict/reviews/04-code-reviewer.md)
 - CI on ubuntu-latest: checked by the lead after the push.
 Merged origin/main (TASK-56; one conflict in verification.md: kept the fonts.typ row and main's skills.typ row; generated Atlas files taken from main and rebuilt). Suite PASS 98 cases, exact v11 match, builds/tests-20261014-085716-817399 (console builds/task-46-r4-suite-console.txt); `scripts/outputs.py check` 19 PDFs, 0 problems; Atlas stamped with system-map last, `check --strict` exit 0.
 <!-- SECTION:NOTES:END -->
+
+## Final Summary
+
+<!-- SECTION:FINAL_SUMMARY:BEGIN -->
+Every compile (tests/run.py, tests/workflow.py, cv_workflow/render.py, scripts/build.ps1; the design-review server already did) passes --ignore-system-fonts, and Typst's 'unknown font family' warning is a failure: a failed check in render (revision kept, approval refused), a failed case in the suite, a throw in build.ps1. Decision taken by the lead: the guard lives in the runners, not validate-theme, because Typst cannot probe fonts from a document. Regression cases: fonts.typ (missing family; a real system font chosen at run time), workflow step 11; in CI a missing system font fails, and verify.yml installs fonts-dejavu-core. All documented compile commands carry the flag. Mutations proven (flag removed, STRICT_FONTS emptied, check removed). Reviews: code rounds 1 PASS, 3 FINDINGS (probe tied to the constant), 4 PASS; context rounds 2 and 4 FINDINGS (Atlas ranges, retention step, docs), 5 PASS; reports in docs/work/fonts-strict/reviews/. Suite PASS 98 cases, frozen reference identical. Follow-up: glyph-level fallback (e.g. Greek text in a Latin-only font) is still silent; a PDF font-subset check is proposed as a new task.
+<!-- SECTION:FINAL_SUMMARY:END -->
