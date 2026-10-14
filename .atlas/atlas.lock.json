@@ -91,7 +91,7 @@
    "verifiedAt": "2026-10-14"
   },
   "system-map": {
-   "commit": "42d9fcd",
+   "commit": "5109385",
    "sources": {
     ".claude/agents": "dir1:4f4154394888bb9d69a0ed790d8f4b484a790fdd",
     ".claude/skills": "dir1:5eeafda0c9ef9a6037a3fcc2879f73f098fa3e55",
