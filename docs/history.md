@@ -331,11 +331,12 @@ model with a fictional client in a temporary `Envelope` under `builds/`,
 every `cmd` step on its path through the real `scripts/cv.py`,
 `scripts/outputs.py`, Typst and `python -c` checks, every other step a
 labelled stand-in, and fails naming the step when a declared artifact is
-missing or invalid. The suite runs it, plus two model copies that must
-fail: an output name the script does not write, and an export that no
-longer waits for the approval (the real `cv.py export` refuses it).
+missing or invalid. The suite runs it, plus three model copies that must
+fail: an output name the script does not write; an export that no
+longer waits for the approval (the real `cv.py export` refuses it); and a
+re-stamp that leaves its `Meta File` byte for byte unchanged.
 `bun run envelope <folder>` walks a real `Envelope` read-only. The runner
 lives in `tools/workflow/` beside the model graph it reuses;
 `outputs.py stamp` gained `--root`, so the run can stamp an `Envelope`
 outside the repository's `private/`. Every command path the model declares matched the
-scripts; the two things the YAML does not say are in `docs/workflow/GAPS.md`.
+scripts; the three things the YAML does not say are in `docs/workflow/GAPS.md`.

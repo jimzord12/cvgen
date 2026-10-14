@@ -4,7 +4,7 @@ title: 'workflow-reality-check: level 3, the model checked against a real run'
 status: Active
 assignee: []
 created_date: '2026-10-14 04:47'
-updated_date: '2026-10-14 10:37'
+updated_date: '2026-10-14 11:04'
 labels:
   - workflow-model
 dependencies:
@@ -20,8 +20,8 @@ Extend `tests/workflow.py`, or drive it from the workflow tool, so a fictional c
 
 ## Acceptance Criteria
 <!-- AC:BEGIN -->
-- [ ] #1 Suite step passes
-- [ ] #2 changing a script's output name makes it fail with the step ID
+- [x] #1 Suite step passes
+- [x] #2 changing a script's output name makes it fail with the step ID
 <!-- AC:END -->
 
 ## Implementation Notes
@@ -34,4 +34,6 @@ Decisions (TASK-42): (1) The runner lives in tools/workflow (src/reality.ts, Typ
 Real-Envelope walk (read-only, bun run envelope on the Main Folder's private/ Envelope with Alias client-2026-09-03): 41 steps declare Envelope artifacts: 17 complete, 1 partial, 23 none; 37 declared Envelope artifacts: 18 present, 19 missing (that Envelope predates the intake workflow: intake, research, Text Draft and Export artifacts absent). Paths and modification times of every file in it were identical before and after; nothing was copied.
 
 Evidence: suite PASS 146 cases incl. workflow-model-reality, workflow-model-reality-renamed-output (FAILED level 3 at deliver.render, art.render-json) and workflow-model-reality-export-waits-for-approval (FAILED level 3 at deliver.export: cv.py export refuses, not approved; no Export written), builds/tests-20261014-133529-052544 on 5058ae4+; bun test 65 pass, typecheck and bun run check clean, ruff 0.16.10 clean, anchors since a84e303: 0 moved, 0 edited. Not reviewed (review left to the lead).
+
+Evidence at close: three failing model copies (renamed output, export before approval, no-op re-stamp) and three GAPS items. Suite PASS 147 builds/tests-20261014-135644-516672 (reviewer rerun at dd0b8fc), CI 38552488374 green; later commits are docs, comments and Atlas stamps.
 <!-- SECTION:NOTES:END -->
