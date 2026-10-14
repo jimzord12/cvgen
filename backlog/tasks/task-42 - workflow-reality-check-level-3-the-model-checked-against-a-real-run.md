@@ -15,7 +15,7 @@ ordinal: 42000
 ## Description
 
 <!-- SECTION:DESCRIPTION:BEGIN -->
-Extend `tests/workflow.py`, or drive it from the workflow tool, so a fictional client runs every automated step in a temporary `Envelope`; declared artifacts must exist and validate; labelled stand-ins cover human steps. Add a read-only local mode for a real `Envelope` that never copies data. Source: docs/work/workflow-model/handoff.md, section 4, item 10 (A. Workflow model). Created 2026-10-14 at the owner's request; not started.
+Extend `tests/workflow.py`, or drive it from the workflow tool, so a fictional client runs every automated step in a temporary `Envelope`; declared artifacts must exist and validate; labelled stand-ins cover human steps. Add a read-only local mode for a real `Envelope` that never copies data. Source: archive/work-records/workflow-model/handoff.md, section 4, item 10 (A. Workflow model). Created 2026-10-14 at the owner's request; not started.
 <!-- SECTION:DESCRIPTION:END -->
 
 ## Acceptance Criteria

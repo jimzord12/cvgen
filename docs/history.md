@@ -266,3 +266,12 @@ proves the PDF title and author `document-shell` writes. The old-to-new
 mapping table stays readable in Git history
 (`git show 70631ed:docs/guides/build-a-cv.md`, section 8) for a
 composition that still uses the old names.
+
+## 2026-10-14 — the work records leave docs/
+
+TASK-52 moved `docs/work/` to `archive/work-records/` in one `git mv` (owner's
+decision, so Git history follows each file; `git log --follow` works). Review
+reports now live at `archive/work-records/<task-slug>/reviews/NN-<reviewer>.md`,
+the same shape as before. Entries above and in the ADRs, closed proposals and
+closed tasks that name `docs/work/...` describe the past; read them with
+`archive/work-records/` in place of `docs/work/`.

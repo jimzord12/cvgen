@@ -58,7 +58,7 @@
           "summary": "Every run lives on its own branch with one record of the brief, the rounds, the verdicts and what reached you.",
           "out": [
             "Branch `docs/idea-run-<date>-editor`",
-            "`docs/work/idea-runs/<date>-editor/run.md`"
+            "`archive/work-records/idea-runs/<date>-editor/run.md`"
           ],
           "sources": [
             ".claude/skills/idea-run/SKILL.md:32-36"
