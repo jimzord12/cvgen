@@ -9,7 +9,10 @@ publishes or deletes a PDF.
 ## Functions
 
 Python 3.11, standard library plus `pymupdf` for the render checks and
-`jsonschema` for the record check. Called
+`jsonschema` for the record check, pinned in `pyproject.toml` (with every
+transitive dependency in the root `requirements.lock`:
+`pip install -r requirements.lock`). Scripts put this folder on `sys.path`,
+so the package itself is never installed. Called
 by `scripts/cv.py` today and by the future web backend later:
 
 ```python

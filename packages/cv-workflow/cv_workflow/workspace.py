@@ -50,7 +50,7 @@ def read_json(path):
     try:
         data = json.loads(Path(path).read_text(encoding='utf-8'))
     except ValueError as error:
-        raise WorkflowError(f'{path} is not valid JSON: {error}')
+        raise WorkflowError(f'{path} is not valid JSON: {error}') from error
     if not isinstance(data, dict):
         raise WorkflowError(f'{path} must hold a JSON object')
     return data
@@ -80,9 +80,9 @@ class Workspace:
         self.folder = Path(folder).resolve()
         try:
             self.folder.relative_to(ROOT)
-        except ValueError:
+        except ValueError as error:
             raise WorkflowError(f'Workspace {self.folder} is outside the repository; Typst resolves assets from '
-                                f'the repository root, so keep candidate workspaces under private/ (or builds/ for tests)')
+                                f'the repository root, so keep candidate workspaces under private/ (or builds/ for tests)') from error
         if (self.folder / 'cv.typ').is_file():
             raise WorkflowError(f'Workspace {self.folder} keeps cv.typ at its root, the old flat layout; with git mv '
                                 f'inside private/, move cv.typ to {ENTRY} and the data and .typ helpers it reads into '

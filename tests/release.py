@@ -62,7 +62,7 @@ def run_build_script(out, typst):
         _copy(repo)
         log = []
 
-        def build(*flags):
+        def build(*flags, shell=shell, repo=repo, label=label, log=log):  # bound now: B023
             command = [shell, '-NoProfile', '-NonInteractive', '-ExecutionPolicy', 'Bypass', '-File',
                        str(repo / 'scripts/build.ps1'), '-TypstExecutable', typst, '-PythonExecutable', sys.executable, *flags]
             result = subprocess.run(command, capture_output=True, text=True, encoding='utf-8', errors='replace')

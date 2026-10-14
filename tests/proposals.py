@@ -13,7 +13,7 @@ SCRIPT = ROOT / 'scripts' / 'proposals.py'
 def proposal(pid, status, created, revision=1, title='A proposal', kind='proposal'):
     block = [f'id: {pid}' if pid else None, f'kind: {kind}', f'status: {status}' if status else None,
              f'revision: {revision}', f'created: {created}' if created else None]
-    body = '\n'.join(l for l in block if l)
+    body = '\n'.join(line for line in block if line)
     # An example block in the body must never be read as the metadata.
     return f'---\n{body}\n---\n\n# {title}\n\n```yaml\n---\nid: P-9999\nstatus: nonsense\n---\n```\n'
 
@@ -115,9 +115,9 @@ def run_proposals(out):
         lines = path.read_text(encoding='utf-8').splitlines()[1:]
         return lines[:lines.index('---')]
     blocks = [opening(p) for p in (ROOT / 'docs/proposals').rglob('*.md')]
-    statuses = [next(l[len('status: '):] for l in b if l.startswith('status: ')) for b in blocks if 'kind: proposal' in b]
+    statuses = [next(line[len('status: '):] for line in b if line.startswith('status: ')) for b in blocks if 'kind: proposal' in b]
     stale = sum(1 for b in blocks if 'status: pending' in b and (today - date.fromisoformat(
-        next(l[len('created: '):] for l in b if l.startswith('created: ')))).days > 7)
+        next(line[len('created: '):] for line in b if line.startswith('created: ')))).days > 7)
     assert len(statuses) >= 10, statuses
     n = {s: statuses.count(s) for s in ('pending', 'trial', 'approved', 'deferred', 'applied', 'rejected')}
     assert stdout.strip() == (f'{len(statuses)} proposals: {n["pending"]} pending ({stale} older than 7 days), {n["trial"]} trial, '

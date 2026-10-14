@@ -41,7 +41,8 @@ def check_certificates(record, today=None):
             continue
         checked += 1
         days = (expires - today).days
-        count = lambda n: f'{n} day' if n == 1 else f'{n} days'
+        def count(n):
+            return f'{n} day' if n == 1 else f'{n} days'
         if days < 0:
             warnings.append(f'Certificate "{title}" EXPIRED on {expiry.strip()} ({count(-days)} before the render date). '
                             'Renew and update the date, remove the row, or replace the date with text such as "Renewal booked".')

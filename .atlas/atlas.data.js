@@ -461,7 +461,7 @@ window.ATLAS = {
    "github-ci": {
     "label": "GitHub CI",
     "kind": "service",
-    "role": "Runs the suite once per push (its head commit) on any branch, on Linux and Windows (Typst 0.15.1, checksummed; the suite drives `scripts/build.ps1` in a throwaway copy on both, and Windows also builds the examples with it); a newer push to a feature branch cancels the older run. The lead watches it on `main` before calling work Done.",
+    "role": "Lints the Python with ruff, then runs the suite once per push (its head commit) on any branch, on Linux and Windows (Typst 0.15.1 and the Python packages in `requirements.lock`, checksummed; the suite drives `scripts/build.ps1` in a throwaway copy on both, and Windows also builds the examples with it); a newer push to a feature branch cancels the older run. The lead watches it on `main` before calling work Done.",
     "sources": [
      ".github/workflows/verify.yml",
      "docs/git-workflow.md:90-103"
@@ -2030,7 +2030,7 @@ window.ATLAS = {
        "title": "GitHub CI",
        "path": ".github/workflows/verify.yml",
        "actor": "github-ci",
-       "blurb": "The suite once per push (its head commit), Linux and Windows."
+       "blurb": "Ruff, then the suite once per push (its head commit), Linux and Windows."
       }
      ]
     },
@@ -2274,10 +2274,16 @@ window.ATLAS = {
   }
  ],
  "build": {
-  "builtAt": "2026-10-14 08:37 UTC",
-  "commit": "419fe8d",
+  "builtAt": "2026-10-14 08:45 UTC",
+  "commit": "6207def",
   "kit": "1.0",
-  "stale": {},
+  "stale": {
+   "system-map": [
+    "AGENTS.md",
+    "tests/run.py",
+    ".github/workflows/verify.yml"
+   ]
+  },
   "verified": {
    "client-journey": {
     "at": "2026-10-14",
@@ -2285,11 +2291,11 @@ window.ATLAS = {
    },
    "design-run": {
     "at": "2026-10-14",
-    "commit": "1826338"
+    "commit": "6207def"
    },
    "change-review": {
     "at": "2026-10-14",
-    "commit": "1826338"
+    "commit": "6207def"
    },
    "system-map": {
     "at": "2026-10-14",
@@ -2297,7 +2303,7 @@ window.ATLAS = {
    },
    "roster": {
     "at": "2026-10-14",
-    "commit": "39d7f06"
+    "commit": "6207def"
    }
   }
  }

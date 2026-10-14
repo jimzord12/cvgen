@@ -1,0 +1,12 @@
+# Ruff, the Python linter (TASK-47). The version is pinned in requirements.lock; CI runs `ruff check`.
+target-version = "py311"
+# The project's own Python. Vendored kits (.atlas/_kit, .claude/skills) and concept asset scripts stay out.
+include = ["scripts/**/*.py", "tests/**/*.py", "packages/cv-workflow/**/*.py"]
+
+[lint]
+# Ruff's defaults (pyflakes, syntax and import-placement errors) plus bugbear for likely bugs.
+select = ["E4", "E7", "E9", "F", "B"]
+ignore = [
+    "E701", "E702", # several statements on one line: a style choice in the compact test helpers
+    "B905",         # zip(strict=...): adding it changes behaviour, so it is a per-call decision, not a lint fix
+]

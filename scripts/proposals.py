@@ -24,15 +24,15 @@ STALE_DAYS = 7  # a pending proposal older than this is called out in the summar
 def metadata(path):
     """The key: value pairs of the opening --- block only (examples later in the file never count), and the title."""
     lines = path.read_text(encoding='utf-8').splitlines()
-    if not lines or lines[0].strip() != '---' or '---' not in (l.strip() for l in lines[1:]):
+    if not lines or lines[0].strip() != '---' or '---' not in (line.strip() for line in lines[1:]):
         raise ValueError('no opening metadata block (--- ... ---) on the first line')
-    end = next(i for i, l in enumerate(lines[1:], 1) if l.strip() == '---')
+    end = next(i for i, line in enumerate(lines[1:], 1) if line.strip() == '---')
     meta = {}
     for line in lines[1:end]:
         key, sep, value = line.partition(':')
         if sep and key.strip():
             meta[key.strip()] = value.strip()
-    title = next((l[2:].strip() for l in lines[end + 1:] if l.startswith('# ')), None)
+    title = next((line[2:].strip() for line in lines[end + 1:] if line.startswith('# ')), None)
     return meta, title
 
 

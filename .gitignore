@@ -20,6 +20,10 @@ builds/*
 # Python
 __pycache__/
 *.pyc
+.ruff_cache/
+# Left by building or installing packages/cv-workflow (not needed to run it)
+*.egg-info/
+packages/*/build/
 
 # Bun (tools/workflow/; bun.lock is committed)
 node_modules/
