@@ -2264,10 +2264,14 @@ window.ATLAS = {
   }
  ],
  "build": {
-  "builtAt": "2026-10-14 06:46 UTC",
-  "commit": "12c230a",
+  "builtAt": "2026-10-14 06:54 UTC",
+  "commit": "e79b1f2",
   "kit": "1.0",
-  "stale": {},
+  "stale": {
+   "system-map": [
+    "AGENTS.md"
+   ]
+  },
   "verified": {
    "client-journey": {
     "at": "2026-10-14",
@@ -2275,11 +2279,11 @@ window.ATLAS = {
    },
    "design-run": {
     "at": "2026-10-14",
-    "commit": "6829020"
+    "commit": "e79b1f2"
    },
    "change-review": {
     "at": "2026-10-14",
-    "commit": "6829020"
+    "commit": "e79b1f2"
    },
    "system-map": {
     "at": "2026-10-14",
@@ -2287,7 +2291,7 @@ window.ATLAS = {
    },
    "roster": {
     "at": "2026-10-14",
-    "commit": "6829020"
+    "commit": "e79b1f2"
    }
   }
  }
