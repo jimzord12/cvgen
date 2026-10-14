@@ -1,6 +1,6 @@
 // The marine domain's public surface (ADR 0012): the Framework's names, the marine
-// facts model and its first template, Flagship, under the flat names entry points have
-// used since ADR 0011. Importing this file has no document side effects.
+// facts model and its first template, Flagship (its components as the module
+// flagship-components). Importing this file has no document side effects.
 // Framework: shared by every domain.
 #import "../../cv-framework/lib.typ": merge, compose, duration-parts, normalize-common, validate-common, make-ctx, duration, core-components
 // Marine: facts model, totals and the domain node (ADR 0011).

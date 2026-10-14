@@ -287,7 +287,7 @@ and the like) were removed on 2026-10-14 (TASK-58), so such a composition
 fails at import. Rewrite it with `make-ctx`, `core-components as cc` and
 `flagship-components as fc` as in the example above; the old-to-new mapping
 table, one row per name, stays in Git history:
-`git show 70631ed:docs/guides/build-a-cv.md` (section 8).
+`git show 70631ed:docs/guides/build-a-cv.md` (section 8, "Migrating a composition written before 2026-09-25").
 
 The page shell reads `layout.shell` (`docs/engine/layout-and-pagination.md`):
 a layout written before TASK-45 renames `opening-margin` to `shell.margin`
