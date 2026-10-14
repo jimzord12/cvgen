@@ -33,6 +33,7 @@ HERE = Path(__file__).resolve().parent
 DENSITIES = ['condensed', 'spacious']
 TIERS = ['safe', 'stylish', 'creative']
 LOCK = threading.Lock()
+LEGACY_CONCEPTS = 'design-concepts/'  # the concepts' home before TASK-55
 
 
 # ---- index --------------------------------------------------------------------
@@ -120,6 +121,12 @@ class Store:
             raise StateError(f'{self.path} cannot be read ({exc}); fix or move it, nothing was saved') from exc
         if not isinstance(state, dict):
             raise StateError(f'{self.path} is not a JSON object; fix or move it, nothing was saved')
+        # Concepts moved under studio/ (TASK-55): an entry keyed by the old path reads under the new one,
+        # in memory only; the owner's next save writes the new key. A new key already there wins.
+        for key in [k for k in state if k.startswith(LEGACY_CONCEPTS)]:
+            new = outputs.CONCEPTS + '/' + key[len(LEGACY_CONCEPTS):]
+            if new not in state:
+                state[new] = state.pop(key)
         return state
 
     def update(self, item_id, patch):

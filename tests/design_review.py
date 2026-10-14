@@ -162,6 +162,20 @@ def run_design_review(out):
         assert _call(base, '/api/state', {'id': cs, 'patch': {'star': True}})[0] == 409
         assert state_file.read_bytes() == broken      # never overwritten
         state_file.write_text(good, encoding='utf-8')
+        # Keys from before TASK-55 (design-concepts/...) read under studio/; nothing is written on load,
+        # the next save persists the new key, and a new key already there wins.
+        legacy = json.loads(good)
+        legacy[cs.removeprefix('studio/')] = {'verdict': 'maybe', 'reviewed': True}
+        legacy[ss.removeprefix('studio/')] = {'verdict': 'reject'}
+        state_file.write_text(json.dumps(legacy), encoding='utf-8')
+        before = state_file.read_bytes()
+        state = json.loads(_call(base, '/api/items')[2])['state']
+        assert state[cs] == {'verdict': 'maybe', 'reviewed': True} and state[ss]['verdict'] == 'keep', state
+        assert state_file.read_bytes() == before
+        assert _call(base, '/api/state', {'id': cs, 'patch': {'star': True}})[0] == 200
+        saved = json.loads(state_file.read_text(encoding='utf-8'))
+        assert saved[cs]['verdict'] == 'maybe' and saved[cs]['star'] is True and cs.removeprefix('studio/') not in saved
+        state_file.write_text(good, encoding='utf-8')
         passed.append('state')
 
         assert _call(base, '/api/open', {'id': ss, 'what': 'pdf'})[0] == 200
