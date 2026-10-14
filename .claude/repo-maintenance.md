@@ -29,8 +29,6 @@ ignore:
   - "docs/work/**"
   - "docs/decisions/**"
   - docs/history.md
-  - docs/now.md                     # retired snapshot (AGENTS.md)
-  - ".night-shift/history/**"
 
 # Never moved, edited or proposed for deletion. The owner's call only.
 protected:
@@ -42,7 +40,6 @@ protected:
   - "examples/**/*.meta.json"                                        # its Meta Files (Output Contract)
   - "design-concepts/**/*.meta.json"                                 # stamped by scripts/outputs.py, never by hand
   - "docs/work/**/reviews/**"                                        # independent review reports are records
-  - ".night-shift/**"                                                # Night Shift tool: its committed history of nights
   - "private/**"                                                     # ignored, real client data; never inspected
   - ".local/**"                                                      # ignored, local preferences
   - ".worktrees/**"                                                  # ignored, other sessions' checkouts

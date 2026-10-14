@@ -72,7 +72,7 @@
           ],
           "sources": [
             "docs/guides/client-workflow.md:19",
-            "docs/guides/client-workflow.md:29-77"
+            "docs/guides/client-workflow.md:29-78"
           ]
         }
       ]
@@ -100,9 +100,9 @@
             "intake-form"
           ],
           "sources": [
-            "docs/guides/client-workflow.md:81-84",
-            "docs/guides/client-workflow.md:130-156",
-            "docs/guides/client-workflow.md:91-108"
+            "docs/guides/client-workflow.md:82-85",
+            "docs/guides/client-workflow.md:131-157",
+            "docs/guides/client-workflow.md:92-109"
           ]
         },
         {
@@ -138,8 +138,8 @@
           ],
           "sources": [
             "docs/guides/client-workflow.md:20",
-            "docs/guides/client-workflow.md:86-89",
-            "docs/guides/client-workflow.md:162-163"
+            "docs/guides/client-workflow.md:87-90",
+            "docs/guides/client-workflow.md:163-164"
           ]
         },
         {
@@ -156,7 +156,7 @@
             "No consent: you decide whether to ask again or stop."
           ],
           "sources": [
-            "docs/guides/client-workflow.md:158-162",
+            "docs/guides/client-workflow.md:159-163",
             ".claude/skills/new-client/SKILL.md:23-25"
           ]
         }
@@ -184,7 +184,7 @@
             "`intake/facts.md`"
           ],
           "sources": [
-            "docs/guides/client-workflow.md:167-172"
+            "docs/guides/client-workflow.md:168-173"
           ]
         },
         {
@@ -204,8 +204,8 @@
             "`research/scout.md`: numbered findings with source and date"
           ],
           "sources": [
-            "docs/guides/client-workflow.md:176-184",
-            "docs/guides/client-workflow.md:309-312"
+            "docs/guides/client-workflow.md:177-185",
+            "docs/guides/client-workflow.md:331-334"
           ]
         },
         {
@@ -225,7 +225,7 @@
           ],
           "note": "Research is enough when every decision has an answer; a new source that changes nothing is the signal to stop.",
           "sources": [
-            "docs/guides/client-workflow.md:188-206"
+            "docs/guides/client-workflow.md:189-207"
           ]
         },
         {
@@ -258,7 +258,7 @@
             "`research/reviews/<topic>-NN.md`"
           ],
           "sources": [
-            "docs/guides/client-workflow.md:210-229",
+            "docs/guides/client-workflow.md:211-230",
             ".claude/skills/new-client/SKILL.md:40-47"
           ]
         },
@@ -281,7 +281,7 @@
             "Updated `intake/facts.md`"
           ],
           "sources": [
-            "docs/guides/client-workflow.md:233-245"
+            "docs/guides/client-workflow.md:234-246"
           ]
         }
       ]
@@ -308,7 +308,7 @@
             "python scripts/outputs.py stamp private/<envelope>/draft/draft-01.pdf status=sent"
           ],
           "sources": [
-            "docs/guides/client-workflow.md:249-272",
+            "docs/guides/client-workflow.md:250-273",
             "scripts/text-draft.typ:1-6"
           ]
         },
@@ -343,7 +343,7 @@
           ],
           "sources": [
             "docs/guides/client-workflow.md:26",
-            "docs/guides/client-workflow.md:272-276",
+            "docs/guides/client-workflow.md:273-277",
             "docs/glossary.md"
           ]
         }
@@ -371,7 +371,7 @@
             "magazine-editor"
           ],
           "sources": [
-            "docs/guides/client-workflow.md:285-295",
+            "docs/guides/client-workflow.md:286-296",
             ".claude/skills/new-cv/SKILL.md:62-66"
           ]
         },
@@ -388,8 +388,8 @@
             "design-review-app"
           ],
           "sources": [
-            "docs/guides/client-workflow.md:291-295",
-            ".claude/skills/idea-run/SKILL.md:122-134"
+            "docs/guides/client-workflow.md:292-296",
+            ".claude/skills/idea-run/SKILL.md:123-135"
           ]
         },
         {
@@ -533,7 +533,7 @@
           ],
           "sources": [
             "docs/guides/build-a-cv.md:202-204",
-            "docs/guides/client-workflow.md:297-300"
+            "docs/guides/client-workflow.md:298-301"
           ]
         }
       ]
@@ -547,14 +547,14 @@
           "title": "12 months later: delete",
           "actor": "owner",
           "summary": "Client data goes 12 months after delivery, unless the client asked to keep it. Deleting is always yours.",
-          "you": "Delete the `Envelope`, the `Intake Form`, its Sheet and script project, then empty Drive's Trash (it keeps files 30 days). Deleting the folder is not enough: run the commands Claude hands you that erase the `Envelope` from the private repository's history and overwrite GitHub's copy, then re-clone `private/`.",
+          "you": "Delete the `Envelope`, the `Intake Form`, its Sheet and script project, then empty Drive's Trash (it keeps files 30 days). Then run the commands Claude hands you to erase the `Envelope` from the private repo's history.",
           "gate": {
             "type": "owner",
-            "label": "Claude names passed delete-by dates and hands you the history-erase commands; you do the deleting and run the erase."
+            "label": "Claude names passed delete-by dates and hands you the erase commands; you do the deleting."
           },
           "sources": [
-            "docs/guides/client-workflow.md:297-327",
-            "docs/preferences.md:69-78"
+            "docs/guides/client-workflow.md:298-327",
+            "docs/preferences.md:69-80"
           ]
         }
       ]

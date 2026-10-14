@@ -76,13 +76,6 @@ report:
   -s Review -s Ready`, then separately `backlog task list --plain -l blocked`
   (filters combine, so one command would miss a blocked Queued task; the
   lists include active branches).
-- **Night Shift:** `night-shift status` and `night-shift follow-up list`
-  show open follow-ups only. Also read the `night.json` of every night
-  dated on or after the day before the `Written` date (a night is named by
-  the date it starts), in the main checkout (the
-  `.night-shift/nights/` folder is ignored by Git): questions with
-  `"answer": null` and feedback with `"sent": null` still wait on the
-  owner.
 - **Git:** `git worktree list` and local or remote branches already merged
   into `main`; anything uncommitted or unpushed.
 - **CI:** `gh run list --commit <main head>` shows the run on the current

@@ -39,10 +39,10 @@ exact snapshot and the minimum context its role requires. No role delegates.
 
 ## Shared workflows and deliberate adaptations
 
-All nine repo skills were inspected. They remain in `.claude/skills/`: new-client,
-new-cv, verify-cv, new-theme, backlog, repo-maintenance, idea-run, start-night-shift
-and do-night-shift-follow-up. Read their SKILL.md files directly when relevant;
-they have not been installed into Codex's skill selector. Read the associated
+All seven repo skills were inspected. They remain in `.claude/skills/`:
+new-client, new-cv, verify-cv, new-theme, backlog, repo-maintenance and
+idea-run. Read their SKILL.md files directly when relevant; they have not
+been installed into Codex's skill selector. Read the associated
 references or run vetted helpers by their existing paths. Translate Claude's
 Agent/SendMessage and slash-command mechanics into the available Codex tools;
 follow current owner instructions if a shared skill's older permissions differ.
