@@ -36,11 +36,11 @@ window.ATLAS = {
     "kind": "owner",
     "role": "The product owner. The only one who talks to a `Client`, picks the designs and approves a real client's PDF.",
     "notes": [
-     "Owner-only: `Approval` of a real client's PDF, product decisions, deleting anything under `private/`, replacing the `Release`.",
+     "Owner-only: `Approval` of a real client's PDF, product decisions, deleting anything under `private/` or erasing it from the private repo's history, replacing the `Release`.",
      "Everything routine (commits, merges to `main`, task-store updates) is the agents' job."
     ],
     "sources": [
-     "docs/preferences.md:49-78",
+     "docs/preferences.md:49-80",
      "docs/guides/client-workflow.md:9-10"
     ],
     "short": "You"
@@ -54,8 +54,8 @@ window.ATLAS = {
      "Outside `private/` a client is only their `Alias`, like `client-2026-09-01`."
     ],
     "sources": [
-     "docs/guides/client-workflow.md:316-318",
-     "docs/guides/client-workflow.md:63-67"
+     "docs/guides/client-workflow.md:338-340",
+     "docs/guides/client-workflow.md:64-68"
     ],
     "short": "Client"
    },
@@ -182,7 +182,7 @@ window.ATLAS = {
     ],
     "sources": [
      ".claude/agents/code-reviewer.md:1-7",
-     "docs/review.md:126-144"
+     "docs/review.md:125-143"
     ],
     "short": "Code rev."
    },
@@ -254,7 +254,7 @@ window.ATLAS = {
     ],
     "sources": [
      ".claude/skills/new-client/SKILL.md:34-47",
-     ".claude/skills/idea-run/SKILL.md:87-104"
+     ".claude/skills/idea-run/SKILL.md:88-105"
     ],
     "short": "General"
    },
@@ -298,11 +298,11 @@ window.ATLAS = {
     "role": "Checklist from a client's first message to signed-off facts: `Envelope`, `Intake`, research, `Text Draft`, `Sign-off`.",
     "when": "You say a new client arrived, or ask to continue their intake or research.",
     "notes": [
-     "Every time it runs it also checks for stalled clients (3 months, no `Export`) and passed delete-by dates."
+     "Every time it runs it also checks for stalled clients (3 months, no `Export`) and passed delete-by dates, and hands you the history-erase commands for those; you run them."
     ],
     "sources": [
      ".claude/skills/new-client/SKILL.md:1-9",
-     ".claude/skills/new-client/SKILL.md:95-98"
+     ".claude/skills/new-client/SKILL.md:95-106"
     ]
    },
    "new-cv": {
@@ -364,17 +364,6 @@ window.ATLAS = {
     "sources": [
      ".claude/skills/repo-maintenance/SKILL.md:21-28",
      ".claude/repo-maintenance.md:136-140"
-    ]
-   },
-   "night-shift": {
-    "label": "Night Shift skills",
-    "kind": "skill",
-    "file": ".claude/skills/start-night-shift/SKILL.md",
-    "role": "Unattended overnight work (`start-night-shift`) and its follow-up by day (`do-night-shift-follow-up`).",
-    "when": "You say \"start night shift\".",
-    "sources": [
-     ".claude/skills/start-night-shift/SKILL.md:1-5",
-     ".claude/skills/do-night-shift-follow-up/SKILL.md:1-5"
     ]
    },
    "cv-py": {
@@ -440,7 +429,7 @@ window.ATLAS = {
     "role": "Google Apps Script you run once per form: builds the optional `Intake Form` and its answers Sheet in your Google account.",
     "sources": [
      "scripts/intake-form.gs:1-21",
-     "docs/guides/client-workflow.md:91-128"
+     "docs/guides/client-workflow.md:92-129"
     ]
    },
    "board": {
@@ -459,7 +448,7 @@ window.ATLAS = {
     "kind": "service",
     "role": "Viber, WhatsApp or email: how you pass questions and drafts to the client and bring answers back.",
     "sources": [
-     "docs/guides/client-workflow.md:81-89"
+     "docs/guides/client-workflow.md:82-90"
     ],
     "short": "Chat"
    },
@@ -469,7 +458,7 @@ window.ATLAS = {
     "role": "Runs the suite on every push and pull request (Typst 0.15.1). The lead watches it on `main` before calling work Done.",
     "sources": [
      ".github/workflows/verify.yml",
-     "docs/git-workflow.md:66-79"
+     "docs/git-workflow.md:74-87"
     ],
     "short": "CI"
    }
@@ -506,7 +495,7 @@ window.ATLAS = {
    "Meta File": "The small JSON beside a PDF saying what it is (kind, `Domain`, status, pages) with its SHA-256.",
    "Frozen Reference": "The PDF a `Template`'s public example must reproduce pixel for pixel.",
    "Framework Gap": "A recorded case of going around the `Framework`, a `Domain` or a `Template` to deliver a CV.",
-   "Session Sweep": "The places to look for loose ends before a session ends: unreviewed commits, approved proposals, open tasks, Night Shift items, Git leftovers, CI, `builds/`.",
+   "Session Sweep": "The places to look for loose ends before a session ends: unreviewed commits, approved proposals, open tasks, Git leftovers, CI, `builds/`.",
    "Certificate Warning": "A WARNING line at render: a certificate expired or expires within 180 days. Never blocks.",
    "Live Read": "A render that read a private file directly instead of the `Revision`'s copy. It fails its checks.",
    "Batch Test": "Design test 1: in an HR batch of 100 to 200 CVs, ours cannot be skipped.",
@@ -601,7 +590,7 @@ window.ATLAS = {
        ],
        "sources": [
         "docs/guides/client-workflow.md:19",
-        "docs/guides/client-workflow.md:29-77"
+        "docs/guides/client-workflow.md:29-78"
        ]
       }
      ]
@@ -629,9 +618,9 @@ window.ATLAS = {
         "intake-form"
        ],
        "sources": [
-        "docs/guides/client-workflow.md:81-84",
-        "docs/guides/client-workflow.md:130-156",
-        "docs/guides/client-workflow.md:91-108"
+        "docs/guides/client-workflow.md:82-85",
+        "docs/guides/client-workflow.md:131-157",
+        "docs/guides/client-workflow.md:92-109"
        ]
       },
       {
@@ -667,8 +656,8 @@ window.ATLAS = {
        ],
        "sources": [
         "docs/guides/client-workflow.md:20",
-        "docs/guides/client-workflow.md:86-89",
-        "docs/guides/client-workflow.md:162-163"
+        "docs/guides/client-workflow.md:87-90",
+        "docs/guides/client-workflow.md:163-164"
        ]
       },
       {
@@ -685,7 +674,7 @@ window.ATLAS = {
         "No consent: you decide whether to ask again or stop."
        ],
        "sources": [
-        "docs/guides/client-workflow.md:158-162",
+        "docs/guides/client-workflow.md:159-163",
         ".claude/skills/new-client/SKILL.md:23-25"
        ]
       }
@@ -713,7 +702,7 @@ window.ATLAS = {
         "`intake/facts.md`"
        ],
        "sources": [
-        "docs/guides/client-workflow.md:167-172"
+        "docs/guides/client-workflow.md:168-173"
        ]
       },
       {
@@ -733,8 +722,8 @@ window.ATLAS = {
         "`research/scout.md`: numbered findings with source and date"
        ],
        "sources": [
-        "docs/guides/client-workflow.md:176-184",
-        "docs/guides/client-workflow.md:309-312"
+        "docs/guides/client-workflow.md:177-185",
+        "docs/guides/client-workflow.md:331-334"
        ]
       },
       {
@@ -754,7 +743,7 @@ window.ATLAS = {
        ],
        "note": "Research is enough when every decision has an answer; a new source that changes nothing is the signal to stop.",
        "sources": [
-        "docs/guides/client-workflow.md:188-206"
+        "docs/guides/client-workflow.md:189-207"
        ]
       },
       {
@@ -787,7 +776,7 @@ window.ATLAS = {
         "`research/reviews/<topic>-NN.md`"
        ],
        "sources": [
-        "docs/guides/client-workflow.md:210-229",
+        "docs/guides/client-workflow.md:211-230",
         ".claude/skills/new-client/SKILL.md:40-47"
        ]
       },
@@ -810,7 +799,7 @@ window.ATLAS = {
         "Updated `intake/facts.md`"
        ],
        "sources": [
-        "docs/guides/client-workflow.md:233-245"
+        "docs/guides/client-workflow.md:234-246"
        ]
       }
      ]
@@ -837,7 +826,7 @@ window.ATLAS = {
         "python scripts/outputs.py stamp private/<envelope>/draft/draft-01.pdf status=sent"
        ],
        "sources": [
-        "docs/guides/client-workflow.md:249-272",
+        "docs/guides/client-workflow.md:250-273",
         "scripts/text-draft.typ:1-6"
        ]
       },
@@ -872,7 +861,7 @@ window.ATLAS = {
        ],
        "sources": [
         "docs/guides/client-workflow.md:26",
-        "docs/guides/client-workflow.md:272-276",
+        "docs/guides/client-workflow.md:273-277",
         "docs/glossary.md"
        ]
       }
@@ -900,7 +889,7 @@ window.ATLAS = {
         "magazine-editor"
        ],
        "sources": [
-        "docs/guides/client-workflow.md:285-295",
+        "docs/guides/client-workflow.md:286-296",
         ".claude/skills/new-cv/SKILL.md:62-66"
        ]
       },
@@ -917,8 +906,8 @@ window.ATLAS = {
         "design-review-app"
        ],
        "sources": [
-        "docs/guides/client-workflow.md:291-295",
-        ".claude/skills/idea-run/SKILL.md:122-134"
+        "docs/guides/client-workflow.md:292-296",
+        ".claude/skills/idea-run/SKILL.md:123-135"
        ]
       },
       {
@@ -1062,7 +1051,7 @@ window.ATLAS = {
        ],
        "sources": [
         "docs/guides/build-a-cv.md:202-204",
-        "docs/guides/client-workflow.md:297-300"
+        "docs/guides/client-workflow.md:298-301"
        ]
       }
      ]
@@ -1076,14 +1065,14 @@ window.ATLAS = {
        "title": "12 months later: delete",
        "actor": "owner",
        "summary": "Client data goes 12 months after delivery, unless the client asked to keep it. Deleting is always yours.",
-       "you": "Delete the `Envelope`, the `Intake Form`, its Sheet and script project, then empty Drive's Trash (it keeps files 30 days).",
+       "you": "Delete the `Envelope`, the `Intake Form`, its Sheet and script project, then empty Drive's Trash (it keeps files 30 days). Then run the commands Claude hands you to erase the `Envelope` from the private repo's history.",
        "gate": {
         "type": "owner",
-        "label": "Claude names passed delete-by dates; you do the deleting."
+        "label": "Claude names passed delete-by dates and hands you the erase commands; you do the deleting."
        },
        "sources": [
-        "docs/guides/client-workflow.md:297-305",
-        "docs/preferences.md:69-78"
+        "docs/guides/client-workflow.md:298-327",
+        "docs/preferences.md:69-80"
        ]
       }
      ]
@@ -1140,7 +1129,7 @@ window.ATLAS = {
        ],
        "sources": [
         ".claude/skills/idea-run/SKILL.md:8-21",
-        ".claude/skills/idea-run/SKILL.md:36-42"
+        ".claude/skills/idea-run/SKILL.md:37-43"
        ]
       },
       {
@@ -1153,7 +1142,7 @@ window.ATLAS = {
         "`docs/work/idea-runs/<date>-editor/run.md`"
        ],
        "sources": [
-        ".claude/skills/idea-run/SKILL.md:32-35"
+        ".claude/skills/idea-run/SKILL.md:32-36"
        ]
       },
       {
@@ -1167,7 +1156,7 @@ window.ATLAS = {
         "The lead keeps the author's agent id, so revisions go back to the same author with its memory."
        ],
        "sources": [
-        ".claude/skills/idea-run/SKILL.md:36-49"
+        ".claude/skills/idea-run/SKILL.md:37-50"
        ]
       }
      ]
@@ -1270,7 +1259,7 @@ window.ATLAS = {
         "research-reviewer"
        ],
        "sources": [
-        ".claude/skills/idea-run/SKILL.md:50-56",
+        ".claude/skills/idea-run/SKILL.md:51-57",
         ".claude/agents/research-reviewer.md:31-59"
        ]
       },
@@ -1302,7 +1291,7 @@ window.ATLAS = {
         "codex-reviewer"
        ],
        "sources": [
-        ".claude/skills/idea-run/SKILL.md:57-65",
+        ".claude/skills/idea-run/SKILL.md:58-66",
         ".claude/agents/design-reviewer.md:44-133",
         "docs/proposals/codex-visual-tools.md"
        ]
@@ -1324,7 +1313,7 @@ window.ATLAS = {
        ],
        "sources": [
         ".claude/agents/magazine-editor.md:211-219",
-        ".claude/skills/idea-run/SKILL.md:66-71"
+        ".claude/skills/idea-run/SKILL.md:67-72"
        ]
       }
      ]
@@ -1350,8 +1339,8 @@ window.ATLAS = {
         "outputs-py"
        ],
        "sources": [
-        ".claude/skills/idea-run/SKILL.md:73-85",
-        "docs/review.md:48-63"
+        ".claude/skills/idea-run/SKILL.md:74-86",
+        "docs/review.md:48-62"
        ]
       },
       {
@@ -1366,7 +1355,7 @@ window.ATLAS = {
         "Styles still waiting for your answer are listed in the `session-handoff` doc."
        ],
        "sources": [
-        ".claude/skills/idea-run/SKILL.md:114-122"
+        ".claude/skills/idea-run/SKILL.md:115-123"
        ]
       },
       {
@@ -1380,7 +1369,7 @@ window.ATLAS = {
         "label": "Build it → `chosen` · Later → `parked` · Reject → `rejected` · Not my style, keep it → `Anti-example`. No answer: stays `proposed`."
        },
        "sources": [
-        ".claude/skills/idea-run/SKILL.md:122-134",
+        ".claude/skills/idea-run/SKILL.md:123-135",
         "docs/pdf-workflow.md:125"
        ]
       },
@@ -1398,7 +1387,7 @@ window.ATLAS = {
         "python scripts/outputs.py stamp <pdf> status=chosen"
        ],
        "sources": [
-        ".claude/skills/idea-run/SKILL.md:122-134",
+        ".claude/skills/idea-run/SKILL.md:123-135",
         "design-concepts/README.md:44-47",
         "archive/anti-examples/README.md"
        ]
@@ -1413,7 +1402,7 @@ window.ATLAS = {
         "A concept becomes a `Template` only after you keep it and a build task is agreed."
        ],
        "sources": [
-        ".claude/skills/idea-run/SKILL.md:129-134",
+        ".claude/skills/idea-run/SKILL.md:130-135",
         "design-concepts/README.md:3-6"
        ]
       }
@@ -1490,7 +1479,7 @@ window.ATLAS = {
        ],
        "sources": [
         "docs/development.md:17-32",
-        "docs/development.md:113-201"
+        "docs/development.md:106-194"
        ]
       }
      ]
@@ -1503,10 +1492,10 @@ window.ATLAS = {
        "id": "branch",
        "title": "A branch, or straight to main",
        "actor": "lead",
-       "summary": "Small verified fixes and docs may go straight to `main`. Features and anything uncertain get a `<type>/<topic>` branch, often in a worktree. No pull requests.",
+       "summary": "Small verified fixes and docs may go straight to `main`. Features and anything uncertain get a `<type>/<topic>` branch, often in a worktree under `.worktrees/`. No pull requests.",
        "sources": [
         "docs/git-workflow.md:21-33",
-        "docs/git-workflow.md:61-65"
+        "docs/git-workflow.md:69-73"
        ]
       },
       {
@@ -1567,9 +1556,9 @@ window.ATLAS = {
        ],
        "note": "Only spelling, comments, formatting or a glossary row skip the round, and record-keeping commits (storing reports, merging reviewed work).",
        "sources": [
-        "docs/review.md:7-63",
-        "docs/review.md:80-100",
-        "docs/review.md:156-175",
+        "docs/review.md:7-62",
+        "docs/review.md:79-99",
+        "docs/review.md:155-174",
         "docs/review.md",
         "docs/work/anti-examples/reviews/01-context.md"
        ]
@@ -1590,7 +1579,7 @@ window.ATLAS = {
         "Renaming the task never resets the round count."
        ],
        "sources": [
-        "docs/review.md:179-205"
+        "docs/review.md:178-204"
        ]
       }
      ]
@@ -1615,10 +1604,10 @@ window.ATLAS = {
         "gh run list --commit <sha>",
         "gh run watch <run-id>"
        ],
-       "note": "Yours only, with the exact command shown first, including: deleting or force-pushing `main`, rewriting its published history, `archive/*` tags, repo settings, deleting under `private/` or `.local/` or outside the repo, removing revisions, approvals, exports or portraits, replacing the `Release`.",
+       "note": "Yours only, with the exact command shown first, including: deleting or force-pushing `main`, rewriting its published history, rewriting the private repo's history (the delete-by erase, which you run), `archive/*` tags, repo settings (public and private repo), deleting under `private/` or `.local/` or outside the repo, removing revisions, approvals, exports or portraits, replacing the `Release`.",
        "sources": [
-        "docs/git-workflow.md:66-79",
-        "docs/preferences.md:52-78",
+        "docs/git-workflow.md:74-87",
+        "docs/preferences.md:52-80",
         ".github/workflows/verify.yml"
        ]
       }
@@ -1636,16 +1625,15 @@ window.ATLAS = {
        "does": [
         "Reviews: every commit on `main` since the handoff doc's `Main at` sha has a report or is trivial.",
         "Proposals marked `approved` but not applied; tasks in Active, Review, Ready or labelled `blocked`.",
-        "Night Shift follow-ups, Git leftovers, CI on `main`, old `builds/` folders.",
+        "Git leftovers, CI on `main`, old `builds/` folders.",
         "Repo health: `/repo-maintenance quick`, a few seconds.",
         "`Atlas`: `atlas.py check`; a stale or unverified page is re-checked against its sources."
        ],
        "uses": [
-        "repo-maintenance",
-        "night-shift"
+        "repo-maintenance"
        ],
        "sources": [
-        "docs/development.md:58-95"
+        "docs/development.md:58-88"
        ]
       },
       {
@@ -1660,7 +1648,7 @@ window.ATLAS = {
         "backlog"
        ],
        "sources": [
-        "docs/development.md:97-111"
+        "docs/development.md:90-104"
        ]
       },
       {
@@ -1675,7 +1663,7 @@ window.ATLAS = {
        },
        "sources": [
         "docs/preferences.md:49-51",
-        "docs/preferences.md:84"
+        "docs/preferences.md:86"
        ]
       }
      ]
@@ -1718,7 +1706,7 @@ window.ATLAS = {
        "blurb": "Who the client is: `Alias`, `Domain`, `Rank`; dates and links.",
        "detail": "`cv.py render` refuses to run without `envelope.json`; every client `Meta File` copies it.",
        "sources": [
-        "docs/guides/client-workflow.md:29-77"
+        "docs/guides/client-workflow.md:29-78"
        ]
       },
       {
@@ -1727,7 +1715,7 @@ window.ATLAS = {
        "path": "private/<envelope>/intake/",
        "blurb": "Messages, documents, `facts.md`, the `Scout`, `CV Decisions`, `Deep Dives`.",
        "sources": [
-        "docs/guides/client-workflow.md:35-57"
+        "docs/guides/client-workflow.md:36-58"
        ]
       },
       {
@@ -1736,7 +1724,7 @@ window.ATLAS = {
        "path": "private/<envelope>/draft/",
        "blurb": "The `Text Drafts` and the `Sign-off` screenshots.",
        "sources": [
-        "docs/guides/client-workflow.md:249-276"
+        "docs/guides/client-workflow.md:250-277"
        ]
       },
       {
@@ -1980,13 +1968,13 @@ window.ATLAS = {
        "id": "n-agent-files",
        "title": ".claude/agents/",
        "path": ".claude/agents/",
-       "blurb": "The seven agent profiles, with model and tools."
+       "blurb": "The nine agent profiles, with model and tools."
       },
       {
        "id": "n-skills",
        "title": ".claude/skills/",
        "path": ".claude/skills/",
-       "blurb": "The nine checklists agents load."
+       "blurb": "The seven checklists agents load."
       },
       {
        "id": "n-work",
@@ -2061,7 +2049,7 @@ window.ATLAS = {
        "actor": "intake-form",
        "blurb": "Optional `Intake Forms` and their answer Sheets.",
        "sources": [
-        "docs/guides/client-workflow.md:91-128"
+        "docs/guides/client-workflow.md:92-129"
        ]
       },
       {
@@ -2071,7 +2059,7 @@ window.ATLAS = {
        "actor": "chat",
        "blurb": "Questions out, answers back, via you.",
        "sources": [
-        "docs/guides/client-workflow.md:81-89"
+        "docs/guides/client-workflow.md:82-90"
        ]
       }
      ]
@@ -2269,62 +2257,35 @@ window.ATLAS = {
     "Not everything here is on `main`: the two Codex steps are approved but not built; the two context agents are on `main` since 2026-10-04."
    ],
    "sources": [
-    "docs/review.md:134-144"
+    "docs/review.md:133-143"
    ]
   }
  ],
  "build": {
-  "builtAt": "2026-10-06 08:36 UTC",
-  "commit": "f5875a3",
+  "builtAt": "2026-10-14 05:25 UTC",
+  "commit": "1b95e5e",
   "kit": "1.0",
-  "stale": {
-   "client-journey": [
-    "docs/guides/client-workflow.md",
-    "docs/guides/build-a-cv.md",
-    ".claude/skills/new-client/SKILL.md",
-    "docs/preferences.md"
-   ],
-   "design-run": [
-    "AGENTS.md"
-   ],
-   "change-review": [
-    "AGENTS.md",
-    "docs/preferences.md"
-   ],
-   "system-map": [
-    "AGENTS.md",
-    "docs/guides/client-workflow.md",
-    "docs/guides/build-a-cv.md",
-    "docs/work"
-   ],
-   "roster": [
-    "docs/preferences.md",
-    "docs/guides/client-workflow.md",
-    "AGENTS.md",
-    ".claude/skills/new-client/SKILL.md",
-    "docs/guides/build-a-cv.md"
-   ]
-  },
+  "stale": {},
   "verified": {
    "client-journey": {
-    "at": "2026-10-06",
-    "commit": "9765962"
+    "at": "2026-10-14",
+    "commit": "1b95e5e"
    },
    "design-run": {
-    "at": "2026-10-06",
-    "commit": "a4f1da0"
+    "at": "2026-10-14",
+    "commit": "1b95e5e"
    },
    "change-review": {
-    "at": "2026-10-06",
-    "commit": "9765962"
+    "at": "2026-10-14",
+    "commit": "1b95e5e"
    },
    "system-map": {
-    "at": "2026-10-06",
-    "commit": "a4f1da0"
+    "at": "2026-10-14",
+    "commit": "1b95e5e"
    },
    "roster": {
-    "at": "2026-10-06",
-    "commit": "9765962"
+    "at": "2026-10-14",
+    "commit": "1b95e5e"
    }
   }
  }

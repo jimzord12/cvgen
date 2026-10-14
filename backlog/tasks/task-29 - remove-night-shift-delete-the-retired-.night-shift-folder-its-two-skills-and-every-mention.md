@@ -3,9 +3,10 @@ id: TASK-29
 title: >-
   remove-night-shift: delete the retired .night-shift folder, its two skills and
   every mention
-status: Queued
+status: Active
 assignee: []
 created_date: '2026-10-06 09:41'
+updated_date: '2026-10-14 05:26'
 labels:
   - docs cleanup
 dependencies: []
@@ -21,6 +22,30 @@ Owner asked 2026-10-06 to delete .night-shift. It holds three tracked history fi
 
 ## Acceptance Criteria
 <!-- AC:BEGIN -->
-- [ ] #1 No .night-shift folder and no night-shift skill remain; git grep -i 'night-shift' finds only historical task records and decision logs
-- [ ] #2 python tests/run.py and the Atlas check pass
+- [x] #1 No .night-shift folder and no night-shift skill remain; git grep -i 'night-shift' finds only historical task records and decision logs
+- [x] #2 python tests/run.py and the Atlas check pass
 <!-- AC:END -->
+
+## Implementation Plan
+
+<!-- SECTION:PLAN:BEGIN -->
+1. git rm .night-shift/ and the two Night Shift skills. 2. Remove live mentions: .gitignore, .claude/settings.json hook, .claude/repo-maintenance.md, .codex/README.md, docs/development.md Session Sweep item, docs/review.md record-keeping clause, docs/glossary.md Session Sweep row. 3. Atlas: drop the night-shift actor and sweep mentions in src, re-check pages against changed sources, build, stamp. 4. Leave dated records (docs/work, decisions, history, other tasks, proposal decision entries). 5. Verify: tests/run.py, atlas check, outputs check, git grep.
+<!-- SECTION:PLAN:END -->
+
+## Implementation Notes
+
+<!-- SECTION:NOTES:BEGIN -->
+## Result and evidence (2026-10-14, branch chore/task-29-remove-night-shift)
+
+Removed: `.night-shift/history/` (three tracked files), `.claude/skills/start-night-shift/`, `.claude/skills/do-night-shift-follow-up/`.
+Live mentions removed: `.gitignore` (the `.night-shift` rules), `.claude/settings.json` (the `night-shift meter` SessionEnd hook, the only hook), `.claude/repo-maintenance.md` (ignore and protected entries), `.codex/README.md` (skill list now seven), `docs/development.md` (the Night Shift item of the `Session Sweep`), `docs/review.md` (the `.night-shift/history` record-keeping clause), `docs/glossary.md` (`Session Sweep` row).
+Atlas: dropped the `night-shift` skill actor, its `uses` on the change-review sweep step and the Night Shift words in the sweep step and the `Session Sweep` term. All five pages were already STALE on main (private-repo, worktrees and erase changes since 2026-10-06); re-checked each against its changed sources: every line-range citation remapped to the current files (difflib from each page's lock commit, spot-checked), the retention step and the owner, new-client and change-review owner-only notes now name the private-repo history erase, change-review's branch step names `.worktrees/`, system-map counts corrected (seven skills, nine agent profiles). Then `build`, `stamp` all five, `build`.
+Left as written (dated records): `docs/work/**`, `docs/workflow/inventory/` (dated read-only snapshot), other tasks in `backlog/tasks/`, the session-handoff doc, the dated decision entries in `docs/proposals/certificate-validity-check.md` and `vessel-particulars.md`, and the dated provenance in `docs/review.md` line 17 ("after the same pair in the sibling night-shift repository", a separate repository, not this folder).
+
+Checks:
+- `python tests/run.py`: PASS, 94 compilation cases plus assertions; evidence `builds/tests-20261014-082526-925233` (in the task worktree).
+- `python .atlas/_kit/atlas.py check`: all five pages `ok`, verified 2026-10-14.
+- `python scripts/outputs.py check`: 19 PDFs indexed, 0 problems.
+- `python .claude/skills/repo-maintenance/scripts/audit.py --mode quick`: no link findings; only the pre-existing AGENTS.md length and deep-path/dir-size notes.
+- `git grep -n -i "night.shift"`: only the dated records listed above.
+<!-- SECTION:NOTES:END -->

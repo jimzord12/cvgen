@@ -51,8 +51,7 @@ Record-keeping commits are not changes to review but records of what was
 already reviewed or decided, so they need no round of their own: a commit
 that only stores review reports and their dispositions, a merge of already-reviewed
 work, a proposal's status line or decision entry that quotes the owner, the
-`night-shift` tool's `.night-shift/history` commits, the session-handoff
-doc's rewrite, and a task-store edit to a task no branch is working on (a
+session-handoff doc's rewrite, and a task-store edit to a task no branch is working on (a
 new Queued task, a cancellation, the move to Done after a merge into `main`; see
 `docs/development.md`). A task's own record changing with its work is
 reviewed with that work.

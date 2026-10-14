@@ -48,7 +48,7 @@
           ],
           "sources": [
             ".claude/skills/idea-run/SKILL.md:8-21",
-            ".claude/skills/idea-run/SKILL.md:36-42"
+            ".claude/skills/idea-run/SKILL.md:37-43"
           ]
         },
         {
@@ -61,7 +61,7 @@
             "`docs/work/idea-runs/<date>-editor/run.md`"
           ],
           "sources": [
-            ".claude/skills/idea-run/SKILL.md:32-35"
+            ".claude/skills/idea-run/SKILL.md:32-36"
           ]
         },
         {
@@ -75,7 +75,7 @@
             "The lead keeps the author's agent id, so revisions go back to the same author with its memory."
           ],
           "sources": [
-            ".claude/skills/idea-run/SKILL.md:36-49"
+            ".claude/skills/idea-run/SKILL.md:37-50"
           ]
         }
       ]
@@ -178,7 +178,7 @@
             "research-reviewer"
           ],
           "sources": [
-            ".claude/skills/idea-run/SKILL.md:50-56",
+            ".claude/skills/idea-run/SKILL.md:51-57",
             ".claude/agents/research-reviewer.md:31-59"
           ]
         },
@@ -210,7 +210,7 @@
             "codex-reviewer"
           ],
           "sources": [
-            ".claude/skills/idea-run/SKILL.md:57-65",
+            ".claude/skills/idea-run/SKILL.md:58-66",
             ".claude/agents/design-reviewer.md:44-133",
             "docs/proposals/codex-visual-tools.md"
           ]
@@ -232,7 +232,7 @@
           ],
           "sources": [
             ".claude/agents/magazine-editor.md:211-219",
-            ".claude/skills/idea-run/SKILL.md:66-71"
+            ".claude/skills/idea-run/SKILL.md:67-72"
           ]
         }
       ]
@@ -258,8 +258,8 @@
             "outputs-py"
           ],
           "sources": [
-            ".claude/skills/idea-run/SKILL.md:73-85",
-            "docs/review.md:48-63"
+            ".claude/skills/idea-run/SKILL.md:74-86",
+            "docs/review.md:48-62"
           ]
         },
         {
@@ -274,7 +274,7 @@
             "Styles still waiting for your answer are listed in the `session-handoff` doc."
           ],
           "sources": [
-            ".claude/skills/idea-run/SKILL.md:114-122"
+            ".claude/skills/idea-run/SKILL.md:115-123"
           ]
         },
         {
@@ -288,7 +288,7 @@
             "label": "Build it → `chosen` · Later → `parked` · Reject → `rejected` · Not my style, keep it → `Anti-example`. No answer: stays `proposed`."
           },
           "sources": [
-            ".claude/skills/idea-run/SKILL.md:122-134",
+            ".claude/skills/idea-run/SKILL.md:123-135",
             "docs/pdf-workflow.md:125"
           ]
         },
@@ -306,7 +306,7 @@
             "python scripts/outputs.py stamp <pdf> status=chosen"
           ],
           "sources": [
-            ".claude/skills/idea-run/SKILL.md:122-134",
+            ".claude/skills/idea-run/SKILL.md:123-135",
             "design-concepts/README.md:44-47",
             "archive/anti-examples/README.md"
           ]
@@ -321,7 +321,7 @@
             "A concept becomes a `Template` only after you keep it and a build task is agreed."
           ],
           "sources": [
-            ".claude/skills/idea-run/SKILL.md:129-134",
+            ".claude/skills/idea-run/SKILL.md:130-135",
             "design-concepts/README.md:3-6"
           ]
         }

@@ -34,7 +34,7 @@
           "blurb": "Who the client is: `Alias`, `Domain`, `Rank`; dates and links.",
           "detail": "`cv.py render` refuses to run without `envelope.json`; every client `Meta File` copies it.",
           "sources": [
-            "docs/guides/client-workflow.md:29-77"
+            "docs/guides/client-workflow.md:29-78"
           ]
         },
         {
@@ -43,7 +43,7 @@
           "path": "private/<envelope>/intake/",
           "blurb": "Messages, documents, `facts.md`, the `Scout`, `CV Decisions`, `Deep Dives`.",
           "sources": [
-            "docs/guides/client-workflow.md:35-57"
+            "docs/guides/client-workflow.md:36-58"
           ]
         },
         {
@@ -52,7 +52,7 @@
           "path": "private/<envelope>/draft/",
           "blurb": "The `Text Drafts` and the `Sign-off` screenshots.",
           "sources": [
-            "docs/guides/client-workflow.md:249-276"
+            "docs/guides/client-workflow.md:250-277"
           ]
         },
         {
@@ -296,13 +296,13 @@
           "id": "n-agent-files",
           "title": ".claude/agents/",
           "path": ".claude/agents/",
-          "blurb": "The seven agent profiles, with model and tools."
+          "blurb": "The nine agent profiles, with model and tools."
         },
         {
           "id": "n-skills",
           "title": ".claude/skills/",
           "path": ".claude/skills/",
-          "blurb": "The nine checklists agents load."
+          "blurb": "The seven checklists agents load."
         },
         {
           "id": "n-work",
@@ -377,7 +377,7 @@
           "actor": "intake-form",
           "blurb": "Optional `Intake Forms` and their answer Sheets.",
           "sources": [
-            "docs/guides/client-workflow.md:91-128"
+            "docs/guides/client-workflow.md:92-129"
           ]
         },
         {
@@ -387,7 +387,7 @@
           "actor": "chat",
           "blurb": "Questions out, answers back, via you.",
           "sources": [
-            "docs/guides/client-workflow.md:81-89"
+            "docs/guides/client-workflow.md:82-90"
           ]
         }
       ]

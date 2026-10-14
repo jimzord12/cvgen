@@ -34,11 +34,11 @@
       "kind": "owner",
       "role": "The product owner. The only one who talks to a `Client`, picks the designs and approves a real client's PDF.",
       "notes": [
-        "Owner-only: `Approval` of a real client's PDF, product decisions, deleting anything under `private/`, replacing the `Release`.",
+        "Owner-only: `Approval` of a real client's PDF, product decisions, deleting anything under `private/` or erasing it from the private repo's history, replacing the `Release`.",
         "Everything routine (commits, merges to `main`, task-store updates) is the agents' job."
       ],
       "sources": [
-        "docs/preferences.md:49-78",
+        "docs/preferences.md:49-80",
         "docs/guides/client-workflow.md:9-10"
       ],
       "short": "You"
@@ -52,8 +52,8 @@
         "Outside `private/` a client is only their `Alias`, like `client-2026-09-01`."
       ],
       "sources": [
-        "docs/guides/client-workflow.md:316-318",
-        "docs/guides/client-workflow.md:63-67"
+        "docs/guides/client-workflow.md:338-340",
+        "docs/guides/client-workflow.md:64-68"
       ],
       "short": "Client"
     },
@@ -180,7 +180,7 @@
       ],
       "sources": [
         ".claude/agents/code-reviewer.md:1-7",
-        "docs/review.md:126-144"
+        "docs/review.md:125-143"
       ],
       "short": "Code rev."
     },
@@ -252,7 +252,7 @@
       ],
       "sources": [
         ".claude/skills/new-client/SKILL.md:34-47",
-        ".claude/skills/idea-run/SKILL.md:87-104"
+        ".claude/skills/idea-run/SKILL.md:88-105"
       ],
       "short": "General"
     },
@@ -296,11 +296,11 @@
       "role": "Checklist from a client's first message to signed-off facts: `Envelope`, `Intake`, research, `Text Draft`, `Sign-off`.",
       "when": "You say a new client arrived, or ask to continue their intake or research.",
       "notes": [
-        "Every time it runs it also checks for stalled clients (3 months, no `Export`) and passed delete-by dates."
+        "Every time it runs it also checks for stalled clients (3 months, no `Export`) and passed delete-by dates, and hands you the history-erase commands for those; you run them."
       ],
       "sources": [
         ".claude/skills/new-client/SKILL.md:1-9",
-        ".claude/skills/new-client/SKILL.md:95-98"
+        ".claude/skills/new-client/SKILL.md:95-106"
       ]
     },
     "new-cv": {
@@ -362,17 +362,6 @@
       "sources": [
         ".claude/skills/repo-maintenance/SKILL.md:21-28",
         ".claude/repo-maintenance.md:136-140"
-      ]
-    },
-    "night-shift": {
-      "label": "Night Shift skills",
-      "kind": "skill",
-      "file": ".claude/skills/start-night-shift/SKILL.md",
-      "role": "Unattended overnight work (`start-night-shift`) and its follow-up by day (`do-night-shift-follow-up`).",
-      "when": "You say \"start night shift\".",
-      "sources": [
-        ".claude/skills/start-night-shift/SKILL.md:1-5",
-        ".claude/skills/do-night-shift-follow-up/SKILL.md:1-5"
       ]
     },
     "cv-py": {
@@ -438,7 +427,7 @@
       "role": "Google Apps Script you run once per form: builds the optional `Intake Form` and its answers Sheet in your Google account.",
       "sources": [
         "scripts/intake-form.gs:1-21",
-        "docs/guides/client-workflow.md:91-128"
+        "docs/guides/client-workflow.md:92-129"
       ]
     },
     "board": {
@@ -457,7 +446,7 @@
       "kind": "service",
       "role": "Viber, WhatsApp or email: how you pass questions and drafts to the client and bring answers back.",
       "sources": [
-        "docs/guides/client-workflow.md:81-89"
+        "docs/guides/client-workflow.md:82-90"
       ],
       "short": "Chat"
     },
@@ -467,7 +456,7 @@
       "role": "Runs the suite on every push and pull request (Typst 0.15.1). The lead watches it on `main` before calling work Done.",
       "sources": [
         ".github/workflows/verify.yml",
-        "docs/git-workflow.md:66-79"
+        "docs/git-workflow.md:74-87"
       ],
       "short": "CI"
     }
@@ -504,7 +493,7 @@
     "Meta File": "The small JSON beside a PDF saying what it is (kind, `Domain`, status, pages) with its SHA-256.",
     "Frozen Reference": "The PDF a `Template`'s public example must reproduce pixel for pixel.",
     "Framework Gap": "A recorded case of going around the `Framework`, a `Domain` or a `Template` to deliver a CV.",
-    "Session Sweep": "The places to look for loose ends before a session ends: unreviewed commits, approved proposals, open tasks, Night Shift items, Git leftovers, CI, `builds/`.",
+    "Session Sweep": "The places to look for loose ends before a session ends: unreviewed commits, approved proposals, open tasks, Git leftovers, CI, `builds/`.",
     "Certificate Warning": "A WARNING line at render: a certificate expired or expires within 180 days. Never blocks.",
     "Live Read": "A render that read a private file directly instead of the `Revision`'s copy. It fails its checks.",
     "Batch Test": "Design test 1: in an HR batch of 100 to 200 CVs, ours cannot be skipped.",
