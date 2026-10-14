@@ -49,7 +49,7 @@ owner talks to the client; you never do. Terms: `docs/glossary.md`.
    about a country, a `Domain` or a `Rank` with no client detail also
    becomes or updates a `Research Library` note (`docs/research/README.md`):
    write the note free of client detail first and review it on its own
-   text and hash, reports under `studio/archive/work-records/research-<topic>/reviews/`,
+   text and hash, reports under `archive/work-records/research-<topic>/reviews/`,
    committed like any documentation.
 7. **Follow-up.** Gap list plus research questions, one batch in simple
    Greek. As a chat message: aim for 5, never more than 10. As an

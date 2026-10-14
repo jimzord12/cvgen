@@ -63,7 +63,7 @@ Day Shift question 01). Later revisions of a proposal that came from an
 idea run are reviewed here. The idea gates cover new files in
 `studio/design-concepts/`, the run's rows in `studio/design-concepts/README.md`, an idea
 run's folder under
-`studio/archive/work-records/idea-runs/` and proposals that passed both gates in
+`archive/work-records/idea-runs/` and proposals that passed both gates in
 `docs/proposals/` are reviewed by the idea gates of
 `.claude/skills/idea-run/SKILL.md` instead of this gate. Any other file an
 idea run touches, and every change to the idea agents or the skill
@@ -153,7 +153,7 @@ effort used in its dispositions. The protocol itself mandates no model. Shell
 access can still write, so the tool list is relied on together with the
 reviewer's instructions and a read of its report; it is not a security
 sandbox. Verified on 2026-09-16 against fictional fixtures; see
-`studio/archive/work-records/dev-setup/task.md`.
+`archive/work-records/dev-setup/task.md`.
 
 Current non-trivial implementation changes still require the full repository
 suite. Reviewers may rerun focused checks against the exact reviewed snapshot
@@ -220,7 +220,7 @@ Each report is under about 600 words unless findings need more and includes
 the reviewed snapshot, lead lenses, eight-lens coverage, findings, checks
 actually rerun, evidence inspected, limitations and verdict. Never report an
 author-run check as personally rerun. The lead agent stores the report
-unchanged as `studio/archive/work-records/<task-slug>/reviews/NN-<reviewer>.md`,
+unchanged as `archive/work-records/<task-slug>/reviews/NN-<reviewer>.md`,
 links it from the task record with its dispositions, and summarizes product
 impact to the owner in a few lines.
 

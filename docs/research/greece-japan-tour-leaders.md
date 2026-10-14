@@ -2,7 +2,7 @@
 
 Checked: 2026-09-28. Recheck after: 2027-03-28.
 Question: Who hires tour leaders for group trips from Greece to Japan, what do they screen for, and what does a newcomer need to show?
-Review: research-reviewer round 1 FINDINGS (one Blocking, fixed), round 2 PASS with its notes applied (`studio/archive/work-records/research-greece-japan-tour-leaders/reviews/research-01.md`, `research-02.md`).
+Review: research-reviewer round 1 FINDINGS (one Blocking, fixed), round 2 PASS with its notes applied (`archive/work-records/research-greece-japan-tour-leaders/reviews/research-01.md`, `research-02.md`).
 
 > **How this file was built.** It merges two independent deep-research runs on the same question into one file. You don't need the originals to use it.
 > - **Run A** could read more job ads (including LinkedIn) and was stricter about sources. It is the main source for what employers screen for.

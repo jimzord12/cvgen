@@ -2,7 +2,7 @@
 
 Checked: 2026-09-25. Recheck after: 2027-03-25.
 Question: how do top CV writers, coaches and recruiters run client intake, and what should CVgen's intake ask?
-Review: research-reviewer round 1 FINDINGS, round 2 PASS with its notes applied (`studio/archive/work-records/client-workflow/reviews/research-01.md`, `research-02.md`).
+Review: research-reviewer round 1 FINDINGS, round 2 PASS with its notes applied (`archive/work-records/client-workflow/reviews/research-01.md`, `research-02.md`).
 
 Labels used: **[vendor claim]** = a paid service describing its own process; **[opinion]** = practitioner judgement, not data; **[survey]** = data from a survey or study, with its sample; **[unverified]** = could not be confirmed at a primary source.
 

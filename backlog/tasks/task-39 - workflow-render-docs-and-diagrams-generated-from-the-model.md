@@ -14,7 +14,7 @@ ordinal: 39000
 ## Description
 
 <!-- SECTION:DESCRIPTION:BEGIN -->
-`render` writes the generated blocks (between markers) in `docs/workflow/**/README.md` and the Mermaid diagrams. CI fails if regeneration changes anything. Source: studio/archive/work-records/workflow-model/handoff.md, section 4, item 7 (A. Workflow model). Created 2026-10-14 at the owner's request; not started.
+`render` writes the generated blocks (between markers) in `docs/workflow/**/README.md` and the Mermaid diagrams. CI fails if regeneration changes anything. Source: archive/work-records/workflow-model/handoff.md, section 4, item 7 (A. Workflow model). Created 2026-10-14 at the owner's request; not started.
 <!-- SECTION:DESCRIPTION:END -->
 
 ## Acceptance Criteria

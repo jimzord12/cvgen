@@ -31,7 +31,7 @@ design-reviewer's "Other assets".
 
 1. Branch `docs/idea-run-<date>-<ceo|editor>` in a worktree at
    `.worktrees/idea-run-<date>-<ceo|editor>`, never in the `Main Folder`
-   (`docs/git-workflow.md`, "Branches"). The run folder is `studio/archive/work-records/idea-runs/<date>-<ceo|editor>/`,
+   (`docs/git-workflow.md`, "Branches"). The run folder is `archive/work-records/idea-runs/<date>-<ceo|editor>/`,
    with `-2`, `-3` for a second run the same day. Record the run in its
    `run.md`: brief, rounds, verdicts, what reached the owner.
 2. Start the author with the date, the run folder and any owner steer (a
@@ -70,7 +70,7 @@ design-reviewer's "Other assets".
    needs) goes back through the quality gate; layout, typos and fictional
    sample data get a lead check against the render, noted in `run.md`.
    Every report names the snapshot it saw.
-7. Store every report as `studio/archive/work-records/idea-runs/<run>/reviews/NN-<reviewer>.md`.
+7. Store every report as `archive/work-records/idea-runs/<run>/reviews/NN-<reviewer>.md`.
 8. Integrate. Output confined to new files in `studio/design-concepts/`, the run's
    rows in `studio/design-concepts/README.md`, the run folder and passed proposals
    in `docs/proposals/` is covered by the idea gates (`docs/review.md`: idea runs use their own gates); say so in `run.md`. An item

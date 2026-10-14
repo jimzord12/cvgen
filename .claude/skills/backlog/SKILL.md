@@ -54,7 +54,7 @@ backlog task edit TASK-N --add-label blocked --plain        # and --remove-label
   `` `n ``; build long text in a here-string first.
 - **Verify every write by reading it back** with `task view --plain`.
 - Title starts with the task id (`monorepo-migration: ...`). Backlog.md adds
-  its own number (`TASK-27`); the id names the `studio/archive/work-records/<id>/` folder.
+  its own number (`TASK-27`); the id names the `archive/work-records/<id>/` folder.
 - Edit a task file by hand only for something the CLI cannot do, keep its
   `<!-- SECTION:... -->` and `<!-- AC:... -->` markers intact, and check the
   result with `task view --plain`.

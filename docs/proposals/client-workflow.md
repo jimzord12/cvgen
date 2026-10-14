@@ -80,7 +80,7 @@ Approve the workflow as above?
   framework-split).
 - 2026-09-28, owner: the `Text Draft` of item 7 is no longer plain; it
   gets the house design First Fitting, the owner's pick of the 2026-09-27
-  idea run (`studio/archive/work-records/idea-runs/2026-09-27-editor/run.md`), built into
+  idea run (`archive/work-records/idea-runs/2026-09-27-editor/run.md`), built into
   `scripts/text-draft.typ` (card premium-text-draft).
 - 2026-09-28, owner: item 2's "No web form" is relaxed. A Google Form
   may go beside the `Relay` message, never instead of it ("it would be

@@ -37,7 +37,7 @@ steps:
   # request is a field in envelope.json.
   - id: after.keep-request
     name: The client asks to keep his data
-    sources: ["docs/guides/client-workflow.md:164-167", "docs/proposals/workflow-model.md:56", "studio/archive/work-records/workflow-model/handoff.md:290"]
+    sources: ["docs/guides/client-workflow.md:164-167", "docs/proposals/workflow-model.md:56", "archive/work-records/workflow-model/handoff.md:290"]
     actor: actor.client
     action: manual.ask-to-keep
     outputs: [art.keep-request]
@@ -81,7 +81,7 @@ steps:
   # Decision #7 (2026-10-14): the final step, named after.close there.
   - id: after.close
     name: Close the client's task
-    sources: ["docs/proposals/workflow-model.md:60", "studio/archive/work-records/workflow-model/handoff.md:290"]
+    sources: ["docs/proposals/workflow-model.md:60", "archive/work-records/workflow-model/handoff.md:290"]
     actor: actor.lead
     action: lead.close-client-task
     inputs: [art.private-history]

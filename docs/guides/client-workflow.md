@@ -255,7 +255,7 @@ A finding about a country, a `Domain` or a `Rank`, with nothing about the
 client, is also written to the `Research Library` (`docs/research/`,
 public) in the same session. The library note is written first, free of
 client detail, and reviewed on its own text and hash; its reports go under
-`studio/archive/work-records/research-<topic>/reviews/`, never under a client's name. A
+`archive/work-records/research-<topic>/reviews/`, never under a client's name. A
 finding about one employer stays in the `Envelope`; it moves to the
 library when a second client targets the same employer.
 

@@ -97,8 +97,8 @@ Framework; `M` for `packages/domains/marine`, the marine domain; `F` for
 | `examples/marine/flagship/` | Short entry points that wire the six inputs together, each with its `Release` PDF and `Meta File` beside it (`engineer.typ`, `engineer.pdf`, `engineer.meta.json`), written only by `scripts/build.ps1 -Release` | Adding an example, releasing a new version |
 | `packages/cv-workflow/` | Python package: fresh revisions (snapshot, compile, `render.json`, `checks.json`), explicit approval (`cv.approval.json` bound to the SHA-256), verified export, and the `Output Contract` (`outputs.py`, `output.schema.json`: homes and `Meta File`s). Never sends anything. `pyproject.toml` pins the Python dependencies; `requirements.lock` (compiled from it) and `ruff.toml` sit at the root | Changing how a candidate PDF is produced, approved or exported, or a Python dependency |
 | `tests/` | `run.py` runner, `verify.py` PDF checks, `workflow.py` end-to-end workflow case, `release.py` example list and `build.ps1` case, `baseline.json` hash manifest, `fixtures/*.typ` compile cases | Changing behaviour |
-| `studio/archive/design-studies/` | Four frozen, evaluated design studies with their renders | Reading for inspiration only |
-| `studio/archive/work-records/` | Review reports (named in `docs/review.md`), idea-run records and other dated task records, kept unchanged (moved from `docs/work/` on 2026-10-14, Git history kept) | Storing a new review report; reading an old one |
+| `studio/archive/design-studies/` | `studio/archive/` holds frozen design records: four frozen, evaluated design studies with their renders | Reading for inspiration only |
+| `archive/work-records/` | The top-level `archive/` holds only this: review reports (named in `docs/review.md`), idea-run records and other dated task records, kept unchanged (moved from `docs/work/` on 2026-10-14, Git history kept) | Storing a new review report; reading an old one |
 | `studio/archive/anti-examples/` | Frozen designs the owner rejected as not his style (`Anti-example`), with their fonts and his reasons; see its `README.md` | Before proposing or reviewing a design: never repeat one |
 | `studio/design-concepts/` | Template concepts proposed by the `magazine-editor` agent: one folder per style with `brief.md` (and, when the `Domain` has no record yet, `sample.json`) shared by its two `Density`s (`condensed/`, `spacious/`), each holding three `Design Tier`s (`<tier>/<density>-<tier>.typ`, PDF, PNG per page, and every PDF its `Meta File`; see its `README.md`); earlier runs have one `concept.typ`. Proposals, not library code | Running or deciding on an idea run |
 | `studio/brand/` | CVgen's own brand assets: `logos/` (the working logo is the needle's eye, `cvgen-mark-c-eye.svg` and `cvgen-wordmark.svg`; see `studio/brand/README.md`) | Using or replacing the logo |
@@ -167,7 +167,7 @@ Full text in `docs/constitution.md`. The short list:
 | `docs/constitution.md` | Before anything irreversible |
 | `docs/framework-gaps.md` | Before planning framework work, and after any bypass of a component or template |
 | `docs/conventions.md` | Before writing code, docs or a commit message |
-| `docs/development.md` | Starting, resuming or handing off a task: stages, the task record in `backlog/`, review reports under `studio/archive/work-records/<id>/reviews/`, guardrails |
+| `docs/development.md` | Starting, resuming or handing off a task: stages, the task record in `backlog/`, review reports under `archive/work-records/<id>/reviews/`, guardrails |
 | `docs/review.md` | Requesting, performing or recording an independent review; the `code-reviewer` and `context-reviewer` subagents follow it |
 | `docs/proposals/README.md` | Proposal states, owner decisions, and orientation of pending/approved work |
 | `docs/decisions/0014-backlog-md-task-store.md` | Why Backlog.md is the task store, and what replaced the Trello board |

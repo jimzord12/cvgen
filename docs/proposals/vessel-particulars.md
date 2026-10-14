@@ -8,7 +8,7 @@ created: 2026-09-25
 
 # Vessel particulars on the marine CV
 
-Origin: ceo agent run 2026-09-25 ([run record](../../studio/archive/work-records/idea-runs/2026-09-25-ceo/run.md)).
+Origin: ceo agent run 2026-09-25 ([run record](../../archive/work-records/idea-runs/2026-09-25-ceo/run.md)).
 
 **Pitch:** optional tonnage, main engine maker and engine power per vessel,
 shown on the experience rows, because Marlow Navigation asks every

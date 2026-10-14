@@ -19,14 +19,14 @@ glossary:
 # Docs that are reached by process, not by links from other docs.
 entry_points:
   - "docs/decisions/**"           # ADRs are cited by number
-  - "studio/archive/work-records/**"     # task records and review reports
+  - "archive/work-records/**"     # task records and review reports
   - "docs/research/**"            # Research Library
   - "docs/proposals/**"
 
 # Dated records: never link-fixed or re-worded. `ignore` leaves them out of EVERY check (secrets, size and
 # stray-file checks too); accepted, since they are reviewed text; the Output Contract and the suite still cover them.
 ignore:
-  - "studio/archive/work-records/**"
+  - "archive/work-records/**"
   - "docs/decisions/**"
   - docs/history.md
 
@@ -35,11 +35,12 @@ protected:
   - docs/constitution.md
   - "packages/domains/marine/templates/flagship/tests/approved/**"   # the Frozen Reference
   - tests/baseline.json                                              # hash manifest of frozen references
-  - "archive/**"                                                     # frozen design studies, Anti-examples and work records
+  - "studio/archive/**"                                              # frozen design studies and Anti-examples
+  - "archive/**"                                                     # work records
   - "examples/**/*.pdf"                                              # the Release: replaced only by build.ps1 -ReplaceRelease, the owner's go
   - "examples/**/*.meta.json"                                        # its Meta Files (Output Contract)
   - "studio/design-concepts/**/*.meta.json"                                 # stamped by scripts/outputs.py, never by hand
-  - "studio/archive/work-records/**/reviews/**"                             # independent review reports are records
+  - "archive/work-records/**/reviews/**"                             # independent review reports are records
   - "private/**"                                                     # ignored, real client data; never inspected
   - ".local/**"                                                      # ignored, local preferences
   - ".worktrees/**"                                                  # ignored, other sessions' checkouts
@@ -56,6 +57,7 @@ allow_large:
   - "**/tests/approved/**"
   - "examples/**"
   - "studio/brand/**"
+  - "studio/archive/**"
   - "archive/**"
   - "studio/design-concepts/fonts/**"
 

@@ -151,7 +151,7 @@ steps:
   # needs decisions.md updated from the Deep Dives, and no source names the step.
   - id: research.decisions-update
     name: Update the CV Decisions from the Deep Dives
-    sources: ["docs/guides/client-workflow.md:235-237", "studio/archive/work-records/workflow-model/handoff.md:290"]
+    sources: ["docs/guides/client-workflow.md:235-237", "archive/work-records/workflow-model/handoff.md:290"]
     actor: actor.lead
     action: lead.update-decisions
     inputs: [art.deep-dive-md, art.deep-dive-review]
@@ -298,7 +298,7 @@ artifacts:
   - id: art.library-review-report
     name: A library note's review report
     sources: ["docs/guides/client-workflow.md:257-258", "docs/research/README.md:28-30", ".claude/skills/new-client/SKILL.md:51-52"]
-    path: studio/archive/work-records/research-<topic>/reviews/
+    path: archive/work-records/research-<topic>/reviews/
     format: research-reviewer report, PASS or FINDINGS
     visibility: public
 
