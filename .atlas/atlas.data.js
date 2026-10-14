@@ -1190,7 +1190,7 @@ window.ATLAS = {
        ],
        "sources": [
         ".claude/agents/magazine-editor.md:50-82",
-        ".claude/agents/magazine-editor.md:88-209",
+        ".claude/agents/magazine-editor.md:88-210",
         "design-concepts/README.md"
        ]
       }
@@ -1312,7 +1312,7 @@ window.ATLAS = {
         "After a PASS: a new sourced claim goes back to the research gate; a change to the Style's idea or to what you decide on goes back to the design gate; layout, typos or sample data need only a lead check noted in `run.md`."
        ],
        "sources": [
-        ".claude/agents/magazine-editor.md:211-219",
+        ".claude/agents/magazine-editor.md:212-220",
         ".claude/skills/idea-run/SKILL.md:67-72"
        ]
       }
@@ -1388,7 +1388,7 @@ window.ATLAS = {
        ],
        "sources": [
         ".claude/skills/idea-run/SKILL.md:123-135",
-        "design-concepts/README.md:44-47",
+        "design-concepts/README.md:45-48",
         "archive/anti-examples/README.md"
        ]
       },
@@ -2263,30 +2263,42 @@ window.ATLAS = {
   }
  ],
  "build": {
-  "builtAt": "2026-10-14 05:58 UTC",
-  "commit": "e2bf208",
+  "builtAt": "2026-10-14 06:02 UTC",
+  "commit": "f35f0c9",
   "kit": "1.0",
-  "stale": {},
+  "stale": {
+   "system-map": [
+    "AGENTS.md",
+    "docs/architecture.md",
+    "docs/guides/client-workflow.md",
+    "docs/guides/build-a-cv.md",
+    "scripts/build.ps1",
+    "scripts/text-draft.typ",
+    "docs/work",
+    "tests/run.py",
+    ".github/workflows/verify.yml"
+   ]
+  },
   "verified": {
    "client-journey": {
     "at": "2026-10-14",
-    "commit": "e2bf208"
+    "commit": "f35f0c9"
    },
    "design-run": {
     "at": "2026-10-14",
-    "commit": "e2bf208"
+    "commit": "f35f0c9"
    },
    "change-review": {
     "at": "2026-10-14",
-    "commit": "e2bf208"
+    "commit": "f35f0c9"
    },
    "system-map": {
     "at": "2026-10-14",
-    "commit": "e2bf208"
+    "commit": "243652b"
    },
    "roster": {
     "at": "2026-10-14",
-    "commit": "e2bf208"
+    "commit": "f35f0c9"
    }
   }
  }

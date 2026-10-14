@@ -19,9 +19,11 @@ Spacious: 1 to 3 roomier pages) and three `Design Tier`s (`safe`,
 
 Each `.typ` reads the shared files as `../../sample.json` and
 `../../portrait.jpg`; PNGs are 96 dpi, one per page. Earlier folders hold
-one `concept.typ`, `concept.pdf` and `page-1.png` instead. Downloaded font
-families live once in `fonts/<family>/` with their licence and are shared
-between concepts. Compile from the repository root:
+one `concept.typ`, `concept.pdf` and `page-1.png` instead. Each font family
+is stored once: families the Framework bundles (`packages/cv-framework/fonts/`,
+licences in `packages/cv-framework/licenses/`) are not copied here, and the
+others live in `fonts/<family>/` with their licence, shared between
+concepts. Compile from the repository root:
 
 ```powershell
 typst compile --root . --ignore-system-fonts --font-path packages/cv-framework/fonts --font-path design-concepts/fonts design-concepts/<folder>/<density>/<tier>/<density>-<tier>.typ design-concepts/<folder>/<density>/<tier>/<density>-<tier>.pdf
