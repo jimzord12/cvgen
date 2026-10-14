@@ -93,13 +93,13 @@
    "verifiedAt": "2026-10-14"
   },
   "system-map": {
-   "commit": "3857280",
+   "commit": "60f15ae",
    "sources": {
     ".claude/agents": "dir1:4f4154394888bb9d69a0ed790d8f4b484a790fdd",
     ".claude/skills": "dir1:5eeafda0c9ef9a6037a3fcc2879f73f098fa3e55",
     ".claude/skills/backlog/SKILL.md": "22562281e7901acef008942775142d478ec85948",
     ".github/workflows/verify.yml": "40bc613fee5a49bd14875f60331cf0d24eebaec3",
-    "AGENTS.md": "7006091fddabd93f0c5f2ea9b003eaa7c937c061",
+    "AGENTS.md": "a95acf4343dd2155aea13b3ea0c80ef7b0360f0c",
     "archive/anti-examples": "dir1:dacb2a2e30bc6a5d49178d2bcbf382c4de52a88c",
     "archive/design-studies": "dir1:3934f2dbb33587fa8b485e7b99d2b37fa3784798",
     "brand": "dir1:c556e0f8d17363d5e9ddc92e7142a253a16d1be2",
@@ -110,7 +110,7 @@
     "docs/guides/build-a-cv.md": "17fb6155b88307dff5ca55fc8f711dcd53dd824c",
     "docs/guides/client-workflow.md": "65cc8137148bfdfdff23f01d069322503ea9bc13",
     "docs/pdf-workflow.md": "3bfa09a91c1ec9c970650c88ed15842c477645de",
-    "docs/work": "dir1:efffd601eb832ca3b6ed5ec09de4269607beb74c",
+    "docs/work": "dir1:ebbe4c7697cb872fd708f2066f9514392fded5cf",
     "examples/candidates": "dir1:69fb38eee30dc425761a0cb80a577613cf3bdab4",
     "examples/marine/flagship": "dir1:2badfd3042bcd2c5ef709a6596945aefe8848eb1",
     "packages/cv-framework": "dir1:e26fc6cd0be31cb5f9c4f61215ae5f3cfdc05a78",
@@ -123,7 +123,7 @@
     "scripts/design_review/server.py": "0d1258af97e31db980fcd7a98e64e88f431f9840",
     "scripts/outputs.py": "6e79e3d72163c249c328633379952f93837ffe1c",
     "scripts/text-draft.typ": "c6f61f2253a2105d3334f3edc4e9b12137f54fa1",
-    "tests/run.py": "4ddd027d4184e48c800c33eaf83d39a84621487d"
+    "tests/run.py": "b008e31f6fee5ff28d45d15c4c823a6a8ebdbde4"
    },
    "verifiedAt": "2026-10-14"
   }
