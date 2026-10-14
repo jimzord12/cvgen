@@ -62,7 +62,8 @@ band), the page-plan grammar (a `companies` list per page that covers every
 row once, in candidate order), pagination over a domain-supplied row model
 (`count(company)`, `slice(company, rows)`, and optionally `row`, the word
 its messages use for one row), SVG recolouring by the theme's
-`art-palette`, and `merge`/`compose`. Which page carries the closing
+`art-palette`, theme validation (`validate-theme`, and `require-colors`,
+which a template calls for its own colours), and `merge`/`compose`. Which page carries the closing
 sections (Flagship's synopsis, certificates, education) is the template's
 rule: Flagship checks it in `validate-plan` (`flagship.typ`).
 

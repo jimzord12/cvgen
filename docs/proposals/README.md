@@ -1,4 +1,5 @@
 ---
+id: P-0004
 kind: reference
 ---
 
@@ -25,16 +26,29 @@ Each decision-ready proposal starts with this metadata:
 
 ```yaml
 ---
+id: P-NNNN
 kind: proposal
 status: pending
 revision: 1
+created: YYYY-MM-DD
 ---
 ```
 
 Read metadata only from the opening block, not from examples in the document.
-Use `kind: reference` for supporting material, with no independent status or
-approval request. A proposal names any supporting documents included in its
-scope. The README is the tracking convention, not a pending proposal.
+`id` is stable for the file's life, moves included: take the `next_id` of
+`python scripts/proposals.py --json`, never reuse one; when two branches took
+the same one, the later to merge renumbers before it merges. `created` is the
+date the file was added (never in the future); it gives the proposal's age.
+Use `kind: reference` for supporting material, with an `id` but no
+independent status or approval request. A proposal names any supporting
+documents included in its scope. The README is the tracking convention, not a pending proposal.
+
+`python scripts/proposals.py` reads every file here, refuses by name any file
+that breaks the rules above, and prints the one line a
+session gives the owner (`N proposals: X pending (Y older than 7 days), ...`).
+With `--json` it also writes the snapshot (id, title, status, revision, age in
+days, path, `next_id`) into a new `builds/proposals-<timestamp>/`: a derived
+view for reading, never a second queue.
 
 ## States and transitions
 
@@ -74,8 +88,9 @@ trials may still have cleanup work; link that task and follow existing checkpoin
 
 ## What the owner hears
 
-At session orientation and meaningful progress updates, read proposal metadata
-and relevant evidence directly from the main proposals folder. Consult
+At session orientation and meaningful progress updates, run
+`python scripts/proposals.py`, tell the owner its line, then read the metadata
+and evidence of the items that need him directly from the main proposals folder. Consult
 `rejected/` for relevant history or reopening, not as an approval queue.
 Report pending decisions with a short explanation,
 recommendation, and link. Also distinguish approved work awaiting application

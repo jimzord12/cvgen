@@ -1,7 +1,9 @@
 ---
+id: P-0008
 kind: proposal
 status: rejected
 revision: 1
+created: 2026-09-25
 ---
 
 # Candidate intake questionnaire

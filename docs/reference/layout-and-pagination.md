@@ -61,7 +61,9 @@ dictionary per component (`hero`, `experience`, `headings`, `profile`,
 `synopsis`, `certificates`, `education`, `footer`, `header`, and `shell`).
 `shell` belongs to the Framework's page shell: `margin` is the margin the
 document opens with and page 1's margin in Flagship's page loop, and `band`
-is the height of the hero band painted behind page 1. It replaced
+is the height of the hero band painted behind page 1, in the theme's `hero`,
+which a template that sets `band` requires in its own theme check
+(`docs/reference/theme.md`). It replaced
 `opening-margin` and `hero.band-height` (TASK-45): a layout that still sets
 either fails with a message naming its `shell` key, through `flagship` and
 through the deprecated `document-shell` wrapper alike. The template

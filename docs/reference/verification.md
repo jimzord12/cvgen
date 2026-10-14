@@ -58,7 +58,8 @@ Windows one also holds the PDFs that build wrote, one per example in
 
 | Fixture | Cases |
 |---|---|
-| `configuration.typ` | Theme validates; frozen geometry constants (hero 77mm, page-two bottom margin 11mm, backdrop 94mm) |
+| `configuration.typ` | Golden Blue passes Flagship's theme check (`validate-flagship-theme`); frozen geometry constants (hero 77mm, page-two bottom margin 11mm, backdrop 94mm) |
+| `theme.typ` | The core's `validate-theme` accepts a theme with only `ink`, `accent`, `metal`, `muted` and `paper` (`case=core`) and refuses one without any of them (`case=core-missing`, five cases); through `flagship`, a Golden Blue theme without `hero`, `surface`, `plate`, `rule` or `on-hero` (`case=missing`, five cases) is refused with "Missing theme color: <key>", and one whose `plate` is a string (`case=not-color`) with "Theme color must be a color: plate" (TASK-59) |
 | `content.typ` | Experience, synopsis, certificates and education compose on one page |
 | `data.typ` | The core leaves `copy` empty and the adapter composes it domain < role < template < record < argument (a role overrides only domain words; arrays are replaced); duration parts, totals 138 months / 23 vessels / 6 companies, vessel dedup, company-only months; rejects missing months, mismatched totals, negative months, a blank identity name |
 | `role.typ` | A role's wording reaches page one through `flagship` |
@@ -88,7 +89,7 @@ Windows one also holds the PDFs that build wrote, one per example in
    ten lines and a count. The two marine schemas share identical `$defs`;
    a record with vessel particulars is accepted and a `hp` power unit refused.
 
-10. **Framework boundary.** Every `import`/`include` in `packages/cv-framework/core/*.typ` names a bare sibling file; `packages/cv-framework/lib.typ` imports only `core/` files; no Framework `.typ` file names a `domains/` path outside a comment; every domain file that imports a core file does so through `cv-framework/core/` (ADR 0011, 0012). Outside comments, Framework code also uses no marine or Flagship word (vessel, ship, marine, flagship, synopsis, rank, ...) or Flagship layout key (`opening-margin`, `band-height`, ...), reads no layout key or artwork slot it does not own (an allowlist: `paper`, `width`, `height`, `shell`, `header`, `footer`; `background-first`, `background-continuation`), and holds no colour literal: a hex string, a colour constructor (`rgb`, `cmyk`, `luma`, `oklab`, `oklch`, `hsl`, `hsv`, `linear-rgb`) or a named colour other than `white` and `black` (TASK-45). Comments are removed by a scan that also matches string literals, so `//` inside a string does not hide the rest of its line.
+10. **Framework boundary.** Every `import`/`include` in `packages/cv-framework/core/*.typ` names a bare sibling file; `packages/cv-framework/lib.typ` imports only `core/` files; no Framework `.typ` file names a `domains/` path outside a comment; every domain file that imports a core file does so through `cv-framework/core/` (ADR 0011, 0012). Outside comments, Framework code also uses no marine or Flagship word (vessel, ship, marine, flagship, synopsis, rank, ...) or Flagship layout key (`opening-margin`, `band-height`, ...), reads no layout key or artwork slot it does not own (an allowlist: `paper`, `width`, `height`, `shell`, `header`, `footer`; `background-first`, `background-continuation`) or theme colour it does not own (`ink`, `accent`, `metal`, `muted`, `paper`, and `hero` for the shell's optional band), names no Flagship colour (`hero`, `plate`, `on-hero`, `surface`, `rule`) as a string, so the core theme check cannot require one (TASK-59), and holds no colour literal: a hex string, a colour constructor (`rgb`, `cmyk`, `luma`, `oklab`, `oklch`, `hsl`, `hsv`, `linear-rgb`) or a named colour other than `white` and `black` (TASK-45). Comments are removed by a scan that also matches string literals, so `//` inside a string does not hide the rest of its line.
 
 11. **Candidate workflow** (`tests/workflow.py`). A fresh fictional workspace
    under the run's `workflow/` folder is driven through the real
@@ -149,6 +150,13 @@ Windows one also holds the PDFs that build wrote, one per example in
    writes it with a current `Meta File`, and `-ReplaceRelease` replaces it.
    `build-script/<shell>.log` holds each command's output. With no
    PowerShell at all the case is `SKIPPED`; on CI that fails the suite.
+15. **Proposals** (`proposals: <check>`, `tests/proposals.py`). The real
+   `scripts/proposals.py` on fixture folders under `proposals/`: the exact
+   summary line (a different count in every state), the JSON snapshot,
+   refusal of an existing output folder, and one refusal per rule (id,
+   duplicate id, kind, status, a reference with a status, `rejected/` both
+   ways, revision, missing, invalid or future `created`, no opening block);
+   then `docs/proposals/` itself must give the line its files add up to.
 
 Negative cases assert on the exact error text so a message change is a test
 change.

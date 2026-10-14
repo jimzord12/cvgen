@@ -13,7 +13,7 @@ a run is built, approved or put on the roadmap without the owner.
 
 | Run | Author | Reviewers, in order | Output |
 |---|---|---|---|
-| Product ideas | `ceo` (max 3 ideas) | `research-reviewer` on the market research, then `ceo-reviewer` | drafts in the run folder; passed ones moved to `docs/proposals/<slug>.md` (`status: pending`) |
+| Product ideas | `ceo` (max 3 ideas) | `research-reviewer` on the market research, then `ceo-reviewer` | drafts in the run folder; passed ones moved to `docs/proposals/<slug>.md` (`status: pending`; the lead adds `id`, the `next_id` of `python scripts/proposals.py --json`, and sets `created` to the move date) |
 | Design concepts | `magazine-editor` (3 very distinct styles, each in 2 `Density`s, Condensed and Spacious, and 3 `Design Tier`s, Safe, Stylish, Creative: 18 designs) | `research-reviewer` on the references, then `design-reviewer` | `design-concepts/<date>-<slug>/` per style, with `condensed/<tier>/` and `spacious/<tier>/` PDFs and PNGs |
 
 Cadence: design concepts whenever the owner wants inspiration or a client

@@ -1,7 +1,9 @@
 ---
+id: P-0014
 kind: proposal
 status: approved
 revision: 1
+created: 2026-09-29
 ---
 
 # Codex as an image tool and a second visual reviewer
