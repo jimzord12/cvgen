@@ -822,7 +822,7 @@ window.ATLAS = {
         "`draft/draft-NN.pdf` with its `Meta File` (status `sent`)"
        ],
        "cmd": [
-        "typst compile --root . --font-path packages/cv-framework/fonts private/<envelope>/draft/draft-01.typ private/<envelope>/draft/draft-01.pdf",
+        "typst compile --root . --ignore-system-fonts --font-path packages/cv-framework/fonts private/<envelope>/draft/draft-01.typ private/<envelope>/draft/draft-01.pdf",
         "python scripts/outputs.py stamp private/<envelope>/draft/draft-01.pdf status=sent"
        ],
        "sources": [
@@ -960,7 +960,7 @@ window.ATLAS = {
        "actor": "lead",
        "summary": "Every render is a new, never-overwritten folder with a snapshot of its inputs, the PDF, its checks and a `Meta File`.",
        "does": [
-        "Checks: page count, no empty page, fonts embedded, text inside the page.",
+        "Checks: page count, no empty page, fonts embedded, text inside the page, every font family bundled (a missing one is set in another font, so the checks fail).",
         "A certificate expired or expiring within 180 days prints a `Certificate Warning`; it never blocks.",
         "Claude stops here and reports the folder, the PDF's hash, the pages and every WARNING word for word."
        ],
@@ -2263,30 +2263,30 @@ window.ATLAS = {
   }
  ],
  "build": {
-  "builtAt": "2026-10-14 05:38 UTC",
-  "commit": "298fc49",
+  "builtAt": "2026-10-14 05:51 UTC",
+  "commit": "b34e9c6",
   "kit": "1.0",
   "stale": {},
   "verified": {
    "client-journey": {
     "at": "2026-10-14",
-    "commit": "8e2b9c5"
+    "commit": "b34e9c6"
    },
    "design-run": {
     "at": "2026-10-14",
-    "commit": "298fc49"
+    "commit": "b34e9c6"
    },
    "change-review": {
     "at": "2026-10-14",
-    "commit": "298fc49"
+    "commit": "b34e9c6"
    },
    "system-map": {
     "at": "2026-10-14",
-    "commit": "298fc49"
+    "commit": "b34e9c6"
    },
    "roster": {
     "at": "2026-10-14",
-    "commit": "298fc49"
+    "commit": "b34e9c6"
    }
   }
  }
