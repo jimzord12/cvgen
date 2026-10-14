@@ -125,7 +125,7 @@ window.ATLAS = {
     "tools": "Read, Grep, Glob, WebSearch, WebFetch",
     "readOnly": true,
     "calledBy": "The lead: a fresh one every round.",
-    "when": "A design Idea Run's references, a client's `Deep Dives`, `Research Library` notes.",
+    "when": "A design `Idea Run`'s references, a client's `Deep Dives`, `Research Library` notes.",
     "notes": [
      "Never reads `private/`: the lead passes client research inline, checked for client details, with its SHA-256."
     ],
@@ -646,8 +646,7 @@ window.ATLAS = {
        ],
        "note": "Model step `open.envelope-json`, action `lead.write-envelope-json`, in `docs/workflow/01-open/stage.yaml`.",
        "sources": [
-        "docs/guides/client-workflow.md:85-94",
-        "docs/guides/client-workflow.md:85-90"
+        "docs/guides/client-workflow.md:85-94"
        ]
       },
       {
@@ -2388,7 +2387,7 @@ window.ATLAS = {
        ],
        "note": "Model step `design.port-concept`, action `lead.port-concept`, in `docs/workflow/05-design/stage.yaml`.",
        "sources": [
-        "docs/framework-gaps.md:125-129",
+        "docs/framework-gaps.md:128-132",
         "docs/workflow/05-design/README.md:27-36",
         "archive/work-records/workflow-model/handoff.md:290"
        ]
@@ -2434,7 +2433,7 @@ window.ATLAS = {
        "note": "Model step `design.engine-change`, action `lead.change-engine`, in `docs/workflow/05-design/stage.yaml`.",
        "sources": [
         "docs/proposals/workflow-model.md:59",
-        "docs/framework-gaps.md:128"
+        "docs/framework-gaps.md:131"
        ]
       },
       {
@@ -2596,7 +2595,7 @@ window.ATLAS = {
        "id": "design.clear-review-input",
        "title": "Clear the previews from builds/",
        "actor": "lead",
-       "summary": "Deletes the builds/design-review-input-* folders by path, since they hold a real client's pages outside private/ (never git clean -x or -X).",
+       "summary": "Deletes the builds/design-review-input-* folders by path, with the page PNGs the design-reviewer rendered inside them, since they hold a real client's pages outside private/ (never git clean -x or -X).",
        "next": [],
        "in": [
         "A client design review report: `private/<envelope>/reviews/design-NN.md`"
@@ -2605,7 +2604,8 @@ window.ATLAS = {
        "sources": [
         "docs/workflow/05-design/README.md:49-50",
         ".claude/skills/new-cv/SKILL.md:54",
-        "docs/preferences.md:62-64"
+        "docs/preferences.md:62-64",
+        ".claude/agents/design-reviewer.md:46-48"
        ]
       },
       {
@@ -4037,7 +4037,7 @@ window.ATLAS = {
        "title": "Design concepts",
        "path": "studio/design-concepts/",
        "actor": "magazine-editor",
-       "blurb": "Every design Idea Run's Styles and Tiers, with a README row each (two Densities since the 2026-09-29 run)."
+       "blurb": "Every design `Idea Run`'s Styles and Tiers, with a README row each (two Densities since the 2026-09-29 run)."
       },
       {
        "id": "n-anti",
@@ -4426,22 +4426,28 @@ window.ATLAS = {
   }
  ],
  "build": {
-  "builtAt": "2026-10-14 12:10 UTC",
-  "commit": "2a238eb",
+  "builtAt": "2026-10-14 12:25 UTC",
+  "commit": "d60b191",
   "kit": "1.0",
-  "stale": {},
+  "stale": {
+   "system-map": [
+    "docs/pdf-workflow.md",
+    "docs/guides/build-a-cv.md",
+    "archive/work-records"
+   ]
+  },
   "verified": {
    "client-journey": {
     "at": "2026-10-14",
-    "commit": "2ada027"
+    "commit": "d60b191"
    },
    "design-run": {
     "at": "2026-10-14",
-    "commit": "2ada027"
+    "commit": "d60b191"
    },
    "change-review": {
     "at": "2026-10-14",
-    "commit": "2ada027"
+    "commit": "d60b191"
    },
    "system-map": {
     "at": "2026-10-14",
@@ -4449,7 +4455,7 @@ window.ATLAS = {
    },
    "roster": {
     "at": "2026-10-14",
-    "commit": "2ada027"
+    "commit": "d60b191"
    }
   }
  }

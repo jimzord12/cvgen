@@ -123,7 +123,7 @@
       "tools": "Read, Grep, Glob, WebSearch, WebFetch",
       "readOnly": true,
       "calledBy": "The lead: a fresh one every round.",
-      "when": "A design Idea Run's references, a client's `Deep Dives`, `Research Library` notes.",
+      "when": "A design `Idea Run`'s references, a client's `Deep Dives`, `Research Library` notes.",
       "notes": [
         "Never reads `private/`: the lead passes client research inline, checked for client details, with its SHA-256."
       ],

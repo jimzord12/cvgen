@@ -122,8 +122,7 @@
           ],
           "note": "Model step `open.envelope-json`, action `lead.write-envelope-json`, in `docs/workflow/01-open/stage.yaml`.",
           "sources": [
-            "docs/guides/client-workflow.md:85-94",
-            "docs/guides/client-workflow.md:85-90"
+            "docs/guides/client-workflow.md:85-94"
           ]
         },
         {
@@ -1864,7 +1863,7 @@
           ],
           "note": "Model step `design.port-concept`, action `lead.port-concept`, in `docs/workflow/05-design/stage.yaml`.",
           "sources": [
-            "docs/framework-gaps.md:125-129",
+            "docs/framework-gaps.md:128-132",
             "docs/workflow/05-design/README.md:27-36",
             "archive/work-records/workflow-model/handoff.md:290"
           ]
@@ -1910,7 +1909,7 @@
           "note": "Model step `design.engine-change`, action `lead.change-engine`, in `docs/workflow/05-design/stage.yaml`.",
           "sources": [
             "docs/proposals/workflow-model.md:59",
-            "docs/framework-gaps.md:128"
+            "docs/framework-gaps.md:131"
           ]
         },
         {
@@ -2072,7 +2071,7 @@
           "id": "design.clear-review-input",
           "title": "Clear the previews from builds/",
           "actor": "lead",
-          "summary": "Deletes the builds/design-review-input-* folders by path, since they hold a real client's pages outside private/ (never git clean -x or -X).",
+          "summary": "Deletes the builds/design-review-input-* folders by path, with the page PNGs the design-reviewer rendered inside them, since they hold a real client's pages outside private/ (never git clean -x or -X).",
           "next": [],
           "in": [
             "A client design review report: `private/<envelope>/reviews/design-NN.md`"
@@ -2081,7 +2080,8 @@
           "sources": [
             "docs/workflow/05-design/README.md:49-50",
             ".claude/skills/new-cv/SKILL.md:54",
-            "docs/preferences.md:62-64"
+            "docs/preferences.md:62-64",
+            ".claude/agents/design-reviewer.md:46-48"
           ]
         },
         {
