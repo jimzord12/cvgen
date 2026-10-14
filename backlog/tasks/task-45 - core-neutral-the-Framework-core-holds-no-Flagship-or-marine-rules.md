@@ -1,10 +1,10 @@
 ---
 id: TASK-45
 title: 'core-neutral: the Framework core holds no Flagship or marine rules'
-status: Active
+status: Done
 assignee: []
 created_date: '2026-10-14 04:47'
-updated_date: '2026-10-14 06:22'
+updated_date: '2026-10-14 06:40'
 labels:
   - restructure
 dependencies: []
@@ -60,3 +60,9 @@ Round 1 (code-reviewer, docs/work/core-neutral/reviews/01-code-reviewer.md): PAS
 - N1: run.py comment corrected; the theme-check split is the lead's follow-up task. N2: merged origin/main 7acccd8 (ed942c3; Atlas generated files taken from main, rebuilt). N3: no change.
 - Evidence after the merge: origin/main 7acccd8 suite PASS 98 (`builds/base-origin-main-7acccd8-tests-20261014-092007-432312`); branch 08cf1bd suite PASS 104 (`builds/tests-20261014-092049-058408`; +2 page-plan, +4 retired-key cases). Pixel comparison of every suite PDF at 144 dpi: 61 PDFs, 140 pages, 61 identical, 0 differ (workflow revisions paired by order, the deliberate `.partial-` export skipped). Atlas citation ranges into changed files (AGENTS.md:28-44, 35-44; new-theme SKILL.md:1-5) are unchanged from main.
 <!-- SECTION:NOTES:END -->
+
+## Final Summary
+
+<!-- SECTION:FINAL_SUMMARY:BEGIN -->
+Core is domain-neutral: closing-section page-plan rules moved to Flagship validate-plan; core pagination speaks the domain's row noun; the marine SVG palette moved to domain.art-palette carried by themes; the page shell reads its own layout slice shell (margin, band) and Flagship refuses the retired opening-margin and hero.band-height loudly; the boundary test now fails on domain/template words, foreign layout keys and colour literals. Two code-reviewer rounds (PASS, PASS) and two context-reviewer rounds (FINDINGS, PASS). Suite PASS 104 on the merged head (builds/tests-20261014-093706-397551 in the worktree); 61 suite PDFs and both private marine compositions pixel-identical to main. Follow-up TASK-59 (theme validation still Flagship-shaped).
+<!-- SECTION:FINAL_SUMMARY:END -->
