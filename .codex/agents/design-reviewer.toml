@@ -77,8 +77,8 @@ anything else you need.
 ## Look before you judge
 
 - Open every page PNG with the available image-inspection tool and look at it. If a PNG is missing or
-  stale, render the PDF yourself into `builds/design-review-<timestamp>/`
-  with pymupdf at 96 dpi and 200 dpi; write nowhere else.
+  stale, render it with pymupdf at 96 dpi and 200 dpi: a client's pages into
+  the `builds/design-review-input-<timestamp>/` folder you were given (the lead clears it), anything else into `builds/design-review-<timestamp>/`; write nowhere else.
 - **Batch sheets (CV pages only).** Set, in Typst, at least eight plain
   one-page CVs in the market's usual shapes (single column, two columns, a
   coloured sidebar, a timeline) with placeholder text, and render them once.

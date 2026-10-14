@@ -241,7 +241,7 @@ artifacts:
   # builds/ is ignored: neither tracked nor under private/ (GAPS.md).
   - id: art.page-png
     name: The page PNGs
-    sources: [".claude/skills/verify-cv/SKILL.md:65-76", ".claude/skills/new-cv/SKILL.md:62-64"]
+    sources: [".claude/skills/verify-cv/SKILL.md:65-76", ".claude/skills/new-cv/SKILL.md:62-64", "docs/workflow/06-deliver/README.md:31-34"]
     path: builds/<new-folder>/cv-p<N>.png
     format: PNG at 96 dpi
     visibility: ephemeral

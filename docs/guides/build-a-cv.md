@@ -166,7 +166,7 @@ never overwritten.
 **`outputs.py stamp`.** It refuses `delivered` without the revision's
 approval receipt and its verified `Export`, `approved` without the receipt
 (`cv.py approve` stamps `approved` itself), and `signed-off` without the
-`Sign-off` screenshot (`../pdf-workflow.md`, "Output Contract").
+`Sign-off` screenshot (owner's decision #8; `../pdf-workflow.md`, "Output Contract").
 
 **`status`** lists every revision with a one-word state, which is a
 listing, never a proof. Its words and the `Meta File`'s statuses map like

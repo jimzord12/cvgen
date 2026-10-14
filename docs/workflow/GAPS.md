@@ -10,8 +10,8 @@ nothing:
 - the owner's decisions wait in the pending proposal
   [`docs/proposals/workflow-gaps.md`](../proposals/workflow-gaps.md) (P-0018);
 - the model's open questions are in the notes of TASK-38 (workflow-check);
-- since TASK-43 the guides and skills describe no step, so no prose
-  can say otherwise; a guide's reference detail is cited where it helps.
+- since TASK-43 the guides and skills are meant to describe no step;
+  prose found to disagree with the model is fixed in the prose.
 
 It goes once those are settled.
 

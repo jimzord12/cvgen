@@ -39,7 +39,7 @@ steps:
 
   - id: open.envelope-json
     name: Write envelope.json
-    sources: ["docs/guides/client-workflow.md:85-94", "docs/guides/client-workflow.md:85-90"]
+    sources: ["docs/guides/client-workflow.md:85-94"]
     actor: actor.lead
     action: lead.write-envelope-json
     inputs: [art.envelope-readme, art.owner-request, art.glossary]
@@ -112,7 +112,7 @@ actions:
   - id: lead.write-envelope-json
     kind: lead
     name: Write envelope.json
-    sources: ["docs/guides/client-workflow.md:85-94", "docs/guides/client-workflow.md:85-90"]
+    sources: ["docs/guides/client-workflow.md:85-94"]
     does: >-
       Writes alias, domain (an id from the glossary's Domain row), candidate
       (the display name) and rank; every Meta File in the Envelope copies it

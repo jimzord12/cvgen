@@ -46,8 +46,8 @@
   Tier` and `Density` when there is one, and that the text is the
   signed-off text. Every report is stored verbatim in the `Envelope` as
   `reviews/design-NN.md`, never under `archive/work-records/`, and
-  `design.clear-review-input` deletes the previews by path when the loop
-  ends.
+  `design.clear-review-input` deletes them, with the reviewer's page PNGs
+  inside, by path when the loop ends.
 - **When to stop:** a fresh `design-reviewer` returns PASS, or the cap of
   `loop.client-design-review` (5 rounds while the owner attends, 10
   unattended, unless he sets another) is reached and the design goes to
@@ -321,7 +321,7 @@ flowchart TD
 | `cmd.stamp-concept-status` | cmd | Stamp a concept's new state | `python scripts/outputs.py stamp <pdf> status=<state>` |
 | `lead.change-engine` | lead | Change the engine | Makes the engine change the design needs on a branch, for the normal code-reviewer gate; the one-off's own assets stay in its Envelope. |
 | `lead.check-flagship-fit` | lead | Check the Flagship fit | Checks the data against the known Flagship gaps listed in docs/framework-gaps.md. |
-| `lead.clear-review-input` | lead | Clear the previews | Deletes the builds/design-review-input-* folders by path, since they hold a real client's pages outside private/ (never git clean -x or -X). |
+| `lead.clear-review-input` | lead | Clear the previews | Deletes the builds/design-review-input-* folders by path, with the page PNGs the design-reviewer rendered inside them, since they hold a real client's pages outside private/ (never git clean -x or -X). |
 | `lead.compile-previews` | lead | Compile the previews | Compiles typst/cv.typ into builds/design-review-input-<timestamp>/cv.pdf with the typst compile line in the new-cv skill, since the reviewer never reads private/. |
 | `lead.compose-by-hand` | lead | Compose by hand | Writes typst/cv.typ from the lib.typ components (core-components, flagship-components), with data the schema cannot hold in typst/presentation.json, every file read by a literal relative path. |
 | `lead.fix-design` | lead | Fix the design | Fixes the design on the findings and stores the report verbatim as reviews/design-NN.md before the next fresh round. |

@@ -181,7 +181,7 @@ future web backend:
   agent's quality judgment cannot grant approval.
 - `Export` reads the authoritative receipt from the revision, never
   recompiles, and never overwrites a different bundle or exposes a partial
-  copy. The receipt is internal and is not sent to the candidate; the
+  copy. The receipt stays internal; it need not be sent to the candidate; the
   future web backend checks the authoritative approval and exact stored
   bytes before making them available.
 - Editing the working candidate record starts a new revision; approval of

@@ -46,8 +46,8 @@
   `README.md` (`deliver.record-delete-by`, decisions #1 and #3), and named
   to the owner with any `Intake Form`, Sheet and script project to delete
   with it (`deliver.report-delete-by`). Sending is the owner's separate,
-  manual act (`deliver.send`): the exported `cv.pdf` only, never the
-  receipt. The `Revision` is stamped delivered only
+  manual act (`deliver.send`): the exported `cv.pdf`; the receipt stays
+  internal; it need not be sent. The `Revision` is stamped delivered only
   once the owner says he sent it (`deliver.stamp-delivered`).
 - **Done looks like this:** an exported, approved `Revision`, the
   delete-by line in `README.md`, and after sending, a delivered stamp.
