@@ -140,8 +140,8 @@ backs the change.
 ## Versioning of deliverables
 
 A `Release` PDF is named after its entry point (`engineer.pdf` beside
-`engineer.typ`) and carries its version in the `Title` of its `$examples`
-line in `scripts/build.ps1`, which becomes the `Meta File`'s `title`
+`engineer.typ`) and carries its version in the `title` of its entry in
+`examples/release.json`, which becomes the `Meta File`'s `title`
 (`Marine Engineer CV v12`). A release with visible changes raises that
 number; Git keeps the earlier bytes. Only a frozen reference keeps a
 versioned file name (`Marine-Engineer-CV-v11.pdf`).

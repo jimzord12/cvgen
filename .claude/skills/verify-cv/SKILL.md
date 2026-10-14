@@ -52,9 +52,11 @@ Requires Typst 0.15.1 on PATH and Python with `pymupdf`, `pillow` and `jsonschem
   `not in a home of the Output Contract` or `the root exports/ is
   retired`: a public PDF breaks the `Output Contract`
   (`docs/pdf-workflow.md`). Re-stamp a stale one (`python scripts/outputs.py
-  stamp <pdf>`; for the `Release`, `./scripts/build.ps1 -Release`); a concept
-  with no `Meta File` yet needs the full command in
-  `design-concepts/README.md`, or move a stray PDF into its home or under `builds/`.
+  stamp <pdf>`; replacing the `Release` itself is `./scripts/build.ps1
+  -ReplaceRelease`, only with the owner's go, `docs/preferences.md`); a
+  concept with no `Meta File` yet needs the full command in
+  `design-concepts/README.md`, or move a stray PDF into its home or under
+  `builds/`.
   `python scripts/outputs.py check` lists the same without the suite.
 
 ## Visual evidence for a visual change

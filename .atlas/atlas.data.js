@@ -40,7 +40,7 @@ window.ATLAS = {
      "Everything routine (commits, merges to `main`, task-store updates) is the agents' job."
     ],
     "sources": [
-     "docs/preferences.md:49-80",
+     "docs/preferences.md:49-81",
      "docs/guides/client-workflow.md:9-10"
     ],
     "short": "You"
@@ -397,7 +397,7 @@ window.ATLAS = {
     "label": "tests/run.py",
     "kind": "tool",
     "file": "tests/run.py",
-    "role": "The full test suite: compiles every example, checks the `Frozen Reference` pixel for pixel, the workflow, the contract. Evidence goes to `builds/tests-<timestamp>/`.",
+    "role": "The full test suite: compiles every example in `examples/release.json`, runs `build.ps1` in a throwaway copy, checks the `Frozen Reference` pixel for pixel, the workflow, the contract. Evidence goes to `builds/tests-<timestamp>/`.",
     "sources": [
      "tests/run.py",
      "docs/reference/verification.md"
@@ -421,9 +421,11 @@ window.ATLAS = {
     "label": "scripts/build.ps1",
     "kind": "tool",
     "file": "scripts/build.ps1",
-    "role": "Builds the five public examples into `builds/`; with `-Release` it copies them beside their entry points and stamps them.",
+    "role": "Builds the public examples listed in `examples/release.json` (the list the suite also reads) into `builds/`; with `-Release` it copies them beside their entry points and stamps them, refusing while a `Release` exists; `-ReplaceRelease` (the owner's go) replaces it.",
     "sources": [
-     "scripts/build.ps1"
+     "scripts/build.ps1",
+     "examples/release.json",
+     "docs/pdf-workflow.md:207-215"
     ]
    },
    "intake-form": {
@@ -459,7 +461,7 @@ window.ATLAS = {
    "github-ci": {
     "label": "GitHub CI",
     "kind": "service",
-    "role": "Runs the suite once per push (its head commit) on any branch, on Linux and Windows (Typst 0.15.1, checksummed; Windows also runs `scripts/build.ps1`); a newer push to a feature branch cancels the older run. The lead watches it on `main` before calling work Done.",
+    "role": "Runs the suite once per push (its head commit) on any branch, on Linux and Windows (Typst 0.15.1, checksummed; the suite drives `scripts/build.ps1` in a throwaway copy on both, and Windows also builds the examples with it); a newer push to a feature branch cancels the older run. The lead watches it on `main` before calling work Done.",
     "sources": [
      ".github/workflows/verify.yml",
      "docs/git-workflow.md:90-103"
@@ -897,7 +899,7 @@ window.ATLAS = {
        ],
        "sources": [
         "docs/guides/client-workflow.md:287-297",
-        ".claude/skills/new-cv/SKILL.md:62-66"
+        ".claude/skills/new-cv/SKILL.md:64-68"
        ]
       },
       {
@@ -951,7 +953,7 @@ window.ATLAS = {
        ],
        "sources": [
         ".claude/skills/new-cv/SKILL.md:12-15",
-        ".claude/skills/new-cv/SKILL.md:67-85",
+        ".claude/skills/new-cv/SKILL.md:69-87",
         "docs/guides/build-a-cv.md:37-68"
        ]
       }
@@ -986,7 +988,7 @@ window.ATLAS = {
        ],
        "sources": [
         "docs/guides/build-a-cv.md:117-151",
-        ".claude/skills/new-cv/SKILL.md:105-115"
+        ".claude/skills/new-cv/SKILL.md:107-117"
        ]
       },
       {
@@ -1079,7 +1081,7 @@ window.ATLAS = {
        },
        "sources": [
         "docs/guides/client-workflow.md:299-328",
-        "docs/preferences.md:69-80"
+        "docs/preferences.md:69-81"
        ]
       }
      ]
@@ -1612,7 +1614,7 @@ window.ATLAS = {
        "note": "Yours only, with the exact command shown first, including: deleting or force-pushing `main`, rewriting its published history, rewriting the private repo's history (the delete-by erase, which you run), `archive/*` tags, repo settings (public and private repo), deleting under `private/` or `.local/` or outside the repo, removing revisions, approvals, exports or portraits, replacing the `Release`.",
        "sources": [
         "docs/git-workflow.md:90-103",
-        "docs/preferences.md:52-80",
+        "docs/preferences.md:52-81",
         ".github/workflows/verify.yml"
        ]
       }
@@ -1668,7 +1670,7 @@ window.ATLAS = {
        },
        "sources": [
         "docs/preferences.md:49-51",
-        "docs/preferences.md:86"
+        "docs/preferences.md:87"
        ]
       }
      ]
@@ -1834,7 +1836,7 @@ window.ATLAS = {
        "title": "build.ps1",
        "path": "scripts/build.ps1",
        "actor": "build-ps1",
-       "blurb": "Builds the five examples; `-Release` writes the `Release`."
+       "blurb": "Builds the listed examples; `-Release` writes a new `Release`, `-ReplaceRelease` (owner's go) replaces one."
       }
      ]
     },
@@ -2267,30 +2269,30 @@ window.ATLAS = {
   }
  ],
  "build": {
-  "builtAt": "2026-10-14 06:59 UTC",
-  "commit": "fce15fe",
+  "builtAt": "2026-10-14 07:03 UTC",
+  "commit": "575fd07",
   "kit": "1.0",
   "stale": {},
   "verified": {
    "client-journey": {
     "at": "2026-10-14",
-    "commit": "fce15fe"
+    "commit": "575fd07"
    },
    "design-run": {
     "at": "2026-10-14",
-    "commit": "fce15fe"
+    "commit": "575fd07"
    },
    "change-review": {
     "at": "2026-10-14",
-    "commit": "fce15fe"
+    "commit": "575fd07"
    },
    "system-map": {
     "at": "2026-10-14",
-    "commit": "fce15fe"
+    "commit": "575fd07"
    },
    "roster": {
     "at": "2026-10-14",
-    "commit": "fce15fe"
+    "commit": "575fd07"
    }
   }
  }

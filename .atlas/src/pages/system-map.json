@@ -157,7 +157,7 @@
           "title": "build.ps1",
           "path": "scripts/build.ps1",
           "actor": "build-ps1",
-          "blurb": "Builds the five examples; `-Release` writes the `Release`."
+          "blurb": "Builds the listed examples; `-Release` writes a new `Release`, `-ReplaceRelease` (owner's go) replaces one."
         }
       ]
     },

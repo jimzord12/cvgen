@@ -38,7 +38,8 @@ then from the repository root:
 ./scripts/build.ps1
 ```
 
-Five PDFs land in a new `builds/library-<timestamp>/` folder. No Python,
+One PDF per example listed in `examples/release.json` lands in a new
+`builds/library-<timestamp>/` folder. No Python,
 Node or online service is needed to build a CV. All fonts are bundled.
 
 An example entry point is eight lines:

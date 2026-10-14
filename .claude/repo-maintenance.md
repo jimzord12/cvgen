@@ -36,7 +36,7 @@ protected:
   - "packages/domains/marine/templates/flagship/tests/approved/**"   # the Frozen Reference
   - tests/baseline.json                                              # hash manifest of frozen references
   - "archive/**"                                                     # frozen design studies and Anti-examples
-  - "examples/**/*.pdf"                                              # the Release: replaced only by build.ps1 -Release with the owner's go
+  - "examples/**/*.pdf"                                              # the Release: replaced only by build.ps1 -ReplaceRelease, the owner's go
   - "examples/**/*.meta.json"                                        # its Meta Files (Output Contract)
   - "design-concepts/**/*.meta.json"                                 # stamped by scripts/outputs.py, never by hand
   - "docs/work/**/reviews/**"                                        # independent review reports are records

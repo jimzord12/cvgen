@@ -25,11 +25,13 @@ fitting the page.
   revision's `Meta File` from `envelope.json` (write it first if the client
   workflow did not; `docs/guides/build-a-cv.md` section 1). Never under `examples/`.
 - New public example: fictional data under `examples/candidates/<name>-example.json`,
-  entry under `examples/marine/flagship/<name>.typ`, a line in `$examples`
-  in `scripts/build.ps1` (with its `Title` and `Variant`) and the compile
-  list in `tests/run.py`. Adding it to the `Release` (`./scripts/build.ps1
-  -Release`, which writes `<name>.pdf` and its `Meta File` beside the entry)
-  replaces the other `Release` PDFs too, so it needs the owner's go
+  entry under `examples/marine/flagship/<name>.typ`, an entry in
+  `examples/release.json` (with its `title` and `variant`; `scripts/build.ps1`
+  and `tests/run.py` both read it, and the suite fails on an entry point
+  missing there), and its own assertions in `tests/run.py`. Adding it to
+  the `Release` (`./scripts/build.ps1 -ReplaceRelease`, which writes
+  `<name>.pdf` and its `Meta File` beside the entry) replaces the other
+  `Release` PDFs too, so it needs the owner's go
   (`docs/git-workflow.md`, "Releasing a new render").
 
 ## Steps

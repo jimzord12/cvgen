@@ -215,7 +215,14 @@ They are not part of a general `builds/` cleanup.
 
 The public fictional gallery is the `Release` beside its entry points in
 `examples/` (the root `exports/` was retired on 2026-09-30); candidate
-exports stay in `private/`. A template's `tests/approved/` protects its design against unintended
+exports stay in `private/`. `examples/release.json` lists its examples
+for both `scripts/build.ps1` and the suite. `build.ps1 -Release` writes
+the `Release` only while no listed example has one: a single existing
+`Release` PDF makes it refuse the whole run before it builds anything, so
+adding an example to an existing `Release` also needs `-ReplaceRelease`.
+`-ReplaceRelease` replaces the `Release`, and only the owner gives that go
+(constitution section 2, `docs/preferences.md`).
+A template's `tests/approved/` protects its design against unintended
 changes; a candidate's approval sidecar records authorization to deliver that PDF.
 
 ADR 0010 approves a change to output locations: candidate runs use fresh

@@ -116,7 +116,8 @@ A new domain is done when every line below is true:
    rule below.
 4. `examples/<domain>/<design>/<name>.typ` compiles with `--root .`.
 5. `tests/run.py` compiles every new example (`compile_case`) and asserts
-   its page count; `scripts/build.ps1` lists it in `$examples`.
+   its page count; `examples/release.json` lists it, for `scripts/build.ps1`
+   and the suite.
 6. Once the owner approves the first render: the frozen PDF goes to the
    template's `tests/approved/`, the example is compared against it in
    `tests/run.py`, and the reviewed SVGs, fonts and example record are
