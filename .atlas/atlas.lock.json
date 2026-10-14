@@ -94,16 +94,16 @@
    "verifiedAt": "2026-10-14"
   },
   "system-map": {
-   "commit": "4183e46",
+   "commit": "58775fc",
    "sources": {
     ".claude/agents": "dir1:4f4154394888bb9d69a0ed790d8f4b484a790fdd",
     ".claude/skills": "dir1:5eeafda0c9ef9a6037a3fcc2879f73f098fa3e55",
     ".claude/skills/backlog/SKILL.md": "24c2914e3331741a0d013d29cfd4ce2adfc8015e",
     ".github/workflows/verify.yml": "100de5fc82ad3ce2e740a3036892d3886ffa6384",
-    "AGENTS.md": "21d6c06a3527bdf6dd2ad6ce0265e0c6f9ad5476",
+    "AGENTS.md": "517f22a905af52c4c94a8be132a6b80b9ba136c2",
     "archive/anti-examples": "dir1:dacb2a2e30bc6a5d49178d2bcbf382c4de52a88c",
     "archive/design-studies": "dir1:3934f2dbb33587fa8b485e7b99d2b37fa3784798",
-    "archive/work-records": "dir1:06b717a84d7896051867b3553cb98e11df908400",
+    "archive/work-records": "dir1:02c90bb6f1b4caa5273445b85b115641e200dd4e",
     "brand": "dir1:c556e0f8d17363d5e9ddc92e7142a253a16d1be2",
     "design-concepts": "dir1:d3bd60991a5441279a325e9aa73ea4e20ad7f1c7",
     "docs": "dir1:139adff443cb7a07dd0d5fae04941c8c0785eb30",
