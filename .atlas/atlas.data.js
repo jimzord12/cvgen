@@ -390,14 +390,14 @@ window.ATLAS = {
     "role": "The `Output Contract` tool: `stamp` writes a PDF's `Meta File`; `check` lists every PDF without a valid one.",
     "sources": [
      "scripts/outputs.py",
-     "docs/pdf-workflow.md:123-165"
+     "docs/pdf-workflow.md:123-167"
     ]
    },
    "suite": {
     "label": "tests/run.py",
     "kind": "tool",
     "file": "tests/run.py",
-    "role": "The full test suite: compiles every example in `examples/release.json`, runs `build.ps1` in a throwaway copy, checks the `Frozen Reference` pixel for pixel, the workflow, the contract. Evidence goes to `builds/tests-<timestamp>/`.",
+    "role": "The full test suite: compiles every example in `examples/release.json`, runs `build.ps1` in a throwaway copy, checks the `Frozen Reference` pixel for pixel, the workflow, the contract, and the `Workflow Model` (checked, then run by a fictional client through the real scripts). Evidence goes to `builds/tests-<timestamp>/`.",
     "sources": [
      "tests/run.py",
      "docs/engine/verification.md"
@@ -425,7 +425,7 @@ window.ATLAS = {
     "sources": [
      "scripts/build.ps1",
      "examples/release.json",
-     "docs/pdf-workflow.md:216-224"
+     "docs/pdf-workflow.md:218-226"
     ]
    },
    "intake-form": {
@@ -870,7 +870,7 @@ window.ATLAS = {
        "sources": [
         "docs/guides/client-workflow.md:26",
         "docs/guides/client-workflow.md:294-308",
-        "docs/pdf-workflow.md:144-150",
+        "docs/pdf-workflow.md:146-152",
         "docs/glossary.md"
        ]
       }
@@ -1016,7 +1016,7 @@ window.ATLAS = {
        ],
        "sources": [
         "docs/guides/build-a-cv.md:180-187",
-        "docs/pdf-workflow.md:175-179"
+        "docs/pdf-workflow.md:177-181"
        ]
       },
       {
@@ -1039,7 +1039,7 @@ window.ATLAS = {
        ],
        "sources": [
         "docs/guides/build-a-cv.md:189-207",
-        "docs/pdf-workflow.md:180-191"
+        "docs/pdf-workflow.md:182-193"
        ]
       },
       {
@@ -2275,30 +2275,30 @@ window.ATLAS = {
   }
  ],
  "build": {
-  "builtAt": "2026-10-14 10:29 UTC",
-  "commit": "beb2eed",
+  "builtAt": "2026-10-14 11:02 UTC",
+  "commit": "7b9722c",
   "kit": "1.0",
   "stale": {},
   "verified": {
    "client-journey": {
     "at": "2026-10-14",
-    "commit": "414a38e"
+    "commit": "ce6fe1f"
    },
    "design-run": {
     "at": "2026-10-14",
-    "commit": "3eafcb7"
+    "commit": "ce6fe1f"
    },
    "change-review": {
     "at": "2026-10-14",
-    "commit": "3eafcb7"
+    "commit": "ce6fe1f"
    },
    "system-map": {
     "at": "2026-10-14",
-    "commit": "beb2eed"
+    "commit": "7b9722c"
    },
    "roster": {
     "at": "2026-10-14",
-    "commit": "20a96cb"
+    "commit": "0db3ba7"
    }
   }
  }

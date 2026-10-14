@@ -140,7 +140,9 @@ without a valid, current `Meta File` shows up as a problem, never silently.
   passes its `kind`, `kind=house-design` for a proposed `House Design`),
   copies `alias`, `domain`, `candidate` and `rank` from the client's
   `envelope.json`, keeps an earlier `Meta File`'s other fields, and refuses a
-  PDF outside a home.
+  PDF outside a home. `--root <folder>` reads the homes from that folder
+  instead of the repository; only the workflow tool's fictional run uses it,
+  for its `Envelope` under `builds/`.
 - It also refuses a status that records an owner's act without its proof on
   disk (decision #8, `proposals/workflow-model.md`): `approved` without the
   revision's `cv.approval.json` for exactly these bytes; `delivered` without
