@@ -4,7 +4,7 @@ title: 'workflow-facts: the client journey encoded as YAML'
 status: Active
 assignee: []
 created_date: '2026-10-14 04:47'
-updated_date: '2026-10-14 08:59'
+updated_date: '2026-10-14 09:06'
 labels:
   - workflow-model
 dependencies:
@@ -45,4 +45,6 @@ Implicit steps named: research.decisions-update, design.port-concept, after.keep
 Checks: `bun run check` OK on all eight files; `bun test` 24 pass; `python tests/run.py` PASS (builds/tests-20261014-114524-436513); `python .atlas/_kit/atlas.py check --strict` all ok, nothing to stamp.
 
 ## Review round 1 (context-reviewer): FINDINGS, 5 Material. Report docs/work/workflow-facts/reviews/01-context-reviewer.md; all fixed per the lead dispositions: placeholder loops say "(placeholder cap)" and cite docs/workflow/GAPS.md; merged main (TASK-58) and re-anchored (drift check in builds/task-37-refs/check_refs.py); erase steps also serve stalled or no-consent clients; owner questions are pending proposal P-0018 (docs/proposals/workflow-gaps.md), model items in TASK-38 notes, prose items in TASK-43 notes; glossary Workflow Model row updated; stage id text renamed text-draft; minors 6, 8, 9 and the Note fixed. Counts now: 7 stages, 104 steps, 100 artifacts, 90 actions, 8 actors, 16 gates, 11 loops, 683 anchors; 0 unresolved. Suite PASS builds/tests-20261014-115750-968024.
+
+Review round 2 (context-reviewer): FINDINGS, 1 Material (P-0018 item 1 recommended values the YAML does not hold); fixed by the lead: item 1 split into 1a (keep as held), 1b (research rounds stay 3, the owner decides at the cap for an executive) and 1c (owner changes cap 5 as a check-in). GAPS.md now names main at 362f004. Notes 3 and 4 moved to TASK-38's notes.
 <!-- SECTION:NOTES:END -->

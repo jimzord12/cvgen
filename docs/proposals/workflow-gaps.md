@@ -15,7 +15,7 @@ placeholder and inference the YAML holds.
 
 ## Problem
 
-The guides, skills and code are silent on seven points the model needs.
+The guides, skills and code are silent on nine points the model needs.
 The YAML holds a placeholder or an inference for each, marked as such, so
 nothing renders as a fact the owner never decided.
 
@@ -26,7 +26,9 @@ answer and cites this proposal; the prose follows in TASK-43.
 
 | # | Decision requested | Recommendation | How to undo |
 |---|---|---|---|
-| 1 | Round caps for six loops no source caps: draft corrections, research rounds, library-note review, a failing render, example wording, the owner's own changes (`GAPS.md`, "Placeholder loop caps") | Keep what the YAML holds: one corrected `Text Draft` (the "one batch per round" rule), then the owner decides; research rounds 3, or 6 for an executive aiming at named companies (as the `Deep Dive` count); 5 attended and 10 unattended for the library review, the render and the wording fixes (the review cap); no cap on the owner's own change rounds, checked in with him after 5 | Change the cap in the stage's YAML; nothing else reads it |
+| 1a | Caps for four loops no source caps: draft corrections, library-note review, a failing render, example wording (`GAPS.md`, "Placeholder loop caps") | Keep what the YAML holds: one corrected `Text Draft` (the "one batch per round" rule), then the owner decides; 5 attended and 10 unattended for the library review, the render and the wording fixes (the general review cap) | Change the cap in the stage's YAML; nothing else reads it |
+| 1b | Research rounds: no source caps them; a client has 0-3 `Deep Dive`s, an executive aiming at named companies up to 6 (a `Deep Dive` count, not a round count) | Keep the YAML's cap of 3 rounds for everyone (several `Deep Dive`s can run in one round); reaching it goes to `research.cap-reached`, where the owner decides whether an executive gets more. No second cap is encoded | Change `loop.research-rounds`' cap |
+| 1c | The owner's own change rounds on a CV: no source caps them | Keep the YAML's cap of 5 as a check-in, not a stop: reaching it goes to `deliver.cap-reached`, where he decides whether to go on | Change `loop.owner-changes`' cap |
 | 2 | A client who gives no consent: how often to ask again | Ask once more, then stop; a stopped client waits for the stall check and the owner's word to delete | Edit `intake.no-consent` |
 | 3 | A second follow-up after the one batch | Only on the owner's word, and at most one | Edit `lead.update-facts` |
 | 4 | The client's Backlog.md task: when it is created and what it is called | At `open.task-create`, once the `Alias` exists, titled `<Alias>: CV`, closed by `after.close` | Move or rename the step |
