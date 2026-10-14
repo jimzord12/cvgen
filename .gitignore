@@ -29,7 +29,3 @@ Thumbs.db
 # (Output Contract, 2026-09-30): a PDF left there shows in git status and
 # fails the suite until it is deleted.
 previews/
-
-# Night Shift: its working files stay local; the history of nights is committed.
-.night-shift/*
-!.night-shift/history/
