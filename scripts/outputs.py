@@ -1,6 +1,6 @@
 """Output Contract tool: stamp a PDF's Meta File, or check that every PDF has a valid one.
 
-    python scripts/outputs.py stamp <pdf> status=proposed [key=value ...]
+    python scripts/outputs.py stamp <pdf> status=proposed [key=value ...] [--root <folder>]
     python scripts/outputs.py check [--private]
 
 `stamp` computes pages, SHA-256 and the date, fills what the PDF's place and
@@ -27,6 +27,9 @@ def main(argv=None):
     s = sub.add_parser('stamp')
     s.add_argument('pdf', type=Path)
     s.add_argument('fields', nargs='*', help='key=value (pages=2 and similar numbers are read as numbers)')
+    s.add_argument('--root', type=Path, default=ROOT,
+                   help='the folder whose private/ holds the Envelope (default: this repository); the workflow '
+                        'tool\'s fictional run (bun run reality) points it at its copy under builds/')
     c = sub.add_parser('check')
     c.add_argument('--private', action='store_true', help='also check the client homes under private/')
     args = parser.parse_args(argv)
@@ -38,7 +41,7 @@ def main(argv=None):
                 parser.error(f'{pair!r} is not key=value')
             fields[key] = int(value) if value.isdigit() and key == 'pages' else value
         try:
-            meta = stamp(args.pdf, fields)
+            meta = stamp(args.pdf, fields, root=args.root.resolve())
         except WorkflowError as error:
             print(f'REFUSED: {error}', file=sys.stderr)
             return 2

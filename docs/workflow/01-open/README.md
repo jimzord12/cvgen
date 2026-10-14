@@ -12,6 +12,55 @@
 
 <!-- generated:end summary -->
 
+## Judgement
+
+This stage is short and has one path, but its mistakes are the expensive
+kind: a real name that leaks into a public file stays in Git history.
+
+- **The folder name is client data.** `open.envelope` names the folder
+  after the person and the `Rank`; `open.alias` gives the `Alias`, and from
+  then on the `Alias` is the only name that leaves `private/`: task titles,
+  commit messages, briefs to agents, review reports.
+- **`envelope.json` now, not later.** `open.envelope-json` writes it before
+  any question is sent, because every later `Meta File` copies it (the
+  `Text Draft` stamp in `text-draft.draft-compile`, every `Revision`).
+- **The `Domain` id comes from the glossary.** `envelope.json` takes an id
+  from the glossary's `Domain` row (`art.glossary`), even for a `Domain`
+  with no package yet (a tour guide is `travel`). A `Domain` the glossary
+  lacks gets its id there first, as the glossary's `Domain` row says; never
+  invent one in the `Envelope`.
+- **Done looks like this:** the `Drawer`s exist, `README.md` starts with
+  the `Alias` and the intake date, `envelope.json` is valid, and the
+  `Client`'s task exists in `backlog/` under the `Alias`. Then `intake`
+  starts.
+
+## Branches
+
+None. The owner's word starts the stage (`open.arrives`) and the steps run
+in order. When the task is created and what it is titled are inferences
+(`open.task-create`; [`GAPS.md`](../GAPS.md), "Inferences"), waiting for
+the owner in [P-0018](../../proposals/workflow-gaps.md) item 4.
+
+## Common mistakes
+
+- Opening the `Envelope` under `examples/` or `builds/`: it lives only
+  under `private/`, the one `Envelope` tree.
+- Committing `Envelope` files to this repository. `private/` is its own
+  private repository; client work is committed from inside it, with the
+  `Alias` in the message (`AGENTS.md`, "Where things are").
+- Naming the person in the task title or a commit message in the public
+  repository.
+- Writing `envelope.json` after the first draft: the draft's stamp then
+  has nothing to copy and refuses.
+
+## Where the detail lives until TASK-43
+
+- `docs/guides/client-workflow.md` section 1: the `Envelope` tree, which
+  that section owns, and an example `envelope.json`.
+- The `new-client` skill, step 1.
+
+## Diagram
+
 <!-- generated:start diagram -->
 
 ```mermaid
@@ -30,6 +79,8 @@ flowchart TD
 
 <!-- generated:end diagram -->
 
+## Steps
+
 <!-- generated:start steps -->
 
 | ID | Name | Actor | Action | Inputs | Outputs | Gate | When |
@@ -42,17 +93,23 @@ flowchart TD
 
 <!-- generated:end steps -->
 
+## Gates
+
 <!-- generated:start gates -->
 
 No gates in this stage.
 
 <!-- generated:end gates -->
 
+## Loops
+
 <!-- generated:start loops -->
 
 No loops in this stage.
 
 <!-- generated:end loops -->
+
+## Artifacts
 
 <!-- generated:start artifacts -->
 
@@ -67,6 +124,8 @@ No loops in this stage.
 | `art.owner-request` | The owner's "new client" in the session |  | ephemeral | `open.arrives` |
 
 <!-- generated:end artifacts -->
+
+## Actions
 
 <!-- generated:start actions -->
 

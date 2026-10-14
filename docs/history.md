@@ -324,16 +324,50 @@ the suite's `workflow-model` case run `bun run render --check`, which fails
 when a README differs from what the model renders to. Each diagram is
 checked against the small Mermaid subset the tool writes.
 
+## 2026-10-14 — The Workflow Model run for real (level 3)
+
+TASK-42 added level 3 to the workflow tool: `bun run reality` walks the
+model with a fictional client in a temporary `Envelope` under `builds/`,
+every `cmd` step on its path through the real `scripts/cv.py`,
+`scripts/outputs.py`, Typst and `python -c` checks, every other step a
+labelled stand-in, and fails naming the step when a declared artifact is
+missing or invalid. The suite runs it, plus three model copies that must
+fail: an output name the script does not write; an export that no
+longer waits for the approval (the real `cv.py export` refuses it); and a
+re-stamp that leaves its `Meta File` byte for byte unchanged.
+`bun run envelope <folder>` walks a real `Envelope` read-only. The runner
+lives in `tools/workflow/` beside the model graph it reuses;
+`outputs.py stamp` gained `--root`, so the run can stamp an `Envelope`
+outside the repository's `private/`. Every command path the model declares matched the
+scripts; the three things the YAML does not say are in `docs/workflow/GAPS.md`.
+
+## 2026-10-14 — the workflow READMEs get their prose
+
+TASK-40 wrote the hand-written half of the `Workflow Model`'s READMEs,
+outside the generated blocks. `docs/workflow/README.md` (about 250 lines,
+the owner's 200-300) says what the journey is for, how to read the folder,
+the main branches by gate, who decides what, where the placeholders are,
+and which guide sections still hold the detail until TASK-43. Each stage's
+README adds its judgement (when to stop, what good looks like), its
+branches in words with their IDs, and its common mistakes; the generated
+blocks got section headings. One model fix came with it:
+`gate.template-exists` passed straight into `design.fill-data`, so the
+no-`Template` path read as if `candidate.json` were never written. It now
+passes to `design.flagship-fit`, and `design.fill-data` follows the
+`Sign-off` on every path.
+
 ## 2026-10-14 — the Atlas client journey is generated from the model
 
 TASK-41 added `bun run atlas` to the workflow tool: it writes the `Atlas`
 page `.atlas/src/pages/client-journey.json` from the `Workflow Model`, in
 the format the existing kit already builds (ADR 0015; the kit was not
-ported). The hand-written page (22 steps, 2026-10-04) is gone; the new one
+ported). The hand-written page (20 steps, 2026-10-04) is gone; the new one
 has one phase per stage and one step per model step (104), each citing the
 model step's own source anchors, with gates as branches, loops drawn on the
 step that goes back, and arrows derived from the data. Writing a changed
-page also stamps it, so no one stamps it by hand after a model change. CI
+page also stamps it, so no one stamps it by hand after a model change,
+unless a file it cites changed since its last stamp: then the model's
+anchors are checked first and the page is stamped by hand. CI
 and the suite's `workflow-model` case run `bun run atlas --check`. What the
 old page said and the model does not is listed in `docs/workflow/GAPS.md`;
 its "where it stands" panel for one client was out of date and was dropped.

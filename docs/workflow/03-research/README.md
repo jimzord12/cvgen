@@ -12,6 +12,85 @@
 
 <!-- generated:end summary -->
 
+## Judgement
+
+- **Facts are sourced or absent.** `research.facts` writes each fact with
+  the message or document it came from. Nothing is invented, and a
+  calendar period is never turned into service time (constitution section
+  6). What is missing goes in the gap list and waits: asking now would
+  spend the one follow-up early.
+- **Library first, then the web.** `research.library-read` comes before
+  `research.scout`; a note past its "Recheck after" date is rechecked
+  (`research.library-recheck`) before the `Scout` leans on it. No search
+  ever carries the `Client`'s name or a combination that identifies him
+  (his employer with his `Rank` and dates); search for the kind of person,
+  never the person.
+- **Every decision gets an answer, a judgement or "open".**
+  `research.decisions` writes one line per choice the CV must make, and
+  shows the owner the open ones with a recommendation each. The owner, not
+  the lead, picks which get a `Deep Dive` (`research.pick-deep-dives`).
+- **When to stop** (`gate.research-enough`): every `CV Decisions` line has
+  a sourced answer or a stated judgement. A new source that changes no
+  decision is the signal to stop; running out of sources is not the test.
+- **What a `Deep Dive` may hold.** The author gets the `Alias` only, never
+  the `Envelope` path (`research.dive-brief`), and returns text, not files.
+  `research.dive-save` checks it for client details before any reviewer
+  sees it; the reviewer gets the text inline with its SHA-256, because it
+  never reads `private/`. The same author revises (`research.dive-revise`);
+  each review round is a fresh reviewer.
+- **What goes public.** A finding about a country, a `Domain` or a `Rank`,
+  with nothing about the `Client`, also becomes a `Research Library` note
+  (`research.library-note`), written free of client detail first and
+  reviewed on its own text. A finding about one employer stays in the
+  `Envelope` until a second `Client` targets the same employer.
+- **The one follow-up** (`research.follow-up-write`) is the gap list plus
+  the questions research raised, in one batch, within the size limits the
+  guide sets for a chat message or a form. Whatever is still missing after
+  it is left out of the CV or marked not supplied (`research.facts-update`).
+
+## Branches
+
+- **No `Deep Dive` chosen** (`gate.deep-dives-chosen` fails): straight to
+  the follow-up. No `Deep Dive` is a normal answer.
+- **A `Deep Dive` with findings** (`gate.deep-dive-review` fails): the same
+  author revises and a fresh reviewer checks again, up to the cap of
+  `loop.deep-dive-review`; at the cap it reaches the owner marked
+  unresolved (`research.cap-reached`).
+- **Research not yet enough** (`gate.research-enough` fails): back to the
+  owner for more `Deep Dive`s (`loop.research-rounds`, a placeholder cap;
+  [P-0018](../../proposals/workflow-gaps.md) item 1b).
+- **A library note** runs its own review loop (`gate.library-review`,
+  `loop.library-review`, a placeholder cap) and is committed to the public
+  repository on PASS (`research.library-commit`).
+- **The follow-up as an `Intake Form`**: `research.follow-up-form-script`
+  writes the script; the owner then makes, themes and sends it as in
+  `intake`.
+- **The `Client` never answers the follow-up.** No step models it:
+  `research.facts-update` waits for the answers. Three months after the
+  intake date, `after.stall-check` names the `Client` to the owner. A
+  second follow-up is only the owner's call (`lead.update-facts`;
+  [P-0018](../../proposals/workflow-gaps.md) item 3 recommends at most
+  one).
+
+## Common mistakes
+
+- Sending the gap list straight after intake, then asking again after
+  research: the `Client` is asked twice.
+- Putting the `Envelope` path, the name or an identifying detail in an
+  agent brief, a web search or a library note.
+- Researching on after every decision is settled.
+- Treating the caps of `loop.research-rounds` and `loop.library-review` as
+  the owner's numbers: they are placeholders ([`GAPS.md`](../GAPS.md)).
+
+## Where the detail lives until TASK-43
+
+- `docs/guides/client-workflow.md` sections 3-7 and "Rules": the
+  decisions table, the `Deep Dive` counts, the follow-up's limits.
+- The `new-client` skill, steps 3-7, and its brief for a `Scout` or
+  `Deep Dive` agent; `docs/research/README.md` for library notes.
+
+## Diagram
+
 <!-- generated:start diagram -->
 
 ```mermaid
@@ -83,6 +162,8 @@ flowchart TD
 
 <!-- generated:end diagram -->
 
+## Steps
+
 <!-- generated:start steps -->
 
 | ID | Name | Actor | Action | Inputs | Outputs | Gate | When |
@@ -113,6 +194,8 @@ flowchart TD
 
 <!-- generated:end steps -->
 
+## Gates
+
 <!-- generated:start gates -->
 
 | ID | Name | Checked by | Check | Pass | Fail |
@@ -124,6 +207,8 @@ flowchart TD
 
 <!-- generated:end gates -->
 
+## Loops
+
 <!-- generated:start loops -->
 
 | ID | Name | Gate | Cap | At the cap |
@@ -133,6 +218,8 @@ flowchart TD
 | `loop.research-rounds` | More Deep Dives until research is enough (placeholder cap) | `gate.research-enough` | 3 attended, **placeholder** ([GAPS.md](../GAPS.md)) | `research.cap-reached` |
 
 <!-- generated:end loops -->
+
+## Artifacts
 
 <!-- generated:start artifacts -->
 
@@ -163,6 +250,8 @@ flowchart TD
 | `art.scout-md` | The Scout's findings | `private/<envelope>/research/scout.md` | private | `research.scout` |
 
 <!-- generated:end artifacts -->
+
+## Actions
 
 <!-- generated:start actions -->
 

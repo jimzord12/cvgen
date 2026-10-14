@@ -390,14 +390,14 @@ window.ATLAS = {
     "role": "The `Output Contract` tool: `stamp` writes a PDF's `Meta File`; `check` lists every PDF without a valid one.",
     "sources": [
      "scripts/outputs.py",
-     "docs/pdf-workflow.md:123-165"
+     "docs/pdf-workflow.md:123-167"
     ]
    },
    "suite": {
     "label": "tests/run.py",
     "kind": "tool",
     "file": "tests/run.py",
-    "role": "The full test suite: compiles every example in `examples/release.json`, runs `build.ps1` in a throwaway copy, checks the `Frozen Reference` pixel for pixel, the workflow, the contract. Evidence goes to `builds/tests-<timestamp>/`.",
+    "role": "The full test suite: compiles every example in `examples/release.json`, runs `build.ps1` in a throwaway copy, checks the `Frozen Reference` pixel for pixel, the workflow, the contract, and the `Workflow Model` (checked, then run by a fictional client through the real scripts). Evidence goes to `builds/tests-<timestamp>/`.",
     "sources": [
      "tests/run.py",
      "docs/engine/verification.md"
@@ -425,7 +425,7 @@ window.ATLAS = {
     "sources": [
      "scripts/build.ps1",
      "examples/release.json",
-     "docs/pdf-workflow.md:216-224"
+     "docs/pdf-workflow.md:218-226"
     ]
    },
    "intake-form": {
@@ -524,6 +524,7 @@ window.ATLAS = {
  "pages": [
   {
    "id": "client-journey",
+   "generated": "by `bun run atlas` in tools/workflow, from the Workflow Model in docs/workflow; do not edit",
    "kind": "flow",
    "nav": "New client",
    "title": "A new client, start to finish",
@@ -552,7 +553,7 @@ window.ATLAS = {
     ".claude/skills/new-cv/SKILL.md:8-97",
     "docs/guides/build-a-cv.md:1-108",
     "docs/guides/build-a-cv.md:110-207",
-    "docs/pdf-workflow.md:167-194",
+    "docs/pdf-workflow.md:169-196",
     ".claude/skills/new-cv/SKILL.md:98-123",
     "docs/guides/client-workflow.md:330-359",
     ".claude/skills/new-client/SKILL.md:95-110",
@@ -1817,7 +1818,8 @@ window.ATLAS = {
        "actor": "owner",
        "you": "The owner saves the client's OK as a screenshot, draft/sign-off-NN.png beside the draft it answers.",
        "next": [
-        "text-draft.sign-off-stamp"
+        "text-draft.sign-off-stamp",
+        "design.fill-data"
        ],
        "in": [
         "The client's reply to the draft"
@@ -1893,7 +1895,7 @@ window.ATLAS = {
        "next": [],
        "branch": [
         {
-         "to": "design.fill-data",
+         "to": "design.flagship-fit",
          "when": "it passes",
          "short": "pass",
          "label": "Then"
@@ -2260,6 +2262,7 @@ window.ATLAS = {
        "in": [
         "facts.md, final: `private/<envelope>/intake/facts.md`",
         "Text Draft PDF: `private/<envelope>/draft/draft-NN.pdf`",
+        "The Sign-off screenshot: `private/<envelope>/draft/sign-off-NN.png`",
         "The client's documents: `private/<envelope>/intake/documents/`",
         "The fictional example records: `examples/candidates/`"
        ],
@@ -2269,6 +2272,7 @@ window.ATLAS = {
        ],
        "note": "Model step `design.fill-data`, action `lead.write-candidate-json`, in `docs/workflow/05-design/stage.yaml`.",
        "sources": [
+        ".claude/skills/new-cv/SKILL.md:11-15",
         ".claude/skills/new-cv/SKILL.md:19-27",
         ".claude/skills/new-cv/SKILL.md:43-53",
         "docs/guides/build-a-cv.md:65-77"
@@ -2818,7 +2822,7 @@ window.ATLAS = {
        ],
        "note": "Model step `deliver.owner-review`, action `manual.review-pdf`, in `docs/workflow/06-deliver/stage.yaml`.",
        "sources": [
-        "docs/pdf-workflow.md:173-174",
+        "docs/pdf-workflow.md:175-176",
         "docs/guides/build-a-cv.md:170-176",
         "docs/guides/build-a-cv.md:139-147"
        ]
@@ -2854,7 +2858,7 @@ window.ATLAS = {
        "note": "Model step `deliver.approve`, action `cmd.cv-approve`, in `docs/workflow/06-deliver/stage.yaml`.",
        "sources": [
         "docs/guides/build-a-cv.md:178-187",
-        "docs/pdf-workflow.md:175-179",
+        "docs/pdf-workflow.md:177-181",
         "docs/proposals/workflow-model.md:58",
         "docs/glossary.md:64"
        ]
@@ -2887,7 +2891,7 @@ window.ATLAS = {
        "sources": [
         "docs/proposals/workflow-model.md:58",
         "docs/guides/build-a-cv.md:189-198",
-        "docs/pdf-workflow.md:180-184"
+        "docs/pdf-workflow.md:182-186"
        ]
       },
       {
@@ -2929,7 +2933,7 @@ window.ATLAS = {
        "note": "Model step `deliver.send`, action `manual.send-pdf`, in `docs/workflow/06-deliver/stage.yaml`.",
        "sources": [
         "docs/guides/build-a-cv.md:200-201",
-        "docs/pdf-workflow.md:185-188"
+        "docs/pdf-workflow.md:187-190"
        ]
       },
       {
@@ -3212,7 +3216,7 @@ window.ATLAS = {
        ],
        "note": "Model step `after.revision-cleanup`, action `manual.go-remove-revisions`, in `docs/workflow/07-after/stage.yaml`.",
        "sources": [
-        "docs/pdf-workflow.md:211-214",
+        "docs/pdf-workflow.md:213-216",
         "docs/preferences.md:75-77",
         "docs/workflow/GAPS.md:58-61"
        ]
@@ -4408,30 +4412,50 @@ window.ATLAS = {
   }
  ],
  "build": {
-  "builtAt": "2026-10-14 11:00 UTC",
-  "commit": "ede3067",
+  "builtAt": "2026-10-14 11:20 UTC",
+  "commit": "9319c70",
   "kit": "1.0",
-  "stale": {},
+  "stale": {
+   "design-run": [
+    "AGENTS.md"
+   ],
+   "change-review": [
+    "AGENTS.md",
+    ".github/workflows/verify.yml"
+   ],
+   "system-map": [
+    "AGENTS.md",
+    "archive/work-records",
+    "tests/run.py",
+    ".github/workflows/verify.yml"
+   ],
+   "roster": [
+    "AGENTS.md",
+    "tests/run.py",
+    "docs/engine/verification.md",
+    ".github/workflows/verify.yml"
+   ]
+  },
   "verified": {
    "client-journey": {
     "at": "2026-10-14",
-    "commit": "d4ae061"
+    "commit": "9319c70"
    },
    "design-run": {
     "at": "2026-10-14",
-    "commit": "d4ae061"
+    "commit": "930100b"
    },
    "change-review": {
     "at": "2026-10-14",
-    "commit": "d4ae061"
+    "commit": "ce6fe1f"
    },
    "system-map": {
     "at": "2026-10-14",
-    "commit": "ede3067"
+    "commit": "a36ab4a"
    },
    "roster": {
     "at": "2026-10-14",
-    "commit": "d4ae061"
+    "commit": "0db3ba7"
    }
   }
  }

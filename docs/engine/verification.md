@@ -178,6 +178,24 @@ Windows one also holds the PDFs that build wrote, one per example in
    (`install.log`). The rules' own broken fixtures run in `bun test`, not
    here. With no Bun on the machine the case is `SKIPPED`; on CI that fails
    the suite.
+17. **Workflow Model, level 3** (`workflow-model-reality*`,
+   `tests/workflow.py`, `run_reality`). `bun run reality`: a fictional
+   client walks the model in a temporary `Envelope` under
+   `workflow-model/reality/`, every `cmd` step on its path through the real
+   script (render, approve with `--test-only`, export, every stamp), every
+   other step a labelled stand-in; each declared output must exist and
+   validate (`tools/workflow/README.md`, "Level 3"). Then three copies of
+   the model under `workflow-model/` must fail naming the step:
+   `reality-renamed-output` (the model says `render-record.json`, cv.py
+   writes `render.json`: `FAILED level 3 at deliver.render`) and
+   `reality-export-waits-for-approval` (export without `cv.approval.json`
+   among its inputs runs before the approval and the real `cv.py export`
+   refuses it: `FAILED level 3 at deliver.export`, no `Export` written) and
+   `reality-unchanged-output-fails` (the sent stamp turned into a second
+   ready stamp leaves `draft-01.meta.json` byte for byte as it was:
+   `FAIL text-draft.draft-sent`).
+   Output in `workflow-model/reality*.log`, each run's `reality.log` and
+   `report.json` in its folder. Skipped with case 16.
 
 Negative cases assert on the exact error text so a message change is a test
 change.
@@ -216,6 +234,16 @@ change.
   page was edited by hand; run `bun run atlas` (it also stamps the page, unless a file
   it cites changed since its last stamp: then follow what it prints) and commit the
   `.atlas/` changes.
+- `AssertionError: ('workflow-reality', ...)` with `FAIL <step id>: <reason>`:
+  the fictional run stopped at that step: a command failed, or an artifact the
+  step declares is not where the model says. Read that run's `reality.log`;
+  fix the model (or the script), then rerun `bun run reality` in
+  `tools/workflow/`.
+- `AssertionError: ('renamed-output', ...)`, `('export-before-approval', ...)`
+  or `('no-op-stamp', ...)`: a model copy that must fail did not fail at its
+  step (`deliver.render`, `deliver.export`, `text-draft.draft-sent`); the
+  run's walk or checks no longer catch that disagreement. Read
+  `workflow-model/reality-<label>.log`.
 - `AssertionError: entry points not in examples/release.json, ...`: an
   example was added without its line in `examples/release.json` (or a
   line was removed); add the line with its `title` and `variant`.

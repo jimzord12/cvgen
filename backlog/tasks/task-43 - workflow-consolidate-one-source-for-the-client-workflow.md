@@ -4,7 +4,7 @@ title: 'workflow-consolidate: one source for the client workflow'
 status: Queued
 assignee: []
 created_date: '2026-10-14 04:47'
-updated_date: '2026-10-14 08:56'
+updated_date: '2026-10-14 11:14'
 labels:
   - workflow-model
 dependencies:
@@ -30,4 +30,12 @@ Replace `client-workflow.md`, `build-a-cv.md` and the lifecycle half of `pdf-wor
 
 <!-- SECTION:NOTES:BEGIN -->
 ## Notes from TASK-37 (prose that disagrees with the Workflow Model) -- #1: docs/guides/client-workflow.md:330 and new-client SKILL.md:76-77 write "Delivered <date>. Delete by ..."; the model writes "Exported <date>, delete by <date>" at Export. -- #3: docs/pdf-workflow.md:211 retains approved revisions and copies with no limit; the model deletes 12 months after Export unless a keep request is recorded. -- #4: new-cv SKILL.md:68-86 runs the design-reviewer loop only for a Domain with no Template; the model runs it for every client CV. -- #5: new-cv SKILL.md:111-112 names no one for Export; the model gives it to the lead after Approval. -- #6, #7: no guide or skill has the engine change through code review (design.engine-change, design.engine-review) or the client task (open.task-create, after.close). -- Stall rule, two wordings: "three months without progress" (client-workflow.md:333-336) against "no Export three months after intake" (new-client SKILL.md:97-99). -- Library-note review reports, two places: client-workflow.md:257-258 and new-client SKILL.md:51-52 say archive/work-records/research-<topic>/reviews/, docs/research/README.md:29-30 says archive/work-records/<task or client-free id>/reviews/ (TASK-52 may move both). -- new-cv SKILL.md:75-76 names the preview folder for the design-reviewer but no command. -- Owner answers to docs/proposals/workflow-gaps.md (P-0018) land in the YAML first, then here.
+
+From TASK-42 (level 3, review round 1): open model question: deliver.render reads nothing the design review writes, so a run that starts a step once its inputs exist renders beside design.preview, before the review returns (design.clear-review-input before deliver.render follows from gates only). Decide whether render should read the review's result (or a cleared-review artifact) so the order is in the data; see docs/workflow/GAPS.md, What the YAML leaves out.
+
+From TASK-40 context review round 1 (inference, no source): deliver.fix rewrites typst/cv.typ and candidate.json, which design.preview reads, so in the model a fix after a failed render, example wording or the owner's change feeds the design preview again; no guide or skill says whether such a fix needs another design-reviewer round. The workflow READMEs (top README under the journey diagram, 06-deliver Branches) say only the former. Decide it with the owner or record it in docs/workflow/GAPS.md.
+
+From TASK-40's newcomer test: after.delete-by-check reads only art.readme-delete-by, not art.envelope-keep, so the rule that a keep request skips deletion is prose only; add the input when P-0018 item 5 is answered.
+
+From TASK-40 context round 2: the glossary Workflow Model row still says levels 1 and 2; add level 3 (bun run reality, TASK-42) and the generated Atlas page (TASK-41) when the row is rewritten.
 <!-- SECTION:NOTES:END -->

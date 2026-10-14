@@ -388,14 +388,14 @@
       "role": "The `Output Contract` tool: `stamp` writes a PDF's `Meta File`; `check` lists every PDF without a valid one.",
       "sources": [
         "scripts/outputs.py",
-        "docs/pdf-workflow.md:123-165"
+        "docs/pdf-workflow.md:123-167"
       ]
     },
     "suite": {
       "label": "tests/run.py",
       "kind": "tool",
       "file": "tests/run.py",
-      "role": "The full test suite: compiles every example in `examples/release.json`, runs `build.ps1` in a throwaway copy, checks the `Frozen Reference` pixel for pixel, the workflow, the contract. Evidence goes to `builds/tests-<timestamp>/`.",
+      "role": "The full test suite: compiles every example in `examples/release.json`, runs `build.ps1` in a throwaway copy, checks the `Frozen Reference` pixel for pixel, the workflow, the contract, and the `Workflow Model` (checked, then run by a fictional client through the real scripts). Evidence goes to `builds/tests-<timestamp>/`.",
       "sources": [
         "tests/run.py",
         "docs/engine/verification.md"
@@ -423,7 +423,7 @@
       "sources": [
         "scripts/build.ps1",
         "examples/release.json",
-        "docs/pdf-workflow.md:216-224"
+        "docs/pdf-workflow.md:218-226"
       ]
     },
     "intake-form": {

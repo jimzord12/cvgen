@@ -1,5 +1,6 @@
 {
   "id": "client-journey",
+  "generated": "by `bun run atlas` in tools/workflow, from the Workflow Model in docs/workflow; do not edit",
   "kind": "flow",
   "nav": "New client",
   "title": "A new client, start to finish",
@@ -28,7 +29,7 @@
     ".claude/skills/new-cv/SKILL.md:8-97",
     "docs/guides/build-a-cv.md:1-108",
     "docs/guides/build-a-cv.md:110-207",
-    "docs/pdf-workflow.md:167-194",
+    "docs/pdf-workflow.md:169-196",
     ".claude/skills/new-cv/SKILL.md:98-123",
     "docs/guides/client-workflow.md:330-359",
     ".claude/skills/new-client/SKILL.md:95-110",
@@ -1293,7 +1294,8 @@
           "actor": "owner",
           "you": "The owner saves the client's OK as a screenshot, draft/sign-off-NN.png beside the draft it answers.",
           "next": [
-            "text-draft.sign-off-stamp"
+            "text-draft.sign-off-stamp",
+            "design.fill-data"
           ],
           "in": [
             "The client's reply to the draft"
@@ -1369,7 +1371,7 @@
           "next": [],
           "branch": [
             {
-              "to": "design.fill-data",
+              "to": "design.flagship-fit",
               "when": "it passes",
               "short": "pass",
               "label": "Then"
@@ -1736,6 +1738,7 @@
           "in": [
             "facts.md, final: `private/<envelope>/intake/facts.md`",
             "Text Draft PDF: `private/<envelope>/draft/draft-NN.pdf`",
+            "The Sign-off screenshot: `private/<envelope>/draft/sign-off-NN.png`",
             "The client's documents: `private/<envelope>/intake/documents/`",
             "The fictional example records: `examples/candidates/`"
           ],
@@ -1745,6 +1748,7 @@
           ],
           "note": "Model step `design.fill-data`, action `lead.write-candidate-json`, in `docs/workflow/05-design/stage.yaml`.",
           "sources": [
+            ".claude/skills/new-cv/SKILL.md:11-15",
             ".claude/skills/new-cv/SKILL.md:19-27",
             ".claude/skills/new-cv/SKILL.md:43-53",
             "docs/guides/build-a-cv.md:65-77"
@@ -2294,7 +2298,7 @@
           ],
           "note": "Model step `deliver.owner-review`, action `manual.review-pdf`, in `docs/workflow/06-deliver/stage.yaml`.",
           "sources": [
-            "docs/pdf-workflow.md:173-174",
+            "docs/pdf-workflow.md:175-176",
             "docs/guides/build-a-cv.md:170-176",
             "docs/guides/build-a-cv.md:139-147"
           ]
@@ -2330,7 +2334,7 @@
           "note": "Model step `deliver.approve`, action `cmd.cv-approve`, in `docs/workflow/06-deliver/stage.yaml`.",
           "sources": [
             "docs/guides/build-a-cv.md:178-187",
-            "docs/pdf-workflow.md:175-179",
+            "docs/pdf-workflow.md:177-181",
             "docs/proposals/workflow-model.md:58",
             "docs/glossary.md:64"
           ]
@@ -2363,7 +2367,7 @@
           "sources": [
             "docs/proposals/workflow-model.md:58",
             "docs/guides/build-a-cv.md:189-198",
-            "docs/pdf-workflow.md:180-184"
+            "docs/pdf-workflow.md:182-186"
           ]
         },
         {
@@ -2405,7 +2409,7 @@
           "note": "Model step `deliver.send`, action `manual.send-pdf`, in `docs/workflow/06-deliver/stage.yaml`.",
           "sources": [
             "docs/guides/build-a-cv.md:200-201",
-            "docs/pdf-workflow.md:185-188"
+            "docs/pdf-workflow.md:187-190"
           ]
         },
         {
@@ -2688,7 +2692,7 @@
           ],
           "note": "Model step `after.revision-cleanup`, action `manual.go-remove-revisions`, in `docs/workflow/07-after/stage.yaml`.",
           "sources": [
-            "docs/pdf-workflow.md:211-214",
+            "docs/pdf-workflow.md:213-216",
             "docs/preferences.md:75-77",
             "docs/workflow/GAPS.md:58-61"
           ]

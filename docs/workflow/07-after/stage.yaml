@@ -92,7 +92,7 @@ steps:
   # The candidates come from cv.py status (GAPS.md, "Inferences").
   - id: after.revision-cleanup
     name: Remove failed or unapproved Revisions
-    sources: ["docs/pdf-workflow.md:211-214", "docs/preferences.md:75-77", "docs/workflow/GAPS.md:58-61"]
+    sources: ["docs/pdf-workflow.md:213-216", "docs/preferences.md:75-77", "docs/workflow/GAPS.md:58-61"]
     actor: actor.owner
     action: manual.go-remove-revisions
     inputs: [art.status-listing]
@@ -182,5 +182,5 @@ actions:
   - id: manual.go-remove-revisions
     kind: manual
     name: Give the go to remove Revisions
-    sources: ["docs/pdf-workflow.md:211-214", "docs/preferences.md:69-77"]
+    sources: ["docs/pdf-workflow.md:213-216", "docs/preferences.md:69-77"]
     does: The owner gives his explicit go, on the exact command shown first, to remove failed or unapproved Revisions.

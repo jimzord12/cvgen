@@ -10,7 +10,7 @@ import sys
 
 import pymupdf as fitz
 from verify import ROOT, FONTS, FLAGSHIP, verify, check_frozen
-from workflow import run_workflow, system_font_family
+from workflow import run_reality, run_workflow, system_font_family
 from design_review import run_design_review
 from repo_maintenance import run_repo_maintenance
 from release import examples, run_build_script, shells
@@ -475,6 +475,9 @@ def main():
         page = bun_run('atlas.log', 'run', 'atlas', '--check')
         assert page.returncode == 0, ('workflow-model', page.stdout + page.stderr)
         results.append({'case': 'workflow-model', 'passed': True, 'folder': 'workflow-model'})
+        # Level 3 (TASK-42): a fictional client runs the model through the real scripts; three disagreeing copies fail.
+        for check in run_reality(folder, bun_run):
+            results.append({'case': 'workflow-model-' + check, 'passed': True, 'folder': 'workflow-model'})
     else:
         assert not os.environ.get('CI'), 'CI has no Bun, so the Workflow Model is not checked; see .github/workflows/verify.yml'
         skip('workflow-model', reason='no Bun on this machine, so the Workflow Model (docs/workflow) is not checked here')

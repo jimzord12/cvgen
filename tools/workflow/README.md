@@ -1,11 +1,12 @@
 # tools/workflow: the workflow tool
 
 The TypeScript program, on Bun, that holds the `Workflow Model`'s types and
-checks its YAML facts (ADR 0015): the shape of each file, and the whole model
+checks its YAML facts (ADR 0015): the shape of each file, the whole model
 in `docs/workflow/` at levels 1 (shape and references) and 2 (flow) of the
-approved design (`docs/proposals/workflow-model.md`), and writes the generated
+approved design (`docs/proposals/workflow-model.md`), writes the generated
 half of the workflow READMEs (`render`) and the `Atlas` client-journey page
-(`atlas`) from it.
+(`atlas`) from it, and runs level 3: the model run by a fictional client
+through the real scripts, plus a read-only walk of a real `Envelope`.
 
 | Path | What it holds |
 |---|---|
@@ -15,6 +16,7 @@ half of the workflow READMEs (`render`) and the `Atlas` client-journey page
 | `src/render.ts` | Writes the generated blocks of `docs/workflow/README.md` and each stage's `README.md` |
 | `src/atlas.ts` | Writes the `Atlas` client-journey page, `.atlas/src/pages/client-journey.json` |
 | `src/mermaid.ts` | The Mermaid subset `render` writes, and the validator that proves each diagram is inside it |
+| `src/reality.ts` | Level 3: the fictional run (`reality`) and the read-only `Envelope` walk (`envelope`) |
 | `src/anchors.ts` | Source anchors whose cited lines moved or changed since a commit |
 | `src/schema.ts` | Exports the JSON Schema files from the types |
 | `src/cli.ts` | The command line |
@@ -40,6 +42,8 @@ bun run render                            # rewrite the generated blocks of the 
 bun run render --check                    # exit 1, naming each README, if render would change it
 bun run atlas                             # rewrite the Atlas client-journey page from the model; stamp it when it changed
 bun run atlas --check                     # exit 1 if atlas would change the page
+bun run reality [<model dir>] [--out <dir>]   # level 3: a fictional client runs the model; exit 0 or 1 naming the step
+bun run envelope <Envelope folder>        # read-only: which artifacts the model declares exist in a real Envelope
 bun test                                  # all tests
 bun run typecheck                         # TypeScript type check (tsc --noEmit)
 bun run schema                            # regenerate schema/*.json after changing src/model.ts
@@ -49,7 +53,8 @@ bun run schema --check                    # exit 1 if the committed schema is st
 CI and the suite's `workflow-model` case run `bun run check`, then
 `bun run render --check` and `bun run atlas --check`: after any change to the
 YAML, run `bun run render` and `bun run atlas` and commit the READMEs and the
-`.atlas/` changes with it.
+`.atlas/` changes with it. The suite's `workflow-model-reality` cases
+run `bun run reality` (Typst and the suite's Python packages needed).
 
 A problem prints as `file:line: path: reason [rule]`, for example
 `docs/workflow/07-after/stage.yaml:38: steps[2]: after.keep-request is never reached: it has no inputs, and no gate branch or loop escalation leads to it [unreachable]`.
@@ -114,9 +119,11 @@ What it accepts on purpose, from the modelling notes of TASK-37:
 - **Optional producers**: an input counts as produced when any step writes
   it, `when` or not. Whether a step's `when` branches cover every case (the
   three build paths all write `art.cv-typ`) is not something the check can
-  read; level 3 (TASK-42) runs it.
+  read, and stays unchecked: level 3 runs one path (`happyPath`), so each
+  build path would need a scenario of its own.
 - **Order without data** (`design.clear-review-input` before `deliver.render`)
-  follows from gates only and is not checked.
+  follows from gates only and is not checked here; level 3 shows it
+  (`docs/workflow/GAPS.md`).
 
 **Placeholder caps** do not fail the check: a loop whose name says
 "(placeholder cap)" is listed in a `NOTE` line on every run, so the caps
@@ -206,6 +213,62 @@ stamped: `bun run atlas <file>` writes a copy elsewhere and leaves the
 The page is the same on every run (model order, two-space JSON, LF, no
 dates); `atlas.data.js`, which the kit writes on each build, carries the
 build time and is not checked.
+
+## Level 3: the model run for real (`reality`, `envelope`)
+
+`bun run reality` first runs `check` (a model that fails levels 1 and 2 is
+not run), then walks one path through the model, the `happyPath` scenario in
+`src/reality.ts`: a fictional marine engineer who consents, gets no `Deep
+Dive`, signs off the first `Text Draft`, fits the Flagship `Template` and
+passes every review. It writes into a new folder (default
+`builds/workflow-reality-<time>/`; `--out` must be inside the repository,
+since Typst compiles from its root, and it refuses a folder that exists) holding `repo/`, the run's copy of the repository
+layout where `private/client-2030-01-01/` is the temporary `Envelope`,
+`reality.log` (every command, its output and each decision) and
+`report.json`.
+
+- **Order.** A step runs once every input it reads exists (the level-2 reach
+  rule), in waves, each wave in model order. A gate's branch waits for its
+  gate, except a loop's way back, which is first reached by what it reads.
+  Optional steps run only when the scenario names them; escalation steps
+  never run; no loop turns.
+- **`cmd` steps run their real command line**: placeholders filled (the
+  `<revision>` from what `render` wrote, the reviewed hash from the PDF),
+  `[--...]` options dropped, paths under `private/` and `builds/` moved into
+  `repo/`. Two adjustments, each in the log: `cv.py approve` gets
+  `--test-only` (the owner's approval is a stand-in; cv.py refuses it under
+  `private/`), and `outputs.py stamp` gets `--root <run>/repo`, so it finds
+  the `Envelope`'s home there. It also makes the folder `deliver.page-png`
+  saves into, as the lead does (`docs/workflow/GAPS.md`).
+- **Every other step is a labelled stand-in** (`stand-in (manual)`, `(lead)`,
+  `(agent)`, `(skill)`) that writes the outputs the step declares:
+  fictional content, or for the files later commands read, what the lead
+  would write (`envelope.json`, `candidate.json` from the engineer example
+  with a client's footer and none of the example wording, the Flagship
+  entry point, the `Text Draft` from `tests/fixtures/text-draft.typ`, the
+  `Sign-off` screenshot). What a step declares in the repository outside
+  `private/` (the client's task, research notes) lands in `repo/`, never in
+  the repository.
+- **Checks.** Before a step, every input it declares with a path must exist;
+  after it, every output must exist at its declared path, JSON must parse,
+  JSON with a `schema` must match it, and a PDF must have the `Meta File` the
+  model declares beside it, valid and current (its `sha256` is the PDF's).
+  An output a command finds already there (a `Meta File` it restamps) must
+  come out changed: one left byte for byte as it was fails the step.
+  The first problem stops the run: `FAIL <step id>: <reason>`, then `FAILED
+  level 3 at <step id>`, exit 1. A gate that sends the run off its path
+  (example wording found, say) fails the same way.
+
+`bun run envelope <Envelope folder>` does the read-only half on a real
+client: for every step that declares an artifact in the `Envelope`, how many
+of them exist, and which are missing, by model path. It writes nothing,
+opens only `envelope.json` (for the `Alias`; it also lists folders to match
+the model's paths, and prints none of their names) and prints the `Alias`, model
+paths and counts, never a file name inside the `Envelope` or its content. A
+file several artifacts share (`README.md` and its sections) counts as
+present for each; a `NOTE` line lists them. On a real client run
+`bun src/cli.ts envelope <folder>` instead: `bun run` echoes its
+arguments, the folder name included.
 
 ## Keeping anchors honest: `anchors`
 

@@ -6,17 +6,23 @@
 //   render [--check] [<dir>]   write the generated blocks of the workflow READMEs; --check only reports the files it would change (exit 1)
 //   atlas [--check] [<page.json>]   write the Atlas client-journey page from the model, and stamp it when it changed; --check only reports a stale page (exit 1)
 //   schema [--check]    regenerate the committed JSON Schema files; --check only reports stale ones (exit 1)
+//   reality [<model dir>] [--out <dir>]   level 3: a fictional client runs the model in a new folder under builds/; exit 0 or 1
+//   envelope <envelope dir> [<model dir>] read-only: which artifacts the model declares exist in a real Envelope
 // Usage errors exit 2.
 import { existsSync, statSync } from "node:fs";
-import { relative } from "node:path";
+import { join, relative } from "node:path";
 import { anchors } from "./anchors";
 import { atlas, atlasPagePath, update } from "./atlas";
 import { checkModel, modelDir, repoRoot } from "./check";
 import { formatIssue, loadFile } from "./load";
+import { envelopeWalk, reality } from "./reality";
 import { render } from "./render";
 import { schemaDir, staleSchemas, writeSchemas } from "./schema";
 
-const usage = "usage: bun src/cli.ts check [<model dir> | <file.yaml...>] | anchors <base> [--fix] [<model dir>] | render [--check] [<model dir>] | atlas [--check] [<page.json>] | schema [--check]";
+const usage =
+  "usage: bun src/cli.ts check [<model dir> | <file.yaml...>] | anchors <base> [--fix] [<model dir>] | render [--check] [<model dir>]" +
+  " | atlas [--check] [<page.json>] | schema [--check] | reality [<model dir>] [--out <dir>] | envelope <envelope dir> [<model dir>]";
+const stamp = () => new Date().toISOString().replace(/[-:]/g, "").replace("T", "-").slice(0, 15);
 
 const isDir = (path: string) => existsSync(path) && statSync(path).isDirectory();
 const shown = (dir: string) => relative(repoRoot, dir).replaceAll("\\", "/") || ".";
@@ -70,6 +76,24 @@ export function main(args: string[]): number {
       return 2;
     }
     return anchors({ base, fix, dir: dir ?? modelDir, root: repoRoot, log: console.log });
+  }
+  if (command === "reality") {
+    const at = rest.indexOf("--out");
+    const out = at >= 0 ? rest[at + 1] : join(repoRoot, "builds", `workflow-reality-${stamp()}`);
+    const dirs = rest.filter((_, i) => at < 0 || (i !== at && i !== at + 1));
+    if (!out || dirs.length > 1 || (dirs[0] !== undefined && !isDir(dirs[0]))) {
+      console.error(usage);
+      return 2;
+    }
+    return reality({ dir: dirs[0] ?? modelDir, out });
+  }
+  if (command === "envelope") {
+    const [envelope, dir, ...extra] = rest;
+    if (!envelope || extra.length > 0 || (dir !== undefined && !isDir(dir))) {
+      console.error(usage);
+      return 2;
+    }
+    return envelopeWalk({ dir: dir ?? modelDir, envelope });
   }
   if (command === "render") {
     const check = rest.includes("--check");

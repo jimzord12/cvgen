@@ -56,7 +56,7 @@ cap)" and cite their row here.
   offers it (`client-workflow.md:164-167`). Added by TASK-38: a step with no
   inputs is reached only as a loop's escalation step.
 - **How Revisions to remove are found** (`after.revision-cleanup`):
-  `pdf-workflow.md:211-214` names failed or unapproved Revisions as
+  `pdf-workflow.md:213-216` names failed or unapproved Revisions as
   candidates, not how they are listed; the YAML reads `cv.py status`, which
   lists every Revision with its state. Added by TASK-38, for the same reason.
 
@@ -67,6 +67,20 @@ cap)" and cite their row here.
   status without its proof) are not encoded anywhere in the model; only
   `render`'s is, as `gate.render-ok`, because `build-a-cv.md:128-136` states
   the next step.
+- **The folder the page images go into** (`deliver.page-png`): its command
+  (`docs/workflow/06-deliver/stage.yaml:309-315`, from
+  `.claude/skills/verify-cv/SKILL.md:72-76`) saves into
+  `builds/<new-folder>/` but nothing makes that folder; level 3 makes it
+  first, as the lead does. Added by TASK-42.
+- **Order without data**: `design.clear-review-input` before
+  `deliver.render` follows from gates only; render reads nothing the design
+  review writes (`docs/workflow/06-deliver/stage.yaml:16-22`), so level 3,
+  which runs a step once what it reads exists, renders beside
+  `design.preview`, before the review returns. Added by TASK-42.
+- **What the preview folder holds** (`art.design-review-input`,
+  `docs/workflow/05-design/stage.yaml:476-481`): the model gives a folder and
+  "PDF previews", no file names, so level 3's stand-in for `design.preview`
+  makes an empty folder and the stand-in review accepts it. Added by TASK-42.
 - **What the hand-written `Atlas` page said and the model does not** (TASK-41,
   when the client-journey page became generated from the model). Each still
   lives in its source; TASK-43 decides whether it becomes a model fact:
@@ -78,12 +92,19 @@ cap)" and cite their row here.
   - the `Text Draft` underlines each fact with the copper `Fact Mark`
     (`client-workflow.md:284-285`);
   - the render checks (page count, no empty page, fonts embedded, text
-    inside the page) and the `Certificate Warning` 180 days ahead, which never
-    blocks (`build-a-cv.md:126-128`, `build-a-cv.md:140-144`);
+    inside the page, every font family bundled) and the `Certificate
+    Warning` 180 days ahead, which never blocks (`build-a-cv.md:126-128`, `build-a-cv.md:140-144`);
   - a new `Revision` inherits no approval (`build-a-cv.md:205-206`,
     `pdf-workflow.md:191`); a `cmd` action has no text to say it in;
   - the `Design Review` app shows the concepts with their status, where the
     owner may look before he picks (`.claude/skills/idea-run/SKILL.md:127-128`);
+  - what the commands refuse, which a `cmd` step cannot say: `approve`
+    refuses when the bytes changed since the render, the checks failed or
+    are stale, or the hash passed does not match (`build-a-cv.md:181-183`);
+    `export` never compiles and verifies its copy (`build-a-cv.md:189-192`);
+    the stamp refuses `delivered` without the approval receipt and a verified
+    `Export` (`build-a-cv.md:203-204`), and `signed-off` without the
+    `Sign-off` screenshot (`pdf-workflow.md:146-151`);
   - Drive's Trash keeps deleted files 30 days (`client-workflow.md:336-338`).
   The page's "where it stands" panel (one client, as of 2026-10-04) is not a
   workflow fact and was dropped: it was out of date (the delivery is

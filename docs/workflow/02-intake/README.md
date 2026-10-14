@@ -12,6 +12,62 @@
 
 <!-- generated:end summary -->
 
+## Judgement
+
+- **One message, adapted, consent first.** `intake.questions` starts from
+  the master list (`art.master-question-list`) and adapts it to the
+  `Client`'s `Domain` and target: examples he recognises, questions that
+  apply to his work. It stays one message, in simple, friendly Greek, so
+  the `Client` can answer in any order over a few days.
+- **Consent is a hard stop** (`gate.consent`). Until the "I agree" is in
+  `intake/messages.md`, the lead reads no document, writes no fact and
+  does no research, even when the `Client` sends his papers first.
+- **The lead reads text only.** Voice messages go through
+  `intake.transcribe` (the phone's transcript or the owner's gist) before
+  anything is read. A `Client`'s LinkedIn page is never opened; the PDF
+  export he sends is enough.
+- **When intake is done.** Consent is in and the answers have stopped
+  coming; with a form, the `Client` says he is done
+  (`intake.form-download`). Intake is not the place to chase gaps: what is
+  missing goes into the gap list in `research.facts` and is asked once, in
+  the follow-up.
+
+## Branches
+
+- **The `Intake Form`** (`intake.form-script` to `intake.form-copy`) runs
+  only when the owner wants one, and always beside the chat message, never
+  instead of it: the message carries the link and the offer to answer by
+  chat. A form is designed, not a list of text boxes: pages by topic, the
+  quickest question type for each answer, the house theme
+  (`intake.form-theme`).
+- **Voice messages** add `intake.transcribe` before the consent check.
+- **No consent** (`gate.consent` fails): `intake.no-consent`. The owner
+  decides to ask again or to stop. It is one owner step, not a loop
+  ([`GAPS.md`](../GAPS.md), "Inferences"); the recommendation "ask once
+  more, then stop" waits in [P-0018](../../proposals/workflow-gaps.md)
+  item 2. A stopped `Client` stays in `private/` until `after.stall-check`
+  names him and the owner decides to delete.
+
+## Common mistakes
+
+- Reading the attachments or starting the facts before the "I agree".
+- Sending the form instead of the chat message, or a form with upload
+  questions (they force a Google sign-in; photos come by chat).
+- Leaving the owner's test answer in the form or its Sheet: it has to go
+  in both places before the `Client` answers (`intake.form-test-cleanup`).
+- Misreading a CSV date: the Sheet writes dates in its own locale, so a
+  date such as 3/4 is read with care (`intake.form-copy`).
+- Writing a second list of questions for what the first answers left out;
+  that is the follow-up's job (`research.follow-up-write`).
+
+## Where the detail lives until TASK-43
+
+- `docs/guides/client-workflow.md` section 2: the master question list,
+  the `Intake Form` from script to theme to CSV, and the consent rules.
+- The `new-client` skill, step 2; the header of `scripts/intake-form.gs`.
+
+## Diagram
+
 <!-- generated:start diagram -->
 
 ```mermaid
@@ -57,6 +113,8 @@ flowchart TD
 
 <!-- generated:end diagram -->
 
+## Steps
+
 <!-- generated:start steps -->
 
 | ID | Name | Actor | Action | Inputs | Outputs | Gate | When |
@@ -79,6 +137,8 @@ flowchart TD
 
 <!-- generated:end steps -->
 
+## Gates
+
 <!-- generated:start gates -->
 
 | ID | Name | Checked by | Check | Pass | Fail |
@@ -87,11 +147,15 @@ flowchart TD
 
 <!-- generated:end gates -->
 
+## Loops
+
 <!-- generated:start loops -->
 
 No loops in this stage.
 
 <!-- generated:end loops -->
+
+## Artifacts
 
 <!-- generated:start artifacts -->
 
@@ -117,6 +181,8 @@ No loops in this stage.
 | `art.script-project` | The Apps Script project |  | third-party | `intake.form-create` |
 
 <!-- generated:end artifacts -->
+
+## Actions
 
 <!-- generated:start actions -->
 

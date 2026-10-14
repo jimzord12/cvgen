@@ -9,6 +9,8 @@
     "render": "bun src/cli.ts render",
     "atlas": "bun src/cli.ts atlas",
     "schema": "bun src/cli.ts schema",
+    "reality": "bun src/cli.ts reality",
+    "envelope": "bun src/cli.ts envelope",
     "typecheck": "tsc --noEmit",
     "test": "bun test"
   },
