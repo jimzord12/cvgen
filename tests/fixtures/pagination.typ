@@ -16,6 +16,10 @@
   ((companies: (0, 1, 2, 3, 4, 5), synopsis: true, certificates: true, education: true),)
 } else if mode == "duplicate" {
   ((companies: (0,)), (companies: (0, 1, 2, 3, 4, 5), synopsis: true, certificates: true, education: true))
+} else if mode == "no-synopsis" {
+  ((companies: (0, 1, 2)), (companies: (3, 4, 5), certificates: true, education: true))
+} else if mode == "early-credentials" {
+  ((companies: (0, 1, 2), certificates: true), (companies: (3, 4, 5), synopsis: true, education: true))
 } else {
   ((companies: ((company: 0, rows: (0, 6)),)),
    (companies: ((company: 0, rows: (6, 14)), 1, 2, 3)),

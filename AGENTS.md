@@ -14,7 +14,7 @@ open only what your task needs.
 the product"). The design and styling are what CVgen sells and what sets it
 apart from online automated tools. A CV must pass the `Batch Test` (it
 cannot be skipped in an HR batch of 100 to 200) and the `Three-Second Test`
-(the page itself shouts `Domain`, specialty and role before a word is
+(the page itself shouts `Domain`, specialty and `Rank` before a word is
 read), going beyond "safe professional", elegantly, at the level of the
 Marine Flagship. A well-crafted but quiet design is a failure. Anyone who
 designs, reviews or proposes a CV design reads that section first.
@@ -28,7 +28,7 @@ keep it untracked and do not copy its contents into shared documentation.
 - Claude Code is the primary implementation harness. It owns coding, test
   execution, implementation review, and integration work. Implementation
   follows `docs/development.md` (stages, task records, guardrails) and
-  `docs/review.md` (the independent `code-reviewer` gate).
+  `docs/review.md` (the independent `code-reviewer` or `context-reviewer` gate).
 - Codex is optional for discussion, research, proposals, design decisions, and
   their documentation. Reading code for design context is allowed; it does not
   take over implementation or provide the implementation test/review verdict.
@@ -78,11 +78,11 @@ Framework; `M` for `packages/domains/marine`, the marine domain; `F` for
 |---|---|---|
 | `W/lib.typ` | The Framework's import surface: core names only, no domain, no side effects | Adding or renaming a core export |
 | `M/lib.typ` | The marine import surface every marine entry point uses: the Framework's names plus marine and Flagship, no side effects | Adding or renaming a marine or Flagship export |
-| `W/core/` | Domain-neutral core: `node` (merge, compose), `data` (common facts), `theme` check, `component` (`make-ctx`, which builds `ctx`), `components` (the ctx-first primitives and page shell as one module, exported as `core-components`), `primitives`, `page` shell, `pagination` over a domain row model, `legacy` (deprecated old signatures; removal planned, TASK-58). Never imports a domain; the suite checks it | Changing behaviour every domain shares |
-| `M/domain.typ`, `M/data.typ` | The marine domain node (id, meta, copy, experience model) and the marine facts: companies, vessels, months, totals, `normalize-candidate`, `validate-candidate` | Changing what the marine domain means |
+| `W/core/` | Domain-neutral core: `node` (merge, compose), `data` (common facts), `theme` check, `component` (`make-ctx`, which builds `ctx`), `components` (the ctx-first primitives and page shell as one module, exported as `core-components`), `primitives`, `page` shell, `pagination` over a domain row model (rows only; closing sections are a template's rule), `legacy` (deprecated old signatures; removal planned, TASK-58). Never imports a domain, and its code names no domain or template word, no layout key or artwork slot it does not own, no colour literal; the suite checks both | Changing behaviour every domain shares |
+| `M/domain.typ`, `M/data.typ` | The marine domain node (id, meta, copy, experience model, `art-palette`: the colours baked into its SVGs) and the marine facts: companies, vessels, months, totals, `normalize-candidate`, `validate-candidate` | Changing what the marine domain means |
 | `M/roles/deck/`, `M/roles/engine/` | Role markers (`role.typ`); bare today | Refining something for one role |
 | `M/schema/candidate.schema.json` | Marine candidate-facts contract: what a record may contain, no template wording | Changing the marine data contract |
-| `F/flagship.typ` | The Flagship composition: page loop, section order, overflow check | Changing what Flagship renders |
+| `F/flagship.typ` | The Flagship composition: its page-plan rules (`validate-plan`), page loop, section order, overflow check | Changing what Flagship renders |
 | `F/adapter/` | Candidate facts -> Flagship input: adds Flagship wording (`copy`) and merges overrides | Changing Flagship's input shape |
 | `F/schema/flagship-input.schema.json` | Flagship input contract: facts plus `copy` | Same |
 | `F/components/`, `F/components.typ`, `F/legacy.typ` | Flagship sections, ctx-first: hero, experience, sections, certificates, education, skills; `components.typ` gathers them into the one module `M/lib.typ` exports as `flagship-components`; `legacy.typ` keeps their old signatures for `M/lib.typ` (deprecated; removal planned, TASK-58) | Changing how a section renders |
@@ -162,7 +162,7 @@ Full text in `docs/constitution.md`. The short list:
 | `docs/framework-gaps.md` | Before planning framework work, and after any bypass of a component or template |
 | `docs/conventions.md` | Before writing code, docs or a commit message |
 | `docs/development.md` | Starting, resuming or handing off a task: stages, the task record in `backlog/`, review reports under `docs/work/<id>/reviews/`, guardrails |
-| `docs/review.md` | Requesting, performing or recording an independent review; the `code-reviewer` subagent follows it |
+| `docs/review.md` | Requesting, performing or recording an independent review; the `code-reviewer` and `context-reviewer` subagents follow it |
 | `docs/proposals/README.md` | Proposal states, owner decisions, and orientation of pending/approved work |
 | `docs/decisions/0014-backlog-md-task-store.md` | Why Backlog.md is the task store, and what replaced the Trello board |
 | `docs/git-workflow.md` | Agent-owned Git, direct pushes, feature branches, integration and tags |

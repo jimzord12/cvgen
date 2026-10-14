@@ -3,7 +3,7 @@
 **Idea in one line:** the Marine Flagship's professional skeleton (dark hero band, ringed portrait, name plate, numbered sections on a calm field) carrying Stamp Rally's travel identity (ATH → TYO, one eki stamp per Japan trip, the escort's flag and group, the passenger manifest), with a real cherry branch drawn into each page.
 Three words: *travel, Japan, blossom*.
 
-One-design run 2026-10-02 (magazine-editor), answering the owner's recalibration brief: professional, clean, well organised and premium, with controlled creativity. Slightly more creative than Flagship, more professional than Stamp Rally. `Domain` Travel & Tourism; specialty Japan; role Αρχηγός-Συνοδός Εκδρομών. One `Density` and `Design Tier` only: **Spacious, Stylish, two A4 pages** (`spacious/stylish/spacious-stylish.pdf`). Status: proposed.
+One-design run 2026-10-02 (magazine-editor), answering the owner's recalibration brief: professional, clean, well organised and premium, with controlled creativity. Slightly more creative than Flagship, more professional than Stamp Rally. `Domain` Travel & Tourism; specialty Japan; role Αρχηγός-Συνοδός Εκδρομών. One `Density` and `Design Tier` only: **Spacious, Stylish, two A4 pages** (`spacious/stylish/spacious-stylish.pdf`). Status: parked (superseded by Hanami Line 2; owner, 2026-10-02).
 
 ## What the owner should notice first
 

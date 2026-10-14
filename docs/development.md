@@ -18,7 +18,7 @@ task, clear acceptance criteria, independent review. Fixed sprints are optional.
 |---|---|
 | Queued | A useful outcome, scope and observable acceptance criteria. |
 | Active | Claude owns the task and works in small coherent changes. |
-| Review | Author checks are complete; a fresh `code-reviewer` examines the exact change under [review.md](review.md). |
+| Review | Author checks are complete; a fresh `code-reviewer`, or `context-reviewer` for the agent context, examines the exact change under [review.md](review.md). |
 | Ready | Acceptance criteria, required checks and review pass; ready for integration. |
 | Done | The change reaches its intended branch, the push and CI result are confirmed, and evidence is recorded. |
 
@@ -120,6 +120,7 @@ docs/work/<id>/reviews/NN.md      # Review reports, created only when review run
 docs/decisions/                   # Accepted architecture decisions
 docs/proposals/                   # Proposals with status; rejected/ keeps declined ones
 .claude/agents/code-reviewer.md   # Thin wrapper around docs/review.md
+.claude/agents/context-reviewer.md  # Agent-context reviewer under docs/review.md
 .claude/skills/backlog/           # How agents read and update the tasks
 ```
 

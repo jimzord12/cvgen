@@ -38,6 +38,7 @@ minimal override pattern: spread the base theme, replace what differs.
 | `sizes.*` | yes | One entry per text role. See `golden-blue.typ` for the full list. `skill` is optional and defaults to 10pt |
 | `tracking.label`, `tracking.rank` | yes | Letter spacing for uppercase labels and the rank line |
 | `leading.initial`, `leading.body`, `leading.duration` | yes | Line spacing before the body, in the body, and inside the two-line company duration |
+| `art-palette` | no | Map of the hex colours baked into the domain's SVGs to the names of the theme colours that replace them. Flagship's themes carry marine's `domain.art-palette` (`golden-blue.typ`); a theme spread from them keeps it |
 | `art-colors` | no | Map of hex strings found in legacy SVGs to theme colours |
 
 `validate-theme` in `packages/cv-framework/core/theme.typ` checks the colour and font keys exist and
@@ -46,12 +47,18 @@ exists, since Typst gives a document no way to ask; the compile runners above do
 
 ## How SVG recolouring works
 
-`decoration` in `packages/cv-framework/core/primitives.typ` reads the SVG source and replaces the
-four Golden Blue hex values (`#102f3a`, `#236a70`, `#c8a579`, `#546870`) and
-the placeholders `{{ink}}`, `{{accent}}`, `{{metal}}` with the theme's
-colours, then applies `art-colors` for any other hex the SVG uses. New SVGs
-should use the placeholders. Old SVGs need their extra colours listed in
-`art-colors` or they keep their original hue.
+`decoration` in `packages/cv-framework/core/primitives.typ` reads the SVG
+source and replaces, in this order: each hex in the theme's `art-palette`
+with the theme colour it names (for marine, the four original art colours
+`#102f3a`, `#236a70`, `#c8a579`, `#546870` become `ink`, `accent`, `metal`,
+`muted`; the domain owns that list in `domain.typ`, the Framework names no
+colour), then every placeholder `{{<colour>}}` with that theme colour
+(`{{ink}}`, `{{accent}}`, `{{metal}}`, any key of `colors`), then
+`art-colors` for any other hex the SVG uses. New SVGs should use the
+placeholders. Old SVGs need their extra colours listed in `art-colors` or
+they keep their original hue; a theme built from scratch rather than spread
+from a Flagship theme must also set `art-palette`, or the marine art keeps
+its original navy, teal and brass.
 
 ## Checks
 

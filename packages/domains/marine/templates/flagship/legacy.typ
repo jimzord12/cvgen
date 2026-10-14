@@ -10,6 +10,15 @@
 #import "components/certificates.typ" as certificates
 #import "components/experience.typ" as experience
 #import "components/hero.typ" as hero-parts
+#import "../../../../cv-framework/core/legacy.typ" as core-legacy
+#import "flagship.typ": check-layout
+
+// The Framework's document-shell wrapper, after Flagship's check for retired layout keys
+// (opening-margin, hero.band-height), so a composition that still sets one fails loudly.
+#let document-shell(candidate, theme, artwork, layout, body, title: none, author: none) = {
+  check-layout(layout)
+  core-legacy.document-shell(candidate, theme, artwork, layout, body, title: title, author: author)
+}
 
 #let section-heading(number, title, theme, geometry, spacing, subtitle: none) = sections.section-heading(
   make-ctx(theme: theme, layout: (headings: geometry)), title, number: number, spacing: spacing, subtitle: subtitle)

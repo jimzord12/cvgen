@@ -217,11 +217,13 @@ window.ATLAS = {
     "calledBy": "The lead.",
     "when": "Any change to the files agents read.",
     "notes": [
-     "Merged into `main` on 2026-10-04 (owner's decision). The two review reports from its branch were FINDINGS and stay open: `docs/work/codex-visual-tools/reviews/01.md`."
+     "Merged into `main` on 2026-10-04 (owner's decision). The two review reports from its branch were FINDINGS: `docs/work/design-core/reviews/03-context-reviewer.md` (Material F1 and F2 fixed in TASK-33, 2026-10-14; its Minor findings were outside that task) and `docs/work/codex-visual-tools/reviews/01.md` (open; carried to TASK-4)."
     ],
     "sources": [
      ".claude/agents/context-reviewer.md",
-     "docs/work/anti-examples/reviews/01-context.md"
+     "docs/work/anti-examples/reviews/01-context.md",
+     "docs/work/design-core/reviews/03-context-reviewer.md",
+     "docs/work/codex-visual-tools/reviews/01.md"
     ],
     "short": "Context rev."
    },
@@ -237,10 +239,12 @@ window.ATLAS = {
     "calledBy": "The lead.",
     "when": "Feedback from you that changes how agents behave.",
     "notes": [
-     "Merged into `main` on 2026-10-04 (owner's decision). The two review reports from its branch were FINDINGS and stay open: `docs/work/codex-visual-tools/reviews/01.md`."
+     "Merged into `main` on 2026-10-04 (owner's decision). The two review reports from its branch were FINDINGS: `docs/work/design-core/reviews/03-context-reviewer.md` (Material F1 and F2 fixed in TASK-33, 2026-10-14; its Minor findings were outside that task) and `docs/work/codex-visual-tools/reviews/01.md` (open; carried to TASK-4)."
     ],
     "sources": [
-     ".claude/agents/context-maintainer.md"
+     ".claude/agents/context-maintainer.md",
+     "docs/work/design-core/reviews/03-context-reviewer.md",
+     "docs/work/codex-visual-tools/reviews/01.md"
     ]
    },
    "general-purpose": {
@@ -455,7 +459,7 @@ window.ATLAS = {
    "github-ci": {
     "label": "GitHub CI",
     "kind": "service",
-    "role": "Runs the suite on every push and pull request (Typst 0.15.1). The lead watches it on `main` before calling work Done.",
+    "role": "Runs the suite once per push (its head commit) on any branch, on Linux and Windows (Typst 0.15.1, checksummed; Windows also runs `scripts/build.ps1`); a newer push to a feature branch cancels the older run. The lead watches it on `main` before calling work Done.",
     "sources": [
      ".github/workflows/verify.yml",
      "docs/git-workflow.md:90-103"
@@ -499,7 +503,7 @@ window.ATLAS = {
    "Certificate Warning": "A WARNING line at render: a certificate expired or expires within 180 days. Never blocks.",
    "Live Read": "A render that read a private file directly instead of the `Revision`'s copy. It fails its checks.",
    "Batch Test": "Design test 1: in an HR batch of 100 to 200 CVs, ours cannot be skipped.",
-   "Three-Second Test": "Design test 2: before a word is read, the page shouts its `Domain`, specialty and role.",
+   "Three-Second Test": "Design test 2: before a word is read, the page shouts its `Domain`, specialty and `Rank`.",
    "Flagship Parity": "Design test 3: side by side with the Marine Flagship, the CV looks as confident and premium.",
    "Style": "One idea of a magazine-editor run. A run has three very distinct ones.",
    "Design Tier": "Safe (calm, never generic), Stylish (Flagship territory), Creative (style to the maximum).",
@@ -883,7 +887,7 @@ window.ATLAS = {
        ],
        "summary": "Only when the client's `Domain` has no `Template` yet. A design starts from a design, not from code: 18 mock-ups on fictional data.",
        "does": [
-        "The `magazine-editor` draws three `Styles` × two `Densities` × three `Design Tiers` for the client's `Domain`, specialty and role.",
+        "The `magazine-editor` draws three `Styles` × two `Densities` × three `Design Tiers` for the client's `Domain`, specialty and `Rank`.",
         "Fictional data only; no client detail in any brief.",
         "The full run, its gates and caps, is its own page: [[design-run]]."
        ],
@@ -1122,7 +1126,7 @@ window.ATLAS = {
         "lead"
        ],
        "summary": "For a client whose `Domain` has no `Template` yet, or when you want inspiration.",
-       "you": "Say which `Domain`, specialty and role the pages must shout, and how many pages Spacious may use (1 to 3).",
+       "you": "Say which `Domain`, specialty and `Rank` the pages must shout, and how many pages Spacious may use (1 to 3).",
        "does": [
         "The lead loads the `idea-run` skill.",
         "A product-ideas run works the same way with `ceo` and `ceo-reviewer` instead; weekly at most."
@@ -1154,7 +1158,7 @@ window.ATLAS = {
        "actor": "lead",
        "summary": "One steer for the author and the very same steer for every reviewer. Never any client data.",
        "does": [
-        "Names the `Domain`, specialty and role the page must shout.",
+        "Names the `Domain`, specialty and `Rank` the page must shout.",
         "Never bans domain imagery; gives the Spacious page count.",
         "The lead keeps the author's agent id, so revisions go back to the same author with its memory."
        ],
@@ -1422,7 +1426,7 @@ window.ATLAS = {
    "summary": "Every change, code or docs or design, goes through an independent review by a fresh agent before it is called done. Routine Git is the agents' job; a short list of irreversible things stays yours.",
    "tldr": [
     "Each session starts from the `session-handoff` doc on `main` (`backlog/docs/`) and ends by rewriting it after a `Session Sweep`.",
-    "Build, prove it with `tests/run.py`, then a fresh reviewer per round: `code-reviewer` for code and, on `main`, everything else; `design-reviewer` for looks. A `context-reviewer` reviews changes to agent rules.",
+    "Build, prove it with `tests/run.py`, then a fresh reviewer per round: `code-reviewer` for code and everything not agent context; `design-reviewer` for looks. A `context-reviewer` reviews changes to agent rules.",
     "Fix every Blocking and Material finding; stop at PASS or after 5 rounds (10 unattended). Then merge, push and watch CI."
    ],
    "sources": [
@@ -1431,14 +1435,11 @@ window.ATLAS = {
     "docs/git-workflow.md"
    ],
    "status": {
-    "step": "merge",
-    "asOf": "2026-10-04",
-    "waitingOn": [
-     "lead"
-    ],
-    "title": "All branches merged into main",
-    "note": "On 2026-10-04 you asked for every branch to be merged so only `main` remains, including `codex-visual-tools` (the two context agents and the approved, not yet built, Codex image and visual-review plan). Its two review reports were FINDINGS and stay open.",
-    "ref": "git: main"
+    "step": "review",
+    "asOf": "2026-10-14",
+    "title": "The 2026-10-04 merges were reviewed after the fact",
+    "note": "On 2026-10-04 you asked for every branch to be merged so only `main` remains; those merges had no review report. On 2026-10-14 a `context-reviewer` reviewed them (FINDINGS: ungated designs and open review reports brought onto `main`, stale records), and TASK-33 fixed each finding. Changes in flight are the Active and Review tasks in `backlog/`.",
+    "ref": "docs/work/workflow-model/reviews/01-context-reviewer.md"
    },
    "phases": [
     {
@@ -1482,7 +1483,7 @@ window.ATLAS = {
        ],
        "sources": [
         "docs/development.md:17-32",
-        "docs/development.md:107-195"
+        "docs/development.md:107-196"
        ]
       }
      ]
@@ -1539,7 +1540,7 @@ window.ATLAS = {
        ],
        "summary": "A fresh agent that never saw the work judges the exact snapshot. Which reviewer depends on what changed.",
        "does": [
-        "Code, tests, fixtures, and on `main` every change no other gate covers: `code-reviewer`.",
+        "Code, tests, fixtures, and everything not agent context that no other gate covers: `code-reviewer`.",
         "Looks: CV pages, brand assets, `Flagship` changes: `design-reviewer`.",
         "Agent context (AGENTS.md, rules, glossary, skills): `context-reviewer`; a change that mixes code and context gets both.",
         "Eight lenses, from product fit to repository hygiene. Findings are Blocking, Material, Minor or Note."
@@ -1583,7 +1584,7 @@ window.ATLAS = {
         "Renaming the task never resets the round count."
        ],
        "sources": [
-        "docs/review.md:178-213"
+        "docs/review.md:178-215"
        ]
       }
      ]
@@ -1766,7 +1767,7 @@ window.ATLAS = {
        "title": "Framework",
        "path": "packages/cv-framework/",
        "blurb": "The domain-neutral core: page frame, components, data merge, pagination, fonts.",
-       "touch": "Changing behaviour every `Domain` shares. It never imports a `Domain`; the suite checks that."
+       "touch": "Changing behaviour every `Domain` shares. It never imports a `Domain`, and its code names no `Domain` or template word, no layout key or artwork slot it does not own, no colour literal; the suite checks both."
       },
       {
        "id": "n-marine",
@@ -2022,7 +2023,7 @@ window.ATLAS = {
        "title": "GitHub CI",
        "path": ".github/workflows/verify.yml",
        "actor": "github-ci",
-       "blurb": "The suite on every push and every pull request."
+       "blurb": "The suite once per push (its head commit), Linux and Windows."
       }
      ]
     },
@@ -2266,30 +2267,39 @@ window.ATLAS = {
   }
  ],
  "build": {
-  "builtAt": "2026-10-14 06:28 UTC",
-  "commit": "7acccd8",
+  "builtAt": "2026-10-14 06:45 UTC",
+  "commit": "7da114f",
   "kit": "1.0",
-  "stale": {},
+  "stale": {
+   "system-map": [
+    "docs/pdf-workflow.md",
+    "docs/guides/client-workflow.md",
+    "docs/guides/build-a-cv.md",
+    "scripts/design_review/server.py",
+    "docs/glossary.md",
+    "docs/work"
+   ]
+  },
   "verified": {
    "client-journey": {
     "at": "2026-10-14",
-    "commit": "7acccd8"
+    "commit": "7da114f"
    },
    "design-run": {
     "at": "2026-10-14",
-    "commit": "7acccd8"
+    "commit": "7da114f"
    },
    "change-review": {
     "at": "2026-10-14",
-    "commit": "6e09e22"
+    "commit": "b886a7c"
    },
    "system-map": {
     "at": "2026-10-14",
-    "commit": "7acccd8"
+    "commit": "3857280"
    },
    "roster": {
     "at": "2026-10-14",
-    "commit": "7acccd8"
+    "commit": "7da114f"
    }
   }
  }

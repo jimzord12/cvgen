@@ -333,3 +333,9 @@ requires identical pixels, so the table is checked.
 | `contact-group(items, alignment, theme, layout.hero)` | `fc.contact-group(ctx, items, alignment: alignment)` | `layout.hero` |
 | `identity-plate(identity, theme, layout.hero)` | `fc.identity-plate(ctx, identity)` | `layout.hero` |
 | `hero(d.identity, d.contacts, theme, artwork, layout.hero)` | `fc.hero(ctx, d)` | `layout.hero`, `artwork` |
+
+The page shell reads `layout.shell` (`docs/reference/layout-and-pagination.md`):
+a layout written before TASK-45 renames `opening-margin` to `shell.margin`
+and `hero.band-height` to `shell.band`. The legacy `document-shell` refuses
+the old keys; `cc.document-shell` and `cc.page-background` cannot name them
+and ignore them, so rename first, then migrate.

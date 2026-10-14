@@ -1,10 +1,14 @@
 // Golden Blue: the original navy, teal and brass theme. Visual tokens only; geometry lives in layouts/.
+#import "../../../domain.typ": domain
+
 #let theme = (
   name: "Golden Blue",
   colors: (ink: rgb("102f3a"), hero: rgb("102f3a"), accent: rgb("236a70"),
     metal: rgb("c8a579"), muted: rgb("546870"), surface: rgb("eef4f3"),
     paper: white, plate: rgb("f7f4ee"), rule: rgb("cfdddd"), on-hero: white),
   fonts: (body: "Source Sans 3", display: "Barlow"),
+  // The marine art's own colours, recoloured to this theme's ink, accent, metal and muted.
+  art-palette: domain.art-palette,
   art-colors: ("#619095": rgb("619095"), "#47747a": rgb("47747a"),
     "#b38e61": rgb("b38e61"), "#e6caa0": rgb("e6caa0"),
     "#98774f": rgb("98774f"), "#e4c79f": rgb("e4c79f")),
