@@ -12,6 +12,27 @@
 #import "components/certificates.typ": certificates-section
 #import "components/education.typ": education-languages-section
 
+// Flagship's page plan: the core's grammar (every vessel row once, in order), then
+// Flagship's own closing sections: exactly one synopsis, on the last Experience page,
+// and certificates and education at most once each, on or after it, whenever the
+// candidate has them.
+#let validate-plan(pages, d, model) = {
+  validate-pages(pages, d, model)
+  let synopsis-pages = pages.enumerate().filter(((i, p)) => p.at("synopsis", default: false))
+  assert.eq(synopsis-pages.len(), 1, message: "Page plan requires exactly one synopsis")
+  let final-experience = pages.enumerate().filter(((i, p)) => p.companies.len() > 0)
+  assert(final-experience.len() > 0, message: "Experience requires at least one vessel")
+  assert.eq(synopsis-pages.first().at(0), final-experience.last().at(0), message: "Synopsis must follow the final Experience page")
+  for (key, required) in (("certificates", d.certificates.len() > 0), ("education", d.education.len() + d.languages.len() > 0)) {
+    let assigned = pages.enumerate().filter(((i, p)) => p.at(key, default: false))
+    assert(assigned.len() <= 1, message: "Section assigned more than once: " + key)
+    if required {
+      assert.eq(assigned.len(), 1, message: "Missing page assignment: " + key)
+      assert(assigned.first().at(0) >= final-experience.last().at(0), message: "Credentials must follow Experience")
+    }
+  }
+}
+
 // `candidate` is a candidate-facts record; the adapter turns it into Flagship input.
 // `role` is a marine role marker (roles/<role>/role.typ) or none; Flagship serves every role of the domain.
 #let flagship(body, candidate: none, role: none, theme: none, artwork: none, layout: none, show-vessel-durations: true, copy: (:)) = {
@@ -20,7 +41,7 @@
   let d = normalize-candidate(to-flagship-input(candidate, role: role, copy: copy))
   validate-theme(theme)
   validate-candidate(d, show-vessel-durations)
-  validate-pages(layout.pages, d, domain.experience)
+  validate-plan(layout.pages, d, domain.experience)
   // Built once; every component reads its own slice and passes it on untouched (ADR 0008).
   let ctx = make-ctx(theme: theme, layout: layout, artwork: artwork, copy: d.copy,
     options: (show-vessel-durations: show-vessel-durations))

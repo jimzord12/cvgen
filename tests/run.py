@@ -16,8 +16,9 @@ from repo_maintenance import run_repo_maintenance
 
 def check_core_boundary():
     """The Framework never reaches a domain (ADR 0011, 0012): core files import only their siblings, lib.typ
-    only core files, and no Framework file names packages/domains; every domain file that reaches the core
-    goes through packages/cv-framework."""
+    only core files, and no Framework file names packages/domains, speaks marine or Flagship, reads a
+    template's layout key or hard-codes a colour; every domain file that reaches the core goes through
+    packages/cv-framework."""
     import re
     imports = re.compile(r'(?<![\w-])(?:import|include)\s+"([^"]+)"')
     framework = ROOT / 'packages/cv-framework'
@@ -27,9 +28,31 @@ def check_core_boundary():
     for target in imports.findall((framework / 'lib.typ').read_text(encoding='utf-8')):
         assert target.startswith('core/') and '..' not in target, f'the Framework lib.typ imports outside core: {target}'
     # Nor may any Framework code read a file by a domain path (read, image, json); comments may name one.
-    for source in framework.rglob('*.typ'):
+    # Beyond imports, the Framework holds no marine or Flagship rule (TASK-45). Three checks on the same
+    # comment-free code, each chosen so that it cannot fire on neutral code by accident:
+    # 1. Vocabulary: no word that only a marine fact or a Flagship part uses, and no Flagship layout key
+    #    (whole words, so `relationship` or `ranking` pass). Common facts (certificates, education) and the
+    #    theme's colour names (`hero` is the shell's band colour) are the core's own words, not on the list.
+    # 2. What it reads: the core reads only the layout keys and artwork slots it owns. An allowlist, so a
+    #    template key fails whatever it is called; a template gives the shell its say through `shell`.
+    # 3. Colour: no colour literal; colours come from the theme, source-art colours from the theme's
+    #    `art-palette`, which the domain supplies. A hard-coded palette is exactly what this catches.
+    vocabulary = re.compile(r'(?<![a-z])(vessels?|ships?|marine|maritime|seafar\w*|flagship|synopsis|tonnage|voyages?'
+                            r'|crew|rank|opening-margin|continuation-margin|band-height|anchor-education|stack-gap)(?![a-z])', re.I)
+    owned = {'layout': {'paper', 'width', 'height', 'shell', 'header', 'footer'},
+             'artwork': {'background-first', 'background-continuation'}}
+    colour = re.compile(r'"#[0-9a-fA-F]{3,8}"|(?<![\w-])(?:rgb|cmyk|luma|oklab|oklch)\(')
+    for source in sorted(framework.rglob('*.typ')):
+        name = source.relative_to(ROOT).as_posix()
         code = re.sub(r'//[^\n]*', '', re.sub(r'/\*.*?\*/', '', source.read_text(encoding='utf-8'), flags=re.S))
-        assert 'domains/' not in code, f'{source.relative_to(ROOT)} names a domain path'
+        assert 'domains/' not in code, f'{name} names a domain path'
+        words = sorted({m.group(0) for m in vocabulary.finditer(code)})
+        assert not words, f'{name} speaks marine or Flagship: {words}'
+        for owner, keys in owned.items():
+            read = set(re.findall(rf'(?<![\w-]){owner}\.(?!at\()([\w-]+)', code)) | set(re.findall(rf'(?<![\w-]){owner}\.at\("([^"]+)"', code))
+            assert read <= keys, f'{name} reads {owner} keys the Framework does not own: {sorted(read - keys)}'
+        literals = colour.findall(code)
+        assert not literals, f'{name} hard-codes colours instead of reading the theme: {literals}'
     for source in sorted((ROOT / 'packages/domains').rglob('*.typ')):
         for target in imports.findall(source.read_text(encoding='utf-8')):
             assert not re.search(r'(^|/)core/', target) or 'cv-framework/core/' in target, \
@@ -321,6 +344,9 @@ def main():
             assert text.count('MV Test Vessel ' + str(i + 1)) == 1
     compile_case('overflow', 'tests/fixtures/pagination.typ', {'case': 'overflow'}, error='Content overflow')
     compile_case('duplicate', 'tests/fixtures/pagination.typ', {'case': 'duplicate'}, error='each vessel row once')
+    # The closing-section rules are Flagship's, not the core's (core-model accepts a plan with no synopsis).
+    compile_case('no-synopsis', 'tests/fixtures/pagination.typ', {'case': 'no-synopsis'}, error='exactly one synopsis')
+    compile_case('early-credentials', 'tests/fixtures/pagination.typ', {'case': 'early-credentials'}, error='Credentials must follow Experience')
     certs = compile_case('certificate-continuation', 'tests/fixtures/certificate-continuation.typ')
     with fitz.open(certs) as doc:
         assert len(doc) == 2
