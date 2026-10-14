@@ -1,10 +1,10 @@
 ---
 id: TASK-48
 title: 'ci-hardening: CI pinned, checksummed, and covering Windows'
-status: Review
+status: Done
 assignee: []
 created_date: '2026-10-14 04:48'
-updated_date: '2026-10-14 06:23'
+updated_date: '2026-10-14 06:32'
 labels:
   - restructure
 dependencies: []
@@ -54,3 +54,9 @@ Owner: Claude implementation agent (lead runs review and merge). Branch/worktree
 - Round 1, code-reviewer: FINDINGS (`docs/work/ci-hardening/reviews/01-code-reviewer.md`). M1 fixed in 8dea477: main pushes get their own concurrency group (`github.ref == 'refs/heads/main' && github.sha || github.ref`), so GitHub cannot replace a pending main run; cancel-in-progress stays non-main only. m1 fixed: "once per push (its head commit); a newer push to a feature branch cancels the older run" in docs/tech-stack.md, docs/reference/verification.md, .atlas/src/site.json, .atlas/src/pages/system-map.json. N1 fixed: `pillow==12.3.0` in verify.yml (tech-stack Verification row says 12.3). N2 accepted. N3: merged origin/main in 4c46266, took main's generated Atlas files, rebuilt, re-stamped change-review and roster, then system-map after commit (75ad56e); `atlas.py check --strict` exit 0. Citation ranges into changed files checked (github-ci cites docs/git-workflow.md:90-103, the CI-observation bullet on merged main).
 - Evidence after fixes: CI run 38521749564 on 75ad56e green: suite (ubuntu-24.04) job 115712804636, suite (windows-2025) job 115712804971; pillow-12.3.0 installed, PASS 98 on both, Windows build.ps1 5 CVs; pip cache restored by restore-key and saved under the new key (verify.yml changed). Local `python tests/run.py` PASS on the merged head (`builds/tests-20261014-092144-096170`). The M1 fix rests on GitHub's documented concurrency rule; not reproduced with two main pushes (no pushes to main from this branch).
 <!-- SECTION:NOTES:END -->
+
+## Final Summary
+
+<!-- SECTION:FINAL_SUMMARY:BEGIN -->
+CI now runs on ubuntu-24.04 and windows-2025, actions pinned by SHA, Typst 0.15.1 checksummed, pip packages pinned (pillow 12.3.0), main pushes keep their own run (concurrency group by SHA), Windows also runs build.ps1. Two code-reviewer rounds (FINDINGS, PASS) and one context-reviewer round (PASS, minors fixed). CI runs 38521749564 and 38521920254 green on both OSes, PASS 98; local suite builds/tests-20261014-092144-096170. Transitive pins and local setup line carried to TASK-47.
+<!-- SECTION:FINAL_SUMMARY:END -->
