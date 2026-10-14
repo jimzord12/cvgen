@@ -77,7 +77,9 @@ report:
   (filters combine, so one command would miss a blocked Queued task; the
   lists include active branches).
 - **Git:** `git worktree list` and local or remote branches already merged
-  into `main`; anything uncommitted or unpushed.
+  into `main`; anything uncommitted or unpushed. The `Main Folder` is on
+  `main`, clean and synced, not left on a feature branch
+  ([git-workflow.md](git-workflow.md#branches)).
 - **CI:** `gh run list --commit <main head>` shows the run on the current
   `main` head, green (not `--branch main`: see `docs/git-workflow.md`).
 - **`builds/`:** clear old folders by path when they pile up.

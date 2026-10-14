@@ -48,6 +48,16 @@ None of this approves a pending product design.
   `main` that the backlog skill makes in the session's scratchpad to write
   records (`.claude/skills/backlog/SKILL.md`). Worktrees created before this
   rule stay where they are until their work is merged and they are removed.
+- The `Main Folder` is the default checkout, the folder the repository was
+  cloned into; every worktree under `.worktrees/` is an extra checkout of
+  it. Keep the `Main Folder` on `main`, clean and synced with `origin/main`
+  (or on the branch the owner chose for it), and do branch work in a
+  worktree. A session that finds it on another branch, behind `main` or
+  dirty with changes that are not its own leaves those changes alone and
+  works in a worktree; it never switches the `Main Folder` to a feature
+  branch, and it never ends a session with it left on one (a stale
+  checkout makes the project look older than it is). Fast-forward it to
+  `origin/main` when it is clean and on `main`.
 
 ## Commits
 

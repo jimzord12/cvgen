@@ -352,7 +352,7 @@ window.ATLAS = {
     "role": "Reads and updates the tasks in `backlog/` through the `backlog` CLI, and reads and rewrites the `session-handoff` doc on `main`. Every task's record is a task file.",
     "when": "Orientation, and every task state change.",
     "sources": [
-     ".claude/skills/backlog/SKILL.md:1-117"
+     ".claude/skills/backlog/SKILL.md:1-118"
     ]
    },
    "repo-maintenance": {
@@ -458,7 +458,7 @@ window.ATLAS = {
     "role": "Runs the suite on every push and pull request (Typst 0.15.1). The lead watches it on `main` before calling work Done.",
     "sources": [
      ".github/workflows/verify.yml",
-     "docs/git-workflow.md:74-87"
+     "docs/git-workflow.md:84-97"
     ],
     "short": "CI"
    }
@@ -2263,30 +2263,30 @@ window.ATLAS = {
   }
  ],
  "build": {
-  "builtAt": "2026-10-14 05:32 UTC",
-  "commit": "8e2b9c5",
+  "builtAt": "2026-10-14 05:38 UTC",
+  "commit": "298fc49",
   "kit": "1.0",
   "stale": {},
   "verified": {
    "client-journey": {
     "at": "2026-10-14",
-    "commit": "8e2b9c5"
+    "commit": "298fc49"
    },
    "design-run": {
     "at": "2026-10-14",
-    "commit": "8e2b9c5"
+    "commit": "298fc49"
    },
    "change-review": {
     "at": "2026-10-14",
-    "commit": "8e2b9c5"
+    "commit": "298fc49"
    },
    "system-map": {
     "at": "2026-10-14",
-    "commit": "8e2b9c5"
+    "commit": "298fc49"
    },
    "roster": {
     "at": "2026-10-14",
-    "commit": "8e2b9c5"
+    "commit": "298fc49"
    }
   }
  }
