@@ -94,13 +94,13 @@
    "verifiedAt": "2026-10-14"
   },
   "system-map": {
-   "commit": "385aa8b",
+   "commit": "7b5fd11",
    "sources": {
     ".claude/agents": "dir1:4f4154394888bb9d69a0ed790d8f4b484a790fdd",
     ".claude/skills": "dir1:5eeafda0c9ef9a6037a3fcc2879f73f098fa3e55",
     ".claude/skills/backlog/SKILL.md": "22562281e7901acef008942775142d478ec85948",
     ".github/workflows/verify.yml": "100de5fc82ad3ce2e740a3036892d3886ffa6384",
-    "AGENTS.md": "979f5bc159e8aae72cb020d1b62c0d01b9201d1a",
+    "AGENTS.md": "4ec8bbab7191a79640549a06b935778fdecf9249",
     "archive/anti-examples": "dir1:dacb2a2e30bc6a5d49178d2bcbf382c4de52a88c",
     "archive/design-studies": "dir1:3934f2dbb33587fa8b485e7b99d2b37fa3784798",
     "brand": "dir1:c556e0f8d17363d5e9ddc92e7142a253a16d1be2",
@@ -108,10 +108,10 @@
     "docs": "dir1:1524eeecbb91977c608e30377da8cd2745b0067f",
     "docs/architecture.md": "350372a56955f34608761fc4876da91260b0042f",
     "docs/glossary.md": "93d16a259129d9973a0e85b50315c422e6fb5dce",
-    "docs/guides/build-a-cv.md": "1b2ab76450bd5a517fed481fc9efa5e3efa376a6",
+    "docs/guides/build-a-cv.md": "9a2e3a46da3676098b56086c5199e0cf449629a9",
     "docs/guides/client-workflow.md": "76f0ab9b43aad41d0c0de8a6ef84fcca3abe23aa",
     "docs/pdf-workflow.md": "1c474509f2f8ea3fdad3f76d996e7c9f9f32d199",
-    "docs/work": "dir1:6910fe7a11aa60069c180152db45a806cb367ec6",
+    "docs/work": "dir1:bd88ae2f0da9f9cef2f6f250cc0f59b8dcf26938",
     "examples/candidates": "dir1:69fb38eee30dc425761a0cb80a577613cf3bdab4",
     "examples/marine/flagship": "dir1:2badfd3042bcd2c5ef709a6596945aefe8848eb1",
     "packages/cv-framework": "dir1:e26fc6cd0be31cb5f9c4f61215ae5f3cfdc05a78",
