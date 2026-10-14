@@ -3,7 +3,7 @@ window.ATLAS = {
  "site": {
   "repo": "CVgen",
   "title": "How CVgen works",
-  "tagline": "Premium, hand-crafted CVs made with AI on our own Typst `Framework`. Five questions, answered as pictures: what to do with a new `Client`, what happens to a design run, how any change lands, how the parts connect, and who does the work.",
+  "tagline": "Premium, hand-crafted CVs made with AI on our own Typst `Framework`. Five questions, answered as pictures: what to do with a new `Client`, what happens to a design `Idea Run`, how any change lands, how the parts connect, and who does the work.",
   "lang": "en",
   "sourceBase": "../",
   "branch": "main",
@@ -41,7 +41,7 @@ window.ATLAS = {
     ],
     "sources": [
      "docs/preferences.md:49-81",
-     "docs/guides/client-workflow.md:9-10"
+     "docs/workflow/README.md:22-24"
     ],
     "short": "You"
    },
@@ -54,8 +54,8 @@ window.ATLAS = {
      "Outside `private/` a client is only their `Alias`, like `client-2026-09-01`."
     ],
     "sources": [
-     "docs/guides/client-workflow.md:370-372",
-     "docs/guides/client-workflow.md:94-98"
+     "docs/workflow/README.md:28-32",
+     "docs/workflow/01-open/README.md:23-26"
     ],
     "short": "Client"
    },
@@ -84,7 +84,7 @@ window.ATLAS = {
     "tools": "Read, Grep, Glob, Bash, PowerShell, WebSearch, WebFetch, Write, Edit",
     "access": "Writes only its concept folders, the concepts README and fonts. Never git, the `backlog` CLI or `private/`.",
     "calledBy": "The lead, through the `idea-run` skill.",
-    "when": "A design run, for inspiration or for a client whose `Domain` has no `Template` yet.",
+    "when": "A design `Idea Run`, for inspiration or for a client whose `Domain` has no `Template` yet.",
     "sources": [
      ".claude/agents/magazine-editor.md:1-23",
      ".claude/agents/magazine-editor.md:50-82"
@@ -104,7 +104,7 @@ window.ATLAS = {
     "tools": "Read, Grep, Glob, Bash, PowerShell, WebFetch",
     "readOnly": true,
     "calledBy": "The lead: a fresh one every round.",
-    "when": "Design runs, client designs, Flagship changes, brand assets.",
+    "when": "Design `Idea Run`s, client designs, Flagship changes, brand assets.",
     "notes": [
      "Rubric: 1 `Batch Test`, 2 `Three-Second Test`, 3 `Flagship Parity`, 4 distinct, 5 reads as a CV, 6 craft, 7 provenance, 8 buildable and honest.",
      "Makes batch sheets: each page shrunk among 8+ plain market CVs."
@@ -125,7 +125,7 @@ window.ATLAS = {
     "tools": "Read, Grep, Glob, WebSearch, WebFetch",
     "readOnly": true,
     "calledBy": "The lead: a fresh one every round.",
-    "when": "A design run's references, a client's `Deep Dives`, `Research Library` notes.",
+    "when": "A design Idea Run's references, a client's `Deep Dives`, `Research Library` notes.",
     "notes": [
      "Never reads `private/`: the lead passes client research inline, checked for client details, with its SHA-256."
     ],
@@ -257,7 +257,7 @@ window.ATLAS = {
      "As a stand-in it is told to act exactly as the agent file, with that file's tools as a hard limit, and the lead records its model and effort."
     ],
     "sources": [
-     ".claude/skills/new-client/SKILL.md:35-48",
+     ".claude/skills/new-client/SKILL.md:56-67",
      ".claude/skills/idea-run/SKILL.md:88-105"
     ],
     "short": "General"
@@ -305,8 +305,8 @@ window.ATLAS = {
      "Every time it runs it also checks for stalled clients (3 months, no `Export`) and passed delete-by dates, and hands you the history-erase commands for those; you run them."
     ],
     "sources": [
-     ".claude/skills/new-client/SKILL.md:1-9",
-     ".claude/skills/new-client/SKILL.md:96-107"
+     ".claude/skills/new-client/SKILL.md:1-14",
+     ".claude/skills/new-client/SKILL.md:16-29"
     ]
    },
    "new-cv": {
@@ -316,7 +316,7 @@ window.ATLAS = {
     "role": "Checklist that builds the CV itself: data, entry point, page plan, the client design loop, the render and its evidence.",
     "when": "After `Sign-off`, or to add a public example.",
     "sources": [
-     ".claude/skills/new-cv/SKILL.md:1-15"
+     ".claude/skills/new-cv/SKILL.md:1-19"
     ]
    },
    "idea-run": {
@@ -380,7 +380,7 @@ window.ATLAS = {
     ],
     "sources": [
      "scripts/cv.py:1-12",
-     "docs/guides/build-a-cv.md:112-207"
+     "docs/guides/build-a-cv.md:102-182"
     ]
    },
    "outputs-py": {
@@ -390,7 +390,7 @@ window.ATLAS = {
     "role": "The `Output Contract` tool: `stamp` writes a PDF's `Meta File`; `check` lists every PDF without a valid one.",
     "sources": [
      "scripts/outputs.py",
-     "docs/pdf-workflow.md:123-167"
+     "docs/pdf-workflow.md:125-169"
     ]
    },
    "suite": {
@@ -425,7 +425,7 @@ window.ATLAS = {
     "sources": [
      "scripts/build.ps1",
      "examples/release.json",
-     "docs/pdf-workflow.md:218-226"
+     "docs/pdf-workflow.md:219-227"
     ]
    },
    "intake-form": {
@@ -435,7 +435,7 @@ window.ATLAS = {
     "role": "Google Apps Script you run once per form: builds the optional `Intake Form` and its answers Sheet in your Google account.",
     "sources": [
      "scripts/intake-form.gs:1-21",
-     "docs/guides/client-workflow.md:122-159"
+     "docs/guides/client-workflow.md:131-177"
     ]
    },
    "board": {
@@ -454,7 +454,7 @@ window.ATLAS = {
     "kind": "service",
     "role": "Viber, WhatsApp or email: how you pass questions and drafts to the client and bring answers back.",
     "sources": [
-     "docs/guides/client-workflow.md:112-120"
+     "docs/workflow/02-intake/README.md:17-36"
     ],
     "short": "Chat"
    },
@@ -540,23 +540,24 @@ window.ATLAS = {
     "**Retention, deletion and closing the record.** Keep a client's data only as long as promised: name stalled clients and passed delete-by dates to the owner, honour a request to keep, have the owner erase the Envelope and its Google items, and close the client's task."
    ],
    "sources": [
-    "docs/guides/client-workflow.md:17-19",
-    "docs/guides/client-workflow.md:29-108",
-    ".claude/skills/new-client/SKILL.md:13-21",
-    "docs/guides/client-workflow.md:110-194",
-    ".claude/skills/new-client/SKILL.md:22-31",
-    "docs/guides/client-workflow.md:196-276",
-    ".claude/skills/new-client/SKILL.md:32-58",
-    "docs/guides/client-workflow.md:278-308",
-    ".claude/skills/new-client/SKILL.md:59-71",
-    "docs/guides/client-workflow.md:310-328",
-    ".claude/skills/new-cv/SKILL.md:8-97",
-    "docs/guides/build-a-cv.md:1-108",
-    "docs/guides/build-a-cv.md:110-207",
-    "docs/pdf-workflow.md:169-196",
-    ".claude/skills/new-cv/SKILL.md:98-123",
-    "docs/guides/client-workflow.md:330-359",
-    ".claude/skills/new-client/SKILL.md:95-110",
+    "docs/workflow/01-open/README.md:20-22",
+    "docs/guides/client-workflow.md:17-94",
+    ".claude/skills/new-client/SKILL.md:31-38",
+    "docs/workflow/02-intake/README.md:15-41",
+    "docs/guides/client-workflow.md:96-129",
+    ".claude/skills/new-client/SKILL.md:40-51",
+    "docs/workflow/03-research/README.md:15-64",
+    ".claude/skills/new-client/SKILL.md:53-74",
+    "docs/workflow/04-text-draft/README.md:15-42",
+    ".claude/skills/new-client/SKILL.md:76-97",
+    "docs/workflow/05-design/README.md:15-54",
+    ".claude/skills/new-cv/SKILL.md:21-54",
+    "docs/guides/build-a-cv.md:1-100",
+    "docs/guides/build-a-cv.md:102-182",
+    "docs/pdf-workflow.md:171-193",
+    ".claude/skills/new-cv/SKILL.md:56-78",
+    "docs/workflow/07-after/README.md:15-53",
+    ".claude/skills/new-client/SKILL.md:16-29",
     "docs/proposals/workflow-model.md:54-60"
    ],
    "phases": [
@@ -580,15 +581,15 @@ window.ATLAS = {
        ],
        "note": "Model step `open.arrives`, action `manual.tell-new-client`, in `docs/workflow/01-open/stage.yaml`.",
        "sources": [
-        "docs/guides/client-workflow.md:17-19",
-        ".claude/skills/new-client/SKILL.md:1-3"
+        "docs/workflow/01-open/README.md:20-22",
+        ".claude/skills/new-client/SKILL.md:1-4"
        ]
       },
       {
        "id": "open.envelope",
        "title": "Open the Envelope and its Drawers",
        "actor": "lead",
-       "summary": "Creates private/<name>-<rank>/ in the one Envelope tree with README.md, intake/ (messages.md, documents/), research/ (reviews/) and draft/; never under examples/.",
+       "summary": "Creates private/<envelope>/, named after the person and the Rank, in the one Envelope tree with README.md, intake/ (messages.md, documents/), research/ (reviews/) and draft/; never under examples/.",
        "next": [
         "open.alias"
        ],
@@ -600,8 +601,8 @@ window.ATLAS = {
        ],
        "note": "Model step `open.envelope`, action `lead.open-envelope`, in `docs/workflow/01-open/stage.yaml`.",
        "sources": [
-        "docs/guides/client-workflow.md:31-37",
-        ".claude/skills/new-client/SKILL.md:13-16"
+        "docs/guides/client-workflow.md:21-27",
+        ".claude/skills/new-client/SKILL.md:33-36"
        ]
       },
       {
@@ -621,8 +622,9 @@ window.ATLAS = {
        ],
        "note": "Model step `open.alias`, action `lead.write-alias`, in `docs/workflow/01-open/stage.yaml`.",
        "sources": [
-        "docs/guides/client-workflow.md:94-98",
-        ".claude/skills/new-client/SKILL.md:16-18",
+        "docs/workflow/01-open/README.md:23-26",
+        "docs/guides/client-workflow.md:87-88",
+        ".claude/skills/new-client/SKILL.md:33-35",
         "docs/glossary.md:48"
        ]
       },
@@ -644,8 +646,8 @@ window.ATLAS = {
        ],
        "note": "Model step `open.envelope-json`, action `lead.write-envelope-json`, in `docs/workflow/01-open/stage.yaml`.",
        "sources": [
-        "docs/guides/client-workflow.md:100-108",
-        ".claude/skills/new-client/SKILL.md:18-21"
+        "docs/guides/client-workflow.md:85-94",
+        "docs/guides/client-workflow.md:85-90"
        ]
       },
       {
@@ -663,7 +665,7 @@ window.ATLAS = {
        "note": "Model step `open.task-create`, action `lead.create-client-task`, in `docs/workflow/01-open/stage.yaml`.",
        "sources": [
         "docs/proposals/workflow-model.md:60",
-        "docs/guides/client-workflow.md:96-98",
+        "docs/workflow/01-open/README.md:23-26",
         "docs/workflow/GAPS.md:38-40"
        ]
       }
@@ -690,9 +692,9 @@ window.ATLAS = {
        ],
        "note": "Model step `intake.questions`, action `lead.write-question-list`, in `docs/workflow/02-intake/stage.yaml`.",
        "sources": [
-        "docs/guides/client-workflow.md:112-114",
-        "docs/guides/client-workflow.md:161-187",
-        ".claude/skills/new-client/SKILL.md:22-24"
+        "docs/workflow/02-intake/README.md:17-20",
+        "docs/guides/client-workflow.md:100-126",
+        ".claude/skills/new-client/SKILL.md:42-44"
        ]
       },
       {
@@ -716,8 +718,8 @@ window.ATLAS = {
        ],
        "note": "Model step `intake.form-script`, action `lead.write-form-script`, in `docs/workflow/02-intake/stage.yaml`.",
        "sources": [
-        "docs/guides/client-workflow.md:122-131",
-        ".claude/skills/new-client/SKILL.md:28-31"
+        "docs/guides/client-workflow.md:136-141",
+        ".claude/skills/new-client/SKILL.md:45-48"
        ]
       },
       {
@@ -740,7 +742,7 @@ window.ATLAS = {
        ],
        "note": "Model step `intake.form-create`, action `manual.run-form-script`, in `docs/workflow/02-intake/stage.yaml`.",
        "sources": [
-        "docs/guides/client-workflow.md:131-137",
+        "docs/guides/client-workflow.md:148-151",
         "scripts/intake-form.gs:5-18",
         "scripts/intake-form.gs:78-114"
        ]
@@ -762,8 +764,8 @@ window.ATLAS = {
        ],
        "note": "Model step `intake.form-links`, action `lead.list-google-links`, in `docs/workflow/02-intake/stage.yaml`.",
        "sources": [
-        "docs/guides/client-workflow.md:137-139",
-        ".claude/skills/new-client/SKILL.md:30-31",
+        "docs/guides/client-workflow.md:153-155",
+        ".claude/skills/new-client/SKILL.md:45-48",
         "scripts/intake-form.gs:11-15"
        ]
       },
@@ -785,7 +787,7 @@ window.ATLAS = {
        ],
        "note": "Model step `intake.form-theme`, action `manual.apply-form-theme`, in `docs/workflow/02-intake/stage.yaml`.",
        "sources": [
-        "docs/guides/client-workflow.md:139-145",
+        "docs/guides/client-workflow.md:158-163",
         "scripts/intake-form.gs:16-17"
        ]
       },
@@ -804,7 +806,7 @@ window.ATLAS = {
        ],
        "note": "Model step `intake.form-test-cleanup`, action `manual.delete-test-answer`, in `docs/workflow/02-intake/stage.yaml`.",
        "sources": [
-        "docs/guides/client-workflow.md:153-156"
+        "docs/guides/client-workflow.md:165-168"
        ]
       },
       {
@@ -823,9 +825,9 @@ window.ATLAS = {
        ],
        "note": "Model step `intake.relay-send`, action `manual.paste-message`, in `docs/workflow/02-intake/stage.yaml`.",
        "sources": [
-        "docs/guides/client-workflow.md:112-115",
-        "docs/guides/client-workflow.md:122-125",
-        ".claude/skills/new-client/SKILL.md:24"
+        "docs/workflow/02-intake/README.md:17-23",
+        "docs/workflow/02-intake/README.md:45-48",
+        ".claude/skills/new-client/SKILL.md:42-44"
        ]
       },
       {
@@ -844,7 +846,7 @@ window.ATLAS = {
        ],
        "note": "Model step `intake.client-answers`, action `manual.client-answer`, in `docs/workflow/02-intake/stage.yaml`.",
        "sources": [
-        "docs/guides/client-workflow.md:114-115"
+        "docs/workflow/02-intake/README.md:21-23"
        ]
       },
       {
@@ -865,8 +867,8 @@ window.ATLAS = {
        ],
        "note": "Model step `intake.form-fill`, action `manual.client-answer`, in `docs/workflow/02-intake/stage.yaml`.",
        "sources": [
-        "docs/guides/client-workflow.md:122-125",
-        "docs/guides/client-workflow.md:145-147"
+        "docs/workflow/02-intake/README.md:45-48",
+        "docs/guides/client-workflow.md:170-172"
        ]
       },
       {
@@ -886,8 +888,7 @@ window.ATLAS = {
        ],
        "note": "Model step `intake.transcribe`, action `manual.transcribe-voice`, in `docs/workflow/02-intake/stage.yaml`.",
        "sources": [
-        "docs/guides/client-workflow.md:117-118",
-        ".claude/skills/new-client/SKILL.md:26-27"
+        "docs/workflow/02-intake/README.md:31-33"
        ]
       },
       {
@@ -907,7 +908,7 @@ window.ATLAS = {
        ],
        "note": "Model step `intake.capture`, action `manual.copy-chat-to-envelope`, in `docs/workflow/02-intake/stage.yaml`.",
        "sources": [
-        "docs/guides/client-workflow.md:118-120"
+        "docs/workflow/02-intake/README.md:33-35"
        ]
       },
       {
@@ -927,7 +928,7 @@ window.ATLAS = {
        ],
        "note": "Model step `intake.form-download`, action `manual.download-answers-csv`, in `docs/workflow/02-intake/stage.yaml`.",
        "sources": [
-        "docs/guides/client-workflow.md:145-152"
+        "docs/guides/client-workflow.md:170-177"
        ]
       },
       {
@@ -947,7 +948,8 @@ window.ATLAS = {
        ],
        "note": "Model step `intake.form-copy`, action `lead.copy-form-answers`, in `docs/workflow/02-intake/stage.yaml`.",
        "sources": [
-        "docs/guides/client-workflow.md:152-153"
+        ".claude/skills/new-client/SKILL.md:45-48",
+        "docs/workflow/02-intake/README.md:66-67"
        ]
       },
       {
@@ -979,8 +981,8 @@ window.ATLAS = {
        ],
        "note": "Model step `intake.consent`, action `lead.check-consent`, in `docs/workflow/02-intake/stage.yaml`.",
        "sources": [
-        "docs/guides/client-workflow.md:189-191",
-        ".claude/skills/new-client/SKILL.md:24-26"
+        "docs/workflow/02-intake/README.md:24-26",
+        ".claude/skills/new-client/SKILL.md:49-51"
        ]
       },
       {
@@ -994,8 +996,9 @@ window.ATLAS = {
        ],
        "note": "Model step `intake.no-consent`, action `manual.decide-on-no-consent`, in `docs/workflow/02-intake/stage.yaml`.",
        "sources": [
-        "docs/guides/client-workflow.md:191-192",
-        "docs/guides/client-workflow.md:333-338",
+        "docs/workflow/02-intake/README.md:52-57",
+        "docs/workflow/07-after/README.md:46-49",
+        "docs/workflow/07-after/README.md:27-34",
         "docs/workflow/GAPS.md:51-53"
        ]
       }
@@ -1022,8 +1025,8 @@ window.ATLAS = {
        ],
        "note": "Model step `research.facts`, action `lead.write-facts`, in `docs/workflow/03-research/stage.yaml`.",
        "sources": [
-        "docs/guides/client-workflow.md:196-203",
-        ".claude/skills/new-client/SKILL.md:32-34"
+        "docs/workflow/03-research/README.md:17-23",
+        ".claude/skills/new-client/SKILL.md:55"
        ]
       },
       {
@@ -1042,8 +1045,8 @@ window.ATLAS = {
        ],
        "note": "Model step `research.library-read`, action `lead.read-library`, in `docs/workflow/03-research/stage.yaml`.",
        "sources": [
-        "docs/guides/client-workflow.md:211-212",
-        ".claude/skills/new-client/SKILL.md:35-36",
+        "docs/workflow/03-research/README.md:24-26",
+        ".claude/skills/new-client/SKILL.md:56-58",
         "docs/research/README.md:3-6"
        ]
       },
@@ -1064,9 +1067,9 @@ window.ATLAS = {
        ],
        "note": "Model step `research.library-recheck`, action `lead.recheck-library-note`, in `docs/workflow/03-research/stage.yaml`.",
        "sources": [
-        "docs/guides/client-workflow.md:211-212",
+        "docs/workflow/03-research/README.md:24-26",
         "docs/research/README.md:31-33",
-        ".claude/skills/new-client/SKILL.md:35-36"
+        ".claude/skills/new-client/SKILL.md:56-58"
        ]
       },
       {
@@ -1087,8 +1090,8 @@ window.ATLAS = {
        ],
        "note": "Model step `research.scout`, action `lead.scout`, in `docs/workflow/03-research/stage.yaml`.",
        "sources": [
-        "docs/guides/client-workflow.md:205-215",
-        ".claude/skills/new-client/SKILL.md:35-37",
+        "docs/workflow/03-research/README.md:24-34",
+        ".claude/skills/new-client/SKILL.md:56-58",
         "docs/glossary.md:54"
        ]
       },
@@ -1110,8 +1113,8 @@ window.ATLAS = {
        ],
        "note": "Model step `research.decisions`, action `lead.write-decisions`, in `docs/workflow/03-research/stage.yaml`.",
        "sources": [
-        "docs/guides/client-workflow.md:217-233",
-        ".claude/skills/new-client/SKILL.md:38-40"
+        "docs/guides/client-workflow.md:179-195",
+        ".claude/skills/new-client/SKILL.md:59-61"
        ]
       },
       {
@@ -1146,9 +1149,9 @@ window.ATLAS = {
        ],
        "note": "Model step `research.pick-deep-dives`, action `manual.pick-deep-dives`, in `docs/workflow/03-research/stage.yaml`.",
        "sources": [
-        "docs/guides/client-workflow.md:235",
-        "docs/guides/client-workflow.md:241-242",
-        ".claude/skills/new-client/SKILL.md:38-40"
+        "docs/workflow/03-research/README.md:35-39",
+        "docs/workflow/03-research/README.md:38-39",
+        ".claude/skills/new-client/SKILL.md:59-61"
        ]
       },
       {
@@ -1168,9 +1171,9 @@ window.ATLAS = {
        ],
        "note": "Model step `research.dive-brief`, action `lead.brief-deep-dive`, in `docs/workflow/03-research/stage.yaml`.",
        "sources": [
-        ".claude/skills/new-client/SKILL.md:41-43",
-        ".claude/skills/new-client/SKILL.md:80-93",
-        "docs/guides/client-workflow.md:242-243"
+        ".claude/skills/new-client/SKILL.md:62-64",
+        ".claude/skills/new-client/SKILL.md:99-112",
+        "docs/workflow/03-research/README.md:43-44"
        ]
       },
       {
@@ -1190,8 +1193,8 @@ window.ATLAS = {
        ],
        "note": "Model step `research.deep-dive`, action `agent.general-purpose`, in `docs/workflow/03-research/stage.yaml`.",
        "sources": [
-        "docs/guides/client-workflow.md:241-244",
-        ".claude/skills/new-client/SKILL.md:41-43"
+        "docs/workflow/03-research/README.md:43-45",
+        ".claude/skills/new-client/SKILL.md:62-64"
        ]
       },
       {
@@ -1211,9 +1214,9 @@ window.ATLAS = {
        ],
        "note": "Model step `research.dive-save`, action `lead.save-deep-dive`, in `docs/workflow/03-research/stage.yaml`.",
        "sources": [
-        "docs/guides/client-workflow.md:244",
-        "docs/guides/client-workflow.md:248-250",
-        ".claude/skills/new-client/SKILL.md:42-43"
+        "docs/workflow/03-research/README.md:45-47",
+        "docs/workflow/03-research/README.md:45-48",
+        "docs/workflow/03-research/README.md:43-47"
        ]
       },
       {
@@ -1252,8 +1255,8 @@ window.ATLAS = {
        ],
        "note": "Model step `research.dive-review`, action `agent.research-reviewer`, in `docs/workflow/03-research/stage.yaml`.",
        "sources": [
-        "docs/guides/client-workflow.md:246-252",
-        ".claude/skills/new-client/SKILL.md:43-48"
+        "docs/workflow/03-research/README.md:43-51",
+        ".claude/skills/new-client/SKILL.md:62-67"
        ]
       },
       {
@@ -1279,7 +1282,7 @@ window.ATLAS = {
        ],
        "note": "Model step `research.dive-revise`, action `agent.general-purpose-revise`, in `docs/workflow/03-research/stage.yaml`.",
        "sources": [
-        ".claude/skills/new-client/SKILL.md:47-48"
+        ".claude/skills/new-client/SKILL.md:66-67"
        ]
       },
       {
@@ -1300,8 +1303,8 @@ window.ATLAS = {
        ],
        "note": "Model step `research.library-note`, action `lead.write-library-note`, in `docs/workflow/03-research/stage.yaml`.",
        "sources": [
-        "docs/guides/client-workflow.md:254-260",
-        ".claude/skills/new-client/SKILL.md:48-53",
+        "docs/workflow/03-research/README.md:52-56",
+        ".claude/skills/new-client/SKILL.md:68-71",
         "docs/research/README.md:34-39"
        ]
       },
@@ -1341,9 +1344,9 @@ window.ATLAS = {
        ],
        "note": "Model step `research.library-review`, action `agent.research-reviewer`, in `docs/workflow/03-research/stage.yaml`.",
        "sources": [
-        "docs/guides/client-workflow.md:256-258",
+        "docs/workflow/03-research/README.md:52-55",
         "docs/research/README.md:28-30",
-        ".claude/skills/new-client/SKILL.md:51-53"
+        ".claude/skills/new-client/SKILL.md:68-71"
        ]
       },
       {
@@ -1370,7 +1373,7 @@ window.ATLAS = {
        "note": "Model step `research.library-revise`, action `lead.revise-library-note`, in `docs/workflow/03-research/stage.yaml`.",
        "sources": [
         "docs/research/README.md:28-30",
-        "docs/guides/client-workflow.md:256-258"
+        "docs/workflow/03-research/README.md:52-55"
        ]
       },
       {
@@ -1388,7 +1391,7 @@ window.ATLAS = {
        ],
        "note": "Model step `research.library-commit`, action `lead.commit-library-note`, in `docs/workflow/03-research/stage.yaml`.",
        "sources": [
-        ".claude/skills/new-client/SKILL.md:51-53",
+        ".claude/skills/new-client/SKILL.md:68-71",
         "docs/research/README.md:28-30"
        ]
       },
@@ -1427,7 +1430,7 @@ window.ATLAS = {
        ],
        "note": "Model step `research.decisions-update`, action `lead.update-decisions`, in `docs/workflow/03-research/stage.yaml`.",
        "sources": [
-        "docs/guides/client-workflow.md:235-237",
+        "docs/workflow/03-research/README.md:40-42",
         "archive/work-records/workflow-model/handoff.md:290"
        ]
       },
@@ -1449,8 +1452,8 @@ window.ATLAS = {
        ],
        "note": "Model step `research.follow-up-write`, action `lead.write-follow-up`, in `docs/workflow/03-research/stage.yaml`.",
        "sources": [
-        "docs/guides/client-workflow.md:262-271",
-        ".claude/skills/new-client/SKILL.md:54-57"
+        "docs/workflow/03-research/README.md:57-62",
+        ".claude/skills/new-client/SKILL.md:73-74"
        ]
       },
       {
@@ -1474,8 +1477,8 @@ window.ATLAS = {
        ],
        "note": "Model step `research.follow-up-form-script`, action `lead.write-form-script`, in `docs/workflow/03-research/stage.yaml`.",
        "sources": [
-        "docs/guides/client-workflow.md:264-270",
-        ".claude/skills/new-client/SKILL.md:55-57"
+        "docs/guides/client-workflow.md:143-146",
+        ".claude/skills/new-client/SKILL.md:73-74"
        ]
       },
       {
@@ -1494,7 +1497,7 @@ window.ATLAS = {
        ],
        "note": "Model step `research.follow-up-send`, action `manual.paste-message`, in `docs/workflow/03-research/stage.yaml`.",
        "sources": [
-        "docs/guides/client-workflow.md:270-273"
+        "docs/workflow/README.md:22-24"
        ]
       },
       {
@@ -1513,7 +1516,8 @@ window.ATLAS = {
        ],
        "note": "Model step `research.follow-up-answers`, action `manual.client-answer`, in `docs/workflow/03-research/stage.yaml`.",
        "sources": [
-        "docs/guides/client-workflow.md:272-273"
+        "docs/workflow/README.md:22-24",
+        "docs/workflow/02-intake/README.md:33-35"
        ]
       },
       {
@@ -1532,7 +1536,7 @@ window.ATLAS = {
        ],
        "note": "Model step `research.follow-up-capture`, action `manual.copy-chat-to-envelope`, in `docs/workflow/03-research/stage.yaml`.",
        "sources": [
-        "docs/guides/client-workflow.md:272-274"
+        "docs/workflow/02-intake/README.md:33-35"
        ]
       },
       {
@@ -1552,8 +1556,8 @@ window.ATLAS = {
        ],
        "note": "Model step `research.facts-update`, action `lead.update-facts`, in `docs/workflow/03-research/stage.yaml`.",
        "sources": [
-        "docs/guides/client-workflow.md:273-276",
-        ".claude/skills/new-client/SKILL.md:58"
+        "docs/workflow/03-research/README.md:62-64",
+        ".claude/skills/new-client/SKILL.md:73-74"
        ]
       },
       {
@@ -1567,8 +1571,8 @@ window.ATLAS = {
        ],
        "note": "Model step `research.cap-reached`, action `manual.decide-at-cap`, in `docs/workflow/03-research/stage.yaml`.",
        "sources": [
-        "docs/guides/client-workflow.md:246-248",
-        "docs/review.md:198-202"
+        "docs/review.md:198-202",
+        "docs/workflow/03-research/README.md:70-73"
        ]
       }
      ]
@@ -1595,8 +1599,9 @@ window.ATLAS = {
        ],
        "note": "Model step `text-draft.draft-write`, action `lead.write-text-draft`, in `docs/workflow/04-text-draft/stage.yaml`.",
        "sources": [
-        "docs/guides/client-workflow.md:280-287",
-        ".claude/skills/new-client/SKILL.md:59-63",
+        "docs/workflow/04-text-draft/README.md:17-30",
+        ".claude/skills/new-client/SKILL.md:78-79",
+        "docs/workflow/04-text-draft/README.md:24-30",
         "scripts/text-draft.typ:8-25"
        ]
       },
@@ -1627,8 +1632,8 @@ window.ATLAS = {
        ],
        "note": "Model step `text-draft.draft-compile`, action `cmd.compile-and-stamp-draft-ready`, in `docs/workflow/04-text-draft/stage.yaml`.",
        "sources": [
-        "docs/guides/client-workflow.md:289-296",
-        ".claude/skills/new-client/SKILL.md:63-64",
+        ".claude/skills/new-client/SKILL.md:80-85",
+        "docs/workflow/04-text-draft/README.md:31-32",
         "docs/proposals/workflow-model.md:55"
        ]
       },
@@ -1648,7 +1653,8 @@ window.ATLAS = {
        ],
        "note": "Model step `text-draft.draft-inspect`, action `lead.inspect-draft`, in `docs/workflow/04-text-draft/stage.yaml`.",
        "sources": [
-        ".claude/skills/new-client/SKILL.md:64-66"
+        ".claude/skills/new-client/SKILL.md:87",
+        "docs/workflow/04-text-draft/README.md:24-26"
        ]
       },
       {
@@ -1670,8 +1676,9 @@ window.ATLAS = {
        ],
        "note": "Model step `text-draft.draft-send`, action `manual.send-draft`, in `docs/workflow/04-text-draft/stage.yaml`.",
        "sources": [
-        "docs/guides/client-workflow.md:26",
-        "docs/guides/client-workflow.md:296-297"
+        "docs/workflow/README.md:28-32",
+        "docs/workflow/04-text-draft/README.md:39-41",
+        "docs/workflow/04-text-draft/README.md:31-35"
        ]
       },
       {
@@ -1696,8 +1703,8 @@ window.ATLAS = {
        ],
        "note": "Model step `text-draft.draft-sent`, action `cmd.stamp-draft-sent`, in `docs/workflow/04-text-draft/stage.yaml`.",
        "sources": [
-        "docs/guides/client-workflow.md:296-297",
-        ".claude/skills/new-client/SKILL.md:66-67",
+        "docs/workflow/04-text-draft/README.md:31-35",
+        ".claude/skills/new-client/SKILL.md:88-89",
         "docs/proposals/workflow-model.md:55"
        ]
       },
@@ -1715,8 +1722,8 @@ window.ATLAS = {
        ],
        "note": "Model step `text-draft.draft-fingerprint`, action `lead.write-draft-fingerprint`, in `docs/workflow/04-text-draft/stage.yaml`.",
        "sources": [
-        "docs/guides/client-workflow.md:305-307",
-        ".claude/skills/new-client/SKILL.md:66-68"
+        "docs/workflow/04-text-draft/README.md:36-38",
+        ".claude/skills/new-client/SKILL.md:88-91"
        ]
       },
       {
@@ -1752,7 +1759,7 @@ window.ATLAS = {
        ],
        "note": "Model step `text-draft.client-check`, action `manual.client-checks-draft`, in `docs/workflow/04-text-draft/stage.yaml`.",
        "sources": [
-        "docs/guides/client-workflow.md:302-308",
+        "docs/workflow/04-text-draft/README.md:17-21",
         "docs/glossary.md:59",
         "docs/glossary.md:62"
        ]
@@ -1780,8 +1787,8 @@ window.ATLAS = {
        ],
        "note": "Model step `text-draft.draft-supersede`, action `cmd.stamp-draft-superseded`, in `docs/workflow/04-text-draft/stage.yaml`.",
        "sources": [
-        "docs/guides/client-workflow.md:299-300",
-        ".claude/skills/new-client/SKILL.md:68-69"
+        "docs/workflow/04-text-draft/README.md:46-50",
+        ".claude/skills/new-client/SKILL.md:92-93"
        ]
       },
       {
@@ -1807,8 +1814,9 @@ window.ATLAS = {
        ],
        "note": "Model step `text-draft.corrections`, action `lead.take-corrections`, in `docs/workflow/04-text-draft/stage.yaml`.",
        "sources": [
-        "docs/guides/client-workflow.md:306-307",
-        ".claude/skills/new-client/SKILL.md:68-69",
+        "docs/workflow/04-text-draft/README.md:36-38",
+        "docs/workflow/04-text-draft/README.md:46-50",
+        ".claude/skills/new-client/SKILL.md:92-93",
         "docs/workflow/GAPS.md:34-37"
        ]
       },
@@ -1829,9 +1837,9 @@ window.ATLAS = {
        ],
        "note": "Model step `text-draft.sign-off-save`, action `manual.screenshot-sign-off`, in `docs/workflow/04-text-draft/stage.yaml`.",
        "sources": [
-        "docs/guides/client-workflow.md:26",
-        "docs/guides/client-workflow.md:307-308",
-        ".claude/skills/new-client/SKILL.md:69-70"
+        "docs/workflow/README.md:28-32",
+        "docs/workflow/04-text-draft/README.md:39-41",
+        ".claude/skills/new-client/SKILL.md:94-95"
        ]
       },
       {
@@ -1857,8 +1865,9 @@ window.ATLAS = {
        ],
        "note": "Model step `text-draft.sign-off-stamp`, action `cmd.stamp-draft-signed-off`, in `docs/workflow/04-text-draft/stage.yaml`.",
        "sources": [
-        "docs/guides/client-workflow.md:297-299",
-        ".claude/skills/new-client/SKILL.md:70-71",
+        "docs/workflow/04-text-draft/README.md:34-35",
+        "docs/guides/build-a-cv.md:166-169",
+        ".claude/skills/new-client/SKILL.md:94-96",
         "packages/cv-workflow/cv_workflow/outputs.py:172-178"
        ]
       },
@@ -1873,7 +1882,7 @@ window.ATLAS = {
        ],
        "note": "Model step `text-draft.cap-reached`, action `manual.decide-at-cap`, in `docs/workflow/04-text-draft/stage.yaml`.",
        "sources": [
-        "docs/guides/client-workflow.md:370-372",
+        "docs/workflow/README.md:28-32",
         "docs/review.md:198-202"
        ]
       }
@@ -1922,9 +1931,9 @@ window.ATLAS = {
        ],
        "note": "Model step `design.handover`, action `skill.new-cv`, in `docs/workflow/05-design/stage.yaml`.",
        "sources": [
-        "docs/guides/client-workflow.md:310-315",
-        ".claude/skills/new-client/SKILL.md:72-76",
-        ".claude/skills/new-cv/SKILL.md:11-15"
+        "docs/workflow/05-design/README.md:23-26",
+        ".claude/skills/new-client/SKILL.md:97",
+        ".claude/skills/new-cv/SKILL.md:15-17"
        ]
       },
       {
@@ -1948,9 +1957,10 @@ window.ATLAS = {
        ],
        "note": "Model step `design.run-brief`, action `skill.idea-run`, in `docs/workflow/05-design/stage.yaml`.",
        "sources": [
-        ".claude/skills/new-cv/SKILL.md:70-74",
+        ".claude/skills/new-cv/SKILL.md:28-35",
+        "docs/workflow/05-design/README.md:27-36",
         ".claude/skills/idea-run/SKILL.md:32-43",
-        "docs/guides/client-workflow.md:324-326"
+        "docs/workflow/05-design/README.md:27-31"
        ]
       },
       {
@@ -2190,8 +2200,7 @@ window.ATLAS = {
        ],
        "note": "Model step `design.pick`, action `manual.pick-design`, in `docs/workflow/05-design/stage.yaml`.",
        "sources": [
-        "docs/guides/client-workflow.md:325-326",
-        ".claude/skills/new-cv/SKILL.md:72-74",
+        "docs/workflow/05-design/README.md:27-31",
         ".claude/skills/idea-run/SKILL.md:130-135"
        ]
       },
@@ -2272,10 +2281,10 @@ window.ATLAS = {
        ],
        "note": "Model step `design.fill-data`, action `lead.write-candidate-json`, in `docs/workflow/05-design/stage.yaml`.",
        "sources": [
-        ".claude/skills/new-cv/SKILL.md:11-15",
-        ".claude/skills/new-cv/SKILL.md:19-27",
-        ".claude/skills/new-cv/SKILL.md:43-53",
-        "docs/guides/build-a-cv.md:65-77"
+        ".claude/skills/new-cv/SKILL.md:15-17",
+        ".claude/skills/new-cv/SKILL.md:25-27",
+        "docs/guides/build-a-cv.md:59-77",
+        "docs/guides/build-a-cv.md:55-77"
        ]
       },
       {
@@ -2310,8 +2319,8 @@ window.ATLAS = {
        ],
        "note": "Model step `design.flagship-fit`, action `lead.check-flagship-fit`, in `docs/workflow/05-design/stage.yaml`.",
        "sources": [
-        ".claude/skills/new-cv/SKILL.md:89-93",
-        "docs/guides/build-a-cv.md:217-225"
+        ".claude/skills/new-cv/SKILL.md:36-41",
+        "docs/guides/build-a-cv.md:199-205"
        ]
       },
       {
@@ -2332,9 +2341,9 @@ window.ATLAS = {
        ],
        "note": "Model step `design.entry-point`, action `lead.write-flagship-entry`, in `docs/workflow/05-design/stage.yaml`.",
        "sources": [
-        ".claude/skills/new-cv/SKILL.md:54-69",
-        ".claude/skills/new-cv/SKILL.md:94-97",
-        "docs/guides/build-a-cv.md:31-63"
+        ".claude/skills/new-cv/SKILL.md:36-38",
+        "docs/guides/build-a-cv.md:79-100",
+        "docs/guides/build-a-cv.md:15-53"
        ]
       },
       {
@@ -2356,8 +2365,8 @@ window.ATLAS = {
        ],
        "note": "Model step `design.custom-composition`, action `lead.compose-by-hand`, in `docs/workflow/05-design/stage.yaml`.",
        "sources": [
-        "docs/guides/build-a-cv.md:217-281",
-        ".claude/skills/new-cv/SKILL.md:89-93"
+        "docs/guides/build-a-cv.md:195-261",
+        ".claude/skills/new-cv/SKILL.md:36-41"
        ]
       },
       {
@@ -2380,7 +2389,7 @@ window.ATLAS = {
        "note": "Model step `design.port-concept`, action `lead.port-concept`, in `docs/workflow/05-design/stage.yaml`.",
        "sources": [
         "docs/framework-gaps.md:125-129",
-        "docs/guides/client-workflow.md:317-324",
+        "docs/workflow/05-design/README.md:27-36",
         "archive/work-records/workflow-model/handoff.md:290"
        ]
       },
@@ -2402,10 +2411,9 @@ window.ATLAS = {
        ],
        "note": "Model step `design.framework-gap`, action `lead.record-framework-gap`, in `docs/workflow/05-design/stage.yaml`.",
        "sources": [
-        "docs/guides/build-a-cv.md:275-281",
-        ".claude/skills/new-cv/SKILL.md:89-93",
-        "docs/guides/client-workflow.md:312-315",
-        "docs/guides/client-workflow.md:324"
+        "docs/guides/build-a-cv.md:255-261",
+        ".claude/skills/new-cv/SKILL.md:36-41",
+        "docs/workflow/05-design/README.md:60-64"
        ]
       },
       {
@@ -2500,7 +2508,7 @@ window.ATLAS = {
        "id": "design.preview",
        "title": "Compile the previews for the reviewer",
        "actor": "lead",
-       "summary": "Compiles the client's pages into builds/design-review-input-<timestamp>/, since the reviewer never reads private/ (no source gives the command).",
+       "summary": "Compiles typst/cv.typ into builds/design-review-input-<timestamp>/cv.pdf with the typst compile line in the new-cv skill, since the reviewer never reads private/.",
        "next": [
         "design.client-review"
        ],
@@ -2514,7 +2522,8 @@ window.ATLAS = {
        ],
        "note": "Model step `design.preview`, action `lead.compile-previews`, in `docs/workflow/05-design/stage.yaml`.",
        "sources": [
-        ".claude/skills/new-cv/SKILL.md:75-78",
+        ".claude/skills/new-cv/SKILL.md:42-50",
+        "docs/workflow/05-design/README.md:42-44",
         "docs/proposals/workflow-model.md:57"
        ]
       },
@@ -2551,7 +2560,8 @@ window.ATLAS = {
        ],
        "note": "Model step `design.client-review`, action `agent.design-reviewer`, in `docs/workflow/05-design/stage.yaml`.",
        "sources": [
-        ".claude/skills/new-cv/SKILL.md:75-86",
+        "docs/workflow/05-design/README.md:42-54",
+        ".claude/skills/new-cv/SKILL.md:51-53",
         "docs/proposals/workflow-model.md:57",
         ".claude/agents/design-reviewer.md:34-42"
        ]
@@ -2579,7 +2589,7 @@ window.ATLAS = {
        ],
        "note": "Model step `design.fix`, action `lead.fix-design`, in `docs/workflow/05-design/stage.yaml`.",
        "sources": [
-        ".claude/skills/new-cv/SKILL.md:82-84"
+        "docs/workflow/05-design/README.md:51-54"
        ]
       },
       {
@@ -2593,7 +2603,8 @@ window.ATLAS = {
        ],
        "note": "Model step `design.clear-review-input`, action `lead.clear-review-input`, in `docs/workflow/05-design/stage.yaml`.",
        "sources": [
-        ".claude/skills/new-cv/SKILL.md:87-88",
+        "docs/workflow/05-design/README.md:49-50",
+        ".claude/skills/new-cv/SKILL.md:54",
         "docs/preferences.md:62-64"
        ]
       },
@@ -2608,7 +2619,7 @@ window.ATLAS = {
        ],
        "note": "Model step `design.cap-reached`, action `manual.decide-at-cap`, in `docs/workflow/05-design/stage.yaml`.",
        "sources": [
-        ".claude/skills/new-cv/SKILL.md:82-84",
+        "docs/workflow/05-design/README.md:51-54",
         ".claude/skills/idea-run/SKILL.md:63-66",
         "docs/review.md:198-202"
        ]
@@ -2669,8 +2680,8 @@ window.ATLAS = {
        ],
        "note": "Model step `deliver.render`, action `cmd.cv-render`, in `docs/workflow/06-deliver/stage.yaml`.",
        "sources": [
-        "docs/guides/build-a-cv.md:110-137",
-        ".claude/skills/new-cv/SKILL.md:98-100",
+        "docs/guides/build-a-cv.md:110-131",
+        ".claude/skills/new-cv/SKILL.md:58-61",
         "packages/cv-workflow/cv_workflow/render.py:100-207"
        ]
       },
@@ -2698,9 +2709,9 @@ window.ATLAS = {
        ],
        "note": "Model step `deliver.fix`, action `lead.fix-inputs`, in `docs/workflow/06-deliver/stage.yaml`.",
        "sources": [
-        "docs/guides/build-a-cv.md:128-136",
-        "docs/guides/build-a-cv.md:159-168",
-        ".claude/skills/new-cv/SKILL.md:103-105"
+        "docs/guides/build-a-cv.md:120-128",
+        "docs/guides/build-a-cv.md:184-193",
+        ".claude/skills/new-cv/SKILL.md:58-61"
        ]
       },
       {
@@ -2722,8 +2733,8 @@ window.ATLAS = {
        ],
        "note": "Model step `deliver.page-png`, action `cmd.page-png`, in `docs/workflow/06-deliver/stage.yaml`.",
        "sources": [
-        ".claude/skills/new-cv/SKILL.md:106-107",
-        "docs/guides/build-a-cv.md:170-176",
+        ".claude/skills/new-cv/SKILL.md:62-64",
+        "docs/workflow/06-deliver/README.md:22-25",
         ".claude/skills/verify-cv/SKILL.md:65-76"
        ]
       },
@@ -2763,8 +2774,9 @@ window.ATLAS = {
        ],
        "note": "Model step `deliver.wording-check`, action `cmd.wording-check`, in `docs/workflow/06-deliver/stage.yaml`.",
        "sources": [
-        ".claude/skills/new-cv/SKILL.md:107-111",
-        "docs/guides/build-a-cv.md:98-108"
+        ".claude/skills/new-cv/SKILL.md:65-66",
+        "docs/guides/build-a-cv.md:98-100",
+        "docs/workflow/06-deliver/README.md:66-69"
        ]
       },
       {
@@ -2785,7 +2797,7 @@ window.ATLAS = {
        ],
        "note": "Model step `deliver.report`, action `lead.report-render`, in `docs/workflow/06-deliver/stage.yaml`.",
        "sources": [
-        ".claude/skills/new-cv/SKILL.md:113-123"
+        ".claude/skills/new-cv/SKILL.md:67-69"
        ]
       },
       {
@@ -2822,9 +2834,9 @@ window.ATLAS = {
        ],
        "note": "Model step `deliver.owner-review`, action `manual.review-pdf`, in `docs/workflow/06-deliver/stage.yaml`.",
        "sources": [
-        "docs/pdf-workflow.md:175-176",
-        "docs/guides/build-a-cv.md:170-176",
-        "docs/guides/build-a-cv.md:139-147"
+        "docs/workflow/06-deliver/README.md:35-39",
+        "docs/workflow/06-deliver/README.md:22-25",
+        "docs/guides/build-a-cv.md:133-141"
        ]
       },
       {
@@ -2857,8 +2869,8 @@ window.ATLAS = {
        ],
        "note": "Model step `deliver.approve`, action `cmd.cv-approve`, in `docs/workflow/06-deliver/stage.yaml`.",
        "sources": [
-        "docs/guides/build-a-cv.md:178-187",
-        "docs/pdf-workflow.md:177-181",
+        "docs/guides/build-a-cv.md:153-158",
+        "docs/pdf-workflow.md:179-181",
         "docs/proposals/workflow-model.md:58",
         "docs/glossary.md:64"
        ]
@@ -2890,7 +2902,7 @@ window.ATLAS = {
        "note": "Model step `deliver.export`, action `cmd.cv-export`, in `docs/workflow/06-deliver/stage.yaml`.",
        "sources": [
         "docs/proposals/workflow-model.md:58",
-        "docs/guides/build-a-cv.md:189-198",
+        "docs/guides/build-a-cv.md:160-164",
         "docs/pdf-workflow.md:182-186"
        ]
       },
@@ -2912,8 +2924,8 @@ window.ATLAS = {
        "sources": [
         "docs/proposals/workflow-model.md:54",
         "docs/proposals/workflow-model.md:56",
-        "docs/guides/client-workflow.md:330-332",
-        ".claude/skills/new-client/SKILL.md:76-77"
+        "docs/workflow/06-deliver/README.md:44-46",
+        ".claude/skills/new-cv/SKILL.md:72-75"
        ]
       },
       {
@@ -2932,8 +2944,8 @@ window.ATLAS = {
        ],
        "note": "Model step `deliver.send`, action `manual.send-pdf`, in `docs/workflow/06-deliver/stage.yaml`.",
        "sources": [
-        "docs/guides/build-a-cv.md:200-201",
-        "docs/pdf-workflow.md:187-190"
+        "docs/workflow/06-deliver/README.md:48-50",
+        "docs/pdf-workflow.md:184-186"
        ]
       },
       {
@@ -2958,9 +2970,9 @@ window.ATLAS = {
        ],
        "note": "Model step `deliver.stamp-delivered`, action `cmd.stamp-delivered`, in `docs/workflow/06-deliver/stage.yaml`.",
        "sources": [
-        "docs/guides/build-a-cv.md:200-204",
-        "docs/guides/client-workflow.md:331-332",
-        ".claude/skills/new-client/SKILL.md:77-78"
+        "docs/guides/build-a-cv.md:166-168",
+        "docs/workflow/06-deliver/README.md:50-51",
+        ".claude/skills/new-cv/SKILL.md:76-77"
        ]
       },
       {
@@ -2977,8 +2989,8 @@ window.ATLAS = {
        ],
        "note": "Model step `deliver.report-delete-by`, action `lead.report-delete-by`, in `docs/workflow/06-deliver/stage.yaml`.",
        "sources": [
-        "docs/guides/client-workflow.md:332",
-        ".claude/skills/new-client/SKILL.md:104-105"
+        "docs/workflow/06-deliver/README.md:46-48",
+        "docs/workflow/06-deliver/README.md:44-48"
        ]
       },
       {
@@ -3004,7 +3016,7 @@ window.ATLAS = {
        ],
        "note": "Model step `deliver.status`, action `cmd.cv-status`, in `docs/workflow/06-deliver/stage.yaml`.",
        "sources": [
-        "docs/guides/build-a-cv.md:197",
+        ".claude/skills/new-cv/SKILL.md:78",
         "scripts/cv.py:62-63",
         "packages/cv-workflow/cv_workflow/__init__.py:14-31"
        ]
@@ -3049,8 +3061,8 @@ window.ATLAS = {
        ],
        "note": "Model step `after.stall-check`, action `skill.new-client`, in `docs/workflow/07-after/stage.yaml`.",
        "sources": [
-        ".claude/skills/new-client/SKILL.md:97-100",
-        "docs/guides/client-workflow.md:333-336"
+        ".claude/skills/new-client/SKILL.md:18-22",
+        "docs/workflow/07-after/README.md:17-21"
        ]
       },
       {
@@ -3073,8 +3085,7 @@ window.ATLAS = {
        ],
        "note": "Model step `after.delete-by-check`, action `skill.new-client`, in `docs/workflow/07-after/stage.yaml`.",
        "sources": [
-        ".claude/skills/new-client/SKILL.md:97-100",
-        ".claude/skills/new-client/SKILL.md:104-108"
+        ".claude/skills/new-client/SKILL.md:18-22"
        ]
       },
       {
@@ -3094,7 +3105,7 @@ window.ATLAS = {
        ],
        "note": "Model step `after.keep-request`, action `manual.ask-to-keep`, in `docs/workflow/07-after/stage.yaml`.",
        "sources": [
-        "docs/guides/client-workflow.md:164-167",
+        "docs/guides/client-workflow.md:103-106",
         "docs/proposals/workflow-model.md:56",
         "archive/work-records/workflow-model/handoff.md:290",
         "docs/workflow/GAPS.md:54-57"
@@ -3138,9 +3149,10 @@ window.ATLAS = {
        ],
        "note": "Model step `after.erase-commands`, action `lead.fill-erase-commands`, in `docs/workflow/07-after/stage.yaml`.",
        "sources": [
-        ".claude/skills/new-client/SKILL.md:105-108",
-        "docs/guides/client-workflow.md:339-345",
-        "docs/guides/client-workflow.md:333-338"
+        ".claude/skills/new-client/SKILL.md:25-29",
+        "docs/guides/client-workflow.md:197-207",
+        "docs/workflow/07-after/README.md:46-49",
+        "docs/workflow/07-after/README.md:27-34"
        ]
       },
       {
@@ -3158,8 +3170,9 @@ window.ATLAS = {
        ],
        "note": "Model step `after.delete-google`, action `manual.delete-google-items`, in `docs/workflow/07-after/stage.yaml`.",
        "sources": [
-        "docs/guides/client-workflow.md:333-338",
-        "docs/guides/client-workflow.md:158-159"
+        "docs/workflow/07-after/README.md:46-49",
+        "docs/workflow/07-after/README.md:27-34",
+        "docs/guides/client-workflow.md:155-156"
        ]
       },
       {
@@ -3179,7 +3192,8 @@ window.ATLAS = {
        ],
        "note": "Model step `after.erase-envelope`, action `manual.erase-envelope`, in `docs/workflow/07-after/stage.yaml`.",
        "sources": [
-        "docs/guides/client-workflow.md:333-359",
+        "docs/workflow/07-after/README.md:27-34",
+        "docs/guides/client-workflow.md:197-222",
         "docs/preferences.md:69-77",
         "docs/workflow/GAPS.md:45-48"
        ]
@@ -3216,7 +3230,7 @@ window.ATLAS = {
        ],
        "note": "Model step `after.revision-cleanup`, action `manual.go-remove-revisions`, in `docs/workflow/07-after/stage.yaml`.",
        "sources": [
-        "docs/pdf-workflow.md:213-216",
+        "docs/pdf-workflow.md:214-217",
         "docs/preferences.md:75-77",
         "docs/workflow/GAPS.md:58-61"
        ]
@@ -3228,8 +3242,8 @@ window.ATLAS = {
   {
    "id": "design-run",
    "kind": "flow",
-   "nav": "Design run",
-   "title": "A design run: 18 designs to your pick",
+   "nav": "Design Idea Run",
+   "title": "A design Idea Run: 18 designs to your pick",
    "question": "We drew 18 designs. What happens next, who reviews them, on which model?",
    "summary": "The `idea-run` skill in its design form. One author draws, two kinds of reviewer judge in closed loops, and only you decide. Nothing is built, approved or put on the roadmap without you. The two `Densities` (18 designs) arrived with the 2026-09-29 run.",
    "tldr": [
@@ -3516,7 +3530,7 @@ window.ATLAS = {
        },
        "sources": [
         ".claude/skills/idea-run/SKILL.md:123-135",
-        "docs/pdf-workflow.md:125"
+        "docs/pdf-workflow.md:127"
        ]
       },
       {
@@ -3855,7 +3869,7 @@ window.ATLAS = {
        "blurb": "Who the client is: `Alias`, `Domain`, `Rank`; dates and links.",
        "detail": "`cv.py render` refuses to run without `envelope.json`; every client `Meta File` copies it.",
        "sources": [
-        "docs/guides/client-workflow.md:29-108"
+        "docs/guides/client-workflow.md:17-94"
        ]
       },
       {
@@ -3864,7 +3878,7 @@ window.ATLAS = {
        "path": "private/<envelope>/intake/",
        "blurb": "Messages, documents, `facts.md`, the `Scout`, `CV Decisions`, `Deep Dives`.",
        "sources": [
-        "docs/guides/client-workflow.md:39-72"
+        "docs/guides/client-workflow.md:29-62"
        ]
       },
       {
@@ -3873,7 +3887,7 @@ window.ATLAS = {
        "path": "private/<envelope>/draft/",
        "blurb": "The `Text Drafts` and the `Sign-off` screenshots.",
        "sources": [
-        "docs/guides/client-workflow.md:280-308"
+        "docs/workflow/04-text-draft/README.md:15-42"
        ]
       },
       {
@@ -3882,8 +3896,8 @@ window.ATLAS = {
        "path": "private/<envelope>/typst/cv.typ",
        "blurb": "The client's facts and the entry point that composes their CV, with its designs, wording and art beside it in typst/.",
        "sources": [
-        "docs/guides/build-a-cv.md:31-63",
-        "docs/guides/client-workflow.md:39-72"
+        "docs/guides/build-a-cv.md:15-53",
+        "docs/guides/client-workflow.md:29-62"
        ]
       },
       {
@@ -3892,7 +3906,7 @@ window.ATLAS = {
        "path": "private/<envelope>/revisions/<id>/",
        "blurb": "Every render in its own folder; approved copies in `exports/`.",
        "sources": [
-        "docs/pdf-workflow.md:71-96"
+        "docs/pdf-workflow.md:73-98"
        ]
       }
      ]
@@ -4023,7 +4037,7 @@ window.ATLAS = {
        "title": "Design concepts",
        "path": "studio/design-concepts/",
        "actor": "magazine-editor",
-       "blurb": "Every design run's Styles and Tiers, with a README row each (two Densities since the 2026-09-29 run)."
+       "blurb": "Every design Idea Run's Styles and Tiers, with a README row each (two Densities since the 2026-09-29 run)."
       },
       {
        "id": "n-anti",
@@ -4199,7 +4213,7 @@ window.ATLAS = {
        "actor": "intake-form",
        "blurb": "Optional `Intake Forms` and their answer Sheets.",
        "sources": [
-        "docs/guides/client-workflow.md:122-159"
+        "docs/guides/client-workflow.md:131-177"
        ]
       },
       {
@@ -4209,7 +4223,7 @@ window.ATLAS = {
        "actor": "chat",
        "blurb": "Questions out, answers back, via you.",
        "sources": [
-        "docs/guides/client-workflow.md:112-120"
+        "docs/workflow/02-intake/README.md:17-36"
        ]
       }
      ]
@@ -4412,22 +4426,34 @@ window.ATLAS = {
   }
  ],
  "build": {
-  "builtAt": "2026-10-14 11:34 UTC",
-  "commit": "dbc30bc",
+  "builtAt": "2026-10-14 12:09 UTC",
+  "commit": "2ada027",
   "kit": "1.0",
-  "stale": {},
+  "stale": {
+   "system-map": [
+    "AGENTS.md",
+    "docs/pdf-workflow.md",
+    "docs/guides/client-workflow.md",
+    "docs/workflow/04-text-draft/README.md",
+    "docs/guides/build-a-cv.md",
+    "scripts/cv.py",
+    "scripts/text-draft.typ",
+    "docs/glossary.md",
+    "docs/workflow/02-intake/README.md"
+   ]
+  },
   "verified": {
    "client-journey": {
     "at": "2026-10-14",
-    "commit": "dbc30bc"
+    "commit": "2ada027"
    },
    "design-run": {
     "at": "2026-10-14",
-    "commit": "24fa022"
+    "commit": "2ada027"
    },
    "change-review": {
     "at": "2026-10-14",
-    "commit": "24fa022"
+    "commit": "2ada027"
    },
    "system-map": {
     "at": "2026-10-14",
@@ -4435,7 +4461,7 @@ window.ATLAS = {
    },
    "roster": {
     "at": "2026-10-14",
-    "commit": "24fa022"
+    "commit": "2ada027"
    }
   }
  }

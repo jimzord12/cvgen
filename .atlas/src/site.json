@@ -1,7 +1,7 @@
 {
   "repo": "CVgen",
   "title": "How CVgen works",
-  "tagline": "Premium, hand-crafted CVs made with AI on our own Typst `Framework`. Five questions, answered as pictures: what to do with a new `Client`, what happens to a design run, how any change lands, how the parts connect, and who does the work.",
+  "tagline": "Premium, hand-crafted CVs made with AI on our own Typst `Framework`. Five questions, answered as pictures: what to do with a new `Client`, what happens to a design `Idea Run`, how any change lands, how the parts connect, and who does the work.",
   "lang": "en",
   "sourceBase": "../",
   "branch": "main",
@@ -39,7 +39,7 @@
       ],
       "sources": [
         "docs/preferences.md:49-81",
-        "docs/guides/client-workflow.md:9-10"
+        "docs/workflow/README.md:22-24"
       ],
       "short": "You"
     },
@@ -52,8 +52,8 @@
         "Outside `private/` a client is only their `Alias`, like `client-2026-09-01`."
       ],
       "sources": [
-        "docs/guides/client-workflow.md:370-372",
-        "docs/guides/client-workflow.md:94-98"
+        "docs/workflow/README.md:28-32",
+        "docs/workflow/01-open/README.md:23-26"
       ],
       "short": "Client"
     },
@@ -82,7 +82,7 @@
       "tools": "Read, Grep, Glob, Bash, PowerShell, WebSearch, WebFetch, Write, Edit",
       "access": "Writes only its concept folders, the concepts README and fonts. Never git, the `backlog` CLI or `private/`.",
       "calledBy": "The lead, through the `idea-run` skill.",
-      "when": "A design run, for inspiration or for a client whose `Domain` has no `Template` yet.",
+      "when": "A design `Idea Run`, for inspiration or for a client whose `Domain` has no `Template` yet.",
       "sources": [
         ".claude/agents/magazine-editor.md:1-23",
         ".claude/agents/magazine-editor.md:50-82"
@@ -102,7 +102,7 @@
       "tools": "Read, Grep, Glob, Bash, PowerShell, WebFetch",
       "readOnly": true,
       "calledBy": "The lead: a fresh one every round.",
-      "when": "Design runs, client designs, Flagship changes, brand assets.",
+      "when": "Design `Idea Run`s, client designs, Flagship changes, brand assets.",
       "notes": [
         "Rubric: 1 `Batch Test`, 2 `Three-Second Test`, 3 `Flagship Parity`, 4 distinct, 5 reads as a CV, 6 craft, 7 provenance, 8 buildable and honest.",
         "Makes batch sheets: each page shrunk among 8+ plain market CVs."
@@ -123,7 +123,7 @@
       "tools": "Read, Grep, Glob, WebSearch, WebFetch",
       "readOnly": true,
       "calledBy": "The lead: a fresh one every round.",
-      "when": "A design run's references, a client's `Deep Dives`, `Research Library` notes.",
+      "when": "A design Idea Run's references, a client's `Deep Dives`, `Research Library` notes.",
       "notes": [
         "Never reads `private/`: the lead passes client research inline, checked for client details, with its SHA-256."
       ],
@@ -255,7 +255,7 @@
         "As a stand-in it is told to act exactly as the agent file, with that file's tools as a hard limit, and the lead records its model and effort."
       ],
       "sources": [
-        ".claude/skills/new-client/SKILL.md:35-48",
+        ".claude/skills/new-client/SKILL.md:56-67",
         ".claude/skills/idea-run/SKILL.md:88-105"
       ],
       "short": "General"
@@ -303,8 +303,8 @@
         "Every time it runs it also checks for stalled clients (3 months, no `Export`) and passed delete-by dates, and hands you the history-erase commands for those; you run them."
       ],
       "sources": [
-        ".claude/skills/new-client/SKILL.md:1-9",
-        ".claude/skills/new-client/SKILL.md:96-107"
+        ".claude/skills/new-client/SKILL.md:1-14",
+        ".claude/skills/new-client/SKILL.md:16-29"
       ]
     },
     "new-cv": {
@@ -314,7 +314,7 @@
       "role": "Checklist that builds the CV itself: data, entry point, page plan, the client design loop, the render and its evidence.",
       "when": "After `Sign-off`, or to add a public example.",
       "sources": [
-        ".claude/skills/new-cv/SKILL.md:1-15"
+        ".claude/skills/new-cv/SKILL.md:1-19"
       ]
     },
     "idea-run": {
@@ -378,7 +378,7 @@
       ],
       "sources": [
         "scripts/cv.py:1-12",
-        "docs/guides/build-a-cv.md:112-207"
+        "docs/guides/build-a-cv.md:102-182"
       ]
     },
     "outputs-py": {
@@ -388,7 +388,7 @@
       "role": "The `Output Contract` tool: `stamp` writes a PDF's `Meta File`; `check` lists every PDF without a valid one.",
       "sources": [
         "scripts/outputs.py",
-        "docs/pdf-workflow.md:123-167"
+        "docs/pdf-workflow.md:125-169"
       ]
     },
     "suite": {
@@ -423,7 +423,7 @@
       "sources": [
         "scripts/build.ps1",
         "examples/release.json",
-        "docs/pdf-workflow.md:218-226"
+        "docs/pdf-workflow.md:219-227"
       ]
     },
     "intake-form": {
@@ -433,7 +433,7 @@
       "role": "Google Apps Script you run once per form: builds the optional `Intake Form` and its answers Sheet in your Google account.",
       "sources": [
         "scripts/intake-form.gs:1-21",
-        "docs/guides/client-workflow.md:122-159"
+        "docs/guides/client-workflow.md:131-177"
       ]
     },
     "board": {
@@ -452,7 +452,7 @@
       "kind": "service",
       "role": "Viber, WhatsApp or email: how you pass questions and drafts to the client and bring answers back.",
       "sources": [
-        "docs/guides/client-workflow.md:112-120"
+        "docs/workflow/02-intake/README.md:17-36"
       ],
       "short": "Chat"
     },

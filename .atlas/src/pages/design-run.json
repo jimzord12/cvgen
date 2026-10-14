@@ -1,8 +1,8 @@
 {
   "id": "design-run",
   "kind": "flow",
-  "nav": "Design run",
-  "title": "A design run: 18 designs to your pick",
+  "nav": "Design Idea Run",
+  "title": "A design Idea Run: 18 designs to your pick",
   "question": "We drew 18 designs. What happens next, who reviews them, on which model?",
   "summary": "The `idea-run` skill in its design form. One author draws, two kinds of reviewer judge in closed loops, and only you decide. Nothing is built, approved or put on the roadmap without you. The two `Densities` (18 designs) arrived with the 2026-09-29 run.",
   "tldr": [
@@ -289,7 +289,7 @@
           },
           "sources": [
             ".claude/skills/idea-run/SKILL.md:123-135",
-            "docs/pdf-workflow.md:125"
+            "docs/pdf-workflow.md:127"
           ]
         },
         {
