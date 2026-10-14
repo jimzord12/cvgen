@@ -55,9 +55,12 @@ None of this approves a pending product design.
   worktree, so a stale checkout never makes the project look older than it
   is. A session never switches it to a feature branch and never leaves it on
   a branch the session put it on. When a session finds it:
-  - on `main` and behind: fast-forward it to `origin/main`;
-  - on a branch an agent left, with no tracked changes: switch it to `main`
-    and fast-forward (untracked files survive the switch);
+  - on `main` and behind, with no tracked changes: fast-forward it to
+    `origin/main`;
+  - on a branch an agent left (a branch already merged into `main` counts,
+    unless the handoff or the owner says he chose it), with no tracked
+    changes: switch it to `main` and fast-forward (untracked files survive
+    the switch; leave those that are not the session's);
   - with tracked changes that are not the session's, on a branch the owner
     chose, or unclear: leave it alone, work in a worktree, and name it in
     the `Session Sweep` and the handoff.

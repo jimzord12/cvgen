@@ -456,7 +456,7 @@
       "role": "Runs the suite on every push and pull request (Typst 0.15.1). The lead watches it on `main` before calling work Done.",
       "sources": [
         ".github/workflows/verify.yml",
-        "docs/git-workflow.md:87-100"
+        "docs/git-workflow.md:90-103"
       ],
       "short": "CI"
     }
