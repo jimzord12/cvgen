@@ -116,7 +116,7 @@ docs/development.md               # This protocol
 docs/review.md                    # Review protocol
 backlog/tasks/                    # One authoritative brief and status per task (Backlog.md)
 backlog/docs/doc-1 - session-handoff.md  # Cross-session resume point, rewritten on main at the end of each session
-archive/work-records/<id>/reviews/NN.md      # Review reports, created only when review runs
+archive/work-records/<id>/reviews/  # Review reports (docs/review.md), created only when review runs
 docs/decisions/                   # Accepted architecture decisions
 docs/proposals/                   # Proposals with status; rejected/ keeps declined ones
 .claude/agents/code-reviewer.md   # Thin wrapper around docs/review.md

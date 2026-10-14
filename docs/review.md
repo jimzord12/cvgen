@@ -220,9 +220,9 @@ Each report is under about 600 words unless findings need more and includes
 the reviewed snapshot, lead lenses, eight-lens coverage, findings, checks
 actually rerun, evidence inspected, limitations and verdict. Never report an
 author-run check as personally rerun. The lead agent stores the report
-unchanged as `archive/work-records/<task-id>/reviews/<NN>.md`, links it from the task
-record with its dispositions, and summarizes product impact to the owner in a
-few lines.
+unchanged as `archive/work-records/<task-slug>/reviews/NN-<reviewer>.md`,
+links it from the task record with its dispositions, and summarizes product
+impact to the owner in a few lines.
 
 A PASS belongs to the examined implementation snapshot. Subsequent source,
 configuration, fixture or relevant contract changes invalidate affected

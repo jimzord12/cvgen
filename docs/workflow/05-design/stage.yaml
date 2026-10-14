@@ -353,7 +353,7 @@ artifacts:
 
   - id: art.concept-brief
     name: A Style's brief
-    sources: [".claude/skills/idea-run/SKILL.md:54-57", "AGENTS.md:102"]
+    sources: [".claude/skills/idea-run/SKILL.md:54-57", "AGENTS.md:103"]
     path: design-concepts/<date>-<slug>/brief.md
     format: Markdown with its references
     visibility: public

@@ -4,7 +4,7 @@ title: 'repo-layout: fewer top-level folders and a clean `scripts/`'
 status: Queued
 assignee: []
 created_date: '2026-10-14 04:48'
-updated_date: '2026-10-14 05:21'
+updated_date: '2026-10-14 09:21'
 labels:
   - restructure
 dependencies:
@@ -16,7 +16,7 @@ ordinal: 55000
 ## Description
 
 <!-- SECTION:DESCRIPTION:BEGIN -->
-Group `brand/`, `design-concepts/` and `archive/` under one folder; move `scripts/design_review/` to `apps/design-review/`; one naming case per file type (`docs/conventions.md`); have `M/lib.typ` re-export themes, artwork and layouts so an example needs one import. Owner decision 2026-10-14: go ahead unattended, report the tree before and after (no per-move approval). Source: docs/work/workflow-model/handoff.md, section 4, item 23 (B. Restructure, from the 2026-10-04 audit). Created 2026-10-14 at the owner's request; not started. The owner answered its open question on 2026-10-14 (docs/proposals/workflow-model.md); the decision overrides this description where they differ.
+Group `brand/`, `design-concepts/` and `archive/` under one folder; move `scripts/design_review/` to `apps/design-review/`; one naming case per file type (`docs/conventions.md`); have `M/lib.typ` re-export themes, artwork and layouts so an example needs one import. Owner decision 2026-10-14: go ahead unattended, report the tree before and after (no per-move approval). Source: archive/work-records/workflow-model/handoff.md, section 4, item 23 (B. Restructure, from the 2026-10-04 audit). Created 2026-10-14 at the owner's request; not started. The owner answered its open question on 2026-10-14 (docs/proposals/workflow-model.md); the decision overrides this description where they differ.
 <!-- SECTION:DESCRIPTION:END -->
 
 ## Acceptance Criteria
@@ -31,4 +31,6 @@ Group `brand/`, `design-concepts/` and `archive/` under one folder; move `script
 
 <!-- SECTION:NOTES:BEGIN -->
 Owner decision 2026-10-14 recorded in docs/proposals/workflow-model.md: go ahead unattended; history kept, links fixed, suite passing; report shows the tree before and after.
+
+From TASK-52 review: regrouping archive/ moves archive/work-records again; repoint the same live files TASK-52 touched (git show --stat of the TASK-52 merge: AGENTS.md, docs/development.md, docs/review.md, glossary, guides, research notes, open proposals, .claude agents and skills, .codex agents, .claude/repo-maintenance.md, docs/workflow stage.yaml 03/05/07, .atlas/src).
 <!-- SECTION:NOTES:END -->
