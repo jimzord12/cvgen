@@ -34,12 +34,14 @@ steps:
     when: Every time the new-client skill runs.
 
   # Implicit (named by the handoff's task 5), decided 2026-10-14 (#3): a keep
-  # request is a field in envelope.json.
+  # request is a field in envelope.json. The consent text in the intake
+  # questions is what offers it (GAPS.md, "Inferences").
   - id: after.keep-request
     name: The client asks to keep his data
-    sources: ["docs/guides/client-workflow.md:164-167", "docs/proposals/workflow-model.md:56", "docs/work/workflow-model/handoff.md:290"]
+    sources: ["docs/guides/client-workflow.md:164-167", "docs/proposals/workflow-model.md:56", "docs/work/workflow-model/handoff.md:290", "docs/workflow/GAPS.md:54-57"]
     actor: actor.client
     action: manual.ask-to-keep
+    inputs: [art.intake-message]
     outputs: [art.keep-request]
     when: The client asks to keep his data beyond the delete-by date.
 
@@ -87,11 +89,13 @@ steps:
     inputs: [art.private-history]
     outputs: [art.client-task]
 
+  # The candidates come from cv.py status (GAPS.md, "Inferences").
   - id: after.revision-cleanup
     name: Remove failed or unapproved Revisions
-    sources: ["docs/pdf-workflow.md:211-214", "docs/preferences.md:75-77"]
+    sources: ["docs/pdf-workflow.md:211-214", "docs/preferences.md:75-77", "docs/workflow/GAPS.md:58-61"]
     actor: actor.owner
     action: manual.go-remove-revisions
+    inputs: [art.status-listing]
     when: The owner wants failed or unapproved Revisions removed before the delete-by date.
 
 artifacts:

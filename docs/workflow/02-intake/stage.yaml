@@ -167,12 +167,6 @@ artifacts:
     format: one message in simple, friendly Greek, adapted to the Domain and target
     visibility: ephemeral
 
-  - id: art.intake-message
-    name: The questions in the client's chat
-    sources: ["docs/guides/client-workflow.md:112-115", "docs/guides/client-workflow.md:122-125"]
-    format: chat message (with the form's answer link when there is a form)
-    visibility: third-party
-
   - id: art.client-answers
     name: The client's chat answers
     sources: ["docs/guides/client-workflow.md:114-118"]

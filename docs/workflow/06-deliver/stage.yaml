@@ -290,12 +290,6 @@ artifacts:
     format: a line in the lead's report, with the Intake Form, Sheet and script project to delete with it
     visibility: ephemeral
 
-  - id: art.status-listing
-    name: What status prints
-    sources: ["packages/cv-workflow/cv_workflow/__init__.py:14-31", "packages/cv-workflow/cv_workflow/workspace.py:189-229"]
-    format: "JSON: every Revision with its state (failed, checks-failed, rendered, approved, exported and others), hash prefix, warnings"
-    visibility: ephemeral
-
 actions:
   - id: cmd.cv-render
     kind: cmd
