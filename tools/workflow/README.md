@@ -172,10 +172,10 @@ dependency; on 2026-10-14 Mermaid 11.4.1 parsed all eight diagrams.
 The `Atlas` (`.atlas/`, opened from `.atlas/index.html`) shows the client
 journey as a swimlane map and a walk-through. Its page
 `.atlas/src/pages/client-journey.json` is generated from the model and never
-edited by hand; the kit (`.atlas/_kit/atlas.py`) builds it like any other
-page. `atlas` runs the check first and writes nothing from a model that fails
-it, or when a model actor (`actor.x`) has no actor `x` in
-`.atlas/src/site.json`.
+edited by hand (its `generated` field and its summary say so); the kit
+(`.atlas/_kit/atlas.py`) builds it like any other page. `atlas` runs the
+check first and writes nothing from a model that fails it, or when a model
+actor (`actor.x`) has no actor `x` in `.atlas/src/site.json`.
 
 | Model | Atlas page |
 |---|---|
