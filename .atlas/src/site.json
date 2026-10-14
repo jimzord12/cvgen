@@ -395,7 +395,7 @@
       "label": "tests/run.py",
       "kind": "tool",
       "file": "tests/run.py",
-      "role": "The full test suite: compiles every example in `examples/release.json`, runs `build.ps1` in a throwaway copy, checks the `Frozen Reference` pixel for pixel, the workflow, the contract. Evidence goes to `builds/tests-<timestamp>/`.",
+      "role": "The full test suite: compiles every example in `examples/release.json`, runs `build.ps1` in a throwaway copy, checks the `Frozen Reference` pixel for pixel, the workflow, the contract, and the `Workflow Model` (checked, then run by a fictional client through the real scripts). Evidence goes to `builds/tests-<timestamp>/`.",
       "sources": [
         "tests/run.py",
         "docs/engine/verification.md"

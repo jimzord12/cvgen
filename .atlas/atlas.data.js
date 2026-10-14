@@ -397,7 +397,7 @@ window.ATLAS = {
     "label": "tests/run.py",
     "kind": "tool",
     "file": "tests/run.py",
-    "role": "The full test suite: compiles every example in `examples/release.json`, runs `build.ps1` in a throwaway copy, checks the `Frozen Reference` pixel for pixel, the workflow, the contract. Evidence goes to `builds/tests-<timestamp>/`.",
+    "role": "The full test suite: compiles every example in `examples/release.json`, runs `build.ps1` in a throwaway copy, checks the `Frozen Reference` pixel for pixel, the workflow, the contract, and the `Workflow Model` (checked, then run by a fictional client through the real scripts). Evidence goes to `builds/tests-<timestamp>/`.",
     "sources": [
      "tests/run.py",
      "docs/engine/verification.md"
@@ -2275,10 +2275,16 @@ window.ATLAS = {
   }
  ],
  "build": {
-  "builtAt": "2026-10-14 10:15 UTC",
-  "commit": "8bbda11",
+  "builtAt": "2026-10-14 10:35 UTC",
+  "commit": "124f4a8",
   "kit": "1.0",
-  "stale": {},
+  "stale": {
+   "system-map": [
+    "AGENTS.md",
+    "scripts/outputs.py",
+    "tests/run.py"
+   ]
+  },
   "verified": {
    "client-journey": {
     "at": "2026-10-14",
@@ -2286,11 +2292,11 @@ window.ATLAS = {
    },
    "design-run": {
     "at": "2026-10-14",
-    "commit": "8bbda11"
+    "commit": "124f4a8"
    },
    "change-review": {
     "at": "2026-10-14",
-    "commit": "f5819d1"
+    "commit": "124f4a8"
    },
    "system-map": {
     "at": "2026-10-14",
@@ -2298,7 +2304,7 @@ window.ATLAS = {
    },
    "roster": {
     "at": "2026-10-14",
-    "commit": "414a38e"
+    "commit": "124f4a8"
    }
   }
  }
