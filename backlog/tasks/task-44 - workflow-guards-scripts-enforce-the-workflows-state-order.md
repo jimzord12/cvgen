@@ -1,10 +1,10 @@
 ---
 id: TASK-44
 title: 'workflow-guards: scripts enforce the workflow''s state order'
-status: Active
+status: Done
 assignee: []
 created_date: '2026-10-14 04:47'
-updated_date: '2026-10-14 06:44'
+updated_date: '2026-10-14 06:57'
 labels:
   - workflow-model
 dependencies:
@@ -35,3 +35,9 @@ Result and evidence (2026-10-14, branch feature/task-44-workflow-guards):
 - Review: docs/work/workflow-guards/reviews/01-code-reviewer.md (PASS, minors fixed).
 - Legacy real data: 8 `delivered` revisions without receipt or export and one `signed-off` draft without its screenshot; `check` stays silent, a later re-stamp of those is refused.
 <!-- SECTION:NOTES:END -->
+
+## Final Summary
+
+<!-- SECTION:FINAL_SUMMARY:BEGIN -->
+outputs.py stamp now refuses approved without a receipt for this revision and these bytes, delivered without that receipt and a verified Export, and signed-off without sign-off-NN.png beside the draft; private/<envelope>/reference.pdf (delivered before cv.py) is exempt. Text Draft gains a ready status (compile stamps ready, sent only when the owner confirms). Meta File kind text-draft renamed house-design; new glossary term House Design. Code review round 1 PASS (minors fixed: revision-binding test, exemption limited to its home), context review round 1 PASS (minors fixed). Suite PASS 105 (builds/tests-20261014-095504-186232 in the worktree); manual walk builds/manual-walk-task44-20261014-092952/walk.log. Legacy real data: 8 delivered revisions without receipt/export and one signed-off draft without screenshot stay valid but any re-stamp is refused until proof is filed.
+<!-- SECTION:FINAL_SUMMARY:END -->
