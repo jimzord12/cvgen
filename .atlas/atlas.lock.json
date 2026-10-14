@@ -1,7 +1,7 @@
 {
  "pages": {
   "change-review": {
-   "commit": "85d0237",
+   "commit": "fdc6262",
    "sources": {
     ".claude/skills/verify-cv/SKILL.md": "237f6e30e3ad135618b688d729c2cdfa8bca24fa",
     ".github/workflows/verify.yml": "100de5fc82ad3ce2e740a3036892d3886ffa6384",

@@ -138,7 +138,7 @@
             "cap": "5 rounds with you around, 10 unattended"
           },
           "out": [
-            "`archive/work-records/<task>/reviews/NN.md`, stored unchanged"
+            "`archive/work-records/<task-slug>/reviews/NN-<reviewer>.md`, stored unchanged"
           ],
           "uses": [
             "code-reviewer",

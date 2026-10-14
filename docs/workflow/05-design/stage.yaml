@@ -467,7 +467,7 @@ artifacts:
   - id: art.engine-review-report
     name: The engine change's review report
     sources: ["docs/review.md:222-225"]
-    path: archive/work-records/<task-id>/reviews/<NN>.md
+    path: archive/work-records/<task-slug>/reviews/NN-<reviewer>.md
     format: code-reviewer report, PASS or FINDINGS
     visibility: public
 

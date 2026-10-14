@@ -1559,7 +1559,7 @@ window.ATLAS = {
         "cap": "5 rounds with you around, 10 unattended"
        },
        "out": [
-        "`archive/work-records/<task>/reviews/NN.md`, stored unchanged"
+        "`archive/work-records/<task-slug>/reviews/NN-<reviewer>.md`, stored unchanged"
        ],
        "uses": [
         "code-reviewer",
@@ -2275,8 +2275,8 @@ window.ATLAS = {
   }
  ],
  "build": {
-  "builtAt": "2026-10-14 09:22 UTC",
-  "commit": "58775fc",
+  "builtAt": "2026-10-14 09:24 UTC",
+  "commit": "fdc6262",
   "kit": "1.0",
   "stale": {},
   "verified": {
@@ -2290,7 +2290,7 @@ window.ATLAS = {
    },
    "change-review": {
     "at": "2026-10-14",
-    "commit": "85d0237"
+    "commit": "fdc6262"
    },
    "system-map": {
     "at": "2026-10-14",
