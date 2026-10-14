@@ -108,8 +108,9 @@ The page images are what to show the owner or a reviewer.
    refused (root-absolute into `private/` or the workspace, outside the
    workspace, missing, taking the portrait's place) or, when computed,
    fail the checks and block approval; a one-off naming a font family that
-   is not bundled (one that exists nowhere, and the run's system-only family) renders but fails the
-   checks with the family named, and approval is refused.
+   is not bundled (one that exists nowhere, and the run's system-only
+   family) renders but fails the checks with the family named, and
+   approval is refused.
    `commands.log` holds every command with its output and exit code.
 
 12. **Output Contract** (`output-contract (N PDFs)`). Every PDF in
@@ -136,6 +137,15 @@ change.
 - `Frozen file changed: <path>`: an input under the manifest was edited.
   Either revert it or follow the constitution's procedure for a new
   reference.
+- `AssertionError: ('<case>', 'warning: unknown font family: <family> ...')`
+  with exit code 0 from Typst: the case names a font family that is not
+  bundled. Fix the name or add the font to `packages/cv-framework/fonts`.
+- `AssertionError: ('fonts-system', 'CI has no font outside the bundled
+  ones, ...')`: the CI runner found no system font for the system-font
+  case; check the font install step in `.github/workflows/verify.yml`.
+- `SKIPPED N: <cases> (reasons in report.json)` after the `PASS` line: those
+  cases did not run on this machine (today only the system-font cases, when
+  it has no font outside the bundled ones). The run passed without them.
 
 ## Adding a check
 

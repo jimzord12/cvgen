@@ -4,7 +4,7 @@ title: 'fonts-strict: no silent system-font fallback'
 status: Active
 assignee: []
 created_date: '2026-10-14 04:47'
-updated_date: '2026-10-14 05:51'
+updated_date: '2026-10-14 05:58'
 labels:
   - restructure
 dependencies: []
@@ -75,4 +75,13 @@ Rounds 2 (context-reviewer, docs/work/fonts-strict/reviews/02-context-reviewer.m
 - Context M3: build-a-cv.md render checks list names "every font family bundled".
 - Context m4, m5, notes: text-draft.typ comment and tech-stack.md carry the flag; new-cv skill says a `warning: unknown font family` line is a failure; cv-workflow README says fonts are all embedded and every family bundled.
 Merged origin/main (one conflict in client-journey.json, resolved as above; generated Atlas files rebuilt). Suite PASS 98 cases, exact v11 match, builds/tests-20261014-084944-089231 (console builds/task-46-r3-suite-console.txt); `scripts/outputs.py check` 19 PDFs, 0 problems.
+
+## Review
+
+Round 4: code-reviewer PASS (docs/work/fonts-strict/reviews/04-code-reviewer.md); context-reviewer FINDINGS (04-context-reviewer.md), all fixed.
+- Material 1 fixed: Atlas citations into build-a-cv.md and the new-cv skill moved with the inserted and re-wrapped lines. Every .atlas/src citation into a file this branch changed was mapped from origin/main's text to the branch's (difflib) and the boundaries read by hand; only these moved: client-journey render build-a-cv 117-151 and new-cv SKILL 105-115, approve 184-191, export 193-208, deliver 204-206; site.json 117-208. (They differ by one from the reviewer's numbers because the re-wrap of build-a-cv.md added a line.)
+- Minor 2 fixed: verification.md fonts.typ row says "so both cases run there" and names `.github/workflows/verify.yml`.
+- Notes fixed: build-a-cv.md, verification.md item 11 and architecture.md re-wrapped to 75 characters or fewer; "Reading a failure" lists the unknown-font assertion, the CI no-font assertion and the `SKIPPED N:` line.
+- CI on ubuntu-latest: checked by the lead after the push.
+Merged origin/main (TASK-56; one conflict in verification.md: kept the fonts.typ row and main's skills.typ row; generated Atlas files taken from main and rebuilt). Suite PASS 98 cases, exact v11 match, builds/tests-20261014-085716-817399 (console builds/task-46-r4-suite-console.txt); `scripts/outputs.py check` 19 PDFs, 0 problems; Atlas stamped with system-map last, `check --strict` exit 0.
 <!-- SECTION:NOTES:END -->

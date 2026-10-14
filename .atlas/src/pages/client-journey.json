@@ -460,8 +460,8 @@
             "cv-py"
           ],
           "sources": [
-            "docs/guides/build-a-cv.md:117-149",
-            ".claude/skills/new-cv/SKILL.md:104-114"
+            "docs/guides/build-a-cv.md:117-151",
+            ".claude/skills/new-cv/SKILL.md:105-115"
           ]
         },
         {
@@ -488,7 +488,7 @@
             "cv-py"
           ],
           "sources": [
-            "docs/guides/build-a-cv.md:182-189",
+            "docs/guides/build-a-cv.md:184-191",
             "docs/pdf-workflow.md:166-170"
           ]
         },
@@ -511,7 +511,7 @@
             "cv-py"
           ],
           "sources": [
-            "docs/guides/build-a-cv.md:191-206",
+            "docs/guides/build-a-cv.md:193-208",
             "docs/pdf-workflow.md:171-182"
           ]
         },
@@ -532,7 +532,7 @@
             "python scripts/outputs.py stamp private/<envelope>/revisions/<id>/cv.pdf status=delivered"
           ],
           "sources": [
-            "docs/guides/build-a-cv.md:202-204",
+            "docs/guides/build-a-cv.md:204-206",
             "docs/guides/client-workflow.md:298-301"
           ]
         }
