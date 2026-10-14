@@ -4,7 +4,7 @@ title: 'python-packaging: `cv-workflow` is an installable, linted package'
 status: Active
 assignee: []
 created_date: '2026-10-14 04:48'
-updated_date: '2026-10-14 08:45'
+updated_date: '2026-10-14 08:58'
 labels:
   - restructure
 dependencies: []
@@ -28,4 +28,6 @@ A `pyproject.toml` with pinned dependencies (pillow is unpinned in CI); drop the
 - 🧭 Not done, per the lead: the sys.path inserts stay (scripts run from a plain checkout with no install step; requiring pip install -e adds setup for no product gain) and tests/run.py stays its own runner (it reports every case and writes evidence). run.py checks are bare asserts, so main() now refuses to run when __debug__ is off (python -O or PYTHONOPTIMIZE) with a clear message; checked by hand (exit 1, message printed).
 - .gitignore: .ruff_cache/, *.egg-info/, packages/*/build/ (left by building the package). The wheel builds (uv build: cv_workflow plus output.schema.json), checked once, not kept.
 - Docs: docs/tech-stack.md (Verification and CI rows, setup line), AGENTS.md (packages/cv-workflow row, ruff check command, the dependency line), docs/engine/verification.md (CI steps, the -O refusal), packages/cv-workflow/README.md; Atlas github-ci role and system-map CI blurb.
+
+Round-2 context fixes also touched README.md, .claude/skills/verify-cv/SKILL.md, docs/guides/build-a-cv.md and the jsonschema message in validate.py. Reviews: code round 1 PASS, context round 1 FINDINGS, context round 2 PASS (docs/work/python-packaging/reviews/).
 <!-- SECTION:NOTES:END -->
