@@ -164,6 +164,19 @@ describe("a fixture model rendered through the command line", () => {
     expect(read(stage())).toBe(edited);
   });
 
+  test("a code fence never closed stops render at its line, writes nothing, and the README names the failure", () => {
+    run("render", dir);
+    const edited = read(stage()).replace("# 01 make: make\n", "# 01 make: make\n\n~~~\nan example left open\n");
+    writeFileSync(stage(), edited);
+    for (const args of [["render", dir], ["render", "--check", dir]]) {
+      const r = run(...args);
+      expect(r.code).toBe(1);
+      expect(r.err).toMatch(/01-make\/README\.md:3: code fence ~~~ never closed/);
+    }
+    expect(read(stage())).toBe(edited);
+    expect(readFileSync(join(tool, "README.md"), "utf8")).toContain("or a code fence never closed, stops");
+  });
+
   test("an arrow stays when the only longer path runs through a step with another condition, and goes when it is the same", () => {
     // make.side reads art.draft (from make.start and make.fix) and writes art.note; make.join reads both.
     // start -> join is implied only through make.side, which has a condition start does not: drawn.

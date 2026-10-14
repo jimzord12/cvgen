@@ -48,6 +48,7 @@ export function applyBlocks(text: string, blocks: Block[], file: string): string
   const found = new Map<string, [number, number]>();
   let open: [string, number] | undefined;
   let fence: string | undefined; // the opening ``` or ~~~ of a code fence the line is in
+  let fenceLine = 0;
   const fail = (i: number, reason: string) => {
     throw new MarkerError(`${file}:${i + 1}: ${reason}`);
   };
@@ -60,6 +61,7 @@ export function applyBlocks(text: string, blocks: Block[], file: string): string
     }
     if (fenceMark) {
       fence = fenceMark;
+      fenceLine = i;
       return;
     }
     const m = markerLine.exec(line);
@@ -82,6 +84,8 @@ export function applyBlocks(text: string, blocks: Block[], file: string): string
       open = undefined;
     }
   });
+  // An open fence would hide every marker below it, and render would add every block again.
+  if (fence) fail(fenceLine, `code fence ${fence} never closed`);
   if (open) fail(open[1], `block ${open[0]} has no ${endMarker(open[0])}`);
   const out = [...lines];
   // Bottom up, so the line numbers of the blocks above still hold.
