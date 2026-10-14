@@ -1,7 +1,8 @@
 # Workflow Model: what the YAML holds in place of a source (TASK-37)
 
-The YAML in this folder encodes what the sources say (`main` at 362f004, after TASK-47,
-and the owner's decisions of 2026-10-14 in `docs/proposals/workflow-model.md`).
+The YAML in this folder encodes what the sources say (`main` at 362f004,
+after TASK-47, and the owner's decisions of 2026-10-14 in
+`docs/proposals/workflow-model.md`).
 Where the sources are silent, the YAML holds a placeholder or an inference,
 and points here. This file explains each one; it decides nothing and tracks
 nothing:
