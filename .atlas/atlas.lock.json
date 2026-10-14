@@ -91,24 +91,24 @@
    "verifiedAt": "2026-10-14"
   },
   "system-map": {
-   "commit": "d6fe4fd",
+   "commit": "3892911",
    "sources": {
     ".claude/agents": "dir1:4f4154394888bb9d69a0ed790d8f4b484a790fdd",
     ".claude/skills": "dir1:5eeafda0c9ef9a6037a3fcc2879f73f098fa3e55",
     ".claude/skills/backlog/SKILL.md": "22562281e7901acef008942775142d478ec85948",
     ".github/workflows/verify.yml": "2a5648f759ba2f2571849af766aa985924306429",
-    "AGENTS.md": "d03adc8043ff05013646cad2c18c97908009e3ae",
+    "AGENTS.md": "b494915eabdf1a9345c995b35a0b647f097fe448",
     "archive/anti-examples": "dir1:dacb2a2e30bc6a5d49178d2bcbf382c4de52a88c",
     "archive/design-studies": "dir1:3934f2dbb33587fa8b485e7b99d2b37fa3784798",
     "brand": "dir1:c556e0f8d17363d5e9ddc92e7142a253a16d1be2",
     "design-concepts": "dir1:d3bd60991a5441279a325e9aa73ea4e20ad7f1c7",
     "docs": "dir1:72f884095d947d20236fb2207e85aa7b127337c2",
-    "docs/architecture.md": "a92a072e582d70e6481f5c7e4b45369d7d653449",
+    "docs/architecture.md": "7fa2af242b52b9e9480892cf085fe9f1264acdc4",
     "docs/glossary.md": "8555c8d39255c8c94254778e179bb26caf93bec6",
     "docs/guides/build-a-cv.md": "07673837d3a5c3a3a6b1eeaef9224ac832d27398",
     "docs/guides/client-workflow.md": "ff7a174705d71908d4c8fc1e61a564bf5d010db8",
     "docs/pdf-workflow.md": "3bfa09a91c1ec9c970650c88ed15842c477645de",
-    "docs/work": "dir1:78de3785af2faf2dc42d9bec806aa6324e43d99a",
+    "docs/work": "dir1:2e385bb0e8a711424d306ffa4a335c86bf083e8d",
     "examples/candidates": "dir1:69fb38eee30dc425761a0cb80a577613cf3bdab4",
     "examples/marine/flagship": "dir1:2badfd3042bcd2c5ef709a6596945aefe8848eb1",
     "packages/cv-framework": "dir1:e26fc6cd0be31cb5f9c4f61215ae5f3cfdc05a78",
@@ -121,7 +121,7 @@
     "scripts/design_review/server.py": "0d1258af97e31db980fcd7a98e64e88f431f9840",
     "scripts/outputs.py": "6e79e3d72163c249c328633379952f93837ffe1c",
     "scripts/text-draft.typ": "c6f61f2253a2105d3334f3edc4e9b12137f54fa1",
-    "tests/run.py": "3653a980c41720b4123158b88676afbcec4755d6"
+    "tests/run.py": "4ddd027d4184e48c800c33eaf83d39a84621487d"
    },
    "verifiedAt": "2026-10-14"
   }
