@@ -120,8 +120,9 @@ the fact was written from: a line added above them shifts every anchor below.
 commit at which the anchors were known good, for example the merge base of
 a branch that edited cited files) through `git diff`. Only anchors already in
 the model at `<commit>` are judged; one written since cites the file as it is
-now. Give it the commit the anchors were last checked at: an older one shifts
-again an anchor re-anchored since whose new value another anchor had then.
+now. Give it the commit the anchors were last checked at: an older one can
+shift an anchor a second time when its new value matches another anchor's
+value at that commit.
 
 - `MOVED a:4-5 -> a:6-7`: the lines only shifted; `--fix` rewrites the anchor
   in the YAML.
