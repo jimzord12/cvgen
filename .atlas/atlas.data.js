@@ -2275,28 +2275,10 @@ window.ATLAS = {
   }
  ],
  "build": {
-  "builtAt": "2026-10-14 09:38 UTC",
-  "commit": "82aa7c5",
+  "builtAt": "2026-10-14 09:42 UTC",
+  "commit": "32a7367",
   "kit": "1.0",
-  "stale": {
-   "system-map": [
-    "AGENTS.md",
-    "docs/pdf-workflow.md",
-    "docs/guides/client-workflow.md",
-    "docs/guides/build-a-cv.md",
-    "packages/domains/marine",
-    "packages/domains/marine/templates/flagship",
-    "studio/design-concepts",
-    "studio/archive/anti-examples",
-    "studio/archive/design-studies",
-    "studio/brand",
-    "apps/design-review/server.py",
-    "docs/glossary.md",
-    "studio/archive/work-records",
-    ".github/workflows/verify.yml",
-    ".claude/skills/backlog/SKILL.md"
-   ]
-  },
+  "stale": {},
   "verified": {
    "client-journey": {
     "at": "2026-10-14",
@@ -2312,7 +2294,7 @@ window.ATLAS = {
    },
    "system-map": {
     "at": "2026-10-14",
-    "commit": "58775fc"
+    "commit": "ca27050"
    },
    "roster": {
     "at": "2026-10-14",
