@@ -8,17 +8,5 @@
       "Bash(backlog task view:*)",
       "Bash(backlog search:*)"
     ]
-  },
-  "hooks": {
-    "SessionEnd": [
-      {
-        "hooks": [
-          {
-            "type": "command",
-            "command": "night-shift meter"
-          }
-        ]
-      }
-    ]
   }
 }
