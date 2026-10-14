@@ -2274,22 +2274,30 @@ window.ATLAS = {
   }
  ],
  "build": {
-  "builtAt": "2026-10-14 08:23 UTC",
-  "commit": "e65b5a5",
+  "builtAt": "2026-10-14 08:31 UTC",
+  "commit": "1826338",
   "kit": "1.0",
-  "stale": {},
+  "stale": {
+   "system-map": [
+    "AGENTS.md",
+    "docs/architecture.md",
+    "docs/guides/build-a-cv.md",
+    "packages/domains/marine/templates/flagship",
+    "tests/run.py"
+   ]
+  },
   "verified": {
    "client-journey": {
     "at": "2026-10-14",
-    "commit": "e65b5a5"
+    "commit": "1826338"
    },
    "design-run": {
     "at": "2026-10-14",
-    "commit": "e65b5a5"
+    "commit": "1826338"
    },
    "change-review": {
     "at": "2026-10-14",
-    "commit": "e65b5a5"
+    "commit": "1826338"
    },
    "system-map": {
     "at": "2026-10-14",
@@ -2297,7 +2305,7 @@ window.ATLAS = {
    },
    "roster": {
     "at": "2026-10-14",
-    "commit": "e65b5a5"
+    "commit": "1826338"
    }
   }
  }
