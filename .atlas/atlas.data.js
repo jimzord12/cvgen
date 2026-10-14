@@ -363,7 +363,7 @@ window.ATLAS = {
     "when": "`quick` in every `Session Sweep`; the rest when you ask for a tidy-up.",
     "sources": [
      ".claude/skills/repo-maintenance/SKILL.md:21-28",
-     ".claude/repo-maintenance.md:136-140"
+     ".claude/repo-maintenance.md:135-139"
     ]
    },
    "cv-py": {
@@ -2263,22 +2263,22 @@ window.ATLAS = {
   }
  ],
  "build": {
-  "builtAt": "2026-10-14 05:54 UTC",
-  "commit": "42d9fcd",
+  "builtAt": "2026-10-14 06:00 UTC",
+  "commit": "cdf5d9c",
   "kit": "1.0",
   "stale": {},
   "verified": {
    "client-journey": {
     "at": "2026-10-14",
-    "commit": "ce6d38e"
+    "commit": "cdf5d9c"
    },
    "design-run": {
     "at": "2026-10-14",
-    "commit": "ce6d38e"
+    "commit": "cdf5d9c"
    },
    "change-review": {
     "at": "2026-10-14",
-    "commit": "ce6d38e"
+    "commit": "cdf5d9c"
    },
    "system-map": {
     "at": "2026-10-14",
@@ -2286,7 +2286,7 @@ window.ATLAS = {
    },
    "roster": {
     "at": "2026-10-14",
-    "commit": "ce6d38e"
+    "commit": "cdf5d9c"
    }
   }
  }
