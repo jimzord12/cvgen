@@ -92,7 +92,7 @@
    "verifiedAt": "2026-10-14"
   },
   "system-map": {
-   "commit": "260575c",
+   "commit": "2155114",
    "sources": {
     ".claude/agents": "dir1:4f4154394888bb9d69a0ed790d8f4b484a790fdd",
     ".claude/skills": "dir1:5eeafda0c9ef9a6037a3fcc2879f73f098fa3e55",
@@ -109,7 +109,7 @@
     "docs/guides/build-a-cv.md": "17fb6155b88307dff5ca55fc8f711dcd53dd824c",
     "docs/guides/client-workflow.md": "65cc8137148bfdfdff23f01d069322503ea9bc13",
     "docs/pdf-workflow.md": "3bfa09a91c1ec9c970650c88ed15842c477645de",
-    "docs/work": "dir1:efffd601eb832ca3b6ed5ec09de4269607beb74c",
+    "docs/work": "dir1:531f897917b24ec2e02cb1df7fd9957a02c4f9a8",
     "examples/candidates": "dir1:69fb38eee30dc425761a0cb80a577613cf3bdab4",
     "examples/marine/flagship": "dir1:2badfd3042bcd2c5ef709a6596945aefe8848eb1",
     "packages/cv-framework": "dir1:e26fc6cd0be31cb5f9c4f61215ae5f3cfdc05a78",
@@ -122,7 +122,7 @@
     "scripts/design_review/server.py": "0d1258af97e31db980fcd7a98e64e88f431f9840",
     "scripts/outputs.py": "6e79e3d72163c249c328633379952f93837ffe1c",
     "scripts/text-draft.typ": "c6f61f2253a2105d3334f3edc4e9b12137f54fa1",
-    "tests/run.py": "e121c5c2e2713aa253919169dfbce58794c691b0"
+    "tests/run.py": "f6d4c86687f3fe69a7fead63a8a7dbe6bdcb174f"
    },
    "verifiedAt": "2026-10-14"
   }

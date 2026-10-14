@@ -2264,15 +2264,10 @@ window.ATLAS = {
   }
  ],
  "build": {
-  "builtAt": "2026-10-14 06:54 UTC",
-  "commit": "3052f11",
+  "builtAt": "2026-10-14 06:55 UTC",
+  "commit": "2155114",
   "kit": "1.0",
-  "stale": {
-   "system-map": [
-    "docs/work",
-    "tests/run.py"
-   ]
-  },
+  "stale": {},
   "verified": {
    "client-journey": {
     "at": "2026-10-14",
@@ -2288,7 +2283,7 @@ window.ATLAS = {
    },
    "system-map": {
     "at": "2026-10-14",
-    "commit": "260575c"
+    "commit": "2155114"
    },
    "roster": {
     "at": "2026-10-14",
