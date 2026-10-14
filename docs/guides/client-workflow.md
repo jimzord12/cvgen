@@ -30,14 +30,17 @@ Intake (Relay) -> Scout -> CV decisions -> Deep Dives -> one follow-up
 
 One folder per client under `private/` (ignored by this repository, tracked by the
 private one, `AGENTS.md`), named after the
-person and their `Rank`, as in `build-a-cv.md`. The workflow adds three
-drawers to it:
+person and their `Rank`. Every `Envelope` has the same tree (owner,
+2026-10-06): only three files at its root, everything else in a drawer
+where things that belong together live together. This section owns the
+layout; the guides and skills point here.
 
 ```text
 private/eleni-example-tour-guide/
   README.md          alias, intake date, decisions, draft fingerprints, delivery and delete-by dates,
                      Google links (Intake Form, Sheet, script project)
   envelope.json      who the client is, once: alias, domain, candidate, rank
+  candidate.json     the candidate record (added by new-cv); the workflow reads it here
   intake/
     messages.md      every answer as received, dated, in the client's words
     documents/       the photos and files the client sent
@@ -53,13 +56,33 @@ private/eleni-example-tour-guide/
     draft-01.typ, draft-01.pdf   the text draft (a new number per version)
     draft-01.meta.json           its Meta File: ready, sent, then signed-off or superseded
     sign-off-01.png              the client's OK, as a screenshot
-  candidate.json, cv.typ, portrait, revisions/, exports/   added by new-cv
-  reviews/           design-NN.md and text-NN.md: review reports on the CV's design and text
+  typst/             the CV's Typst sources (added by new-cv)
+    cv.typ           the entry point scripts/cv.py renders
+    presentation.json   data a design reads that the schema cannot hold (optional)
+    designs/         design variants and the shared design code cv.typ imports
+    text/            the CV's wording as Typst, one file per language or variant
+    art/             the design's own SVGs, and the scripts that generate them
+  images/
+    portrait/        the authorised photograph(s), jpg or png
+  reviews/           design-NN.md: design-reviewer reports on the CV's design
+  revisions/         one folder per render, written by scripts/cv.py
+  exports/           one folder per exported revision, written by scripts/cv.py
 ```
 
-`scripts/cv.py render` copies `cv.typ`, `candidate.json`, the portrait and
-the files `cv.typ` reads into a `Revision`; the drawers enter one only if
-`cv.typ` reads from them, which it should not.
+`typst/cv.typ` reads every file by a path relative to itself:
+`json("../candidate.json")`, `image("../images/portrait/portrait.jpg")`,
+`#import "designs/hanami.typ"`, `image("art/fuji.svg")`. `scripts/cv.py`
+refuses a workspace whose `cv.typ` still sits at the root (the layout
+before 2026-10-14) and says how to move it. A CV delivered before
+`scripts/cv.py` existed keeps its `reference.pdf` and `reference.meta.json`
+at the root, left in place (the `Output Contract`, `../pdf-workflow.md`).
+A `Revision` written before the move keeps its flat `inputs/`; nothing in
+`revisions/` or `exports/` is ever moved.
+
+`scripts/cv.py render` copies `typst/cv.typ`, `candidate.json`, the
+portrait and the files `cv.typ` reads into a `Revision`, at the same
+places under its `inputs/`; the drawers enter one only if `cv.typ` reads
+from them, which it should not.
 
 **The folder name is client data.** Claude gives each client an alias,
 `client-<yyyy>-<mm>-<nn>` (for example `client-2026-09-01`), written at the
@@ -285,11 +308,12 @@ the facts do not fit the `Domain`'s `Template`, it builds a one-off
 section 8).
 
 A client whose `Domain` does not exist yet (a tour guide, today) gets a
-one-off `Template` in the `Envelope`: its `cv.typ` imports
+one-off `Template` in the `Envelope`: its `typst/cv.typ` imports
 `/packages/cv-framework/lib.typ` only (ADR 0012), so `scripts/cv.py render`
-checks no schema. The design may use files beside `cv.typ` (data such as
-`presentation.json`, local `.typ` helpers, images) read by a path relative
-to it: a `Revision` copies each one it finds (`build-a-cv.md` section 8).
+checks no schema. The design may use other files of the `Envelope`
+(`presentation.json`, the `.typ` files in `designs/` and `text/`, the SVGs
+in `art/`, the portrait; section 1) read by a path relative to `cv.typ`: a
+`Revision` copies each one it finds (`build-a-cv.md` section 8).
 Record the `Framework Gap` for that client's design. The design starts from
 an `Idea Run` on the client's `Domain`, specialty and `Rank`, from which the
 owner picks a `Style`, `Design Tier` and `Density`, and must pass

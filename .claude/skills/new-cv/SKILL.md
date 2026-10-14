@@ -17,10 +17,14 @@ fitting the page.
 ## Decide the destination
 
 - Real person: the client's `Envelope` under `private/` (ignored), named
-  after the person and their `Rank`: `private/<name>-<rank>/` with the
-  client workflow's `envelope.json`, `intake/`, `research/` and `draft/`, plus
-  `candidate.json`, `cv.typ`, `portrait.<ext>` and a `README.md` recording
-  what was decided and where the evidence is. Renders go to `revisions/` and approved copies
+  after the person and their `Rank`: `private/<name>-<rank>/` in the one
+  `Envelope` tree (`docs/guides/client-workflow.md` section 1, which says
+  where every file goes). To the client workflow's `envelope.json`,
+  `intake/`, `research/` and `draft/` add `candidate.json` at the root,
+  `typst/cv.typ` (design code in `typst/designs/`, wording in `typst/text/`,
+  SVGs in `typst/art/`), the portrait in `images/portrait/`, and a
+  `README.md` line recording what was decided and where the evidence is.
+  `cv.typ` reads the record as `json("../candidate.json")`. Renders go to `revisions/` and approved copies
   to the `Envelope`'s `exports/` through `scripts/cv.py`, which stamps each
   revision's `Meta File` from `envelope.json` (write it first if the client
   workflow did not; `docs/guides/build-a-cv.md` section 1). Never under `examples/`.

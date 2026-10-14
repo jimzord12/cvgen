@@ -10,20 +10,14 @@ from there, with the facts in `intake/facts.md` and the signed-off draft.
 ## 1. Create the private workspace
 
 One folder per client, the `Envelope`, named after the person and their
-`Rank` (the client workflow has usually created it already):
-
-```text
-private/jane-doe-second-engineer/
-  README.md              how to build, what was decided, where the evidence is
-  envelope.json          who the client is, once: alias, domain, candidate, rank (below)
-  intake/, research/, draft/   from the client workflow; not copied into a revision unless cv.typ reads them (it should not)
-  candidate.json         candidate data
-  cv.typ                 entry point
-  portrait.<ext>         authorised photograph, jpg or png
-  presentation.json      only for the custom path in section 8: data the schema cannot hold
-  revisions/             one folder per render, written by scripts/cv.py (section 3)
-  exports/               one folder per exported revision, written by scripts/cv.py (section 6)
-```
+`Rank` (the client workflow has usually created it already). Its tree is
+fixed in `client-workflow.md` section 1; for the CV you add
+`candidate.json` at its root, the entry point `typst/cv.typ` (with any
+`presentation.json`, `designs/`, `text/` and `art/` beside it), the
+portrait in `images/portrait/`, and a `README.md` line on what was decided
+and where the evidence is. `scripts/cv.py` writes `revisions/` (section 3)
+and `exports/` (section 6), and refuses a workspace that still keeps
+`cv.typ` at its root.
 
 `envelope.json` names the client for every `Meta File` written in the
 `Envelope` (the `Output Contract`, `../pdf-workflow.md`); `render` refuses
@@ -34,9 +28,10 @@ a workspace without it. `domain` is an id from the glossary's `Domain` row;
 {"alias": "client-2026-09-01", "domain": "marine", "candidate": "Jane Doe", "rank": "Second Engineer"}
 ```
 
-`cv.typ`. Import the engine by root-absolute path (a leading `/` means the
+`typst/cv.typ`. Import the engine by root-absolute path (a leading `/` means the
 repository root), so the copy the workflow keeps with each revision compiles
-on its own. The shipped layout's page plan assumes the example's six
+on its own; read the record one folder up, `json("../candidate.json")`.
+The shipped layout's page plan assumes the example's six
 companies, so a real candidate always overrides `pages` with their own
 company indices, zero-based, in JSON order:
 
@@ -50,7 +45,7 @@ company indices, zero-based, in JSON order:
   (companies: (0, 1)),
   (companies: (2,), synopsis: true, certificates: true, education: true),
 ))
-#let candidate = json("candidate.json")
+#let candidate = json("../candidate.json")
 #show: flagship.with(candidate: candidate, role: role, theme: theme, artwork: artwork, layout: layout,
   show-vessel-durations: true)
 ```
@@ -72,10 +67,10 @@ no override is needed. Render with `python scripts/cv.py render <folder>
 Copy `examples/candidates/engineer-example.json` or `examples/candidates/captain-example.json` and
 replace every value. Field meanings and error messages are in
 `../reference/candidate-schema.md`. Set `identity.portrait` to
-`/private/jane-doe-second-engineer/portrait.<ext>` (a path from the
+`/private/jane-doe-second-engineer/images/portrait/portrait.<ext>` (a path from the
 repository root, which both the preview in section 3 and the workflow
 accept) or to `null`. A path relative to the workspace folder,
-`portrait.<ext>`, works only through `scripts/cv.py render`, which copies
+`images/portrait/portrait.<ext>`, works only through `scripts/cv.py render`, which copies
 the file into the revision; the direct compiler cannot find it.
 
 If you do not know months per vessel, set `show-vessel-durations: false` and
@@ -134,7 +129,8 @@ another font, so it fails the checks). Exit code 1 means the compiler or
 a check failed; the revision stays, with the error in its `render.log` or
 `checks.json`, and the fix is a new revision. Exit code 2 prints
 `REFUSED: <reason>`: the inputs are not usable (a workspace without
-`envelope.json`, `candidate.json` or `cv.typ`, invalid
+`envelope.json`, `candidate.json` or `typst/cv.typ`, one that still keeps
+`cv.typ` at its root, invalid
 JSON, a record that breaks its schema - the offending fields are listed
 with their paths, the first ten and then a count - a missing portrait file, no Typst on PATH), and the reason
 names the fix. Nothing is written on a refusal.
@@ -154,7 +150,7 @@ For live editing while you adjust the page plan, the compiler still works
 directly; write to a fresh name under `builds/`:
 
 ```powershell
-typst watch --root . --ignore-system-fonts --font-path packages/cv-framework/fonts private/jane-doe-second-engineer/cv.typ builds/jane-doe-preview.pdf
+typst watch --root . --ignore-system-fonts --font-path packages/cv-framework/fonts private/jane-doe-second-engineer/typst/cv.typ builds/jane-doe-preview.pdf
 ```
 
 A preview is not a revision: what you approve and export is always a
@@ -236,7 +232,7 @@ the same public exports:
 #import "/packages/domains/marine/templates/flagship/layouts/flagship-v11.typ": layout
 // The shell reads copy.brand and disclosure, so the record goes through the adapter first.
 // copy is not allowed in candidate.json; replace the example wording here (section 2).
-#let d = normalize-candidate(to-flagship-input(json("candidate.json"),
+#let d = normalize-candidate(to-flagship-input(json("../candidate.json"),
   copy: (certificates-subtitle: "Certificates of competency and endorsements", brand: "JANE DOE")))
 // One ctx for every component: theme, layout, artwork, the composed wording, switches (ADR 0008).
 #let ctx = make-ctx(theme: theme, layout: layout, artwork: artwork, copy: d.copy,
@@ -267,10 +263,11 @@ Rules for this path:
   A client whose domain does not exist yet imports `/packages/cv-framework/lib.typ`
   only (render then checks no schema; `client-workflow.md` section 9).
 - Keep the candidate JSON valid against its schema, if it has one. Put data the schema
-  cannot hold, such as contract periods, in a separate `presentation.json`
-  beside it. Never invent months from calendar periods.
+  cannot hold, such as contract periods, in a separate `typst/presentation.json`
+  beside `cv.typ`. Never invent months from calendar periods.
 - Read every workspace file by a literal path relative to `cv.typ`
-  (`json("presentation.json")`, `#import "parts/table.typ"`, `image("map.png")`).
+  (`json("presentation.json")`, `#import "designs/table.typ"`, `image("art/map.svg")`,
+  `image("../images/portrait/portrait.jpg")`).
   `render` finds these reads, follows local `.typ` helpers, copies each file
   into the `Revision` and records its hash in `render.json`. It refuses a
   root-absolute path into `private/` (the revision would read the live
@@ -279,7 +276,7 @@ Rules for this path:
   the snapshot the compile fails, and if it reads a live file the revision's
   checks fail, so it cannot be approved.
 - Approve and export the hand-composed render through the same workflow
-  (sections 3 and 6): its entry point is still `cv.typ`. Record in
+  (sections 3 and 6): its entry point is still `typst/cv.typ`. Record in
   the folder's `README.md` why the custom composition exists and what it
   matched. Once the template can express the data, the entry point is
   rewritten to use `flagship` and compared against the approved revision.

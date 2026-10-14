@@ -42,7 +42,7 @@ adapter produces it (see "Flagship wording" below).
 
 - **identity.portrait** is a path from the project root, or `null` for no
   photo. For a real person use the path inside the candidate's folder,
-  `/private/<candidate-folder>/portrait.<ext>`, jpg or png; the workflow
+  `/private/<candidate-folder>/images/portrait/portrait.<ext>`, jpg or png; the workflow
   (`scripts/cv.py render`) also accepts a path relative to that folder and
   repoints the revision's snapshot at its own copy of the file.
 - **contacts** are ordered. Remove an entry to hide it. `href` is optional

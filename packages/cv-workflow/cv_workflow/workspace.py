@@ -69,8 +69,12 @@ def repo_relative(path):
     return '/' + Path(path).resolve().relative_to(ROOT).as_posix()
 
 
+# The entry point's place in an Envelope (TASK-32): Typst sources live under typst/, the record at the root.
+ENTRY = 'typst/cv.typ'
+
+
 class Workspace:
-    """One candidate folder: candidate.json, cv.typ, revisions/ and exports/."""
+    """One candidate folder (an Envelope): candidate.json, typst/cv.typ, revisions/ and exports/."""
 
     def __init__(self, folder):
         self.folder = Path(folder).resolve()
@@ -79,12 +83,17 @@ class Workspace:
         except ValueError:
             raise WorkflowError(f'Workspace {self.folder} is outside the repository; Typst resolves assets from '
                                 f'the repository root, so keep candidate workspaces under private/ (or builds/ for tests)')
-        for name in ('candidate.json', 'cv.typ'):
+        if (self.folder / 'cv.typ').is_file():
+            raise WorkflowError(f'Workspace {self.folder} keeps cv.typ at its root, the old flat layout; move it to '
+                                f'{ENTRY} (with git mv inside private/), add ../ to its relative reads of files outside '
+                                f'typst/ (json("../candidate.json")), then render again; old revisions stay as they are. '
+                                f'The layout is in docs/guides/client-workflow.md, section 1')
+        for name in ('candidate.json', ENTRY):
             if not (self.folder / name).is_file():
-                raise WorkflowError(f'Workspace {self.folder} has no {name}; see docs/guides/build-a-cv.md')
+                raise WorkflowError(f'Workspace {self.folder} has no {name}; see docs/guides/client-workflow.md, section 1')
         self.name = self.folder.name
         self.record = self.folder / 'candidate.json'
-        self.entry = self.folder / 'cv.typ'
+        self.entry = self.folder / ENTRY
         self.revisions = self.folder / 'revisions'
         self.exports = self.folder / 'exports'
 
@@ -123,7 +132,7 @@ class Revision:
         self.workspace = workspace
         self.id = revision_id
         self.folder = workspace.revisions / revision_id
-        self.inputs = self.folder / 'inputs'
+        self.inputs = self.folder / 'inputs'  # mirrors the workspace: inputs/typst/cv.typ, inputs/candidate.json
         self.pdf = self.folder / 'cv.pdf'
         self.log = self.folder / 'render.log'
         self.render_record = self.folder / 'render.json'
