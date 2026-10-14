@@ -1,10 +1,7 @@
-#import "../../../packages/domains/marine/lib.typ": flagship
-#import "../../../packages/domains/marine/roles/deck/role.typ": role
-#import "../../../packages/domains/marine/templates/flagship/themes/silver-bridge.typ": theme
-#import "../../../packages/domains/marine/templates/flagship/artwork/captain.typ": artwork
-#import "../../../packages/domains/marine/templates/flagship/layouts/flagship-v11.typ": layout
+#import "../../../packages/domains/marine/lib.typ": flagship, roles, flagship-themes, flagship-artwork, flagship-layouts
 #let candidate = json("../../candidates/chief-officer-example.json")
 // `copy` overrides Flagship wording without touching the candidate record.
-#show: flagship.with(candidate: candidate, role: role, theme: theme, artwork: artwork, layout: layout,
+#show: flagship.with(candidate: candidate, role: roles.deck, theme: flagship-themes.silver-bridge,
+  artwork: flagship-artwork.captain, layout: flagship-layouts.flagship-v11,
   show-vessel-durations: sys.inputs.at("vessel-durations", default: "true") == "true",
   copy: if "brand" in sys.inputs { (brand: sys.inputs.brand) } else { (:) })

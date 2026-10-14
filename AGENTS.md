@@ -78,7 +78,7 @@ Framework; `M` for `packages/domains/marine`, the marine domain; `F` for
 | Path | Role | Touch it when |
 |---|---|---|
 | `W/lib.typ` | The Framework's import surface: core names only, no domain, no side effects | Adding or renaming a core export |
-| `M/lib.typ` | The marine import surface every marine entry point uses: the Framework's names plus marine and Flagship, no side effects | Adding or renaming a marine or Flagship export |
+| `M/lib.typ` | The marine import surface every marine entry point uses: the Framework's names plus marine and Flagship, and the roles, themes, artwork packs and layouts as modules (`roles`, `flagship-themes`, `flagship-artwork`, `flagship-layouts`), so an example needs this one import; no side effects | Adding or renaming a marine or Flagship export |
 | `W/core/` | Domain-neutral core: `node` (merge, compose), `data` (common facts), `theme` check, `component` (`make-ctx`, which builds `ctx`), `components` (the ctx-first primitives and page shell as one module, exported as `core-components`), `primitives`, `page` shell, `pagination` over a domain row model (rows only; closing sections are a template's rule). Never imports a domain, and its code names no domain or template word, no layout key, artwork slot or theme colour it does not own, no colour literal; the suite checks both | Changing behaviour every domain shares |
 | `M/domain.typ`, `M/data.typ` | The marine domain node (id, meta, copy, experience model, `art-palette`: the colours baked into its SVGs) and the marine facts: companies, vessels, months, totals, `normalize-candidate`, `validate-candidate` | Changing what the marine domain means |
 | `M/roles/deck/`, `M/roles/engine/` | Role markers (`role.typ`); bare today | Refining something for one role |

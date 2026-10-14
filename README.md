@@ -42,21 +42,18 @@ One PDF per example listed in `examples/release.json` lands in a new
 `builds/library-<timestamp>/` folder. No Python,
 Node or online service is needed to build a CV. All fonts are bundled.
 
-An example entry point is eight lines:
+An example entry point is five lines, with one import:
 
 ```typst
-#import "../../../packages/domains/marine/lib.typ": flagship
-#import "../../../packages/domains/marine/roles/engine/role.typ": role
-#import "../../../packages/domains/marine/templates/flagship/themes/golden-blue.typ": theme
-#import "../../../packages/domains/marine/templates/flagship/artwork/engineer.typ": artwork
-#import "../../../packages/domains/marine/templates/flagship/layouts/flagship-v11.typ": layout
+#import "../../../packages/domains/marine/lib.typ": flagship, roles, flagship-themes, flagship-artwork, flagship-layouts
 #let candidate = json("../../candidates/engineer-example.json")
-#show: flagship.with(candidate: candidate, role: role, theme: theme, artwork: artwork, layout: layout,
+#show: flagship.with(candidate: candidate, role: roles.engine, theme: flagship-themes.golden-blue,
+  artwork: flagship-artwork.engineer, layout: flagship-layouts.flagship-v11,
   show-vessel-durations: true)
 ```
 
-Change the JSON to change the person. Change the theme import to change the
-look. Change the artwork import to change the illustrations. Change the layout
+Change the JSON to change the person. Change the theme name to change the
+look. Change the artwork name to change the illustrations. Change the layout
 to change margins and which companies sit on which page.
 
 ## Where to go next

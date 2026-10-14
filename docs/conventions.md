@@ -32,7 +32,11 @@ them. These evolve; the rules that do not are in `constitution.md`.
   is its own namespace (`docs/engine/domains-and-roles.md`, "Naming rule
   for exports"). Example:
   `#import "/packages/domains/marine/lib.typ": make-ctx, flagship-components as fc`,
-  then `fc.hero(ctx, d)`. Engine code inside `packages/` imports its files
+  then `fc.hero(ctx, d)`. The role, theme, artwork pack and layout come
+  from the same import as modules (`roles.engine`,
+  `flagship-themes.golden-blue`, `flagship-artwork.engineer`,
+  `flagship-layouts.flagship-v11`), so an example has one import (TASK-55).
+  Engine code inside `packages/` imports its files
   directly; a domain file reaches the core by a relative path through
   `cv-framework/core/` (`../../cv-framework/core/data.typ` from a domain's
   `data.typ`).
