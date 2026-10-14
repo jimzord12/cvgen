@@ -81,7 +81,7 @@ fitting the page.
      10 unattended, unless he sets another; at the cap the design reaches
      him marked `unresolved` with the last reason;
    - store every report verbatim in the `Envelope` as
-     `reviews/design-NN.md`, never under `docs/work/`;
+     `reviews/design-NN.md`, never under `archive/work-records/`;
    - when the loop ends, clear the `builds/design-review-input-*` folders
      by path: they hold a real client's pages outside `private/`.
    If the data does not fit `flagship` (the known cases are in

@@ -67,7 +67,7 @@ report:
   commits merged since, which a date window misses), from any author or
   session (an interrupted session never ran its `Session Sweep`),
   documentation included, has a review report under
-  `docs/work/<id>/reviews/`, or is trivial or record-keeping
+  `archive/work-records/<id>/reviews/`, or is trivial or record-keeping
   (`docs/review.md`); run the missing round before stopping.
 - **Proposals:** the approved-not-applied count of `python scripts/proposals.py`
   is approved work not yet applied (`--json` names each one).
@@ -116,7 +116,7 @@ docs/development.md               # This protocol
 docs/review.md                    # Review protocol
 backlog/tasks/                    # One authoritative brief and status per task (Backlog.md)
 backlog/docs/doc-1 - session-handoff.md  # Cross-session resume point, rewritten on main at the end of each session
-docs/work/<id>/reviews/NN.md      # Review reports, created only when review runs
+archive/work-records/<id>/reviews/NN.md      # Review reports, created only when review runs
 docs/decisions/                   # Accepted architecture decisions
 docs/proposals/                   # Proposals with status; rejected/ keeps declined ones
 .claude/agents/code-reviewer.md   # Thin wrapper around docs/review.md
@@ -129,13 +129,13 @@ The task store is [Backlog.md](https://github.com/MrLesk/Backlog.md)
 [trello-free-trial](proposals/trello-free-trial.md)). Each task is a file in
 `backlog/tasks/` with a number Backlog.md gives it (`TASK-27`); its title
 starts with the task id, a short kebab-case slug (`dev-setup`,
-`monorepo-migration`), which also names its `docs/work/<id>/` folder. Its
+`monorepo-migration`), which also names its `archive/work-records/<id>/` folder. Its
 status is one of the five stages; the label `blocked` marks a blocked task,
 which keeps its stage, gains a `## Blocked` note with the reason, the
 dependency task and the unblock condition, and loses the label only when
 that condition is met. Read and write tasks through the backlog skill (the
-`backlog` CLI). Review reports stay under `docs/work/<id>/reviews/` and are
-linked from the task. `docs/work/<id>/task.md` is no longer created; the one
+`backlog` CLI). Review reports stay under `archive/work-records/<id>/reviews/` and are
+linked from the task. `archive/work-records/<id>/task.md` is no longer created; the one
 that exists (`dev-setup`) is history. A task reaching Done proves nothing by
 itself.
 

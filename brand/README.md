@@ -52,7 +52,7 @@ detail is redrawn for them. Tried and dropped during the drafting (renders
 not kept): a knot on the lower terminal (read as a full stop, "C.V"); and,
 reviewed, a needle point drawn out of the lower terminal (read as a thorn
 attached to the letter, heavier than the thread). Review reports:
-`docs/work/brand-logo/reviews/02-design-reviewer.md` onwards.
+`archive/work-records/brand-logo/reviews/02-design-reviewer.md` onwards.
 
 Vector options drafted 2026-09-27 (then options for the owner to pick, not a
 final logo). Hand-authored SVG: letters are outline paths, no `<text>`, no
