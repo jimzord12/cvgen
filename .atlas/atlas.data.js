@@ -352,7 +352,7 @@ window.ATLAS = {
     "role": "Reads and updates the tasks in `backlog/` through the `backlog` CLI, and reads and rewrites the `session-handoff` doc on `main`. Every task's record is a task file.",
     "when": "Orientation, and every task state change.",
     "sources": [
-     ".claude/skills/backlog/SKILL.md:1-117"
+     ".claude/skills/backlog/SKILL.md:1-118"
     ]
    },
    "repo-maintenance": {
@@ -363,7 +363,7 @@ window.ATLAS = {
     "when": "`quick` in every `Session Sweep`; the rest when you ask for a tidy-up.",
     "sources": [
      ".claude/skills/repo-maintenance/SKILL.md:21-28",
-     ".claude/repo-maintenance.md:136-140"
+     ".claude/repo-maintenance.md:135-139"
     ]
    },
    "cv-py": {
@@ -458,7 +458,7 @@ window.ATLAS = {
     "role": "Runs the suite on every push and pull request (Typst 0.15.1). The lead watches it on `main` before calling work Done.",
     "sources": [
      ".github/workflows/verify.yml",
-     "docs/git-workflow.md:74-87"
+     "docs/git-workflow.md:90-103"
     ],
     "short": "CI"
    }
@@ -1479,7 +1479,7 @@ window.ATLAS = {
        ],
        "sources": [
         "docs/development.md:17-32",
-        "docs/development.md:106-194"
+        "docs/development.md:107-195"
        ]
       }
      ]
@@ -1492,11 +1492,11 @@ window.ATLAS = {
        "id": "branch",
        "title": "A branch, or straight to main",
        "actor": "lead",
-       "summary": "Small verified fixes and docs may go straight to `main`. Features and anything uncertain get a `<type>/<topic>` branch, often in a worktree under `.worktrees/`. No pull requests.",
+       "summary": "Small verified fixes and docs may go straight to `main`. Features and anything uncertain get a `<type>/<topic>` branch, in a worktree under `.worktrees/`. No pull requests.",
        "sources": [
         "docs/git-workflow.md:21-33",
-        "docs/git-workflow.md:40-50",
-        "docs/git-workflow.md:69-73"
+        "docs/git-workflow.md:40-66",
+        "docs/git-workflow.md:85-89"
        ]
       },
       {
@@ -1607,7 +1607,7 @@ window.ATLAS = {
        ],
        "note": "Yours only, with the exact command shown first, including: deleting or force-pushing `main`, rewriting its published history, rewriting the private repo's history (the delete-by erase, which you run), `archive/*` tags, repo settings (public and private repo), deleting under `private/` or `.local/` or outside the repo, removing revisions, approvals, exports or portraits, replacing the `Release`.",
        "sources": [
-        "docs/git-workflow.md:74-87",
+        "docs/git-workflow.md:90-103",
         "docs/preferences.md:52-80",
         ".github/workflows/verify.yml"
        ]
@@ -1634,7 +1634,7 @@ window.ATLAS = {
         "repo-maintenance"
        ],
        "sources": [
-        "docs/development.md:58-88"
+        "docs/development.md:58-89"
        ]
       },
       {
@@ -1649,7 +1649,7 @@ window.ATLAS = {
         "backlog"
        ],
        "sources": [
-        "docs/development.md:90-104"
+        "docs/development.md:91-105"
        ]
       },
       {
@@ -2263,30 +2263,30 @@ window.ATLAS = {
   }
  ],
  "build": {
-  "builtAt": "2026-10-14 06:02 UTC",
-  "commit": "183c7a0",
+  "builtAt": "2026-10-14 06:07 UTC",
+  "commit": "d6fe4fd",
   "kit": "1.0",
   "stale": {},
   "verified": {
    "client-journey": {
     "at": "2026-10-14",
-    "commit": "f35f0c9"
+    "commit": "6e09e22"
    },
    "design-run": {
     "at": "2026-10-14",
-    "commit": "f35f0c9"
+    "commit": "6e09e22"
    },
    "change-review": {
     "at": "2026-10-14",
-    "commit": "f35f0c9"
+    "commit": "6e09e22"
    },
    "system-map": {
     "at": "2026-10-14",
-    "commit": "183c7a0"
+    "commit": "d6fe4fd"
    },
    "roster": {
     "at": "2026-10-14",
-    "commit": "f35f0c9"
+    "commit": "6e09e22"
    }
   }
  }

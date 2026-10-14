@@ -77,8 +77,9 @@ branch's task is cancelled on `main` (`docs/development.md`).
 out, pushed with plain `git push origin main`: the owner's local settings
 refuse any push whose refspec names `:main` (`HEAD:main` included).
 
-- If `git worktree list` shows a checkout on `[main]` (your own checkout
-  counts) with no uncommitted changes other than this record edit, use it.
+- If `git worktree list` shows a checkout on `[main]` (normally the `Main
+  Folder`; your own checkout counts) with no uncommitted changes other than
+  this record edit, use it.
 - If no checkout has `main`, add a short-lived one and remove it after:
 
 ```powershell

@@ -350,7 +350,7 @@
       "role": "Reads and updates the tasks in `backlog/` through the `backlog` CLI, and reads and rewrites the `session-handoff` doc on `main`. Every task's record is a task file.",
       "when": "Orientation, and every task state change.",
       "sources": [
-        ".claude/skills/backlog/SKILL.md:1-117"
+        ".claude/skills/backlog/SKILL.md:1-118"
       ]
     },
     "repo-maintenance": {
@@ -361,7 +361,7 @@
       "when": "`quick` in every `Session Sweep`; the rest when you ask for a tidy-up.",
       "sources": [
         ".claude/skills/repo-maintenance/SKILL.md:21-28",
-        ".claude/repo-maintenance.md:136-140"
+        ".claude/repo-maintenance.md:135-139"
       ]
     },
     "cv-py": {
@@ -456,7 +456,7 @@
       "role": "Runs the suite on every push and pull request (Typst 0.15.1). The lead watches it on `main` before calling work Done.",
       "sources": [
         ".github/workflows/verify.yml",
-        "docs/git-workflow.md:74-87"
+        "docs/git-workflow.md:90-103"
       ],
       "short": "CI"
     }
