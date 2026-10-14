@@ -1,10 +1,10 @@
 ---
 id: TASK-50
 title: 'fonts-dedupe: the fonts stored twice are kept once'
-status: Active
+status: Done
 assignee: []
 created_date: '2026-10-14 04:48'
-updated_date: '2026-10-14 05:59'
+updated_date: '2026-10-14 06:00'
 labels:
   - restructure
 dependencies: []
@@ -51,3 +51,9 @@ Visual proof: all 14 design-concept entry points compiled with the documented fl
 
 Checks: python tests/run.py PASS, 94 compilation cases (builds/tests-20261014-085504-952984); scripts/outputs.py check: 19 PDFs indexed, 0 problems; Atlas check: design-run and roster pages cited changed sources, facts still true, restamped.
 <!-- SECTION:NOTES:END -->
+
+## Final Summary
+
+<!-- SECTION:FINAL_SUMMARY:BEGIN -->
+Owner decision 2026-10-14: release PDFs and images stay in the repo; only duplicated fonts go. Four families were stored twice (Bona Nova, M PLUS 1p, Kaisei Tokumin, Sofia Sans Extra Condensed: 7 files, 9.7 MB) in design-concepts/fonts and packages/cv-framework/fonts; the design-concepts copies and their duplicate OFL notices were removed, the Framework copies are canonical. Briefs, design-concepts/README.md and both magazine-editor profiles updated. All 14 concept entry points compiled before/after: 23 pages pixel-identical, committed PDFs untouched. Review: context-reviewer round 1 PASS with minors fixed by the lead (docs/work/fonts-dedupe/reviews/). Suite PASS.
+<!-- SECTION:FINAL_SUMMARY:END -->
