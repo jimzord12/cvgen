@@ -1,10 +1,10 @@
 ---
 id: TASK-50
-title: 'fonts-dedupe: the three fonts stored twice are kept once'
+title: 'fonts-dedupe: the fonts stored twice are kept once'
 status: Active
 assignee: []
 created_date: '2026-10-14 04:48'
-updated_date: '2026-10-14 05:56'
+updated_date: '2026-10-14 05:59'
 labels:
   - restructure
 dependencies: []

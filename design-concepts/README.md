@@ -22,7 +22,8 @@ Each `.typ` reads the shared files as `../../sample.json` and
 one `concept.typ`, `concept.pdf` and `page-1.png` instead. Each font family
 is stored once: families the Framework bundles (`packages/cv-framework/fonts/`,
 licences in `packages/cv-framework/licenses/`) are not copied here, and the
-others live in `fonts/<family>/` with their licence, shared between\nconcepts. Compile from the repository root:
+others live in `fonts/<family>/` with their licence, shared between
+concepts. Compile from the repository root:
 
 ```powershell
 typst compile --root . --ignore-system-fonts --font-path packages/cv-framework/fonts --font-path design-concepts/fonts design-concepts/<folder>/<density>/<tier>/<density>-<tier>.typ design-concepts/<folder>/<density>/<tier>/<density>-<tier>.pdf

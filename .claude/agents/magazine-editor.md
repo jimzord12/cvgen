@@ -164,8 +164,9 @@ required, and your job is to draw it better than anyone else.
 - You may bring at most two families per style: OFL (or Apache 2.0) only,
   from the Google Fonts repository or the foundry, `.ttf` or `.otf`,
   unmodified, with the licence file, in the shared folder
-  `design-concepts/fonts/<family>/` (reuse a family already there, and never copy one the Framework bundles in
-  `packages/cv-framework/fonts/`: each family is stored once). Record
+  `design-concepts/fonts/<family>/` (reuse a family already there, and
+  never copy one the Framework bundles in `packages/cv-framework/fonts/`:
+  each family is stored once). Record
   each file's source URL and SHA-256 in `brief.md`. Never "free for
   personal use", Adobe Fonts or commercial fonts.
 - Artwork is original SVG or Typst drawing you make yourself. Draw the
