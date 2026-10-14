@@ -1,7 +1,9 @@
 ---
+id: P-0011
 kind: proposal
 status: approved
 revision: 1
+created: 2026-09-25
 ---
 
 # Client workflow: from a new client to signed-off facts

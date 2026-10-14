@@ -1,7 +1,9 @@
 ---
+id: P-0001
 kind: proposal
 status: applied
 revision: 2
+created: 2026-09-16
 ---
 
 # Development protocol

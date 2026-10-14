@@ -1,7 +1,9 @@
 ---
+id: P-0013
 kind: proposal
 status: deferred
 revision: 2
+created: 2026-09-28
 ---
 
 # Travel and tourism: promote the first one-off into a Domain

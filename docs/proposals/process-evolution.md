@@ -1,7 +1,9 @@
 ---
+id: P-0003
 kind: proposal
 status: deferred
 revision: 1
+created: 2026-09-16
 ---
 
 # Evolving the development system

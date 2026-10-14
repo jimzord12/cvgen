@@ -1,7 +1,9 @@
 ---
+id: P-0012
 kind: proposal
 status: applied
 revision: 1
+created: 2026-09-28
 ---
 
 # Short-career layout: a one-page profile for cadets and juniors

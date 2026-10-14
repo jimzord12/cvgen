@@ -1,7 +1,9 @@
 ---
+id: P-0010
 kind: proposal
 status: applied
 revision: 1
+created: 2026-09-25
 ---
 
 # Vessel particulars on the marine CV

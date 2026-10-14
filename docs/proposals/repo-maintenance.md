@@ -1,7 +1,9 @@
 ---
+id: P-0016
 kind: proposal
 status: applied
 revision: 1
+created: 2026-09-30
 ---
 
 # Repo maintenance: a skill and a read-only auditor

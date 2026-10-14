@@ -3,9 +3,10 @@ id: TASK-28
 title: >-
   proposals-snapshot: stable IDs, a status index and a session-start summary for
   docs/proposals
-status: Queued
+status: Done
 assignee: []
 created_date: '2026-10-06 09:41'
+updated_date: '2026-10-14 07:15'
 labels:
   - docs process
 dependencies: []
@@ -21,7 +22,22 @@ Owner asked 2026-10-06. Proposals are agent-written improvement ideas; they are 
 
 ## Acceptance Criteria
 <!-- AC:BEGIN -->
-- [ ] #1 Every file in docs/proposals/ has id and a valid status in its opening metadata block (kanban-tooling-research, review-protocol and work-records fixed or marked kind: reference)
-- [ ] #2 scripts/proposals.py prints the one-line session summary and writes the JSON snapshot to a git-ignored path
-- [ ] #3 AGENTS.md orientation step and docs/proposals/README.md point to the script; a test covers it on a fixture folder
+- [x] #1 Every file in docs/proposals/ has id and a valid status in its opening metadata block (kanban-tooling-research, review-protocol and work-records fixed or marked kind: reference)
+- [x] #2 scripts/proposals.py prints the one-line session summary and writes the JSON snapshot to a git-ignored path
+- [x] #3 AGENTS.md orientation step and docs/proposals/README.md point to the script; a test covers it on a fixture folder
 <!-- AC:END -->
+
+## Implementation Notes
+
+<!-- SECTION:NOTES:BEGIN -->
+## Result and evidence
+- IDs P-0001..P-0017 by creation order (git); proposals also carry created: for age. Statuses were already valid; no normalisation needed. kanban-tooling-research, review-protocol, work-records and README were already kind: reference (now with ids).
+- Summary: 13 proposals: 0 pending (0 older than 7 days), 0 trial, 3 approved-not-applied, 2 deferred, 7 applied, 1 rejected
+- Suite: builds/tests-20261014-094600-967800 (10 proposals: checks). Walk: builds/walk-task-28-20261014-094541/walk.txt (worktree).
+<!-- SECTION:NOTES:END -->
+
+## Final Summary
+
+<!-- SECTION:FINAL_SUMMARY:BEGIN -->
+Every file in docs/proposals/ has id P-00NN (git creation order) and proposals have created; scripts/proposals.py (stdlib) prints the one-line summary and --json writes builds/proposals-<timestamp>/snapshot.json, refusing any file that breaks the README rules (exit 2, nothing written). AGENTS.md orientation, docs/development.md session start and Session Sweep, the README and the ceo/idea-run steps point to it. Code review rounds 1 (FINDINGS, fixed) and 2 (PASS, minors fixed), context review round 1 (PASS, minors fixed); 12 of 12 mutants caught. Suite passes (builds/tests-20261014-101305-191682 in the worktree); walk builds/walk-task-28-r2-20261014-101456/walk.txt. Today's line: 13 proposals: 0 pending, 0 trial, 3 approved-not-applied, 2 deferred, 7 applied, 1 rejected.
+<!-- SECTION:FINAL_SUMMARY:END -->

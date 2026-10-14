@@ -150,6 +150,13 @@ Windows one also holds the PDFs that build wrote, one per example in
    writes it with a current `Meta File`, and `-ReplaceRelease` replaces it.
    `build-script/<shell>.log` holds each command's output. With no
    PowerShell at all the case is `SKIPPED`; on CI that fails the suite.
+15. **Proposals** (`proposals: <check>`, `tests/proposals.py`). The real
+   `scripts/proposals.py` on fixture folders under `proposals/`: the exact
+   summary line (a different count in every state), the JSON snapshot,
+   refusal of an existing output folder, and one refusal per rule (id,
+   duplicate id, kind, status, a reference with a status, `rejected/` both
+   ways, revision, missing, invalid or future `created`, no opening block);
+   then `docs/proposals/` itself must give the line its files add up to.
 
 Negative cases assert on the exact error text so a message change is a test
 change.

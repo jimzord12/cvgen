@@ -1,7 +1,9 @@
 ---
+id: P-0015
 kind: proposal
 status: applied
 revision: 1
+created: 2026-09-30
 ---
 
 # Output Contract: one home and one meta file for every PDF we show

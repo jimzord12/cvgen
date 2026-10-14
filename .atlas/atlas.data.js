@@ -1458,14 +1458,18 @@ window.ATLAS = {
        "summary": "Claude reads AGENTS.md, your preferences, then the `session-handoff` doc as it stands on `main`, and checks it against Git and the evidence.",
        "does": [
         "Gives you a four-line briefing: Goal, Now, Next, You.",
-        "Separates an approved design from built behaviour, and old checks from current proof."
+        "Separates an approved design from built behaviour, and old checks from current proof.",
+        "Runs `scripts/proposals.py` and tells you its one line: how many proposals wait on you, and how many are approved but not applied."
        ],
        "uses": [
         "backlog"
        ],
        "sources": [
         "docs/development.md:34-56",
-        "AGENTS.md:35-44"
+        "AGENTS.md:35-44",
+        "AGENTS.md:49-54",
+        "docs/proposals/README.md:46-51",
+        "docs/proposals/README.md:89-97"
        ]
       },
       {
@@ -2269,30 +2273,30 @@ window.ATLAS = {
   }
  ],
  "build": {
-  "builtAt": "2026-10-14 07:13 UTC",
-  "commit": "d134a9e",
+  "builtAt": "2026-10-14 07:17 UTC",
+  "commit": "b01e51a",
   "kit": "1.0",
   "stale": {},
   "verified": {
    "client-journey": {
     "at": "2026-10-14",
-    "commit": "575fd07"
+    "commit": "b01e51a"
    },
    "design-run": {
     "at": "2026-10-14",
-    "commit": "1b0b5d4"
+    "commit": "b01e51a"
    },
    "change-review": {
     "at": "2026-10-14",
-    "commit": "1b0b5d4"
+    "commit": "b01e51a"
    },
    "system-map": {
     "at": "2026-10-14",
-    "commit": "d134a9e"
+    "commit": "b01e51a"
    },
    "roster": {
     "at": "2026-10-14",
-    "commit": "1b0b5d4"
+    "commit": "b01e51a"
    }
   }
  }

@@ -42,15 +42,16 @@ keep it untracked and do not copy its contents into shared documentation.
   current proof. Before stopping, rewrite the handoff doc on `main`
   (`docs/development.md`, "Ending a session").
 - State reporting is read-only and repeatable: unchanged inputs yield the same
-  factual state. No dedicated reporting command exists yet; inspect the sources
+  factual state. Apart from `scripts/proposals.py` (below), inspect the sources
   directly. `backlog/` is the one task store; do not maintain a second
   status file or backlog. In proposals and
   protocols, prefer derived views over manually synchronized summaries.
 - Use `docs/proposals/README.md` for proposal states and decision handling. At
-  orientation, inspect proposal metadata and surface pending owner decisions
-  with a brief recommendation and link; distinguish approved work still awaiting
-  application. Check applicable decisions before acting. The tracking convention
-  is active; a tracked proposal is not thereby approved.
+  orientation, run `python scripts/proposals.py` for its one-line summary, then
+  surface pending owner decisions with a brief recommendation and link;
+  distinguish approved work awaiting application. Check applicable decisions
+  before acting. The tracking convention is active; a tracked proposal is not
+  thereby approved.
 - This development system is experimental. Notice concrete friction, missing
   guidance, and useful improvements as work proceeds. Record a brief observation
   in the active work record (or current design proposal), with its consequence
