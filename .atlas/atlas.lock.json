@@ -48,7 +48,7 @@
    "verifiedAt": "2026-10-14"
   },
   "roster": {
-   "commit": "8dea477",
+   "commit": "e8c4181",
    "sources": {
     ".claude/agents/ceo-reviewer.md": "058811a51ac27c65a93dc8915db4afd58676d33d",
     ".claude/agents/ceo.md": "3a3dd4071d60d0127d75036dfb67444cfdf72c0b",
@@ -77,7 +77,7 @@
     "docs/pdf-workflow.md": "3bfa09a91c1ec9c970650c88ed15842c477645de",
     "docs/preferences.md": "d5a47c23326acce8c81102142ed152450e510dcd",
     "docs/proposals/codex-visual-tools.md": "6922b19a3f91c8a180ee716e0bfaf5bba4b36278",
-    "docs/reference/verification.md": "4f680f1f8273f501cba3c712b6547e49553479e3",
+    "docs/reference/verification.md": "4a4071719ad6c12be42bf2715d49dd038969de5a",
     "docs/review.md": "0b373c976aee73b5e218350b892145aa475bb389",
     "docs/work/anti-examples/reviews/01-context.md": "29eb150ea6949a2020956433f29947eac7d31c5d",
     "docs/work/codex-visual-tools/reviews/01.md": "b072308514f194affa6e445472c96731fac43918",
