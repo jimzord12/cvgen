@@ -1,6 +1,6 @@
 // ADR 0008 "Fixtures": 31 of the 32 ctx-first components rendered alone, one per
 // page, each page headed by the component's name. The 32nd, document-shell, wraps a
-// whole document, so the examples and tests/fixtures/legacy-parity.typ cover it.
+// whole document, so the examples cover it.
 #import "../../packages/cv-framework/core/component.typ": make-ctx
 #import "../../packages/cv-framework/core/primitives.typ": label, rule, decoration, metric, duration-value
 #import "../../packages/cv-framework/core/page.typ": page-header, page-footer, page-background

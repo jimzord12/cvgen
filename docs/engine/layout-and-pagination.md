@@ -65,8 +65,9 @@ is the height of the hero band painted behind page 1, in the theme's `hero`,
 which a template that sets `band` requires in its own theme check
 (`docs/engine/theme.md`). It replaced
 `opening-margin` and `hero.band-height` (TASK-45): a layout that still sets
-either fails with a message naming its `shell` key, through `flagship` and
-through the deprecated `document-shell` wrapper alike. The template
+either fails in `flagship` with a message naming its `shell` key (a custom
+composition calling `core-components.document-shell` is not checked, so
+rename the keys first). The template
 passes the whole profile in `ctx.layout`; each component reads its own
 slice, and a section reads the heading slice it places as well. An optional
 `skills` slice overrides `skills-layout` for the skills block. Change a
