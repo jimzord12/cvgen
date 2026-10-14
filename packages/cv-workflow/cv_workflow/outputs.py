@@ -135,12 +135,12 @@ def stamp(pdf, fields=None, envelope_dir=None, root=ROOT):
     errors = validate(meta)
     if errors:
         raise WorkflowError(f'Meta File for {pdf.name} is not valid: ' + '; '.join(errors))
-    require_proof(pdf, meta['status'], digest)
+    require_proof(pdf, meta['status'], digest, root)
     write_json(path, meta)
     return meta
 
 
-def require_proof(pdf, status, digest):
+def require_proof(pdf, status, digest, root=ROOT):
     """A status that records an owner's act needs its proof on disk (decision #8, docs/proposals/workflow-model.md).
 
     `approved`: the revision's cv.approval.json for exactly these bytes. `delivered`: that receipt and a
@@ -148,7 +148,8 @@ def require_proof(pdf, status, digest):
     neither). `signed-off`: the client's OK as sign-off-NN.png beside draft-NN.pdf.
     """
     pdf = Path(pdf)
-    if status == 'approved' or (status == 'delivered' and pdf.name != 'reference.pdf'):
+    legacy = home_of(pdf, root) == {'kind': 'client-cv'}  # private/<envelope>/reference.pdf only
+    if status == 'approved' or (status == 'delivered' and not legacy):
         receipt = pdf.with_name('cv.approval.json')
         if not receipt.is_file():
             raise WorkflowError(f'{pdf.name} cannot be stamped {status}: no cv.approval.json beside it; '

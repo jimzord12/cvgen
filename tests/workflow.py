@@ -441,6 +441,15 @@ def run_workflow(out, typst, system_family=None):
     refused_stamp(revision(rid2) / 'cv.pdf', {'status': 'approved'}, 'not this PDF')    # receipt for other bytes
     approved_only = revision(warned['revision']) / 'cv.pdf'                              # approved, never exported
     assert outputs.stamp(approved_only, {'status': 'approved'}, envelope_dir=workspace)['status'] == 'approved'
+    own_receipt = approved_only.with_name('cv.approval.json')
+    kept_receipt = own_receipt.read_text(encoding='utf-8')
+    own_receipt.write_text(json.dumps({**json.loads(kept_receipt), 'revision': rid}), encoding='utf-8')  # right bytes, other revision
+    refused_stamp(approved_only, {'status': 'approved'}, 'not this PDF')
+    own_receipt.write_text(kept_receipt, encoding='utf-8')
+    stray_reference = workspace / 'reference.pdf'          # the delivered-before-cv.py exemption holds in its home only
+    shutil.copyfile(approved_only, stray_reference)
+    refused_stamp(stray_reference, {'kind': 'client-cv', 'status': 'delivered'}, 'no cv.approval.json')
+    stray_reference.unlink()
     refused_stamp(approved_only, {'status': 'delivered'}, 'no Export')
     (workspace / 'exports' / warned['revision']).mkdir()                               # an empty folder is no Export
     refused_stamp(approved_only, {'status': 'delivered'}, 'not a complete bundle')
