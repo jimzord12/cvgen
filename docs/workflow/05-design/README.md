@@ -12,6 +12,90 @@
 
 <!-- generated:end summary -->
 
+## Judgement
+
+- **Design is the product.** A client CV must pass the `Batch Test`, the
+  `Three-Second Test` and `Flagship Parity` (`docs/vision.md`, "Design is
+  the product"); tidy but quiet is a failure, and the `design-reviewer`
+  treats it as one (`gate.client-design-review`). Every client CV goes
+  through that review, Flagship CVs included (owner's decision #4 in
+  [P-0017](../../proposals/workflow-model.md)).
+- **The record comes from what the `Client` signed.** `design.fill-data`
+  takes the facts from `intake/facts.md` and the wording from the
+  signed-off draft; no new question to the `Client`, and no rewording
+  beyond fitting the page.
+- **No `Template` means a design first, not code first.** The `Idea Run`
+  draws on fictional data for the `Client`'s `Domain`, specialty and
+  `Rank`; the owner picks a `Style`, `Design Tier` and `Density`
+  (`design.pick`); only then is the one-off `Template` built in the
+  `Envelope` (`design.port-concept`).
+- **The public engine changes only through code review.** A one-off's own
+  design, wording and art stay in its `Envelope`; only what the engine
+  alone can hold (today: a font render must find in the `Framework`'s
+  fonts) goes through `design.engine-change` and a fresh `code-reviewer`
+  (`gate.engine-review`, owner's decision #6).
+- **Client pages leave `private/` only as previews.** `design.preview`
+  compiles them into `builds/` for the reviewer, who never reads
+  `private/`; reports are stored in the `Envelope`, and
+  `design.clear-review-input` deletes the previews when the loop ends.
+- **When to stop:** a fresh `design-reviewer` returns PASS, or the cap of
+  `loop.client-design-review` is reached and the design goes to the owner
+  marked unresolved with the last reason (`design.cap-reached`).
+
+## Branches
+
+Two gates in a chain choose one of three build paths:
+
+| `gate.template-exists` | `gate.template-fits` | Path | Writes `typst/cv.typ` |
+|---|---|---|---|
+| pass | pass | The Flagship | `design.entry-point` |
+| pass | fail | A custom composition from the `Domain`'s components, plus a `Framework Gap` | `design.custom-composition`, `design.framework-gap` |
+| fail | (not asked) | An `Idea Run`, the owner's pick, a one-off `Template`, plus a `Framework Gap` | `design.run-brief` to `design.port-concept`, `design.framework-gap` |
+
+- **`design.fill-data` runs on every path.** It needs only the signed-off
+  facts, so on the no-`Template` path it runs beside the `Idea Run`, and
+  `design.port-concept` reads the `candidate.json` it wrote. The gate's
+  pass goes to the fit check, not to the record.
+- **The data does not fit the Flagship** (`gate.template-fits` fails, on
+  one of the known cases its check names): the page is composed by hand
+  from the same components, never from copied library code, and the
+  reason goes in `docs/framework-gaps.md`, which is how the gap gets
+  closed later.
+- **The owner parks or rejects every concept** (`gate.owner-pick` fails):
+  `design.record-other-answer` records it, and no source says what happens
+  to the `Client`'s CV next ([`GAPS.md`](../GAPS.md), "Inferences").
+  [P-0018](../../proposals/workflow-gaps.md) item 7 recommends a new
+  `Idea Run` steered by his reasons, with the owner telling the `Client`
+  of the delay; until he answers, the lead asks him.
+- **The review finds problems** (`gate.client-design-review` fails):
+  `design.fix`, a fresh reviewer, up to the cap. The `Idea Run`'s own two
+  gates loop the same way (`loop.idea-research`, `loop.idea-design`).
+
+## Common mistakes
+
+- Starting a no-`Template` CV in Typst before the owner has picked a
+  design.
+- Giving the `magazine-editor` or a reviewer anything from `private/`:
+  briefs carry the `Alias`, the `Domain`, specialty and `Rank` only.
+- Leaving `builds/design-review-input-*` behind: they hold a real
+  `Client`'s pages outside `private/`.
+- Copying library code into the `Envelope`, or changing the engine for
+  one `Client` without the code review.
+- Fitting an overflow by shrinking the type (constitution section 4): the
+  page plan changes instead.
+- Skipping the design review because the Flagship "is already approved".
+
+## Where the detail lives until TASK-43
+
+- `docs/guides/build-a-cv.md` sections 1-2 (record and entry point) and 8
+  (the custom composition); `docs/guides/client-workflow.md` section 9
+  (the one-off `Template`).
+- The `new-cv` skill, steps 1-3; the `idea-run` skill;
+  `docs/engine/layout-and-pagination.md` for page plans;
+  `docs/framework-gaps.md` for the known gaps.
+
+## Diagram
+
 <!-- generated:start diagram -->
 
 ```mermaid
@@ -81,7 +165,7 @@ flowchart TD
   s_design__fix --> s_design__engine_change
   s_design__fix --> s_design__preview
   s_design__handover --> g_gate__template_exists
-  g_gate__template_exists -->|"pass"| s_design__fill_data
+  g_gate__template_exists -->|"pass"| s_design__flagship_fit
   g_gate__template_exists -->|"fail"| s_design__run_brief
   s_design__run_research_gate --> g_gate__idea_research
   g_gate__idea_research -->|"pass"| s_design__run_design_gate
@@ -109,6 +193,8 @@ flowchart TD
 
 <!-- generated:end diagram -->
 
+## Steps
+
 <!-- generated:start steps -->
 
 | ID | Name | Actor | Action | Inputs | Outputs | Gate | When |
@@ -125,7 +211,7 @@ flowchart TD
 | `design.pick` | The owner picks a Style, Design Tier and Density | `actor.owner` | `manual.pick-design` | `art.run-message`, `art.concept-pdf` | `art.owner-pick` | `gate.owner-pick` | The client's Domain has no Template. |
 | `design.record-choice` | Record the choice and stamp the picked design chosen | `actor.lead` | `cmd.stamp-concept-status` | `art.owner-pick`, `art.concept-pdf` | `art.chosen-concept`, `art.concept-decision` |  |  |
 | `design.record-other-answer` | Record a parked or rejected answer | `actor.lead` | `cmd.stamp-concept-status` | `art.owner-pick` | `art.concept-decision` |  | The owner parked or rejected the concepts. |
-| `design.fill-data` | Write candidate.json and place the portrait | `actor.lead` | `lead.write-candidate-json` | `art.facts-final`, `art.draft-pdf`, `art.documents`, `art.example-records` | `art.candidate-json`, `art.portrait` |  |  |
+| `design.fill-data` | Write candidate.json and place the portrait | `actor.lead` | `lead.write-candidate-json` | `art.facts-final`, `art.draft-pdf`, `art.sign-off-png`, `art.documents`, `art.example-records` | `art.candidate-json`, `art.portrait` |  |  |
 | `design.flagship-fit` | Check the data fits the Flagship | `actor.lead` | `lead.check-flagship-fit` | `art.candidate-json` |  | `gate.template-fits` | The client's Domain has a Template (today marine, the Flagship). |
 | `design.entry-point` | Write the Flagship entry point | `actor.lead` | `lead.write-flagship-entry` | `art.candidate-json`, `art.flagship-template` | `art.cv-typ` |  | The data fits the Flagship. |
 | `design.custom-composition` | Compose the page by hand | `actor.lead` | `lead.compose-by-hand` | `art.candidate-json`, `art.flagship-template` | `art.cv-typ`, `art.typst-sources` |  | The data does not fit the Flagship (contract periods, a three-column certificate table, a skills block). |
@@ -142,11 +228,13 @@ flowchart TD
 
 <!-- generated:end steps -->
 
+## Gates
+
 <!-- generated:start gates -->
 
 | ID | Name | Checked by | Check | Pass | Fail |
 |---|---|---|---|---|---|
-| `gate.template-exists` | The Domain has a Template | `design.handover` | The client's Domain already has a Template (today only marine, the Flagship). | `design.fill-data` | `design.run-brief` |
+| `gate.template-exists` | The Domain has a Template | `design.handover` | The client's Domain already has a Template (today only marine, the Flagship). | `design.flagship-fit` | `design.run-brief` |
 | `gate.template-fits` | The data fits the Flagship | `design.flagship-fit` | The client's data fits flagship: whole service months, no three-column certificate table, no skills block (the known cases in docs/framework-gaps.md). | `design.entry-point` | `design.custom-composition` |
 | `gate.idea-research` | Idea Run research gate | `design.run-research-gate` | A fresh research-reviewer returns PASS on the references in each brief.md. | `design.run-design-gate` | `design.run-revise-sources` |
 | `gate.idea-design` | Idea Run quality gate | `design.run-design-gate` | A fresh design-reviewer returns PASS; failing the Batch Test, the Three-Second Test or Flagship Parity is Blocking. | `design.run-integrate` | `design.run-revise-design` |
@@ -155,6 +243,8 @@ flowchart TD
 | `gate.client-design-review` | Client design review | `design.client-review` | A fresh design-reviewer returns PASS on the client's preview pages, first on the Batch Test and the Three-Second Test. | `design.clear-review-input` | `design.fix` |
 
 <!-- generated:end gates -->
+
+## Loops
 
 <!-- generated:start loops -->
 
@@ -166,6 +256,8 @@ flowchart TD
 | `loop.client-design-review` | Client design review rounds | `gate.client-design-review` | 5 attended, 10 unattended | `design.cap-reached` |
 
 <!-- generated:end loops -->
+
+## Artifacts
 
 <!-- generated:start artifacts -->
 
@@ -204,6 +296,8 @@ flowchart TD
 | `art.typst-sources` | The design's own files beside cv.typ | `private/<envelope>/typst/` | private | `design.custom-composition`, `design.port-concept` |
 
 <!-- generated:end artifacts -->
+
+## Actions
 
 <!-- generated:start actions -->
 

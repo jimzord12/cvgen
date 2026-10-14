@@ -127,13 +127,15 @@ steps:
     outputs: [art.concept-decision]
     when: The owner parked or rejected the concepts.
 
-  # --- The build files, on every path.
+  # --- The build files, on every path. fill-data has no gate before it: it
+  # needs only the signed-off facts, so on the no-Template path it runs beside
+  # the Idea Run, and design.port-concept reads its candidate.json.
   - id: design.fill-data
     name: Write candidate.json and place the portrait
-    sources: [".claude/skills/new-cv/SKILL.md:19-27", ".claude/skills/new-cv/SKILL.md:43-53", "docs/guides/build-a-cv.md:65-77"]
+    sources: [".claude/skills/new-cv/SKILL.md:11-15", ".claude/skills/new-cv/SKILL.md:19-27", ".claude/skills/new-cv/SKILL.md:43-53", "docs/guides/build-a-cv.md:65-77"]
     actor: actor.lead
     action: lead.write-candidate-json
-    inputs: [art.facts-final, art.draft-pdf, art.documents, art.example-records]
+    inputs: [art.facts-final, art.draft-pdf, art.sign-off-png, art.documents, art.example-records]
     outputs: [art.candidate-json, art.portrait]
 
   - id: design.flagship-fit
@@ -257,9 +259,13 @@ steps:
 gates:
   - id: gate.template-exists
     name: The Domain has a Template
-    sources: ["docs/guides/client-workflow.md:317-326", ".claude/skills/new-cv/SKILL.md:70-74"]
+    # Pass goes to the fit check, not to design.fill-data: the record is written
+    # on every path (new-cv step 1 comes before the Idea Run of step 3, and
+    # render refuses an Envelope without candidate.json), so fill-data follows
+    # the signed-off facts on both branches and port-concept reads what it wrote.
+    sources: ["docs/guides/client-workflow.md:317-326", ".claude/skills/new-cv/SKILL.md:70-74", ".claude/skills/new-cv/SKILL.md:43-53", "docs/guides/client-workflow.md:44", "docs/guides/build-a-cv.md:130-136"]
     check: The client's Domain already has a Template (today only marine, the Flagship).
-    pass: design.fill-data
+    pass: design.flagship-fit
     fail: design.run-brief
 
   - id: gate.template-fits

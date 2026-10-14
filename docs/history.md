@@ -340,3 +340,18 @@ lives in `tools/workflow/` beside the model graph it reuses;
 `outputs.py stamp` gained `--root`, so the run can stamp an `Envelope`
 outside the repository's `private/`. Every command path the model declares matched the
 scripts; the three things the YAML does not say are in `docs/workflow/GAPS.md`.
+
+## 2026-10-14 — the workflow READMEs get their prose
+
+TASK-40 wrote the hand-written half of the `Workflow Model`'s READMEs,
+outside the generated blocks. `docs/workflow/README.md` (about 250 lines,
+the owner's 200-300) says what the journey is for, how to read the folder,
+the main branches by gate, who decides what, where the placeholders are,
+and which guide sections still hold the detail until TASK-43. Each stage's
+README adds its judgement (when to stop, what good looks like), its
+branches in words with their IDs, and its common mistakes; the generated
+blocks got section headings. One model fix came with it:
+`gate.template-exists` passed straight into `design.fill-data`, so the
+no-`Template` path read as if `candidate.json` were never written. It now
+passes to `design.flagship-fit`, and `design.fill-data` follows the
+`Sign-off` on every path.

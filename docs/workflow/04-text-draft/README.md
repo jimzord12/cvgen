@@ -12,6 +12,60 @@
 
 <!-- generated:end summary -->
 
+## Judgement
+
+- **The `Client` checks facts, not wording.** The `Check Page` asks him to
+  check only what carries a `Fact Mark`; the wording is ours. So every
+  name, date, number and title he must confirm is marked, and nothing else
+  is. A good draft is one he can answer "OK" to in one reading.
+- **Look before the owner sees it.** `text-draft.draft-inspect` reads every
+  page for a fact left unmarked or a mark on our own wording, then hands
+  the owner the path. The content is sized for the `Template` the design
+  will use, in the CV's language, so design does not have to cut it later.
+- **The stamps follow what happened, never ahead of it.** Compiling stamps
+  the draft ready (`text-draft.draft-compile`); only the owner's word that
+  he sent it makes it sent (`text-draft.draft-sent`, owner's decision #2 in
+  [P-0017](../../proposals/workflow-model.md)); only the saved screenshot
+  makes it signed-off (`text-draft.sign-off-stamp`).
+- **A sent draft is frozen.** `text-draft.draft-fingerprint` records its
+  SHA-256, and it is never compiled again. Any correction makes the next
+  number.
+- **`Sign-off` is the `Client`'s OK in chat**, saved by the owner as a
+  screenshot beside the draft it answers (`text-draft.sign-off-save`). It
+  is not a signature, and design does not start without it
+  (`design.handover` reads it).
+
+## Branches
+
+- **Corrections** (`gate.sign-off` fails): `text-draft.corrections` takes
+  them into `intake/facts.md` (where they are kept is an inference,
+  [`GAPS.md`](../GAPS.md)), the old number is stamped superseded
+  (`text-draft.draft-supersede`), and `text-draft.draft-write` makes the
+  next number.
+- **More than one round of corrections**: the "one batch per round" rule
+  allows one corrected draft, which is what the placeholder cap of
+  `loop.draft-correction` holds. After it, `text-draft.cap-reached`: the
+  owner decides ([P-0018](../../proposals/workflow-gaps.md) item 1a).
+- **No reply.** Not modelled as a step: the draft stays sent, and
+  `after.stall-check` names the `Client` three months after intake.
+
+## Common mistakes
+
+- Stamping a draft sent when it is compiled, or before the owner confirms.
+- Recompiling `draft-01` after it was sent instead of writing `draft-02`.
+- Marking our own wording, so the `Client` starts editing sentences.
+- Saving the `Sign-off` beside the wrong number, or starting design on an
+  OK that was never saved.
+
+## Where the detail lives until TASK-43
+
+- `docs/guides/client-workflow.md` section 8; the header comment of
+  `scripts/text-draft.typ` (its parameters).
+- The `new-client` skill, step 8; `docs/pdf-workflow.md`, "Output
+  Contract", for the `Meta File` statuses.
+
+## Diagram
+
 <!-- generated:start diagram -->
 
 ```mermaid
@@ -47,6 +101,8 @@ flowchart TD
 
 <!-- generated:end diagram -->
 
+## Steps
+
 <!-- generated:start steps -->
 
 | ID | Name | Actor | Action | Inputs | Outputs | Gate | When |
@@ -66,6 +122,8 @@ flowchart TD
 
 <!-- generated:end steps -->
 
+## Gates
+
 <!-- generated:start gates -->
 
 | ID | Name | Checked by | Check | Pass | Fail |
@@ -74,6 +132,8 @@ flowchart TD
 
 <!-- generated:end gates -->
 
+## Loops
+
 <!-- generated:start loops -->
 
 | ID | Name | Gate | Cap | At the cap |
@@ -81,6 +141,8 @@ flowchart TD
 | `loop.draft-correction` | Draft correction rounds (placeholder cap) | `gate.sign-off` | 1 attended, **placeholder** ([GAPS.md](../GAPS.md)) | `text-draft.cap-reached` |
 
 <!-- generated:end loops -->
+
+## Artifacts
 
 <!-- generated:start artifacts -->
 
@@ -102,6 +164,8 @@ flowchart TD
 | `art.text-draft-lib` | The Text Draft library | `scripts/text-draft.typ` | public | given |
 
 <!-- generated:end artifacts -->
+
+## Actions
 
 <!-- generated:start actions -->
 
