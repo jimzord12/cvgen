@@ -2264,15 +2264,9 @@ window.ATLAS = {
  ],
  "build": {
   "builtAt": "2026-10-14 06:07 UTC",
-  "commit": "6e09e22",
+  "commit": "d6fe4fd",
   "kit": "1.0",
-  "stale": {
-   "system-map": [
-    "docs/glossary.md",
-    "docs/work",
-    ".claude/skills/backlog/SKILL.md"
-   ]
-  },
+  "stale": {},
   "verified": {
    "client-journey": {
     "at": "2026-10-14",
@@ -2288,7 +2282,7 @@ window.ATLAS = {
    },
    "system-map": {
     "at": "2026-10-14",
-    "commit": "183c7a0"
+    "commit": "d6fe4fd"
    },
    "roster": {
     "at": "2026-10-14",
