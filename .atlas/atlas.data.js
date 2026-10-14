@@ -425,7 +425,7 @@ window.ATLAS = {
     "sources": [
      "scripts/build.ps1",
      "examples/release.json",
-     "docs/pdf-workflow.md:207-215"
+     "docs/pdf-workflow.md:216-224"
     ]
    },
    "intake-form": {
@@ -2270,7 +2270,7 @@ window.ATLAS = {
  ],
  "build": {
   "builtAt": "2026-10-14 07:03 UTC",
-  "commit": "575fd07",
+  "commit": "10f92d6",
   "kit": "1.0",
   "stale": {},
   "verified": {
