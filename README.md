@@ -62,8 +62,8 @@ to change margins and which companies sit on which page.
 ## Where to go next
 
 - Building a CV for a real person: [docs/guides/build-a-cv.md](docs/guides/build-a-cv.md)
-- Candidate JSON fields: [docs/reference/candidate-schema.md](docs/reference/candidate-schema.md), contract in [packages/domains/marine/schema/candidate.schema.json](packages/domains/marine/schema/candidate.schema.json); `scripts/cv.py render` and the suite refuse a record that breaks its template's input schema
-- Reference for each input: [theme](docs/reference/theme.md), [artwork pack](docs/reference/artwork-pack.md), [layout and pagination](docs/reference/layout-and-pagination.md), [skills section](docs/reference/skills-component.md), [domains and roles](docs/reference/domains-and-roles.md), [verification](docs/reference/verification.md)
+- Candidate JSON fields: [docs/engine/candidate-schema.md](docs/engine/candidate-schema.md), contract in [packages/domains/marine/schema/candidate.schema.json](packages/domains/marine/schema/candidate.schema.json); `scripts/cv.py render` and the suite refuse a record that breaks its template's input schema
+- Reference for each input: [theme](docs/engine/theme.md), [artwork pack](docs/engine/artwork-pack.md), [layout and pagination](docs/engine/layout-and-pagination.md), [skills section](docs/engine/skills-component.md), [domains and roles](docs/engine/domains-and-roles.md), [verification](docs/engine/verification.md)
 - Repository layout and the PDF lifecycle: [docs/pdf-workflow.md](docs/pdf-workflow.md)
 - How the pieces fit: [docs/architecture.md](docs/architecture.md)
 - Rules, conventions and workflow: [docs/constitution.md](docs/constitution.md), [docs/conventions.md](docs/conventions.md), [docs/git-workflow.md](docs/git-workflow.md)
@@ -79,7 +79,7 @@ python tests/run.py
 Needs Python with `pymupdf`, `pillow` and `jsonschema`. The suite runs 44 cases and
 proves the engineer example renders pixel-identical to the frozen
 [v11 reference](packages/domains/marine/templates/flagship/tests/approved/Marine-Engineer-CV-v11.pdf). Details in
-[docs/reference/verification.md](docs/reference/verification.md).
+[docs/engine/verification.md](docs/engine/verification.md).
 
 Rendered PDFs contain selectable text and embedded fonts, and decorative art is
 tagged as PDF artifacts. That is not a commercial ATS certification. Check

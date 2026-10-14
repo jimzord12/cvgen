@@ -8,7 +8,7 @@ This page describes the current implementation: the monorepo of
 [PDF workflow and storage](pdf-workflow.md) since 2026-09-16, with the
 engine organised by domain, role and template since 2026-09-21
 ([ADR 0011](decisions/0011-domains-roles-templates.md),
-[domains and roles](reference/domains-and-roles.md)), and split into the
+[domains and roles](engine/domains-and-roles.md)), and split into the
 Framework and the domains beside it since 2026-09-25
 ([ADR 0012](decisions/0012-framework-and-domain-packages.md)). The engine is
 two folders: `packages/cv-framework/` (the Framework: core, fonts, licences)
@@ -92,7 +92,7 @@ a template owns its design (ADR 0007, ADR 0011, ADR 0012). Who owns what:
 | Page shell, header, footer, backgrounds (`page.typ`); the header takes a name and headline (no domain data) and a caption, the shell takes title and author and reads its own layout slice `shell` (opening margin, optional first-page band) | `domain.meta` (PDF title suffix, author) | Layout profiles (including the `shell` slice) and page plans |
 | Page-plan grammar (every row once, in candidate order) and pagination over a domain row model (`pagination.typ`) | `experience-model`: `count`, `slice`, `totals`, `row` (the word for a row in page-plan messages: "vessel") | The closing-section rules (`validate-plan`: one synopsis on the last Experience page, certificates and education after it) and the page loop with its overflow assertion, in `flagship.typ` |
 | `merge` and `compose` (`node.typ`) | `domain.copy`: the domain's six words | The adapter: input contract and Flagship's nine words |
-| SVG recolouring (by the theme's `art-palette`, `{{<colour>}}` placeholders and `art-colors`) and primitives; theme validation of what every template needs (`validate-theme`; `require-colors` for a template's own colours; the lists: `docs/reference/theme.md`) | The SVG files (`assets/`) and their palette (`domain.art-palette`) | Artwork packs: which SVG in which slot; themes that carry the palette; Flagship's own colours (`validate-flagship-theme` in `flagship.typ`) |
+| SVG recolouring (by the theme's `art-palette`, `{{<colour>}}` placeholders and `art-colors`) and primitives; theme validation of what every template needs (`validate-theme`; `require-colors` for a template's own colours; the lists: `docs/engine/theme.md`) | The SVG files (`assets/`) and their palette (`domain.art-palette`) | Artwork packs: which SVG in which slot; themes that carry the palette; Flagship's own colours (`validate-flagship-theme` in `flagship.typ`) |
 | The verification runner and its checks | Role markers (`roles/deck`, `roles/engine`) | Frozen reference render and its pixel gate |
 
 Roles are variations within a domain, never forks; Flagship serves both
@@ -104,7 +104,7 @@ the Framework when a second domain needs it unchanged. Nothing in
 the core only through `cv-framework/`; the suite asserts both. Nor does the
 Framework's code speak a domain's or a template's language, read a layout
 key, artwork slot or theme colour it does not own, or hard-code a colour; the suite fails
-on each (the word list and the owned keys: `docs/reference/verification.md`,
+on each (the word list and the owned keys: `docs/engine/verification.md`,
 item 10). A second
 marine template gets its own folder beside Flagship and its own adapter; a
 second domain gets its own folder beside `marine/`, with its own `lib.typ`,
@@ -228,4 +228,4 @@ bounds and page counts, and compares the engineer example to the frozen v11
 PDF at 144 dpi plus normalised text. `tests/baseline.json` pins the hashes of
 every frozen input so the comparison stays meaningful. `tests/workflow.py`
 drives `scripts/cv.py` through a fictional workspace end to end, including
-every refusal. See `docs/reference/verification.md`.
+every refusal. See `docs/engine/verification.md`.

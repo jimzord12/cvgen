@@ -7,7 +7,7 @@ specification is [review-protocol.md](proposals/review-protocol.md) and stays
 there as history. Implementation reviews run in Claude Code through the
 `code-reviewer` subagent defined in `.claude/agents/code-reviewer.md`, which
 is a thin wrapper around this file. A change to the agent context
-(`AGENTS.md`, `CLAUDE.md`, the rules, guides and references in `docs/`, the
+(`AGENTS.md`, `CLAUDE.md`, the rules, guides and engine manuals in `docs/`, the
 glossary, proposals, skills and agent definitions) is reviewed by a fresh
 `context-reviewer` (`.claude/agents/context-reviewer.md`) instead, and a
 change that mixes code and context gets both. Owner feedback that changes

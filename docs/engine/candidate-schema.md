@@ -124,7 +124,7 @@ example `flagship.with(..., copy: (brand: "GOLDEN BLUE"))`. Legacy: a `copy`
 key inside the record, which the adapter also merges, but such a record only
 validates against `flagship-input.schema.json`, not the facts contract.
 Merge order is domain, then role, then Flagship, then the record's `copy`,
-then the argument; later wins (see `docs/reference/domains-and-roles.md`).
+then the argument; later wins (see `docs/engine/domains-and-roles.md`).
 A role can only override the domain's words.
 
 ## Errors you will see

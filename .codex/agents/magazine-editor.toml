@@ -121,13 +121,13 @@ judged under the design-reviewer's "Other assets", not the CV tests.
   its review PNGs, the frozen Flagship render
   (`packages/domains/marine/templates/flagship/tests/approved/`),
   the `Release` PDFs beside the entry points in `examples/marine/flagship/`,
-  `docs/reference/theme.md`, `docs/reference/artwork-pack.md`.
+  `docs/engine/theme.md`, `docs/engine/artwork-pack.md`.
 - The domain: the lead's steer (`Domain`, specialty, `Rank`, the reader who
   hires), the public `docs/research/` notes on it, and the visual culture
   of the domain itself (for travel: tickets, boarding passes, luggage
   labels, stamps, maps, timetables, guidebooks, posters; for a
   destination: its own graphic traditions, typography and signage).
-- The facts a CV must carry: for marine, `docs/reference/candidate-schema.md`
+- The facts a CV must carry: for marine, `docs/engine/candidate-schema.md`
   and `examples/candidates/`; for a domain with no record yet, the research
   note's "what to put in the application".
 - Earlier concepts in `design-concepts/` so you never repeat one.

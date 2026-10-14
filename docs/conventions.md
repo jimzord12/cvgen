@@ -29,7 +29,7 @@ them. These evolve; the rules that do not are in `constitution.md`.
   in marine's). A template's components are always exported as one module
   named `<template>-components`, never as flat names, so they cannot clash
   with each other or with the deprecated flat names. Each domain's `lib.typ`
-  is its own namespace (`docs/reference/domains-and-roles.md`, "Naming rule
+  is its own namespace (`docs/engine/domains-and-roles.md`, "Naming rule
   for exports"). Example:
   `#import "/packages/domains/marine/lib.typ": make-ctx, flagship-components as fc`,
   then `fc.hero(ctx, d)`. Engine code inside `packages/` imports its files
@@ -112,7 +112,7 @@ them. These evolve; the rules that do not are in `constitution.md`.
 - Official terms as in `docs/glossary.md`, never a synonym. A term the
   glossary lacks but the text needs repeatedly is added to it in the same
   change and named in the next report (glossary Rule 4).
-- One concept per file under `docs/reference/`. First line says when to read
+- One concept per file under `docs/engine/`. First line says when to read
   it. Under about 100 lines.
 - Anything with a shape (JSON, dictionary, command) is a code block with a
   one-line brief above it.
