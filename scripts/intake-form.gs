@@ -2,7 +2,7 @@
  * CVgen intake form: builds a Google Form, and a Google Sheet that
  * collects its answers, from the FORM block below.
  *
- * How the owner uses it (docs/guides/client-workflow.md, section 2):
+ * How the owner uses it (docs/guides/client-workflow.md, section 3):
  *   1. script.google.com -> New project -> replace everything with this
  *      file (Claude writes a filled copy per form, intake/form-NN.gs in
  *      the Envelope). Rename "Untitled project" to the client's Alias.
@@ -14,7 +14,7 @@
  *      Envelope's README.md: they are what gets deleted at the delete-by
  *      date.
  *   4. Open the edit link and apply the house theme (the palette icon);
- *      the steps are in docs/guides/client-workflow.md, section 2.
+ *      the clicks are in docs/guides/client-workflow.md, section 3.
  * Each run makes a new form and a new Sheet, so run it once per form.
  *
  * The FORM block here is an example. A per-client copy replaces only

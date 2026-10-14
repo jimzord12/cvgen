@@ -128,9 +128,9 @@ Framework; `M` for `packages/domains/marine`, the marine domain; `F` for
 python tests/run.py                     # full suite, evidence into builds/tests-<timestamp>/
 ruff check                              # lint apps/, scripts/, tests/, packages/cv-workflow/ (ruff.toml); CI runs it too
 typst compile --root . --ignore-system-fonts --font-path packages/cv-framework/fonts examples/marine/flagship/engineer.typ builds/scratch.pdf
-python scripts/cv.py render private/<candidate>            # new revision: snapshot, PDF, log, checks
-python scripts/cv.py approve private/<candidate> <revision> --approver "<name>" --sha256 <reviewed hash>
-python scripts/cv.py export private/<candidate> <revision>  # verified copy into private/<candidate>/exports/<revision>/
+python scripts/cv.py render private/<envelope>            # new revision: snapshot, PDF, log, checks
+python scripts/cv.py approve private/<envelope> <revision> --approver "<name>" --sha256 <reviewed hash>
+python scripts/cv.py export private/<envelope> <revision>  # verified copy into private/<envelope>/exports/<revision>/
 python scripts/outputs.py stamp <pdf> status=<status> [key=value ...]   # write the PDF's Meta File
 python scripts/outputs.py check [--private]   # every PDF in its home with a valid, current Meta File
 python apps/design-review/server.py   # the owner's Design Review app on http://127.0.0.1:8765/
@@ -162,7 +162,7 @@ Full text in `docs/constitution.md`. The short list:
 | `docs/glossary.md` | Before every reply to the owner, proposal or document: the official terms, backticks in replies, adding terms and reporting them |
 | `docs/vision.md` | Deciding whether a feature belongs here |
 | `docs/architecture.md` | Before changing any module |
-| `docs/pdf-workflow.md` | Target monorepo and the PDF lifecycle, both implemented 2026-09-16 except `apps/web/`, and the `Output Contract` (where every PDF we show lives, its `Meta File`); read before structural or workflow changes (ADR 0010) and before writing a PDF someone will review |
+| `docs/pdf-workflow.md` | Target monorepo and the revision records with the rules they keep, both implemented 2026-09-16 except `apps/web/`, and the `Output Contract` (where every PDF we show lives, its `Meta File`); read before structural or workflow changes (ADR 0010) and before writing a PDF someone will review |
 | `docs/tech-stack.md` | Setting up a machine, or asking "why Typst" |
 | `docs/constitution.md` | Before anything irreversible |
 | `docs/framework-gaps.md` | Before planning framework work, and after any bypass of a component or template |
@@ -179,9 +179,10 @@ Full text in `docs/constitution.md`. The short list:
 | `docs/engine/layout-and-pagination.md` | Page balance, splits, overflow errors |
 | `docs/engine/skills-component.md` | Using the optional skills section |
 | `docs/engine/verification.md` | What the suite checks and how to read its output |
-| `docs/guides/client-workflow.md` | A new client: intake, research, `Sign-off`, before building the CV |
+| `docs/workflow/README.md` | A client, from first message to deletion: the `Workflow Model`, one README per stage, the only description of each step |
+| `docs/guides/client-workflow.md` | Reference the client steps point at: the `Envelope` tree, the question list, the `Intake Form`, the erase commands |
 | `docs/research/` | The `Research Library`: shared, dated research notes, no client data |
-| `docs/guides/build-a-cv.md` | Producing a CV for a real person |
+| `docs/guides/build-a-cv.md` | Engine reference for a client's CV: entry point, record, what the scripts print and refuse, custom composition |
 | `docs/decisions/` | Why things are the way they are (ADRs) |
 | `docs/history.md` | How the project got here |
 

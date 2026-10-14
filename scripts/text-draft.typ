@@ -1,4 +1,4 @@
-// The Text Draft a client checks before design starts (docs/guides/client-workflow.md, step 8).
+// The Text Draft a client checks before design starts (docs/workflow/04-text-draft/).
 // House design "First Fitting" (idea run 2026-09-27, owner's pick 2026-09-28): warm paper,
 // one copper thread. Every fact the client must check is underlined with a copper stitch;
 // our wording is left plain. The tailoring idea lives only in the drawing; the words are

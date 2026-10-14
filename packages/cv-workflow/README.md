@@ -2,8 +2,8 @@
 
 Everything around a candidate render: fresh revisions, automated checks,
 the owner's approval receipt and the verified export. Specified in
-`docs/pdf-workflow.md` (ADR 0010); the commands are in
-`docs/guides/build-a-cv.md`. The engine renders; this package never sends,
+`docs/pdf-workflow.md` (ADR 0010); what the commands print and refuse is in
+`docs/guides/build-a-cv.md` section 3. The engine renders; this package never sends,
 publishes or deletes a PDF.
 
 ## Functions

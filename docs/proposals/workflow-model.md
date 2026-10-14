@@ -11,7 +11,7 @@ created: 2026-10-14
 Origin: the 2026-10-04 audit and the workflow-model design discussion of
 2026-10-04/05 (cloud session), handed over in
 [the workflow-model handoff](../../archive/work-records/workflow-model/handoff.md). Source, not
-approved scope: [the inventory](../workflow/inventory/README.md); where an
+approved scope: the inventory (removed by TASK-43, in Git history at 6e93bad); where an
 answer below differs from its recommendation, the answer wins. Applied by
 the tasks TASK-28 to TASK-57 in `backlog/tasks/`.
 

@@ -28,7 +28,7 @@ Bypassed: The candidate schema (no field for periods), the experience section
 Built:    A custom composition in the candidate's private folder: a hand-made
           vessel, rank and period table, a hand-made synopsis, periods kept in
           a separate `presentation.json`. See `docs/guides/build-a-cv.md`
-          section 8.
+          section 5.
 Lesson:   The schema needs contract periods, and the synopsis needs its metrics
           declared by data.
 
@@ -99,7 +99,7 @@ Lesson:   The snapshot needs the sibling files an entry point reads, and a
           domain.
 Update:   2026-09-27: a revision now copies the files `cv.typ` reads by a
           literal relative path (and its local helpers), so the design no
-          longer has to fit in `cv.typ` (`build-a-cv.md` section 8).
+          longer has to fit in `cv.typ` (`build-a-cv.md` section 5).
 Update:   2026-09-29: first used, by client-2026-09-01 (next entry).
 
 ### 2026-09-29  A bilingual one-off CV with no domain components   Status: open until the Travel & Tourism domain exists (task travel-domain)

@@ -10,7 +10,7 @@ the design approved 2026-10-14 in `docs/proposals/workflow-model.md`)
 The client workflow, from first contact to deletion, is written in 4 to 11
 places per stage: the guides, the `new-client` and `new-cv` skills, the
 lifecycle half of `docs/pdf-workflow.md` and the `Atlas` client-journey
-page. The 2026-10-05 inventory (`docs/workflow/inventory/README.md`) found
+page. The 2026-10-05 inventory (removed by TASK-43: `git show 6e93bad:docs/workflow/inventory/README.md`) found
 34 drift items and 53 conflicts or gaps among them; only render,
 `Approval` and `Export` are enforced by code. The owner asked for one
 anchored description in which every step, file, command and gate is a

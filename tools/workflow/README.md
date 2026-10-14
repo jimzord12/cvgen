@@ -293,12 +293,10 @@ It exits 0 when nothing moved or changed, 1 otherwise (after `--fix`, 1 only
 for what is still `EDITED`), 2 when `<commit>` is not a commit. Run it after a
 merge that edits a cited file; it is not in CI because it needs that commit.
 
-## Reading the inventory
+## Visibility and `given`
 
-The inventory (`docs/workflow/inventory/`) predates the types. Its artifact
-visibility `external` (Google, the chat app) is `visibility: third-party`
-here, and a chat message is `third-party` too, since it lives in the chat
-app; `ephemeral` is only for what is saved nowhere. `given: true` is a
-separate question: set it only when no step produces the artifact (a repo
-file, the client's first message). A Google Form is `third-party` but not
-`given`, because `intake.form-create` makes it.
+A chat message, a Google Form or Sheet is `visibility: third-party`: it
+lives in someone else's app; `ephemeral` is only for what is saved nowhere.
+`given: true` is a separate question: set it only when no step produces
+the artifact (a repo file, the client's first message). A Google Form is
+`third-party` but not `given`, because `intake.form-create` makes it.

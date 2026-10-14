@@ -74,7 +74,7 @@ adapter produces it (see "Flagship wording" below).
   text), and the synopsis counts months, vessels and companies.
   This is roadmap item 3 in `docs/vision.md` (ADR 0007). Until it lands, a
   deck CV with contract periods uses the custom-composition path in
-  `docs/guides/build-a-cv.md`, section 8. Do not convert calendar periods
+  `docs/guides/build-a-cv.md`, section 5. Do not convert calendar periods
   into months to make the data fit; constitution section 6 forbids it.
 - **certificates** accept either a four-string array in the order title,
   scope, issued, review, or an object with those keys. Write an expiry
