@@ -6,7 +6,7 @@ title: >-
 status: Queued
 assignee: []
 created_date: '2026-10-06 09:56'
-updated_date: '2026-10-14 05:15'
+updated_date: '2026-10-14 05:41'
 labels:
   - docs workflow
 dependencies: []
@@ -32,4 +32,8 @@ Owner 2026-10-06: a client folder's root should hold mostly directories and only
 
 <!-- SECTION:NOTES:BEGIN -->
 Owner confirmed the tree on 2026-10-06. Decision 9 (2026-10-14): drop reviews/text-NN.md from the Envelope layout.
+
+## Note from TASK-56 (2026-10-14)
+
+The two private marine compositions import 12 deprecated flat component names through marine's lib.typ (document-shell, page-header, hero, section-heading, synopsis, experience-section, education-languages-section, label, metric, profile-summary, education-entry, skills-section). This task's migration re-points them to ctx-first calls (make-ctx, core-components, flagship-components) with the mapping table in docs/guides/build-a-cv.md section 8, and its re-render proves each PDF unchanged. That unblocks TASK-58, which deletes the legacy layer (backstop 2026-10-31).
 <!-- SECTION:NOTES:END -->

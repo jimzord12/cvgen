@@ -43,8 +43,8 @@ them. These evolve; the rules that do not are in `constitution.md`.
   render unchanged; `tests/fixtures/legacy-parity.typ` calls all 32 and
   proves identical pixels, artifact tags and PDF metadata (the suite rejects a name called
   only in a comment, and a page-background that draws nothing). Deprecated: new code never calls them, and no new
-  legacy wrapper is added. No public file calls them any more; they go on
-  2026-10-31 (TASK-58), once the two private compositions are re-pointed
+  legacy wrapper is added. No public file calls them any more; removal
+  planned 2026-10-31 (TASK-58), once the two private compositions are re-pointed
   with the mapping table in `docs/guides/build-a-cv.md` section 8.
 - **Style block: not applied yet.** ADR 0008 asks each component to group
   its `set` and `show` rules at the top of its block; the 2026-09-25

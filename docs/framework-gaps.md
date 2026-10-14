@@ -63,9 +63,9 @@ Lesson:   lib.typ needs a versioned public surface. Once the owner approves
 Update:   2026-10-14 (TASK-56): every public caller is ctx-first
           (tests/fixtures/skills.typ migrated, pixel-identical); the two
           private marine compositions are the only callers left, through
-          12 of the 32 names. Removal date 2026-10-31 (TASK-58), after they
-          are re-pointed with the mapping table in
-          docs/guides/build-a-cv.md section 8.
+          12 of the 32 names. Removal planned 2026-10-31 (TASK-58), after
+          TASK-32's client migration re-points them with the mapping table
+          in docs/guides/build-a-cv.md section 8.
 
 ### 2026-09-25  Style blocks not yet applied                        Status: open, applied when a component is next touched
 Needed:   ADR 0008's style block: each component groups its set and show

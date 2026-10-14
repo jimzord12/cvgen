@@ -4,18 +4,20 @@ title: 'legacy-delete: remove the deprecated component layer on 2026-10-31'
 status: Queued
 assignee: []
 created_date: '2026-10-14 05:31'
+updated_date: '2026-10-14 05:41'
 due_date: '2026-10-31'
 labels:
   - restructure
 dependencies:
   - TASK-56
+  - TASK-32
 ordinal: 58000
 ---
 
 ## Description
 
 <!-- SECTION:DESCRIPTION:BEGIN -->
-Removal date set by TASK-56. On 2026-10-14 the only callers of the 32 deprecated flat component names are the two private marine custom compositions (12 of the names, through marine's lib.typ); every public file is ctx-first. Precondition: the owner's go to re-point those two cv.typ files (or his request for a new render of either CV, which allows the edit), migrated with the mapping table in docs/guides/build-a-cv.md section 8 and a render compared pixel for pixel with the current one. Then delete packages/cv-framework/core/legacy.typ, packages/domains/marine/templates/flagship/legacy.typ, their lib.typ re-exports, tests/fixtures/legacy-parity.typ and its suite block (keep a document-shell metadata check on an example), and close the docs/framework-gaps.md entry. If the go has not come by 2026-10-31, ask the owner for a new date.
+Removal date set by TASK-56. On 2026-10-14 the only callers of the 32 deprecated flat component names are the two private marine custom compositions (12 of the names, through marine's lib.typ); every public file is ctx-first. Precondition: TASK-32 (client folder layout, authorized by the owner) has migrated those two clients' cv.typ to ctx-first calls, using the mapping table in docs/guides/build-a-cv.md section 8, and its re-render proved each PDF unchanged. Then delete packages/cv-framework/core/legacy.typ, packages/domains/marine/templates/flagship/legacy.typ, their lib.typ re-exports, tests/fixtures/legacy-parity.typ and its suite block (keep a document-shell metadata check on an example), and close the docs/framework-gaps.md entry. 2026-10-31 is the backstop: if TASK-32 has not landed by then, re-plan the date with it.
 <!-- SECTION:DESCRIPTION:END -->
 
 ## Acceptance Criteria

@@ -9,5 +9,6 @@
 #import "core/components.typ" as core-components
 // Pre-contract signatures (data, theme, geometry) kept so custom compositions written
 // before ADR 0008 render unchanged. Deprecated (docs/framework-gaps.md, "Legacy
-// component signatures").
+// component signatures"); removal planned 2026-10-31 (TASK-58), migrate with
+// docs/guides/build-a-cv.md section 8.
 #import "core/legacy.typ": label, rule, metric, duration-value, decoration, document-shell, page-header, page-footer, page-background

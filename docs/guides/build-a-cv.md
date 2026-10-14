@@ -251,7 +251,7 @@ Entry points reach components only through `lib.typ`: `core-components`
 holds the page shell and the small pieces, `flagship-components` every
 Flagship section (`docs/conventions.md`). The flat names such as `hero` or
 `section-heading` still work with their old signatures, for compositions
-written before 2026-09-25, but are deprecated and go on 2026-10-31
+written before 2026-09-25, but are deprecated; removal planned 2026-10-31
 (TASK-58); migrate with the table below. The skills block is
 documented in `../reference/skills-component.md`. The root-absolute import
 works from any workspace folder. `marine` is the domain node exported by
@@ -284,7 +284,7 @@ Rules for this path:
 
 ### Migrating a composition written before 2026-09-25
 
-The deprecated flat names go on 2026-10-31 (TASK-58). To move a composition
+The deprecated flat names have a removal planned 2026-10-31 (TASK-58). To move a composition
 off them, import `make-ctx`, `core-components as cc` and
 `flagship-components as fc`, build one `ctx` as in the example above
 (`copy: d.copy`, `options: (show-vessel-durations: ...)`), and replace each
