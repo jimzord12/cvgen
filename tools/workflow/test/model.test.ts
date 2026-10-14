@@ -118,6 +118,13 @@ describe("broken stages fail with a path and a line", () => {
     expect(issue?.message).toContain("may not be one of the ID prefixes art, actor, gate, loop");
   });
 
+  test("a stage named after a reserved prefix names the prefixes", () => {
+    const text = broken("id: text\nname: Text Draft and Sign-off", "id: art\nname: Text Draft and Sign-off");
+    const [issue] = rejected(text);
+    expect(issue).toMatchObject({ path: "id", line: lineOf(text, "id: art") });
+    expect(issue?.message).toContain("may not be one of the ID prefixes art, actor, gate, loop");
+  });
+
   test("a source range that runs backwards (the workflow tool only)", () => {
     const text = broken('sources: ["docs/guides/client-workflow.md:248-278"]', 'sources: ["docs/guides/client-workflow.md:278-248"]');
     const { data, issues } = loadText(text, "broken.yaml", "stage");

@@ -53,4 +53,10 @@ describe("schema", () => {
     expect(stage.additionalProperties).toBe(false);
     expect(stage.properties.steps.items.additionalProperties).toBe(false);
   });
+
+  test("the schema carries the readable ID messages VS Code shows", () => {
+    const stage = JSON.parse(schemaText("stage.schema.json"));
+    expect(stage.properties.id.patternErrorMessage).toContain("may not be one of the ID prefixes");
+    expect(stage.properties.steps.items.properties.id.patternErrorMessage).toContain('must be "<stage>.<name>"');
+  });
 });
