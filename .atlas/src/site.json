@@ -52,7 +52,7 @@
         "Outside `private/` a client is only their `Alias`, like `client-2026-09-01`."
       ],
       "sources": [
-        "docs/guides/client-workflow.md:338-340",
+        "docs/guides/client-workflow.md:339-341",
         "docs/guides/client-workflow.md:64-68"
       ],
       "short": "Client"
@@ -378,7 +378,7 @@
       ],
       "sources": [
         "scripts/cv.py:1-12",
-        "docs/guides/build-a-cv.md:117-208"
+        "docs/guides/build-a-cv.md:117-211"
       ]
     },
     "outputs-py": {
@@ -388,7 +388,7 @@
       "role": "The `Output Contract` tool: `stamp` writes a PDF's `Meta File`; `check` lists every PDF without a valid one.",
       "sources": [
         "scripts/outputs.py",
-        "docs/pdf-workflow.md:123-156"
+        "docs/pdf-workflow.md:123-165"
       ]
     },
     "suite": {

@@ -191,7 +191,7 @@ const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt
 const cap = s => s ? s[0].toUpperCase() + s.slice(1) : "";
 const DENS = ["spacious","condensed"];           // Spacious first: the owner's preference
 const TIERS = ["safe","stylish","creative"];
-const KINDS = {"concept":"Concept","text-draft":"Text Draft direction","example":"Release example","client-cv":"Client CV","client-draft":"Client draft"};
+const KINDS = {"concept":"Concept","house-design":"House Design proposal","example":"Release example","client-cv":"Client CV","client-draft":"Client draft"};
 const VERD = {keep:"Keep",maybe:"Maybe",reject:"Reject"};
 
 const store = {

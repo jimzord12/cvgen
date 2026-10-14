@@ -9,7 +9,7 @@ from pathlib import Path
 from verify import ROOT, FLAGSHIP, verify
 
 sys.path.insert(0, str(ROOT / 'packages/cv-workflow'))
-from cv_workflow import sha256_file  # noqa: E402
+from cv_workflow import WorkflowError, outputs, sha256_file  # noqa: E402
 from cv_workflow.render import STRICT_FONTS  # noqa: E402
 
 
@@ -421,6 +421,51 @@ def run_workflow(out, typst, system_family=None):
         assert 'checks failed' in cv('approve', oneoff, fallback['revision'], '--approver', 'suite', '--sha256', fallback['sha256'],
                                      '--test-only', expect=2)
         passed.append(check)
+
+    # 12. Stamp guards (decision #8, docs/proposals/workflow-model.md): a status that records an owner's act is
+    # refused without its proof on disk, and the refusal leaves the Meta File as it was.
+    def refused_stamp(pdf, fields, message):
+        meta_before = outputs.meta_path(pdf).read_bytes() if outputs.meta_path(pdf).is_file() else None
+        try:
+            outputs.stamp(pdf, fields, envelope_dir=workspace)
+        except WorkflowError as error:
+            assert message in str(error), (pdf.name, fields, str(error))
+        else:
+            raise AssertionError(f'{pdf} was stamped {fields} without its proof')
+        after = outputs.meta_path(pdf).read_bytes() if outputs.meta_path(pdf).is_file() else None
+        assert after == meta_before, pdf
+
+    unapproved = revision(failing['revision']) / 'cv.pdf'
+    refused_stamp(unapproved, {'status': 'approved'}, 'no cv.approval.json')
+    refused_stamp(unapproved, {'status': 'delivered'}, 'no cv.approval.json')
+    refused_stamp(revision(rid2) / 'cv.pdf', {'status': 'approved'}, 'not this PDF')    # receipt for other bytes
+    approved_only = revision(warned['revision']) / 'cv.pdf'                              # approved, never exported
+    assert outputs.stamp(approved_only, {'status': 'approved'}, envelope_dir=workspace)['status'] == 'approved'
+    own_receipt = approved_only.with_name('cv.approval.json')
+    kept_receipt = own_receipt.read_text(encoding='utf-8')
+    own_receipt.write_text(json.dumps({**json.loads(kept_receipt), 'revision': rid}), encoding='utf-8')  # right bytes, other revision
+    refused_stamp(approved_only, {'status': 'approved'}, 'not this PDF')
+    own_receipt.write_text(kept_receipt, encoding='utf-8')
+    stray_reference = workspace / 'reference.pdf'          # the delivered-before-cv.py exemption holds in its home only
+    shutil.copyfile(approved_only, stray_reference)
+    refused_stamp(stray_reference, {'kind': 'client-cv', 'status': 'delivered'}, 'no cv.approval.json')
+    stray_reference.unlink()
+    refused_stamp(approved_only, {'status': 'delivered'}, 'no Export')
+    (workspace / 'exports' / warned['revision']).mkdir()                               # an empty folder is no Export
+    refused_stamp(approved_only, {'status': 'delivered'}, 'not a complete bundle')
+    shutil.rmtree(workspace / 'exports' / warned['revision'])
+    assert outputs.stamp(folder / 'cv.pdf', {'status': 'delivered'}, envelope_dir=workspace)['status'] == 'delivered'
+    draft = workspace / 'draft' / 'draft-01.pdf'
+    draft.parent.mkdir()
+    shutil.copyfile(folder / 'cv.pdf', draft)
+    assert outputs.stamp(draft, {'kind': 'client-draft', 'status': 'ready'}, envelope_dir=workspace)['status'] == 'ready'
+    assert outputs.stamp(draft, {'status': 'sent'}, envelope_dir=workspace)['status'] == 'sent'
+    refused_stamp(draft, {'status': 'signed-off'}, 'sign-off-01.png is not beside it')
+    (draft.parent / 'sign-off-02.png').write_bytes(b'another draft\'s OK')                # the OK must answer this number
+    refused_stamp(draft, {'status': 'signed-off'}, 'sign-off-01.png is not beside it')
+    (draft.parent / 'sign-off-01.png').write_bytes(b'fictional screenshot')
+    assert outputs.stamp(draft, {'status': 'signed-off'}, envelope_dir=workspace)['status'] == 'signed-off'
+    passed.append('stamp-guards')
 
     log.close()
     (base / 'report.json').write_text(json.dumps({'passed': passed, 'workspace': str(workspace)}, indent=2), encoding='utf-8')
