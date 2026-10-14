@@ -34,7 +34,7 @@
           "blurb": "Who the client is: `Alias`, `Domain`, `Rank`; dates and links.",
           "detail": "`cv.py render` refuses to run without `envelope.json`; every client `Meta File` copies it.",
           "sources": [
-            "docs/guides/client-workflow.md:29-78"
+            "docs/guides/client-workflow.md:29-101"
           ]
         },
         {
@@ -43,7 +43,7 @@
           "path": "private/<envelope>/intake/",
           "blurb": "Messages, documents, `facts.md`, the `Scout`, `CV Decisions`, `Deep Dives`.",
           "sources": [
-            "docs/guides/client-workflow.md:36-58"
+            "docs/guides/client-workflow.md:38-70"
           ]
         },
         {
@@ -52,16 +52,17 @@
           "path": "private/<envelope>/draft/",
           "blurb": "The `Text Drafts` and the `Sign-off` screenshots.",
           "sources": [
-            "docs/guides/client-workflow.md:250-278"
+            "docs/guides/client-workflow.md:273-301"
           ]
         },
         {
           "id": "n-cvtyp",
           "title": "candidate.json + cv.typ",
-          "path": "private/<envelope>/cv.typ",
-          "blurb": "The client's facts and the entry point that composes their CV.",
+          "path": "private/<envelope>/typst/cv.typ",
+          "blurb": "The client's facts and the entry point that composes their CV, with its designs, wording and art beside it in typst/.",
           "sources": [
-            "docs/guides/build-a-cv.md:37-68"
+            "docs/guides/build-a-cv.md:31-63",
+            "docs/guides/client-workflow.md:38-70"
           ]
         },
         {
@@ -377,7 +378,7 @@
           "actor": "intake-form",
           "blurb": "Optional `Intake Forms` and their answer Sheets.",
           "sources": [
-            "docs/guides/client-workflow.md:92-129"
+            "docs/guides/client-workflow.md:115-152"
           ]
         },
         {
@@ -387,7 +388,7 @@
           "actor": "chat",
           "blurb": "Questions out, answers back, via you.",
           "sources": [
-            "docs/guides/client-workflow.md:82-90"
+            "docs/guides/client-workflow.md:105-113"
           ]
         }
       ]

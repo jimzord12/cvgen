@@ -2274,18 +2274,10 @@ window.ATLAS = {
   }
  ],
  "build": {
-  "builtAt": "2026-10-14 08:00 UTC",
-  "commit": "85741ff",
+  "builtAt": "2026-10-14 08:01 UTC",
+  "commit": "fcc720f",
   "kit": "1.0",
-  "stale": {
-   "system-map": [
-    "AGENTS.md",
-    "docs/pdf-workflow.md",
-    "docs/guides/client-workflow.md",
-    "docs/guides/build-a-cv.md",
-    "docs/glossary.md"
-   ]
-  },
+  "stale": {},
   "verified": {
    "client-journey": {
     "at": "2026-10-14",
@@ -2301,7 +2293,7 @@ window.ATLAS = {
    },
    "system-map": {
     "at": "2026-10-14",
-    "commit": "b01e51a"
+    "commit": "fcc720f"
    },
    "roster": {
     "at": "2026-10-14",
