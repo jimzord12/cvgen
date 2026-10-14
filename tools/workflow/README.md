@@ -16,7 +16,7 @@ TASK-39.
 | `src/cli.ts` | The command line |
 | `schema/` | The exported JSON Schema files, committed, never hand-edited |
 | `sample/stage.yaml` | A short sample stage, used by the tests; illustrative, not facts |
-| `test/fixtures/` | `valid/`, a small model that passes, and one broken model per rule, named after it |
+| `test/fixtures/` | `valid/`, a small model that passes, and one broken model per rule, named after it (`command-*` are two more for the `command` rule) |
 | `.bun-version` | The Bun version CI installs (1.4.2); locally any 1.4.x from 1.4.2 |
 
 Run every command from `tools/workflow/`. Once, after a clone:
@@ -77,7 +77,7 @@ Level 1, shape and references:
 | `given-path` | a `given: true` artifact whose repository path (one without `<placeholders>`) does not exist |
 | `skill` | a `skill` action with no `.claude/skills/<name>/SKILL.md` |
 | `agent` | an `agent` action with no `.claude/agents/<name>.md` that is not a built-in (`general-purpose`) |
-| `command` | a `cmd` action whose `python <script>.py <subcommand>` names a missing script, or a subcommand its `--help` does not list (`cv.py`, `outputs.py`) |
+| `command` | a `cmd` action whose `python <script>.py <subcommand>` names a script outside `scripts/` (never run), a missing script, a subcommand its `--help` does not list (`cv.py`, `outputs.py`), or a subcommand on a script whose `--help` lists none |
 
 Level 2, flow. Edges are derived: a step that reads an artifact follows every
 step that writes it (inputs are AND, producers are OR), and a gate's step is

@@ -32,11 +32,24 @@ const where: Record<Rule, [string, string]> = {
   "dead-end": ["01-make/stage.yaml", "steps[1]"],
 };
 
+/** Further broken fixtures for one rule, each with what its message must say. */
+const variants: Record<string, [Rule, string]> = {
+  "command-no-list": ["command", "scripts/proposals.py --help lists no subcommands ({a,b}), so summary cannot be checked"],
+  "command-outside-scripts": ["command", "tests/run.py is not under scripts/; the check runs --help only for the repository's own scripts"],
+};
+
 describe("every rule has a broken fixture that fires exactly that rule", () => {
-  test("one fixture folder per rule, and no other", () => {
+  test("one fixture folder per rule, plus the named variants, and no other", () => {
     const folders = readdirSync(fixtures).filter((f) => f !== "valid").sort();
-    expect(folders).toEqual(Object.keys(rules).sort());
+    expect(folders).toEqual([...Object.keys(rules), ...Object.keys(variants)].sort());
   });
+
+  for (const [folder, [rule, message]] of Object.entries(variants)) {
+    test(`${rule}: ${folder}`, () => {
+      const { issues } = checkModel(join(fixtures, folder));
+      expect(issues.map((i) => [i.rule, i.message])).toEqual([[rule, message]]);
+    });
+  }
 
   for (const rule of Object.keys(rules) as Rule[]) {
     test(rule, () => {

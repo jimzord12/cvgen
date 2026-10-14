@@ -38,7 +38,7 @@ export const rules = {
   "given-path": "a given artifact whose repository path does not exist",
   skill: "a skill action naming no .claude/skills/<name>/SKILL.md",
   agent: "an agent action naming no .claude/agents/<name>.md and no built-in agent",
-  command: "a cmd action running a Python script that does not exist or lacks the subcommand",
+  command: "a cmd action running a Python script outside scripts/, one that does not exist, or a subcommand its --help does not list",
   // Level 2: flow.
   "given-produced": "an artifact marked given: true that a step produces",
   unproduced: "a step input that no step produces and that is not given: true",
@@ -286,13 +286,20 @@ class Checker {
     const problems: string[] = [];
     for (const m of run.matchAll(/\bpython3?\s+([\w./-]+\.py)(?:\s+([a-z][\w-]*))?/g)) {
       const [, script = "", sub] = m;
+      // Only the repository's own scripts are run (with --help); anything else is named, never executed.
+      if (!script.startsWith("scripts/")) {
+        problems.push(`${script} is not under scripts/; the check runs --help only for the repository's own scripts`);
+        continue;
+      }
       if (!existsSync(join(this.root, script))) {
         problems.push(`${script} does not exist`);
         continue;
       }
       const help = this.help(script);
       if (help.error) problems.push(help.error);
-      else if (help.subcommands && (!sub || !help.subcommands.includes(sub))) {
+      else if (!help.subcommands) {
+        if (sub) problems.push(`${script} --help lists no subcommands ({a,b}), so ${sub} cannot be checked`);
+      } else if (!sub || !help.subcommands.includes(sub)) {
         problems.push(`${script} has no subcommand ${sub ?? "(none given)"}; its --help lists ${help.subcommands.join(", ")}`);
       }
     }

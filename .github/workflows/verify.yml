@@ -123,6 +123,7 @@ jobs:
             builds/ci/**/compile.log
             builds/ci/**/page-*.png
             builds/ci/workflow/commands.log
+            builds/ci/workflow-model/check.log
             builds/ci/build-script/*.log
             builds/ci-library/*.pdf
           if-no-files-found: ignore

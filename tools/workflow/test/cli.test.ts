@@ -42,6 +42,14 @@ describe("check", () => {
   });
 });
 
+describe("anchors through its package script", () => {
+  test("bun run anchors with a ref that is not a commit exits 2", () => {
+    const p = spawnSync(process.execPath, ["run", "anchors", "no-such-ref"], { cwd: root, encoding: "utf8" });
+    expect(p.status).toBe(2);
+    expect(p.stdout).toContain("no-such-ref is not a commit");
+  });
+});
+
 describe("check over a whole model", () => {
   test("with no argument it checks docs/workflow: exit 0, the summary and the placeholder caps", () => {
     const r = run("check");

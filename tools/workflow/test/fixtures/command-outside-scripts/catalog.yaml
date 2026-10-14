@@ -1,0 +1,5 @@
+# Broken: a script outside scripts/, which the check never runs.
+actors:
+  - { id: actor.lead, name: The lead, sources: ["AGENTS.md"], kind: lead, does: Does the work. }
+artifacts:
+  - { id: art.in, name: Input, sources: ["AGENTS.md"], path: AGENTS.md, visibility: public, given: true }
