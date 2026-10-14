@@ -42,7 +42,7 @@ keep it untracked and do not copy its contents into shared documentation.
   current proof. Before stopping, rewrite the handoff doc on `main`
   (`docs/development.md`, "Ending a session").
 - State reporting is read-only and repeatable: unchanged inputs yield the same
-  factual state. No dedicated reporting command exists yet; inspect the sources
+  factual state. Apart from `scripts/proposals.py` (below), inspect the sources
   directly. `backlog/` is the one task store; do not maintain a second
   status file or backlog. In proposals and
   protocols, prefer derived views over manually synchronized summaries.

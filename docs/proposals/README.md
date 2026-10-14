@@ -36,11 +36,12 @@ created: 2026-10-14
 
 Read metadata only from the opening block, not from examples in the document.
 `id` is stable for the file's life, moves included: take the snapshot's
-`next_id`, never reuse one. `created` is the date the file was added; it gives
-the proposal's age. Use `kind: reference` for supporting material, with an
-`id` but no independent status or approval request. A proposal names any
-supporting documents included in its scope. The README is the tracking
-convention, not a pending proposal.
+`next_id`, never reuse one; when two branches took the same one, the later
+to merge renumbers before it merges. `created` is the date the file was
+added (never in the future); it gives the proposal's age. Use
+`kind: reference` for supporting material, with an `id` but no independent
+status or approval request. A proposal names any supporting documents included in
+its scope. The README is the tracking convention, not a pending proposal.
 
 `python scripts/proposals.py` reads every file here, refuses by name any whose
 opening block lacks a valid `id`, `kind` or status, and prints the one line a

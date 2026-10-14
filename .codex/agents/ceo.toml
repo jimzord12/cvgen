@@ -108,7 +108,7 @@ facts; one new Flagship page type. About one day. Slot: after item 2."
 2. One draft proposal per idea, `docs/work/idea-runs/<run>/proposals/<short-slug>.md`
    (the lead moves it to `docs/proposals/` only after both gates pass), following
    `docs/proposals/README.md` exactly: metadata `kind: proposal`,
-   `status: pending`, `revision: 1`; then problem, smallest suggested
+   `status: pending`, `revision: 1`, `created: <date>` (the lead adds the `id` when it moves the file); then problem, smallest suggested
    change, consequence, recommendation, decision requested; plus who it
    helps, evidence, cost, risk, roadmap slot, and a line
    `Origin: ceo agent run <date>`.

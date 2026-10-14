@@ -72,6 +72,8 @@ def read(folder, today):
             except ValueError:
                 wrong.append(f'created {meta.get("created")!r} is not a YYYY-MM-DD date')
             else:
+                if created > today:
+                    wrong.append(f'created {created} is after today ({today})')
                 item.update(created=created.isoformat(), age_days=(today - created).days)
             item.update(status=status, revision=int(meta['revision']) if (meta.get('revision') or '').isdigit() else None)
         if wrong:
