@@ -56,7 +56,7 @@ cap)" and cite their row here.
   offers it (`client-workflow.md:164-167`). Added by TASK-38: a step with no
   inputs is reached only as a loop's escalation step.
 - **How Revisions to remove are found** (`after.revision-cleanup`):
-  `pdf-workflow.md:211-214` names failed or unapproved Revisions as
+  `pdf-workflow.md:213-216` names failed or unapproved Revisions as
   candidates, not how they are listed; the YAML reads `cv.py status`, which
   lists every Revision with its state. Added by TASK-38, for the same reason.
 
@@ -67,3 +67,17 @@ cap)" and cite their row here.
   status without its proof) are not encoded anywhere in the model; only
   `render`'s is, as `gate.render-ok`, because `build-a-cv.md:128-136` states
   the next step.
+- **The folder the page images go into** (`deliver.page-png`): its command
+  (`docs/workflow/06-deliver/stage.yaml:309-315`, from
+  `.claude/skills/verify-cv/SKILL.md:72-76`) saves into
+  `builds/<new-folder>/` but nothing makes that folder; level 3 makes it
+  first, as the lead does. Added by TASK-42.
+- **Order without data**: `design.clear-review-input` before
+  `deliver.render` follows from gates only; render reads nothing the design
+  review writes (`docs/workflow/06-deliver/stage.yaml:16-22`), so level 3,
+  which runs a step once what it reads exists, renders beside
+  `design.preview`, before the review returns. Added by TASK-42.
+- **What the preview folder holds** (`art.design-review-input`,
+  `docs/workflow/05-design/stage.yaml:476-481`): the model gives a folder and
+  "PDF previews", no file names, so level 3's stand-in for `design.preview`
+  makes an empty folder and the stand-in review accepts it. Added by TASK-42.

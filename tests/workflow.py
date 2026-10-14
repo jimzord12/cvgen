@@ -505,3 +505,52 @@ def run_workflow(out, typst, system_family=None):
     log.close()
     (base / 'report.json').write_text(json.dumps({'passed': passed, 'workspace': str(workspace)}, indent=2), encoding='utf-8')
     return passed
+
+
+def run_reality(folder, bun_run):
+    """Level 3 of the Workflow Model (TASK-42), through the workflow tool's `reality` run (tools/workflow/src/reality.ts).
+
+    A fictional client runs the model in a new folder under `folder`: every `cmd` step on its path runs the real
+    script, the other steps are labelled stand-ins, and every declared output must exist and validate. Then two
+    model copies that disagree with the scripts must fail naming the step: an output the script writes under
+    another name, an export the model no longer makes wait for the owner's approval (cv.py refuses it), and a
+    stamp that leaves its Meta File unchanged.
+    `bun_run(log, *command)` runs Bun in tools/workflow and keeps its output in `folder/<log>`."""
+    passed = []
+    happy = bun_run('reality.log', 'run', 'reality', '--out', str(folder / 'reality'))
+    assert happy.returncode == 0 and 'level 3 passes' in happy.stdout, ('workflow-reality', happy.stdout + happy.stderr)
+    passed.append('reality')
+
+    def broken(name, old, new, stage='06-deliver'):
+        model = folder / f'model-{name}'
+        shutil.copytree(ROOT / 'docs/workflow', model)
+        stage = model / stage / 'stage.yaml'
+        text = stage.read_text(encoding='utf-8')
+        assert text.count(old) == 1, (name, old)
+        stage.write_text(text.replace(old, new), encoding='utf-8')
+        return bun_run(f'reality-{name}.log', 'run', 'reality', str(model), '--out', str(folder / f'reality-{name}'))
+
+    # cv.py render writes render.json; a model that says render-record.json fails at the step that writes it.
+    renamed = broken('renamed-output', 'revisions/<revision>/render.json', 'revisions/<revision>/render-record.json')
+    assert renamed.returncode == 1, ('renamed-output', renamed.stdout + renamed.stderr)
+    assert 'FAIL deliver.render: art.render-json: private/<envelope>/revisions/<revision>/render-record.json is not there' \
+        in renamed.stdout, renamed.stdout
+    assert 'FAILED level 3 at deliver.render' in renamed.stdout, renamed.stdout
+    passed.append('reality-renamed-output')
+
+    # Export without the approval among its inputs passes levels 1 and 2 (TASK-38's review); level 3 runs it as soon as
+    # the render is there, before the owner's approval, and the real cv.py export refuses it.
+    order = broken('export-before-approval', 'inputs: [art.approval-json, art.cv-pdf,', 'inputs: [art.cv-pdf,')
+    assert order.returncode == 1, ('export-before-approval', order.stdout + order.stderr)
+    assert 'FAILED level 3 at deliver.export' in order.stdout and 'not approved' in order.stdout, order.stdout
+    assert 'OK   deliver.approve' not in order.stdout and 'OK   deliver.render' in order.stdout, order.stdout
+    assert not list((folder / 'reality-export-before-approval').glob('repo/private/*/exports/*')), 'an export was written'
+    passed.append('reality-export-waits-for-approval')
+
+    # A restamp that leaves the Meta File as it was did not do its step: the sent stamp turned into a second
+    # ready stamp rewrites draft-01.meta.json byte for byte, and the run fails there.
+    noop = broken('no-op-stamp', 'draft-NN.pdf status=sent', 'draft-NN.pdf status=ready', stage='04-text-draft')
+    assert noop.returncode == 1, ('no-op-stamp', noop.stdout + noop.stderr)
+    assert 'FAIL text-draft.draft-sent: art.draft-meta:' in noop.stdout and 'byte for byte unchanged' in noop.stdout, noop.stdout
+    passed.append('reality-unchanged-output-fails')
+    return passed
