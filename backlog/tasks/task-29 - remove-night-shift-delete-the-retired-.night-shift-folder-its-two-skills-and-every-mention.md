@@ -3,10 +3,10 @@ id: TASK-29
 title: >-
   remove-night-shift: delete the retired .night-shift folder, its two skills and
   every mention
-status: Active
+status: Done
 assignee: []
 created_date: '2026-10-06 09:41'
-updated_date: '2026-10-14 05:32'
+updated_date: '2026-10-14 05:35'
 labels:
   - docs cleanup
 dependencies: []
@@ -57,3 +57,9 @@ Round 1, `context-reviewer`, 2026-10-14: FINDINGS (report `docs/work/remove-nigh
 - Notes done: change-review "fix" step cites `docs/review.md:178-213`, roster tl;dr cites `docs/review.md:133-146`; the `Session Sweep` glossary row and Atlas term now list repo health and the `Atlas` check, matching `docs/development.md`.
 - Merged origin/main (5c61091) cleanly; Atlas rebuilt, all five pages stamped, rebuilt. `python tests/run.py` PASS (`builds/tests-20261014-083204-927112`); `atlas.py check` all ok.
 <!-- SECTION:NOTES:END -->
+
+## Final Summary
+
+<!-- SECTION:FINAL_SUMMARY:BEGIN -->
+Removed the retired .night-shift tool: its tracked history files, the start-night-shift and do-night-shift-follow-up skills, the SessionEnd hook in .claude/settings.json, ignore/protect entries, and every live mention (development.md Session Sweep, review.md, glossary, .codex/README.md, repo-maintenance.md, Atlas). Dated records keep their wording. Atlas pages re-checked and stamped (they were already stale on main). Reviews: context-reviewer round 1 FINDINGS (1 Material citation, 1 Minor), round 2 PASS; reports in docs/work/remove-night-shift/reviews/. Suite PASS.
+<!-- SECTION:FINAL_SUMMARY:END -->
