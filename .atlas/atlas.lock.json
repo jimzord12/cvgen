@@ -94,7 +94,7 @@
    "verifiedAt": "2026-10-14"
   },
   "system-map": {
-   "commit": "7168c35",
+   "commit": "51584c6",
    "sources": {
     ".claude/agents": "dir1:4f4154394888bb9d69a0ed790d8f4b484a790fdd",
     ".claude/skills": "dir1:5eeafda0c9ef9a6037a3fcc2879f73f098fa3e55",
@@ -107,11 +107,11 @@
     "design-concepts": "dir1:d3bd60991a5441279a325e9aa73ea4e20ad7f1c7",
     "docs": "dir1:1524eeecbb91977c608e30377da8cd2745b0067f",
     "docs/architecture.md": "3701cad9233eee36d3edce8453a33c69c9a0af80",
-    "docs/glossary.md": "332ce825423889c9c0acd99d2236f11aea86f688",
+    "docs/glossary.md": "d172db94eb457b470f46a7a264edf226c567693a",
     "docs/guides/build-a-cv.md": "0b8e6a2c535e2c1f3f6a9246be2b685829251c6c",
     "docs/guides/client-workflow.md": "bffa3464130cd2929ce44cf0965706a6cd158812",
     "docs/pdf-workflow.md": "c0c245619e8dd2d44e9b3ab39f5555126baab33c",
-    "docs/work": "dir1:3b2ed13392f909e543c9e1f7c7126f3e1231f2fd",
+    "docs/work": "dir1:8aeab29a6b831a10656957b5d603e34309e0e714",
     "examples/candidates": "dir1:69fb38eee30dc425761a0cb80a577613cf3bdab4",
     "examples/marine/flagship": "dir1:2badfd3042bcd2c5ef709a6596945aefe8848eb1",
     "packages/cv-framework": "dir1:e26fc6cd0be31cb5f9c4f61215ae5f3cfdc05a78",
