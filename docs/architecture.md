@@ -92,7 +92,7 @@ a template owns its design (ADR 0007, ADR 0011, ADR 0012). Who owns what:
 | Page shell, header, footer, backgrounds (`page.typ`); the header takes a name and headline (no domain data) and a caption, the shell takes title and author and reads its own layout slice `shell` (opening margin, optional first-page band) | `domain.meta` (PDF title suffix, author) | Layout profiles (including the `shell` slice) and page plans |
 | Page-plan grammar (every row once, in candidate order) and pagination over a domain row model (`pagination.typ`) | `experience-model`: `count`, `slice`, `totals`, `row` (the word for a row in page-plan messages: "vessel") | The closing-section rules (`validate-plan`: one synopsis on the last Experience page, certificates and education after it) and the page loop with its overflow assertion, in `flagship.typ` |
 | `merge` and `compose` (`node.typ`) | `domain.copy`: the domain's six words | The adapter: input contract and Flagship's nine words |
-| SVG recolouring (by the theme's `art-palette`, `{{<colour>}}` placeholders and `art-colors`) and primitives; theme validation (still requires Flagship-shaped colours, TASK-59) | The SVG files (`assets/`) and their palette (`domain.art-palette`) | Artwork packs: which SVG in which slot; themes that carry the palette |
+| SVG recolouring (by the theme's `art-palette`, `{{<colour>}}` placeholders and `art-colors`) and primitives; theme validation of what every template needs (`validate-theme`: `ink`, `accent`, `metal`, `muted`, `paper` and the two fonts; `require-colors` for a template's own) | The SVG files (`assets/`) and their palette (`domain.art-palette`) | Artwork packs: which SVG in which slot; themes that carry the palette; Flagship's own colours (`validate-flagship-theme` in `flagship.typ`: `hero`, `surface`, `plate`, `rule`, `on-hero`) |
 | The verification runner and its checks | Role markers (`roles/deck`, `roles/engine`) | Frozen reference render and its pixel gate |
 
 Roles are variations within a domain, never forks; Flagship serves both
@@ -120,7 +120,7 @@ cv-framework/                           the Framework (ADR 0012); imports no dom
   core/
     node.typ                              merge, compose: domain < role < template
     data.typ                              duration-parts, required-text, normalize-common, validate-common
-    theme.typ                             validate-theme: required colours and fonts
+    theme.typ                             validate-theme: the colours and fonts every template needs; require-colors
     component.typ                         make-ctx: builds the one ctx dictionary every component takes first (ADR 0008)
     components.typ                        the core's ctx-first components as one module; cv-framework/lib.typ exports it as core-components
     primitives.typ                        label, rule, decoration (SVG recolour), duration, metric

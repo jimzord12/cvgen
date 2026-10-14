@@ -14,7 +14,8 @@ drawing.
 
 1. Copy `packages/domains/marine/templates/flagship/themes/silver-bridge.typ` as the pattern: spread `golden-blue`'s
    theme, set `name`, replace `colors`, `fonts` and any `sizes`.
-2. Every colour key must exist; `validate-theme` fails otherwise. Fonts must
+2. Every colour key must exist; `validate-theme` (the core's five) and `validate-flagship-theme`
+   (Flagship's five, `docs/reference/theme.md`) fail otherwise. Fonts must
    be one of the bundled family strings `Source Sans 3`, `Barlow`,
    `Cormorant Garamond`, `Bona Nova`, `Sofia Sans`, `M PLUS 1p` or `Kaisei Tokumin` (the Barlow Condensed file registers as `Barlow`;
    check with `typst fonts --ignore-system-fonts --font-path packages/cv-framework/fonts`). An unknown

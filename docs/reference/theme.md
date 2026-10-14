@@ -25,15 +25,15 @@ minimal override pattern: spread the base theme, replace what differs.
 |---|---|---|
 | `name` | no | Display name, useful in reports |
 | `colors.ink` | yes | Body text |
-| `colors.hero` | yes | Hero band, synopsis background, certificate header |
+| `colors.hero` | yes (Flagship) | Hero band, synopsis background, certificate header |
 | `colors.accent` | yes | Rank, company rule, group labels, durations |
 | `colors.metal` | yes | Section numbers, contact labels, rules, metric captions |
 | `colors.muted` | yes | Secondary text |
-| `colors.surface` | yes | Alternate table rows, language cards |
+| `colors.surface` | yes (Flagship) | Alternate table rows, language cards |
 | `colors.paper` | yes | Page fill. `white` means the PDF's unpainted canvas |
-| `colors.plate` | yes | Identity plate background |
-| `colors.rule` | yes | Table row rules |
-| `colors.on-hero` | yes | Text on hero-coloured areas |
+| `colors.plate` | yes (Flagship) | Identity plate background |
+| `colors.rule` | yes (Flagship) | Table row rules |
+| `colors.on-hero` | yes (Flagship) | Text on hero-coloured areas |
 | `fonts.body`, `fonts.display` | yes | One of the bundled family strings: `Source Sans 3`, `Barlow`, `Cormorant Garamond`, `Bona Nova` (bundled for the `Text Draft`; a theme may use it), `Sofia Sans` (the Sofia Sans Extra Condensed file), `M PLUS 1p` and `Kaisei Tokumin` (Japanese glyphs; bundled for the Hanami Line travel design). The Barlow Condensed file registers as `Barlow`. Confirm with `typst fonts --ignore-system-fonts --font-path packages/cv-framework/fonts`. An unknown name makes Typst substitute another font with only `warning: unknown font family`; the suite, `scripts/cv.py render` and `scripts/build.ps1` compile with `--ignore-system-fonts` and fail on that warning |
 | `sizes.*` | yes | One entry per text role. See `golden-blue.typ` for the full list. `skill` is optional and defaults to 10pt |
 | `tracking.label`, `tracking.rank` | yes | Letter spacing for uppercase labels and the rank line |
@@ -41,8 +41,12 @@ minimal override pattern: spread the base theme, replace what differs.
 | `art-palette` | no | Map of the hex colours baked into the domain's SVGs to the names of the theme colours that replace them. Flagship's themes carry marine's `domain.art-palette` (`golden-blue.typ`); a theme spread from them keeps it |
 | `art-colors` | no | Map of hex strings found in legacy SVGs to theme colours |
 
-`validate-theme` in `packages/cv-framework/core/theme.typ` checks the colour and font keys exist and
-have the right type. Missing sizes fail at the point of use. It cannot check that a font family
+Two checks run when `flagship` starts, with the same messages (`Missing theme color: <key>`,
+`Theme color must be a color: <key>`). `validate-theme` in `packages/cv-framework/core/theme.typ`
+checks what every template needs: `ink`, `accent`, `metal`, `muted`, `paper` and the two fonts.
+`validate-flagship-theme` in `flagship.typ` adds the colours marked "yes (Flagship)" above, through
+the core's `require-colors`; a second template names its own the same way. Missing sizes fail at
+the point of use. Neither check can tell that a font family
 exists, since Typst gives a document no way to ask; the compile runners above do that.
 
 ## How SVG recolouring works
