@@ -17,9 +17,8 @@ Output goes to a new `builds/tests-<timestamp>/` folder with a
 and on a raster mismatch `check/diff-N.png` highlighting changed pixels.
 The page images are what to show the owner or a reviewer.
 
-CI (`.github/workflows/verify.yml`) runs the suite once per push (its head
-commit; a newer push to a feature branch cancels the older run) on a Linux
-and a Windows runner, writing to `builds/ci/`, and on Windows also
+CI (`.github/workflows/verify.yml`) runs the suite on every push (when and
+why: `docs/tech-stack.md`, CI row) on a Linux and a Windows runner, writing to `builds/ci/`, and on Windows also
 runs `scripts/build.ps1`. Each runner uploads its evidence as the artifact
 `verification-evidence-Linux` or `verification-evidence-Windows` (the
 Windows one also holds the five built PDFs); `gh run download <run-id>`
@@ -150,7 +149,8 @@ change.
   bundled. Fix the name or add the font to `packages/cv-framework/fonts`.
 - `AssertionError: ('fonts-system', 'CI has no font outside the bundled
   ones, ...')`: the CI runner found no system font for the system-font
-  case; check the font install step in `.github/workflows/verify.yml`.
+  case; check the font install step in `.github/workflows/verify.yml`
+  (Linux; the Windows runner relies on its own fonts).
 - `SKIPPED N: <cases> (reasons in report.json)` after the `PASS` line: those
   cases did not run on this machine (today only the system-font cases, when
   it has no font outside the bundled ones). The run passed without them.
