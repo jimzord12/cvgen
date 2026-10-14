@@ -376,6 +376,14 @@ export function reality(opts: { dir: string; out: string; scenario?: Scenario; p
             log(`  made the folder ${p.replace(/\/[^/]*$/, "/")} the command writes into (the lead's part)`);
           }
         }
+        // A declared output already on disk (a Meta File restamped) must come out changed: a command
+        // that leaves it as it was (a no-op stamp, a wrong status) did not do the step.
+        const before = new Map<string, { id: string; hash: string }>();
+        for (const id of step.outputs) {
+          const p = art(id).path;
+          if (!p || p.endsWith("/")) continue;
+          for (const f of glob(where(art(id)), substitute(p, bind))) before.set(f.path, { id, hash: sha256(f.path) });
+        }
         for (const command of commands) {
           const { argv, notes } = adjust(command, sandboxRel);
           for (const note of notes) log(`  adjusted: ${note}`);
@@ -391,6 +399,9 @@ export function reality(opts: { dir: string; out: string; scenario?: Scenario; p
             const last = (result.stderr.trim() || result.stdout.trim() || p.error?.message || "").split("\n").pop();
             return fail(step.id, `${command.slice(0, 3).join(" ")} exited ${p.status ?? "without starting"}: ${last}`);
           }
+        }
+        for (const [file, { id, hash }] of before) {
+          if (isFile(file) && sha256(file) === hash) return fail(step.id, `${id}: ${shown(file)} was there before and the command left it byte for byte unchanged`);
         }
       } else {
         how = `stand-in (${kind})`;

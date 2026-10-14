@@ -513,17 +513,18 @@ def run_reality(folder, bun_run):
     A fictional client runs the model in a new folder under `folder`: every `cmd` step on its path runs the real
     script, the other steps are labelled stand-ins, and every declared output must exist and validate. Then two
     model copies that disagree with the scripts must fail naming the step: an output the script writes under
-    another name, and an export the model no longer makes wait for the owner's approval (cv.py refuses it).
+    another name, an export the model no longer makes wait for the owner's approval (cv.py refuses it), and a
+    stamp that leaves its Meta File unchanged.
     `bun_run(log, *command)` runs Bun in tools/workflow and keeps its output in `folder/<log>`."""
     passed = []
     happy = bun_run('reality.log', 'run', 'reality', '--out', str(folder / 'reality'))
     assert happy.returncode == 0 and 'level 3 passes' in happy.stdout, ('workflow-reality', happy.stdout + happy.stderr)
     passed.append('reality')
 
-    def broken(name, old, new):
+    def broken(name, old, new, stage='06-deliver'):
         model = folder / f'model-{name}'
         shutil.copytree(ROOT / 'docs/workflow', model)
-        stage = model / '06-deliver/stage.yaml'
+        stage = model / stage / 'stage.yaml'
         text = stage.read_text(encoding='utf-8')
         assert text.count(old) == 1, (name, old)
         stage.write_text(text.replace(old, new), encoding='utf-8')
@@ -545,4 +546,11 @@ def run_reality(folder, bun_run):
     assert 'OK   deliver.approve' not in order.stdout and 'OK   deliver.render' in order.stdout, order.stdout
     assert not list((folder / 'reality-export-before-approval').glob('repo/private/*/exports/*')), 'an export was written'
     passed.append('reality-export-waits-for-approval')
+
+    # A restamp that leaves the Meta File as it was did not do its step: the sent stamp turned into a second
+    # ready stamp rewrites draft-01.meta.json byte for byte, and the run fails there.
+    noop = broken('no-op-stamp', 'draft-NN.pdf status=sent', 'draft-NN.pdf status=ready', stage='04-text-draft')
+    assert noop.returncode == 1, ('no-op-stamp', noop.stdout + noop.stderr)
+    assert 'FAIL text-draft.draft-sent: art.draft-meta:' in noop.stdout and 'byte for byte unchanged' in noop.stdout, noop.stdout
+    passed.append('reality-unchanged-output-fails')
     return passed
