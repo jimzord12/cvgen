@@ -1,10 +1,10 @@
 ---
 id: TASK-51
 title: 'agents-map-trim: `AGENTS.md` is a map of under 800 words'
-status: Active
+status: Done
 assignee: []
 created_date: '2026-10-14 04:48'
-updated_date: '2026-10-14 13:11'
+updated_date: '2026-10-14 13:12'
 labels:
   - restructure
 dependencies: []
@@ -30,3 +30,9 @@ Moved-item table, end: Documentation rows -> collapsed pointers (engine manuals 
 
 Closed: AGENTS.md 3,477 -> 780 words; every removed item has an owner (table above). Context rounds: round 1 lens A FINDINGS, lens B PASS; round 2 PASS. Suite PASS builds/tests-20261014-155401-989018 (at 9e7e6e1; later commits are docs), CI 38569170226 green.
 <!-- SECTION:NOTES:END -->
+
+## Final Summary
+
+<!-- SECTION:FINAL_SUMMARY:BEGIN -->
+AGENTS.md went from 3,477 to about 780 words: what CVgen is, hard rules as pointers (the constitution's rules named by title), a compact table of where things are, essential commands, pointers to the files that own every rule. Moved text went to the owners: development.md (roles, author checks, improving the process), git-workflow.md (private repository), preferences.md, conventions.md (before editing), a new apps/design-review/README.md. Anchors and Atlas repointed. Context rounds: FINDINGS (lens A), PASS (lens B), PASS. Suite PASS, CI 38569170226 green.
+<!-- SECTION:FINAL_SUMMARY:END -->
