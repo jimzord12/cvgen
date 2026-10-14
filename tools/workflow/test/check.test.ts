@@ -36,6 +36,7 @@ const where: Record<Rule, [string, string]> = {
 const variants: Record<string, [Rule, string]> = {
   "command-no-list": ["command", "scripts/proposals.py --help lists no subcommands ({a,b}), so summary cannot be checked"],
   "command-outside-scripts": ["command", "tests/run.py is not under scripts/; the check runs --help only for the repository's own scripts"],
+  "command-traversal": ["command", "scripts/../tests/run.py is not under scripts/; the check runs --help only for the repository's own scripts"],
 };
 
 describe("every rule has a broken fixture that fires exactly that rule", () => {

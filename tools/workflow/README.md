@@ -16,7 +16,7 @@ TASK-39.
 | `src/cli.ts` | The command line |
 | `schema/` | The exported JSON Schema files, committed, never hand-edited |
 | `sample/stage.yaml` | A short sample stage, used by the tests; illustrative, not facts |
-| `test/fixtures/` | `valid/`, a small model that passes, and one broken model per rule, named after it (`command-*` are two more for the `command` rule) |
+| `test/fixtures/` | `valid/`, a small model that passes, and one broken model per rule, named after it (`command-*` are three more for the `command` rule) |
 | `.bun-version` | The Bun version CI installs (1.4.2); locally any 1.4.x from 1.4.2 |
 
 Run every command from `tools/workflow/`. Once, after a clone:
@@ -38,9 +38,7 @@ bun run schema                            # regenerate schema/*.json after chang
 bun run schema --check                    # exit 1 if the committed schema is stale (a test does the same)
 ```
 
-CI runs `bun install --frozen-lockfile`, `bun test`, `bun run typecheck` and
-`bun run check` on both runners (`.github/workflows/verify.yml`), and
-`python tests/run.py` runs `bun run check` as its `workflow-model` case.
+CI and the suite's `workflow-model` case run `bun run check`.
 
 A problem prints as `file:line: path: reason [rule]`, for example
 `docs/workflow/07-after/stage.yaml:38: steps[2]: after.keep-request is never reached: it has no inputs, and no gate branch or loop escalation leads to it [unreachable]`.
@@ -77,7 +75,7 @@ Level 1, shape and references:
 | `given-path` | a `given: true` artifact whose repository path (one without `<placeholders>`) does not exist |
 | `skill` | a `skill` action with no `.claude/skills/<name>/SKILL.md` |
 | `agent` | an `agent` action with no `.claude/agents/<name>.md` that is not a built-in (`general-purpose`) |
-| `command` | a `cmd` action whose `python <script>.py <subcommand>` names a script outside `scripts/` (never run), a missing script, a subcommand its `--help` does not list (`cv.py`, `outputs.py`), or a subcommand on a script whose `--help` lists none |
+| `command` | a `cmd` action whose `python <script>.py <subcommand>` names a script outside `scripts/` or with a `..` segment (never run), a missing script, a subcommand its `--help` does not list (`cv.py`, `outputs.py`), or a subcommand on a script whose `--help` lists none |
 
 Level 2, flow. Edges are derived: a step that reads an artifact follows every
 step that writes it (inputs are AND, producers are OR), and a gate's step is
@@ -120,7 +118,10 @@ without blocking CI.
 the fact was written from: a line added above them shifts every anchor below.
 `bun run anchors <commit>` compares each cited file with `<commit>` (the last
 commit at which the anchors were known good, for example the merge base of
-a branch that edited cited files) through `git diff`. Only anchors already in the model at `<commit>` are judged; one written since cites the file as it is now.
+a branch that edited cited files) through `git diff`. Only anchors already in
+the model at `<commit>` are judged; one written since cites the file as it is
+now. Give it the commit the anchors were last checked at: an older one shifts
+again an anchor re-anchored since whose new value another anchor had then.
 
 - `MOVED a:4-5 -> a:6-7`: the lines only shifted; `--fix` rewrites the anchor
   in the YAML.

@@ -275,3 +275,15 @@ reports now live at `archive/work-records/<task-slug>/reviews/NN-<reviewer>.md`,
 the same shape as before. Entries above and in the ADRs, closed proposals and
 closed tasks that name `docs/work/...` describe the past; read them with
 `archive/work-records/` in place of `docs/work/`.
+
+## 2026-10-14 — the Workflow Model is checked
+
+TASK-38 made the workflow tool check the whole model in `docs/workflow`:
+`bun run check` applies 20 rules at levels 1 (shape, references, files,
+skills, agents, `cv.py` and `outputs.py` subcommands) and 2 (flow: every
+input produced or given, every step reached, cycles only where a declared
+loop breaks them), each rule with a broken fixture under
+`tools/workflow/test/fixtures/`. CI runs it on both runners and the suite
+as its `workflow-model` case. Two `after` steps that nothing reached gained
+an input (inferences in `docs/workflow/GAPS.md`). `bun run anchors <commit>`
+replaces the TASK-37 script that found drifted source anchors.

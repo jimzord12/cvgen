@@ -286,8 +286,9 @@ class Checker {
     const problems: string[] = [];
     for (const m of run.matchAll(/\bpython3?\s+([\w./-]+\.py)(?:\s+([a-z][\w-]*))?/g)) {
       const [, script = "", sub] = m;
-      // Only the repository's own scripts are run (with --help); anything else is named, never executed.
-      if (!script.startsWith("scripts/")) {
+      // Only the repository's own scripts are run (with --help): a path outside scripts/, or one with a ".."
+      // segment, is reported and never executed.
+      if (!script.startsWith("scripts/") || script.split("/").includes("..")) {
         problems.push(`${script} is not under scripts/; the check runs --help only for the repository's own scripts`);
         continue;
       }
