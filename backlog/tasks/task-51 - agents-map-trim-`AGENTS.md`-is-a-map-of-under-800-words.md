@@ -1,9 +1,10 @@
 ---
 id: TASK-51
 title: 'agents-map-trim: `AGENTS.md` is a map of under 800 words'
-status: Queued
+status: Active
 assignee: []
 created_date: '2026-10-14 04:48'
+updated_date: '2026-10-14 12:37'
 labels:
   - restructure
 dependencies: []
