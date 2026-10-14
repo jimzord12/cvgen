@@ -21,7 +21,10 @@ drawing.
    name prints `warning: unknown font family` and substitutes; `python tests/run.py`,
    `scripts/cv.py render` and `scripts/build.ps1` fail on that warning.
 3. If the theme changes secondary SVG hues, add the hex values to
-   `art-colors`.
+   `art-colors`. Spreading `golden-blue` keeps `art-palette` (the marine
+   art's own colours, from `domain.typ`); a theme written from scratch imports `domain` from
+   `../../../domain.typ` (as `golden-blue.typ` does) and sets
+   `art-palette: domain.art-palette` itself.
 4. Add an example under `examples/marine/flagship/` that differs from an existing one by the
    theme import only. Add it to `examples/release.json` (read by
    `scripts/build.ps1` and `tests/run.py`) and its assertions in `tests/run.py`.

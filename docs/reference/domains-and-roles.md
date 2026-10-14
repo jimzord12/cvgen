@@ -56,14 +56,21 @@ Nothing in `packages/cv-framework/` imports or names a file in
 `packages/domains/` (a domain passes its SVG paths in at render time), and every domain file that reaches the core does so
 through `cv-framework/core/` (the suite asserts both). The Framework owns:
 `normalize-common` and `validate-common` (identity name, contacts, profile,
-certificates, education, languages), the page shell, the page-plan grammar
-(a `companies` list per page, exactly one synopsis on the last experience
-page, credentials after experience), pagination over a domain-supplied row
-model (`count(company)`, `slice(company, rows)`), and `merge`/`compose`.
+certificates, education, languages), the page shell (a template steers it
+through its layout's `shell` slice: opening margin, optional first-page
+band), the page-plan grammar (a `companies` list per page that covers every
+row once, in candidate order), pagination over a domain-supplied row model
+(`count(company)`, `slice(company, rows)`, and optionally `row`, the word
+its messages use for one row), SVG recolouring by the theme's
+`art-palette`, and `merge`/`compose`. Which page carries the closing
+sections (Flagship's synopsis, certificates, education) is the template's
+rule: Flagship checks it in `validate-plan` (`flagship.typ`).
 
 The domain owns everything that knows its career area: for marine,
 `identity.rank`, the companies model, `company-months`,
-`experience-totals`, and the `experience-model` the core paginates with.
+`experience-totals`, the `experience-model` the core paginates with (its
+`row` is "vessel"), and `art-palette`, the colours baked into its SVGs and
+the theme colours that replace them, which Flagship's themes carry.
 
 ## Adding a domain without touching marine
 
@@ -93,7 +100,8 @@ not a domain: it lives in that client's `Envelope` and imports
 A new domain is done when every line below is true:
 
 1. `domains/<domain>/domain.typ` exports `domain` (`id`, `meta`, `copy`,
-   `experience` with `count` and `slice`); `data.typ` exports the domain's
+   `experience` with `count`, `slice` and optionally `row`, and
+   `art-palette` if its SVGs carry baked colours); `data.typ` exports the domain's
    normalise and validate functions built on `normalize-common` and
    `validate-common`.
 2. `schema/candidate.schema.json` describes the facts; a fictional record
@@ -116,7 +124,8 @@ A new domain is done when every line below is true:
    added to `tests/baseline.json` (adding entries is routine; constitution
    section 1).
 7. `python tests/run.py` passes. Its boundary check proves the Framework
-   imports no domain; it does not prove the Framework was left alone.
+   imports no domain and speaks no domain's or template's words, keys or
+   colours; it does not prove the Framework was left alone.
 8. `git diff --stat main...HEAD -- packages/cv-framework packages/domains/marine`
    is empty (three dots: only the domain branch's own changes, so merging
    `main` in does not raise a false alarm; use `origin/main` if that is what

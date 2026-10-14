@@ -14,6 +14,8 @@
 #assert.eq(fragment.continued, true)
 #assert.eq(company-fragment(0, companies, model).items, (1, 2, 3))
 #validate-pages(((companies: ((company: 0, rows: (0, 2)),)), (companies: ((company: 0, rows: (2, 3)),), synopsis: true)), candidate, model)
+// The core checks rows only: closing sections (synopsis, certificates, education) are a template's rule.
+#validate-pages(((companies: (0,)),), candidate, model)
 // Composition: later wins, nested dictionaries merge, arrays are replaced, none is skipped.
 #assert.eq(compose((a: 1, copy: (x: "d", list: (1, 2))), none, (copy: (x: "r")), (copy: (list: (3,)), b: 2)),
   (a: 1, copy: (x: "r", list: (3,)), b: 2))

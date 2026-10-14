@@ -90,7 +90,7 @@
           "title": "Framework",
           "path": "packages/cv-framework/",
           "blurb": "The domain-neutral core: page frame, components, data merge, pagination, fonts.",
-          "touch": "Changing behaviour every `Domain` shares. It never imports a `Domain`; the suite checks that."
+          "touch": "Changing behaviour every `Domain` shares. It never imports a `Domain`, and its code names no `Domain` or template word, no layout key or artwork slot it does not own, no colour literal; the suite checks both."
         },
         {
           "id": "n-marine",

@@ -96,9 +96,10 @@
   validate-repeated-vessels(candidate.companies)
 }
 
-// The row model the core's pagination uses: one row per ship. A fragment
-// keeps the full company's months so a continued company never shows the
-// duration of the rows on that page alone.
+// The row model the core's pagination uses: one row per ship, named `vessel`
+// in the core's page-plan messages. A fragment keeps the full company's
+// months so a continued company never shows the duration of the rows on that
+// page alone.
 #let vessel-count(company) = company.groups.map(g => g.ships.len()).sum(default: 0)
 
 #let vessel-slice(company, rows) = {
@@ -115,4 +116,4 @@
   (..company, groups: groups, display-months: company-months(company))
 }
 
-#let experience-model = (count: vessel-count, slice: vessel-slice, totals: experience-totals)
+#let experience-model = (count: vessel-count, slice: vessel-slice, totals: experience-totals, row: "vessel")
