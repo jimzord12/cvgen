@@ -18,7 +18,7 @@ task, clear acceptance criteria, independent review. Fixed sprints are optional.
 |---|---|
 | Queued | A useful outcome, scope and observable acceptance criteria. |
 | Active | Claude owns the task and works in small coherent changes. |
-| Review | Author checks are complete; a fresh `code-reviewer` examines the exact change under [review.md](review.md). |
+| Review | Author checks are complete; a fresh `code-reviewer`, or `context-reviewer` for the agent context, examines the exact change under [review.md](review.md). |
 | Ready | Acceptance criteria, required checks and review pass; ready for integration. |
 | Done | The change reaches its intended branch, the push and CI result are confirmed, and evidence is recorded. |
 
@@ -77,7 +77,8 @@ report:
   (filters combine, so one command would miss a blocked Queued task; the
   lists include active branches).
 - **Git:** `git worktree list` and local or remote branches already merged
-  into `main`; anything uncommitted or unpushed.
+  into `main`; anything uncommitted or unpushed. The `Main Folder` follows its
+  rule ([git-workflow.md](git-workflow.md#branches)).
 - **CI:** `gh run list --commit <main head>` shows the run on the current
   `main` head, green (not `--branch main`: see `docs/git-workflow.md`).
 - **`builds/`:** clear old folders by path when they pile up.
@@ -119,6 +120,7 @@ docs/work/<id>/reviews/NN.md      # Review reports, created only when review run
 docs/decisions/                   # Accepted architecture decisions
 docs/proposals/                   # Proposals with status; rejected/ keeps declined ones
 .claude/agents/code-reviewer.md   # Thin wrapper around docs/review.md
+.claude/agents/context-reviewer.md  # Agent-context reviewer under docs/review.md
 .claude/skills/backlog/           # How agents read and update the tasks
 ```
 

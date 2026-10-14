@@ -215,11 +215,13 @@
       "calledBy": "The lead.",
       "when": "Any change to the files agents read.",
       "notes": [
-        "Merged into `main` on 2026-10-04 (owner's decision). The two review reports from its branch were FINDINGS and stay open: `docs/work/codex-visual-tools/reviews/01.md`."
+        "Merged into `main` on 2026-10-04 (owner's decision). The two review reports from its branch were FINDINGS: `docs/work/design-core/reviews/03-context-reviewer.md` (Material F1 and F2 fixed in TASK-33, 2026-10-14; its Minor findings were outside that task) and `docs/work/codex-visual-tools/reviews/01.md` (open; carried to TASK-4)."
       ],
       "sources": [
         ".claude/agents/context-reviewer.md",
-        "docs/work/anti-examples/reviews/01-context.md"
+        "docs/work/anti-examples/reviews/01-context.md",
+        "docs/work/design-core/reviews/03-context-reviewer.md",
+        "docs/work/codex-visual-tools/reviews/01.md"
       ],
       "short": "Context rev."
     },
@@ -235,10 +237,12 @@
       "calledBy": "The lead.",
       "when": "Feedback from you that changes how agents behave.",
       "notes": [
-        "Merged into `main` on 2026-10-04 (owner's decision). The two review reports from its branch were FINDINGS and stay open: `docs/work/codex-visual-tools/reviews/01.md`."
+        "Merged into `main` on 2026-10-04 (owner's decision). The two review reports from its branch were FINDINGS: `docs/work/design-core/reviews/03-context-reviewer.md` (Material F1 and F2 fixed in TASK-33, 2026-10-14; its Minor findings were outside that task) and `docs/work/codex-visual-tools/reviews/01.md` (open; carried to TASK-4)."
       ],
       "sources": [
-        ".claude/agents/context-maintainer.md"
+        ".claude/agents/context-maintainer.md",
+        "docs/work/design-core/reviews/03-context-reviewer.md",
+        "docs/work/codex-visual-tools/reviews/01.md"
       ]
     },
     "general-purpose": {
@@ -350,7 +354,7 @@
       "role": "Reads and updates the tasks in `backlog/` through the `backlog` CLI, and reads and rewrites the `session-handoff` doc on `main`. Every task's record is a task file.",
       "when": "Orientation, and every task state change.",
       "sources": [
-        ".claude/skills/backlog/SKILL.md:1-117"
+        ".claude/skills/backlog/SKILL.md:1-118"
       ]
     },
     "repo-maintenance": {
@@ -361,7 +365,7 @@
       "when": "`quick` in every `Session Sweep`; the rest when you ask for a tidy-up.",
       "sources": [
         ".claude/skills/repo-maintenance/SKILL.md:21-28",
-        ".claude/repo-maintenance.md:136-140"
+        ".claude/repo-maintenance.md:135-139"
       ]
     },
     "cv-py": {
@@ -455,10 +459,10 @@
     "github-ci": {
       "label": "GitHub CI",
       "kind": "service",
-      "role": "Runs the suite on every push and pull request (Typst 0.15.1). The lead watches it on `main` before calling work Done.",
+      "role": "Runs the suite once per push (its head commit) on any branch, on Linux and Windows (Typst 0.15.1, checksummed; Windows also runs `scripts/build.ps1`); a newer push to a feature branch cancels the older run. The lead watches it on `main` before calling work Done.",
       "sources": [
         ".github/workflows/verify.yml",
-        "docs/git-workflow.md:74-87"
+        "docs/git-workflow.md:90-103"
       ],
       "short": "CI"
     }
@@ -499,7 +503,7 @@
     "Certificate Warning": "A WARNING line at render: a certificate expired or expires within 180 days. Never blocks.",
     "Live Read": "A render that read a private file directly instead of the `Revision`'s copy. It fails its checks.",
     "Batch Test": "Design test 1: in an HR batch of 100 to 200 CVs, ours cannot be skipped.",
-    "Three-Second Test": "Design test 2: before a word is read, the page shouts its `Domain`, specialty and role.",
+    "Three-Second Test": "Design test 2: before a word is read, the page shouts its `Domain`, specialty and `Rank`.",
     "Flagship Parity": "Design test 3: side by side with the Marine Flagship, the CV looks as confident and premium.",
     "Style": "One idea of a magazine-editor run. A run has three very distinct ones.",
     "Design Tier": "Safe (calm, never generic), Stylish (Flagship territory), Creative (style to the maximum).",

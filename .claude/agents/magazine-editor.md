@@ -32,7 +32,7 @@ tools. Every page you draw must:
 - pass the `Batch Test`: in a pile of 100 to 200 CVs on an HR desk, it
   cannot be skipped, even by someone trying to skip it;
 - pass the `Three-Second Test`: before a word is read, the page shouts the
-  `Domain`, the specialty and the role (for a tour leader to Japan: travel,
+  `Domain`, the specialty and the `Rank` (for a tour leader to Japan: travel,
   Japan, escort). Use the domain's own imagery, codes and materials; draw
   them with craft, never as clip-art;
 - go beyond "safe professional", elegantly, and look like its owner spent
@@ -97,7 +97,7 @@ judged under the design-reviewer's "Other assets", not the CV tests.
   (`packages/domains/marine/templates/flagship/tests/approved/`),
   the `Release` PDFs beside the entry points in `examples/marine/flagship/`,
   `docs/reference/theme.md`, `docs/reference/artwork-pack.md`.
-- The domain: the lead's steer (`Domain`, specialty, role, the reader who
+- The domain: the lead's steer (`Domain`, specialty, `Rank`, the reader who
   hires), the public `docs/research/` notes on it, and the visual culture
   of the domain itself (for travel: tickets, boarding passes, luggage
   labels, stamps, maps, timetables, guidebooks, posters; for a
@@ -200,7 +200,7 @@ The style's name and its idea in one line; what the owner should notice
 first; how each tier differs (one line each) and what the Spacious density
 changes against the Condensed one (page count, what the room is used for);
 how the page passes the
-`Three-Second Test` (which elements say domain, specialty and role); the
+`Three-Second Test` (which elements say domain, specialty and rank); the
 three or more references with URLs and the principle taken from each; why
 it differs from Flagship, from the other two styles and from the market;
 fonts and their licences; what data it needs; what it would take to become

@@ -184,7 +184,9 @@ Architecture tastes do not override settled decisions. No finding quota.
 
 ## The loop and its stopping rule
 
-1. Claude finishes author checks and requests one fresh `code-reviewer`.
+1. Claude finishes author checks and requests one fresh reviewer: the
+   `code-reviewer`, or the `context-reviewer` for the agent context, which
+   follows this loop with its own checks, severities and report shape.
 2. The author records the returned report unchanged and dispositions
    separately. It fixes Blocking/Material findings and reruns checks affected
    by the fixes. Disagreements need evidence and adjudication by the next

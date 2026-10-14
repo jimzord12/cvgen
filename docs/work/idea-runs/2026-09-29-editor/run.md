@@ -40,6 +40,10 @@ for a Codex `codex-visual-reviewer` beside the `design-reviewer`
 (`docs/proposals/codex-visual-tools.md`, approved, not built): the next
 session may build it first and use it from design round 1.
 
+2026-10-14 (TASK-33): merged into `main` on 2026-10-04 (`a66b448`) at the
+owner's request. The idea-run gates above were never run; the owner judged
+the designs later in the Design Review app (applied 2026-10-06).
+
 Author: `magazine-editor`, asked to wrap up early; it reports the Safe tiers
 got less polish than the Stylish ones and Concourse Safe is the weakest.
 

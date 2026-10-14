@@ -14,7 +14,7 @@ open only what your task needs.
 the product"). The design and styling are what CVgen sells and what sets it
 apart from online automated tools. A CV must pass the `Batch Test` (it
 cannot be skipped in an HR batch of 100 to 200) and the `Three-Second Test`
-(the page itself shouts `Domain`, specialty and role before a word is
+(the page itself shouts `Domain`, specialty and `Rank` before a word is
 read), going beyond "safe professional", elegantly, at the level of the
 Marine Flagship. A well-crafted but quiet design is a failure. Anyone who
 designs, reviews or proposes a CV design reads that section first.
@@ -28,7 +28,7 @@ keep it untracked and do not copy its contents into shared documentation.
 - Claude Code is the primary implementation harness. It owns coding, test
   execution, implementation review, and integration work. Implementation
   follows `docs/development.md` (stages, task records, guardrails) and
-  `docs/review.md` (the independent `code-reviewer` gate).
+  `docs/review.md` (the independent `code-reviewer` or `context-reviewer` gate).
 - Codex is optional for discussion, research, proposals, design decisions, and
   their documentation. Reading code for design context is allowed; it does not
   take over implementation or provide the implementation test/review verdict.
@@ -163,7 +163,7 @@ Full text in `docs/constitution.md`. The short list:
 | `docs/framework-gaps.md` | Before planning framework work, and after any bypass of a component or template |
 | `docs/conventions.md` | Before writing code, docs or a commit message |
 | `docs/development.md` | Starting, resuming or handing off a task: stages, the task record in `backlog/`, review reports under `docs/work/<id>/reviews/`, guardrails |
-| `docs/review.md` | Requesting, performing or recording an independent review; the `code-reviewer` subagent follows it |
+| `docs/review.md` | Requesting, performing or recording an independent review; the `code-reviewer` and `context-reviewer` subagents follow it |
 | `docs/proposals/README.md` | Proposal states, owner decisions, and orientation of pending/approved work |
 | `docs/decisions/0014-backlog-md-task-store.md` | Why Backlog.md is the task store, and what replaced the Trello board |
 | `docs/git-workflow.md` | Agent-owned Git, direct pushes, feature branches, integration and tags |

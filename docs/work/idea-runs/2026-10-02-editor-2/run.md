@@ -30,3 +30,5 @@ Delivery branch `feature/hanami-client-cv`, cut from `origin/main`, carries only
 Deviation from `idea-run` step 7: the research and design reviewer reports were returned in-session and summarised above; the full reports were not stored under `reviews/`. Observation: the loop should store each report as it arrives.
 
 Cross-branch references in the briefs (`2026-09-29-stamp-rally`, `2026-10-02-japan-passage`, snapshot commits `8beff28`..`f9e3e23`) resolve on `main` since 2026-10-04, when `docs/idea-run-2026-10-02-editor-b` and this delivery branch were both merged into it.
+
+Evidence the merge dropped, restored 2026-10-14 (TASK-33): `python scripts/outputs.py check` on `feature/hanami-client-cv` (2026-10-02, before the merge): 10 PDFs, 0 problems.
