@@ -205,7 +205,7 @@
           ],
           "sources": [
             "docs/guides/client-workflow.md:177-185",
-            "docs/guides/client-workflow.md:333-336"
+            "docs/guides/client-workflow.md:332-335"
           ]
         },
         {
@@ -345,8 +345,8 @@
           ],
           "sources": [
             "docs/guides/client-workflow.md:26",
-            "docs/guides/client-workflow.md:264-279",
-            "docs/pdf-workflow.md:143-149",
+            "docs/guides/client-workflow.md:264-278",
+            "docs/pdf-workflow.md:144-150",
             "docs/glossary.md"
           ]
         }
@@ -374,7 +374,7 @@
             "magazine-editor"
           ],
           "sources": [
-            "docs/guides/client-workflow.md:288-298",
+            "docs/guides/client-workflow.md:287-297",
             ".claude/skills/new-cv/SKILL.md:62-66"
           ]
         },
@@ -391,7 +391,7 @@
             "design-review-app"
           ],
           "sources": [
-            "docs/guides/client-workflow.md:294-298",
+            "docs/guides/client-workflow.md:293-297",
             ".claude/skills/idea-run/SKILL.md:123-135"
           ]
         },
@@ -492,7 +492,7 @@
           ],
           "sources": [
             "docs/guides/build-a-cv.md:184-191",
-            "docs/pdf-workflow.md:174-178"
+            "docs/pdf-workflow.md:175-179"
           ]
         },
         {
@@ -515,7 +515,7 @@
           ],
           "sources": [
             "docs/guides/build-a-cv.md:193-211",
-            "docs/pdf-workflow.md:179-190"
+            "docs/pdf-workflow.md:180-191"
           ]
         },
         {
@@ -536,7 +536,7 @@
           ],
           "sources": [
             "docs/guides/build-a-cv.md:204-211",
-            "docs/guides/client-workflow.md:300-303"
+            "docs/guides/client-workflow.md:299-302"
           ]
         }
       ]
@@ -556,7 +556,7 @@
             "label": "Claude names passed delete-by dates and hands you the erase commands; you do the deleting."
           },
           "sources": [
-            "docs/guides/client-workflow.md:300-329",
+            "docs/guides/client-workflow.md:299-328",
             "docs/preferences.md:69-80"
           ]
         }

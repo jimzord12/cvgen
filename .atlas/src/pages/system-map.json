@@ -52,7 +52,7 @@
           "path": "private/<envelope>/draft/",
           "blurb": "The `Text Drafts` and the `Sign-off` screenshots.",
           "sources": [
-            "docs/guides/client-workflow.md:250-279"
+            "docs/guides/client-workflow.md:250-278"
           ]
         },
         {

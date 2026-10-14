@@ -54,7 +54,7 @@ window.ATLAS = {
      "Outside `private/` a client is only their `Alias`, like `client-2026-09-01`."
     ],
     "sources": [
-     "docs/guides/client-workflow.md:340-342",
+     "docs/guides/client-workflow.md:339-341",
      "docs/guides/client-workflow.md:64-68"
     ],
     "short": "Client"
@@ -390,7 +390,7 @@ window.ATLAS = {
     "role": "The `Output Contract` tool: `stamp` writes a PDF's `Meta File`; `check` lists every PDF without a valid one.",
     "sources": [
      "scripts/outputs.py",
-     "docs/pdf-workflow.md:123-164"
+     "docs/pdf-workflow.md:123-165"
     ]
    },
    "suite": {
@@ -727,7 +727,7 @@ window.ATLAS = {
        ],
        "sources": [
         "docs/guides/client-workflow.md:177-185",
-        "docs/guides/client-workflow.md:333-336"
+        "docs/guides/client-workflow.md:332-335"
        ]
       },
       {
@@ -867,8 +867,8 @@ window.ATLAS = {
        ],
        "sources": [
         "docs/guides/client-workflow.md:26",
-        "docs/guides/client-workflow.md:264-279",
-        "docs/pdf-workflow.md:143-149",
+        "docs/guides/client-workflow.md:264-278",
+        "docs/pdf-workflow.md:144-150",
         "docs/glossary.md"
        ]
       }
@@ -896,7 +896,7 @@ window.ATLAS = {
         "magazine-editor"
        ],
        "sources": [
-        "docs/guides/client-workflow.md:288-298",
+        "docs/guides/client-workflow.md:287-297",
         ".claude/skills/new-cv/SKILL.md:62-66"
        ]
       },
@@ -913,7 +913,7 @@ window.ATLAS = {
         "design-review-app"
        ],
        "sources": [
-        "docs/guides/client-workflow.md:294-298",
+        "docs/guides/client-workflow.md:293-297",
         ".claude/skills/idea-run/SKILL.md:123-135"
        ]
       },
@@ -1014,7 +1014,7 @@ window.ATLAS = {
        ],
        "sources": [
         "docs/guides/build-a-cv.md:184-191",
-        "docs/pdf-workflow.md:174-178"
+        "docs/pdf-workflow.md:175-179"
        ]
       },
       {
@@ -1037,7 +1037,7 @@ window.ATLAS = {
        ],
        "sources": [
         "docs/guides/build-a-cv.md:193-211",
-        "docs/pdf-workflow.md:179-190"
+        "docs/pdf-workflow.md:180-191"
        ]
       },
       {
@@ -1058,7 +1058,7 @@ window.ATLAS = {
        ],
        "sources": [
         "docs/guides/build-a-cv.md:204-211",
-        "docs/guides/client-workflow.md:300-303"
+        "docs/guides/client-workflow.md:299-302"
        ]
       }
      ]
@@ -1078,7 +1078,7 @@ window.ATLAS = {
         "label": "Claude names passed delete-by dates and hands you the erase commands; you do the deleting."
        },
        "sources": [
-        "docs/guides/client-workflow.md:300-329",
+        "docs/guides/client-workflow.md:299-328",
         "docs/preferences.md:69-80"
        ]
       }
@@ -1729,7 +1729,7 @@ window.ATLAS = {
        "path": "private/<envelope>/draft/",
        "blurb": "The `Text Drafts` and the `Sign-off` screenshots.",
        "sources": [
-        "docs/guides/client-workflow.md:250-279"
+        "docs/guides/client-workflow.md:250-278"
        ]
       },
       {
@@ -2267,22 +2267,30 @@ window.ATLAS = {
   }
  ],
  "build": {
-  "builtAt": "2026-10-14 06:45 UTC",
-  "commit": "f5fdcdc",
+  "builtAt": "2026-10-14 06:54 UTC",
+  "commit": "429a7ee",
   "kit": "1.0",
-  "stale": {},
+  "stale": {
+   "system-map": [
+    "AGENTS.md",
+    "docs/pdf-workflow.md",
+    "docs/guides/client-workflow.md",
+    "docs/guides/build-a-cv.md",
+    "docs/glossary.md"
+   ]
+  },
   "verified": {
    "client-journey": {
     "at": "2026-10-14",
-    "commit": "7da114f"
+    "commit": "429a7ee"
    },
    "design-run": {
     "at": "2026-10-14",
-    "commit": "7da114f"
+    "commit": "429a7ee"
    },
    "change-review": {
     "at": "2026-10-14",
-    "commit": "b886a7c"
+    "commit": "429a7ee"
    },
    "system-map": {
     "at": "2026-10-14",
@@ -2290,7 +2298,7 @@ window.ATLAS = {
    },
    "roster": {
     "at": "2026-10-14",
-    "commit": "7da114f"
+    "commit": "429a7ee"
    }
   }
  }
