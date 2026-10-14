@@ -18,11 +18,13 @@ and on a raster mismatch `check/diff-N.png` highlighting changed pixels.
 The page images are what to show the owner or a reviewer.
 
 CI (`.github/workflows/verify.yml`) runs the suite on every push (when and
-why: `docs/tech-stack.md`, CI row) on a Linux and a Windows runner, writing to `builds/ci/`, and on Windows also
-runs `scripts/build.ps1`. Each runner uploads its evidence as the artifact
+why: `docs/tech-stack.md`, CI row) on a Linux and a Windows runner, writing to `builds/ci/`
+(on both, the suite itself runs `scripts/build.ps1` in a throwaway copy: check 14), and on
+Windows also runs `scripts/build.ps1` on the checkout. Each runner uploads its evidence,
+the `build-script/<shell>.log` files included, as the artifact
 `verification-evidence-Linux` or `verification-evidence-Windows` (the
-Windows one also holds the five built PDFs); `gh run download <run-id>`
-fetches them.
+Windows one also holds the PDFs that build wrote, one per example in
+`examples/release.json`); `gh run download <run-id>` fetches them.
 
 ## What it checks
 
@@ -75,7 +77,7 @@ fetches them.
 
 9. **Example records.** Before any compile, every record an example entry
    point reads validates against the schema its imports select (the Flagship
-   input schema for all five), with the same code `scripts/cv.py render`
+   input schema for every listed example), with the same code `scripts/cv.py render`
    uses, and every entry point must contribute a record; the
    template-over-domain choice is also pinned for role-first imports, an
    entry importing only marine's `lib.typ` (Flagship's schema), only the
@@ -138,7 +140,8 @@ fetches them.
    does not exist. Then the real `build.ps1` runs under every PowerShell on
    the machine (`pwsh`, and on Windows also Windows PowerShell 5.1) in a
    throwaway copy under the run's `build-script/` folder, with the list cut
-   to `deck-cadet`: the suite refuses that list, a plain build writes only
+   to `deck-cadet`: the suite refuses that list, a list without its
+   `examples` key makes `build.ps1` refuse before it builds, a plain build writes only
    `deck-cadet.pdf`, `-Release` over an existing `Release` exits non-zero
    with `Refused: the Release already exists` and builds nothing, leaving the
    PDF and its `Meta File` byte-identical, `-Release` with no `Release`

@@ -4,7 +4,7 @@ title: 'build-no-overwrite: `build.ps1` obeys "scripts never overwrite"'
 status: Active
 assignee: []
 created_date: '2026-10-14 04:48'
-updated_date: '2026-10-14 06:15'
+updated_date: '2026-10-14 06:42'
 labels:
   - restructure
 dependencies: []
@@ -53,4 +53,13 @@ Manual walk (disposable copies of packages/, examples/, scripts/build.ps1, scrip
 Not done here, on purpose: porting build.ps1 to the TypeScript tooling (the task said "consider"; the smallest fix keeps PowerShell), and enforcing a raised version number on -ReplaceRelease (constitution section 2 asks for one; it stays a documented step in git-workflow.md "Releasing a new render"). Limitation: the build-script case was run here on Windows only; on CI (ubuntu) it runs under pwsh, which GitHub's ubuntu runners ship, and fails rather than skips if none is found.
 
 Atlas: facts for build.ps1 and the suite updated (site.json, system-map), shifted line ranges fixed (new-cv SKILL +2, preferences +1); all five pages stamped, system-map last; check --strict exit 0.
+
+## Review round 1 follow-up (after merging origin/main with TASK-48)
+
+- m1: `.github/workflows/verify.yml` uploads `builds/ci/build-script/*.log` on both runners.
+- m2: TASK-48 wording made true after the merge: verify.yml comments (the suite drives build.ps1 on both runners; the Windows step builds every example in examples/release.json on the checkout), docs/reference/verification.md (CI paragraph; "every listed example"), docs/tech-stack.md (Build and CI rows).
+- N3: docs/pdf-workflow.md says one existing Release makes -Release refuse the whole run.
+- N4: build.ps1 refuses a list with no `examples` key, an empty array or an entry lacking source/title/variant ("examples/release.json needs an \"examples\" array ... Nothing was built or written."); suite case build-script-<shell>-malformed-list-refused. Mutation: guard disabled -> `AssertionError: 0 CVs created in builds/malformed`.
+- Walk (copy under builds/t49-walk2, pwsh 7.6.6 and 5.1.26100): misspelt key, empty array, entry without title each throw that message with no output folder; the restored list builds 5 CVs.
+- Suite on the merged head: PASS 109, builds/tests-20261014-094030-541892; outputs check 19 indexed, 0 problems.
 <!-- SECTION:NOTES:END -->

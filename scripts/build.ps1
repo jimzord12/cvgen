@@ -21,8 +21,14 @@ try {
     }
     # The one example list, shared with tests/run.py: every public example, its title (with version)
     # and the look it shows.
-    $examples = @((Get-Content -LiteralPath 'examples/release.json' -Raw -Encoding UTF8 | ConvertFrom-Json).examples)
-    if ($examples.Count -eq 0) { throw 'examples/release.json lists no examples.' }
+    $list = Get-Content -LiteralPath 'examples/release.json' -Raw -Encoding UTF8 | ConvertFrom-Json
+    # A missing key reads as $null, and @($null) has one element: check the key itself.
+    $examples = if ($list -and $list.PSObject.Properties['examples']) { @($list.examples | Where-Object { $_ }) } else { @() }
+    $incomplete = @($examples | Where-Object { -not $_.source -or -not $_.title -or -not $_.variant })
+    if ($examples.Count -eq 0 -or $incomplete.Count -gt 0) {
+        throw ('examples/release.json needs an "examples" array of entries, each with source, title and variant ' +
+            '(it has none, or one lacks a field). Nothing was built or written.')
+    }
     if ($Release) {
         if ($HideVesselDurations) { throw 'The Release shows vessel durations; drop -HideVesselDurations.' }
         # Never overwrite (constitution section 2): checked before anything is built or written.
