@@ -3,10 +3,10 @@
 // model itself, and through the kit's own validation (.atlas/_kit/atlas.py).
 import { afterEach, beforeEach, describe, expect, test } from "bun:test";
 import { spawnSync } from "node:child_process";
-import { copyFileSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from "node:fs";
+import { appendFileSync, copyFileSync, cpSync, existsSync, mkdirSync, mkdtempSync, readFileSync, rmSync, statSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
-import { join } from "node:path";
-import { atlasPagePath, clientJourney, generate } from "../src/atlas";
+import { dirname, join } from "node:path";
+import { atlasPagePath, clientJourney, generate, stamp, staleSources, update } from "../src/atlas";
 import { checkModel, modelDir, repoRoot } from "../src/check";
 
 const tool = join(import.meta.dirname, "..");
@@ -137,4 +137,84 @@ describe("the page follows the model", () => {
     expect(none).toBeUndefined();
     expect(problems).toContain('actor.owner has no actor "owner" in .atlas/src/site.json');
   });
+});
+
+// A temporary repository holding just what the model and the client-journey page need: docs/workflow,
+// every file the model cites or names, the scripts its `cmd` actions run (with packages/cv-workflow for
+// their --help), and the Atlas with this one page, stamped against the copies.
+function scratchRepo(tmp: string) {
+  const ix = checkModel(modelDir, repoRoot).indexed;
+  if (!ix) throw new Error("the real model must pass check");
+  const take = (path: string) => {
+    const from = join(repoRoot, path);
+    if (!existsSync(from)) return;
+    const to = join(tmp, path);
+    if (statSync(from).isDirectory()) mkdirSync(to, { recursive: true });
+    else {
+      mkdirSync(dirname(to), { recursive: true });
+      copyFileSync(from, to);
+    }
+  };
+  const anchor = (s: string) => s.replace(/:\d+(-\d+)?$/, "");
+  const defs = [...ix.defs.actor.values(), ...ix.defs.action.values(), ...ix.defs.artifact.values(), ...ix.defs.gate.values(), ...ix.defs.loop.values(), ...ix.defs.step.values()];
+  for (const d of defs) for (const s of d.item.sources) take(anchor(s));
+  for (const s of ix.model.stages) for (const src of s.data.sources) take(anchor(src));
+  for (const { item } of ix.defs.artifact.values()) if (item.path && !item.path.includes("<")) take(item.path);
+  for (const { item } of ix.defs.action.values()) {
+    if (item.kind === "skill") take(`.claude/skills/${item.skill}/SKILL.md`);
+    if (item.kind === "agent") take(`.claude/agents/${item.agent}.md`);
+  }
+  for (const path of ["docs/workflow", "scripts", "packages/cv-workflow", ".atlas/_kit", ".atlas/src/pages"]) {
+    cpSync(join(repoRoot, path), join(tmp, path), { recursive: true, filter: (p) => !p.includes("__pycache__") });
+  }
+  for (const file of [".atlas/README.md", ".atlas/atlas.lock.json", "AGENTS.md", "docs/glossary.md"]) take(file);
+  for (const page of ["design-run", "change-review", "system-map", "roster"]) rmSync(join(tmp, ".atlas", "src", "pages", `${page}.json`));
+  const site = JSON.parse(readFileSync(join(repoRoot, ".atlas", "src", "site.json"), "utf8"));
+  writeFileSync(join(tmp, ".atlas", "src", "site.json"), JSON.stringify({ ...site, pages: ["client-journey"], moves: [] }, null, 2));
+  const stamped = stamp(tmp);
+  if (!stamped.ok) throw new Error(`stamping the scratch Atlas failed: ${stamped.output}`);
+  expect(staleSources(tmp)).toEqual({ stale: [] });
+}
+
+describe("bun run atlas on a scratch copy of the repository: when it stamps", () => {
+  let tmp: string | undefined;
+  const after = () => join(tmp as string, "docs", "workflow", "07-after", "stage.yaml");
+  const rename = () => writeFileSync(after(), readFileSync(after(), "utf8").replace("name: Close the client's task\n", "name: Close the client's task record\n"));
+  const setUp = () => {
+    tmp = mkdtempSync(join(tmpdir(), "workflow-atlas-repo-"));
+    scratchRepo(tmp);
+    return tmp;
+  };
+  afterEach(() => {
+    // Only ever the temporary folder: never the working directory.
+    if (tmp && tmp.startsWith(tmpdir())) rmSync(tmp, { recursive: true, force: true });
+    tmp = undefined;
+  });
+
+  test("a model change with every cited file unchanged writes the page and stamps it, a newly cited file included", () => {
+    const root = setUp();
+    rename();
+    writeFileSync(after(), readFileSync(after(), "utf8").replace(/(id: after\.close\n\s+name: [^\n]+\n\s+sources: \[)/, '$1".atlas/README.md", '));
+    const r = update({ dir: join(root, "docs", "workflow"), root });
+    expect({ problems: r.problems, changed: r.changed, stamped: r.stamped, stale: r.stale }).toEqual({ problems: [], changed: true, stamped: true, stale: [] });
+    expect(readFileSync(atlasPagePath(root), "utf8")).toContain('".atlas/README.md"');
+    expect(staleSources(root)).toEqual({ stale: [] });
+    expect(readFileSync(join(root, ".atlas", "atlas.data.js"), "utf8")).toContain("Close the client's task record");
+  }, 120_000);
+
+  test("a model change while a cited file is already stale writes and builds the page but leaves it stale", () => {
+    const root = setUp();
+    appendFileSync(join(root, "docs", "guides", "client-workflow.md"), "\nA line added after the last stamp.\n");
+    rename();
+    const r = update({ dir: join(root, "docs", "workflow"), root });
+    expect({ problems: r.problems, changed: r.changed, stamped: r.stamped, stale: r.stale }).toEqual({
+      problems: [],
+      changed: true,
+      stamped: false,
+      stale: ["docs/guides/client-workflow.md"],
+    });
+    expect(readFileSync(atlasPagePath(root), "utf8")).toContain("Close the client's task record");
+    expect(readFileSync(join(root, ".atlas", "atlas.data.js"), "utf8")).toContain("Close the client's task record");
+    expect(staleSources(root)).toEqual({ stale: ["docs/guides/client-workflow.md"] });
+  }, 120_000);
 });

@@ -10,7 +10,7 @@
 import { existsSync, statSync } from "node:fs";
 import { relative } from "node:path";
 import { anchors } from "./anchors";
-import { atlas, atlasPagePath, stamp } from "./atlas";
+import { atlas, atlasPagePath, update } from "./atlas";
 import { checkModel, modelDir, repoRoot } from "./check";
 import { formatIssue, loadFile } from "./load";
 import { render } from "./render";
@@ -102,6 +102,30 @@ export function main(args: string[]): number {
       console.error(usage);
       return 2;
     }
+    // The real page: written, and stamped unless a cited file had already changed (src/atlas.ts, update).
+    if (!check && file === undefined) {
+      const r = update();
+      const shownFile = shown(atlasPagePath(repoRoot));
+      if (r.output) console.log(r.output);
+      if (r.problems.length > 0) {
+        for (const p of r.problems) console.error(p);
+        console.error(r.changed ? `FAILED atlas: wrote ${shownFile} but did not stamp it` : "FAILED atlas: nothing written");
+        return 1;
+      }
+      if (!r.changed) {
+        console.log(`OK ${shownFile} already matches the model`);
+        return 0;
+      }
+      console.log(`wrote ${shownFile}`);
+      if (r.stale.length > 0) {
+        console.error(`NOT STAMPED ${shownFile}: these cited files changed since its last stamp: ${r.stale.join(", ")}`);
+        console.error('Check the model\'s anchors against them ("bun run anchors <base>", then "bun run render" and "bun run atlas"),');
+        console.error('then stamp by hand: "python .atlas/_kit/atlas.py stamp client-journey" from the repository root.');
+        return 1;
+      }
+      return 0;
+    }
+    // --check, or a copy written elsewhere (never stamped: it is not part of the Atlas).
     const target = file ?? atlasPagePath(repoRoot);
     const { problems, changed } = atlas(target, { write: !check });
     if (problems.length > 0) {
@@ -118,22 +142,9 @@ export function main(args: string[]): number {
       console.log(`OK ${shownFile} matches the model`);
       return 0;
     }
-    if (!changed) {
-      console.log(`OK ${shownFile} already matches the model`);
-      return 0;
-    }
-    console.log(`wrote ${shownFile}`);
-    // Only the real page is stamped: a page written elsewhere is not part of the Atlas.
-    if (file !== undefined) return 0;
-    const stamped = stamp(repoRoot);
-    console.log(stamped.output);
-    if (!stamped.ok) {
-      console.error('FAILED stamp: run "python .atlas/_kit/atlas.py stamp client-journey" from the repository root');
-      return 1;
-    }
+    console.log(changed ? `wrote ${shownFile}` : `OK ${shownFile} already matches the model`);
     return 0;
-  }
-  if (command === "schema" && (rest.length === 0 || (rest.length === 1 && rest[0] === "--check"))) {
+  }  if (command === "schema" && (rest.length === 0 || (rest.length === 1 && rest[0] === "--check"))) {
     if (rest[0] === "--check") {
       const stale = staleSchemas();
       for (const name of stale) console.error(`STALE ${name}: run "bun run schema" in tools/workflow`);

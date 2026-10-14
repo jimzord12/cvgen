@@ -213,8 +213,9 @@ change.
   with a `README.md:<line>`: a malformed, unknown, repeated, nested or
   unclosed marker there; fix the marker line. `STALE .atlas/src/pages/client-journey.json`:
   the model or `tools/workflow/src/atlas.ts` changed without `bun run atlas`, or the
-  page was edited by hand; run `bun run atlas` (it also stamps the page) and commit
-  the `.atlas/` changes.
+  page was edited by hand; run `bun run atlas` (it also stamps the page, unless a file
+  it cites changed since its last stamp: then follow what it prints) and commit the
+  `.atlas/` changes.
 - `AssertionError: entry points not in examples/release.json, ...`: an
   example was added without its line in `examples/release.json` (or a
   line was removed); add the line with its `title` and `variant`.

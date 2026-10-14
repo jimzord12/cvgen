@@ -184,20 +184,29 @@ it, or when a model actor (`actor.x`) has no actor `x` in
 
 Staleness and stamps: the kit's `atlas.lock.json` holds the hash of every
 file a page cites as of its last stamp, and `atlas.py check` lists a page
-whose cited files changed since. `bun run atlas` stamps the page itself
-(`atlas.py stamp client-journey`, which also builds) whenever it writes a
-changed page, because the facts come from a model that has just passed
-`check`; no one stamps it by hand after a model change. When the kit reports it stale
-with the page unchanged (a cited file changed, not the model), check the
-model's anchors first (`bun run anchors <commit>`, then `bun run render`
-and `bun run atlas`); if the page still does not change,
-`python .atlas/_kit/atlas.py stamp client-journey` records that it was
-checked. Only the real page is stamped: `bun run atlas <file>` writes a copy
-elsewhere and leaves the `Atlas` alone (the tests use it).
+whose cited files changed since. When `bun run atlas` writes a changed page,
+it first asks the kit whether any file the page cited has changed since its
+last stamp:
 
+- none has: it stamps the page (`atlas.py stamp client-journey`, which also
+  builds), because its facts come from a model that has just passed `check`;
+  no one stamps it by hand after a model change;
+- one has: it writes and builds the page but does not stamp it, prints the
+  changed files and exits 1. `check` proves only that a cited line exists,
+  not that it still says what the model says, so a model edit must not
+  clear that warning. Check the model's anchors against those files
+  (`bun run anchors <commit>`, fix the YAML, `bun run render`,
+  `bun run atlas`), then stamp by hand:
+  `python .atlas/_kit/atlas.py stamp client-journey`.
+
+The same manual stamp, after the same anchor check, clears a page the kit
+reports stale while the page itself has not changed. Only the real page is
+stamped: `bun run atlas <file>` writes a copy elsewhere and leaves the
+`Atlas` alone (the tests use it).
 The page is the same on every run (model order, two-space JSON, LF, no
 dates); `atlas.data.js`, which the kit writes on each build, carries the
 build time and is not checked.
+
 ## Keeping anchors honest: `anchors`
 
 `check` proves an anchor's lines exist, not that they are still the lines

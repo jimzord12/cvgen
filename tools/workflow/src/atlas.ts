@@ -204,6 +204,7 @@ export function clientJourney(ix: Indexed, site: Site): { page?: object; problem
   const n = (k: keyof Indexed["defs"]) => ix.defs[k].size;
   const page = {
     id: pageId,
+    generated: "by `bun run atlas` in tools/workflow, from the Workflow Model in docs/workflow; do not edit",
     kind: "flow",
     nav: "New client",
     title: "A new client, start to finish",
@@ -245,9 +246,62 @@ export function atlas(file: string, { write, dir = modelDir, root = repoRoot }: 
   return { problems, changed };
 }
 
+const kit = (root: string, args: string[]) => {
+  const python = process.env.PYTHON || "python";
+  const p = spawnSync(python, args, { cwd: root, encoding: "utf8" });
+  return { ok: p.status === 0, out: p.stdout ?? "", output: `${p.stdout ?? ""}${p.stderr ?? ""}${p.error ? p.error.message : ""}`.trim() };
+};
+
 /** `atlas.py stamp client-journey`: records the cited files' hashes in atlas.lock.json, then builds the Atlas. */
 export function stamp(root = repoRoot): { ok: boolean; output: string } {
-  const python = process.env.PYTHON || "python";
-  const p = spawnSync(python, [join(".atlas", "_kit", "atlas.py"), "stamp", pageId], { cwd: root, encoding: "utf8" });
-  return { ok: p.status === 0, output: `${p.stdout ?? ""}${p.stderr ?? ""}${p.error ? p.error.message : ""}`.trim() };
+  return kit(root, [join(".atlas", "_kit", "atlas.py"), "stamp", pageId]);
+}
+
+/** `atlas.py build`: writes atlas.data.js and the HTML pages without stamping anything. */
+const build = (root: string) => kit(root, [join(".atlas", "_kit", "atlas.py"), "build"]);
+
+/**
+ * The files cited by the page now on disk that changed since its last stamp,
+ * by the kit's own staleness check (atlas.py). A page never stamped has none.
+ */
+export function staleSources(root = repoRoot): { stale?: string[]; error?: string } {
+  const script = [
+    "import json, sys",
+    "sys.path.insert(0, '.atlas/_kit')",
+    "import atlas",
+    "at, site, pages = atlas.load_atlas('.')",
+    "stale, _ = atlas.staleness('.', site, pages, atlas.read_lock(at))",
+    `print(json.dumps(stale.get(${JSON.stringify(pageId)}, [])))`,
+  ].join("\n");
+  const r = kit(root, ["-c", script]);
+  if (!r.ok) return { error: r.output };
+  return { stale: JSON.parse(r.out) as string[] };
+}
+
+export type UpdateResult = { problems: string[]; changed: boolean; stamped: boolean; stale: string[]; output: string };
+
+/**
+ * `bun run atlas` on the real page under `root`: regenerates it and, when it
+ * changed, stamps it, unless a file it cited had already changed since its
+ * last stamp. A model edit must not clear that staleness: the model's anchors
+ * may no longer say what the changed file says (`bun run check` proves only
+ * that the lines exist), so the page is written and built, left stale, and a
+ * person re-checks the anchors (`bun run anchors <base>`) and stamps by hand.
+ */
+export function update({ dir = modelDir, root = repoRoot }: { dir?: string; root?: string } = {}): UpdateResult {
+  const file = atlasPagePath(root);
+  const { text, problems } = generate(dir, root);
+  const none = { changed: false, stamped: false, stale: [], output: "" };
+  if (text === undefined) return { problems, ...none };
+  const before = existsSync(file) ? readFileSync(file, "utf8").replace(/\r\n/g, "\n") : undefined;
+  if (before === text) return { problems, ...none };
+  const { stale, error } = staleSources(root);
+  if (stale === undefined) return { problems: [`the kit's staleness check failed, nothing written: ${error}`], ...none };
+  writeFileSync(file, text);
+  if (stale.length > 0) {
+    const built = build(root);
+    return { problems: built.ok ? [] : [`atlas.py build failed: ${built.output}`], changed: true, stamped: false, stale, output: built.output };
+  }
+  const stamped = stamp(root);
+  return { problems: stamped.ok ? [] : [`atlas.py stamp failed: ${stamped.output}`], changed: true, stamped: stamped.ok, stale, output: stamped.output };
 }
