@@ -1,11 +1,11 @@
 {
  "pages": {
   "change-review": {
-   "commit": "9db5894",
+   "commit": "96570a8",
    "sources": {
     ".claude/skills/verify-cv/SKILL.md": "1e1b505ef0ab6b10c1b2c57896a0e57b823f5b41",
     ".github/workflows/verify.yml": "61647a15c7431cdf5d9b5610123ea1c74f25bb23",
-    "AGENTS.md": "50e1033c2e466356a2c39ca63ff041af39a6e8b5",
+    "AGENTS.md": "b7ca82313fa9829c721fea42fd4462d0e9f907f7",
     "docs/development.md": "92f757ef604f50a984f0a6151a28c18406d9fb00",
     "docs/git-workflow.md": "3721c4bfa0da82b02000b1a676502e5a97e7e917",
     "docs/preferences.md": "563b0ab6c940c8d4dacecfa440fd405744607ea3",
@@ -16,12 +16,12 @@
    "verifiedAt": "2026-10-14"
   },
   "client-journey": {
-   "commit": "9db5894",
+   "commit": "96570a8",
    "sources": {
     ".claude/skills/idea-run/SKILL.md": "d84228de9ec4293dd7cb37b2aeb05743257b5652",
     ".claude/skills/new-client/SKILL.md": "4619102081174ff251f3e6a877b32383a833efc7",
     ".claude/skills/new-cv/SKILL.md": "21fbddbcb9868141b92fca1ffb4441b035731d14",
-    "docs/glossary.md": "d172db94eb457b470f46a7a264edf226c567693a",
+    "docs/glossary.md": "6c43d40717745c0995de2da142e78eaf08d87cdb",
     "docs/guides/build-a-cv.md": "0b8e6a2c535e2c1f3f6a9246be2b685829251c6c",
     "docs/guides/client-workflow.md": "bffa3464130cd2929ce44cf0965706a6cd158812",
     "docs/pdf-workflow.md": "c0c245619e8dd2d44e9b3ab39f5555126baab33c",
@@ -31,16 +31,16 @@
    "verifiedAt": "2026-10-14"
   },
   "design-run": {
-   "commit": "9db5894",
+   "commit": "96570a8",
    "sources": {
     ".claude/agents/design-reviewer.md": "d2161b7fa4228c17bdd8956598615082ef3312dc",
     ".claude/agents/magazine-editor.md": "f47803d38885710cb347867908574cfa4cc23ba1",
     ".claude/agents/research-reviewer.md": "5c4ca50e19c0afaffde30e28555b9479dc28ccc2",
     ".claude/skills/idea-run/SKILL.md": "d84228de9ec4293dd7cb37b2aeb05743257b5652",
-    "AGENTS.md": "50e1033c2e466356a2c39ca63ff041af39a6e8b5",
+    "AGENTS.md": "b7ca82313fa9829c721fea42fd4462d0e9f907f7",
     "archive/anti-examples/README.md": "71f837077cc3870025458f8a4cd1f05df9a820d1",
     "design-concepts/README.md": "a4ff141fd51551106785e5d19ce8e563c2a3b9af",
-    "docs/glossary.md": "d172db94eb457b470f46a7a264edf226c567693a",
+    "docs/glossary.md": "6c43d40717745c0995de2da142e78eaf08d87cdb",
     "docs/pdf-workflow.md": "c0c245619e8dd2d44e9b3ab39f5555126baab33c",
     "docs/proposals/codex-visual-tools.md": "75c618572d0396a2b9f3349af28aa7f11a74b3c6",
     "docs/review.md": "4cd2448fe5192a91ad51104705b262ed6fcf3f54",
@@ -49,7 +49,7 @@
    "verifiedAt": "2026-10-14"
   },
   "roster": {
-   "commit": "9db5894",
+   "commit": "96570a8",
    "sources": {
     ".claude/agents/ceo-reviewer.md": "058811a51ac27c65a93dc8915db4afd58676d33d",
     ".claude/agents/ceo.md": "2d1259232a06d6c853aaf321471260734a3be424",
@@ -69,7 +69,7 @@
     ".claude/skills/repo-maintenance/SKILL.md": "b2b1e33465db21e605c59cf0255371ec59809228",
     ".claude/skills/verify-cv/SKILL.md": "1e1b505ef0ab6b10c1b2c57896a0e57b823f5b41",
     ".github/workflows/verify.yml": "61647a15c7431cdf5d9b5610123ea1c74f25bb23",
-    "AGENTS.md": "50e1033c2e466356a2c39ca63ff041af39a6e8b5",
+    "AGENTS.md": "b7ca82313fa9829c721fea42fd4462d0e9f907f7",
     "docs/decisions/0014-backlog-md-task-store.md": "429c351d5a2d313fb6945f26e646028d3d43c72b",
     "docs/development.md": "92f757ef604f50a984f0a6151a28c18406d9fb00",
     "docs/engine/verification.md": "8c42a27aa5c084ee0f31708d72fa487923f5dc04",
