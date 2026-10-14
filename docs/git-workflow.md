@@ -52,12 +52,15 @@ None of this approves a pending product design.
   cloned into; every worktree under `.worktrees/` is an extra checkout of
   it. Keep the `Main Folder` on `main`, clean and synced with `origin/main`
   (or on the branch the owner chose for it), and do branch work in a
-  worktree. A session that finds it on another branch, behind `main` or
-  dirty with changes that are not its own leaves those changes alone and
-  works in a worktree; it never switches the `Main Folder` to a feature
-  branch, and it never ends a session with it left on one (a stale
-  checkout makes the project look older than it is). Fast-forward it to
-  `origin/main` when it is clean and on `main`.
+  worktree, so a stale checkout never makes the project look older than it
+  is. A session never switches it to a feature branch and never leaves it on
+  a branch the session put it on. When a session finds it:
+  - on `main` and behind: fast-forward it to `origin/main`;
+  - on a branch an agent left, with no tracked changes: switch it to `main`
+    and fast-forward (untracked files survive the switch);
+  - with tracked changes that are not the session's, on a branch the owner
+    chose, or unclear: leave it alone, work in a worktree, and name it in
+    the `Session Sweep` and the handoff.
 
 ## Commits
 
