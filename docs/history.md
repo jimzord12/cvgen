@@ -323,3 +323,17 @@ leaves the text outside the markers to hand-written prose (TASK-40). CI and
 the suite's `workflow-model` case run `bun run render --check`, which fails
 when a README differs from what the model renders to. Each diagram is
 checked against the small Mermaid subset the tool writes.
+
+## 2026-10-14 — the Atlas client journey is generated from the model
+
+TASK-41 added `bun run atlas` to the workflow tool: it writes the `Atlas`
+page `.atlas/src/pages/client-journey.json` from the `Workflow Model`, in
+the format the existing kit already builds (ADR 0015; the kit was not
+ported). The hand-written page (22 steps, 2026-10-04) is gone; the new one
+has one phase per stage and one step per model step (104), each citing the
+model step's own source anchors, with gates as branches, loops drawn on the
+step that goes back, and arrows derived from the data. Writing a changed
+page also stamps it, so no one stamps it by hand after a model change. CI
+and the suite's `workflow-model` case run `bun run atlas --check`. What the
+old page said and the model does not is listed in `docs/workflow/GAPS.md`;
+its "where it stands" panel for one client was out of date and was dropped.

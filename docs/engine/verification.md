@@ -20,8 +20,9 @@ The page images are what to show the owner or a reviewer.
 CI (`.github/workflows/verify.yml`) installs the Python packages from
 `requirements.lock` (hash-checked), runs `ruff check` (`ruff.toml`), installs
 Bun from `tools/workflow/.bun-version` and runs the workflow tool's
-`bun install --frozen-lockfile`, `bun test`, `bun run typecheck` and
-`bun run check` (`tools/workflow/README.md`), and then the suite on every push (when and
+`bun install --frozen-lockfile`, `bun test`, `bun run typecheck`,
+`bun run check`, `bun run render --check` and `bun run atlas --check`
+(`tools/workflow/README.md`), and then the suite on every push (when and
 why: `docs/tech-stack.md`, CI row) on a Linux and a Windows runner, writing to `builds/ci/`
 (on both, the suite itself runs `scripts/build.ps1` in a throwaway copy: check 14), and on
 Windows also runs `scripts/build.ps1` on the checkout. Each runner uploads its evidence,
@@ -170,7 +171,9 @@ Windows one also holds the PDFs that build wrote, one per example in
    run's Python for the `--help` calls; its output, the placeholder-cap
    `NOTE` included, is in `workflow-model/check.log`. Then
    `bun run render --check`: the generated blocks of the workflow READMEs
-   must be what the model renders to (`render.log`). A checkout without
+   must be what the model renders to (`render.log`), and `bun run atlas --check`:
+   the `Atlas` page `.atlas/src/pages/client-journey.json` must be what the
+   model generates (`atlas.log`). A checkout without
    `tools/workflow/node_modules` gets `bun install --frozen-lockfile` first
    (`install.log`). The rules' own broken fixtures run in `bun test`, not
    here. With no Bun on the machine the case is `SKIPPED`; on CI that fails
@@ -208,7 +211,10 @@ change.
   was edited by hand, or `tools/workflow/src/render.ts` changed without a
   re-render; run `bun run render` and commit the READMEs. `FAILED render`
   with a `README.md:<line>`: a malformed, unknown, repeated, nested or
-  unclosed marker there; fix the marker line.
+  unclosed marker there; fix the marker line. `STALE .atlas/src/pages/client-journey.json`:
+  the model or `tools/workflow/src/atlas.ts` changed without `bun run atlas`, or the
+  page was edited by hand; run `bun run atlas` (it also stamps the page) and commit
+  the `.atlas/` changes.
 - `AssertionError: entry points not in examples/release.json, ...`: an
   example was added without its line in `examples/release.json` (or a
   line was removed); add the line with its `title` and `variant`.

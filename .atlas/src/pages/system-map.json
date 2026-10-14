@@ -347,7 +347,7 @@
           "title": "GitHub CI",
           "path": ".github/workflows/verify.yml",
           "actor": "github-ci",
-          "blurb": "Ruff, the `Workflow Model` check and its generated READMEs, then the suite once per push (its head commit), Linux and Windows."
+          "blurb": "Ruff, the `Workflow Model` check, its generated READMEs and `Atlas` page, then the suite once per push (its head commit), Linux and Windows."
         }
       ]
     },

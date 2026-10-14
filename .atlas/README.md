@@ -8,5 +8,7 @@ what happens?"), a **map** of the system's parts, or the **roster** of who and w
 - Every step names its sources. `atlas.lock.json` remembers each source's hash when a page was last checked;
   `python .atlas/_kit/atlas.py check` lists pages whose sources changed since (they show an amber banner).
 - After checking a page against its sources, `python .atlas/_kit/atlas.py stamp <page>` marks it verified.
+- `src/pages/client-journey.json` is generated from the `Workflow Model` (`docs/workflow/`): run
+  `bun run atlas` in `tools/workflow/`, which writes and stamps it; never edit it by hand (`tools/workflow/README.md`).
 - The kit (`_kit/`) is shared by every atlas; the protocol lives with the owner's personal `atlas` skill,
   outside this repository. `atlas.py` here is enough to build, check and stamp.

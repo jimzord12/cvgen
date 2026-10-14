@@ -67,3 +67,24 @@ cap)" and cite their row here.
   status without its proof) are not encoded anywhere in the model; only
   `render`'s is, as `gate.render-ok`, because `build-a-cv.md:128-136` states
   the next step.
+- **What the hand-written `Atlas` page said and the model does not** (TASK-41,
+  when the client-journey page became generated from the model). Each still
+  lives in its source; TASK-43 decides whether it becomes a model fact:
+  - the lead never opens the client's LinkedIn page; its PDF export is
+    enough (`client-workflow.md:193-194`);
+  - what the consent covers: AI tools and web research, private files,
+    never published, deleted 12 months after delivery
+    (`client-workflow.md:164-167`); the model names only "consent first";
+  - the `Text Draft` underlines each fact with the copper `Fact Mark`
+    (`client-workflow.md:284-285`);
+  - the render checks (page count, no empty page, fonts embedded, text
+    inside the page) and the `Certificate Warning` 180 days ahead, which never
+    blocks (`build-a-cv.md:126-128`, `build-a-cv.md:140-144`);
+  - a new `Revision` inherits no approval (`build-a-cv.md:205-206`,
+    `pdf-workflow.md:191`); a `cmd` action has no text to say it in;
+  - the `Design Review` app shows the concepts with their status, where the
+    owner may look before he picks (`.claude/skills/idea-run/SKILL.md:127-128`);
+  - Drive's Trash keeps deleted files 30 days (`client-workflow.md:336-338`).
+  The page's "where it stands" panel (one client, as of 2026-10-04) is not a
+  workflow fact and was dropped: it was out of date (the delivery is
+  recorded) and a client's state belongs in its task (`art.client-task`).
