@@ -217,13 +217,13 @@ window.ATLAS = {
     "calledBy": "The lead.",
     "when": "Any change to the files agents read.",
     "notes": [
-     "Merged into `main` on 2026-10-04 (owner's decision). The two review reports from its branch were FINDINGS: `archive/work-records/design-core/reviews/03-context-reviewer.md` (Material F1 and F2 fixed in TASK-33, 2026-10-14; its Minor findings were outside that task) and `archive/work-records/codex-visual-tools/reviews/01.md` (open; carried to TASK-4)."
+     "Merged into `main` on 2026-10-04 (owner's decision). The two review reports from its branch were FINDINGS: `studio/archive/work-records/design-core/reviews/03-context-reviewer.md` (Material F1 and F2 fixed in TASK-33, 2026-10-14; its Minor findings were outside that task) and `studio/archive/work-records/codex-visual-tools/reviews/01.md` (open; carried to TASK-4)."
     ],
     "sources": [
      ".claude/agents/context-reviewer.md",
-     "archive/work-records/anti-examples/reviews/01-context.md",
-     "archive/work-records/design-core/reviews/03-context-reviewer.md",
-     "archive/work-records/codex-visual-tools/reviews/01.md"
+     "studio/archive/work-records/anti-examples/reviews/01-context.md",
+     "studio/archive/work-records/design-core/reviews/03-context-reviewer.md",
+     "studio/archive/work-records/codex-visual-tools/reviews/01.md"
     ],
     "short": "Context rev."
    },
@@ -239,12 +239,12 @@ window.ATLAS = {
     "calledBy": "The lead.",
     "when": "Feedback from you that changes how agents behave.",
     "notes": [
-     "Merged into `main` on 2026-10-04 (owner's decision). The two review reports from its branch were FINDINGS: `archive/work-records/design-core/reviews/03-context-reviewer.md` (Material F1 and F2 fixed in TASK-33, 2026-10-14; its Minor findings were outside that task) and `archive/work-records/codex-visual-tools/reviews/01.md` (open; carried to TASK-4)."
+     "Merged into `main` on 2026-10-04 (owner's decision). The two review reports from its branch were FINDINGS: `studio/archive/work-records/design-core/reviews/03-context-reviewer.md` (Material F1 and F2 fixed in TASK-33, 2026-10-14; its Minor findings were outside that task) and `studio/archive/work-records/codex-visual-tools/reviews/01.md` (open; carried to TASK-4)."
     ],
     "sources": [
      ".claude/agents/context-maintainer.md",
-     "archive/work-records/design-core/reviews/03-context-reviewer.md",
-     "archive/work-records/codex-visual-tools/reviews/01.md"
+     "studio/archive/work-records/design-core/reviews/03-context-reviewer.md",
+     "studio/archive/work-records/codex-visual-tools/reviews/01.md"
     ]
    },
    "general-purpose": {
@@ -276,7 +276,7 @@ window.ATLAS = {
     ],
     "sources": [
      "docs/proposals/codex-visual-tools.md",
-     "archive/work-records/codex-visual-tools/reviews/01.md"
+     "studio/archive/work-records/codex-visual-tools/reviews/01.md"
     ],
     "short": "Codex rev."
    },
@@ -406,14 +406,14 @@ window.ATLAS = {
    "design-review-app": {
     "label": "Design Review app",
     "kind": "tool",
-    "file": "scripts/design_review/server.py",
+    "file": "apps/design-review/server.py",
     "role": "Your local app for looking through designs: the Board (`Style` × `Density` × `Design Tier`), the Loupe, compare, a `Batch Test` pile, your verdicts and notes.",
     "notes": [
-     "`python scripts/design_review/server.py`, then http://127.0.0.1:8765/. Binds to this machine only.",
+     "`python apps/design-review/server.py`, then http://127.0.0.1:8765/. Binds to this machine only.",
      "Your verdicts (keep / maybe / reject) live in `.local/design-review/state.json`."
     ],
     "sources": [
-     "scripts/design_review/server.py:1-12",
+     "apps/design-review/server.py:1-12",
      "AGENTS.md"
     ]
    },
@@ -1113,7 +1113,7 @@ window.ATLAS = {
     "waitingOn": [
      "lead"
     ],
-    "ref": "design-concepts/README.md"
+    "ref": "studio/design-concepts/README.md"
    },
    "phases": [
     {
@@ -1148,7 +1148,7 @@ window.ATLAS = {
        "summary": "Every run lives on its own branch with one record of the brief, the rounds, the verdicts and what reached you.",
        "out": [
         "Branch `docs/idea-run-<date>-editor`",
-        "`archive/work-records/idea-runs/<date>-editor/run.md`"
+        "`studio/archive/work-records/idea-runs/<date>-editor/run.md`"
        ],
        "sources": [
         ".claude/skills/idea-run/SKILL.md:32-36"
@@ -1181,12 +1181,12 @@ window.ATLAS = {
        "summary": "Three very distinct `Styles`, each drawn Condensed (one dense page) and Spacious (1 to 3 pages), each in Safe, Stylish and Creative.",
        "does": [
         "Studies the vision, the glossary, the `Anti-examples` (never repeat their idea), the design studies and the `Flagship`.",
-        "Builds each Style's folder in `design-concepts/` with a brief, fictional sample data, a portrait when the idea needs one, and every PDF with its PNG pages.",
+        "Builds each Style's folder in `studio/design-concepts/` with a brief, fictional sample data, a portrait when the idea needs one, and every PDF with its PNG pages.",
         "At most two open-licence font families per Style. Never touches the engine, examples, tests, archive or `private/`.",
         "Stamps every PDF `proposed` so it shows up in the `Design Review` app."
        ],
        "out": [
-        "`design-concepts/<date>-<slug>/condensed/<tier>/…`",
+        "`studio/design-concepts/<date>-<slug>/condensed/<tier>/…`",
         "`…/spacious/<tier>/…`",
         "18 `Meta Files`, status `proposed`"
        ],
@@ -1200,7 +1200,7 @@ window.ATLAS = {
        "sources": [
         ".claude/agents/magazine-editor.md:50-82",
         ".claude/agents/magazine-editor.md:88-210",
-        "design-concepts/README.md"
+        "studio/design-concepts/README.md"
        ]
       }
      ]
@@ -1217,7 +1217,7 @@ window.ATLAS = {
        "you": "Start the app, go through the 18, mark each keep, maybe or reject, star favourites, write notes. Agents read your verdicts from there.",
        "cmd": [
         {
-         "cmd": "python scripts/design_review/server.py",
+         "cmd": "python apps/design-review/server.py",
          "who": "you",
          "note": "Then open http://127.0.0.1:8765/"
         }
@@ -1230,7 +1230,7 @@ window.ATLAS = {
        ],
        "note": "The `idea-run` skill does not place this look at a fixed point in the loop; it is your tool, usable before or after the gates.",
        "sources": [
-        "scripts/design_review/server.py:1-12",
+        "apps/design-review/server.py:1-12",
         "AGENTS.md",
         "docs/glossary.md"
        ],
@@ -1390,15 +1390,15 @@ window.ATLAS = {
        "does": [
         "`chosen`: only the picked tier's PDFs are re-stamped.",
         "`rejected`: the folder is removed (Git keeps it) and unused fonts go.",
-        "`Anti-example`: moves to `archive/anti-examples/` with its fonts and your reason."
+        "`Anti-example`: moves to `studio/archive/anti-examples/` with its fonts and your reason."
        ],
        "cmd": [
         "python scripts/outputs.py stamp <pdf> status=chosen"
        ],
        "sources": [
         ".claude/skills/idea-run/SKILL.md:123-135",
-        "design-concepts/README.md:45-48",
-        "archive/anti-examples/README.md"
+        "studio/design-concepts/README.md:45-48",
+        "studio/archive/anti-examples/README.md"
        ]
       },
       {
@@ -1412,7 +1412,7 @@ window.ATLAS = {
        ],
        "sources": [
         ".claude/skills/idea-run/SKILL.md:130-135",
-        "design-concepts/README.md:3-6"
+        "studio/design-concepts/README.md:3-6"
        ]
       }
      ]
@@ -1441,7 +1441,7 @@ window.ATLAS = {
     "asOf": "2026-10-14",
     "title": "The 2026-10-04 merges were reviewed after the fact",
     "note": "On 2026-10-04 you asked for every branch to be merged so only `main` remains; those merges had no review report. On 2026-10-14 a `context-reviewer` reviewed them (FINDINGS: ungated designs and open review reports brought onto `main`, stale records), and TASK-33 fixed each finding. Changes in flight are the Active and Review tasks in `backlog/`.",
-    "ref": "archive/work-records/workflow-model/reviews/01-context-reviewer.md"
+    "ref": "studio/archive/work-records/workflow-model/reviews/01-context-reviewer.md"
    },
    "phases": [
     {
@@ -1559,7 +1559,7 @@ window.ATLAS = {
         "cap": "5 rounds with you around, 10 unattended"
        },
        "out": [
-        "`archive/work-records/<task-slug>/reviews/NN-<reviewer>.md`, stored unchanged"
+        "`studio/archive/work-records/<task-slug>/reviews/NN-<reviewer>.md`, stored unchanged"
        ],
        "uses": [
         "code-reviewer",
@@ -1572,7 +1572,7 @@ window.ATLAS = {
         "docs/review.md:79-99",
         "docs/review.md:155-174",
         "docs/review.md",
-        "archive/work-records/anti-examples/reviews/01-context.md"
+        "studio/archive/work-records/anti-examples/reviews/01-context.md"
        ]
       },
       {
@@ -1883,21 +1883,21 @@ window.ATLAS = {
      "nodes": [
       {
        "id": "n-concepts",
-       "title": "design-concepts/",
-       "path": "design-concepts/",
+       "title": "Design concepts",
+       "path": "studio/design-concepts/",
        "actor": "magazine-editor",
        "blurb": "Every design run's Styles and Tiers, with a README row each (two Densities since the 2026-09-29 run)."
       },
       {
        "id": "n-anti",
        "title": "Anti-examples",
-       "path": "archive/anti-examples/",
+       "path": "studio/archive/anti-examples/",
        "blurb": "Designs you rejected as not your style. Never repeat their idea."
       },
       {
        "id": "n-studies",
        "title": "Design studies",
-       "path": "archive/design-studies/",
+       "path": "studio/archive/design-studies/",
        "blurb": "Four frozen studies, for inspiration only."
       },
       {
@@ -1908,8 +1908,8 @@ window.ATLAS = {
       },
       {
        "id": "n-brand",
-       "title": "brand/",
-       "path": "brand/",
+       "title": "Brand",
+       "path": "studio/brand/",
        "blurb": "The needle's-eye logo, the wordmark, the form header."
       }
      ]
@@ -1927,14 +1927,14 @@ window.ATLAS = {
       {
        "id": "n-app",
        "title": "Design Review app",
-       "path": "scripts/design_review/",
+       "path": "apps/design-review/",
        "actor": "design-review-app",
        "blurb": "Board, Loupe, compare, `Batch Test` pile. Reads only `Meta Files`.",
        "cmd": [
-        "python scripts/design_review/server.py"
+        "python apps/design-review/server.py"
        ],
        "sources": [
-        "scripts/design_review/server.py"
+        "apps/design-review/server.py"
        ]
       },
       {
@@ -1991,8 +1991,8 @@ window.ATLAS = {
       },
       {
        "id": "n-work",
-       "title": "archive/work-records/",
-       "path": "archive/work-records/",
+       "title": "Work records",
+       "path": "studio/archive/work-records/",
        "blurb": "Dated records: review reports, run records. Never re-worded."
       }
      ]
@@ -2275,22 +2275,40 @@ window.ATLAS = {
   }
  ],
  "build": {
-  "builtAt": "2026-10-14 09:24 UTC",
-  "commit": "fdc6262",
+  "builtAt": "2026-10-14 09:38 UTC",
+  "commit": "82aa7c5",
   "kit": "1.0",
-  "stale": {},
+  "stale": {
+   "system-map": [
+    "AGENTS.md",
+    "docs/pdf-workflow.md",
+    "docs/guides/client-workflow.md",
+    "docs/guides/build-a-cv.md",
+    "packages/domains/marine",
+    "packages/domains/marine/templates/flagship",
+    "studio/design-concepts",
+    "studio/archive/anti-examples",
+    "studio/archive/design-studies",
+    "studio/brand",
+    "apps/design-review/server.py",
+    "docs/glossary.md",
+    "studio/archive/work-records",
+    ".github/workflows/verify.yml",
+    ".claude/skills/backlog/SKILL.md"
+   ]
+  },
   "verified": {
    "client-journey": {
     "at": "2026-10-14",
-    "commit": "b010b2c"
+    "commit": "82aa7c5"
    },
    "design-run": {
     "at": "2026-10-14",
-    "commit": "85d0237"
+    "commit": "82aa7c5"
    },
    "change-review": {
     "at": "2026-10-14",
-    "commit": "fdc6262"
+    "commit": "82aa7c5"
    },
    "system-map": {
     "at": "2026-10-14",
@@ -2298,7 +2316,7 @@ window.ATLAS = {
    },
    "roster": {
     "at": "2026-10-14",
-    "commit": "85d0237"
+    "commit": "82aa7c5"
    }
   }
  }

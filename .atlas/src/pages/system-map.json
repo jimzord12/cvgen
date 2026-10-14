@@ -199,21 +199,21 @@
       "nodes": [
         {
           "id": "n-concepts",
-          "title": "design-concepts/",
-          "path": "design-concepts/",
+          "title": "Design concepts",
+          "path": "studio/design-concepts/",
           "actor": "magazine-editor",
           "blurb": "Every design run's Styles and Tiers, with a README row each (two Densities since the 2026-09-29 run)."
         },
         {
           "id": "n-anti",
           "title": "Anti-examples",
-          "path": "archive/anti-examples/",
+          "path": "studio/archive/anti-examples/",
           "blurb": "Designs you rejected as not your style. Never repeat their idea."
         },
         {
           "id": "n-studies",
           "title": "Design studies",
-          "path": "archive/design-studies/",
+          "path": "studio/archive/design-studies/",
           "blurb": "Four frozen studies, for inspiration only."
         },
         {
@@ -224,8 +224,8 @@
         },
         {
           "id": "n-brand",
-          "title": "brand/",
-          "path": "brand/",
+          "title": "Brand",
+          "path": "studio/brand/",
           "blurb": "The needle's-eye logo, the wordmark, the form header."
         }
       ]
@@ -243,14 +243,14 @@
         {
           "id": "n-app",
           "title": "Design Review app",
-          "path": "scripts/design_review/",
+          "path": "apps/design-review/",
           "actor": "design-review-app",
           "blurb": "Board, Loupe, compare, `Batch Test` pile. Reads only `Meta Files`.",
           "cmd": [
-            "python scripts/design_review/server.py"
+            "python apps/design-review/server.py"
           ],
           "sources": [
-            "scripts/design_review/server.py"
+            "apps/design-review/server.py"
           ]
         },
         {
@@ -307,8 +307,8 @@
         },
         {
           "id": "n-work",
-          "title": "archive/work-records/",
-          "path": "archive/work-records/",
+          "title": "Work records",
+          "path": "studio/archive/work-records/",
           "blurb": "Dated records: review reports, run records. Never re-worded."
         }
       ]

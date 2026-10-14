@@ -215,13 +215,13 @@
       "calledBy": "The lead.",
       "when": "Any change to the files agents read.",
       "notes": [
-        "Merged into `main` on 2026-10-04 (owner's decision). The two review reports from its branch were FINDINGS: `archive/work-records/design-core/reviews/03-context-reviewer.md` (Material F1 and F2 fixed in TASK-33, 2026-10-14; its Minor findings were outside that task) and `archive/work-records/codex-visual-tools/reviews/01.md` (open; carried to TASK-4)."
+        "Merged into `main` on 2026-10-04 (owner's decision). The two review reports from its branch were FINDINGS: `studio/archive/work-records/design-core/reviews/03-context-reviewer.md` (Material F1 and F2 fixed in TASK-33, 2026-10-14; its Minor findings were outside that task) and `studio/archive/work-records/codex-visual-tools/reviews/01.md` (open; carried to TASK-4)."
       ],
       "sources": [
         ".claude/agents/context-reviewer.md",
-        "archive/work-records/anti-examples/reviews/01-context.md",
-        "archive/work-records/design-core/reviews/03-context-reviewer.md",
-        "archive/work-records/codex-visual-tools/reviews/01.md"
+        "studio/archive/work-records/anti-examples/reviews/01-context.md",
+        "studio/archive/work-records/design-core/reviews/03-context-reviewer.md",
+        "studio/archive/work-records/codex-visual-tools/reviews/01.md"
       ],
       "short": "Context rev."
     },
@@ -237,12 +237,12 @@
       "calledBy": "The lead.",
       "when": "Feedback from you that changes how agents behave.",
       "notes": [
-        "Merged into `main` on 2026-10-04 (owner's decision). The two review reports from its branch were FINDINGS: `archive/work-records/design-core/reviews/03-context-reviewer.md` (Material F1 and F2 fixed in TASK-33, 2026-10-14; its Minor findings were outside that task) and `archive/work-records/codex-visual-tools/reviews/01.md` (open; carried to TASK-4)."
+        "Merged into `main` on 2026-10-04 (owner's decision). The two review reports from its branch were FINDINGS: `studio/archive/work-records/design-core/reviews/03-context-reviewer.md` (Material F1 and F2 fixed in TASK-33, 2026-10-14; its Minor findings were outside that task) and `studio/archive/work-records/codex-visual-tools/reviews/01.md` (open; carried to TASK-4)."
       ],
       "sources": [
         ".claude/agents/context-maintainer.md",
-        "archive/work-records/design-core/reviews/03-context-reviewer.md",
-        "archive/work-records/codex-visual-tools/reviews/01.md"
+        "studio/archive/work-records/design-core/reviews/03-context-reviewer.md",
+        "studio/archive/work-records/codex-visual-tools/reviews/01.md"
       ]
     },
     "general-purpose": {
@@ -274,7 +274,7 @@
       ],
       "sources": [
         "docs/proposals/codex-visual-tools.md",
-        "archive/work-records/codex-visual-tools/reviews/01.md"
+        "studio/archive/work-records/codex-visual-tools/reviews/01.md"
       ],
       "short": "Codex rev."
     },
@@ -404,14 +404,14 @@
     "design-review-app": {
       "label": "Design Review app",
       "kind": "tool",
-      "file": "scripts/design_review/server.py",
+      "file": "apps/design-review/server.py",
       "role": "Your local app for looking through designs: the Board (`Style` × `Density` × `Design Tier`), the Loupe, compare, a `Batch Test` pile, your verdicts and notes.",
       "notes": [
-        "`python scripts/design_review/server.py`, then http://127.0.0.1:8765/. Binds to this machine only.",
+        "`python apps/design-review/server.py`, then http://127.0.0.1:8765/. Binds to this machine only.",
         "Your verdicts (keep / maybe / reject) live in `.local/design-review/state.json`."
       ],
       "sources": [
-        "scripts/design_review/server.py:1-12",
+        "apps/design-review/server.py:1-12",
         "AGENTS.md"
       ]
     },
