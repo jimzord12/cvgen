@@ -453,7 +453,8 @@ def main():
     # The owner's Design Review app, through its real server, on a fictional tree.
     for check in run_design_review(out):
         results.append({'case': 'design-review-' + check, 'passed': True, 'folder': 'design-review'})
-    # The Workflow Model (docs/workflow, ADR 0015): the workflow tool's check, levels 1 and 2 (TASK-38).
+    # The Workflow Model (docs/workflow, ADR 0015): the workflow tool's check, levels 1 and 2 (TASK-38), and its generated
+    # READMEs, which must be what render writes from the model (TASK-39).
     bun = shutil.which('bun')
     if bun:
         tool, folder = ROOT / 'tools' / 'workflow', out / 'workflow-model'
@@ -469,6 +470,8 @@ def main():
             assert install.returncode == 0, ('workflow-model', install.stdout + install.stderr)
         check = bun_run('check.log', 'run', 'check')
         assert check.returncode == 0 and 'levels 1 and 2 pass' in check.stdout, ('workflow-model', check.stdout + check.stderr)
+        rendered = bun_run('render.log', 'run', 'render', '--check')
+        assert rendered.returncode == 0, ('workflow-model', rendered.stdout + rendered.stderr)
         results.append({'case': 'workflow-model', 'passed': True, 'folder': 'workflow-model'})
     else:
         assert not os.environ.get('CI'), 'CI has no Bun, so the Workflow Model is not checked; see .github/workflows/verify.yml'

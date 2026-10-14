@@ -91,7 +91,8 @@ jobs:
           bun-version-file: tools/workflow/.bun-version
 
       # The exact versions in bun.lock, the tool's tests and type check, then the Workflow Model check
-      # (docs/workflow, levels 1 and 2). bash so that a failing line fails the step on Windows too.
+      # (docs/workflow, levels 1 and 2) and its generated READMEs, which must match the model (render --check).
+      # bash so that a failing line fails the step on Windows too.
       - name: Check the workflow tool and the Workflow Model
         working-directory: tools/workflow
         shell: bash
@@ -100,6 +101,7 @@ jobs:
           bun test
           bun run typecheck
           bun run check
+          bun run render --check
 
       - name: Run the regression suite
         run: python tests/run.py --output builds/ci
@@ -124,6 +126,7 @@ jobs:
             builds/ci/**/page-*.png
             builds/ci/workflow/commands.log
             builds/ci/workflow-model/check.log
+            builds/ci/workflow-model/render.log
             builds/ci/build-script/*.log
             builds/ci-library/*.pdf
           if-no-files-found: ignore
