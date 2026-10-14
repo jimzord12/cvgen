@@ -19,7 +19,7 @@ decisions behind the workflow are in
 Used by `open.envelope` and by every step that writes into the `Envelope`.
 
 One folder per client under `private/` (ignored by this repository, tracked by the
-private one, `AGENTS.md`), named after the
+private one: `docs/git-workflow.md`, "The private repository"), named after the
 person and their `Rank`. Every `Envelope` has the same tree (owner,
 2026-10-06): only three files at its root (plus, for a CV delivered before
 `scripts/cv.py`, its `reference.pdf` and `reference.meta.json`, below),

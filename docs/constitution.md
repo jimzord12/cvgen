@@ -53,7 +53,7 @@ Real candidate data lives in `private/`, which this repository ignores, one fold
 candidate with its own entry point, importing its `Domain`'s `lib.typ`
 (`packages/domains/marine/lib.typ`), or the `Framework`'s
 (`packages/cv-framework/lib.typ`) for a one-off `Template`. `private/` is its own private
-Git repository (`AGENTS.md`), where everything in an `Envelope` may be committed,
+Git repository (`git-workflow.md`, "The private repository"), where everything in an `Envelope` may be committed,
 scans included. Certificate numbers, scans and passport details never enter this
 public repository. (Narrowed by the owner, 2026-10-06.)
 

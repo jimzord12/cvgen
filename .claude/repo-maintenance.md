@@ -102,7 +102,7 @@ This file points at CVgen's own rules. If it ever disagrees with `AGENTS.md`, `d
 real person we serve, `Rank` for a job title; the glossary's "Words with two meanings" and "Dropped" lists are the
 authority.
 
-**Who does what.** `AGENTS.md` gives Claude Code the implementation, testing and review gates, and Codex the
+**Who does what.** `docs/development.md` ("Roles") gives Claude Code the implementation, testing and review gates, and Codex the
 discussion, research, proposals and design decisions with no implementation authority. Codex proposes adopting or changing this
 capability in `docs/proposals/`; Claude Code implements after the owner's decision. `AGENTS.md` is the single map:
 any new folder or agent must be added there, and that edit is reviewed like any other.
@@ -152,5 +152,5 @@ misleads work, otherwise Minor; Low to Minor; Info to Note.
 the constitution go to the working agent and through the normal review; afterwards, to them (`owners` above).
 
 **Mentions that look dead but are not.** Docs name paths inside a client's `Envelope` relative to it (`intake/facts.md`,
-`draft/`, `revisions/`), and abbreviate the engine as `W/` and `M/` (AGENTS.md's key). The audit script already skips
+`draft/`, `revisions/`). The audit script already skips
 ignored areas (`private/`, `.local/`, `builds/`); these remaining L2 leads are confirmed by reading, never fixed blindly.

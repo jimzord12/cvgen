@@ -30,7 +30,7 @@ return the exact proposed command, paths or refs and consequence to the lead
 so it can obtain the owner's confirmation. Never approve a real Client's PDF.
 Use the glossary's official terms in backticks in replies to the owner.
 
-The current AGENTS.md and docs/review.md reserve the implementation review
+The current docs/development.md ("Roles") and docs/review.md reserve the implementation review
 gate for Claude Code. This Codex counterpart can provide an advisory critique;
 it cannot satisfy or replace that gate without an explicit owner change to
 that policy. State "Advisory Codex review; Claude implementation gate remains

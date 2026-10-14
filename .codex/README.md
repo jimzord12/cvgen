@@ -67,7 +67,7 @@ step grants no additional authorization. Return any required confirmation to
 the lead. Real Client data stays private; no agent approves a real PDF. Product
 and design proposals still need the owner's decision.
 
-AGENTS.md and docs/review.md still reserve implementation and its review gate
+docs/development.md ("Roles") and docs/review.md still reserve implementation and its review gate
 for Claude. Creating code-reviewer here does not change that policy: a Codex
 verdict is advisory and cannot discharge the Claude gate. This setup changes
 agent configuration only.

@@ -388,3 +388,18 @@ commands; what the guides held and the model did not moved into the stage
 READMEs' judgement. Every source anchor was repointed to where its fact
 now lives, `docs/workflow/inventory/` was removed (in Git history at
 6e93bad), and its agent-owned naming drift was fixed.
+
+## 2026-10-14 — AGENTS.md is a map again
+
+TASK-51 cut `AGENTS.md` from 3,477 words to under 800: what CVgen is in a
+few sentences, the hard rules as pointers, one short line per top-level
+folder, the essential commands, and the documentation, skills and working
+agreement as pointers to the files that own them. Nothing was dropped:
+every rule it held already lived, or now lives, in its owner. The agent
+roles, orientation details, author checks and the experimental-process
+rule went to `docs/development.md`; the private repository to
+`docs/git-workflow.md`; the local profile and the `approve` rule to
+`docs/preferences.md`; "understand the seam" to `docs/conventions.md`;
+the Design Review app's detail to a new `apps/design-review/README.md`.
+The workflow anchors and the `Atlas` pages that cited the old lines now
+cite the new owners.
