@@ -1,7 +1,7 @@
 ---
 id: TASK-39
 title: 'workflow-render: docs and diagrams generated from the model'
-status: Active
+status: Done
 assignee: []
 created_date: '2026-10-14 04:47'
 updated_date: '2026-10-14 10:44'
@@ -31,3 +31,9 @@ TASK-39 decisions (lead, 2026-10-14): (1) Markers: <!-- generated:start <name> -
 
 AC 2 evidence (lead, 2026-10-14): docs/workflow/05-design/README.md, the largest diagram (33 nodes), viewed on github.com at e9a6acb in a browser: the Mermaid flowchart draws (screenshot in the lead's session evidence). The author's gh api HTML check found the mermaid container in the top README, 01-open and 05-design; all 8 diagrams parsed once under Mermaid 11.4.1 with happy-dom.
 <!-- SECTION:NOTES:END -->
+
+## Final Summary
+
+<!-- SECTION:FINAL_SUMMARY:BEGIN -->
+bun run render writes generated blocks (between generated:start/end markers, fence-aware) in docs/workflow/README.md and the seven stage READMEs: stage overview, journey, step/gate/loop/artifact/action tables and Mermaid flowcharts; render --check fails CI and the suite on drift. Diagrams viewed on GitHub (05-design). Context round 1 PASS; code rounds FINDINGS, FINDINGS, PASS. Suite builds/tests-20261014-133656-303179, CI 38550979274 green, 91 bun tests.
+<!-- SECTION:FINAL_SUMMARY:END -->
