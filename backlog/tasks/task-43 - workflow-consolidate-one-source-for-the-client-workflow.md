@@ -1,10 +1,10 @@
 ---
 id: TASK-43
 title: 'workflow-consolidate: one source for the client workflow'
-status: Queued
+status: Active
 assignee: []
 created_date: '2026-10-14 04:47'
-updated_date: '2026-10-14 11:14'
+updated_date: '2026-10-14 11:41'
 labels:
   - workflow-model
 dependencies:
