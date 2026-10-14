@@ -48,6 +48,7 @@ None of this approves a pending product design.
   `main` that the backlog skill makes in the session's scratchpad to write
   records (`.claude/skills/backlog/SKILL.md`). Worktrees created before this
   rule stay where they are until their work is merged and they are removed.
+  Never edit another session's worktree.
 - The `Main Folder` is the default checkout, the folder the repository was
   cloned into; every worktree under `.worktrees/` is an extra checkout of
   it. Keep the `Main Folder` on `main`, clean and synced with `origin/main`
@@ -135,6 +136,17 @@ branch structure is a proportionate choice for this small project.
 platform, so the hashes in `tests/baseline.json` match on Windows, macOS,
 Linux and CI. Binary files are marked there too. A CV PDF with an embedded
 portrait is about 2.8 MB, so do not add renders casually. Replace, do not accumulate.
+
+## The private repository
+
+`private/` is ignored here and is its own private Git repository
+(`jimzord12/cvgen-private`), holding one `Envelope` per real client in one
+tree (`docs/guides/client-workflow.md`, section 1). Commit and push client
+work from inside `private/`, under the same Git rules as here; its commit
+messages name the client only by `Alias`. Scans may go there, never here
+(constitution section 3). On a new machine, clone it into `private/`. The
+operations on it that stay with the owner are in
+[preferences.md](preferences.md#what-he-decides-and-what-agents-decide).
 
 ## Releasing a new render
 

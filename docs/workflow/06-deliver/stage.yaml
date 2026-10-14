@@ -1,7 +1,7 @@
 # yaml-language-server: $schema=../../../tools/workflow/schema/stage.schema.json
 id: deliver
 name: Render, Approval, Export and delivery
-sources: ["docs/guides/build-a-cv.md:102-182", "docs/pdf-workflow.md:171-193", ".claude/skills/new-cv/SKILL.md:56-78"]
+sources: ["docs/guides/build-a-cv.md:102-182", "docs/pdf-workflow.md:172-194", ".claude/skills/new-cv/SKILL.md:56-78"]
 purpose: >-
   Render the CV as a Revision, check it, let the owner approve its exact
   bytes, export a verified copy, write the delete-by date, and record the
@@ -67,7 +67,7 @@ steps:
 
   - id: deliver.approve
     name: The owner approves the reviewed bytes
-    sources: ["docs/guides/build-a-cv.md:153-158", "docs/pdf-workflow.md:179-181", "docs/proposals/workflow-model.md:58", "docs/glossary.md:64"]
+    sources: ["docs/guides/build-a-cv.md:153-158", "docs/pdf-workflow.md:180-182", "docs/proposals/workflow-model.md:58", "docs/glossary.md:64"]
     actor: actor.owner
     action: cmd.cv-approve
     inputs: [art.cv-pdf, art.render-json, art.checks-json, art.reviewed-hash, art.envelope-json]
@@ -76,7 +76,7 @@ steps:
   # Decision #5 (2026-10-14): Claude runs Export after the owner approves.
   - id: deliver.export
     name: Export the approved Revision
-    sources: ["docs/proposals/workflow-model.md:58", "docs/guides/build-a-cv.md:160-164", "docs/pdf-workflow.md:182-186"]
+    sources: ["docs/proposals/workflow-model.md:58", "docs/guides/build-a-cv.md:160-164", "docs/pdf-workflow.md:183-187"]
     actor: actor.lead
     action: cmd.cv-export
     inputs: [art.approval-json, art.cv-pdf, art.render-json, art.checks-json]
@@ -94,7 +94,7 @@ steps:
 
   - id: deliver.send
     name: The owner sends the exported PDF
-    sources: ["docs/workflow/06-deliver/README.md:48-50", "docs/pdf-workflow.md:184-186"]
+    sources: ["docs/workflow/06-deliver/README.md:48-50", "docs/pdf-workflow.md:185-187"]
     actor: actor.owner
     action: manual.send-pdf
     inputs: [art.export-bundle]
@@ -280,7 +280,7 @@ artifacts:
 
   - id: art.delivery-message
     name: The CV sent to the client
-    sources: ["docs/workflow/06-deliver/README.md:48-50", "docs/pdf-workflow.md:184-186"]
+    sources: ["docs/workflow/06-deliver/README.md:48-50", "docs/pdf-workflow.md:185-187"]
     format: the exported PDF, sent by the owner's own channel
     visibility: third-party
 
@@ -364,7 +364,7 @@ actions:
   - id: manual.send-pdf
     kind: manual
     name: Send the PDF
-    sources: ["docs/workflow/06-deliver/README.md:48-50", "docs/pdf-workflow.md:184-186"]
+    sources: ["docs/workflow/06-deliver/README.md:48-50", "docs/pdf-workflow.md:185-187"]
     does: The owner sends exports/<revision>/cv.pdf to the client, a separate manual act; the receipt is internal and not sent.
 
   - id: cmd.stamp-delivered

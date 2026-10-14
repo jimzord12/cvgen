@@ -40,7 +40,7 @@ window.ATLAS = {
      "Everything routine (commits, merges to `main`, task-store updates) is the agents' job."
     ],
     "sources": [
-     "docs/preferences.md:49-81",
+     "docs/preferences.md:51-86",
      "docs/workflow/README.md:22-24"
     ],
     "short": "You"
@@ -69,8 +69,9 @@ window.ATLAS = {
      "Starts every session from the `session-handoff` doc on `main` (`backlog/docs/`) and rewrites it before stopping."
     ],
     "sources": [
-     "AGENTS.md:28-44",
-     "docs/development.md:34-56"
+     "docs/development.md:10-18",
+     "docs/development.md:42-58",
+     "docs/development.md:109-121"
     ],
     "short": "Claude"
    },
@@ -390,7 +391,7 @@ window.ATLAS = {
     "role": "The `Output Contract` tool: `stamp` writes a PDF's `Meta File`; `check` lists every PDF without a valid one.",
     "sources": [
      "scripts/outputs.py",
-     "docs/pdf-workflow.md:125-169"
+     "docs/pdf-workflow.md:125-170"
     ]
    },
    "suite": {
@@ -414,7 +415,7 @@ window.ATLAS = {
     ],
     "sources": [
      "apps/design-review/server.py:1-12",
-     "AGENTS.md"
+     "apps/design-review/README.md"
     ]
    },
    "build-ps1": {
@@ -425,7 +426,7 @@ window.ATLAS = {
     "sources": [
      "scripts/build.ps1",
      "examples/release.json",
-     "docs/pdf-workflow.md:219-227"
+     "docs/pdf-workflow.md:220-228"
     ]
    },
    "intake-form": {
@@ -444,7 +445,7 @@ window.ATLAS = {
     "role": "The task store (Backlog.md, ADR 0014): one file per task, statuses Queued, Active, Review, Ready, Done, label `blocked`. The `session-handoff` doc is where every session starts. Boards: `backlog board`, `backlog browser`.",
     "sources": [
      ".claude/skills/backlog/SKILL.md:1-35",
-     "docs/development.md:17-32",
+     "docs/development.md:25-40",
      "docs/decisions/0014-backlog-md-task-store.md"
     ],
     "short": "Backlog"
@@ -464,7 +465,7 @@ window.ATLAS = {
     "role": "Lints the Python with ruff, runs the workflow tool's tests and type check, the `Workflow Model` check (`bun run check`, Bun pinned in `tools/workflow/.bun-version`) and that its generated READMEs and the `Atlas` client-journey page match it (`bun run render --check`, `bun run atlas --check`), then runs the suite once per push (its head commit) on any branch, on Linux and Windows (Typst 0.15.1 and the Python packages in `requirements.lock`, checksummed; the suite drives `scripts/build.ps1` in a throwaway copy on both, and Windows also builds the examples with it); a newer push to a feature branch cancels the older run. The lead watches it on `main` before calling work Done.",
     "sources": [
      ".github/workflows/verify.yml",
-     "docs/git-workflow.md:90-103"
+     "docs/git-workflow.md:91-104"
     ],
     "short": "CI"
    }
@@ -554,7 +555,7 @@ window.ATLAS = {
     ".claude/skills/new-cv/SKILL.md:21-54",
     "docs/guides/build-a-cv.md:1-100",
     "docs/guides/build-a-cv.md:102-182",
-    "docs/pdf-workflow.md:171-193",
+    "docs/pdf-workflow.md:172-194",
     ".claude/skills/new-cv/SKILL.md:56-78",
     "docs/workflow/07-after/README.md:15-53",
     ".claude/skills/new-client/SKILL.md:16-29",
@@ -2604,7 +2605,7 @@ window.ATLAS = {
        "sources": [
         "docs/workflow/05-design/README.md:49-50",
         ".claude/skills/new-cv/SKILL.md:54",
-        "docs/preferences.md:62-64",
+        "docs/preferences.md:67-69",
         ".claude/agents/design-reviewer.md:46-50"
        ]
       },
@@ -2870,7 +2871,7 @@ window.ATLAS = {
        "note": "Model step `deliver.approve`, action `cmd.cv-approve`, in `docs/workflow/06-deliver/stage.yaml`.",
        "sources": [
         "docs/guides/build-a-cv.md:153-158",
-        "docs/pdf-workflow.md:179-181",
+        "docs/pdf-workflow.md:180-182",
         "docs/proposals/workflow-model.md:58",
         "docs/glossary.md:64"
        ]
@@ -2903,7 +2904,7 @@ window.ATLAS = {
        "sources": [
         "docs/proposals/workflow-model.md:58",
         "docs/guides/build-a-cv.md:160-164",
-        "docs/pdf-workflow.md:182-186"
+        "docs/pdf-workflow.md:183-187"
        ]
       },
       {
@@ -2945,7 +2946,7 @@ window.ATLAS = {
        "note": "Model step `deliver.send`, action `manual.send-pdf`, in `docs/workflow/06-deliver/stage.yaml`.",
        "sources": [
         "docs/workflow/06-deliver/README.md:48-50",
-        "docs/pdf-workflow.md:184-186"
+        "docs/pdf-workflow.md:185-187"
        ]
       },
       {
@@ -3194,7 +3195,7 @@ window.ATLAS = {
        "sources": [
         "docs/workflow/07-after/README.md:27-34",
         "docs/guides/client-workflow.md:197-222",
-        "docs/preferences.md:69-77",
+        "docs/preferences.md:74-82",
         "docs/workflow/GAPS.md:45-48"
        ]
       },
@@ -3230,8 +3231,8 @@ window.ATLAS = {
        ],
        "note": "Model step `after.revision-cleanup`, action `manual.go-remove-revisions`, in `docs/workflow/07-after/stage.yaml`.",
        "sources": [
-        "docs/pdf-workflow.md:214-217",
-        "docs/preferences.md:75-77",
+        "docs/pdf-workflow.md:215-218",
+        "docs/preferences.md:80-82",
         "docs/workflow/GAPS.md:58-61"
        ]
       }
@@ -3382,7 +3383,7 @@ window.ATLAS = {
        "note": "The `idea-run` skill does not place this look at a fixed point in the loop; it is your tool, usable before or after the gates.",
        "sources": [
         "apps/design-review/server.py:1-12",
-        "AGENTS.md",
+        "apps/design-review/README.md",
         "docs/glossary.md"
        ],
        "optional": true
@@ -3616,9 +3617,7 @@ window.ATLAS = {
         "backlog"
        ],
        "sources": [
-        "docs/development.md:34-56",
-        "AGENTS.md:35-44",
-        "AGENTS.md:49-54",
+        "docs/development.md:42-58",
         "docs/proposals/README.md:46-51",
         "docs/proposals/README.md:89-97"
        ]
@@ -3639,8 +3638,8 @@ window.ATLAS = {
         "backlog"
        ],
        "sources": [
-        "docs/development.md:17-32",
-        "docs/development.md:107-196"
+        "docs/development.md:25-40",
+        "docs/development.md:121-212"
        ]
       }
      ]
@@ -3656,8 +3655,8 @@ window.ATLAS = {
        "summary": "Small verified fixes and docs may go straight to `main`. Features and anything uncertain get a `<type>/<topic>` branch, in a worktree under `.worktrees/`. No pull requests.",
        "sources": [
         "docs/git-workflow.md:21-33",
-        "docs/git-workflow.md:40-66",
-        "docs/git-workflow.md:85-89"
+        "docs/git-workflow.md:40-67",
+        "docs/git-workflow.md:86-90"
        ]
       },
       {
@@ -3678,7 +3677,9 @@ window.ATLAS = {
         "suite"
        ],
        "sources": [
-        "AGENTS.md",
+        "docs/conventions.md:6-11",
+        "docs/development.md:214-221",
+        "docs/framework-gaps.md:3-6",
         ".claude/skills/verify-cv/SKILL.md:10-19"
        ]
       }
@@ -3769,8 +3770,8 @@ window.ATLAS = {
        ],
        "note": "Yours only, with the exact command shown first, including: deleting or force-pushing `main`, rewriting its published history, rewriting the private repo's history (the delete-by erase, which you run), `archive/*` tags, repo settings (public and private repo), deleting under `private/` or `.local/` or outside the repo, removing revisions, approvals, exports or portraits, replacing the `Release`.",
        "sources": [
-        "docs/git-workflow.md:90-103",
-        "docs/preferences.md:52-81",
+        "docs/git-workflow.md:91-104",
+        "docs/preferences.md:57-86",
         ".github/workflows/verify.yml"
        ]
       }
@@ -3796,7 +3797,7 @@ window.ATLAS = {
         "repo-maintenance"
        ],
        "sources": [
-        "docs/development.md:58-89"
+        "docs/development.md:72-103"
        ]
       },
       {
@@ -3811,7 +3812,7 @@ window.ATLAS = {
         "backlog"
        ],
        "sources": [
-        "docs/development.md:91-105"
+        "docs/development.md:105-119"
        ]
       },
       {
@@ -3825,8 +3826,8 @@ window.ATLAS = {
         "label": "Product decisions and real-client approvals stay yours."
        },
        "sources": [
-        "docs/preferences.md:49-51",
-        "docs/preferences.md:87"
+        "docs/preferences.md:51-53",
+        "docs/preferences.md:92"
        ]
       }
      ]
@@ -3909,6 +3910,9 @@ window.ATLAS = {
         "docs/pdf-workflow.md:73-98"
        ]
       }
+     ],
+     "sources": [
+      "docs/git-workflow.md:140-149"
      ]
     },
     {
@@ -3993,7 +3997,10 @@ window.ATLAS = {
        "title": "build.ps1",
        "path": "scripts/build.ps1",
        "actor": "build-ps1",
-       "blurb": "Builds the listed examples; `-Release` writes a new `Release`, `-ReplaceRelease` (owner's go) replaces one."
+       "blurb": "Builds the listed examples; `-Release` writes a new `Release`, `-ReplaceRelease` (owner's go) replaces one.",
+       "sources": [
+        "scripts/build.ps1:1-13"
+       ]
       }
      ]
     },
@@ -4011,14 +4018,20 @@ window.ATLAS = {
        "id": "n-candidates",
        "title": "Example candidates",
        "path": "examples/candidates/",
-       "blurb": "Engineer, captain, chief officer, deck cadet, one fictional portrait."
+       "blurb": "Engineer, captain, chief officer, deck cadet, one fictional portrait.",
+       "sources": [
+        "examples/candidates"
+       ]
       },
       {
        "id": "n-release",
        "title": "The Release",
        "path": "examples/marine/flagship/",
        "blurb": "Five entry points, each with its PDF and `Meta File` beside it.",
-       "touch": "Replacing the `Release` needs your go."
+       "touch": "Replacing the `Release` needs your go.",
+       "sources": [
+        "examples/marine/flagship"
+       ]
       }
      ]
     },
@@ -4037,31 +4050,46 @@ window.ATLAS = {
        "title": "Design concepts",
        "path": "studio/design-concepts/",
        "actor": "magazine-editor",
-       "blurb": "Every design `Idea Run`'s Styles and Tiers, with a README row each (two Densities since the 2026-09-29 run)."
+       "blurb": "Every design `Idea Run`'s Styles and Tiers, with a README row each (two Densities since the 2026-09-29 run).",
+       "sources": [
+        "studio/design-concepts/README.md:1-22"
+       ]
       },
       {
        "id": "n-anti",
        "title": "Anti-examples",
        "path": "studio/archive/anti-examples/",
-       "blurb": "Designs you rejected as not your style. Never repeat their idea."
+       "blurb": "Designs you rejected as not your style. Never repeat their idea.",
+       "sources": [
+        "studio/archive/anti-examples/README.md"
+       ]
       },
       {
        "id": "n-studies",
        "title": "Design studies",
        "path": "studio/archive/design-studies/",
-       "blurb": "Four frozen studies, for inspiration only."
+       "blurb": "Four frozen studies, for inspiration only.",
+       "sources": [
+        "studio/archive/design-studies/README.md"
+       ]
       },
       {
        "id": "n-textdraft",
        "title": "First Fitting",
        "path": "scripts/text-draft.typ",
-       "blurb": "The house design every `Text Draft` uses."
+       "blurb": "The house design every `Text Draft` uses.",
+       "sources": [
+        "docs/glossary.md:57-58"
+       ]
       },
       {
        "id": "n-brand",
        "title": "Brand",
        "path": "studio/brand/",
-       "blurb": "The needle's-eye logo, the wordmark, the form header."
+       "blurb": "The needle's-eye logo, the wordmark, the form header.",
+       "sources": [
+        "studio/brand/README.md"
+       ]
       }
      ]
     },
@@ -4094,7 +4122,7 @@ window.ATLAS = {
        "path": ".local/design-review/state.json",
        "blurb": "keep / maybe / reject, stars, notes. On this machine only; no verdicts recorded as of 2026-10-01.",
        "sources": [
-        "AGENTS.md"
+        "apps/design-review/README.md"
        ]
       }
      ]
@@ -4120,7 +4148,10 @@ window.ATLAS = {
        "id": "n-docs",
        "title": "docs/",
        "path": "docs/",
-       "blurb": "Vision, constitution, architecture, guides, engine manuals, ADRs."
+       "blurb": "Vision, constitution, architecture, guides, engine manuals, ADRs.",
+       "sources": [
+        "docs"
+       ]
       },
       {
        "id": "n-glossary",
@@ -4132,13 +4163,19 @@ window.ATLAS = {
        "id": "n-agent-files",
        "title": ".claude/agents/",
        "path": ".claude/agents/",
-       "blurb": "The nine agent profiles, with model and tools."
+       "blurb": "The nine agent profiles, with model and tools.",
+       "sources": [
+        ".claude/agents"
+       ]
       },
       {
        "id": "n-skills",
        "title": ".claude/skills/",
        "path": ".claude/skills/",
-       "blurb": "The seven checklists agents load."
+       "blurb": "The seven checklists agents load.",
+       "sources": [
+        ".claude/skills"
+       ]
       },
       {
        "id": "n-work",
@@ -4182,7 +4219,10 @@ window.ATLAS = {
        "title": "GitHub CI",
        "path": ".github/workflows/verify.yml",
        "actor": "github-ci",
-       "blurb": "Ruff, the `Workflow Model` check, its generated READMEs and `Atlas` page, then the suite once per push (its head commit), Linux and Windows."
+       "blurb": "Ruff, the `Workflow Model` check, its generated READMEs and `Atlas` page, then the suite once per push (its head commit), Linux and Windows.",
+       "sources": [
+        "docs/engine/verification.md:26-38"
+       ]
       }
      ]
     },
@@ -4426,30 +4466,30 @@ window.ATLAS = {
   }
  ],
  "build": {
-  "builtAt": "2026-10-14 12:34 UTC",
-  "commit": "8258db8",
+  "builtAt": "2026-10-14 13:12 UTC",
+  "commit": "bc1c334",
   "kit": "1.0",
   "stale": {},
   "verified": {
    "client-journey": {
     "at": "2026-10-14",
-    "commit": "8258db8"
+    "commit": "9e7e6e1"
    },
    "design-run": {
     "at": "2026-10-14",
-    "commit": "8258db8"
+    "commit": "775cbc6"
    },
    "change-review": {
     "at": "2026-10-14",
-    "commit": "8258db8"
+    "commit": "9e7e6e1"
    },
    "system-map": {
     "at": "2026-10-14",
-    "commit": "d9edaa7"
+    "commit": "bc1c334"
    },
    "roster": {
     "at": "2026-10-14",
-    "commit": "8258db8"
+    "commit": "9e7e6e1"
    }
   }
  }

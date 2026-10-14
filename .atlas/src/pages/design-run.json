@@ -141,7 +141,7 @@
           "note": "The `idea-run` skill does not place this look at a fixed point in the loop; it is your tool, usable before or after the gates.",
           "sources": [
             "apps/design-review/server.py:1-12",
-            "AGENTS.md",
+            "apps/design-review/README.md",
             "docs/glossary.md"
           ],
           "optional": true

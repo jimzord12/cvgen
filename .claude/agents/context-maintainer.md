@@ -34,12 +34,12 @@ say which file owns which kind of guidance. In short:
 
 | Guidance | Owner |
 |---|---|
-| Orientation, layout, commands, working agreement | `AGENTS.md` (`CLAUDE.md` only adds what is specific to Claude Code) |
+| The map: where things are, the essential commands, the hard rules and the working agreement as pointers to their owners | `AGENTS.md` (`CLAUDE.md` only adds what is specific to Claude Code); each rule there points at the file that owns it |
 | Who the owner is, how to talk to him, who decides what | `docs/preferences.md` |
 | The owner's personal preferences | `.local/preferences/` (git-ignored; never copied into the repository) |
 | What CVgen is, "Design is the product", the direction | `docs/vision.md` |
 | Rules that never change | `docs/constitution.md` (changing one is the owner's decision) |
-| How work is done | `docs/development.md` (stages, task records), `docs/review.md` (reviews), `docs/git-workflow.md`, `docs/conventions.md` |
+| How work is done | `docs/development.md` (roles, orientation, stages, task records, author checks), `docs/review.md` (reviews), `docs/git-workflow.md`, `docs/conventions.md` |
 | Official terms | `docs/glossary.md` |
 | Clients and real CVs | `docs/guides/client-workflow.md`, `docs/guides/build-a-cv.md` |
 | How the engine is shaped | `docs/architecture.md`, `docs/engine/` |

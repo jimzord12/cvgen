@@ -1,7 +1,9 @@
 # How to work with the owner
 
 Read this before replying to the owner. It applies to every agent in every
-session.
+session. If `.local/preferences/user-profile.md` exists, read it alongside
+this file: it holds the owner's local preferences. Keep it untracked and
+never copy its contents into shared documentation.
 
 ## Who the owner is
 
@@ -49,6 +51,9 @@ choices and act without asking (owner's instruction, 2026-09-25).
 - **He decides:** what the product is, what gets built next, what an approved
   look is, approval of a real client's PDF, changes to the rules in
   `constitution.md`, and review rounds beyond the cap (`review.md`).
+  Approval is his act: an agent never runs `scripts/cv.py approve` on a
+  real client; `--test-only` exists for fictional fixtures and is refused
+  under `private/`.
 - **Agents decide and do, without asking:** architecture inside an approved
   item, naming (code, files and the terms in `glossary.md`, reported
   afterwards), structure (his principle, 2026-09-30: keep the repository

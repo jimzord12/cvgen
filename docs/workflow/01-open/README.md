@@ -50,7 +50,7 @@ the owner in [P-0018](../../proposals/workflow-gaps.md) item 4.
   under `private/`, the one `Envelope` tree.
 - Committing `Envelope` files to this repository. `private/` is its own
   private repository; client work is committed from inside it, with the
-  `Alias` in the message (`AGENTS.md`, "Where things are").
+  `Alias` in the message (`docs/git-workflow.md`, "The private repository").
 - Naming the person in the task title or a commit message in the public
   repository.
 - Writing `envelope.json` after the first draft: the draft's stamp then

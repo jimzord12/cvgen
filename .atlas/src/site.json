@@ -38,7 +38,7 @@
         "Everything routine (commits, merges to `main`, task-store updates) is the agents' job."
       ],
       "sources": [
-        "docs/preferences.md:49-81",
+        "docs/preferences.md:51-86",
         "docs/workflow/README.md:22-24"
       ],
       "short": "You"
@@ -67,8 +67,9 @@
         "Starts every session from the `session-handoff` doc on `main` (`backlog/docs/`) and rewrites it before stopping."
       ],
       "sources": [
-        "AGENTS.md:28-44",
-        "docs/development.md:34-56"
+        "docs/development.md:10-18",
+        "docs/development.md:42-58",
+        "docs/development.md:109-121"
       ],
       "short": "Claude"
     },
@@ -388,7 +389,7 @@
       "role": "The `Output Contract` tool: `stamp` writes a PDF's `Meta File`; `check` lists every PDF without a valid one.",
       "sources": [
         "scripts/outputs.py",
-        "docs/pdf-workflow.md:125-169"
+        "docs/pdf-workflow.md:125-170"
       ]
     },
     "suite": {
@@ -412,7 +413,7 @@
       ],
       "sources": [
         "apps/design-review/server.py:1-12",
-        "AGENTS.md"
+        "apps/design-review/README.md"
       ]
     },
     "build-ps1": {
@@ -423,7 +424,7 @@
       "sources": [
         "scripts/build.ps1",
         "examples/release.json",
-        "docs/pdf-workflow.md:219-227"
+        "docs/pdf-workflow.md:220-228"
       ]
     },
     "intake-form": {
@@ -442,7 +443,7 @@
       "role": "The task store (Backlog.md, ADR 0014): one file per task, statuses Queued, Active, Review, Ready, Done, label `blocked`. The `session-handoff` doc is where every session starts. Boards: `backlog board`, `backlog browser`.",
       "sources": [
         ".claude/skills/backlog/SKILL.md:1-35",
-        "docs/development.md:17-32",
+        "docs/development.md:25-40",
         "docs/decisions/0014-backlog-md-task-store.md"
       ],
       "short": "Backlog"
@@ -462,7 +463,7 @@
       "role": "Lints the Python with ruff, runs the workflow tool's tests and type check, the `Workflow Model` check (`bun run check`, Bun pinned in `tools/workflow/.bun-version`) and that its generated READMEs and the `Atlas` client-journey page match it (`bun run render --check`, `bun run atlas --check`), then runs the suite once per push (its head commit) on any branch, on Linux and Windows (Typst 0.15.1 and the Python packages in `requirements.lock`, checksummed; the suite drives `scripts/build.ps1` in a throwaway copy on both, and Windows also builds the examples with it); a newer push to a feature branch cancels the older run. The lead watches it on `main` before calling work Done.",
       "sources": [
         ".github/workflows/verify.yml",
-        "docs/git-workflow.md:90-103"
+        "docs/git-workflow.md:91-104"
       ],
       "short": "CI"
     }

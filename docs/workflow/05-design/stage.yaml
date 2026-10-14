@@ -245,7 +245,7 @@ steps:
 
   - id: design.clear-review-input
     name: Clear the previews from builds/
-    sources: ["docs/workflow/05-design/README.md:49-50", ".claude/skills/new-cv/SKILL.md:54", "docs/preferences.md:62-64", ".claude/agents/design-reviewer.md:46-50"]
+    sources: ["docs/workflow/05-design/README.md:49-50", ".claude/skills/new-cv/SKILL.md:54", "docs/preferences.md:67-69", ".claude/agents/design-reviewer.md:46-50"]
     actor: actor.lead
     action: lead.clear-review-input
     inputs: [art.design-review-report]
@@ -359,7 +359,7 @@ artifacts:
 
   - id: art.concept-brief
     name: A Style's brief
-    sources: [".claude/skills/idea-run/SKILL.md:54-57", "AGENTS.md:103"]
+    sources: [".claude/skills/idea-run/SKILL.md:54-57", "studio/design-concepts/README.md:13-15"]
     path: studio/design-concepts/<date>-<slug>/brief.md
     format: Markdown with its references
     visibility: public
@@ -642,7 +642,7 @@ actions:
   - id: lead.clear-review-input
     kind: lead
     name: Clear the previews
-    sources: ["docs/workflow/05-design/README.md:49-50", ".claude/skills/new-cv/SKILL.md:54", "docs/preferences.md:62-64", ".claude/agents/design-reviewer.md:46-50"]
+    sources: ["docs/workflow/05-design/README.md:49-50", ".claude/skills/new-cv/SKILL.md:54", "docs/preferences.md:67-69", ".claude/agents/design-reviewer.md:46-50"]
     does: >-
       Deletes the builds/design-review-input-* folders by path, with the page
       PNGs the design-reviewer rendered inside them, since they hold a real

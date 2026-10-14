@@ -3,6 +3,13 @@
 How code, documents and commits are written here. Read before writing any of
 them. These evolve; the rules that do not are in `constitution.md`.
 
+## Before editing
+
+- **Understand the seam first:** its imports, call sites and the fixture
+  that covers it. Say what you found in a line, then act.
+- **Prefer the owning module over a parallel one.** Related pieces stay
+  together ("Typst code", below).
+
 ## Typst code
 
 - **Small functions that return content, one shape (ADR 0008).** A

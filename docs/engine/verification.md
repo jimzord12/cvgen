@@ -17,6 +17,12 @@ Output goes to a new `builds/tests-<timestamp>/` folder with a
 and on a raster mismatch `check/diff-N.png` highlighting changed pixels.
 The page images are what to show the owner or a reviewer.
 
+The main files in `tests/`: `run.py` (the runner), `verify.py` (the PDF
+checks), `workflow.py` (the end-to-end workflow case), `release.py` (the
+example list and the `build.ps1` case), `baseline.json` (the hash
+manifest) and `fixtures/*.typ` (the compile cases); the other `.py` files
+test one script or app each.
+
 CI (`.github/workflows/verify.yml`) installs the Python packages from
 `requirements.lock` (hash-checked), runs `ruff check` (`ruff.toml`), installs
 Bun from `tools/workflow/.bun-version` and runs the workflow tool's

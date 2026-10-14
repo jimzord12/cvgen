@@ -42,7 +42,7 @@ artwork pack.
 | Theme | `domains/marine/templates/flagship/themes/*.typ` | Colours, fonts, sizes, tracking, leading, the marine art's palette (`art-palette`, from the domain) and a map from legacy SVG hex colours to theme colours |
 | Artwork | `domains/marine/templates/flagship/artwork/*.typ` | Which SVG under `domains/marine/assets/` fills each named slot, with optional width, x, y and opacity |
 | Layout | `domains/marine/templates/flagship/layouts/*.typ` | Margins, the page shell's `shell` slice (opening margin, hero band), hero geometry, column widths, gaps, spacing scale, page plan, `anchor-education`, `spread`, `stack-gap` |
-| Display switch | `show-vessel-durations` on `flagship` | Show or hide every vessel duration at once without moving columns |
+| Display switch | `show-vessel-durations` on `flagship` | Show or hide every vessel duration at once without moving columns; `scripts/build.ps1 -HideVesselDurations` builds every example with it off (refused with `-Release`) |
 
 A seventh, optional input is `copy` on `flagship`: overrides for the
 wording. The adapter composes the marine domain's words, then the role's,
@@ -121,7 +121,7 @@ cv-framework/                           the Framework (ADR 0012); imports no dom
     page.typ                              page-header, page-footer, page-background, document-shell
     pagination.typ                        validate-pages (every row once, in order), company-fragment over a domain row model
 domains/marine/                         the marine domain (ADR 0011)
-  lib.typ                               the marine surface: the Framework's names, marine, Flagship (components as modules)
+  lib.typ                               the marine surface every marine entry point imports: the Framework's names, marine, Flagship (components and inputs as modules), no side effects
   domain.typ                            id, meta, copy, experience, art-palette
   data.typ                              company-months, experience-totals, normalize-candidate, validate-candidate, experience-model
   schema/candidate.schema.json          marine candidate-facts contract
