@@ -94,13 +94,13 @@
    "verifiedAt": "2026-10-14"
   },
   "system-map": {
-   "commit": "5cc0a02",
+   "commit": "a0345db",
    "sources": {
     ".claude/agents": "dir1:4f4154394888bb9d69a0ed790d8f4b484a790fdd",
     ".claude/skills": "dir1:5eeafda0c9ef9a6037a3fcc2879f73f098fa3e55",
     ".claude/skills/backlog/SKILL.md": "24c2914e3331741a0d013d29cfd4ce2adfc8015e",
-    ".github/workflows/verify.yml": "fce7f19c5e9373e4a47f53c4362b377c3dbdbc76",
-    "AGENTS.md": "a1e81dbeb05262bd8db0b20c021c5238b7000122",
+    ".github/workflows/verify.yml": "13b2c21904a13fa79cf082031252c1c814c98455",
+    "AGENTS.md": "417317b1b199cf4489fb17bdf99a981e09b8084a",
     "archive/anti-examples": "dir1:dacb2a2e30bc6a5d49178d2bcbf382c4de52a88c",
     "archive/design-studies": "dir1:3934f2dbb33587fa8b485e7b99d2b37fa3784798",
     "archive/work-records": "dir1:2ff83673da07074881c2699ee2b707db72385031",
@@ -124,7 +124,7 @@
     "scripts/design_review/server.py": "9d9d6be943f9cc5aa8eb9882b90e54668410ee05",
     "scripts/outputs.py": "6e79e3d72163c249c328633379952f93837ffe1c",
     "scripts/text-draft.typ": "c6f61f2253a2105d3334f3edc4e9b12137f54fa1",
-    "tests/run.py": "e112fff0226ae0fb70b1a884bd7c8444358e44e1"
+    "tests/run.py": "887643e850d506c8cd80eac1b41c420410c630ee"
    },
    "verifiedAt": "2026-10-14"
   }
