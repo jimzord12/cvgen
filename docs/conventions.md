@@ -97,6 +97,7 @@ audit (check N1) flags mixed cases inside one folder.
 | Names a tool or an ecosystem fixes | as the tool wants | `README.md`, `AGENTS.md`, `CLAUDE.md`, `SKILL.md`, `LICENSE`, `__init__.py`, dotfiles, Backlog.md's `task-27 - <title>.md`, the Atlas kit's `.atlas/_kit/` |
 | Vendored fonts and their licences | the upstream name, unmodified | `FiraSans-Bold.ttf`, `Jost[wght].ttf`, `OFL.txt`, `bonanova-OFL.txt` |
 | The frozen reference and its archived renders | frozen: never renamed (`tests/baseline.json`, constitution) | `Marine-Engineer-CV-v11.pdf`, `studio/archive/design-studies/review/Marine-Engineer-CV-v11-page-1.png` |
+| Temporary exception | kept until its task removes it | `docs/workflow/GAPS.md` (goes with TASK-43) |
 
 ## Candidate JSON (marine domain)
 
