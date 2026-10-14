@@ -4,7 +4,7 @@ title: 'build-no-overwrite: `build.ps1` obeys "scripts never overwrite"'
 status: Active
 assignee: []
 created_date: '2026-10-14 04:48'
-updated_date: '2026-10-14 06:42'
+updated_date: '2026-10-14 06:52'
 labels:
   - restructure
 dependencies: []
@@ -62,4 +62,8 @@ Atlas: facts for build.ps1 and the suite updated (site.json, system-map), shifte
 - N4: build.ps1 refuses a list with no `examples` key, an empty array or an entry lacking source/title/variant ("examples/release.json needs an \"examples\" array ... Nothing was built or written."); suite case build-script-<shell>-malformed-list-refused. Mutation: guard disabled -> `AssertionError: 0 CVs created in builds/malformed`.
 - Walk (copy under builds/t49-walk2, pwsh 7.6.6 and 5.1.26100): misspelt key, empty array, entry without title each throw that message with no output folder; the restored list builds 5 CVs.
 - Suite on the merged head: PASS 109, builds/tests-20261014-094030-541892; outputs check 19 indexed, 0 problems.
+
+## Review rounds 2 (code) and 3 (context 1) follow-up
+
+Both PASS; reports in docs/work/build-no-overwrite/reviews/. Fixed: second malformed case (an entry without title; mutation removing the field check -> AssertionError ('no-title', '1 CVs created ...')); key-check comment simplified; README count from examples/release.json; AGENTS.md repeats trimmed; refusal text 'with it, run ./scripts/build.ps1 -ReplaceRelease'; new-theme restores 'and its assertions in tests/run.py'; verify-cv rewrapped with a pointer to docs/preferences.md.
 <!-- SECTION:NOTES:END -->

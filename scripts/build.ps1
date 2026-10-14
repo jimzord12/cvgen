@@ -22,7 +22,7 @@ try {
     # The one example list, shared with tests/run.py: every public example, its title (with version)
     # and the look it shows.
     $list = Get-Content -LiteralPath 'examples/release.json' -Raw -Encoding UTF8 | ConvertFrom-Json
-    # A missing key reads as $null, and @($null) has one element: check the key itself.
+    # No `examples` key, or an empty one, gives an empty list; the field check catches an incomplete entry.
     $examples = if ($list -and $list.PSObject.Properties['examples']) { @($list.examples | Where-Object { $_ }) } else { @() }
     $incomplete = @($examples | Where-Object { -not $_.source -or -not $_.title -or -not $_.variant })
     if ($examples.Count -eq 0 -or $incomplete.Count -gt 0) {
@@ -35,7 +35,7 @@ try {
         $existing = @($examples | ForEach-Object { [IO.Path]::ChangeExtension($_.source, '.pdf') } | Where-Object { Test-Path -LiteralPath $_ })
         if ($existing.Count -gt 0 -and -not $ReplaceRelease) {
             throw ("Refused: the Release already exists ($($existing -join ', ')). Replacing it needs the owner's " +
-                "explicit go (docs/preferences.md); with it he runs ./scripts/build.ps1 -ReplaceRelease. " +
+                "explicit go (docs/preferences.md); with it, run ./scripts/build.ps1 -ReplaceRelease. " +
                 'Nothing was built or written.')
         }
     }

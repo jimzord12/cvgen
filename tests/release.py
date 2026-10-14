@@ -80,12 +80,15 @@ def run_build_script(out, typst):
             assert 'not in examples/release.json' in str(error) and 'engineer.typ' in str(error), error
         else:
             raise AssertionError('the suite accepted a list that leaves entry points out')
-        # A list without its `examples` key is refused before anything is built.
-        (repo / LIST).write_text(json.dumps({'about': 'misspelt key', 'example': listing['examples']}), encoding='utf-8')
-        result = build('-OutputDirectory', 'builds/malformed')
-        text = result.stdout + result.stderr
-        assert result.returncode != 0 and 'needs an "examples" array' in text, text
-        assert not (repo / 'builds/malformed').exists(), 'a malformed list still built'
+        # A list without its `examples` key, or with an entry lacking its title, is refused before anything is built.
+        untitled = [{k: v for k, v in e.items() if k != 'title'} for e in listing['examples']]
+        for case, broken in [('no-key', {'about': 'misspelt key', 'example': listing['examples']}),
+                             ('no-title', {'examples': untitled})]:
+            (repo / LIST).write_text(json.dumps(broken), encoding='utf-8')
+            result = build('-OutputDirectory', 'builds/malformed-' + case)
+            text = result.stdout + result.stderr
+            assert result.returncode != 0 and 'needs an "examples" array' in text, (case, text)
+            assert not (repo / ('builds/malformed-' + case)).exists(), f'a malformed list ({case}) still built'
         (repo / LIST).write_text(json.dumps(listing, indent=2), encoding='utf-8')
         yield f'{label}-malformed-list-refused'
         result = build('-OutputDirectory', 'builds/plain')

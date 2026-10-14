@@ -24,7 +24,7 @@ drawing.
    `art-colors`.
 4. Add an example under `examples/marine/flagship/` that differs from an existing one by the
    theme import only. Add it to `examples/release.json` (read by
-   `scripts/build.ps1` and `tests/run.py`).
+   `scripts/build.ps1` and `tests/run.py`) and its assertions in `tests/run.py`.
 
 ## Artwork pack
 

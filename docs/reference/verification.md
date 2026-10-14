@@ -141,7 +141,7 @@ Windows one also holds the PDFs that build wrote, one per example in
    the machine (`pwsh`, and on Windows also Windows PowerShell 5.1) in a
    throwaway copy under the run's `build-script/` folder, with the list cut
    to `deck-cadet`: the suite refuses that list, a list without its
-   `examples` key makes `build.ps1` refuse before it builds, a plain build writes only
+   `examples` key, or with an entry lacking its `title`, makes `build.ps1` refuse before it builds, a plain build writes only
    `deck-cadet.pdf`, `-Release` over an existing `Release` exits non-zero
    with `Refused: the Release already exists` and builds nothing, leaving the
    PDF and its `Meta File` byte-identical, `-Release` with no `Release`
