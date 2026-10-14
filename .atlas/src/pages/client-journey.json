@@ -346,7 +346,7 @@
           "sources": [
             "docs/guides/client-workflow.md:26",
             "docs/guides/client-workflow.md:294-308",
-            "docs/pdf-workflow.md:144-150",
+            "docs/pdf-workflow.md:146-152",
             "docs/glossary.md"
           ]
         }
@@ -492,7 +492,7 @@
           ],
           "sources": [
             "docs/guides/build-a-cv.md:180-187",
-            "docs/pdf-workflow.md:175-179"
+            "docs/pdf-workflow.md:177-181"
           ]
         },
         {
@@ -515,7 +515,7 @@
           ],
           "sources": [
             "docs/guides/build-a-cv.md:189-207",
-            "docs/pdf-workflow.md:180-191"
+            "docs/pdf-workflow.md:182-193"
           ]
         },
         {
