@@ -4,15 +4,21 @@
 //   check <file...>     shape-check single Workflow Model YAML files
 //   anchors <base> [--fix] [<dir>]   source anchors whose cited lines moved or changed since commit <base>
 //   schema [--check]    regenerate the committed JSON Schema files; --check only reports stale ones (exit 1)
+//   reality [<model dir>] [--out <dir>]   level 3: a fictional client runs the model in a new folder under builds/; exit 0 or 1
+//   envelope <envelope dir> [<model dir>] read-only: which artifacts the model declares exist in a real Envelope
 // Usage errors exit 2.
 import { existsSync, statSync } from "node:fs";
-import { relative } from "node:path";
+import { join, relative } from "node:path";
 import { anchors } from "./anchors";
 import { checkModel, modelDir, repoRoot } from "./check";
 import { formatIssue, loadFile } from "./load";
+import { envelopeWalk, reality } from "./reality";
 import { schemaDir, staleSchemas, writeSchemas } from "./schema";
 
-const usage = "usage: bun src/cli.ts check [<model dir> | <file.yaml...>] | anchors <base> [--fix] [<model dir>] | schema [--check]";
+const usage =
+  "usage: bun src/cli.ts check [<model dir> | <file.yaml...>] | anchors <base> [--fix] [<model dir>] | schema [--check]" +
+  " | reality [<model dir>] [--out <dir>] | envelope <envelope dir> [<model dir>]";
+const stamp = () => new Date().toISOString().replace(/[-:]/g, "").replace("T", "-").slice(0, 15);
 
 const isDir = (path: string) => existsSync(path) && statSync(path).isDirectory();
 const shown = (dir: string) => relative(repoRoot, dir).replaceAll("\\", "/") || ".";
@@ -67,7 +73,25 @@ export function main(args: string[]): number {
     }
     return anchors({ base, fix, dir: dir ?? modelDir, root: repoRoot, log: console.log });
   }
-  if (command === "schema" && (rest.length === 0 || (rest.length === 1 && rest[0] === "--check"))) {
+  if (command === "reality") {
+    const at = rest.indexOf("--out");
+    const out = at >= 0 ? rest[at + 1] : join(repoRoot, "builds", `workflow-reality-${stamp()}`);
+    const dirs = rest.filter((_, i) => at < 0 || (i !== at && i !== at + 1));
+    if (!out || dirs.length > 1 || (dirs[0] !== undefined && !isDir(dirs[0]))) {
+      console.error(usage);
+      return 2;
+    }
+    return reality({ dir: dirs[0] ?? modelDir, out });
+  }
+  if (command === "envelope") {
+    const [envelope, dir, ...extra] = rest;
+    if (!envelope || extra.length > 0 || (dir !== undefined && !isDir(dir))) {
+      console.error(usage);
+      return 2;
+    }
+    return envelopeWalk({ dir: dir ?? modelDir, envelope });
+  }
+  if (command === "schema" &&(rest.length === 0 || (rest.length === 1 && rest[0] === "--check"))) {
     if (rest[0] === "--check") {
       const stale = staleSchemas();
       for (const name of stale) console.error(`STALE ${name}: run "bun run schema" in tools/workflow`);

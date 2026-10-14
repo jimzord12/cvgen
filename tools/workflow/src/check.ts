@@ -108,6 +108,19 @@ export function checkModel(dir = modelDir, root = repoRoot): Result {
   return new Checker(model, root).run();
 }
 
+/** Every entity of a model that passed the check, by ID, and its steps in model order (stage folders in order, steps in file order). */
+export function entities(model: Model) {
+  const { catalog, stages } = model;
+  const byId = <T extends { id: string }>(items: T[]) => new Map(items.map((i) => [i.id, i]));
+  return {
+    steps: stages.flatMap(({ data }) => data.steps),
+    artifacts: byId([...catalog.data.artifacts, ...stages.flatMap(({ data }) => data.artifacts)]),
+    actions: byId([...catalog.data.actions, ...stages.flatMap(({ data }) => data.actions)]),
+    gates: byId(stages.flatMap(({ data }) => data.gates)),
+    loops: byId(stages.flatMap(({ data }) => data.loops)),
+  };
+}
+
 class Checker {
   issues: Issue[] = [];
   notes: string[] = [];

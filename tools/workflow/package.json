@@ -7,6 +7,8 @@
     "check": "bun src/cli.ts check",
     "anchors": "bun src/cli.ts anchors",
     "schema": "bun src/cli.ts schema",
+    "reality": "bun src/cli.ts reality",
+    "envelope": "bun src/cli.ts envelope",
     "typecheck": "tsc --noEmit",
     "test": "bun test"
   },
