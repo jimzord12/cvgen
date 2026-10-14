@@ -8,6 +8,8 @@ The explicit brief overrides the magazine-editor's default 18-design count and e
 
 Branch `docs/idea-run-2026-10-02-editor` starts at `3e432f7d1c018898ac700414cd21791097453f03` and contains earlier unmerged reference designs and Codex-agent setup. Intended delivery is the named proposal branch; its ancestry must not be merged wholesale into main. Main at start: `0488c4f8496b06af201db4969e88f7298b52d7f5`.
 
+2026-10-14 (TASK-33): this branch, ancestry included, was merged into `main` on 2026-10-04 (`a66b448`) at the owner's request. Japan Passage passed its own gates below; the idea-run gates were never run on the ancestry it carried (the 2026-09-29 designs), which the owner judged later in the Design Review app.
+
 Live owner safety checkpoints override older cleanup permissions: no deletions, file overwrites, directory removals or destructive Git without explicit confirmation. Targeted source edits are routine edits; compiled PDFs and previews use new paths. No cleanup is planned.
 
 ## Study and authorship

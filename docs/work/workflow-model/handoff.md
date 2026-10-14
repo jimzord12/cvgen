@@ -71,6 +71,17 @@ not kept). Not done: a stored review report. Suggested: one `context-reviewer`
 round over those four commits (task 1 below), stored in
 `docs/work/workflow-model/reviews/`.
 
+Correction 2026-10-14 (TASK-33): "each had been reviewed on its own branch"
+above is not accurate. `a66b448` brought the 18 designs of the 2026-09-29
+run, committed "(unreviewed)" and never gated by the idea-run reviewers; the
+owner judged every one later in the Design Review app (kept, parked or
+rejected, applied 2026-10-06). `74a6f82` brought the `context-maintainer`
+and `context-reviewer` with two review reports still at FINDINGS
+(`docs/work/design-core/reviews/03-context-reviewer.md`,
+`docs/work/codex-visual-tools/reviews/01.md`). The merges were reviewed
+afterwards in `reviews/01-context-reviewer.md`, and its findings were fixed
+in TASK-33.
+
 Two known leftovers from those merges, to fix in the restructure, not now:
 
 - The three fonts exist twice, in `design-concepts/fonts/` and

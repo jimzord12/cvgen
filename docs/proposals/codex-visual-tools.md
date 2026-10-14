@@ -118,3 +118,14 @@ facts and the plan to build.
   visual reviewer beside the `design-reviewer`. Models: GPT-6 Astra at high
   effort for visual review, GPT-6 Sol at high effort for image generation.
   Status `approved`; not built yet.
+
+## Notes
+
+- 2026-10-14 (TASK-33): the review of revision 1,
+  `docs/work/codex-visual-tools/reviews/01.md`, is still FINDINGS and is
+  applied when this is built (TASK-4). It is not a new decision: the two
+  commands above also need `--ephemeral` (otherwise Codex keeps the
+  attached pages in `~/.codex/sessions`, never cleared; F1) and
+  `--ignore-user-config` (the owner's global config grants full access and
+  loads plugins; F2), and the Privacy line must say the pages carry the
+  whole CV, name and portrait included.
