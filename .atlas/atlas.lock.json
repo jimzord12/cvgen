@@ -92,13 +92,13 @@
    "verifiedAt": "2026-10-14"
   },
   "system-map": {
-   "commit": "12c230a",
+   "commit": "a8da087",
    "sources": {
     ".claude/agents": "dir1:4f4154394888bb9d69a0ed790d8f4b484a790fdd",
     ".claude/skills": "dir1:5eeafda0c9ef9a6037a3fcc2879f73f098fa3e55",
     ".claude/skills/backlog/SKILL.md": "22562281e7901acef008942775142d478ec85948",
     ".github/workflows/verify.yml": "40bc613fee5a49bd14875f60331cf0d24eebaec3",
-    "AGENTS.md": "cd4b7d0d9c7094d69d2811f4cd02cfa50a5004d7",
+    "AGENTS.md": "e50b6defa2881e10cd0b7355ed5777b77bab1712",
     "archive/anti-examples": "dir1:dacb2a2e30bc6a5d49178d2bcbf382c4de52a88c",
     "archive/design-studies": "dir1:3934f2dbb33587fa8b485e7b99d2b37fa3784798",
     "brand": "dir1:c556e0f8d17363d5e9ddc92e7142a253a16d1be2",
