@@ -7,8 +7,3 @@
 // The ctx-first components (ADR 0008) as one module, so they cannot clash with a
 // domain's names: core-components.page-header(ctx, ...).
 #import "core/components.typ" as core-components
-// Pre-contract signatures (data, theme, geometry) kept so custom compositions written
-// before ADR 0008 render unchanged. Deprecated (docs/framework-gaps.md, "Legacy
-// component signatures"); removal planned (TASK-58), migrate with
-// docs/guides/build-a-cv.md section 8.
-#import "core/legacy.typ": label, rule, metric, duration-value, decoration, document-shell, page-header, page-footer, page-background

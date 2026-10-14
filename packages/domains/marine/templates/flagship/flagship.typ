@@ -42,8 +42,7 @@
 }
 
 // Keys a layout profile set before TASK-45 and the shell now owns. A layout that still
-// sets one fails here instead of being silently ignored on page 1. Also called by the
-// deprecated document-shell wrapper (legacy.typ), so older compositions fail the same way.
+// sets one fails here instead of being silently ignored on page 1.
 #let check-layout(layout) = {
   assert("opening-margin" not in layout,
     message: "layout.opening-margin is retired: set the first page's margin as shell.margin, e.g. (..base, shell: (..base.shell, margin: (x: 16mm, top: 12mm, bottom: 15mm)))")

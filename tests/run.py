@@ -236,6 +236,9 @@ def main():
     engineer = listed['engineer']
     result = check_case(engineer, ROOT / FLAGSHIP / 'tests/approved/Marine-Engineer-CV-v11.pdf')
     assert result['passed'], result
+    # document-shell writes the PDF metadata flagship passes it: name | rank | domain title, and the domain's author.
+    with fitz.open(engineer) as doc:
+        assert (doc.metadata['title'], doc.metadata['author']) == ('ALEX MORGAN | SECOND ENGINEER | CVgen', 'CVgen'), doc.metadata
     hidden = compile_case('engineer-hidden', 'examples/marine/flagship/engineer.typ', {'vessel-durations': 'false'})
     with fitz.open(engineer) as a, fitz.open(hidden) as b:
         assert len(a) == len(b) == 2
@@ -317,39 +320,12 @@ def main():
              reason='this machine has no font outside the bundled ones, so --ignore-system-fonts is not proven here')
     compile_case('data-valid', 'tests/fixtures/data.typ')
     # ADR 0008 fixtures: 31 of the 32 ctx-first components rendered alone, one page each, headed by
-    # its name; the 32nd, document-shell, wraps a whole document and is covered by legacy-parity.
+    # its name; the 32nd, document-shell, wraps a whole document: every example goes through it, and
+    # the engineer example's PDF metadata check (above) proves it forwards title and author.
     components = compile_case('contract-components', 'tests/fixtures/contract.typ')
     with fitz.open(components) as doc:
         names = [page.get_text().split()[1] for page in doc]
         assert len(names) == len(set(names)) == 31, names
-    # The 32 deprecated pre-contract names (9 from the Framework's lib.typ, 23 from Flagship's, all
-    # re-exported by marine's lib.typ, which takes document-shell from Flagship's legacy.typ: the same
-    # wrapper after a check for retired layout keys, counted once) draw exactly what the ctx-first
-    # components draw; the fixture, which imports marine's lib.typ, must call every one of them.
-    import re
-    lib = '\n'.join((ROOT / p).read_text(encoding='utf-8') for p in ['packages/cv-framework/lib.typ', 'packages/domains/marine/lib.typ'])
-    legacy_names = sorted({n.strip() for line in lib.splitlines() if 'legacy.typ"' in line for n in line.split(':', 1)[1].split(',')})
-    parity = (ROOT / 'tests/fixtures/legacy-parity.typ').read_text(encoding='utf-8')
-    code = re.sub(r'//[^\n]*', '', re.sub(r'/\*.*?\*/', '', parity, flags=re.S))  # a call in a comment does not count
-    uncalled = [n for n in legacy_names if not re.search(r'L\.' + re.escape(n) + r'[(.]', code)]
-    assert len(legacy_names) == 32 and not uncalled, uncalled
-    old = compile_case('legacy-api', 'tests/fixtures/legacy-parity.typ', {'api': 'legacy'})
-    new = compile_case('contract-api', 'tests/fixtures/legacy-parity.typ', {'api': 'contract'})
-    with fitz.open(old) as a, fitz.open(new) as b:
-        assert len(a) == len(b) == 5, f'parity fixture pages: legacy {len(a)}, contract {len(b)}, expected 5 (page 5 vanishes if page-background draws nothing)'
-        # document-shell forwards the PDF metadata through both APIs.
-        for doc in (a, b):
-            assert (doc.metadata['title'], doc.metadata['author']) == ('Parity title', 'Parity author'), doc.metadata
-        for pa, pb in zip(a, b):
-            ra, rb = (p.get_pixmap(matrix=fitz.Matrix(2, 2), alpha=False) for p in (pa, pb))
-            assert (ra.width, ra.height, ra.samples) == (rb.width, rb.height, rb.samples), 'legacy API draws differently'
-            # Decorations are tagged as PDF artifacts; a wrapper that drops `artifact` changes the count.
-            assert pa.read_contents().count(b'/Artifact') == pb.read_contents().count(b'/Artifact'), 'legacy API tags artifacts differently'
-        # Page 5 holds only page-background, with the shell's background off: it must draw art, which
-        # means more than one colour on the page whatever the paper fill is. The 2pt border is left
-        # out: a tinted fill's anti-aliased page edge alone would count as a second colour.
-        inner = a[4].get_pixmap(alpha=False, clip=a[4].rect + (2, 2, -2, -2))
-        assert inner.color_count() > 1, 'page-background drew nothing'
     # The core paginates a domain that has no ships, and composes domain < role < template.
     compile_case('core-model', 'tests/fixtures/core-model.typ')
     # A role reaches the page only if `flagship` forwards it to the adapter.
@@ -408,8 +384,8 @@ def main():
     compile_case('no-synopsis', 'tests/fixtures/pagination.typ', {'case': 'no-synopsis'}, error='exactly one synopsis')
     compile_case('early-credentials', 'tests/fixtures/pagination.typ', {'case': 'early-credentials'}, error='Credentials must follow Experience')
     # Layout keys the shell's `shell` slice replaced fail loudly, never silently ignored on page 1.
-    for key, api in [('margin', 'flagship'), ('band', 'flagship'), ('margin', 'legacy'), ('band', 'legacy')]:
-        compile_case(f'retired-{key}-{api}', 'tests/fixtures/retired-keys.typ', {'case': key, 'api': api},
+    for key in ['margin', 'band']:
+        compile_case(f'retired-{key}-flagship', 'tests/fixtures/retired-keys.typ', {'case': key},
                      error='retired: set the ' + ("first page's margin as shell.margin" if key == 'margin' else "hero band's height as shell.band"))
     certs = compile_case('certificate-continuation', 'tests/fixtures/certificate-continuation.typ')
     with fitz.open(certs) as doc:
