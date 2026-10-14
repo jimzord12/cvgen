@@ -210,6 +210,7 @@ The same manual stamp, after the same anchor check, clears a page the kit
 reports stale while the page itself has not changed. Only the real page is
 stamped: `bun run atlas <file>` writes a copy elsewhere and leaves the
 `Atlas` alone (the tests use it).
+
 The page is the same on every run (model order, two-space JSON, LF, no
 dates); `atlas.data.js`, which the kit writes on each build, carries the
 build time and is not checked.

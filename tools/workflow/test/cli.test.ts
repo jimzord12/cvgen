@@ -1,10 +1,11 @@
 // The workflow tool as a person runs it: real process, real files, exit codes.
 import { describe, expect, test } from "bun:test";
 import { spawnSync } from "node:child_process";
-import { mkdtempSync, readFileSync, rmSync, writeFileSync } from "node:fs";
+import { mkdtempSync, readFileSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { schemaText, staleSchemas } from "../src/schema";
+import { removeTmp } from "./tmp";
 
 const root = join(import.meta.dirname, "..");
 const run = (...args: string[]) => {
@@ -31,7 +32,7 @@ describe("check", () => {
       expect(r.err).toContain(`${file}:${line}: steps[2].actors: unknown key`);
       expect(r.err).toContain("FAILED");
     } finally {
-      rmSync(dir, { recursive: true, force: true });
+      removeTmp(dir);
     }
   });
 

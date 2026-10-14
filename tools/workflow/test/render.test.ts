@@ -4,12 +4,13 @@
 // line, edited by hand and rendered again.
 import { afterEach, beforeEach, describe, expect, test } from "bun:test";
 import { spawnSync } from "node:child_process";
-import { cpSync, existsSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from "node:fs";
+import { cpSync, existsSync, mkdtempSync, readFileSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { modelDir, repoRoot } from "../src/check";
 import { label, mermaidBlocks, nodeId, validateFlowchart } from "../src/mermaid";
 import { blockNames, endMarker, render, startMarker } from "../src/render";
+import { removeTmp } from "./tmp";
 
 const tool = join(import.meta.dirname, "..");
 const run = (...args: string[]) => {
@@ -54,7 +55,7 @@ describe("a fixture model rendered through the command line", () => {
     dir = mkdtempSync(join(tmpdir(), "workflow-render-"));
     cpSync(join(tool, "test", "fixtures", "valid"), dir, { recursive: true });
   });
-  afterEach(() => rmSync(dir, { recursive: true, force: true }));
+  afterEach(() => removeTmp(dir));
 
   test("creates each README with a placeholder heading and every block, and is stable", () => {
     const first = run("render", dir);

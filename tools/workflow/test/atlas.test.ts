@@ -8,6 +8,7 @@ import { tmpdir } from "node:os";
 import { dirname, join } from "node:path";
 import { atlasPagePath, clientJourney, generate, stamp, staleSources, update } from "../src/atlas";
 import { checkModel, modelDir, repoRoot } from "../src/check";
+import { removeTmp } from "./tmp";
 
 const tool = join(import.meta.dirname, "..");
 const run = (...args: string[]) => {
@@ -61,7 +62,7 @@ describe("a copy of the page edited by hand", () => {
     file = join(dir, "client-journey.json");
     copyFileSync(atlasPagePath(repoRoot), file);
   });
-  afterEach(() => rmSync(dir, { recursive: true, force: true }));
+  afterEach(() => removeTmp(dir));
 
   test("fails --check with exit 1 and names the file; a run rewrites it to the committed bytes", () => {
     const text = readFileSync(file, "utf8");
@@ -187,7 +188,7 @@ describe("bun run atlas on a scratch copy of the repository: when it stamps", ()
   };
   afterEach(() => {
     // Only ever the temporary folder: never the working directory.
-    if (tmp && tmp.startsWith(tmpdir())) rmSync(tmp, { recursive: true, force: true });
+    if (tmp) removeTmp(tmp);
     tmp = undefined;
   });
 

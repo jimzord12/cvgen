@@ -168,7 +168,8 @@ export function main(args: string[]): number {
     }
     console.log(changed ? `wrote ${shownFile}` : `OK ${shownFile} already matches the model`);
     return 0;
-  }  if (command === "schema" && (rest.length === 0 || (rest.length === 1 && rest[0] === "--check"))) {
+  }
+  if (command === "schema" && (rest.length === 0 || (rest.length === 1 && rest[0] === "--check"))) {
     if (rest[0] === "--check") {
       const stale = staleSchemas();
       for (const name of stale) console.error(`STALE ${name}: run "bun run schema" in tools/workflow`);

@@ -78,7 +78,7 @@ cap)" and cite their row here.
   which runs a step once what it reads exists, renders beside
   `design.preview`, before the review returns. Added by TASK-42.
 - **What the preview folder holds** (`art.design-review-input`,
-  `docs/workflow/05-design/stage.yaml:476-481`): the model gives a folder and
+  `docs/workflow/05-design/stage.yaml:482-487`): the model gives a folder and
   "PDF previews", no file names, so level 3's stand-in for `design.preview`
   makes an empty folder and the stand-in review accepts it. Added by TASK-42.
 - **What the hand-written `Atlas` page said and the model does not** (TASK-41,
@@ -92,8 +92,9 @@ cap)" and cite their row here.
   - the `Text Draft` underlines each fact with the copper `Fact Mark`
     (`client-workflow.md:284-285`);
   - the render checks (page count, no empty page, fonts embedded, text
-    inside the page, every font family bundled) and the `Certificate
-    Warning` 180 days ahead, which never blocks (`build-a-cv.md:126-128`, `build-a-cv.md:140-144`);
+    inside the page, every font family bundled) and the
+    `Certificate Warning` 180 days ahead, which never blocks
+    (`build-a-cv.md:126-128`, `build-a-cv.md:140-144`);
   - a new `Revision` inherits no approval (`build-a-cv.md:205-206`,
     `pdf-workflow.md:191`); a `cmd` action has no text to say it in;
   - the `Design Review` app shows the concepts with their status, where the
@@ -101,7 +102,7 @@ cap)" and cite their row here.
   - what the commands refuse, which a `cmd` step cannot say: `approve`
     refuses when the bytes changed since the render, the checks failed or
     are stale, or the hash passed does not match (`build-a-cv.md:181-183`);
-    `export` never compiles and verifies its copy (`build-a-cv.md:189-192`);
+    `export` never compiles; it verifies its copy (`build-a-cv.md:189-192`);
     the stamp refuses `delivered` without the approval receipt and a verified
     `Export` (`build-a-cv.md:203-204`), and `signed-off` without the
     `Sign-off` screenshot (`pdf-workflow.md:146-151`);
