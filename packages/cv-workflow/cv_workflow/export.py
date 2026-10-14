@@ -35,7 +35,7 @@ def export_revision(workspace, revision_id):
         partial.rename(revision.export)  # fails, and leaves the partial folder, if the destination appeared meanwhile
     except OSError as error:
         raise WorkflowError(f'Could not move {partial.name} into place: {error}; the destination may have appeared '
-                            f'during the copy, run the export again')
+                            f'during the copy, run the export again') from error
     verify_bundle(revision.export, sha256, approval)
     return {'revision': revision.id, 'export': str(revision.export), 'sha256': sha256, 'existing': False}
 

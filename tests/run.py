@@ -94,7 +94,7 @@ def check_example_records():
             try:
                 schema = validate_record(record, IMPORT.findall(source))
             except WorkflowError as error:
-                raise AssertionError(f'example record {path} (read by {entry.name}) breaks its schema: {error}')
+                raise AssertionError(f'example record {path} (read by {entry.name}) breaks its schema: {error}') from error
             assert schema == FLAGSHIP_INPUT, (entry.name, schema)
     # Every entry must read its record with a literal json("...") path, or it was not checked at all.
     assert checked == set(entries), f'no record found in: {sorted(e.name for e in set(entries) - checked)}'
@@ -136,7 +136,7 @@ def check_example_records():
     assert schema_for(['/packages/domains/marine/lib.typ', '/packages/domains/marine/roles/deck/role.typ']) == ROOT / FLAGSHIP_INPUT[1:]
     # The template-over-domain choice must not depend on the checkout path: domains under a folder
     # named `templates` still resolve the template schema, whatever the import order.
-    import shutil, tempfile
+    import tempfile
     with tempfile.TemporaryDirectory() as scratch:
         domains = Path(scratch) / 'templates' / 'checkout' / 'packages' / 'domains'
         for schema in ['marine/schema/candidate.schema.json', FLAGSHIP_INPUT[len('/packages/domains/'):]]:
@@ -148,6 +148,9 @@ def check_example_records():
 
 
 def main():
+    # Every check here is a bare assert, which python -O (or PYTHONOPTIMIZE) strips: the suite would pass vacuously.
+    if not __debug__:
+        sys.exit('tests/run.py checks with assert, which -O and PYTHONOPTIMIZE remove: run it without them')
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--typst', default=shutil.which('typst'))
     parser.add_argument('--output', default=str(ROOT / 'builds' / ('tests-' + datetime.now().strftime('%Y%m%d-%H%M%S-%f'))))
@@ -270,7 +273,8 @@ def main():
         assert 'SILVER BRIDGE' in b[1].get_text() and 'FLAGSHIP' not in b[1].get_text()
         brand = {'FLAGSHIP', 'SILVER', 'BRIDGE'}
         for pa, pb in zip(a, b):
-            keep = lambda page: [w for w in page.get_text('words') if w[4] not in brand]
+            def keep(page):
+                return [w for w in page.get_text('words') if w[4] not in brand]
             assert keep(pa) == keep(pb)
     # Short career on the one-page profile: the whole record on one page, whatever its company count.
     cadet = listed['deck-cadet']
@@ -361,7 +365,8 @@ def main():
         # Apart from the suffix words, every word of both pages sits exactly where the engineer example has it.
         suffix = {'·', '49,990', 'GT', 'MAN', 'B&W', '9,480', 'kW', '51,200', 'DWT', 'Wärtsilä', '12,900', 'BHP', '850'}
         for pa, pb in zip(a, b):
-            keep = lambda page: [w[:5] for w in page.get_text('words') if w[4] not in suffix]
+            def keep(page):
+                return [w[:5] for w in page.get_text('words') if w[4] not in suffix]
             assert len(keep(pa)) > 100 and keep(pa) == keep(pb), 'a vessel row moved or a word changed'
     for mode, message in [('conflict', 'repeats with a different power'), ('bad-unit', 'unit must be one of GT, DWT'),
                           ('bad-value', 'must be a positive whole number'), ('bad-keys', 'needs exactly value and unit'),

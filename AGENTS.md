@@ -95,7 +95,7 @@ Framework; `M` for `packages/domains/marine`, the marine domain; `F` for
 | `W/typst.toml` | Package manifest for the Framework | Releasing |
 | `examples/candidates/` | Fictional candidate records (engineer, captain, chief officer, deck cadet) and the one fictional portrait | Changing example data |
 | `examples/marine/flagship/` | Short entry points that wire the six inputs together, each with its `Release` PDF and `Meta File` beside it (`engineer.typ`, `engineer.pdf`, `engineer.meta.json`), written only by `scripts/build.ps1 -Release` | Adding an example, releasing a new version |
-| `packages/cv-workflow/` | Python package: fresh revisions (snapshot, compile, `render.json`, `checks.json`), explicit approval (`cv.approval.json` bound to the SHA-256), verified export, and the `Output Contract` (`outputs.py`, `output.schema.json`: homes and `Meta File`s). Never sends anything | Changing how a candidate PDF is produced, approved or exported |
+| `packages/cv-workflow/` | Python package: fresh revisions (snapshot, compile, `render.json`, `checks.json`), explicit approval (`cv.approval.json` bound to the SHA-256), verified export, and the `Output Contract` (`outputs.py`, `output.schema.json`: homes and `Meta File`s). Never sends anything. `pyproject.toml` pins the Python dependencies; `requirements.lock` (compiled from it) and `ruff.toml` sit at the root | Changing how a candidate PDF is produced, approved or exported, or a Python dependency |
 | `tests/` | `run.py` runner, `verify.py` PDF checks, `workflow.py` end-to-end workflow case, `release.py` example list and `build.ps1` case, `baseline.json` hash manifest, `fixtures/*.typ` compile cases | Changing behaviour |
 | `archive/design-studies/` | Four frozen, evaluated design studies with their renders | Reading for inspiration only |
 | `archive/anti-examples/` | Frozen designs the owner rejected as not his style (`Anti-example`), with their fonts and his reasons; see its `README.md` | Before proposing or reviewing a design: never repeat one |
@@ -125,6 +125,7 @@ Framework; `M` for `packages/domains/marine`, the marine domain; `F` for
 ./scripts/build.ps1 -Release            # the same, then the `Release`: copied beside the entry points, stamped; refused while one exists
 ./scripts/build.ps1 -ReplaceRelease     # replaces the `Release`: the owner's go only (docs/preferences.md)
 python tests/run.py                     # full suite, evidence into builds/tests-<timestamp>/
+ruff check                              # lint scripts/, tests/, packages/cv-workflow/ (ruff.toml); CI runs it too
 typst compile --root . --ignore-system-fonts --font-path packages/cv-framework/fonts examples/marine/flagship/engineer.typ builds/scratch.pdf
 python scripts/cv.py render private/<candidate>            # new revision: snapshot, PDF, log, checks
 python scripts/cv.py approve private/<candidate> <revision> --approver "<name>" --sha256 <reviewed hash>
@@ -135,7 +136,7 @@ python scripts/design_review/server.py   # the owner's Design Review app on http
 ```
 
 `tests/run.py` and `scripts/cv.py render` need Typst 0.15.1 on PATH plus
-Python with `pymupdf` and `jsonschema` (the suite also `pillow`). Compiling an example needs
+the Python packages pinned in `requirements.lock` (setup: `docs/tech-stack.md`). Compiling an example needs
 only Typst. `tools/workflow/` needs Bun 1.4.x from 1.4.2 (ADR 0015).
 Approval is the owner's act: an agent never runs `approve` on a
 real candidate; `--test-only` exists for fictional fixtures and is refused
@@ -239,7 +240,7 @@ propose; the owner decides.
   variations within a domain, never forks (constitution section 7); the
   Framework never imports from `packages/domains/` (ADR 0012).
 - Every non-trivial change to code, fixtures or inputs ends with
-  `python tests/run.py` passing and the evidence path reported; a visual
+  `ruff check` and `python tests/run.py` passing and the evidence path reported; a visual
   change also needs a rendered page. Every change gets an independent
   review round, documentation, rules, proposals and assets included; only
   truly trivial changes are exempt, idea runs use their own gates, and

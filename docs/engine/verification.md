@@ -17,7 +17,9 @@ Output goes to a new `builds/tests-<timestamp>/` folder with a
 and on a raster mismatch `check/diff-N.png` highlighting changed pixels.
 The page images are what to show the owner or a reviewer.
 
-CI (`.github/workflows/verify.yml`) runs the suite on every push (when and
+CI (`.github/workflows/verify.yml`) installs the Python packages from
+`requirements.lock` (hash-checked), runs `ruff check` (`ruff.toml`) and then
+the suite on every push (when and
 why: `docs/tech-stack.md`, CI row) on a Linux and a Windows runner, writing to `builds/ci/`
 (on both, the suite itself runs `scripts/build.ps1` in a throwaway copy: check 14), and on
 Windows also runs `scripts/build.ps1` on the checkout. Each runner uploads its evidence,
@@ -192,4 +194,6 @@ change.
 
 Add a fixture with `sys.inputs` cases, then a few lines in `run.py` that
 compile it and assert on the PDF. Keep the runner linear and readable; it is
-the specification of what "passing" means.
+the specification of what "passing" means. Checks are bare `assert`s, so
+`run.py` refuses to start under `python -O` or `PYTHONOPTIMIZE`, which would
+strip them.
