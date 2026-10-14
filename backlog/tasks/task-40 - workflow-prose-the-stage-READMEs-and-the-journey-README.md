@@ -4,6 +4,7 @@ title: 'workflow-prose: the stage READMEs and the journey README'
 status: Queued
 assignee: []
 created_date: '2026-10-14 04:47'
+updated_date: '2026-10-14 05:21'
 labels:
   - workflow-model
 dependencies:
@@ -14,7 +15,7 @@ ordinal: 40000
 ## Description
 
 <!-- SECTION:DESCRIPTION:BEGIN -->
-Hand-written purpose, judgement and branches per stage; the top README at the length the owner chose. Refers to IDs and never restates contracts. Source: docs/work/workflow-model/handoff.md, section 4, item 8 (A. Workflow model). Created 2026-10-14 at the owner's request; not started.
+Hand-written purpose, judgement and branches per stage; the top README at 200-300 lines (owner decision, docs/proposals/workflow-model.md). Refers to IDs and never restates contracts. Source: docs/work/workflow-model/handoff.md, section 4, item 8 (A. Workflow model). Created 2026-10-14 at the owner's request; not started.
 <!-- SECTION:DESCRIPTION:END -->
 
 ## Acceptance Criteria

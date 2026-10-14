@@ -6,6 +6,7 @@ title: >-
 status: Queued
 assignee: []
 created_date: '2026-10-06 09:56'
+updated_date: '2026-10-14 05:15'
 labels:
   - docs workflow
 dependencies: []
@@ -26,3 +27,9 @@ Owner 2026-10-06: a client folder's root should hold mostly directories and only
 - [ ] #3 Convention written in docs and in the new-client and new-cv skills
 - [ ] #4 The three clients migrated; a re-render of each reproduces its last delivered PDF's content
 <!-- AC:END -->
+
+## Implementation Notes
+
+<!-- SECTION:NOTES:BEGIN -->
+Owner confirmed the tree on 2026-10-06. Decision 9 (2026-10-14): drop reviews/text-NN.md from the Envelope layout.
+<!-- SECTION:NOTES:END -->
