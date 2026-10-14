@@ -141,7 +141,7 @@ portrait is about 2.8 MB, so do not add renders casually. Replace, do not accumu
 Replacing the `Release` in `examples/` needs the owner's go
 (preferences.md); get it before step 3.
 
-1. Choose a branch appropriate to the change. Run `python tests/run.py`.
+1. Choose a branch appropriate to the change, in a worktree. Run `python tests/run.py`.
 2. Build with `./scripts/build.ps1`, inspect every page of every changed
    example.
 3. Raise the changed example's version in the `Title` of its line in

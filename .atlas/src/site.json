@@ -361,7 +361,7 @@
       "when": "`quick` in every `Session Sweep`; the rest when you ask for a tidy-up.",
       "sources": [
         ".claude/skills/repo-maintenance/SKILL.md:21-28",
-        ".claude/repo-maintenance.md:136-140"
+        ".claude/repo-maintenance.md:135-139"
       ]
     },
     "cv-py": {

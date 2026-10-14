@@ -132,7 +132,7 @@ files in `.github/workflows/`. The map in `AGENTS.md` also names paths; those se
 **Records.** The task record is a Backlog.md task in `backlog/`, through the `backlog` skill (`docs/development.md`). Each Decide item in a report ends
 with a one-line task-ready title. `backlog/` is the one task store; the agent creates no second status file or backlog.
 
-**`apply` in CVgen's Git.** The floor's rules hold (never the default branch, a new folder per output); only the names
+**`apply` in CVgen's Git.** The floor's rules hold (never the default branch, a new folder per output); only the names and the place
 follow CVgen, and that is not a conflict to stop on: the branch is `chore/maintenance-<topic>` (`docs/git-workflow.md`, `<type>/<topic>`), made in a worktree under `.worktrees/`, never in the `Main Folder` (`docs/git-workflow.md`, "Branches"); the pure-move commit is
 `chore: move <what> to <where>` and the reference commit `chore: update references to <where>` (`docs/conventions.md`);
 the baseline JSON goes in a new `builds/repo-health-<UTC yyyymmdd-hhmmss>/` (inside the repo, ignored); after the review
