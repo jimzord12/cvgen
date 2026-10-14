@@ -120,15 +120,15 @@
    "verifiedAt": "2026-10-14"
   },
   "system-map": {
-   "commit": "ba0c8a8",
+   "commit": "804c2d5",
    "sources": {
     ".claude/agents": "dir1:4f4154394888bb9d69a0ed790d8f4b484a790fdd",
     ".claude/skills": "dir1:5eeafda0c9ef9a6037a3fcc2879f73f098fa3e55",
     ".claude/skills/backlog/SKILL.md": "24c2914e3331741a0d013d29cfd4ce2adfc8015e",
-    "AGENTS.md": "bff203eb9117a2869b5384b8fbcbd3a5a148776b",
+    "AGENTS.md": "632937e291eab1e65c951348356f48443ab3675b",
     "apps/design-review/README.md": "5d14097c544910a9ba0d940e76863223ac1f62a3",
     "apps/design-review/server.py": "65b42af8bcf0a971e19ec97fa39b874cad91c3c1",
-    "archive/work-records": "dir1:2ca74d091404bb88657b49ce48b0907eb6c0f0a7",
+    "archive/work-records": "dir1:bdc02d093729fa80c391657929e6459f12b64051",
     "docs": "dir1:139adff443cb7a07dd0d5fae04941c8c0785eb30",
     "docs/architecture.md": "b97ca956765ad176a6f31c0cd3f6ab9a6abaf3e1",
     "docs/engine/verification.md": "79dd5afd7c3c91ead02e4f10b1d86cdeb906e0ef",
