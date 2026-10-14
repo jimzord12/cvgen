@@ -1,10 +1,10 @@
 ---
 id: TASK-56
 title: 'legacy-removal: the deprecated component layer has a removal date'
-status: Active
+status: Done
 assignee: []
 created_date: '2026-10-14 04:48'
-updated_date: '2026-10-14 05:49'
+updated_date: '2026-10-14 05:52'
 labels:
   - restructure
 dependencies: []
@@ -66,3 +66,9 @@ Round 2, context-reviewer, 2026-10-14: FINDINGS (`docs/work/legacy-removal/revie
 
 Merged origin/main (TASK-54); Atlas lock/data conflicts taken from main, rebuilt and restamped. `python tests/run.py` PASS, 94 cases, evidence `builds/tests-20261014-084759-494599`; `scripts/outputs.py check` 19 PDFs, 0 problems.
 <!-- SECTION:NOTES:END -->
+
+## Final Summary
+
+<!-- SECTION:FINAL_SUMMARY:BEGIN -->
+Kept the deprecated legacy component layer because two private marine compositions still import 12 of its 32 names; migrated the only public caller (tests/fixtures/skills.typ) to ctx-first with a pixel-identical result; added a 32-row old-to-new mapping table (docs/guides/build-a-cv.md section 8, each pair proven by legacy-parity.typ, plus a default-geometry skills-section pair); docs say removal planned (TASK-58). TASK-58 deletes the layer after TASK-32 re-points the private compositions (owner-authorized, 2026-10-14); backstop date 2026-10-31. Reviews: code-reviewer round 1 PASS with minors; context-reviewer round 2 FINDINGS (date copies), round 3 PASS; reports in docs/work/legacy-removal/reviews/. Suite PASS, frozen reference pixel-identical.
+<!-- SECTION:FINAL_SUMMARY:END -->
