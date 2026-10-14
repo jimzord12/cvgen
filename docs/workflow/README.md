@@ -6,8 +6,9 @@ One `Client`'s journey through CVgen, from his first message to the owner
 until his data is deleted, in seven stages. This folder is the `Workflow
 Model` (ADR 0015; the approved design is
 [P-0017](../proposals/workflow-model.md)): the one checked description of
-the client workflow. The guides and skills listed at the end still hold
-step-by-step detail until TASK-43 replaces them with this folder.
+the client workflow. No guide or skill describes a step a second time:
+the guides hold reference detail the steps point at, and the skills are
+checklists of step IDs (listed at the end).
 
 ## What the journey is for
 
@@ -39,7 +40,6 @@ it would be. Three rules hold in every stage:
 | Judgement, branches, mistakes | outside the markers | hand |
 | What the YAML holds where the sources are silent | [`GAPS.md`](GAPS.md) | hand |
 | The owner's decisions still open on those points | [P-0018](../proposals/workflow-gaps.md) (pending) | the owner |
-| The audit the model was built from | [`inventory/`](inventory/README.md) | frozen; removed by TASK-43 |
 
 Every fact has an ID, and the prose names the ID instead of repeating the
 fact. A stage is `research`; its steps start with it (`research.scout`);
@@ -192,23 +192,23 @@ the owner's open decisions on them are
 Until the owner answers P-0018, follow the YAML's placeholder and say so
 in the report; do not invent a different rule in prose.
 
-## Where the detail still lives
+## Reference detail and checklists
 
-Until TASK-43, the guides and skills keep the detail this folder points at
-(commands with their flags, the question list, templates for briefs):
+The guides describe no step (TASK-43); they hold the reference detail the
+steps point at. The skills are the checklists an agent follows: step IDs
+in order, with the commands.
 
-| Stage | Guide sections | Skill |
+| Stage | Reference | Skill |
 |---|---|---|
-| `open`, `intake` | `docs/guides/client-workflow.md` sections 1-2 | `new-client` steps 1-2 |
-| `research` | `client-workflow.md` sections 3-7, "Rules" | `new-client` steps 3-7, the brief |
-| `text-draft` | `client-workflow.md` section 8; `docs/pdf-workflow.md`, "Output Contract" | `new-client` step 8 |
-| `design` | `client-workflow.md` section 9; `docs/guides/build-a-cv.md` sections 1-2 and 8 | `new-cv` steps 1-3; `idea-run` |
-| `deliver` | `build-a-cv.md` sections 3-7; `pdf-workflow.md`, "Lifecycle" | `new-cv` steps 4-8 |
-| `after` | `client-workflow.md` section 9 (deletion); `pdf-workflow.md`, "Retention and migration" | `new-client`, "Report to the owner" |
+| `open`, `intake` | `docs/guides/client-workflow.md` sections 1-3: the `Envelope` tree, the question list, the `Intake Form` | `new-client` |
+| `research` | `client-workflow.md` sections 3-4; `docs/research/README.md` | `new-client`, with the research brief |
+| `text-draft` | `scripts/text-draft.typ` (its header); `docs/pdf-workflow.md`, "Output Contract" | `new-client` |
+| `design` | `docs/guides/build-a-cv.md` sections 1, 2 and 5 | `new-cv`; `idea-run` |
+| `deliver` | `build-a-cv.md` sections 3-4; `pdf-workflow.md`, "Lifecycle" | `new-cv` |
+| `after` | `client-workflow.md` section 5; `pdf-workflow.md`, "Retention and migration" | `new-client`, "Every run: report first" |
 
-Where a guide has not caught up with an owner's decision in
-[P-0017](../proposals/workflow-model.md), the decision wins (TASK-43's
-notes list these places).
+Where anything here disagrees with an owner's decision in
+[P-0017](../proposals/workflow-model.md), the decision wins.
 
 ## Reference
 

@@ -371,3 +371,20 @@ anchors are checked first and the page is stamped by hand. CI
 and the suite's `workflow-model` case run `bun run atlas --check`. What the
 old page said and the model does not is listed in `docs/workflow/GAPS.md`;
 its "where it stands" panel for one client was out of date and was dropped.
+
+## 2026-10-14 — one description of the client workflow
+
+TASK-43 made the `Workflow Model` the only description of a client's
+journey. `docs/guides/client-workflow.md` (373 lines) became a 222-line
+reference that describes no step: the `Envelope` tree, the question list,
+the `Intake Form`'s clicks, what `CV Decisions` look like and the erase
+commands. `docs/guides/build-a-cv.md` became the engine reference for a
+client's CV, with what the scripts print and refuse and a map from
+`cv.py status`'s states to the `Meta File`'s. The lifecycle half of
+`docs/pdf-workflow.md` keeps only the rules the records keep, and its
+retention now follows the owner's decision (12 months after `Export`).
+The `new-client` and `new-cv` skills are checklists of step IDs with the
+commands; what the guides held and the model did not moved into the stage
+READMEs' judgement. Every source anchor was repointed to where its fact
+now lives, `docs/workflow/inventory/` was removed (in Git history at
+6e93bad), and its agent-owned naming drift was fixed.

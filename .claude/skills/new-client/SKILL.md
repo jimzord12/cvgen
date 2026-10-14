@@ -1,81 +1,100 @@
 ---
 name: new-client
-description: Take a new CVgen client from first contact to signed-off facts - Envelope, Relay intake in Greek, Scout, CV decisions, Deep Dives, one follow-up, text draft and Sign-off - then hand over to new-cv. Use when the owner says a new client has arrived or asks to start, continue or check a client's intake or research.
+description: Take a new CVgen client from first contact to signed-off facts - Envelope, Relay intake in Greek, Scout, CV decisions, Deep Dives, one follow-up, text draft and Sign-off - then hand over to new-cv; every run first names stalled clients and passed delete-by dates. Use when the owner says a new client has arrived or asks to start, continue or check a client's intake, research or deletion.
 ---
 
 # New client
 
-Follow `docs/guides/client-workflow.md`. This skill is the checklist. The
-owner talks to the client; you never do. Terms: `docs/glossary.md`.
+The client workflow is the `Workflow Model`: read `docs/workflow/README.md`,
+then the README of the stage the client is in, for its judgement, branches
+and common mistakes. This skill is only the checklist: the step IDs in
+order, with what you run. The owner talks to the client; you never do.
+Reference detail (the `Envelope` tree, the question list, the `Intake Form`,
+the erase commands) is in `docs/guides/client-workflow.md`, "CW" below.
+Terms: `docs/glossary.md`. Run every command from the repository root.
 
-## Steps
+## Every run: report first (stage `after`)
 
-1. **Envelope.** `private/<name>-<rank>/` in the one `Envelope` tree
-   (guide section 1, which says where every file goes): start with
-   `README.md`, `intake/` (`messages.md`, `documents/`), `research/`
-   (`reviews/`), `draft/`. Never under `examples/`. Give the client an alias `client-<yyyy>-<mm>-<nn>`,
-   written at the top of `README.md` with the intake date; outside `private/` (tasks, commits,
-   agent briefs, public files) use only the alias. Write `envelope.json`
-   (`alias`, `domain` as the glossary's `Domain` id, `candidate`, `rank`;
-   guide section 1): every `Meta File` in the `Envelope` copies it and
-   `cv.py render` refuses without it.
-2. **Intake.** Write the guide's question list (section 2, consent first)
-   as one message in simple, friendly Greek, adapted to the client's
-   `Domain` and target. Give it to the owner ready to paste. **Stop until
-   the client's "I agree" is in `intake/messages.md`**; before it, do not
-   read the documents, write facts or research. You read text only: ask
-   the owner for a transcript of voice messages. Never open a client's
-   LinkedIn page; use the PDF they send. If the owner wants an `Intake
-   Form`, also write `intake/form-NN.gs` from `scripts/intake-form.gs`,
-   changing only its `FORM` block, and list the links he brings back in
-   `README.md` (guide section 2).
-3. **Facts.** Write `intake/facts.md` from the messages and documents:
-   every fact names its source; nothing invented; no calendar period turned
-   into service time. End with the gap list. Do not send it yet.
-4. **Scout.** Read `docs/research/` first; recheck any note past its
-   "Recheck after" date. Then search the web for the rest (or brief one
-   `general-purpose` agent with the brief below). Write `research/scout.md`.
-5. **CV decisions.** Write `research/decisions.md` (guide section 5). Show
-   the owner the open decisions with a recommendation for each; he picks
-   the Deep Dives (0-3, up to 6 for an executive aiming at named companies).
-6. **Deep Dives.** One background `general-purpose` agent per chosen
-   question, brief below; it returns its text and you save it as
-   `research/deep-dive-<topic>.md`. Check it for client details, then a fresh `research-reviewer` per round
-   until PASS (5 rounds attended, 10 unattended; at the cap, report it
-   unresolved). The reviewer never reads `private/`: give it the Deep
-   Dive's text inline, its SHA-256 as the snapshot, the question, the round
-   and earlier reports. Store reports in `research/reviews/<topic>-NN.md`. Keep each
-   author's agent id and send findings back to the same author. Anything
-   about a country, a `Domain` or a `Rank` with no client detail also
-   becomes or updates a `Research Library` note (`docs/research/README.md`):
-   write the note free of client detail first and review it on its own
-   text and hash, reports under `archive/work-records/research-<topic>/reviews/`,
-   committed like any documentation.
-7. **Follow-up.** Gap list plus research questions, one batch in simple
-   Greek. As a chat message: aim for 5, never more than 10. As an
-   `Intake Form`, no count: at most about 15 minutes and at most 5 typed
-   answers (guide section 7).
-   Update `facts.md` from the answers.
-8. **Text draft.** `draft/draft-NN.typ` with `scripts/text-draft.typ`: the
-   Greek `Check Page` (house copy: "check only the underlined facts; the
-   wording is ours; reply OK"), then the content in the CV's language,
-   sized for the `Template`, every checkable fact wrapped in `#fact[...]` (a `Fact Mark`); set
-   `lang: "el"` for a Greek CV. Compile it and stamp it `status=ready`
-   with `scripts/outputs.py` (guide section 8), look at every
-   page (every name, date, number and title underlined, since the client
-   checks only those), give the owner the PDF path. When he confirms he
-   sent it, re-stamp it `status=sent` and write its SHA-256
-   in `README.md`; never compile a sent number again, corrections make the
-   next one (re-stamp the old one `status=superseded`). His screenshot of
-   the client's OK goes in `draft/` as `sign-off-NN.png`; then re-stamp that
-   draft `status=signed-off` (the stamp refuses it without the screenshot).
-9. **Handover.** Run the `new-cv` skill from `facts.md` and the signed-off
-   draft; for a `Domain` that does not exist yet, a one-off `Template` in
-   one `typst/cv.typ` that imports only `/packages/cv-framework/lib.typ` (guide
-   section 9). Record decisions and evidence paths in the `Envelope`'s
-   `README.md`. At `Export`, write "Delivered <date>. Delete by <date + 12
-   months>" there; once the owner has sent it, re-stamp the delivered
-   revision `status=delivered`.
+- `after.stall-check`, `after.delete-by-check`: read each `Envelope`'s
+  `README.md`. Name to the owner, by `Alias`, any client with no `Export`
+  three months after the intake date, and any delete-by date that has
+  passed with no keep request in `envelope.json`, with the Google links
+  listed in that `README.md`.
+- `after.keep-record`: a client's request to keep his data goes into his
+  `envelope.json`.
+- `after.erase-commands`: when the owner decides to delete, give him CW
+  section 5 filled in with the folder name. He runs it
+  (`after.erase-envelope`) and deletes the Google items
+  (`after.delete-google`); you never do. Then `after.close`: close the
+  client's task through the backlog skill.
+
+## 01 open
+
+- `open.envelope`, `open.alias`, `open.envelope-json`: `private/<envelope>/`
+  in CW section 1's tree: `README.md` starting with the `Alias` and the
+  intake date, `intake/` (`messages.md`, `documents/`), `research/`
+  (`reviews/`), `draft/`, and `envelope.json`.
+- `open.task-create`: one task through the backlog skill, titled by the
+  `Alias` only.
+
+## 02 intake
+
+- `intake.questions`: CW section 2 adapted to the `Domain` and target, one
+  message in simple, friendly Greek, ready for the owner to paste
+  (`intake.relay-send`).
+- Only if the owner wants an `Intake Form` (CW section 3):
+  `intake.form-script` writes `intake/form-NN.gs`; `intake.form-links`
+  lists the links he brings back under "Google" in `README.md`;
+  `intake.form-copy` copies `intake/answers-NN.csv` into `messages.md`.
+- `intake.consent` (`gate.consent`): **stop** until the client's "I agree"
+  is in `intake/messages.md`. Voice messages wait for
+  `intake.transcribe`.
+
+## 03 research
+
+- `research.facts`: `intake/facts.md`, the gap list at the end, not sent.
+- `research.library-read`, `research.library-recheck` (when a note is past
+  its date), `research.scout`: `research/scout.md`, searched yourself or by
+  one `general-purpose` agent with the brief below.
+- `research.decisions`: `research/decisions.md` (CW section 4); show the
+  owner the open lines with a recommendation each. He picks
+  (`research.pick-deep-dives`).
+- Per chosen question: `research.dive-brief` (the brief below),
+  `research.deep-dive` (one background `general-purpose` agent; keep its
+  id), `research.dive-save`, `research.dive-review` (a fresh
+  `research-reviewer`: the text inline, its SHA-256, the question, the
+  round and earlier reports), `research.dive-revise` (the same author,
+  by SendMessage) until PASS or `research.cap-reached`.
+- `research.library-note`, `research.library-review`,
+  `research.library-commit`: only for a finding about a country, a
+  `Domain` or a `Rank` with nothing about the client
+  (`docs/research/README.md`).
+- `research.decisions-update` (`gate.research-enough`).
+- `research.follow-up-write` (and `research.follow-up-form-script` for a
+  form); the owner sends it; `research.facts-update`.
+
+## 04 text-draft
+
+- `text-draft.draft-write`: `draft/draft-NN.typ` with
+  `scripts/text-draft.typ` (`lang: "el"` for a Greek CV).
+- `text-draft.draft-compile`:
+
+  ```powershell
+  typst compile --root . --ignore-system-fonts --font-path packages/cv-framework/fonts private/<envelope>/draft/draft-NN.typ private/<envelope>/draft/draft-NN.pdf
+  python scripts/outputs.py stamp private/<envelope>/draft/draft-NN.pdf status=ready
+  ```
+
+- `text-draft.draft-inspect`: look at every page; give the owner the path.
+- Once he confirms he sent it: `text-draft.draft-sent`
+  (`python scripts/outputs.py stamp private/<envelope>/draft/draft-NN.pdf status=sent`)
+  and `text-draft.draft-fingerprint` (the `sha256` from its `Meta File`
+  into `README.md`). Never compile a sent number again.
+- Corrections: `text-draft.draft-supersede` (the same stamp,
+  `status=superseded`), `text-draft.corrections`, then the next number.
+- The client's OK: the owner saves `draft/sign-off-NN.png`
+  (`text-draft.sign-off-save`); then `text-draft.sign-off-stamp` (the same
+  stamp, `status=signed-off`).
+- `design.handover`: run the `new-cv` skill.
 
 ## Brief for a Scout or Deep Dive agent
 
@@ -94,17 +113,7 @@ the question.
 
 ## Report to the owner
 
-Every time this skill runs, first read the intake date in each `Envelope`'s
-`README.md`: name to the owner, by `Alias`, any client with no `Export`
-three months after intake, and any delete-by date that has passed, with
-the Google links listed in its `README.md`.
-
-Where the client stands (which step), what is waiting on him (a message to
-paste, a Deep Dive choice, a screenshot), new or changed `Research Library`
-notes, and after `Export` the delete-by date, naming any `Intake Form`,
-Sheet and script project listed in `README.md` for deletion with it. When a
-delete-by date has passed, give him the history-erase commands from
-`docs/guides/client-workflow.md` (section 9, end of the deletion
-paragraph) filled in with the folder name; he runs them, you never do.
-Never paste client data into
-the chat beyond what he needs to act.
+Where each client stands (the step ID), what is waiting on him (a message
+to paste, a `Deep Dive` choice, a screenshot), new or changed `Research
+Library` notes, and the names from "Every run". Never paste client data
+into the chat beyond what he needs to act.

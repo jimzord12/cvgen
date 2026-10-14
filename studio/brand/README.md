@@ -157,7 +157,7 @@ Status (2026-09-28, task `brand-logo`, now in `backlog/tasks/`):
 wordmark, one copper running stitch). No words beyond the wordmark,
 because Forms shows the header at phone width. Source
 `intake-header.typ`; the command is in its first lines. The theme steps
-that go with it are in `docs/guides/client-workflow.md`, section 2.
+that go with it are in `docs/guides/client-workflow.md`, section 3.
 
 Open brand item (design review, 2026-09-28): the logo files use copper
 `#B7713D`, the `House Design` First Fitting and the form theme `#B0602B`.

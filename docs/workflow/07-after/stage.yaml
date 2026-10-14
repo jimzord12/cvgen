@@ -1,7 +1,7 @@
 # yaml-language-server: $schema=../../../tools/workflow/schema/stage.schema.json
 id: after
 name: Retention, deletion and closing the record
-sources: ["docs/guides/client-workflow.md:330-359", ".claude/skills/new-client/SKILL.md:95-110", "docs/proposals/workflow-model.md:54-60"]
+sources: ["docs/workflow/07-after/README.md:15-53", ".claude/skills/new-client/SKILL.md:16-29", "docs/proposals/workflow-model.md:54-60"]
 purpose: >-
   Keep a client's data only as long as promised: name stalled clients and
   passed delete-by dates to the owner, honour a request to keep, have the
@@ -17,7 +17,7 @@ exit: >-
 steps:
   - id: after.stall-check
     name: Name stalled clients to the owner
-    sources: [".claude/skills/new-client/SKILL.md:97-100", "docs/guides/client-workflow.md:333-336"]
+    sources: [".claude/skills/new-client/SKILL.md:18-22", "docs/workflow/07-after/README.md:17-21"]
     actor: actor.lead
     action: skill.new-client
     inputs: [art.envelope-readme]
@@ -26,7 +26,7 @@ steps:
 
   - id: after.delete-by-check
     name: Name passed delete-by dates to the owner
-    sources: [".claude/skills/new-client/SKILL.md:97-100", ".claude/skills/new-client/SKILL.md:104-108"]
+    sources: [".claude/skills/new-client/SKILL.md:18-22"]
     actor: actor.lead
     action: skill.new-client
     inputs: [art.readme-delete-by]
@@ -38,7 +38,7 @@ steps:
   # questions is what offers it (GAPS.md, "Inferences").
   - id: after.keep-request
     name: The client asks to keep his data
-    sources: ["docs/guides/client-workflow.md:164-167", "docs/proposals/workflow-model.md:56", "archive/work-records/workflow-model/handoff.md:290", "docs/workflow/GAPS.md:54-57"]
+    sources: ["docs/guides/client-workflow.md:103-106", "docs/proposals/workflow-model.md:56", "archive/work-records/workflow-model/handoff.md:290", "docs/workflow/GAPS.md:54-57"]
     actor: actor.client
     action: manual.ask-to-keep
     inputs: [art.intake-message]
@@ -56,7 +56,7 @@ steps:
 
   - id: after.erase-commands
     name: Hand the owner the history-erase commands
-    sources: [".claude/skills/new-client/SKILL.md:105-108", "docs/guides/client-workflow.md:339-345", "docs/guides/client-workflow.md:333-338"]
+    sources: [".claude/skills/new-client/SKILL.md:25-29", "docs/guides/client-workflow.md:197-207", "docs/workflow/07-after/README.md:46-49", "docs/workflow/07-after/README.md:27-34"]
     actor: actor.lead
     action: lead.fill-erase-commands
     inputs: [art.retention-report]
@@ -65,7 +65,7 @@ steps:
 
   - id: after.delete-google
     name: Delete the Intake Forms, Sheets and script projects
-    sources: ["docs/guides/client-workflow.md:333-338", "docs/guides/client-workflow.md:158-159"]
+    sources: ["docs/workflow/07-after/README.md:46-49", "docs/workflow/07-after/README.md:27-34", "docs/guides/client-workflow.md:155-156"]
     actor: actor.owner
     action: manual.delete-google-items
     inputs: [art.readme-google-links, art.retention-report]
@@ -73,7 +73,7 @@ steps:
 
   - id: after.erase-envelope
     name: Delete the Envelope and erase it from the private history
-    sources: ["docs/guides/client-workflow.md:333-359", "docs/preferences.md:69-77", "docs/workflow/GAPS.md:45-48"]
+    sources: ["docs/workflow/07-after/README.md:27-34", "docs/guides/client-workflow.md:197-222", "docs/preferences.md:69-77", "docs/workflow/GAPS.md:45-48"]
     actor: actor.owner
     action: manual.erase-envelope
     inputs: [art.erase-commands]
@@ -92,7 +92,7 @@ steps:
   # The candidates come from cv.py status (GAPS.md, "Inferences").
   - id: after.revision-cleanup
     name: Remove failed or unapproved Revisions
-    sources: ["docs/pdf-workflow.md:213-216", "docs/preferences.md:75-77", "docs/workflow/GAPS.md:58-61"]
+    sources: ["docs/pdf-workflow.md:214-217", "docs/preferences.md:75-77", "docs/workflow/GAPS.md:58-61"]
     actor: actor.owner
     action: manual.go-remove-revisions
     inputs: [art.status-listing]
@@ -101,13 +101,13 @@ steps:
 artifacts:
   - id: art.retention-report
     name: Stalled clients and passed delete-by dates, by Alias
-    sources: [".claude/skills/new-client/SKILL.md:97-100", "docs/guides/client-workflow.md:333-336"]
+    sources: [".claude/skills/new-client/SKILL.md:18-22", "docs/workflow/07-after/README.md:17-21"]
     format: lines in the lead's report to the owner, with the Google links listed in each README.md
     visibility: ephemeral
 
   - id: art.keep-request
     name: The client's request to keep his data
-    sources: ["docs/guides/client-workflow.md:164-167"]
+    sources: ["docs/guides/client-workflow.md:103-106"]
     format: chat message
     visibility: third-party
 
@@ -120,13 +120,13 @@ artifacts:
 
   - id: art.erase-commands
     name: The filled history-erase commands
-    sources: ["docs/guides/client-workflow.md:346-353", ".claude/skills/new-client/SKILL.md:105-108"]
+    sources: ["docs/guides/client-workflow.md:209-216", ".claude/skills/new-client/SKILL.md:25-29"]
     format: the guide's commands with the Envelope's folder name filled in, in the lead's report
     visibility: ephemeral
 
   - id: art.private-history
     name: The private repository without the Envelope
-    sources: ["docs/guides/client-workflow.md:339-359"]
+    sources: ["docs/guides/client-workflow.md:197-222"]
     format: jimzord12/cvgen-private on GitHub, history rewritten by git filter-repo and force-pushed
     visibility: third-party
 
@@ -134,13 +134,13 @@ actions:
   - id: skill.new-client
     kind: skill
     name: The new-client skill's report to the owner
-    sources: [".claude/skills/new-client/SKILL.md:95-110"]
+    sources: [".claude/skills/new-client/SKILL.md:16-29"]
     skill: new-client
 
   - id: manual.ask-to-keep
     kind: manual
     name: Ask to keep the data
-    sources: ["docs/guides/client-workflow.md:164-167"]
+    sources: ["docs/guides/client-workflow.md:103-106"]
     does: The client asks, through the owner, that his details be kept beyond 12 months after delivery.
 
   - id: lead.record-keep-request
@@ -152,7 +152,7 @@ actions:
   - id: lead.fill-erase-commands
     kind: lead
     name: Fill in the erase commands
-    sources: [".claude/skills/new-client/SKILL.md:105-108", "docs/guides/client-workflow.md:339-353"]
+    sources: [".claude/skills/new-client/SKILL.md:25-29", "docs/guides/client-workflow.md:197-216"]
     does: >-
       Gives the owner the guide's history-erase commands filled in with the
       Envelope's folder name; he runs them, the lead never does.
@@ -160,13 +160,13 @@ actions:
   - id: manual.delete-google-items
     kind: manual
     name: Delete the Google items
-    sources: ["docs/guides/client-workflow.md:336-338"]
+    sources: ["docs/workflow/07-after/README.md:29-34"]
     does: The owner deletes each Intake Form, its Sheet and its script project listed in README.md, then empties the Drive Trash.
 
   - id: manual.erase-envelope
     kind: manual
     name: Erase the Envelope
-    sources: ["docs/guides/client-workflow.md:339-359"]
+    sources: ["docs/guides/client-workflow.md:197-222"]
     does: >-
       With git status and git log origin/main.. empty in private/, the owner
       runs the erase in a fresh clone (git filter-repo, force-push), then
@@ -182,5 +182,5 @@ actions:
   - id: manual.go-remove-revisions
     kind: manual
     name: Give the go to remove Revisions
-    sources: ["docs/pdf-workflow.md:213-216", "docs/preferences.md:69-77"]
+    sources: ["docs/pdf-workflow.md:214-217", "docs/preferences.md:69-77"]
     does: The owner gives his explicit go, on the exact command shown first, to remove failed or unapproved Revisions.

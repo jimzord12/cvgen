@@ -1,123 +1,101 @@
 ---
 name: new-cv
-description: Produce a CV for a real or new fictional candidate with the CVgen library. Use when asked to create, set up or render a CV for a person, or to add a new example. Covers the private workspace, data file, entry point, page plan and evidence.
+description: Produce a CV for a real or new fictional candidate with the CVgen library. Use when asked to create, set up or render a CV for a person, or to add a new example. Covers the design, the record, the entry point, the design review, render, Export and evidence.
 ---
 
 # New CV
 
-Follow `docs/guides/build-a-cv.md`. This skill is the checklist. The
-design is the product (`docs/vision.md`, "Design is the product"): a
+The design is the product (`docs/vision.md`, "Design is the product"): a
 client's CV must pass the `Batch Test` and the `Three-Second Test` at the
-level of the Marine Flagship; tidy but quiet is a failure. For a real
-client it starts after the `new-client` skill: take the facts from the
-`Envelope`'s `intake/facts.md` and the wording from the signed-off text in
-`draft/`; do not re-ask the client or reword what they signed off beyond
-fitting the page.
+level of the Marine Flagship; tidy but quiet is a failure.
 
-## Decide the destination
+For a real client this skill is the checklist of the `Workflow Model`'s
+`design` and `deliver` stages: read `docs/workflow/05-design/README.md` and
+`06-deliver/README.md` for the judgement, branches and common mistakes,
+then follow the step IDs below. It starts after the `new-client` skill:
+the facts come from `intake/facts.md`, the wording from the signed-off
+draft; never re-ask the client or reword beyond fitting the page. The
+engine reference is `docs/guides/build-a-cv.md`, "BC" below. Run every
+command from the repository root.
 
-- Real person: the client's `Envelope` under `private/` (ignored), named
-  after the person and their `Rank`: `private/<name>-<rank>/` in the one
-  `Envelope` tree (`docs/guides/client-workflow.md` section 1, which says
-  where every file goes). To the client workflow's `envelope.json`,
-  `intake/`, `research/` and `draft/` add `candidate.json` at the root,
-  `typst/cv.typ` (design code in `typst/designs/`, wording in `typst/text/`,
-  SVGs in `typst/art/`), the portrait in `images/portrait/`, and a
-  `README.md` line recording what was decided and where the evidence is.
-  `cv.typ` reads the record as `json("../candidate.json")`. Renders go to `revisions/` and approved copies
-  to the `Envelope`'s `exports/` through `scripts/cv.py`, which stamps each
-  revision's `Meta File` from `envelope.json` (write it first if the client
-  workflow did not; `docs/guides/build-a-cv.md` section 1). Never under `examples/`.
-- New public example: fictional data under `examples/candidates/<name>-example.json`,
-  entry under `examples/marine/flagship/<name>.typ`, an entry in
-  `examples/release.json` (with its `title` and `variant`; `scripts/build.ps1`
-  and `tests/run.py` both read it, and the suite fails on an entry point
-  missing there), and its own assertions in `tests/run.py`. Adding it to
-  the `Release` (`./scripts/build.ps1 -ReplaceRelease`, which writes
-  `<name>.pdf` and its `Meta File` beside the entry) replaces the other
-  `Release` PDFs too, so it needs the owner's go
-  (`docs/git-workflow.md`, "Releasing a new render").
+## A real client: 05 design
 
-## Steps
+- `design.handover` (`gate.template-exists`): does the client's `Domain`
+  have a `Template` (today only marine, the Flagship)?
+- `design.fill-data`, on every path: `candidate.json` at the `Envelope`'s
+  root from the closest example record with every value replaced, the
+  portrait in `images/portrait/`, the example wording gone (BC section 2).
+- No `Template`: `design.run-brief` to `design.pick` through the
+  `idea-run` skill (fictional data for the client's `Domain`, specialty
+  and `Rank`; the `Alias` only); then `design.record-choice`
+  (`python scripts/outputs.py stamp <pdf> status=chosen`) or
+  `design.record-other-answer`; then `design.port-concept`: the one-off
+  `Template` as `typst/cv.typ` importing only
+  `/packages/cv-framework/lib.typ`, with its files beside it in
+  `typst/designs/`, `typst/text/` and `typst/art/`.
+- A `Template`: `design.flagship-fit` (`gate.template-fits`, the known
+  gaps in `docs/framework-gaps.md`), then `design.entry-point` (BC
+  section 1) or `design.custom-composition` (BC section 5).
+- `design.framework-gap` after a custom composition or a one-off;
+  `design.engine-change` and `design.engine-review` (a fresh
+  `code-reviewer`) only when the design needs what only the engine holds.
+- `design.preview`, for every client CV:
 
-1. Copy the closest data file under `examples/candidates/` (`engineer-example.json`,
-   `captain-example.json` or `chief-officer-example.json`) and replace every value. Keep stable ids.
-   Whole months. If months per vessel are unknown, use `service-months` on
-   the company and plan to hide durations.
-2. The record is validated for you: `scripts/cv.py render` refuses a record
-   that breaks the Flagship input schema (needs `jsonschema`) and lists the
-   field paths; the engine's compile-time assertions then check totals. For
-   a public example, the suite runs the same schema check. A one-off
-   `Template` that imports only the `Framework` gets no schema check: keep
-   `identity.name` and `identity.portrait`, and run `normalize-common` and
-   `validate-common` in its `cv.typ`.
-3. Write the entry point as shown in the guide, importing the engine by
-   root-absolute path, one import (`/packages/domains/marine/lib.typ`; a
-   one-off `Template` with no domain uses
-   `/packages/cv-framework/lib.typ`). Pick the role (`roles.deck` or
-   `roles.engine`), theme and artwork by name (`flagship-themes.<name>`,
-   `flagship-artwork.<name>`), the durations switch, and take the layout
-   (`flagship-layouts.flagship-v11`) as `base` with a `pages` override that
-   lists this candidate's company indices. The shipped plan assumes six
-   companies and fails with `Page plan company index out of bounds` for
-   fewer, or `Page plan must cover each vessel row once, in candidate order`
-   for more.
-   A short career (a cadet or junior, see the `Capacity Rule` in
-   `docs/engine/layout-and-pagination.md`, "Choosing a profile") uses
-   the one-page profile instead:
-   `layout: flagship-layouts.one-page(candidate)`, no override, and
-   `--pages 1` in step 4.
-   A client whose `Domain` has no `Template` yet starts from a design, not
-   from code: an `Idea Run` of the `magazine-editor` on the client's
-   `Domain`, specialty and `Rank` (fictional data only), the owner picks a
-   `Style`, `Design Tier` and `Density`, and the one-off `Template` is built
-   from it.
-   Its previews go through the `design-reviewer` before the owner sees
-   them:
-   - compile the previews into `builds/design-review-input-<timestamp>/`
-     (the reviewer never reads `private/`);
-   - brief it with the `Alias` only, the `Domain`, specialty and `Rank`, the
-     chosen concept folder, `Design Tier` and `Density`, and that the text is the
-     signed-off text;
-   - a fresh reviewer per round; cap 5 rounds when the owner is attending,
-     10 unattended, unless he sets another; at the cap the design reaches
-     him marked `unresolved` with the last reason;
-   - store every report verbatim in the `Envelope` as
-     `reviews/design-NN.md`, never under `archive/work-records/`;
-   - when the loop ends, clear the `builds/design-review-input-*` folders
-     by path: they hold a real client's pages outside `private/`.
-   If the data does not fit `flagship` (the known cases are in
-   `docs/framework-gaps.md`: contract periods instead of months, a
-   three-column certificate table, a skills block), use the
-   custom-composition path in guide section 8, record the reason in the
-   folder's `README.md`, and add an entry to `docs/framework-gaps.md`.
-   Real person: replace the fictional example wording, which otherwise
-   prints on every page: `disclosure` in `candidate.json`, and
-   `copy: (certificates-subtitle: ..., brand: ...)` in `cv.typ` (guide
-   section 2, "Replace the example wording").
-4. Real person: `python scripts/cv.py render private/<name>-<rank>` (add
-   `--pages 3` for a three-page plan, `--pages 1` for the one-page profile); the revision id, hash and check
-   result are printed and kept under `revisions/<id>/`. Public example:
-   `typst compile --root . --ignore-system-fonts --font-path packages/cv-framework/fonts <entry> builds/<name>-01.pdf`;
-   it exits 0 even when a font is missing, so a `warning: unknown font family` line is a failure.
-5. On a fit or overflow error, apply the fix the message names. Page plan
-   changes go in the entry point as a layout override, see
-   `docs/engine/layout-and-pagination.md`. Never shrink body fonts.
-6. Render each page to PNG and look at it. `python -c` with `pymupdf` works:
-   `page.get_pixmap(dpi=96).save(...)`. For a real person, confirm the text,
-   ignoring case, contains none of "fictional", "illustrative" and
-   "flagship"; the one exception is "flagship" in the candidate's own words,
-   and only once the footer shows the configured brand (guide section 2 has
-   the one-line check and the exception).
-7. For a public example, run `python tests/run.py` and confirm PASS.
-8. For a real person, stop at the render. Approval (`scripts/cv.py approve`)
-   is the owner's act on the revision they reviewed; export follows it.
-   Never approve a real candidate's PDF yourself.
+  ```powershell
+  $out = "builds/design-review-input-$(Get-Date -Format yyyyMMdd-HHmmss)"; New-Item -ItemType Directory $out
+  typst compile --root . --ignore-system-fonts --font-path packages/cv-framework/fonts private/<envelope>/typst/cv.typ "$out/cv.pdf"
+  ```
 
-## Report
+  A portrait path relative to the `Envelope` compiles only through
+  `cv.py render`; use the root path BC section 2 gives.
+- `design.client-review`: a fresh `design-reviewer` per round, briefed as
+  the design README says; each report verbatim as `reviews/design-NN.md`;
+  `design.fix` until PASS or `design.cap-reached`.
+- `design.clear-review-input`: `Remove-Item -Recurse <that folder>`, by path.
 
-State the revision folder or output path, the PDF hash for a real
-candidate, the page count, what was checked on each page, and any override
-applied to the layout or theme. Pass on every `WARNING:` line (expired or
-soon-expiring certificates) and any `NOTE:` about unchecked certificate
-dates word for word: the owner weighs them before he approves.
+## A real client: 06 deliver
+
+- `deliver.render` (`gate.render-ok`):
+  `python scripts/cv.py render private/<envelope>` (`--pages 3` or
+  `--pages 1` for those plans). On exit 1 or 2, `deliver.fix` and render
+  again (BC sections 3-4).
+- `deliver.page-png`, for each page N, into a new `builds/<new-folder>/`:
+  `python -c "import pymupdf; doc = pymupdf.open('private/<envelope>/revisions/<revision>/cv.pdf'); doc[<N>].get_pixmap(dpi=96).save('builds/<new-folder>/cv-p<N>.png')"`;
+  look at each.
+- `deliver.wording-check` (`gate.example-wording`; `[]` passes):
+  `python -c "import pymupdf,sys; t=''.join(p.get_text() for p in pymupdf.open(sys.argv[1])).lower(); print([w for w in ('fictional','illustrative','flagship') if w in t])" private/<envelope>/revisions/<revision>/cv.pdf`
+- `deliver.report`: the revision folder, the PDF hash, the page count,
+  what was checked on each page, any override, and every `WARNING:` and
+  `NOTE:` line word for word. Clear the page PNGs by path. **Stop here.**
+- The owner: `deliver.owner-review`, `deliver.approve`. Never approve a
+  real client's PDF yourself.
+- After his `Approval`: `deliver.export`
+  (`python scripts/cv.py export private/<envelope> <revision>`), then
+  `deliver.record-delete-by` ("Exported <date>, delete by <date + 12
+  months>" in `README.md`) and `deliver.report-delete-by`.
+- Once he says he sent it: `deliver.stamp-delivered`
+  (`python scripts/outputs.py stamp private/<envelope>/revisions/<revision>/cv.pdf status=delivered`).
+- `deliver.status`, any time: `python scripts/cv.py status private/<envelope>`.
+
+## A new public example
+
+Not a client step. Fictional data under
+`examples/candidates/<name>-example.json` (copied from the closest record,
+every value replaced), the entry under `examples/marine/flagship/<name>.typ`
+(BC section 1), an entry in `examples/release.json` (with its `title` and
+`variant`; `scripts/build.ps1` and `tests/run.py` both read it, and the
+suite fails on an entry point missing there), and its own assertions in
+`tests/run.py`.
+
+1. Compile: `typst compile --root . --ignore-system-fonts --font-path packages/cv-framework/fonts <entry> builds/<name>-01.pdf`;
+   it exits 0 even when a font is missing, so a
+   `warning: unknown font family` line is a failure.
+2. Render each page to PNG (the command above) and look at it.
+3. Run `python tests/run.py` and confirm PASS.
+4. Adding it to the `Release` (`./scripts/build.ps1 -ReplaceRelease`,
+   which writes `<name>.pdf` and its `Meta File` beside the entry)
+   replaces the other `Release` PDFs too, so it needs the owner's go
+   (`docs/git-workflow.md`, "Releasing a new render").
+
+Report the output path, the page count, what was checked on each page and
+any override applied to the layout or theme.

@@ -2,7 +2,7 @@
 id: P-0018
 kind: proposal
 status: pending
-revision: 1
+revision: 2
 created: 2026-10-14
 ---
 
@@ -15,7 +15,8 @@ placeholder and inference the YAML holds.
 
 ## Problem
 
-The guides, skills and code are silent on nine points the model needs.
+The guides, skills and code are silent on nine points the model needs;
+TASK-43 found two more where the prose leaves a rule open (items 8, 9).
 The YAML holds a placeholder or an inference for each, marked as such, so
 nothing renders as a fact the owner never decided.
 
@@ -35,6 +36,8 @@ answer and cites this proposal; the prose follows in TASK-43.
 | 5 | The keep request's field in `envelope.json` | `"keep_requested": "YYYY-MM-DD"` (the day the client asked); the delete-by check skips a client who has it. `outputs.py` reads only the four identity fields, so no code changes | Remove the field; the delete-by date applies again |
 | 6 | A stopped client: is it recorded? | A line `Stopped <date>: <reason>` in the `Envelope`'s `README.md`, so the stall check names the client once and the owner decides to delete or keep | Delete the line |
 | 7 | The owner parks or rejects every concept for a client's CV | A new `Idea Run` with his reasons as the steer; he tells the client of the delay | Edit `design.record-other-answer` |
+| 8 | The agents' edit list in `docs/preferences.md` ("What he decides and what agents decide") names `intake/facts.md`, `research/` and `draft/`, but not `intake/messages.md`, `intake/form-NN.gs` or `reviews/`, which the lead writes in `intake.form-script` and `intake.form-copy`, and `reviews/`, where the lead stores the report each `design.client-review` returns | Add the three to the list: the lead already writes them as the model says, so no step changes | Remove them from the list; the lead then asks before each write |
+| 9 | The `Check Page` language for a client who does not read Greek: the glossary says the client's language, the `House Copy` exists only in Greek (`scripts/text-draft.typ` refuses another `check-lang` without every line in `copy:`) | Write that client's `Check Page` lines in his language through `copy:` per draft, and keep Greek as the `House Copy`; no new `House Copy` until a second such client | Drop the per-draft `copy:` and send the Greek `Check Page` |
 
 `Text Draft` corrections are taken into `facts.md` before the next number
 (`text-draft.corrections`); that is an agent's call, listed in `GAPS.md`, not

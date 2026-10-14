@@ -1,10 +1,10 @@
 ---
 id: TASK-43
 title: 'workflow-consolidate: one source for the client workflow'
-status: Active
+status: Done
 assignee: []
 created_date: '2026-10-14 04:47'
-updated_date: '2026-10-14 11:41'
+updated_date: '2026-10-14 12:36'
 labels:
   - workflow-model
 dependencies:
@@ -22,8 +22,8 @@ Replace `client-workflow.md`, `build-a-cv.md` and the lifecycle half of `pdf-wor
 
 ## Acceptance Criteria
 <!-- AC:BEGIN -->
-- [ ] #1 No second description of any step remains (grep checks)
-- [ ] #2 the skills still run a fictional client end to end
+- [x] #1 No second description of any step remains (grep checks)
+- [x] #2 the skills still run a fictional client end to end
 <!-- AC:END -->
 
 ## Implementation Notes
@@ -38,4 +38,18 @@ From TASK-40 context review round 1 (inference, no source): deliver.fix rewrites
 From TASK-40's newcomer test: after.delete-by-check reads only art.readme-delete-by, not art.envelope-keep, so the rule that a keep request skips deletion is prose only; add the input when P-0018 item 5 is answered.
 
 From TASK-40 context round 2: the glossary Workflow Model row still says levels 1 and 2; add level 3 (bun run reality, TASK-42) and the generated Atlas page (TASK-41) when the row is rewritten.
+
+TASK-43 decisions (lead): client-workflow.md and build-a-cv.md keep their names and become reference files (no step): CW = Envelope tree (s1), question list (s2), Intake Form clicks (s3), CV Decisions example (s4), erase commands (s5); BC = entry point (s1), record and example wording (s2), what the scripts print and refuse incl. render checks, Certificate Warning, approve/export/stamp refusals and a cv.py-status-to-Meta-File map (s3), fixes (s4), custom composition (s5). Engine sections stay in build-a-cv.md rather than docs/engine/ (fewer moved links; it is the client-CV view of the engine). pdf-workflow.md Lifecycle keeps only record rules; Retention follows decision #3 (12 months after Export unless kept). Scout/Deep Dive brief stays in the new-client skill (an agent runs it). Old-Atlas/GAPS facts placed: LinkedIn rule -> 02-intake README judgement (already there); consent coverage -> CW s2 question 1 plus a 02-intake judgement bullet; Fact Mark -> 04-text-draft judgement; render checks, Certificate Warning, command refusals -> BC s3 (reference, not a step); new Revision inherits no approval -> 06-deliver judgement and pdf-workflow Lifecycle rules; Design Review app before the pick -> 05-design judgement; Drive Trash 30 days -> 07-after judgement. GAPS.md: old-Atlas list and the refusals bullet replaced by one bullet (where they now live); citations repointed; TASK-40 inference (does a fix after design review need another review) added under Inferences; P-0018 items unchanged.
+
+TASK-43 notes worked through: #1 Delivered wording -> Exported <date>, delete by (skills, CW tree, 06 README); #3 retention -> pdf-workflow fixed; #4 every client CV gets design-reviewer -> new-cv; #5 lead exports after Approval -> new-cv; #6/#7 engine change and client task -> new-cv design.engine-change/review, new-client open.task-create/after.close; stall rule -> no Export three months after intake everywhere; library review path -> research README now archive/work-records/research-<topic>/reviews/; preview command -> added to new-cv (lead.compile-previews names it); P-0018 answers still land in YAML first. Left as is: TASK-42 render-reads-nothing-from-review (model question, GAPS Order without data); TASK-40 delete-by-check input waits on P-0018 item 5. Inventory: of 34 drift + 53 conflicts, fixed now: drift 1,2 (main prose),4,7,10,13,17,18,19,20,21,22,23,24,25,26 and conflicts a2,a4,a5,a11,a20(prose),b1,b2,b4,b5,b6,b17,b19 plus check 6 (House Design) and 9 (builds/ clearing rule in 06 README); already resolved before: 17 drift and 16+9 conflicts (A/B); left: E items (accepted or code-level) and two owner questions in neither P-0018 nor GAPS: drift 11 (agents edit list in docs/preferences.md misses messages.md, form-NN.gs, reviews/) and a17 (Check Page language for a client who does not read Greek) - flagged, not decided.
+
+TASK-43 walk (AC #2): followed new-client then new-cv literally for fictional Alex Morgan (engineer example) in a scratch Envelope builds/walk-task43/repo/private/alex-morgan-second-engineer, stand-ins for client messages, design review and owner. Followed from the skill text alone: every-run checks, open.envelope/alias/envelope-json (CW s1), intake.questions/consent, research facts/scout/decisions, text-draft write (header of scripts/text-draft.typ), compile, stamps ready/sent/signed-off (signed-off refused before the screenshot, as documented), fingerprint from the Meta File, design.fill-data, entry point (BC s1), preview command, clear previews, render, page PNGs, wording check (caught the example record values: deliver.fix, new Revision, [] on the second), export refused before approval, approve --test-only, export, delete-by line, stamp delivered, status (rendered, exported). Adapted, not stuck: outputs.py stamp needed --root builds/walk-task43/repo because a scratch Envelope sits outside private/ (real clients do not); open.task-create skipped so no public task for a fictional client. Fixed after the walk: new-cv design.fill-data now says every value replaced (the walk copied a record and kept example values the wording check then caught). Judgement noted: BC s1 says a real candidate always overrides pages; with six companies the base plan was used. bun run reality: level 3 passes (builds/workflow-reality-20261014-120553).
+
+TASK-43 review round 1 fixes applied (content M1, M2, m3-m5, notes; sources minors 1-2, note 4). The next anchor baseline is e9cf613 (bun run anchors e9cf613); against 6e93bad it reports false MOVED for hand-moved anchors. Owner questions drift 11 and a17 are now P-0018 items 8 and 9 (revision 2).
 <!-- SECTION:NOTES:END -->
+
+## Final Summary
+
+<!-- SECTION:FINAL_SUMMARY:BEGIN -->
+The Workflow Model is the one description of the client journey: client-workflow.md (373 to 222 lines), build-a-cv.md and the pdf-workflow Lifecycle now hold only reference detail headed Used by <step id> or Not a step; new-client and new-cv are step-ID checklists; facts the model lacked moved into stage README prose; 25 inventory items fixed, inventory deleted; client review renders and batch sheets now live in the cleared input folder; two new owner questions are P-0018 items 8 and 9. Walked a fictional client through both skills to export; bun run reality passes. Context rounds FINDINGS (2 lenses), FINDINGS, PASS. Suite PASS builds/tests-20261014-151137-713958, CI 38563765531 green.
+<!-- SECTION:FINAL_SUMMARY:END -->

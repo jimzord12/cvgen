@@ -1,32 +1,22 @@
-# Client workflow: from a new client to signed-off facts
+# Client workflow: reference
 
-Read this when a new client arrives, before `build-a-cv.md`. The checklist
-version is the `new-client` skill (`.claude/skills/new-client/`); the
-decisions behind it are in
-[the client-workflow proposal](../proposals/client-workflow.md). Terms are
-in the [glossary](../glossary.md).
+The client workflow, from a client's first message to the deletion of his
+data, is the `Workflow Model` in [`docs/workflow/`](../workflow/README.md):
+every step with its ID, who does it, what it reads and writes, its gates
+and loops, and the judgement each stage needs, one README per stage. **This
+file describes no step.** It holds the reference detail some steps point at
+and the model does not hold: the `Envelope` tree, the question list, the
+`Intake Form`'s clicks, what `CV Decisions` look like, and the commands that
+erase an `Envelope`. Each section names the steps that use it. The
+checklists an agent follows are the `new-client` and `new-cv` skills; the
+decisions behind the workflow are in
+[the client-workflow proposal](../proposals/client-workflow.md) and
+[P-0017](../proposals/workflow-model.md). Terms are in the
+[glossary](../glossary.md).
 
-The owner steers the main Claude Code session. Claude does the writing and
-research; the owner is the only one who talks to the client.
+## 1. The Envelope tree
 
-```text
-Intake (Relay) -> Scout -> CV decisions -> Deep Dives -> one follow-up
-  -> text draft -> Sign-off -> new-cv -> Approval -> Export
-```
-
-| Step | Owner | Claude |
-|---|---|---|
-| 1. Envelope | names the client | creates the folder, its alias and `envelope.json` |
-| 2. Intake | pastes the questions, brings the answers back | writes the questions in simple Greek |
-| 3. Facts | - | turns answers into facts and a gap list |
-| 4. Scout | - | Research Library first, then the web |
-| 5. CV decisions | picks which open ones get a Deep Dive | lists the decisions and what answers them |
-| 6. Deep Dives | - | one agent per question, sources checked |
-| 7. Follow-up | pastes the questions, brings the answers back | one batch: 5 questions (never more than 10), or a form of about 15 minutes with at most 5 typed answers |
-| 8. Sign-off | sends the text draft, saves the client's OK | writes the draft PDF |
-| 9. Handover | - | `new-cv` builds the CV |
-
-## 1. Open the Envelope
+Used by `open.envelope` and by every step that writes into the `Envelope`.
 
 One folder per client under `private/` (ignored by this repository, tracked by the
 private one, `AGENTS.md`), named after the
@@ -38,7 +28,7 @@ together. This section owns the layout; the guides and skills point here.
 
 ```text
 private/eleni-example-tour-guide/
-  README.md          alias, intake date, decisions, draft fingerprints, delivery and delete-by dates,
+  README.md          alias, intake date, decisions, draft fingerprints, Export and delete-by dates,
                      Google links (Intake Form, Sheet, script project)
   envelope.json      who the client is, once: alias, domain, candidate, rank
   candidate.json     the candidate record (added by new-cv); the workflow reads it here
@@ -74,6 +64,7 @@ private/eleni-example-tour-guide/
 `typst/cv.typ` reads every file by a path relative to itself:
 `json("../candidate.json")`, `image("../images/portrait/portrait.jpg")`,
 `#import "designs/hanami.typ"`, `image("art/fuji.svg")`. `scripts/cv.py`
+(which calls the `Envelope` a workspace)
 refuses a workspace whose `cv.typ` still sits at the root (the layout
 before 2026-10-14) and names the whole move, made with `git mv` inside
 `private/`: `cv.typ` to `typst/`, with the data and `.typ` helpers it
@@ -91,73 +82,21 @@ portrait and the files `cv.typ` reads into a `Revision`, at the same
 places under its `inputs/`; `intake/`, `research/` and `draft/` enter one
 only if `cv.typ` reads from them, which it should not.
 
-**The folder name is client data.** Claude gives each client an alias,
-`client-<yyyy>-<mm>-<nn>` (for example `client-2026-09-01`), written at the
-top of the `Envelope`'s `README.md` with the date intake started. Outside `private/` (tasks in `backlog/`,
-commit messages, briefs to agents, anything public) the client is only ever
-the alias.
-
-Claude also writes `envelope.json` when it opens the `Envelope`. Every
-`Meta File` in the `Envelope` copies it (the `Output Contract`,
-`../pdf-workflow.md`), and `scripts/cv.py render` refuses to run without
-it. `domain` is an id from the glossary's `Domain` row (`travel` for a tour
-guide), `candidate` the client's display name:
+**`envelope.json`** says who the client is, once. Every `Meta File` in the
+`Envelope` copies it (the `Output Contract`, `../pdf-workflow.md`), and
+`scripts/cv.py render` refuses to run without it. `alias` is the client's
+`Alias`, `client-<yyyy>-<mm>-<nn>` (`output.schema.json` also accepts a `-<n>` suffix); `domain` is an id from the glossary's
+`Domain` row (`travel` for a tour guide); `candidate` is the client's
+display name, which never leaves `private/`:
 
 ```json
 {"alias": "client-2026-09-01", "domain": "travel", "candidate": "Eleni Example", "rank": "Tour Guide"}
 ```
 
-## 2. Intake by Relay
+## 2. The question list
 
-Claude writes the question list below in simple, friendly Greek, adapted to
-the client's `Domain`, as one message. The owner pastes it into the chat
-app the client already uses (Viber, WhatsApp, email). The client answers
-in any order, in text or voice messages, over a few days.
-
-Claude reads text only. Voice messages need a transcript first: the phone's
-own transcription, or the owner typing the gist. The owner copies the chat
-text into `intake/messages.md` (a WhatsApp "Export chat" file works as is)
-and saves photos into `intake/documents/`.
-
-**`Intake Form` (optional; owner, 2026-09-28).** Beside the chat message,
-the client can answer the questions in a Google Form; at the follow-up
-(section 7) the form follows its effort cap, and the chat message carries
-the link and the offer to answer by chat instead. Claude writes a
-filled copy of `scripts/intake-form.gs` per form as `intake/form-NN.gs`
-(only its `FORM` block changes: title, intro, consent, questions). A form
-is designed, not a list of text boxes: pages by topic, and the question
-type that is quickest to answer (a choice, tick boxes, a drop-down, a
-grid, a date; free text only where a story is wanted), in the polite
-plural of the `Text Draft`. The
-owner pastes it into a new project at script.google.com, names the
-project after the `Alias`, and runs `createIntakeForm` once; the log
-prints the link to send, the form's edit link and a Google Sheet that
-collects the answers. The first run asks for permission and Google warns
-that the app is unverified (Advanced, then Go to the project); that is
-normal for the owner's own script. The owner passes the three links and
-the project's link back, and Claude lists them under "Google" in the
-`Envelope`'s `README.md`. Before sending the link, the owner gives the
-form the house theme (the palette icon in the form's editor; about a
-minute): Header, upload `studio/brand/forms/intake-header.png`; Color, custom,
-`#B0602B`; Background, the swatch closest to the header's warm paper
-(usually the lightest); Text style, Header "Bona
-Nova" (under More fonts), Question and Text "Source Sans 3"; a font the
-menu does not offer stays at the default. A client can edit an answer only through the
-edit link shown once, after sending, so the owner downloads the answers
-when the client says he is done: in the answers Sheet, with the "Form
-Responses 1" tab open, File, Download, Comma-separated values, which gives
-that tab as a plain CSV (first run, 2026-09-28), saved as
-`intake/answers-NN.csv`: one column per question and one per grid row,
-dates in the Sheet's locale (month/day/year on the first run; read an
-ambiguous date such as 3/4 with care), a skipped page's questions empty. Claude copies the answers into
-`intake/messages.md`. A test answer the owner makes is deleted in both
-places before the client answers: the form's Responses tab (Individual,
-the bin icon) and its row in the Sheet (right-click the row number,
-Delete row), which the form does not remove. The form has no upload questions
-(they force a Google sign-in), so photos and documents still come by chat.
-The form, its Sheet and the script project live in the owner's Google
-account and are deleted with the `Envelope`.
-
+Used by `intake.questions`, which adapts it to the client's `Domain` and
+target, and by `after.keep-request` (question 1 offers to keep his data).
 The master list, in English (why each question matters:
 [research note](../research/cv-intake-practice.md), "Draft question set"):
 
@@ -186,39 +125,62 @@ The master list, in English (why each question matters:
 12. Where can you work, from when, and do you need a visa?
 13. What may your CV show: a photo, your date of birth, your nationality?
 
-**Nothing after this step starts before the client's "I agree" is in
-`intake/messages.md`**: Claude does not read the documents, write facts or
-research until then. Without consent the owner decides whether to ask again
-or stop. The consent text is plain wording, not reviewed by a lawyer; the
-owner may change it and the retention period. Claude never opens a client's
-LinkedIn page; the PDF export is enough.
+The consent text is plain wording, not reviewed by a lawyer; the owner may
+change it and the retention period.
 
-## 3. Facts and the gap list
+## 3. The Intake Form
 
-Claude writes `intake/facts.md`: identity, target, each job with its
-scope and results, certificates, education, languages, what may be shown.
-Every fact names the message or document it came from; nothing is
-invented, and calendar dates are never turned into service time
-(constitution section 6). What is missing or vague goes into a gap list at
-the end. The gap list waits for step 7, so the client is asked once.
+Used by `intake.form-script` to `intake.form-copy` and by
+`research.follow-up-form-script` (owner, 2026-09-28).
 
-## 4. Scout
+**The script.** A filled copy of `scripts/intake-form.gs` per form,
+`intake/form-NN.gs`, in which only the `FORM` block changes: title, intro,
+consent, questions. A form is designed, not a list of text boxes: pages by
+topic, and the question type that is quickest to answer (a choice, tick
+boxes, a drop-down, a grid, a date; free text only where a story is
+wanted), in the polite plural of the `Text Draft`. It has no upload
+questions (they force a Google sign-in), so photos and documents still
+come by chat. For the follow-up, the form's cap is effort, not a count,
+because most questions there are one tap: at most about 15 minutes, and at
+most 5 questions that need typing (an optional "Other" box does not
+count); its intro states Claude's time estimate.
 
-A wide, shallow search for this client's target: CV norms in the country,
-what the target employers and the `Rank` expect, how CVs are sent (agency
-portal, applicant tracking system (ATS, software that screens CVs), email).
+**Running it (the owner).** Paste it into a new project at
+script.google.com, name the project after the `Alias`, and run
+`createIntakeForm` once; the log prints the link to send, the form's edit
+link and a Google Sheet that collects the answers. The first run asks for
+permission and Google warns that the app is unverified (Advanced, then Go
+to the project); that is normal for the owner's own script. He passes the
+three links and the project's link back, and Claude lists them under
+"Google" in the `Envelope`'s `README.md`. The form, its Sheet and the
+script project live in his Google account until `after.delete-google`.
 
-1. Read `docs/research/` first. A note past its "Recheck after" date is
-   used only after its load-bearing claims are checked again.
-2. Search the web for what the library lacks.
-3. Write `research/scout.md`: numbered findings, each with a source and
-   its date, and the open questions.
+**The house theme**, before sending the link (the palette icon in the
+form's editor; about a minute): Header, upload
+`studio/brand/forms/intake-header.png`; Color, custom, `#B0602B`;
+Background, the swatch closest to the header's warm paper (usually the
+lightest); Text style, Header "Bona Nova" (under More fonts), Question and
+Text "Source Sans 3"; a font the menu does not offer stays at the default.
 
-## 5. CV decisions
+**A test answer** the owner makes is deleted in both places before the
+client answers: the form's Responses tab (Individual, the bin icon) and its
+row in the Sheet (right-click the row number, Delete row), which the form
+does not remove.
 
-Claude writes `research/decisions.md`, one line per decision the CV must
-make, each with its answer and source, "judgement" with the reason, or
-"open":
+**The answers.** A client can edit an answer only through the edit link
+shown once, after sending, so the owner downloads the answers when the
+client says he is done: in the answers Sheet, with the "Form Responses 1"
+tab open, File, Download, Comma-separated values, which gives that tab as a
+plain CSV (first run, 2026-09-28), saved as `intake/answers-NN.csv`: one
+column per question and one per grid row, dates in the Sheet's locale
+(month/day/year on the first run; read an ambiguous date such as 3/4 with
+care), a skipped page's questions empty.
+
+## 4. CV Decisions: what the lines look like
+
+Used by `research.decisions` and `research.decisions-update`. One line per
+decision the CV must make, each with its answer and source, "judgement"
+with the reason, or "open":
 
 | Decision | Example answer |
 |---|---|
@@ -226,119 +188,20 @@ make, each with its answer and source, "judgement" with the reason, or
 | Length | two pages |
 | Photo, date of birth, nationality | photo yes, date of birth no (country norm, client allows) |
 | Language(s) of the CV | English |
-| `Domain` and `Template` | no `Travel & Tourism` `Domain` yet: a one-off `Template` in the `Envelope` (step 9) |
+| `Domain` and `Template` | no `Travel & Tourism` `Domain` yet: a one-off `Template` in the `Envelope` |
 | Achievements that lead | the three with numbers |
 | Keywords | from the job ads |
 | Gaps and short jobs | how each is shown |
-| How it is sent | email PDF / agency portal / ATS |
+| How it is sent | email PDF / agency portal / ATS (applicant tracking system, software that screens CVs) |
 
-The owner picks which open decisions get a Deep Dive. Research is enough
-when every decision has a sourced answer or a stated judgement; a new
-source that changes no decision is the signal to stop.
+## 5. Erasing an Envelope from the private repository
 
-## 6. Deep Dives
+Used by `after.erase-commands` (Claude fills in the folder name) and
+`after.erase-envelope` (the owner runs it; Claude never does).
 
-One agent per chosen question: 0-3 per client, up to 6 for an executive
-aiming at named companies. Each author gets the `Alias`, never the
-`Envelope` path, and returns its text: numbered, sourced claims and
-nothing about the client. Claude saves it as `research/deep-dive-<topic>.md`.
-
-A fresh `research-reviewer` checks each one until PASS (cap: 5 rounds while
-the owner watches, 10 unattended; at the cap it goes to the owner marked
-unresolved). The reviewer never reads `private/`, so Claude first checks
-the Deep Dive for client details, then passes its text inline, with its
-SHA-256 as the snapshot and the question it answers. Reports on a Deep Dive
-that stays with the client go in the `Envelope`'s
-`research/reviews/<topic>-NN.md`.
-
-A finding about a country, a `Domain` or a `Rank`, with nothing about the
-client, is also written to the `Research Library` (`docs/research/`,
-public) in the same session. The library note is written first, free of
-client detail, and reviewed on its own text and hash; its reports go under
-`archive/work-records/research-<topic>/reviews/`, never under a client's name. A
-finding about one employer stays in the `Envelope`; it moves to the
-library when a second client targets the same employer.
-
-## 7. One follow-up
-
-The gap list plus any question the research raised, as one batch. As a
-chat message: aim for 5 questions, never more than 10. As an `Intake
-Form` (section 2) the cap is effort, not a count, because most questions
-there are one tap (owner, 2026-09-28): at most about 15 minutes, and at
-most 5 questions that need typing (an optional "Other" box does not
-count). The form's intro states Claude's time estimate. The chat message
-then carries the link and offers to answer there instead. Claude writes
-them in simple Greek; the
-owner pastes them, or sends the form; the
-answers go into `intake/messages.md`, and Claude
-updates `facts.md`. Anything still missing after this round is left out
-of the CV or marked as not supplied; the client is not asked again unless
-the owner decides to.
-
-## 8. Text draft and Sign-off
-
-Claude writes the CV's content in the CV's language, sized for the
-`Template` (two pages by default), in the `Text Draft`'s `House Design`
-(First Fitting: warm paper, one copper thread): `draft/draft-01.typ` using
-`scripts/text-draft.typ`, compiled to `draft/draft-01.pdf`. Every fact the
-client must check (a name, a date, a number, a title) is wrapped in
-`#fact[...]`, which underlines it with the copper `Fact Mark`; our wording stays
-plain. The script's header comment shows the parameters: the client's name,
-greeting and label, draft number, date and four sample facts.
-
-```powershell
-typst compile --root . --ignore-system-fonts --font-path packages/cv-framework/fonts private/<envelope>/draft/draft-01.typ private/<envelope>/draft/draft-01.pdf
-python scripts/outputs.py stamp private/<envelope>/draft/draft-01.pdf status=ready
-```
-
-The stamp writes the draft's `Meta File` from `envelope.json` (the
-`Output Contract`, `../pdf-workflow.md`), so the owner finds it in the
-`Design Review` app. Claude re-stamps it `status=sent` only when the owner
-confirms he sent it; at the `Sign-off`, once the screenshot is saved,
-`status=signed-off` (the stamp refuses `signed-off` without
-`draft/sign-off-NN.png`); a draft replaced by the next number becomes
-`status=superseded`.
-
-Its first page, the `Check Page`, in Greek, asks the client to check only
-the underlined facts, because the wording is our job. Its words are plain
-and professional; the tailoring idea lives in the drawing only (owner,
-2026-09-28). With the `status=sent` re-stamp, Claude also writes the
-draft's SHA-256 in the `Envelope`'s `README.md`; a sent draft is never compiled again, and corrections make
-the next number (`draft-02`). The client's "OK" is the `Sign-off`, saved as
-`draft/sign-off-NN.png` next to the draft it answers.
-
-## 9. Handover to new-cv
-
-`new-cv` builds the CV from `intake/facts.md` and the signed-off draft. If
-the facts do not fit the `Domain`'s `Template`, it builds a one-off
-`Template` in the `Envelope` and records a `Framework Gap` (`build-a-cv.md`
-section 8).
-
-A client whose `Domain` does not exist yet (a tour guide, today) gets a
-one-off `Template` in the `Envelope`: its `typst/cv.typ` imports
-`/packages/cv-framework/lib.typ` only (ADR 0012), so `scripts/cv.py render`
-checks no schema. The design may use other files of the `Envelope`
-(`presentation.json`, the `.typ` files in `designs/` and `text/`, the SVGs
-in `art/`, the portrait; section 1) read by a path relative to `cv.typ`: a
-`Revision` copies each one it finds (`build-a-cv.md` section 8).
-Record the `Framework Gap` for that client's design. The design starts from
-an `Idea Run` on the client's `Domain`, specialty and `Rank`, from which the
-owner picks a `Style`, `Design Tier` and `Density`, and must pass
-the `Batch Test` and the `Three-Second Test` (`docs/vision.md`, "Design is
-the product"; the `new-cv` skill).
-
-At `Export`, Claude writes "Delivered <date>. Delete by <date + 12 months>"
-in the `Envelope`'s `README.md`, re-stamps the delivered revision
-`status=delivered` once the owner has sent it (`build-a-cv.md` section 6) and names the delete-by date in its report
-to the owner. A client who never reaches `Export` (no consent, dropped out)
-is named to the owner, by `Alias`, once three months pass without progress
-since the intake date: the `new-client` skill checks the intake dates every
-time it runs. Deleting anything under `private/`, and each `Intake Form`,
-its Sheet and its script project listed in the `README.md` (then empty
-the Drive Trash, which keeps files for 30 days), stays the owner's act.
 Deleting the folder is not enough: the private Git repository keeps it in its
-history. Claude hands the owner the exact commands to erase the `Envelope` from
-that history and overwrite GitHub's copy, which he runs. First, in
+history. The commands erase the `Envelope` from
+that history and overwrite GitHub's copy. First, in
 `private/`, `git status` and `git log origin/main..` must both print nothing
 (commit and push everything else); the erase then runs in a fresh clone, so no
 working copy is touched:
@@ -346,7 +209,7 @@ working copy is touched:
 ```powershell
 git clone https://github.com/jimzord12/cvgen-private.git $env:TEMP\cvgen-private-erase
 cd $env:TEMP\cvgen-private-erase
-git filter-repo --path <envelope-folder>/ --invert-paths
+git filter-repo --path <envelope>/ --invert-paths
 git remote add origin https://github.com/jimzord12/cvgen-private.git
 git push --force --all origin
 git push --force --tags origin
@@ -357,16 +220,3 @@ removes the `origin` remote, hence the re-add.) Then delete that temporary
 folder and every clone of the private repository, `private/` included, and
 clone it again. GitHub may keep the erased commits reachable by their hash
 until its own clean-up runs; full erasure means asking GitHub Support.
-
-## Rules
-
-- **Privacy in searches.** A web search never contains the client's name,
-  contact details, or a combination that identifies them (their employer
-  with their `Rank` and dates, a vessel with its crew position). Search for
-  "chief officers applying to Norwegian shipowners", never the person.
-- **Client data stays in the `Envelope`.** Research Library notes, review
-  reports outside the `Envelope`, commit messages, tasks and public
-  documents never contain it; they use the alias.
-- **One batch per round.** Up to `Sign-off`, the client gets three
-  messages from us: the question list, one follow-up, the text draft
-  (plus a corrected draft if they asked for changes).

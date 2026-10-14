@@ -1,9 +1,9 @@
 """Local candidate CV workflow: render, approve, export and status for one workspace.
 
-    python scripts/cv.py render  private/<candidate> [--pages 2] [--input key=value] [--typst path] [--reference-date YYYY-MM-DD]
-    python scripts/cv.py approve private/<candidate> <revision> --approver "<name>" --sha256 <reviewed hash>
-    python scripts/cv.py export  private/<candidate> <revision>
-    python scripts/cv.py status  private/<candidate>
+    python scripts/cv.py render  private/<envelope> [--pages 2] [--input key=value] [--typst path] [--reference-date YYYY-MM-DD]
+    python scripts/cv.py approve private/<envelope> <revision> --approver "<name>" --sha256 <reviewed hash>
+    python scripts/cv.py export  private/<envelope> <revision>
+    python scripts/cv.py status  private/<envelope>
 
 Exit codes: 0 done, 1 the render or its checks failed (the revision is kept),
 2 the operation was refused or the arguments were wrong (the message says why).

@@ -1,32 +1,20 @@
-# Build a CV for a real person
+# Build a CV: the engine reference for a client's CV
 
-Read this when producing an actual CV. The public repository never receives
-real data; everything below happens in the ignored `private/` folder.
+The steps that design, build, render, approve and export a client's CV are
+the `Workflow Model`'s `design` and `deliver` stages
+([`docs/workflow/05-design/`](../workflow/05-design/README.md),
+[`06-deliver/`](../workflow/06-deliver/README.md)); the checklist an agent
+follows is the `new-cv` skill. **This file describes no step.** It is the
+reference those steps use: how to write `typst/cv.typ` and `candidate.json`,
+what the scripts print and refuse, what to do when a page does not fit, and
+how to compose a page by hand. Everything here happens in the client's
+`Envelope` under the ignored `private/` (its tree:
+[`client-workflow.md`](client-workflow.md) section 1); the public repository
+never receives real data.
 
-A new client starts with [the client workflow](client-workflow.md): intake,
-research and the client's `Sign-off` on the text. This guide takes over
-from there, with the facts in `intake/facts.md` and the signed-off draft.
+## 1. The entry point, typst/cv.typ
 
-## 1. Create the private workspace
-
-One folder per client, the `Envelope`, named after the person and their
-`Rank` (the client workflow has usually created it already). Its tree is
-fixed in `client-workflow.md` section 1; for the CV you add
-`candidate.json` at its root, the entry point `typst/cv.typ` (with any
-`presentation.json`, `designs/`, `text/` and `art/` beside it), the
-portrait in `images/portrait/`, and a `README.md` line on what was decided
-and where the evidence is. `scripts/cv.py` writes `revisions/` (section 3)
-and `exports/` (section 6), and refuses a workspace that still keeps
-`cv.typ` at its root.
-
-`envelope.json` names the client for every `Meta File` written in the
-`Envelope` (the `Output Contract`, `../pdf-workflow.md`); `render` refuses
-a workspace without it. `domain` is an id from the glossary's `Domain` row;
-`candidate` is the display name, which never leaves `private/`:
-
-```json
-{"alias": "client-2026-09-01", "domain": "marine", "candidate": "Jane Doe", "rank": "Second Engineer"}
-```
+Used by `design.entry-point`.
 
 `typst/cv.typ`. Import the engine by root-absolute path (a leading `/` means the
 repository root), so the copy the workflow keeps with each revision compiles
@@ -53,28 +41,40 @@ company indices, zero-based, in JSON order:
 Three companies here: two open page one, the third closes page two with the
 synopsis, certificates and education. Adjust the split after looking at the
 render. Splitting one large company across pages is shown in
-`../engine/layout-and-pagination.md`.
+`../engine/layout-and-pagination.md`. The shipped plan fails with `Page
+plan company index out of bounds` for fewer than six companies, or `Page
+plan must cover each vessel row once, in candidate order` for more.
 
 A short career (a cadet or junior officer) goes on one page with
 `flagship-one-page.typ` instead: pass
 `layout: flagship-layouts.one-page(candidate)`; it plans the candidate's own companies, so
-no override is needed. Render with `python scripts/cv.py render <folder>
+no override is needed. Render with `python scripts/cv.py render private/<envelope>
 --pages 1`. Whether a record fits is in
 `../engine/layout-and-pagination.md`, "Choosing a profile".
 
-## 2. Fill the data
+## 2. The record and the example wording
 
-Copy `examples/candidates/engineer-example.json` or `examples/candidates/captain-example.json` and
-replace every value. Field meanings and error messages are in
+Used by `design.fill-data` and, for the wording, `deliver.wording-check`.
+
+Copy `examples/candidates/engineer-example.json`, `captain-example.json` or
+`chief-officer-example.json` and replace every value; keep stable ids.
+Field meanings and error messages are in
 `../engine/candidate-schema.md`. Set `identity.portrait` to
-`/private/jane-doe-second-engineer/images/portrait/portrait.<ext>` (a path from the
-repository root, which both the preview in section 3 and the workflow
-accept) or to `null`. A path relative to the workspace folder,
+`/private/<envelope>/images/portrait/portrait.<ext>` (a path from the
+repository root, which both a direct compile and the workflow
+accept) or to `null`. A path relative to the `Envelope`,
 `images/portrait/portrait.<ext>`, works only through `scripts/cv.py render`, which copies
 the file into the revision; the direct compiler cannot find it.
 
 If you do not know months per vessel, set `show-vessel-durations: false` and
 give each company a `service-months` total instead.
+
+`scripts/cv.py render` checks the record against the schema its entry
+point's imports name (the Flagship input for marine, needs `jsonschema`)
+and lists the offending field paths; the engine's compile-time assertions
+then check totals. A one-off `Template` that imports only the `Framework`
+gets no schema check: keep `identity.name` and `identity.portrait`, and run
+`normalize-common` and `validate-common` in its `cv.typ`.
 
 **Replace the example wording.** Three defaults exist for the fictional
 examples and would otherwise print on a real CV:
@@ -95,70 +95,95 @@ examples and would otherwise print on a real CV:
   copy: (certificates-subtitle: "Certificates of competency and endorsements", brand: "JANE DOE"))
 ```
 
-An empty string (`""`) leaves a slot blank. Before approving, search the
-rendered PDF's text, ignoring case, for "fictional", "illustrative" and
-"flagship": none may appear. The one exception is "flagship" in the
-candidate's own words (a profile may mention "the company's flagship"), and
-only once the footer shows the configured brand; never edit the candidate's
-text to pass the check. This prints `[]`
-when the PDF is clean:
+An empty string (`""`) leaves a slot blank. `deliver.wording-check`
+searches the rendered PDF for "fictional", "illustrative" and "flagship";
+its gate, `gate.example-wording`, states the one exception.
 
-```powershell
-python -c "import pymupdf,sys; t=''.join(p.get_text() for p in pymupdf.open(sys.argv[1])).lower(); print([w for w in ('fictional','illustrative','flagship') if w in t])" private/jane-doe-second-engineer/revisions/<id>/cv.pdf
-```
+## 3. What the scripts print and refuse
 
-## 3. Render a revision
+Not a step: what `scripts/cv.py` and `scripts/outputs.py` do when a step
+runs them (`deliver.render`, `deliver.approve`, `deliver.export`,
+`deliver.status`, the stamps). Run every `scripts/cv.py` command from the
+repository root; the `Envelope` path is relative to it. They need the
+Python packages in `requirements.lock`, like the test suite.
 
-Every render is a new folder under `revisions/`, named by timestamp plus a
-random suffix, holding a snapshot of the inputs, the compiler log, the PDF,
-its checks and its `Meta File` (`cv.meta.json`, `status: render`, filled
-from `envelope.json`). Nothing in an existing revision is ever rewritten,
-except that its `Meta File` is re-stamped when its status changes
-(`approved` by section 6, `delivered` when the owner sends it).
-
-```powershell
-python scripts/cv.py render private/jane-doe-second-engineer            # --pages 3 for a three-page plan
-```
-
-Run every `scripts/cv.py` command from the repository root; the workspace
-path is relative to it. The command prints the revision id, the PDF's
-SHA-256, the schema the record was checked against and whether the
+**`render`.** Every render is a new folder under `revisions/`, named by
+timestamp plus a random suffix, holding a snapshot of the inputs, the
+compiler log, the PDF, its checks and its `Meta File` (`cv.meta.json`,
+`status: render`, filled from `envelope.json`). Nothing in an existing
+revision is ever rewritten, except that its `Meta File` is re-stamped when
+its status changes (`approved`, then `delivered`). The command prints the
+revision id, the PDF's SHA-256, the schema the record was checked against
+and whether the
 automated checks passed (page count, no empty page, fonts embedded, text
 inside the page, every font family bundled: Typst sets a missing one in
 another font, so it fails the checks). Exit code 1 means the compiler or
 a check failed; the revision stays, with the error in its `render.log` or
 `checks.json`, and the fix is a new revision. Exit code 2 prints
-`REFUSED: <reason>`: the inputs are not usable (a workspace without
+`REFUSED: <reason>`: the inputs are not usable (an `Envelope` without
 `envelope.json`, `candidate.json` or `typst/cv.typ`, one that still keeps
 `cv.typ` at its root, invalid
 JSON, a record that breaks its schema - the offending fields are listed
 with their paths, the first ten and then a count - a missing portrait file, no Typst on PATH), and the reason
-names the fix. Nothing is written on a refusal.
-Needs the Python packages in `requirements.lock`, like the test suite.
+names the fix. Nothing is written on a refusal. Its options: `--pages N`
+(the page count the checks expect, default 2), `--input key=value`
+(passed to `typst --input`; `lang=<xx>` also goes into the `Meta File`),
+`--typst <path>` and `--reference-date` (below).
 
-Certificate dates are checked against the day of the render: a
+**The `Certificate Warning`.** Certificate dates are checked against the day of the render: a
 certificate whose expiry (the fourth field, or `review`) has passed, or
 falls within 180 days, prints a `WARNING:` line naming it, and `status`
 repeats it for that revision. Warnings never fail the render or block
-approval (owner, 2026-09-25): read them before you approve, and renew,
-update or reword the date if needed. Only dates written like `14 Jul 2029`
+approval (owner, 2026-09-25): the owner reads them before he approves, and
+the date is renewed, updated or reworded if needed. Only dates written like `14 Jul 2029`
 are checked; when some are not, render prints a `NOTE:` line with the
 count, and the summary, `status` and `checks.json` carry the counts and the
 day used (`reference_date`; `--reference-date YYYY-MM-DD` sets it).
 
-For live editing while you adjust the page plan, the compiler still works
+**A preview.** For live editing while you adjust the page plan, the compiler still works
 directly; write to a fresh name under `builds/`:
 
 ```powershell
-typst watch --root . --ignore-system-fonts --font-path packages/cv-framework/fonts private/jane-doe-second-engineer/typst/cv.typ builds/jane-doe-preview.pdf
+typst watch --root . --ignore-system-fonts --font-path packages/cv-framework/fonts private/<envelope>/typst/cv.typ builds/<new-folder>/preview.pdf
 ```
 
-A preview is not a revision: what you approve and export is always a
+A preview is not a revision: what is approved and exported is always a
 `revisions/<id>/cv.pdf`.
+
+**`approve`.** It writes `cv.approval.json` beside the PDF, bound to the
+revision id and the hash, and re-stamps the revision's `Meta File`
+`approved`. It refuses an `Envelope` without `envelope.json` (the
+`Meta File` follows the receipt), and refuses if the bytes changed since the render, if the checks
+failed or are stale, or if the hash passed (`--sha256`, the first 12 or
+more characters of the hash the owner reviewed) does not match.
+
+**`export`.** It copies the approved bytes and the receipt into
+`exports/<revision-id>/` after verifying render, checks and approval, then
+verifies the copy. It never compiles. Running it again on a finished export
+verifies and returns the same bundle; a folder with different content is
+never overwritten.
+
+**`outputs.py stamp`.** It refuses `delivered` without the revision's
+approval receipt and its verified `Export`, `approved` without the receipt
+(`cv.py approve` stamps `approved` itself), and `signed-off` without the
+`Sign-off` screenshot (owner's decision #8; `../pdf-workflow.md`, "Output Contract").
+
+**`status`** lists every revision with a one-word state, which is a
+listing, never a proof. Its words and the `Meta File`'s statuses map like
+this:
+
+| `cv.py status` | The revision's `Meta File` | Meaning |
+|---|---|---|
+| `failed` | none (no PDF) | the compile failed; `render.log` says why |
+| `checks-failed` | `render` | a check failed; never approvable |
+| `rendered` | `render` | checks passed, not approved |
+| `approved` | `approved` | the receipt is beside it, no `Export` yet |
+| `exported` | `approved`, then `delivered` once the owner has sent it | a verified copy is in `exports/<revision-id>/` |
+| `changed`, `corrupt`, `incomplete`, `export-conflict` | as last stamped | a file was changed or broken by hand; approve and deliver nothing from it |
 
 ## 4. Fix what does not fit
 
-Every failure names the fix. The common ones:
+Used by `deliver.fix`. Every failure names the fix. The common ones:
 
 - A name, rank or contact too long for the hero: shorten it or override the
   size in the entry point, `theme: (..theme, sizes: (..theme.sizes, name: 30pt))`.
@@ -167,54 +192,9 @@ Every failure names the fix. The common ones:
 - Overflow on a page: move a company to the next page or split it as shown
   in `../engine/layout-and-pagination.md`. Do not shrink the body font.
 
-## 5. Look at every page
+## 5. When the template does not fit
 
-Open `revisions/<id>/cv.pdf`. Check the hero, the split between pages, the
-synopsis position, and that education sits where you want it. Check the
-text is selectable and the reading order makes sense for the portal you
-will submit to. Anything to change means editing the inputs and rendering a
-new revision; the one you looked at is never modified.
-
-## 6. Approve and export
-
-Approval is the owner's explicit act on the exact bytes reviewed. It writes
-`cv.approval.json` beside the PDF, bound to the revision id and the hash,
-and re-stamps the revision's `Meta File` `approved`; the command refuses if the bytes changed since the render, if the checks
-failed or are stale, or if the hash you pass does not match:
-
-```powershell
-python scripts/cv.py approve private/jane-doe-second-engineer <revision-id> --approver "Jim" --sha256 <first 12+ characters of the hash you reviewed>
-```
-
-Export copies the approved bytes and the receipt into
-`exports/<revision-id>/` after verifying render, checks and approval, then
-verifies the copy. It never compiles. Running it again on a finished export
-verifies and returns the same bundle; a folder with different content is
-never overwritten.
-
-```powershell
-python scripts/cv.py export private/jane-doe-second-engineer <revision-id>
-python scripts/cv.py status private/jane-doe-second-engineer               # every revision and its state
-```
-
-Export means ready to deliver; sending the PDF is a separate, manual act.
-Once the owner has sent it, re-stamp the revision:
-`python scripts/outputs.py stamp private/jane-doe-second-engineer/revisions/<id>/cv.pdf status=delivered`.
-The stamp refuses `delivered` without the revision's approval receipt and
-its verified `Export`, and `approved` without the receipt (`cv.py approve`
-stamps `approved` itself). A new revision, for any reason, inherits no
-approval: review, approve and export it again. The lifecycle and the
-records are specified in `../pdf-workflow.md`.
-
-## 7. Keep it private
-
-Nothing under `private/` is tracked by this repository. `private/` is its own
-private Git repository: commit and push the `Envelope` there, scans included,
-with commit messages that name the client only by `Alias`. Do not copy renders
-into `examples/`, where the public fictional `Release` lives. Never commit
-certificate numbers, scans or passport details to this public repository.
-
-## 8. When the template does not fit
+Used by `design.custom-composition`.
 
 Some real CVs cannot go through `flagship` yet. The known causes are
 recorded in `../framework-gaps.md`: a career recorded as contract periods
@@ -251,34 +231,34 @@ Entry points reach components only through `lib.typ`: `core-components`
 holds the page shell and the small pieces, `flagship-components` every
 Flagship section (`docs/conventions.md`). The skills block is
 documented in `../engine/skills-component.md`. The root-absolute import
-works from any workspace folder. `marine` is the domain node exported by
+works from any `Envelope`. `marine` is the domain node exported by
 `lib.typ` (`docs/engine/domains-and-roles.md`).
 
 Rules for this path:
 
-- Import from `packages/domains/marine/lib.typ`; never copy library code into the workspace.
+- Import from `packages/domains/marine/lib.typ`; never copy library code into the `Envelope`.
   A client whose domain does not exist yet imports `/packages/cv-framework/lib.typ`
-  only (render then checks no schema; `client-workflow.md` section 9).
+  only (render then checks no schema; `design.port-concept`).
 - Keep the candidate JSON valid against its schema, if it has one. Put data the schema
   cannot hold, such as contract periods, in a separate `typst/presentation.json`
   beside `cv.typ`. Never invent months from calendar periods.
-- Read every workspace file by a literal path relative to `cv.typ`
+- Read every `Envelope` file by a literal path relative to `cv.typ`
   (`json("presentation.json")`, `#import "designs/table.typ"`, `image("art/map.svg")`,
   `image("../images/portrait/portrait.jpg")`).
   `render` finds these reads, follows local `.typ` helpers, copies each file
   into the `Revision` and records its hash in `render.json`. It refuses a
   root-absolute path into `private/` (the revision would read the live
-  file), a path that leaves the workspace, and a missing file. A computed
+  file), a path that leaves the `Envelope`, and a missing file. A computed
   path (`image(d.photo)`) is not found by the scan; if its file is not in
   the snapshot the compile fails, and if it reads a live file the revision's
   checks fail, so it cannot be approved.
-- Approve and export the hand-composed render through the same workflow
-  (sections 3 and 6): its entry point is still `typst/cv.typ`. Record in
+- The hand-composed render goes through the same `deliver` steps: its
+  entry point is still `typst/cv.typ`. Record in
   the folder's `README.md` why the custom composition exists and what it
   matched. Once the template can express the data, the entry point is
   rewritten to use `flagship` and compared against the approved revision.
 - Add an entry to `docs/framework-gaps.md` saying what you needed, what
-  you went around and what you built. That is how the gap gets closed.
+  you went around and what you built (`design.framework-gap`). That is how the gap gets closed.
 
 ### A composition written before 2026-09-25
 

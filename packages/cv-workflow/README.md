@@ -2,8 +2,8 @@
 
 Everything around a candidate render: fresh revisions, automated checks,
 the owner's approval receipt and the verified export. Specified in
-`docs/pdf-workflow.md` (ADR 0010); the commands are in
-`docs/guides/build-a-cv.md`. The engine renders; this package never sends,
+`docs/pdf-workflow.md` (ADR 0010); what the commands print and refuse is in
+`docs/guides/build-a-cv.md` section 3. The engine renders; this package never sends,
 publishes or deletes a PDF.
 
 ## Functions
@@ -46,6 +46,7 @@ step; nothing is overwritten on the way.
 | `render.json` | render | status, engine commit and dirty flag, compiler version and command, input hashes and imports (`inputs.files` lists the copied workspace files), the schema the record was checked against, PDF hash |
 | `checks.json` | render | page count, empty pages, fonts (all embedded, every family bundled), bounds, any `Live Read`; `pdf_sha256` of the bytes checked; `certificates`: expiry dates checked against `reference_date`, warnings for expired or within-180-day certificates (never failing `passed`), counts of checked and unchecked dates |
 | `cv.pdf` | render | the PDF, on success |
+| `cv.meta.json` | render, then approve (and `outputs.py stamp` for `delivered`) | the PDF's `Meta File` (`docs/pdf-workflow.md`, "Output Contract"), copied from the workspace's `envelope.json`; render and approve refuse a workspace without it |
 | `cv.approval.json` | approve | revision id, sha256, approver, time, scope `owner` or `test-only` |
 
 `exports/<id>/cv.pdf` and `cv.approval.json` are byte copies, made in a

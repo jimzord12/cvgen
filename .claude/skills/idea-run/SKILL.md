@@ -21,9 +21,9 @@ needs a design; product ideas weekly at most (the roadmap is long, the
 owner's attention is not).
 
 Every run serves `docs/vision.md`, "Design is the product" (owner,
-2026-09-29): the design is CVgen's core product, so a design run is judged
+2026-09-29): the design is CVgen's core product, so a design `Idea Run` is judged
 first on the `Batch Test`, the `Three-Second Test` and `Flagship Parity`.
-A design run for a non-CV asset (a `Text Draft` direction, a brand asset)
+A design `Idea Run` for a non-CV asset (a `House Design` direction, a brand asset)
 follows the lead's brief for its styles, densities and tiers and is judged under the
 design-reviewer's "Other assets".
 
@@ -35,7 +35,7 @@ design-reviewer's "Other assets".
    with `-2`, `-3` for a second run the same day. Record the run in its
    `run.md`: brief, rounds, verdicts, what reached the owner.
 2. Start the author with the date, the run folder and any owner steer (a
-   domain, a mood, a problem). A design run always names the `Domain`, the
+   domain, a mood, a problem). A design `Idea Run` always names the `Domain`, the
    specialty and the `Rank` its pages must shout (the `Three-Second Test`),
    and never bans the domain's imagery; it also gives the Spacious page
    count (1 to 3) that fits the size of the fictional record. Give the same three, and the page count, to every

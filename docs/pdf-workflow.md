@@ -7,7 +7,9 @@ Status: Approved by the owner in conversation on 2026-09-15; recorded in
 tree below is implemented for the engine (`packages/cv-framework/` and
 `packages/domains/` since ADR 0012, `examples/`, `studio/archive/`) and for the local workflow (`packages/cv-workflow/`,
 `scripts/cv.py`) since 2026-09-16; `apps/web/` is not implemented.
-The commands are in `docs/guides/build-a-cv.md`; the package's own README
+The steps that run it are the `Workflow Model`'s `deliver` stage
+(`docs/workflow/06-deliver/`); what the commands print and refuse is in
+`docs/guides/build-a-cv.md` section 3, and the package's own README
 describes the records it writes.
 
 ## Ownership
@@ -64,12 +66,12 @@ It does not manage accounts, approval, storage policy, or delivery. The workflow
 owns those document operations; local commands and the future web backend call
 it. These are ordinary package boundaries, not separate network services.
 
-## A local candidate workspace
+## A client's Envelope (the code's workspace)
 
 This schematic candidate name does not identify a real person:
 
 ```text
-private/<candidate>/             # The full Envelope tree: docs/guides/client-workflow.md, section 1
+private/<envelope>/              # The full Envelope tree: docs/guides/client-workflow.md, section 1
   envelope.json                 # Who the client is: alias, domain, candidate, rank;
                                 #   render refuses without it
   candidate.json                # Working candidate record
@@ -168,32 +170,27 @@ without a valid, current `Meta File` shows up as a problem, never silently.
 
 ## Lifecycle
 
-1. **Prepare and render.** Snapshot the working inputs into a new revision and
-   ask the engine to render there. Keep compiler errors with that revision.
-   A workspace without `envelope.json` is refused before anything is
-   written; a new PDF gets its `Meta File` (`status: render`).
-2. **Check and review.** Automated checks must pass before approval. The owner
-   reviews that revision's `cv.pdf`; review does not move or regenerate it.
-3. **Approve.** An explicit owner action tied to the reviewed revision and hash
-   creates `cv.approval.json`. It records revision ID, SHA-256, approver, and
-   approval time. Before writing it, verify that the reviewed bytes still match.
-   A passing test or an agent's quality judgment cannot grant approval. The
-   revision's `Meta File` is re-stamped `approved`.
-4. **Export.** Read the authoritative receipt from the revision, verify the PDF
-   hash and passing checks, copy into a fresh export folder, and verify the copy.
-   A missing receipt, failed check, or mismatch blocks export. Never recompile
-   for export. Repeating a completed export verifies and returns the existing
-   matching bundle; it never overwrites a different one or exposes a partial copy.
-5. **Deliver.** Hand over the verified export PDF. The receipt is internal and
-   need not be sent to the candidate. Export means ready for delivery; actual
-   sending or downloading is a separate action. The future web backend checks
-   the authoritative approval and exact stored bytes before making them available.
+The steps (render, the checks, the owner's review, `Approval`, `Export`,
+sending) are the `deliver` stage of the `Workflow Model`
+(`docs/workflow/06-deliver/README.md`, steps `deliver.*`). The records
+above keep these rules whatever runs them, the local commands or the
+future web backend:
 
-Editing the working candidate record starts a new revision; approval of an old
-revision stays attached to its old bytes. The new revision inherits no approval.
-An export folder name or a user-supplied receipt never establishes approval.
-The local workflow trusts its controlled workspace; the web app must restrict
-approval writes to the authenticated owner. Digital signatures are deferred.
+- `cv.approval.json` records revision ID, SHA-256, approver and approval
+  time, and is written only for the bytes reviewed. A passing test or an
+  agent's quality judgment cannot grant approval.
+- `Export` reads the authoritative receipt from the revision, never
+  recompiles, and never overwrites a different bundle or exposes a partial
+  copy. The receipt stays internal; it need not be sent to the candidate; the
+  future web backend checks the authoritative approval and exact stored
+  bytes before making them available.
+- Editing the working candidate record starts a new revision; approval of
+  an old revision stays attached to its old bytes. The new revision
+  inherits no approval. An export folder name or a user-supplied receipt
+  never establishes approval.
+- The local workflow trusts its controlled workspace; the web app must
+  restrict approval writes to the authenticated owner. Digital signatures
+  are deferred.
 
 ## Local operation and future hosting
 
@@ -210,9 +207,13 @@ not a requirement to store customer files on a deployed application's local disk
 
 ## Retention and migration
 
-Retain approved revisions and their delivery copies. Failed or unapproved
-revisions can be cleanup candidates; removing one needs the owner's go
-([preferences.md](preferences.md#what-he-decides-and-what-agents-decide)).
+A client's `Envelope`, its approved revisions and `Export`s included, is
+deleted 12 months after `Export` unless the client asked to keep his data
+(owner's decision #3 in [P-0017](proposals/workflow-model.md); the steps
+are the `after` stage, `docs/workflow/07-after/README.md`). Failed or
+unapproved revisions can be removed earlier on the owner's go only
+(`after.revision-cleanup`,
+[preferences.md](preferences.md#what-he-decides-and-what-agents-decide)).
 They are not part of a general `builds/` cleanup.
 
 The public fictional gallery is the `Release` beside its entry points in

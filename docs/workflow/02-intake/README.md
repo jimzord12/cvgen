@@ -17,15 +17,23 @@
 - **One message, adapted, consent first.** `intake.questions` starts from
   the master list (`art.master-question-list`) and adapts it to the
   `Client`'s `Domain` and target: examples he recognises, questions that
-  apply to his work. It stays one message, in simple, friendly Greek, so
-  the `Client` can answer in any order over a few days.
+  apply to his work. It stays one message, in simple, friendly Greek. The
+  owner pastes it into the chat app the `Client` already uses (Viber,
+  WhatsApp, email), and the `Client` answers in any order, in text or
+  voice messages, over a few days.
 - **Consent is a hard stop** (`gate.consent`). Until the "I agree" is in
   `intake/messages.md`, the lead reads no document, writes no fact and
   does no research, even when the `Client` sends his papers first.
+- **What the consent covers**, as question 1 of the list words it: AI
+  tools and web research, his details kept in private files and never
+  published, and deletion 12 months after delivery unless he asks to keep
+  them (`after.keep-request`).
 - **The lead reads text only.** Voice messages go through
   `intake.transcribe` (the phone's transcript or the owner's gist) before
-  anything is read. A `Client`'s LinkedIn page is never opened; the PDF
-  export he sends is enough.
+  anything is read. The owner brings the answers in (`intake.capture`):
+  the chat text into `intake/messages.md` (a WhatsApp "Export chat" file
+  works as is), photos and files into `intake/documents/`. A `Client`'s
+  LinkedIn page is never opened; the PDF export he sends is enough.
 - **When intake is done.** Consent is in and the answers have stopped
   coming; with a form, the `Client` says he is done
   (`intake.form-download`). Intake is not the place to chase gaps: what is
@@ -60,11 +68,12 @@
 - Writing a second list of questions for what the first answers left out;
   that is the follow-up's job (`research.follow-up-write`).
 
-## Where the detail lives until TASK-43
+## Reference detail
 
-- `docs/guides/client-workflow.md` section 2: the master question list,
-  the `Intake Form` from script to theme to CSV, and the consent rules.
-- The `new-client` skill, step 2; the header of `scripts/intake-form.gs`.
+- `docs/guides/client-workflow.md` section 2: the master question list;
+  section 3: the `Intake Form`, from script to theme to CSV.
+- The `new-client` skill: the checklist, by step ID; the header of
+  `scripts/intake-form.gs`.
 
 ## Diagram
 

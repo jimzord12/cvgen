@@ -94,7 +94,7 @@ is generalised when a second domain needs it changed, not before (ADR 0011).
 
 A one-off `Template` for a single client whose domain does not exist yet is
 not a domain: it lives in that client's `Envelope` and imports
-`/packages/cv-framework/lib.typ` (`docs/guides/client-workflow.md`, step 9).
+`/packages/cv-framework/lib.typ` (`design.port-concept`, `docs/workflow/05-design/`).
 
 ### Wiring checklist
 

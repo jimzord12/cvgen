@@ -1,7 +1,7 @@
 # Research Library
 
-Read this before researching for a client (`docs/guides/client-workflow.md`,
-steps 4 and 6). Shared, dated research notes that more than one client can
+Read this before researching for a client (`docs/workflow/03-research/`,
+`research.scout` and `research.deep-dive`). Shared, dated research notes that more than one client can
 use: CV norms of a country, what a `Domain` or a `Rank` expects, how CV
 writers work. Public, so it never holds anything about a client.
 
@@ -27,7 +27,7 @@ the end.
 
 - **Only reviewed research enters.** A note or a change to one lands after
   a `research-reviewer` PASS; its reports go under
-  `archive/work-records/<task or client-free id>/reviews/`.
+  `archive/work-records/research-<topic>/reviews/`, never under a client.
 - **Six months, then recheck.** Past its "Recheck after" date, a note is used
   only after its load-bearing claims are checked again; then both dates
   move and the note records what changed.

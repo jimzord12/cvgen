@@ -77,8 +77,10 @@ anything else you need.
 ## Look before you judge
 
 - Open every page PNG with the available image-inspection tool and look at it. If a PNG is missing or
-  stale, render the PDF yourself into `builds/design-review-<timestamp>/`
-  with pymupdf at 96 dpi and 200 dpi; write nowhere else.
+  stale, render it with pymupdf at 96 dpi and 200 dpi: a client's pages into
+  the `builds/design-review-input-<timestamp>/` folder you were given (the
+  lead clears it), anything else into `builds/design-review-<timestamp>/`;
+  write nowhere else.
 - **Batch sheets (CV pages only).** Set, in Typst, at least eight plain
   one-page CVs in the market's usual shapes (single column, two columns, a
   coloured sidebar, a timeline) with placeholder text, and render them once.
@@ -88,7 +90,8 @@ anything else you need.
   land on the page, and does it still say its domain at that size? Every
   page of a Spacious design gets its own sheet, page 2 and 3 included: a
   later page must pass on its own, never as a plain continuation sheet.
-  Keep the sheets in `builds/` and name them in your report.
+  Keep the sheets in `builds/` (a client's: in the input folder you were
+  given) and name them in your report.
 - Compare with the Flagship
   (`studio/archive/design-studies/review/Marine-Engineer-CV-v11-page-*.png`), the
   design studies and earlier concepts in `studio/design-concepts/`, and with the

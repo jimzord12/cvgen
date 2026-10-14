@@ -20,19 +20,34 @@
   small, is a new one (`deliver.fix`), and a new one inherits no
   `Approval`.
 - **Read the render before reporting it.** `deliver.page-png` looks at
-  every page, and `deliver.wording-check` searches for the fictional
+  every page: the hero, the split between pages, where the synopsis and
+  education sit, text that can be selected, and a reading order that
+  suits the portal it will be sent to. `deliver.wording-check` searches for the fictional
   example wording, with the one exception its gate states. The lead then
   stops at the render (`deliver.report`) and passes on every certificate
   warning and note word for word: a `Certificate Warning` never blocks,
-  but the owner weighs it before he approves.
-- **`Approval` is the owner's act alone.** He approves the exact bytes he
-  reviewed, by their hash (`deliver.approve`). An agent never runs
+  but the owner weighs it before he approves. What `render` prints, its
+  checks and its refusals are in `docs/guides/build-a-cv.md` section 3.
+- **A `Client`'s pages in `builds/` do not stay there.** The page PNGs
+  (`deliver.page-png`) and any preview are cleared by path once the report
+  is given, like the design previews: they are a real `Client`'s pages
+  outside `private/`.
+- **`Approval` is the owner's act alone.** He opens the `Revision`'s
+  `cv.pdf` (or finds it in the `Design Review` app), weighs the
+  certificate warnings and either asks for a change or approves the exact
+  bytes he reviewed, by their hash (`deliver.owner-review`,
+  `deliver.approve`); a passing test or an agent's judgement never
+  approves. An agent never runs
   `approve` on a real `Client`; the lead runs `Export` only after it
   (`deliver.export`, owner's decision #5 in
   [P-0017](../../proposals/workflow-model.md)) and checks the copy.
-- **Dates go with the act.** The delete-by date is written at `Export`
-  (`deliver.record-delete-by`, decisions #1 and #3) and named to the owner
-  (`deliver.report-delete-by`); the `Revision` is stamped delivered only
+- **Dates go with the act.** The delete-by date is written at `Export`,
+  as "Exported <date>, delete by <date + 12 months>" in the `Envelope`'s
+  `README.md` (`deliver.record-delete-by`, decisions #1 and #3), and named
+  to the owner with any `Intake Form`, Sheet and script project to delete
+  with it (`deliver.report-delete-by`). Sending is the owner's separate,
+  manual act (`deliver.send`): the exported `cv.pdf`; the receipt stays
+  internal; it need not be sent. The `Revision` is stamped delivered only
   once the owner says he sent it (`deliver.stamp-delivered`).
 - **Done looks like this:** an exported, approved `Revision`, the
   delete-by line in `README.md`, and after sending, a delivered stamp.
@@ -72,12 +87,14 @@ source says whether a fix needs another design review.
 - Changing a file inside `revisions/` or `exports/`; both are only ever
   added to.
 
-## Where the detail lives until TASK-43
+## Reference detail
 
-- `docs/guides/build-a-cv.md` sections 3-7: render output, exit codes,
-  certificate warnings, the wording check, approve and export.
-- The `new-cv` skill, steps 4-8 and "Report"; `docs/pdf-workflow.md`,
-  "Lifecycle".
+- `docs/guides/build-a-cv.md` section 3: what `render`, `approve`,
+  `export`, `status` and the stamp print and refuse, the
+  `Certificate Warning`, and how `status`'s states map to the `Meta File`'s;
+  section 4: the common fixes; section 2: the example wording.
+- The `new-cv` skill: the checklist, by step ID, with the commands;
+  `docs/pdf-workflow.md`, "Lifecycle", for the rules the records keep.
 
 ## Diagram
 
