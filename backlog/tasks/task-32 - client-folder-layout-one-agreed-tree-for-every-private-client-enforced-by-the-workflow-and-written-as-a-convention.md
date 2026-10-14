@@ -6,7 +6,7 @@ title: >-
 status: Queued
 assignee: []
 created_date: '2026-10-06 09:56'
-updated_date: '2026-10-14 05:41'
+updated_date: '2026-10-14 08:14'
 labels:
   - docs workflow
 dependencies: []
@@ -36,4 +36,6 @@ Owner confirmed the tree on 2026-10-06. Decision 9 (2026-10-14): drop reviews/te
 ## Note from TASK-56 (2026-10-14)
 
 The two private marine compositions import 12 deprecated flat component names through marine's lib.typ (document-shell, page-header, hero, section-heading, synopsis, experience-section, education-languages-section, label, metric, profile-summary, education-entry, skills-section). This task's migration re-points them (re-pointing authorized by the owner, 2026-10-14) to ctx-first calls (make-ctx, core-components, flagship-components) with the mapping table in docs/guides/build-a-cv.md section 8, and its re-render proves each PDF unchanged. That unblocks TASK-58, which deletes the legacy layer.
+
+Proof coverage (AC #4, 2026-10-14): each migrated Envelope was compiled from a staged copy (portrait repointed as cv.py render does) and compared at 150 dpi, before and after the move. client-2026-09-03 and client-2026-09-02: their delivered reference.pdf (2 pages each, 0 differing; re-proved after the switch to relative portrait paths, private 695beb8). client-2026-09-01: its 8 delivered revisions of 2026-10-02 (6 Hanami, 2 Stamp Rally, each with its own compiler inputs; 16 pages, 0 differing). Its two 2026-09-29 revisions were not part of the proof: they no longer reproduce from the sources, a drift that predates the move (their recorded cv.typ and record hashes already differ at private 3c2fe4b; code review round 1, N1).
 <!-- SECTION:NOTES:END -->

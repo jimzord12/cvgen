@@ -31,9 +31,10 @@ Intake (Relay) -> Scout -> CV decisions -> Deep Dives -> one follow-up
 One folder per client under `private/` (ignored by this repository, tracked by the
 private one, `AGENTS.md`), named after the
 person and their `Rank`. Every `Envelope` has the same tree (owner,
-2026-10-06): only three files at its root, everything else in a drawer
-where things that belong together live together. This section owns the
-layout; the guides and skills point here.
+2026-10-06): only three files at its root (plus, for a CV delivered before
+`scripts/cv.py`, its `reference.pdf` and `reference.meta.json`, below),
+everything else in a `Drawer` where things that belong together live
+together. This section owns the layout; the guides and skills point here.
 
 ```text
 private/eleni-example-tour-guide/
@@ -64,7 +65,8 @@ private/eleni-example-tour-guide/
     art/             the design's own SVGs, and the scripts that generate them
   images/
     portrait/        the authorised photograph(s), jpg or png
-  reviews/           design-NN.md: design-reviewer reports on the CV's design
+  reviews/           design-NN.md: design-reviewer reports on the CV's design (an older
+                     Envelope may also hold text-NN.md; it is kept as is)
   revisions/         one folder per render, written by scripts/cv.py
   exports/           one folder per exported revision, written by scripts/cv.py
 ```
@@ -73,7 +75,12 @@ private/eleni-example-tour-guide/
 `json("../candidate.json")`, `image("../images/portrait/portrait.jpg")`,
 `#import "designs/hanami.typ"`, `image("art/fuji.svg")`. `scripts/cv.py`
 refuses a workspace whose `cv.typ` still sits at the root (the layout
-before 2026-10-14) and says how to move it. A CV delivered before
+before 2026-10-14) and names the whole move, made with `git mv` inside
+`private/`: `cv.typ` to `typst/`, with the data and `.typ` helpers it
+reads (design code to `typst/designs/`, wording to `typst/text/`, SVGs to
+`typst/art/`), the portrait to `images/portrait/` with `identity.portrait`
+in `candidate.json`, and `../` added to `cv.typ`'s reads of files outside
+`typst/`. A CV delivered before
 `scripts/cv.py` existed keeps its `reference.pdf` and `reference.meta.json`
 at the root, left in place (the `Output Contract`, `../pdf-workflow.md`).
 A `Revision` written before the move keeps its flat `inputs/`; nothing in
@@ -81,8 +88,8 @@ A `Revision` written before the move keeps its flat `inputs/`; nothing in
 
 `scripts/cv.py render` copies `typst/cv.typ`, `candidate.json`, the
 portrait and the files `cv.typ` reads into a `Revision`, at the same
-places under its `inputs/`; the drawers enter one only if `cv.typ` reads
-from them, which it should not.
+places under its `inputs/`; `intake/`, `research/` and `draft/` enter one
+only if `cv.typ` reads from them, which it should not.
 
 **The folder name is client data.** Claude gives each client an alias,
 `client-<yyyy>-<mm>-<nn>` (for example `client-2026-09-01`), written at the

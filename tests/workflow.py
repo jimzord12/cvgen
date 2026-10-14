@@ -447,6 +447,7 @@ def run_workflow(out, typst, system_family=None):
                  ('export', flat, rid), ('status', flat)):
         refusal = cv(*args, expect=2)
         assert 'old flat layout' in refusal and 'typst/cv.typ' in refusal and '../candidate.json' in refusal, (args, refusal)
+        assert 'images/portrait/' in refusal and 'identity.portrait' in refusal, (args, refusal)
     assert sorted(p.name for p in flat.iterdir()) == ['candidate.json', 'cv.typ', 'envelope.json']
     (flat / 'typst').mkdir()
     (flat / 'typst/cv.typ').write_text(ENTRY, encoding='utf-8')

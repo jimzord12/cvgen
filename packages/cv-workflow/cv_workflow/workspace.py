@@ -84,10 +84,12 @@ class Workspace:
             raise WorkflowError(f'Workspace {self.folder} is outside the repository; Typst resolves assets from '
                                 f'the repository root, so keep candidate workspaces under private/ (or builds/ for tests)')
         if (self.folder / 'cv.typ').is_file():
-            raise WorkflowError(f'Workspace {self.folder} keeps cv.typ at its root, the old flat layout; move it to '
-                                f'{ENTRY} (with git mv inside private/), add ../ to its relative reads of files outside '
-                                f'typst/ (json("../candidate.json")), then render again; old revisions stay as they are. '
-                                f'The layout is in docs/guides/client-workflow.md, section 1')
+            raise WorkflowError(f'Workspace {self.folder} keeps cv.typ at its root, the old flat layout; with git mv '
+                                f'inside private/, move cv.typ to {ENTRY} and the data and .typ helpers it reads into '
+                                f'typst/, the portrait into images/portrait/ (and identity.portrait in candidate.json '
+                                f'with it), add ../ to cv.typ\'s reads of files outside typst/ (json("../candidate.json")), '
+                                f'then render again; old revisions stay as they are. The layout is in '
+                                f'docs/guides/client-workflow.md, section 1')
         for name in ('candidate.json', ENTRY):
             if not (self.folder / name).is_file():
                 raise WorkflowError(f'Workspace {self.folder} has no {name}; see docs/guides/client-workflow.md, section 1')
