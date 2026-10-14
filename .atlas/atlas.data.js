@@ -4427,15 +4427,9 @@ window.ATLAS = {
  ],
  "build": {
   "builtAt": "2026-10-14 12:25 UTC",
-  "commit": "d60b191",
+  "commit": "d9edaa7",
   "kit": "1.0",
-  "stale": {
-   "system-map": [
-    "docs/pdf-workflow.md",
-    "docs/guides/build-a-cv.md",
-    "archive/work-records"
-   ]
-  },
+  "stale": {},
   "verified": {
    "client-journey": {
     "at": "2026-10-14",
@@ -4451,7 +4445,7 @@ window.ATLAS = {
    },
    "system-map": {
     "at": "2026-10-14",
-    "commit": "2a238eb"
+    "commit": "d9edaa7"
    },
    "roster": {
     "at": "2026-10-14",
