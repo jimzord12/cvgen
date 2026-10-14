@@ -4,7 +4,7 @@ title: 'legacy-removal: the deprecated component layer has a removal date'
 status: Active
 assignee: []
 created_date: '2026-10-14 04:48'
-updated_date: '2026-10-14 05:34'
+updated_date: '2026-10-14 05:44'
 labels:
   - restructure
 dependencies: []
@@ -48,4 +48,14 @@ Evidence:
 - `python tests/run.py` PASS at 62c373e: 94 compilation cases, evidence `builds/tests-20261014-083324-779143` (frozen v11 reference pixel-identical).
 - `python scripts/outputs.py check`: 19 PDFs indexed, 0 problems.
 - `python .atlas/_kit/atlas.py check`: all five pages already STALE on main before this change (snapshot 2026-10-06); no page describes the legacy layer, so none was updated or restamped here.
+
+## Review
+
+Round 1, code-reviewer, 2026-10-14: PASS with minors (`docs/work/legacy-removal/reviews/01-code-reviewer.md`). All four fixed in 5ca7401:
+- m1: removal written as planned everywhere ("removal planned 2026-10-31 (TASK-58)": AGENTS.md, architecture.md, domains-and-roles.md, conventions.md, build-a-cv.md, skills-component.md).
+- m2: both lib.typ surfaces carry the date and the pointer to the mapping table.
+- n1: legacy-parity.typ has a default-geometry `skills-section` pair (no `geometry:`). Mutation check: a wrapper default with `column-gap: 20mm` makes page 4 differ, the real default keeps all 5 pages identical.
+- n2 and lead's settled decision: the owner authorized TASK-32 in this run, so TASK-58 now depends on TASK-56 and TASK-32; its precondition is TASK-32's migration of the two clients' cv.typ to ctx-first calls (no separate owner go); 2026-10-31 stays as the backstop. TASK-32 has a note naming the 12 names and the table.
+
+Merged origin/main (TASK-29) cleanly. After the fixes: `python tests/run.py` PASS, 94 cases, evidence `builds/tests-20261014-084152-662927`; `scripts/outputs.py check` 19 PDFs, 0 problems; Atlas: the five pages went stale only on this branch's files, no cited line range or page fact touches the changed passages, all five restamped (`ok`). A context-reviewer round for the doc changes follows (lead).
 <!-- SECTION:NOTES:END -->
