@@ -7,7 +7,7 @@ Framework (`packages/cv-framework`) plus the domains beside it
 independent inputs: candidate JSON, role, theme, artwork pack, layout
 profile and a durations switch. A domain offers a facts shape, assets,
 wording and rules; a role is one level of specialisation; a template may
-override anything (`docs/vision.md`, `docs/reference/domains-and-roles.md`). Read this file and `docs/preferences.md`, then
+override anything (`docs/vision.md`, `docs/engine/domains-and-roles.md`). Read this file and `docs/preferences.md`, then
 open only what your task needs.
 
 **Design is the product** (owner, 2026-09-29; `docs/vision.md`, "Design is
@@ -169,13 +169,13 @@ Full text in `docs/constitution.md`. The short list:
 | `docs/proposals/README.md` | Proposal states, owner decisions, and orientation of pending/approved work |
 | `docs/decisions/0014-backlog-md-task-store.md` | Why Backlog.md is the task store, and what replaced the Trello board |
 | `docs/git-workflow.md` | Agent-owned Git, direct pushes, feature branches, integration and tags |
-| `docs/reference/domains-and-roles.md` | Adding a domain, a role or a template; how domain, role and template compose |
-| `docs/reference/candidate-schema.md` | Editing a marine candidate JSON |
-| `docs/reference/theme.md` | Creating or editing a theme |
-| `docs/reference/artwork-pack.md` | Creating or editing an artwork pack |
-| `docs/reference/layout-and-pagination.md` | Page balance, splits, overflow errors |
-| `docs/reference/skills-component.md` | Using the optional skills section |
-| `docs/reference/verification.md` | What the suite checks and how to read its output |
+| `docs/engine/domains-and-roles.md` | Adding a domain, a role or a template; how domain, role and template compose |
+| `docs/engine/candidate-schema.md` | Editing a marine candidate JSON |
+| `docs/engine/theme.md` | Creating or editing a theme |
+| `docs/engine/artwork-pack.md` | Creating or editing an artwork pack |
+| `docs/engine/layout-and-pagination.md` | Page balance, splits, overflow errors |
+| `docs/engine/skills-component.md` | Using the optional skills section |
+| `docs/engine/verification.md` | What the suite checks and how to read its output |
 | `docs/guides/client-workflow.md` | A new client: intake, research, `Sign-off`, before building the CV |
 | `docs/research/` | The `Research Library`: shared, dated research notes, no client data |
 | `docs/guides/build-a-cv.md` | Producing a CV for a real person |

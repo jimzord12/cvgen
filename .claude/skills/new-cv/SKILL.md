@@ -62,7 +62,7 @@ fitting the page.
    `Page plan company index out of bounds` for fewer, or
    `Page plan must cover each vessel row once, in candidate order` for more.
    A short career (a cadet or junior, see the `Capacity Rule` in
-   `docs/reference/layout-and-pagination.md`, "Choosing a profile") uses
+   `docs/engine/layout-and-pagination.md`, "Choosing a profile") uses
    `flagship-one-page.typ` instead: `layout: one-page(candidate)`, no
    override, and `--pages 1` in step 4.
    A client whose `Domain` has no `Template` yet starts from a design, not
@@ -100,7 +100,7 @@ fitting the page.
    it exits 0 even when a font is missing, so a `warning: unknown font family` line is a failure.
 5. On a fit or overflow error, apply the fix the message names. Page plan
    changes go in the entry point as a layout override, see
-   `docs/reference/layout-and-pagination.md`. Never shrink body fonts.
+   `docs/engine/layout-and-pagination.md`. Never shrink body fonts.
 6. Render each page to PNG and look at it. `python -c` with `pymupdf` works:
    `page.get_pixmap(dpi=96).save(...)`. For a real person, confirm the text,
    ignoring case, contains none of "fictional", "illustrative" and

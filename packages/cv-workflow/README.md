@@ -61,7 +61,7 @@ step; nothing is overwritten on the way.
   and the marine fallback does not apply, for example an entry that imports
   only the Framework's `packages/cv-framework/lib.typ` (ADR 0012). The refusal lists the offending field paths (the first ten, then a count); a new
   domain adds its case to `validate.py` (see the wiring checklist in
-  `docs/reference/domains-and-roles.md`). Compiler output is decoded
+  `docs/engine/domains-and-roles.md`). Compiler output is decoded
   as UTF-8 so a Greek name in an error survives the Windows console codec.
 - Render finds the files `cv.typ` reads by a literal path (`json`, `yaml`,
   `toml`, `csv`, `xml`, `cbor`, `read`, `image`, `import`, `include`),

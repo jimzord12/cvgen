@@ -85,7 +85,7 @@ report_home: "builds/repo-health-<UTC yyyymmdd-hhmmss>/"
 
 # Agent-context files have an owner: findings about them are handed off, not edited here.
 owners:
-  - "AGENTS.md, CLAUDE.md, docs/*.md, docs/guides/**, docs/reference/**, .claude/skills/**, .claude/agents/** => context-maintainer (review: context-reviewer); until both agents are on main, the working agent, reviewed per docs/review.md"
+  - "AGENTS.md, CLAUDE.md, docs/*.md, docs/guides/**, docs/engine/**, .claude/skills/**, .claude/agents/** => context-maintainer (review: context-reviewer); until both agents are on main, the working agent, reviewed per docs/review.md"
   - "scripts/outputs.py, *.meta.json => the Output Contract (docs/pdf-workflow.md); run it, never re-implement it"
 ---
 

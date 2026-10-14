@@ -285,7 +285,7 @@
           "id": "n-docs",
           "title": "docs/",
           "path": "docs/",
-          "blurb": "Vision, constitution, architecture, guides, references, ADRs."
+          "blurb": "Vision, constitution, architecture, guides, engine manuals, ADRs."
         },
         {
           "id": "n-glossary",

@@ -5,7 +5,7 @@ description: Create a new visual theme or artwork pack for the CVgen library. Us
 
 # New theme or artwork pack
 
-Read `docs/reference/theme.md` or `docs/reference/artwork-pack.md` first.
+Read `docs/engine/theme.md` or `docs/engine/artwork-pack.md` first.
 A look or an artwork pack is where a CV wins the `Three-Second Test`: read
 `docs/vision.md`, "Design is the product", before choosing colours or
 drawing.
@@ -15,7 +15,7 @@ drawing.
 1. Copy `packages/domains/marine/templates/flagship/themes/silver-bridge.typ` as the pattern: spread `golden-blue`'s
    theme, set `name`, replace `colors`, `fonts` and any `sizes`.
 2. Every colour key must exist; `validate-theme` (the core's five) and
-   `validate-flagship-theme` (Flagship's five, `docs/reference/theme.md`)
+   `validate-flagship-theme` (Flagship's five, `docs/engine/theme.md`)
    fail otherwise. Fonts must
    be one of the bundled family strings `Source Sans 3`, `Barlow`,
    `Cormorant Garamond`, `Bona Nova`, `Sofia Sans`, `M PLUS 1p` or `Kaisei Tokumin` (the Barlow Condensed file registers as `Barlow`;
