@@ -77,8 +77,9 @@ component, so custom compositions written before the migration render the
 same pixels (`tests/fixtures/legacy-parity.typ` calls all 32). Entry
 points reach the ctx-first components through their domain's `lib.typ` as
 the modules `core-components` and `flagship-components`. The wrappers are
-deprecated; removal planned 2026-10-31 (TASK-58; `docs/framework-gaps.md`); the
-only callers left are two private compositions.
+deprecated; removal planned (TASK-58; `docs/framework-gaps.md`). Apart
+from the parity fixture, no public file calls them; two private
+compositions still do.
 
 ## One Framework, domains, templates
 

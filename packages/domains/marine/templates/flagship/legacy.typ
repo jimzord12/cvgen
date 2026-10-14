@@ -2,7 +2,7 @@
 // custom compositions written before ADR 0008 landed keep rendering unchanged.
 // `lib.typ` exports these under the old names. Deprecated: new code calls the
 // ctx-first components in components/ (docs/framework-gaps.md, "Legacy component signatures").
-// Removal date 2026-10-31 (TASK-58); migrate with docs/guides/build-a-cv.md section 8.
+// Removal planned (TASK-58); migrate with docs/guides/build-a-cv.md section 8.
 #import "../../../../cv-framework/core/component.typ": make-ctx
 #import "components/sections.typ" as sections
 #import "components/skills.typ" as skills

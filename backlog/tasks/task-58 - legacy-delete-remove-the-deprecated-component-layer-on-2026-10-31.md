@@ -1,10 +1,10 @@
 ---
 id: TASK-58
-title: 'legacy-delete: remove the deprecated component layer on 2026-10-31'
+title: 'legacy-delete: remove the deprecated component layer'
 status: Queued
 assignee: []
 created_date: '2026-10-14 05:31'
-updated_date: '2026-10-14 05:41'
+updated_date: '2026-10-14 05:47'
 due_date: '2026-10-31'
 labels:
   - restructure
