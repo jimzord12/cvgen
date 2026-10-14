@@ -376,7 +376,7 @@ window.ATLAS = {
     ],
     "sources": [
      "scripts/cv.py:1-12",
-     "docs/guides/build-a-cv.md:117-206"
+     "docs/guides/build-a-cv.md:117-208"
     ]
    },
    "outputs-py": {
@@ -822,7 +822,7 @@ window.ATLAS = {
         "`draft/draft-NN.pdf` with its `Meta File` (status `sent`)"
        ],
        "cmd": [
-        "typst compile --root . --font-path packages/cv-framework/fonts private/<envelope>/draft/draft-01.typ private/<envelope>/draft/draft-01.pdf",
+        "typst compile --root . --ignore-system-fonts --font-path packages/cv-framework/fonts private/<envelope>/draft/draft-01.typ private/<envelope>/draft/draft-01.pdf",
         "python scripts/outputs.py stamp private/<envelope>/draft/draft-01.pdf status=sent"
        ],
        "sources": [
@@ -960,7 +960,7 @@ window.ATLAS = {
        "actor": "lead",
        "summary": "Every render is a new, never-overwritten folder with a snapshot of its inputs, the PDF, its checks and a `Meta File`.",
        "does": [
-        "Checks: page count, no empty page, fonts embedded, text inside the page.",
+        "Checks: page count, no empty page, fonts embedded, text inside the page, every font family bundled (a missing one is set in another font, so the checks fail).",
         "A certificate expired or expiring within 180 days prints a `Certificate Warning`; it never blocks.",
         "Claude stops here and reports the folder, the PDF's hash, the pages and every WARNING word for word."
        ],
@@ -978,8 +978,8 @@ window.ATLAS = {
         "cv-py"
        ],
        "sources": [
-        "docs/guides/build-a-cv.md:117-149",
-        ".claude/skills/new-cv/SKILL.md:104-114"
+        "docs/guides/build-a-cv.md:117-151",
+        ".claude/skills/new-cv/SKILL.md:105-115"
        ]
       },
       {
@@ -1006,7 +1006,7 @@ window.ATLAS = {
         "cv-py"
        ],
        "sources": [
-        "docs/guides/build-a-cv.md:182-189",
+        "docs/guides/build-a-cv.md:184-191",
         "docs/pdf-workflow.md:166-170"
        ]
       },
@@ -1029,7 +1029,7 @@ window.ATLAS = {
         "cv-py"
        ],
        "sources": [
-        "docs/guides/build-a-cv.md:191-206",
+        "docs/guides/build-a-cv.md:193-208",
         "docs/pdf-workflow.md:171-182"
        ]
       },
@@ -1050,7 +1050,7 @@ window.ATLAS = {
         "python scripts/outputs.py stamp private/<envelope>/revisions/<id>/cv.pdf status=delivered"
        ],
        "sources": [
-        "docs/guides/build-a-cv.md:202-204",
+        "docs/guides/build-a-cv.md:204-206",
         "docs/guides/client-workflow.md:298-301"
        ]
       }
@@ -2263,30 +2263,30 @@ window.ATLAS = {
   }
  ],
  "build": {
-  "builtAt": "2026-10-14 05:49 UTC",
-  "commit": "a0a2b5e",
+  "builtAt": "2026-10-14 05:58 UTC",
+  "commit": "e2bf208",
   "kit": "1.0",
   "stale": {},
   "verified": {
    "client-journey": {
     "at": "2026-10-14",
-    "commit": "a0a2b5e"
+    "commit": "e2bf208"
    },
    "design-run": {
     "at": "2026-10-14",
-    "commit": "a0a2b5e"
+    "commit": "e2bf208"
    },
    "change-review": {
     "at": "2026-10-14",
-    "commit": "a9d151d"
+    "commit": "e2bf208"
    },
    "system-map": {
     "at": "2026-10-14",
-    "commit": "a0a2b5e"
+    "commit": "e2bf208"
    },
    "roster": {
     "at": "2026-10-14",
-    "commit": "a9d151d"
+    "commit": "e2bf208"
    }
   }
  }
