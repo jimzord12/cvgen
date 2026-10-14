@@ -4,7 +4,7 @@ title: 'merge-review-2026-10-04: the 2026-10-04 branch merges have a review reco
 status: Active
 assignee: []
 created_date: '2026-10-14 04:47'
-updated_date: '2026-10-14 06:21'
+updated_date: '2026-10-14 06:26'
 labels:
   - workflow-model
 dependencies: []
@@ -21,7 +21,7 @@ Review the merge-time changes in `a66b448`, `1db32e8`, `74a6f82` and `1e684eb` (
 <!-- AC:BEGIN -->
 - [x] #1 A `context-reviewer` report is stored in `docs/work/workflow-model/reviews/`
 - [x] #2 findings are fixed or dispositioned
-- [ ] #3 the `main` handoff item is closed
+- [x] #3 the `main` handoff item is closed
 - [x] #4 Every finding and note of the 01-context-reviewer report is fixed as dispositioned (handoff correction, run-record lines, F1/F2, TASK-4 flags, Atlas, evidence line, Hanami status)
 - [x] #5 python tests/run.py passes and atlas.py check --strict exits 0
 <!-- AC:END -->
