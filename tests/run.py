@@ -199,7 +199,8 @@ def main():
     # Theme checks (TASK-59): the core accepts a theme with only its own colours and still refuses one
     # without them; Flagship refuses a theme that lacks any of its own colours, with the same messages.
     compile_case('theme-core', 'tests/fixtures/theme.typ', {'case': 'core'})
-    compile_case('theme-core-missing', 'tests/fixtures/theme.typ', {'case': 'core-missing', 'key': 'muted'}, error='Missing theme color: muted')
+    for key in ['ink', 'accent', 'metal', 'muted', 'paper']:
+        compile_case('theme-core-missing-' + key, 'tests/fixtures/theme.typ', {'case': 'core-missing', 'key': key}, error='Missing theme color: ' + key)
     for key in ['hero', 'surface', 'plate', 'rule', 'on-hero']:
         compile_case('theme-flagship-missing-' + key, 'tests/fixtures/theme.typ', {'case': 'missing', 'key': key}, error='Missing theme color: ' + key)
     compile_case('theme-flagship-not-color', 'tests/fixtures/theme.typ', {'case': 'not-color', 'key': 'plate'}, error='Theme color must be a color: plate')

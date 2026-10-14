@@ -57,7 +57,7 @@ fetches them.
 | Fixture | Cases |
 |---|---|
 | `configuration.typ` | Golden Blue passes Flagship's theme check (`validate-flagship-theme`); frozen geometry constants (hero 77mm, page-two bottom margin 11mm, backdrop 94mm) |
-| `theme.typ` | The core's `validate-theme` accepts a theme with only `ink`, `accent`, `metal`, `muted` and `paper` (`case=core`) and refuses one without `muted` (`case=core-missing`); through `flagship`, a Golden Blue theme without `hero`, `surface`, `plate`, `rule` or `on-hero` (`case=missing`, five cases) is refused with "Missing theme color: <key>", and one whose `plate` is a string (`case=not-color`) with "Theme color must be a color: plate" (TASK-59) |
+| `theme.typ` | The core's `validate-theme` accepts a theme with only `ink`, `accent`, `metal`, `muted` and `paper` (`case=core`) and refuses one without any of them (`case=core-missing`, five cases); through `flagship`, a Golden Blue theme without `hero`, `surface`, `plate`, `rule` or `on-hero` (`case=missing`, five cases) is refused with "Missing theme color: <key>", and one whose `plate` is a string (`case=not-color`) with "Theme color must be a color: plate" (TASK-59) |
 | `content.typ` | Experience, synopsis, certificates and education compose on one page |
 | `data.typ` | The core leaves `copy` empty and the adapter composes it domain < role < template < record < argument (a role overrides only domain words; arrays are replaced); duration parts, totals 138 months / 23 vessels / 6 companies, vessel dedup, company-only months; rejects missing months, mismatched totals, negative months, a blank identity name |
 | `role.typ` | A role's wording reaches page one through `flagship` |

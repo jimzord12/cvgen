@@ -45,7 +45,9 @@ Two checks run when `flagship` starts, with the same messages (`Missing theme co
 `Theme color must be a color: <key>`). `validate-theme` in `packages/cv-framework/core/theme.typ`
 checks what every template needs: `ink`, `accent`, `metal`, `muted`, `paper` and the two fonts.
 `validate-flagship-theme` in `flagship.typ` adds the colours marked "yes (Flagship)" above, through
-the core's `require-colors`; a second template names its own the same way. Missing sizes fail at
+the core's `require-colors`; a second template names its own the same way. The core's page shell
+paints its optional first-page band (`shell.band`) in `hero`, so a template that asks for a band
+must supply `hero` and require it in its own check. Missing sizes fail at
 the point of use. Neither check can tell that a font family
 exists, since Typst gives a document no way to ask; the compile runners above do that.
 
