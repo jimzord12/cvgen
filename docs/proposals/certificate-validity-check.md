@@ -1,7 +1,9 @@
 ---
+id: P-0009
 kind: proposal
 status: applied
 revision: 1
+created: 2026-09-25
 ---
 
 # Certificate dates checked at render

@@ -131,6 +131,12 @@ fetches them.
    `--baseline`, `--since`, CVgen's layer: protected paths, allowed
    duplicates and versioned names, a mention of an ignored area is not a
    dead path), and the auditor agent's read-only frontmatter.
+14. **Proposals** (`proposals: <check>`, `tests/proposals.py`). The real
+   `scripts/proposals.py` on fixture folders under `proposals/`: the exact
+   summary line, the JSON snapshot, refusal of an existing output folder,
+   and one refusal per bad file (missing id or status, invalid status,
+   duplicate id, a rejected one outside `rejected/`, no opening block);
+   then `docs/proposals/` itself must pass.
 
 Negative cases assert on the exact error text so a message change is a test
 change.

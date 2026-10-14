@@ -1,7 +1,9 @@
 ---
+id: P-0007
 kind: proposal
 status: applied
 revision: 2
+created: 2026-09-16
 ---
 
 # Trial Trello Free for task tracking

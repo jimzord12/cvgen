@@ -1,7 +1,9 @@
 ---
+id: P-0017
 kind: proposal
 status: approved
 revision: 1
+created: 2026-10-14
 ---
 
 # Workflow model: one checked description of the client workflow
