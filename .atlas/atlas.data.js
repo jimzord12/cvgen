@@ -4466,8 +4466,8 @@ window.ATLAS = {
   }
  ],
  "build": {
-  "builtAt": "2026-10-14 13:07 UTC",
-  "commit": "804c2d5",
+  "builtAt": "2026-10-14 13:12 UTC",
+  "commit": "bc1c334",
   "kit": "1.0",
   "stale": {},
   "verified": {
@@ -4485,7 +4485,7 @@ window.ATLAS = {
    },
    "system-map": {
     "at": "2026-10-14",
-    "commit": "804c2d5"
+    "commit": "bc1c334"
    },
    "roster": {
     "at": "2026-10-14",

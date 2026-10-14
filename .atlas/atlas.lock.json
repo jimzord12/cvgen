@@ -120,12 +120,12 @@
    "verifiedAt": "2026-10-14"
   },
   "system-map": {
-   "commit": "804c2d5",
+   "commit": "bc1c334",
    "sources": {
     ".claude/agents": "dir1:4f4154394888bb9d69a0ed790d8f4b484a790fdd",
     ".claude/skills": "dir1:5eeafda0c9ef9a6037a3fcc2879f73f098fa3e55",
     ".claude/skills/backlog/SKILL.md": "24c2914e3331741a0d013d29cfd4ce2adfc8015e",
-    "AGENTS.md": "632937e291eab1e65c951348356f48443ab3675b",
+    "AGENTS.md": "22e2f6b8570995f6bfb43a51c25df8aa9746c805",
     "apps/design-review/README.md": "5d14097c544910a9ba0d940e76863223ac1f62a3",
     "apps/design-review/server.py": "65b42af8bcf0a971e19ec97fa39b874cad91c3c1",
     "archive/work-records": "dir1:bdc02d093729fa80c391657929e6459f12b64051",
