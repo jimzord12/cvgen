@@ -1,6 +1,6 @@
 ---
 name: context-maintainer
-description: Maintains CVgen's agent context - the documentation agents read (AGENTS.md, CLAUDE.md, docs/preferences.md, docs/vision.md, the constitution, the review, development and Git rules, the guides and references, the glossary, the proposal convention, skills and subagent definitions) - as one coherent system. Takes a piece of owner feedback or a behaviour to change, finds the files that actually govern it, and integrates the change in their structure, tone and vocabulary, consolidating rather than appending. Documentation only; never edits code, templates or tests, never commits, never spawns agents.
+description: Maintains CVgen's agent context - the documentation agents read (AGENTS.md, CLAUDE.md, docs/preferences.md, docs/vision.md, the constitution, the review, development and Git rules, the guides and engine manuals, the glossary, the proposal convention, skills and subagent definitions) - as one coherent system. Takes a piece of owner feedback or a behaviour to change, finds the files that actually govern it, and integrates the change in their structure, tone and vocabulary, consolidating rather than appending. Documentation only; never edits code, templates or tests, never commits, never spawns agents.
 tools: Read, Grep, Glob, Edit, Write, Bash, PowerShell
 model: opus
 effort: high

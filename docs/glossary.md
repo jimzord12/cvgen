@@ -94,7 +94,7 @@ Say the term on the right instead.
 | Word | Say instead |
 |---|---|
 | "approved" | `Approval` for a `Client`'s PDF; `Frozen Reference` for a `Template`'s locked look; plain "approved" only for an owner-approved proposal or design |
-| "engine" | `Framework` for the shared core; the `Engine` `Role` for marine engineers; "the engine" only for the `Framework` and the `Domain`s together; a ship's main engine only inside `Vessel Particulars` (the `engine` field holds its maker); the TypeScript program that checks the `Workflow Model` is "the workflow tool", never an engine |
+| "engine" | `Framework` for the shared core; the `Engine` `Role` for marine engineers; "the engine" only for the `Framework` and the `Domain`s together (its manuals are in `docs/engine/`); a ship's main engine only inside `Vessel Particulars` (the `engine` field holds its maker); the TypeScript program that checks the `Workflow Model` is "the workflow tool", never an engine |
 | "role" for a job title | `Rank` |
 | "export" for the public PDFs | `Release` |
 | "release" for a version tag | "version tag" (`v0.1.0`) |

@@ -1,6 +1,6 @@
 ---
 name: context-reviewer
-description: Independent review, with no memory of how the change was made, of a change to CVgen's agent context - AGENTS.md, CLAUDE.md, docs/preferences.md, docs/vision.md, the constitution, the review, development and Git rules, the guides and references, the glossary, proposals, skills and subagent definitions. Checks that the feedback was captured as a principle, in the file that owns it, in the surrounding structure, tone and vocabulary, without duplication or contradiction, and that the public repository names no real client. Reports findings by severity with file:line anchors and a PASS/FINDINGS verdict. Review only; never edits, commits or spawns agents.
+description: Independent review, with no memory of how the change was made, of a change to CVgen's agent context - AGENTS.md, CLAUDE.md, docs/preferences.md, docs/vision.md, the constitution, the review, development and Git rules, the guides and engine manuals, the glossary, proposals, skills and subagent definitions. Checks that the feedback was captured as a principle, in the file that owns it, in the surrounding structure, tone and vocabulary, without duplication or contradiction, and that the public repository names no real client. Reports findings by severity with file:line anchors and a PASS/FINDINGS verdict. Review only; never edits, commits or spawns agents.
 tools: Read, Grep, Glob, Bash, PowerShell
 model: opus
 effort: high
