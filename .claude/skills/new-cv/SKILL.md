@@ -23,8 +23,8 @@ command from the repository root.
 - `design.handover` (`gate.template-exists`): does the client's `Domain`
   have a `Template` (today only marine, the Flagship)?
 - `design.fill-data`, on every path: `candidate.json` at the `Envelope`'s
-  root from the closest example record, the portrait in
-  `images/portrait/`, the example wording replaced (BC section 2).
+  root from the closest example record with every value replaced, the
+  portrait in `images/portrait/`, the example wording gone (BC section 2).
 - No `Template`: `design.run-brief` to `design.pick` through the
   `idea-run` skill (fictional data for the client's `Domain`, specialty
   and `Rank`; the `Alias` only); then `design.record-choice`
