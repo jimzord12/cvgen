@@ -276,6 +276,18 @@ the same shape as before. Entries above and in the ADRs, closed proposals and
 closed tasks that name `docs/work/...` describe the past; read them with
 `archive/work-records/` in place of `docs/work/`.
 
+## 2026-10-14 — the Workflow Model is checked
+
+TASK-38 made the workflow tool check the whole model in `docs/workflow`:
+`bun run check` applies 20 rules at levels 1 (shape, references, files,
+skills, agents, `cv.py` and `outputs.py` subcommands) and 2 (flow: every
+input produced or given, every step reached, cycles only where a declared
+loop breaks them), each rule with a broken fixture under
+`tools/workflow/test/fixtures/`. CI runs it on both runners and the suite
+as its `workflow-model` case. Two `after` steps that nothing reached gained
+an input (inferences in `docs/workflow/GAPS.md`). `bun run anchors <commit>`
+replaces the TASK-37 script that found drifted source anchors.
+
 ## 2026-10-14 — studio/ and apps/: fewer top-level folders
 
 TASK-55 (owner's go, unattended, report after) grouped `brand/`,
@@ -293,8 +305,8 @@ gained one case per file type (eight README images and the source logo
 renamed), and the marine `lib.typ` now exports `roles`,
 `flagship-themes`, `flagship-artwork` and `flagship-layouts`, so an example
 needs one import. Entries above, ADRs, closed tasks and the work records
-that name `archive/`, `design-concepts/`, `brand/` or
-`scripts/design_review/` describe the past; read them under `studio/` and
-`apps/design-review/` (the work records excepted). The Design Review app
-reads the owner's earlier `design-concepts/...` review keys under their new
-paths.
+that name `brand/`, `design-concepts/`, `archive/design-studies/`,
+`archive/anti-examples/` or `scripts/design_review/` describe the past:
+read the first four under `studio/` and the last as `apps/design-review/`;
+`archive/work-records/` did not move. The Design Review app reads the
+owner's earlier `design-concepts/...` review keys under their new paths.

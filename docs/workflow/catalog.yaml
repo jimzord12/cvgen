@@ -127,7 +127,7 @@ actions:
   - id: manual.decide-at-cap
     kind: manual
     name: The owner decides at the cap
-    sources: ["docs/review.md:198-202", ".claude/skills/idea-run/SKILL.md:63-66", "docs/workflow/GAPS.md:20-29"]
+    sources: ["docs/review.md:198-202", ".claude/skills/idea-run/SKILL.md:63-66", "docs/workflow/GAPS.md:21-30"]
     does: >-
       At a loop's cap (a review loop, the client's draft corrections, the
       owner's own changes or a render that keeps failing) the lead stops and
@@ -172,7 +172,14 @@ artifacts:
     format: Backlog.md task, titled by the Alias only
     visibility: public
 
-  # --- What the client sends.
+  # --- What the client is sent and sends.
+
+  # Also read in stage after: its consent text offers to keep his data.
+  - id: art.intake-message
+    name: The questions in the client's chat
+    sources: ["docs/guides/client-workflow.md:112-115", "docs/guides/client-workflow.md:122-125"]
+    format: chat message (with the form's answer link when there is a form)
+    visibility: third-party
 
   - id: art.messages-md
     name: messages.md (intake answers)
@@ -243,6 +250,13 @@ artifacts:
     path: private/<envelope>/typst/cv.typ
     format: Typst; reads every file by a path relative to itself
     visibility: private
+
+  # Written in stage deliver, read in stage after to find failed or unapproved Revisions.
+  - id: art.status-listing
+    name: What status prints
+    sources: ["packages/cv-workflow/cv_workflow/__init__.py:14-31", "packages/cv-workflow/cv_workflow/workspace.py:189-229"]
+    format: "JSON: every Revision with its state (failed, checks-failed, rendered, approved, exported and others), hash prefix, warnings"
+    visibility: ephemeral
 
   # --- Repository files the workflow reads.
 

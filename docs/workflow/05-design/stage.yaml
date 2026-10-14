@@ -120,7 +120,7 @@ steps:
 
   - id: design.record-other-answer
     name: Record a parked or rejected answer
-    sources: [".claude/skills/idea-run/SKILL.md:133-135", "studio/design-concepts/README.md:46-49", "docs/workflow/GAPS.md:48-49"]
+    sources: [".claude/skills/idea-run/SKILL.md:133-135", "studio/design-concepts/README.md:46-49", "docs/workflow/GAPS.md:49-50"]
     actor: actor.lead
     action: cmd.stamp-concept-status
     inputs: [art.owner-pick]

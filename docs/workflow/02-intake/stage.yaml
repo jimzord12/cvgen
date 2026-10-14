@@ -139,7 +139,7 @@ steps:
   # stall check names him and the owner may delete him.
   - id: intake.no-consent
     name: No consent; the owner decides
-    sources: ["docs/guides/client-workflow.md:191-192", "docs/guides/client-workflow.md:333-338", "docs/workflow/GAPS.md:50-52"]
+    sources: ["docs/guides/client-workflow.md:191-192", "docs/guides/client-workflow.md:333-338", "docs/workflow/GAPS.md:51-53"]
     actor: actor.owner
     action: manual.decide-on-no-consent
     inputs: [art.messages-md]
@@ -166,12 +166,6 @@ artifacts:
     sources: ["docs/guides/client-workflow.md:112-114", ".claude/skills/new-client/SKILL.md:22-24"]
     format: one message in simple, friendly Greek, adapted to the Domain and target
     visibility: ephemeral
-
-  - id: art.intake-message
-    name: The questions in the client's chat
-    sources: ["docs/guides/client-workflow.md:112-115", "docs/guides/client-workflow.md:122-125"]
-    format: chat message (with the form's answer link when there is a form)
-    visibility: third-party
 
   - id: art.client-answers
     name: The client's chat answers

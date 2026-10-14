@@ -18,8 +18,10 @@ and on a raster mismatch `check/diff-N.png` highlighting changed pixels.
 The page images are what to show the owner or a reviewer.
 
 CI (`.github/workflows/verify.yml`) installs the Python packages from
-`requirements.lock` (hash-checked), runs `ruff check` (`ruff.toml`) and then
-the suite on every push (when and
+`requirements.lock` (hash-checked), runs `ruff check` (`ruff.toml`), installs
+Bun from `tools/workflow/.bun-version` and runs the workflow tool's
+`bun install --frozen-lockfile`, `bun test`, `bun run typecheck` and
+`bun run check` (`tools/workflow/README.md`), and then the suite on every push (when and
 why: `docs/tech-stack.md`, CI row) on a Linux and a Windows runner, writing to `builds/ci/`
 (on both, the suite itself runs `scripts/build.ps1` in a throwaway copy: check 14), and on
 Windows also runs `scripts/build.ps1` on the checkout. Each runner uploads its evidence,
@@ -162,6 +164,15 @@ Windows one also holds the PDFs that build wrote, one per example in
    duplicate id, kind, status, a reference with a status, `rejected/` both
    ways, revision, missing, invalid or future `created`, no opening block);
    then `docs/proposals/` itself must give the line its files add up to.
+16. **Workflow Model** (`workflow-model`). The workflow tool's
+   `bun run check` on `docs/workflow`: levels 1 and 2 of ADR 0015, every
+   rule in `tools/workflow/README.md` ("What `check` proves"), with this
+   run's Python for the `--help` calls; its output, the placeholder-cap
+   `NOTE` included, is in `workflow-model/check.log`. A checkout without
+   `tools/workflow/node_modules` gets `bun install --frozen-lockfile` first
+   (`install.log`). The rules' own broken fixtures run in `bun test`, not
+   here. With no Bun on the machine the case is `SKIPPED`; on CI that fails
+   the suite.
 
 Negative cases assert on the exact error text so a message change is a test
 change.
@@ -185,7 +196,12 @@ change.
 - `SKIPPED N: <cases> (reasons in report.json)` after the `PASS` line: those
   cases did not run on this machine (the system-font cases, when it has no
   font outside the bundled ones; `build-script`, when it has no
-  PowerShell). The run passed without them.
+  PowerShell; `workflow-model`, when it has no Bun). The run passed without
+  them.
+- `AssertionError: ('workflow-model', ...)`: the Workflow Model check
+  failed; each problem names its file, line, path and `[rule]`
+  (`tools/workflow/README.md`). Fix the YAML in `docs/workflow`, or rerun
+  `bun run check` in `tools/workflow/` to iterate.
 - `AssertionError: entry points not in examples/release.json, ...`: an
   example was added without its line in `examples/release.json` (or a
   line was removed); add the line with its `title` and `variant`.

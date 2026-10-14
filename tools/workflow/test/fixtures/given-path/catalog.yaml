@@ -1,0 +1,5 @@
+# Broken: art.in is given, but its path does not exist.
+actors:
+  - { id: actor.lead, name: The lead, sources: ["AGENTS.md"], kind: lead, does: Does the work. }
+artifacts:
+  - { id: art.in, name: Input, sources: ["AGENTS.md"], path: no/such/file.md, visibility: public, given: true }

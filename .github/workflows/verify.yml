@@ -85,6 +85,22 @@ jobs:
       - name: Lint with ruff
         run: ruff check
 
+      # The workflow tool (tools/workflow/, ADR 0015) on the Bun version pinned there (1.4.2).
+      - uses: oven-sh/setup-bun@0c5077e51419868618aeaa5fe8019c62421857d6 # v2.2.0
+        with:
+          bun-version-file: tools/workflow/.bun-version
+
+      # The exact versions in bun.lock, the tool's tests and type check, then the Workflow Model check
+      # (docs/workflow, levels 1 and 2). bash so that a failing line fails the step on Windows too.
+      - name: Check the workflow tool and the Workflow Model
+        working-directory: tools/workflow
+        shell: bash
+        run: |
+          bun install --frozen-lockfile
+          bun test
+          bun run typecheck
+          bun run check
+
       - name: Run the regression suite
         run: python tests/run.py --output builds/ci
 
@@ -107,6 +123,7 @@ jobs:
             builds/ci/**/compile.log
             builds/ci/**/page-*.png
             builds/ci/workflow/commands.log
+            builds/ci/workflow-model/check.log
             builds/ci/build-script/*.log
             builds/ci-library/*.pdf
           if-no-files-found: ignore

@@ -1,0 +1,6 @@
+# Broken: art.out is defined here and in the stage.
+actors:
+  - { id: actor.lead, name: The lead, sources: ["AGENTS.md"], kind: lead, does: Does the work. }
+artifacts:
+  - { id: art.in, name: Input, sources: ["AGENTS.md"], path: AGENTS.md, visibility: public, given: true }
+  - { id: art.out, name: art.out, sources: ["AGENTS.md"], visibility: private }

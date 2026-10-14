@@ -35,9 +35,35 @@ describe("check", () => {
     }
   });
 
-  test("a missing file fails, a missing argument is a usage error", () => {
+  test("a missing file fails; an unknown command or a bare anchors is a usage error", () => {
     expect(run("check", "no-such.yaml").code).toBe(1);
-    expect(run("check").code).toBe(2);
+    expect(run("anchors").code).toBe(2);
+    expect(run("frobnicate").code).toBe(2);
+  });
+});
+
+describe("anchors through its package script", () => {
+  test("bun run anchors with a ref that is not a commit exits 2", () => {
+    const p = spawnSync(process.execPath, ["run", "anchors", "no-such-ref"], { cwd: root, encoding: "utf8" });
+    expect(p.status).toBe(2);
+    expect(p.stdout).toContain("no-such-ref is not a commit");
+  });
+});
+
+describe("check over a whole model", () => {
+  test("with no argument it checks docs/workflow: exit 0, the summary and the placeholder caps", () => {
+    const r = run("check");
+    expect(r).toMatchObject({ code: 0, err: "" });
+    expect(r.out).toMatch(/^OK model docs\/workflow: 7 stages, \d+ steps, .*; levels 1 and 2 pass$/m);
+    expect(r.out).toContain("placeholder loop cap(s)");
+  });
+
+  test("a folder argument checks that model: a broken one exits 1 with file, line, path, reason and rule", () => {
+    const r = run("check", "test/fixtures/cycle");
+    expect(r.code).toBe(1);
+    expect(r.err).toContain("tools/workflow/test/fixtures/cycle/01-make/stage.yaml:17: steps[1]: steps make.two, make.three form a cycle");
+    expect(r.err).toContain("[cycle]");
+    expect(r.err).toContain("FAILED model tools/workflow/test/fixtures/cycle: 1 problem(s)");
   });
 });
 

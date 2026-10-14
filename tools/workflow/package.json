@@ -5,6 +5,7 @@
   "description": "The workflow tool: types and checks for CVgen's Workflow Model (ADR 0015)",
   "scripts": {
     "check": "bun src/cli.ts check",
+    "anchors": "bun src/cli.ts anchors",
     "schema": "bun src/cli.ts schema",
     "typecheck": "tsc --noEmit",
     "test": "bun test"

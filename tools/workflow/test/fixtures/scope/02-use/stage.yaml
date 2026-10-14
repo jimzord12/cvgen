@@ -1,0 +1,21 @@
+id: use
+name: use
+sources: ["AGENTS.md"]
+purpose: A fixture stage.
+entry: Always.
+exit: Done.
+
+steps:
+  - id: use.read
+    name: use.read
+    sources: ["AGENTS.md"]
+    actor: actor.lead
+    action: lead.read
+    inputs: [art.out]
+    outputs: [art.done]
+
+artifacts:
+  - { id: art.done, name: art.done, sources: ["AGENTS.md"], visibility: private }
+
+actions:
+  - { id: lead.read, kind: lead, name: Work, sources: ["AGENTS.md"], does: Does one thing. }

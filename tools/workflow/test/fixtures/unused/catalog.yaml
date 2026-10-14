@@ -1,0 +1,6 @@
+# Broken: actor.ghost is defined and never used.
+actors:
+  - { id: actor.lead, name: The lead, sources: ["AGENTS.md"], kind: lead, does: Does the work. }
+  - { id: actor.ghost, name: Ghost, sources: ["AGENTS.md"], kind: human, does: Nothing. }
+artifacts:
+  - { id: art.in, name: Input, sources: ["AGENTS.md"], path: AGENTS.md, visibility: public, given: true }

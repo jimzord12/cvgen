@@ -1,0 +1,21 @@
+id: make
+name: make
+sources: ["AGENTS.md"]
+purpose: A fixture stage.
+entry: Always.
+exit: Done.
+
+steps:
+  - id: make.one
+    name: make.one
+    sources: ["AGENTS.md"]
+    actor: actor.lead
+    action: cmd.ghost
+    inputs: [art.in]
+    outputs: [art.out]
+
+artifacts:
+  - { id: art.out, name: art.out, sources: ["AGENTS.md"], visibility: private }
+
+actions:
+  - { id: cmd.ghost, kind: cmd, name: Ghost, sources: ["AGENTS.md"], run: python scripts/../tests/run.py status }
