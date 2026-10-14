@@ -2265,66 +2265,30 @@ window.ATLAS = {
   }
  ],
  "build": {
-  "builtAt": "2026-10-14 06:14 UTC",
-  "commit": "8d248f2",
+  "builtAt": "2026-10-14 06:15 UTC",
+  "commit": "61d610b",
   "kit": "1.0",
-  "stale": {
-   "client-journey": [
-    ".claude/skills/new-cv/SKILL.md",
-    "docs/pdf-workflow.md",
-    "docs/preferences.md"
-   ],
-   "design-run": [
-    "AGENTS.md",
-    "docs/pdf-workflow.md"
-   ],
-   "change-review": [
-    "docs/git-workflow.md",
-    "AGENTS.md",
-    ".claude/skills/verify-cv/SKILL.md",
-    "docs/preferences.md"
-   ],
-   "system-map": [
-    "AGENTS.md",
-    "docs/pdf-workflow.md",
-    "scripts/build.ps1",
-    "tests/run.py"
-   ],
-   "roster": [
-    "docs/preferences.md",
-    "AGENTS.md",
-    ".claude/skills/new-cv/SKILL.md",
-    ".claude/skills/verify-cv/SKILL.md",
-    ".claude/skills/new-theme/SKILL.md",
-    ".claude/repo-maintenance.md",
-    "docs/pdf-workflow.md",
-    "tests/run.py",
-    "docs/reference/verification.md",
-    "scripts/build.ps1",
-    "examples/release.json",
-    "docs/git-workflow.md"
-   ]
-  },
+  "stale": {},
   "verified": {
    "client-journey": {
     "at": "2026-10-14",
-    "commit": "f35f0c9"
+    "commit": "61d610b"
    },
    "design-run": {
     "at": "2026-10-14",
-    "commit": "f35f0c9"
+    "commit": "61d610b"
    },
    "change-review": {
     "at": "2026-10-14",
-    "commit": "f35f0c9"
+    "commit": "61d610b"
    },
    "system-map": {
     "at": "2026-10-14",
-    "commit": "183c7a0"
+    "commit": "61d610b"
    },
    "roster": {
     "at": "2026-10-14",
-    "commit": "f35f0c9"
+    "commit": "61d610b"
    }
   }
  }

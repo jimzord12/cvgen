@@ -4,7 +4,7 @@ title: 'build-no-overwrite: `build.ps1` obeys "scripts never overwrite"'
 status: Active
 assignee: []
 created_date: '2026-10-14 04:48'
-updated_date: '2026-10-14 06:14'
+updated_date: '2026-10-14 06:15'
 labels:
   - restructure
 dependencies: []
@@ -23,7 +23,7 @@ ordinal: 49000
 - [x] #2 -ReplaceRelease is the one documented way to replace the Release, named as the owner's go in docs/preferences.md, git-workflow.md and pdf-workflow.md; -Release still writes a Release where none exists
 - [x] #3 examples/release.json is the one example list: build.ps1 builds exactly what it lists and tests/run.py compiles from it and fails when an entry point under examples/ is missing from it (suite cases example-list and build-script-<shell>-reads-the-list)
 - [x] #4 At least one check is mutation-proved; manual walk of ./scripts/build.ps1, -Release and -ReplaceRelease in a disposable copy under builds/ (never the real examples/) under both shells, recorded in the notes
-- [ ] #5 python tests/run.py PASS and python scripts/outputs.py check clean; Atlas check --strict exit 0; no Release PDF in examples/ changed
+- [x] #5 python tests/run.py PASS and python scripts/outputs.py check clean; Atlas check --strict exit 0; no Release PDF in examples/ changed
 <!-- AC:END -->
 
 ## Implementation Plan
@@ -51,4 +51,6 @@ Manual walk (disposable copies of packages/, examples/, scripts/build.ps1, scrip
 - Windows PowerShell 5.1.26100: same sequence (`builds/t49-walk/walk51.ps1`): 5 CVs; refusal with examples unchanged and 1 builds folder; `-ReplaceRelease` writes and stamps; outputs check 5 indexed, 0 problems.
 
 Not done here, on purpose: porting build.ps1 to the TypeScript tooling (the task said "consider"; the smallest fix keeps PowerShell), and enforcing a raised version number on -ReplaceRelease (constitution section 2 asks for one; it stays a documented step in git-workflow.md "Releasing a new render"). Limitation: the build-script case was run here on Windows only; on CI (ubuntu) it runs under pwsh, which GitHub's ubuntu runners ship, and fails rather than skips if none is found.
+
+Atlas: facts for build.ps1 and the suite updated (site.json, system-map), shifted line ranges fixed (new-cv SKILL +2, preferences +1); all five pages stamped, system-map last; check --strict exit 0.
 <!-- SECTION:NOTES:END -->
