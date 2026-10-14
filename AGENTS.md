@@ -78,7 +78,7 @@ Framework; `M` for `packages/domains/marine`, the marine domain; `F` for
 | Path | Role | Touch it when |
 |---|---|---|
 | `W/lib.typ` | The Framework's import surface: core names only, no domain, no side effects | Adding or renaming a core export |
-| `M/lib.typ` | The marine import surface every marine entry point uses: the Framework's names plus marine and Flagship, no side effects | Adding or renaming a marine or Flagship export |
+| `M/lib.typ` | The marine import surface every marine entry point uses: the Framework's names plus marine and Flagship, inputs included (`docs/conventions.md`); no side effects | Adding or renaming a marine or Flagship export |
 | `W/core/` | Domain-neutral core: `node` (merge, compose), `data` (common facts), `theme` check, `component` (`make-ctx`, which builds `ctx`), `components` (the ctx-first primitives and page shell as one module, exported as `core-components`), `primitives`, `page` shell, `pagination` over a domain row model (rows only; closing sections are a template's rule). Never imports a domain, and its code names no domain or template word, no layout key, artwork slot or theme colour it does not own, no colour literal; the suite checks both | Changing behaviour every domain shares |
 | `M/domain.typ`, `M/data.typ` | The marine domain node (id, meta, copy, experience model, `art-palette`: the colours baked into its SVGs) and the marine facts: companies, vessels, months, totals, `normalize-candidate`, `validate-candidate` | Changing what the marine domain means |
 | `M/roles/deck/`, `M/roles/engine/` | Role markers (`role.typ`); bare today | Refining something for one role |
@@ -97,17 +97,17 @@ Framework; `M` for `packages/domains/marine`, the marine domain; `F` for
 | `examples/marine/flagship/` | Short entry points that wire the six inputs together, each with its `Release` PDF and `Meta File` beside it (`engineer.typ`, `engineer.pdf`, `engineer.meta.json`), written only by `scripts/build.ps1 -Release` | Adding an example, releasing a new version |
 | `packages/cv-workflow/` | Python package: fresh revisions (snapshot, compile, `render.json`, `checks.json`), explicit approval (`cv.approval.json` bound to the SHA-256), verified export, and the `Output Contract` (`outputs.py`, `output.schema.json`: homes and `Meta File`s). Never sends anything. `pyproject.toml` pins the Python dependencies; `requirements.lock` (compiled from it) and `ruff.toml` sit at the root | Changing how a candidate PDF is produced, approved or exported, or a Python dependency |
 | `tests/` | `run.py` runner, `verify.py` PDF checks, `workflow.py` end-to-end workflow case, `release.py` example list and `build.ps1` case, `baseline.json` hash manifest, `fixtures/*.typ` compile cases | Changing behaviour |
-| `archive/design-studies/` | Four frozen, evaluated design studies with their renders | Reading for inspiration only |
-| `archive/work-records/` | Review reports (named in `docs/review.md`), idea-run records and other dated task records, kept unchanged (moved from `docs/work/` on 2026-10-14, Git history kept) | Storing a new review report; reading an old one |
-| `archive/anti-examples/` | Frozen designs the owner rejected as not his style (`Anti-example`), with their fonts and his reasons; see its `README.md` | Before proposing or reviewing a design: never repeat one |
-| `design-concepts/` | Template concepts proposed by the `magazine-editor` agent: one folder per style with `brief.md` (and, when the `Domain` has no record yet, `sample.json`) shared by its two `Density`s (`condensed/`, `spacious/`), each holding three `Design Tier`s (`<tier>/<density>-<tier>.typ`, PDF, PNG per page, and every PDF its `Meta File`; see its `README.md`); earlier runs have one `concept.typ`. Proposals, not library code | Running or deciding on an idea run |
-| `brand/` | CVgen's own brand assets: `logos/` (the working logo is the needle's eye, `cvgen-mark-c-eye.svg` and `cvgen-wordmark.svg`; see `brand/README.md`) | Using or replacing the logo |
+| `studio/archive/design-studies/` | `studio/archive/` holds frozen design records: four frozen, evaluated design studies with their renders | Reading for inspiration only |
+| `archive/work-records/` | The top-level `archive/` holds only this: review reports (named in `docs/review.md`), idea-run records and other dated task records, kept unchanged (moved from `docs/work/` on 2026-10-14, Git history kept) | Storing a new review report; reading an old one |
+| `studio/archive/anti-examples/` | Frozen designs the owner rejected as not his style (`Anti-example`), with their fonts and his reasons; see its `README.md` | Before proposing or reviewing a design: never repeat one |
+| `studio/design-concepts/` | Template concepts proposed by the `magazine-editor` agent: one folder per style with `brief.md` (and, when the `Domain` has no record yet, `sample.json`) shared by its two `Density`s (`condensed/`, `spacious/`), each holding three `Design Tier`s (`<tier>/<density>-<tier>.typ`, PDF, PNG per page, and every PDF its `Meta File`; see its `README.md`); earlier runs have one `concept.typ`. Proposals, not library code | Running or deciding on an idea run |
+| `studio/brand/` | CVgen's own brand assets: `logos/` (the working logo is the needle's eye, `cvgen-mark-c-eye.svg` and `cvgen-wordmark.svg`; see `studio/brand/README.md`) | Using or replacing the logo |
 | `docs/` | Governance and reference documentation, see below | Recording a decision |
 | `scripts/build.ps1` | Builds the examples listed in `examples/release.json` into a new `builds/` folder; `-Release` then copies each beside its entry point and stamps its `Meta File`, and refuses while a `Release` exists | Rarely |
 | `scripts/cv.py` | `render`, `approve`, `export`, `status` for one candidate workspace, calling `packages/cv-workflow` | Producing a real CV |
 | `scripts/outputs.py` | The `Output Contract` tool: `stamp` writes a PDF's `Meta File`, `check` lists every PDF with no valid, current one or outside its home (`docs/pdf-workflow.md`) | Writing a PDF someone will review |
 | `scripts/intake-form.gs` | Google Apps Script the owner runs to make a client's optional `Intake Form` and its answers Sheet; Claude writes a filled copy per form as `intake/form-NN.gs` | Changing how the form is built |
-| `scripts/design_review/` | The owner's local Design Review app (`server.py`, `index.html`): every PDF with a valid `Meta File` (concepts, the `Release`, client renders and `Text Draft`s) as a Board and a Loupe, the rest listed as unindexed with the reason, filters, page previews, compare, a `Batch Test` pile (`plain-cvs.typ`), his review state in `.local/design-review/state.json` (read it for his verdicts and notes), PDFs opened in the default app. Binds to 127.0.0.1 only | Changing how the owner reviews designs |
+| `apps/design-review/` | The owner's local Design Review app (`server.py`, `index.html`): every PDF with a valid `Meta File` (concepts, the `Release`, client renders and `Text Draft`s) as a Board and a Loupe, the rest listed as unindexed with the reason, filters, page previews, compare, a `Batch Test` pile (`plain-cvs.typ`), his review state in `.local/design-review/state.json` (read it for his verdicts and notes), PDFs opened in the default app. Binds to 127.0.0.1 only | Changing how the owner reviews designs |
 | `scripts/text-draft.typ` | The `Text Draft` a client checks before design (`Sign-off`), `House Design` First Fitting | Changing how the text draft looks |
 | `tools/workflow/` | The workflow tool (TypeScript on Bun, ADR 0015): the `Workflow Model`'s Zod types in `src/model.ts`, the committed JSON Schema in `schema/`, `bun run check` (the whole model in `docs/workflow/`, levels 1 and 2) and `bun run anchors <commit>`; see its `README.md` | Changing the model's types or checks |
 | `.atlas/` | The `Atlas`: open `.atlas/index.html` from disk. Facts in `src/*.json`, each step citing its sources; `python .atlas/_kit/atlas.py build` writes the pages, `check` lists pages whose sources changed or were never checked | A mapped flow, agent or model changed: update its page, `build`, `stamp` |
@@ -126,14 +126,14 @@ Framework; `M` for `packages/domains/marine`, the marine domain; `F` for
 ./scripts/build.ps1 -Release            # the same, then the `Release`: copied beside the entry points, stamped; refused while one exists
 ./scripts/build.ps1 -ReplaceRelease     # replaces the `Release`: the owner's go only (docs/preferences.md)
 python tests/run.py                     # full suite, evidence into builds/tests-<timestamp>/
-ruff check                              # lint scripts/, tests/, packages/cv-workflow/ (ruff.toml); CI runs it too
+ruff check                              # lint apps/, scripts/, tests/, packages/cv-workflow/ (ruff.toml); CI runs it too
 typst compile --root . --ignore-system-fonts --font-path packages/cv-framework/fonts examples/marine/flagship/engineer.typ builds/scratch.pdf
 python scripts/cv.py render private/<candidate>            # new revision: snapshot, PDF, log, checks
 python scripts/cv.py approve private/<candidate> <revision> --approver "<name>" --sha256 <reviewed hash>
 python scripts/cv.py export private/<candidate> <revision>  # verified copy into private/<candidate>/exports/<revision>/
 python scripts/outputs.py stamp <pdf> status=<status> [key=value ...]   # write the PDF's Meta File
 python scripts/outputs.py check [--private]   # every PDF in its home with a valid, current Meta File
-python scripts/design_review/server.py   # the owner's Design Review app on http://127.0.0.1:8765/
+python apps/design-review/server.py   # the owner's Design Review app on http://127.0.0.1:8765/
 ```
 
 `tests/run.py` and `scripts/cv.py render` need Typst 0.15.1 on PATH plus

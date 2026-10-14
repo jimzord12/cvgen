@@ -14,7 +14,7 @@ a run is built, approved or put on the roadmap without the owner.
 | Run | Author | Reviewers, in order | Output |
 |---|---|---|---|
 | Product ideas | `ceo` (max 3 ideas) | `research-reviewer` on the market research, then `ceo-reviewer` | drafts in the run folder; passed ones moved to `docs/proposals/<slug>.md` (`status: pending`; the lead adds `id`, the `next_id` of `python scripts/proposals.py --json`, and sets `created` to the move date) |
-| Design concepts | `magazine-editor` (3 very distinct styles, each in 2 `Density`s, Condensed and Spacious, and 3 `Design Tier`s, Safe, Stylish, Creative: 18 designs) | `research-reviewer` on the references, then `design-reviewer` | `design-concepts/<date>-<slug>/` per style, with `condensed/<tier>/` and `spacious/<tier>/` PDFs and PNGs |
+| Design concepts | `magazine-editor` (3 very distinct styles, each in 2 `Density`s, Condensed and Spacious, and 3 `Design Tier`s, Safe, Stylish, Creative: 18 designs) | `research-reviewer` on the references, then `design-reviewer` | `studio/design-concepts/<date>-<slug>/` per style, with `condensed/<tier>/` and `spacious/<tier>/` PDFs and PNGs |
 
 Cadence: design concepts whenever the owner wants inspiration or a client
 needs a design; product ideas weekly at most (the roadmap is long, the
@@ -71,8 +71,8 @@ design-reviewer's "Other assets".
    sample data get a lead check against the render, noted in `run.md`.
    Every report names the snapshot it saw.
 7. Store every report as `archive/work-records/idea-runs/<run>/reviews/NN-<reviewer>.md`.
-8. Integrate. Output confined to new files in `design-concepts/`, the run's
-   rows in `design-concepts/README.md`, the run folder and passed proposals
+8. Integrate. Output confined to new files in `studio/design-concepts/`, the run's
+   rows in `studio/design-concepts/README.md`, the run folder and passed proposals
    in `docs/proposals/` is covered by the idea gates (`docs/review.md`: idea runs use their own gates); say so in `run.md`. An item
    left `unresolved` at the cap is not covered: its README row or proposal
    (and each of its designs' `Meta File`s) says `unresolved`, and it merges only as such. Any other change (agent files, skills, engine,
@@ -127,9 +127,9 @@ its designs' `Meta File`s (`python scripts/outputs.py stamp <pdf>
 status=<state>`; for `chosen`, the design he picked), because the `Design
 Review` app reads the status from them, not from the README:
 
-| Answer | Proposal | Concept (`design-concepts/README.md`) |
+| Answer | Proposal | Concept (`studio/design-concepts/README.md`) |
 |---|---|---|
 | Build it | `approved` (then a task) | `chosen`, with the `Design Tier` and the `Density` he picked; a template task or the client's CV follows |
 | Later / park | `deferred` | `parked` |
-| Reject | `rejected`, moved to `rejected/` | `rejected`; its folder is removed (Git history keeps it), the README row names the commit, and its font family goes too if no other concept uses it. When he rejects it as not his style and wants it kept, it moves to `archive/anti-examples/` instead (with its fonts, its Meta Files removed, a row in that README with his reason) |
+| Reject | `rejected`, moved to `rejected/` | `rejected`; its folder is removed (Git history keeps it), the README row names the commit, and its font family goes too if no other concept uses it. When he rejects it as not his style and wants it kept, it moves to `studio/archive/anti-examples/` instead (with its fonts, its Meta Files removed, a row in that README with his reason) |
 | No answer yet | no change (`pending`) | no change (`proposed`) |

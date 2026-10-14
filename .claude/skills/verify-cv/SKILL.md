@@ -58,7 +58,7 @@ Requires Typst 0.15.1 on PATH and the Python packages in `requirements.lock`
   stamp <pdf>`; replacing the `Release` itself is `./scripts/build.ps1
   -ReplaceRelease`, only with the owner's go, `docs/preferences.md`); a
   concept with no `Meta File` yet needs the full command in
-  `design-concepts/README.md`, or move a stray PDF into its home or under
+  `studio/design-concepts/README.md`, or move a stray PDF into its home or under
   `builds/`.
   `python scripts/outputs.py check` lists the same without the suite.
 

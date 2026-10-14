@@ -1,0 +1,64 @@
+# Design concepts
+
+Proposals for new CV templates, each drawn as real mock-ups on fictional
+data. Produced by the `magazine-editor` agent through the `idea-run`
+skill. Not library code: nothing here is imported by `packages/`, and a concept
+becomes a template only after the owner keeps it and a build task is agreed.
+
+Since 2026-09-29 a run has three very distinct styles, one folder each,
+and every style is drawn in two `Density`s (Condensed: one dense page;
+Spacious: 1 to 3 roomier pages) and three `Design Tier`s (`safe`,
+`stylish`, `creative`), 18 designs a run:
+
+```
+<date>-<slug>/
+  brief.md  sample.json  portrait.jpg      shared by both densities (idea, tiers, references, fonts with source and SHA-256, data, weaknesses)
+  condensed/<tier>/condensed-<tier>.typ, .pdf, .png
+  spacious/<tier>/spacious-<tier>.typ, .pdf, spacious-<tier>-<page>.png
+```
+
+Each `.typ` reads the shared files as `../../sample.json` and
+`../../portrait.jpg`; PNGs are 96 dpi, one per page. Earlier folders hold
+one `concept.typ`, `concept.pdf` and `page-1.png` instead. Each font family
+is stored once: families the Framework bundles (`packages/cv-framework/fonts/`,
+licences in `packages/cv-framework/licenses/`) are not copied here, and the
+others live in `fonts/<family>/` with their licence, shared between
+concepts. Compile from the repository root:
+
+```powershell
+typst compile --root . --ignore-system-fonts --font-path packages/cv-framework/fonts --font-path studio/design-concepts/fonts studio/design-concepts/<folder>/<density>/<tier>/<density>-<tier>.typ studio/design-concepts/<folder>/<density>/<tier>/<density>-<tier>.pdf
+```
+
+Every compile rewrites the PDF (Typst embeds the compile time). To check a
+concept without changing it (reviewers and the lead), write to a new folder
+under `builds/` instead. A wrong `--font-path` still exits 0 but falls back
+to another font; Typst then warns `unknown font family`, so read the
+warnings.
+
+Every PDF here has a `Meta File` beside it (`<pdf-stem>.meta.json`: its
+`Domain`, `Style`, idea, status and hash; the `Output Contract`,
+`docs/pdf-workflow.md`), so stamp it after every compile:
+
+```powershell
+python scripts/outputs.py stamp <pdf> domain=<id> "candidate=<sample name>" "style=<Style name>" "idea=<three words>" status=proposed producedBy=magazine-editor
+```
+
+The `Design Review` app and the suite read these files, not this table: when
+a concept's status changes, re-stamp its PDFs with the new status
+(`parked`, `rejected` or `unresolved`; for `chosen`, only the `Design Tier`
+he picked, `idea-run`, "What the owner gets, and what his answer does") as well as updating its row. An earlier flat run's `concept.pdf` that proposes a `House Design` (First Fitting) passes `kind=house-design`.
+
+| Concept | Idea | Date | Status | PDF |
+|---|---|---|---|---|
+| Hanami Line 2 | Travel & Tourism, Japan, tour escort: Flagship's skeleton with Stamp Rally's identity (torii-framed portrait in a gold glow ring, one cinnabar seal, ATH to TYO through the name plate, one upright eki stamp per Japan trip), flying crisp and blurred sakura petals, faint Japan background pieces (waves, Shinkansen, lanterns, fan, pagoda), a structured profile block. Version 2 of Hanami Line from the owner's notes; three palettes | 2026-10-02 | chosen (owner, 2026-10-02): `Spacious`, `stylish`, all three palettes; first client build is the real `Travel & Tourism` client's CV in all three | spacious: [stylish, soft pink](2026-10-02-hanami-line-2/spacious/stylish/spacious-stylish.pdf) · [indigo](2026-10-02-hanami-line-2/concept-indigo.pdf) · [light blue](2026-10-02-hanami-line-2/concept-blue.pdf) |
+| Hanami Line | Travel & Tourism, Japan, tour escort: the first take of the same idea (dark indigo, one branch in the margin, no background pieces); the owner's base for version 2 | 2026-10-02 | parked (superseded by Hanami Line 2) | spacious: [stylish, 2 pages](2026-10-02-hanami-line/spacious/stylish/spacious-stylish.pdf) |
+| Japan Passage | Travel & Tourism, Japan, tour escort: crafted Japanese journeys; Flagship discipline, selective travel identity and pale cherry margin artwork. One scoped Spacious Stylish concept per the owner's recalibration brief | 2026-10-02 | rejected (owner, 2026-10-02: far weaker than Stamp Rally); removed in f78a181 | in Git history |
+| Measured in Months | The career drawn to scale: one bar per vessel, length = service months; marine and travel variants | 2026-09-25 | rejected (owner, 2026-09-27); removed in 7e9f619 | in Git history |
+| Feature Opener | The CV as a magazine feature opener: headline name, standfirst, contents list, pull-quote; marine and travel variants | 2026-09-25 | rejected (owner, 2026-09-27); removed in 7e9f619 | in Git history |
+| Fleet in Signs | Isotype count of the fleet: one sign per vessel, silhouette = class, colour = rank | 2026-09-25 | rejected (owner, 2026-09-27); removed in 7e9f619 | in Git history |
+| First Fitting | `House Design` proposal for the `Text Draft` (not a CV template): the draft as a tailor's baste fitting; one copper thread, every fact tacked with a running stitch | 2026-09-27 | chosen (owner, 2026-09-28), built into `scripts/text-draft.typ` with his changes | [2 pages](2026-09-27-first-fitting/concept.pdf) |
+| Stoichedon | `House Design` proposal for the `Text Draft` (not a CV template): every letter in its own square cell, as Attic inscriptions; facts rubricated in bold red ochre | 2026-09-27 | rejected (owner, 2026-09-30): archived as an `Anti-example` | [studio/archive/anti-examples/](../archive/anti-examples/2026-09-27-stoichedon/) |
+| Two Inks | `House Design` proposal for the `Text Draft` (not a CV template): black is ours, orange is yours; facts overprint misregistered orange slabs, giant orange draft number and OK | 2026-09-27 | rejected (owner, 2026-09-30): archived as an `Anti-example` | [studio/archive/anti-examples/](../archive/anti-examples/2026-09-27-two-inks/) |
+| Woodblock Road | Travel & Tourism, Japan, tour escort: the CV opens as a woodblock travel print (a group crossing a bridge behind its leader's flag); the Japan trips as a numbered series of views; text in kasumi mist bands | 2026-09-29 | parked (owner's gallery review, 2026-10-02; applied 2026-10-06: kept condensed safe and stylish and spacious stylish as "maybe"; condensed creative, spacious safe and spacious creative rejected, removed in f78a181) | condensed: [safe](2026-09-29-woodblock-road/condensed/safe/condensed-safe.pdf) · [stylish](2026-09-29-woodblock-road/condensed/stylish/condensed-stylish.pdf)<br>spacious: [stylish](2026-09-29-woodblock-road/spacious/stylish/spacious-stylish.pdf) |
+| Stamp Rally | Travel & Tourism, Japan, tour escort: the CV as the escort's travel papers; boarding pass, one eki-style stamp per Japan trip, passenger manifest, luggage and bag tags | 2026-09-29 | `Spacious` `stylish` chosen (owner, 2026-10-02: built as the fourth edition of a real `Travel & Tourism` client's CV); condensed safe, creative and stylish and spacious safe parked (gallery review, 2026-10-02; applied 2026-10-06: "keep" or "maybe"); spacious creative rejected, removed in f78a181 | condensed: [safe](2026-09-29-stamp-rally/condensed/safe/condensed-safe.pdf) · [stylish](2026-09-29-stamp-rally/condensed/stylish/condensed-stylish.pdf) · [creative](2026-09-29-stamp-rally/condensed/creative/condensed-creative.pdf)<br>spacious: [safe](2026-09-29-stamp-rally/spacious/safe/spacious-safe.pdf) · [stylish](2026-09-29-stamp-rally/spacious/stylish/spacious-stylish.pdf) |
+| Concourse | Travel & Tourism, Japan, tour escort: the CV as Japanese station wayfinding; three-script station board, LED departure board of the trips, pictograms, yellow meeting-point sign, tactile paving | 2026-09-29 | parked (owner's gallery review, 2026-10-02; applied 2026-10-06: spacious stylish kept as "maybe"; the other five variants rejected, removed in f78a181) | spacious: [stylish](2026-09-29-concourse/spacious/stylish/spacious-stylish.pdf) |

@@ -33,7 +33,7 @@ hold.
   reference and a version bump on the PDF name. Adding a newly reviewed file
   to the manifest (a new pack's SVGs, for example) is routine. Files not in
   the manifest, such as `chief-officer-example.json`, are not frozen.
-- The four numbered studies and `shared.typ` under `archive/design-studies/`
+- The four numbered studies and `shared.typ` under `studio/archive/design-studies/`
   are frozen.
   Copy ideas out of them; do not edit them. Path-only updates during a move
   are not edits.
@@ -43,7 +43,7 @@ hold.
 Every script and test writes into a new timestamped folder under `builds/`
 and refuses to run if the folder exists. The `Release` (the PDFs beside
 their entry points in `examples/`, written by `scripts/build.ps1 -Release`),
-the frozen reference and `archive/design-studies/review/` are replaced only by a deliberate release
+the frozen reference and `studio/archive/design-studies/review/` are replaced only by a deliberate release
 commit with a new version number.
 
 ## 3. Public content is fictional

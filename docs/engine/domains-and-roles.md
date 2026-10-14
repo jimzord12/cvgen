@@ -151,7 +151,12 @@ module named `<template>-components` (`flagship-components`, later
 `postcard-components`), used as `flagship-components.hero(ctx, ...)`,
 because a template has dozens of components and one module keeps them out
 of the flat namespace; the Framework's components follow the same form as
-`core-components` (component contract, `conventions.md`).
+`core-components` (component contract, `conventions.md`). The inputs an
+entry point picks by name follow the same form (TASK-55): the domain's
+roles as `roles` (`roles.engine`), a template's themes, artwork packs and
+layouts as `<template>-themes`, `<template>-artwork` and `<template>-layouts`
+(`flagship-themes.golden-blue`, `flagship-layouts.one-page(candidate)`), so
+an example needs one import.
 
 A composition that needs two domains at once imports each `lib.typ` as a
 module (`#import "/packages/domains/marine/lib.typ" as marine-lib`); none

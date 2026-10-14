@@ -61,7 +61,7 @@ the lead on 2026-09-25 to carry out the owner's instruction that idea work
 runs in its own closed review loop; confirmed by the owner on 2026-09-25,
 Day Shift question 01). Later revisions of a proposal that came from an
 idea run are reviewed here. The idea gates cover new files in
-`design-concepts/`, the run's rows in `design-concepts/README.md`, an idea
+`studio/design-concepts/`, the run's rows in `studio/design-concepts/README.md`, an idea
 run's folder under
 `archive/work-records/idea-runs/` and proposals that passed both gates in
 `docs/proposals/` are reviewed by the idea gates of

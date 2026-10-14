@@ -96,8 +96,8 @@ written by the lead, not by you.
 - Documentation only: `AGENTS.md`, `CLAUDE.md`, `docs/` (not the dated
   records above), `.claude/skills/`, `.claude/agents/`, and
   `.local/preferences/` when the feedback is personal to the owner. Never
-  `packages/`, `examples/`, `tests/`, `scripts/`, `exports/`, `brand/`
-  files other than `brand/README.md`, configuration or lockfiles.
+  `packages/`, `examples/`, `tests/`, `scripts/`, `exports/`, `studio/brand/`
+  files other than `studio/brand/README.md`, configuration or lockfiles.
 - **The repository is public.** A real client is only ever their `Alias`
   (`client-<yyyy>-<mm>-<nn>`); never a name, employer, place or detail
   that identifies them, and never anything from `private/`, which you do
