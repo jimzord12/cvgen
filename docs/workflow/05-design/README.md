@@ -81,7 +81,7 @@ flowchart TD
   s_design__fix --> s_design__engine_change
   s_design__fix --> s_design__preview
   s_design__handover --> g_gate__template_exists
-  g_gate__template_exists -->|"pass"| s_design__fill_data
+  g_gate__template_exists -->|"pass"| s_design__flagship_fit
   g_gate__template_exists -->|"fail"| s_design__run_brief
   s_design__run_research_gate --> g_gate__idea_research
   g_gate__idea_research -->|"pass"| s_design__run_design_gate
@@ -125,7 +125,7 @@ flowchart TD
 | `design.pick` | The owner picks a Style, Design Tier and Density | `actor.owner` | `manual.pick-design` | `art.run-message`, `art.concept-pdf` | `art.owner-pick` | `gate.owner-pick` | The client's Domain has no Template. |
 | `design.record-choice` | Record the choice and stamp the picked design chosen | `actor.lead` | `cmd.stamp-concept-status` | `art.owner-pick`, `art.concept-pdf` | `art.chosen-concept`, `art.concept-decision` |  |  |
 | `design.record-other-answer` | Record a parked or rejected answer | `actor.lead` | `cmd.stamp-concept-status` | `art.owner-pick` | `art.concept-decision` |  | The owner parked or rejected the concepts. |
-| `design.fill-data` | Write candidate.json and place the portrait | `actor.lead` | `lead.write-candidate-json` | `art.facts-final`, `art.draft-pdf`, `art.documents`, `art.example-records` | `art.candidate-json`, `art.portrait` |  |  |
+| `design.fill-data` | Write candidate.json and place the portrait | `actor.lead` | `lead.write-candidate-json` | `art.facts-final`, `art.draft-pdf`, `art.sign-off-png`, `art.documents`, `art.example-records` | `art.candidate-json`, `art.portrait` |  |  |
 | `design.flagship-fit` | Check the data fits the Flagship | `actor.lead` | `lead.check-flagship-fit` | `art.candidate-json` |  | `gate.template-fits` | The client's Domain has a Template (today marine, the Flagship). |
 | `design.entry-point` | Write the Flagship entry point | `actor.lead` | `lead.write-flagship-entry` | `art.candidate-json`, `art.flagship-template` | `art.cv-typ` |  | The data fits the Flagship. |
 | `design.custom-composition` | Compose the page by hand | `actor.lead` | `lead.compose-by-hand` | `art.candidate-json`, `art.flagship-template` | `art.cv-typ`, `art.typst-sources` |  | The data does not fit the Flagship (contract periods, a three-column certificate table, a skills block). |
@@ -146,7 +146,7 @@ flowchart TD
 
 | ID | Name | Checked by | Check | Pass | Fail |
 |---|---|---|---|---|---|
-| `gate.template-exists` | The Domain has a Template | `design.handover` | The client's Domain already has a Template (today only marine, the Flagship). | `design.fill-data` | `design.run-brief` |
+| `gate.template-exists` | The Domain has a Template | `design.handover` | The client's Domain already has a Template (today only marine, the Flagship). | `design.flagship-fit` | `design.run-brief` |
 | `gate.template-fits` | The data fits the Flagship | `design.flagship-fit` | The client's data fits flagship: whole service months, no three-column certificate table, no skills block (the known cases in docs/framework-gaps.md). | `design.entry-point` | `design.custom-composition` |
 | `gate.idea-research` | Idea Run research gate | `design.run-research-gate` | A fresh research-reviewer returns PASS on the references in each brief.md. | `design.run-design-gate` | `design.run-revise-sources` |
 | `gate.idea-design` | Idea Run quality gate | `design.run-design-gate` | A fresh design-reviewer returns PASS; failing the Batch Test, the Three-Second Test or Flagship Parity is Blocking. | `design.run-integrate` | `design.run-revise-design` |
