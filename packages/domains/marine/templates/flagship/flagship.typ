@@ -1,8 +1,8 @@
-// The Flagship composition: page loop, section order, overflow check.
+// The Flagship composition: theme and page-plan checks, page loop, section order, overflow check.
 #import "../../data.typ": normalize-candidate, validate-candidate
 #import "../../domain.typ": domain
 #import "../../../../cv-framework/core/component.typ": make-ctx
-#import "../../../../cv-framework/core/theme.typ": validate-theme
+#import "../../../../cv-framework/core/theme.typ": require-colors, validate-theme
 #import "../../../../cv-framework/core/page.typ": document-shell, page-header
 #import "../../../../cv-framework/core/pagination.typ": validate-pages, company-fragment
 #import "adapter/adapter.typ": to-flagship-input
@@ -33,6 +33,14 @@
   }
 }
 
+// Flagship's theme: the core's colours and fonts, then the colours only Flagship paints: the hero
+// band and the synopsis and certificate header in it, the text on them (`on-hero`), the identity
+// plate, alternate rows and language cards (`surface`), and table rules.
+#let validate-flagship-theme(theme) = {
+  validate-theme(theme)
+  require-colors(theme, ("hero", "surface", "plate", "rule", "on-hero"))
+}
+
 // Keys a layout profile set before TASK-45 and the shell now owns. A layout that still
 // sets one fails here instead of being silently ignored on page 1. Also called by the
 // deprecated document-shell wrapper (legacy.typ), so older compositions fail the same way.
@@ -49,7 +57,7 @@
   assert(candidate != none and theme != none and artwork != none and layout != none,
     message: "flagship requires candidate, theme, artwork and layout")
   let d = normalize-candidate(to-flagship-input(candidate, role: role, copy: copy))
-  validate-theme(theme)
+  validate-flagship-theme(theme)
   validate-candidate(d, show-vessel-durations)
   check-layout(layout)
   validate-plan(layout.pages, d, domain.experience)

@@ -1769,7 +1769,7 @@ window.ATLAS = {
        "title": "Framework",
        "path": "packages/cv-framework/",
        "blurb": "The domain-neutral core: page frame, components, data merge, pagination, fonts.",
-       "touch": "Changing behaviour every `Domain` shares. It never imports a `Domain`, and its code names no `Domain` or template word, no layout key or artwork slot it does not own, no colour literal; the suite checks both."
+       "touch": "Changing behaviour every `Domain` shares. It never imports a `Domain`, and its code names no `Domain` or template word, no layout key, artwork slot or theme colour it does not own, no colour literal; the suite checks both."
       },
       {
        "id": "n-marine",
@@ -2269,10 +2269,29 @@ window.ATLAS = {
   }
  ],
  "build": {
-  "builtAt": "2026-10-14 07:03 UTC",
-  "commit": "10f92d6",
+  "builtAt": "2026-10-14 07:10 UTC",
+  "commit": "be1d073",
   "kit": "1.0",
-  "stale": {},
+  "stale": {
+   "design-run": [
+    "AGENTS.md"
+   ],
+   "change-review": [
+    "AGENTS.md"
+   ],
+   "system-map": [
+    "AGENTS.md",
+    "docs/architecture.md",
+    "docs/work",
+    "tests/run.py"
+   ],
+   "roster": [
+    "AGENTS.md",
+    ".claude/skills/new-theme/SKILL.md",
+    "tests/run.py",
+    "docs/reference/verification.md"
+   ]
+  },
   "verified": {
    "client-journey": {
     "at": "2026-10-14",
