@@ -24,7 +24,7 @@ Rewritten in place at the end of every session; the first thing a fresh session 
 2. Owner-only clean-up for that client: delete its Intake Form, answers Sheet and script project (links in the `Envelope`'s README, then empty the Drive Trash); delete `private/<envelope>/` and the folder of review copies kept outside the repo at the delete-by date.
 3. Session Sweep gap: the merge-time changes of 2026-10-04 (`a66b448`, `1db32e8`, `74a6f82`, `1e684eb`) have no stored review report. The workflow-model handoff proposes the task (`merge-review-2026-10-04`).
 4. Queued from the owner's 2026-10-06 repo walk-through: TASK-28 (proposals snapshot), TASK-29 (remove `.night-shift`), TASK-30 (`Main Folder` glossary term), TASK-31 (rename `docs/reference`), TASK-32 (one tree for every client folder, confirmed by the owner). None started.
-5. The workflow-model work (inventory of the client workflow, nine open owner decisions, 12 suggested tasks plus 13 restructure tasks) is in `docs/work/workflow-model/handoff.md` and `docs/workflow/inventory/`. Those suggested tasks are not yet created in Backlog; the owner decides when.
+5. The workflow-model work (inventory of the client workflow, nine open owner decisions, 12 suggested tasks plus 13 restructure tasks) is in `docs/work/workflow-model/handoff.md` and `docs/workflow/inventory/`. All 25 are now tasks (owner, 2026-10-14): TASK-33 to TASK-44 (label `workflow-model`, dependencies set) and TASK-45 to TASK-57 (label `restructure`), all Queued. The seven labelled `owner-input` (TASK-34, 36, 50, 52, 53, 55, 57) need an owner interview before work starts.
 6. The repository is down to the `main` branch and the main folder (no other branches or worktrees), as of 2026-10-06.
 
 ## Owner decisions parked
