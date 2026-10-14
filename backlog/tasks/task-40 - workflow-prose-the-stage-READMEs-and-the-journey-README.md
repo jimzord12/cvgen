@@ -1,10 +1,10 @@
 ---
 id: TASK-40
 title: 'workflow-prose: the stage READMEs and the journey README'
-status: Queued
+status: Active
 assignee: []
 created_date: '2026-10-14 04:47'
-updated_date: '2026-10-14 10:25'
+updated_date: '2026-10-14 10:45'
 labels:
   - workflow-model
 dependencies:
