@@ -15,7 +15,7 @@ another branch; `http(s)://...` and `ext:<note>` are accepted but not hashed.
 """
 import argparse, datetime, hashlib, json, os, re, shutil, subprocess, sys, tempfile
 
-KIT_VERSION = "1.0"
+KIT_VERSION = "1.1"
 KINDS = ["owner", "client", "lead", "agent", "external", "skill", "tool", "service"]
 PAGE_KINDS = ["flow", "system", "roster"]
 GATES = ["owner", "review", "check", "client"]
@@ -383,6 +383,8 @@ def cmd_check(root, strict):
             print("UNVERIFIED %-17s never stamped" % pid)
         else:
             print("ok      %-20s verified %s" % (pid, verified[pid]["at"]))
+        if p.get("generated") and (pid in stale or pid not in verified):
+            print("%28s generated %s: regenerate it, never edit its JSON" % ("", p["generated"]))
     snap = site.get("snapshot", {}).get("asOf")
     if snap:
         print("snapshot as of %s" % snap)
