@@ -48,7 +48,7 @@ steps:
 
   - id: research.decisions
     name: Write the CV Decisions
-    sources: ["docs/guides/client-workflow.md:179-195", ".claude/skills/new-client/SKILL.md:59-61"]
+    sources: ["docs/guides/client-workflow.md:180-196", ".claude/skills/new-client/SKILL.md:59-61"]
     actor: actor.lead
     action: lead.write-decisions
     inputs: [art.facts-md, art.scout-md]
@@ -168,7 +168,7 @@ steps:
 
   - id: research.follow-up-form-script
     name: Write the follow-up Intake Form script
-    sources: ["docs/guides/client-workflow.md:143-146", ".claude/skills/new-client/SKILL.md:73-74"]
+    sources: ["docs/guides/client-workflow.md:144-147", ".claude/skills/new-client/SKILL.md:73-74"]
     actor: actor.lead
     action: lead.write-form-script
     inputs: [art.follow-up-questions, art.intake-form-lib]
@@ -209,7 +209,7 @@ steps:
 
   - id: research.cap-reached
     name: At a loop's cap, the owner decides
-    sources: ["docs/review.md:198-202", "docs/workflow/03-research/README.md:70-73"]
+    sources: ["docs/review.md:203-207", "docs/workflow/03-research/README.md:70-73"]
     actor: actor.owner
     action: manual.decide-at-cap
 
@@ -223,7 +223,7 @@ gates:
 
   - id: gate.deep-dive-review
     name: Deep Dive review
-    sources: ["docs/review.md:198-202", "docs/workflow/03-research/README.md:70-73", ".claude/skills/new-client/SKILL.md:62-67"]
+    sources: ["docs/review.md:203-207", "docs/workflow/03-research/README.md:70-73", ".claude/skills/new-client/SKILL.md:62-67"]
     check: A fresh research-reviewer returns PASS on the Deep Dive's text and SHA-256.
     pass: research.decisions-update
     fail: research.dive-revise
@@ -247,7 +247,7 @@ gates:
 loops:
   - id: loop.deep-dive-review
     name: Deep Dive review rounds
-    sources: ["docs/review.md:198-202", "docs/workflow/03-research/README.md:70-73", ".claude/skills/new-client/SKILL.md:62-67"]
+    sources: ["docs/review.md:203-207", "docs/workflow/03-research/README.md:70-73", ".claude/skills/new-client/SKILL.md:62-67"]
     gate: gate.deep-dive-review
     cap: { attended: 5, unattended: 10 }
     escalate: research.cap-reached
@@ -349,13 +349,13 @@ artifacts:
 
   - id: art.follow-up-questions
     name: The follow-up batch, ready to send
-    sources: ["docs/workflow/03-research/README.md:57-62", "docs/guides/client-workflow.md:143-146"]
+    sources: ["docs/workflow/03-research/README.md:57-62", "docs/guides/client-workflow.md:144-147"]
     format: "simple Greek: as a chat message aim for 5, never more than 10; as a form, at most about 15 minutes and 5 typed answers"
     visibility: ephemeral
 
   - id: art.follow-up-form-gs
     name: The follow-up Intake Form script copy
-    sources: ["docs/guides/client-workflow.md:39", "docs/guides/client-workflow.md:143-146"]
+    sources: ["docs/guides/client-workflow.md:39", "docs/guides/client-workflow.md:144-147"]
     path: private/<envelope>/intake/form-NN.gs
     format: Google Apps Script, only FORM changed
     visibility: private
@@ -415,7 +415,7 @@ actions:
   - id: lead.write-decisions
     kind: lead
     name: Write the CV Decisions
-    sources: ["docs/guides/client-workflow.md:179-195", ".claude/skills/new-client/SKILL.md:59-61"]
+    sources: ["docs/guides/client-workflow.md:180-196", ".claude/skills/new-client/SKILL.md:59-61"]
     does: >-
       Writes research/decisions.md, one line per decision, and shows the
       owner the open ones with a recommendation for each.

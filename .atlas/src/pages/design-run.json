@@ -92,6 +92,7 @@
           "does": [
             "Studies the vision, the glossary, the `Anti-examples` (never repeat their idea), the design studies and the `Flagship`.",
             "Builds each Style's folder in `studio/design-concepts/` with a brief, fictional sample data, a portrait when the idea needs one, and every PDF with its PNG pages.",
+            "May commission up to two Codex-generated images per page (GPT-6 Sol) where drawing cannot reach, each recorded in `brief.md`; never a portrait, no text, people or brands.",
             "At most two open-licence font families per Style. Never touches the engine, examples, tests, archive or `private/`.",
             "Stamps every PDF `proposed` so it shows up in the `Design Review` app."
           ],
@@ -105,11 +106,12 @@
           ],
           "uses": [
             "magazine-editor",
+            "codex-image",
             "outputs-py"
           ],
           "sources": [
-            ".claude/agents/magazine-editor.md:50-82",
-            ".claude/agents/magazine-editor.md:88-213",
+            ".claude/agents/magazine-editor.md:51-83",
+            ".claude/agents/magazine-editor.md:89-220",
             "studio/design-concepts/README.md"
           ]
         }
@@ -194,24 +196,26 @@
             "Makes batch sheets: each page shrunk among 8+ plain market CVs, to judge the `Batch Test` honestly.",
             "Rubric: 1 `Batch Test`, 2 `Three-Second Test`, 3 `Flagship Parity`, 4 distinct, 5 reads as a CV, 6 craft, 7 provenance, 8 buildable.",
             "Also Blocking: a run whose Styles are not very distinct, or a Style repeating an `Anti-example`'s idea.",
-            "Planned: the Codex reviewer (GPT-6 Astra, high) looks at the same pages; a round passes only when both pass."
+            "Beside it, a fresh `codex-visual-reviewer` sends the same pages, its own batch sheets and the same rubric to GPT-6 Astra (high) through the Codex CLI; a round passes only when both pass, and where they disagree the author decides with a reason. Codex unavailable: the design-reviewer alone, recorded in `run.md`."
           ],
           "gate": {
             "type": "review",
-            "label": "Fresh design-reviewer each round (plus the Codex reviewer once built).",
+            "label": "Fresh design-reviewer and codex-visual-reviewer each round.",
             "pass": "PASS from every reviewer",
             "cap": "5 attended, 10 unattended. You set 10 for the 2026-09-29 run."
           },
           "out": [
-            "`reviews/NN-design-reviewer.md`"
+            "`reviews/NN-design-reviewer.md`",
+            "`reviews/NN-codex-visual-reviewer.md`"
           ],
           "uses": [
             "design-reviewer",
             "codex-reviewer"
           ],
           "sources": [
-            ".claude/skills/idea-run/SKILL.md:58-66",
-            ".claude/agents/design-reviewer.md:44-136",
+            ".claude/skills/idea-run/SKILL.md:58-76",
+            ".claude/agents/design-reviewer.md:47-143",
+            ".claude/agents/codex-visual-reviewer.md",
             "docs/proposals/codex-visual-tools.md"
           ]
         },
@@ -231,8 +235,8 @@
             "After a PASS: a new sourced claim goes back to the research gate; a change to the Style's idea or to what you decide on goes back to the design gate; layout, typos or sample data need only a lead check noted in `run.md`."
           ],
           "sources": [
-            ".claude/agents/magazine-editor.md:213-221",
-            ".claude/skills/idea-run/SKILL.md:67-72"
+            ".claude/agents/magazine-editor.md:222-232",
+            ".claude/skills/idea-run/SKILL.md:77-82"
           ]
         }
       ]
@@ -258,8 +262,8 @@
             "outputs-py"
           ],
           "sources": [
-            ".claude/skills/idea-run/SKILL.md:74-86",
-            "docs/review.md:48-62"
+            ".claude/skills/idea-run/SKILL.md:85-97",
+            "docs/review.md:51-65"
           ]
         },
         {
@@ -274,7 +278,7 @@
             "Styles still waiting for your answer are listed in the `session-handoff` doc."
           ],
           "sources": [
-            ".claude/skills/idea-run/SKILL.md:115-123"
+            ".claude/skills/idea-run/SKILL.md:126-134"
           ]
         },
         {
@@ -288,7 +292,7 @@
             "label": "Build it → `chosen` · Later → `parked` · Reject → `rejected` · Not my style, keep it → `Anti-example`. No answer: stays `proposed`."
           },
           "sources": [
-            ".claude/skills/idea-run/SKILL.md:123-135",
+            ".claude/skills/idea-run/SKILL.md:134-146",
             "docs/pdf-workflow.md:127"
           ]
         },
@@ -306,7 +310,7 @@
             "python scripts/outputs.py stamp <pdf> status=chosen"
           ],
           "sources": [
-            ".claude/skills/idea-run/SKILL.md:123-135",
+            ".claude/skills/idea-run/SKILL.md:134-146",
             "studio/design-concepts/README.md:45-48",
             "studio/archive/anti-examples/README.md"
           ]
@@ -321,7 +325,7 @@
             "A concept becomes a `Template` only after you keep it and a build task is agreed."
           ],
           "sources": [
-            ".claude/skills/idea-run/SKILL.md:130-135",
+            ".claude/skills/idea-run/SKILL.md:141-146",
             "studio/design-concepts/README.md:3-6"
           ]
         }

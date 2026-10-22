@@ -1,7 +1,7 @@
 ---
 id: P-0014
 kind: proposal
-status: approved
+status: applied
 revision: 1
 created: 2026-09-29
 ---
@@ -95,9 +95,11 @@ running beside the `design-reviewer`.
 - **Cost and speed:** each review round costs Codex usage from the owner's
   ChatGPT plan, and one image takes about 1-3 minutes. The loop caps stay
   as they are.
-- **Privacy:** a client design sent to Codex goes to OpenAI. The client's
-  consent covers AI tools («χρησιμοποιούμε εργαλεία AI», `Intake`
-  message), and the brief carries the `Alias` only.
+- **Privacy:** a client design sent to Codex goes to OpenAI, and the
+  pages carry the whole CV, name and portrait included; the brief carries
+  the `Alias` only. The client's consent covers AI tools (question 1 of
+  the intake question list; «χρησιμοποιούμε εργαλεία AI» in the `Intake
+  Form`). `--ephemeral` keeps no copy in Codex's local sessions.
 - **Repository size:** generated images are bitmaps (about 1 MB each).
   Concepts keep a small budget: at most two generated images per page, and
   PNGs compressed before commit.
@@ -120,6 +122,13 @@ facts and the plan to build.
   visual reviewer beside the `design-reviewer`. Models: GPT-6 Astra at high
   effort for visual review, GPT-6 Sol at high effort for image generation.
   Status `approved`; not built yet.
+- 2026-10-22, owner: go ahead with building it (TASK-4).
+- 2026-10-22, lead defaults (TASK-4, review F5), not owner decisions: a
+  design round passes only when both reviewers pass, within the same round
+  caps; at most two generated images per page; no text inside an image;
+  Codex joins concept runs and client designs only, brand assets and
+  Flagship changes keep the `design-reviewer` alone; when Codex is
+  unavailable a round runs on the `design-reviewer` alone and says so.
 
 ## Notes
 
@@ -131,3 +140,18 @@ facts and the plan to build.
   `--ignore-user-config` (the owner's global config grants full access and
   loads plugins; F2), and the Privacy line must say the pages carry the
   whole CV, name and portrait included.
+- 2026-10-22 (TASK-4), applied: the `codex-visual-reviewer` agent
+  (`.claude/agents/codex-visual-reviewer.md`, a Sonnet wrapper; Codex
+  gives the verdict), the image procedure and its rules in
+  `docs/tech-stack.md` ("Codex CLI"), the pairing in the `idea-run` and
+  `new-cv` skills, stage 05 of the `Workflow Model` and `docs/review.md`,
+  and the widened provenance rule in the editor and reviewer profiles.
+  As built, both commands run `-s read-only --ignore-user-config
+  --ephemeral -c project_doc_max_bytes=0`; with those flags Codex runs no
+  shell command, so a generated image is copied from
+  `~/.codex/generated_images/<session id>/` rather than saved by Codex.
+  The constitution is unchanged: a generated image stays in a concept or
+  an `Envelope` and never enters `packages/` without the owner. Review 01
+  dispositions: `archive/work-records/codex-visual-tools/reviews/01-dispositions.md`.
+  Evidence: `archive/work-records/codex-visual-tools/evidence/` (a Codex
+  review of the fictional Flagship page 1, PASS, and a generated image).

@@ -67,9 +67,9 @@
         "Starts every session from the `session-handoff` doc on `main` (`backlog/docs/`) and rewrites it before stopping."
       ],
       "sources": [
-        "docs/development.md:10-18",
-        "docs/development.md:42-58",
-        "docs/development.md:109-121"
+        "docs/development.md:10-22",
+        "docs/development.md:46-62",
+        "docs/development.md:113-125"
       ],
       "short": "Claude"
     },
@@ -85,8 +85,8 @@
       "calledBy": "The lead, through the `idea-run` skill.",
       "when": "A design `Idea Run`, for inspiration or for a client whose `Domain` has no `Template` yet.",
       "sources": [
-        ".claude/agents/magazine-editor.md:1-23",
-        ".claude/agents/magazine-editor.md:50-82"
+        ".claude/agents/magazine-editor.md:1-24",
+        ".claude/agents/magazine-editor.md:51-83"
       ],
       "short": "Editor",
       "notes": [
@@ -110,7 +110,7 @@
       ],
       "sources": [
         ".claude/agents/design-reviewer.md:1-17",
-        ".claude/agents/design-reviewer.md:69-136"
+        ".claude/agents/design-reviewer.md:72-143"
       ],
       "short": "Design rev."
     },
@@ -181,7 +181,7 @@
       ],
       "sources": [
         ".claude/agents/code-reviewer.md:1-7",
-        "docs/review.md:125-143"
+        "docs/review.md:128-146"
       ],
       "short": "Code rev."
     },
@@ -216,7 +216,7 @@
       "calledBy": "The lead.",
       "when": "Any change to the files agents read.",
       "notes": [
-        "Merged into `main` on 2026-10-04 (owner's decision). The two review reports from its branch were FINDINGS: `archive/work-records/design-core/reviews/03-context-reviewer.md` (Material F1 and F2 fixed in TASK-33, 2026-10-14; its Minor findings were outside that task) and `archive/work-records/codex-visual-tools/reviews/01.md` (open; carried to TASK-4)."
+        "Merged into `main` on 2026-10-04 (owner's decision). The two review reports from its branch were FINDINGS: `archive/work-records/design-core/reviews/03-context-reviewer.md` (Material F1 and F2 fixed in TASK-33, 2026-10-14; its Minor findings were outside that task) and `archive/work-records/codex-visual-tools/reviews/01.md` (applied in TASK-4, 2026-10-22)."
       ],
       "sources": [
         ".claude/agents/context-reviewer.md",
@@ -238,7 +238,7 @@
       "calledBy": "The lead.",
       "when": "Feedback from you that changes how agents behave.",
       "notes": [
-        "Merged into `main` on 2026-10-04 (owner's decision). The two review reports from its branch were FINDINGS: `archive/work-records/design-core/reviews/03-context-reviewer.md` (Material F1 and F2 fixed in TASK-33, 2026-10-14; its Minor findings were outside that task) and `archive/work-records/codex-visual-tools/reviews/01.md` (open; carried to TASK-4)."
+        "Merged into `main` on 2026-10-04 (owner's decision). The two review reports from its branch were FINDINGS: `archive/work-records/design-core/reviews/03-context-reviewer.md` (Material F1 and F2 fixed in TASK-33, 2026-10-14; its Minor findings were outside that task) and `archive/work-records/codex-visual-tools/reviews/01.md` (applied in TASK-4, 2026-10-22)."
       ],
       "sources": [
         ".claude/agents/context-maintainer.md",
@@ -257,7 +257,7 @@
       ],
       "sources": [
         ".claude/skills/new-client/SKILL.md:56-67",
-        ".claude/skills/idea-run/SKILL.md:88-105"
+        ".claude/skills/idea-run/SKILL.md:99-116"
       ],
       "short": "General"
     },
@@ -266,16 +266,18 @@
       "kind": "external",
       "model": "GPT-6 Astra",
       "effort": "high",
-      "status": "planned",
-      "role": "Second visual reviewer beside the design-reviewer: looks at the page images through the Codex CLI. A design round passes only when both pass.",
-      "access": "Read-only sandbox.",
-      "calledBy": "The lead, every design round (once built).",
+      "status": "built",
+      "file": ".claude/agents/codex-visual-reviewer.md",
+      "role": "Second visual reviewer beside the design-reviewer: a thin Claude wrapper (Sonnet, high) sends the page images, batch sheets and the design-reviewer's own rubric to GPT-6 Astra through the Codex CLI and returns its verdict unedited. A design round passes only when both pass.",
+      "access": "Codex runs read-only, ephemeral, without your global Codex config; the wrapper writes only under `builds/`.",
+      "calledBy": "The lead, every design round of a concept run or a client design. Brand assets, a non-CV Idea Run and Flagship changes keep the design-reviewer alone.",
       "notes": [
-        "Approved by you on 2026-09-29, not built. The proposal has two open Material findings: run with `--ephemeral` and `--ignore-user-config`."
+        "Built in TASK-4 (2026-10-22). If Codex is unavailable, the round runs on the design-reviewer alone and says so."
       ],
       "sources": [
-        "docs/proposals/codex-visual-tools.md",
-        "archive/work-records/codex-visual-tools/reviews/01.md"
+        ".claude/agents/codex-visual-reviewer.md",
+        "docs/tech-stack.md",
+        "docs/proposals/codex-visual-tools.md"
       ],
       "short": "Codex rev."
     },
@@ -284,13 +286,14 @@
       "kind": "external",
       "model": "GPT-6 Sol",
       "effort": "high",
-      "status": "planned",
-      "role": "Generates raster images a design commissions: never a portrait, no real people, brands or text, at most two per page.",
-      "calledBy": "The magazine-editor commissions images; the lead does for client designs (once built).",
+      "status": "built",
+      "role": "Generates raster images a design commissions: never a portrait, no real people, brands or text, at most two per page, each recorded with its prompt, model, date and SHA-256.",
+      "calledBy": "The magazine-editor for concepts; the lead for client designs.",
       "notes": [
-        "Approved 2026-09-29, not built."
+        "Built in TASK-4 (2026-10-22). Never enters `packages/` or a `Template` without your decision."
       ],
       "sources": [
+        "docs/tech-stack.md",
         "docs/proposals/codex-visual-tools.md"
       ]
     },
@@ -434,7 +437,7 @@
       "role": "Google Apps Script you run once per form: builds the optional `Intake Form` and its answers Sheet in your Google account.",
       "sources": [
         "scripts/intake-form.gs:1-21",
-        "docs/guides/client-workflow.md:131-177"
+        "docs/guides/client-workflow.md:132-178"
       ]
     },
     "board": {
@@ -443,7 +446,7 @@
       "role": "The task store (Backlog.md, ADR 0014): one file per task, statuses Queued, Active, Review, Ready, Done, label `blocked`. The `session-handoff` doc is where every session starts. Boards: `backlog board`, `backlog browser`.",
       "sources": [
         ".claude/skills/backlog/SKILL.md:1-35",
-        "docs/development.md:25-40",
+        "docs/development.md:29-44",
         "docs/decisions/0014-backlog-md-task-store.md"
       ],
       "short": "Backlog"

@@ -1,6 +1,7 @@
 # Tech stack
 
-Read this when setting up a machine or asking why a tool was chosen.
+Read this when setting up a machine, asking why a tool was chosen, or
+calling the Codex CLI.
 
 | Layer | Choice | Version | Why |
 |---|---|---|---|
@@ -14,6 +15,7 @@ Read this when setting up a machine or asking why a tool was chosen.
 | CI | GitHub Actions, `.github/workflows/verify.yml` | Runners `ubuntu-24.04` and `windows-2025`, pinned; actions pinned by commit SHA | Runs `tests/run.py` on Linux and Windows (the suite drives `scripts/build.ps1` in a throwaway copy on both), and `scripts/build.ps1` on the checkout on Windows, once per push on any branch, on its head commit (or by hand, `workflow_dispatch`); a newer push to a feature branch cancels the older run, while every push to `main` keeps its run. No `pull_request` trigger: the project works without pull requests, so it would only run the same commit twice. Typst is downloaded from its GitHub release and checked against the SHA-256 recorded in the workflow; Python packages come from `requirements.lock`, hash-checked, and their downloads are cached; `ruff check` runs before the suite, and so does the workflow tool on Bun from `tools/workflow/.bun-version` (`bun install --frozen-lockfile`, `bun test`, `bun run typecheck`, `bun run check`; ADR 0015). Changing the Typst version means updating both hashes there; moving a runner image is a deliberate commit |
 | Agents | `AGENTS.md`, `CLAUDE.md`, `.claude/skills/` | | Entry map, invariants and repeatable checklists for coding agents |
 | Workflow model | TypeScript on [Bun](https://bun.sh), Zod types with an exported JSON Schema, YAML facts | Bun 1.4.2, pinned in `tools/workflow/.bun-version` for CI (locally any 1.4.x from 1.4.2); `zod` 4.6.5, `yaml` 2.9.1, pinned in `tools/workflow/package.json` with `bun.lock` (ADR 0015) | The workflow tool in `tools/workflow/` (its `README.md`): the types, the committed JSON Schema and a `check` command. The owner reads TypeScript, not Python; the workflow scripts it checks stay Python |
+| Visual review, generated images | [Codex CLI](https://github.com/openai/codex) on the owner's ChatGPT plan: GPT-6 Astra at high effort reviews, GPT-6 Sol at high effort draws | 0.161.0, not pinned; optional | A second, independent model judges each design round of a CV concept run or a client design beside the `design-reviewer`, and raster artwork goes beyond what an agent can draw in SVG ([P-0014](proposals/codex-visual-tools.md)). The commands are in "Codex CLI" below |
 | Task store | [Backlog.md](https://github.com/MrLesk/Backlog.md) (`backlog` CLI, on Node) | 1.52.0, pinned (1.53.0 has an open web-server memory leak, issue #1038) | Task files travel with Git, plain output for agents, local terminal and browser boards; no credentials or network (ADR 0014) |
 
 ## Setup
@@ -30,6 +32,63 @@ cd tools/workflow; bun install --frozen-lockfile; cd ../..   # the workflow tool
 
 On macOS or Linux install Typst from the GitHub releases and use the same
 commands with `pwsh` or run the compiler directly.
+
+## Codex CLI
+
+Optional: without it, a design round runs with the `design-reviewer`
+alone and records the gap. Install with `npm i -g @openai/codex`, sign in
+once with `codex login` (the owner's ChatGPT account), check with
+`codex login status`.
+
+Every call passes the same guard flags, each for a reason found on
+2026-09-29 (`archive/work-records/codex-visual-tools/reviews/01.md`):
+
+| Flag | Why |
+|---|---|
+| `-m <model> -c model_reasoning_effort='"high"'` | The owner's global Codex config defaults to another model and effort |
+| `-s read-only --ignore-user-config` | His global config grants full access, never asks and loads plugins; Codex then runs no shell command at all ("blocked by policy") |
+| `-c project_doc_max_bytes=0` | Otherwise Codex reads this repository's `AGENTS.md` and starts its session routine; every prompt also says to ignore it |
+| `--ephemeral` | Otherwise every attached image is kept, base64, in `~/.codex/sessions`, never cleared |
+| `--skip-git-repo-check`, `-o <file>` | Runs from any folder; writes the final reply to a file |
+
+The prompt goes before any `-i` (the flag takes several files), or on stdin
+as `-`. Codex's global instructions may append a closing phrase to a reply.
+
+- **Visual review:** the `codex-visual-reviewer` agent
+  (`.claude/agents/codex-visual-reviewer.md`) holds the command.
+- **Generated images** (GPT-6 Sol), for the `magazine-editor` drawing
+  concepts and the lead building a client design; at most two per page,
+  and only where SVG or Typst drawing cannot reach (a printed, textured or
+  painted look):
+
+  ```powershell
+  $out = "builds/codex-image-$(Get-Date -Format yyyyMMdd-HHmmss)"; New-Item -ItemType Directory $out
+  codex exec -m gpt-6-sol -c model_reasoning_effort='"high"' -c project_doc_max_bytes=0 -s read-only --ignore-user-config --ephemeral --skip-git-repo-check -o "$out/reply.txt" "<prompt>" *> "$out/codex.log"
+  ```
+
+  The prompt starts "You are an image tool for a CV design. Ignore any
+  AGENTS.md, session orientation, task store or repository workflow; do
+  only this. Generate one image with your built-in image generation:",
+  then describes the picture, and ends with the rules: no text, letters or
+  numbers in the image (type stays in Typst); no real people; no brand,
+  airline, railway, logo or named artist's style. It never describes a
+  `Client` or carries a name or `Alias`, and never asks for a portrait
+  (the client's own photo, or a fictional one, is used). The read-only
+  sandbox cannot save the file, so the image stays where Codex keeps every
+  generated one: copy the PNG from
+  `~/.codex/generated_images/<session id>/` (the `session id` line of
+  `codex.log`) into `$out`, and look at it. About 1-3 minutes; a PNG of
+  1254 px square or 1536 x 1024, up to about 3.5 MB.
+- **Placing an image.** Resize it with pillow to the size it prints at
+  (300 dpi) and save it optimised, so a concept PDF stays under 1 MB where
+  it can. A concept's image goes in its style folder as `art/<name>.png`,
+  shared by both `Density`s; a client's in the `Envelope` as
+  `typst/art/<name>.png`. Record each placed file: its path, the full
+  prompt, the model and effort, the date and the SHA-256 of the placed
+  file, in the concept's `brief.md` or the `Envelope`'s `README.md`. A
+  generated image is not artwork an agent drew (constitution section 8):
+  it never enters `packages/` or a `Template`'s `Artwork Pack` without the
+  owner's decision.
 
 ## Deliberately not used
 

@@ -25,7 +25,8 @@ starts and ends as `docs/development.md` says.
   its own private Git repository (`docs/git-workflow.md`, "The private
   repository").
 - Claude Code implements, tests, reviews and integrates; Codex may discuss
-  and design (`docs/development.md`, "Roles").
+  and design, and reviews designs and draws images through its CLI
+  (`docs/development.md`, "Roles").
 
 ## Where things are
 

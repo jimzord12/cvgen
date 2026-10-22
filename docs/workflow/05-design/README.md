@@ -5,9 +5,9 @@
 <!-- generated:start summary -->
 
 - **Stage:** 05 `design`, Design and build the CV. Facts: [`stage.yaml`](stage.yaml), 26 steps, 7 gates, 4 loops.
-- **Purpose:** Turn the signed-off facts into the client's CV design and its build files: the Flagship for a Domain that has it, a custom composition when the data does not fit it, or a one-off Template from an Idea Run when the Domain has no Template; every client CV's design passes the design-reviewer.
+- **Purpose:** Turn the signed-off facts into the client's CV design and its build files: the Flagship for a Domain that has it, a custom composition when the data does not fit it, or a one-off Template from an Idea Run when the Domain has no Template; every client CV's design passes the design-reviewer and the codex-visual-reviewer.
 - **Entry:** The client's Sign-off is saved and the draft stamped signed-off (stage text-draft).
-- **Exit:** candidate.json and typst/cv.typ (with their design files and portrait) are in the Envelope, a fresh design-reviewer passed the previews (or they reached the owner marked unresolved), and the builds/ previews are cleared.
+- **Exit:** candidate.json and typst/cv.typ (with their design files and portrait) are in the Envelope, a fresh design-reviewer and a fresh codex-visual-reviewer passed the previews (or they reached the owner marked unresolved), and the builds/ previews are cleared.
 - **Reads from:** [open](../01-open/README.md), [intake](../02-intake/README.md), [research](../03-research/README.md), [text-draft](../04-text-draft/README.md), [deliver](../06-deliver/README.md). **Hands to:** [deliver](../06-deliver/README.md).
 
 <!-- generated:end summary -->
@@ -17,7 +17,9 @@
 - **Design is the product.** A client CV must pass the `Batch Test`, the
   `Three-Second Test` and `Flagship Parity` (`docs/vision.md`, "Design is
   the product"); tidy but quiet is a failure, and the `design-reviewer`
-  treats it as one (`gate.client-design-review`). Every client CV goes
+  treats it as one (`gate.client-design-review`), with a
+  `codex-visual-reviewer` beside it on the same pages
+  ([P-0014](../../proposals/codex-visual-tools.md)). Every client CV goes
   through that review, Flagship CVs included (owner's decision #4 in
   [P-0017](../../proposals/workflow-model.md)).
 - **The record comes from what the `Client` signed.** `design.fill-data`
@@ -32,8 +34,9 @@
   the `Envelope` (`design.port-concept`). Its `typst/cv.typ` imports
   `/packages/cv-framework/lib.typ` only (ADR 0012), so render checks no
   schema; the design's other files (`presentation.json`, the `.typ` files
-  in `designs/` and `text/`, the SVGs in `art/`, the portrait) are read by
-  a path relative to `cv.typ`, and a `Revision` copies each one it finds.
+  in `designs/` and `text/`, the SVGs and images in `art/`, the
+  portrait) are read by a path relative to `cv.typ`, and a `Revision`
+  copies each one it finds.
 - **The public engine changes only through code review.** A one-off's own
   design, wording and art stay in its `Envelope`; only what the engine
   alone can hold (today: a font render must find in the `Framework`'s
@@ -44,13 +47,20 @@
   reviewer, who never reads `private/`. Its brief names the `Alias` only,
   the `Domain`, specialty and `Rank`, the chosen concept folder, `Design
   Tier` and `Density` when there is one, and that the text is the
-  signed-off text. Every report is stored verbatim in the `Envelope` as
-  `reviews/design-NN.md`, never under `archive/work-records/`, and
-  `design.clear-review-input` deletes them, with the reviewer's page PNGs
-  inside, by path when the loop ends.
-- **When to stop:** a fresh `design-reviewer` returns PASS, or the cap of
-  `loop.client-design-review` (5 rounds while the owner attends, 10
-  unattended, unless he sets another) is reached and the design goes to
+  signed-off text. The `codex-visual-reviewer` sends those pages to
+  OpenAI: they carry the whole CV, name and portrait included, which the
+  consent to AI tools covers (question 1, stage
+  [intake](../02-intake/README.md)); its `--ephemeral` call keeps
+  no copy in Codex's local sessions. Every report is stored verbatim in
+  the `Envelope` as `reviews/design-NN.md` (Codex's as
+  `reviews/design-NN-codex.md`), never under `archive/work-records/`, and
+  `design.clear-review-input` deletes the previews, with both reviewers'
+  page PNGs and sheets inside, by path when the loop ends.
+- **When to stop:** a fresh `design-reviewer` and a fresh
+  `codex-visual-reviewer` both return PASS (Codex `UNAVAILABLE`: the
+  `design-reviewer` alone, noted in the `Envelope`'s `README.md`), or
+  the cap of `loop.client-design-review` (5 rounds while the owner attends,
+  10 unattended, unless he sets another) is reached and the design goes to
   the owner marked unresolved with the last reason (`design.cap-reached`).
 
 ## Branches
@@ -214,7 +224,7 @@ flowchart TD
 | `design.run-draw` | Draw three Styles in two Densities and three Design Tiers | `actor.magazine-editor` | `agent.magazine-editor` | `art.run-md` | `art.concept-brief`, `art.concept-pdf`, `art.concept-meta` |  | The client's Domain has no Template. |
 | `design.run-research-gate` | A fresh research-reviewer checks the references | `actor.research-reviewer` | `agent.research-reviewer` | `art.concept-brief` | `art.idea-research-review` | `gate.idea-research` | The client's Domain has no Template. |
 | `design.run-revise-sources` | The editor revises the references | `actor.magazine-editor` | `agent.magazine-editor-revise` | `art.idea-research-review` | `art.concept-brief` |  | The research gate returned FINDINGS. |
-| `design.run-design-gate` | A fresh design-reviewer judges every page | `actor.design-reviewer` | `agent.design-reviewer` | `art.concept-pdf`, `art.idea-research-review` | `art.idea-design-review` | `gate.idea-design` | The client's Domain has no Template. |
+| `design.run-design-gate` | A fresh design-reviewer and codex-visual-reviewer judge every page | `actor.design-reviewer` | `agent.design-reviewer` | `art.concept-pdf`, `art.idea-research-review` | `art.idea-design-review` | `gate.idea-design` | The client's Domain has no Template. |
 | `design.run-revise-design` | The editor revises the designs | `actor.magazine-editor` | `agent.magazine-editor-revise` | `art.idea-design-review` | `art.concept-pdf`, `art.concept-meta` |  | The quality gate returned FINDINGS. |
 | `design.run-integrate` | Check the Meta Files, commit and merge the run | `actor.lead` | `lead.integrate-run` | `art.concept-pdf`, `art.concept-meta`, `art.idea-design-review` | `art.concepts-readme` |  | The client's Domain has no Template. |
 | `design.run-report` | Tell the owner what the run drew | `actor.lead` | `lead.report-run` | `art.concepts-readme` | `art.run-message` |  | The client's Domain has no Template. |
@@ -231,7 +241,7 @@ flowchart TD
 | `design.engine-review` | A fresh code-reviewer reviews the engine change | `actor.code-reviewer` | `agent.code-reviewer` | `art.engine-change` | `art.engine-review-report` | `gate.engine-review` | The client's design needs something only the public engine can hold (fonts render finds only in packages/cv-framework/fonts/). |
 | `design.engine-revise` | Fix the engine change | `actor.lead` | `lead.revise-engine-change` | `art.engine-review-report` | `art.engine-change` |  | The code review returned FINDINGS. |
 | `design.preview` | Compile the previews for the reviewer | `actor.lead` | `lead.compile-previews` | `art.cv-typ`, `art.candidate-json`, `art.framework-fonts` | `art.design-review-input` |  |  |
-| `design.client-review` | A fresh design-reviewer judges the client's pages | `actor.design-reviewer` | `agent.design-reviewer` | `art.design-review-input` | `art.design-review-report` | `gate.client-design-review` |  |
+| `design.client-review` | A fresh design-reviewer and codex-visual-reviewer judge the client's pages | `actor.design-reviewer` | `agent.design-reviewer` | `art.design-review-input` | `art.design-review-report` | `gate.client-design-review` |  |
 | `design.fix` | Fix the design on the findings | `actor.lead` | `lead.fix-design` | `art.design-review-report` | `art.cv-typ` |  | The design review returned FINDINGS. |
 | `design.clear-review-input` | Clear the previews from builds/ | `actor.lead` | `lead.clear-review-input` | `art.design-review-report` |  |  |  |
 | `design.cap-reached` | At a loop's cap, the owner decides | `actor.owner` | `manual.decide-at-cap` |  |  |  |  |
@@ -247,10 +257,10 @@ flowchart TD
 | `gate.template-exists` | The Domain has a Template | `design.handover` | The client's Domain already has a Template (today only marine, the Flagship). | `design.flagship-fit` | `design.run-brief` |
 | `gate.template-fits` | The data fits the Flagship | `design.flagship-fit` | The client's data fits flagship: whole service months, no three-column certificate table, no skills block (the known cases in docs/framework-gaps.md). | `design.entry-point` | `design.custom-composition` |
 | `gate.idea-research` | Idea Run research gate | `design.run-research-gate` | A fresh research-reviewer returns PASS on the references in each brief.md. | `design.run-design-gate` | `design.run-revise-sources` |
-| `gate.idea-design` | Idea Run quality gate | `design.run-design-gate` | A fresh design-reviewer returns PASS; failing the Batch Test, the Three-Second Test or Flagship Parity is Blocking. | `design.run-integrate` | `design.run-revise-design` |
+| `gate.idea-design` | Idea Run quality gate | `design.run-design-gate` | A fresh design-reviewer and a fresh codex-visual-reviewer both return PASS (the design-reviewer alone when Codex is UNAVAILABLE); failing the Batch Test, the Three-Second Test or Flagship Parity is Blocking. | `design.run-integrate` | `design.run-revise-design` |
 | `gate.owner-pick` | The owner builds a concept | `design.pick` | The owner answered "Build it" with a Style, Design Tier and Density. | `design.record-choice` | `design.record-other-answer` |
 | `gate.engine-review` | Engine change review | `design.engine-review` | A fresh code-reviewer returns PASS (no Blocking or Material finding) on the engine change. | `design.preview` | `design.engine-revise` |
-| `gate.client-design-review` | Client design review | `design.client-review` | A fresh design-reviewer returns PASS on the client's preview pages, first on the Batch Test and the Three-Second Test. | `design.clear-review-input` | `design.fix` |
+| `gate.client-design-review` | Client design review | `design.client-review` | A fresh design-reviewer and a fresh codex-visual-reviewer both return PASS (the design-reviewer alone when Codex is UNAVAILABLE) on the client's preview pages, first on the Batch Test and the Three-Second Test. | `design.clear-review-input` | `design.fix` |
 
 <!-- generated:end gates -->
 
@@ -321,10 +331,10 @@ flowchart TD
 | `cmd.stamp-concept-status` | cmd | Stamp a concept's new state | `python scripts/outputs.py stamp <pdf> status=<state>` |
 | `lead.change-engine` | lead | Change the engine | Makes the engine change the design needs on a branch, for the normal code-reviewer gate; the one-off's own assets stay in its Envelope. |
 | `lead.check-flagship-fit` | lead | Check the Flagship fit | Checks the data against the known Flagship gaps listed in docs/framework-gaps.md. |
-| `lead.clear-review-input` | lead | Clear the previews | Deletes the builds/design-review-input-* folders by path, with the page PNGs the design-reviewer rendered inside them, since they hold a real client's pages outside private/ (never git clean -x or -X). |
+| `lead.clear-review-input` | lead | Clear the previews | Deletes the builds/design-review-input-* folders by path, with the page PNGs and batch sheets both reviewers made inside them, since they hold a real client's pages outside private/ (never git clean -x or -X). |
 | `lead.compile-previews` | lead | Compile the previews | Compiles typst/cv.typ into builds/design-review-input-<timestamp>/cv.pdf with the typst compile line in the new-cv skill, since the reviewer never reads private/. |
 | `lead.compose-by-hand` | lead | Compose by hand | Writes typst/cv.typ from the lib.typ components (core-components, flagship-components), with data the schema cannot hold in typst/presentation.json, every file read by a literal relative path. |
-| `lead.fix-design` | lead | Fix the design | Fixes the design on the findings and stores the report verbatim as reviews/design-NN.md before the next fresh round. |
+| `lead.fix-design` | lead | Fix the design | Fixes the design on the findings and stores both reports verbatim, as reviews/design-NN.md and reviews/design-NN-codex.md, before the next fresh round. |
 | `lead.integrate-run` | lead | Integrate the Idea Run | Runs python scripts/outputs.py check (every design carries its Meta File), then commits, merges to main and pushes; concepts stay proposed. |
 | `lead.port-concept` | lead | Port the chosen concept | Builds the one-off Template in the Envelope from the chosen concept's Typst: typst/cv.typ importing /packages/cv-framework/lib.typ only, the design code in typst/designs/, the wording in typst/text/, the SVGs in typst/art/. |
 | `lead.record-framework-gap` | lead | Record the Framework Gap | Adds an entry to docs/framework-gaps.md (what was needed, what was gone around, what was built) and records the reason in the Envelope's README.md. |

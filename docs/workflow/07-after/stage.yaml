@@ -38,7 +38,7 @@ steps:
   # questions is what offers it (GAPS.md, "Inferences").
   - id: after.keep-request
     name: The client asks to keep his data
-    sources: ["docs/guides/client-workflow.md:103-106", "docs/proposals/workflow-model.md:56", "archive/work-records/workflow-model/handoff.md:290", "docs/workflow/GAPS.md:54-57"]
+    sources: ["docs/guides/client-workflow.md:104-107", "docs/proposals/workflow-model.md:56", "archive/work-records/workflow-model/handoff.md:290", "docs/workflow/GAPS.md:54-57"]
     actor: actor.client
     action: manual.ask-to-keep
     inputs: [art.intake-message]
@@ -56,7 +56,7 @@ steps:
 
   - id: after.erase-commands
     name: Hand the owner the history-erase commands
-    sources: [".claude/skills/new-client/SKILL.md:25-29", "docs/guides/client-workflow.md:197-207", "docs/workflow/07-after/README.md:46-49", "docs/workflow/07-after/README.md:27-34"]
+    sources: [".claude/skills/new-client/SKILL.md:25-29", "docs/guides/client-workflow.md:198-208", "docs/workflow/07-after/README.md:46-49", "docs/workflow/07-after/README.md:27-34"]
     actor: actor.lead
     action: lead.fill-erase-commands
     inputs: [art.retention-report]
@@ -65,7 +65,7 @@ steps:
 
   - id: after.delete-google
     name: Delete the Intake Forms, Sheets and script projects
-    sources: ["docs/workflow/07-after/README.md:46-49", "docs/workflow/07-after/README.md:27-34", "docs/guides/client-workflow.md:155-156"]
+    sources: ["docs/workflow/07-after/README.md:46-49", "docs/workflow/07-after/README.md:27-34", "docs/guides/client-workflow.md:156-157"]
     actor: actor.owner
     action: manual.delete-google-items
     inputs: [art.readme-google-links, art.retention-report]
@@ -73,7 +73,7 @@ steps:
 
   - id: after.erase-envelope
     name: Delete the Envelope and erase it from the private history
-    sources: ["docs/workflow/07-after/README.md:27-34", "docs/guides/client-workflow.md:197-222", "docs/preferences.md:74-82", "docs/workflow/GAPS.md:45-48"]
+    sources: ["docs/workflow/07-after/README.md:27-34", "docs/guides/client-workflow.md:198-223", "docs/preferences.md:74-82", "docs/workflow/GAPS.md:45-48"]
     actor: actor.owner
     action: manual.erase-envelope
     inputs: [art.erase-commands]
@@ -107,7 +107,7 @@ artifacts:
 
   - id: art.keep-request
     name: The client's request to keep his data
-    sources: ["docs/guides/client-workflow.md:103-106"]
+    sources: ["docs/guides/client-workflow.md:104-107"]
     format: chat message
     visibility: third-party
 
@@ -120,13 +120,13 @@ artifacts:
 
   - id: art.erase-commands
     name: The filled history-erase commands
-    sources: ["docs/guides/client-workflow.md:209-216", ".claude/skills/new-client/SKILL.md:25-29"]
+    sources: ["docs/guides/client-workflow.md:210-217", ".claude/skills/new-client/SKILL.md:25-29"]
     format: the guide's commands with the Envelope's folder name filled in, in the lead's report
     visibility: ephemeral
 
   - id: art.private-history
     name: The private repository without the Envelope
-    sources: ["docs/guides/client-workflow.md:197-222"]
+    sources: ["docs/guides/client-workflow.md:198-223"]
     format: jimzord12/cvgen-private on GitHub, history rewritten by git filter-repo and force-pushed
     visibility: third-party
 
@@ -140,7 +140,7 @@ actions:
   - id: manual.ask-to-keep
     kind: manual
     name: Ask to keep the data
-    sources: ["docs/guides/client-workflow.md:103-106"]
+    sources: ["docs/guides/client-workflow.md:104-107"]
     does: The client asks, through the owner, that his details be kept beyond 12 months after delivery.
 
   - id: lead.record-keep-request
@@ -152,7 +152,7 @@ actions:
   - id: lead.fill-erase-commands
     kind: lead
     name: Fill in the erase commands
-    sources: [".claude/skills/new-client/SKILL.md:25-29", "docs/guides/client-workflow.md:197-216"]
+    sources: [".claude/skills/new-client/SKILL.md:25-29", "docs/guides/client-workflow.md:198-217"]
     does: >-
       Gives the owner the guide's history-erase commands filled in with the
       Envelope's folder name; he runs them, the lead never does.
@@ -166,7 +166,7 @@ actions:
   - id: manual.erase-envelope
     kind: manual
     name: Erase the Envelope
-    sources: ["docs/guides/client-workflow.md:197-222"]
+    sources: ["docs/guides/client-workflow.md:198-223"]
     does: >-
       With git status and git log origin/main.. empty in private/, the owner
       runs the erase in a fresh clone (git filter-repo, force-push), then

@@ -6,11 +6,11 @@
   "question": "Which agents, skills and tools exist, and on which model?",
   "summary": "Everyone and everything that acts in the flows: the model and effort each agent runs on, what it may touch, and every step it appears in.",
   "tldr": [
-    "Every author and reviewer agent in the repo runs on Opus at high effort: your standing choice for reviewers since 2026-09-26.",
+    "Every author and reviewer agent in the repo runs on Opus at high effort (your standing choice for reviewers since 2026-09-26), except the `codex-visual-reviewer` wrapper, on Sonnet: Codex gives its verdict.",
     "A reviewer is always fresh: a new agent each round, given the earlier reports, never a fork of the author.",
-    "Not everything here is on `main`: the two Codex steps are approved but not built; the two context agents are on `main` since 2026-10-04."
+    "Two steps run on Codex (your ChatGPT plan), not Claude: the `codex-visual-reviewer` (GPT-6 Astra, through a Sonnet wrapper) and the image step (GPT-6 Sol), built 2026-10-22."
   ],
   "sources": [
-    "docs/review.md:133-146"
+    "docs/review.md:136-151"
   ]
 }

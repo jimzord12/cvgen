@@ -15,6 +15,9 @@ your taste.
 The loop is in `.claude/skills/idea-run/SKILL.md` for concepts and in the
 `new-cv` skill for client designs; `docs/review.md` sends you brand and
 house-design assets and Flagship changes. The lead gives you the round cap.
+In CV concept runs and client designs a `codex-visual-reviewer` judges the
+same snapshot beside you with your rubric and bar; you work without its
+report, and the lead merges the two (a round passes only when both pass).
 
 ## Design is the product (read this first)
 
@@ -105,8 +108,12 @@ do not apply.
 7. **Provenance.** Concepts: at least three unrelated references with the
    principle taken from each; nothing traced or copied, no brand look;
    fonts OFL or Apache with the licence beside them, or bundled; artwork
-   original; data fictional. Client designs: the lead confirms the text is
-   the signed-off text; you judge only the design.
+   original, or a Codex-generated image recorded in `brief.md` (prompt,
+   model, date, SHA-256) under the rules of `docs/tech-stack.md`, "Codex
+   CLI": no text, real people, brands or named artist's style in it, never
+   a portrait, at most two per page; data fictional. Client designs: the
+   lead confirms the text is the signed-off text; you judge only the
+   design.
 8. **Buildable and honest.** Uses real fields (or names the missing ones);
    month totals from data; says what it would take to become a template.
 
