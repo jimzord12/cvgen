@@ -530,6 +530,7 @@ window.ATLAS = {
    "id": "client-journey",
    "generated": "by `bun run atlas` in tools/workflow, from the Workflow Model in docs/workflow; do not edit",
    "kind": "flow",
+   "defaultView": "story",
    "nav": "New client",
    "title": "A new client, start to finish",
    "question": "I just got a new client. What do I do?",
@@ -4482,14 +4483,14 @@ window.ATLAS = {
   }
  ],
  "build": {
-  "builtAt": "2026-10-22 12:17 UTC",
-  "commit": "79ac34c",
+  "builtAt": "2026-10-22 13:24 UTC",
+  "commit": "1c557ed",
   "kit": "1.1",
   "stale": {},
   "verified": {
    "client-journey": {
     "at": "2026-10-22",
-    "commit": "79ac34c"
+    "commit": "1c557ed"
    },
    "design-run": {
     "at": "2026-10-22",

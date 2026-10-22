@@ -1094,7 +1094,7 @@
       })) : null)));
 
     add(root, h('section.section', null, h('div.wrap', null,
-      h('div.section-h', null, h('div', null, h('h2', null, 'Pick a question'), h('p', null, 'Each page answers one. Flows open on a Map; the Walk through goes step by step.'))),
+      h('div.section-h', null, h('div', null, h('h2', null, 'Pick a question'), h('p', null, 'Each page answers one. Flows have a Map of every step and a Walk through that goes one step at a time.'))),
       h('div.cards', null, pages.map(function (p) {
         var foot = null, vis = null;
         if (p.kind === 'flow') {

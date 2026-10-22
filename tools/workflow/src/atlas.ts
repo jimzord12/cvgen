@@ -206,6 +206,7 @@ export function clientJourney(ix: Indexed, site: Site): { page?: object; problem
     id: pageId,
     generated: "by `bun run atlas` in tools/workflow, from the Workflow Model in docs/workflow; do not edit",
     kind: "flow",
+    defaultView: "story", // owner, 2026-10-22: the walk-through reads better than the map of 104 steps
     nav: "New client",
     title: "A new client, start to finish",
     question: "I just got a new client. What do I do?",
