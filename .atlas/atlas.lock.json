@@ -17,7 +17,7 @@
    "verifiedAt": "2026-10-22"
   },
   "client-journey": {
-   "commit": "79ac34c",
+   "commit": "1c557ed",
    "sources": {
     ".claude/agents/design-reviewer.md": "1b7e4e0703514230ef04a3d6d1b020d9e6fc2145",
     ".claude/skills/idea-run/SKILL.md": "e1208b8d675ef749b06c25a95f2e1d59f4713984",

@@ -24,7 +24,7 @@ Rewritten in place at the end of every session; the first thing a fresh session 
    - Closed 2026-10-22: P-0018 answered and applied (`docs/proposals/workflow-gaps.md`, Decisions; item 3 uncapped). TASK-4 merged. The `Three-Second Test` is page 1's job only (`docs/vision.md`). P-0011 and P-0017 marked applied.
    - Closed 2026-10-22: the two scratch copies of client files and their worktrees and branches are gone, and the `client-2026-09-01` delivery is committed in `private/` (`129214c`). The owner's `/atlas refresh` now regenerates a page whose JSON carries `"generated"` with the command it names, never hand-edits it (owner: "regenerate"); `atlas.py check` repeats that note under a stale or unverified generated page.
 2. Ready for agents, no owner input needed: TASK-3 (deck data), TASK-60, TASK-61, TASK-62.
-3. Owner's own checks still open: the VS Code YAML hints (TASK-36) and the Atlas client-journey map view (104 steps; walk-through view may suit better as the default).
+3. Owner's own checks, closed 2026-10-22: the VS Code YAML hints (TASK-36) show on hover; the Atlas client-journey page opens in the walk-through view by default (owner's choice; `defaultView` in `tools/workflow/src/atlas.ts`).
 4. Client `client-2026-09-01`: if the client holds an early Stamp Rally edition (white strip under the boarding-pass portrait, fixed 2026-10-02), the owner may send the fixed one. Owner-only clean-up at the delete-by date (2027-10-02): delete the Intake Form, answers Sheet and script project, empty the Drive Trash, delete `private/<envelope>/`.
 
 ## Owner decisions parked

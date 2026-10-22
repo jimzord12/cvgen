@@ -2,6 +2,7 @@
   "id": "client-journey",
   "generated": "by `bun run atlas` in tools/workflow, from the Workflow Model in docs/workflow; do not edit",
   "kind": "flow",
+  "defaultView": "story",
   "nav": "New client",
   "title": "A new client, start to finish",
   "question": "I just got a new client. What do I do?",

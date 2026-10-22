@@ -87,7 +87,7 @@ describe("the page follows the model", () => {
   const p = page();
 
   test("one phase per stage and one step per model step, in model order, each citing the model step's anchors", () => {
-    expect(p).toMatchObject({ id: "client-journey", kind: "flow" });
+    expect(p).toMatchObject({ id: "client-journey", kind: "flow", defaultView: "story" });
     expect(p.phases.map((ph) => ph.id)).toEqual(ix.model.stages.map((s) => s.data.id));
     const modelSteps = ix.model.stages.flatMap((s) => s.data.steps);
     expect(steps(p).map((s) => s.id)).toEqual(modelSteps.map((s) => s.id));
