@@ -110,7 +110,7 @@
       ],
       "sources": [
         ".claude/agents/design-reviewer.md:1-17",
-        ".claude/agents/design-reviewer.md:72-144"
+        ".claude/agents/design-reviewer.md:72-143"
       ],
       "short": "Design rev."
     },

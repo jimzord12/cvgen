@@ -112,7 +112,7 @@ window.ATLAS = {
     ],
     "sources": [
      ".claude/agents/design-reviewer.md:1-17",
-     ".claude/agents/design-reviewer.md:72-144"
+     ".claude/agents/design-reviewer.md:72-143"
     ],
     "short": "Design rev."
    },
@@ -3459,7 +3459,7 @@ window.ATLAS = {
        ],
        "sources": [
         ".claude/skills/idea-run/SKILL.md:58-76",
-        ".claude/agents/design-reviewer.md:47-144",
+        ".claude/agents/design-reviewer.md:47-143",
         ".claude/agents/codex-visual-reviewer.md",
         "docs/proposals/codex-visual-tools.md"
        ]
@@ -4473,30 +4473,30 @@ window.ATLAS = {
   }
  ],
  "build": {
-  "builtAt": "2026-10-22 10:22 UTC",
-  "commit": "f456863",
+  "builtAt": "2026-10-22 10:29 UTC",
+  "commit": "ec5ceab",
   "kit": "1.0",
   "stale": {},
   "verified": {
    "client-journey": {
     "at": "2026-10-22",
-    "commit": "f456863"
+    "commit": "ec5ceab"
    },
    "design-run": {
     "at": "2026-10-22",
-    "commit": "f456863"
+    "commit": "ec5ceab"
    },
    "change-review": {
     "at": "2026-10-22",
-    "commit": "f456863"
+    "commit": "ec5ceab"
    },
    "system-map": {
     "at": "2026-10-22",
-    "commit": "f456863"
+    "commit": "ec5ceab"
    },
    "roster": {
     "at": "2026-10-22",
-    "commit": "f456863"
+    "commit": "ec5ceab"
    }
   }
  }

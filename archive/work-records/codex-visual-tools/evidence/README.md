@@ -23,8 +23,8 @@ The first walk (before the profile attached the Flagship page) returned
 FINDINGS for that reason alone; its files stayed under `builds/`. Both
 recorded walks used a "Flagship change" rubric variant, which the profile
 dropped afterwards (Codex judges only CV concept runs and client designs);
-they prove the command, the flags and the plumbing. A third walk on the
-final profile ran as a client round on page 2 of the same fictional PDF,
+they prove the command, the flags and the plumbing. A third walk, on the
+profile before its last clarifications and with a Flagship-change brief, ran as a client round on page 2 of the same fictional PDF,
 with every Codex file prefixed `codex-` in the shared input folder: exit
 0, about 66 s; Codex returned FINDINGS (Blocking on the `Three-Second
 Test`: page 2 does not show marine, engine and rank before reading, a
