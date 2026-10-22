@@ -15,7 +15,7 @@ your taste.
 The loop is in `.claude/skills/idea-run/SKILL.md` for concepts and in the
 `new-cv` skill for client designs; `docs/review.md` sends you brand and
 house-design assets and Flagship changes. The lead gives you the round cap.
-In concept runs and client designs a `codex-visual-reviewer` judges the
+In CV concept runs and client designs a `codex-visual-reviewer` judges the
 same snapshot beside you with your rubric and bar; you work without its
 report, and the lead merges the two (a round passes only when both pass).
 
@@ -72,7 +72,8 @@ anything else you need.
 ## Rubric for a CV page (each criterion passes or fails, with a reason)
 
 For a concept page, all eight apply. For a client CV built from a chosen
-concept, criterion 4 reads "distinct from the market and faithful to the
+concept (for a Flagship client CV, the Flagship is that concept),
+criterion 4 reads "distinct from the market and faithful to the
 chosen concept" (resembling its source is the point, not a fault) and
 criterion 8 does not apply. For a Flagship change, criteria 1 to 3 mean
 parity with the frozen Flagship and no regression, and criteria 4, 7 and 8

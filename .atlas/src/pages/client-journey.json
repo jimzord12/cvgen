@@ -26,7 +26,7 @@
     ".claude/skills/new-client/SKILL.md:53-74",
     "docs/workflow/04-text-draft/README.md:15-42",
     ".claude/skills/new-client/SKILL.md:76-97",
-    "docs/workflow/05-design/README.md:15-63",
+    "docs/workflow/05-design/README.md:15-64",
     ".claude/skills/new-cv/SKILL.md:21-62",
     "docs/guides/build-a-cv.md:1-100",
     "docs/guides/build-a-cv.md:102-182",
@@ -1433,7 +1433,7 @@
           "note": "Model step `design.run-brief`, action `skill.idea-run`, in `docs/workflow/05-design/stage.yaml`.",
           "sources": [
             ".claude/skills/new-cv/SKILL.md:28-39",
-            "docs/workflow/05-design/README.md:29-38",
+            "docs/workflow/05-design/README.md:29-39",
             ".claude/skills/idea-run/SKILL.md:32-43",
             "docs/workflow/05-design/README.md:29-33"
           ]
@@ -1536,7 +1536,7 @@
           "summary": "A fresh design-reviewer round",
           "gate": {
             "type": "review",
-            "label": "Idea Run quality gate: A fresh design-reviewer and a fresh codex-visual-reviewer both return PASS; failing the Batch Test, the Three-Second Test or Flagship Parity is Blocking.",
+            "label": "Idea Run quality gate: A fresh design-reviewer and a fresh codex-visual-reviewer both return PASS (the design-reviewer alone when Codex is UNAVAILABLE); failing the Batch Test, the Three-Second Test or Flagship Parity is Blocking.",
             "cap": "5 attended, 10 unattended, then `design.cap-reached`"
           },
           "branch": [
@@ -1864,7 +1864,7 @@
           "note": "Model step `design.port-concept`, action `lead.port-concept`, in `docs/workflow/05-design/stage.yaml`.",
           "sources": [
             "docs/framework-gaps.md:128-132",
-            "docs/workflow/05-design/README.md:29-38",
+            "docs/workflow/05-design/README.md:29-39",
             "archive/work-records/workflow-model/handoff.md:290"
           ]
         },
@@ -1888,7 +1888,7 @@
           "sources": [
             "docs/guides/build-a-cv.md:255-261",
             ".claude/skills/new-cv/SKILL.md:40-45",
-            "docs/workflow/05-design/README.md:69-73"
+            "docs/workflow/05-design/README.md:70-74"
           ]
         },
         {
@@ -1998,7 +1998,7 @@
           "note": "Model step `design.preview`, action `lead.compile-previews`, in `docs/workflow/05-design/stage.yaml`.",
           "sources": [
             ".claude/skills/new-cv/SKILL.md:46-54",
-            "docs/workflow/05-design/README.md:44-46",
+            "docs/workflow/05-design/README.md:45-47",
             "docs/proposals/workflow-model.md:57"
           ]
         },
@@ -2009,7 +2009,7 @@
           "summary": "A fresh design-reviewer round",
           "gate": {
             "type": "review",
-            "label": "Client design review: A fresh design-reviewer and a fresh codex-visual-reviewer both return PASS on the client's preview pages, first on the Batch Test and the Three-Second Test.",
+            "label": "Client design review: A fresh design-reviewer and a fresh codex-visual-reviewer both return PASS (the design-reviewer alone when Codex is UNAVAILABLE) on the client's preview pages, first on the Batch Test and the Three-Second Test.",
             "cap": "5 attended, 10 unattended, then `design.cap-reached`"
           },
           "next": [],
@@ -2035,7 +2035,7 @@
           ],
           "note": "Model step `design.client-review`, action `agent.design-reviewer`, in `docs/workflow/05-design/stage.yaml`.",
           "sources": [
-            "docs/workflow/05-design/README.md:44-63",
+            "docs/workflow/05-design/README.md:45-64",
             ".claude/skills/new-cv/SKILL.md:55-61",
             "docs/proposals/workflow-model.md:57",
             ".claude/agents/design-reviewer.md:37-45"
@@ -2064,7 +2064,7 @@
           ],
           "note": "Model step `design.fix`, action `lead.fix-design`, in `docs/workflow/05-design/stage.yaml`.",
           "sources": [
-            "docs/workflow/05-design/README.md:58-63"
+            "docs/workflow/05-design/README.md:59-64"
           ]
         },
         {
@@ -2078,7 +2078,7 @@
           ],
           "note": "Model step `design.clear-review-input`, action `lead.clear-review-input`, in `docs/workflow/05-design/stage.yaml`.",
           "sources": [
-            "docs/workflow/05-design/README.md:56-57",
+            "docs/workflow/05-design/README.md:57-58",
             ".claude/skills/new-cv/SKILL.md:62",
             "docs/preferences.md:67-69",
             ".claude/agents/design-reviewer.md:49-53"
@@ -2095,7 +2095,7 @@
           ],
           "note": "Model step `design.cap-reached`, action `manual.decide-at-cap`, in `docs/workflow/05-design/stage.yaml`.",
           "sources": [
-            "docs/workflow/05-design/README.md:58-63",
+            "docs/workflow/05-design/README.md:59-64",
             ".claude/skills/idea-run/SKILL.md:73-76",
             "docs/review.md:203-207"
           ]

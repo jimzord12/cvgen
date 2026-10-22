@@ -1,7 +1,7 @@
 {
  "pages": {
   "change-review": {
-   "commit": "872ef3f",
+   "commit": "f456863",
    "sources": {
     ".claude/skills/verify-cv/SKILL.md": "0a507b4d2616e8623eeb53af7bb860aed3dfdcf5",
     ".github/workflows/verify.yml": "1863e738e0ff361cd4add4977517cbb333043871",
@@ -17,9 +17,9 @@
    "verifiedAt": "2026-10-22"
   },
   "client-journey": {
-   "commit": "872ef3f",
+   "commit": "f456863",
    "sources": {
-    ".claude/agents/design-reviewer.md": "8cbc3a4572285d37349fa8f910fb1190d7eb286d",
+    ".claude/agents/design-reviewer.md": "3ec2ce1e2e1264ea0ff64cbbb66c7aba01790cc2",
     ".claude/skills/idea-run/SKILL.md": "914b56c47c1fae94ec72bfc8c12efa709406b90b",
     ".claude/skills/new-client/SKILL.md": "29716a9fc7dd593e8ade11219263f24804bd390e",
     ".claude/skills/new-cv/SKILL.md": "d58ba34ffb6baf6df9a3fb91516adea1b525e5c7",
@@ -38,7 +38,7 @@
     "docs/workflow/02-intake/README.md": "b5786efbbf39f06c572cfa4de98f279537c9e445",
     "docs/workflow/03-research/README.md": "c179457acdd48114a04a1995862f2a8a11aee6a6",
     "docs/workflow/04-text-draft/README.md": "9b52cdd0feb1910a0a15f0ac335b6527656d3a33",
-    "docs/workflow/05-design/README.md": "2060da68750a1f3a0adf492c44beb3ce5c69003b",
+    "docs/workflow/05-design/README.md": "2ead0c6df695a7015ab154a9c28b90fb12cbbfd5",
     "docs/workflow/06-deliver/README.md": "c970a8aae46d6e186f3c99e53785fd38365e8bf6",
     "docs/workflow/07-after/README.md": "ccc81128dc66e469368164c7280d435db065fda3",
     "docs/workflow/GAPS.md": "d182eb5ff5685c73367e7cea1d6d10882aeb4400",
@@ -54,11 +54,11 @@
    "verifiedAt": "2026-10-22"
   },
   "design-run": {
-   "commit": "872ef3f",
+   "commit": "f456863",
    "sources": {
-    ".claude/agents/codex-visual-reviewer.md": "577cd36bc74fe43aa57a8ab6208360f12746addb",
-    ".claude/agents/design-reviewer.md": "8cbc3a4572285d37349fa8f910fb1190d7eb286d",
-    ".claude/agents/magazine-editor.md": "5a42682ef196bb5f6088871c45a5ebf9043b18e1",
+    ".claude/agents/codex-visual-reviewer.md": "9159b730afb0615e04561007c41921035764a96e",
+    ".claude/agents/design-reviewer.md": "3ec2ce1e2e1264ea0ff64cbbb66c7aba01790cc2",
+    ".claude/agents/magazine-editor.md": "e143107b4c92af03e3db70e2185604743a68e2db",
     ".claude/agents/research-reviewer.md": "5c4ca50e19c0afaffde30e28555b9479dc28ccc2",
     ".claude/skills/idea-run/SKILL.md": "914b56c47c1fae94ec72bfc8c12efa709406b90b",
     "apps/design-review/README.md": "5d14097c544910a9ba0d940e76863223ac1f62a3",
@@ -73,16 +73,16 @@
    "verifiedAt": "2026-10-22"
   },
   "roster": {
-   "commit": "872ef3f",
+   "commit": "f456863",
    "sources": {
     ".claude/agents/ceo-reviewer.md": "058811a51ac27c65a93dc8915db4afd58676d33d",
     ".claude/agents/ceo.md": "e6291c8d2282c325db11302b1be9ee8364edd3aa",
     ".claude/agents/code-reviewer.md": "7dc8681cc1567d31c532660f0a394a0b717392d2",
-    ".claude/agents/codex-visual-reviewer.md": "577cd36bc74fe43aa57a8ab6208360f12746addb",
+    ".claude/agents/codex-visual-reviewer.md": "9159b730afb0615e04561007c41921035764a96e",
     ".claude/agents/context-maintainer.md": "2a494e1e998da769620850a756863a923b02f28e",
     ".claude/agents/context-reviewer.md": "68205bcdf72a4c0b36c4c4ca2a8a3baadcd5f34a",
-    ".claude/agents/design-reviewer.md": "8cbc3a4572285d37349fa8f910fb1190d7eb286d",
-    ".claude/agents/magazine-editor.md": "5a42682ef196bb5f6088871c45a5ebf9043b18e1",
+    ".claude/agents/design-reviewer.md": "3ec2ce1e2e1264ea0ff64cbbb66c7aba01790cc2",
+    ".claude/agents/magazine-editor.md": "e143107b4c92af03e3db70e2185604743a68e2db",
     ".claude/agents/repo-auditor-lite.md": "99c2e868259168afc5e9a3a087e4d3cc1ef88354",
     ".claude/agents/research-reviewer.md": "5c4ca50e19c0afaffde30e28555b9479dc28ccc2",
     ".claude/repo-maintenance.md": "ad61b38fd0ca448d72a1d2f8265f73143ec6c295",
@@ -123,7 +123,7 @@
    "verifiedAt": "2026-10-22"
   },
   "system-map": {
-   "commit": "872ef3f",
+   "commit": "f456863",
    "sources": {
     ".claude/agents": "dir1:d86ac8b44b9896473ff12ecdbc91538ae34a8852",
     ".claude/skills": "dir1:5eeafda0c9ef9a6037a3fcc2879f73f098fa3e55",

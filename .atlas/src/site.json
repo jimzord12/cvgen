@@ -110,7 +110,7 @@
       ],
       "sources": [
         ".claude/agents/design-reviewer.md:1-17",
-        ".claude/agents/design-reviewer.md:72-143"
+        ".claude/agents/design-reviewer.md:72-144"
       ],
       "short": "Design rev."
     },
@@ -270,7 +270,7 @@
       "file": ".claude/agents/codex-visual-reviewer.md",
       "role": "Second visual reviewer beside the design-reviewer: a thin Claude wrapper (Sonnet, high) sends the page images, batch sheets and the design-reviewer's own rubric to GPT-6 Astra through the Codex CLI and returns its verdict unedited. A design round passes only when both pass.",
       "access": "Codex runs read-only, ephemeral, without your global Codex config; the wrapper writes only under `builds/`.",
-      "calledBy": "The lead, every design round of a concept run or a client design. Brand assets and Flagship changes keep the design-reviewer alone.",
+      "calledBy": "The lead, every design round of a concept run or a client design. Brand assets, a non-CV Idea Run and Flagship changes keep the design-reviewer alone.",
       "notes": [
         "Built in TASK-4 (2026-10-22). If Codex is unavailable, the round runs on the design-reviewer alone and says so."
       ],

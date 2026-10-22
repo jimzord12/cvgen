@@ -20,4 +20,13 @@ image; no real people; no brand, airline, railway, logo or named artist's
 style." Model GPT-6 Sol, effort high, 2026-10-22.
 
 The first walk (before the profile attached the Flagship page) returned
-FINDINGS for that reason alone; its files stayed under `builds/`.
+FINDINGS for that reason alone; its files stayed under `builds/`. Both
+recorded walks used a "Flagship change" rubric variant, which the profile
+dropped afterwards (Codex judges only CV concept runs and client designs);
+they prove the command, the flags and the plumbing. A third walk on the
+final profile ran as a client round on page 2 of the same fictional PDF,
+with every Codex file prefixed `codex-` in the shared input folder: exit
+0, about 66 s; Codex returned FINDINGS (Blocking on the `Three-Second
+Test`: page 2 does not show marine, engine and rank before reading, a
+limit it says the frozen Flagship shares). Its files stayed under
+`builds/`.

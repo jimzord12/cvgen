@@ -177,8 +177,8 @@ required, and your job is to draw it better than anyone else.
   text, real people, brands or named artist's style in it, placed and
   recorded in `brief.md` exactly as `docs/tech-stack.md`, "Codex CLI",
   says. Draw the domain generously: this is where the `Three-Second Test`
-  is won. No portrait unless the idea needs one; then copy a fictional one (such as
-  `examples/candidates/fictional-engineer.png`) once into the style folder
+  is won. No portrait unless the idea needs one; then copy a fictional one
+  (such as `examples/candidates/fictional-engineer.png`) once into the style folder
   as `portrait.jpg` (converted to JPEG) and keep each PDF under 1 MB if you can (a Spacious PDF
   of several pages too).
 - Render every page's PNG with pymupdf and look at it yourself before

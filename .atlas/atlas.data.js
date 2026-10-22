@@ -112,7 +112,7 @@ window.ATLAS = {
     ],
     "sources": [
      ".claude/agents/design-reviewer.md:1-17",
-     ".claude/agents/design-reviewer.md:72-143"
+     ".claude/agents/design-reviewer.md:72-144"
     ],
     "short": "Design rev."
    },
@@ -272,7 +272,7 @@ window.ATLAS = {
     "file": ".claude/agents/codex-visual-reviewer.md",
     "role": "Second visual reviewer beside the design-reviewer: a thin Claude wrapper (Sonnet, high) sends the page images, batch sheets and the design-reviewer's own rubric to GPT-6 Astra through the Codex CLI and returns its verdict unedited. A design round passes only when both pass.",
     "access": "Codex runs read-only, ephemeral, without your global Codex config; the wrapper writes only under `builds/`.",
-    "calledBy": "The lead, every design round of a concept run or a client design. Brand assets and Flagship changes keep the design-reviewer alone.",
+    "calledBy": "The lead, every design round of a concept run or a client design. Brand assets, a non-CV Idea Run and Flagship changes keep the design-reviewer alone.",
     "notes": [
      "Built in TASK-4 (2026-10-22). If Codex is unavailable, the round runs on the design-reviewer alone and says so."
     ],
@@ -554,7 +554,7 @@ window.ATLAS = {
     ".claude/skills/new-client/SKILL.md:53-74",
     "docs/workflow/04-text-draft/README.md:15-42",
     ".claude/skills/new-client/SKILL.md:76-97",
-    "docs/workflow/05-design/README.md:15-63",
+    "docs/workflow/05-design/README.md:15-64",
     ".claude/skills/new-cv/SKILL.md:21-62",
     "docs/guides/build-a-cv.md:1-100",
     "docs/guides/build-a-cv.md:102-182",
@@ -1961,7 +1961,7 @@ window.ATLAS = {
        "note": "Model step `design.run-brief`, action `skill.idea-run`, in `docs/workflow/05-design/stage.yaml`.",
        "sources": [
         ".claude/skills/new-cv/SKILL.md:28-39",
-        "docs/workflow/05-design/README.md:29-38",
+        "docs/workflow/05-design/README.md:29-39",
         ".claude/skills/idea-run/SKILL.md:32-43",
         "docs/workflow/05-design/README.md:29-33"
        ]
@@ -2064,7 +2064,7 @@ window.ATLAS = {
        "summary": "A fresh design-reviewer round",
        "gate": {
         "type": "review",
-        "label": "Idea Run quality gate: A fresh design-reviewer and a fresh codex-visual-reviewer both return PASS; failing the Batch Test, the Three-Second Test or Flagship Parity is Blocking.",
+        "label": "Idea Run quality gate: A fresh design-reviewer and a fresh codex-visual-reviewer both return PASS (the design-reviewer alone when Codex is UNAVAILABLE); failing the Batch Test, the Three-Second Test or Flagship Parity is Blocking.",
         "cap": "5 attended, 10 unattended, then `design.cap-reached`"
        },
        "branch": [
@@ -2392,7 +2392,7 @@ window.ATLAS = {
        "note": "Model step `design.port-concept`, action `lead.port-concept`, in `docs/workflow/05-design/stage.yaml`.",
        "sources": [
         "docs/framework-gaps.md:128-132",
-        "docs/workflow/05-design/README.md:29-38",
+        "docs/workflow/05-design/README.md:29-39",
         "archive/work-records/workflow-model/handoff.md:290"
        ]
       },
@@ -2416,7 +2416,7 @@ window.ATLAS = {
        "sources": [
         "docs/guides/build-a-cv.md:255-261",
         ".claude/skills/new-cv/SKILL.md:40-45",
-        "docs/workflow/05-design/README.md:69-73"
+        "docs/workflow/05-design/README.md:70-74"
        ]
       },
       {
@@ -2526,7 +2526,7 @@ window.ATLAS = {
        "note": "Model step `design.preview`, action `lead.compile-previews`, in `docs/workflow/05-design/stage.yaml`.",
        "sources": [
         ".claude/skills/new-cv/SKILL.md:46-54",
-        "docs/workflow/05-design/README.md:44-46",
+        "docs/workflow/05-design/README.md:45-47",
         "docs/proposals/workflow-model.md:57"
        ]
       },
@@ -2537,7 +2537,7 @@ window.ATLAS = {
        "summary": "A fresh design-reviewer round",
        "gate": {
         "type": "review",
-        "label": "Client design review: A fresh design-reviewer and a fresh codex-visual-reviewer both return PASS on the client's preview pages, first on the Batch Test and the Three-Second Test.",
+        "label": "Client design review: A fresh design-reviewer and a fresh codex-visual-reviewer both return PASS (the design-reviewer alone when Codex is UNAVAILABLE) on the client's preview pages, first on the Batch Test and the Three-Second Test.",
         "cap": "5 attended, 10 unattended, then `design.cap-reached`"
        },
        "next": [],
@@ -2563,7 +2563,7 @@ window.ATLAS = {
        ],
        "note": "Model step `design.client-review`, action `agent.design-reviewer`, in `docs/workflow/05-design/stage.yaml`.",
        "sources": [
-        "docs/workflow/05-design/README.md:44-63",
+        "docs/workflow/05-design/README.md:45-64",
         ".claude/skills/new-cv/SKILL.md:55-61",
         "docs/proposals/workflow-model.md:57",
         ".claude/agents/design-reviewer.md:37-45"
@@ -2592,7 +2592,7 @@ window.ATLAS = {
        ],
        "note": "Model step `design.fix`, action `lead.fix-design`, in `docs/workflow/05-design/stage.yaml`.",
        "sources": [
-        "docs/workflow/05-design/README.md:58-63"
+        "docs/workflow/05-design/README.md:59-64"
        ]
       },
       {
@@ -2606,7 +2606,7 @@ window.ATLAS = {
        ],
        "note": "Model step `design.clear-review-input`, action `lead.clear-review-input`, in `docs/workflow/05-design/stage.yaml`.",
        "sources": [
-        "docs/workflow/05-design/README.md:56-57",
+        "docs/workflow/05-design/README.md:57-58",
         ".claude/skills/new-cv/SKILL.md:62",
         "docs/preferences.md:67-69",
         ".claude/agents/design-reviewer.md:49-53"
@@ -2623,7 +2623,7 @@ window.ATLAS = {
        ],
        "note": "Model step `design.cap-reached`, action `manual.decide-at-cap`, in `docs/workflow/05-design/stage.yaml`.",
        "sources": [
-        "docs/workflow/05-design/README.md:58-63",
+        "docs/workflow/05-design/README.md:59-64",
         ".claude/skills/idea-run/SKILL.md:73-76",
         "docs/review.md:203-207"
        ]
@@ -3459,7 +3459,7 @@ window.ATLAS = {
        ],
        "sources": [
         ".claude/skills/idea-run/SKILL.md:58-76",
-        ".claude/agents/design-reviewer.md:47-143",
+        ".claude/agents/design-reviewer.md:47-144",
         ".claude/agents/codex-visual-reviewer.md",
         "docs/proposals/codex-visual-tools.md"
        ]
@@ -4473,30 +4473,30 @@ window.ATLAS = {
   }
  ],
  "build": {
-  "builtAt": "2026-10-22 10:15 UTC",
-  "commit": "872ef3f",
+  "builtAt": "2026-10-22 10:22 UTC",
+  "commit": "f456863",
   "kit": "1.0",
   "stale": {},
   "verified": {
    "client-journey": {
     "at": "2026-10-22",
-    "commit": "872ef3f"
+    "commit": "f456863"
    },
    "design-run": {
     "at": "2026-10-22",
-    "commit": "872ef3f"
+    "commit": "f456863"
    },
    "change-review": {
     "at": "2026-10-22",
-    "commit": "872ef3f"
+    "commit": "f456863"
    },
    "system-map": {
     "at": "2026-10-22",
-    "commit": "872ef3f"
+    "commit": "f456863"
    },
    "roster": {
     "at": "2026-10-22",
-    "commit": "872ef3f"
+    "commit": "f456863"
    }
   }
  }

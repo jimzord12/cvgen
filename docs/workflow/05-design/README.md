@@ -34,8 +34,9 @@
   the `Envelope` (`design.port-concept`). Its `typst/cv.typ` imports
   `/packages/cv-framework/lib.typ` only (ADR 0012), so render checks no
   schema; the design's other files (`presentation.json`, the `.typ` files
-  in `designs/` and `text/`, the SVGs and images in `art/`, the portrait) are read by
-  a path relative to `cv.typ`, and a `Revision` copies each one it finds.
+  in `designs/` and `text/`, the SVGs and images in `art/`, the
+  portrait) are read by a path relative to `cv.typ`, and a `Revision`
+  copies each one it finds.
 - **The public engine changes only through code review.** A one-off's own
   design, wording and art stay in its `Envelope`; only what the engine
   alone can hold (today: a font render must find in the `Framework`'s
@@ -57,9 +58,9 @@
   page PNGs and sheets inside, by path when the loop ends.
 - **When to stop:** a fresh `design-reviewer` and a fresh
   `codex-visual-reviewer` both return PASS (Codex `UNAVAILABLE`: the
-  `design-reviewer` alone, noted in the `Envelope`'s `README.md`), or the cap of
-  `loop.client-design-review` (5 rounds while the owner attends, 10
-  unattended, unless he sets another) is reached and the design goes to
+  `design-reviewer` alone, noted in the `Envelope`'s `README.md`), or
+  the cap of `loop.client-design-review` (5 rounds while the owner attends,
+  10 unattended, unless he sets another) is reached and the design goes to
   the owner marked unresolved with the last reason (`design.cap-reached`).
 
 ## Branches
@@ -256,10 +257,10 @@ flowchart TD
 | `gate.template-exists` | The Domain has a Template | `design.handover` | The client's Domain already has a Template (today only marine, the Flagship). | `design.flagship-fit` | `design.run-brief` |
 | `gate.template-fits` | The data fits the Flagship | `design.flagship-fit` | The client's data fits flagship: whole service months, no three-column certificate table, no skills block (the known cases in docs/framework-gaps.md). | `design.entry-point` | `design.custom-composition` |
 | `gate.idea-research` | Idea Run research gate | `design.run-research-gate` | A fresh research-reviewer returns PASS on the references in each brief.md. | `design.run-design-gate` | `design.run-revise-sources` |
-| `gate.idea-design` | Idea Run quality gate | `design.run-design-gate` | A fresh design-reviewer and a fresh codex-visual-reviewer both return PASS; failing the Batch Test, the Three-Second Test or Flagship Parity is Blocking. | `design.run-integrate` | `design.run-revise-design` |
+| `gate.idea-design` | Idea Run quality gate | `design.run-design-gate` | A fresh design-reviewer and a fresh codex-visual-reviewer both return PASS (the design-reviewer alone when Codex is UNAVAILABLE); failing the Batch Test, the Three-Second Test or Flagship Parity is Blocking. | `design.run-integrate` | `design.run-revise-design` |
 | `gate.owner-pick` | The owner builds a concept | `design.pick` | The owner answered "Build it" with a Style, Design Tier and Density. | `design.record-choice` | `design.record-other-answer` |
 | `gate.engine-review` | Engine change review | `design.engine-review` | A fresh code-reviewer returns PASS (no Blocking or Material finding) on the engine change. | `design.preview` | `design.engine-revise` |
-| `gate.client-design-review` | Client design review | `design.client-review` | A fresh design-reviewer and a fresh codex-visual-reviewer both return PASS on the client's preview pages, first on the Batch Test and the Three-Second Test. | `design.clear-review-input` | `design.fix` |
+| `gate.client-design-review` | Client design review | `design.client-review` | A fresh design-reviewer and a fresh codex-visual-reviewer both return PASS (the design-reviewer alone when Codex is UNAVAILABLE) on the client's preview pages, first on the Batch Test and the Three-Second Test. | `design.clear-review-input` | `design.fix` |
 
 <!-- generated:end gates -->
 
