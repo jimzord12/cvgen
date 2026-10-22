@@ -1,10 +1,10 @@
 ---
 id: TASK-4
 title: 'codex-visual-tools: Codex image generation and a second visual reviewer'
-status: Ready
+status: Done
 assignee: []
 created_date: '2026-10-06 07:25'
-updated_date: '2026-10-22 10:34'
+updated_date: '2026-10-22 10:42'
 labels: []
 dependencies: []
 references:
