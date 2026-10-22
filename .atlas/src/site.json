@@ -86,7 +86,7 @@
       "when": "A design `Idea Run`, for inspiration or for a client whose `Domain` has no `Template` yet.",
       "sources": [
         ".claude/agents/magazine-editor.md:1-24",
-        ".claude/agents/magazine-editor.md:51-83"
+        ".claude/agents/magazine-editor.md:52-85"
       ],
       "short": "Editor",
       "notes": [
@@ -99,7 +99,7 @@
       "model": "Opus",
       "effort": "high",
       "file": ".claude/agents/design-reviewer.md",
-      "role": "Art-direction gate. Judges every page on the `Batch Test`, the `Three-Second Test` and `Flagship Parity` first; any of those failing is Blocking.",
+      "role": "Art-direction gate. Judges every page on the `Batch Test`, the `Three-Second Test` (page 1; a later page on its connection to page 1) and `Flagship Parity` first; any of those failing is Blocking.",
       "tools": "Read, Grep, Glob, Bash, PowerShell, WebFetch",
       "readOnly": true,
       "calledBy": "The lead: a fresh one every round.",
@@ -110,7 +110,7 @@
       ],
       "sources": [
         ".claude/agents/design-reviewer.md:1-17",
-        ".claude/agents/design-reviewer.md:72-143"
+        ".claude/agents/design-reviewer.md:73-148"
       ],
       "short": "Design rev."
     },
@@ -507,7 +507,7 @@
     "Certificate Warning": "A WARNING line at render: a certificate expired or expires within 180 days. Never blocks.",
     "Live Read": "A render that read a private file directly instead of the `Revision`'s copy. It fails its checks.",
     "Batch Test": "Design test 1: in an HR batch of 100 to 200 CVs, ours cannot be skipped.",
-    "Three-Second Test": "Design test 2: before a word is read, the page shouts its `Domain`, specialty and `Rank`.",
+    "Three-Second Test": "Design test 2: before a word is read, a CV's first page shouts its `Domain`, specialty and `Rank`; a later page is visibly the same CV.",
     "Flagship Parity": "Design test 3: side by side with the Marine Flagship, the CV looks as confident and premium.",
     "Style": "One idea of a magazine-editor run. A run has three very distinct ones.",
     "Design Tier": "Safe (calm, never generic), Stylish (Flagship territory), Creative (style to the maximum).",

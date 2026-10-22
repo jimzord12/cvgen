@@ -44,11 +44,15 @@ Every agent that designs, reviews or proposes works from this section.
 
 - **The `Batch Test`.** An HR reader scans a batch of 100 to 200 CVs. Ours
   cannot be skipped, even by someone trying to skip it.
-- **The `Three-Second Test`.** Whatever the text says, the page itself
-  shouts the `Domain`, the specialty and the `Rank` within three seconds at
-  arm's length, before a word is read: marine, engine room, second
-  engineer; travel and tourism, Japan, tour escort. It does so with the
-  domain's own imagery and codes, drawn with craft, never clip-art.
+- **The `Three-Second Test`.** Whatever the text says, the first page
+  itself shouts the `Domain`, the specialty and the `Rank` within three
+  seconds at arm's length, before a word is read: marine, engine room,
+  second engineer; travel and tourism, Japan, tour escort. It does so with
+  the domain's own imagery and codes, drawn with craft, never clip-art.
+  This is page 1's job alone (owner, 2026-10-22): a later page of a
+  multi-page CV need not shout them again, but it is visibly connected to
+  page 1, in the same design language and clearly the same CV, never a
+  plain continuation sheet.
 - **Beyond "safe professional", elegantly.** We go further than a
   conventional CV on purpose, and the page shows that its owner spent real
   extra time to make a good impression. It is still a CV: the facts are

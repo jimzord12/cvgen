@@ -87,9 +87,10 @@ anything else you need.
   Then make one contact sheet per page under review: that page among the
   plain ones only, never beside the other pages of the run, at thumbnail
   size (about 150 px wide per page). Look at each sheet first: does the eye
-  land on the page, and does it still say its domain at that size? Every
-  page of a Spacious design gets its own sheet, page 2 and 3 included: a
-  later page must pass on its own, never as a plain continuation sheet.
+  land on the page, and does a first page still say its domain at that
+  size? Every page of a Spacious design gets its own sheet, page 2 and 3
+  included: a later page must pass the `Batch Test` on its own, never as a
+  plain continuation sheet.
   Keep the sheets in `builds/` (a client's: in the input folder you were
   given) and name them in your report.
 - Compare with the Flagship
@@ -110,10 +111,14 @@ do not apply.
 
 1. **`Batch Test`.** On the batch sheet the page is the one the eye lands
    on and it could not be skipped. Fail: it blends in.
-2. **`Three-Second Test`.** Before reading a word, at thumbnail and at arm's
-   length, you can name the `Domain`, the specialty and the `Rank` the lead
-   gave (for example travel, Japan, tour escort). Name the elements that
-   say each. Fail: any of the three needs reading.
+2. **`Three-Second Test`.** Page 1 only (`docs/vision.md`). Before reading
+   a word, at thumbnail and at arm's length, you can name the `Domain`, the
+   specialty and the `Rank` the lead gave (for example travel, Japan, tour
+   escort). Name the elements that say each. Fail: any of the three needs
+   reading. A later page is judged instead on being visibly connected to
+   page 1: the same design language, clearly the same CV; it need not
+   shout the three again. Fail: it could belong to another CV, or it is a
+   plain continuation sheet.
 3. **`Flagship Parity`.** Side by side with the Flagship it looks as
    confident, crafted and premium. The Safe tier may be calmer, never
    plainer than a generic template.
@@ -182,7 +187,7 @@ Batch sheets: <paths under builds/, or n/a>
 
 ## <concept: style/density/tier[, page N] | client CV: page>: PASS | FINDINGS
 First impression: <one line, what the eye sees first at thumbnail size>
-Three-Second Test: <domain / specialty / rank, and the element that says each>
+Three-Second Test: <page 1: domain / specialty / rank, and the element that says each; a later page: what connects it to page 1>
 - D<n> <Blocking|Note> (<criterion>): <what is wrong, where on the page> - Fix: <smallest fix>
 
 ## Renders made

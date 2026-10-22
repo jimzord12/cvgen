@@ -88,7 +88,7 @@ window.ATLAS = {
     "when": "A design `Idea Run`, for inspiration or for a client whose `Domain` has no `Template` yet.",
     "sources": [
      ".claude/agents/magazine-editor.md:1-24",
-     ".claude/agents/magazine-editor.md:51-83"
+     ".claude/agents/magazine-editor.md:52-85"
     ],
     "short": "Editor",
     "notes": [
@@ -101,7 +101,7 @@ window.ATLAS = {
     "model": "Opus",
     "effort": "high",
     "file": ".claude/agents/design-reviewer.md",
-    "role": "Art-direction gate. Judges every page on the `Batch Test`, the `Three-Second Test` and `Flagship Parity` first; any of those failing is Blocking.",
+    "role": "Art-direction gate. Judges every page on the `Batch Test`, the `Three-Second Test` (page 1; a later page on its connection to page 1) and `Flagship Parity` first; any of those failing is Blocking.",
     "tools": "Read, Grep, Glob, Bash, PowerShell, WebFetch",
     "readOnly": true,
     "calledBy": "The lead: a fresh one every round.",
@@ -112,7 +112,7 @@ window.ATLAS = {
     ],
     "sources": [
      ".claude/agents/design-reviewer.md:1-17",
-     ".claude/agents/design-reviewer.md:72-143"
+     ".claude/agents/design-reviewer.md:73-148"
     ],
     "short": "Design rev."
    },
@@ -509,7 +509,7 @@ window.ATLAS = {
    "Certificate Warning": "A WARNING line at render: a certificate expired or expires within 180 days. Never blocks.",
    "Live Read": "A render that read a private file directly instead of the `Revision`'s copy. It fails its checks.",
    "Batch Test": "Design test 1: in an HR batch of 100 to 200 CVs, ours cannot be skipped.",
-   "Three-Second Test": "Design test 2: before a word is read, the page shouts its `Domain`, specialty and `Rank`.",
+   "Three-Second Test": "Design test 2: before a word is read, a CV's first page shouts its `Domain`, specialty and `Rank`; a later page is visibly the same CV.",
    "Flagship Parity": "Design test 3: side by side with the Marine Flagship, the CV looks as confident and premium.",
    "Style": "One idea of a magazine-editor run. A run has three very distinct ones.",
    "Design Tier": "Safe (calm, never generic), Stylish (Flagship territory), Creative (style to the maximum).",
@@ -3283,7 +3283,7 @@ window.ATLAS = {
         "lead"
        ],
        "summary": "For a client whose `Domain` has no `Template` yet, or when you want inspiration.",
-       "you": "Say which `Domain`, specialty and `Rank` the pages must shout, and how many pages Spacious may use (1 to 3).",
+       "you": "Say which `Domain`, specialty and `Rank` page 1 must shout, and how many pages Spacious may use (1 to 3).",
        "does": [
         "The lead loads the `idea-run` skill.",
         "A product-ideas run works the same way with `ceo` and `ceo-reviewer` instead; weekly at most."
@@ -3315,7 +3315,7 @@ window.ATLAS = {
        "actor": "lead",
        "summary": "One steer for the author and the very same steer for every reviewer. Never any client data.",
        "does": [
-        "Names the `Domain`, specialty and `Rank` the page must shout.",
+        "Names the `Domain`, specialty and `Rank` page 1 must shout.",
         "Never bans domain imagery; gives the Spacious page count.",
         "The lead keeps the author's agent id, so revisions go back to the same author with its memory."
        ],
@@ -3355,8 +3355,8 @@ window.ATLAS = {
         "outputs-py"
        ],
        "sources": [
-        ".claude/agents/magazine-editor.md:51-83",
-        ".claude/agents/magazine-editor.md:89-220",
+        ".claude/agents/magazine-editor.md:52-85",
+        ".claude/agents/magazine-editor.md:91-224",
         "studio/design-concepts/README.md"
        ]
       }
@@ -3439,7 +3439,7 @@ window.ATLAS = {
        "summary": "Every page judged on the three business tests first, then craft. Any of the first three failing is Blocking, however well made.",
        "does": [
         "Makes batch sheets: each page shrunk among 8+ plain market CVs, to judge the `Batch Test` honestly.",
-        "Rubric: 1 `Batch Test`, 2 `Three-Second Test`, 3 `Flagship Parity`, 4 distinct, 5 reads as a CV, 6 craft, 7 provenance, 8 buildable.",
+        "Rubric: 1 `Batch Test`, 2 `Three-Second Test` (page 1; a later page: visibly connected to page 1), 3 `Flagship Parity`, 4 distinct, 5 reads as a CV, 6 craft, 7 provenance, 8 buildable.",
         "Also Blocking: a run whose Styles are not very distinct, or a Style repeating an `Anti-example`'s idea.",
         "Beside it, a fresh `codex-visual-reviewer` sends the same pages, its own batch sheets and the same rubric to GPT-6 Astra (high) through the Codex CLI; a round passes only when both pass, and where they disagree the author decides with a reason. Codex unavailable: the design-reviewer alone, recorded in `run.md`."
        ],
@@ -3459,7 +3459,7 @@ window.ATLAS = {
        ],
        "sources": [
         ".claude/skills/idea-run/SKILL.md:58-76",
-        ".claude/agents/design-reviewer.md:47-143",
+        ".claude/agents/design-reviewer.md:47-148",
         ".claude/agents/codex-visual-reviewer.md",
         "docs/proposals/codex-visual-tools.md"
        ]
@@ -3480,7 +3480,7 @@ window.ATLAS = {
         "After a PASS: a new sourced claim goes back to the research gate; a change to the Style's idea or to what you decide on goes back to the design gate; layout, typos or sample data need only a lead check noted in `run.md`."
        ],
        "sources": [
-        ".claude/agents/magazine-editor.md:222-232",
+        ".claude/agents/magazine-editor.md:226-236",
         ".claude/skills/idea-run/SKILL.md:77-82"
        ]
       }
@@ -4473,30 +4473,30 @@ window.ATLAS = {
   }
  ],
  "build": {
-  "builtAt": "2026-10-22 10:40 UTC",
-  "commit": "5a300f9",
+  "builtAt": "2026-10-22 11:35 UTC",
+  "commit": "c046e39",
   "kit": "1.1",
   "stale": {},
   "verified": {
    "client-journey": {
     "at": "2026-10-22",
-    "commit": "ec5ceab"
+    "commit": "c046e39"
    },
    "design-run": {
     "at": "2026-10-22",
-    "commit": "db191f6"
+    "commit": "c046e39"
    },
    "change-review": {
     "at": "2026-10-22",
-    "commit": "ec5ceab"
+    "commit": "c046e39"
    },
    "system-map": {
     "at": "2026-10-22",
-    "commit": "ec5ceab"
+    "commit": "c046e39"
    },
    "roster": {
     "at": "2026-10-22",
-    "commit": "db191f6"
+    "commit": "c046e39"
    }
   }
  }
