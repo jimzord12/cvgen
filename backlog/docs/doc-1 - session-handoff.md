@@ -9,7 +9,7 @@ created_date: '2026-10-06 07:25'
 
 Rewritten in place at the end of every session; the first thing a fresh session reads after AGENTS.md. Holds only what no task owns: what is next, parked owner decisions, machine facts, pitfalls. Task state stays in the tasks in `backlog/tasks/`.
 
-**Written:** 2026-10-14, the unattended run of TASK-28 to TASK-59 (Claude Code).
+**Written:** 2026-10-14, the unattended run of TASK-28 to TASK-59 (Claude Code). **Updated** 2026-10-22: owner decisions closed (Next, item 1).
 **Main at:** the merge of TASK-51 (`5501c38`); everything older is on `main`. Suite PASS at that head (`builds/tests-20261014-161315-649567`, 147 cases).
 
 ## Where things stand
@@ -21,10 +21,8 @@ Rewritten in place at the end of every session; the first thing a fresh session 
 
 ## Next
 1. Owner decisions waiting (raise first; details in the 2026-10-14 run report and in the files named):
-   - Two scratch copies of real client files, left by reviewers whose delete was refused: `.worktrees/task-32/builds/review-task32-r1-20261014-110915/` and `.worktrees/task-58/builds/private-stage-task58/`. On "delete both": remove them, then `git worktree remove` both worktrees and delete the local branches `feature/task-32-client-layout` and `refactor/task-58-legacy-delete` (remotes already gone).
-   - `private/`: the `client-2026-09-01` `Envelope` has 9 uncommitted files (README with the delete-by date, 8 `Meta File`s `render` -> `delivered`) from the 2026-10-06 session, matching the delivery recorded then. Committing them was refused by the permission check; commit on the owner's word.
-   - P-0018 (`docs/proposals/workflow-gaps.md`, pending): items 1a-1c and 2-9, each with a recommendation.
-   - The owner's personal `/atlas refresh` skill can overwrite the generated client-journey page; it should skip it or call `bun run atlas`.
+   - P-0018 (`docs/proposals/workflow-gaps.md`, pending): items 1a-1c and 2-9, each with a recommendation. The owner wants a focused sitting for it (2026-10-22).
+   - Closed 2026-10-22: the two scratch copies of client files and their worktrees and branches are gone, and the `client-2026-09-01` delivery is committed in `private/` (`129214c`). The owner's `/atlas refresh` now regenerates a page whose JSON carries `"generated"` with the command it names, never hand-edits it (owner: "regenerate"); `atlas.py check` repeats that note under a stale or unverified generated page.
 2. After P-0018 is answered: replace each placeholder in `docs/workflow/*/stage.yaml` with the answer, cite the proposal, re-run `bun run check`, `render`, `atlas`; add `art.envelope-keep` as an input of `after.delete-by-check` with item 5 (TASK-43 notes).
 3. Owner's own checks still open: the VS Code YAML hints (TASK-36) and the Atlas client-journey map view (104 steps; walk-through view may suit better as the default).
 4. Client `client-2026-09-01`: if the client holds an early Stamp Rally edition (white strip under the boarding-pass portrait, fixed 2026-10-02), the owner may send the fixed one. Owner-only clean-up at the delete-by date (2027-10-02): delete the Intake Form, answers Sheet and script project, empty the Drive Trash, delete `private/<envelope>/`.

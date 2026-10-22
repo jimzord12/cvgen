@@ -4466,9 +4466,9 @@ window.ATLAS = {
   }
  ],
  "build": {
-  "builtAt": "2026-10-14 13:12 UTC",
-  "commit": "bc1c334",
-  "kit": "1.0",
+  "builtAt": "2026-10-22 10:06 UTC",
+  "commit": "38da34d",
+  "kit": "1.1",
   "stale": {},
   "verified": {
    "client-journey": {
