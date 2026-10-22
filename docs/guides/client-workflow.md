@@ -52,10 +52,11 @@ private/eleni-example-tour-guide/
     presentation.json   data a design reads that the schema cannot hold (optional)
     designs/         design variants and the shared design code cv.typ imports
     text/            the CV's wording as Typst, one file per language or variant
-    art/             the design's own SVGs, and the scripts that generate them
+    art/             the design's own SVGs, the scripts that generate them, and generated images
   images/
     portrait/        the authorised photograph(s), jpg or png
-  reviews/           design-NN.md: design-reviewer reports on the CV's design (an older
+  reviews/           design-NN.md: design-reviewer reports on the CV's design, and
+                     design-NN-codex.md: the codex-visual-reviewer's (an older
                      Envelope may also hold text-NN.md; it is kept as is)
   revisions/         one folder per render, written by scripts/cv.py
   exports/           one folder per exported revision, written by scripts/cv.py

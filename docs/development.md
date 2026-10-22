@@ -17,8 +17,9 @@ implementation or give the implementation's test or review verdict
 ([review.md](review.md)). Through the Codex CLI it is also a second
 visual reviewer of designs and an image tool
 ([P-0014](proposals/codex-visual-tools.md), `docs/tech-stack.md`); a design
-verdict is not an implementation review. Who manages Git, Codex's own design and
-documentation work included: [git-workflow.md](git-workflow.md#ownership).
+verdict is not an implementation review. Who manages Git, Codex's own
+design and documentation work included:
+[git-workflow.md](git-workflow.md#ownership).
 
 ## The flow
 

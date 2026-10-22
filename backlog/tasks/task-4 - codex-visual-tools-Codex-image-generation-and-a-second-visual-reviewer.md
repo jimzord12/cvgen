@@ -4,7 +4,7 @@ title: 'codex-visual-tools: Codex image generation and a second visual reviewer'
 status: Active
 assignee: []
 created_date: '2026-10-06 07:25'
-updated_date: '2026-10-22 09:57'
+updated_date: '2026-10-22 10:14'
 labels: []
 dependencies: []
 references:
@@ -45,4 +45,7 @@ Done when: the agent file exists; idea-run and new-cv run it beside the design-r
 
 <!-- SECTION:NOTES:BEGIN -->
 2026-10-14 (TASK-33): before building, apply the open review of the proposal, archive/work-records/codex-visual-tools/reviews/01.md (FINDINGS: F1, F2 Material; F3-F5 Minor; N1, N2). Both codex exec commands also need --ephemeral (Codex otherwise keeps attached client pages in ~/.codex/sessions; F1) and --ignore-user-config (the owner's global config grants full access and loads plugins; F2); the Privacy line must say the pages carry the whole CV. Also recorded as a dated note in docs/proposals/codex-visual-tools.md.
+
+## Scope note (2026-10-22, lead)
+The description's 'first used on the 2026-09-29 tour-leader idea run' cannot apply: that run ended on 2026-10-04 (Hanami Line 2 chosen and built). First real use moves to the next CV Idea Run or client design; the acceptance criteria cover the manual walk on fictional pages instead.
 <!-- SECTION:NOTES:END -->

@@ -17,10 +17,10 @@
   ],
   "sources": [
     "docs/workflow/01-open/README.md:20-22",
-    "docs/guides/client-workflow.md:17-94",
+    "docs/guides/client-workflow.md:17-95",
     ".claude/skills/new-client/SKILL.md:31-38",
     "docs/workflow/02-intake/README.md:15-41",
-    "docs/guides/client-workflow.md:96-129",
+    "docs/guides/client-workflow.md:97-130",
     ".claude/skills/new-client/SKILL.md:40-51",
     "docs/workflow/03-research/README.md:15-64",
     ".claude/skills/new-client/SKILL.md:53-74",
@@ -99,7 +99,7 @@
           "note": "Model step `open.alias`, action `lead.write-alias`, in `docs/workflow/01-open/stage.yaml`.",
           "sources": [
             "docs/workflow/01-open/README.md:23-26",
-            "docs/guides/client-workflow.md:87-88",
+            "docs/guides/client-workflow.md:88-89",
             ".claude/skills/new-client/SKILL.md:33-35",
             "docs/glossary.md:48"
           ]
@@ -122,7 +122,7 @@
           ],
           "note": "Model step `open.envelope-json`, action `lead.write-envelope-json`, in `docs/workflow/01-open/stage.yaml`.",
           "sources": [
-            "docs/guides/client-workflow.md:85-94"
+            "docs/guides/client-workflow.md:86-95"
           ]
         },
         {
@@ -168,7 +168,7 @@
           "note": "Model step `intake.questions`, action `lead.write-question-list`, in `docs/workflow/02-intake/stage.yaml`.",
           "sources": [
             "docs/workflow/02-intake/README.md:17-20",
-            "docs/guides/client-workflow.md:100-126",
+            "docs/guides/client-workflow.md:101-127",
             ".claude/skills/new-client/SKILL.md:42-44"
           ]
         },
@@ -193,7 +193,7 @@
           ],
           "note": "Model step `intake.form-script`, action `lead.write-form-script`, in `docs/workflow/02-intake/stage.yaml`.",
           "sources": [
-            "docs/guides/client-workflow.md:136-141",
+            "docs/guides/client-workflow.md:137-142",
             ".claude/skills/new-client/SKILL.md:45-48"
           ]
         },
@@ -217,7 +217,7 @@
           ],
           "note": "Model step `intake.form-create`, action `manual.run-form-script`, in `docs/workflow/02-intake/stage.yaml`.",
           "sources": [
-            "docs/guides/client-workflow.md:148-151",
+            "docs/guides/client-workflow.md:149-152",
             "scripts/intake-form.gs:5-18",
             "scripts/intake-form.gs:78-114"
           ]
@@ -239,7 +239,7 @@
           ],
           "note": "Model step `intake.form-links`, action `lead.list-google-links`, in `docs/workflow/02-intake/stage.yaml`.",
           "sources": [
-            "docs/guides/client-workflow.md:153-155",
+            "docs/guides/client-workflow.md:154-156",
             ".claude/skills/new-client/SKILL.md:45-48",
             "scripts/intake-form.gs:11-15"
           ]
@@ -262,7 +262,7 @@
           ],
           "note": "Model step `intake.form-theme`, action `manual.apply-form-theme`, in `docs/workflow/02-intake/stage.yaml`.",
           "sources": [
-            "docs/guides/client-workflow.md:158-163",
+            "docs/guides/client-workflow.md:159-164",
             "scripts/intake-form.gs:16-17"
           ]
         },
@@ -281,7 +281,7 @@
           ],
           "note": "Model step `intake.form-test-cleanup`, action `manual.delete-test-answer`, in `docs/workflow/02-intake/stage.yaml`.",
           "sources": [
-            "docs/guides/client-workflow.md:165-168"
+            "docs/guides/client-workflow.md:166-169"
           ]
         },
         {
@@ -343,7 +343,7 @@
           "note": "Model step `intake.form-fill`, action `manual.client-answer`, in `docs/workflow/02-intake/stage.yaml`.",
           "sources": [
             "docs/workflow/02-intake/README.md:45-48",
-            "docs/guides/client-workflow.md:170-172"
+            "docs/guides/client-workflow.md:171-173"
           ]
         },
         {
@@ -403,7 +403,7 @@
           ],
           "note": "Model step `intake.form-download`, action `manual.download-answers-csv`, in `docs/workflow/02-intake/stage.yaml`.",
           "sources": [
-            "docs/guides/client-workflow.md:170-177"
+            "docs/guides/client-workflow.md:171-178"
           ]
         },
         {
@@ -588,7 +588,7 @@
           ],
           "note": "Model step `research.decisions`, action `lead.write-decisions`, in `docs/workflow/03-research/stage.yaml`.",
           "sources": [
-            "docs/guides/client-workflow.md:179-195",
+            "docs/guides/client-workflow.md:180-196",
             ".claude/skills/new-client/SKILL.md:59-61"
           ]
         },
@@ -952,7 +952,7 @@
           ],
           "note": "Model step `research.follow-up-form-script`, action `lead.write-form-script`, in `docs/workflow/03-research/stage.yaml`.",
           "sources": [
-            "docs/guides/client-workflow.md:143-146",
+            "docs/guides/client-workflow.md:144-147",
             ".claude/skills/new-client/SKILL.md:73-74"
           ]
         },
@@ -1046,7 +1046,7 @@
           ],
           "note": "Model step `research.cap-reached`, action `manual.decide-at-cap`, in `docs/workflow/03-research/stage.yaml`.",
           "sources": [
-            "docs/review.md:201-205",
+            "docs/review.md:203-207",
             "docs/workflow/03-research/README.md:70-73"
           ]
         }
@@ -1358,7 +1358,7 @@
           "note": "Model step `text-draft.cap-reached`, action `manual.decide-at-cap`, in `docs/workflow/04-text-draft/stage.yaml`.",
           "sources": [
             "docs/workflow/README.md:28-32",
-            "docs/review.md:201-205"
+            "docs/review.md:203-207"
           ]
         }
       ]
@@ -1525,12 +1525,12 @@
           "note": "Model step `design.run-revise-sources`, action `agent.magazine-editor-revise`, in `docs/workflow/05-design/stage.yaml`.",
           "sources": [
             ".claude/skills/idea-run/SKILL.md:54-57",
-            ".claude/skills/idea-run/SKILL.md:76-78"
+            ".claude/skills/idea-run/SKILL.md:77-79"
           ]
         },
         {
           "id": "design.run-design-gate",
-          "title": "A fresh design-reviewer judges every page",
+          "title": "A fresh design-reviewer and codex-visual-reviewer judge every page",
           "actor": "design-reviewer",
           "optional": true,
           "summary": "A fresh design-reviewer round",
@@ -1566,7 +1566,7 @@
           "note": "Model step `design.run-design-gate`, action `agent.design-reviewer`, in `docs/workflow/05-design/stage.yaml`.",
           "sources": [
             ".claude/skills/idea-run/SKILL.md:58-62",
-            ".claude/skills/idea-run/SKILL.md:117-123"
+            ".claude/skills/idea-run/SKILL.md:118-124"
           ]
         },
         {
@@ -1594,7 +1594,7 @@
           "note": "Model step `design.run-revise-design`, action `agent.magazine-editor-revise`, in `docs/workflow/05-design/stage.yaml`.",
           "sources": [
             ".claude/skills/idea-run/SKILL.md:58-62",
-            ".claude/skills/idea-run/SKILL.md:76-80"
+            ".claude/skills/idea-run/SKILL.md:77-81"
           ]
         },
         {
@@ -1616,7 +1616,7 @@
           ],
           "note": "Model step `design.run-integrate`, action `lead.integrate-run`, in `docs/workflow/05-design/stage.yaml`.",
           "sources": [
-            ".claude/skills/idea-run/SKILL.md:82-96"
+            ".claude/skills/idea-run/SKILL.md:83-97"
           ]
         },
         {
@@ -1636,7 +1636,7 @@
           ],
           "note": "Model step `design.run-report`, action `lead.report-run`, in `docs/workflow/05-design/stage.yaml`.",
           "sources": [
-            ".claude/skills/idea-run/SKILL.md:127-133"
+            ".claude/skills/idea-run/SKILL.md:128-134"
           ]
         },
         {
@@ -1676,7 +1676,7 @@
           "note": "Model step `design.pick`, action `manual.pick-design`, in `docs/workflow/05-design/stage.yaml`.",
           "sources": [
             "docs/workflow/05-design/README.md:29-33",
-            ".claude/skills/idea-run/SKILL.md:140-145"
+            ".claude/skills/idea-run/SKILL.md:141-146"
           ]
         },
         {
@@ -1701,8 +1701,8 @@
           ],
           "note": "Model step `design.record-choice`, action `cmd.stamp-concept-status`, in `docs/workflow/05-design/stage.yaml`.",
           "sources": [
-            ".claude/skills/idea-run/SKILL.md:133-138",
-            ".claude/skills/idea-run/SKILL.md:142",
+            ".claude/skills/idea-run/SKILL.md:134-139",
+            ".claude/skills/idea-run/SKILL.md:143",
             "studio/design-concepts/README.md:46-49"
           ]
         },
@@ -1729,7 +1729,7 @@
           ],
           "note": "Model step `design.record-other-answer`, action `cmd.stamp-concept-status`, in `docs/workflow/05-design/stage.yaml`.",
           "sources": [
-            ".claude/skills/idea-run/SKILL.md:143-145",
+            ".claude/skills/idea-run/SKILL.md:144-146",
             "studio/design-concepts/README.md:46-49",
             "docs/workflow/GAPS.md:49-50"
           ]
@@ -1976,7 +1976,7 @@
           ],
           "note": "Model step `design.engine-revise`, action `lead.revise-engine-change`, in `docs/workflow/05-design/stage.yaml`.",
           "sources": [
-            "docs/review.md:193-200"
+            "docs/review.md:195-202"
           ]
         },
         {
@@ -2046,7 +2046,7 @@
           "title": "Fix the design on the findings",
           "actor": "lead",
           "optional": true,
-          "summary": "Fixes the design on the findings and stores the report verbatim as reviews/design-NN.md before the next fresh round.",
+          "summary": "Fixes the design on the findings and stores both reports verbatim, as reviews/design-NN.md and reviews/design-NN-codex.md, before the next fresh round.",
           "loop": {
             "to": "design.preview",
             "label": "Client design review rounds",
@@ -2071,7 +2071,7 @@
           "id": "design.clear-review-input",
           "title": "Clear the previews from builds/",
           "actor": "lead",
-          "summary": "Deletes the builds/design-review-input-* folders by path, with the page PNGs the design-reviewer rendered inside them, since they hold a real client's pages outside private/ (never git clean -x or -X).",
+          "summary": "Deletes the builds/design-review-input-* folders by path, with the page PNGs and batch sheets both reviewers made inside them, since they hold a real client's pages outside private/ (never git clean -x or -X).",
           "next": [],
           "in": [
             "A client design review report: `private/<envelope>/reviews/design-NN.md`"
@@ -2096,8 +2096,8 @@
           "note": "Model step `design.cap-reached`, action `manual.decide-at-cap`, in `docs/workflow/05-design/stage.yaml`.",
           "sources": [
             "docs/workflow/05-design/README.md:58-63",
-            ".claude/skills/idea-run/SKILL.md:72-75",
-            "docs/review.md:201-205"
+            ".claude/skills/idea-run/SKILL.md:73-76",
+            "docs/review.md:203-207"
           ]
         }
       ]
@@ -2508,7 +2508,7 @@
           ],
           "note": "Model step `deliver.cap-reached`, action `manual.decide-at-cap`, in `docs/workflow/06-deliver/stage.yaml`.",
           "sources": [
-            "docs/review.md:201-205"
+            "docs/review.md:203-207"
           ]
         }
       ]
@@ -2581,7 +2581,7 @@
           ],
           "note": "Model step `after.keep-request`, action `manual.ask-to-keep`, in `docs/workflow/07-after/stage.yaml`.",
           "sources": [
-            "docs/guides/client-workflow.md:103-106",
+            "docs/guides/client-workflow.md:104-107",
             "docs/proposals/workflow-model.md:56",
             "archive/work-records/workflow-model/handoff.md:290",
             "docs/workflow/GAPS.md:54-57"
@@ -2626,7 +2626,7 @@
           "note": "Model step `after.erase-commands`, action `lead.fill-erase-commands`, in `docs/workflow/07-after/stage.yaml`.",
           "sources": [
             ".claude/skills/new-client/SKILL.md:25-29",
-            "docs/guides/client-workflow.md:197-207",
+            "docs/guides/client-workflow.md:198-208",
             "docs/workflow/07-after/README.md:46-49",
             "docs/workflow/07-after/README.md:27-34"
           ]
@@ -2648,7 +2648,7 @@
           "sources": [
             "docs/workflow/07-after/README.md:46-49",
             "docs/workflow/07-after/README.md:27-34",
-            "docs/guides/client-workflow.md:155-156"
+            "docs/guides/client-workflow.md:156-157"
           ]
         },
         {
@@ -2669,7 +2669,7 @@
           "note": "Model step `after.erase-envelope`, action `manual.erase-envelope`, in `docs/workflow/07-after/stage.yaml`.",
           "sources": [
             "docs/workflow/07-after/README.md:27-34",
-            "docs/guides/client-workflow.md:197-222",
+            "docs/guides/client-workflow.md:198-223",
             "docs/preferences.md:74-82",
             "docs/workflow/GAPS.md:45-48"
           ]

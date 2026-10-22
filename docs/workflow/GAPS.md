@@ -88,3 +88,10 @@ cap)" and cite their row here.
   and "PDF previews" (since TASK-43 its action names `cv.pdf`, from the
   `new-cv` skill's command), so level 3's stand-in for `design.preview`
   makes an empty folder and the stand-in review accepts it. Added by TASK-42.
+- **The second design reviewer** (`design.run-design-gate`,
+  `design.client-review`): a step has one actor, so the
+  `codex-visual-reviewer` that judges the same pages beside the
+  `design-reviewer` (P-0014) shows only in those steps' names, their gates'
+  checks and the report artifacts' formats; it is no actor of its own, and
+  the actors table and the `Atlas` client journey show one reviewer. Added
+  by TASK-4.

@@ -60,13 +60,14 @@ design-reviewer's "Other assets".
    the same task list, to check for duplicates). FINDINGS -> author revises
    -> review again. A reviewer starts fresh each round on purpose: judges
    drift towards whatever they have already seen.
-   For design concepts the quality gate has two judges: a fresh
-   `codex-visual-reviewer` (GPT-6 Astra through the Codex CLI) on the same
-   snapshot, with the same steer and its own earlier reports, never the
-   design-reviewer's. Start them together; it makes its own batch sheets
-   unless you already hold sheets of this snapshot. The round passes only when both pass; send the author both
-   reports, and where they disagree the author decides with a reason,
-   which the next round of both judges sees. If Codex returns
+   For CV design concepts the quality gate has two judges (a non-CV run
+   keeps the `design-reviewer` alone): a fresh `codex-visual-reviewer`
+   (GPT-6 Astra through the Codex CLI) on the same snapshot, with the same
+   steer and its own earlier reports, never the design-reviewer's. Start
+   them together; it makes its own batch sheets unless you already hold
+   sheets of this snapshot. The round passes only when both pass; send the
+   author both reports, and where they disagree the author decides with a
+   reason, which the next round of both judges sees. If Codex returns
    `UNAVAILABLE`, the round runs on the design-reviewer alone and `run.md`
    and the owner's message say so.
 5. Round cap per gate (owner, 2026-09-25): **5 when the owner is attending,

@@ -69,9 +69,9 @@ window.ATLAS = {
      "Starts every session from the `session-handoff` doc on `main` (`backlog/docs/`) and rewrites it before stopping."
     ],
     "sources": [
-     "docs/development.md:10-21",
-     "docs/development.md:45-61",
-     "docs/development.md:112-124"
+     "docs/development.md:10-22",
+     "docs/development.md:46-62",
+     "docs/development.md:113-125"
     ],
     "short": "Claude"
    },
@@ -112,7 +112,7 @@ window.ATLAS = {
     ],
     "sources": [
      ".claude/agents/design-reviewer.md:1-17",
-     ".claude/agents/design-reviewer.md:72-142"
+     ".claude/agents/design-reviewer.md:72-143"
     ],
     "short": "Design rev."
    },
@@ -259,7 +259,7 @@ window.ATLAS = {
     ],
     "sources": [
      ".claude/skills/new-client/SKILL.md:56-67",
-     ".claude/skills/idea-run/SKILL.md:98-115"
+     ".claude/skills/idea-run/SKILL.md:99-116"
     ],
     "short": "General"
    },
@@ -439,7 +439,7 @@ window.ATLAS = {
     "role": "Google Apps Script you run once per form: builds the optional `Intake Form` and its answers Sheet in your Google account.",
     "sources": [
      "scripts/intake-form.gs:1-21",
-     "docs/guides/client-workflow.md:131-177"
+     "docs/guides/client-workflow.md:132-178"
     ]
    },
    "board": {
@@ -448,7 +448,7 @@ window.ATLAS = {
     "role": "The task store (Backlog.md, ADR 0014): one file per task, statuses Queued, Active, Review, Ready, Done, label `blocked`. The `session-handoff` doc is where every session starts. Boards: `backlog board`, `backlog browser`.",
     "sources": [
      ".claude/skills/backlog/SKILL.md:1-35",
-     "docs/development.md:28-43",
+     "docs/development.md:29-44",
      "docs/decisions/0014-backlog-md-task-store.md"
     ],
     "short": "Backlog"
@@ -545,10 +545,10 @@ window.ATLAS = {
    ],
    "sources": [
     "docs/workflow/01-open/README.md:20-22",
-    "docs/guides/client-workflow.md:17-94",
+    "docs/guides/client-workflow.md:17-95",
     ".claude/skills/new-client/SKILL.md:31-38",
     "docs/workflow/02-intake/README.md:15-41",
-    "docs/guides/client-workflow.md:96-129",
+    "docs/guides/client-workflow.md:97-130",
     ".claude/skills/new-client/SKILL.md:40-51",
     "docs/workflow/03-research/README.md:15-64",
     ".claude/skills/new-client/SKILL.md:53-74",
@@ -627,7 +627,7 @@ window.ATLAS = {
        "note": "Model step `open.alias`, action `lead.write-alias`, in `docs/workflow/01-open/stage.yaml`.",
        "sources": [
         "docs/workflow/01-open/README.md:23-26",
-        "docs/guides/client-workflow.md:87-88",
+        "docs/guides/client-workflow.md:88-89",
         ".claude/skills/new-client/SKILL.md:33-35",
         "docs/glossary.md:48"
        ]
@@ -650,7 +650,7 @@ window.ATLAS = {
        ],
        "note": "Model step `open.envelope-json`, action `lead.write-envelope-json`, in `docs/workflow/01-open/stage.yaml`.",
        "sources": [
-        "docs/guides/client-workflow.md:85-94"
+        "docs/guides/client-workflow.md:86-95"
        ]
       },
       {
@@ -696,7 +696,7 @@ window.ATLAS = {
        "note": "Model step `intake.questions`, action `lead.write-question-list`, in `docs/workflow/02-intake/stage.yaml`.",
        "sources": [
         "docs/workflow/02-intake/README.md:17-20",
-        "docs/guides/client-workflow.md:100-126",
+        "docs/guides/client-workflow.md:101-127",
         ".claude/skills/new-client/SKILL.md:42-44"
        ]
       },
@@ -721,7 +721,7 @@ window.ATLAS = {
        ],
        "note": "Model step `intake.form-script`, action `lead.write-form-script`, in `docs/workflow/02-intake/stage.yaml`.",
        "sources": [
-        "docs/guides/client-workflow.md:136-141",
+        "docs/guides/client-workflow.md:137-142",
         ".claude/skills/new-client/SKILL.md:45-48"
        ]
       },
@@ -745,7 +745,7 @@ window.ATLAS = {
        ],
        "note": "Model step `intake.form-create`, action `manual.run-form-script`, in `docs/workflow/02-intake/stage.yaml`.",
        "sources": [
-        "docs/guides/client-workflow.md:148-151",
+        "docs/guides/client-workflow.md:149-152",
         "scripts/intake-form.gs:5-18",
         "scripts/intake-form.gs:78-114"
        ]
@@ -767,7 +767,7 @@ window.ATLAS = {
        ],
        "note": "Model step `intake.form-links`, action `lead.list-google-links`, in `docs/workflow/02-intake/stage.yaml`.",
        "sources": [
-        "docs/guides/client-workflow.md:153-155",
+        "docs/guides/client-workflow.md:154-156",
         ".claude/skills/new-client/SKILL.md:45-48",
         "scripts/intake-form.gs:11-15"
        ]
@@ -790,7 +790,7 @@ window.ATLAS = {
        ],
        "note": "Model step `intake.form-theme`, action `manual.apply-form-theme`, in `docs/workflow/02-intake/stage.yaml`.",
        "sources": [
-        "docs/guides/client-workflow.md:158-163",
+        "docs/guides/client-workflow.md:159-164",
         "scripts/intake-form.gs:16-17"
        ]
       },
@@ -809,7 +809,7 @@ window.ATLAS = {
        ],
        "note": "Model step `intake.form-test-cleanup`, action `manual.delete-test-answer`, in `docs/workflow/02-intake/stage.yaml`.",
        "sources": [
-        "docs/guides/client-workflow.md:165-168"
+        "docs/guides/client-workflow.md:166-169"
        ]
       },
       {
@@ -871,7 +871,7 @@ window.ATLAS = {
        "note": "Model step `intake.form-fill`, action `manual.client-answer`, in `docs/workflow/02-intake/stage.yaml`.",
        "sources": [
         "docs/workflow/02-intake/README.md:45-48",
-        "docs/guides/client-workflow.md:170-172"
+        "docs/guides/client-workflow.md:171-173"
        ]
       },
       {
@@ -931,7 +931,7 @@ window.ATLAS = {
        ],
        "note": "Model step `intake.form-download`, action `manual.download-answers-csv`, in `docs/workflow/02-intake/stage.yaml`.",
        "sources": [
-        "docs/guides/client-workflow.md:170-177"
+        "docs/guides/client-workflow.md:171-178"
        ]
       },
       {
@@ -1116,7 +1116,7 @@ window.ATLAS = {
        ],
        "note": "Model step `research.decisions`, action `lead.write-decisions`, in `docs/workflow/03-research/stage.yaml`.",
        "sources": [
-        "docs/guides/client-workflow.md:179-195",
+        "docs/guides/client-workflow.md:180-196",
         ".claude/skills/new-client/SKILL.md:59-61"
        ]
       },
@@ -1480,7 +1480,7 @@ window.ATLAS = {
        ],
        "note": "Model step `research.follow-up-form-script`, action `lead.write-form-script`, in `docs/workflow/03-research/stage.yaml`.",
        "sources": [
-        "docs/guides/client-workflow.md:143-146",
+        "docs/guides/client-workflow.md:144-147",
         ".claude/skills/new-client/SKILL.md:73-74"
        ]
       },
@@ -1574,7 +1574,7 @@ window.ATLAS = {
        ],
        "note": "Model step `research.cap-reached`, action `manual.decide-at-cap`, in `docs/workflow/03-research/stage.yaml`.",
        "sources": [
-        "docs/review.md:201-205",
+        "docs/review.md:203-207",
         "docs/workflow/03-research/README.md:70-73"
        ]
       }
@@ -1886,7 +1886,7 @@ window.ATLAS = {
        "note": "Model step `text-draft.cap-reached`, action `manual.decide-at-cap`, in `docs/workflow/04-text-draft/stage.yaml`.",
        "sources": [
         "docs/workflow/README.md:28-32",
-        "docs/review.md:201-205"
+        "docs/review.md:203-207"
        ]
       }
      ]
@@ -2053,12 +2053,12 @@ window.ATLAS = {
        "note": "Model step `design.run-revise-sources`, action `agent.magazine-editor-revise`, in `docs/workflow/05-design/stage.yaml`.",
        "sources": [
         ".claude/skills/idea-run/SKILL.md:54-57",
-        ".claude/skills/idea-run/SKILL.md:76-78"
+        ".claude/skills/idea-run/SKILL.md:77-79"
        ]
       },
       {
        "id": "design.run-design-gate",
-       "title": "A fresh design-reviewer judges every page",
+       "title": "A fresh design-reviewer and codex-visual-reviewer judge every page",
        "actor": "design-reviewer",
        "optional": true,
        "summary": "A fresh design-reviewer round",
@@ -2094,7 +2094,7 @@ window.ATLAS = {
        "note": "Model step `design.run-design-gate`, action `agent.design-reviewer`, in `docs/workflow/05-design/stage.yaml`.",
        "sources": [
         ".claude/skills/idea-run/SKILL.md:58-62",
-        ".claude/skills/idea-run/SKILL.md:117-123"
+        ".claude/skills/idea-run/SKILL.md:118-124"
        ]
       },
       {
@@ -2122,7 +2122,7 @@ window.ATLAS = {
        "note": "Model step `design.run-revise-design`, action `agent.magazine-editor-revise`, in `docs/workflow/05-design/stage.yaml`.",
        "sources": [
         ".claude/skills/idea-run/SKILL.md:58-62",
-        ".claude/skills/idea-run/SKILL.md:76-80"
+        ".claude/skills/idea-run/SKILL.md:77-81"
        ]
       },
       {
@@ -2144,7 +2144,7 @@ window.ATLAS = {
        ],
        "note": "Model step `design.run-integrate`, action `lead.integrate-run`, in `docs/workflow/05-design/stage.yaml`.",
        "sources": [
-        ".claude/skills/idea-run/SKILL.md:82-96"
+        ".claude/skills/idea-run/SKILL.md:83-97"
        ]
       },
       {
@@ -2164,7 +2164,7 @@ window.ATLAS = {
        ],
        "note": "Model step `design.run-report`, action `lead.report-run`, in `docs/workflow/05-design/stage.yaml`.",
        "sources": [
-        ".claude/skills/idea-run/SKILL.md:127-133"
+        ".claude/skills/idea-run/SKILL.md:128-134"
        ]
       },
       {
@@ -2204,7 +2204,7 @@ window.ATLAS = {
        "note": "Model step `design.pick`, action `manual.pick-design`, in `docs/workflow/05-design/stage.yaml`.",
        "sources": [
         "docs/workflow/05-design/README.md:29-33",
-        ".claude/skills/idea-run/SKILL.md:140-145"
+        ".claude/skills/idea-run/SKILL.md:141-146"
        ]
       },
       {
@@ -2229,8 +2229,8 @@ window.ATLAS = {
        ],
        "note": "Model step `design.record-choice`, action `cmd.stamp-concept-status`, in `docs/workflow/05-design/stage.yaml`.",
        "sources": [
-        ".claude/skills/idea-run/SKILL.md:133-138",
-        ".claude/skills/idea-run/SKILL.md:142",
+        ".claude/skills/idea-run/SKILL.md:134-139",
+        ".claude/skills/idea-run/SKILL.md:143",
         "studio/design-concepts/README.md:46-49"
        ]
       },
@@ -2257,7 +2257,7 @@ window.ATLAS = {
        ],
        "note": "Model step `design.record-other-answer`, action `cmd.stamp-concept-status`, in `docs/workflow/05-design/stage.yaml`.",
        "sources": [
-        ".claude/skills/idea-run/SKILL.md:143-145",
+        ".claude/skills/idea-run/SKILL.md:144-146",
         "studio/design-concepts/README.md:46-49",
         "docs/workflow/GAPS.md:49-50"
        ]
@@ -2504,7 +2504,7 @@ window.ATLAS = {
        ],
        "note": "Model step `design.engine-revise`, action `lead.revise-engine-change`, in `docs/workflow/05-design/stage.yaml`.",
        "sources": [
-        "docs/review.md:193-200"
+        "docs/review.md:195-202"
        ]
       },
       {
@@ -2574,7 +2574,7 @@ window.ATLAS = {
        "title": "Fix the design on the findings",
        "actor": "lead",
        "optional": true,
-       "summary": "Fixes the design on the findings and stores the report verbatim as reviews/design-NN.md before the next fresh round.",
+       "summary": "Fixes the design on the findings and stores both reports verbatim, as reviews/design-NN.md and reviews/design-NN-codex.md, before the next fresh round.",
        "loop": {
         "to": "design.preview",
         "label": "Client design review rounds",
@@ -2599,7 +2599,7 @@ window.ATLAS = {
        "id": "design.clear-review-input",
        "title": "Clear the previews from builds/",
        "actor": "lead",
-       "summary": "Deletes the builds/design-review-input-* folders by path, with the page PNGs the design-reviewer rendered inside them, since they hold a real client's pages outside private/ (never git clean -x or -X).",
+       "summary": "Deletes the builds/design-review-input-* folders by path, with the page PNGs and batch sheets both reviewers made inside them, since they hold a real client's pages outside private/ (never git clean -x or -X).",
        "next": [],
        "in": [
         "A client design review report: `private/<envelope>/reviews/design-NN.md`"
@@ -2624,8 +2624,8 @@ window.ATLAS = {
        "note": "Model step `design.cap-reached`, action `manual.decide-at-cap`, in `docs/workflow/05-design/stage.yaml`.",
        "sources": [
         "docs/workflow/05-design/README.md:58-63",
-        ".claude/skills/idea-run/SKILL.md:72-75",
-        "docs/review.md:201-205"
+        ".claude/skills/idea-run/SKILL.md:73-76",
+        "docs/review.md:203-207"
        ]
       }
      ]
@@ -3036,7 +3036,7 @@ window.ATLAS = {
        ],
        "note": "Model step `deliver.cap-reached`, action `manual.decide-at-cap`, in `docs/workflow/06-deliver/stage.yaml`.",
        "sources": [
-        "docs/review.md:201-205"
+        "docs/review.md:203-207"
        ]
       }
      ]
@@ -3109,7 +3109,7 @@ window.ATLAS = {
        ],
        "note": "Model step `after.keep-request`, action `manual.ask-to-keep`, in `docs/workflow/07-after/stage.yaml`.",
        "sources": [
-        "docs/guides/client-workflow.md:103-106",
+        "docs/guides/client-workflow.md:104-107",
         "docs/proposals/workflow-model.md:56",
         "archive/work-records/workflow-model/handoff.md:290",
         "docs/workflow/GAPS.md:54-57"
@@ -3154,7 +3154,7 @@ window.ATLAS = {
        "note": "Model step `after.erase-commands`, action `lead.fill-erase-commands`, in `docs/workflow/07-after/stage.yaml`.",
        "sources": [
         ".claude/skills/new-client/SKILL.md:25-29",
-        "docs/guides/client-workflow.md:197-207",
+        "docs/guides/client-workflow.md:198-208",
         "docs/workflow/07-after/README.md:46-49",
         "docs/workflow/07-after/README.md:27-34"
        ]
@@ -3176,7 +3176,7 @@ window.ATLAS = {
        "sources": [
         "docs/workflow/07-after/README.md:46-49",
         "docs/workflow/07-after/README.md:27-34",
-        "docs/guides/client-workflow.md:155-156"
+        "docs/guides/client-workflow.md:156-157"
        ]
       },
       {
@@ -3197,7 +3197,7 @@ window.ATLAS = {
        "note": "Model step `after.erase-envelope`, action `manual.erase-envelope`, in `docs/workflow/07-after/stage.yaml`.",
        "sources": [
         "docs/workflow/07-after/README.md:27-34",
-        "docs/guides/client-workflow.md:197-222",
+        "docs/guides/client-workflow.md:198-223",
         "docs/preferences.md:74-82",
         "docs/workflow/GAPS.md:45-48"
        ]
@@ -3356,7 +3356,7 @@ window.ATLAS = {
        ],
        "sources": [
         ".claude/agents/magazine-editor.md:51-83",
-        ".claude/agents/magazine-editor.md:89-220",
+        ".claude/agents/magazine-editor.md:89-219",
         "studio/design-concepts/README.md"
        ]
       }
@@ -3458,8 +3458,8 @@ window.ATLAS = {
         "codex-reviewer"
        ],
        "sources": [
-        ".claude/skills/idea-run/SKILL.md:58-75",
-        ".claude/agents/design-reviewer.md:47-142",
+        ".claude/skills/idea-run/SKILL.md:58-76",
+        ".claude/agents/design-reviewer.md:47-143",
         ".claude/agents/codex-visual-reviewer.md",
         "docs/proposals/codex-visual-tools.md"
        ]
@@ -3480,8 +3480,8 @@ window.ATLAS = {
         "After a PASS: a new sourced claim goes back to the research gate; a change to the Style's idea or to what you decide on goes back to the design gate; layout, typos or sample data need only a lead check noted in `run.md`."
        ],
        "sources": [
-        ".claude/agents/magazine-editor.md:222-232",
-        ".claude/skills/idea-run/SKILL.md:76-81"
+        ".claude/agents/magazine-editor.md:221-231",
+        ".claude/skills/idea-run/SKILL.md:77-82"
        ]
       }
      ]
@@ -3507,7 +3507,7 @@ window.ATLAS = {
         "outputs-py"
        ],
        "sources": [
-        ".claude/skills/idea-run/SKILL.md:84-96",
+        ".claude/skills/idea-run/SKILL.md:85-97",
         "docs/review.md:51-65"
        ]
       },
@@ -3523,7 +3523,7 @@ window.ATLAS = {
         "Styles still waiting for your answer are listed in the `session-handoff` doc."
        ],
        "sources": [
-        ".claude/skills/idea-run/SKILL.md:125-133"
+        ".claude/skills/idea-run/SKILL.md:126-134"
        ]
       },
       {
@@ -3537,7 +3537,7 @@ window.ATLAS = {
         "label": "Build it → `chosen` · Later → `parked` · Reject → `rejected` · Not my style, keep it → `Anti-example`. No answer: stays `proposed`."
        },
        "sources": [
-        ".claude/skills/idea-run/SKILL.md:133-145",
+        ".claude/skills/idea-run/SKILL.md:134-146",
         "docs/pdf-workflow.md:127"
        ]
       },
@@ -3555,7 +3555,7 @@ window.ATLAS = {
         "python scripts/outputs.py stamp <pdf> status=chosen"
        ],
        "sources": [
-        ".claude/skills/idea-run/SKILL.md:133-145",
+        ".claude/skills/idea-run/SKILL.md:134-146",
         "studio/design-concepts/README.md:45-48",
         "studio/archive/anti-examples/README.md"
        ]
@@ -3570,7 +3570,7 @@ window.ATLAS = {
         "A concept becomes a `Template` only after you keep it and a build task is agreed."
        ],
        "sources": [
-        ".claude/skills/idea-run/SKILL.md:140-145",
+        ".claude/skills/idea-run/SKILL.md:141-146",
         "studio/design-concepts/README.md:3-6"
        ]
       }
@@ -3624,7 +3624,7 @@ window.ATLAS = {
         "backlog"
        ],
        "sources": [
-        "docs/development.md:45-61",
+        "docs/development.md:46-62",
         "docs/proposals/README.md:46-51",
         "docs/proposals/README.md:89-97"
        ]
@@ -3645,8 +3645,8 @@ window.ATLAS = {
         "backlog"
        ],
        "sources": [
-        "docs/development.md:28-43",
-        "docs/development.md:124-215"
+        "docs/development.md:29-44",
+        "docs/development.md:125-216"
        ]
       }
      ]
@@ -3685,7 +3685,7 @@ window.ATLAS = {
        ],
        "sources": [
         "docs/conventions.md:6-11",
-        "docs/development.md:217-224",
+        "docs/development.md:218-225",
         "docs/framework-gaps.md:3-6",
         ".claude/skills/verify-cv/SKILL.md:10-19"
        ]
@@ -3729,7 +3729,7 @@ window.ATLAS = {
        "sources": [
         "docs/review.md:7-65",
         "docs/review.md:82-102",
-        "docs/review.md:158-177",
+        "docs/review.md:160-179",
         "docs/review.md",
         "archive/work-records/anti-examples/reviews/01-context.md"
        ]
@@ -3750,7 +3750,7 @@ window.ATLAS = {
         "Renaming the task never resets the round count."
        ],
        "sources": [
-        "docs/review.md:181-218"
+        "docs/review.md:183-220"
        ]
       }
      ]
@@ -3804,7 +3804,7 @@ window.ATLAS = {
         "repo-maintenance"
        ],
        "sources": [
-        "docs/development.md:75-106"
+        "docs/development.md:76-107"
        ]
       },
       {
@@ -3819,7 +3819,7 @@ window.ATLAS = {
         "backlog"
        ],
        "sources": [
-        "docs/development.md:108-122"
+        "docs/development.md:109-123"
        ]
       },
       {
@@ -3877,7 +3877,7 @@ window.ATLAS = {
        "blurb": "Who the client is: `Alias`, `Domain`, `Rank`; dates and links.",
        "detail": "`cv.py render` refuses to run without `envelope.json`; every client `Meta File` copies it.",
        "sources": [
-        "docs/guides/client-workflow.md:17-94"
+        "docs/guides/client-workflow.md:17-95"
        ]
       },
       {
@@ -3886,7 +3886,7 @@ window.ATLAS = {
        "path": "private/<envelope>/intake/",
        "blurb": "Messages, documents, `facts.md`, the `Scout`, `CV Decisions`, `Deep Dives`.",
        "sources": [
-        "docs/guides/client-workflow.md:29-62"
+        "docs/guides/client-workflow.md:29-63"
        ]
       },
       {
@@ -3905,7 +3905,7 @@ window.ATLAS = {
        "blurb": "The client's facts and the entry point that composes their CV, with its designs, wording and art beside it in typst/.",
        "sources": [
         "docs/guides/build-a-cv.md:15-53",
-        "docs/guides/client-workflow.md:29-62"
+        "docs/guides/client-workflow.md:29-63"
        ]
       },
       {
@@ -4260,7 +4260,7 @@ window.ATLAS = {
        "actor": "intake-form",
        "blurb": "Optional `Intake Forms` and their answer Sheets.",
        "sources": [
-        "docs/guides/client-workflow.md:131-177"
+        "docs/guides/client-workflow.md:132-178"
        ]
       },
       {
@@ -4468,35 +4468,35 @@ window.ATLAS = {
     "Two steps run on Codex (your ChatGPT plan), not Claude: the `codex-visual-reviewer` (GPT-6 Astra, through a Sonnet wrapper) and the image step (GPT-6 Sol), built 2026-10-22."
    ],
    "sources": [
-    "docs/review.md:136-149"
+    "docs/review.md:136-151"
    ]
   }
  ],
  "build": {
-  "builtAt": "2026-10-22 10:02 UTC",
-  "commit": "38da34d",
+  "builtAt": "2026-10-22 10:15 UTC",
+  "commit": "872ef3f",
   "kit": "1.0",
   "stale": {},
   "verified": {
    "client-journey": {
     "at": "2026-10-22",
-    "commit": "38da34d"
+    "commit": "872ef3f"
    },
    "design-run": {
     "at": "2026-10-22",
-    "commit": "38da34d"
+    "commit": "872ef3f"
    },
    "change-review": {
     "at": "2026-10-22",
-    "commit": "38da34d"
+    "commit": "872ef3f"
    },
    "system-map": {
     "at": "2026-10-22",
-    "commit": "38da34d"
+    "commit": "872ef3f"
    },
    "roster": {
     "at": "2026-10-22",
-    "commit": "38da34d"
+    "commit": "872ef3f"
    }
   }
  }

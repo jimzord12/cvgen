@@ -1,7 +1,7 @@
 # yaml-language-server: $schema=../../../tools/workflow/schema/stage.schema.json
 id: open
 name: Open the Envelope
-sources: ["docs/workflow/01-open/README.md:20-22", "docs/guides/client-workflow.md:17-94", ".claude/skills/new-client/SKILL.md:31-38"]
+sources: ["docs/workflow/01-open/README.md:20-22", "docs/guides/client-workflow.md:17-95", ".claude/skills/new-client/SKILL.md:31-38"]
 purpose: >-
   A new client gets one Envelope under private/, a neutral Alias, the
   envelope.json every Meta File copies, and one task record named by the
@@ -31,7 +31,7 @@ steps:
 
   - id: open.alias
     name: Give the client an Alias
-    sources: ["docs/workflow/01-open/README.md:23-26", "docs/guides/client-workflow.md:87-88", ".claude/skills/new-client/SKILL.md:33-35", "docs/glossary.md:48"]
+    sources: ["docs/workflow/01-open/README.md:23-26", "docs/guides/client-workflow.md:88-89", ".claude/skills/new-client/SKILL.md:33-35", "docs/glossary.md:48"]
     actor: actor.lead
     action: lead.write-alias
     inputs: [art.envelope-drawers]
@@ -39,7 +39,7 @@ steps:
 
   - id: open.envelope-json
     name: Write envelope.json
-    sources: ["docs/guides/client-workflow.md:85-94"]
+    sources: ["docs/guides/client-workflow.md:86-95"]
     actor: actor.lead
     action: lead.write-envelope-json
     inputs: [art.envelope-readme, art.owner-request, art.glossary]
@@ -78,7 +78,7 @@ artifacts:
 
   - id: art.glossary
     name: The glossary's Domain ids
-    sources: ["docs/glossary.md:38", "docs/guides/client-workflow.md:88-89"]
+    sources: ["docs/glossary.md:38", "docs/guides/client-workflow.md:89-90"]
     path: docs/glossary.md
     format: Markdown table
     visibility: public
@@ -103,7 +103,7 @@ actions:
   - id: lead.write-alias
     kind: lead
     name: Write the Alias and intake date
-    sources: ["docs/workflow/01-open/README.md:23-26", "docs/guides/client-workflow.md:87-88", ".claude/skills/new-client/SKILL.md:33-35"]
+    sources: ["docs/workflow/01-open/README.md:23-26", "docs/guides/client-workflow.md:88-89", ".claude/skills/new-client/SKILL.md:33-35"]
     does: >-
       Gives the client an Alias client-<yyyy>-<mm>-<nn> and writes it at the
       top of the Envelope's README.md with the date intake started; outside
@@ -112,7 +112,7 @@ actions:
   - id: lead.write-envelope-json
     kind: lead
     name: Write envelope.json
-    sources: ["docs/guides/client-workflow.md:85-94"]
+    sources: ["docs/guides/client-workflow.md:86-95"]
     does: >-
       Writes alias, domain (an id from the glossary's Domain row), candidate
       (the display name) and rank; every Meta File in the Envelope copies it

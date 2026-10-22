@@ -15,9 +15,9 @@ checklists of step IDs (listed at the end).
 CVgen sells a premium CV whose design cannot be skipped in an HR batch
 (`docs/vision.md`, "Design is the product"). The journey exists so that
 every such CV rests on four things: facts the `Client` confirmed, research
-with sources, a design a fresh `design-reviewer` passed, and exact bytes
-the owner approved; and so that the `Client`'s data is gone when we said
-it would be. Three rules hold in every stage:
+with sources, a design a fresh `design-reviewer` and `codex-visual-reviewer`
+passed, and exact bytes the owner approved; and so that the `Client`'s data
+is gone when we said it would be. Three rules hold in every stage:
 
 - **Only the owner talks to the `Client`.** The lead writes every message;
   the owner relays it and brings the answer back (`actor.owner`,
@@ -139,7 +139,7 @@ people ask about:
 | `gate.template-exists` | Does the `Domain` have a `Template`? | An `Idea Run` on fictional data, then the owner picks a design (`design.run-brief`) |
 | `gate.template-fits` | Does the data fit the Flagship? | A custom composition (`design.custom-composition`) and a `Framework Gap` |
 | `gate.owner-pick` | Did the owner answer "Build it"? | The concepts are parked or rejected (`design.record-other-answer`) |
-| `gate.client-design-review` | Did a fresh `design-reviewer` pass the pages? | `design.fix`, then a fresh round (`loop.client-design-review`) |
+| `gate.client-design-review` | Did a fresh `design-reviewer` and a fresh `codex-visual-reviewer` both pass the pages? | `design.fix`, then a fresh round (`loop.client-design-review`) |
 | `gate.render-ok`, `gate.example-wording`, `gate.owner-review` | Did the render pass, with no example wording, and does the owner want no change? | `deliver.fix`, then a new `Revision` |
 
 `after` has no gate: its steps run on a condition (a delete-by date

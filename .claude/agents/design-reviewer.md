@@ -111,8 +111,9 @@ do not apply.
    original, or a Codex-generated image recorded in `brief.md` (prompt,
    model, date, SHA-256) under the rules of `docs/tech-stack.md`, "Codex
    CLI": no text, real people, brands or named artist's style in it, never
-   a portrait, at most two per page; data fictional. Client designs: the lead confirms the text is
-   the signed-off text; you judge only the design.
+   a portrait, at most two per page; data fictional. Client designs: the
+   lead confirms the text is the signed-off text; you judge only the
+   design.
 8. **Buildable and honest.** Uses real fields (or names the missing ones);
    month totals from data; says what it would take to become a template.
 

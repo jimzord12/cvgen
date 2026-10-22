@@ -11,6 +11,6 @@
     "Two steps run on Codex (your ChatGPT plan), not Claude: the `codex-visual-reviewer` (GPT-6 Astra, through a Sonnet wrapper) and the image step (GPT-6 Sol), built 2026-10-22."
   ],
   "sources": [
-    "docs/review.md:136-149"
+    "docs/review.md:136-151"
   ]
 }

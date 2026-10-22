@@ -11,4 +11,4 @@ finding was applied when the proposal was built (TASK-4).
 | F4 Minor: docs list incomplete | Fixed: `docs/review.md` says brand assets and Flagship changes keep the `design-reviewer` alone; client reports are `reviews/design-NN-codex.md` in the `Envelope`. The constitution is unchanged (owner-only): generated images never enter `packages/` or an `Artwork Pack` without the owner, so `docs/engine/artwork-pack.md` needs no change. |
 | F5 Minor: owner decision and lead defaults mixed | Fixed: the proposal's Decisions list the lead defaults separately; the consent source is corrected. |
 | N1 Note: no fallback | Applied: Codex `UNAVAILABLE` runs the round on the `design-reviewer` alone, recorded. |
-| N2 Note: reviewer and closing phrase | Applied: later rounds go to the `context-reviewer`; the closing phrase is left in Codex's verdicts, as the agent says. |
+| N2 Note: reviewer, closing phrase, data controls | Applied: later rounds go to the `context-reviewer`; the closing phrase is left in Codex's verdicts, as the agent says. Whether the owner's ChatGPT data control for model training is off cannot be read by an agent: raised to the owner at TASK-4's hand-back. |

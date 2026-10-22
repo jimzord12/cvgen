@@ -44,7 +44,7 @@
             "backlog"
           ],
           "sources": [
-            "docs/development.md:45-61",
+            "docs/development.md:46-62",
             "docs/proposals/README.md:46-51",
             "docs/proposals/README.md:89-97"
           ]
@@ -65,8 +65,8 @@
             "backlog"
           ],
           "sources": [
-            "docs/development.md:28-43",
-            "docs/development.md:124-215"
+            "docs/development.md:29-44",
+            "docs/development.md:125-216"
           ]
         }
       ]
@@ -105,7 +105,7 @@
           ],
           "sources": [
             "docs/conventions.md:6-11",
-            "docs/development.md:217-224",
+            "docs/development.md:218-225",
             "docs/framework-gaps.md:3-6",
             ".claude/skills/verify-cv/SKILL.md:10-19"
           ]
@@ -149,7 +149,7 @@
           "sources": [
             "docs/review.md:7-65",
             "docs/review.md:82-102",
-            "docs/review.md:158-177",
+            "docs/review.md:160-179",
             "docs/review.md",
             "archive/work-records/anti-examples/reviews/01-context.md"
           ]
@@ -170,7 +170,7 @@
             "Renaming the task never resets the round count."
           ],
           "sources": [
-            "docs/review.md:181-218"
+            "docs/review.md:183-220"
           ]
         }
       ]
@@ -224,7 +224,7 @@
             "repo-maintenance"
           ],
           "sources": [
-            "docs/development.md:75-106"
+            "docs/development.md:76-107"
           ]
         },
         {
@@ -239,7 +239,7 @@
             "backlog"
           ],
           "sources": [
-            "docs/development.md:108-122"
+            "docs/development.md:109-123"
           ]
         },
         {

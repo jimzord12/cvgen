@@ -127,7 +127,7 @@ steps:
 
   - id: deliver.cap-reached
     name: At a loop's cap, the owner decides
-    sources: ["docs/review.md:201-205"]
+    sources: ["docs/review.md:203-207"]
     actor: actor.owner
     action: manual.decide-at-cap
 

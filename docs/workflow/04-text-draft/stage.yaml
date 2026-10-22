@@ -102,7 +102,7 @@ steps:
 
   - id: text-draft.cap-reached
     name: At the cap, the owner decides
-    sources: ["docs/workflow/README.md:28-32", "docs/review.md:201-205"]
+    sources: ["docs/workflow/README.md:28-32", "docs/review.md:203-207"]
     actor: actor.owner
     action: manual.decide-at-cap
 

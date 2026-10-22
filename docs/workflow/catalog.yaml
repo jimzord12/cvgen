@@ -111,7 +111,7 @@ actions:
   - id: lead.write-form-script
     kind: lead
     name: Write the Intake Form script
-    sources: ["docs/guides/client-workflow.md:136-141", ".claude/skills/new-client/SKILL.md:45-48", "scripts/intake-form.gs:20-21"]
+    sources: ["docs/guides/client-workflow.md:137-142", ".claude/skills/new-client/SKILL.md:45-48", "scripts/intake-form.gs:20-21"]
     does: >-
       Writes intake/form-NN.gs, a copy of scripts/intake-form.gs with only its
       FORM block changed: title, intro, consent, questions; pages by topic and
@@ -127,7 +127,7 @@ actions:
   - id: manual.decide-at-cap
     kind: manual
     name: The owner decides at the cap
-    sources: ["docs/review.md:201-205", ".claude/skills/idea-run/SKILL.md:72-75", "docs/workflow/GAPS.md:21-30"]
+    sources: ["docs/review.md:203-207", ".claude/skills/idea-run/SKILL.md:73-76", "docs/workflow/GAPS.md:21-30"]
     does: >-
       At a loop's cap (a review loop, the client's draft corrections, the
       owner's own changes or a render that keeps failing) the lead stops and
@@ -139,7 +139,7 @@ artifacts:
 
   - id: art.envelope-json
     name: envelope.json
-    sources: ["docs/guides/client-workflow.md:33", "docs/guides/client-workflow.md:85-94", "packages/cv-workflow/cv_workflow/outputs.py:61-78"]
+    sources: ["docs/guides/client-workflow.md:33", "docs/guides/client-workflow.md:86-95", "packages/cv-workflow/cv_workflow/outputs.py:61-78"]
     path: private/<envelope>/envelope.json
     format: "JSON: alias, domain, candidate, rank (each checked against output.schema.json's property of that name)"
     visibility: private
@@ -153,7 +153,7 @@ artifacts:
 
   - id: art.readme-google-links
     name: README.md, section "Google"
-    sources: ["docs/guides/client-workflow.md:153-155", "scripts/intake-form.gs:11-15"]
+    sources: ["docs/guides/client-workflow.md:154-156", "scripts/intake-form.gs:11-15"]
     path: private/<envelope>/README.md
     format: Markdown lines with the form's answer and edit links, the Sheet and the script project
     visibility: private
@@ -190,7 +190,7 @@ artifacts:
 
   - id: art.documents
     name: The client's documents
-    sources: ["docs/guides/client-workflow.md:37", "docs/workflow/02-intake/README.md:33-35", "docs/guides/client-workflow.md:141-143"]
+    sources: ["docs/guides/client-workflow.md:37", "docs/workflow/02-intake/README.md:33-35", "docs/guides/client-workflow.md:142-144"]
     path: private/<envelope>/intake/documents/
     format: photos and files, any format
     visibility: private
@@ -206,7 +206,7 @@ artifacts:
 
   - id: art.decisions-md
     name: CV Decisions (decisions.md)
-    sources: ["docs/guides/client-workflow.md:43", "docs/guides/client-workflow.md:179-195", "docs/glossary.md:55"]
+    sources: ["docs/guides/client-workflow.md:43", "docs/guides/client-workflow.md:180-196", "docs/glossary.md:55"]
     path: private/<envelope>/research/decisions.md
     format: Markdown, one line per decision with its answer and source, "judgement" and the reason, or "open"
     visibility: private

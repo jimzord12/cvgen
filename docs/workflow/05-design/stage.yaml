@@ -58,7 +58,7 @@ steps:
 
   - id: design.run-revise-sources
     name: The editor revises the references
-    sources: [".claude/skills/idea-run/SKILL.md:54-57", ".claude/skills/idea-run/SKILL.md:76-78"]
+    sources: [".claude/skills/idea-run/SKILL.md:54-57", ".claude/skills/idea-run/SKILL.md:77-79"]
     actor: actor.magazine-editor
     action: agent.magazine-editor-revise
     inputs: [art.idea-research-review]
@@ -66,8 +66,8 @@ steps:
     when: The research gate returned FINDINGS.
 
   - id: design.run-design-gate
-    name: A fresh design-reviewer judges every page
-    sources: [".claude/skills/idea-run/SKILL.md:58-62", ".claude/skills/idea-run/SKILL.md:117-123"]
+    name: A fresh design-reviewer and codex-visual-reviewer judge every page
+    sources: [".claude/skills/idea-run/SKILL.md:58-62", ".claude/skills/idea-run/SKILL.md:118-124"]
     actor: actor.design-reviewer
     action: agent.design-reviewer
     inputs: [art.concept-pdf, art.idea-research-review]
@@ -77,7 +77,7 @@ steps:
 
   - id: design.run-revise-design
     name: The editor revises the designs
-    sources: [".claude/skills/idea-run/SKILL.md:58-62", ".claude/skills/idea-run/SKILL.md:76-80"]
+    sources: [".claude/skills/idea-run/SKILL.md:58-62", ".claude/skills/idea-run/SKILL.md:77-81"]
     actor: actor.magazine-editor
     action: agent.magazine-editor-revise
     inputs: [art.idea-design-review]
@@ -86,7 +86,7 @@ steps:
 
   - id: design.run-integrate
     name: Check the Meta Files, commit and merge the run
-    sources: [".claude/skills/idea-run/SKILL.md:82-96"]
+    sources: [".claude/skills/idea-run/SKILL.md:83-97"]
     actor: actor.lead
     action: lead.integrate-run
     inputs: [art.concept-pdf, art.concept-meta, art.idea-design-review]
@@ -95,7 +95,7 @@ steps:
 
   - id: design.run-report
     name: Tell the owner what the run drew
-    sources: [".claude/skills/idea-run/SKILL.md:127-133"]
+    sources: [".claude/skills/idea-run/SKILL.md:128-134"]
     actor: actor.lead
     action: lead.report-run
     inputs: [art.concepts-readme]
@@ -104,7 +104,7 @@ steps:
 
   - id: design.pick
     name: The owner picks a Style, Design Tier and Density
-    sources: ["docs/workflow/05-design/README.md:29-33", ".claude/skills/idea-run/SKILL.md:140-145"]
+    sources: ["docs/workflow/05-design/README.md:29-33", ".claude/skills/idea-run/SKILL.md:141-146"]
     actor: actor.owner
     action: manual.pick-design
     inputs: [art.run-message, art.concept-pdf]
@@ -114,7 +114,7 @@ steps:
 
   - id: design.record-choice
     name: Record the choice and stamp the picked design chosen
-    sources: [".claude/skills/idea-run/SKILL.md:133-138", ".claude/skills/idea-run/SKILL.md:142", "studio/design-concepts/README.md:46-49"]
+    sources: [".claude/skills/idea-run/SKILL.md:134-139", ".claude/skills/idea-run/SKILL.md:143", "studio/design-concepts/README.md:46-49"]
     actor: actor.lead
     action: cmd.stamp-concept-status
     inputs: [art.owner-pick, art.concept-pdf]
@@ -122,7 +122,7 @@ steps:
 
   - id: design.record-other-answer
     name: Record a parked or rejected answer
-    sources: [".claude/skills/idea-run/SKILL.md:143-145", "studio/design-concepts/README.md:46-49", "docs/workflow/GAPS.md:49-50"]
+    sources: [".claude/skills/idea-run/SKILL.md:144-146", "studio/design-concepts/README.md:46-49", "docs/workflow/GAPS.md:49-50"]
     actor: actor.lead
     action: cmd.stamp-concept-status
     inputs: [art.owner-pick]
@@ -211,7 +211,7 @@ steps:
 
   - id: design.engine-revise
     name: Fix the engine change
-    sources: ["docs/review.md:193-200"]
+    sources: ["docs/review.md:195-202"]
     actor: actor.lead
     action: lead.revise-engine-change
     inputs: [art.engine-review-report]
@@ -254,7 +254,7 @@ steps:
 
   - id: design.cap-reached
     name: At a loop's cap, the owner decides
-    sources: ["docs/workflow/05-design/README.md:58-63", ".claude/skills/idea-run/SKILL.md:72-75", "docs/review.md:201-205"]
+    sources: ["docs/workflow/05-design/README.md:58-63", ".claude/skills/idea-run/SKILL.md:73-76", "docs/review.md:203-207"]
     actor: actor.owner
     action: manual.decide-at-cap
 
@@ -289,21 +289,21 @@ gates:
 
   - id: gate.idea-design
     name: Idea Run quality gate
-    sources: [".claude/skills/idea-run/SKILL.md:58-62", ".claude/skills/idea-run/SKILL.md:117-123"]
+    sources: [".claude/skills/idea-run/SKILL.md:58-62", ".claude/skills/idea-run/SKILL.md:118-124"]
     check: A fresh design-reviewer and a fresh codex-visual-reviewer both return PASS; failing the Batch Test, the Three-Second Test or Flagship Parity is Blocking.
     pass: design.run-integrate
     fail: design.run-revise-design
 
   - id: gate.owner-pick
     name: The owner builds a concept
-    sources: [".claude/skills/idea-run/SKILL.md:140-145"]
+    sources: [".claude/skills/idea-run/SKILL.md:141-146"]
     check: The owner answered "Build it" with a Style, Design Tier and Density.
     pass: design.record-choice
     fail: design.record-other-answer
 
   - id: gate.engine-review
     name: Engine change review
-    sources: ["docs/review.md:188-205", "docs/proposals/workflow-model.md:59"]
+    sources: ["docs/review.md:190-207", "docs/proposals/workflow-model.md:59"]
     check: A fresh code-reviewer returns PASS (no Blocking or Material finding) on the engine change.
     pass: design.preview
     fail: design.engine-revise
@@ -318,21 +318,21 @@ gates:
 loops:
   - id: loop.idea-research
     name: Idea Run research rounds
-    sources: [".claude/skills/idea-run/SKILL.md:72-75"]
+    sources: [".claude/skills/idea-run/SKILL.md:73-76"]
     gate: gate.idea-research
     cap: { attended: 5, unattended: 10 }
     escalate: design.cap-reached
 
   - id: loop.idea-design
     name: Idea Run quality rounds
-    sources: [".claude/skills/idea-run/SKILL.md:72-75"]
+    sources: [".claude/skills/idea-run/SKILL.md:73-76"]
     gate: gate.idea-design
     cap: { attended: 5, unattended: 10 }
     escalate: design.cap-reached
 
   - id: loop.engine-review
     name: Engine change review rounds
-    sources: ["docs/review.md:201-205"]
+    sources: ["docs/review.md:203-207"]
     gate: gate.engine-review
     cap: { attended: 5, unattended: 10 }
     escalate: design.cap-reached
@@ -383,47 +383,47 @@ artifacts:
 
   - id: art.idea-research-review
     name: An Idea Run research report
-    sources: [".claude/skills/idea-run/SKILL.md:82-83"]
+    sources: [".claude/skills/idea-run/SKILL.md:83-84"]
     path: archive/work-records/idea-runs/<run>/reviews/NN-research-reviewer.md
     format: research-reviewer report, PASS or FINDINGS
     visibility: public
 
   - id: art.idea-design-review
     name: An Idea Run quality report
-    sources: [".claude/skills/idea-run/SKILL.md:82-83"]
+    sources: [".claude/skills/idea-run/SKILL.md:83-84"]
     path: archive/work-records/idea-runs/<run>/reviews/NN-design-reviewer.md
-    format: design-reviewer report, PASS or FINDINGS
+    format: design-reviewer report, PASS or FINDINGS, with the codex-visual-reviewer's NN-codex-visual-reviewer.md beside it
     visibility: public
 
   - id: art.concepts-readme
     name: The concepts index
-    sources: [".claude/skills/idea-run/SKILL.md:84-86"]
+    sources: [".claude/skills/idea-run/SKILL.md:85-87"]
     path: studio/design-concepts/README.md
     format: Markdown table, one row per Style with its state
     visibility: public
 
   - id: art.run-message
     name: The run's message to the owner
-    sources: [".claude/skills/idea-run/SKILL.md:131-133"]
+    sources: [".claude/skills/idea-run/SKILL.md:132-134"]
     format: each Style's three-word idea and its six PDFs, what was dropped or unresolved, the rounds per gate
     visibility: ephemeral
 
   - id: art.owner-pick
     name: The owner's answer on the concepts
-    sources: [".claude/skills/idea-run/SKILL.md:133-135", ".claude/skills/idea-run/SKILL.md:140-145"]
+    sources: [".claude/skills/idea-run/SKILL.md:134-136", ".claude/skills/idea-run/SKILL.md:141-146"]
     format: the owner's answer in the session
     visibility: ephemeral
 
   - id: art.chosen-concept
     name: The design the owner picked
-    sources: [".claude/skills/idea-run/SKILL.md:136-138", ".claude/skills/idea-run/SKILL.md:142"]
+    sources: [".claude/skills/idea-run/SKILL.md:137-139", ".claude/skills/idea-run/SKILL.md:143"]
     path: studio/design-concepts/<date>-<slug>/<density>/<tier>/
     format: the picked design's Typst, PDF and Meta File (status chosen)
     visibility: public
 
   - id: art.concept-decision
     name: The owner's answer, recorded
-    sources: [".claude/skills/idea-run/SKILL.md:133-138", "studio/design-concepts/README.md:46-49"]
+    sources: [".claude/skills/idea-run/SKILL.md:134-139", "studio/design-concepts/README.md:46-49"]
     path: studio/design-concepts/README.md
     format: dated decision in the Style's README row, and the new status in its designs' Meta Files
     visibility: public
@@ -455,7 +455,7 @@ artifacts:
     name: The design's own files beside cv.typ
     sources: ["docs/guides/client-workflow.md:50-55", "docs/workflow/05-design/README.md:34-38"]
     path: private/<envelope>/typst/
-    format: presentation.json, designs/*.typ, text/*.typ, art/*.svg
+    format: presentation.json, designs/*.typ, text/*.typ, art/*.svg and generated art/*.png
     visibility: private
 
   - id: art.framework-gap-entry
@@ -474,7 +474,7 @@ artifacts:
 
   - id: art.engine-review-report
     name: The engine change's review report
-    sources: ["docs/review.md:225-228"]
+    sources: ["docs/review.md:227-230"]
     path: archive/work-records/<task-slug>/reviews/NN-<reviewer>.md
     format: code-reviewer report, PASS or FINDINGS
     visibility: public
@@ -490,9 +490,9 @@ artifacts:
 
   - id: art.design-review-report
     name: A client design review report
-    sources: ["docs/guides/client-workflow.md:58-59", "docs/workflow/05-design/README.md:53-55"]
+    sources: ["docs/guides/client-workflow.md:58-60", "docs/workflow/05-design/README.md:53-55"]
     path: private/<envelope>/reviews/design-NN.md
-    format: design-reviewer report, verbatim
+    format: design-reviewer report, verbatim, with the codex-visual-reviewer's beside it as reviews/design-NN-codex.md
     visibility: private
 
 actions:
@@ -529,13 +529,13 @@ actions:
   - id: agent.code-reviewer
     kind: agent
     name: A fresh code-reviewer round
-    sources: [".claude/agents/code-reviewer.md:1-6", "docs/review.md:188-205"]
+    sources: [".claude/agents/code-reviewer.md:1-6", "docs/review.md:190-207"]
     agent: code-reviewer
 
   - id: lead.integrate-run
     kind: lead
     name: Integrate the Idea Run
-    sources: [".claude/skills/idea-run/SKILL.md:84-96"]
+    sources: [".claude/skills/idea-run/SKILL.md:85-97"]
     does: >-
       Runs python scripts/outputs.py check (every design carries its Meta
       File), then commits, merges to main and pushes; concepts stay proposed.
@@ -543,19 +543,19 @@ actions:
   - id: lead.report-run
     kind: lead
     name: Report the run to the owner
-    sources: [".claude/skills/idea-run/SKILL.md:127-133"]
+    sources: [".claude/skills/idea-run/SKILL.md:128-134"]
     does: Sends the short message with each Style's six PDFs and lists the concepts still waiting in the session-handoff doc.
 
   - id: manual.pick-design
     kind: manual
     name: Pick the design
-    sources: ["docs/workflow/05-design/README.md:29-33", ".claude/skills/idea-run/SKILL.md:140-145"]
+    sources: ["docs/workflow/05-design/README.md:29-33", ".claude/skills/idea-run/SKILL.md:141-146"]
     does: The owner answers Build it (with a Style, Design Tier and Density), Later, or Reject.
 
   - id: cmd.stamp-concept-status
     kind: cmd
     name: Stamp a concept's new state
-    sources: [".claude/skills/idea-run/SKILL.md:135-138"]
+    sources: [".claude/skills/idea-run/SKILL.md:136-139"]
     run: python scripts/outputs.py stamp <pdf> status=<state>
 
   - id: lead.write-candidate-json
@@ -623,7 +623,7 @@ actions:
   - id: lead.revise-engine-change
     kind: lead
     name: Fix the engine change
-    sources: ["docs/review.md:193-200"]
+    sources: ["docs/review.md:195-202"]
     does: Fixes the Blocking and Material findings and reruns the affected checks before the next fresh round.
 
   - id: lead.compile-previews
@@ -639,7 +639,7 @@ actions:
     kind: lead
     name: Fix the design
     sources: [".claude/skills/new-cv/SKILL.md:55-61", "docs/workflow/05-design/README.md:53-55"]
-    does: Fixes the design on the findings and stores the report verbatim as reviews/design-NN.md before the next fresh round.
+    does: Fixes the design on the findings and stores both reports verbatim, as reviews/design-NN.md and reviews/design-NN-codex.md, before the next fresh round.
 
   - id: lead.clear-review-input
     kind: lead
@@ -647,5 +647,5 @@ actions:
     sources: ["docs/workflow/05-design/README.md:56-57", ".claude/skills/new-cv/SKILL.md:62", "docs/preferences.md:67-69", ".claude/agents/design-reviewer.md:49-53"]
     does: >-
       Deletes the builds/design-review-input-* folders by path, with the page
-      PNGs the design-reviewer rendered inside them, since they hold a real
+      PNGs and batch sheets both reviewers made inside them, since they hold a real
       client's pages outside private/ (never git clean -x or -X).

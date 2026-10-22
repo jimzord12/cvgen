@@ -27,11 +27,11 @@ proposals and their revisions, skills and agent definitions, and brand or
 design assets (with the `design-reviewer` for how they look: a CV page is
 judged first on the `Batch Test`, the `Three-Second Test` and `Flagship
 Parity` from `docs/vision.md`, "Design is the product"; a brand or
-house-design asset on premium, on-brand and fit for purpose; concept runs
-and client designs add a `codex-visual-reviewer` beside it, as the
-`idea-run` and `new-cv` skills say, while brand assets and Flagship changes
-keep the `design-reviewer` alone). Documentation
-is not exempt: a wrong rule or a stale guide misleads every later session.
+house-design asset on premium, on-brand and fit for purpose; CV concept
+runs and client designs add a `codex-visual-reviewer` beside it, as the
+`idea-run` and `new-cv` skills say, while brand assets, a non-CV `Idea Run`
+and Flagship changes keep the `design-reviewer` alone). Documentation is
+not exempt: a wrong rule or a stale guide misleads every later session.
 Size is no exemption either: several changes made since the last handoff
 may go to one round together, but each is reviewed.
 
@@ -146,7 +146,9 @@ The subagent definition exposes `Read`, `Grep`, `Glob`, `Bash` and
 `PowerShell` only: no editing tools and no `Agent` tool, so it cannot spawn
 nested agents. It pins Opus at high effort, the owner's standing
 preference for reviewers since 2026-09-26, as do the `design-reviewer`,
-`research-reviewer` and `ceo-reviewer`. For an extremely complex change a
+`research-reviewer` and `ceo-reviewer`; the `codex-visual-reviewer` is the
+exception, on Sonnet, since Codex, not the wrapper, gives its verdict
+(TASK-4). For an extremely complex change a
 brief cannot raise the effort, and a subagent definition edited mid-session
 may not load until the next session. So the lead either runs that round in
 a new session after raising the `effort:` frontmatter (and restores it

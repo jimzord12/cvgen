@@ -153,7 +153,5 @@ facts and the plan to build.
   The constitution is unchanged: a generated image stays in a concept or
   an `Envelope` and never enters `packages/` without the owner. Review 01
   dispositions: `archive/work-records/codex-visual-tools/reviews/01-dispositions.md`.
-  Evidence (local, under the TASK-4 worktree's `builds/`): a Codex review
-  of the fictional Flagship page 1, PASS
-  (`codex-visual-review-20261022-125700/codex-01.md`), and a generated
-  image (`codex-image-20261022-125650/propeller.png`).
+  Evidence: `archive/work-records/codex-visual-tools/evidence/` (a Codex
+  review of the fictional Flagship page 1, PASS, and a generated image).
