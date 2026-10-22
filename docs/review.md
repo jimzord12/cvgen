@@ -27,7 +27,10 @@ proposals and their revisions, skills and agent definitions, and brand or
 design assets (with the `design-reviewer` for how they look: a CV page is
 judged first on the `Batch Test`, the `Three-Second Test` and `Flagship
 Parity` from `docs/vision.md`, "Design is the product"; a brand or
-house-design asset on premium, on-brand and fit for purpose). Documentation
+house-design asset on premium, on-brand and fit for purpose; concept runs
+and client designs add a `codex-visual-reviewer` beside it, as the
+`idea-run` and `new-cv` skills say, while brand assets and Flagship changes
+keep the `design-reviewer` alone). Documentation
 is not exempt: a wrong rule or a stale guide misleads every later session.
 Size is no exemption either: several changes made since the last handoff
 may go to one round together, but each is reviewed.

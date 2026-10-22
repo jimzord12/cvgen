@@ -59,7 +59,7 @@ actors:
 
   - id: actor.design-reviewer
     name: design-reviewer
-    sources: [".claude/agents/design-reviewer.md:1-6", ".claude/agents/design-reviewer.md:36-42", "docs/proposals/workflow-model.md:57"]
+    sources: [".claude/agents/design-reviewer.md:1-6", ".claude/agents/design-reviewer.md:39-45", "docs/proposals/workflow-model.md:57"]
     kind: agent
     does: >-
       Fresh per round: judges the concept pages of an Idea Run and every
@@ -69,7 +69,7 @@ actors:
 
   - id: actor.magazine-editor
     name: magazine-editor
-    sources: [".claude/agents/magazine-editor.md:1-6", ".claude/agents/magazine-editor.md:21-22", ".claude/skills/idea-run/SKILL.md:17"]
+    sources: [".claude/agents/magazine-editor.md:1-6", ".claude/agents/magazine-editor.md:22-23", ".claude/skills/idea-run/SKILL.md:17"]
     kind: agent
     does: >-
       Draws three Styles, each in two Densities and three Design Tiers, as
@@ -127,7 +127,7 @@ actions:
   - id: manual.decide-at-cap
     kind: manual
     name: The owner decides at the cap
-    sources: ["docs/review.md:198-202", ".claude/skills/idea-run/SKILL.md:63-66", "docs/workflow/GAPS.md:21-30"]
+    sources: ["docs/review.md:201-205", ".claude/skills/idea-run/SKILL.md:72-75", "docs/workflow/GAPS.md:21-30"]
     does: >-
       At a loop's cap (a review loop, the client's draft corrections, the
       owner's own changes or a render that keeps failing) the lead stops and

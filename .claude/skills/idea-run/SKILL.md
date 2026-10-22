@@ -14,7 +14,7 @@ a run is built, approved or put on the roadmap without the owner.
 | Run | Author | Reviewers, in order | Output |
 |---|---|---|---|
 | Product ideas | `ceo` (max 3 ideas) | `research-reviewer` on the market research, then `ceo-reviewer` | drafts in the run folder; passed ones moved to `docs/proposals/<slug>.md` (`status: pending`; the lead adds `id`, the `next_id` of `python scripts/proposals.py --json`, and sets `created` to the move date) |
-| Design concepts | `magazine-editor` (3 very distinct styles, each in 2 `Density`s, Condensed and Spacious, and 3 `Design Tier`s, Safe, Stylish, Creative: 18 designs) | `research-reviewer` on the references, then `design-reviewer` | `studio/design-concepts/<date>-<slug>/` per style, with `condensed/<tier>/` and `spacious/<tier>/` PDFs and PNGs |
+| Design concepts | `magazine-editor` (3 very distinct styles, each in 2 `Density`s, Condensed and Spacious, and 3 `Design Tier`s, Safe, Stylish, Creative: 18 designs) | `research-reviewer` on the references, then `design-reviewer` with `codex-visual-reviewer` beside it | `studio/design-concepts/<date>-<slug>/` per style, with `condensed/<tier>/` and `spacious/<tier>/` PDFs and PNGs |
 
 Cadence: design concepts whenever the owner wants inspiration or a client
 needs a design; product ideas weekly at most (the roadmap is long, the
@@ -60,6 +60,15 @@ design-reviewer's "Other assets".
    the same task list, to check for duplicates). FINDINGS -> author revises
    -> review again. A reviewer starts fresh each round on purpose: judges
    drift towards whatever they have already seen.
+   For design concepts the quality gate has two judges: a fresh
+   `codex-visual-reviewer` (GPT-6 Astra through the Codex CLI) on the same
+   snapshot, with the same steer and its own earlier reports, never the
+   design-reviewer's. Start them together; it makes its own batch sheets
+   unless you already hold sheets of this snapshot. The round passes only when both pass; send the author both
+   reports, and where they disagree the author decides with a reason,
+   which the next round of both judges sees. If Codex returns
+   `UNAVAILABLE`, the round runs on the design-reviewer alone and `run.md`
+   and the owner's message say so.
 5. Round cap per gate (owner, 2026-09-25): **5 when the owner is attending,
    10 unattended.** At the cap, the item is not dropped silently: it reaches
    the owner marked `unresolved` with the reviewer's last reason. An author
@@ -70,7 +79,8 @@ design-reviewer's "Other assets".
    needs) goes back through the quality gate; layout, typos and fictional
    sample data get a lead check against the render, noted in `run.md`.
    Every report names the snapshot it saw.
-7. Store every report as `archive/work-records/idea-runs/<run>/reviews/NN-<reviewer>.md`.
+7. Store every report as `archive/work-records/idea-runs/<run>/reviews/NN-<reviewer>.md`
+   (`NN-design-reviewer.md` and `NN-codex-visual-reviewer.md` side by side).
 8. Integrate. Output confined to new files in `studio/design-concepts/`, the run's
    rows in `studio/design-concepts/README.md`, the run folder and passed proposals
    in `docs/proposals/` is covered by the idea gates (`docs/review.md`: idea runs use their own gates); say so in `run.md`. An item

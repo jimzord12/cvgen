@@ -32,7 +32,11 @@ command from the repository root.
   `design.record-other-answer`; then `design.port-concept`: the one-off
   `Template` as `typst/cv.typ` importing only
   `/packages/cv-framework/lib.typ`, with its files beside it in
-  `typst/designs/`, `typst/text/` and `typst/art/`.
+  `typst/designs/`, `typst/text/` and `typst/art/`. A concept's generated
+  images come with it into `typst/art/`; a new one for this design is
+  made, placed and recorded in the `Envelope`'s `README.md` as
+  `docs/tech-stack.md`, "Codex CLI", says (never a portrait, nothing about
+  the `Client` in the prompt).
 - A `Template`: `design.flagship-fit` (`gate.template-fits`, the known
   gaps in `docs/framework-gaps.md`), then `design.entry-point` (BC
   section 1) or `design.custom-composition` (BC section 5).
@@ -48,9 +52,13 @@ command from the repository root.
 
   A portrait path relative to the `Envelope` compiles only through
   `cv.py render`; use the root path BC section 2 gives.
-- `design.client-review`: a fresh `design-reviewer` per round, briefed as
-  the design README says; each report verbatim as `reviews/design-NN.md`;
-  `design.fix` until PASS or `design.cap-reached`.
+- `design.client-review`: a fresh `design-reviewer` and, beside it on the
+  same previews, a fresh `codex-visual-reviewer` per round, both briefed
+  as the design README says (Codex makes its sheets in the same input
+  folder); each report verbatim as `reviews/design-NN.md` and
+  `reviews/design-NN-codex.md`; `design.fix` until both pass, or
+  `design.cap-reached`. Codex `UNAVAILABLE`: the design-reviewer alone,
+  noted in `README.md`.
 - `design.clear-review-input`: `Remove-Item -Recurse <that folder>`, by path.
 
 ## A real client: 06 deliver

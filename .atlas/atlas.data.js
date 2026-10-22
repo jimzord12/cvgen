@@ -69,9 +69,9 @@ window.ATLAS = {
      "Starts every session from the `session-handoff` doc on `main` (`backlog/docs/`) and rewrites it before stopping."
     ],
     "sources": [
-     "docs/development.md:10-18",
-     "docs/development.md:42-58",
-     "docs/development.md:109-121"
+     "docs/development.md:10-21",
+     "docs/development.md:45-61",
+     "docs/development.md:112-124"
     ],
     "short": "Claude"
    },
@@ -87,8 +87,8 @@ window.ATLAS = {
     "calledBy": "The lead, through the `idea-run` skill.",
     "when": "A design `Idea Run`, for inspiration or for a client whose `Domain` has no `Template` yet.",
     "sources": [
-     ".claude/agents/magazine-editor.md:1-23",
-     ".claude/agents/magazine-editor.md:50-82"
+     ".claude/agents/magazine-editor.md:1-24",
+     ".claude/agents/magazine-editor.md:51-83"
     ],
     "short": "Editor",
     "notes": [
@@ -112,7 +112,7 @@ window.ATLAS = {
     ],
     "sources": [
      ".claude/agents/design-reviewer.md:1-17",
-     ".claude/agents/design-reviewer.md:69-136"
+     ".claude/agents/design-reviewer.md:72-142"
     ],
     "short": "Design rev."
    },
@@ -183,7 +183,7 @@ window.ATLAS = {
     ],
     "sources": [
      ".claude/agents/code-reviewer.md:1-7",
-     "docs/review.md:125-143"
+     "docs/review.md:128-146"
     ],
     "short": "Code rev."
    },
@@ -218,7 +218,7 @@ window.ATLAS = {
     "calledBy": "The lead.",
     "when": "Any change to the files agents read.",
     "notes": [
-     "Merged into `main` on 2026-10-04 (owner's decision). The two review reports from its branch were FINDINGS: `archive/work-records/design-core/reviews/03-context-reviewer.md` (Material F1 and F2 fixed in TASK-33, 2026-10-14; its Minor findings were outside that task) and `archive/work-records/codex-visual-tools/reviews/01.md` (open; carried to TASK-4)."
+     "Merged into `main` on 2026-10-04 (owner's decision). The two review reports from its branch were FINDINGS: `archive/work-records/design-core/reviews/03-context-reviewer.md` (Material F1 and F2 fixed in TASK-33, 2026-10-14; its Minor findings were outside that task) and `archive/work-records/codex-visual-tools/reviews/01.md` (applied in TASK-4, 2026-10-22)."
     ],
     "sources": [
      ".claude/agents/context-reviewer.md",
@@ -240,7 +240,7 @@ window.ATLAS = {
     "calledBy": "The lead.",
     "when": "Feedback from you that changes how agents behave.",
     "notes": [
-     "Merged into `main` on 2026-10-04 (owner's decision). The two review reports from its branch were FINDINGS: `archive/work-records/design-core/reviews/03-context-reviewer.md` (Material F1 and F2 fixed in TASK-33, 2026-10-14; its Minor findings were outside that task) and `archive/work-records/codex-visual-tools/reviews/01.md` (open; carried to TASK-4)."
+     "Merged into `main` on 2026-10-04 (owner's decision). The two review reports from its branch were FINDINGS: `archive/work-records/design-core/reviews/03-context-reviewer.md` (Material F1 and F2 fixed in TASK-33, 2026-10-14; its Minor findings were outside that task) and `archive/work-records/codex-visual-tools/reviews/01.md` (applied in TASK-4, 2026-10-22)."
     ],
     "sources": [
      ".claude/agents/context-maintainer.md",
@@ -259,7 +259,7 @@ window.ATLAS = {
     ],
     "sources": [
      ".claude/skills/new-client/SKILL.md:56-67",
-     ".claude/skills/idea-run/SKILL.md:88-105"
+     ".claude/skills/idea-run/SKILL.md:98-115"
     ],
     "short": "General"
    },
@@ -268,16 +268,18 @@ window.ATLAS = {
     "kind": "external",
     "model": "GPT-6 Astra",
     "effort": "high",
-    "status": "planned",
-    "role": "Second visual reviewer beside the design-reviewer: looks at the page images through the Codex CLI. A design round passes only when both pass.",
-    "access": "Read-only sandbox.",
-    "calledBy": "The lead, every design round (once built).",
+    "status": "built",
+    "file": ".claude/agents/codex-visual-reviewer.md",
+    "role": "Second visual reviewer beside the design-reviewer: a thin Claude wrapper (Sonnet, high) sends the page images, batch sheets and the design-reviewer's own rubric to GPT-6 Astra through the Codex CLI and returns its verdict unedited. A design round passes only when both pass.",
+    "access": "Codex runs read-only, ephemeral, without your global Codex config; the wrapper writes only under `builds/`.",
+    "calledBy": "The lead, every design round of a concept run or a client design. Brand assets and Flagship changes keep the design-reviewer alone.",
     "notes": [
-     "Approved by you on 2026-09-29, not built. The proposal has two open Material findings: run with `--ephemeral` and `--ignore-user-config`."
+     "Built in TASK-4 (2026-10-22). If Codex is unavailable, the round runs on the design-reviewer alone and says so."
     ],
     "sources": [
-     "docs/proposals/codex-visual-tools.md",
-     "archive/work-records/codex-visual-tools/reviews/01.md"
+     ".claude/agents/codex-visual-reviewer.md",
+     "docs/tech-stack.md",
+     "docs/proposals/codex-visual-tools.md"
     ],
     "short": "Codex rev."
    },
@@ -286,13 +288,14 @@ window.ATLAS = {
     "kind": "external",
     "model": "GPT-6 Sol",
     "effort": "high",
-    "status": "planned",
-    "role": "Generates raster images a design commissions: never a portrait, no real people, brands or text, at most two per page.",
-    "calledBy": "The magazine-editor commissions images; the lead does for client designs (once built).",
+    "status": "built",
+    "role": "Generates raster images a design commissions: never a portrait, no real people, brands or text, at most two per page, each recorded with its prompt, model, date and SHA-256.",
+    "calledBy": "The magazine-editor for concepts; the lead for client designs.",
     "notes": [
-     "Approved 2026-09-29, not built."
+     "Built in TASK-4 (2026-10-22). Never enters `packages/` or a `Template` without your decision."
     ],
     "sources": [
+     "docs/tech-stack.md",
      "docs/proposals/codex-visual-tools.md"
     ]
    },
@@ -445,7 +448,7 @@ window.ATLAS = {
     "role": "The task store (Backlog.md, ADR 0014): one file per task, statuses Queued, Active, Review, Ready, Done, label `blocked`. The `session-handoff` doc is where every session starts. Boards: `backlog board`, `backlog browser`.",
     "sources": [
      ".claude/skills/backlog/SKILL.md:1-35",
-     "docs/development.md:25-40",
+     "docs/development.md:28-43",
      "docs/decisions/0014-backlog-md-task-store.md"
     ],
     "short": "Backlog"
@@ -536,7 +539,7 @@ window.ATLAS = {
     "**Intake by Relay.** The client answers one question list, consent first, through the owner (and optionally an Intake Form beside the chat message); nothing after this stage starts before the client's \"I agree\" is in intake/messages.md.",
     "**Facts, Scout, CV Decisions, Deep Dives and one follow-up.** Turn the client's answers into sourced facts, research what this client's target expects, decide what the CV must say, and ask the client once more, in one batch, for what is still missing.",
     "**Text Draft and Sign-off.** The client checks every fact of the CV in the Text Draft before any design work starts.",
-    "**Design and build the CV.** Turn the signed-off facts into the client's CV design and its build files: the Flagship for a Domain that has it, a custom composition when the data does not fit it, or a one-off Template from an Idea Run when the Domain has no Template; every client CV's design passes the design-reviewer.",
+    "**Design and build the CV.** Turn the signed-off facts into the client's CV design and its build files: the Flagship for a Domain that has it, a custom composition when the data does not fit it, or a one-off Template from an Idea Run when the Domain has no Template; every client CV's design passes the design-reviewer and the codex-visual-reviewer.",
     "**Render, Approval, Export and delivery.** Render the CV as a Revision, check it, let the owner approve its exact bytes, export a verified copy, write the delete-by date, and record the delivery once the owner has sent it.",
     "**Retention, deletion and closing the record.** Keep a client's data only as long as promised: name stalled clients and passed delete-by dates to the owner, honour a request to keep, have the owner erase the Envelope and its Google items, and close the client's task."
    ],
@@ -551,12 +554,12 @@ window.ATLAS = {
     ".claude/skills/new-client/SKILL.md:53-74",
     "docs/workflow/04-text-draft/README.md:15-42",
     ".claude/skills/new-client/SKILL.md:76-97",
-    "docs/workflow/05-design/README.md:15-54",
-    ".claude/skills/new-cv/SKILL.md:21-54",
+    "docs/workflow/05-design/README.md:15-63",
+    ".claude/skills/new-cv/SKILL.md:21-62",
     "docs/guides/build-a-cv.md:1-100",
     "docs/guides/build-a-cv.md:102-182",
     "docs/pdf-workflow.md:172-194",
-    ".claude/skills/new-cv/SKILL.md:56-78",
+    ".claude/skills/new-cv/SKILL.md:64-86",
     "docs/workflow/07-after/README.md:15-53",
     ".claude/skills/new-client/SKILL.md:16-29",
     "docs/proposals/workflow-model.md:54-60"
@@ -1571,7 +1574,7 @@ window.ATLAS = {
        ],
        "note": "Model step `research.cap-reached`, action `manual.decide-at-cap`, in `docs/workflow/03-research/stage.yaml`.",
        "sources": [
-        "docs/review.md:198-202",
+        "docs/review.md:201-205",
         "docs/workflow/03-research/README.md:70-73"
        ]
       }
@@ -1883,7 +1886,7 @@ window.ATLAS = {
        "note": "Model step `text-draft.cap-reached`, action `manual.decide-at-cap`, in `docs/workflow/04-text-draft/stage.yaml`.",
        "sources": [
         "docs/workflow/README.md:28-32",
-        "docs/review.md:198-202"
+        "docs/review.md:201-205"
        ]
       }
      ]
@@ -1931,7 +1934,7 @@ window.ATLAS = {
        ],
        "note": "Model step `design.handover`, action `skill.new-cv`, in `docs/workflow/05-design/stage.yaml`.",
        "sources": [
-        "docs/workflow/05-design/README.md:23-26",
+        "docs/workflow/05-design/README.md:25-28",
         ".claude/skills/new-client/SKILL.md:97",
         ".claude/skills/new-cv/SKILL.md:15-17"
        ]
@@ -1957,10 +1960,10 @@ window.ATLAS = {
        ],
        "note": "Model step `design.run-brief`, action `skill.idea-run`, in `docs/workflow/05-design/stage.yaml`.",
        "sources": [
-        ".claude/skills/new-cv/SKILL.md:28-35",
-        "docs/workflow/05-design/README.md:27-36",
+        ".claude/skills/new-cv/SKILL.md:28-39",
+        "docs/workflow/05-design/README.md:29-38",
         ".claude/skills/idea-run/SKILL.md:32-43",
-        "docs/workflow/05-design/README.md:27-31"
+        "docs/workflow/05-design/README.md:29-33"
        ]
       },
       {
@@ -2050,7 +2053,7 @@ window.ATLAS = {
        "note": "Model step `design.run-revise-sources`, action `agent.magazine-editor-revise`, in `docs/workflow/05-design/stage.yaml`.",
        "sources": [
         ".claude/skills/idea-run/SKILL.md:54-57",
-        ".claude/skills/idea-run/SKILL.md:67-69"
+        ".claude/skills/idea-run/SKILL.md:76-78"
        ]
       },
       {
@@ -2061,7 +2064,7 @@ window.ATLAS = {
        "summary": "A fresh design-reviewer round",
        "gate": {
         "type": "review",
-        "label": "Idea Run quality gate: A fresh design-reviewer returns PASS; failing the Batch Test, the Three-Second Test or Flagship Parity is Blocking.",
+        "label": "Idea Run quality gate: A fresh design-reviewer and a fresh codex-visual-reviewer both return PASS; failing the Batch Test, the Three-Second Test or Flagship Parity is Blocking.",
         "cap": "5 attended, 10 unattended, then `design.cap-reached`"
        },
        "branch": [
@@ -2091,7 +2094,7 @@ window.ATLAS = {
        "note": "Model step `design.run-design-gate`, action `agent.design-reviewer`, in `docs/workflow/05-design/stage.yaml`.",
        "sources": [
         ".claude/skills/idea-run/SKILL.md:58-62",
-        ".claude/skills/idea-run/SKILL.md:107-113"
+        ".claude/skills/idea-run/SKILL.md:117-123"
        ]
       },
       {
@@ -2119,7 +2122,7 @@ window.ATLAS = {
        "note": "Model step `design.run-revise-design`, action `agent.magazine-editor-revise`, in `docs/workflow/05-design/stage.yaml`.",
        "sources": [
         ".claude/skills/idea-run/SKILL.md:58-62",
-        ".claude/skills/idea-run/SKILL.md:67-71"
+        ".claude/skills/idea-run/SKILL.md:76-80"
        ]
       },
       {
@@ -2141,7 +2144,7 @@ window.ATLAS = {
        ],
        "note": "Model step `design.run-integrate`, action `lead.integrate-run`, in `docs/workflow/05-design/stage.yaml`.",
        "sources": [
-        ".claude/skills/idea-run/SKILL.md:73-86"
+        ".claude/skills/idea-run/SKILL.md:82-96"
        ]
       },
       {
@@ -2161,7 +2164,7 @@ window.ATLAS = {
        ],
        "note": "Model step `design.run-report`, action `lead.report-run`, in `docs/workflow/05-design/stage.yaml`.",
        "sources": [
-        ".claude/skills/idea-run/SKILL.md:117-123"
+        ".claude/skills/idea-run/SKILL.md:127-133"
        ]
       },
       {
@@ -2200,8 +2203,8 @@ window.ATLAS = {
        ],
        "note": "Model step `design.pick`, action `manual.pick-design`, in `docs/workflow/05-design/stage.yaml`.",
        "sources": [
-        "docs/workflow/05-design/README.md:27-31",
-        ".claude/skills/idea-run/SKILL.md:130-135"
+        "docs/workflow/05-design/README.md:29-33",
+        ".claude/skills/idea-run/SKILL.md:140-145"
        ]
       },
       {
@@ -2226,8 +2229,8 @@ window.ATLAS = {
        ],
        "note": "Model step `design.record-choice`, action `cmd.stamp-concept-status`, in `docs/workflow/05-design/stage.yaml`.",
        "sources": [
-        ".claude/skills/idea-run/SKILL.md:123-128",
-        ".claude/skills/idea-run/SKILL.md:132",
+        ".claude/skills/idea-run/SKILL.md:133-138",
+        ".claude/skills/idea-run/SKILL.md:142",
         "studio/design-concepts/README.md:46-49"
        ]
       },
@@ -2254,7 +2257,7 @@ window.ATLAS = {
        ],
        "note": "Model step `design.record-other-answer`, action `cmd.stamp-concept-status`, in `docs/workflow/05-design/stage.yaml`.",
        "sources": [
-        ".claude/skills/idea-run/SKILL.md:133-135",
+        ".claude/skills/idea-run/SKILL.md:143-145",
         "studio/design-concepts/README.md:46-49",
         "docs/workflow/GAPS.md:49-50"
        ]
@@ -2319,7 +2322,7 @@ window.ATLAS = {
        ],
        "note": "Model step `design.flagship-fit`, action `lead.check-flagship-fit`, in `docs/workflow/05-design/stage.yaml`.",
        "sources": [
-        ".claude/skills/new-cv/SKILL.md:36-41",
+        ".claude/skills/new-cv/SKILL.md:40-45",
         "docs/guides/build-a-cv.md:199-205"
        ]
       },
@@ -2341,7 +2344,7 @@ window.ATLAS = {
        ],
        "note": "Model step `design.entry-point`, action `lead.write-flagship-entry`, in `docs/workflow/05-design/stage.yaml`.",
        "sources": [
-        ".claude/skills/new-cv/SKILL.md:36-38",
+        ".claude/skills/new-cv/SKILL.md:40-42",
         "docs/guides/build-a-cv.md:79-100",
         "docs/guides/build-a-cv.md:15-53"
        ]
@@ -2366,7 +2369,7 @@ window.ATLAS = {
        "note": "Model step `design.custom-composition`, action `lead.compose-by-hand`, in `docs/workflow/05-design/stage.yaml`.",
        "sources": [
         "docs/guides/build-a-cv.md:195-261",
-        ".claude/skills/new-cv/SKILL.md:36-41"
+        ".claude/skills/new-cv/SKILL.md:40-45"
        ]
       },
       {
@@ -2389,7 +2392,7 @@ window.ATLAS = {
        "note": "Model step `design.port-concept`, action `lead.port-concept`, in `docs/workflow/05-design/stage.yaml`.",
        "sources": [
         "docs/framework-gaps.md:128-132",
-        "docs/workflow/05-design/README.md:27-36",
+        "docs/workflow/05-design/README.md:29-38",
         "archive/work-records/workflow-model/handoff.md:290"
        ]
       },
@@ -2412,8 +2415,8 @@ window.ATLAS = {
        "note": "Model step `design.framework-gap`, action `lead.record-framework-gap`, in `docs/workflow/05-design/stage.yaml`.",
        "sources": [
         "docs/guides/build-a-cv.md:255-261",
-        ".claude/skills/new-cv/SKILL.md:36-41",
-        "docs/workflow/05-design/README.md:60-64"
+        ".claude/skills/new-cv/SKILL.md:40-45",
+        "docs/workflow/05-design/README.md:69-73"
        ]
       },
       {
@@ -2501,7 +2504,7 @@ window.ATLAS = {
        ],
        "note": "Model step `design.engine-revise`, action `lead.revise-engine-change`, in `docs/workflow/05-design/stage.yaml`.",
        "sources": [
-        "docs/review.md:190-197"
+        "docs/review.md:193-200"
        ]
       },
       {
@@ -2522,19 +2525,19 @@ window.ATLAS = {
        ],
        "note": "Model step `design.preview`, action `lead.compile-previews`, in `docs/workflow/05-design/stage.yaml`.",
        "sources": [
-        ".claude/skills/new-cv/SKILL.md:42-50",
-        "docs/workflow/05-design/README.md:42-44",
+        ".claude/skills/new-cv/SKILL.md:46-54",
+        "docs/workflow/05-design/README.md:44-46",
         "docs/proposals/workflow-model.md:57"
        ]
       },
       {
        "id": "design.client-review",
-       "title": "A fresh design-reviewer judges the client's pages",
+       "title": "A fresh design-reviewer and codex-visual-reviewer judge the client's pages",
        "actor": "design-reviewer",
        "summary": "A fresh design-reviewer round",
        "gate": {
         "type": "review",
-        "label": "Client design review: A fresh design-reviewer returns PASS on the client's preview pages, first on the Batch Test and the Three-Second Test.",
+        "label": "Client design review: A fresh design-reviewer and a fresh codex-visual-reviewer both return PASS on the client's preview pages, first on the Batch Test and the Three-Second Test.",
         "cap": "5 attended, 10 unattended, then `design.cap-reached`"
        },
        "next": [],
@@ -2560,10 +2563,10 @@ window.ATLAS = {
        ],
        "note": "Model step `design.client-review`, action `agent.design-reviewer`, in `docs/workflow/05-design/stage.yaml`.",
        "sources": [
-        "docs/workflow/05-design/README.md:42-54",
-        ".claude/skills/new-cv/SKILL.md:51-53",
+        "docs/workflow/05-design/README.md:44-63",
+        ".claude/skills/new-cv/SKILL.md:55-61",
         "docs/proposals/workflow-model.md:57",
-        ".claude/agents/design-reviewer.md:34-42"
+        ".claude/agents/design-reviewer.md:37-45"
        ]
       },
       {
@@ -2589,7 +2592,7 @@ window.ATLAS = {
        ],
        "note": "Model step `design.fix`, action `lead.fix-design`, in `docs/workflow/05-design/stage.yaml`.",
        "sources": [
-        "docs/workflow/05-design/README.md:51-54"
+        "docs/workflow/05-design/README.md:58-63"
        ]
       },
       {
@@ -2603,10 +2606,10 @@ window.ATLAS = {
        ],
        "note": "Model step `design.clear-review-input`, action `lead.clear-review-input`, in `docs/workflow/05-design/stage.yaml`.",
        "sources": [
-        "docs/workflow/05-design/README.md:49-50",
-        ".claude/skills/new-cv/SKILL.md:54",
+        "docs/workflow/05-design/README.md:56-57",
+        ".claude/skills/new-cv/SKILL.md:62",
         "docs/preferences.md:67-69",
-        ".claude/agents/design-reviewer.md:46-50"
+        ".claude/agents/design-reviewer.md:49-53"
        ]
       },
       {
@@ -2620,9 +2623,9 @@ window.ATLAS = {
        ],
        "note": "Model step `design.cap-reached`, action `manual.decide-at-cap`, in `docs/workflow/05-design/stage.yaml`.",
        "sources": [
-        "docs/workflow/05-design/README.md:51-54",
-        ".claude/skills/idea-run/SKILL.md:63-66",
-        "docs/review.md:198-202"
+        "docs/workflow/05-design/README.md:58-63",
+        ".claude/skills/idea-run/SKILL.md:72-75",
+        "docs/review.md:201-205"
        ]
       }
      ]
@@ -2682,7 +2685,7 @@ window.ATLAS = {
        "note": "Model step `deliver.render`, action `cmd.cv-render`, in `docs/workflow/06-deliver/stage.yaml`.",
        "sources": [
         "docs/guides/build-a-cv.md:110-131",
-        ".claude/skills/new-cv/SKILL.md:58-61",
+        ".claude/skills/new-cv/SKILL.md:66-69",
         "packages/cv-workflow/cv_workflow/render.py:100-207"
        ]
       },
@@ -2712,7 +2715,7 @@ window.ATLAS = {
        "sources": [
         "docs/guides/build-a-cv.md:120-128",
         "docs/guides/build-a-cv.md:184-193",
-        ".claude/skills/new-cv/SKILL.md:58-61"
+        ".claude/skills/new-cv/SKILL.md:66-69"
        ]
       },
       {
@@ -2734,7 +2737,7 @@ window.ATLAS = {
        ],
        "note": "Model step `deliver.page-png`, action `cmd.page-png`, in `docs/workflow/06-deliver/stage.yaml`.",
        "sources": [
-        ".claude/skills/new-cv/SKILL.md:62-64",
+        ".claude/skills/new-cv/SKILL.md:70-72",
         "docs/workflow/06-deliver/README.md:22-25",
         ".claude/skills/verify-cv/SKILL.md:65-76"
        ]
@@ -2775,7 +2778,7 @@ window.ATLAS = {
        ],
        "note": "Model step `deliver.wording-check`, action `cmd.wording-check`, in `docs/workflow/06-deliver/stage.yaml`.",
        "sources": [
-        ".claude/skills/new-cv/SKILL.md:65-66",
+        ".claude/skills/new-cv/SKILL.md:73-74",
         "docs/guides/build-a-cv.md:98-100",
         "docs/workflow/06-deliver/README.md:66-69"
        ]
@@ -2798,7 +2801,7 @@ window.ATLAS = {
        ],
        "note": "Model step `deliver.report`, action `lead.report-render`, in `docs/workflow/06-deliver/stage.yaml`.",
        "sources": [
-        ".claude/skills/new-cv/SKILL.md:67-69"
+        ".claude/skills/new-cv/SKILL.md:75-77"
        ]
       },
       {
@@ -2926,7 +2929,7 @@ window.ATLAS = {
         "docs/proposals/workflow-model.md:54",
         "docs/proposals/workflow-model.md:56",
         "docs/workflow/06-deliver/README.md:44-46",
-        ".claude/skills/new-cv/SKILL.md:72-75"
+        ".claude/skills/new-cv/SKILL.md:80-83"
        ]
       },
       {
@@ -2973,7 +2976,7 @@ window.ATLAS = {
        "sources": [
         "docs/guides/build-a-cv.md:166-168",
         "docs/workflow/06-deliver/README.md:50-51",
-        ".claude/skills/new-cv/SKILL.md:76-77"
+        ".claude/skills/new-cv/SKILL.md:84-85"
        ]
       },
       {
@@ -3017,7 +3020,7 @@ window.ATLAS = {
        ],
        "note": "Model step `deliver.status`, action `cmd.cv-status`, in `docs/workflow/06-deliver/stage.yaml`.",
        "sources": [
-        ".claude/skills/new-cv/SKILL.md:78",
+        ".claude/skills/new-cv/SKILL.md:86",
         "scripts/cv.py:62-63",
         "packages/cv-workflow/cv_workflow/__init__.py:14-31"
        ]
@@ -3033,7 +3036,7 @@ window.ATLAS = {
        ],
        "note": "Model step `deliver.cap-reached`, action `manual.decide-at-cap`, in `docs/workflow/06-deliver/stage.yaml`.",
        "sources": [
-        "docs/review.md:198-202"
+        "docs/review.md:201-205"
        ]
       }
      ]
@@ -3334,6 +3337,7 @@ window.ATLAS = {
        "does": [
         "Studies the vision, the glossary, the `Anti-examples` (never repeat their idea), the design studies and the `Flagship`.",
         "Builds each Style's folder in `studio/design-concepts/` with a brief, fictional sample data, a portrait when the idea needs one, and every PDF with its PNG pages.",
+        "May commission up to two Codex-generated images per page (GPT-6 Sol) where drawing cannot reach, each recorded in `brief.md`; never a portrait, no text, people or brands.",
         "At most two open-licence font families per Style. Never touches the engine, examples, tests, archive or `private/`.",
         "Stamps every PDF `proposed` so it shows up in the `Design Review` app."
        ],
@@ -3347,11 +3351,12 @@ window.ATLAS = {
        ],
        "uses": [
         "magazine-editor",
+        "codex-image",
         "outputs-py"
        ],
        "sources": [
-        ".claude/agents/magazine-editor.md:50-82",
-        ".claude/agents/magazine-editor.md:88-213",
+        ".claude/agents/magazine-editor.md:51-83",
+        ".claude/agents/magazine-editor.md:89-220",
         "studio/design-concepts/README.md"
        ]
       }
@@ -3436,24 +3441,26 @@ window.ATLAS = {
         "Makes batch sheets: each page shrunk among 8+ plain market CVs, to judge the `Batch Test` honestly.",
         "Rubric: 1 `Batch Test`, 2 `Three-Second Test`, 3 `Flagship Parity`, 4 distinct, 5 reads as a CV, 6 craft, 7 provenance, 8 buildable.",
         "Also Blocking: a run whose Styles are not very distinct, or a Style repeating an `Anti-example`'s idea.",
-        "Planned: the Codex reviewer (GPT-6 Astra, high) looks at the same pages; a round passes only when both pass."
+        "Beside it, a fresh `codex-visual-reviewer` sends the same pages, its own batch sheets and the same rubric to GPT-6 Astra (high) through the Codex CLI; a round passes only when both pass, and where they disagree the author decides with a reason. Codex unavailable: the design-reviewer alone, recorded in `run.md`."
        ],
        "gate": {
         "type": "review",
-        "label": "Fresh design-reviewer each round (plus the Codex reviewer once built).",
+        "label": "Fresh design-reviewer and codex-visual-reviewer each round.",
         "pass": "PASS from every reviewer",
         "cap": "5 attended, 10 unattended. You set 10 for the 2026-09-29 run."
        },
        "out": [
-        "`reviews/NN-design-reviewer.md`"
+        "`reviews/NN-design-reviewer.md`",
+        "`reviews/NN-codex-visual-reviewer.md`"
        ],
        "uses": [
         "design-reviewer",
         "codex-reviewer"
        ],
        "sources": [
-        ".claude/skills/idea-run/SKILL.md:58-66",
-        ".claude/agents/design-reviewer.md:44-136",
+        ".claude/skills/idea-run/SKILL.md:58-75",
+        ".claude/agents/design-reviewer.md:47-142",
+        ".claude/agents/codex-visual-reviewer.md",
         "docs/proposals/codex-visual-tools.md"
        ]
       },
@@ -3473,8 +3480,8 @@ window.ATLAS = {
         "After a PASS: a new sourced claim goes back to the research gate; a change to the Style's idea or to what you decide on goes back to the design gate; layout, typos or sample data need only a lead check noted in `run.md`."
        ],
        "sources": [
-        ".claude/agents/magazine-editor.md:213-221",
-        ".claude/skills/idea-run/SKILL.md:67-72"
+        ".claude/agents/magazine-editor.md:222-232",
+        ".claude/skills/idea-run/SKILL.md:76-81"
        ]
       }
      ]
@@ -3500,8 +3507,8 @@ window.ATLAS = {
         "outputs-py"
        ],
        "sources": [
-        ".claude/skills/idea-run/SKILL.md:74-86",
-        "docs/review.md:48-62"
+        ".claude/skills/idea-run/SKILL.md:84-96",
+        "docs/review.md:51-65"
        ]
       },
       {
@@ -3516,7 +3523,7 @@ window.ATLAS = {
         "Styles still waiting for your answer are listed in the `session-handoff` doc."
        ],
        "sources": [
-        ".claude/skills/idea-run/SKILL.md:115-123"
+        ".claude/skills/idea-run/SKILL.md:125-133"
        ]
       },
       {
@@ -3530,7 +3537,7 @@ window.ATLAS = {
         "label": "Build it → `chosen` · Later → `parked` · Reject → `rejected` · Not my style, keep it → `Anti-example`. No answer: stays `proposed`."
        },
        "sources": [
-        ".claude/skills/idea-run/SKILL.md:123-135",
+        ".claude/skills/idea-run/SKILL.md:133-145",
         "docs/pdf-workflow.md:127"
        ]
       },
@@ -3548,7 +3555,7 @@ window.ATLAS = {
         "python scripts/outputs.py stamp <pdf> status=chosen"
        ],
        "sources": [
-        ".claude/skills/idea-run/SKILL.md:123-135",
+        ".claude/skills/idea-run/SKILL.md:133-145",
         "studio/design-concepts/README.md:45-48",
         "studio/archive/anti-examples/README.md"
        ]
@@ -3563,7 +3570,7 @@ window.ATLAS = {
         "A concept becomes a `Template` only after you keep it and a build task is agreed."
        ],
        "sources": [
-        ".claude/skills/idea-run/SKILL.md:130-135",
+        ".claude/skills/idea-run/SKILL.md:140-145",
         "studio/design-concepts/README.md:3-6"
        ]
       }
@@ -3617,7 +3624,7 @@ window.ATLAS = {
         "backlog"
        ],
        "sources": [
-        "docs/development.md:42-58",
+        "docs/development.md:45-61",
         "docs/proposals/README.md:46-51",
         "docs/proposals/README.md:89-97"
        ]
@@ -3638,8 +3645,8 @@ window.ATLAS = {
         "backlog"
        ],
        "sources": [
-        "docs/development.md:25-40",
-        "docs/development.md:121-212"
+        "docs/development.md:28-43",
+        "docs/development.md:124-215"
        ]
       }
      ]
@@ -3678,7 +3685,7 @@ window.ATLAS = {
        ],
        "sources": [
         "docs/conventions.md:6-11",
-        "docs/development.md:214-221",
+        "docs/development.md:217-224",
         "docs/framework-gaps.md:3-6",
         ".claude/skills/verify-cv/SKILL.md:10-19"
        ]
@@ -3720,9 +3727,9 @@ window.ATLAS = {
        ],
        "note": "Only spelling, comments, formatting or a glossary row skip the round, and record-keeping commits (storing reports, merging reviewed work).",
        "sources": [
-        "docs/review.md:7-62",
-        "docs/review.md:79-99",
-        "docs/review.md:155-174",
+        "docs/review.md:7-65",
+        "docs/review.md:82-102",
+        "docs/review.md:158-177",
         "docs/review.md",
         "archive/work-records/anti-examples/reviews/01-context.md"
        ]
@@ -3743,7 +3750,7 @@ window.ATLAS = {
         "Renaming the task never resets the round count."
        ],
        "sources": [
-        "docs/review.md:178-215"
+        "docs/review.md:181-218"
        ]
       }
      ]
@@ -3797,7 +3804,7 @@ window.ATLAS = {
         "repo-maintenance"
        ],
        "sources": [
-        "docs/development.md:72-103"
+        "docs/development.md:75-106"
        ]
       },
       {
@@ -3812,7 +3819,7 @@ window.ATLAS = {
         "backlog"
        ],
        "sources": [
-        "docs/development.md:105-119"
+        "docs/development.md:108-122"
        ]
       },
       {
@@ -4456,40 +4463,40 @@ window.ATLAS = {
    "question": "Which agents, skills and tools exist, and on which model?",
    "summary": "Everyone and everything that acts in the flows: the model and effort each agent runs on, what it may touch, and every step it appears in.",
    "tldr": [
-    "Every author and reviewer agent in the repo runs on Opus at high effort: your standing choice for reviewers since 2026-09-26.",
+    "Every author and reviewer agent in the repo runs on Opus at high effort (your standing choice for reviewers since 2026-09-26), except the `codex-visual-reviewer` wrapper, on Sonnet: Codex gives its verdict.",
     "A reviewer is always fresh: a new agent each round, given the earlier reports, never a fork of the author.",
-    "Not everything here is on `main`: the two Codex steps are approved but not built; the two context agents are on `main` since 2026-10-04."
+    "Two steps run on Codex (your ChatGPT plan), not Claude: the `codex-visual-reviewer` (GPT-6 Astra, through a Sonnet wrapper) and the image step (GPT-6 Sol), built 2026-10-22."
    ],
    "sources": [
-    "docs/review.md:133-146"
+    "docs/review.md:136-149"
    ]
   }
  ],
  "build": {
-  "builtAt": "2026-10-14 13:12 UTC",
-  "commit": "bc1c334",
+  "builtAt": "2026-10-22 10:02 UTC",
+  "commit": "38da34d",
   "kit": "1.0",
   "stale": {},
   "verified": {
    "client-journey": {
-    "at": "2026-10-14",
-    "commit": "9e7e6e1"
+    "at": "2026-10-22",
+    "commit": "38da34d"
    },
    "design-run": {
-    "at": "2026-10-14",
-    "commit": "775cbc6"
+    "at": "2026-10-22",
+    "commit": "38da34d"
    },
    "change-review": {
-    "at": "2026-10-14",
-    "commit": "9e7e6e1"
+    "at": "2026-10-22",
+    "commit": "38da34d"
    },
    "system-map": {
-    "at": "2026-10-14",
-    "commit": "bc1c334"
+    "at": "2026-10-22",
+    "commit": "38da34d"
    },
    "roster": {
-    "at": "2026-10-14",
-    "commit": "9e7e6e1"
+    "at": "2026-10-22",
+    "commit": "38da34d"
    }
   }
  }

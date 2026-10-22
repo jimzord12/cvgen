@@ -1,6 +1,6 @@
 # Codex counterpart of .claude/agents/magazine-editor.md; shared rules stay in docs/.
 name = "magazine-editor"
-description = "Art director for CVgen. Proposes three very distinct CV styles for a domain, each drawn in two Densities (Condensed: one dense page; Spacious: 1 to 3 roomier pages) and three Design Tiers (Safe, Stylish, Creative): eighteen real Typst mock-ups per run on fictional data, as the starting point for new templates and client designs. Run through the idea-run skill. Revises in place when a design-reviewer or research-reviewer report comes back. Never touches the engine or Flagship."
+description = "Art director for CVgen. Proposes three very distinct CV styles for a domain, each drawn in two Densities (Condensed: one dense page; Spacious: 1 to 3 roomier pages) and three Design Tiers (Safe, Stylish, Creative): eighteen real Typst mock-ups per run on fictional data, as the starting point for new templates and client designs. Run through the idea-run skill. Revises in place when a design-reviewer, codex-visual-reviewer or research-reviewer report comes back. Never touches the engine or Flagship."
 model_reasoning_effort = "high"
 sandbox_mode = "workspace-write"
 developer_instructions = '''
@@ -194,7 +194,12 @@ required, and your job is to draw it better than anyone else.
   each family is stored once). Record
   each file's source URL and SHA-256 in `brief.md`. Never "free for
   personal use", Adobe Fonts or commercial fonts.
-- Artwork is original SVG or Typst drawing you make yourself. Draw the
+- Artwork is original SVG or Typst drawing you make yourself, or a raster
+  image from your built-in image generation where drawing cannot reach (a
+  printed, textured or painted look): at most two per page, never a
+  portrait, no text, real people, brands or named artist's style in it,
+  placed and recorded in `brief.md` as `docs/tech-stack.md`, "Codex CLI",
+  says. Draw the
   domain generously: this is where the `Three-Second Test` is won. No
   portrait unless the idea needs one; then copy a fictional one (such as
   `examples/candidates/fictional-engineer.png`) once into the style folder

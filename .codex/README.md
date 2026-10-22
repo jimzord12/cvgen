@@ -18,6 +18,9 @@ this repository after adding them. The installed CLI used for verification is
 | `repo-auditor-lite` | Confirm repo-maintenance leads and judgement checks | None |
 | `code-reviewer` | Advisory snapshot review under docs/review.md | Vetted checks into fresh builds/ folders only |
 
+`codex-visual-reviewer` has no counterpart here: it is Claude's wrapper
+around the Codex CLI itself (`docs/tech-stack.md`, "Codex CLI").
+
 ## Use
 
 Ask Codex to delegate to a role by name. For example:
