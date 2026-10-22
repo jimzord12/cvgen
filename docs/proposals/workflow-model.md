@@ -1,7 +1,7 @@
 ---
 id: P-0017
 kind: proposal
-status: approved
+status: applied
 revision: 1
 created: 2026-10-14
 ---
@@ -99,3 +99,4 @@ Tool). The owner's chosen option is quoted.
 ## Application
 
 Applied by the tasks above; each records its evidence in its own task.
+- 2026-10-22, owner: marked `applied`; the change has been in effect since its tasks closed, and they hold the evidence.

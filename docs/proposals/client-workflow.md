@@ -1,7 +1,7 @@
 ---
 id: P-0011
 kind: proposal
-status: approved
+status: applied
 revision: 1
 created: 2026-09-25
 ---
@@ -91,3 +91,4 @@ Approve the workflow as above?
   most about 15 minutes and at most 5 questions that need typing (answer
   "A" to that option); a chat follow-up keeps "aim for 5, never more
   than 10".
+- 2026-10-22, owner: marked `applied`; the change has been in effect since its tasks closed, and they hold the evidence.
