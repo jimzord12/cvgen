@@ -83,11 +83,9 @@ Two gates in a chain choose one of three build paths:
   reason goes in `docs/framework-gaps.md`, which is how the gap gets
   closed later.
 - **The owner parks or rejects every concept** (`gate.owner-pick` fails):
-  `design.record-other-answer` records it, and no source says what happens
-  to the `Client`'s CV next ([`GAPS.md`](../GAPS.md), "Inferences").
-  [P-0018](../../proposals/workflow-gaps.md) item 7 recommends a new
-  `Idea Run` steered by his reasons, with the owner telling the `Client`
-  of the delay; until he answers, the lead asks him.
+  `design.record-other-answer` records it, and a new `Idea Run` follows,
+  its brief steered by his reasons; the owner tells the `Client` of the
+  delay ([P-0018](../../proposals/workflow-gaps.md) item 7).
 - **The review finds problems** (`gate.client-design-review` fails):
   `design.fix`, a fresh reviewer, up to the cap. The `Idea Run`'s own two
   gates loop the same way (`loop.idea-research`, `loop.idea-design`).
@@ -230,7 +228,7 @@ flowchart TD
 | `design.run-report` | Tell the owner what the run drew | `actor.lead` | `lead.report-run` | `art.concepts-readme` | `art.run-message` |  | The client's Domain has no Template. |
 | `design.pick` | The owner picks a Style, Design Tier and Density | `actor.owner` | `manual.pick-design` | `art.run-message`, `art.concept-pdf` | `art.owner-pick` | `gate.owner-pick` | The client's Domain has no Template. |
 | `design.record-choice` | Record the choice and stamp the picked design chosen | `actor.lead` | `cmd.stamp-concept-status` | `art.owner-pick`, `art.concept-pdf` | `art.chosen-concept`, `art.concept-decision` |  |  |
-| `design.record-other-answer` | Record a parked or rejected answer | `actor.lead` | `cmd.stamp-concept-status` | `art.owner-pick` | `art.concept-decision` |  | The owner parked or rejected the concepts. |
+| `design.record-other-answer` | Record a parked or rejected answer; a new Idea Run follows | `actor.lead` | `cmd.stamp-concept-status` | `art.owner-pick` | `art.concept-decision` |  | The owner parked or rejected the concepts. |
 | `design.fill-data` | Write candidate.json and place the portrait | `actor.lead` | `lead.write-candidate-json` | `art.facts-final`, `art.draft-pdf`, `art.sign-off-png`, `art.documents`, `art.example-records` | `art.candidate-json`, `art.portrait` |  |  |
 | `design.flagship-fit` | Check the data fits the Flagship | `actor.lead` | `lead.check-flagship-fit` | `art.candidate-json` |  | `gate.template-fits` | The client's Domain has a Template (today marine, the Flagship). |
 | `design.entry-point` | Write the Flagship entry point | `actor.lead` | `lead.write-flagship-entry` | `art.candidate-json`, `art.flagship-template` | `art.cv-typ` |  | The data fits the Flagship. |

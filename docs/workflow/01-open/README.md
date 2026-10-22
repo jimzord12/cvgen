@@ -40,9 +40,9 @@ kind: a real name that leaks into a public file stays in Git history.
 ## Branches
 
 None. The owner's word starts the stage (`open.arrives`) and the steps run
-in order. When the task is created and what it is titled are inferences
-(`open.task-create`; [`GAPS.md`](../GAPS.md), "Inferences"), waiting for
-the owner in [P-0018](../../proposals/workflow-gaps.md) item 4.
+in order. The task is created once the `Alias` exists and is titled
+`<Alias>: CV` (`open.task-create`; [P-0018](../../proposals/workflow-gaps.md)
+item 4).
 
 ## Common mistakes
 
@@ -92,7 +92,7 @@ flowchart TD
 | `open.envelope` | Open the Envelope and its Drawers | `actor.lead` | `lead.open-envelope` | `art.owner-request` | `art.envelope-drawers` |  |  |
 | `open.alias` | Give the client an Alias | `actor.lead` | `lead.write-alias` | `art.envelope-drawers` | `art.envelope-readme` |  |  |
 | `open.envelope-json` | Write envelope.json | `actor.lead` | `lead.write-envelope-json` | `art.envelope-readme`, `art.owner-request`, `art.glossary` | `art.envelope-json` |  |  |
-| `open.task-create` | Create the client's task, by Alias only | `actor.lead` | `lead.create-client-task` | `art.envelope-readme` | `art.client-task` |  |  |
+| `open.task-create` | Create the client's task, titled <Alias>: CV | `actor.lead` | `lead.create-client-task` | `art.envelope-readme` | `art.client-task` |  |  |
 
 <!-- generated:end steps -->
 
@@ -134,7 +134,7 @@ No loops in this stage.
 
 | ID | Kind | Name | Runs |
 |---|---|---|---|
-| `lead.create-client-task` | lead | Create the client's task | Creates one Backlog.md task for the client, named by the Alias only, since backlog/ is public. |
+| `lead.create-client-task` | lead | Create the client's task | Once the Alias exists, creates one Backlog.md task for the client, titled "<Alias>: CV" (the Alias only, since backlog/ is public). |
 | `lead.open-envelope` | lead | Open the Envelope | Creates private/<envelope>/, named after the person and the Rank, in the one Envelope tree with README.md, intake/ (messages.md, documents/), research/ (reviews/) and draft/; never under examples/. |
 | `lead.write-alias` | lead | Write the Alias and intake date | Gives the client an Alias client-<yyyy>-<mm>-<nn> and writes it at the top of the Envelope's README.md with the date intake started; outside private/ the client is only ever the Alias. |
 | `lead.write-envelope-json` | lead | Write envelope.json | Writes alias, domain (an id from the glossary's Domain row), candidate (the display name) and rank; every Meta File in the Envelope copies it and scripts/cv.py render refuses to run without it. |

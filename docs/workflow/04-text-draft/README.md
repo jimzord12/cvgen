@@ -15,7 +15,9 @@
 ## Judgement
 
 - **The `Client` checks facts, not wording.** The `Check Page`, the first
-  page, in Greek, asks him to check only what carries a `Fact Mark` (the
+  page, in Greek (for a `Client` who does not read Greek, every line in his
+  language through `copy:`, [P-0018](../../proposals/workflow-gaps.md)
+  item 9), asks him to check only what carries a `Fact Mark` (the
   copper stitch `#fact[...]` draws under a fact); the wording is ours. So every
   name, date, number and title he must confirm is marked, and nothing else
   is. A good draft is one he can answer "OK" to in one reading. The
@@ -49,9 +51,9 @@
   (`text-draft.draft-supersede`), and `text-draft.draft-write` makes the
   next number.
 - **More than one round of corrections**: the "one batch per round" rule
-  allows one corrected draft, which is what the placeholder cap of
-  `loop.draft-correction` holds. After it, `text-draft.cap-reached`: the
-  owner decides ([P-0018](../../proposals/workflow-gaps.md) item 1a).
+  allows one corrected draft, which is the cap of `loop.draft-correction`.
+  After it, `text-draft.cap-reached`: the owner decides
+  ([P-0018](../../proposals/workflow-gaps.md) item 1a).
 - **No reply.** Not modelled as a step: the draft stays sent, and
   `after.stall-check` names the `Client` three months after intake.
 
@@ -103,7 +105,7 @@ flowchart TD
   s_text_draft__client_check --> g_gate__sign_off
   g_gate__sign_off -->|"pass"| s_text_draft__sign_off_save
   g_gate__sign_off -.->|"fail, loop.draft-correction"| s_text_draft__corrections
-  g_gate__sign_off -.->|"cap 1 attended (placeholder)"| s_text_draft__cap_reached
+  g_gate__sign_off -.->|"cap 1 attended"| s_text_draft__cap_reached
 ```
 
 <!-- generated:end diagram -->
@@ -145,7 +147,7 @@ flowchart TD
 
 | ID | Name | Gate | Cap | At the cap |
 |---|---|---|---|---|
-| `loop.draft-correction` | Draft correction rounds (placeholder cap) | `gate.sign-off` | 1 attended, **placeholder** ([GAPS.md](../GAPS.md)) | `text-draft.cap-reached` |
+| `loop.draft-correction` | Draft correction rounds | `gate.sign-off` | 1 attended | `text-draft.cap-reached` |
 
 <!-- generated:end loops -->
 
@@ -185,7 +187,7 @@ flowchart TD
 | `lead.inspect-draft` | lead | Inspect the draft | Looks at every page (every name, date, number and title underlined, since the client checks only those) and gives the owner the PDF path. |
 | `lead.take-corrections` | lead | Take the corrections | Takes the client's corrections into the facts, so the next number (draft-NN+1) carries them. |
 | `lead.write-draft-fingerprint` | lead | Record the draft fingerprint | Writes the sent draft's SHA-256 in the Envelope's README.md; a sent number is never compiled again. |
-| `lead.write-text-draft` | lead | Write the Text Draft | Writes draft/draft-NN.typ with scripts/text-draft.typ: the Greek Check Page, then the content in the CV's language, sized for the Template (two pages by default), every name, date, number and title the client must check wrapped in #fact[...]; lang "el" for a Greek CV. |
+| `lead.write-text-draft` | lead | Write the Text Draft | Writes draft/draft-NN.typ with scripts/text-draft.typ: the Check Page in Greek, the House Copy (for a client who does not read Greek, every Check Page line in his language through copy:, with his check-lang), then the content in the CV's language, sized for the Template (two pages by default), every name, date, number and title the client must check wrapped in #fact[...]; lang "el" for a Greek CV. |
 | `manual.client-checks-draft` | manual | The client checks the draft | The client checks only the underlined facts and replies OK, or writes the page and the correction. |
 | `manual.decide-at-cap` | manual | The owner decides at the cap | At a loop's cap (a review loop, the client's draft corrections, the owner's own changes or a render that keeps failing) the lead stops and brings the owner the open item with its last reason; another round needs his decision. |
 | `manual.screenshot-sign-off` | manual | Screenshot the Sign-off | The owner saves the client's OK as a screenshot, draft/sign-off-NN.png beside the draft it answers. |

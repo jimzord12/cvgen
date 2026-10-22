@@ -20,10 +20,10 @@ Rewritten in place at the end of every session; the first thing a fresh session 
 - Hanami Line 2 is the owner's chosen Travel & Tourism design (`studio/design-concepts/2026-10-02-hanami-line-2/`), built as a one-off `Template` for `client-2026-09-01`; TASK-2 should start from it and from the Framework Gap entries of 2026-09-29 and 2026-10-02.
 
 ## Next
-1. Owner decisions waiting (raise first; details in the 2026-10-14 run report and in the files named):
-   - P-0018 (`docs/proposals/workflow-gaps.md`, pending): items 1a-1c and 2-9, each with a recommendation. The owner wants a focused sitting for it (2026-10-22).
+1. Owner decisions waiting: TASK-2 (the travel-domain proposal is deferred; go or wait).
+   - Closed 2026-10-22: P-0018 answered and applied (`docs/proposals/workflow-gaps.md`, Decisions; item 3 uncapped). TASK-4 merged. The `Three-Second Test` is page 1's job only (`docs/vision.md`). P-0011 and P-0017 marked applied.
    - Closed 2026-10-22: the two scratch copies of client files and their worktrees and branches are gone, and the `client-2026-09-01` delivery is committed in `private/` (`129214c`). The owner's `/atlas refresh` now regenerates a page whose JSON carries `"generated"` with the command it names, never hand-edits it (owner: "regenerate"); `atlas.py check` repeats that note under a stale or unverified generated page.
-2. After P-0018 is answered: replace each placeholder in `docs/workflow/*/stage.yaml` with the answer, cite the proposal, re-run `bun run check`, `render`, `atlas`; add `art.envelope-keep` as an input of `after.delete-by-check` with item 5 (TASK-43 notes).
+2. Ready for agents, no owner input needed: TASK-3 (deck data), TASK-60, TASK-61, TASK-62.
 3. Owner's own checks still open: the VS Code YAML hints (TASK-36) and the Atlas client-journey map view (104 steps; walk-through view may suit better as the default).
 4. Client `client-2026-09-01`: if the client holds an early Stamp Rally edition (white strip under the boarding-pass portrait, fixed 2026-10-02), the owner may send the fixed one. Owner-only clean-up at the delete-by date (2027-10-02): delete the Intake Form, answers Sheet and script project, empty the Drive Trash, delete `private/<envelope>/`.
 

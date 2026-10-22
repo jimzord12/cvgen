@@ -87,6 +87,7 @@ describe("models that pass", () => {
     expect(existsSync(join(fixtures, "..", "..", "..", "..", "docs", "workflow", "catalog.yaml"))).toBe(true);
     const { issues, notes } = checkModel();
     expect(issues).toEqual([]);
-    expect(notes[0]).toContain("loop.draft-correction (1 attended)");
+    // P-0018 decided every placeholder cap, so the real model has none left.
+    expect(notes).toEqual([]);
   });
 });

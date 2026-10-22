@@ -29,8 +29,10 @@ together. This section owns the layout; the guides and skills point here.
 ```text
 private/eleni-example-tour-guide/
   README.md          alias, intake date, decisions, draft fingerprints, Export and delete-by dates,
-                     Google links (Intake Form, Sheet, script project)
-  envelope.json      who the client is, once: alias, domain, candidate, rank
+                     Google links (Intake Form, Sheet, script project),
+                     "Stopped <date>: <reason>" for a client who stopped
+  envelope.json      who the client is, once: alias, domain, candidate, rank;
+                     keep_requested once he asks to keep his data
   candidate.json     the candidate record (added by new-cv); the workflow reads it here
   intake/
     messages.md      every answer as received, dated, in the client's words
@@ -93,6 +95,11 @@ display name, which never leaves `private/`:
 ```json
 {"alias": "client-2026-09-01", "domain": "travel", "candidate": "Eleni Example", "rank": "Tour Guide"}
 ```
+
+A client who asks to keep his data beyond the delete-by date gets one more
+field, `"keep_requested": "YYYY-MM-DD"`, the day he asked
+(`after.keep-record`; P-0018 item 5); `after.delete-by-check` skips him.
+Nothing else reads it: the `Meta File`s copy only the four fields above.
 
 ## 2. The question list
 

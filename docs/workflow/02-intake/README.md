@@ -50,11 +50,11 @@
   (`intake.form-theme`).
 - **Voice messages** add `intake.transcribe` before the consent check.
 - **No consent** (`gate.consent` fails): `intake.no-consent`. The owner
-  decides to ask again or to stop. It is one owner step, not a loop
-  ([`GAPS.md`](../GAPS.md), "Inferences"); the recommendation "ask once
-  more, then stop" waits in [P-0018](../../proposals/workflow-gaps.md)
-  item 2. A stopped `Client` stays in `private/` until `after.stall-check`
-  names him and the owner decides to delete.
+  asks once more, then stops ([P-0018](../../proposals/workflow-gaps.md)
+  items 2 and 6): the lead adds `Stopped <date>: <reason>` to the
+  `Envelope`'s `README.md`. It is one owner step, not a loop. A stopped
+  `Client` stays in `private/` until `after.stall-check` names him and the
+  owner decides to delete or keep.
 
 ## Common mistakes
 
@@ -142,7 +142,7 @@ flowchart TD
 | `intake.form-download` | Download the form answers as CSV | `actor.owner` | `manual.download-answers-csv` | `art.form-responses` | `art.answers-csv` |  | An Intake Form was sent and the client says he is done. |
 | `intake.form-copy` | Copy the form answers into messages.md | `actor.lead` | `lead.copy-form-answers` | `art.answers-csv` | `art.messages-md` |  | An Intake Form was sent. |
 | `intake.consent` | Check consent (hard stop) | `actor.lead` | `lead.check-consent` | `art.messages-md` |  | `gate.consent` |  |
-| `intake.no-consent` | No consent; the owner decides | `actor.owner` | `manual.decide-on-no-consent` | `art.messages-md` |  |  |  |
+| `intake.no-consent` | No consent; asked once more, then stopped | `actor.owner` | `manual.decide-on-no-consent` | `art.messages-md` |  |  |  |
 
 <!-- generated:end steps -->
 
@@ -205,7 +205,7 @@ No loops in this stage.
 | `manual.apply-form-theme` | manual | Apply the house theme | Before sending the link, the owner sets the form's theme: header studio/brand/forms/intake-header.png, colour #B0602B, the warm-paper background swatch, Bona Nova for the header and Source Sans 3 for questions and text. |
 | `manual.client-answer` | manual | The client answers | The client answers in any order, in text or voice messages, over a few days, or in the Intake Form. |
 | `manual.copy-chat-to-envelope` | manual | Bring the answers into the Envelope | The owner copies the chat text into intake/messages.md (a WhatsApp "Export chat" file works as is) and saves photos and files into intake/documents/. |
-| `manual.decide-on-no-consent` | manual | Decide on a client without consent | The owner decides whether to ask the client again or to stop; a stopped client is named by after.stall-check after three months and deleted on the owner's word (after.erase-commands, after.erase-envelope). |
+| `manual.decide-on-no-consent` | manual | Decide on a client without consent | The owner asks the client once more; with still no consent, the client is stopped: the lead adds "Stopped <date>: <reason>" to the Envelope's README.md, after.stall-check names him once, and the owner decides to delete (after.erase-commands, after.erase-envelope) or keep. |
 | `manual.delete-test-answer` | manual | Delete the test answer | The owner deletes his test answer in the form's Responses tab and its row in the Sheet, before the client answers. |
 | `manual.download-answers-csv` | manual | Download the answers as CSV | In the answers Sheet, with "Form Responses 1" open: File, Download, Comma-separated values, saved as intake/answers-NN.csv. |
 | `manual.paste-message` | manual | Paste the message to the client | The owner pastes the lead's message into the chat app the client already uses (Viber, WhatsApp, email). |

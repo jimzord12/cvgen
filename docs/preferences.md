@@ -68,7 +68,8 @@ choices and act without asking (owner's instruction, 2026-09-25).
   path (never `git clean -x` or `-X`, which would also wipe the ignored
   `private/` and `.local/`), editing a candidate workspace's `envelope.json`, `candidate.json`,
   `README.md`, the `typst/` sources, the portrait in `images/portrait/` and the client workflow's
-  `intake/facts.md`, `research/` and `draft/` files for a CV he asked for, and
+  `intake/facts.md`, `intake/messages.md`, `intake/form-NN.gs`, `research/`,
+  `reviews/` and `draft/` files for a CV he asked for (P-0018 item 8), and
   creating, editing or moving tasks in `backlog/`. Do not bring these to
   him; report them.
 - **Still needs his explicit go, with the exact command shown first:**

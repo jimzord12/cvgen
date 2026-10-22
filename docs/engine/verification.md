@@ -174,8 +174,8 @@ Windows one also holds the PDFs that build wrote, one per example in
 16. **Workflow Model** (`workflow-model`). The workflow tool's
    `bun run check` on `docs/workflow`: levels 1 and 2 of ADR 0015, every
    rule in `tools/workflow/README.md` ("What `check` proves"), with this
-   run's Python for the `--help` calls; its output, the placeholder-cap
-   `NOTE` included, is in `workflow-model/check.log`. Then
+   run's Python for the `--help` calls; its output (with a
+   `NOTE` for any placeholder cap) is in `workflow-model/check.log`. Then
    `bun run render --check`: the generated blocks of the workflow READMEs
    must be what the model renders to (`render.log`), and `bun run atlas --check`:
    the `Atlas` page `.atlas/src/pages/client-journey.json` must be what the

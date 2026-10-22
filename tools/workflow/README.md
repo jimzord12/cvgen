@@ -126,9 +126,10 @@ What it accepts on purpose, from the modelling notes of TASK-37:
   (`docs/workflow/GAPS.md`).
 
 **Placeholder caps** do not fail the check: a loop whose name says
-"(placeholder cap)" is listed in a `NOTE` line on every run, so the caps
-still waiting for an owner's number (`docs/workflow/GAPS.md`) stay visible
-without blocking CI.
+"(placeholder cap)" is listed in a `NOTE` line on every run, so a cap
+still waiting for an owner's number stays visible without blocking CI. The
+model has none since the owner decided the last six
+(`docs/proposals/workflow-gaps.md`, P-0018).
 
 ## What `render` writes
 

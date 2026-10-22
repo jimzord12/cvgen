@@ -61,7 +61,7 @@
   3), and the chat message carries the link and offers to answer there
   instead. Whatever is still missing after
   it is left out of the CV or marked not supplied (`research.facts-update`);
-  the `Client` is not asked again unless the owner decides to.
+  the `Client` is asked again only on the owner's word.
 
 ## Branches
 
@@ -72,20 +72,21 @@
   `loop.deep-dive-review`; at the cap it reaches the owner marked
   unresolved (`research.cap-reached`).
 - **Research not yet enough** (`gate.research-enough` fails): back to the
-  owner for more `Deep Dive`s (`loop.research-rounds`, a placeholder cap;
+  owner for more `Deep Dive`s (`loop.research-rounds`, 3 rounds for every
+  `Client`; at the cap the owner decides whether an executive gets more;
   [P-0018](../../proposals/workflow-gaps.md) item 1b).
 - **A library note** runs its own review loop (`gate.library-review`,
-  `loop.library-review`, a placeholder cap) and is committed to the public
+  `loop.library-review`) and is committed to the public
   repository on PASS (`research.library-commit`).
 - **The follow-up as an `Intake Form`**: `research.follow-up-form-script`
   writes the script; the owner then makes, themes and sends it as in
   `intake`.
 - **The `Client` never answers the follow-up.** No step models it:
   `research.facts-update` waits for the answers. Three months after the
-  intake date, `after.stall-check` names the `Client` to the owner. A
-  second follow-up is only the owner's call (`lead.update-facts`;
-  [P-0018](../../proposals/workflow-gaps.md) item 3 recommends at most
-  one).
+  intake date, `after.stall-check` names the `Client` to the owner. Each
+  further follow-up goes out only on the owner's word, with no cap on how
+  many (`lead.update-facts`; [P-0018](../../proposals/workflow-gaps.md)
+  item 3).
 
 ## Common mistakes
 
@@ -94,8 +95,7 @@
 - Putting the `Envelope` path, the name or an identifying detail in an
   agent brief, a web search or a library note.
 - Researching on after every decision is settled.
-- Treating the caps of `loop.research-rounds` and `loop.library-review` as
-  the owner's numbers: they are placeholders ([`GAPS.md`](../GAPS.md)).
+- Sending a further follow-up without the owner's word.
 
 ## Reference detail
 
@@ -169,11 +169,11 @@ flowchart TD
   s_research__library_review --> g_gate__library_review
   g_gate__library_review -->|"pass"| s_research__library_commit
   g_gate__library_review -.->|"fail, loop.library-review"| s_research__library_revise
-  g_gate__library_review -.->|"cap 5 attended, 10 unattended (placeholder)"| s_research__cap_reached
+  g_gate__library_review -.->|"cap 5 attended, 10 unattended"| s_research__cap_reached
   s_research__decisions_update --> g_gate__research_enough
   g_gate__research_enough -->|"pass"| s_research__follow_up_write
   g_gate__research_enough -.->|"fail, loop.research-rounds"| s_research__pick_deep_dives
-  g_gate__research_enough -.->|"cap 3 attended (placeholder)"| s_research__cap_reached
+  g_gate__research_enough -.->|"cap 3 attended"| s_research__cap_reached
 ```
 
 <!-- generated:end diagram -->
@@ -230,8 +230,8 @@ flowchart TD
 | ID | Name | Gate | Cap | At the cap |
 |---|---|---|---|---|
 | `loop.deep-dive-review` | Deep Dive review rounds | `gate.deep-dive-review` | 5 attended, 10 unattended | `research.cap-reached` |
-| `loop.library-review` | Library note review rounds (placeholder cap) | `gate.library-review` | 5 attended, 10 unattended, **placeholder** ([GAPS.md](../GAPS.md)) | `research.cap-reached` |
-| `loop.research-rounds` | More Deep Dives until research is enough (placeholder cap) | `gate.research-enough` | 3 attended, **placeholder** ([GAPS.md](../GAPS.md)) | `research.cap-reached` |
+| `loop.library-review` | Library note review rounds | `gate.library-review` | 5 attended, 10 unattended | `research.cap-reached` |
+| `loop.research-rounds` | More Deep Dives until research is enough | `gate.research-enough` | 3 attended | `research.cap-reached` |
 
 <!-- generated:end loops -->
 
@@ -284,7 +284,7 @@ flowchart TD
 | `lead.save-deep-dive` | lead | Save and clean the Deep Dive | Saves the returned text as research/deep-dive-<topic>.md and checks it for client details before any reviewer sees it. |
 | `lead.scout` | lead | Scout | Searches the web for what the library lacks (or briefs one general-purpose agent): the country's CV norms, what the employers and the Rank expect, how CVs are sent; never with the client's name or an identifying combination; writes research/scout.md. |
 | `lead.update-decisions` | lead | Update the CV Decisions | Answers the open lines of research/decisions.md from the reviewed Deep Dives, each with its source. |
-| `lead.update-facts` | lead | Make the facts final | Updates facts.md from the answers; anything still missing is left out or marked not supplied, and the client is not asked again unless the owner decides to. |
+| `lead.update-facts` | lead | Make the facts final | Updates facts.md from the answers; anything still missing is left out or marked not supplied. The client is asked again only on the owner's word: each further follow-up needs it, and their number has no cap. |
 | `lead.write-decisions` | lead | Write the CV Decisions | Writes research/decisions.md, one line per decision, and shows the owner the open ones with a recommendation for each. |
 | `lead.write-facts` | lead | Write the facts | Writes intake/facts.md: every fact names the message or document it came from, nothing is invented, no calendar period is turned into service time; what is missing goes in a gap list at the end, held for the follow-up. |
 | `lead.write-follow-up` | lead | Write the follow-up | Writes the gap list plus any question the research raised (the Scout's open questions, and what the Deep Dives left in decisions.md) as one batch in simple Greek, within the cap for a chat message or an Intake Form. |

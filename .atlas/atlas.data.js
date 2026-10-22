@@ -40,7 +40,7 @@ window.ATLAS = {
      "Everything routine (commits, merges to `main`, task-store updates) is the agents' job."
     ],
     "sources": [
-     "docs/preferences.md:51-86",
+     "docs/preferences.md:51-87",
      "docs/workflow/README.md:22-24"
     ],
     "short": "You"
@@ -50,7 +50,7 @@ window.ATLAS = {
     "kind": "client",
     "role": "The person the CV is for. Answers the questions, checks the facts in the `Text Draft`, says OK.",
     "notes": [
-     "Gets at most three messages before `Sign-off`: the question list, one follow-up, the `Text Draft` (plus a corrected draft if asked).",
+     "Gets at most three messages before `Sign-off`: the question list, one follow-up, the `Text Draft` (plus a corrected draft if asked); anything more only on your word.",
      "Outside `private/` a client is only their `Alias`, like `client-2026-09-01`."
     ],
     "sources": [
@@ -258,7 +258,7 @@ window.ATLAS = {
      "As a stand-in it is told to act exactly as the agent file, with that file's tools as a hard limit, and the lead records its model and effort."
     ],
     "sources": [
-     ".claude/skills/new-client/SKILL.md:56-67",
+     ".claude/skills/new-client/SKILL.md:57-68",
      ".claude/skills/idea-run/SKILL.md:99-116"
     ],
     "short": "General"
@@ -439,7 +439,7 @@ window.ATLAS = {
     "role": "Google Apps Script you run once per form: builds the optional `Intake Form` and its answers Sheet in your Google account.",
     "sources": [
      "scripts/intake-form.gs:1-21",
-     "docs/guides/client-workflow.md:132-178"
+     "docs/guides/client-workflow.md:139-185"
     ]
    },
    "board": {
@@ -545,22 +545,22 @@ window.ATLAS = {
    ],
    "sources": [
     "docs/workflow/01-open/README.md:20-22",
-    "docs/guides/client-workflow.md:17-95",
+    "docs/guides/client-workflow.md:17-102",
     ".claude/skills/new-client/SKILL.md:31-38",
     "docs/workflow/02-intake/README.md:15-41",
-    "docs/guides/client-workflow.md:97-130",
-    ".claude/skills/new-client/SKILL.md:40-51",
+    "docs/guides/client-workflow.md:104-137",
+    ".claude/skills/new-client/SKILL.md:40-52",
     "docs/workflow/03-research/README.md:15-64",
-    ".claude/skills/new-client/SKILL.md:53-74",
-    "docs/workflow/04-text-draft/README.md:15-42",
-    ".claude/skills/new-client/SKILL.md:76-97",
+    ".claude/skills/new-client/SKILL.md:54-76",
+    "docs/workflow/04-text-draft/README.md:15-44",
+    ".claude/skills/new-client/SKILL.md:78-101",
     "docs/workflow/05-design/README.md:15-64",
     ".claude/skills/new-cv/SKILL.md:21-62",
     "docs/guides/build-a-cv.md:1-100",
     "docs/guides/build-a-cv.md:102-182",
     "docs/pdf-workflow.md:172-194",
     ".claude/skills/new-cv/SKILL.md:64-86",
-    "docs/workflow/07-after/README.md:15-53",
+    "docs/workflow/07-after/README.md:15-56",
     ".claude/skills/new-client/SKILL.md:16-29",
     "docs/proposals/workflow-model.md:54-60"
    ],
@@ -627,7 +627,7 @@ window.ATLAS = {
        "note": "Model step `open.alias`, action `lead.write-alias`, in `docs/workflow/01-open/stage.yaml`.",
        "sources": [
         "docs/workflow/01-open/README.md:23-26",
-        "docs/guides/client-workflow.md:88-89",
+        "docs/guides/client-workflow.md:90-91",
         ".claude/skills/new-client/SKILL.md:33-35",
         "docs/glossary.md:48"
        ]
@@ -650,14 +650,14 @@ window.ATLAS = {
        ],
        "note": "Model step `open.envelope-json`, action `lead.write-envelope-json`, in `docs/workflow/01-open/stage.yaml`.",
        "sources": [
-        "docs/guides/client-workflow.md:86-95"
+        "docs/guides/client-workflow.md:88-97"
        ]
       },
       {
        "id": "open.task-create",
-       "title": "Create the client's task, by Alias only",
+       "title": "Create the client's task, titled <Alias>: CV",
        "actor": "lead",
-       "summary": "Creates one Backlog.md task for the client, named by the Alias only, since backlog/ is public.",
+       "summary": "Once the Alias exists, creates one Backlog.md task for the client, titled \"<Alias>: CV\" (the Alias only, since backlog/ is public).",
        "next": [],
        "in": [
         "The Envelope's README.md (Alias and intake date): `private/<envelope>/README.md`"
@@ -669,7 +669,8 @@ window.ATLAS = {
        "sources": [
         "docs/proposals/workflow-model.md:60",
         "docs/workflow/01-open/README.md:23-26",
-        "docs/workflow/GAPS.md:38-40"
+        "docs/proposals/workflow-gaps.md:35",
+        "docs/proposals/workflow-gaps.md:71"
        ]
       }
      ]
@@ -696,7 +697,7 @@ window.ATLAS = {
        "note": "Model step `intake.questions`, action `lead.write-question-list`, in `docs/workflow/02-intake/stage.yaml`.",
        "sources": [
         "docs/workflow/02-intake/README.md:17-20",
-        "docs/guides/client-workflow.md:101-127",
+        "docs/guides/client-workflow.md:108-134",
         ".claude/skills/new-client/SKILL.md:42-44"
        ]
       },
@@ -721,7 +722,7 @@ window.ATLAS = {
        ],
        "note": "Model step `intake.form-script`, action `lead.write-form-script`, in `docs/workflow/02-intake/stage.yaml`.",
        "sources": [
-        "docs/guides/client-workflow.md:137-142",
+        "docs/guides/client-workflow.md:144-149",
         ".claude/skills/new-client/SKILL.md:45-48"
        ]
       },
@@ -745,7 +746,7 @@ window.ATLAS = {
        ],
        "note": "Model step `intake.form-create`, action `manual.run-form-script`, in `docs/workflow/02-intake/stage.yaml`.",
        "sources": [
-        "docs/guides/client-workflow.md:149-152",
+        "docs/guides/client-workflow.md:156-159",
         "scripts/intake-form.gs:5-18",
         "scripts/intake-form.gs:78-114"
        ]
@@ -767,7 +768,7 @@ window.ATLAS = {
        ],
        "note": "Model step `intake.form-links`, action `lead.list-google-links`, in `docs/workflow/02-intake/stage.yaml`.",
        "sources": [
-        "docs/guides/client-workflow.md:154-156",
+        "docs/guides/client-workflow.md:161-163",
         ".claude/skills/new-client/SKILL.md:45-48",
         "scripts/intake-form.gs:11-15"
        ]
@@ -790,7 +791,7 @@ window.ATLAS = {
        ],
        "note": "Model step `intake.form-theme`, action `manual.apply-form-theme`, in `docs/workflow/02-intake/stage.yaml`.",
        "sources": [
-        "docs/guides/client-workflow.md:159-164",
+        "docs/guides/client-workflow.md:166-171",
         "scripts/intake-form.gs:16-17"
        ]
       },
@@ -809,7 +810,7 @@ window.ATLAS = {
        ],
        "note": "Model step `intake.form-test-cleanup`, action `manual.delete-test-answer`, in `docs/workflow/02-intake/stage.yaml`.",
        "sources": [
-        "docs/guides/client-workflow.md:166-169"
+        "docs/guides/client-workflow.md:173-176"
        ]
       },
       {
@@ -871,7 +872,7 @@ window.ATLAS = {
        "note": "Model step `intake.form-fill`, action `manual.client-answer`, in `docs/workflow/02-intake/stage.yaml`.",
        "sources": [
         "docs/workflow/02-intake/README.md:45-48",
-        "docs/guides/client-workflow.md:171-173"
+        "docs/guides/client-workflow.md:178-180"
        ]
       },
       {
@@ -931,7 +932,7 @@ window.ATLAS = {
        ],
        "note": "Model step `intake.form-download`, action `manual.download-answers-csv`, in `docs/workflow/02-intake/stage.yaml`.",
        "sources": [
-        "docs/guides/client-workflow.md:171-178"
+        "docs/guides/client-workflow.md:178-185"
        ]
       },
       {
@@ -985,14 +986,14 @@ window.ATLAS = {
        "note": "Model step `intake.consent`, action `lead.check-consent`, in `docs/workflow/02-intake/stage.yaml`.",
        "sources": [
         "docs/workflow/02-intake/README.md:24-26",
-        ".claude/skills/new-client/SKILL.md:49-51"
+        ".claude/skills/new-client/SKILL.md:49-52"
        ]
       },
       {
        "id": "intake.no-consent",
-       "title": "No consent; the owner decides",
+       "title": "No consent; asked once more, then stopped",
        "actor": "owner",
-       "you": "The owner decides whether to ask the client again or to stop; a stopped client is named by after.stall-check after three months and deleted on the owner's word (after.erase-commands, after.erase-envelope).",
+       "you": "The owner asks the client once more; with still no consent, the client is stopped: the lead adds \"Stopped <date>: <reason>\" to the Envelope's README.md, after.stall-check names him once, and the owner decides to delete (after.erase-commands, after.erase-envelope) or keep.",
        "next": [],
        "in": [
         "messages.md (intake answers): `private/<envelope>/intake/messages.md`"
@@ -1000,9 +1001,11 @@ window.ATLAS = {
        "note": "Model step `intake.no-consent`, action `manual.decide-on-no-consent`, in `docs/workflow/02-intake/stage.yaml`.",
        "sources": [
         "docs/workflow/02-intake/README.md:52-57",
-        "docs/workflow/07-after/README.md:46-49",
+        "docs/workflow/07-after/README.md:47-52",
         "docs/workflow/07-after/README.md:27-34",
-        "docs/workflow/GAPS.md:51-53"
+        "docs/proposals/workflow-gaps.md:33",
+        "docs/proposals/workflow-gaps.md:37",
+        "docs/proposals/workflow-gaps.md:65-66"
        ]
       }
      ]
@@ -1029,7 +1032,7 @@ window.ATLAS = {
        "note": "Model step `research.facts`, action `lead.write-facts`, in `docs/workflow/03-research/stage.yaml`.",
        "sources": [
         "docs/workflow/03-research/README.md:17-23",
-        ".claude/skills/new-client/SKILL.md:55"
+        ".claude/skills/new-client/SKILL.md:56"
        ]
       },
       {
@@ -1049,7 +1052,7 @@ window.ATLAS = {
        "note": "Model step `research.library-read`, action `lead.read-library`, in `docs/workflow/03-research/stage.yaml`.",
        "sources": [
         "docs/workflow/03-research/README.md:24-26",
-        ".claude/skills/new-client/SKILL.md:56-58",
+        ".claude/skills/new-client/SKILL.md:57-59",
         "docs/research/README.md:3-6"
        ]
       },
@@ -1072,7 +1075,7 @@ window.ATLAS = {
        "sources": [
         "docs/workflow/03-research/README.md:24-26",
         "docs/research/README.md:31-33",
-        ".claude/skills/new-client/SKILL.md:56-58"
+        ".claude/skills/new-client/SKILL.md:57-59"
        ]
       },
       {
@@ -1094,7 +1097,7 @@ window.ATLAS = {
        "note": "Model step `research.scout`, action `lead.scout`, in `docs/workflow/03-research/stage.yaml`.",
        "sources": [
         "docs/workflow/03-research/README.md:24-34",
-        ".claude/skills/new-client/SKILL.md:56-58",
+        ".claude/skills/new-client/SKILL.md:57-59",
         "docs/glossary.md:54"
        ]
       },
@@ -1116,8 +1119,8 @@ window.ATLAS = {
        ],
        "note": "Model step `research.decisions`, action `lead.write-decisions`, in `docs/workflow/03-research/stage.yaml`.",
        "sources": [
-        "docs/guides/client-workflow.md:180-196",
-        ".claude/skills/new-client/SKILL.md:59-61"
+        "docs/guides/client-workflow.md:187-203",
+        ".claude/skills/new-client/SKILL.md:60-62"
        ]
       },
       {
@@ -1154,7 +1157,7 @@ window.ATLAS = {
        "sources": [
         "docs/workflow/03-research/README.md:35-39",
         "docs/workflow/03-research/README.md:38-39",
-        ".claude/skills/new-client/SKILL.md:59-61"
+        ".claude/skills/new-client/SKILL.md:60-62"
        ]
       },
       {
@@ -1174,8 +1177,8 @@ window.ATLAS = {
        ],
        "note": "Model step `research.dive-brief`, action `lead.brief-deep-dive`, in `docs/workflow/03-research/stage.yaml`.",
        "sources": [
-        ".claude/skills/new-client/SKILL.md:62-64",
-        ".claude/skills/new-client/SKILL.md:99-112",
+        ".claude/skills/new-client/SKILL.md:63-65",
+        ".claude/skills/new-client/SKILL.md:103-116",
         "docs/workflow/03-research/README.md:43-44"
        ]
       },
@@ -1197,7 +1200,7 @@ window.ATLAS = {
        "note": "Model step `research.deep-dive`, action `agent.general-purpose`, in `docs/workflow/03-research/stage.yaml`.",
        "sources": [
         "docs/workflow/03-research/README.md:43-45",
-        ".claude/skills/new-client/SKILL.md:62-64"
+        ".claude/skills/new-client/SKILL.md:63-65"
        ]
       },
       {
@@ -1259,7 +1262,7 @@ window.ATLAS = {
        "note": "Model step `research.dive-review`, action `agent.research-reviewer`, in `docs/workflow/03-research/stage.yaml`.",
        "sources": [
         "docs/workflow/03-research/README.md:43-51",
-        ".claude/skills/new-client/SKILL.md:62-67"
+        ".claude/skills/new-client/SKILL.md:63-68"
        ]
       },
       {
@@ -1285,7 +1288,7 @@ window.ATLAS = {
        ],
        "note": "Model step `research.dive-revise`, action `agent.general-purpose-revise`, in `docs/workflow/03-research/stage.yaml`.",
        "sources": [
-        ".claude/skills/new-client/SKILL.md:66-67"
+        ".claude/skills/new-client/SKILL.md:67-68"
        ]
       },
       {
@@ -1307,7 +1310,7 @@ window.ATLAS = {
        "note": "Model step `research.library-note`, action `lead.write-library-note`, in `docs/workflow/03-research/stage.yaml`.",
        "sources": [
         "docs/workflow/03-research/README.md:52-56",
-        ".claude/skills/new-client/SKILL.md:68-71",
+        ".claude/skills/new-client/SKILL.md:69-72",
         "docs/research/README.md:34-39"
        ]
       },
@@ -1320,7 +1323,7 @@ window.ATLAS = {
        "gate": {
         "type": "review",
         "label": "Library note review: A fresh research-reviewer returns PASS on the note's own text and hash.",
-        "cap": "5 attended, 10 unattended (placeholder, docs/workflow/GAPS.md), then `research.cap-reached`"
+        "cap": "5 attended, 10 unattended, then `research.cap-reached`"
        },
        "branch": [
         {
@@ -1349,7 +1352,7 @@ window.ATLAS = {
        "sources": [
         "docs/workflow/03-research/README.md:52-55",
         "docs/research/README.md:28-30",
-        ".claude/skills/new-client/SKILL.md:68-71"
+        ".claude/skills/new-client/SKILL.md:69-72"
        ]
       },
       {
@@ -1360,9 +1363,9 @@ window.ATLAS = {
        "summary": "Fixes the note on the reviewer's findings before the next fresh round.",
        "loop": {
         "to": "research.library-review",
-        "label": "Library note review rounds (placeholder cap)",
-        "short": "max 5 · 10 unattended (placeholder)",
-        "cap": "Library note review rounds (placeholder cap): 5 attended, 10 unattended (placeholder, docs/workflow/GAPS.md), then `research.cap-reached`"
+        "label": "Library note review rounds",
+        "short": "max 5 · 10 unattended",
+        "cap": "Library note review rounds: 5 attended, 10 unattended, then `research.cap-reached`"
        },
        "does": [
         "Only when: The note's review returned FINDINGS."
@@ -1394,7 +1397,7 @@ window.ATLAS = {
        ],
        "note": "Model step `research.library-commit`, action `lead.commit-library-note`, in `docs/workflow/03-research/stage.yaml`.",
        "sources": [
-        ".claude/skills/new-client/SKILL.md:68-71",
+        ".claude/skills/new-client/SKILL.md:69-72",
         "docs/research/README.md:28-30"
        ]
       },
@@ -1406,14 +1409,14 @@ window.ATLAS = {
        "gate": {
         "type": "check",
         "label": "Research is enough: Every decision has a sourced answer or a stated judgement (a new source that changes no decision is the signal to stop).",
-        "cap": "3 attended (placeholder, docs/workflow/GAPS.md), then `research.cap-reached`"
+        "cap": "3 attended, then `research.cap-reached`"
        },
        "next": [],
        "loop": {
         "to": "research.pick-deep-dives",
-        "label": "More Deep Dives until research is enough (placeholder cap)",
-        "short": "max 3 (placeholder)",
-        "cap": "More Deep Dives until research is enough (placeholder cap): 3 attended (placeholder, docs/workflow/GAPS.md), then `research.cap-reached`"
+        "label": "More Deep Dives until research is enough",
+        "short": "max 3",
+        "cap": "More Deep Dives until research is enough: 3 attended, then `research.cap-reached`"
        },
        "branch": [
         {
@@ -1456,7 +1459,7 @@ window.ATLAS = {
        "note": "Model step `research.follow-up-write`, action `lead.write-follow-up`, in `docs/workflow/03-research/stage.yaml`.",
        "sources": [
         "docs/workflow/03-research/README.md:57-62",
-        ".claude/skills/new-client/SKILL.md:73-74"
+        ".claude/skills/new-client/SKILL.md:74-76"
        ]
       },
       {
@@ -1480,8 +1483,8 @@ window.ATLAS = {
        ],
        "note": "Model step `research.follow-up-form-script`, action `lead.write-form-script`, in `docs/workflow/03-research/stage.yaml`.",
        "sources": [
-        "docs/guides/client-workflow.md:144-147",
-        ".claude/skills/new-client/SKILL.md:73-74"
+        "docs/guides/client-workflow.md:151-154",
+        ".claude/skills/new-client/SKILL.md:74-76"
        ]
       },
       {
@@ -1546,7 +1549,7 @@ window.ATLAS = {
        "id": "research.facts-update",
        "title": "Make facts.md final",
        "actor": "lead",
-       "summary": "Updates facts.md from the answers; anything still missing is left out or marked not supplied, and the client is not asked again unless the owner decides to.",
+       "summary": "Updates facts.md from the answers; anything still missing is left out or marked not supplied. The client is asked again only on the owner's word: each further follow-up needs it, and their number has no cap.",
        "next": [
         "text-draft.draft-write"
        ],
@@ -1560,7 +1563,7 @@ window.ATLAS = {
        "note": "Model step `research.facts-update`, action `lead.update-facts`, in `docs/workflow/03-research/stage.yaml`.",
        "sources": [
         "docs/workflow/03-research/README.md:62-64",
-        ".claude/skills/new-client/SKILL.md:73-74"
+        ".claude/skills/new-client/SKILL.md:74-76"
        ]
       },
       {
@@ -1570,7 +1573,7 @@ window.ATLAS = {
        "you": "At a loop's cap (a review loop, the client's draft corrections, the owner's own changes or a render that keeps failing) the lead stops and brings the owner the open item with its last reason; another round needs his decision.",
        "next": [],
        "does": [
-        "Reached at the cap of: Deep Dive review rounds; Library note review rounds (placeholder cap); More Deep Dives until research is enough (placeholder cap)."
+        "Reached at the cap of: Deep Dive review rounds; Library note review rounds; More Deep Dives until research is enough."
        ],
        "note": "Model step `research.cap-reached`, action `manual.decide-at-cap`, in `docs/workflow/03-research/stage.yaml`.",
        "sources": [
@@ -1588,7 +1591,7 @@ window.ATLAS = {
        "id": "text-draft.draft-write",
        "title": "Write the Text Draft",
        "actor": "lead",
-       "summary": "Writes draft/draft-NN.typ with scripts/text-draft.typ: the Greek Check Page, then the content in the CV's language, sized for the Template (two pages by default), every name, date, number and title the client must check wrapped in #fact[...]; lang \"el\" for a Greek CV.",
+       "summary": "Writes draft/draft-NN.typ with scripts/text-draft.typ: the Check Page in Greek, the House Copy (for a client who does not read Greek, every Check Page line in his language through copy:, with his check-lang), then the content in the CV's language, sized for the Template (two pages by default), every name, date, number and title the client must check wrapped in #fact[...]; lang \"el\" for a Greek CV.",
        "next": [
         "text-draft.draft-compile"
        ],
@@ -1602,9 +1605,9 @@ window.ATLAS = {
        ],
        "note": "Model step `text-draft.draft-write`, action `lead.write-text-draft`, in `docs/workflow/04-text-draft/stage.yaml`.",
        "sources": [
-        "docs/workflow/04-text-draft/README.md:17-30",
-        ".claude/skills/new-client/SKILL.md:78-79",
-        "docs/workflow/04-text-draft/README.md:24-30",
+        "docs/workflow/04-text-draft/README.md:17-32",
+        ".claude/skills/new-client/SKILL.md:80-83",
+        "docs/workflow/04-text-draft/README.md:26-32",
         "scripts/text-draft.typ:8-25"
        ]
       },
@@ -1635,8 +1638,8 @@ window.ATLAS = {
        ],
        "note": "Model step `text-draft.draft-compile`, action `cmd.compile-and-stamp-draft-ready`, in `docs/workflow/04-text-draft/stage.yaml`.",
        "sources": [
-        ".claude/skills/new-client/SKILL.md:80-85",
-        "docs/workflow/04-text-draft/README.md:31-32",
+        ".claude/skills/new-client/SKILL.md:84-89",
+        "docs/workflow/04-text-draft/README.md:33-34",
         "docs/proposals/workflow-model.md:55"
        ]
       },
@@ -1656,8 +1659,8 @@ window.ATLAS = {
        ],
        "note": "Model step `text-draft.draft-inspect`, action `lead.inspect-draft`, in `docs/workflow/04-text-draft/stage.yaml`.",
        "sources": [
-        ".claude/skills/new-client/SKILL.md:87",
-        "docs/workflow/04-text-draft/README.md:24-26"
+        ".claude/skills/new-client/SKILL.md:91",
+        "docs/workflow/04-text-draft/README.md:26-28"
        ]
       },
       {
@@ -1680,8 +1683,8 @@ window.ATLAS = {
        "note": "Model step `text-draft.draft-send`, action `manual.send-draft`, in `docs/workflow/04-text-draft/stage.yaml`.",
        "sources": [
         "docs/workflow/README.md:28-32",
-        "docs/workflow/04-text-draft/README.md:39-41",
-        "docs/workflow/04-text-draft/README.md:31-35"
+        "docs/workflow/04-text-draft/README.md:41-43",
+        "docs/workflow/04-text-draft/README.md:33-37"
        ]
       },
       {
@@ -1706,8 +1709,8 @@ window.ATLAS = {
        ],
        "note": "Model step `text-draft.draft-sent`, action `cmd.stamp-draft-sent`, in `docs/workflow/04-text-draft/stage.yaml`.",
        "sources": [
-        "docs/workflow/04-text-draft/README.md:31-35",
-        ".claude/skills/new-client/SKILL.md:88-89",
+        "docs/workflow/04-text-draft/README.md:33-37",
+        ".claude/skills/new-client/SKILL.md:92-93",
         "docs/proposals/workflow-model.md:55"
        ]
       },
@@ -1725,8 +1728,8 @@ window.ATLAS = {
        ],
        "note": "Model step `text-draft.draft-fingerprint`, action `lead.write-draft-fingerprint`, in `docs/workflow/04-text-draft/stage.yaml`.",
        "sources": [
-        "docs/workflow/04-text-draft/README.md:36-38",
-        ".claude/skills/new-client/SKILL.md:88-91"
+        "docs/workflow/04-text-draft/README.md:38-40",
+        ".claude/skills/new-client/SKILL.md:92-95"
        ]
       },
       {
@@ -1737,7 +1740,7 @@ window.ATLAS = {
        "gate": {
         "type": "client",
         "label": "Sign-off: The client replied OK to the underlined facts.",
-        "cap": "1 attended (placeholder, docs/workflow/GAPS.md), then `text-draft.cap-reached`"
+        "cap": "1 attended, then `text-draft.cap-reached`"
        },
        "next": [],
        "branch": [
@@ -1762,7 +1765,7 @@ window.ATLAS = {
        ],
        "note": "Model step `text-draft.client-check`, action `manual.client-checks-draft`, in `docs/workflow/04-text-draft/stage.yaml`.",
        "sources": [
-        "docs/workflow/04-text-draft/README.md:17-21",
+        "docs/workflow/04-text-draft/README.md:17-23",
         "docs/glossary.md:59",
         "docs/glossary.md:62"
        ]
@@ -1790,8 +1793,8 @@ window.ATLAS = {
        ],
        "note": "Model step `text-draft.draft-supersede`, action `cmd.stamp-draft-superseded`, in `docs/workflow/04-text-draft/stage.yaml`.",
        "sources": [
-        "docs/workflow/04-text-draft/README.md:46-50",
-        ".claude/skills/new-client/SKILL.md:92-93"
+        "docs/workflow/04-text-draft/README.md:48-52",
+        ".claude/skills/new-client/SKILL.md:96-97"
        ]
       },
       {
@@ -1802,9 +1805,9 @@ window.ATLAS = {
        "summary": "Takes the client's corrections into the facts, so the next number (draft-NN+1) carries them.",
        "loop": {
         "to": "text-draft.draft-write",
-        "label": "Draft correction rounds (placeholder cap)",
-        "short": "max 1 (placeholder)",
-        "cap": "Draft correction rounds (placeholder cap): 1 attended (placeholder, docs/workflow/GAPS.md), then `text-draft.cap-reached`"
+        "label": "Draft correction rounds",
+        "short": "max 1",
+        "cap": "Draft correction rounds: 1 attended, then `text-draft.cap-reached`"
        },
        "does": [
         "Only when: The client asked for corrections."
@@ -1817,10 +1820,10 @@ window.ATLAS = {
        ],
        "note": "Model step `text-draft.corrections`, action `lead.take-corrections`, in `docs/workflow/04-text-draft/stage.yaml`.",
        "sources": [
-        "docs/workflow/04-text-draft/README.md:36-38",
-        "docs/workflow/04-text-draft/README.md:46-50",
-        ".claude/skills/new-client/SKILL.md:92-93",
-        "docs/workflow/GAPS.md:34-37"
+        "docs/workflow/04-text-draft/README.md:38-40",
+        "docs/workflow/04-text-draft/README.md:48-52",
+        ".claude/skills/new-client/SKILL.md:96-97",
+        "docs/workflow/GAPS.md:21-24"
        ]
       },
       {
@@ -1841,8 +1844,8 @@ window.ATLAS = {
        "note": "Model step `text-draft.sign-off-save`, action `manual.screenshot-sign-off`, in `docs/workflow/04-text-draft/stage.yaml`.",
        "sources": [
         "docs/workflow/README.md:28-32",
-        "docs/workflow/04-text-draft/README.md:39-41",
-        ".claude/skills/new-client/SKILL.md:94-95"
+        "docs/workflow/04-text-draft/README.md:41-43",
+        ".claude/skills/new-client/SKILL.md:98-99"
        ]
       },
       {
@@ -1868,9 +1871,9 @@ window.ATLAS = {
        ],
        "note": "Model step `text-draft.sign-off-stamp`, action `cmd.stamp-draft-signed-off`, in `docs/workflow/04-text-draft/stage.yaml`.",
        "sources": [
-        "docs/workflow/04-text-draft/README.md:34-35",
+        "docs/workflow/04-text-draft/README.md:36-37",
         "docs/guides/build-a-cv.md:166-169",
-        ".claude/skills/new-client/SKILL.md:94-96",
+        ".claude/skills/new-client/SKILL.md:98-100",
         "packages/cv-workflow/cv_workflow/outputs.py:172-178"
        ]
       },
@@ -1881,7 +1884,7 @@ window.ATLAS = {
        "you": "At a loop's cap (a review loop, the client's draft corrections, the owner's own changes or a render that keeps failing) the lead stops and brings the owner the open item with its last reason; another round needs his decision.",
        "next": [],
        "does": [
-        "Reached at the cap of: Draft correction rounds (placeholder cap)."
+        "Reached at the cap of: Draft correction rounds."
        ],
        "note": "Model step `text-draft.cap-reached`, action `manual.decide-at-cap`, in `docs/workflow/04-text-draft/stage.yaml`.",
        "sources": [
@@ -1935,7 +1938,7 @@ window.ATLAS = {
        "note": "Model step `design.handover`, action `skill.new-cv`, in `docs/workflow/05-design/stage.yaml`.",
        "sources": [
         "docs/workflow/05-design/README.md:25-28",
-        ".claude/skills/new-client/SKILL.md:97",
+        ".claude/skills/new-client/SKILL.md:101",
         ".claude/skills/new-cv/SKILL.md:15-17"
        ]
       },
@@ -2236,7 +2239,7 @@ window.ATLAS = {
       },
       {
        "id": "design.record-other-answer",
-       "title": "Record a parked or rejected answer",
+       "title": "Record a parked or rejected answer; a new Idea Run follows",
        "actor": "lead",
        "optional": true,
        "summary": "Stamp a concept's new state, with the command below.",
@@ -2259,7 +2262,8 @@ window.ATLAS = {
        "sources": [
         ".claude/skills/idea-run/SKILL.md:144-146",
         "studio/design-concepts/README.md:46-49",
-        "docs/workflow/GAPS.md:49-50"
+        "docs/proposals/workflow-gaps.md:38",
+        "docs/proposals/workflow-gaps.md:71"
        ]
       },
       {
@@ -2642,7 +2646,7 @@ window.ATLAS = {
        "gate": {
         "type": "check",
         "label": "Render done: scripts/cv.py render exits 0: not refused (exit 2, nothing written), the compile succeeded and every check passed (exit 1 keeps the Revision).",
-        "cap": "5 attended, 10 unattended (placeholder, docs/workflow/GAPS.md), then `deliver.cap-reached`"
+        "cap": "5 attended, 10 unattended, then `deliver.cap-reached`"
        },
        "next": [
         "deliver.wording-check"
@@ -2697,9 +2701,9 @@ window.ATLAS = {
        "summary": "Applies the fix the message names, in candidate.json or the entry point's layout override; never shrinks the body font; the Revision it looked at is never modified.",
        "loop": {
         "to": "deliver.render",
-        "label": "Fix and render again after a failed render (placeholder cap)",
-        "short": "max 5 · 10 unattended (placeholder)",
-        "cap": "Fix and render again after a failed render (placeholder cap): 5 attended, 10 unattended (placeholder, docs/workflow/GAPS.md), then `deliver.cap-reached`"
+        "label": "Fix and render again after a failed render",
+        "short": "max 5 · 10 unattended",
+        "cap": "Fix and render again after a failed render: 5 attended, 10 unattended, then `deliver.cap-reached`"
        },
        "does": [
         "Only when: The render was refused or failed, the wording check found example wording, or the owner asked for a change."
@@ -2750,14 +2754,14 @@ window.ATLAS = {
        "gate": {
         "type": "check",
         "label": "No example wording: The rendered text contains none of \"fictional\", \"illustrative\" and \"flagship\" (the one exception: \"flagship\" in the client's own words, once the footer shows the configured brand).",
-        "cap": "5 attended, 10 unattended (placeholder, docs/workflow/GAPS.md), then `deliver.cap-reached`"
+        "cap": "5 attended, 10 unattended, then `deliver.cap-reached`"
        },
        "next": [],
        "loop": {
         "to": "deliver.fix",
-        "label": "Fix and render again after example wording (placeholder cap)",
-        "short": "max 5 · 10 unattended (placeholder)",
-        "cap": "Fix and render again after example wording (placeholder cap): 5 attended, 10 unattended (placeholder, docs/workflow/GAPS.md), then `deliver.cap-reached`"
+        "label": "Fix and render again after example wording",
+        "short": "max 5 · 10 unattended",
+        "cap": "Fix and render again after example wording: 5 attended, 10 unattended, then `deliver.cap-reached`"
        },
        "branch": [
         {
@@ -2780,7 +2784,7 @@ window.ATLAS = {
        "sources": [
         ".claude/skills/new-cv/SKILL.md:73-74",
         "docs/guides/build-a-cv.md:98-100",
-        "docs/workflow/06-deliver/README.md:66-69"
+        "docs/workflow/06-deliver/README.md:66-68"
        ]
       },
       {
@@ -2812,14 +2816,14 @@ window.ATLAS = {
        "gate": {
         "type": "owner",
         "label": "The owner accepts the Revision: The owner reviewed this Revision's cv.pdf and wants no change.",
-        "cap": "5 attended (placeholder, docs/workflow/GAPS.md), then `deliver.cap-reached`"
+        "cap": "5 attended, then `deliver.cap-reached`"
        },
        "next": [],
        "loop": {
         "to": "deliver.fix",
-        "label": "The owner's changes, as new Revisions (placeholder cap)",
-        "short": "max 5 (placeholder)",
-        "cap": "The owner's changes, as new Revisions (placeholder cap): 5 attended (placeholder, docs/workflow/GAPS.md), then `deliver.cap-reached`"
+        "label": "The owner's changes, as new Revisions",
+        "short": "max 5",
+        "cap": "The owner's changes, as new Revisions: 5 attended, then `deliver.cap-reached`"
        },
        "branch": [
         {
@@ -3032,7 +3036,7 @@ window.ATLAS = {
        "you": "At a loop's cap (a review loop, the client's draft corrections, the owner's own changes or a render that keeps failing) the lead stops and brings the owner the open item with its last reason; another round needs his decision.",
        "next": [],
        "does": [
-        "Reached at the cap of: Fix and render again after a failed render (placeholder cap); Fix and render again after example wording (placeholder cap); The owner's changes, as new Revisions (placeholder cap)."
+        "Reached at the cap of: Fix and render again after a failed render; Fix and render again after example wording; The owner's changes, as new Revisions."
        ],
        "note": "Model step `deliver.cap-reached`, action `manual.decide-at-cap`, in `docs/workflow/06-deliver/stage.yaml`.",
        "sources": [
@@ -3079,7 +3083,8 @@ window.ATLAS = {
         "Only when: Every time the new-client skill runs."
        ],
        "in": [
-        "README.md, the Export and delete-by line: `private/<envelope>/README.md`"
+        "README.md, the Export and delete-by line: `private/<envelope>/README.md`",
+        "envelope.json: `private/<envelope>/envelope.json`"
        ],
        "out": [
         "Stalled clients and passed delete-by dates, by Alias"
@@ -3089,7 +3094,9 @@ window.ATLAS = {
        ],
        "note": "Model step `after.delete-by-check`, action `skill.new-client`, in `docs/workflow/07-after/stage.yaml`.",
        "sources": [
-        ".claude/skills/new-client/SKILL.md:18-22"
+        ".claude/skills/new-client/SKILL.md:18-22",
+        "docs/proposals/workflow-gaps.md:36",
+        "docs/proposals/workflow-gaps.md:71"
        ]
       },
       {
@@ -3109,10 +3116,10 @@ window.ATLAS = {
        ],
        "note": "Model step `after.keep-request`, action `manual.ask-to-keep`, in `docs/workflow/07-after/stage.yaml`.",
        "sources": [
-        "docs/guides/client-workflow.md:104-107",
+        "docs/guides/client-workflow.md:111-114",
         "docs/proposals/workflow-model.md:56",
         "archive/work-records/workflow-model/handoff.md:290",
-        "docs/workflow/GAPS.md:54-57"
+        "docs/workflow/GAPS.md:25-28"
        ]
       },
       {
@@ -3120,7 +3127,7 @@ window.ATLAS = {
        "title": "Record the keep request in envelope.json",
        "actor": "lead",
        "optional": true,
-       "summary": "Records the client's keep request as a field in envelope.json, so the delete-by check skips this client.",
+       "summary": "Adds \"keep_requested\" with the day the client asked to envelope.json, so the delete-by check skips this client.",
        "does": [
         "Only when: The client asked to keep his data."
        ],
@@ -3133,7 +3140,8 @@ window.ATLAS = {
        "note": "Model step `after.keep-record`, action `lead.record-keep-request`, in `docs/workflow/07-after/stage.yaml`.",
        "sources": [
         "docs/proposals/workflow-model.md:56",
-        "docs/workflow/GAPS.md:41-44"
+        "docs/proposals/workflow-gaps.md:36",
+        "docs/proposals/workflow-gaps.md:71"
        ]
       },
       {
@@ -3154,8 +3162,8 @@ window.ATLAS = {
        "note": "Model step `after.erase-commands`, action `lead.fill-erase-commands`, in `docs/workflow/07-after/stage.yaml`.",
        "sources": [
         ".claude/skills/new-client/SKILL.md:25-29",
-        "docs/guides/client-workflow.md:198-208",
-        "docs/workflow/07-after/README.md:46-49",
+        "docs/guides/client-workflow.md:205-215",
+        "docs/workflow/07-after/README.md:47-52",
         "docs/workflow/07-after/README.md:27-34"
        ]
       },
@@ -3174,9 +3182,9 @@ window.ATLAS = {
        ],
        "note": "Model step `after.delete-google`, action `manual.delete-google-items`, in `docs/workflow/07-after/stage.yaml`.",
        "sources": [
-        "docs/workflow/07-after/README.md:46-49",
+        "docs/workflow/07-after/README.md:47-52",
         "docs/workflow/07-after/README.md:27-34",
-        "docs/guides/client-workflow.md:156-157"
+        "docs/guides/client-workflow.md:163-164"
        ]
       },
       {
@@ -3197,9 +3205,10 @@ window.ATLAS = {
        "note": "Model step `after.erase-envelope`, action `manual.erase-envelope`, in `docs/workflow/07-after/stage.yaml`.",
        "sources": [
         "docs/workflow/07-after/README.md:27-34",
-        "docs/guides/client-workflow.md:198-223",
-        "docs/preferences.md:74-82",
-        "docs/workflow/GAPS.md:45-48"
+        "docs/guides/client-workflow.md:205-230",
+        "docs/preferences.md:75-83",
+        "docs/proposals/workflow-gaps.md:37",
+        "docs/proposals/workflow-gaps.md:71"
        ]
       },
       {
@@ -3235,8 +3244,8 @@ window.ATLAS = {
        "note": "Model step `after.revision-cleanup`, action `manual.go-remove-revisions`, in `docs/workflow/07-after/stage.yaml`.",
        "sources": [
         "docs/pdf-workflow.md:215-218",
-        "docs/preferences.md:80-82",
-        "docs/workflow/GAPS.md:58-61"
+        "docs/preferences.md:81-83",
+        "docs/workflow/GAPS.md:29-32"
        ]
       }
      ]
@@ -3778,7 +3787,7 @@ window.ATLAS = {
        "note": "Yours only, with the exact command shown first, including: deleting or force-pushing `main`, rewriting its published history, rewriting the private repo's history (the delete-by erase, which you run), `archive/*` tags, repo settings (public and private repo), deleting under `private/` or `.local/` or outside the repo, removing revisions, approvals, exports or portraits, replacing the `Release`.",
        "sources": [
         "docs/git-workflow.md:91-104",
-        "docs/preferences.md:57-86",
+        "docs/preferences.md:57-87",
         ".github/workflows/verify.yml"
        ]
       }
@@ -3834,7 +3843,7 @@ window.ATLAS = {
        },
        "sources": [
         "docs/preferences.md:51-53",
-        "docs/preferences.md:92"
+        "docs/preferences.md:93"
        ]
       }
      ]
@@ -3877,7 +3886,7 @@ window.ATLAS = {
        "blurb": "Who the client is: `Alias`, `Domain`, `Rank`; dates and links.",
        "detail": "`cv.py render` refuses to run without `envelope.json`; every client `Meta File` copies it.",
        "sources": [
-        "docs/guides/client-workflow.md:17-95"
+        "docs/guides/client-workflow.md:17-102"
        ]
       },
       {
@@ -3886,7 +3895,7 @@ window.ATLAS = {
        "path": "private/<envelope>/intake/",
        "blurb": "Messages, documents, `facts.md`, the `Scout`, `CV Decisions`, `Deep Dives`.",
        "sources": [
-        "docs/guides/client-workflow.md:29-63"
+        "docs/guides/client-workflow.md:29-65"
        ]
       },
       {
@@ -3895,7 +3904,7 @@ window.ATLAS = {
        "path": "private/<envelope>/draft/",
        "blurb": "The `Text Drafts` and the `Sign-off` screenshots.",
        "sources": [
-        "docs/workflow/04-text-draft/README.md:15-42"
+        "docs/workflow/04-text-draft/README.md:15-44"
        ]
       },
       {
@@ -3905,7 +3914,7 @@ window.ATLAS = {
        "blurb": "The client's facts and the entry point that composes their CV, with its designs, wording and art beside it in typst/.",
        "sources": [
         "docs/guides/build-a-cv.md:15-53",
-        "docs/guides/client-workflow.md:29-63"
+        "docs/guides/client-workflow.md:29-65"
        ]
       },
       {
@@ -4260,7 +4269,7 @@ window.ATLAS = {
        "actor": "intake-form",
        "blurb": "Optional `Intake Forms` and their answer Sheets.",
        "sources": [
-        "docs/guides/client-workflow.md:132-178"
+        "docs/guides/client-workflow.md:139-185"
        ]
       },
       {
@@ -4473,14 +4482,14 @@ window.ATLAS = {
   }
  ],
  "build": {
-  "builtAt": "2026-10-22 11:35 UTC",
-  "commit": "c046e39",
+  "builtAt": "2026-10-22 12:17 UTC",
+  "commit": "79ac34c",
   "kit": "1.1",
   "stale": {},
   "verified": {
    "client-journey": {
     "at": "2026-10-22",
-    "commit": "c046e39"
+    "commit": "79ac34c"
    },
    "design-run": {
     "at": "2026-10-22",
@@ -4488,15 +4497,15 @@ window.ATLAS = {
    },
    "change-review": {
     "at": "2026-10-22",
-    "commit": "c046e39"
+    "commit": "79ac34c"
    },
    "system-map": {
     "at": "2026-10-22",
-    "commit": "c046e39"
+    "commit": "79ac34c"
    },
    "roster": {
     "at": "2026-10-22",
-    "commit": "c046e39"
+    "commit": "79ac34c"
    }
   }
  }

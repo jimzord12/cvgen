@@ -38,7 +38,7 @@
         "Everything routine (commits, merges to `main`, task-store updates) is the agents' job."
       ],
       "sources": [
-        "docs/preferences.md:51-86",
+        "docs/preferences.md:51-87",
         "docs/workflow/README.md:22-24"
       ],
       "short": "You"
@@ -48,7 +48,7 @@
       "kind": "client",
       "role": "The person the CV is for. Answers the questions, checks the facts in the `Text Draft`, says OK.",
       "notes": [
-        "Gets at most three messages before `Sign-off`: the question list, one follow-up, the `Text Draft` (plus a corrected draft if asked).",
+        "Gets at most three messages before `Sign-off`: the question list, one follow-up, the `Text Draft` (plus a corrected draft if asked); anything more only on your word.",
         "Outside `private/` a client is only their `Alias`, like `client-2026-09-01`."
       ],
       "sources": [
@@ -256,7 +256,7 @@
         "As a stand-in it is told to act exactly as the agent file, with that file's tools as a hard limit, and the lead records its model and effort."
       ],
       "sources": [
-        ".claude/skills/new-client/SKILL.md:56-67",
+        ".claude/skills/new-client/SKILL.md:57-68",
         ".claude/skills/idea-run/SKILL.md:99-116"
       ],
       "short": "General"
@@ -437,7 +437,7 @@
       "role": "Google Apps Script you run once per form: builds the optional `Intake Form` and its answers Sheet in your Google account.",
       "sources": [
         "scripts/intake-form.gs:1-21",
-        "docs/guides/client-workflow.md:132-178"
+        "docs/guides/client-workflow.md:139-185"
       ]
     },
     "board": {

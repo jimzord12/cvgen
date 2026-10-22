@@ -52,11 +52,18 @@ describe("anchors through its package script", () => {
 });
 
 describe("check over a whole model", () => {
-  test("with no argument it checks docs/workflow: exit 0, the summary and the placeholder caps", () => {
+  test("with no argument it checks docs/workflow: exit 0, the summary, no placeholder caps (P-0018 decided them)", () => {
     const r = run("check");
     expect(r).toMatchObject({ code: 0, err: "" });
     expect(r.out).toMatch(/^OK model docs\/workflow: 7 stages, \d+ steps, .*; levels 1 and 2 pass$/m);
-    expect(r.out).toContain("placeholder loop cap(s)");
+    expect(r.out).not.toContain("placeholder loop cap(s)");
+  });
+
+  test("a model with a placeholder cap prints the NOTE line", () => {
+    const r = run("check", "test/fixtures/valid");
+    expect(r.code).toBe(0);
+    expect(r.out).toContain("NOTE 1 placeholder loop cap(s)");
+    expect(r.out).toContain("loop.review (2 attended)");
   });
 
   test("a folder argument checks that model: a broken one exits 1 with file, line, path, reason and rule", () => {

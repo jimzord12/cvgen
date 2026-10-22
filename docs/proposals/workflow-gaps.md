@@ -1,7 +1,7 @@
 ---
 id: P-0018
 kind: proposal
-status: pending
+status: applied
 revision: 2
 created: 2026-10-14
 ---
@@ -52,3 +52,33 @@ open keeps the placeholder, marked, in the YAML.
 ## Recommendation and decision requested
 
 Approve the recommendations above, or answer item by item.
+
+## Decisions
+
+2026-10-22, the owner, item by item in a focused sitting with the lead:
+
+- **1a, 1b, 1c: approved as recommended.** The caps the YAML holds are
+  decided: `loop.draft-correction` 1; `loop.library-review`,
+  `loop.revision-fix` and `loop.wording-fix` 5 attended and 10 unattended;
+  `loop.research-rounds` 3 for every client; `loop.owner-changes` 5, a
+  check-in at `deliver.cap-reached`, not a stop.
+- **2: approved.** A client who gives no consent is asked once more; still
+  no consent, the client is stopped (item 6).
+- **3: changed.** No cap on further follow-ups after the one batch: "Let's
+  not cap it for now. It's too early." Each further follow-up goes out on
+  the owner's word, with no maximum count (lead default, recorded as such:
+  the owner removed the cap and kept the recommendation's "on his word").
+- **4, 5, 6, 7, 8, 9: approved as recommended**, as worded in the table.
+
+## Application
+
+2026-10-22, branch `docs/p0018-workflow-gaps`: the YAML in
+`docs/workflow/` cites this section for each answer; the six loops are no
+longer placeholder caps; `after.delete-by-check` reads `envelope.json`,
+where `keep_requested` lives; `envelope.json`'s field is documented in
+`docs/guides/client-workflow.md` section 1; the agents' edit list in
+`docs/preferences.md` names `intake/messages.md`, `intake/form-NN.gs` and
+`reviews/`; `docs/workflow/GAPS.md`, the stage READMEs and the
+`new-client` skill no longer state these points as open. Evidence: the
+workflow tool's `check`, `render --check` and `atlas`, and the suite run
+`builds/tests-20261022-150321-021720` (in the branch's worktree), PASS.
