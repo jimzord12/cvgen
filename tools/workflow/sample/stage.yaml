@@ -63,7 +63,7 @@ steps:
   # Illustrative, with the loop cap below: no source has this step today.
   - id: text.correction-cap
     name: Too many correction rounds; the owner decides
-    sources: ["docs/workflow/GAPS.md:18-30"]
+    sources: ["docs/proposals/workflow-gaps.md:30"]
     actor: actor.owner
     action: manual.decide-next-round
     inputs: [art.client-reply]
@@ -77,11 +77,11 @@ gates:
     fail: text.draft-supersede
 
 loops:
-  # Illustrative cap, with text.correction-cap and manual.decide-next-round: today no
-  # source sets one (GAPS.md, "Placeholder loop caps"); TASK-37 records the real rule.
+  # Illustrative cap, with text.correction-cap and manual.decide-next-round; the real
+  # cap is the owner's P-0018 decision (docs/proposals/workflow-gaps.md, item 1a).
   - id: loop.draft-correction
     name: Draft correction rounds
-    sources: ["docs/workflow/GAPS.md:18-30"]
+    sources: ["docs/proposals/workflow-gaps.md:30"]
     gate: gate.sign-off
     cap: { attended: 3 }
     escalate: text.correction-cap
@@ -161,7 +161,7 @@ actions:
   - id: manual.decide-next-round
     kind: manual
     name: Decide after the cap
-    sources: ["docs/workflow/GAPS.md:18-30"]
+    sources: ["docs/proposals/workflow-gaps.md:30"]
     does: The owner decides whether another correction round is worth it.
 
   - id: cmd.stamp-draft-signed-off

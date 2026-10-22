@@ -1,7 +1,7 @@
 # yaml-language-server: $schema=../../../tools/workflow/schema/stage.schema.json
 id: open
 name: Open the Envelope
-sources: ["docs/workflow/01-open/README.md:20-22", "docs/guides/client-workflow.md:17-95", ".claude/skills/new-client/SKILL.md:31-38"]
+sources: ["docs/workflow/01-open/README.md:20-22", "docs/guides/client-workflow.md:17-102", ".claude/skills/new-client/SKILL.md:31-38"]
 purpose: >-
   A new client gets one Envelope under private/, a neutral Alias, the
   envelope.json every Meta File copies, and one task record named by the
@@ -31,7 +31,7 @@ steps:
 
   - id: open.alias
     name: Give the client an Alias
-    sources: ["docs/workflow/01-open/README.md:23-26", "docs/guides/client-workflow.md:88-89", ".claude/skills/new-client/SKILL.md:33-35", "docs/glossary.md:48"]
+    sources: ["docs/workflow/01-open/README.md:23-26", "docs/guides/client-workflow.md:90-91", ".claude/skills/new-client/SKILL.md:33-35", "docs/glossary.md:48"]
     actor: actor.lead
     action: lead.write-alias
     inputs: [art.envelope-drawers]
@@ -39,17 +39,17 @@ steps:
 
   - id: open.envelope-json
     name: Write envelope.json
-    sources: ["docs/guides/client-workflow.md:86-95"]
+    sources: ["docs/guides/client-workflow.md:88-97"]
     actor: actor.lead
     action: lead.write-envelope-json
     inputs: [art.envelope-readme, art.owner-request, art.glossary]
     outputs: [art.envelope-json]
 
-  # Decision #7 (2026-10-14) names the task and its closing step; no source says
-  # when it is created (GAPS.md).
+  # Decision #7 (2026-10-14) names the task and its closing step; P-0018
+  # item 4 (2026-10-22) sets when it is created and its title.
   - id: open.task-create
-    name: Create the client's task, by Alias only
-    sources: ["docs/proposals/workflow-model.md:60", "docs/workflow/01-open/README.md:23-26", "docs/workflow/GAPS.md:38-40"]
+    name: "Create the client's task, titled <Alias>: CV"
+    sources: ["docs/proposals/workflow-model.md:60", "docs/workflow/01-open/README.md:23-26", "docs/proposals/workflow-gaps.md:35", "docs/proposals/workflow-gaps.md:71"]
     actor: actor.lead
     action: lead.create-client-task
     inputs: [art.envelope-readme]
@@ -78,7 +78,7 @@ artifacts:
 
   - id: art.glossary
     name: The glossary's Domain ids
-    sources: ["docs/glossary.md:38", "docs/guides/client-workflow.md:89-90"]
+    sources: ["docs/glossary.md:38", "docs/guides/client-workflow.md:91-92"]
     path: docs/glossary.md
     format: Markdown table
     visibility: public
@@ -103,7 +103,7 @@ actions:
   - id: lead.write-alias
     kind: lead
     name: Write the Alias and intake date
-    sources: ["docs/workflow/01-open/README.md:23-26", "docs/guides/client-workflow.md:88-89", ".claude/skills/new-client/SKILL.md:33-35"]
+    sources: ["docs/workflow/01-open/README.md:23-26", "docs/guides/client-workflow.md:90-91", ".claude/skills/new-client/SKILL.md:33-35"]
     does: >-
       Gives the client an Alias client-<yyyy>-<mm>-<nn> and writes it at the
       top of the Envelope's README.md with the date intake started; outside
@@ -112,7 +112,7 @@ actions:
   - id: lead.write-envelope-json
     kind: lead
     name: Write envelope.json
-    sources: ["docs/guides/client-workflow.md:86-95"]
+    sources: ["docs/guides/client-workflow.md:88-97"]
     does: >-
       Writes alias, domain (an id from the glossary's Domain row), candidate
       (the display name) and rank; every Meta File in the Envelope copies it
@@ -121,5 +121,5 @@ actions:
   - id: lead.create-client-task
     kind: lead
     name: Create the client's task
-    sources: ["docs/proposals/workflow-model.md:60"]
-    does: Creates one Backlog.md task for the client, named by the Alias only, since backlog/ is public.
+    sources: ["docs/proposals/workflow-model.md:60", "docs/proposals/workflow-gaps.md:35"]
+    does: 'Once the Alias exists, creates one Backlog.md task for the client, titled "<Alias>: CV" (the Alias only, since backlog/ is public).'

@@ -61,14 +61,13 @@ own loop:
 - **The render fails or is refused** (`gate.render-ok`): the gate's check
   tells a refusal (nothing written) from a failed compile or check (the
   `Revision` stays with its log). Apply the fix the message names; an
-  overflow is fixed in the page plan, never by shrinking the type.
-  `loop.revision-fix` has a placeholder cap.
+  overflow is fixed in the page plan, never by shrinking the type
+  (`loop.revision-fix`).
 - **Example wording is still on the page** (`gate.example-wording`):
   replace it in the record or the entry point, never by editing the
-  `Client`'s own words to pass the check (`loop.wording-fix`, placeholder
-  cap).
+  `Client`'s own words to pass the check (`loop.wording-fix`).
 - **The owner wants a change** (`gate.owner-review`): a new `Revision`
-  (`loop.owner-changes`). Its placeholder cap is a check-in, not a stop:
+  (`loop.owner-changes`). Its cap is a check-in, not a stop:
   at `deliver.cap-reached` the owner decides whether to go on
   ([P-0018](../../proposals/workflow-gaps.md) item 1c).
 
@@ -133,15 +132,15 @@ flowchart TD
   s_deliver__render --> g_gate__render_ok
   g_gate__render_ok -->|"pass"| s_deliver__page_png
   g_gate__render_ok -.->|"fail, loop.revision-fix"| s_deliver__fix
-  g_gate__render_ok -.->|"cap 5 attended, 10 unattended (placeholder)"| s_deliver__cap_reached
+  g_gate__render_ok -.->|"cap 5 attended, 10 unattended"| s_deliver__cap_reached
   s_deliver__wording_check --> g_gate__example_wording
   g_gate__example_wording -->|"pass"| s_deliver__report
   g_gate__example_wording -.->|"fail, loop.wording-fix"| s_deliver__fix
-  g_gate__example_wording -.->|"cap 5 attended, 10 unattended (placeholder)"| s_deliver__cap_reached
+  g_gate__example_wording -.->|"cap 5 attended, 10 unattended"| s_deliver__cap_reached
   s_deliver__owner_review --> g_gate__owner_review
   g_gate__owner_review -->|"pass"| s_deliver__approve
   g_gate__owner_review -.->|"fail, loop.owner-changes"| s_deliver__fix
-  g_gate__owner_review -.->|"cap 5 attended (placeholder)"| s_deliver__cap_reached
+  g_gate__owner_review -.->|"cap 5 attended"| s_deliver__cap_reached
 ```
 
 <!-- generated:end diagram -->
@@ -187,9 +186,9 @@ flowchart TD
 
 | ID | Name | Gate | Cap | At the cap |
 |---|---|---|---|---|
-| `loop.revision-fix` | Fix and render again after a failed render (placeholder cap) | `gate.render-ok` | 5 attended, 10 unattended, **placeholder** ([GAPS.md](../GAPS.md)) | `deliver.cap-reached` |
-| `loop.wording-fix` | Fix and render again after example wording (placeholder cap) | `gate.example-wording` | 5 attended, 10 unattended, **placeholder** ([GAPS.md](../GAPS.md)) | `deliver.cap-reached` |
-| `loop.owner-changes` | The owner's changes, as new Revisions (placeholder cap) | `gate.owner-review` | 5 attended, **placeholder** ([GAPS.md](../GAPS.md)) | `deliver.cap-reached` |
+| `loop.revision-fix` | Fix and render again after a failed render | `gate.render-ok` | 5 attended, 10 unattended | `deliver.cap-reached` |
+| `loop.wording-fix` | Fix and render again after example wording | `gate.example-wording` | 5 attended, 10 unattended | `deliver.cap-reached` |
+| `loop.owner-changes` | The owner's changes, as new Revisions | `gate.owner-review` | 5 attended | `deliver.cap-reached` |
 
 <!-- generated:end loops -->
 

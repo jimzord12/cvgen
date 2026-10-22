@@ -21,7 +21,7 @@ Terms: `docs/glossary.md`. Run every command from the repository root.
   passed with no keep request in `envelope.json`, with the Google links
   listed in that `README.md`.
 - `after.keep-record`: a client's request to keep his data goes into his
-  `envelope.json`.
+  `envelope.json` as `"keep_requested": "YYYY-MM-DD"`, the day he asked.
 - `after.erase-commands`: when the owner decides to delete, give him CW
   section 5 filled in with the folder name. He runs it
   (`after.erase-envelope`) and deletes the Google items
@@ -34,8 +34,8 @@ Terms: `docs/glossary.md`. Run every command from the repository root.
   in CW section 1's tree: `README.md` starting with the `Alias` and the
   intake date, `intake/` (`messages.md`, `documents/`), `research/`
   (`reviews/`), `draft/`, and `envelope.json`.
-- `open.task-create`: one task through the backlog skill, titled by the
-  `Alias` only.
+- `open.task-create`: one task through the backlog skill, titled
+  `<Alias>: CV`.
 
 ## 02 intake
 
@@ -48,7 +48,8 @@ Terms: `docs/glossary.md`. Run every command from the repository root.
   `intake.form-copy` copies `intake/answers-NN.csv` into `messages.md`.
 - `intake.consent` (`gate.consent`): **stop** until the client's "I agree"
   is in `intake/messages.md`. Voice messages wait for
-  `intake.transcribe`.
+  `intake.transcribe`. No consent (`intake.no-consent`): the owner asks once more (you write it);
+  still none, add `Stopped <date>: <reason>` to `README.md`.
 
 ## 03 research
 
@@ -71,12 +72,15 @@ Terms: `docs/glossary.md`. Run every command from the repository root.
   (`docs/research/README.md`).
 - `research.decisions-update` (`gate.research-enough`).
 - `research.follow-up-write` (and `research.follow-up-form-script` for a
-  form); the owner sends it; `research.facts-update`.
+  form); the owner sends it; `research.facts-update`. A further
+  follow-up only on the owner's word.
 
 ## 04 text-draft
 
 - `text-draft.draft-write`: `draft/draft-NN.typ` with
-  `scripts/text-draft.typ` (`lang: "el"` for a Greek CV).
+  `scripts/text-draft.typ` (`lang: "el"` for a Greek CV; for a client who
+  does not read Greek, `check-lang` his language and every `Check Page`
+  line in `copy:`).
 - `text-draft.draft-compile`:
 
   ```powershell

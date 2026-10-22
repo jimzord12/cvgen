@@ -39,7 +39,7 @@ is gone when we said it would be. Three rules hold in every stage:
 | Tables and diagrams | between `generated:` markers in each README | `bun run render` (`tools/workflow/README.md`) |
 | Judgement, branches, mistakes | outside the markers | hand |
 | What the YAML holds where the sources are silent | [`GAPS.md`](GAPS.md) | hand |
-| The owner's decisions still open on those points | [P-0018](../proposals/workflow-gaps.md) (pending) | the owner |
+| The owner's decisions on those points | [P-0018](../proposals/workflow-gaps.md) (applied 2026-10-22) | the owner |
 
 Every fact has an ID, and the prose names the ID instead of repeating the
 fact. A stage is `research`; its steps start with it (`research.scout`);
@@ -166,31 +166,27 @@ is shown) goes in the `Envelope`'s `README.md` or `research/decisions.md`,
 not in this folder: the model says where judgement is needed, not what each
 `Client`'s answer was.
 
-## Where the model holds a placeholder
+## Where the model holds an inference
 
 The YAML never presents a guess as a fact. Where the sources are silent it
-holds a marked placeholder or inference, explained in [`GAPS.md`](GAPS.md);
-the owner's open decisions on them are
-[P-0018](../proposals/workflow-gaps.md):
+holds a marked inference, explained in [`GAPS.md`](GAPS.md). The owner
+decided the six loop caps no source gave and the points the sources left
+to him in [P-0018](../proposals/workflow-gaps.md) (2026-10-22); the YAML
+cites it.
 
-- **Six loop caps** no source gives: `loop.draft-correction`,
-  `loop.research-rounds`, `loop.library-review`, `loop.revision-fix`,
-  `loop.wording-fix` and `loop.owner-changes`. Their names end in
-  "(placeholder cap)", the stage's loops table marks them **placeholder**,
-  and `bun run check` lists them on every run.
+- **Placeholder caps**: none. A loop whose name ends in "(placeholder
+  cap)" would be marked **placeholder** in its stage's loops table and
+  listed by `bun run check` on every run.
 - **Inferences** where the sources name an outcome but not the step; among
-  them: when the `Client`'s task is created (`open.task-create`), where
-  draft corrections are kept (`text-draft.corrections`), what happens to a
-  `Client` whose concepts are parked or rejected
-  (`design.record-other-answer`), and how a keep request is recorded
-  (`after.keep-record`).
+  them: where draft corrections are kept (`text-draft.corrections`) and
+  what starts a keep request (`after.keep-request`).
 - **Left out**, among them (`GAPS.md`, "What the YAML leaves out"): the
   refusals of `approve`, `export` and `stamp` live only in the scripts; only
   `render`'s is modelled (`gate.render-ok`); and order with no data between
   two steps, such as the design review before the render.
 
-Until the owner answers P-0018, follow the YAML's placeholder and say so
-in the report; do not invent a different rule in prose.
+Follow the YAML's inference and say so in the report; do not invent a
+different rule in prose.
 
 ## Reference detail and checklists
 
@@ -224,7 +220,7 @@ actor:
 | `open` | `text-draft` | `art.envelope-json` |  |
 | `open` | `design` | `art.envelope-json` |  |
 | `open` | `deliver` | `art.envelope-json` |  |
-| `open` | `after` | `art.envelope-readme` |  |
+| `open` | `after` | `art.envelope-json`, `art.envelope-readme` |  |
 | `intake` | `research` | `art.documents`, `art.messages-md` | `gate.consent pass` |
 | `intake` | `design` | `art.documents` |  |
 | `intake` | `after` | `art.intake-message`, `art.readme-google-links` |  |

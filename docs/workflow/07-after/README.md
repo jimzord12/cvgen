@@ -39,14 +39,17 @@
 
 - **A keep request** (`after.keep-request`): the `Client` asks, through
   the owner, at any time. `after.keep-record` writes it into
-  `envelope.json` and the delete-by check skips him. The field's name is
-  still an inference ([P-0018](../../proposals/workflow-gaps.md) item 5).
+  `envelope.json` as `"keep_requested": "YYYY-MM-DD"`, the day he asked,
+  and the delete-by check skips him
+  ([P-0018](../../proposals/workflow-gaps.md) item 5).
 - **No keep request and the date has passed**: the erase steps run, then
   `after.close`.
 - **A stalled `Client`** (no consent, dropped out, never answered): named
   once three months pass; the owner decides to wait or delete, and on
-  delete the same erase steps run. Recording that a `Client` stopped is an
-  open question ([P-0018](../../proposals/workflow-gaps.md) item 6).
+  delete the same erase steps run. A `Client` who stopped has the line
+  `Stopped <date>: <reason>` in his `README.md`, so the check names him
+  once and the owner decides to delete or keep
+  ([P-0018](../../proposals/workflow-gaps.md) item 6).
 - **No `Intake Form`**: `after.delete-google` is skipped.
 - **Old `Revision`s** may be removed before the date on the owner's
   explicit go only (`after.revision-cleanup`), from what `deliver.status`
@@ -102,7 +105,7 @@ flowchart TD
 | ID | Name | Actor | Action | Inputs | Outputs | Gate | When |
 |---|---|---|---|---|---|---|---|
 | `after.stall-check` | Name stalled clients to the owner | `actor.lead` | `skill.new-client` | `art.envelope-readme` | `art.retention-report` |  | Every time the new-client skill runs. |
-| `after.delete-by-check` | Name passed delete-by dates to the owner | `actor.lead` | `skill.new-client` | `art.readme-delete-by` | `art.retention-report` |  | Every time the new-client skill runs. |
+| `after.delete-by-check` | Name passed delete-by dates to the owner | `actor.lead` | `skill.new-client` | `art.readme-delete-by`, `art.envelope-json` | `art.retention-report` |  | Every time the new-client skill runs. |
 | `after.keep-request` | The client asks to keep his data | `actor.client` | `manual.ask-to-keep` | `art.intake-message` | `art.keep-request` |  | The client asks to keep his data beyond the delete-by date. |
 | `after.keep-record` | Record the keep request in envelope.json | `actor.lead` | `lead.record-keep-request` | `art.keep-request` | `art.envelope-keep` |  | The client asked to keep his data. |
 | `after.erase-commands` | Hand the owner the history-erase commands | `actor.lead` | `lead.fill-erase-commands` | `art.retention-report` | `art.erase-commands` |  | The delete-by date has passed and envelope.json records no keep request, or the owner decides to delete a client who never reached Export (no consent, dropped out). |
@@ -136,6 +139,7 @@ No loops in this stage.
 | ID | Name | Path | Visibility | Made by |
 |---|---|---|---|---|
 | `art.client-task` | The client's Backlog.md task | `backlog/tasks/` | public | `open.task-create`, `after.close` |
+| `art.envelope-json` | envelope.json | `private/<envelope>/envelope.json` | private | `open.envelope-json` |
 | `art.envelope-keep` | envelope.json, the keep request | `private/<envelope>/envelope.json` | private | `after.keep-record` |
 | `art.envelope-readme` | The Envelope's README.md (Alias and intake date) | `private/<envelope>/README.md` | private | `open.alias` |
 | `art.erase-commands` | The filled history-erase commands |  | ephemeral | `after.erase-commands` |
@@ -157,7 +161,7 @@ No loops in this stage.
 |---|---|---|---|
 | `lead.close-client-task` | lead | Close the client's task | Closes the client's Backlog.md task once the Envelope is deleted. |
 | `lead.fill-erase-commands` | lead | Fill in the erase commands | Gives the owner the guide's history-erase commands filled in with the Envelope's folder name; he runs them, the lead never does. |
-| `lead.record-keep-request` | lead | Record the keep request | Records the client's keep request as a field in envelope.json, so the delete-by check skips this client. |
+| `lead.record-keep-request` | lead | Record the keep request | Adds "keep_requested" with the day the client asked to envelope.json, so the delete-by check skips this client. |
 | `manual.ask-to-keep` | manual | Ask to keep the data | The client asks, through the owner, that his details be kept beyond 12 months after delivery. |
 | `manual.delete-google-items` | manual | Delete the Google items | The owner deletes each Intake Form, its Sheet and its script project listed in README.md, then empties the Drive Trash. |
 | `manual.erase-envelope` | manual | Erase the Envelope | With git status and git log origin/main.. empty in private/, the owner runs the erase in a fresh clone (git filter-repo, force-push), then deletes that folder and every clone, private/ included, and clones it again. |

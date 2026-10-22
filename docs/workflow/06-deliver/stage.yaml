@@ -41,7 +41,7 @@ steps:
 
   - id: deliver.wording-check
     name: Check for the fictional example wording
-    sources: [".claude/skills/new-cv/SKILL.md:73-74", "docs/guides/build-a-cv.md:98-100", "docs/workflow/06-deliver/README.md:66-69"]
+    sources: [".claude/skills/new-cv/SKILL.md:73-74", "docs/guides/build-a-cv.md:98-100", "docs/workflow/06-deliver/README.md:66-68"]
     actor: actor.lead
     action: cmd.wording-check
     inputs: [art.cv-pdf]
@@ -143,7 +143,7 @@ gates:
 
   - id: gate.example-wording
     name: No example wording
-    sources: ["docs/guides/build-a-cv.md:98-100", "docs/workflow/06-deliver/README.md:66-69", ".claude/skills/new-cv/SKILL.md:73-74"]
+    sources: ["docs/guides/build-a-cv.md:98-100", "docs/workflow/06-deliver/README.md:66-68", ".claude/skills/new-cv/SKILL.md:73-74"]
     check: >-
       The rendered text contains none of "fictional", "illustrative" and
       "flagship" (the one exception: "flagship" in the client's own words,
@@ -160,22 +160,22 @@ gates:
 
 loops:
   - id: loop.revision-fix
-    name: Fix and render again after a failed render (placeholder cap)
-    sources: ["docs/guides/build-a-cv.md:120-122", "docs/workflow/GAPS.md:28"]
+    name: Fix and render again after a failed render
+    sources: ["docs/guides/build-a-cv.md:120-122", "docs/proposals/workflow-gaps.md:30", "docs/proposals/workflow-gaps.md:60-64"]
     gate: gate.render-ok
     cap: { attended: 5, unattended: 10 }
     escalate: deliver.cap-reached
 
   - id: loop.wording-fix
-    name: Fix and render again after example wording (placeholder cap)
-    sources: ["docs/workflow/06-deliver/README.md:66-69", "docs/workflow/GAPS.md:29"]
+    name: Fix and render again after example wording
+    sources: ["docs/workflow/06-deliver/README.md:66-68", "docs/proposals/workflow-gaps.md:30", "docs/proposals/workflow-gaps.md:60-64"]
     gate: gate.example-wording
     cap: { attended: 5, unattended: 10 }
     escalate: deliver.cap-reached
 
   - id: loop.owner-changes
-    name: The owner's changes, as new Revisions (placeholder cap)
-    sources: ["docs/workflow/06-deliver/README.md:17-21", "docs/workflow/GAPS.md:30"]
+    name: The owner's changes, as new Revisions
+    sources: ["docs/workflow/06-deliver/README.md:17-21", "docs/proposals/workflow-gaps.md:32", "docs/proposals/workflow-gaps.md:60-64"]
     gate: gate.owner-review
     cap: { attended: 5 }
     escalate: deliver.cap-reached

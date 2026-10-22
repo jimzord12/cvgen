@@ -20,7 +20,7 @@ steps:
   # for the three build paths (Flagship, custom composition, one-off Template).
   - id: design.handover
     name: Hand over to new-cv
-    sources: ["docs/workflow/05-design/README.md:25-28", ".claude/skills/new-client/SKILL.md:97", ".claude/skills/new-cv/SKILL.md:15-17"]
+    sources: ["docs/workflow/05-design/README.md:25-28", ".claude/skills/new-client/SKILL.md:101", ".claude/skills/new-cv/SKILL.md:15-17"]
     actor: actor.lead
     action: skill.new-cv
     inputs: [art.facts-final, art.decisions-md, art.draft-pdf, art.draft-meta, art.sign-off-png]
@@ -120,9 +120,12 @@ steps:
     inputs: [art.owner-pick, art.concept-pdf]
     outputs: [art.chosen-concept, art.concept-decision]
 
+  # P-0018 item 7 (2026-10-22): a new Idea Run follows, steered by the
+  # owner's reasons, and he tells the client of the delay. Not a loop: the
+  # owner set no cap on new runs (GAPS.md, "What the YAML leaves out").
   - id: design.record-other-answer
-    name: Record a parked or rejected answer
-    sources: [".claude/skills/idea-run/SKILL.md:144-146", "studio/design-concepts/README.md:46-49", "docs/workflow/GAPS.md:49-50"]
+    name: Record a parked or rejected answer; a new Idea Run follows
+    sources: [".claude/skills/idea-run/SKILL.md:144-146", "studio/design-concepts/README.md:46-49", "docs/proposals/workflow-gaps.md:38", "docs/proposals/workflow-gaps.md:71"]
     actor: actor.lead
     action: cmd.stamp-concept-status
     inputs: [art.owner-pick]
@@ -265,7 +268,7 @@ gates:
     # on every path (new-cv: design.fill-data runs beside the Idea Run, and
     # render refuses an Envelope without candidate.json), so fill-data follows
     # the signed-off facts on both branches and port-concept reads what it wrote.
-    sources: ["docs/workflow/05-design/README.md:29-39", ".claude/skills/new-cv/SKILL.md:28-39", "docs/guides/build-a-cv.md:59-77", "docs/guides/client-workflow.md:34", "docs/guides/build-a-cv.md:122-128"]
+    sources: ["docs/workflow/05-design/README.md:29-39", ".claude/skills/new-cv/SKILL.md:28-39", "docs/guides/build-a-cv.md:59-77", "docs/guides/client-workflow.md:36", "docs/guides/build-a-cv.md:122-128"]
     check: The client's Domain already has a Template (today only marine, the Flagship).
     pass: design.flagship-fit
     fail: design.run-brief
@@ -438,7 +441,7 @@ artifacts:
 
   - id: art.portrait
     name: The client's portrait
-    sources: ["docs/guides/client-workflow.md:56-57", "docs/guides/build-a-cv.md:62-67"]
+    sources: ["docs/guides/client-workflow.md:58-59", "docs/guides/build-a-cv.md:62-67"]
     path: private/<envelope>/images/portrait/
     format: the authorised photograph, jpg or png
     visibility: private
@@ -453,7 +456,7 @@ artifacts:
 
   - id: art.typst-sources
     name: The design's own files beside cv.typ
-    sources: ["docs/guides/client-workflow.md:50-55", "docs/workflow/05-design/README.md:34-39"]
+    sources: ["docs/guides/client-workflow.md:52-57", "docs/workflow/05-design/README.md:34-39"]
     path: private/<envelope>/typst/
     format: presentation.json, designs/*.typ, text/*.typ, art/*.svg and generated art/*.png
     visibility: private
@@ -490,7 +493,7 @@ artifacts:
 
   - id: art.design-review-report
     name: A client design review report
-    sources: ["docs/guides/client-workflow.md:58-60", "docs/workflow/05-design/README.md:54-56"]
+    sources: ["docs/guides/client-workflow.md:60-62", "docs/workflow/05-design/README.md:54-56"]
     path: private/<envelope>/reviews/design-NN.md
     format: design-reviewer report, verbatim, with the codex-visual-reviewer's beside it as reviews/design-NN-codex.md
     visibility: private
@@ -499,7 +502,7 @@ actions:
   - id: skill.new-cv
     kind: skill
     name: Run the new-cv skill
-    sources: [".claude/skills/new-cv/SKILL.md:1-19", ".claude/skills/new-client/SKILL.md:97"]
+    sources: [".claude/skills/new-cv/SKILL.md:1-19", ".claude/skills/new-client/SKILL.md:101"]
     skill: new-cv
 
   - id: skill.idea-run

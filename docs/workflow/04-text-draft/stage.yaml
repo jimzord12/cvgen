@@ -1,7 +1,7 @@
 # yaml-language-server: $schema=../../../tools/workflow/schema/stage.schema.json
 id: text-draft
 name: Text Draft and Sign-off
-sources: ["docs/workflow/04-text-draft/README.md:15-42", ".claude/skills/new-client/SKILL.md:76-97"]
+sources: ["docs/workflow/04-text-draft/README.md:15-44", ".claude/skills/new-client/SKILL.md:78-101"]
 purpose: The client checks every fact of the CV in the Text Draft before any design work starts.
 entry: intake/facts.md is final after the one follow-up (stage research).
 exit: >-
@@ -11,7 +11,7 @@ exit: >-
 steps:
   - id: text-draft.draft-write
     name: Write the Text Draft
-    sources: ["docs/workflow/04-text-draft/README.md:17-30", ".claude/skills/new-client/SKILL.md:78-79", "docs/workflow/04-text-draft/README.md:24-30", "scripts/text-draft.typ:8-25"]
+    sources: ["docs/workflow/04-text-draft/README.md:17-32", ".claude/skills/new-client/SKILL.md:80-83", "docs/workflow/04-text-draft/README.md:26-32", "scripts/text-draft.typ:8-25"]
     actor: actor.lead
     action: lead.write-text-draft
     inputs: [art.facts-final, art.decisions-md, art.text-draft-lib]
@@ -19,7 +19,7 @@ steps:
 
   - id: text-draft.draft-compile
     name: Compile the draft and stamp it ready
-    sources: [".claude/skills/new-client/SKILL.md:80-85", "docs/workflow/04-text-draft/README.md:31-32", "docs/proposals/workflow-model.md:55"]
+    sources: [".claude/skills/new-client/SKILL.md:84-89", "docs/workflow/04-text-draft/README.md:33-34", "docs/proposals/workflow-model.md:55"]
     actor: actor.lead
     action: cmd.compile-and-stamp-draft-ready
     inputs: [art.draft-typ, art.text-draft-lib, art.framework-fonts, art.envelope-json, art.output-schema]
@@ -27,7 +27,7 @@ steps:
 
   - id: text-draft.draft-inspect
     name: Look at every page; give the owner the path
-    sources: [".claude/skills/new-client/SKILL.md:87", "docs/workflow/04-text-draft/README.md:24-26"]
+    sources: [".claude/skills/new-client/SKILL.md:91", "docs/workflow/04-text-draft/README.md:26-28"]
     actor: actor.lead
     action: lead.inspect-draft
     inputs: [art.draft-pdf]
@@ -35,7 +35,7 @@ steps:
 
   - id: text-draft.draft-send
     name: The owner sends the draft
-    sources: ["docs/workflow/README.md:28-32", "docs/workflow/04-text-draft/README.md:39-41", "docs/workflow/04-text-draft/README.md:31-35"]
+    sources: ["docs/workflow/README.md:28-32", "docs/workflow/04-text-draft/README.md:41-43", "docs/workflow/04-text-draft/README.md:33-37"]
     actor: actor.owner
     action: manual.send-draft
     inputs: [art.draft-ready-note, art.draft-pdf]
@@ -43,7 +43,7 @@ steps:
 
   - id: text-draft.draft-sent
     name: Stamp the draft sent
-    sources: ["docs/workflow/04-text-draft/README.md:31-35", ".claude/skills/new-client/SKILL.md:88-89", "docs/proposals/workflow-model.md:55"]
+    sources: ["docs/workflow/04-text-draft/README.md:33-37", ".claude/skills/new-client/SKILL.md:92-93", "docs/proposals/workflow-model.md:55"]
     actor: actor.lead
     action: cmd.stamp-draft-sent
     inputs: [art.draft-message]
@@ -51,7 +51,7 @@ steps:
 
   - id: text-draft.draft-fingerprint
     name: Write the sent draft's SHA-256 in README.md
-    sources: ["docs/workflow/04-text-draft/README.md:36-38", ".claude/skills/new-client/SKILL.md:88-91"]
+    sources: ["docs/workflow/04-text-draft/README.md:38-40", ".claude/skills/new-client/SKILL.md:92-95"]
     actor: actor.lead
     action: lead.write-draft-fingerprint
     inputs: [art.draft-message]
@@ -59,7 +59,7 @@ steps:
 
   - id: text-draft.client-check
     name: The client checks the underlined facts
-    sources: ["docs/workflow/04-text-draft/README.md:17-21", "docs/glossary.md:59", "docs/glossary.md:62"]
+    sources: ["docs/workflow/04-text-draft/README.md:17-23", "docs/glossary.md:59", "docs/glossary.md:62"]
     actor: actor.client
     action: manual.client-checks-draft
     inputs: [art.draft-message]
@@ -68,7 +68,7 @@ steps:
 
   - id: text-draft.draft-supersede
     name: Stamp the old draft superseded
-    sources: ["docs/workflow/04-text-draft/README.md:46-50", ".claude/skills/new-client/SKILL.md:92-93"]
+    sources: ["docs/workflow/04-text-draft/README.md:48-52", ".claude/skills/new-client/SKILL.md:96-97"]
     actor: actor.lead
     action: cmd.stamp-draft-superseded
     inputs: [art.client-reply]
@@ -77,7 +77,7 @@ steps:
 
   - id: text-draft.corrections
     name: Take the corrections into the next number
-    sources: ["docs/workflow/04-text-draft/README.md:36-38", "docs/workflow/04-text-draft/README.md:46-50", ".claude/skills/new-client/SKILL.md:92-93", "docs/workflow/GAPS.md:34-37"]
+    sources: ["docs/workflow/04-text-draft/README.md:38-40", "docs/workflow/04-text-draft/README.md:48-52", ".claude/skills/new-client/SKILL.md:96-97", "docs/workflow/GAPS.md:21-24"]
     actor: actor.lead
     action: lead.take-corrections
     inputs: [art.client-reply]
@@ -86,7 +86,7 @@ steps:
 
   - id: text-draft.sign-off-save
     name: The owner saves the Sign-off screenshot
-    sources: ["docs/workflow/README.md:28-32", "docs/workflow/04-text-draft/README.md:39-41", ".claude/skills/new-client/SKILL.md:94-95"]
+    sources: ["docs/workflow/README.md:28-32", "docs/workflow/04-text-draft/README.md:41-43", ".claude/skills/new-client/SKILL.md:98-99"]
     actor: actor.owner
     action: manual.screenshot-sign-off
     inputs: [art.client-reply]
@@ -94,7 +94,7 @@ steps:
 
   - id: text-draft.sign-off-stamp
     name: Stamp the draft signed-off
-    sources: ["docs/workflow/04-text-draft/README.md:34-35", "docs/guides/build-a-cv.md:166-169", ".claude/skills/new-client/SKILL.md:94-96", "packages/cv-workflow/cv_workflow/outputs.py:172-178"]
+    sources: ["docs/workflow/04-text-draft/README.md:36-37", "docs/guides/build-a-cv.md:166-169", ".claude/skills/new-client/SKILL.md:98-100", "packages/cv-workflow/cv_workflow/outputs.py:172-178"]
     actor: actor.lead
     action: cmd.stamp-draft-signed-off
     inputs: [art.sign-off-png, art.draft-pdf]
@@ -109,15 +109,15 @@ steps:
 gates:
   - id: gate.sign-off
     name: Sign-off
-    sources: ["docs/workflow/04-text-draft/README.md:39-42", "docs/workflow/04-text-draft/README.md:46-50", "docs/glossary.md:62"]
+    sources: ["docs/workflow/04-text-draft/README.md:41-44", "docs/workflow/04-text-draft/README.md:48-52", "docs/glossary.md:62"]
     check: The client replied OK to the underlined facts.
     pass: text-draft.sign-off-save
     fail: text-draft.corrections
 
 loops:
   - id: loop.draft-correction
-    name: Draft correction rounds (placeholder cap)
-    sources: ["docs/workflow/README.md:28-32", "docs/workflow/04-text-draft/README.md:36-38", "docs/workflow/04-text-draft/README.md:46-50", "docs/workflow/GAPS.md:25"]
+    name: Draft correction rounds
+    sources: ["docs/workflow/README.md:28-32", "docs/workflow/04-text-draft/README.md:38-40", "docs/workflow/04-text-draft/README.md:48-52", "docs/proposals/workflow-gaps.md:30", "docs/proposals/workflow-gaps.md:60-64"]
     gate: gate.sign-off
     cap: { attended: 1 }
     escalate: text-draft.cap-reached
@@ -133,33 +133,33 @@ artifacts:
 
   - id: art.draft-typ
     name: Text Draft source
-    sources: ["docs/guides/client-workflow.md:47", "docs/workflow/04-text-draft/README.md:17-30"]
+    sources: ["docs/guides/client-workflow.md:49", "docs/workflow/04-text-draft/README.md:17-32"]
     path: private/<envelope>/draft/draft-NN.typ
     format: Typst, imports /scripts/text-draft.typ
     visibility: private
 
   - id: art.draft-ready-note
     name: The draft's path, for the owner
-    sources: [".claude/skills/new-client/SKILL.md:87", "docs/workflow/04-text-draft/README.md:24-26"]
+    sources: [".claude/skills/new-client/SKILL.md:91", "docs/workflow/04-text-draft/README.md:26-28"]
     format: the lead's message to the owner
     visibility: ephemeral
 
   - id: art.draft-message
     name: The Text Draft in the client's chat
-    sources: ["docs/workflow/04-text-draft/README.md:31-35", "docs/workflow/README.md:28-32"]
+    sources: ["docs/workflow/04-text-draft/README.md:33-37", "docs/workflow/README.md:28-32"]
     format: chat message with the PDF
     visibility: third-party
 
   - id: art.readme-draft-fingerprint
     name: README.md, the sent draft's SHA-256
-    sources: ["docs/guides/client-workflow.md:31-32", "docs/workflow/04-text-draft/README.md:36-37"]
+    sources: ["docs/guides/client-workflow.md:31-32", "docs/workflow/04-text-draft/README.md:38-39"]
     path: private/<envelope>/README.md
     format: Markdown line
     visibility: private
 
   - id: art.client-reply
     name: The client's reply to the draft
-    sources: ["docs/workflow/04-text-draft/README.md:17-21"]
+    sources: ["docs/workflow/04-text-draft/README.md:17-23"]
     format: chat message, OK or the corrections
     visibility: third-party
 
@@ -167,17 +167,19 @@ actions:
   - id: lead.write-text-draft
     kind: lead
     name: Write the Text Draft
-    sources: ["docs/workflow/04-text-draft/README.md:17-30", ".claude/skills/new-client/SKILL.md:78-79", "docs/workflow/04-text-draft/README.md:24-30"]
+    sources: ["docs/workflow/04-text-draft/README.md:17-32", ".claude/skills/new-client/SKILL.md:80-83", "docs/workflow/04-text-draft/README.md:26-32", "docs/proposals/workflow-gaps.md:40", "docs/proposals/workflow-gaps.md:71"]
     does: >-
-      Writes draft/draft-NN.typ with scripts/text-draft.typ: the Greek Check
-      Page, then the content in the CV's language, sized for the Template
-      (two pages by default), every name, date, number and title the client
-      must check wrapped in #fact[...]; lang "el" for a Greek CV.
+      Writes draft/draft-NN.typ with scripts/text-draft.typ: the Check Page
+      in Greek, the House Copy (for a client who does not read Greek, every
+      Check Page line in his language through copy:, with his check-lang),
+      then the content in the CV's language, sized for the Template (two
+      pages by default), every name, date, number and title the client must
+      check wrapped in #fact[...]; lang "el" for a Greek CV.
 
   - id: cmd.compile-and-stamp-draft-ready
     kind: cmd
     name: Compile the draft, then stamp it ready
-    sources: [".claude/skills/new-client/SKILL.md:80-85", "docs/pdf-workflow.md:130"]
+    sources: [".claude/skills/new-client/SKILL.md:84-89", "docs/pdf-workflow.md:130"]
     run: >-
       typst compile --root . --ignore-system-fonts --font-path packages/cv-framework/fonts
       private/<envelope>/draft/draft-NN.typ private/<envelope>/draft/draft-NN.pdf
@@ -186,7 +188,7 @@ actions:
   - id: lead.inspect-draft
     kind: lead
     name: Inspect the draft
-    sources: [".claude/skills/new-client/SKILL.md:87", "docs/workflow/04-text-draft/README.md:24-26"]
+    sources: [".claude/skills/new-client/SKILL.md:91", "docs/workflow/04-text-draft/README.md:26-28"]
     does: >-
       Looks at every page (every name, date, number and title underlined,
       since the client checks only those) and gives the owner the PDF path.
@@ -194,19 +196,19 @@ actions:
   - id: manual.send-draft
     kind: manual
     name: Send the draft
-    sources: ["docs/workflow/README.md:28-32", "docs/workflow/04-text-draft/README.md:39-41", "docs/workflow/04-text-draft/README.md:31-35"]
+    sources: ["docs/workflow/README.md:28-32", "docs/workflow/04-text-draft/README.md:41-43", "docs/workflow/04-text-draft/README.md:33-37"]
     does: The owner sends draft-NN.pdf to the client and confirms to the lead that he sent it.
 
   - id: cmd.stamp-draft-sent
     kind: cmd
     name: Stamp the draft sent
-    sources: ["docs/workflow/04-text-draft/README.md:31-35", "docs/pdf-workflow.md:139"]
+    sources: ["docs/workflow/04-text-draft/README.md:33-37", "docs/pdf-workflow.md:139"]
     run: python scripts/outputs.py stamp private/<envelope>/draft/draft-NN.pdf status=sent
 
   - id: lead.write-draft-fingerprint
     kind: lead
     name: Record the draft fingerprint
-    sources: ["docs/workflow/04-text-draft/README.md:36-38", ".claude/skills/new-client/SKILL.md:88-91"]
+    sources: ["docs/workflow/04-text-draft/README.md:38-40", ".claude/skills/new-client/SKILL.md:92-95"]
     does: >-
       Writes the sent draft's SHA-256 in the Envelope's README.md; a sent
       number is never compiled again.
@@ -214,29 +216,29 @@ actions:
   - id: manual.client-checks-draft
     kind: manual
     name: The client checks the draft
-    sources: ["docs/workflow/04-text-draft/README.md:17-21"]
+    sources: ["docs/workflow/04-text-draft/README.md:17-23"]
     does: The client checks only the underlined facts and replies OK, or writes the page and the correction.
 
   - id: cmd.stamp-draft-superseded
     kind: cmd
     name: Stamp the draft superseded
-    sources: ["docs/workflow/04-text-draft/README.md:46-50", "docs/pdf-workflow.md:139"]
+    sources: ["docs/workflow/04-text-draft/README.md:48-52", "docs/pdf-workflow.md:139"]
     run: python scripts/outputs.py stamp private/<envelope>/draft/draft-NN.pdf status=superseded
 
   - id: lead.take-corrections
     kind: lead
     name: Take the corrections
-    sources: ["docs/workflow/04-text-draft/README.md:36-38", "docs/workflow/04-text-draft/README.md:46-50"]
+    sources: ["docs/workflow/04-text-draft/README.md:38-40", "docs/workflow/04-text-draft/README.md:48-52"]
     does: Takes the client's corrections into the facts, so the next number (draft-NN+1) carries them.
 
   - id: manual.screenshot-sign-off
     kind: manual
     name: Screenshot the Sign-off
-    sources: ["docs/workflow/README.md:28-32", "docs/workflow/04-text-draft/README.md:39-41", ".claude/skills/new-client/SKILL.md:94-95"]
+    sources: ["docs/workflow/README.md:28-32", "docs/workflow/04-text-draft/README.md:41-43", ".claude/skills/new-client/SKILL.md:98-99"]
     does: The owner saves the client's OK as a screenshot, draft/sign-off-NN.png beside the draft it answers.
 
   - id: cmd.stamp-draft-signed-off
     kind: cmd
     name: Stamp the draft signed-off
-    sources: ["docs/workflow/04-text-draft/README.md:34-35", "docs/guides/build-a-cv.md:166-169", "docs/pdf-workflow.md:148-153"]
+    sources: ["docs/workflow/04-text-draft/README.md:36-37", "docs/guides/build-a-cv.md:166-169", "docs/pdf-workflow.md:148-153"]
     run: python scripts/outputs.py stamp private/<envelope>/draft/draft-NN.pdf status=signed-off
