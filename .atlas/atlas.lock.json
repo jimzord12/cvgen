@@ -54,11 +54,11 @@
    "verifiedAt": "2026-10-22"
   },
   "design-run": {
-   "commit": "ec5ceab",
+   "commit": "db191f6",
    "sources": {
     ".claude/agents/codex-visual-reviewer.md": "1ddedb5adf81f73a8094ce145fa80047a503c710",
     ".claude/agents/design-reviewer.md": "23246f699ab41f852605ae4d319c4ab842ae0336",
-    ".claude/agents/magazine-editor.md": "37842a601ec0e4559a001b74870cbeb680594a79",
+    ".claude/agents/magazine-editor.md": "0707441b48a767f3ba15452ac8bb895772469df0",
     ".claude/agents/research-reviewer.md": "5c4ca50e19c0afaffde30e28555b9479dc28ccc2",
     ".claude/skills/idea-run/SKILL.md": "914b56c47c1fae94ec72bfc8c12efa709406b90b",
     "apps/design-review/README.md": "5d14097c544910a9ba0d940e76863223ac1f62a3",
@@ -73,7 +73,7 @@
    "verifiedAt": "2026-10-22"
   },
   "roster": {
-   "commit": "ec5ceab",
+   "commit": "db191f6",
    "sources": {
     ".claude/agents/ceo-reviewer.md": "058811a51ac27c65a93dc8915db4afd58676d33d",
     ".claude/agents/ceo.md": "e6291c8d2282c325db11302b1be9ee8364edd3aa",
@@ -82,7 +82,7 @@
     ".claude/agents/context-maintainer.md": "2a494e1e998da769620850a756863a923b02f28e",
     ".claude/agents/context-reviewer.md": "68205bcdf72a4c0b36c4c4ca2a8a3baadcd5f34a",
     ".claude/agents/design-reviewer.md": "23246f699ab41f852605ae4d319c4ab842ae0336",
-    ".claude/agents/magazine-editor.md": "37842a601ec0e4559a001b74870cbeb680594a79",
+    ".claude/agents/magazine-editor.md": "0707441b48a767f3ba15452ac8bb895772469df0",
     ".claude/agents/repo-auditor-lite.md": "99c2e868259168afc5e9a3a087e4d3cc1ef88354",
     ".claude/agents/research-reviewer.md": "5c4ca50e19c0afaffde30e28555b9479dc28ccc2",
     ".claude/repo-maintenance.md": "ad61b38fd0ca448d72a1d2f8265f73143ec6c295",

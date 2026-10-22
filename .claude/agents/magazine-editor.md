@@ -179,8 +179,8 @@ required, and your job is to draw it better than anyone else.
   says. Draw the domain generously: this is where the `Three-Second Test`
   is won. No portrait unless the idea needs one; then copy a fictional one
   (such as `examples/candidates/fictional-engineer.png`) once into the style
-  folder as `portrait.jpg` (converted to JPEG) and keep each PDF under 1 MB if you can (a Spacious PDF
-  of several pages too).
+  folder as `portrait.jpg` (converted to JPEG) and keep each PDF under 1
+  MB if you can (a Spacious PDF of several pages too).
 - Render every page's PNG with pymupdf and look at it yourself before
   handing over: overflow, clipping, collisions, widows, contrast. Then put
   the thumbnails side by side (a contact sheet under `builds/`: every
@@ -210,8 +210,9 @@ how the page passes the
 `Three-Second Test` (which elements say domain, specialty and rank); the
 three or more references with URLs and the principle taken from each; why
 it differs from Flagship, from the other two styles and from the market;
-fonts and their licences; each generated image's record; what data it needs; what it would take to become
-a `Template`; open weaknesses you know about.
+fonts and their licences; each generated image's record; what data it
+needs; what it would take to become a `Template`; open weaknesses you
+know about.
 
 Also add one row per style to `studio/design-concepts/README.md` (create it if
 missing: a table of concept, idea, date, status `proposed`, and in the last
