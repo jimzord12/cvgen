@@ -36,7 +36,7 @@ design-reviewer's "Other assets".
    `run.md`: brief, rounds, verdicts, what reached the owner.
 2. Start the author with the date, the run folder and any owner steer (a
    domain, a mood, a problem). A design `Idea Run` always names the `Domain`, the
-   specialty and the `Rank` its pages must shout (the `Three-Second Test`),
+   specialty and the `Rank` each design's page 1 must shout (the `Three-Second Test`),
    and never bans the domain's imagery; it also gives the Spacious page
    count (1 to 3) that fits the size of the fictional record. Give the same three, and the page count, to every
    `design-reviewer`. Client data never goes into a brief: a run for a

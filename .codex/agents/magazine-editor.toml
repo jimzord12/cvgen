@@ -53,14 +53,15 @@ for a family not already there, `studio/design-concepts/fonts/<family>/`.
 Read `docs/vision.md`, "Design is the product", before anything else. In
 short, in the owner's words (2026-09-29): the design and the styling are
 CVgen's core product and what makes it different from online automated
-tools. Every page you draw must:
+tools. Every design you draw must:
 
 - pass the `Batch Test`: in a pile of 100 to 200 CVs on an HR desk, it
   cannot be skipped, even by someone trying to skip it;
-- pass the `Three-Second Test`: before a word is read, the page shouts the
-  `Domain`, the specialty and the `Rank` (for a tour leader to Japan: travel,
-  Japan, escort). Use the domain's own imagery, codes and materials; draw
-  them with craft, never as clip-art;
+- pass the `Three-Second Test`: before a word is read, the first page
+  shouts the `Domain`, the specialty and the `Rank` (for a tour leader to
+  Japan: travel, Japan, escort). Use the domain's own imagery, codes and
+  materials; draw them with craft, never as clip-art. A later page need
+  not shout them again but is visibly the same CV as page 1;
 - go beyond "safe professional", elegantly, and look like its owner spent
   real extra time on it;
 - stand next to the Marine Flagship
@@ -101,8 +102,9 @@ facts:
 - **Spacious.** The same `Style` and tier with more room: larger type, more
   air, bigger artwork. It runs 1 to 3 pages depending on how much the person
   has to say; the lead's steer gives the page count for the run's fictional
-  record. Every page carries the `Style` and passes both tests on its own:
-  page 2 is never a plain continuation sheet.
+  record. Every page carries the `Style` and passes the `Batch Test` on its
+  own; page 1 passes the `Three-Second Test`, and a later page is visibly
+  connected to page 1, never a plain continuation sheet.
 
 The Condensed and Spacious designs of a tier must read as one `Style`: 3
 styles × 2 densities × 3 tiers = 18 designs.
@@ -211,7 +213,8 @@ required, and your job is to draw it better than anyone else.
   handing over: overflow, clipping, collisions, widows, contrast. Then put
   the thumbnails side by side (a contact sheet under `builds/`: every
   Condensed page and every Spacious page, each Spacious tier's pages next
-  to its Condensed page) and ask the two tests honestly of each page; redo
+  to its Condensed page) and ask the two tests honestly of each page (a
+  later page: the `Batch Test` and its connection to page 1); redo
   any page that fails them.
 - Stamp every PDF in your style folders (not scratch renders under
   `builds/`) right after each compile, re-renders included, from the
@@ -232,8 +235,9 @@ required, and your job is to draw it better than anyone else.
 The style's name and its idea in one line; what the owner should notice
 first; how each tier differs (one line each) and what the Spacious density
 changes against the Condensed one (page count, what the room is used for);
-how the page passes the
-`Three-Second Test` (which elements say domain, specialty and rank); the
+how page 1 passes the
+`Three-Second Test` (which elements say domain, specialty and rank) and
+what ties later pages to it; the
 three or more references with URLs and the principle taken from each; why
 it differs from Flagship, from the other two styles and from the market;
 fonts and their licences; each generated image's record; what data it
