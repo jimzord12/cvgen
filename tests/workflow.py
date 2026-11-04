@@ -219,7 +219,7 @@ def run_workflow(out, typst, system_family=None):
     render_path.write_text('[]', encoding='utf-8')
     assert 'must hold a JSON object' in cv('approve', workspace, rid3, '--approver', 'suite', '--sha256', third['sha256'], '--test-only', expect=2)
     render_path.write_text(original_render, encoding='utf-8')
-    entry.write_text(ENTRY.replace('flagship.with', 'flagship.wit'), encoding='utf-8')
+    entry.write_text(ENTRY + '\n#this-name-does-not-exist\n', encoding='utf-8')
     broken = cv('render', workspace, '--typst', typst, expect=1)
     assert broken['status'] == 'failed' and 'error' in (revision(broken['revision']) / 'render.log').read_text(encoding='utf-8')
     assert json.loads((revision(broken['revision']) / 'render.json').read_text(encoding='utf-8'))['pdf'] is None
