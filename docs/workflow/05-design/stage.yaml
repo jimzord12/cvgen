@@ -463,7 +463,7 @@ artifacts:
 
   - id: art.framework-gap-entry
     name: A Framework Gap entry
-    sources: ["docs/framework-gaps.md:8-16", "docs/glossary.md:79"]
+    sources: ["docs/framework-gaps.md:8-16", "docs/glossary.md:80"]
     path: docs/framework-gaps.md
     format: Markdown entry (Needed, Bypassed, Built, Lesson), the client named by Alias only
     visibility: public

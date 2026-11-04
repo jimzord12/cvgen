@@ -3,7 +3,7 @@ id: TASK-3
 title: >-
   deck-data: contract periods, data-driven synopsis and certificate columns
   (roadmap item 3)
-status: Queued
+status: Done
 assignee: []
 created_date: '2026-10-06 07:25'
 labels: []
@@ -23,3 +23,9 @@ ordinal: 3000
 
 Card prepared at the owner's request of 2026-09-25 (roadmap cards for deck-data, short-career and travel). The roadmap says items are opened by the owner; not started.
 <!-- SECTION:DESCRIPTION:END -->
+
+## Implementation Notes
+
+<!-- SECTION:NOTES:BEGIN -->
+Opened by the owner on 2026-11-04 (P-0019, Decision 4). Flagship now takes contract periods row by row, counts contracts in the synopsis, draws three certificate columns when no record has a review, and places a skills block through the page plan. Metrics and columns follow from the data, with no new setting. Periods cannot be hidden. Reviews: archive/work-records/deck-data/reviews/summary.md.
+<!-- SECTION:NOTES:END -->

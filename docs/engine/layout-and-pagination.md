@@ -85,6 +85,11 @@ For one CV, prefer a small override in the entry point over a new file:
 ))
 ```
 
+A page may also carry `skills: true`: Flagship then draws the record's
+`skill_groups` at the foot of that page, and a record with skills needs exactly
+one such page. `experience.period-column` is the row column for contract periods
+and `certificates.columns-three` the table for certificates without `review`.
+
 ## The page plan
 
 `pages` is an array, one entry per page. Each entry lists company indices

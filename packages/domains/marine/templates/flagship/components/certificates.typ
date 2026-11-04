@@ -9,6 +9,8 @@
   let reviewed = records.filter(r => "review" in r)
   assert(reviewed.len() in (0, records.len()), message: "Every certificate needs a review date, or none does")
   let fields = if reviewed.len() > 0 {("title", "scope", "issued", "review")} else {("title", "scope", "issued")}
+  assert(ctx.copy.certificate-columns.len() >= fields.len(),
+    message: "certificate-columns needs " + str(fields.len()) + " headings for these certificates")
   set table(inset: geometry.inset, stroke: (left: none, right: none, top: none, bottom: 0.4pt + theme.colors.rule))
   text(size: theme.sizes.certificate)[
     #table(columns: if fields.len() == 4 {geometry.columns} else {geometry.columns-three},

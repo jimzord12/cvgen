@@ -107,7 +107,7 @@
         "company": { "type": "string", "description": "Singular of companies, used when the total is one." },
         "certificates": { "type": "string" },
         "certificates-subtitle": { "type": "string" },
-        "certificate-columns": { "type": "array", "minItems": 4, "maxItems": 4, "items": { "type": "string" } },
+        "certificate-columns": { "type": "array", "minItems": 3, "maxItems": 4, "description": "Three headings are enough when no certificate has a review.", "items": { "type": "string" } },
         "education-languages": { "type": "string" },
         "education": { "type": "string" },
         "languages": { "type": "string" },

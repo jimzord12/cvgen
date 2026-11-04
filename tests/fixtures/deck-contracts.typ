@@ -6,6 +6,7 @@
 #import "../../packages/domains/marine/templates/flagship/themes/golden-blue.typ": theme
 #import "../../packages/domains/marine/templates/flagship/artwork/captain.typ": artwork
 #import "../../packages/domains/marine/templates/flagship/layouts/flagship-one-page.typ": one-page
+#import "../../packages/domains/marine/templates/flagship/layouts/flagship-v11.typ": layout as v11
 #let raw = json("../../examples/candidates/deck-cadet-example.json")
 #let contract(id, name, period) = (id: id, name: name, rank: "Second Officer", period: period)
 #let ships = (contract("mv-orion", "MV Orion Trader", "03/2021 - 11/2021"),
@@ -25,12 +26,23 @@
   (company(ships), (id: "old-line", name: "Old Line", period: "2019",
     groups: ((type: "Tankers", ships: ((id: "mt-a", name: "MT A", rank: "Third Officer", months: 6),)),)))
 } else {(company(ships),)}
+#let companies = if case == "continued" {
+  let row(n) = contract("mv-" + str(n), "MV Long Haul " + str(n), "01/" + str(2000 + n) + " - 12/" + str(2000 + n))
+  (company(range(1, 13).map(row)),)
+} else if case == "repeated-contract" {
+  (company((ships.at(0), ships.at(0))),)
+} else {companies}
 #let candidate = (..raw, companies: companies,
   certificates: if case == "mixed-certificates" {certificates + ((title: "A", scope: "B", issued: "C", review: "D"),)} else {certificates},
   skill_groups: (("Passage planning", "Cargo watch"), ("ECDIS", "Bridge team work")),
-  copy: (certificate-columns: ("Certificate", "Provider", "Issued")))
+  copy: (certificate-columns: if case == "too-few-headings" {("Certificate", "Provider")} else {("Certificate", "Provider", "Issued")}))
 #let plan = one-page(candidate)
-#let layout = if case == "skills-unplaced" {plan} else {
+#let layout = if case == "skills-unplaced" {plan} else if case == "continued" {
+  // Two pages: the company runs on, and the skills sit on the second page.
+  (..v11, pages: ((companies: ((company: 0, rows: (0, 6)),)),
+    (companies: ((company: 0, rows: (6, 12)),), synopsis: true, certificates: true, education: true, skills: true)))
+} else {
   (..plan, pages: plan.pages.map(p => (..p, skills: true)))
 }
-#show: flagship.with(candidate: candidate, role: role, theme: theme, artwork: artwork, layout: layout)
+#show: flagship.with(candidate: candidate, role: role, theme: theme, artwork: artwork, layout: layout,
+  show-vessel-durations: case != "durations-off")

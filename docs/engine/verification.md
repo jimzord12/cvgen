@@ -205,7 +205,8 @@ Windows one also holds the PDFs that build wrote, one per example in
 18. **Deck contracts** (`deck-contracts`, `deck-contracts-<rule>`,
    `tests/fixtures/deck-contracts.typ`). One page of contract rows, a synopsis
    counting contracts, three certificate columns and a skills block, with no
-   month total anywhere; then each mixed record must fail on its message.
+   month total anywhere; a company continued onto a second page, and such a record
+   through the real schema check; then each mixed record must fail on its message.
 19. **Report** (`report: <check>`, `tests/report.py`). The real
    `scripts/report.py` on the worked sample under `report/`: one page with
    its fonts and pictures embedded and no `src` or `href` pointing at the

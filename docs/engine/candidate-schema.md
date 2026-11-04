@@ -73,8 +73,10 @@ adapter produces it (see "Flagship wording" below).
   It replaces `months` and `service-months`: every vessel of the record has a
   period or none does, and a mixed record fails the render. The same `id` on
   two rows is two contracts on one vessel. The company then shows no duration,
-  and the synopsis counts contracts, vessels and companies. Never convert
-  calendar periods into months (constitution section 6).
+  and the synopsis counts contracts, vessels and companies. Periods cannot be
+  hidden (`-HideVesselDurations` refuses them), and the same vessel and period
+  twice is refused. Never convert calendar periods into months (constitution
+  section 6).
 - **certificates** accept either a four-string array in the order title,
   scope, issued, review, or an object with those keys, where `review` may be
   left out. With no `review` on any record, Flagship draws three columns; give
@@ -96,6 +98,8 @@ continuation          "Continued / earlier companies"
 combined              "Combined service"
 total                 "Total experience"
 vessels               "Vessels"
+contract, contracts   "Contract", "Contracts"
+skills                "Professional skills"
 companies             "Companies"
 vessel                "Vessel"     (the synopsis uses it when the total is one)
 company               "Company"    (the same, for companies)
@@ -156,6 +160,9 @@ after that, during compilation, for what a schema cannot express.
 | `A record uses contract periods or service months, not both` | Use one way of recording service across the record |
 | `Every certificate needs a review date, or none does` | Give `review` on all certificates or on none |
 | `Skills need exactly one page with skills: true in the page plan` | Add `skills: true` to one page of the layout's plan |
+| `Contract periods cannot be hidden; show vessel durations: <ship>` | Leave durations on for a record of periods |
+| `A contract is listed twice: same vessel and period` | Remove the duplicate row |
+| `certificate-columns needs <n> headings for these certificates` | Give a heading for each column: three, or four with `review` |
 | `Known vessel months exceed company total` | With partial vessel months, the company total must be at least their sum |
 | `Missing months: provide service-months for company <name>` | Durations hidden but neither every vessel's `months` nor a company `service-months` is given |
 | `Rank exceeds identity plate` | Shorter rank, smaller `theme.sizes.rank`, or wider `layout.hero.plate-width` |

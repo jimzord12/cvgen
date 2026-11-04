@@ -119,6 +119,14 @@ def check_example_records():
     except WorkflowError as error:
         lines = str(error).splitlines()[1:]
         assert len(lines) == MAX_REPORTED + 1 and lines[-1] == f'  ... and {len(ships) - MAX_REPORTED} more', lines
+    # A contract record, three headings and skills through the real schema check.
+    contract_record = json.loads((ROOT / 'examples/candidates/deck-cadet-example.json').read_text(encoding='utf-8'))
+    contract_record['companies'] = [{'name': 'Harbour Line', 'period': '2021', 'groups': [{'type': 'Bulk carriers', 'ships': [
+        {'id': 'mv-orion', 'name': 'MV Orion', 'rank': 'Second Officer', 'period': '03/2021 - 11/2021'}]}]}]
+    contract_record['certificates'] = [{'title': 'GMDSS', 'scope': 'Example Board', 'issued': '2022'}]
+    contract_record['skill_groups'] = [['ECDIS']]
+    contract_record['copy'] = {'certificate-columns': ['Certificate', 'Provider', 'Issued']}
+    validate_record(contract_record, ['/packages/domains/marine/lib.typ'])
     # The facts contract and the Flagship input contract share their definitions, vessel particulars included.
     facts_schema, input_schema = (json.loads((ROOT / 'packages/domains' / p).read_text(encoding='utf-8')) for p in
                                   ['marine/schema/candidate.schema.json', FLAGSHIP_INPUT[len('/packages/domains/'):]])
@@ -228,8 +236,17 @@ def main():
                           ('period-and-months', 'A contract period replaces months; give one or the other: Harbour Line'),
                           ('mixed-record', 'A record uses contract periods or service months, not both'),
                           ('mixed-certificates', 'Every certificate needs a review date, or none does'),
-                          ('skills-unplaced', 'Skills need exactly one page with skills: true in the page plan')):
+                          ('skills-unplaced', 'Skills need exactly one page with skills: true in the page plan'),
+                          ('durations-off', 'Contract periods cannot be hidden; show vessel durations: MV Orion Trader'),
+                          ('repeated-contract', 'A contract is listed twice: same vessel and period'),
+                          ('too-few-headings', 'certificate-columns needs 3 headings for these certificates')):
         compile_case('deck-contracts-' + mode, 'tests/fixtures/deck-contracts.typ', {'case': mode}, error=message)
+    continued = compile_case('deck-contracts-continued', 'tests/fixtures/deck-contracts.typ', {'case': 'continued'})
+    assert check_case(continued, pages=2)['passed']
+    with fitz.open(continued) as doc:
+        text = ' '.join(' '.join(page.get_text().split()) for page in doc)
+        assert 'Harbour Line (continued)' in text and '12 CONTRACTS' in text and 'Professional skills' in doc[1].get_text()
+        assert all(f'01/{2000 + n} - 12/{2000 + n}' in text for n in range(1, 13))
     skills = compile_case('skills', 'tests/fixtures/skills.typ')
     assert check_case(skills, pages=1)['passed']
     with fitz.open(skills) as doc:

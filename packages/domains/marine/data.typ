@@ -38,6 +38,10 @@
     message: "A record uses contract periods or service months, not both")
   let ships = companies.map(c => c.groups.map(g => g.ships).flatten()).flatten()
   let dated = months.at(0, default: 0) == none
+  if dated {
+    let rows = ships.map(s => s.id + " " + s.period)
+    assert.eq(rows.dedup().len(), rows.len(), message: "A contract is listed twice: same vessel and period")
+  }
   (months: if dated {none} else {months.sum(default: 0)},
     contracts: if dated {ships.len()} else {none},
     vessels: ships.map(s => s.id).dedup().len(),
@@ -104,7 +108,11 @@
       for ship in group.ships {
         for key in ("id", "name", "rank") { required-text(ship.at(key), "vessel." + key) }
         validate-particulars(ship)
-        if "period" in ship { required-text(ship.period, "vessel.period") }
+        if "period" in ship {
+          required-text(ship.period, "vessel.period")
+          // A contract's dates are its fact: hidden, two contracts on one vessel read as one row twice.
+          assert(show-vessel-durations, message: "Contract periods cannot be hidden; show vessel durations: " + ship.name)
+        }
         if show-vessel-durations {
           assert(ship.at("months", default: none) != none or "period" in ship,
             message: "Visible vessel durations require months: " + ship.name)
