@@ -1,0 +1,16 @@
+---
+id: TASK-68
+title: 'template-contract-stage-2: version comparison'
+status: Queued
+assignee: []
+created_date: '2026-11-04 21:41'
+labels: []
+dependencies: []
+ordinal: 68000
+---
+
+## Description
+
+<!-- SECTION:DESCRIPTION:BEGIN -->
+Compatibility script, oldestSupported, group-by-group comparison. Built when a Domain Contract first reaches version 2 (P-0019 section 6).
+<!-- SECTION:DESCRIPTION:END -->
