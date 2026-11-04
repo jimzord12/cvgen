@@ -7,6 +7,7 @@ import subprocess
 import tempfile
 
 from .checks import certificate_summary, check_certificates, check_pdf
+from .contracts import choose
 from .outputs import envelope, stamp
 from .validate import validate_record
 from .workspace import (ENGINE, ENTRY, FONTS, ROOT, Workspace, WorkflowError, new_revision_id, read_json,
@@ -118,6 +119,8 @@ def render_revision(workspace, typst='typst', pages=2, inputs=None, reference_da
         raise WorkflowError(f'{ws.record} must hold a JSON object')
     # A misspelt or unknown key would otherwise be dropped silently by the engine.
     schema = validate_record(record, IMPORT.findall(ws.entry.read_text(encoding='utf-8')))
+    # The Template Contract (ADR 0016): a missing required group stops here; a dropped one warns.
+    choice, choice_warnings = choose(read_json(ws.folder / 'envelope.json'), ws.entry.read_text(encoding='utf-8'), record) or ({}, [])
     portrait = (record.get('identity') or {}).get('portrait')
     source = None
     if portrait:
@@ -176,7 +179,7 @@ def render_revision(workspace, typst='typst', pages=2, inputs=None, reference_da
             'entry': {'path': 'inputs/' + ENTRY, 'sha256': sha256_file(entry),
                       'imports': IMPORT.findall(entry.read_text(encoding='utf-8'))},
             'candidate': {'path': 'inputs/candidate.json', 'sha256': sha256_file(revision.inputs / 'candidate.json'),
-                          'source_sha256': sha256_file(ws.record), 'schema': schema},
+                          'source_sha256': sha256_file(ws.record), 'schema': schema, 'choice': choice},
             'assets': assets,
             'files': extra,
             'compiler_inputs': dict(inputs or {}),
@@ -204,7 +207,7 @@ def render_revision(workspace, typst='typst', pages=2, inputs=None, reference_da
         lang = str((inputs or {}).get('lang') or '').lower()
         stamp(revision.pdf, {'kind': 'client-cv', 'status': 'render', 'variant': revision.id,
                              'lang': lang if re.fullmatch('[a-z]{2}', lang) else None, 'source': ENTRY,
-                             'producedBy': 'scripts/cv.py render'}, envelope_dir=ws.folder)
+                             'producedBy': 'scripts/cv.py render', **choice}, envelope_dir=ws.folder)
     counts, warnings = certificate_summary(checks)
     return {
         'revision': revision.id,
@@ -215,7 +218,7 @@ def render_revision(workspace, typst='typst', pages=2, inputs=None, reference_da
         'checks_passed': bool(checks and checks['passed']),
         'errors': (checks or {}).get('errors', []) if succeeded else [result.stderr.strip()],
         'certificate_dates': counts,
-        'warnings': warnings,
+        'warnings': choice_warnings + warnings,
         'engine_uncommitted_changes': render['engine']['uncommitted_changes'],
     }
 

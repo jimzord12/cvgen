@@ -270,7 +270,7 @@ artifacts:
 
   - id: art.output-schema
     name: The Meta File schema
-    sources: ["packages/cv-workflow/cv_workflow/output.schema.json:1-41", "docs/pdf-workflow.md:133-138"]
+    sources: ["packages/cv-workflow/cv_workflow/output.schema.json:1-45", "docs/pdf-workflow.md:133-138"]
     path: packages/cv-workflow/cv_workflow/output.schema.json
     format: JSON Schema 2020-12, $id cvgen.output/1
     visibility: public

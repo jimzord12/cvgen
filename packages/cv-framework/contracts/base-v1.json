@@ -1,0 +1,14 @@
+{
+  "id": "base",
+  "version": 1,
+  "description": "The Base Contract (ADR 0016): the Fact Groups every Domain has. A Domain Contract extends it and supplies the paths of experience.",
+  "groups": {
+    "identity": { "required": true, "schemaVersion": 1, "paths": ["identity.name"] },
+    "contacts": { "required": true, "schemaVersion": 1, "paths": ["contacts.left", "contacts.right"] },
+    "experience": { "required": true, "schemaVersion": 1, "paths": [] },
+    "profile": { "required": false, "schemaVersion": 1, "paths": ["profile"] },
+    "education": { "required": false, "schemaVersion": 1, "paths": ["education_entries"] },
+    "languages": { "required": false, "schemaVersion": 1, "paths": ["language_entries"] },
+    "certificates": { "required": false, "schemaVersion": 1, "paths": ["certificates"] }
+  }
+}

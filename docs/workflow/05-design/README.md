@@ -328,7 +328,7 @@ flowchart TD
 | `agent.research-reviewer` | agent | A fresh research-reviewer round | agent `research-reviewer` |
 | `cmd.stamp-concept-status` | cmd | Stamp a concept's new state | `python scripts/outputs.py stamp <pdf> status=<state>` |
 | `lead.change-engine` | lead | Change the engine | Makes the engine change the design needs on a branch, for the normal code-reviewer gate; the one-off's own assets stay in its Envelope. |
-| `lead.check-flagship-fit` | lead | Check the Flagship fit | Checks the data against the known Flagship gaps listed in docs/framework-gaps.md. |
+| `lead.check-flagship-fit` | lead | Check the Flagship fit | Checks the data and the design against the two conditions of gate.template-fits. |
 | `lead.clear-review-input` | lead | Clear the previews | Deletes the builds/design-review-input-* folders by path, with the page PNGs and batch sheets both reviewers made inside them, since they hold a real client's pages outside private/ (never git clean -x or -X). |
 | `lead.compile-previews` | lead | Compile the previews | Compiles typst/cv.typ into builds/design-review-input-<timestamp>/cv.pdf with the typst compile line in the new-cv skill, since the reviewer never reads private/. |
 | `lead.compose-by-hand` | lead | Compose by hand | Writes typst/cv.typ from the lib.typ components (core-components, flagship-components), with data the schema cannot hold in typst/presentation.json, every file read by a literal relative path. |
@@ -339,7 +339,7 @@ flowchart TD
 | `lead.report-run` | lead | Report the run to the owner | Sends the short message with each Style's six PDFs and lists the concepts still waiting in the session-handoff doc. |
 | `lead.revise-engine-change` | lead | Fix the engine change | Fixes the Blocking and Material findings and reruns the affected checks before the next fresh round. |
 | `lead.write-candidate-json` | lead | Write candidate.json | Copies the closest example record and replaces every value from the facts and the signed-off wording (whole months, never months invented from calendar periods), replaces the fictional disclosure, and places the portrait in images/portrait/. |
-| `lead.write-flagship-entry` | lead | Write the Flagship entry point | Writes typst/cv.typ importing the engine by root-absolute path: role, theme, artwork, the durations switch and a pages override with this client's company indices (or the one-page profile), and the client's copy in place of the example wording. |
+| `lead.write-flagship-entry` | lead | Write the Flagship entry point | Writes typst/cv.typ importing the engine by root-absolute path: role, theme, artwork, the durations switch and a pages override with this client's company indices (or the one-page profile), and the client's copy in place of the example wording. It records template and variation in envelope.json (ADR 0016). |
 | `manual.decide-at-cap` | manual | The owner decides at the cap | At a loop's cap (a review loop, the client's draft corrections, the owner's own changes or a render that keeps failing) the lead stops and brings the owner the open item with its last reason; another round needs his decision. |
 | `manual.pick-design` | manual | Pick the design | The owner answers Build it (with a Style, Design Tier and Density), Later, or Reject. |
 | `skill.idea-run` | skill | Run the idea-run skill (design concepts) | skill `idea-run` |

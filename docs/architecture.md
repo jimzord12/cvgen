@@ -104,6 +104,12 @@ marine template gets its own folder beside Flagship and its own adapter; a
 second domain gets its own folder beside `marine/`, with its own `lib.typ`,
 and touches neither `cv-framework/` nor `marine/`.
 
+## The Template Contract
+
+A `Template` declares what it supports, and a `Domain` declares what it holds,
+in versioned files the suite and the render check: `docs/engine/template-contract.md`
+(ADR 0016).
+
 ## Module map
 
 ```text

@@ -77,6 +77,11 @@ then check totals. A one-off `Template` that imports only the `Framework`
 gets no schema check: keep `identity.name` and `identity.portrait`, and run
 `normalize-common` and `validate-common` in its `cv.typ`.
 
+**Record the choice.** Add `"template": "flagship"` and `"variation": "showcase"`
+to `envelope.json`. The render checks them against `cv.typ` and the record
+(`docs/engine/template-contract.md`): a missing required `Fact Group` stops it,
+and one the `Template Variation` does not show gives a warning.
+
 **Replace the example wording.** Three defaults exist for the fictional
 examples and would otherwise print on a real CV:
 

@@ -1,8 +1,8 @@
 # 0016. Template Contract: Template Variations and versioned Domain Contracts
 
 Date: 2026-11-04
-Status: Accepted, not built yet: Stage 1 follows TASK-3, and Stage 2 waits for
-the first `Domain Contract` version 2. Amends 0002, 0007, 0010, 0011 and 0012.
+Status: Accepted. Stage 1 built on 2026-11-04, except that the input schemas
+change in Stage 2, which waits for the first `Domain Contract` version 2. Amends 0002, 0007, 0010, 0011 and 0012.
 
 ## Context
 
@@ -50,7 +50,7 @@ ADR 0012 on what the `Framework` owns; it adds an input to the list in ADR 0002.
   the old shape, or raise `oldestSupported`, which cannot pass a version the
   frozen records use without a new `Frozen Reference`.
 - The closed Flagship input schema and the suite's equal-definitions check go
-  when Stage 1 reaches them; ADR 0010's "owns its input schema" narrows to what a
+  in Stage 2, when a Domain first changes: until then they cost nothing; ADR 0010's "owns its input schema" narrows to what a
   `Template` adds.
 - The contract was designed with one `Template` and one `Domain`, against
   constitution section 9's caution; the owner chose this investment. The travel
