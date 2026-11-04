@@ -145,7 +145,7 @@ steps:
 
   - id: design.flagship-fit
     name: Check the data fits the Flagship
-    sources: [".claude/skills/new-cv/SKILL.md:40-45", "docs/guides/build-a-cv.md:199-205"]
+    sources: [".claude/skills/new-cv/SKILL.md:40-45", "docs/guides/build-a-cv.md:199-203"]
     actor: actor.lead
     action: lead.check-flagship-fit
     inputs: [art.candidate-json]
@@ -163,7 +163,7 @@ steps:
 
   - id: design.custom-composition
     name: Compose the page by hand
-    sources: ["docs/guides/build-a-cv.md:195-261", ".claude/skills/new-cv/SKILL.md:40-45"]
+    sources: ["docs/guides/build-a-cv.md:195-259", ".claude/skills/new-cv/SKILL.md:40-45"]
     actor: actor.lead
     action: lead.compose-by-hand
     inputs: [art.candidate-json, art.flagship-template]
@@ -275,7 +275,7 @@ gates:
 
   - id: gate.template-fits
     name: The data fits the Flagship
-    sources: [".claude/skills/new-cv/SKILL.md:40-45", "docs/guides/build-a-cv.md:199-205"]
+    sources: [".claude/skills/new-cv/SKILL.md:40-45", "docs/guides/build-a-cv.md:199-203"]
     check: >-
       The client's data fits flagship: whole service months or one contract
       period per row, and no design the template cannot draw (the known cases
@@ -590,7 +590,7 @@ actions:
   - id: lead.compose-by-hand
     kind: lead
     name: Compose by hand
-    sources: ["docs/guides/build-a-cv.md:195-261"]
+    sources: ["docs/guides/build-a-cv.md:195-259"]
     does: >-
       Writes typst/cv.typ from the lib.typ components (core-components,
       flagship-components), with data the schema cannot hold in

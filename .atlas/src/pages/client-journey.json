@@ -1800,7 +1800,7 @@
           "note": "Model step `design.flagship-fit`, action `lead.check-flagship-fit`, in `docs/workflow/05-design/stage.yaml`.",
           "sources": [
             ".claude/skills/new-cv/SKILL.md:40-45",
-            "docs/guides/build-a-cv.md:199-205"
+            "docs/guides/build-a-cv.md:199-203"
           ]
         },
         {
@@ -1845,7 +1845,7 @@
           ],
           "note": "Model step `design.custom-composition`, action `lead.compose-by-hand`, in `docs/workflow/05-design/stage.yaml`.",
           "sources": [
-            "docs/guides/build-a-cv.md:195-261",
+            "docs/guides/build-a-cv.md:195-259",
             ".claude/skills/new-cv/SKILL.md:40-45"
           ]
         },

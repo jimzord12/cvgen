@@ -2328,7 +2328,7 @@ window.ATLAS = {
        "note": "Model step `design.flagship-fit`, action `lead.check-flagship-fit`, in `docs/workflow/05-design/stage.yaml`.",
        "sources": [
         ".claude/skills/new-cv/SKILL.md:40-45",
-        "docs/guides/build-a-cv.md:199-205"
+        "docs/guides/build-a-cv.md:199-203"
        ]
       },
       {
@@ -2373,7 +2373,7 @@ window.ATLAS = {
        ],
        "note": "Model step `design.custom-composition`, action `lead.compose-by-hand`, in `docs/workflow/05-design/stage.yaml`.",
        "sources": [
-        "docs/guides/build-a-cv.md:195-261",
+        "docs/guides/build-a-cv.md:195-259",
         ".claude/skills/new-cv/SKILL.md:40-45"
        ]
       },
@@ -4483,50 +4483,30 @@ window.ATLAS = {
   }
  ],
  "build": {
-  "builtAt": "2026-11-04 21:11 UTC",
-  "commit": "935165b",
+  "builtAt": "2026-11-04 21:12 UTC",
+  "commit": "ed1c50c",
   "kit": "1.1",
-  "stale": {
-   "client-journey": [
-    "docs/workflow/05-design/README.md",
-    "docs/guides/build-a-cv.md",
-    "docs/framework-gaps.md"
-   ],
-   "change-review": [
-    "docs/framework-gaps.md"
-   ],
-   "system-map": [
-    "docs/architecture.md",
-    "docs/guides/build-a-cv.md",
-    "tests/run.py",
-    "docs/engine/verification.md"
-   ],
-   "roster": [
-    "docs/guides/build-a-cv.md",
-    "tests/run.py",
-    "docs/engine/verification.md"
-   ]
-  },
+  "stale": {},
   "verified": {
    "client-journey": {
     "at": "2026-11-04",
-    "commit": "3e2c3b6"
+    "commit": "ed1c50c"
    },
    "design-run": {
     "at": "2026-11-04",
-    "commit": "b87a4e8"
+    "commit": "ed1c50c"
    },
    "change-review": {
     "at": "2026-11-04",
-    "commit": "3e2c3b6"
+    "commit": "ed1c50c"
    },
    "system-map": {
     "at": "2026-11-04",
-    "commit": "b87a4e8"
+    "commit": "ed1c50c"
    },
    "roster": {
     "at": "2026-11-04",
-    "commit": "3e2c3b6"
+    "commit": "ed1c50c"
    }
   }
  }
