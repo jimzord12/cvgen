@@ -12,6 +12,7 @@ sys.path.insert(0, str(ROOT / 'packages/cv-workflow'))
 
 from cv_workflow import WorkflowError  # noqa: E402
 from cv_workflow.contracts import check_groups, choose, claims, contract, coverage, holds, manifests, read, template_in, versions  # noqa: E402
+from cv_workflow.render import without_comments  # noqa: E402
 
 DOMAINS = ROOT / 'packages/domains'
 GROUPS = {'identity': {'required': True, 'schemaVersion': 1, 'paths': ['identity.name']},
@@ -28,10 +29,10 @@ def refused(call, message):
         raise AssertionError('not refused: ' + message)
 
 
-def prove(out, typst, flags, domain, template, design, name, version):
-    """Render the Coverage Fixture through one Template Variation and judge the PDF."""
-    fixture = DOMAINS / domain / 'fixtures' / f'coverage-v{version}.json'
-    pdf = out / f'{template}-{name}-{domain}-v{version}.pdf'
+def prove(out, typst, flags, domain, template, design, name, version, fixture):
+    """Render one Coverage Fixture through one Template Variation and judge the PDF."""
+    stem = f'{template}-{name}-{fixture.stem}'
+    pdf = out / f'{stem}.pdf'
     entry = DOMAINS / domain / 'templates' / template / design['coverage']
     root_path = '/' + fixture.relative_to(ROOT).as_posix()
     run = subprocess.run([typst, 'compile', '--root', str(ROOT), *flags, '--input', f'fixture={root_path}', '--input', f'variation={name}', str(entry), str(pdf)],
@@ -47,9 +48,9 @@ def prove(out, typst, flags, domain, template, design, name, version):
     assert not failures, (template, name, failures)
     covered = sum(1 for key, group in groups.items() if not group['required'] and key in claimed)
     optional = sum(1 for group in groups.values() if not group['required'])
-    (out / f'{template}-{name}-{domain}-v{version}.json').write_text(json.dumps(
+    (out / f'{stem}.json').write_text(json.dumps(
         {'covered': covered, 'optional': optional, 'warnings': warnings}, indent=2), encoding='utf-8')
-    return f'{template} {name} on {domain}@{version}: {covered} of {optional} optional groups'
+    return f'{template} {name} on {fixture.stem}: {covered} of {optional} optional groups'
 
 
 def run_coverage(out, typst, flags):
@@ -62,7 +63,10 @@ def run_coverage(out, typst, flags):
             for owner, _support in variation['supports'].items():
                 _, supported = claims(variation, owner)
                 for version in supported:
-                    checks.append(prove(folder, typst, flags, owner, template, design, name, version))
+                    fixtures = [p for p in sorted((DOMAINS / owner / 'fixtures').glob(f'coverage-v{version}*.json')) if not p.name.endswith('.markers.json')]
+                    assert fixtures, (owner, version)
+                    for fixture in fixtures:
+                        checks.append(prove(folder, typst, flags, owner, template, design, name, version, fixture))
 
     # The judging itself, on a fixed text.
     markers = {'identity': ['QXNAME'], 'skills': ['QXSKILL'], 'ships': ['QXSHIP']}
@@ -73,7 +77,10 @@ def run_coverage(out, typst, flags):
     assert coverage('QXNAME', 0, GROUPS, {'skills': 2}, markers)[0] == ['claims skills@2, the contract has @1']
     assert coverage('QXNAME', 0, GROUPS, {'nothing': 1}, markers)[0] == ['claims nothing, which the contract does not have']
     assert coverage('QXNAME', 0, GROUPS, {}, {'identity': ['QXNAME']})[0] == ['the fixture has no marker for skills', 'the fixture has no marker for ships']
-    assert coverage('', 1, {'p': {'required': True, 'schemaVersion': 1}}, {}, {'p': ['image']}) == ([], [])
+    picture = {'p': {'required': True, 'schemaVersion': 1}}
+    assert coverage('', 1, picture, {}, {'p': ['image']}) == ([], [])
+    assert coverage('', 0, picture, {}, {'p': ['image']})[0] == ['required p but a marker is not in the PDF']
+    assert coverage('', 1, picture, {}, {'p': []})[0] == ['required p but a marker is not in the PDF']
     checks.append('a false claim, a missing required group and an unclaimed group are caught')
 
     # What a record holds, and what a Template Variation drops.
@@ -83,22 +90,38 @@ def run_coverage(out, typst, flags):
     assert check_groups({}, GROUPS, {})[0] == ['identity']
     checks.append('a group is found through a path, and dropped groups are named')
 
+    # Every path of the real contract resolves on the fixture, so no drop can pass unseen through a typo.
+    fixture = read(DOMAINS / 'marine/fixtures/coverage-v1.json')
+    for name, group in contract('marine', 1)['groups'].items():
+        assert holds(fixture, group), name
+
     # The checks before a render, on the real marine contract.
     facts = json.loads((ROOT / 'examples/candidates/engineer-example.json').read_text(encoding='utf-8'))
-    source = '#show: flagship.with(candidate: record)'
+    imports = '#import "/packages/domains/marine/lib.typ": flagship\n'
+    source = imports + '#show: flagship.with(candidate: record)'
     envelope = {'domain': 'marine', 'template': 'flagship', 'variation': 'showcase'}
     assert versions('marine') == [1] and versions('travel') == [] and template_in('marine', source) == 'flagship'
     assert template_in('marine', '#fc.hero(ctx, d) // flagship-components') is None
+    assert template_in('marine', without_comments(imports + '#fc.hero(ctx, d) // not flagship(): it does not fit')) is None
     assert choose({'domain': 'travel'}, source, facts) is None
     chosen, warnings = choose(envelope, source, facts)
     assert chosen == {'template': 'flagship', 'variation': 'showcase', 'domain_contract': 1, 'dropped': []} and not warnings, (chosen, warnings)
     assert "envelope.json names no template; 'flagship' read from typst/cv.typ" in choose({'domain': 'marine'}, source, facts)[1]
-    assert choose({'domain': 'marine'}, '#fc.hero(ctx, d)', facts)[0] == {'domain_contract': 1}
+    custom = imports + '#fc.hero(ctx, d)'
+    assert choose({'domain': 'marine'}, custom, facts)[0] == {'domain_contract': 1}
+    assert choose({'domain': 'marine'}, '#import "/packages/cv-framework/lib.typ": make-ctx', {'identity': {'name': 'A'}}) is None
+    narrow = {'default': 'calm', 'variations': {'calm': {'supports': {'marine': {'upTo': 1, 'groups': ['profile@1', 'education@1', 'languages@1', 'certificates@1', 'vessel-particulars@1']}}}}}
+    dropped = choose({'domain': 'marine', 'template': 'flagship', 'variation': 'calm'}, source, {**facts, 'skill_groups': [['A']]}, design=narrow)
+    assert dropped[0]['dropped'] == ['portrait', 'skills'] and dropped[1] == [f'flagship calm does not show {name}: this CV leaves those facts out' for name in ('portrait', 'skills')], dropped
+    assert 'dropped' in read(ROOT / 'packages/cv-workflow/cv_workflow/output.schema.json')['properties']
     refused(lambda: choose(envelope, source, {k: v for k, v in facts.items() if k != 'contacts'}), 'candidate.json has no contacts, required by the marine contract')
-    refused(lambda: choose({'domain': 'marine'}, '#fc.hero(ctx, d)', {}), 'candidate.json has no identity, contacts, experience, rank')
+    refused(lambda: choose({'domain': 'marine'}, custom, {}), 'candidate.json has no identity, contacts, experience, rank')
+    refused(lambda: choose(envelope, custom, facts), "envelope.json says template 'flagship' but typst/cv.typ does not render it")
+    refused(lambda: choose(envelope, source + '\n// x\n#let a = (variation: sys.inputs.v)', facts), 'must name its variation as plain text')
+    refused(lambda: choose(envelope, source, {**facts, 'domainContract': 1.0}), 'marine contract version 1.0, which is not kept')
     refused(lambda: choose({**envelope, 'template': 'other'}, source, facts), "envelope.json says template 'other' but typst/cv.typ renders 'flagship'")
     refused(lambda: choose({**envelope, 'variation': 'other'}, source, facts), "'flagship' has no Template Variation 'other'")
-    refused(lambda: choose(envelope, '#show: flagship.with(variation: "other")', facts), "envelope.json says variation 'showcase' but typst/cv.typ renders 'other'")
+    refused(lambda: choose(envelope, imports + '#show: flagship.with(variation: "other")', facts), "envelope.json says variation 'showcase' but typst/cv.typ renders 'other'")
     refused(lambda: choose(envelope, source, {**facts, 'domainContract': 9}), 'marine contract version 9, which is not kept')
     checks.append('a render stops on a missing group and on a choice that disagrees')
     return checks

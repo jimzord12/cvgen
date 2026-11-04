@@ -76,7 +76,7 @@ the theme colours that replace them, which Flagship's themes carry.
 ## Adding a domain without touching marine
 
 ```text
-packages/domains/travel-and-tourism/
+packages/domains/travel/
   lib.typ               its public surface: the Framework's names it needs, its own names
   domain.typ            id, meta, copy, experience (its own row model)
   data.typ              normalize-candidate = normalize-common + the domain's sections; validate-candidate
@@ -85,7 +85,7 @@ packages/domains/travel-and-tourism/
   fixtures/             its Coverage Fixture and markers
   assets/               its SVG files
   templates/<design>/   a first template with its template.json, adapter, components, themes, artwork, layouts, tests/approved
-examples/travel-and-tourism/<design>/*.typ
+examples/travel/<design>/*.typ
 ```
 
 A domain file reaches the core by a relative path through the Framework,

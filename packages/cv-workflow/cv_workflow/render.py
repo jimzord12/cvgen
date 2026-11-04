@@ -120,7 +120,7 @@ def render_revision(workspace, typst='typst', pages=2, inputs=None, reference_da
     # A misspelt or unknown key would otherwise be dropped silently by the engine.
     schema = validate_record(record, IMPORT.findall(ws.entry.read_text(encoding='utf-8')))
     # The Template Contract (ADR 0016): a missing required group stops here; a dropped one warns.
-    choice, choice_warnings = choose(read_json(ws.folder / 'envelope.json'), ws.entry.read_text(encoding='utf-8'), record) or ({}, [])
+    choice, choice_warnings = choose(read_json(ws.folder / 'envelope.json'), without_comments(ws.entry.read_text(encoding='utf-8')), record) or ({}, [])
     portrait = (record.get('identity') or {}).get('portrait')
     source = None
     if portrait:

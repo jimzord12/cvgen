@@ -83,31 +83,33 @@ def check_groups(record, groups, claimed):
     return missing, dropped
 
 
-def choose(envelope_data, source, record):
+def choose(envelope_data, source, record, design=None):
     """Check a Client's record against the design it renders, before the render.
 
-    Returns None for a Domain with no contract yet, else what the Meta File records. A one-off imports
-    no Domain and never gets here with a contract; a custom composition is checked against the Domain
-    Contract alone.
+    `source` is the entry point without its comments. Returns None for a Domain with no contract yet and
+    for a one-off, which imports no Domain; else (what the Meta File records, warnings). A custom
+    composition is checked against the Domain Contract alone. `design` replaces the manifest in a test.
     """
     domain = envelope_data.get('domain', '')
     kept = versions(domain)
-    if not kept:
+    if not kept or f'domains/{domain}/' not in source:
         return None
     version = record.get('domainContract', 1)
-    if version not in kept:
+    if not isinstance(version, int) or isinstance(version, bool) or version not in kept:
         raise WorkflowError(f'candidate.json follows {domain} contract version {version}, which is not kept; '
                             f'use one of {", ".join(map(str, kept))}')
     groups = contract(domain, version)['groups']
     template = template_in(domain, source)
+    stated = envelope_data.get('template')
     warnings = []
+    if template is None and stated:
+        raise WorkflowError(f'envelope.json says template {stated!r} but typst/cv.typ does not render it; make them agree')
     if template is None:
         missing, _ = check_groups(record, groups, groups)
         if missing:
             raise WorkflowError(f'candidate.json has no {", ".join(missing)}, required by the {domain} contract')
         return {'domain_contract': version}, warnings
-    design = manifest(domain, template)
-    stated = envelope_data.get('template')
+    design = design or manifest(domain, template)
     if stated and stated != template:
         raise WorkflowError(f'envelope.json says template {stated!r} but typst/cv.typ renders {template!r}; make them agree')
     if not stated:
@@ -115,10 +117,12 @@ def choose(envelope_data, source, record):
     variation = envelope_data.get('variation') or design['default']
     if variation not in design['variations']:
         raise WorkflowError(f'{template!r} has no Template Variation {variation!r}: {", ".join(design["variations"])}')
-    written = re.search(r'\bvariation:\s*"([\w-]+)"', source)
-    if (written[1] if written else design['default']) != variation:
+    written = re.search(r'\bvariation:\s*("([\w-]+)")?', source)
+    if written and not written[1]:
+        raise WorkflowError('typst/cv.typ must name its variation as plain text, so the check can read it')
+    if (written[2] if written else design['default']) != variation:
         raise WorkflowError(f'envelope.json says variation {variation!r} but typst/cv.typ renders '
-                            f'{written[1] if written else design["default"]!r}; make them agree')
+                            f'{written[2] if written else design["default"]!r}; make them agree')
     claimed, supported = claims(design['variations'][variation], domain)
     if claimed is None or version not in supported:
         raise WorkflowError(f'{template} {variation} does not support {domain} contract version {version}; '
@@ -140,7 +144,7 @@ def coverage(text, images, groups, claimed, markers):
     found = squeeze(text)
 
     def shown(name):
-        return all(images > 0 if token == 'image' else squeeze(token) in found for token in markers[name])
+        return bool(markers[name]) and all(images > 0 if token == 'image' else squeeze(token) in found for token in markers[name])
 
     failures, warnings = [], []
     unknown = sorted(set(claimed) - set(groups))

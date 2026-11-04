@@ -1,17 +1,78 @@
 {
-  "identity": { "name": "Ada Qxname", "rank": "Second Engineer Qxrank", "portrait": "/examples/candidates/fictional-engineer.png", "portrait-alt": "Fictional portrait" },
-  "contacts": { "left": [ { "label": "Based in", "value": "Qxcity" } ], "right": [ { "label": "Email", "value": "qxmail@example.com" } ] },
+  "identity": {
+    "name": "Ada Qxname",
+    "rank": "Second Engineer Qxrank",
+    "portrait": "/examples/candidates/fictional-engineer.png",
+    "portrait-alt": "Fictional portrait"
+  },
+  "contacts": {
+    "left": [
+      {
+        "label": "Qxlabel",
+        "value": "Qxcity"
+      }
+    ],
+    "right": [
+      {
+        "label": "Qxmailing",
+        "value": "qxmail@example.com"
+      }
+    ]
+  },
   "profile": "Qxprofile. A fictional record for the coverage check.",
-  "companies": [ {
-    "name": "Qxcompany Shipping",
-    "period": "Qxspan 2020",
-    "groups": [ { "type": "Qxtype tankers", "ships": [
-      { "id": "mv-qxvessel", "name": "MV Qxvessel", "rank": "Qxrow", "months": 6, "tonnage": { "value": 12345, "unit": "GT" }, "engine": "Qxengine", "power": { "value": 6789, "unit": "kW" } }
-    ] } ]
-  } ],
-  "certificates": [ { "title": "Qxcert", "scope": "Qxscope", "issued": "Qxissued", "review": "Qxreview" } ],
-  "education_entries": [ { "qualification": "Qxdiploma", "institution": "Qxschool", "note": "Qxnote" } ],
-  "language_entries": [ { "name": "Qxlanguage", "level": "Qxlevel" } ],
-  "skill_groups": [ [ "Qxskill" ] ],
+  "companies": [
+    {
+      "name": "Qxcompany Shipping",
+      "period": "Qxspan 2020",
+      "groups": [
+        {
+          "type": "Qxtype tankers",
+          "ships": [
+            {
+              "id": "mv-qxvessel",
+              "name": "MV Qxvessel",
+              "rank": "Qxrow",
+              "months": 6,
+              "tonnage": {
+                "value": 12345,
+                "unit": "GT"
+              },
+              "engine": "Qxengine",
+              "power": {
+                "value": 6789,
+                "unit": "kW"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "certificates": [
+    {
+      "title": "Qxcert",
+      "scope": "Qxscope",
+      "issued": "Qxissued",
+      "review": "Qxreview"
+    }
+  ],
+  "education_entries": [
+    {
+      "qualification": "Qxdiploma",
+      "institution": "Qxschool",
+      "note": "Qxnote"
+    }
+  ],
+  "language_entries": [
+    {
+      "name": "Qxlanguage",
+      "level": "Qxlevel"
+    }
+  ],
+  "skill_groups": [
+    [
+      "Qxskill"
+    ]
+  ],
   "disclosure": "FICTIONAL COVERAGE FIXTURE"
 }
