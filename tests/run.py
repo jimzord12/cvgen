@@ -253,6 +253,7 @@ def main():
     with fitz.open(continued) as doc:
         text = ' '.join(' '.join(page.get_text().split()) for page in doc)
         assert 'Harbour Line (continued)' in text and '12 CONTRACTS' in text and 'Professional skills' in doc[1].get_text()
+        assert all('12 contracts' in ' '.join(page.get_text().split()) for page in doc), 'a continued company shows its full count'
         assert all(f'01/{2000 + n} - 12/{2000 + n}' in text for n in range(1, 13))
     skills = compile_case('skills', 'tests/fixtures/skills.typ')
     assert check_case(skills, pages=1)['passed']

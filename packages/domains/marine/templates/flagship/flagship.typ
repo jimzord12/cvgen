@@ -13,7 +13,6 @@
 #import "components/skills.typ": skills-section
 #import "components/education.typ": education-languages-section
 
-// Flagship's page plan: the core's grammar (every vessel row once, in order), then
 // The closing sections' numbers. Without skills they are the approved 02 and 03; with skills they
 // follow reading order, because skills may sit on an earlier page than the other two.
 #let section-numbers(pages, d) = {
@@ -30,6 +29,7 @@
   numbers
 }
 
+// Flagship's page plan: the core's grammar (every vessel row once, in order), then
 // Flagship's own closing sections: exactly one synopsis, on the last Experience page,
 // and certificates and education at most once each, on or after it, whenever the
 // candidate has them.

@@ -32,6 +32,8 @@ every component it takes `ctx` first (ADR 0008).
   has no `skills` slice. `skills-layout` exposes `heading-gap`,
   `rule-weight`, `content-gap`, `column-gap`, `bullet-size`, `body-indent`,
   `item-gap`.
+- `heading` is a slot for the parent's own heading (auto draws `skills-heading`),
+  and `columns` and `gutter` let it align the columns with another section.
 
 `tests/fixtures/skills.typ` covers titles, one to three columns, wrapping,
 both themes and both bullet kinds through `flagship-components`, with the

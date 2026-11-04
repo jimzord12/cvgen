@@ -277,9 +277,9 @@ gates:
     name: The data fits the Flagship
     sources: [".claude/skills/new-cv/SKILL.md:41-46", "docs/guides/build-a-cv.md:200-204"]
     check: >-
-      The client's data fits flagship: every row in months, or every row a
-      contract period, and no design the template cannot draw (anything recorded
-      open in docs/framework-gaps.md).
+      The client's data fits flagship: service months (per row, or company
+      totals with durations hidden) or a contract period on every row, and no
+      design the template cannot draw.
     pass: design.entry-point
     fail: design.custom-composition
 

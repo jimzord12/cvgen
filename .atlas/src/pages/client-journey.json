@@ -1775,7 +1775,7 @@
           "summary": "Checks the data against the known Flagship gaps listed in docs/framework-gaps.md.",
           "gate": {
             "type": "check",
-            "label": "The data fits the Flagship: The client's data fits flagship: every row in months, or every row a contract period, and no design the template cannot draw (anything recorded open in docs/framework-gaps.md)."
+            "label": "The data fits the Flagship: The client's data fits flagship: service months (per row, or company totals with durations hidden) or a contract period on every row, and no design the template cannot draw."
           },
           "branch": [
             {

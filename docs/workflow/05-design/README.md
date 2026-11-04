@@ -253,7 +253,7 @@ flowchart TD
 | ID | Name | Checked by | Check | Pass | Fail |
 |---|---|---|---|---|---|
 | `gate.template-exists` | The Domain has a Template | `design.handover` | The client's Domain already has a Template (today only marine, the Flagship). | `design.flagship-fit` | `design.run-brief` |
-| `gate.template-fits` | The data fits the Flagship | `design.flagship-fit` | The client's data fits flagship: every row in months, or every row a contract period, and no design the template cannot draw (anything recorded open in docs/framework-gaps.md). | `design.entry-point` | `design.custom-composition` |
+| `gate.template-fits` | The data fits the Flagship | `design.flagship-fit` | The client's data fits flagship: service months (per row, or company totals with durations hidden) or a contract period on every row, and no design the template cannot draw. | `design.entry-point` | `design.custom-composition` |
 | `gate.idea-research` | Idea Run research gate | `design.run-research-gate` | A fresh research-reviewer returns PASS on the references in each brief.md. | `design.run-design-gate` | `design.run-revise-sources` |
 | `gate.idea-design` | Idea Run quality gate | `design.run-design-gate` | A fresh design-reviewer and a fresh codex-visual-reviewer both return PASS (the design-reviewer alone when Codex is UNAVAILABLE); failing the Batch Test, the Three-Second Test or Flagship Parity is Blocking. | `design.run-integrate` | `design.run-revise-design` |
 | `gate.owner-pick` | The owner builds a concept | `design.pick` | The owner answered "Build it" with a Style, Design Tier and Density. | `design.record-choice` | `design.record-other-answer` |

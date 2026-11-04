@@ -198,7 +198,7 @@ Used by `deliver.fix`. Every failure names the fix. The common ones:
 Used by `design.custom-composition`.
 
 Some real CVs cannot go through `flagship`: an approved design the template
-cannot draw, or anything recorded open in `../framework-gaps.md`. Contract
+cannot draw, or a career that mixes months and contract periods. Contract
 periods, a three-column certificate table and a skills block do go through it
 (`../engine/candidate-schema.md`). Otherwise, compose the page by hand from the
 same public exports:

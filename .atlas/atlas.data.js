@@ -2303,7 +2303,7 @@ window.ATLAS = {
        "summary": "Checks the data against the known Flagship gaps listed in docs/framework-gaps.md.",
        "gate": {
         "type": "check",
-        "label": "The data fits the Flagship: The client's data fits flagship: every row in months, or every row a contract period, and no design the template cannot draw (anything recorded open in docs/framework-gaps.md)."
+        "label": "The data fits the Flagship: The client's data fits flagship: service months (per row, or company totals with durations hidden) or a contract period on every row, and no design the template cannot draw."
        },
        "branch": [
         {
@@ -4483,30 +4483,30 @@ window.ATLAS = {
   }
  ],
  "build": {
-  "builtAt": "2026-11-04 21:34 UTC",
-  "commit": "4f247b0",
+  "builtAt": "2026-11-04 21:40 UTC",
+  "commit": "b87fba0",
   "kit": "1.1",
   "stale": {},
   "verified": {
    "client-journey": {
     "at": "2026-11-04",
-    "commit": "4f247b0"
+    "commit": "b87fba0"
    },
    "design-run": {
     "at": "2026-11-04",
-    "commit": "4f247b0"
+    "commit": "b87fba0"
    },
    "change-review": {
     "at": "2026-11-04",
-    "commit": "4f247b0"
+    "commit": "b87fba0"
    },
    "system-map": {
     "at": "2026-11-04",
-    "commit": "4f247b0"
+    "commit": "b87fba0"
    },
    "roster": {
     "at": "2026-11-04",
-    "commit": "4f247b0"
+    "commit": "b87fba0"
    }
   }
  }

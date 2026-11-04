@@ -1,4 +1,4 @@
-// Optional skills block for custom compositions (ADR 0008 shape: ctx, data, props).
+// Optional skills block, placed by flagship or a custom composition (ADR 0008 shape: ctx, data, props).
 #import "../../../../../cv-framework/core/primitives.typ": decoration
 
 // Geometry used when the layout profile has no `skills` slice. The parent controls
