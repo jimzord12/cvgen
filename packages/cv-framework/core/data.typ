@@ -36,7 +36,8 @@
     }
   }
   for cert in candidate.certificates {
-    for key in ("title", "scope", "issued", "review") { required-text(cert.at(key), "certificate." + key) }
+    for key in ("title", "scope", "issued") { required-text(cert.at(key), "certificate." + key) }
+    if "review" in cert { required-text(cert.review, "certificate.review") }
   }
   for entry in candidate.education {
     required-text(entry.qualification, "education.qualification")

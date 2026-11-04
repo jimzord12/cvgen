@@ -68,16 +68,17 @@ adapter produces it (see "Flagship wording" below).
   renders as before. A name plus particulars too wide for the row fails the
   render: leave out one particular for that vessel. A vessel that appears
   twice (same `id`) must state the same values or omit them.
-- **Contract periods are not supported yet.** Deck careers are usually
-  recorded as one date range per contract, not as service months. There is
-  no per-contract field (`companies[].period` is company-level display
-  text), and the synopsis counts months, vessels and companies.
-  This is roadmap item 3 in `docs/vision.md` (ADR 0007). Until it lands, a
-  deck CV with contract periods uses the custom-composition path in
-  `docs/guides/build-a-cv.md`, section 5. Do not convert calendar periods
-  into months to make the data fit; constitution section 6 forbids it.
+- **companies[].groups[].ships[].period** is one contract's dates as display
+  text, such as `03/2021 - 11/2021`, for a deck career recorded as contracts.
+  It replaces `months` and `service-months`: every vessel of the record has a
+  period or none does, and a mixed record fails the render. The same `id` on
+  two rows is two contracts on one vessel. The company then shows no duration,
+  and the synopsis counts contracts, vessels and companies. Never convert
+  calendar periods into months (constitution section 6).
 - **certificates** accept either a four-string array in the order title,
-  scope, issued, review, or an object with those keys. Write an expiry
+  scope, issued, review, or an object with those keys, where `review` may be
+  left out. With no `review` on any record, Flagship draws three columns; give
+  it on all or none. Write an expiry
   (`review`) like `14 Jul 2029` to have it checked at render (`Certificate
   Warning`); free text such as `As required` is allowed and only counted.
 - **education_entries[].note** is optional and renders small under the
@@ -138,7 +139,7 @@ example:
 ```text
 REFUSED: candidate.json does not match /packages/domains/marine/templates/flagship/schema/flagship-input.schema.json:
   (top level): Additional properties are not allowed ('educaton_entries' was unexpected)
-  certificates/0: 'review' is a required property
+  certificates/0: 'issued' is a required property
   companies/0/groups/0/ships/1/months: is null; give a value, or leave the key out if it is optional
 ```
 
@@ -150,6 +151,11 @@ after that, during compilation, for what a schema cannot express.
 | `Candidate requires identity` or `... companies` | Add the missing top-level key |
 | `Visible vessel durations require months: <ship>` | Add `months`, or hide durations and give `service-months` |
 | `Company service-months does not match vessel months` | Make the total equal the sum |
+| `Every vessel needs a contract period, or none does: <company>` | Give each row a `period`, or use `months` throughout |
+| `A contract period replaces months; give one or the other: <company>` | Remove `months` or `service-months` from that company |
+| `A record uses contract periods or service months, not both` | Use one way of recording service across the record |
+| `Every certificate needs a review date, or none does` | Give `review` on all certificates or on none |
+| `Skills need exactly one page with skills: true in the page plan` | Add `skills: true` to one page of the layout's plan |
 | `Known vessel months exceed company total` | With partial vessel months, the company total must be at least their sum |
 | `Missing months: provide service-months for company <name>` | Durations hidden but neither every vessel's `months` nor a company `service-months` is given |
 | `Rank exceeds identity plate` | Shorter rank, smaller `theme.sizes.rank`, or wider `layout.hero.plate-width` |

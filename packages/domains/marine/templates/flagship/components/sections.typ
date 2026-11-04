@@ -26,13 +26,14 @@
 // A total of one takes the singular word; a copy without it keeps the plural.
 #let count-caption(copy, count, singular, plural) = if count == 1 {copy.at(singular, default: copy.at(plural))} else {copy.at(plural)}
 
-// `totals` is the domain's (months, vessels, companies); captions come from ctx.copy.
+// `totals` is the domain's (months or contracts, vessels, companies); captions come from ctx.copy.
 #let synopsis(ctx, totals) = {
   let (theme, geometry, copy) = (ctx.theme, ctx.layout.synopsis, ctx.copy)
   block(fill: theme.colors.hero, width: 100%, inset: geometry.inset)[
     #set text(fill: theme.colors.on-hero)
     #grid(columns: geometry.columns, column-gutter: geometry.column-gap,
-      metric(ctx, duration-value(ctx, totals.months), caption: copy.total, gap: geometry.gap),
+      if totals.months != none {metric(ctx, duration-value(ctx, totals.months), caption: copy.total, gap: geometry.gap)}
+      else {metric(ctx, totals.contracts, caption: count-caption(copy, totals.contracts, "contract", "contracts"), gap: geometry.gap)},
       metric(ctx, totals.vessels, caption: count-caption(copy, totals.vessels, "vessel", "vessels"), gap: geometry.gap),
       metric(ctx, totals.companies, caption: count-caption(copy, totals.companies, "company", "companies"), gap: geometry.gap))
   ]

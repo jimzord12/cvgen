@@ -202,7 +202,11 @@ Windows one also holds the PDFs that build wrote, one per example in
    `FAIL text-draft.draft-sent`).
    Output in `workflow-model/reality*.log`, each run's `reality.log` and
    `report.json` in its folder. Skipped with case 16.
-18. **Report** (`report: <check>`, `tests/report.py`). The real
+18. **Deck contracts** (`deck-contracts`, `deck-contracts-<rule>`,
+   `tests/fixtures/deck-contracts.typ`). One page of contract rows, a synopsis
+   counting contracts, three certificate columns and a skills block, with no
+   month total anywhere; then each mixed record must fail on its message.
+19. **Report** (`report: <check>`, `tests/report.py`). The real
    `scripts/report.py` on the worked sample under `report/`: one page with
    its fonts and pictures embedded and no `src` or `href` pointing at the
    network, the fragment without its skeleton, refusal of an existing folder,

@@ -196,13 +196,11 @@ Used by `deliver.fix`. Every failure names the fix. The common ones:
 
 Used by `design.custom-composition`.
 
-Some real CVs cannot go through `flagship` yet. The known causes are
-recorded in `../framework-gaps.md`: a career recorded as contract periods
-rather than service months (see the note in
-`../engine/candidate-schema.md`), an approved design that needs a
-three-column certificate table, and a skills block the template has no
-slot for. Until the template supports these, compose the page by hand from
-the same public exports:
+Some real CVs cannot go through `flagship`: an approved design the template
+cannot draw, recorded in `../framework-gaps.md`. Contract periods, a
+three-column certificate table and a skills block all go through `flagship`
+now (`../engine/candidate-schema.md`). For anything else, compose the page by
+hand from the same public exports:
 
 ```typst
 #import "/packages/domains/marine/lib.typ": (make-ctx, normalize-candidate, to-flagship-input, marine,
@@ -240,7 +238,7 @@ Rules for this path:
   A client whose domain does not exist yet imports `/packages/cv-framework/lib.typ`
   only (render then checks no schema; `design.port-concept`).
 - Keep the candidate JSON valid against its schema, if it has one. Put data the schema
-  cannot hold, such as contract periods, in a separate `typst/presentation.json`
+  cannot hold in a separate `typst/presentation.json`
   beside `cv.typ`. Never invent months from calendar periods.
 - Read every `Envelope` file by a literal path relative to `cv.typ`
   (`json("presentation.json")`, `#import "designs/table.typ"`, `image("art/map.svg")`,

@@ -1,6 +1,8 @@
 # Skills component
 
 Read this when adding a professional skills block to a custom composition.
+Flagship renders one itself from `skill_groups` in the record, on the page whose
+plan has `skills: true`, below that page's other sections.
 It belongs to the Flagship template's components, which `lib.typ` exports
 as the module `flagship-components`; it is not part of the locked
 `flagship` template. Like every component it takes `ctx` first (ADR 0008).

@@ -10,6 +10,7 @@
 #import "components/experience.typ": experience-section
 #import "components/sections.typ": profile-summary, section-heading, synopsis
 #import "components/certificates.typ": certificates-section
+#import "components/skills.typ": skills-section
 #import "components/education.typ": education-languages-section
 
 // Flagship's page plan: the core's grammar (every vessel row once, in order), then
@@ -18,6 +19,10 @@
 // candidate has them.
 #let validate-plan(pages, d, model) = {
   validate-pages(pages, d, model)
+  if d.skills.len() > 0 {
+    assert.eq(pages.filter(p => p.at("skills", default: false)).len(), 1,
+      message: "Skills need exactly one page with skills: true in the page plan")
+  }
   let synopsis-pages = pages.enumerate().filter(((i, p)) => p.at("synopsis", default: false))
   assert.eq(synopsis-pages.len(), 1, message: "Page plan requires exactly one synopsis")
   let final-experience = pages.enumerate().filter(((i, p)) => p.companies.len() > 0)
@@ -103,6 +108,10 @@
         if shared {v(layout.headings.education.above)}
         if stacked {v(layout.stack-gap)}
         education-languages-section(ctx, (education: d.education, languages: d.languages))
+      }
+      if page-plan.at("skills", default: false) and d.skills.len() > 0 {
+        v(1fr)
+        skills-section(ctx, d.skills, title: d.copy.skills, bullet: ctx.artwork.at("bullet", default: none))
       }
       context assert.eq(counter(page).get().first(), i + 1,
         message: "Content overflow on planned page " + str(i + 1) + ": split company rows or allocate another page")

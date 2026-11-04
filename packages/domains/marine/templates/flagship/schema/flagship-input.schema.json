@@ -45,7 +45,7 @@
           },
           {
             "type": "object",
-            "required": ["title", "scope", "issued", "review"],
+            "required": ["title", "scope", "issued"],
             "additionalProperties": false,
             "properties": {
               "title": { "$ref": "#/$defs/text" },
@@ -82,6 +82,11 @@
         }
       }
     },
+    "skill_groups": {
+      "type": "array",
+      "description": "One list of skills per column, in order. A template places them; Flagship needs one page with skills: true in its plan.",
+      "items": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/text" } }
+    },
     "disclosure": { "type": "string", "description": "Footer text. Defaults to the fictional-candidate notice." },
     "copy": {
       "type": "object",
@@ -89,6 +94,9 @@
       "additionalProperties": false,
       "properties": {
         "experience": { "type": "string" },
+        "skills": { "type": "string" },
+        "contract": { "type": "string" },
+        "contracts": { "type": "string" },
         "experience-subtitle": { "type": "string" },
         "continuation": { "type": "string" },
         "combined": { "type": "string" },
@@ -173,7 +181,8 @@
                     "id": { "$ref": "#/$defs/text", "description": "Stable across repeat service on the same vessel." },
                     "name": { "$ref": "#/$defs/text" },
                     "rank": { "$ref": "#/$defs/text" },
-                    "months": { "$ref": "#/$defs/months", "description": "Required when durations are shown." },
+                    "months": { "$ref": "#/$defs/months", "description": "Required when durations are shown, unless the vessel has a period." },
+                    "period": { "$ref": "#/$defs/text", "description": "One contract's dates as display text, e.g. 03/2021 - 11/2021. Never parsed. Replaces months: every vessel of the record has one, or none does. The same id on two rows is two contracts on one vessel." },
                     "tonnage": { "$ref": "#/$defs/tonnage" },
                     "engine": { "$ref": "#/$defs/text", "description": "Main engine maker as documented, e.g. MAN B&W or Wärtsilä." },
                     "power": { "$ref": "#/$defs/power" }

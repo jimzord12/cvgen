@@ -6,9 +6,11 @@
 
 #let show-durations(ctx) = ctx.options.at("show-vessel-durations", default: true)
 
-// `data` is (period: display text, months: whole service months); caption from ctx.copy.combined.
+// `data` is (period: display text, months: whole service months, or none for a company
+// recorded as contract periods, which has no total to show); caption from ctx.copy.combined.
 #let company-period(ctx, data) = {
   let (theme, geometry, months) = (ctx.theme, ctx.layout.experience, data.months)
+  if months == none { return label(ctx, data.period) }
   stack(spacing: geometry.period-gap,
     label(ctx, data.period),
     block[
@@ -61,7 +63,9 @@
 // Returns cells, not a separate grid: all rows share the parent's column tracks.
 #let vessel-row(ctx, vessel) = {
   let (theme, geometry) = (ctx.theme, ctx.layout.experience)
-  let time = if vessel.at("months", default: none) != none {
+  let time = if "period" in vessel {
+    text(size: theme.sizes.rank-row, fill: theme.colors.accent)[#vessel.period]
+  } else if vessel.at("months", default: none) != none {
     text(size: theme.sizes.rank-row, fill: theme.colors.accent)[#duration(vessel.months)]
   } else {[]}
   let last = if show-durations(ctx) {time} else {context {
@@ -80,7 +84,7 @@
     #v(geometry.group-gap)
     #label(ctx, group.type, color: theme.colors.accent)
     #v(geometry.group-gap)
-    #grid(columns: (1fr, geometry.rank-width, geometry.duration-width), column-gutter: geometry.cell-gap,
+    #grid(columns: (1fr, geometry.rank-width, if group.ships.any(s => "period" in s) {geometry.period-column} else {geometry.duration-width}), column-gutter: geometry.cell-gap,
       row-gutter: spacing.row-gap, align: (left, left, right),
       ..group.ships.map(s => vessel-row(ctx, s)).flatten())
   ]

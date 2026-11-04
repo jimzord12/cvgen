@@ -2303,7 +2303,7 @@ window.ATLAS = {
        "summary": "Checks the data against the known Flagship gaps listed in docs/framework-gaps.md.",
        "gate": {
         "type": "check",
-        "label": "The data fits the Flagship: The client's data fits flagship: whole service months, no three-column certificate table, no skills block (the known cases in docs/framework-gaps.md)."
+        "label": "The data fits the Flagship: The client's data fits flagship: whole service months or one contract period per row, and no design the template cannot draw (the known cases in docs/framework-gaps.md)."
        },
        "branch": [
         {
@@ -2361,7 +2361,7 @@ window.ATLAS = {
        "optional": true,
        "summary": "Writes typst/cv.typ from the lib.typ components (core-components, flagship-components), with data the schema cannot hold in typst/presentation.json, every file read by a literal relative path.",
        "does": [
-        "Only when: The data does not fit the Flagship (contract periods, a three-column certificate table, a skills block)."
+        "Only when: The data does not fit the Flagship (a design the template cannot draw)."
        ],
        "in": [
         "candidate.json: `private/<envelope>/candidate.json`",
@@ -2419,7 +2419,7 @@ window.ATLAS = {
        ],
        "note": "Model step `design.framework-gap`, action `lead.record-framework-gap`, in `docs/workflow/05-design/stage.yaml`.",
        "sources": [
-        "docs/guides/build-a-cv.md:255-261",
+        "docs/guides/build-a-cv.md:253-259",
         ".claude/skills/new-cv/SKILL.md:40-45",
         "docs/workflow/05-design/README.md:70-74"
        ]
@@ -4483,10 +4483,30 @@ window.ATLAS = {
   }
  ],
  "build": {
-  "builtAt": "2026-11-04 17:29 UTC",
-  "commit": "3e2c3b6",
+  "builtAt": "2026-11-04 21:11 UTC",
+  "commit": "935165b",
   "kit": "1.1",
-  "stale": {},
+  "stale": {
+   "client-journey": [
+    "docs/workflow/05-design/README.md",
+    "docs/guides/build-a-cv.md",
+    "docs/framework-gaps.md"
+   ],
+   "change-review": [
+    "docs/framework-gaps.md"
+   ],
+   "system-map": [
+    "docs/architecture.md",
+    "docs/guides/build-a-cv.md",
+    "tests/run.py",
+    "docs/engine/verification.md"
+   ],
+   "roster": [
+    "docs/guides/build-a-cv.md",
+    "tests/run.py",
+    "docs/engine/verification.md"
+   ]
+  },
   "verified": {
    "client-journey": {
     "at": "2026-11-04",

@@ -37,7 +37,7 @@ artwork pack.
 
 | Input | File | Owns |
 |---|---|---|
-| Candidate facts | `examples/candidates/*.json` (contract: `domains/marine/schema/candidate.schema.json`) | Identity, contacts, profile, companies, vessels, certificates, education, languages, disclosure. No template wording |
+| Candidate facts | `examples/candidates/*.json` (contract: `domains/marine/schema/candidate.schema.json`) | Identity, contacts, profile, companies, vessels with months or contract periods, certificates, education, languages, skills, disclosure. No template wording |
 | Role | `domains/marine/roles/<deck or engine>/role.typ`, or none | One level of specialisation inside the domain. Flagship composes the role's `copy` today; both marine roles are bare markers |
 | Theme | `domains/marine/templates/flagship/themes/*.typ` | Colours, fonts, sizes, tracking, leading, the marine art's palette (`art-palette`, from the domain) and a map from legacy SVG hex colours to theme colours |
 | Artwork | `domains/marine/templates/flagship/artwork/*.typ` | Which SVG under `domains/marine/assets/` fills each named slot, with optional width, x, y and opacity |
@@ -85,7 +85,7 @@ a template owns its design (ADR 0007, ADR 0011, ADR 0012). Who owns what:
 | Common facts: identity name, contacts, profile, certificates, education, languages (`normalize-common`, `validate-common` in `data.typ`) | The marine facts: `identity.rank`, companies, vessel-type groups, ships with months; `company-months`, `experience-totals`, the row model (`data.typ`); the schema | Section components: hero, experience, synopsis, certificates, education, skills |
 | Page shell, header, footer, backgrounds (`page.typ`); the header takes a name and headline (no domain data) and a caption, the shell takes title and author and reads its own layout slice `shell` (opening margin, optional first-page band) | `domain.meta` (PDF title suffix, author) | Layout profiles (including the `shell` slice) and page plans |
 | Page-plan grammar (every row once, in candidate order) and pagination over a domain row model (`pagination.typ`) | `experience-model`: `count`, `slice`, `totals`, `row` (the word for a row in page-plan messages: "vessel") | The closing-section rules (`validate-plan`: one synopsis on the last Experience page, certificates and education after it) and the page loop with its overflow assertion, in `flagship.typ` |
-| `merge` and `compose` (`node.typ`) | `domain.copy`: the domain's six words | The adapter: input contract and Flagship's nine words |
+| `merge` and `compose` (`node.typ`) | `domain.copy`: the domain's words | The adapter: input contract and Flagship's nine words |
 | SVG recolouring (by the theme's `art-palette`, `{{<colour>}}` placeholders and `art-colors`) and primitives; theme validation of what every template needs (`validate-theme`; `require-colors` for a template's own colours; the lists: `docs/engine/theme.md`) | The SVG files (`assets/`) and their palette (`domain.art-palette`) | Artwork packs: which SVG in which slot; themes that carry the palette; Flagship's own colours (`validate-flagship-theme` in `flagship.typ`) |
 | The verification runner and its checks | Role markers (`roles/deck`, `roles/engine`) | Frozen reference render and its pixel gate |
 

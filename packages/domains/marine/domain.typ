@@ -9,7 +9,7 @@
   copy: (
     experience-subtitle: "Company / vessel type / vessel", continuation: "Continued / earlier companies",
     combined: "Combined service", total: "Total experience", vessels: "Vessels", companies: "Companies",
-    vessel: "Vessel", company: "Company",
+    vessel: "Vessel", company: "Company", contract: "Contract", contracts: "Contracts",
   ),
   experience: experience-model,
   // The colours baked into the original art under assets/ (the v11 navy, teal, brass

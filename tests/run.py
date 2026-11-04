@@ -217,6 +217,19 @@ def main():
         text = ' '.join(doc[0].get_text().split())
         for phrase in ['Northline Marine', 'TOTAL EXPERIENCE', 'Certificates & endorsements', 'Education & languages']:
             assert phrase in text, phrase
+    contracts = compile_case('deck-contracts', 'tests/fixtures/deck-contracts.typ')
+    assert check_case(contracts, pages=1)['passed']
+    with fitz.open(contracts) as doc:
+        text = ' '.join(doc[0].get_text().split())
+        for phrase in ['03/2021 - 11/2021', '02/2022 - 09/2022', '3 CONTRACTS', '2 VESSELS', '1 COMPANY', 'Provider', 'Professional skills', 'Passage planning']:
+            assert phrase in text, phrase
+        assert 'Expires' not in text and 'TOTAL EXPERIENCE' not in text and 'Combined service' not in text
+    for mode, message in (('one-vessel-undated', 'Every vessel needs a contract period, or none does: Harbour Line'),
+                          ('period-and-months', 'A contract period replaces months; give one or the other: Harbour Line'),
+                          ('mixed-record', 'A record uses contract periods or service months, not both'),
+                          ('mixed-certificates', 'Every certificate needs a review date, or none does'),
+                          ('skills-unplaced', 'Skills need exactly one page with skills: true in the page plan')):
+        compile_case('deck-contracts-' + mode, 'tests/fixtures/deck-contracts.typ', {'case': mode}, error=message)
     skills = compile_case('skills', 'tests/fixtures/skills.typ')
     assert check_case(skills, pages=1)['passed']
     with fitz.open(skills) as doc:

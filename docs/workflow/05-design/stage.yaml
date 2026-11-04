@@ -168,7 +168,7 @@ steps:
     action: lead.compose-by-hand
     inputs: [art.candidate-json, art.flagship-template]
     outputs: [art.cv-typ, art.typst-sources]
-    when: The data does not fit the Flagship (contract periods, a three-column certificate table, a skills block).
+    when: The data does not fit the Flagship (a design the template cannot draw).
 
   # Implicit in the sources (named by the handoff's task 5): only the
   # 2026-10-02 Framework Gap entry shows the chosen concept's Typst being
@@ -184,7 +184,7 @@ steps:
 
   - id: design.framework-gap
     name: Record the Framework Gap
-    sources: ["docs/guides/build-a-cv.md:255-261", ".claude/skills/new-cv/SKILL.md:40-45", "docs/workflow/05-design/README.md:70-74"]
+    sources: ["docs/guides/build-a-cv.md:253-259", ".claude/skills/new-cv/SKILL.md:40-45", "docs/workflow/05-design/README.md:70-74"]
     actor: actor.lead
     action: lead.record-framework-gap
     inputs: [art.cv-typ]
@@ -277,9 +277,9 @@ gates:
     name: The data fits the Flagship
     sources: [".claude/skills/new-cv/SKILL.md:40-45", "docs/guides/build-a-cv.md:199-205"]
     check: >-
-      The client's data fits flagship: whole service months, no three-column
-      certificate table, no skills block (the known cases in
-      docs/framework-gaps.md).
+      The client's data fits flagship: whole service months or one contract
+      period per row, and no design the template cannot draw (the known cases
+      in docs/framework-gaps.md).
     pass: design.entry-point
     fail: design.custom-composition
 
@@ -350,7 +350,7 @@ loops:
 artifacts:
   - id: art.readme-cv-record
     name: README.md, what was decided and where the evidence is
-    sources: ["docs/guides/client-workflow.md:31-32", "docs/guides/build-a-cv.md:256-258"]
+    sources: ["docs/guides/client-workflow.md:31-32", "docs/guides/build-a-cv.md:254-256"]
     path: private/<envelope>/README.md
     format: Markdown lines; for a custom composition, why it exists and what it matched
     visibility: private
@@ -448,7 +448,7 @@ artifacts:
 
   - id: art.flagship-template
     name: The Flagship Template
-    sources: ["docs/guides/build-a-cv.md:26-39", "docs/guides/build-a-cv.md:207-228"]
+    sources: ["docs/guides/build-a-cv.md:26-39", "docs/guides/build-a-cv.md:205-226"]
     path: packages/domains/marine/templates/flagship/
     format: Typst Template (themes, artwork, layouts, components)
     visibility: public
@@ -609,7 +609,7 @@ actions:
   - id: lead.record-framework-gap
     kind: lead
     name: Record the Framework Gap
-    sources: ["docs/guides/build-a-cv.md:255-261", ".claude/skills/new-cv/SKILL.md:40-45"]
+    sources: ["docs/guides/build-a-cv.md:253-259", ".claude/skills/new-cv/SKILL.md:40-45"]
     does: >-
       Adds an entry to docs/framework-gaps.md (what was needed, what was gone
       around, what was built) and records the reason in the Envelope's

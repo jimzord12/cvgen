@@ -1,0 +1,36 @@
+// A deck career recorded as contract periods (ADR 0007, TASK-3): one row per contract, a
+// synopsis counting contracts, a three-column certificate table and a skills block placed
+// through the page plan. Every other case breaks one rule and must fail on its message.
+#import "../../packages/domains/marine/lib.typ": flagship
+#import "../../packages/domains/marine/roles/deck/role.typ": role
+#import "../../packages/domains/marine/templates/flagship/themes/golden-blue.typ": theme
+#import "../../packages/domains/marine/templates/flagship/artwork/captain.typ": artwork
+#import "../../packages/domains/marine/templates/flagship/layouts/flagship-one-page.typ": one-page
+#let raw = json("../../examples/candidates/deck-cadet-example.json")
+#let contract(id, name, period) = (id: id, name: name, rank: "Second Officer", period: period)
+#let ships = (contract("mv-orion", "MV Orion Trader", "03/2021 - 11/2021"),
+  contract("mv-orion", "MV Orion Trader", "02/2022 - 09/2022"),
+  contract("mv-vega", "MV Vega Star", "01/2023 - 08/2023"))
+#let company(rows, ..extra) = (id: "harbour-line", name: "Harbour Line", period: "2021 - 2023",
+  groups: ((type: "Bulk carriers", ships: rows),), ..extra.named())
+#let certificates = (
+  (title: "STCW II/1 Officer of the watch", scope: "Example Maritime Authority", issued: "2021"),
+  (title: "GMDSS General Operator", scope: "Example Radio Board", issued: "2022"))
+#let case = sys.inputs.at("case", default: "good")
+#let companies = if case == "one-vessel-undated" {
+  (company((ships.at(0), (id: "mv-rigel", name: "MV Rigel", rank: "Second Officer"))),)
+} else if case == "period-and-months" {
+  (company(((..ships.at(0), months: 8),)),)
+} else if case == "mixed-record" {
+  (company(ships), (id: "old-line", name: "Old Line", period: "2019",
+    groups: ((type: "Tankers", ships: ((id: "mt-a", name: "MT A", rank: "Third Officer", months: 6),)),)))
+} else {(company(ships),)}
+#let candidate = (..raw, companies: companies,
+  certificates: if case == "mixed-certificates" {certificates + ((title: "A", scope: "B", issued: "C", review: "D"),)} else {certificates},
+  skill_groups: (("Passage planning", "Cargo watch"), ("ECDIS", "Bridge team work")),
+  copy: (certificate-columns: ("Certificate", "Provider", "Issued")))
+#let plan = one-page(candidate)
+#let layout = if case == "skills-unplaced" {plan} else {
+  (..plan, pages: plan.pages.map(p => (..p, skills: true)))
+}
+#show: flagship.with(candidate: candidate, role: role, theme: theme, artwork: artwork, layout: layout)

@@ -11,6 +11,7 @@
   certificates-subtitle: "Illustrative register - dates and credentials are fictional",
   certificate-columns: ("Certificate", "Scope / record", "Issued", "Expires / review"),
   education-languages: "Education & languages", education: "Education", languages: "Languages",
+  skills: "Professional skills",
   page-caption: "EXPERIENCE / CREDENTIALS", brand: "FLAGSHIP",
 )
 
