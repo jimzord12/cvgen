@@ -1,0 +1,274 @@
+{
+  "title": "P-0019 Template Contract",
+  "date": "2026-11-04",
+  "verdict": "needs-you",
+  "headline": "One-page CVs: designed, not built",
+  "next_move": "Answer the five decisions, then copy them to me",
+  "meters": [
+    {
+      "label": "Findings fixed",
+      "value": 62,
+      "of": 63,
+      "tone": "ok"
+    },
+    {
+      "label": "Research claims",
+      "value": 46,
+      "tone": "thread"
+    },
+    {
+      "label": "Proposal rounds",
+      "value": 5,
+      "of": 5,
+      "tone": "ok"
+    }
+  ],
+  "stages": [
+    {
+      "label": "Research",
+      "state": "done"
+    },
+    {
+      "label": "Discussion",
+      "state": "done"
+    },
+    {
+      "label": "Proposal",
+      "state": "done"
+    },
+    {
+      "label": "Your decision",
+      "state": "active"
+    },
+    {
+      "label": "Stage 1 build",
+      "state": "waiting"
+    },
+    {
+      "label": "Essential",
+      "state": "waiting"
+    },
+    {
+      "label": "Stage 2",
+      "state": "waiting"
+    }
+  ],
+  "needs_you": [
+    {
+      "title": "Approve the proposal?",
+      "options": [
+        {
+          "label": "Approve revision 1",
+          "detail": "I start building",
+          "recommended": true
+        },
+        {
+          "label": "Defer",
+          "detail": "Keep it for later"
+        },
+        {
+          "label": "Reject",
+          "detail": "Stop here"
+        }
+      ],
+      "context": "People who saw a designed CV called it beautiful but not practical for ordinary jobs. They want one clear page. Today the engine has no way to offer two kinds of the same design, and nothing records which one a client chose.",
+      "decision": "Whether to adopt P-0019. It makes a Template a design language with named Variations, and gives Domains and Templates a versioned contract saying what each supports.",
+      "example": "Flagship would have two Variations: Showcase, today's bold design, and Essential, one scan-first page. A client picks one, and the same facts work with both."
+    },
+    {
+      "title": "How do we judge Essential?",
+      "options": [
+        {
+          "label": "Scan Test",
+          "detail": "Key facts found in seconds",
+          "recommended": true
+        },
+        {
+          "label": "Quieter Three-Second Test",
+          "detail": "Career area still readable at a glance"
+        }
+      ],
+      "context": "Every CV must pass the Three-Second Test: the page shouts the career area, specialty and rank. Essential is calm on purpose, so that test would fail it. Flagship Parity also asks for a portrait and a ship in the page.",
+      "decision": "Which test a scan-first design has to pass. With the Scan Test, Flagship Parity and the Batch Test would judge craft, not loudness.",
+      "example": "A reader gets the page for ten seconds. Can they say the name, the current job, the employer, the dates and the education? If yes, it passes."
+    },
+    {
+      "title": "Change the vision's wording?",
+      "options": [
+        {
+          "label": "Add a scan-first exception",
+          "detail": "The bold rule stays for the rest",
+          "recommended": true
+        },
+        {
+          "label": "Keep the vision as it is",
+          "detail": "Essential then needs another home"
+        }
+      ],
+      "context": "The vision says a design that is well crafted but quiet fails, and calls safe professional a defect. A deliberately calm Essential breaks that sentence. The research found the audience for ordinary jobs wants exactly that calm.",
+      "decision": "Whether the vision makes room for a second kind of CV. This changes what CVgen calls a failure, so it is yours alone.",
+      "example": "\"A design that is well crafted but quiet fails, except under a scan-first bar, which is its own.\""
+    },
+    {
+      "title": "Freeze one reference per Variation?",
+      "options": [
+        {
+          "label": "Yes, one per Variation",
+          "detail": "Each look is protected",
+          "recommended": true
+        },
+        {
+          "label": "No, one per Template",
+          "detail": "Essential stays unprotected"
+        }
+      ],
+      "context": "A Frozen Reference is the approved PDF the suite compares every render against, pixel by pixel. It is what stops a look from drifting. The constitution allows one per Template.",
+      "decision": "Whether the constitution moves to one Frozen Reference per Variation, so that Showcase and Essential each have their own.",
+      "example": "Change Showcase's margins and only Showcase's reference fails. Change Essential and only its reference fails. Each look can then move on its own."
+    },
+    {
+      "title": "Where does the work start?",
+      "options": [
+        {
+          "label": "TASK-3, then marine",
+          "detail": "Flagship is restructured once",
+          "recommended": true
+        },
+        {
+          "label": "Marine now, TASK-3 later",
+          "detail": "Flagship is touched twice"
+        },
+        {
+          "label": "TASK-2 travel first",
+          "detail": "Reopens deferred P-0013"
+        }
+      ],
+      "context": "Essential needs a Template to live in, and only marine has one. TASK-3 changes marine's deck facts, so doing it first avoids restructuring Flagship twice. The feedback came from a travel client, who gains nothing until the travel Domain exists.",
+      "decision": "Which comes first: marine, where a Template exists, or travel, where the feedback came from.",
+      "example": "With TASK-3 first, deck contract periods enter the contract at version 1. Without it, the same facts arrive later as the first version 2, and Flagship changes twice."
+    }
+  ],
+  "reviews": [
+    {
+      "name": "Research note",
+      "cap": 5,
+      "rounds": [
+        {
+          "verdict": "findings",
+          "hard": 3,
+          "soft": 7
+        },
+        {
+          "verdict": "findings",
+          "hard": 1,
+          "soft": 3
+        },
+        {
+          "verdict": "pass",
+          "hard": 0,
+          "soft": 2
+        }
+      ]
+    },
+    {
+      "name": "Proposal",
+      "cap": 5,
+      "rounds": [
+        {
+          "verdict": "findings",
+          "hard": 4,
+          "soft": 13
+        },
+        {
+          "verdict": "findings",
+          "hard": 2,
+          "soft": 12
+        },
+        {
+          "verdict": "findings",
+          "hard": 3,
+          "soft": 5
+        },
+        {
+          "verdict": "findings",
+          "hard": 0,
+          "soft": 5
+        },
+        {
+          "verdict": "pass",
+          "hard": 0,
+          "soft": 3
+        }
+      ]
+    }
+  ],
+  "decisions": [
+    {
+      "grade": "Major",
+      "title": "Build in two stages",
+      "why": "Stage 1 gives you Essential and the checks. Version comparison waits until a Domain first changes, since until then it has nothing to compare."
+    },
+    {
+      "grade": "Major",
+      "title": "Version lives in candidate.json",
+      "why": "The facts' shape is recorded with the facts, and a record without a version counts as 1. The frozen example records stay unedited."
+    },
+    {
+      "grade": "Major",
+      "title": "Any contract change raises the version",
+      "why": "Raising it only for group changes would have hidden a breaking change to a single group."
+    },
+    {
+      "grade": "Major",
+      "title": "Report lives in the brand folder",
+      "why": "It is CVgen's own house asset, not a CV. An agent fills in a JSON file and never touches the page."
+    }
+  ],
+  "evidence": [
+    {
+      "kind": "compare",
+      "before": {
+        "pdf": "examples/marine/flagship/captain.pdf",
+        "page": 1
+      },
+      "after": {
+        "pdf": "examples/marine/flagship/captain-silver.pdf",
+        "page": 1
+      },
+      "before_label": "Classic",
+      "after_label": "Silver",
+      "caption": "Demo of the compare slider: one record, two Themes"
+    },
+    {
+      "kind": "page",
+      "src": {
+        "pdf": "examples/marine/flagship/deck-cadet.pdf",
+        "page": 1
+      },
+      "caption": "Closest thing today: the one-page cadet Layout"
+    }
+  ],
+  "changes": [
+    {
+      "area": "Proposal",
+      "what": "The P-0019 decision document",
+      "lines": 372
+    },
+    {
+      "area": "Review reports",
+      "what": "What each reviewer found",
+      "lines": 197
+    },
+    {
+      "area": "Research note",
+      "what": "46 claims with their sources",
+      "lines": 184
+    },
+    {
+      "area": "Glossary",
+      "what": "New official terms",
+      "lines": 8
+    }
+  ],
+  "evidence_path": "builds/tests-20261104-185448-830693"
+}

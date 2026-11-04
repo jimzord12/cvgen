@@ -150,6 +150,11 @@ Status (2026-09-28, task `brand-logo`, now in `backlog/tasks/`):
    wordmark; a one-colour version; threads flattened to outlines for
    cutting or embroidery; a dedicated 16 px cut.
 
+## report/
+
+The `Report Template`: the page for the final report of an unattended run. Its
+`README.md` has the fields; `scripts/report.py` builds it.
+
 ## forms/
 
 `intake-header.png` (1600 x 400 px, Google Forms' header size): the
