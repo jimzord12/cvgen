@@ -1,7 +1,7 @@
 {
  "pages": {
   "change-review": {
-   "commit": "f1dda8c",
+   "commit": "5f38388",
    "sources": {
     ".claude/skills/verify-cv/SKILL.md": "0a507b4d2616e8623eeb53af7bb860aed3dfdcf5",
     ".github/workflows/verify.yml": "1863e738e0ff361cd4add4977517cbb333043871",
@@ -17,7 +17,7 @@
    "verifiedAt": "2026-11-04"
   },
   "client-journey": {
-   "commit": "f1dda8c",
+   "commit": "5f38388",
    "sources": {
     ".claude/agents/design-reviewer.md": "9938a4b0c29a9fb5cf700f45377a3587f7eb21d0",
     ".claude/skills/idea-run/SKILL.md": "e1208b8d675ef749b06c25a95f2e1d59f4713984",
@@ -40,7 +40,7 @@
     "docs/workflow/03-research/README.md": "0dbf0603ecdd195487d4b9d3e990dda390ae1bdd",
     "docs/workflow/04-text-draft/README.md": "943b3a829afd913e5855646513ad9e638b2591ff",
     "docs/workflow/05-design/README.md": "2846d5a29b19dbc87a6ce5502c81064ccc19d24b",
-    "docs/workflow/06-deliver/README.md": "183e90af7504e11e63fbde54607ab5bea719775a",
+    "docs/workflow/06-deliver/README.md": "fcfd48a6ec548dc8d50601ba63f3d59069cc1d4c",
     "docs/workflow/07-after/README.md": "0aeb933cfd1fb4d684e1873f308b40b1d9149e04",
     "docs/workflow/GAPS.md": "2e66edcb9903ff8a9a1a711f324b4441135b2209",
     "docs/workflow/README.md": "d1bdce91026f607e69f00a0de03adab9019060f0",
@@ -55,7 +55,7 @@
    "verifiedAt": "2026-11-04"
   },
   "design-run": {
-   "commit": "f1dda8c",
+   "commit": "5f38388",
    "sources": {
     ".claude/agents/codex-visual-reviewer.md": "0bf2ea9e6a44f711cc56bf1be63d874f6fe0503e",
     ".claude/agents/design-reviewer.md": "9938a4b0c29a9fb5cf700f45377a3587f7eb21d0",
@@ -74,7 +74,7 @@
    "verifiedAt": "2026-11-04"
   },
   "roster": {
-   "commit": "f1dda8c",
+   "commit": "5f38388",
    "sources": {
     ".claude/agents/ceo-reviewer.md": "8b0ce89d0cf745923ec296c9034c1f8e5958d42b",
     ".claude/agents/ceo.md": "e6291c8d2282c325db11302b1be9ee8364edd3aa",
@@ -124,7 +124,7 @@
    "verifiedAt": "2026-11-04"
   },
   "system-map": {
-   "commit": "f1dda8c",
+   "commit": "5f38388",
    "sources": {
     ".claude/agents": "dir1:d86ac8b44b9896473ff12ecdbc91538ae34a8852",
     ".claude/skills": "dir1:5eeafda0c9ef9a6037a3fcc2879f73f098fa3e55",

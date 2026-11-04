@@ -158,7 +158,7 @@ steps:
     actor: actor.lead
     action: lead.write-flagship-entry
     inputs: [art.candidate-json, art.flagship-template]
-    outputs: [art.cv-typ, art.envelope-json]
+    outputs: [art.cv-typ]
     when: The data fits the Flagship.
 
   - id: design.custom-composition
