@@ -207,10 +207,10 @@ Windows one also holds the PDFs that build wrote, one per example in
    its fonts and pictures embedded and no `src` or `href` pointing at the
    network, the fragment without its skeleton, refusal of an existing folder,
    text that cannot break out of the page, then one refusal per rule, each on
-   its exact message and none leaving a folder (a missing or wrong-typed field,
-   an unknown value, a decision card without two to four options or one
-   recommended, a `Critical` decision, a missing picture or page, a client's page
-   in a fragment). The page's script is not run here; a design review clicks it.
+   its exact message and none leaving a folder (among them a missing or
+   wrong-typed field, a decision card without two to four options or one
+   recommended, a `Critical` decision, a done report with open cards, a missing
+   picture or page, a client's report in a fragment). The page's script is not run here; a design review clicks it.
 
 Negative cases assert on the exact error text so a message change is a test
 change.

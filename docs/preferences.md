@@ -54,8 +54,8 @@ unattended up to Major:
 | Grade | What | Who |
 |---|---|---|
 | Minor | Everything under "Agents decide and do" below that Major does not name | The agent decides, and reports as that bullet says |
-| Major | Architecture inside an approved proposal, a contract's details, splitting tasks | The agent decides and lists it in the final report |
-| Critical | Everything under "He decides" and "Still needs his explicit go" below | He decides, even when a run is unattended |
+| Major | Architecture inside an approved proposal or item, a contract's details, splitting tasks | The agent decides and lists it in the final report |
+| Critical | Everything under "He decides" and "Still needs his explicit go" below, and any deletion the agents' bullet does not name | He decides, even when a run is unattended |
 
 - **He decides:** what the product is, what gets built next, what an approved
   look is, approval of a real client's PDF, changes to the rules in
