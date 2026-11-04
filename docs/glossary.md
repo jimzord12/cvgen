@@ -43,6 +43,14 @@ owner afterwards.
 | `Theme` | A `Template`'s colours, fonts and sizes only | `templates/<t>/themes/` | 2026-09-25 |
 | `Artwork Pack` | Which illustration goes in which slot of a `Template` | `templates/<t>/artwork/` | 2026-09-25 |
 | `Layout` | Margins, gaps and which content lands on which page | `templates/<t>/layouts/`; docs also say "layout profile" | 2026-09-25 |
+| `Template Variation` | A named version of a `Template`'s design language, chosen per `Client`; a property of the `Template`, not a copy of it. Always the two words: plain "variation" keeps its older meanings | pending: `docs/proposals/template-contract.md` | 2026-11-04, owner |
+| `Template Contract` | What every `Template` must accept and provide | pending: `docs/proposals/template-contract.md` | 2026-11-04, owner |
+| `Template Manifest` | A `Template`'s description inside its package: identity, suggested `Domain`s, tags, `Template Variation`s and what each supports | pending: `docs/proposals/template-contract.md` | 2026-11-04, owner |
+| `Domain Contract` | The versioned list of a `Domain`'s `Fact Group`s, extending the `Base Contract` | pending: `docs/proposals/template-contract.md` | 2026-11-04, owner |
+| `Base Contract` | The `Fact Group`s every `Domain` has, owned by the `Framework` | pending: `docs/proposals/template-contract.md` | 2026-11-04, owner |
+| `Fact Group` | A named set of facts a `Template` supports as a whole, required or optional, with its own version | pending: `docs/proposals/template-contract.md` | 2026-11-04, owner |
+| `Coverage Fixture` | A `Domain`'s small fictional person with every `Fact Group`, used to prove what a `Template` claims | pending: `docs/proposals/template-contract.md` | 2026-11-04, owner |
+| `Scan Test` | The design test proposed for a scan-first `Template Variation`: a reader finds the first-scan fields in seconds | pending: `docs/proposals/template-contract.md` | 2026-11-04, owner |
 | `Client` | The person a CV is for, who also pays for it | the code and the data contract say "candidate" (`candidate.json`) | 2026-09-25 |
 | `Envelope` | One `Client`'s folder: their facts, portrait, their own `Template` tweaks, every `Revision` and `Export` | `private/<envelope>/` with `envelope.json` (who the `Client` is: `alias`, `domain`, `candidate`, `rank`) and its `Drawer`s (one tree for all, `docs/guides/client-workflow.md` section 1); the code and `scripts/cv.py` say "workspace" | 2026-09-25, owner |
 | `Alias` | The neutral name for a `Client` outside `private/`: `client-<yyyy>-<mm>-<nn>` (`output.schema.json` also accepts a `-<n>` suffix), written in the `Envelope`'s `README.md` and its `envelope.json`. The `Envelope` folder name is client data | `open.alias` (`docs/workflow/01-open/`); `alias` in `envelope.json` and a client's `Meta File` | 2026-09-25 |
