@@ -64,6 +64,7 @@ owner afterwards.
 | `Deep Dive` | One agent researching one open question the CV must answer, chosen by the owner from the open `CV Decisions` | `research.deep-dive` (`docs/workflow/03-research/`), `research/deep-dive-<topic>.md` | 2026-09-25 |
 | `Text Draft` | The CV's content as a PDF in its `House Design` (First Fitting, not the CV's own design) that the `Client` checks before design starts; every fact to check carries a `Fact Mark`; a sent draft is never recompiled; its `Meta File` statuses and their order are in `docs/pdf-workflow.md`, "Output Contract" | `scripts/text-draft.typ`, `draft/draft-NN.pdf` | 2026-09-25, design 2026-09-28 |
 | `House Design` | The one fixed design of the documents CVgen sends that are not a CV: today First Fitting, used by the `Text Draft` and the `Intake Form` header. A proposed one is a PDF whose `Meta File` has kind `house-design`, so it is never mistaken for a `Client`'s `Text Draft` (kind `client-draft`) | `scripts/text-draft.typ`; the form header in `studio/brand/README.md`; kind `house-design` in `output.schema.json` (`text-draft` until 2026-10-14) | 2026-10-14 |
+| `Report Template` | The page for the final report of an unattended run: a verdict, shapes and evidence in place of text, filled from a JSON file. Neither a `Template` nor a `House Design`: it is never sent to a `Client` | `studio/brand/report/`, `scripts/report.py` | 2026-11-04, owner |
 | `Check Page` | The first page of a `Text Draft`, in the `Client`'s language (house copy in Greek): check only the underlined facts (names, dates, numbers, titles), reply OK | `client:` and `samples:` in `scripts/text-draft.typ` | 2026-09-25 |
 | `House Copy` | The fixed wording of the `Check Page` (headline, intro, ask, reply lines, tag labels), in Greek; a client's draft overrides a line only through `copy:` | `house-copy` in `scripts/text-draft.typ` | 2026-09-28 |
 | `Fact Mark` | The copper stitch under a fact the `Client` must check in a `Text Draft`; anything without it is our wording | `#fact[...]` in `scripts/text-draft.typ` | 2026-09-28 |
@@ -77,6 +78,7 @@ owner afterwards.
 | `Frozen Reference` | The PDF a `Template`'s public example must reproduce pixel for pixel | `templates/<t>/tests/approved/` | 2026-09-25 |
 | `Framework Gap` | A recorded case of going around the `Framework`, a `Domain` or a `Template` to deliver a CV | `docs/framework-gaps.md` | 2026-09-25 |
 | `Task Store` | Where every task's record and status live: Backlog.md files in `backlog/` (one per task, plus the `session-handoff` doc), read and written through the `backlog` skill. One store, never a second status file. Replaced the Trello board on 2026-10-06 | `backlog/`, `.claude/skills/backlog/`, ADR 0014 | 2026-10-06 |
+| `Decision Grade` | How far an agent may decide alone: Minor, Major or Critical. Not a review finding's severity, which also has a Minor | `docs/preferences.md`, "What he decides and what agents decide" | 2026-11-04, owner |
 | `Session Sweep` | The check for loose ends before a session ends: unreviewed commits, approved proposals, open tasks, Git leftovers, CI, `builds/`, repo health, the `Atlas` check. A list of places to look, never of what is open | `docs/development.md`, "Ending a session" | 2026-09-28 |
 | `Capacity Rule` | The count that says whether a record fits the one-page `Layout`: 3 per company, 1 per vessel row, 1 per certificate row (plus extra groups and wrapped lines); 14 or less fits on the cadet record, a longer profile or more education lowers it | `docs/engine/layout-and-pagination.md`, "Choosing a profile" | 2026-09-28 |
 | `Vessel Particulars` | A vessel's size, main engine maker and engine power, printed on its vessel row in the unit the `Client`'s documents use, never converted | `ships[].tonnage`, `engine`, `power` in the marine facts | 2026-09-27 |
@@ -102,6 +104,7 @@ Say the term on the right instead.
 | Word | Say instead |
 |---|---|
 | "approved" | `Approval` for a `Client`'s PDF; `Frozen Reference` for a `Template`'s locked look; plain "approved" only for an owner-approved proposal or design |
+| "Minor" | The lowest `Decision Grade`; a review finding's severity in `docs/review.md`. Say which |
 | "engine" | `Framework` for the shared core; the `Engine` `Role` for marine engineers; "the engine" only for the `Framework` and the `Domain`s together (its manuals are in `docs/engine/`); a ship's main engine only inside `Vessel Particulars` (the `engine` field holds its maker); the TypeScript program that checks the `Workflow Model` is "the workflow tool", never an engine |
 | "role" for a job title | `Rank` |
 | "export" for the public PDFs | `Release` |

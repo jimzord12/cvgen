@@ -198,7 +198,7 @@
           "note": "Yours only, with the exact command shown first, including: deleting or force-pushing `main`, rewriting its published history, rewriting the private repo's history (the delete-by erase, which you run), `archive/*` tags, repo settings (public and private repo), deleting under `private/` or `.local/` or outside the repo, removing revisions, approvals, exports or portraits, replacing the `Release`.",
           "sources": [
             "docs/git-workflow.md:91-104",
-            "docs/preferences.md:57-87",
+            "docs/preferences.md:66-96",
             ".github/workflows/verify.yml"
           ]
         }
@@ -253,8 +253,8 @@
             "label": "Product decisions and real-client approvals stay yours."
           },
           "sources": [
-            "docs/preferences.md:51-53",
-            "docs/preferences.md:93"
+            "docs/preferences.md:60-62",
+            "docs/preferences.md:102"
           ]
         }
       ]

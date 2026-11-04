@@ -40,7 +40,7 @@ window.ATLAS = {
      "Everything routine (commits, merges to `main`, task-store updates) is the agents' job."
     ],
     "sources": [
-     "docs/preferences.md:51-87",
+     "docs/preferences.md:60-96",
      "docs/workflow/README.md:22-24"
     ],
     "short": "You"
@@ -630,7 +630,7 @@ window.ATLAS = {
         "docs/workflow/01-open/README.md:23-26",
         "docs/guides/client-workflow.md:90-91",
         ".claude/skills/new-client/SKILL.md:33-35",
-        "docs/glossary.md:48"
+        "docs/glossary.md:56"
        ]
       },
       {
@@ -1099,7 +1099,7 @@ window.ATLAS = {
        "sources": [
         "docs/workflow/03-research/README.md:24-34",
         ".claude/skills/new-client/SKILL.md:57-59",
-        "docs/glossary.md:54"
+        "docs/glossary.md:62"
        ]
       },
       {
@@ -1767,8 +1767,8 @@ window.ATLAS = {
        "note": "Model step `text-draft.client-check`, action `manual.client-checks-draft`, in `docs/workflow/04-text-draft/stage.yaml`.",
        "sources": [
         "docs/workflow/04-text-draft/README.md:17-23",
-        "docs/glossary.md:59",
-        "docs/glossary.md:62"
+        "docs/glossary.md:68",
+        "docs/glossary.md:71"
        ]
       },
       {
@@ -2613,7 +2613,7 @@ window.ATLAS = {
        "sources": [
         "docs/workflow/05-design/README.md:57-58",
         ".claude/skills/new-cv/SKILL.md:62",
-        "docs/preferences.md:67-69",
+        "docs/preferences.md:76-78",
         ".claude/agents/design-reviewer.md:49-53"
        ]
       },
@@ -2881,7 +2881,7 @@ window.ATLAS = {
         "docs/guides/build-a-cv.md:153-158",
         "docs/pdf-workflow.md:180-182",
         "docs/proposals/workflow-model.md:58",
-        "docs/glossary.md:64"
+        "docs/glossary.md:73"
        ]
       },
       {
@@ -3207,7 +3207,7 @@ window.ATLAS = {
        "sources": [
         "docs/workflow/07-after/README.md:27-34",
         "docs/guides/client-workflow.md:205-230",
-        "docs/preferences.md:75-83",
+        "docs/preferences.md:84-92",
         "docs/proposals/workflow-gaps.md:37",
         "docs/proposals/workflow-gaps.md:71"
        ]
@@ -3245,7 +3245,7 @@ window.ATLAS = {
        "note": "Model step `after.revision-cleanup`, action `manual.go-remove-revisions`, in `docs/workflow/07-after/stage.yaml`.",
        "sources": [
         "docs/pdf-workflow.md:215-218",
-        "docs/preferences.md:81-83",
+        "docs/preferences.md:90-92",
         "docs/workflow/GAPS.md:29-32"
        ]
       }
@@ -3788,7 +3788,7 @@ window.ATLAS = {
        "note": "Yours only, with the exact command shown first, including: deleting or force-pushing `main`, rewriting its published history, rewriting the private repo's history (the delete-by erase, which you run), `archive/*` tags, repo settings (public and private repo), deleting under `private/` or `.local/` or outside the repo, removing revisions, approvals, exports or portraits, replacing the `Release`.",
        "sources": [
         "docs/git-workflow.md:91-104",
-        "docs/preferences.md:57-87",
+        "docs/preferences.md:66-96",
         ".github/workflows/verify.yml"
        ]
       }
@@ -3843,8 +3843,8 @@ window.ATLAS = {
         "label": "Product decisions and real-client approvals stay yours."
        },
        "sources": [
-        "docs/preferences.md:51-53",
-        "docs/preferences.md:93"
+        "docs/preferences.md:60-62",
+        "docs/preferences.md:102"
        ]
       }
      ]
@@ -4096,7 +4096,7 @@ window.ATLAS = {
        "path": "scripts/text-draft.typ",
        "blurb": "The house design every `Text Draft` uses.",
        "sources": [
-        "docs/glossary.md:57-58"
+        "docs/glossary.md:65-66"
        ]
       },
       {
@@ -4483,30 +4483,30 @@ window.ATLAS = {
   }
  ],
  "build": {
-  "builtAt": "2026-11-03 17:11 UTC",
-  "commit": "22b0a1d",
+  "builtAt": "2026-11-04 17:29 UTC",
+  "commit": "3e2c3b6",
   "kit": "1.1",
   "stale": {},
   "verified": {
    "client-journey": {
-    "at": "2026-10-22",
-    "commit": "1c557ed"
+    "at": "2026-11-04",
+    "commit": "3e2c3b6"
    },
    "design-run": {
-    "at": "2026-10-22",
-    "commit": "c046e39"
+    "at": "2026-11-04",
+    "commit": "b87a4e8"
    },
    "change-review": {
-    "at": "2026-10-22",
-    "commit": "79ac34c"
+    "at": "2026-11-04",
+    "commit": "3e2c3b6"
    },
    "system-map": {
-    "at": "2026-10-22",
-    "commit": "79ac34c"
+    "at": "2026-11-04",
+    "commit": "b87a4e8"
    },
    "roster": {
-    "at": "2026-10-22",
-    "commit": "79ac34c"
+    "at": "2026-11-04",
+    "commit": "3e2c3b6"
    }
   }
  }

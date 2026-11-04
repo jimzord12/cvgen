@@ -15,6 +15,7 @@ from design_review import run_design_review
 from repo_maintenance import run_repo_maintenance
 from release import examples, run_build_script, shells
 from proposals import run_proposals
+from report import run_report
 from cv_workflow.render import STRICT_FONTS, font_fallbacks  # on the path through workflow.py
 
 
@@ -164,8 +165,8 @@ def main():
     # One folder per case holds all its evidence (ADR 0013): <case>.pdf, compile.log, and for a
     # checked case check/result.json (plus diff-N.png on a mismatch) and page-N.png renders.
     def compile_case(name, source, inputs=None, error=None):
-        assert name not in ('workflow', 'design-review', 'build-script', 'proposals', 'workflow-model'), \
-            'the workflow, app, build script, proposal and Workflow Model checks own those folders'
+        assert name not in ('workflow', 'design-review', 'build-script', 'proposals', 'report', 'workflow-model'), \
+            'the workflow, app, build script, proposal, report and Workflow Model checks own those folders'
         folder = out / name
         folder.mkdir(exist_ok=False)
         pdf = folder / (name + '.pdf')
@@ -450,6 +451,9 @@ def main():
     # The proposal snapshot script on fixture folders (and each refusal), then on docs/proposals/.
     for check in run_proposals(out):
         results.append({'case': 'proposals: ' + check, 'passed': True, 'folder': 'proposals'})
+    # The Report Template's script on its sample, and each refusal.
+    for check in run_report(out):
+        results.append({'case': 'report: ' + check, 'passed': True, 'folder': 'report'})
     # The owner's Design Review app, through its real server, on a fictional tree.
     for check in run_design_review(out):
         results.append({'case': 'design-review-' + check, 'passed': True, 'folder': 'design-review'})

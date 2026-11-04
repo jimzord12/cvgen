@@ -1,0 +1,297 @@
+<meta charset="utf-8">
+<title>{{TITLE}}</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<style>
+{{FONTS}}
+/* Layout: one copper running stitch carries the eye from the verdict to the evidence.
+   Everything is a shape first; words are labels on shapes. */
+:root{
+  --bg:#131210;--panel:#26231e;--panel2:#37332c;--line:#4a453c;
+  --fg:#f4efe6;--mute:#a79f92;--soft:#8d8577;--thread:#c07b45;--thread-soft:#c07b4559;--on-thread:#131210;
+  --ok:#62bd82;--wait:#d8ae3f;--stop:#df6450;--on-tone:#131210;--mark-reversed:inline;--mark-ink:none;
+  --display:"Bona Nova",Georgia,serif;--num:"Sofia Sans Extra Condensed","Arial Narrow",sans-serif;--ui:"Source Sans 3","Segoe UI",system-ui,sans-serif;
+  color-scheme:dark;
+}
+@media (prefers-color-scheme:light){:root:not([data-theme="dark"]){
+  --bg:#fbfaf7;--panel:#efebe3;--panel2:#e0dad0;--line:#cbc4b7;
+  --fg:#131210;--mute:#675f53;--soft:#857c6e;--thread:#a8602c;--thread-soft:#a8602c59;--on-thread:#fbfaf7;
+  --ok:#23804a;--wait:#96700c;--stop:#bf3b28;--on-tone:#fbfaf7;--mark-reversed:none;--mark-ink:inline;color-scheme:light}}
+:root[data-theme="light"]{
+  --bg:#fbfaf7;--panel:#efebe3;--panel2:#e0dad0;--line:#cbc4b7;
+  --fg:#131210;--mute:#675f53;--soft:#857c6e;--thread:#a8602c;--thread-soft:#a8602c59;--on-thread:#fbfaf7;
+  --ok:#23804a;--wait:#96700c;--stop:#bf3b28;--on-tone:#fbfaf7;--mark-reversed:none;--mark-ink:inline;color-scheme:light}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font:400 16px/1.35 var(--ui)}
+.band{height:12px;background:repeating-linear-gradient(90deg,var(--tone) 0 34px,transparent 34px 42px)}
+.page{max-width:1160px;margin:auto;padding-block:18px 56px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));display:grid;gap:34px}
+.top{display:flex;align-items:center;gap:14px;color:var(--mute);font-size:14px;font-weight:600;flex-wrap:wrap}
+.top img{height:34px;width:auto}.top .reversed{display:var(--mark-reversed)}.top .ink{display:var(--mark-ink)}
+.top time{margin-left:auto;font-variant-numeric:tabular-nums}
+h2{margin:0 0 12px;display:flex;align-items:center;gap:10px;font:800 16px var(--num);letter-spacing:.08em;text-transform:uppercase;color:var(--mute)}
+h2::after{content:"";flex:1;border-top:2px dashed var(--thread-soft)}
+h2 small{font:inherit;color:var(--thread);order:2}
+h2 button{order:3;font:700 14px var(--ui);text-transform:none;letter-spacing:0;padding:4px 11px;border-radius:6px;border:0;cursor:pointer;background:var(--panel2);color:var(--fg)}
+.pips{display:inline-flex;gap:4px;font-style:normal}
+.num{font-family:var(--num);font-weight:800;font-variant-numeric:tabular-nums;line-height:.9}
+[data-tone=ok]{--tone:var(--ok)}[data-tone=wait]{--tone:var(--wait)}[data-tone=stop]{--tone:var(--stop)}[data-tone=thread]{--tone:var(--thread)}
+
+/* Verdict: the shape is the message */
+.verdict{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:18px 26px;align-items:center}
+.seal{width:clamp(84px,12vw,132px);aspect-ratio:1;border-radius:50%;background:var(--tone);color:var(--on-tone);display:grid;place-items:center}
+.seal svg{width:58%;height:58%;fill:none;stroke:currentColor;stroke-width:3.4;stroke-linecap:round;stroke-linejoin:round}
+.seal[data-verdict=running] svg{animation:spin 7s linear infinite}
+.word{font:800 22px var(--num);letter-spacing:.08em;text-transform:uppercase;color:var(--tone)}
+.verdict h1{margin:0;font:700 clamp(36px,6.4vw,74px)/1 var(--display);text-wrap:balance}
+.next{max-width:260px;padding:14px 16px;background:var(--thread);color:var(--on-thread);border-radius:6px;font-weight:700;font-size:17px}
+.next span{display:block;font:800 14px var(--num);letter-spacing:.08em;text-transform:uppercase}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* Meters: every number sits inside its ring */
+.meters{display:grid;grid-template-columns:repeat(auto-fit,minmax(112px,1fr));gap:18px}
+.meter{display:grid;justify-items:center;gap:7px;text-align:center;color:var(--mute);font-size:14px}
+.dial{position:relative;width:104px;height:104px}
+.dial svg{position:absolute;inset:0;transform:rotate(-90deg)}
+.dial circle{fill:none;stroke-width:10}
+.dial .rail{stroke:var(--panel2)}.dial .count{stroke:var(--tone);stroke-dasharray:7 5}.dial .fill{stroke:var(--tone)}
+.dial div{position:absolute;inset:0;display:grid;place-content:center;color:var(--fg)}
+.dial .num{font-size:38px}.dial small{font:800 15px var(--num);color:var(--mute)}
+
+/* Stitch path */
+.path{display:flex;margin:0;padding:4px 0 2px;list-style:none;overflow-x:auto}
+.path li{flex:1 0 112px;min-width:0;position:relative;padding-top:38px;font-weight:600;font-size:15px}
+.path li::before{content:"";position:absolute;top:12px;left:0;right:0;border-top:3px dashed var(--line)}
+.path li[data-state=done]::before{border-color:var(--thread)}
+.path li:last-child::before{right:auto;width:26px}
+.path b{position:absolute;top:0;left:0;width:28px;height:28px;border-radius:50%;display:grid;place-items:center;background:var(--bg);border:3px solid var(--line)}
+.path svg{width:15px;height:15px;fill:none;stroke:var(--on-tone);stroke-width:4;stroke-linecap:round;stroke-linejoin:round}
+.path [data-state=done] b{background:var(--ok);border-color:var(--ok)}
+.path [data-state=active] b{border-color:var(--thread);box-shadow:0 0 0 5px var(--thread-soft)}
+.path [data-state=active] b::after{content:"";width:12px;height:12px;border-radius:50%;background:var(--thread)}
+.path [data-state=blocked] b{background:var(--stop);border-color:var(--stop)}
+.path [data-state=waiting] span{color:var(--mute)}
+
+/* Owner cards: pick, read more if needed, copy the answers */
+.asks{display:grid;gap:12px}
+.ask{background:var(--panel);padding:16px;border-radius:6px;display:grid;gap:12px;min-width:0}
+.ask header{display:flex;gap:10px;align-items:baseline}
+.ask header b{font:800 24px var(--num);color:var(--thread)}
+.ask strong{font-size:19px}
+.choice{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(210px,100%),1fr));gap:8px}
+.choice button{font:inherit;text-align:left;color:var(--fg);background:var(--panel2);border:2px solid transparent;border-radius:6px;padding:9px 12px;cursor:pointer;display:grid;gap:2px;align-content:start}
+.choice button small{color:var(--mute);font-size:14px}
+.choice button:hover{border-color:var(--mute)}
+.choice button.best{border-color:var(--thread)}
+.choice button.best b::before{content:"\2605  ";color:var(--thread)}
+.choice button[aria-pressed=true]{background:var(--thread);color:var(--on-thread);border-color:var(--thread)}
+.choice button[aria-pressed=true] small,.choice button[aria-pressed=true].best b::before{color:inherit}
+.choice button:focus-visible,.answers button:focus-visible,summary:focus-visible{outline:3px solid var(--fg);outline-offset:2px}
+.folds{display:flex;flex-wrap:wrap;gap:2px 22px;align-items:flex-start}
+.folds details{padding:2px 0}
+.folds details[open]{flex-basis:100%;order:1}
+.folds summary{font-weight:600;font-size:14px;color:var(--mute)}
+.folds summary:hover{color:var(--fg)}
+.folds p{max-width:68ch;font-size:15px}
+.answers{margin-top:12px;background:var(--panel);border:2px dashed var(--thread);border-radius:6px;padding:14px;display:grid;gap:10px}
+.answers header{display:flex;flex-wrap:wrap;gap:10px;align-items:center;font:800 18px var(--num);letter-spacing:.04em}
+.answers header span{margin-right:auto;display:inline-flex;align-items:center;gap:10px}
+.pip{display:block;flex:none;width:11px;height:11px;border-radius:50%;border:2px solid var(--thread)}.pip.on{background:var(--thread)}
+.answers button{font:700 15px var(--ui);padding:7px 14px;border-radius:6px;border:0;cursor:pointer;background:var(--panel2);color:var(--fg)}
+.answers .copy{background:var(--thread);color:var(--on-thread)}
+.answers .copy:disabled{background:var(--panel2);color:var(--mute);cursor:not-allowed}
+.answers textarea{field-sizing:content;width:100%;min-height:64px;resize:none;font:15px/1.4 var(--ui);color:var(--fg);background:var(--bg);border:1px solid var(--line);border-radius:4px;padding:10px}
+
+/* Review descent: red falling to zero */
+.reviews{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(300px,100%),1fr));gap:24px}
+.gate header{font-weight:700;margin-bottom:10px}
+.bars{display:flex;gap:8px;align-items:flex-end;height:136px;border-bottom:2px solid var(--line)}
+.bar{flex:1;min-width:0;display:flex;flex-direction:column;justify-content:flex-end;align-items:stretch;height:100%}
+.bar span{display:block}.bar .soft{background:var(--soft)}.bar .hard{background:var(--stop)}
+.bar em{font:800 20px var(--num);text-align:center;font-style:normal;margin-bottom:3px}
+.bar .slot{height:30px;width:30px;flex:none;align-self:center;margin-bottom:6px;border-radius:50%;display:grid;place-items:center}
+.bar .slot.pass{background:var(--ok)}
+.bar .slot.pass svg{width:15px;height:15px;fill:none;stroke:var(--on-tone);stroke-width:4;stroke-linecap:round;stroke-linejoin:round}
+.bar .slot.running{border:3px dashed var(--thread);animation:spin 7s linear infinite}
+.bar .slot.empty{border:2px dashed var(--line)}
+.ticks{display:flex;gap:8px;margin-top:5px;color:var(--mute);font-size:13px}.ticks span{flex:1;text-align:center}
+.key{display:flex;gap:8px 20px;margin-top:12px;color:var(--mute);font-size:14px;flex-wrap:wrap}
+.key span{display:inline-flex;align-items:center;gap:7px}
+.key i{display:inline-block;width:13px;height:13px;background:var(--c);flex:none}
+.key .round{border-radius:50%}.key .dash{background:none;border:2px dashed var(--mute);border-radius:50%}
+.key .run{background:none;border:2px dashed var(--thread);border-radius:50%}
+.key .stitch{width:30px;background:repeating-linear-gradient(90deg,var(--thread) 0 10px,transparent 10px 13px)}
+
+/* Decisions: one tight row each, so a long list stays readable */
+.grades{display:grid;gap:18px}
+.grade>header{font:800 19px var(--num);color:var(--thread);margin-bottom:6px;display:flex;align-items:center;gap:10px}
+.grade>header span{display:inline-flex;flex-wrap:wrap;gap:4px}
+.grade>header i{width:9px;height:9px;transform:rotate(45deg);border:2px solid var(--thread)}
+.grade>header .major i{background:var(--thread)}
+.rows{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(340px,100%),1fr));gap:0 28px;margin:0;padding:0;list-style:none}
+.rows li{padding-block:9px;border-top:1px solid var(--line);min-width:0;display:grid;grid-template-columns:auto minmax(0,1fr);gap:0 10px;align-content:start}
+.mark{grid-row:span 2;width:14px;height:14px;margin-top:4px;transform:rotate(45deg);border:2px solid var(--thread)}
+.mark.major{background:var(--thread)}
+.rows strong{display:block;font-weight:700}
+.rows span{color:var(--mute);font-size:15px}
+details{border-radius:6px;padding:7px 12px;min-width:0}
+summary{cursor:pointer;font-weight:700}
+details p{margin:6px 0 3px}
+
+/* Changes */
+.changes{display:grid;gap:8px}
+.change{display:grid;grid-template-columns:230px minmax(0,1fr) 62px;gap:12px;align-items:center;font-size:15px}
+.change .track{height:15px;background:var(--panel);border-radius:2px;overflow:hidden}
+.change .track span{display:block;height:100%;background:repeating-linear-gradient(90deg,var(--thread) 0 10px,transparent 10px 13px)}
+.change .num{font-size:22px;text-align:right}
+.change small{display:block;color:var(--mute);font-size:13px}
+
+/* Evidence */
+.evidence{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(280px,100%),1fr));gap:18px}
+figure{margin:0;min-width:0}
+figcaption{color:var(--mute);font-size:14px;margin-top:7px}
+.sheet{display:block;width:100%;background:#fff;box-shadow:0 8px 24px #0005}
+.compare{position:relative;--x:65%;overflow:hidden;line-height:0;box-shadow:0 8px 24px #0005}
+.compare img{display:block;width:100%}
+.compare .top-image{position:absolute;inset:0;clip-path:inset(0 calc(100% - var(--x)) 0 0)}
+.compare::after{content:"";position:absolute;top:0;bottom:0;left:var(--x);width:3px;margin-left:-1px;background:var(--thread);pointer-events:none}
+.compare input{position:absolute;inset:0;width:100%;height:100%;margin:0;opacity:0;cursor:ew-resize}
+.compare input:focus-visible~.grip{outline:3px solid var(--fg)}
+.grip{position:absolute;top:50%;left:var(--x);width:44px;height:44px;margin:-22px;border-radius:50%;background:var(--thread);pointer-events:none;display:grid;place-items:center}
+.grip svg{width:26px;height:26px;fill:none;stroke:var(--on-thread);stroke-width:2.6;stroke-linecap:round;stroke-linejoin:round}
+.compare label{position:absolute;bottom:8px;padding:2px 8px;background:#131210d9;color:#f4efe6;font:700 13px/1.5 var(--ui);pointer-events:none}
+.compare label.l{left:8px}.compare label.r{right:8px}
+footer{color:var(--mute);font-size:13px;overflow-wrap:anywhere}
+@media (max-width:760px){.verdict{grid-template-columns:auto minmax(0,1fr)}.next{grid-column:1/-1;max-width:none}.change{grid-template-columns:130px minmax(0,1fr) 50px}}
+@media (prefers-reduced-motion:reduce){*{animation:none!important}}
+</style>
+<div class="band" id="band"></div>
+<main class="page" id="page"></main>
+<div hidden><img id="mark-reversed" src="{{MARK_REVERSED}}" alt=""><img id="mark-ink" src="{{MARK_INK}}" alt=""></div>
+<script type="application/json" id="report">{{DATA}}</script>
+<script>
+const R = JSON.parse(document.getElementById('report').textContent);
+const e = s => String(s ?? '').replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const CHECK = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 13l5 5L20 6"/></svg>';
+const CROSS = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>';
+const VERDICTS = {
+  done: ['ok', 'Done', CHECK],
+  'needs-you': ['wait', 'Needs you', '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v10"/><circle cx="12" cy="19.5" r=".6"/></svg>'],
+  running: ['thread', 'Running', '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9" stroke-dasharray="4 4"/></svg>'],
+  blocked: ['stop', 'Blocked', CROSS],
+};
+const section = (name, body, note, action) => `<section><h2>${e(name)}${note ? `<small>${note}</small>` : ''}${action || ''}</h2>${body}</section>`;
+
+function dial(m) {
+  const c = 2 * Math.PI * 40, whole = !m.of || m.value >= m.of;
+  // An open item stays visible: the ring only closes at the full count, and never turns green short of it.
+  const share = m.of ? (whole ? 1 : Math.min(m.value / m.of, .93)) : 1;
+  const tone = !whole && m.tone === 'ok' ? 'wait' : (m.tone || 'thread');
+  const fill = m.of ? `<circle class="fill" cx="50" cy="50" r="40" stroke-dasharray="${share * c} ${c}"/>` : '<circle class="count" cx="50" cy="50" r="40"/>';
+  return `<div class="meter" data-tone="${e(tone)}"><div class="dial"><svg viewBox="0 0 100 100" aria-hidden="true">${m.of ? '<circle class="rail" cx="50" cy="50" r="40"/>' : ''}${fill}</svg>
+    <div><span class="num">${e(m.value)}</span>${m.of ? `<small>of ${e(m.of)}</small>` : ''}</div></div>${e(m.label)}</div>`;
+}
+function gate(g, top) {
+  const height = n => n / top * 62;
+  const bar = r => {
+    const pass = r.verdict === 'pass' ? `<div class="slot pass">${CHECK}</div>` : '';
+    const total = (r.hard || 0) + (r.soft || 0);
+    if (r.verdict === 'running') return '<div class="bar"><div class="slot running"></div></div>';
+    if (!total) return `<div class="bar">${pass}</div>`;
+    return `<div class="bar">${pass}<em>${e(total)}</em><span class="soft" style="height:${height(r.soft || 0)}%"></span><span class="hard" style="height:${height(r.hard || 0)}%"></span></div>`;
+  };
+  const empty = Array(Math.max(g.cap - g.rounds.length, 0)).fill('<div class="bar"><div class="slot empty"></div></div>');
+  const ticks = Array.from({length: Math.max(g.cap, g.rounds.length)}, (_, i) => `<span>${i + 1}</span>`).join('');
+  return `<div class="gate"><header>${e(g.name)}</header><div class="bars">${g.rounds.map(bar).join('')}${empty.join('')}</div><div class="ticks">${ticks}</div></div>`;
+}
+function compare(x) {
+  return `<figure><div class="compare"><img src="${x.after}" alt="${e(x.after_label)}"><img class="top-image" src="${x.before}" alt="${e(x.before_label)}">
+    <input type="range" min="0" max="100" value="65" aria-label="Compare ${e(x.before_label)} and ${e(x.after_label)}">
+    <span class="grip"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 7l-5 5 5 5M15 7l5 5-5 5"/></svg></span>
+    <label class="l">${e(x.before_label)}</label><label class="r">${e(x.after_label)}</label></div><figcaption>${e(x.caption)}</figcaption></figure>`;
+}
+const fold = (name, text) => text ? `<details><summary>${name}</summary><p>${e(text)}</p></details>` : '';
+function ask(a, i) {
+  return `<article class="ask"><header><b>${i + 1}</b><strong>${e(a.title)}</strong></header>
+    <div class="choice">${a.options.map((o, n) => `<button type="button" data-ask="${i}" data-option="${n}" aria-pressed="false" class="${o.recommended ? 'best' : ''}"><b>${e(o.label)}</b>${o.detail ? `<small>${e(o.detail)}</small>` : ''}</button>`).join('')}</div>
+    <div class="folds">${fold('Refresher', a.context)}${fold('The decision', a.decision)}${fold('Example', a.example)}</div></article>`;
+}
+const ANSWERS = `<div class="answers" id="answers"><header><span id="tally"></span><button type="button" data-best>Pick the rest ★</button><button type="button" class="copy" id="copy" disabled>Copy answers</button></header>
+  <textarea id="answer-text" readonly rows="2" placeholder="Pick an option above and your answers appear here, ready to paste." aria-label="Your answers, ready to paste"></textarea></div>`;
+const sheet = x => `<figure><img class="sheet" src="${x.src}" alt="${e(x.caption)}"><figcaption>${e(x.caption)}</figcaption></figure>`;
+
+const [tone, word, glyph] = VERDICTS[R.verdict];
+document.getElementById('band').dataset.tone = tone;
+const marks = ['reversed', 'ink'].map(n => `<img class="${n}" src="${document.getElementById('mark-' + n).src}" alt="CVgen">`).join('');
+const parts = [`<div class="top">${marks}<span>${e(R.title)}</span><time>${e(R.date)}</time></div>
+  <header class="verdict" data-tone="${tone}"><div class="seal" data-verdict="${e(R.verdict)}">${glyph}</div>
+  <div><div class="word">${word}</div><h1>${e(R.headline)}</h1></div>
+  ${R.next_move ? `<div class="next"><span>Your next move</span>${e(R.next_move)}</div>` : ''}</header>`];
+if (R.meters?.length) parts.push(`<div class="meters">${R.meters.map(dial).join('')}</div>`);
+if (R.stages?.length) parts.push(`<ol class="path" id="path">${R.stages.map(s =>
+  `<li data-state="${e(s.state)}"><b>${s.state === 'done' ? CHECK : s.state === 'blocked' ? CROSS : ''}</b><span>${e(s.label)}</span></li>`).join('')}</ol>`);
+if (R.needs_you?.length) parts.push(section(`Needs you · ${R.needs_you.length}`, `<div class="asks">${R.needs_you.map(ask).join('')}</div>${ANSWERS}`, '★ recommended', '<button type="button" data-best>Pick the rest ★</button>'));
+if (R.evidence?.length) parts.push(section('Evidence', `<div class="evidence">${R.evidence.map(x =>
+  x.kind === 'compare' ? compare(x) : sheet(x)).join('')}</div>`));
+if (R.reviews?.length) {
+  const top = Math.max(...R.reviews.flatMap(g => g.rounds.map(r => (r.hard || 0) + (r.soft || 0))), 1);
+  parts.push(section('Reviews', `<div class="reviews">${R.reviews.map(g => gate(g, top)).join('')}</div>
+    <div class="key"><span><i style="--c:var(--stop)"></i>Blocking: must be fixed to pass</span><span><i style="--c:var(--soft)"></i>Other findings: smaller fixes</span><span><i class="round" style="--c:var(--ok)"></i>Passed</span><span><i class="run"></i>Running</span><span><i class="dash"></i>Round not used</span><span>Number above a bar: findings in that round</span></div>`));
+}
+if (R.decisions?.length) {
+  const grades = ['Major', 'Minor'].filter(g => R.decisions.some(d => d.grade === g));
+  parts.push(section('Decided without you', `<div class="grades">${grades.map(g => {
+    const items = R.decisions.filter(d => d.grade === g);
+    const kind = g.toLowerCase();
+    return `<div class="grade"><header>${e(g)} · ${items.length}<span class="${kind}">${'<i></i>'.repeat(items.length)}</span></header><ul class="rows">${items.map(d =>
+      `<li><i class="mark ${kind}"></i><strong>${e(d.title)}</strong><span>${e(d.why)}</span></li>`).join('')}</ul></div>`;
+  }).join('')}</div>`));
+}
+if (R.changes?.length) {
+  const rows = [...R.changes].sort((a, b) => b.lines - a.lines), top = rows[0].lines || 1;
+  parts.push(section('Lines changed', `<div class="changes">${rows.map(c =>
+    `<div class="change"><span>${e(c.area)}${c.what ? `<small>${e(c.what)}</small>` : ''}</span><div class="track"><span style="width:${c.lines / top * 100}%"></span></div><span class="num">${e(c.lines)}</span></div>`).join('')}</div>
+    <div class="key"><span><i class="stitch"></i>Longer bar: more text written or changed</span><span>Number: lines of text</span></div>`));
+}
+if (R.evidence_path) parts.push(`<footer>${e(R.evidence_path)}</footer>`);
+document.getElementById('page').innerHTML = parts.join('');
+document.querySelectorAll('.compare input').forEach(i =>
+  i.addEventListener('input', () => i.parentElement.style.setProperty('--x', i.value + '%')));
+// Picks are positions, so the key holds the cards: a changed card never inherits an old answer.
+const store = 'report:' + JSON.stringify([R.title, R.date, R.needs_you]), picks = {};
+try {
+  Object.entries(JSON.parse(localStorage.getItem(store) || '{}')).forEach(([i, n]) => {
+    if (Number.isInteger(n) && R.needs_you?.[i]?.options[n]) picks[i] = n;
+  });
+} catch {}
+function showPicks() {
+  const asks = R.needs_you || [];
+  document.querySelectorAll('.choice button').forEach(b =>
+    b.setAttribute('aria-pressed', String(picks[b.dataset.ask] === Number(b.dataset.option))));
+  const text = document.getElementById('answer-text');
+  if (!text) return;
+  const lines = asks.flatMap((a, i) => picks[i] === undefined ? [] : [`${i + 1}. ${a.title} → ${a.options[picks[i]].label}`]);
+  document.getElementById('tally').innerHTML = `Your answers: ${lines.length} of ${asks.length}<i class="pips">${asks.map((_, i) => `<b class="pip ${picks[i] === undefined ? '' : 'on'}"></b>`).join('')}</i>`;
+  text.value = lines.length ? [`My decisions on ${R.title}:`, ...lines].join('\n') : '';
+  document.getElementById('copy').disabled = !lines.length;
+  try { localStorage.setItem(store, JSON.stringify(picks)); } catch {}
+}
+document.querySelectorAll('.choice button').forEach(b => b.addEventListener('click', () => {
+  const n = Number(b.dataset.option);
+  // A second click on the picked option clears it.
+  if (picks[b.dataset.ask] === n) delete picks[b.dataset.ask]; else picks[b.dataset.ask] = n;
+  showPicks();
+}));
+document.querySelectorAll('[data-best]').forEach(b => b.addEventListener('click', () => {
+  // Only unanswered cards: a hand pick is never overwritten.
+  R.needs_you.forEach((a, i) => { picks[i] ??= a.options.findIndex(o => o.recommended); });
+  showPicks();
+}));
+document.getElementById('copy')?.addEventListener('click', async ev => {
+  const text = document.getElementById('answer-text');
+  try { await navigator.clipboard.writeText(text.value); ev.target.textContent = 'Copied'; }
+  catch { text.select(); ev.target.textContent = 'Press Ctrl+C'; }
+  setTimeout(() => { ev.target.textContent = 'Copy answers'; }, 1800);
+});
+showPicks();
+const path = document.getElementById('path'), active = path?.querySelector('[data-state=active]');
+if (active) path.scrollLeft = active.offsetLeft - path.offsetLeft - 16;
+</script>

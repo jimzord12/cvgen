@@ -250,7 +250,7 @@ steps:
 
   - id: design.clear-review-input
     name: Clear the previews from builds/
-    sources: ["docs/workflow/05-design/README.md:57-58", ".claude/skills/new-cv/SKILL.md:62", "docs/preferences.md:67-69", ".claude/agents/design-reviewer.md:49-53"]
+    sources: ["docs/workflow/05-design/README.md:57-58", ".claude/skills/new-cv/SKILL.md:62", "docs/preferences.md:76-78", ".claude/agents/design-reviewer.md:49-53"]
     actor: actor.lead
     action: lead.clear-review-input
     inputs: [art.design-review-report]
@@ -463,7 +463,7 @@ artifacts:
 
   - id: art.framework-gap-entry
     name: A Framework Gap entry
-    sources: ["docs/framework-gaps.md:8-16", "docs/glossary.md:70"]
+    sources: ["docs/framework-gaps.md:8-16", "docs/glossary.md:79"]
     path: docs/framework-gaps.md
     format: Markdown entry (Needed, Bypassed, Built, Lesson), the client named by Alias only
     visibility: public
@@ -647,7 +647,7 @@ actions:
   - id: lead.clear-review-input
     kind: lead
     name: Clear the previews
-    sources: ["docs/workflow/05-design/README.md:57-58", ".claude/skills/new-cv/SKILL.md:62", "docs/preferences.md:67-69", ".claude/agents/design-reviewer.md:49-53"]
+    sources: ["docs/workflow/05-design/README.md:57-58", ".claude/skills/new-cv/SKILL.md:62", "docs/preferences.md:76-78", ".claude/agents/design-reviewer.md:49-53"]
     does: >-
       Deletes the builds/design-review-input-* folders by path, with the page
       PNGs and batch sheets both reviewers made inside them, since they hold a real

@@ -48,14 +48,23 @@ are bold and elegant, never generic.
 Agents work as experienced senior developers: they make their own technical
 choices and act without asking (owner's instruction, 2026-09-25).
 
+Decisions have a `Decision Grade` (owner, 2026-11-04), and a run may go
+unattended up to Major:
+
+| Grade | What | Who |
+|---|---|---|
+| Minor | Everything under "Agents decide and do" below that Major does not name | The agent decides, and reports as that bullet says |
+| Major | Architecture inside an approved proposal or item, a contract's details, splitting tasks | The agent decides and lists it in the final report |
+| Critical | Everything under "He decides" and "Still needs his explicit go" below, and any deletion of a file, folder or ref the agents' bullet does not name | He decides, even when a run is unattended |
+
 - **He decides:** what the product is, what gets built next, what an approved
   look is, approval of a real client's PDF, changes to the rules in
-  `constitution.md`, and review rounds beyond the cap (`review.md`).
+  `constitution.md` and `vision.md`, a `Frozen Reference`, and review rounds beyond the cap (`review.md`).
   Approval is his act: an agent never runs `scripts/cv.py approve` on a
   real client; `--test-only` exists for fictional fixtures and is refused
   under `private/`.
 - **Agents decide and do, without asking:** architecture inside an approved
-  item, naming (code, files and the terms in `glossary.md`, reported
+  item, a contract's details, splitting tasks, naming (code, files and the terms in `glossary.md`, reported
   afterwards), structure (his principle, 2026-09-30: keep the repository
   nice, simple and clean, and restructure it without fear whenever that
   makes it easier to navigate, understand and work in), wording, small
@@ -66,7 +75,7 @@ choices and act without asking (owner's instruction, 2026-09-25).
   abandoned branches locally and on GitHub, deleting tags other than
   `archive/*`, `git worktree` add, remove and prune, clearing `builds/` by
   path (never `git clean -x` or `-X`, which would also wipe the ignored
-  `private/` and `.local/`), editing a candidate workspace's `envelope.json`, `candidate.json`,
+  `private/` and `.local/`), removing what the same run made and dropped on its branch, editing a candidate workspace's `envelope.json`, `candidate.json`,
   `README.md`, the `typst/` sources, the portrait in `images/portrait/` and the client workflow's
   `intake/facts.md`, `intake/messages.md`, `intake/form-NN.gs`, `research/`,
   `reviews/` and `draft/` files for a CV he asked for (P-0018 item 8), and
@@ -92,7 +101,8 @@ choices and act without asking (owner's instruction, 2026-09-25).
 
 - **Finished work:** a short verbal summary in chat plus a document he can
   read in under three minutes. The summary says what changed, what it means,
-  and what he should do next.
+  and what he should do next. The final report of an unattended run is built
+  with the `Report Template`.
 - **Every substantive reply ends with a Recap:** three to six bullets, then
   one line headed "Your next move" with exactly one concrete action for him,
   or "nothing needed".
