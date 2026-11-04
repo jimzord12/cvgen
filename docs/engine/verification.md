@@ -84,6 +84,7 @@ Windows one also holds the PDFs that build wrote, one per example in
 | `particulars.typ` | The engineer record with `Vessel Particulars` on five ships: the suffix text on each row and every other word exactly where the engineer example has it; refuses a repeated vessel with a different value, an unknown unit, a zero value, an extra key and a row too long to fit |
 | `certificate-continuation.typ` | Fifty rows, header repeats on page two |
 | `fonts.typ` | A font family that is not bundled is refused: when a family exists nowhere (`case=missing`) and when it exists only among the machine's fonts (`case=system`, the first plain family `typst fonts` lists that is not bundled, chosen at run time: it fails only while `--ignore-system-fonts` is passed). With no such font on the machine, `fonts-system` and `workflow-system-font-fails-checks` are printed as `SKIPPED` and recorded in `report.json` with the reason; on CI (`CI` set) that fails the suite instead, and `.github/workflows/verify.yml` installs `fonts-dejavu-core` on its Linux runner so both cases run there (the Windows runner ships its own fonts) |
+| `deck-contracts.typ` | A record of contract periods: rows, contract counts, three certificate columns and a skills block, with no month total; a company continued onto a second page; skills on page 1, with section numbers following reading order; eight refusals, each on its message |
 | `skills.typ` | Titles, one to three columns, wrapping, two themes, SVG and plain bullets (through `flagship-components`); the compass bullet keeps Golden Blue's baked brass and teal (`#c8a579`, `#236a70`) in the gold section and shows neither pixel colour in the Silver Bridge section (the theme's `art-palette` is applied) |
 | `contract.typ` | 31 of the 32 ctx-first components rendered alone, one per page, headed by its name (ADR 0008 fixtures); `document-shell` wraps a whole document and is covered by the examples (item 2: the engineer PDF's title and author) |
 | `text-draft.typ` | The `Text Draft` (`scripts/text-draft.typ`, house design First Fitting): two pages, the Greek `Check Page` first with the house headline, client name, date and a sample fact; the content second with its running head (`Page 2 of 2`); Bona Nova as the only font; the copper `Fact Mark` under fact words on both pages and none under our wording. `case=long` (a long legal name, seven rows): no overlapping words below the tag. Refused: `case=full` (one row too many: "the Check Page runs past one page") and `case=english` (no house copy: names the missing keys) |
@@ -98,7 +99,8 @@ Windows one also holds the PDFs that build wrote, one per example in
    marine's `lib.typ` with a non-marine domain (no schema) and domains under
    a folder named `templates`; a record with 23 bad values is refused with
    ten lines and a count. The two marine schemas share identical `$defs`;
-   a record with vessel particulars is accepted and a `hp` power unit refused.
+   a record with vessel particulars is accepted and a `hp` power unit refused. A contract record with three
+   certificate headings and skills goes through the same schema check.
 
 10. **Framework boundary.** Every `import`/`include` in `packages/cv-framework/core/*.typ` names a bare sibling file; `packages/cv-framework/lib.typ` imports only `core/` files; no Framework `.typ` file names a `domains/` path outside a comment; every domain file that imports a core file does so through `cv-framework/core/` (ADR 0011, 0012). Outside comments, Framework code also uses no marine or Flagship word (vessel, ship, marine, flagship, synopsis, rank, ...) or Flagship layout key (`opening-margin`, `band-height`, ...), reads no layout key or artwork slot it does not own (an allowlist: `paper`, `width`, `height`, `shell`, `header`, `footer`; `background-first`, `background-continuation`) or theme colour it does not own (`ink`, `accent`, `metal`, `muted`, `paper`, and `hero` for the shell's optional band), names no Flagship colour (`hero`, `plate`, `on-hero`, `surface`, `rule`) as a string, so the core theme check cannot require one (TASK-59), and holds no colour literal: a hex string, a colour constructor (`rgb`, `cmyk`, `luma`, `oklab`, `oklch`, `hsl`, `hsv`, `linear-rgb`) or a named colour other than `white` and `black` (TASK-45). Comments are removed by a scan that also matches string literals, so `//` inside a string does not hide the rest of its line.
 
@@ -202,12 +204,7 @@ Windows one also holds the PDFs that build wrote, one per example in
    `FAIL text-draft.draft-sent`).
    Output in `workflow-model/reality*.log`, each run's `reality.log` and
    `report.json` in its folder. Skipped with case 16.
-18. **Deck contracts** (`deck-contracts`, `deck-contracts-<rule>`,
-   `tests/fixtures/deck-contracts.typ`). One page of contract rows, a synopsis
-   counting contracts, three certificate columns and a skills block, with no
-   month total anywhere; a company continued onto a second page, and such a record
-   through the real schema check; then each mixed record must fail on its message.
-19. **Report** (`report: <check>`, `tests/report.py`). The real
+18. **Report** (`report: <check>`, `tests/report.py`). The real
    `scripts/report.py` on the worked sample under `report/`: one page with
    its fonts and pictures embedded and no `src` or `href` pointing at the
    network, the fragment without its skeleton, refusal of an existing folder,

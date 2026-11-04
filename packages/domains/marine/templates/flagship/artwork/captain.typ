@@ -6,4 +6,5 @@
   background-first: (source: "/packages/domains/marine/assets/captain/background-first.svg"),
   background-continuation: (source: "/packages/domains/marine/assets/captain/background-continuation.svg"),
   profile-illustration: (source: "/packages/domains/marine/assets/vessel-profile.svg"),
+  bullet: (source: "/packages/domains/marine/assets/captain/compass-bullet.svg"),
 )

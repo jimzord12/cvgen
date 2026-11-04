@@ -71,7 +71,9 @@ rename the keys first). The template
 passes the whole profile in `ctx.layout`; each component reads its own
 slice, and a section reads the heading slice it places as well. An optional
 `skills` slice overrides `skills-layout` for the skills block. Change a
-value here and every example follows.
+value here and every example follows. `experience.period-column` is the row
+column for contract periods, `certificates.columns-three` the table for
+certificates without `review`, and `headings.skills` the skills heading.
 
 For one CV, prefer a small override in the entry point over a new file:
 
@@ -84,11 +86,6 @@ For one CV, prefer a small override in the entry point over a new file:
   (companies: (5,), synopsis: true, certificates: true, education: true),
 ))
 ```
-
-A page may also carry `skills: true`: Flagship then draws the record's
-`skill_groups` at the foot of that page, and a record with skills needs exactly
-one such page. `experience.period-column` is the row column for contract periods
-and `certificates.columns-three` the table for certificates without `review`.
 
 ## The page plan
 
@@ -112,6 +109,9 @@ Flagship's):
   companies.
 - `certificates` and `education` appear at most once, on or after that page.
   They are required when the candidate has that content.
+- A record with `skill_groups` has exactly one page with `skills: true`, on any
+  page; the block sits at its foot, and the section numbers then follow reading
+  order. Without skills they stay 01 to 03.
 
 ## Splitting a large company
 
@@ -150,6 +150,7 @@ missing key fails loudly).
 | `Page plan must cover each vessel row once` | A company or row range is missing or duplicated | Check indices against candidate order |
 | `Synopsis must follow the final Experience page` | Flag on the wrong page | Move `synopsis: true` |
 | `Missing page assignment: certificates` | The candidate has certificates but no page shows them | Add the flag to the last page |
+| `Skills need exactly one page with skills: true in the page plan` | The record has `skill_groups` and no page, or two, place them | Set `skills: true` on one page |
 | `Page plan requires exactly one synopsis` | No page, or more than one page, sets `synopsis: true` | Set it on exactly one page |
 | `Credentials must follow Experience` | Certificates or education are placed before the last Experience page | Move the flag to that page or a later one |
 | `Section assigned more than once: <key>` | Two pages set the same section flag | Keep the flag on one page |

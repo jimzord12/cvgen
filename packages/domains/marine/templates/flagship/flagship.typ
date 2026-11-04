@@ -14,6 +14,22 @@
 #import "components/education.typ": education-languages-section
 
 // Flagship's page plan: the core's grammar (every vessel row once, in order), then
+// The closing sections' numbers. Without skills they are the approved 02 and 03; with skills they
+// follow reading order, because skills may sit on an earlier page than the other two.
+#let section-numbers(pages, d) = {
+  if d.skills.len() == 0 {return (certificates: "02", education: "03")}
+  let present = (certificates: d.certificates.len() > 0, education: d.education.len() + d.languages.len() > 0, skills: true)
+  let order = ()
+  for page in pages {
+    for (key, wanted) in present {
+      if wanted and page.at(key, default: false) {order.push(key)}
+    }
+  }
+  let numbers = (certificates: "02", education: "03")
+  for (i, key) in order.enumerate() {numbers.insert(key, "0" + str(i + 2))}
+  numbers
+}
+
 // Flagship's own closing sections: exactly one synopsis, on the last Experience page,
 // and certificates and education at most once each, on or after it, whenever the
 // candidate has them.
@@ -63,6 +79,7 @@
   let d = normalize-candidate(to-flagship-input(candidate, role: role, copy: copy))
   validate-flagship-theme(theme)
   validate-candidate(d, show-vessel-durations)
+  let numbers = section-numbers(layout.pages, d)
   check-layout(layout)
   validate-plan(layout.pages, d, domain.experience)
   // Built once; every component reads its own slice and passes it on untouched (ADR 0008).
@@ -101,17 +118,22 @@
       if has-certificates {
         if shared {v(1fr); v(layout.headings.certificates.above)}
         if stacked {v(layout.stack-gap)}
-        certificates-section(ctx, d.certificates)
+        certificates-section(ctx, d.certificates, number: numbers.certificates)
       }
       if has-education {
         if layout.anchor-education and (shared or not spread) {v(1fr)}
         if shared {v(layout.headings.education.above)}
         if stacked {v(layout.stack-gap)}
-        education-languages-section(ctx, (education: d.education, languages: d.languages))
+        education-languages-section(ctx, (education: d.education, languages: d.languages), number: numbers.education)
       }
       if page-plan.at("skills", default: false) and d.skills.len() > 0 {
+        let spacing = layout.headings.skills
         v(1fr)
-        skills-section(ctx, d.skills, title: d.copy.skills, bullet: ctx.artwork.at("bullet", default: none))
+        v(spacing.above)
+        skills-section(ctx, d.skills, bullet: ctx.artwork.at("bullet", default: none),
+          heading: section-heading(ctx, d.copy.skills, number: numbers.skills, spacing: spacing),
+          columns: if d.skills.len() == 2 {layout.education.columns} else {auto},
+          gutter: if d.skills.len() == 2 {layout.education.gap} else {auto})
       }
       context assert.eq(counter(page).get().first(), i + 1,
         message: "Content overflow on planned page " + str(i + 1) + ": split company rows or allocate another page")

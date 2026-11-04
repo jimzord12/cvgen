@@ -39,8 +39,8 @@
   let ships = companies.map(c => c.groups.map(g => g.ships).flatten()).flatten()
   let dated = months.at(0, default: 0) == none
   if dated {
-    let rows = ships.map(s => s.id + " " + s.period)
-    assert.eq(rows.dedup().len(), rows.len(), message: "A contract is listed twice: same vessel and period")
+    let rows = ships.map(s => (s.id, s.rank, s.period).join(" "))
+    assert.eq(rows.dedup().len(), rows.len(), message: "A contract is listed twice: same vessel, rank and period")
   }
   (months: if dated {none} else {months.sum(default: 0)},
     contracts: if dated {ships.len()} else {none},
@@ -133,6 +133,8 @@
 // page alone.
 #let vessel-count(company) = company.groups.map(g => g.ships.len()).sum(default: 0)
 
+#let company-contracts(company) = company.groups.map(g => g.ships.len()).sum(default: 0)
+
 #let vessel-slice(company, rows) = {
   let cursor = 0
   let groups = ()
@@ -144,7 +146,7 @@
     }
     if ships.len() > 0 {groups.push((..group, ships: ships))}
   }
-  (..company, groups: groups, display-months: company-months(company))
+  (..company, groups: groups, display-months: company-months(company), display-contracts: company-contracts(company))
 }
 
 #let experience-model = (count: vessel-count, slice: vessel-slice, totals: experience-totals, row: "vessel")

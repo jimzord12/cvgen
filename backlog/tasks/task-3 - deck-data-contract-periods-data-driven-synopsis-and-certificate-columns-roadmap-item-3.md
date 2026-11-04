@@ -27,5 +27,12 @@ Card prepared at the owner's request of 2026-09-25 (roadmap cards for deck-data,
 ## Implementation Notes
 
 <!-- SECTION:NOTES:BEGIN -->
-Opened by the owner on 2026-11-04 (P-0019, Decision 4). Flagship now takes contract periods row by row, counts contracts in the synopsis, draws three certificate columns when no record has a review, and places a skills block through the page plan. Metrics and columns follow from the data, with no new setting. Periods cannot be hidden. Reviews: archive/work-records/deck-data/reviews/summary.md.
+## Result and evidence
+Opened by the owner on 2026-11-04 (P-0019, Decision 4). Flagship takes contract periods row by row, counts contracts on the rail and in the synopsis, draws three certificate columns when no record has a review, and places a skills block through the page plan. Metrics and columns follow from the data. Periods cannot be hidden. Reviews: archive/work-records/deck-data/reviews/summary.md.
 <!-- SECTION:NOTES:END -->
+
+## Final Summary
+
+<!-- SECTION:FINAL_SUMMARY:BEGIN -->
+Real deck careers now fit Flagship with no bypass; the three 2026-09-12 gaps are closed and the frozen reference is unchanged.
+<!-- SECTION:FINAL_SUMMARY:END -->

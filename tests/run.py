@@ -232,13 +232,20 @@ def main():
         for phrase in ['03/2021 - 11/2021', '02/2022 - 09/2022', '3 CONTRACTS', '2 VESSELS', '1 COMPANY', 'Provider', 'Professional skills', 'Passage planning']:
             assert phrase in text, phrase
         assert 'Expires' not in text and 'TOTAL EXPERIENCE' not in text and 'Combined service' not in text
+        assert '3 contracts' in text and text.index('03 Education') < text.index('04 Professional skills')
+    compile_case('deck-contracts-promotion', 'tests/fixtures/deck-contracts.typ', {'case': 'promotion'})
+    first = compile_case('deck-contracts-skills-first', 'tests/fixtures/deck-contracts.typ', {'case': 'skills-first'})
+    with fitz.open(first) as doc:
+        assert '02 Professional skills' in ' '.join(doc[0].get_text().split())
+        text = ' '.join(doc[1].get_text().split())
+        assert '03 Certificates & endorsements' in text and '04 Education & languages' in text
     for mode, message in (('one-vessel-undated', 'Every vessel needs a contract period, or none does: Harbour Line'),
                           ('period-and-months', 'A contract period replaces months; give one or the other: Harbour Line'),
                           ('mixed-record', 'A record uses contract periods or service months, not both'),
                           ('mixed-certificates', 'Every certificate needs a review date, or none does'),
                           ('skills-unplaced', 'Skills need exactly one page with skills: true in the page plan'),
                           ('durations-off', 'Contract periods cannot be hidden; show vessel durations: MV Orion Trader'),
-                          ('repeated-contract', 'A contract is listed twice: same vessel and period'),
+                          ('repeated-contract', 'A contract is listed twice: same vessel, rank and period'),
                           ('too-few-headings', 'certificate-columns needs 3 headings for these certificates')):
         compile_case('deck-contracts-' + mode, 'tests/fixtures/deck-contracts.typ', {'case': mode}, error=message)
     continued = compile_case('deck-contracts-continued', 'tests/fixtures/deck-contracts.typ', {'case': 'continued'})

@@ -29,6 +29,11 @@
 #let companies = if case == "continued" {
   let row(n) = contract("mv-" + str(n), "MV Long Haul " + str(n), "01/" + str(2000 + n) + " - 12/" + str(2000 + n))
   (company(range(1, 13).map(row)),)
+} else if case == "skills-first" {
+  (company(ships), (..company(((..ships.at(0), id: "mv-rigel", name: "MV Rigel"),)), id: "second-line", name: "Second Line"))
+} else if case == "promotion" {
+  // Promoted within one coarse period: two ranks, so two contracts.
+  (company(((..ships.at(0), period: "2021", rank: "Third Officer"), (..ships.at(0), period: "2021"))),)
 } else if case == "repeated-contract" {
   (company((ships.at(0), ships.at(0))),)
 } else {companies}
@@ -41,6 +46,9 @@
   // Two pages: the company runs on, and the skills sit on the second page.
   (..v11, pages: ((companies: ((company: 0, rows: (0, 6)),)),
     (companies: ((company: 0, rows: (6, 12)),), synopsis: true, certificates: true, education: true, skills: true)))
+} else if case == "skills-first" {
+  // The gap's real case: skills at the foot of page 1, so they read before certificates.
+  (..v11, pages: ((companies: (0,), skills: true), (companies: (1,), synopsis: true, certificates: true, education: true)))
 } else {
   (..plan, pages: plan.pages.map(p => (..p, skills: true)))
 }

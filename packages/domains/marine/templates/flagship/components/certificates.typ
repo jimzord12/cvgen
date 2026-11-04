@@ -20,8 +20,8 @@
   ]
 }
 
-#let certificates-section(ctx, records) = {
+#let certificates-section(ctx, records, number: "02") = {
   let copy = ctx.copy
-  section-heading(ctx, copy.certificates, number: "02", spacing: ctx.layout.headings.certificates, subtitle: copy.certificates-subtitle)
+  section-heading(ctx, copy.certificates, number: number, spacing: ctx.layout.headings.certificates, subtitle: copy.certificates-subtitle)
   certificate-table(ctx, records)
 }

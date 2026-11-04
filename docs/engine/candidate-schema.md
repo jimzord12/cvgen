@@ -29,6 +29,7 @@ Top-level shape. Required keys are `identity` and `companies`.
   "education_entries": [ { "qualification": "Diploma in Marine Engineering",
                            "institution": "Merchant Marine Academy", "note": "optional" } ],
   "language_entries":  [ { "name": "Greek", "level": "Native" } ],
+  "skill_groups":      [ ["Passage planning", "Cargo watch"], ["ECDIS"] ],
   "disclosure":        "footer text; defaults to the fictional-example line, so a real CV sets it"
 }
 ```
@@ -57,7 +58,16 @@ adapter produces it (see "Flagship wording" below).
 - **ships[].id** stays the same when the same vessel appears again under
   another rank or company. It counts once in the vessel total; months add.
 - **ships[].months** are whole service months. Required when durations are
-  shown.
+  shown, unless the vessel has a period.
+- **ships[].period** is one contract's dates as display text, such as
+  `03/2021 - 11/2021`, for a deck career recorded as contracts. It replaces
+  `months` and `service-months`: every vessel of the record has a period or none
+  does, and a mixed record fails the render. The same `id` on two rows is two
+  contracts on one vessel; the same vessel, rank and period twice is refused. Each
+  company then shows its contract count, and the synopsis counts contracts,
+  vessels and companies. Periods cannot be hidden: `show-vessel-durations: false`
+  refuses them. Never convert calendar periods into months (constitution
+  section 6).
 - **ships[].tonnage**, **ships[].engine**, **ships[].power** are optional
   vessel particulars: `"tonnage": { "value": 49990, "unit": "GT" }` (or
   `"DWT"`), `"engine": "MAN B&W"` (the maker), `"power": { "value": 9480,
@@ -68,15 +78,9 @@ adapter produces it (see "Flagship wording" below).
   renders as before. A name plus particulars too wide for the row fails the
   render: leave out one particular for that vessel. A vessel that appears
   twice (same `id`) must state the same values or omit them.
-- **companies[].groups[].ships[].period** is one contract's dates as display
-  text, such as `03/2021 - 11/2021`, for a deck career recorded as contracts.
-  It replaces `months` and `service-months`: every vessel of the record has a
-  period or none does, and a mixed record fails the render. The same `id` on
-  two rows is two contracts on one vessel. The company then shows no duration,
-  and the synopsis counts contracts, vessels and companies. Periods cannot be
-  hidden (`-HideVesselDurations` refuses them), and the same vessel and period
-  twice is refused. Never convert calendar periods into months (constitution
-  section 6).
+- **skill_groups** is one list of skills per column, text only. Flagship places
+  them on the page whose plan has `skills: true`
+  (`layout-and-pagination.md`).
 - **certificates** accept either a four-string array in the order title,
   scope, issued, review, or an object with those keys, where `review` may be
   left out. With no `review` on any record, Flagship draws three columns; give
@@ -99,7 +103,6 @@ combined              "Combined service"
 total                 "Total experience"
 vessels               "Vessels"
 contract, contracts   "Contract", "Contracts"
-skills                "Professional skills"
 companies             "Companies"
 vessel                "Vessel"     (the synopsis uses it when the total is one)
 company               "Company"    (the same, for companies)
@@ -119,6 +122,7 @@ certificate-columns   ["Certificate", "Scope / record", "Issued", "Expires / rev
 education-languages   "Education & languages"
 education             "Education"
 languages             "Languages"
+skills                "Professional skills"
 page-caption          "EXPERIENCE / CREDENTIALS"
 brand                 "FLAGSHIP"
 ```
@@ -161,7 +165,7 @@ after that, during compilation, for what a schema cannot express.
 | `Every certificate needs a review date, or none does` | Give `review` on all certificates or on none |
 | `Skills need exactly one page with skills: true in the page plan` | Add `skills: true` to one page of the layout's plan |
 | `Contract periods cannot be hidden; show vessel durations: <ship>` | Leave durations on for a record of periods |
-| `A contract is listed twice: same vessel and period` | Remove the duplicate row |
+| `A contract is listed twice: same vessel, rank and period` | Remove the duplicate, or give each contract its own dates |
 | `certificate-columns needs <n> headings for these certificates` | Give a heading for each column: three, or four with `review` |
 | `Known vessel months exceed company total` | With partial vessel months, the company total must be at least their sum |
 | `Missing months: provide service-months for company <name>` | Durations hidden but neither every vessel's `months` nor a company `service-months` is given |

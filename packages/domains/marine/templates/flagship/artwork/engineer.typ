@@ -7,4 +7,5 @@
   background-first: (source: "/packages/domains/marine/assets/workshop-background-1.svg"),
   background-continuation: (source: "/packages/domains/marine/assets/workshop-background-2.svg"),
   profile-illustration: (source: "/packages/domains/marine/assets/vessel-profile.svg"),
+  bullet: (source: "/packages/domains/marine/assets/screw-bullet.svg"),
 )

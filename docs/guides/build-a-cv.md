@@ -67,7 +67,8 @@ accept) or to `null`. A path relative to the `Envelope`,
 the file into the revision; the direct compiler cannot find it.
 
 If you do not know months per vessel, set `show-vessel-durations: false` and
-give each company a `service-months` total instead.
+give each company a `service-months` total instead. A career recorded as
+contracts gives a `period` on every row, with durations left on.
 
 `scripts/cv.py render` checks the record against the schema its entry
 point's imports name (the Flagship input for marine, needs `jsonschema`)
@@ -197,10 +198,10 @@ Used by `deliver.fix`. Every failure names the fix. The common ones:
 Used by `design.custom-composition`.
 
 Some real CVs cannot go through `flagship`: an approved design the template
-cannot draw, recorded in `../framework-gaps.md`. Contract periods, a
-three-column certificate table and a skills block all go through `flagship`
-now (`../engine/candidate-schema.md`). For anything else, compose the page by
-hand from the same public exports:
+cannot draw, or anything recorded open in `../framework-gaps.md`. Contract
+periods, a three-column certificate table and a skills block do go through it
+(`../engine/candidate-schema.md`). Otherwise, compose the page by hand from the
+same public exports:
 
 ```typst
 #import "/packages/domains/marine/lib.typ": (make-ctx, normalize-candidate, to-flagship-input, marine,
