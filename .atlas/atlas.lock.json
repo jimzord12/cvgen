@@ -1,7 +1,7 @@
 {
  "pages": {
   "change-review": {
-   "commit": "b87a4e8",
+   "commit": "3e2c3b6",
    "sources": {
     ".claude/skills/verify-cv/SKILL.md": "0a507b4d2616e8623eeb53af7bb860aed3dfdcf5",
     ".github/workflows/verify.yml": "1863e738e0ff361cd4add4977517cbb333043871",
@@ -10,14 +10,14 @@
     "docs/development.md": "916f6f8ca003fedcedfcad9d9077628397ad6119",
     "docs/framework-gaps.md": "8a6372a473075cb96aa7154dedc9635c5decfc19",
     "docs/git-workflow.md": "5ff2c22bf4f01c3e3ec082cb7eb9c966b604635d",
-    "docs/preferences.md": "f3d9fac6109b10e5c2eed095adff61b7b7c6127d",
+    "docs/preferences.md": "5675d5334be68df33ce3907bffb84398ca65d83c",
     "docs/proposals/README.md": "1510574614d3a04fca59d903a6502dda90f96018",
     "docs/review.md": "c9fdc6c5546863bf8a6db767c1c65e5cf57ff39a"
    },
    "verifiedAt": "2026-11-04"
   },
   "client-journey": {
-   "commit": "b87a4e8",
+   "commit": "3e2c3b6",
    "sources": {
     ".claude/agents/design-reviewer.md": "1b7e4e0703514230ef04a3d6d1b020d9e6fc2145",
     ".claude/skills/idea-run/SKILL.md": "e1208b8d675ef749b06c25a95f2e1d59f4713984",
@@ -30,7 +30,7 @@
     "docs/guides/build-a-cv.md": "e6cf724f7ccb06a05f91dbdbb44cfdcd1901f526",
     "docs/guides/client-workflow.md": "da905ddba34cedb4b1367467fbf980f9bb261c17",
     "docs/pdf-workflow.md": "bb9e20abbe0be5706a25c9a27cc085acecf98205",
-    "docs/preferences.md": "f3d9fac6109b10e5c2eed095adff61b7b7c6127d",
+    "docs/preferences.md": "5675d5334be68df33ce3907bffb84398ca65d83c",
     "docs/proposals/workflow-gaps.md": "ed45ad272f79d933c9958e9d86bed79f9458c93a",
     "docs/proposals/workflow-model.md": "a4157a6d03f5ef9a6765fb289a3b3d78fa5547cf",
     "docs/research/README.md": "07e6579724b4758236ed37ab48b95e5e7cded544",
@@ -74,7 +74,7 @@
    "verifiedAt": "2026-11-04"
   },
   "roster": {
-   "commit": "b87a4e8",
+   "commit": "3e2c3b6",
    "sources": {
     ".claude/agents/ceo-reviewer.md": "058811a51ac27c65a93dc8915db4afd58676d33d",
     ".claude/agents/ceo.md": "e6291c8d2282c325db11302b1be9ee8364edd3aa",
@@ -107,7 +107,7 @@
     "docs/guides/build-a-cv.md": "e6cf724f7ccb06a05f91dbdbb44cfdcd1901f526",
     "docs/guides/client-workflow.md": "da905ddba34cedb4b1367467fbf980f9bb261c17",
     "docs/pdf-workflow.md": "bb9e20abbe0be5706a25c9a27cc085acecf98205",
-    "docs/preferences.md": "f3d9fac6109b10e5c2eed095adff61b7b7c6127d",
+    "docs/preferences.md": "5675d5334be68df33ce3907bffb84398ca65d83c",
     "docs/proposals/codex-visual-tools.md": "3ab6ae0bbd4326611a6cde986ac6ee8cd2db94fd",
     "docs/review.md": "c9fdc6c5546863bf8a6db767c1c65e5cf57ff39a",
     "docs/tech-stack.md": "74c23aa5d8a29c6f5c40d99705999144ccfee7b8",

@@ -4483,14 +4483,14 @@ window.ATLAS = {
   }
  ],
  "build": {
-  "builtAt": "2026-11-04 17:24 UTC",
-  "commit": "b87a4e8",
+  "builtAt": "2026-11-04 17:29 UTC",
+  "commit": "3e2c3b6",
   "kit": "1.1",
   "stale": {},
   "verified": {
    "client-journey": {
     "at": "2026-11-04",
-    "commit": "b87a4e8"
+    "commit": "3e2c3b6"
    },
    "design-run": {
     "at": "2026-11-04",
@@ -4498,7 +4498,7 @@ window.ATLAS = {
    },
    "change-review": {
     "at": "2026-11-04",
-    "commit": "b87a4e8"
+    "commit": "3e2c3b6"
    },
    "system-map": {
     "at": "2026-11-04",
@@ -4506,7 +4506,7 @@ window.ATLAS = {
    },
    "roster": {
     "at": "2026-11-04",
-    "commit": "b87a4e8"
+    "commit": "3e2c3b6"
    }
   }
  }

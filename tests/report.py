@@ -93,11 +93,13 @@ def run_report(out):
         path.write_text(json.dumps({**data, 'evidence': [{'kind': 'page', 'caption': 'A', 'src': source}]}), encoding='utf-8')
         refused = run(path, '--fragment', '--output', folder / 'broken')
         assert refused.stderr.strip() == "report: a client's pages stay out of a hosted page: leave out --fragment", refused.stderr
+        assert not (folder / 'broken').exists(), 'a refused report left a folder'
         checks.append('refused: a client page in a fragment, ' + name)
     path = folder / 'private' / 'report.json'
     path.parent.mkdir()
     path.write_text(json.dumps(data), encoding='utf-8')
     refused = run(path, '--fragment', '--output', folder / 'broken')
     assert refused.stderr.strip() == "report: a client's pages stay out of a hosted page: leave out --fragment", refused.stderr
+    assert not (folder / 'broken').exists(), 'a refused report left a folder'
     checks.append('refused: a client report in a fragment')
     return checks

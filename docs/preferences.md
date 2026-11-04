@@ -55,7 +55,7 @@ unattended up to Major:
 |---|---|---|
 | Minor | Everything under "Agents decide and do" below that Major does not name | The agent decides, and reports as that bullet says |
 | Major | Architecture inside an approved proposal or item, a contract's details, splitting tasks | The agent decides and lists it in the final report |
-| Critical | Everything under "He decides" and "Still needs his explicit go" below, and any deletion the agents' bullet does not name | He decides, even when a run is unattended |
+| Critical | Everything under "He decides" and "Still needs his explicit go" below, and any deletion of a file, folder or ref the agents' bullet does not name | He decides, even when a run is unattended |
 
 - **He decides:** what the product is, what gets built next, what an approved
   look is, approval of a real client's PDF, changes to the rules in
@@ -75,7 +75,7 @@ unattended up to Major:
   abandoned branches locally and on GitHub, deleting tags other than
   `archive/*`, `git worktree` add, remove and prune, clearing `builds/` by
   path (never `git clean -x` or `-X`, which would also wipe the ignored
-  `private/` and `.local/`), editing a candidate workspace's `envelope.json`, `candidate.json`,
+  `private/` and `.local/`), removing what the same run made and dropped on its branch, editing a candidate workspace's `envelope.json`, `candidate.json`,
   `README.md`, the `typst/` sources, the portrait in `images/portrait/` and the client workflow's
   `intake/facts.md`, `intake/messages.md`, `intake/form-NN.gs`, `research/`,
   `reviews/` and `draft/` files for a CV he asked for (P-0018 item 8), and

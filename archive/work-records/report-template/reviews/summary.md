@@ -27,3 +27,6 @@ Response: all fixed. Most failures now end in a refusal, and a failed report lea
 ## Code review, round 3
 FINDINGS: three material (NaN in the data giving a blank page; a client report without pictures passing `--fragment`; a meter with no `of` reading as complete), one minor, one note.
 Response: all fixed, including the note: `allow_nan=False`, a cap limit, the data file and evidence folder in the guard, every meter a whole count, a passed round cannot carry blocking findings, and a done report cannot hold open cards.
+
+## Final rounds
+Code, round 4: PASS. Context, rounds 3 and 4: FINDINGS (anchors moved by the grade table, a deletion scope that caught a magazine-editor dropping its own style, smaller wording); fixed. The owner approved Critical as "deletions"; the row reads any deletion of a file, folder or ref the agents' bullet does not name, and the bullet gains a run's own dropped work. That reading goes to him in the final report.
