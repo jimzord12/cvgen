@@ -1,7 +1,7 @@
 ---
 id: P-0019
 kind: proposal
-status: pending
+status: approved
 revision: 1
 created: 2026-11-04
 ---
@@ -371,3 +371,9 @@ Approve, defer or reject revision 1, and answer:
    and revised onto these contracts.
 
 ## Decisions
+
+- 2026-11-04, owner, in session, through the report's answer box: revision 1
+  approved. Decision 1: the `Scan Test`, with `Flagship Parity` and the
+  `Batch Test` judging craft for a `scan-first` bar. Decision 2: the scan-first
+  exception in the vision. Decision 3: one `Frozen Reference` per
+  `Template Variation`. Decision 4: TASK-3 first, then Flagship on marine.
