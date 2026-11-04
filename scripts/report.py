@@ -37,6 +37,7 @@ SECTIONS = (('meters', ('label', 'value'), {'tone': ('ok', 'wait', 'stop', 'thre
             ('reviews', ('name', 'cap', 'rounds'), {}),
             ('decisions', ('grade', 'title', 'why'), {'grade': ('Minor', 'Major')}),
             ('changes', ('area', 'lines'), {}))
+NOT_TEXT = ('value', 'options', 'cap', 'rounds', 'lines')
 EVIDENCE = {'page': ('src',), 'compare': ('before', 'after', 'before_label', 'after_label')}
 MEDIA = {'.png': 'image/png', '.jpg': 'image/jpeg', '.jpeg': 'image/jpeg', '.svg': 'image/svg+xml', '.webp': 'image/webp'}
 
@@ -71,31 +72,47 @@ def is_count(value):
     return isinstance(value, int) and not isinstance(value, bool) and value >= 0
 
 
+def is_text(value):
+    return isinstance(value, str) and bool(value.strip())
+
+
+def is_private(path):
+    return 'private' in [part.casefold() for part in (ROOT / str(path)).resolve().parts]
+
+
 def picture_paths(data):
     for item in data.get('evidence', []):
         for key in ('src', 'before', 'after'):
             if key in item:
-                yield item[key]['pdf'] if isinstance(item[key], dict) else item[key]
+                yield item[key].get('pdf', '') if isinstance(item[key], dict) else item[key]
 
 
 def refusal(data, fragment=False):
     """What is wrong with the report's data, or None. A section that passes here renders; the page has no error state."""
-    missing = [field for field in REQUIRED if not data.get(field)]
+    if not isinstance(data, dict):
+        return 'the JSON file must hold one object'
+    missing = [field for field in REQUIRED if not is_text(data.get(field))]
     if missing:
         return f'the report needs {", ".join(missing)}: add them to the JSON file'
     if data['verdict'] not in VERDICTS:
         return f'verdict {data["verdict"]!r} is not one of {", ".join(VERDICTS)}'
+    for field in ('next_move', 'evidence_path'):
+        if field in data and not is_text(data[field]):
+            return f'{field} must be text'
     for field, keys, allowed in SECTIONS:
         items = data.get(field, [])
         if not isinstance(items, list) or not all(isinstance(item, dict) for item in items):
             return f'{field} must be a list of objects'
         for item in items:
             for key in keys:
-                if item.get(key) in (None, ''):
+                if item.get(key) in (None, '') or (key not in NOT_TEXT and not is_text(item[key])):
                     return f'{field}: an item needs {key}'
             for key, values in allowed.items():
                 if key in item and item[key] not in values:
                     return f'{field}: {key} {item[key]!r} is not one of {", ".join(values)}'
+    for meter in data.get('meters', []):
+        if 'of' in meter and not (is_count(meter['of']) and meter['of'] and is_count(meter['value'])):
+            return f'meters: {meter["label"]} needs whole numbers for value and of'
     for item in data.get('evidence', []):
         for key in EVIDENCE[item['kind']]:
             if not item.get(key):
@@ -108,18 +125,24 @@ def refusal(data, fragment=False):
                 return f'reviews: {gate["name"]} has a round whose verdict is not one of {", ".join(ROUNDS)}'
             if not all(is_count(review.get(key, 0)) for key in ('hard', 'soft')):
                 return f'reviews: {gate["name"]} has a round whose hard or soft is not a whole number'
+            if review['verdict'] == 'findings' and not review.get('hard', 0) + review.get('soft', 0):
+                return f'reviews: {gate["name"]} has a findings round with no findings'
     for change in data.get('changes', []):
         if not is_count(change['lines']):
             return f'changes: {change["area"]} needs a whole number of lines'
     for card in data.get('needs_you', []):
+        if 'example' in card and not is_text(card['example']):
+            return f'{card["title"]!r} has an empty example: leave it out'
         options = card['options']
         if not isinstance(options, list) or not 2 <= len(options) <= 4:
             return f'{card["title"]!r} needs two to four options'
-        if not all(isinstance(option, dict) and option.get('label') for option in options):
+        if not all(isinstance(option, dict) and is_text(option.get('label')) for option in options):
             return f'{card["title"]!r} has an option without a label'
+        if not all(isinstance(option.get('recommended', False), bool) for option in options):
+            return f'{card["title"]!r} has a recommended that is not true or false'
         if sum(option.get('recommended') is True for option in options) != 1:
             return f'{card["title"]!r} needs exactly one recommended option'
-    if fragment and any(Path(path).parts[:1] == ('private',) for path in picture_paths(data)):
+    if fragment and any(is_private(path) for path in picture_paths(data)):
         return 'a client\'s pages stay out of a hosted page: leave out --fragment'
     return None
 
@@ -145,18 +168,19 @@ def main():
     parser.add_argument('--fragment', action='store_true')
     parser.add_argument('--output', type=Path)
     args = parser.parse_args()
-    data = json.loads(args.data.read_text(encoding='utf-8'))
-    problem = refusal(data, args.fragment)
-    if problem:
-        sys.exit(f'report: {problem}')
-    try:
-        page = build(data, args.fragment)
-    except (OSError, ValueError) as error:
-        sys.exit(f'report: {error}')
     folder = args.output or ROOT / 'builds' / f'report-{datetime.now():%Y%m%d-%H%M%S-%f}'
-    folder.mkdir(parents=True, exist_ok=False)
     out = folder / 'report.html'
-    out.write_text(page, encoding='utf-8', newline='\n')
+    try:
+        data = json.loads(args.data.read_text(encoding='utf-8'))
+        problem = refusal(data, args.fragment)
+        if problem:
+            sys.exit(f'report: {problem}')
+        page = build(data, args.fragment).encode('utf-8')
+        folder.mkdir(parents=True, exist_ok=False)
+        out.write_bytes(page)
+    # pymupdf reports a missing file as a RuntimeError; a wrong-typed picture is a TypeError.
+    except (OSError, RuntimeError, TypeError, ValueError) as error:
+        sys.exit(f'report: {error}')
     print(out)
 
 

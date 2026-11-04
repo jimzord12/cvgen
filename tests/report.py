@@ -67,6 +67,12 @@ def run_report(out):
             ('text as a finding count', {**data, 'reviews': [{**gate, 'rounds': [{'verdict': 'pass', 'hard': '<img>'}]}]}, 'reviews: A has a round whose hard or soft is not a whole number'),
             ('evidence without a picture', {**data, 'evidence': [{'kind': 'page', 'caption': 'A'}]}, 'evidence: a page needs src'),
             ('a page that does not exist', {**data, 'evidence': [{'kind': 'page', 'caption': 'A', 'src': {'pdf': 'examples/marine/flagship/captain.pdf', 'page': 0}}]}, 'examples/marine/flagship/captain.pdf has no page 0'),
+            ('a blank headline', {**data, 'headline': '   '}, 'the report needs headline: add them to the JSON file'),
+            ('a label that is not text', {**data, 'stages': [{'label': [], 'state': 'done'}]}, 'stages: an item needs label'),
+            ('a meter that is not a count', {**data, 'meters': [{'label': 'A', 'value': '7/9', 'of': 9}]}, 'meters: A needs whole numbers for value and of'),
+            ('a recommended that is not true', {**data, 'needs_you': [{**card, 'options': [{'label': 'B', 'recommended': 'false'}, choices[0]]}]}, "'A' has a recommended that is not true or false"),
+            ('a findings round with no findings', {**data, 'reviews': [{**gate, 'rounds': [{'verdict': 'findings'}]}]}, 'reviews: A has a findings round with no findings'),
+            ('lines that are not a number', {**data, 'changes': [{'area': 'A', 'lines': 'many'}]}, 'changes: A needs a whole number of lines'),
             ('a PDF given as an image', {**data, 'evidence': [{'kind': 'page', 'caption': 'A', 'src': 'examples/marine/flagship/captain.pdf'}]}, 'examples/marine/flagship/captain.pdf is not an image: a PDF page is {"pdf": path, "page": n}')):
         path = folder / 'broken.json'
         path.write_text(json.dumps(broken), encoding='utf-8')
@@ -76,9 +82,10 @@ def run_report(out):
         assert not target.exists(), 'a refused report left a folder'
         checks.append('refused: ' + name)
 
-    path = folder / 'broken.json'
-    path.write_text(json.dumps({**data, 'evidence': [{'kind': 'page', 'caption': 'A', 'src': 'private/a/portrait.png'}]}), encoding='utf-8')
-    refused = run(path, '--fragment', '--output', folder / 'broken')
-    assert refused.stderr.strip() == "report: a client's pages stay out of a hosted page: leave out --fragment", refused.stderr
-    checks.append('refused: a client page in a fragment')
+    for name, source in (('plain', 'private/a/portrait.png'), ('absolute', str(ROOT / 'private/a/portrait.png')), ('climbing', 'tests/../private/a/portrait.png'), ('capitals', 'PRIVATE/a/portrait.png')):
+        path = folder / 'broken.json'
+        path.write_text(json.dumps({**data, 'evidence': [{'kind': 'page', 'caption': 'A', 'src': source}]}), encoding='utf-8')
+        refused = run(path, '--fragment', '--output', folder / 'broken')
+        assert refused.stderr.strip() == "report: a client's pages stay out of a hosted page: leave out --fragment", refused.stderr
+        checks.append('refused: a client page in a fragment, ' + name)
     return checks
