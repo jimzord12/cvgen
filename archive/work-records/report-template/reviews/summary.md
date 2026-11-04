@@ -22,4 +22,8 @@ Response: `refusal()` checks types, per-`kind` keys and non-empty values; the st
 
 ## Code review, round 2
 FINDINGS: four material (the private-path guard passed by absolute and climbing paths; a meter closing its ring on a non-count; `recommended` accepted as text; text fields not type-checked), four minors, one note. Picks, clearing, Pick the rest and Copy confirmed in Chrome 156.
-Response: all fixed. Failures now end in a refusal, not a traceback, and a failed report leaves no folder. Each rule has a test on its exact message. This file holds summaries, not the reports verbatim as `docs/review.md` asks; the same holds for P-0019's and the research note's reviews. The owner is told in the final report.
+Response: all fixed. Most failures now end in a refusal, and a failed report leaves no folder. Each rule has a test on its exact message. This file holds summaries, not the reports verbatim as `docs/review.md` asks; the same holds for P-0019's and the research note's reviews. The owner is told in the final report.
+
+## Code review, round 3
+FINDINGS: three material (NaN in the data giving a blank page; a client report without pictures passing `--fragment`; a meter with no `of` reading as complete), one minor, one note.
+Response: all fixed, including the note: `allow_nan=False`, a cap limit, the data file and evidence folder in the guard, every meter a whole count, a passed round cannot carry blocking findings, and a done report cannot hold open cards.

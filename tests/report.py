@@ -61,15 +61,21 @@ def run_report(out):
             ('two recommendations', {**data, 'needs_you': [{**card, 'options': [choices[0], choices[0]]}]}, "'A' needs exactly one recommended option"),
             ('a Critical decision', {**data, 'decisions': [{'grade': 'Critical', 'title': 'A', 'why': 'B'}]}, "decisions: grade 'Critical' is not one of Minor, Major"),
             ('a review without rounds', {**data, 'reviews': [gate]}, 'reviews: an item needs rounds'),
-            ('a cap that is not a number', {**data, 'reviews': [{**gate, 'cap': 'five', 'rounds': []}]}, 'reviews: A needs a whole number cap and a list of rounds'),
-            ('rounds that are not a list', {**data, 'reviews': [{**gate, 'rounds': {}}]}, 'reviews: A needs a whole number cap and a list of rounds'),
+            ('a cap that is not a number', {**data, 'reviews': [{**gate, 'cap': 'five', 'rounds': []}]}, 'reviews: A needs a whole number cap up to 10 and a list of rounds'),
+            ('rounds that are not a list', {**data, 'reviews': [{**gate, 'rounds': {}}]}, 'reviews: A needs a whole number cap up to 10 and a list of rounds'),
             ('an unknown round verdict', {**data, 'reviews': [{**gate, 'rounds': [{'verdict': 'x'}]}]}, 'reviews: A has a round whose verdict is not one of findings, pass, running'),
             ('text as a finding count', {**data, 'reviews': [{**gate, 'rounds': [{'verdict': 'pass', 'hard': '<img>'}]}]}, 'reviews: A has a round whose hard or soft is not a whole number'),
             ('evidence without a picture', {**data, 'evidence': [{'kind': 'page', 'caption': 'A'}]}, 'evidence: a page needs src'),
             ('a page that does not exist', {**data, 'evidence': [{'kind': 'page', 'caption': 'A', 'src': {'pdf': 'examples/marine/flagship/captain.pdf', 'page': 0}}]}, 'examples/marine/flagship/captain.pdf has no page 0'),
             ('a blank headline', {**data, 'headline': '   '}, 'the report needs headline: add them to the JSON file'),
             ('a label that is not text', {**data, 'stages': [{'label': [], 'state': 'done'}]}, 'stages: an item needs label'),
-            ('a meter that is not a count', {**data, 'meters': [{'label': 'A', 'value': '7/9', 'of': 9}]}, 'meters: A needs whole numbers for value and of'),
+            ('a meter that is not a count', {**data, 'meters': [{'label': 'A', 'value': '7/9', 'of': 9}]}, 'meters: A needs whole numbers, with value no higher than of'),
+            ('a partial count without of', {**data, 'meters': [{'label': 'A', 'value': '7/9'}]}, 'meters: A needs whole numbers, with value no higher than of'),
+            ('a value above its total', {**data, 'meters': [{'label': 'A', 'value': 12, 'of': 9}]}, 'meters: A needs whole numbers, with value no higher than of'),
+            ('a passed round with blocking findings', {**data, 'reviews': [{**gate, 'rounds': [{'verdict': 'pass', 'hard': 3}]}]}, 'reviews: A has a passed round with blocking findings'),
+            ('a cap past the limit', {**data, 'reviews': [{**gate, 'cap': 5000000000, 'rounds': []}]}, 'reviews: A needs a whole number cap up to 10 and a list of rounds'),
+            ('done with cards open', {**data, 'verdict': 'done'}, 'a done report has nothing that needs the owner: use needs-you'),
+            ('not-a-number in the data', {**data, 'extra': float('nan')}, 'Out of range float values are not JSON compliant: nan'),
             ('a recommended that is not true', {**data, 'needs_you': [{**card, 'options': [{'label': 'B', 'recommended': 'false'}, choices[0]]}]}, "'A' has a recommended that is not true or false"),
             ('a findings round with no findings', {**data, 'reviews': [{**gate, 'rounds': [{'verdict': 'findings'}]}]}, 'reviews: A has a findings round with no findings'),
             ('lines that are not a number', {**data, 'changes': [{'area': 'A', 'lines': 'many'}]}, 'changes: A needs a whole number of lines'),
@@ -88,4 +94,10 @@ def run_report(out):
         refused = run(path, '--fragment', '--output', folder / 'broken')
         assert refused.stderr.strip() == "report: a client's pages stay out of a hosted page: leave out --fragment", refused.stderr
         checks.append('refused: a client page in a fragment, ' + name)
+    path = folder / 'private' / 'report.json'
+    path.parent.mkdir()
+    path.write_text(json.dumps(data), encoding='utf-8')
+    refused = run(path, '--fragment', '--output', folder / 'broken')
+    assert refused.stderr.strip() == "report: a client's pages stay out of a hosted page: leave out --fragment", refused.stderr
+    checks.append('refused: a client report in a fragment')
     return checks

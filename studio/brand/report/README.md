@@ -15,7 +15,9 @@ page hosted on claude.ai, which is private until the owner shares it.
 
 **Anything about a real client** stays out of a hosted page: the JSON file goes in
 that client's `reviews/` `Drawer`, the report stays local, and the `builds/` copy
-is cleared after use.
+is cleared after use. `--fragment` refuses a report whose data file, evidence
+folder or pictures sit under `private/`; a client's words in a JSON file kept
+elsewhere stay the author's duty.
 
 ## The fields
 

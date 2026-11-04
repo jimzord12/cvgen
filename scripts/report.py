@@ -29,6 +29,7 @@ FACES = (('Bona Nova', '700', 'BonaNova-Bold.ttf'),
          ('Sofia Sans Extra Condensed', '100 900', 'SofiaSansExtraCondensed[wght].ttf'),
          ('Source Sans 3', '200 900', 'SourceSans3[wght].ttf'))
 ROUNDS = ('findings', 'pass', 'running')
+MAX_ROUNDS = 10
 # Each section: the keys every item needs, and the values a key may take.
 SECTIONS = (('meters', ('label', 'value'), {'tone': ('ok', 'wait', 'stop', 'thread')}),
             ('stages', ('label', 'state'), {'state': ('done', 'active', 'waiting', 'blocked')}),
@@ -87,7 +88,7 @@ def picture_paths(data):
                 yield item[key].get('pdf', '') if isinstance(item[key], dict) else item[key]
 
 
-def refusal(data, fragment=False):
+def refusal(data, fragment=False, source=''):
     """What is wrong with the report's data, or None. A section that passes here renders; the page has no error state."""
     if not isinstance(data, dict):
         return 'the JSON file must hold one object'
@@ -96,6 +97,8 @@ def refusal(data, fragment=False):
         return f'the report needs {", ".join(missing)}: add them to the JSON file'
     if data['verdict'] not in VERDICTS:
         return f'verdict {data["verdict"]!r} is not one of {", ".join(VERDICTS)}'
+    if data['verdict'] == 'done' and data.get('needs_you'):
+        return 'a done report has nothing that needs the owner: use needs-you'
     for field in ('next_move', 'evidence_path'):
         if field in data and not is_text(data[field]):
             return f'{field} must be text'
@@ -111,22 +114,25 @@ def refusal(data, fragment=False):
                 if key in item and item[key] not in values:
                     return f'{field}: {key} {item[key]!r} is not one of {", ".join(values)}'
     for meter in data.get('meters', []):
-        if 'of' in meter and not (is_count(meter['of']) and meter['of'] and is_count(meter['value'])):
-            return f'meters: {meter["label"]} needs whole numbers for value and of'
+        whole = is_count(meter['value']) and ('of' not in meter or (is_count(meter['of']) and meter['value'] <= meter['of'] and meter['of']))
+        if not whole:
+            return f'meters: {meter["label"]} needs whole numbers, with value no higher than of'
     for item in data.get('evidence', []):
         for key in EVIDENCE[item['kind']]:
             if not item.get(key):
                 return f'evidence: a {item["kind"]} needs {key}'
     for gate in data.get('reviews', []):
-        if not is_count(gate['cap']) or not isinstance(gate['rounds'], list):
-            return f'reviews: {gate["name"]} needs a whole number cap and a list of rounds'
+        if not is_count(gate['cap']) or gate['cap'] > MAX_ROUNDS or not isinstance(gate['rounds'], list):
+            return f'reviews: {gate["name"]} needs a whole number cap up to {MAX_ROUNDS} and a list of rounds'
         for review in gate['rounds']:
-            if review.get('verdict') not in ROUNDS:
+            if not isinstance(review, dict) or review.get('verdict') not in ROUNDS:
                 return f'reviews: {gate["name"]} has a round whose verdict is not one of {", ".join(ROUNDS)}'
             if not all(is_count(review.get(key, 0)) for key in ('hard', 'soft')):
                 return f'reviews: {gate["name"]} has a round whose hard or soft is not a whole number'
             if review['verdict'] == 'findings' and not review.get('hard', 0) + review.get('soft', 0):
                 return f'reviews: {gate["name"]} has a findings round with no findings'
+            if review['verdict'] == 'pass' and review.get('hard', 0):
+                return f'reviews: {gate["name"]} has a passed round with blocking findings'
     for change in data.get('changes', []):
         if not is_count(change['lines']):
             return f'changes: {change["area"]} needs a whole number of lines'
@@ -142,7 +148,7 @@ def refusal(data, fragment=False):
             return f'{card["title"]!r} has a recommended that is not true or false'
         if sum(option.get('recommended') is True for option in options) != 1:
             return f'{card["title"]!r} needs exactly one recommended option'
-    if fragment and any(is_private(path) for path in picture_paths(data)):
+    if fragment and any(is_private(path) for path in [source, data.get('evidence_path', ''), *picture_paths(data)]):
         return 'a client\'s pages stay out of a hosted page: leave out --fragment'
     return None
 
@@ -153,7 +159,7 @@ def build(data, fragment, root=ROOT):
             if key in item:
                 item[key] = picture(item[key], root)
     # Inside a <script> block a raw "<" could close it; the JSON escape reads back as the same text.
-    embedded = json.dumps(data, ensure_ascii=False).replace('<', '\\u003c')
+    embedded = json.dumps(data, ensure_ascii=False, allow_nan=False).replace('<', '\\u003c')
     logo = lambda name: data_uri('image/svg+xml', (LOGOS / name).read_bytes())  # noqa: E731
     values = {'FONTS': font_faces(), 'TITLE': escape(data['title']), 'MARK_REVERSED': logo('cvgen-mark-c-eye-reversed.svg'),
               'MARK_INK': logo('cvgen-mark-c-eye.svg'), 'DATA': embedded}
@@ -172,14 +178,14 @@ def main():
     out = folder / 'report.html'
     try:
         data = json.loads(args.data.read_text(encoding='utf-8'))
-        problem = refusal(data, args.fragment)
+        problem = refusal(data, args.fragment, args.data.resolve())
         if problem:
             sys.exit(f'report: {problem}')
         page = build(data, args.fragment).encode('utf-8')
         folder.mkdir(parents=True, exist_ok=False)
         out.write_bytes(page)
     # pymupdf reports a missing file as a RuntimeError; a wrong-typed picture is a TypeError.
-    except (OSError, RuntimeError, TypeError, ValueError) as error:
+    except (AttributeError, KeyError, OSError, RuntimeError, TypeError, ValueError) as error:
         sys.exit(f'report: {error}')
     print(out)
 
