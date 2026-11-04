@@ -2,7 +2,7 @@
 
 Date: 2026-11-04
 Status: Accepted, not built yet: Stage 1 follows TASK-3, and Stage 2 waits for
-the first `Domain Contract` version 2. Amends 0007, 0010, 0011 and 0012.
+the first `Domain Contract` version 2. Amends 0002, 0007, 0010, 0011 and 0012.
 
 ## Context
 

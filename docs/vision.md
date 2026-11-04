@@ -63,7 +63,7 @@ Every agent that designs, reviews or proposes works from this section.
   a ship and a propeller drawn into the page).
 - **The `Scan Test` and the `scan-first` bar (owner, 2026-11-04).** For ordinary
   jobs, a `Client` may choose one clear page over a showpiece. A `Template
-  Variation` passes the `scan-first` bar only when the owner set it on approving
+  Variation` is held to the `scan-first` bar only when the owner set it on approving
   that design, and then passes the `Scan Test` instead of the
   `Three-Second Test`: a reader finds the name, each job's title, employer and
   dates, and the education within seconds. `Flagship Parity` then means equal in
@@ -111,7 +111,8 @@ the shared core, then freezes an approved render.
    template. A role-level template is the exception and needs a reason. In
    the marine tree today the deck variation is the captain artwork pack and
    example; the engine variation is the engineer pack and example.
-3. **Approved looks are frozen.** Every approved `Template Variation` has a locked
+3. **Approved looks are frozen.** Every approved `Template Variation` (until ADR
+   0016 is built, Flagship's one design) has a locked
    reference render, and the suite proves the library reproduces it on
    every run.
 4. **Loud failure over silent drift.** Overflow, missing months, a name that
@@ -156,7 +157,7 @@ started on an agent's initiative.
    frozen reference, likely grown from one of the studies under
    `studio/archive/design-studies/`.
 6. **Short-career layout.** A one-page layout profile for cadets, juniors
-   and short careers, for every template.
+   and short careers, for every template. Flagship's is **done** (P-0012).
 7. **More themes.** Two to four per template.
 8. **The hosted workflow** in the public monorepo: candidate intake, background
    rendering, owner review and approval, then delivery of the approved PDF.

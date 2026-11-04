@@ -27,12 +27,12 @@ What becomes easier, what becomes harder, what the suite enforces.
 | ADR | Decision |
 |---|---|
 | [0001](0001-freeze-v11-as-reference.md) | The approved v11 render is a frozen, pixel-exact contract. Paths amended by 0010, 0011 and 0012 |
-| [0002](0002-five-independent-inputs.md) | Five independent inputs. Its "one template" clause is amended by 0007; 0011 adds `role` as a sixth |
+| [0002](0002-five-independent-inputs.md) | Five independent inputs. Its "one template" clause is amended by 0007; 0011 adds `role` as a sixth; 0016 adds `Template Variation` |
 | [0003](0003-explicit-pagination.md) | Page allocation is explicit and validated, never automatic |
 | [0004](0004-hidden-durations-keep-geometry.md) | Hiding durations reserves geometry and emits no text |
 | [0005](0005-restructure-for-agents.md) | Prune history, keep four studies, English docs, agent entry files |
 | [0006](0006-typst-stays.md) | Typst stays as the page engine; React and headless Chromium rejected on evidence |
-| [0007](0007-family-of-templates.md) | A family of templates over one shared core; deck and engine are variations, never forks. Amends 0002; amended by 0010 and 0011 Amended by 0016 |
+| [0007](0007-family-of-templates.md) | A family of templates over one shared core; deck and engine are variations, never forks. Amends 0002; amended by 0010, 0011 and 0016 |
 | [0008](0008-component-contract.md) | One React-inspired component contract: ctx first, data, props, slots, scoped styles. Paths amended by 0010, 0011 and 0012 |
 | [0009](0009-framework-not-a-cage.md) | The framework is the happy path, not a cage: bypass components freely, log every bypass, never bypass rules |
 | [0010](0010-public-monorepo-and-pdf-workflow.md) | Public monorepo, template-owned input schemas and presentation, separate PDF workflow, private revisions and hash-based approval. Engine layout and local PDF workflow implemented 2026-09-16; web application pending. Amends 0005 and 0007; amended by 0011 and 0012. Amended by 0016 |
@@ -41,4 +41,4 @@ What becomes easier, what becomes harder, what the suite enforces.
 | [0013](0013-one-evidence-folder-per-test-case.md) | Every test case writes all its evidence into its own folder of the run: PDF, compile log, check result and suite-rendered page PNGs. |
 | [0014](0014-backlog-md-task-store.md) | Backlog.md files in `backlog/` are the task store; the Trello board was migrated, exported and closed. |
 | [0015](0015-workflow-model-toolchain.md) | The client workflow is one `Workflow Model`: YAML facts typed with Zod and checked by a TypeScript tool on Bun 1.4.2 in `tools/workflow/`, which generates the workflow docs and the facts of the `Atlas` client-journey page. A second toolchain beside Python. |
-| [0016](0016-template-contract.md) | A `Template` is a design language with `Template Variation`s; `Domain`s and `Template`s declare what they support through versioned contracts |
+| [0016](0016-template-contract.md) | A `Template` is a design language with `Template Variation`s; `Domain`s and `Template`s declare what they support through versioned contracts. Not built yet; amends 0002, 0007, 0010, 0011 and 0012 |
