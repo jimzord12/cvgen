@@ -56,7 +56,7 @@ def run_coverage(out, typst, flags):
     folder = out / 'coverage'
     folder.mkdir(exist_ok=False)
     checks = []
-    for domain, template, design in manifests():
+    for _domain, template, design in manifests():
         assert design['default'] in design['variations'], template
         for name, variation in design['variations'].items():
             for owner, _support in variation['supports'].items():
