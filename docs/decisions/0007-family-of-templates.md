@@ -1,7 +1,7 @@
 # 0007. A family of templates over one shared core
 
 Date: 2026-09-12
-Status: Amended by 0010 for ownership, schemas, and folder migration, and by
+Status: Amended by 0016 (Template Variations and contracts). Amended by 0010 for ownership, schemas, and folder migration, and by
 0011: deck and engine are now roles of the marine domain, the core no longer
 owns a data model, and a template lives under a domain. Its amendment of 0002
 and its rule of three remain valid.

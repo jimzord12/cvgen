@@ -112,7 +112,7 @@ window.ATLAS = {
     ],
     "sources": [
      ".claude/agents/design-reviewer.md:1-17",
-     ".claude/agents/design-reviewer.md:73-148"
+     ".claude/agents/design-reviewer.md:73-153"
     ],
     "short": "Design rev."
    },
@@ -183,7 +183,7 @@ window.ATLAS = {
     ],
     "sources": [
      ".claude/agents/code-reviewer.md:1-7",
-     "docs/review.md:128-146"
+     "docs/review.md:129-147"
     ],
     "short": "Code rev."
    },
@@ -1578,7 +1578,7 @@ window.ATLAS = {
        ],
        "note": "Model step `research.cap-reached`, action `manual.decide-at-cap`, in `docs/workflow/03-research/stage.yaml`.",
        "sources": [
-        "docs/review.md:203-207",
+        "docs/review.md:204-208",
         "docs/workflow/03-research/README.md:70-73"
        ]
       }
@@ -1890,7 +1890,7 @@ window.ATLAS = {
        "note": "Model step `text-draft.cap-reached`, action `manual.decide-at-cap`, in `docs/workflow/04-text-draft/stage.yaml`.",
        "sources": [
         "docs/workflow/README.md:28-32",
-        "docs/review.md:203-207"
+        "docs/review.md:204-208"
        ]
       }
      ]
@@ -2509,7 +2509,7 @@ window.ATLAS = {
        ],
        "note": "Model step `design.engine-revise`, action `lead.revise-engine-change`, in `docs/workflow/05-design/stage.yaml`.",
        "sources": [
-        "docs/review.md:195-202"
+        "docs/review.md:196-203"
        ]
       },
       {
@@ -2630,7 +2630,7 @@ window.ATLAS = {
        "sources": [
         "docs/workflow/05-design/README.md:59-64",
         ".claude/skills/idea-run/SKILL.md:73-76",
-        "docs/review.md:203-207"
+        "docs/review.md:204-208"
        ]
       }
      ]
@@ -3041,7 +3041,7 @@ window.ATLAS = {
        ],
        "note": "Model step `deliver.cap-reached`, action `manual.decide-at-cap`, in `docs/workflow/06-deliver/stage.yaml`.",
        "sources": [
-        "docs/review.md:203-207"
+        "docs/review.md:204-208"
        ]
       }
      ]
@@ -3469,7 +3469,7 @@ window.ATLAS = {
        ],
        "sources": [
         ".claude/skills/idea-run/SKILL.md:58-76",
-        ".claude/agents/design-reviewer.md:47-148",
+        ".claude/agents/design-reviewer.md:47-153",
         ".claude/agents/codex-visual-reviewer.md",
         "docs/proposals/codex-visual-tools.md"
        ]
@@ -3518,7 +3518,7 @@ window.ATLAS = {
        ],
        "sources": [
         ".claude/skills/idea-run/SKILL.md:85-97",
-        "docs/review.md:51-65"
+        "docs/review.md:52-66"
        ]
       },
       {
@@ -3737,9 +3737,9 @@ window.ATLAS = {
        ],
        "note": "Only spelling, comments, formatting or a glossary row skip the round, and record-keeping commits (storing reports, merging reviewed work).",
        "sources": [
-        "docs/review.md:7-65",
-        "docs/review.md:82-102",
-        "docs/review.md:160-179",
+        "docs/review.md:7-66",
+        "docs/review.md:83-103",
+        "docs/review.md:161-180",
         "docs/review.md",
         "archive/work-records/anti-examples/reviews/01-context.md"
        ]
@@ -3760,7 +3760,7 @@ window.ATLAS = {
         "Renaming the task never resets the round count."
        ],
        "sources": [
-        "docs/review.md:183-220"
+        "docs/review.md:184-221"
        ]
       }
      ]
@@ -4478,35 +4478,35 @@ window.ATLAS = {
     "Two steps run on Codex (your ChatGPT plan), not Claude: the `codex-visual-reviewer` (GPT-6 Astra, through a Sonnet wrapper) and the image step (GPT-6 Sol), built 2026-10-22."
    ],
    "sources": [
-    "docs/review.md:136-151"
+    "docs/review.md:137-152"
    ]
   }
  ],
  "build": {
-  "builtAt": "2026-11-04 17:29 UTC",
-  "commit": "3e2c3b6",
+  "builtAt": "2026-11-04 21:08 UTC",
+  "commit": "935165b",
   "kit": "1.1",
   "stale": {},
   "verified": {
    "client-journey": {
     "at": "2026-11-04",
-    "commit": "3e2c3b6"
+    "commit": "935165b"
    },
    "design-run": {
     "at": "2026-11-04",
-    "commit": "b87a4e8"
+    "commit": "935165b"
    },
    "change-review": {
     "at": "2026-11-04",
-    "commit": "3e2c3b6"
+    "commit": "935165b"
    },
    "system-map": {
     "at": "2026-11-04",
-    "commit": "b87a4e8"
+    "commit": "935165b"
    },
    "roster": {
     "at": "2026-11-04",
-    "commit": "3e2c3b6"
+    "commit": "935165b"
    }
   }
  }

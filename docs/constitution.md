@@ -17,7 +17,7 @@ hold.
 
 ## 1. Frozen references are contracts
 
-- Every approved template has a frozen reference render under its own
+- Every approved `Template Variation` has a frozen reference render under its own
   `tests/approved/` folder (ADR 0010; before 2026-09-16 that was root `reference/`)
   and a public example that must render pixel-identical to it at 144 dpi
   with identical normalised text on every page. `tests/run.py` enforces

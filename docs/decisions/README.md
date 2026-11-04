@@ -41,3 +41,4 @@ What becomes easier, what becomes harder, what the suite enforces.
 | [0013](0013-one-evidence-folder-per-test-case.md) | Every test case writes all its evidence into its own folder of the run: PDF, compile log, check result and suite-rendered page PNGs. |
 | [0014](0014-backlog-md-task-store.md) | Backlog.md files in `backlog/` are the task store; the Trello board was migrated, exported and closed. |
 | [0015](0015-workflow-model-toolchain.md) | The client workflow is one `Workflow Model`: YAML facts typed with Zod and checked by a TypeScript tool on Bun 1.4.2 in `tools/workflow/`, which generates the workflow docs and the facts of the `Atlas` client-journey page. A second toolchain beside Python. |
+| [0016](0016-template-contract.md) | A `Template` is a design language with `Template Variation`s; `Domain`s and `Template`s declare what they support through versioned contracts |

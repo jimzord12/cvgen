@@ -214,7 +214,7 @@
           ],
           "sources": [
             ".claude/skills/idea-run/SKILL.md:58-76",
-            ".claude/agents/design-reviewer.md:47-148",
+            ".claude/agents/design-reviewer.md:47-153",
             ".claude/agents/codex-visual-reviewer.md",
             "docs/proposals/codex-visual-tools.md"
           ]
@@ -263,7 +263,7 @@
           ],
           "sources": [
             ".claude/skills/idea-run/SKILL.md:85-97",
-            "docs/review.md:51-65"
+            "docs/review.md:52-66"
           ]
         },
         {

@@ -7,8 +7,8 @@ the product owner; last confirmed 2026-09-21.
 
 The owner approved a public monorepo with a locally usable CV engine, a separate
 PDF workflow, and a future web application after the core is stable. Candidate
-facts have a common contract; templates own their input schemas, adapters, and
-presentation. The PDF workflow binds explicit owner approval to an exact PDF.
+facts have a common contract; templates own their adapters, their presentation
+and the input they add to a domain's facts (ADR 0016). The PDF workflow binds explicit owner approval to an exact PDF.
 See [PDF workflow and storage](pdf-workflow.md) and
 [ADR 0010](decisions/0010-public-monorepo-and-pdf-workflow.md).
 
@@ -60,9 +60,17 @@ Every agent that designs, reviews or proposes works from this section.
 - **`Flagship Parity`.** The bar is the Marine Flagship: beautiful, elegant, confident, unique,
   premium, and unmistakably marine (a portrait framed by engine-room tools,
   a ship and a propeller drawn into the page).
+- **The `Scan Test` and the `scan-first` bar (owner, 2026-11-04).** People
+  applying for ordinary jobs want one clear page, not a showpiece. A `Template
+  Variation` with the `scan-first` bar passes the `Scan Test` instead of the
+  `Three-Second Test`: a reader finds the name, each job's title, employer and
+  dates, and the education within seconds. `Flagship Parity` then means equal in
+  craft, and the `Batch Test` means it stands out in a stack through craft and
+  order, not volume. It uses the domain's imagery, small.
 
-A design that is well crafted but quiet fails. "Safe professional" is a
-defect here, not a neutral outcome: the first tour-leader design (a thin
+A design that is well crafted but quiet fails, except under a `scan-first` bar,
+which is its own. Outside that bar, "safe professional" is a
+defect, not a neutral outcome: the first tour-leader design (a thin
 rail line with section dots, a plain sidebar, a restrained palette) passed
 four craft reviews and was rejected by the owner as "super boring, no
 character, no uniqueness, no Japan in it" (2026-09-29). Never brief or
@@ -76,10 +84,11 @@ the shared core, then freezes an approved render.
 ## What it is not
 
 - Not a tasteful, invisible template. A page that could have come from an
-  online builder has failed, however clean it is ("Design is the product").
+  online builder has failed, however clean it is ("Design is the product"). A
+  `scan-first` page is calm, and still unmistakably crafted.
 - Not a generic resume builder with one shape for everyone. Each domain
-  keeps the facts and wording its career area actually uses. Two pages by default;
-  one page for short careers once direction item 6 lands.
+  keeps the facts and wording its career area actually uses. Each `Template
+  Variation` sets its own page count.
 - The engine remains locally usable with one compiler. The approved future web
   application adds hosted intake, review, and delivery, with real candidate
   data in private storage outside the public source repository.
@@ -99,7 +108,7 @@ the shared core, then freezes an approved render.
    template. A role-level template is the exception and needs a reason. In
    the marine tree today the deck variation is the captain artwork pack and
    example; the engine variation is the engineer pack and example.
-3. **Approved looks are frozen.** Every approved template has a locked
+3. **Approved looks are frozen.** Every approved `Template Variation` has a locked
    reference render, and the suite proves the library reproduces it on
    every run.
 4. **Loud failure over silent drift.** Overflow, missing months, a name that
@@ -149,3 +158,6 @@ started on an agent's initiative.
 8. **The hosted workflow** in the public monorepo: candidate intake, background
    rendering, owner review and approval, then delivery of the approved PDF.
    Build it after the core is stable; local operation remains supported.
+9. **The Template Contract.** `Template Variation`s and versioned contracts
+   between `Domain`s and `Template`s, with a one-page scan-first Variation of
+   Flagship first. See ADR 0016. Opened 2026-11-04, after item 3.

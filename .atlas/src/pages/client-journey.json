@@ -1050,7 +1050,7 @@
           ],
           "note": "Model step `research.cap-reached`, action `manual.decide-at-cap`, in `docs/workflow/03-research/stage.yaml`.",
           "sources": [
-            "docs/review.md:203-207",
+            "docs/review.md:204-208",
             "docs/workflow/03-research/README.md:70-73"
           ]
         }
@@ -1362,7 +1362,7 @@
           "note": "Model step `text-draft.cap-reached`, action `manual.decide-at-cap`, in `docs/workflow/04-text-draft/stage.yaml`.",
           "sources": [
             "docs/workflow/README.md:28-32",
-            "docs/review.md:203-207"
+            "docs/review.md:204-208"
           ]
         }
       ]
@@ -1981,7 +1981,7 @@
           ],
           "note": "Model step `design.engine-revise`, action `lead.revise-engine-change`, in `docs/workflow/05-design/stage.yaml`.",
           "sources": [
-            "docs/review.md:195-202"
+            "docs/review.md:196-203"
           ]
         },
         {
@@ -2102,7 +2102,7 @@
           "sources": [
             "docs/workflow/05-design/README.md:59-64",
             ".claude/skills/idea-run/SKILL.md:73-76",
-            "docs/review.md:203-207"
+            "docs/review.md:204-208"
           ]
         }
       ]
@@ -2513,7 +2513,7 @@
           ],
           "note": "Model step `deliver.cap-reached`, action `manual.decide-at-cap`, in `docs/workflow/06-deliver/stage.yaml`.",
           "sources": [
-            "docs/review.md:203-207"
+            "docs/review.md:204-208"
           ]
         }
       ]
