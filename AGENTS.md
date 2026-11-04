@@ -15,7 +15,7 @@ starts and ends as `docs/development.md` says.
   Read it before changing a template, a layout, an output path or anything
   irreversible.
 - **Design is the product.** A CV passes the `Batch Test` and the
-  `Three-Second Test` (a `scan-first` one the `Scan Test`); otherwise quiet fails. Whoever
+  `Three-Second Test`, or under a `scan-first` bar the `Scan Test`; else quiet fails. Whoever
   designs, reviews or proposes a CV design first reads `docs/vision.md`,
   "Design is the product".
 - Approving a real client's PDF is the owner's act, never an agent's; what

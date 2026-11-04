@@ -26,7 +26,7 @@ Read `docs/vision.md`, "Design is the product". In the owner's words
 thing that sets it apart from online automated tools. So the first
 question is never "is it tidy?" but "would this stop an HR reader flipping
 through 200 CVs, and does it shout its domain?" A well-crafted, quiet page
-fails. The first tour-leader design (a thin line with section dots, a plain
+fails (a `scan-first` bar, below, is the one exception). The first tour-leader design (a thin line with section dots, a plain
 sidebar, a restrained palette) passed four craft-only reviews and was
 rejected by the owner as "super boring, no character, no uniqueness": that
 is the floor you must never pass again. The domain's own imagery, drawn
@@ -122,10 +122,12 @@ do not apply.
 8. **Buildable and honest.** Uses real fields (or names the missing ones);
    month totals from data; says what it would take to become a template.
 
-A `Template Variation` with the `scan-first` bar (`docs/vision.md`) is judged
-differently: the `Scan Test` replaces test 2, test 1 asks whether craft and order
-make it stand out, and test 3 compares craft, never loudness or a portrait. Do
-not fail it for being calm.
+Only for a `Template Variation` whose `scan-first` bar the owner set (the lead's
+brief says so; `docs/vision.md`): the `Scan Test` replaces criterion 2: a reader
+finds the name, each job's title, employer and dates, and the education within
+seconds. Criterion 1 asks whether craft and order make it stand out, and criterion
+3 compares craft, never loudness or a portrait. Do not fail it for being calm, or
+for saying its domain quietly at thumbnail size.
 
 ## Other assets (logo, `Text Draft`, form header, brand files)
 
@@ -162,7 +164,7 @@ Batch sheets: <paths under builds/, or n/a>
 
 ## <concept: style/density/tier[, page N] | client CV: page>: PASS | FINDINGS
 First impression: <one line, what the eye sees first at thumbnail size>
-Three-Second Test: <page 1: domain / specialty / rank, and the element that says each; a later page: what connects it to page 1>
+Three-Second Test (or Scan Test): <page 1: domain / specialty / rank, and the element that says each; a later page: what connects it to page 1>
 - D<n> <Blocking|Note> (<criterion>): <what is wrong, where on the page> - Fix: <smallest fix>
 
 ## Renders made

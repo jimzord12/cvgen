@@ -1,8 +1,8 @@
 # 0016. Template Contract: Template Variations and versioned Domain Contracts
 
 Date: 2026-11-04
-Status: Accepted. Amends 0007, 0010, 0011 and 0012 (P-0019). Stage 1 is being
-built; Stage 2 waits for the first `Domain Contract` version 2.
+Status: Accepted, not built yet: Stage 1 follows TASK-3, and Stage 2 waits for
+the first `Domain Contract` version 2. Amends 0007, 0010, 0011 and 0012.
 
 ## Context
 
@@ -13,15 +13,18 @@ a design. Nothing recorded a client's choice in a form a tool can read. A
 `Domain` and a `Template` were tied field by field through two schemas, and
 facts a design did not show dropped out unnoticed. The owner approved
 [P-0019](../proposals/template-contract.md) with all its decisions on 2026-11-04;
-that proposal holds the full design and its examples.
+that proposal holds the full design and its examples. This decision amends ADR
+0007 and 0011 on what a `Template` is, ADR 0010 on `Template` input schemas, and
+ADR 0012 on what the `Framework` owns; it adds an input to the list in ADR 0002.
 
 ## Decision
 
 - **A `Template` is a design language** with a `Template Manifest` and at least
-  one `Template Variation`. A `Variation` inherits and never copies: it allows
+  one `Template Variation`. A `Template Variation` inherits and never copies: it allows
   `Layout`s, `Theme`s and `Artwork Pack`s, sets `copy`, overrides named slots,
-  and has its own design bar and `Frozen Reference`. Today's Flagship is
-  `showcase`. A one-off `Template` has neither manifest nor `Variation`.
+  and has its own design bar, set by the owner when he approves the design, and
+  its own `Frozen Reference`. Today's Flagship becomes `showcase`. A one-off
+  `Template` has neither a manifest nor a `Template Variation`.
 - **A `Domain Contract` extends the `Base Contract`.** Required in the base:
   `identity`, `contacts`, `experience`. Optional: `profile`, `education`,
   `languages`, `certificates`. A `Fact Group` is supported whole. Its
@@ -30,6 +33,8 @@ that proposal holds the full design and its examples.
   facts; a `Template`'s schema keeps only what it adds, today `copy`, and its
   adapter stays.
 - **A record states its version** in `candidate.json`; none means 1.
+- **A `Client`'s choice is recorded:** `template` and `variation` in
+  `envelope.json`, written at `design.entry-point`.
 - **Claims are proved.** Each `Template Variation` claims `Domain Contract`
   versions and optional groups; the suite renders a `Coverage Fixture` and looks
   for its markers. A render stops on a missing required group, warns on a dropped

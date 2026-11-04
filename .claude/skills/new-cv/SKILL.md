@@ -7,7 +7,8 @@ description: Produce a CV for a real or new fictional candidate with the CVgen l
 
 The design is the product (`docs/vision.md`, "Design is the product"): a
 client's CV must pass the `Batch Test` and the `Three-Second Test` at the
-level of the Marine Flagship; tidy but quiet is a failure.
+level of the Marine Flagship; tidy but quiet is a failure, unless the owner set a
+`scan-first` bar on that design.
 
 For a real client this skill is the checklist of the `Workflow Model`'s
 `design` and `deliver` stages: read `docs/workflow/05-design/README.md` and

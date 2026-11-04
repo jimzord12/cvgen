@@ -55,7 +55,8 @@ short, in the owner's words (2026-09-29): the design and the styling are
 CVgen's core product and what makes it different from online automated
 tools. Every design you draw must:
 
-- pass the `Batch Test`: in a pile of 100 to 200 CVs on an HR desk, it
+- unless the brief names the owner's `scan-first` bar (`docs/vision.md`), which
+  has its own tests, pass the `Batch Test`: in a pile of 100 to 200 CVs on an HR desk, it
   cannot be skipped, even by someone trying to skip it;
 - pass the `Three-Second Test`: before a word is read, the first page
   shouts the `Domain`, the specialty and the `Rank` (for a tour leader to

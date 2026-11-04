@@ -88,7 +88,7 @@ window.ATLAS = {
     "when": "A design `Idea Run`, for inspiration or for a client whose `Domain` has no `Template` yet.",
     "sources": [
      ".claude/agents/magazine-editor.md:1-24",
-     ".claude/agents/magazine-editor.md:52-85"
+     ".claude/agents/magazine-editor.md:53-86"
     ],
     "short": "Editor",
     "notes": [
@@ -112,7 +112,7 @@ window.ATLAS = {
     ],
     "sources": [
      ".claude/agents/design-reviewer.md:1-17",
-     ".claude/agents/design-reviewer.md:73-153"
+     ".claude/agents/design-reviewer.md:73-155"
     ],
     "short": "Design rev."
    },
@@ -320,7 +320,7 @@ window.ATLAS = {
     "role": "Checklist that builds the CV itself: data, entry point, page plan, the client design loop, the render and its evidence.",
     "when": "After `Sign-off`, or to add a public example.",
     "sources": [
-     ".claude/skills/new-cv/SKILL.md:1-19"
+     ".claude/skills/new-cv/SKILL.md:1-20"
     ]
    },
    "idea-run": {
@@ -556,11 +556,11 @@ window.ATLAS = {
     "docs/workflow/04-text-draft/README.md:15-44",
     ".claude/skills/new-client/SKILL.md:78-101",
     "docs/workflow/05-design/README.md:15-64",
-    ".claude/skills/new-cv/SKILL.md:21-62",
+    ".claude/skills/new-cv/SKILL.md:22-63",
     "docs/guides/build-a-cv.md:1-100",
     "docs/guides/build-a-cv.md:102-182",
     "docs/pdf-workflow.md:172-194",
-    ".claude/skills/new-cv/SKILL.md:64-86",
+    ".claude/skills/new-cv/SKILL.md:65-87",
     "docs/workflow/07-after/README.md:15-56",
     ".claude/skills/new-client/SKILL.md:16-29",
     "docs/proposals/workflow-model.md:54-60"
@@ -630,7 +630,7 @@ window.ATLAS = {
         "docs/workflow/01-open/README.md:23-26",
         "docs/guides/client-workflow.md:90-91",
         ".claude/skills/new-client/SKILL.md:33-35",
-        "docs/glossary.md:56"
+        "docs/glossary.md:57"
        ]
       },
       {
@@ -1099,7 +1099,7 @@ window.ATLAS = {
        "sources": [
         "docs/workflow/03-research/README.md:24-34",
         ".claude/skills/new-client/SKILL.md:57-59",
-        "docs/glossary.md:62"
+        "docs/glossary.md:63"
        ]
       },
       {
@@ -1767,8 +1767,8 @@ window.ATLAS = {
        "note": "Model step `text-draft.client-check`, action `manual.client-checks-draft`, in `docs/workflow/04-text-draft/stage.yaml`.",
        "sources": [
         "docs/workflow/04-text-draft/README.md:17-23",
-        "docs/glossary.md:68",
-        "docs/glossary.md:71"
+        "docs/glossary.md:69",
+        "docs/glossary.md:72"
        ]
       },
       {
@@ -1940,7 +1940,7 @@ window.ATLAS = {
        "sources": [
         "docs/workflow/05-design/README.md:25-28",
         ".claude/skills/new-client/SKILL.md:101",
-        ".claude/skills/new-cv/SKILL.md:15-17"
+        ".claude/skills/new-cv/SKILL.md:16-18"
        ]
       },
       {
@@ -1964,7 +1964,7 @@ window.ATLAS = {
        ],
        "note": "Model step `design.run-brief`, action `skill.idea-run`, in `docs/workflow/05-design/stage.yaml`.",
        "sources": [
-        ".claude/skills/new-cv/SKILL.md:28-39",
+        ".claude/skills/new-cv/SKILL.md:29-40",
         "docs/workflow/05-design/README.md:29-39",
         ".claude/skills/idea-run/SKILL.md:32-43",
         "docs/workflow/05-design/README.md:29-33"
@@ -2289,8 +2289,8 @@ window.ATLAS = {
        ],
        "note": "Model step `design.fill-data`, action `lead.write-candidate-json`, in `docs/workflow/05-design/stage.yaml`.",
        "sources": [
-        ".claude/skills/new-cv/SKILL.md:15-17",
-        ".claude/skills/new-cv/SKILL.md:25-27",
+        ".claude/skills/new-cv/SKILL.md:16-18",
+        ".claude/skills/new-cv/SKILL.md:26-28",
         "docs/guides/build-a-cv.md:59-77",
         "docs/guides/build-a-cv.md:55-77"
        ]
@@ -2327,7 +2327,7 @@ window.ATLAS = {
        ],
        "note": "Model step `design.flagship-fit`, action `lead.check-flagship-fit`, in `docs/workflow/05-design/stage.yaml`.",
        "sources": [
-        ".claude/skills/new-cv/SKILL.md:40-45",
+        ".claude/skills/new-cv/SKILL.md:41-46",
         "docs/guides/build-a-cv.md:199-205"
        ]
       },
@@ -2349,7 +2349,7 @@ window.ATLAS = {
        ],
        "note": "Model step `design.entry-point`, action `lead.write-flagship-entry`, in `docs/workflow/05-design/stage.yaml`.",
        "sources": [
-        ".claude/skills/new-cv/SKILL.md:40-42",
+        ".claude/skills/new-cv/SKILL.md:41-43",
         "docs/guides/build-a-cv.md:79-100",
         "docs/guides/build-a-cv.md:15-53"
        ]
@@ -2374,7 +2374,7 @@ window.ATLAS = {
        "note": "Model step `design.custom-composition`, action `lead.compose-by-hand`, in `docs/workflow/05-design/stage.yaml`.",
        "sources": [
         "docs/guides/build-a-cv.md:195-261",
-        ".claude/skills/new-cv/SKILL.md:40-45"
+        ".claude/skills/new-cv/SKILL.md:41-46"
        ]
       },
       {
@@ -2420,7 +2420,7 @@ window.ATLAS = {
        "note": "Model step `design.framework-gap`, action `lead.record-framework-gap`, in `docs/workflow/05-design/stage.yaml`.",
        "sources": [
         "docs/guides/build-a-cv.md:255-261",
-        ".claude/skills/new-cv/SKILL.md:40-45",
+        ".claude/skills/new-cv/SKILL.md:41-46",
         "docs/workflow/05-design/README.md:70-74"
        ]
       },
@@ -2530,7 +2530,7 @@ window.ATLAS = {
        ],
        "note": "Model step `design.preview`, action `lead.compile-previews`, in `docs/workflow/05-design/stage.yaml`.",
        "sources": [
-        ".claude/skills/new-cv/SKILL.md:46-54",
+        ".claude/skills/new-cv/SKILL.md:47-55",
         "docs/workflow/05-design/README.md:45-47",
         "docs/proposals/workflow-model.md:57"
        ]
@@ -2569,7 +2569,7 @@ window.ATLAS = {
        "note": "Model step `design.client-review`, action `agent.design-reviewer`, in `docs/workflow/05-design/stage.yaml`.",
        "sources": [
         "docs/workflow/05-design/README.md:45-64",
-        ".claude/skills/new-cv/SKILL.md:55-61",
+        ".claude/skills/new-cv/SKILL.md:56-62",
         "docs/proposals/workflow-model.md:57",
         ".claude/agents/design-reviewer.md:37-45"
        ]
@@ -2612,7 +2612,7 @@ window.ATLAS = {
        "note": "Model step `design.clear-review-input`, action `lead.clear-review-input`, in `docs/workflow/05-design/stage.yaml`.",
        "sources": [
         "docs/workflow/05-design/README.md:57-58",
-        ".claude/skills/new-cv/SKILL.md:62",
+        ".claude/skills/new-cv/SKILL.md:63",
         "docs/preferences.md:76-78",
         ".claude/agents/design-reviewer.md:49-53"
        ]
@@ -2690,7 +2690,7 @@ window.ATLAS = {
        "note": "Model step `deliver.render`, action `cmd.cv-render`, in `docs/workflow/06-deliver/stage.yaml`.",
        "sources": [
         "docs/guides/build-a-cv.md:110-131",
-        ".claude/skills/new-cv/SKILL.md:66-69",
+        ".claude/skills/new-cv/SKILL.md:67-70",
         "packages/cv-workflow/cv_workflow/render.py:100-207"
        ]
       },
@@ -2720,7 +2720,7 @@ window.ATLAS = {
        "sources": [
         "docs/guides/build-a-cv.md:120-128",
         "docs/guides/build-a-cv.md:184-193",
-        ".claude/skills/new-cv/SKILL.md:66-69"
+        ".claude/skills/new-cv/SKILL.md:67-70"
        ]
       },
       {
@@ -2742,7 +2742,7 @@ window.ATLAS = {
        ],
        "note": "Model step `deliver.page-png`, action `cmd.page-png`, in `docs/workflow/06-deliver/stage.yaml`.",
        "sources": [
-        ".claude/skills/new-cv/SKILL.md:70-72",
+        ".claude/skills/new-cv/SKILL.md:71-73",
         "docs/workflow/06-deliver/README.md:22-25",
         ".claude/skills/verify-cv/SKILL.md:65-76"
        ]
@@ -2783,7 +2783,7 @@ window.ATLAS = {
        ],
        "note": "Model step `deliver.wording-check`, action `cmd.wording-check`, in `docs/workflow/06-deliver/stage.yaml`.",
        "sources": [
-        ".claude/skills/new-cv/SKILL.md:73-74",
+        ".claude/skills/new-cv/SKILL.md:74-75",
         "docs/guides/build-a-cv.md:98-100",
         "docs/workflow/06-deliver/README.md:66-68"
        ]
@@ -2806,7 +2806,7 @@ window.ATLAS = {
        ],
        "note": "Model step `deliver.report`, action `lead.report-render`, in `docs/workflow/06-deliver/stage.yaml`.",
        "sources": [
-        ".claude/skills/new-cv/SKILL.md:75-77"
+        ".claude/skills/new-cv/SKILL.md:76-78"
        ]
       },
       {
@@ -2881,7 +2881,7 @@ window.ATLAS = {
         "docs/guides/build-a-cv.md:153-158",
         "docs/pdf-workflow.md:180-182",
         "docs/proposals/workflow-model.md:58",
-        "docs/glossary.md:73"
+        "docs/glossary.md:74"
        ]
       },
       {
@@ -2934,7 +2934,7 @@ window.ATLAS = {
         "docs/proposals/workflow-model.md:54",
         "docs/proposals/workflow-model.md:56",
         "docs/workflow/06-deliver/README.md:44-46",
-        ".claude/skills/new-cv/SKILL.md:80-83"
+        ".claude/skills/new-cv/SKILL.md:81-84"
        ]
       },
       {
@@ -2981,7 +2981,7 @@ window.ATLAS = {
        "sources": [
         "docs/guides/build-a-cv.md:166-168",
         "docs/workflow/06-deliver/README.md:50-51",
-        ".claude/skills/new-cv/SKILL.md:84-85"
+        ".claude/skills/new-cv/SKILL.md:85-86"
        ]
       },
       {
@@ -3025,7 +3025,7 @@ window.ATLAS = {
        ],
        "note": "Model step `deliver.status`, action `cmd.cv-status`, in `docs/workflow/06-deliver/stage.yaml`.",
        "sources": [
-        ".claude/skills/new-cv/SKILL.md:86",
+        ".claude/skills/new-cv/SKILL.md:87",
         "scripts/cv.py:62-63",
         "packages/cv-workflow/cv_workflow/__init__.py:14-31"
        ]
@@ -3365,8 +3365,8 @@ window.ATLAS = {
         "outputs-py"
        ],
        "sources": [
-        ".claude/agents/magazine-editor.md:52-85",
-        ".claude/agents/magazine-editor.md:91-224",
+        ".claude/agents/magazine-editor.md:53-86",
+        ".claude/agents/magazine-editor.md:92-225",
         "studio/design-concepts/README.md"
        ]
       }
@@ -3469,7 +3469,7 @@ window.ATLAS = {
        ],
        "sources": [
         ".claude/skills/idea-run/SKILL.md:58-76",
-        ".claude/agents/design-reviewer.md:47-153",
+        ".claude/agents/design-reviewer.md:47-155",
         ".claude/agents/codex-visual-reviewer.md",
         "docs/proposals/codex-visual-tools.md"
        ]
@@ -3490,7 +3490,7 @@ window.ATLAS = {
         "After a PASS: a new sourced claim goes back to the research gate; a change to the Style's idea or to what you decide on goes back to the design gate; layout, typos or sample data need only a lead check noted in `run.md`."
        ],
        "sources": [
-        ".claude/agents/magazine-editor.md:226-236",
+        ".claude/agents/magazine-editor.md:227-237",
         ".claude/skills/idea-run/SKILL.md:77-82"
        ]
       }
@@ -4096,7 +4096,7 @@ window.ATLAS = {
        "path": "scripts/text-draft.typ",
        "blurb": "The house design every `Text Draft` uses.",
        "sources": [
-        "docs/glossary.md:65-66"
+        "docs/glossary.md:66-67"
        ]
       },
       {
@@ -4483,30 +4483,30 @@ window.ATLAS = {
   }
  ],
  "build": {
-  "builtAt": "2026-11-04 21:08 UTC",
-  "commit": "935165b",
+  "builtAt": "2026-11-04 21:16 UTC",
+  "commit": "c787d12",
   "kit": "1.1",
   "stale": {},
   "verified": {
    "client-journey": {
     "at": "2026-11-04",
-    "commit": "935165b"
+    "commit": "c787d12"
    },
    "design-run": {
     "at": "2026-11-04",
-    "commit": "935165b"
+    "commit": "c787d12"
    },
    "change-review": {
     "at": "2026-11-04",
-    "commit": "935165b"
+    "commit": "c787d12"
    },
    "system-map": {
     "at": "2026-11-04",
-    "commit": "935165b"
+    "commit": "c787d12"
    },
    "roster": {
     "at": "2026-11-04",
-    "commit": "935165b"
+    "commit": "c787d12"
    }
   }
  }

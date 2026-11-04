@@ -29,11 +29,11 @@ A **domain** (marine, travel and tourism, software development) offers what
 its career area needs: a facts shape, assets, wording and rules. A **role** is one
 level of specialisation inside a domain (deck and engine at sea; front-end
 and back-end in software) and may refine what the domain offers. A
-**template** is a named design; it may sit under a role or serve a whole
+**template** is a design language; it may sit under a role or serve a whole
 domain, and it may override anything. Each template comes in two to four
-themes. Cadets and short careers are to get a one-page layout (direction
-item 6, not built yet). Decided 2026-09-20,
-[ADR 0011](decisions/0011-domains-roles-templates.md).
+themes. Cadets and short careers have a one-page layout. Decided 2026-09-20,
+[ADR 0011](decisions/0011-domains-roles-templates.md); ADR 0016 adds named
+`Template Variation`s, not built yet.
 
 ## Design is the product
 
@@ -53,16 +53,18 @@ Every agent that designs, reviews or proposes works from this section.
   multi-page CV need not shout them again, but it is visibly connected to
   page 1, in the same design language and clearly the same CV, never a
   plain continuation sheet.
-- **Beyond "safe professional", elegantly.** We go further than a
+- **Beyond "safe professional", elegantly** (outside the `scan-first` bar
+  below). We go further than a
   conventional CV on purpose, and the page shows that its owner spent real
   extra time to make a good impression. It is still a CV: the facts are
   found in ten seconds, it prints on A4 and it survives a photocopier.
 - **`Flagship Parity`.** The bar is the Marine Flagship: beautiful, elegant, confident, unique,
   premium, and unmistakably marine (a portrait framed by engine-room tools,
   a ship and a propeller drawn into the page).
-- **The `Scan Test` and the `scan-first` bar (owner, 2026-11-04).** People
-  applying for ordinary jobs want one clear page, not a showpiece. A `Template
-  Variation` with the `scan-first` bar passes the `Scan Test` instead of the
+- **The `Scan Test` and the `scan-first` bar (owner, 2026-11-04).** For ordinary
+  jobs, a `Client` may choose one clear page over a showpiece. A `Template
+  Variation` passes the `scan-first` bar only when the owner set it on approving
+  that design, and then passes the `Scan Test` instead of the
   `Three-Second Test`: a reader finds the name, each job's title, employer and
   dates, and the education within seconds. `Flagship Parity` then means equal in
   craft, and the `Batch Test` means it stands out in a stack through craft and
@@ -88,7 +90,8 @@ the shared core, then freezes an approved render.
   `scan-first` page is calm, and still unmistakably crafted.
 - Not a generic resume builder with one shape for everyone. Each domain
   keeps the facts and wording its career area actually uses. Each `Template
-  Variation` sets its own page count.
+  Variation` is to set its own page count (ADR 0016); today Flagship is two
+  pages, or one for short careers.
 - The engine remains locally usable with one compiler. The approved future web
   application adds hosted intake, review, and delivery, with real candidate
   data in private storage outside the public source repository.
@@ -159,5 +162,6 @@ started on an agent's initiative.
    rendering, owner review and approval, then delivery of the approved PDF.
    Build it after the core is stable; local operation remains supported.
 9. **The Template Contract.** `Template Variation`s and versioned contracts
-   between `Domain`s and `Template`s, with a one-page scan-first Variation of
-   Flagship first. See ADR 0016. Opened 2026-11-04, after item 3.
+   between `Domain`s and `Template`s, with a one-page `scan-first` `Template
+   Variation` of Flagship first. See ADR 0016. Opened 2026-11-04: it runs straight
+   after item 3, ahead of the items above that are not open.
