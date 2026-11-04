@@ -1,10 +1,20 @@
 // The marine facts: companies, vessel-type groups and ships with rank and
-// whole service months. Totals are computed once from the full candidate;
-// calendar periods are never converted into service time (constitution 6).
+// either whole service months or one contract period per row. Totals are
+// computed once from the full candidate; a period is display text and is never
+// converted into service time (constitution 6), so a record of periods counts
+// contracts and has no month total.
 #import "../../cv-framework/core/data.typ": duration-parts, required-text, normalize-common, validate-common
 
+// None for a company recorded as contract periods.
 #let company-months(company) = {
   let ships = company.groups.map(g => g.ships).flatten()
+  let dated = ships.filter(s => "period" in s)
+  if dated.len() > 0 {
+    assert.eq(dated.len(), ships.len(), message: "Every vessel needs a contract period, or none does: " + company.name)
+    assert("service-months" not in company and ships.all(s => s.at("months", default: none) == none),
+      message: "A contract period replaces months; give one or the other: " + company.name)
+    return none
+  }
   let supplied = company.at("service-months", default: none)
   let known = ships.filter(s => s.at("months", default: none) != none)
   for ship in known { let _ = duration-parts(ship.months) }
@@ -22,16 +32,27 @@
   }
 }
 
-#let experience-totals(companies) = (
-  months: companies.map(company-months).sum(default: 0),
-  vessels: companies.map(c => c.groups.map(g => g.ships.map(s => s.id)).flatten()).flatten().dedup().len(),
-  companies: companies.map(c => c.id).dedup().len(),
-)
+#let experience-totals(companies) = {
+  let months = companies.map(company-months)
+  assert(months.all(m => m == none) or months.all(m => m != none),
+    message: "A record uses contract periods or service months, not both")
+  let ships = companies.map(c => c.groups.map(g => g.ships).flatten()).flatten()
+  let dated = months.at(0, default: 0) == none
+  if dated {
+    let rows = ships.map(s => (s.id, s.rank, s.period).join(" "))
+    assert.eq(rows.dedup().len(), rows.len(), message: "A contract is listed twice: same vessel, rank and period")
+  }
+  (months: if dated {none} else {months.sum(default: 0)},
+    contracts: if dated {ships.len()} else {none},
+    vessels: ships.map(s => s.id).dedup().len(),
+    companies: companies.map(c => c.id).dedup().len())
+}
 
 #let normalize-candidate(raw) = {
   assert("companies" in raw, message: "Candidate requires companies")
   let common = normalize-common(raw)
-  (..common, companies: raw.companies.map(c => (..c, id: c.at("id", default: lower(c.name).replace(" ", "-")))))
+  (..common, skills: raw.at("skill_groups", default: ()),
+    companies: raw.companies.map(c => (..c, id: c.at("id", default: lower(c.name).replace(" ", "-")))))
 }
 
 // Optional vessel particulars, printed in the documented unit and never
@@ -87,13 +108,23 @@
       for ship in group.ships {
         for key in ("id", "name", "rank") { required-text(ship.at(key), "vessel." + key) }
         validate-particulars(ship)
+        if "period" in ship {
+          required-text(ship.period, "vessel.period")
+          // A contract's dates are its fact: hidden, two contracts on one vessel read as one row twice.
+          assert(show-vessel-durations, message: "Contract periods cannot be hidden; show vessel durations: " + ship.name)
+        }
         if show-vessel-durations {
-          assert(ship.at("months", default: none) != none, message: "Visible vessel durations require months: " + ship.name)
+          assert(ship.at("months", default: none) != none or "period" in ship,
+            message: "Visible vessel durations require months: " + ship.name)
         }
       }
     }
   }
   validate-repeated-vessels(candidate.companies)
+  let _ = experience-totals(candidate.companies)
+  for group in candidate.skills {
+    for skill in group { required-text(skill, "skill") }
+  }
 }
 
 // The row model the core's pagination uses: one row per ship, named `vessel`
@@ -101,6 +132,8 @@
 // months so a continued company never shows the duration of the rows on that
 // page alone.
 #let vessel-count(company) = company.groups.map(g => g.ships.len()).sum(default: 0)
+
+#let company-contracts(company) = company.groups.map(g => g.ships.len()).sum(default: 0)
 
 #let vessel-slice(company, rows) = {
   let cursor = 0
@@ -113,7 +146,7 @@
     }
     if ships.len() > 0 {groups.push((..group, ships: ships))}
   }
-  (..company, groups: groups, display-months: company-months(company))
+  (..company, groups: groups, display-months: company-months(company), display-contracts: company-contracts(company))
 }
 
 #let experience-model = (count: vessel-count, slice: vessel-slice, totals: experience-totals, row: "vessel")

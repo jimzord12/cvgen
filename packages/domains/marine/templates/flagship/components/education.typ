@@ -26,9 +26,9 @@
 }
 
 // `data` is (education: entries, languages: entries); words from ctx.copy.
-#let education-languages-section(ctx, data) = {
+#let education-languages-section(ctx, data, number: "03") = {
   let (theme, layout, copy) = (ctx.theme, ctx.layout, ctx.copy)
-  section-heading(ctx, copy.education-languages, number: "03", spacing: layout.headings.education)
+  section-heading(ctx, copy.education-languages, number: number, spacing: layout.headings.education)
   grid(columns: layout.education.columns, column-gutter: layout.education.gap,
     block[
       #if data.education.len() > 0 {

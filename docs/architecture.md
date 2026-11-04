@@ -37,12 +37,12 @@ artwork pack.
 
 | Input | File | Owns |
 |---|---|---|
-| Candidate facts | `examples/candidates/*.json` (contract: `domains/marine/schema/candidate.schema.json`) | Identity, contacts, profile, companies, vessels, certificates, education, languages, disclosure. No template wording |
+| Candidate facts | `examples/candidates/*.json` (contract: `domains/marine/schema/candidate.schema.json`) | Identity, contacts, profile, companies, vessels with months or contract periods, certificates, education, languages, skills, disclosure. No template wording |
 | Role | `domains/marine/roles/<deck or engine>/role.typ`, or none | One level of specialisation inside the domain. Flagship composes the role's `copy` today; both marine roles are bare markers |
 | Theme | `domains/marine/templates/flagship/themes/*.typ` | Colours, fonts, sizes, tracking, leading, the marine art's palette (`art-palette`, from the domain) and a map from legacy SVG hex colours to theme colours |
 | Artwork | `domains/marine/templates/flagship/artwork/*.typ` | Which SVG under `domains/marine/assets/` fills each named slot, with optional width, x, y and opacity |
 | Layout | `domains/marine/templates/flagship/layouts/*.typ` | Margins, the page shell's `shell` slice (opening margin, hero band), hero geometry, column widths, gaps, spacing scale, page plan, `anchor-education`, `spread`, `stack-gap` |
-| Display switch | `show-vessel-durations` on `flagship` | Show or hide every vessel duration at once without moving columns; `scripts/build.ps1 -HideVesselDurations` builds every example with it off (refused with `-Release`) |
+| Display switch | `show-vessel-durations` on `flagship` | Show or hide every vessel duration at once without moving columns; a record of contract periods refuses it; `scripts/build.ps1 -HideVesselDurations` builds every example with it off (refused with `-Release`) |
 
 A seventh, optional input is `copy` on `flagship`: overrides for the
 wording. The adapter composes the marine domain's words, then the role's,
@@ -82,10 +82,10 @@ a template owns its design (ADR 0007, ADR 0011, ADR 0012). Who owns what:
 
 | Framework (`cv-framework/core/`) | Marine domain (`domains/marine/`) | Per template |
 |---|---|---|
-| Common facts: identity name, contacts, profile, certificates, education, languages (`normalize-common`, `validate-common` in `data.typ`) | The marine facts: `identity.rank`, companies, vessel-type groups, ships with months; `company-months`, `experience-totals`, the row model (`data.typ`); the schema | Section components: hero, experience, synopsis, certificates, education, skills |
+| Common facts: identity name, contacts, profile, certificates, education, languages (`normalize-common`, `validate-common` in `data.typ`) | The marine facts: `identity.rank`, companies, vessel-type groups, ships with months or contract periods; `company-months`, `experience-totals`, the row model (`data.typ`); the schema | Section components: hero, experience, synopsis, certificates, education, skills |
 | Page shell, header, footer, backgrounds (`page.typ`); the header takes a name and headline (no domain data) and a caption, the shell takes title and author and reads its own layout slice `shell` (opening margin, optional first-page band) | `domain.meta` (PDF title suffix, author) | Layout profiles (including the `shell` slice) and page plans |
 | Page-plan grammar (every row once, in candidate order) and pagination over a domain row model (`pagination.typ`) | `experience-model`: `count`, `slice`, `totals`, `row` (the word for a row in page-plan messages: "vessel") | The closing-section rules (`validate-plan`: one synopsis on the last Experience page, certificates and education after it) and the page loop with its overflow assertion, in `flagship.typ` |
-| `merge` and `compose` (`node.typ`) | `domain.copy`: the domain's six words | The adapter: input contract and Flagship's nine words |
+| `merge` and `compose` (`node.typ`) | `domain.copy`: the domain's words | The adapter: input contract and Flagship's words |
 | SVG recolouring (by the theme's `art-palette`, `{{<colour>}}` placeholders and `art-colors`) and primitives; theme validation of what every template needs (`validate-theme`; `require-colors` for a template's own colours; the lists: `docs/engine/theme.md`) | The SVG files (`assets/`) and their palette (`domain.art-palette`) | Artwork packs: which SVG in which slot; themes that carry the palette; Flagship's own colours (`validate-flagship-theme` in `flagship.typ`) |
 | The verification runner and its checks | Role markers (`roles/deck`, `roles/engine`) | Frozen reference render and its pixel gate |
 
@@ -137,7 +137,7 @@ domains/marine/                         the marine domain (ADR 0011)
     components/sections.typ               section-heading, profile-summary, synopsis
     components/certificates.typ           certificate-table, certificates-section
     components/education.typ              education-entry, language-entry, education-languages-section
-    components/skills.typ                 optional skills-section with themed bullets (not in the locked template)
+    components/skills.typ                 skills-section with themed bullets, placed through the page plan
     themes/  artwork/  layouts/           three of the four presentation inputs (assets live at domain level)
     tests/approved/                       the frozen v11 reference PDF
 
@@ -198,6 +198,9 @@ never move.
   same particulars or omits them.
 - If per-vessel months are unknown, hide durations and give the company a
   `service-months` total. If both are given, they must agree.
+- A deck career may give one contract `period` per row instead. A period is
+  display text, never converted into months; the record then has no month
+  total and counts contracts. Months and periods never mix in one record.
 - Totals are computed once from the full candidate, never from what a page
   happens to show.
 
@@ -208,8 +211,8 @@ company, go on each page, and which page carries synopsis, certificates and
 education. The core's `validate-pages` checks every row of the domain's row
 model (for marine, every vessel row) appears exactly once, in order;
 Flagship's `validate-plan` adds its own closing sections: exactly one
-synopsis, on the last experience page, and certificates and education after
-it. After each page
+synopsis, on the last experience page, certificates and education after it,
+and one page for a record's skills. After each page
 the template asserts the page counter, so overflow fails with a message
 instead of spilling onto an unplanned page.
 

@@ -22,7 +22,7 @@ actors:
 
   - id: actor.client
     name: The client
-    sources: ["docs/glossary.md:55", "docs/workflow/02-intake/README.md:17-23", "docs/workflow/04-text-draft/README.md:17-23"]
+    sources: ["docs/glossary.md:56", "docs/workflow/02-intake/README.md:17-23", "docs/workflow/04-text-draft/README.md:17-23"]
     kind: human
     does: >-
       Answers the question list and the one follow-up (by chat or an Intake
@@ -206,7 +206,7 @@ artifacts:
 
   - id: art.decisions-md
     name: CV Decisions (decisions.md)
-    sources: ["docs/guides/client-workflow.md:45", "docs/guides/client-workflow.md:187-203", "docs/glossary.md:64"]
+    sources: ["docs/guides/client-workflow.md:45", "docs/guides/client-workflow.md:187-203", "docs/glossary.md:65"]
     path: private/<envelope>/research/decisions.md
     format: Markdown, one line per decision with its answer and source, "judgement" and the reason, or "open"
     visibility: private
@@ -230,7 +230,7 @@ artifacts:
 
   - id: art.sign-off-png
     name: The Sign-off screenshot
-    sources: ["docs/guides/client-workflow.md:51", "docs/workflow/04-text-draft/README.md:41-43", "docs/glossary.md:72"]
+    sources: ["docs/guides/client-workflow.md:51", "docs/workflow/04-text-draft/README.md:41-43", "docs/glossary.md:73"]
     path: private/<envelope>/draft/sign-off-NN.png
     format: PNG screenshot of the client's OK
     visibility: private
@@ -239,7 +239,7 @@ artifacts:
 
   - id: art.candidate-json
     name: candidate.json
-    sources: ["docs/guides/client-workflow.md:36", "docs/guides/build-a-cv.md:55-77", "packages/cv-workflow/cv_workflow/workspace.py:93-95"]
+    sources: ["docs/guides/client-workflow.md:36", "docs/guides/build-a-cv.md:55-78", "packages/cv-workflow/cv_workflow/workspace.py:93-95"]
     path: private/<envelope>/candidate.json
     format: JSON, checked against the schema cv.typ's imports name (Flagship input for marine; none for a one-off)
     visibility: private
@@ -262,7 +262,7 @@ artifacts:
 
   - id: art.intake-form-lib
     name: The Intake Form script
-    sources: ["scripts/intake-form.gs:1-21", "docs/glossary.md:61"]
+    sources: ["scripts/intake-form.gs:1-21", "docs/glossary.md:62"]
     path: scripts/intake-form.gs
     format: Google Apps Script with a FORM block
     visibility: public

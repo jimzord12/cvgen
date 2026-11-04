@@ -1,14 +1,21 @@
 // Service history for Flagship (ADR 0008 shape: ctx, data, props). Geometry from
 // ctx.layout.experience; `spacing` is the parent's page variant (experience.opening
 // or experience.continuation); ctx.options.show-vessel-durations hides row times.
-#import "../../../data.typ": company-months
+#import "../../../data.typ": company-months, company-contracts
+#import "sections.typ": count-caption
 #import "../../../../../cv-framework/core/primitives.typ": label, duration
 
 #let show-durations(ctx) = ctx.options.at("show-vessel-durations", default: true)
 
-// `data` is (period: display text, months: whole service months); caption from ctx.copy.combined.
+// `data` is (period: display text, months: whole service months, or none for a company recorded
+// as contract periods, which shows its contract count instead; contracts: that count); caption
+// from ctx.copy.combined.
 #let company-period(ctx, data) = {
   let (theme, geometry, months) = (ctx.theme, ctx.layout.experience, data.months)
+  if months == none {
+    return stack(spacing: geometry.period-gap, label(ctx, data.period),
+      text(font: theme.fonts.display, size: theme.sizes.duration, fill: theme.colors.accent)[#data.contracts #lower(count-caption(ctx.copy, data.contracts, "contract", "contracts"))])
+  }
   stack(spacing: geometry.period-gap,
     label(ctx, data.period),
     block[
@@ -61,7 +68,9 @@
 // Returns cells, not a separate grid: all rows share the parent's column tracks.
 #let vessel-row(ctx, vessel) = {
   let (theme, geometry) = (ctx.theme, ctx.layout.experience)
-  let time = if vessel.at("months", default: none) != none {
+  let time = if "period" in vessel {
+    text(size: theme.sizes.rank-row, fill: theme.colors.accent)[#vessel.period]
+  } else if vessel.at("months", default: none) != none {
     text(size: theme.sizes.rank-row, fill: theme.colors.accent)[#duration(vessel.months)]
   } else {[]}
   let last = if show-durations(ctx) {time} else {context {
@@ -80,7 +89,7 @@
     #v(geometry.group-gap)
     #label(ctx, group.type, color: theme.colors.accent)
     #v(geometry.group-gap)
-    #grid(columns: (1fr, geometry.rank-width, geometry.duration-width), column-gutter: geometry.cell-gap,
+    #grid(columns: (1fr, geometry.rank-width, if group.ships.any(s => "period" in s) {geometry.period-column} else {geometry.duration-width}), column-gutter: geometry.cell-gap,
       row-gutter: spacing.row-gap, align: (left, left, right),
       ..group.ships.map(s => vessel-row(ctx, s)).flatten())
   ]
@@ -91,7 +100,8 @@
   let (theme, geometry) = (ctx.theme, ctx.layout.experience)
   block(breakable: false, above: 0pt, below: spacing.company-gap)[
     #grid(columns: (geometry.date-width, 1fr), column-gutter: geometry.column-gap,
-      company-period(ctx, (period: company.period, months: if "display-months" in company {company.display-months} else {company-months(company)})),
+      company-period(ctx, (period: company.period, months: if "display-months" in company {company.display-months} else {company-months(company)},
+        contracts: company.at("display-contracts", default: company-contracts(company)))),
       block(stroke: (left: 2pt + theme.colors.accent), inset: geometry.inset)[
         #text(size: theme.sizes.company, weight: "bold")[#company.name#if continued { [ (continued)] }]
         #for group in company.groups {vessel-type-group(ctx, group, spacing: spacing)}

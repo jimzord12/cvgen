@@ -67,7 +67,8 @@ accept) or to `null`. A path relative to the `Envelope`,
 the file into the revision; the direct compiler cannot find it.
 
 If you do not know months per vessel, set `show-vessel-durations: false` and
-give each company a `service-months` total instead.
+give each company a `service-months` total instead. A career recorded as
+contracts gives a `period` on every row, with durations left on.
 
 `scripts/cv.py render` checks the record against the schema its entry
 point's imports name (the Flagship input for marine, needs `jsonschema`)
@@ -196,13 +197,11 @@ Used by `deliver.fix`. Every failure names the fix. The common ones:
 
 Used by `design.custom-composition`.
 
-Some real CVs cannot go through `flagship` yet. The known causes are
-recorded in `../framework-gaps.md`: a career recorded as contract periods
-rather than service months (see the note in
-`../engine/candidate-schema.md`), an approved design that needs a
-three-column certificate table, and a skills block the template has no
-slot for. Until the template supports these, compose the page by hand from
-the same public exports:
+Some real CVs cannot go through `flagship`: an approved design the template
+cannot draw, or a career that mixes months and contract periods. Contract
+periods, a three-column certificate table and a skills block do go through it
+(`../engine/candidate-schema.md`). Otherwise, compose the page by hand from the
+same public exports:
 
 ```typst
 #import "/packages/domains/marine/lib.typ": (make-ctx, normalize-candidate, to-flagship-input, marine,
@@ -240,7 +239,7 @@ Rules for this path:
   A client whose domain does not exist yet imports `/packages/cv-framework/lib.typ`
   only (render then checks no schema; `design.port-concept`).
 - Keep the candidate JSON valid against its schema, if it has one. Put data the schema
-  cannot hold, such as contract periods, in a separate `typst/presentation.json`
+  cannot hold in a separate `typst/presentation.json`
   beside `cv.typ`. Never invent months from calendar periods.
 - Read every `Envelope` file by a literal path relative to `cv.typ`
   (`json("presentation.json")`, `#import "designs/table.typ"`, `image("art/map.svg")`,

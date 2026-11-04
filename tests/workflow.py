@@ -259,7 +259,7 @@ def run_workflow(out, typst, system_family=None):
     assert 'companies/0/groups/0/ships/0/months' in refused and "'rank' is a required property" in refused, refused
     assert 'companies/0/groups/0/ships/1/months: is null; give a value, or leave the key out if it is optional' in refused, refused
     assert "certificates/1/issued: 2021 is not of type 'string'" in refused, refused
-    assert "certificates/0: 'review' is a required property" in refused and "'reviw' was unexpected" in refused, refused
+    assert "certificates/0: Additional properties are not allowed ('reviw' was unexpected)" in refused, refused
     assert "'title': 'A'" not in refused, refused
     assert len(list((workspace / 'revisions').iterdir())) == count
     (workspace / 'candidate.json').write_text(json.dumps(record, indent=2), encoding='utf-8')

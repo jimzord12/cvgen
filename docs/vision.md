@@ -147,7 +147,8 @@ started on an agent's initiative.
    hold them, the synopsis must take its metrics from data, the certificate
    table must take its columns from data, and the skills section must be
    available inside the template, so a real deck CV fits the template
-   instead of bypassing it. See ADR 0007.
+   instead of bypassing it. See ADR 0007. Opened 2026-11-04 and **done** the
+   same day (TASK-3).
 4. **The component contract.** Migrate the Flagship modules to the shape in
    ADR 0008, one module per commit under the pixel gate. Opened and
    **done** 2026-09-25: core and Flagship components are ctx-first, exported

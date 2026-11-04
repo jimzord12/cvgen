@@ -1,9 +1,11 @@
 # Skills component
 
 Read this when adding a professional skills block to a custom composition.
-It belongs to the Flagship template's components, which `lib.typ` exports
-as the module `flagship-components`; it is not part of the locked
-`flagship` template. Like every component it takes `ctx` first (ADR 0008).
+`flagship` places the same component itself, from `skill_groups` in the record,
+on the page whose plan has `skills: true`, with a numbered section heading
+through its `heading` slot. The component belongs to the Flagship template's
+components, which `lib.typ` exports as the module `flagship-components`. Like
+every component it takes `ctx` first (ADR 0008).
 
 ```typst
 // Root-absolute paths work from any entry point compiled with --root .
@@ -30,6 +32,8 @@ as the module `flagship-components`; it is not part of the locked
   has no `skills` slice. `skills-layout` exposes `heading-gap`,
   `rule-weight`, `content-gap`, `column-gap`, `bullet-size`, `body-indent`,
   `item-gap`.
+- `heading` is a slot for the parent's own heading (auto draws `skills-heading`),
+  and `columns` and `gutter` let it align the columns with another section.
 
 `tests/fixtures/skills.typ` covers titles, one to three columns, wrapping,
 both themes and both bullet kinds through `flagship-components`, with the

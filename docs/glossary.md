@@ -39,6 +39,7 @@ owner afterwards.
 | `Surface` | A package's `lib.typ`: the one file entry points import. The `Framework`'s holds core names only; each `Domain`'s adds its own | `packages/cv-framework/lib.typ`, `packages/domains/<id>/lib.typ` | 2026-09-25 |
 | `Role` | One specialisation inside a `Domain`, never a fork of it: `Deck` and `Engine` in `Marine` | `domains/marine/roles/deck`, `roles/engine` | 2026-09-25 |
 | `Rank` | The client's job title: second engineer, chief officer, captain, tour guide; inside a `Role` where the `Domain` has roles | `identity.rank` in the marine facts; folder and file names say "role" for it (`jane-doe-second-engineer`) | 2026-09-25 |
+| `Contract Period` | One contract's dates as display text on a vessel row, for a deck career recorded as contracts; never converted into service time. Not an `Output Contract` | `period` on a ship in the marine facts | 2026-11-04 |
 | `Template` | A design language: its components, palette, art and voice, which lives under one `Domain`; under ADR 0016, not built yet, it also has a `Template Manifest` and at least one `Template Variation`. A one-off in one `Envelope` has neither | `templates/flagship/` (`Flagship`); a one-off is `private/<envelope>/typst/cv.typ` from an `Idea Run`, unlike a custom composition, which builds on a `Domain`'s components | 2026-09-25; 2026-11-04, ADR 0016 |
 | `Theme` | A `Template`'s colours, fonts and sizes only | `templates/<t>/themes/` | 2026-09-25 |
 | `Artwork Pack` | Which illustration goes in which slot of a `Template` | `templates/<t>/artwork/` | 2026-09-25 |
