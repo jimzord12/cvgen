@@ -38,7 +38,7 @@
         "Everything routine (commits, merges to `main`, task-store updates) is the agents' job."
       ],
       "sources": [
-        "docs/preferences.md:51-87",
+        "docs/preferences.md:60-96",
         "docs/workflow/README.md:22-24"
       ],
       "short": "You"

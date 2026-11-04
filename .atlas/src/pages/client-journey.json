@@ -102,7 +102,7 @@
             "docs/workflow/01-open/README.md:23-26",
             "docs/guides/client-workflow.md:90-91",
             ".claude/skills/new-client/SKILL.md:33-35",
-            "docs/glossary.md:48"
+            "docs/glossary.md:56"
           ]
         },
         {
@@ -571,7 +571,7 @@
           "sources": [
             "docs/workflow/03-research/README.md:24-34",
             ".claude/skills/new-client/SKILL.md:57-59",
-            "docs/glossary.md:54"
+            "docs/glossary.md:62"
           ]
         },
         {
@@ -1239,8 +1239,8 @@
           "note": "Model step `text-draft.client-check`, action `manual.client-checks-draft`, in `docs/workflow/04-text-draft/stage.yaml`.",
           "sources": [
             "docs/workflow/04-text-draft/README.md:17-23",
-            "docs/glossary.md:59",
-            "docs/glossary.md:62"
+            "docs/glossary.md:68",
+            "docs/glossary.md:71"
           ]
         },
         {
@@ -2085,7 +2085,7 @@
           "sources": [
             "docs/workflow/05-design/README.md:57-58",
             ".claude/skills/new-cv/SKILL.md:62",
-            "docs/preferences.md:67-69",
+            "docs/preferences.md:76-78",
             ".claude/agents/design-reviewer.md:49-53"
           ]
         },
@@ -2353,7 +2353,7 @@
             "docs/guides/build-a-cv.md:153-158",
             "docs/pdf-workflow.md:180-182",
             "docs/proposals/workflow-model.md:58",
-            "docs/glossary.md:64"
+            "docs/glossary.md:73"
           ]
         },
         {
@@ -2679,7 +2679,7 @@
           "sources": [
             "docs/workflow/07-after/README.md:27-34",
             "docs/guides/client-workflow.md:205-230",
-            "docs/preferences.md:75-83",
+            "docs/preferences.md:84-92",
             "docs/proposals/workflow-gaps.md:37",
             "docs/proposals/workflow-gaps.md:71"
           ]
@@ -2717,7 +2717,7 @@
           "note": "Model step `after.revision-cleanup`, action `manual.go-remove-revisions`, in `docs/workflow/07-after/stage.yaml`.",
           "sources": [
             "docs/pdf-workflow.md:215-218",
-            "docs/preferences.md:81-83",
+            "docs/preferences.md:90-92",
             "docs/workflow/GAPS.md:29-32"
           ]
         }
