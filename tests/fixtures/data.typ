@@ -30,7 +30,7 @@
 #assert.eq(duration-parts(138), (years: 11, months: 6))
 #let candidate = normalize-candidate(json("../../examples/candidates/engineer-example.json"))
 #validate-candidate(candidate, true)
-#assert.eq(experience-totals(candidate.companies), (months: 138, vessels: 23, companies: 6))
+#assert.eq(experience-totals(candidate.companies), (months: 138, contracts: none, vessels: 23, companies: 6))
 #let company = candidate.companies.first()
 #let repeated = (..company, id: "another-company")
 #assert.eq(experience-totals((company, repeated)).vessels, 6)
