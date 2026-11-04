@@ -22,7 +22,7 @@ actors:
 
   - id: actor.client
     name: The client
-    sources: ["docs/glossary.md:54", "docs/workflow/02-intake/README.md:17-23", "docs/workflow/04-text-draft/README.md:17-23"]
+    sources: ["docs/glossary.md:55", "docs/workflow/02-intake/README.md:17-23", "docs/workflow/04-text-draft/README.md:17-23"]
     kind: human
     does: >-
       Answers the question list and the one follow-up (by chat or an Intake
@@ -127,7 +127,7 @@ actions:
   - id: manual.decide-at-cap
     kind: manual
     name: The owner decides at the cap
-    sources: ["docs/review.md:203-207", ".claude/skills/idea-run/SKILL.md:73-76", "docs/proposals/workflow-gaps.md:60-64"]
+    sources: ["docs/review.md:204-208", ".claude/skills/idea-run/SKILL.md:73-76", "docs/proposals/workflow-gaps.md:60-64"]
     does: >-
       At a loop's cap (a review loop, the client's draft corrections, the
       owner's own changes or a render that keeps failing) the lead stops and
@@ -206,7 +206,7 @@ artifacts:
 
   - id: art.decisions-md
     name: CV Decisions (decisions.md)
-    sources: ["docs/guides/client-workflow.md:45", "docs/guides/client-workflow.md:187-203", "docs/glossary.md:63"]
+    sources: ["docs/guides/client-workflow.md:45", "docs/guides/client-workflow.md:187-203", "docs/glossary.md:64"]
     path: private/<envelope>/research/decisions.md
     format: Markdown, one line per decision with its answer and source, "judgement" and the reason, or "open"
     visibility: private
@@ -230,7 +230,7 @@ artifacts:
 
   - id: art.sign-off-png
     name: The Sign-off screenshot
-    sources: ["docs/guides/client-workflow.md:51", "docs/workflow/04-text-draft/README.md:41-43", "docs/glossary.md:71"]
+    sources: ["docs/guides/client-workflow.md:51", "docs/workflow/04-text-draft/README.md:41-43", "docs/glossary.md:72"]
     path: private/<envelope>/draft/sign-off-NN.png
     format: PNG screenshot of the client's OK
     visibility: private
@@ -262,7 +262,7 @@ artifacts:
 
   - id: art.intake-form-lib
     name: The Intake Form script
-    sources: ["scripts/intake-form.gs:1-21", "docs/glossary.md:60"]
+    sources: ["scripts/intake-form.gs:1-21", "docs/glossary.md:61"]
     path: scripts/intake-form.gs
     format: Google Apps Script with a FORM block
     visibility: public

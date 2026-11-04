@@ -7,8 +7,8 @@ the product owner; last confirmed 2026-09-21.
 
 The owner approved a public monorepo with a locally usable CV engine, a separate
 PDF workflow, and a future web application after the core is stable. Candidate
-facts have a common contract; templates own their input schemas, adapters, and
-presentation. The PDF workflow binds explicit owner approval to an exact PDF.
+facts have a common contract; templates own their adapters, their presentation
+and the input they add to a domain's facts (ADR 0016). The PDF workflow binds explicit owner approval to an exact PDF.
 See [PDF workflow and storage](pdf-workflow.md) and
 [ADR 0010](decisions/0010-public-monorepo-and-pdf-workflow.md).
 
@@ -29,11 +29,11 @@ A **domain** (marine, travel and tourism, software development) offers what
 its career area needs: a facts shape, assets, wording and rules. A **role** is one
 level of specialisation inside a domain (deck and engine at sea; front-end
 and back-end in software) and may refine what the domain offers. A
-**template** is a named design; it may sit under a role or serve a whole
+**template** is a design language; it may sit under a role or serve a whole
 domain, and it may override anything. Each template comes in two to four
-themes. Cadets and short careers are to get a one-page layout (direction
-item 6, not built yet). Decided 2026-09-20,
-[ADR 0011](decisions/0011-domains-roles-templates.md).
+themes. Cadets and short careers have a one-page layout. Decided 2026-09-20,
+[ADR 0011](decisions/0011-domains-roles-templates.md); ADR 0016 adds named
+`Template Variation`s, not built yet.
 
 ## Design is the product
 
@@ -53,16 +53,26 @@ Every agent that designs, reviews or proposes works from this section.
   multi-page CV need not shout them again, but it is visibly connected to
   page 1, in the same design language and clearly the same CV, never a
   plain continuation sheet.
-- **Beyond "safe professional", elegantly.** We go further than a
+- **Beyond "safe professional", elegantly** (outside the `scan-first` bar
+  below). We go further than a
   conventional CV on purpose, and the page shows that its owner spent real
   extra time to make a good impression. It is still a CV: the facts are
   found in ten seconds, it prints on A4 and it survives a photocopier.
 - **`Flagship Parity`.** The bar is the Marine Flagship: beautiful, elegant, confident, unique,
   premium, and unmistakably marine (a portrait framed by engine-room tools,
   a ship and a propeller drawn into the page).
+- **The `Scan Test` and the `scan-first` bar (owner, 2026-11-04).** For ordinary
+  jobs, a `Client` may choose one clear page over a showpiece. A `Template
+  Variation` is held to the `scan-first` bar only when the owner set it on approving
+  that design, and then passes the `Scan Test` instead of the
+  `Three-Second Test`: a reader finds the name, each job's title, employer and
+  dates, and the education within seconds. `Flagship Parity` then means equal in
+  craft, and the `Batch Test` means it stands out in a stack through craft and
+  order, not volume. It uses the domain's imagery, small.
 
-A design that is well crafted but quiet fails. "Safe professional" is a
-defect here, not a neutral outcome: the first tour-leader design (a thin
+A design that is well crafted but quiet fails, except under a `scan-first` bar,
+which is its own. Outside that bar, "safe professional" is a
+defect, not a neutral outcome: the first tour-leader design (a thin
 rail line with section dots, a plain sidebar, a restrained palette) passed
 four craft reviews and was rejected by the owner as "super boring, no
 character, no uniqueness, no Japan in it" (2026-09-29). Never brief or
@@ -76,10 +86,12 @@ the shared core, then freezes an approved render.
 ## What it is not
 
 - Not a tasteful, invisible template. A page that could have come from an
-  online builder has failed, however clean it is ("Design is the product").
+  online builder has failed, however clean it is ("Design is the product"). A
+  `scan-first` page is calm, and still unmistakably crafted.
 - Not a generic resume builder with one shape for everyone. Each domain
-  keeps the facts and wording its career area actually uses. Two pages by default;
-  one page for short careers once direction item 6 lands.
+  keeps the facts and wording its career area actually uses. Each `Template
+  Variation` is to set its own page count (ADR 0016); today Flagship is two
+  pages, or one for short careers.
 - The engine remains locally usable with one compiler. The approved future web
   application adds hosted intake, review, and delivery, with real candidate
   data in private storage outside the public source repository.
@@ -99,7 +111,8 @@ the shared core, then freezes an approved render.
    template. A role-level template is the exception and needs a reason. In
    the marine tree today the deck variation is the captain artwork pack and
    example; the engine variation is the engineer pack and example.
-3. **Approved looks are frozen.** Every approved template has a locked
+3. **Approved looks are frozen.** Every approved `Template Variation` (until ADR
+   0016 is built, Flagship's one design) has a locked
    reference render, and the suite proves the library reproduces it on
    every run.
 4. **Loud failure over silent drift.** Overflow, missing months, a name that
@@ -144,8 +157,12 @@ started on an agent's initiative.
    frozen reference, likely grown from one of the studies under
    `studio/archive/design-studies/`.
 6. **Short-career layout.** A one-page layout profile for cadets, juniors
-   and short careers, for every template.
+   and short careers, for every template. Flagship's is **done** (P-0012).
 7. **More themes.** Two to four per template.
 8. **The hosted workflow** in the public monorepo: candidate intake, background
    rendering, owner review and approval, then delivery of the approved PDF.
    Build it after the core is stable; local operation remains supported.
+9. **The Template Contract.** `Template Variation`s and versioned contracts
+   between `Domain`s and `Template`s, with a one-page `scan-first` `Template
+   Variation` of Flagship first. See ADR 0016. Opened 2026-11-04: it runs straight
+   after item 3, ahead of the items above that are not open.

@@ -13,7 +13,7 @@ this repository after adding them. The installed CLI used for verification is
 | `ceo` | Up to three researched, roadmap-aware product proposals | The lead's idea-run folder only |
 | `ceo-reviewer` | Review product proposals against five criteria | None |
 | `magazine-editor` | Three Styles, two Densities, three Design Tiers: eighteen fictional Typst concepts | Concept folders, their README rows, licensed concept fonts, fresh builds/ artifacts |
-| `design-reviewer` | Inspect every page; Batch Test, Three-Second Test, Flagship Parity and craft | Fresh builds/ renders and batch sheets only |
+| `design-reviewer` | Inspect every page; Batch Test, Three-Second Test or Scan Test, Flagship Parity and craft | Fresh builds/ renders and batch sheets only |
 | `research-reviewer` | Verify load-bearing claims and current primary sources | None |
 | `repo-auditor-lite` | Confirm repo-maintenance leads and judgement checks | None |
 | `code-reviewer` | Advisory snapshot review under docs/review.md | Vetted checks into fresh builds/ folders only |

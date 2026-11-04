@@ -86,7 +86,7 @@
       "when": "A design `Idea Run`, for inspiration or for a client whose `Domain` has no `Template` yet.",
       "sources": [
         ".claude/agents/magazine-editor.md:1-24",
-        ".claude/agents/magazine-editor.md:52-85"
+        ".claude/agents/magazine-editor.md:53-86"
       ],
       "short": "Editor",
       "notes": [
@@ -110,7 +110,7 @@
       ],
       "sources": [
         ".claude/agents/design-reviewer.md:1-17",
-        ".claude/agents/design-reviewer.md:73-148"
+        ".claude/agents/design-reviewer.md:73-155"
       ],
       "short": "Design rev."
     },
@@ -181,7 +181,7 @@
       ],
       "sources": [
         ".claude/agents/code-reviewer.md:1-7",
-        "docs/review.md:128-146"
+        "docs/review.md:129-147"
       ],
       "short": "Code rev."
     },
@@ -318,7 +318,7 @@
       "role": "Checklist that builds the CV itself: data, entry point, page plan, the client design loop, the render and its evidence.",
       "when": "After `Sign-off`, or to add a public example.",
       "sources": [
-        ".claude/skills/new-cv/SKILL.md:1-19"
+        ".claude/skills/new-cv/SKILL.md:1-20"
       ]
     },
     "idea-run": {

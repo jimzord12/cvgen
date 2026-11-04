@@ -1,7 +1,7 @@
 {
  "pages": {
   "change-review": {
-   "commit": "3e2c3b6",
+   "commit": "9e9cf20",
    "sources": {
     ".claude/skills/verify-cv/SKILL.md": "0a507b4d2616e8623eeb53af7bb860aed3dfdcf5",
     ".github/workflows/verify.yml": "1863e738e0ff361cd4add4977517cbb333043871",
@@ -12,21 +12,21 @@
     "docs/git-workflow.md": "5ff2c22bf4f01c3e3ec082cb7eb9c966b604635d",
     "docs/preferences.md": "5675d5334be68df33ce3907bffb84398ca65d83c",
     "docs/proposals/README.md": "1510574614d3a04fca59d903a6502dda90f96018",
-    "docs/review.md": "c9fdc6c5546863bf8a6db767c1c65e5cf57ff39a"
+    "docs/review.md": "879111622d23168d0bad13c5d6f4ed18fa4210aa"
    },
    "verifiedAt": "2026-11-04"
   },
   "client-journey": {
-   "commit": "3e2c3b6",
+   "commit": "9e9cf20",
    "sources": {
-    ".claude/agents/design-reviewer.md": "1b7e4e0703514230ef04a3d6d1b020d9e6fc2145",
+    ".claude/agents/design-reviewer.md": "9938a4b0c29a9fb5cf700f45377a3587f7eb21d0",
     ".claude/skills/idea-run/SKILL.md": "e1208b8d675ef749b06c25a95f2e1d59f4713984",
     ".claude/skills/new-client/SKILL.md": "5ec02008fb335251980d583ec9ad03f20dd838bc",
-    ".claude/skills/new-cv/SKILL.md": "d58ba34ffb6baf6df9a3fb91516adea1b525e5c7",
+    ".claude/skills/new-cv/SKILL.md": "89abcd9133865bc192a0295b09c3b5e35e9f36b3",
     ".claude/skills/verify-cv/SKILL.md": "0a507b4d2616e8623eeb53af7bb860aed3dfdcf5",
     "archive/work-records/workflow-model/handoff.md": "521822f241bc9400adb13f1c9a54a8299c144907",
     "docs/framework-gaps.md": "8a6372a473075cb96aa7154dedc9635c5decfc19",
-    "docs/glossary.md": "69905cf8223935e21ddd029f465c568f87fe492b",
+    "docs/glossary.md": "ac043fa6b96b4320cb09f4836f27eafd65bf26f4",
     "docs/guides/build-a-cv.md": "e6cf724f7ccb06a05f91dbdbb44cfdcd1901f526",
     "docs/guides/client-workflow.md": "da905ddba34cedb4b1367467fbf980f9bb261c17",
     "docs/pdf-workflow.md": "bb9e20abbe0be5706a25c9a27cc085acecf98205",
@@ -34,7 +34,7 @@
     "docs/proposals/workflow-gaps.md": "ed45ad272f79d933c9958e9d86bed79f9458c93a",
     "docs/proposals/workflow-model.md": "a4157a6d03f5ef9a6765fb289a3b3d78fa5547cf",
     "docs/research/README.md": "07e6579724b4758236ed37ab48b95e5e7cded544",
-    "docs/review.md": "c9fdc6c5546863bf8a6db767c1c65e5cf57ff39a",
+    "docs/review.md": "879111622d23168d0bad13c5d6f4ed18fa4210aa",
     "docs/workflow/01-open/README.md": "dd68671aa917911353229223d0846fbc412dc66c",
     "docs/workflow/02-intake/README.md": "99a579dfa0367c911aa7f62780d92afc2a45f136",
     "docs/workflow/03-research/README.md": "0dbf0603ecdd195487d4b9d3e990dda390ae1bdd",
@@ -55,42 +55,42 @@
    "verifiedAt": "2026-11-04"
   },
   "design-run": {
-   "commit": "b87a4e8",
+   "commit": "9e9cf20",
    "sources": {
     ".claude/agents/codex-visual-reviewer.md": "0bf2ea9e6a44f711cc56bf1be63d874f6fe0503e",
-    ".claude/agents/design-reviewer.md": "1b7e4e0703514230ef04a3d6d1b020d9e6fc2145",
-    ".claude/agents/magazine-editor.md": "02e20f1dd024cdf77adb0033be7807912e19135c",
+    ".claude/agents/design-reviewer.md": "9938a4b0c29a9fb5cf700f45377a3587f7eb21d0",
+    ".claude/agents/magazine-editor.md": "a740fe61ac7fa403a3e4dfa55584b6f87ab1847f",
     ".claude/agents/research-reviewer.md": "5c4ca50e19c0afaffde30e28555b9479dc28ccc2",
     ".claude/skills/idea-run/SKILL.md": "e1208b8d675ef749b06c25a95f2e1d59f4713984",
     "apps/design-review/README.md": "5d14097c544910a9ba0d940e76863223ac1f62a3",
     "apps/design-review/server.py": "65b42af8bcf0a971e19ec97fa39b874cad91c3c1",
-    "docs/glossary.md": "69905cf8223935e21ddd029f465c568f87fe492b",
+    "docs/glossary.md": "ac043fa6b96b4320cb09f4836f27eafd65bf26f4",
     "docs/pdf-workflow.md": "bb9e20abbe0be5706a25c9a27cc085acecf98205",
     "docs/proposals/codex-visual-tools.md": "3ab6ae0bbd4326611a6cde986ac6ee8cd2db94fd",
-    "docs/review.md": "c9fdc6c5546863bf8a6db767c1c65e5cf57ff39a",
+    "docs/review.md": "879111622d23168d0bad13c5d6f4ed18fa4210aa",
     "studio/archive/anti-examples/README.md": "e8eeb5638f3628c845b398583c5c952a141bfc9a",
     "studio/design-concepts/README.md": "6f9c35abb0affbc80fe19a474d22554a833d1338"
    },
    "verifiedAt": "2026-11-04"
   },
   "roster": {
-   "commit": "3e2c3b6",
+   "commit": "9e9cf20",
    "sources": {
-    ".claude/agents/ceo-reviewer.md": "058811a51ac27c65a93dc8915db4afd58676d33d",
+    ".claude/agents/ceo-reviewer.md": "8b0ce89d0cf745923ec296c9034c1f8e5958d42b",
     ".claude/agents/ceo.md": "e6291c8d2282c325db11302b1be9ee8364edd3aa",
     ".claude/agents/code-reviewer.md": "7dc8681cc1567d31c532660f0a394a0b717392d2",
     ".claude/agents/codex-visual-reviewer.md": "0bf2ea9e6a44f711cc56bf1be63d874f6fe0503e",
     ".claude/agents/context-maintainer.md": "2a494e1e998da769620850a756863a923b02f28e",
     ".claude/agents/context-reviewer.md": "68205bcdf72a4c0b36c4c4ca2a8a3baadcd5f34a",
-    ".claude/agents/design-reviewer.md": "1b7e4e0703514230ef04a3d6d1b020d9e6fc2145",
-    ".claude/agents/magazine-editor.md": "02e20f1dd024cdf77adb0033be7807912e19135c",
+    ".claude/agents/design-reviewer.md": "9938a4b0c29a9fb5cf700f45377a3587f7eb21d0",
+    ".claude/agents/magazine-editor.md": "a740fe61ac7fa403a3e4dfa55584b6f87ab1847f",
     ".claude/agents/repo-auditor-lite.md": "99c2e868259168afc5e9a3a087e4d3cc1ef88354",
     ".claude/agents/research-reviewer.md": "5c4ca50e19c0afaffde30e28555b9479dc28ccc2",
     ".claude/repo-maintenance.md": "ad61b38fd0ca448d72a1d2f8265f73143ec6c295",
     ".claude/skills/backlog/SKILL.md": "24c2914e3331741a0d013d29cfd4ce2adfc8015e",
     ".claude/skills/idea-run/SKILL.md": "e1208b8d675ef749b06c25a95f2e1d59f4713984",
     ".claude/skills/new-client/SKILL.md": "5ec02008fb335251980d583ec9ad03f20dd838bc",
-    ".claude/skills/new-cv/SKILL.md": "d58ba34ffb6baf6df9a3fb91516adea1b525e5c7",
+    ".claude/skills/new-cv/SKILL.md": "89abcd9133865bc192a0295b09c3b5e35e9f36b3",
     ".claude/skills/new-theme/SKILL.md": "047bbb4ef11c884caacc39344553bf0b7566ca57",
     ".claude/skills/repo-maintenance/SKILL.md": "b2b1e33465db21e605c59cf0255371ec59809228",
     ".claude/skills/verify-cv/SKILL.md": "0a507b4d2616e8623eeb53af7bb860aed3dfdcf5",
@@ -109,7 +109,7 @@
     "docs/pdf-workflow.md": "bb9e20abbe0be5706a25c9a27cc085acecf98205",
     "docs/preferences.md": "5675d5334be68df33ce3907bffb84398ca65d83c",
     "docs/proposals/codex-visual-tools.md": "3ab6ae0bbd4326611a6cde986ac6ee8cd2db94fd",
-    "docs/review.md": "c9fdc6c5546863bf8a6db767c1c65e5cf57ff39a",
+    "docs/review.md": "879111622d23168d0bad13c5d6f4ed18fa4210aa",
     "docs/tech-stack.md": "74c23aa5d8a29c6f5c40d99705999144ccfee7b8",
     "docs/workflow/01-open/README.md": "dd68671aa917911353229223d0846fbc412dc66c",
     "docs/workflow/02-intake/README.md": "99a579dfa0367c911aa7f62780d92afc2a45f136",
@@ -124,12 +124,12 @@
    "verifiedAt": "2026-11-04"
   },
   "system-map": {
-   "commit": "b87a4e8",
+   "commit": "9e9cf20",
    "sources": {
     ".claude/agents": "dir1:d86ac8b44b9896473ff12ecdbc91538ae34a8852",
     ".claude/skills": "dir1:5eeafda0c9ef9a6037a3fcc2879f73f098fa3e55",
     ".claude/skills/backlog/SKILL.md": "24c2914e3331741a0d013d29cfd4ce2adfc8015e",
-    "AGENTS.md": "b2b51312019a954da883c8b54d051f26b08382bd",
+    "AGENTS.md": "f3c7f4e0e79409e466ad00985b54132b51428e3f",
     "apps/design-review/README.md": "5d14097c544910a9ba0d940e76863223ac1f62a3",
     "apps/design-review/server.py": "65b42af8bcf0a971e19ec97fa39b874cad91c3c1",
     "archive/work-records": "dir1:107f73f94402e082f8d64feff415cce4ff954642",
@@ -137,7 +137,7 @@
     "docs/architecture.md": "b97ca956765ad176a6f31c0cd3f6ab9a6abaf3e1",
     "docs/engine/verification.md": "61c1eb6ce0099febb4961b2fddf98bf5a997de7f",
     "docs/git-workflow.md": "5ff2c22bf4f01c3e3ec082cb7eb9c966b604635d",
-    "docs/glossary.md": "69905cf8223935e21ddd029f465c568f87fe492b",
+    "docs/glossary.md": "ac043fa6b96b4320cb09f4836f27eafd65bf26f4",
     "docs/guides/build-a-cv.md": "e6cf724f7ccb06a05f91dbdbb44cfdcd1901f526",
     "docs/guides/client-workflow.md": "da905ddba34cedb4b1367467fbf980f9bb261c17",
     "docs/pdf-workflow.md": "bb9e20abbe0be5706a25c9a27cc085acecf98205",

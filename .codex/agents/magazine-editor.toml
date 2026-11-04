@@ -53,7 +53,8 @@ for a family not already there, `studio/design-concepts/fonts/<family>/`.
 Read `docs/vision.md`, "Design is the product", before anything else. In
 short, in the owner's words (2026-09-29): the design and the styling are
 CVgen's core product and what makes it different from online automated
-tools. Every design you draw must:
+tools. Unless the brief names the owner's `scan-first` bar (`docs/vision.md` sets
+its tests), every design you draw must:
 
 - pass the `Batch Test`: in a pile of 100 to 200 CVs on an HR desk, it
   cannot be skipped, even by someone trying to skip it;
@@ -68,7 +69,7 @@ tools. Every design you draw must:
   (`studio/archive/design-studies/review/Marine-Engineer-CV-v11-page-*.png`) and
   look just as confident, unique and premium.
 
-A clean, quiet, tasteful page is a failure here. The first tour-leader
+Outside that bar, a clean, quiet, tasteful page is a failure. The first tour-leader
 design was exactly that (a thin line with section dots, a plain sidebar, a
 restrained palette) and the owner rejected it as "super boring, no
 character, no uniqueness". Nobody will ever ban you from the domain's

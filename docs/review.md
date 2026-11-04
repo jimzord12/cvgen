@@ -25,7 +25,8 @@ changes"). That covers code, tests and fixtures, and equally documentation,
 process rules (this file, `docs/development.md`, AGENTS.md, CLAUDE.md),
 proposals and their revisions, skills and agent definitions, and brand or
 design assets (with the `design-reviewer` for how they look: a CV is
-judged first on the `Batch Test`, the `Three-Second Test` and `Flagship
+judged first on the `Batch Test`, the `Three-Second Test` (the `Scan Test` for
+a `scan-first` `Template Variation`) and `Flagship
 Parity` from `docs/vision.md`, "Design is the product"; a brand or
 house-design asset on premium, on-brand and fit for purpose; CV concept
 runs and client designs add a `codex-visual-reviewer` beside it, as the
