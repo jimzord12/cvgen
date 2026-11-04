@@ -14,3 +14,8 @@ He asked for three fold-outs per decision, two to four clickable options with th
 Design, FINDINGS: six blocking (the answer box clipped its text; Copy with no picks copied the hint; Pick all overwrote hand picks and a pick could not be cleared; cards 4 and 5 lacked an example; Decided without you had no shape; the legend misreported a running gate), notes and nits.
 Context, FINDINGS: four material (stale suite description, README against the script, validation short of the README, a grade table half duplicating the bullet), five minors.
 Response: fixed. D23 in part: both examples added, and `example` stays optional, as the owner said ("if the decision does not make sense to have an example, just don't add it"). D27 (evidence still below the decisions) left as it is: he approved that section's place.
+
+## Round 3 and the code review
+Design, FINDINGS: D20 to D25 confirmed fixed in the browser. One blocking: stored picks keyed on title and date could turn into a decision he never made after a rebuild, or kill the box (D28). Notes: the box did not refit on resize; a gap under short titles.
+Code, round 1, FINDINGS: six material (data that passed and rendered blank; `hard` and `soft` unescaped; evidence with no picture; stored picks becoming another answer; an out-of-range stored pick killing the box; tests that could detect none of it), five minors, two notes.
+Response: `refusal()` checks types, per-`kind` keys and non-empty values; the store key holds the cards and stale picks are dropped at load; `total` is escaped; substitution is one pass; `--fragment` refuses a client's path; each refusal is tested on its exact message. The page's script is still not run by the suite: a design review drives it, and the verification manual says so.

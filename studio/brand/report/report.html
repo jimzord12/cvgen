@@ -98,7 +98,7 @@ h2 button{order:3;font:700 14px var(--ui);text-transform:none;letter-spacing:0;p
 .answers button{font:700 15px var(--ui);padding:7px 14px;border-radius:6px;border:0;cursor:pointer;background:var(--panel2);color:var(--fg)}
 .answers .copy{background:var(--thread);color:var(--on-thread)}
 .answers .copy:disabled{background:var(--panel2);color:var(--mute);cursor:not-allowed}
-.answers textarea{width:100%;min-height:64px;resize:none;overflow:hidden;font:15px/1.4 var(--ui);color:var(--fg);background:var(--bg);border:1px solid var(--line);border-radius:4px;padding:10px}
+.answers textarea{field-sizing:content;width:100%;min-height:64px;resize:none;overflow:hidden;font:15px/1.4 var(--ui);color:var(--fg);background:var(--bg);border:1px solid var(--line);border-radius:4px;padding:10px}
 
 /* Review descent: red falling to zero */
 .reviews{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(300px,100%),1fr));gap:24px}
@@ -127,7 +127,7 @@ h2 button{order:3;font:700 14px var(--ui);text-transform:none;letter-spacing:0;p
 .grade>header i{width:9px;height:9px;transform:rotate(45deg);border:2px solid var(--thread)}
 .grade>header .major i{background:var(--thread)}
 .rows{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(340px,100%),1fr));gap:0 28px;margin:0;padding:0;list-style:none}
-.rows li{padding-block:9px;border-top:1px solid var(--line);min-width:0;display:grid;grid-template-columns:auto minmax(0,1fr);gap:0 10px}
+.rows li{padding-block:9px;border-top:1px solid var(--line);min-width:0;display:grid;grid-template-columns:auto minmax(0,1fr);gap:0 10px;align-content:start}
 .mark{grid-row:span 2;width:14px;height:14px;margin-top:4px;transform:rotate(45deg);border:2px solid var(--thread)}
 .mark.major{background:var(--thread)}
 .rows strong{display:block;font-weight:700}
@@ -196,7 +196,7 @@ function gate(g, top) {
     const total = (r.hard || 0) + (r.soft || 0);
     if (r.verdict === 'running') return '<div class="bar"><div class="slot running"></div></div>';
     if (!total) return `<div class="bar">${pass}</div>`;
-    return `<div class="bar">${pass}<em>${total}</em><span class="soft" style="height:${height(r.soft || 0)}%"></span><span class="hard" style="height:${height(r.hard || 0)}%"></span></div>`;
+    return `<div class="bar">${pass}<em>${e(total)}</em><span class="soft" style="height:${height(r.soft || 0)}%"></span><span class="hard" style="height:${height(r.hard || 0)}%"></span></div>`;
   };
   const empty = Array(Math.max(g.cap - g.rounds.length, 0)).fill('<div class="bar"><div class="slot empty"></div></div>');
   const ticks = Array.from({length: Math.max(g.cap, g.rounds.length)}, (_, i) => `<span>${i + 1}</span>`).join('');
@@ -255,8 +255,13 @@ if (R.evidence_path) parts.push(`<footer>${e(R.evidence_path)}</footer>`);
 document.getElementById('page').innerHTML = parts.join('');
 document.querySelectorAll('.compare input').forEach(i =>
   i.addEventListener('input', () => i.parentElement.style.setProperty('--x', i.value + '%')));
-const store = 'report:' + R.title + ':' + R.date, picks = {};
-try { Object.assign(picks, JSON.parse(localStorage.getItem(store) || '{}')); } catch {}
+// Picks are positions, so the key holds the cards: a changed card never inherits an old answer.
+const store = 'report:' + JSON.stringify([R.title, R.date, R.needs_you]), picks = {};
+try {
+  Object.entries(JSON.parse(localStorage.getItem(store) || '{}')).forEach(([i, n]) => {
+    if (Number.isInteger(n) && R.needs_you?.[i]?.options[n]) picks[i] = n;
+  });
+} catch {}
 function showPicks() {
   const asks = R.needs_you || [];
   document.querySelectorAll('.choice button').forEach(b =>
@@ -267,8 +272,6 @@ function showPicks() {
   document.getElementById('tally').innerHTML = `Your answers: ${lines.length} of ${asks.length}<i class="pips">${asks.map((_, i) => `<b class="pip ${picks[i] === undefined ? '' : 'on'}"></b>`).join('')}</i>`;
   text.value = lines.length ? [`My decisions on ${R.title}:`, ...lines].join('\n') : '';
   document.getElementById('copy').disabled = !lines.length;
-  text.style.height = 'auto';
-  text.style.height = text.scrollHeight + 2 + 'px';
   try { localStorage.setItem(store, JSON.stringify(picks)); } catch {}
 }
 document.querySelectorAll('.choice button').forEach(b => b.addEventListener('click', () => {

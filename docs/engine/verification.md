@@ -206,10 +206,11 @@ Windows one also holds the PDFs that build wrote, one per example in
    `scripts/report.py` on the worked sample under `report/`: one page with
    its fonts and pictures embedded and no `src` or `href` pointing at the
    network, the fragment without its skeleton, refusal of an existing folder,
-   then one refusal per rule (a missing field, an unknown value, a decision card
-   without two to four options or one recommended, a `Critical` decision, a
-   review without rounds), none leaving a folder. The buttons and copy box are
-   not driven here; a design review clicks them.
+   text that cannot break out of the page, then one refusal per rule, each on
+   its exact message and none leaving a folder (a missing or wrong-typed field,
+   an unknown value, a decision card without two to four options or one
+   recommended, a `Critical` decision, a missing picture or page, a client's page
+   in a fragment). The page's script is not run here; a design review clicks it.
 
 Negative cases assert on the exact error text so a message change is a test
 change.

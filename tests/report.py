@@ -37,18 +37,48 @@ def run_report(out):
     checks.append('an existing folder is refused')
 
     data = json.loads(SAMPLE.read_text(encoding='utf-8'))
+    hostile = folder / 'hostile.json'
+    hostile.write_text(json.dumps({**data, 'title': '{{DATA}} A & B', 'headline': '</script><!-- x'}), encoding='utf-8')
+    written = run(hostile, '--output', folder / 'hostile')
+    assert written.returncode == 0, written.stderr
+    page = (folder / 'hostile/report.html').read_text(encoding='utf-8')
+    assert '</script><!--' not in page and page.count('</script>') == 2, 'report text closed the script block'
+    assert '<title>{{DATA}} A &amp; B</title>' in page, 'a placeholder in a title stays text'
+    checks.append('text cannot break out of the page')
+
     card = {'title': 'A', 'context': 'B', 'decision': 'C'}
-    for name, broken, word in (('no headline', {k: v for k, v in data.items() if k != 'headline'}, 'headline'),
-                               ('unknown verdict', {**data, 'verdict': 'fine'}, 'verdict'),
-                               ('one option', {**data, 'needs_you': [{**card, 'options': [{'label': 'B'}]}]}, 'two to four'),
-                               ('no recommendation', {**data, 'needs_you': [{**card, 'options': [{'label': 'B'}, {'label': 'C'}]}]}, 'recommended'),
-                               ('a Critical decision', {**data, 'decisions': [{'grade': 'Critical', 'title': 'A', 'why': 'B'}]}, 'grade'),
-                               ('a review without rounds', {**data, 'reviews': [{'name': 'A', 'cap': 5}]}, 'rounds')):
+    choices = [{'label': 'B', 'recommended': True}, {'label': 'C'}]
+    gate = {'name': 'A', 'cap': 5}
+    for name, broken, message in (
+            ('no headline', {k: v for k, v in data.items() if k != 'headline'}, 'the report needs headline: add them to the JSON file'),
+            ('unknown verdict', {**data, 'verdict': 'fine'}, "verdict 'fine' is not one of done, needs-you, running, blocked"),
+            ('a section that is not a list', {**data, 'evidence': None}, 'evidence must be a list of objects'),
+            ('empty fold-out', {**data, 'needs_you': [{**card, 'context': '', 'options': choices}]}, 'needs_you: an item needs context'),
+            ('one option', {**data, 'needs_you': [{**card, 'options': choices[:1]}]}, "'A' needs two to four options"),
+            ('five options', {**data, 'needs_you': [{**card, 'options': choices * 2 + choices[:1]}]}, "'A' needs two to four options"),
+            ('an option without a label', {**data, 'needs_you': [{**card, 'options': [choices[0], {'label': ''}]}]}, "'A' has an option without a label"),
+            ('no recommendation', {**data, 'needs_you': [{**card, 'options': [{'label': 'B'}, {'label': 'C'}]}]}, "'A' needs exactly one recommended option"),
+            ('two recommendations', {**data, 'needs_you': [{**card, 'options': [choices[0], choices[0]]}]}, "'A' needs exactly one recommended option"),
+            ('a Critical decision', {**data, 'decisions': [{'grade': 'Critical', 'title': 'A', 'why': 'B'}]}, "decisions: grade 'Critical' is not one of Minor, Major"),
+            ('a review without rounds', {**data, 'reviews': [gate]}, 'reviews: an item needs rounds'),
+            ('a cap that is not a number', {**data, 'reviews': [{**gate, 'cap': 'five', 'rounds': []}]}, 'reviews: A needs a whole number cap and a list of rounds'),
+            ('rounds that are not a list', {**data, 'reviews': [{**gate, 'rounds': {}}]}, 'reviews: A needs a whole number cap and a list of rounds'),
+            ('an unknown round verdict', {**data, 'reviews': [{**gate, 'rounds': [{'verdict': 'x'}]}]}, 'reviews: A has a round whose verdict is not one of findings, pass, running'),
+            ('text as a finding count', {**data, 'reviews': [{**gate, 'rounds': [{'verdict': 'pass', 'hard': '<img>'}]}]}, 'reviews: A has a round whose hard or soft is not a whole number'),
+            ('evidence without a picture', {**data, 'evidence': [{'kind': 'page', 'caption': 'A'}]}, 'evidence: a page needs src'),
+            ('a page that does not exist', {**data, 'evidence': [{'kind': 'page', 'caption': 'A', 'src': {'pdf': 'examples/marine/flagship/captain.pdf', 'page': 0}}]}, 'examples/marine/flagship/captain.pdf has no page 0'),
+            ('a PDF given as an image', {**data, 'evidence': [{'kind': 'page', 'caption': 'A', 'src': 'examples/marine/flagship/captain.pdf'}]}, 'examples/marine/flagship/captain.pdf is not an image: a PDF page is {"pdf": path, "page": n}')):
         path = folder / 'broken.json'
         path.write_text(json.dumps(broken), encoding='utf-8')
         target = folder / 'broken'
         refused = run(path, '--output', target)
-        assert refused.returncode != 0 and word in refused.stderr, refused.stderr
+        assert refused.returncode != 0 and refused.stderr.strip() == 'report: ' + message, refused.stderr
         assert not target.exists(), 'a refused report left a folder'
         checks.append('refused: ' + name)
+
+    path = folder / 'broken.json'
+    path.write_text(json.dumps({**data, 'evidence': [{'kind': 'page', 'caption': 'A', 'src': 'private/a/portrait.png'}]}), encoding='utf-8')
+    refused = run(path, '--fragment', '--output', folder / 'broken')
+    assert refused.stderr.strip() == "report: a client's pages stay out of a hosted page: leave out --fragment", refused.stderr
+    checks.append('refused: a client page in a fragment')
     return checks
