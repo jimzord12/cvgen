@@ -630,7 +630,7 @@ window.ATLAS = {
         "docs/workflow/01-open/README.md:23-26",
         "docs/guides/client-workflow.md:90-91",
         ".claude/skills/new-client/SKILL.md:33-35",
-        "docs/glossary.md:56"
+        "docs/glossary.md:57"
        ]
       },
       {
@@ -1099,7 +1099,7 @@ window.ATLAS = {
        "sources": [
         "docs/workflow/03-research/README.md:24-34",
         ".claude/skills/new-client/SKILL.md:57-59",
-        "docs/glossary.md:62"
+        "docs/glossary.md:63"
        ]
       },
       {
@@ -1767,8 +1767,8 @@ window.ATLAS = {
        "note": "Model step `text-draft.client-check`, action `manual.client-checks-draft`, in `docs/workflow/04-text-draft/stage.yaml`.",
        "sources": [
         "docs/workflow/04-text-draft/README.md:17-23",
-        "docs/glossary.md:68",
-        "docs/glossary.md:71"
+        "docs/glossary.md:69",
+        "docs/glossary.md:72"
        ]
       },
       {
@@ -2881,7 +2881,7 @@ window.ATLAS = {
         "docs/guides/build-a-cv.md:153-158",
         "docs/pdf-workflow.md:180-182",
         "docs/proposals/workflow-model.md:58",
-        "docs/glossary.md:73"
+        "docs/glossary.md:74"
        ]
       },
       {
@@ -4096,7 +4096,7 @@ window.ATLAS = {
        "path": "scripts/text-draft.typ",
        "blurb": "The house design every `Text Draft` uses.",
        "sources": [
-        "docs/glossary.md:65-66"
+        "docs/glossary.md:66-67"
        ]
       },
       {
@@ -4483,30 +4483,30 @@ window.ATLAS = {
   }
  ],
  "build": {
-  "builtAt": "2026-11-04 21:12 UTC",
-  "commit": "ed1c50c",
+  "builtAt": "2026-11-04 21:24 UTC",
+  "commit": "eb2226d",
   "kit": "1.1",
   "stale": {},
   "verified": {
    "client-journey": {
     "at": "2026-11-04",
-    "commit": "ed1c50c"
+    "commit": "eb2226d"
    },
    "design-run": {
     "at": "2026-11-04",
-    "commit": "ed1c50c"
+    "commit": "eb2226d"
    },
    "change-review": {
     "at": "2026-11-04",
-    "commit": "ed1c50c"
+    "commit": "eb2226d"
    },
    "system-map": {
     "at": "2026-11-04",
-    "commit": "ed1c50c"
+    "commit": "eb2226d"
    },
    "roster": {
     "at": "2026-11-04",
-    "commit": "ed1c50c"
+    "commit": "eb2226d"
    }
   }
  }
