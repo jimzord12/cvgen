@@ -1,9 +1,10 @@
 ---
 id: TASK-65
 title: 'template-contract-3: coverage in the suite and checks before a render'
-status: Queued
+status: Active
 assignee: []
 created_date: '2026-11-04 21:41'
+updated_date: '2026-11-04 21:52'
 labels: []
 dependencies: []
 ordinal: 65000

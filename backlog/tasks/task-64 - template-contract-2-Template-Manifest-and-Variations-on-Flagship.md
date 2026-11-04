@@ -1,9 +1,10 @@
 ---
 id: TASK-64
 title: 'template-contract-2: Template Manifest and Variations on Flagship'
-status: Queued
+status: Active
 assignee: []
 created_date: '2026-11-04 21:41'
+updated_date: '2026-11-04 21:52'
 labels: []
 dependencies: []
 ordinal: 64000

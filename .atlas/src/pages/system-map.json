@@ -34,7 +34,7 @@
           "blurb": "Who the client is: `Alias`, `Domain`, `Rank`; dates and links.",
           "detail": "`cv.py render` refuses to run without `envelope.json`; every client `Meta File` copies it.",
           "sources": [
-            "docs/guides/client-workflow.md:17-102"
+            "docs/guides/client-workflow.md:17-103"
           ]
         },
         {
@@ -417,7 +417,7 @@
           "actor": "intake-form",
           "blurb": "Optional `Intake Forms` and their answer Sheets.",
           "sources": [
-            "docs/guides/client-workflow.md:139-185"
+            "docs/guides/client-workflow.md:140-186"
           ]
         },
         {

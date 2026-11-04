@@ -8,7 +8,8 @@ reasoning and examples.
 
 A `Template` lives under one `Domain`, accepts the inputs in
 `docs/architecture.md`, follows the component contract (ADR 0008), fails loudly on
-overflow and defines no data model. It has a `Template Manifest`,
+overflow and defines no data model of its own (Flagship keeps its closed input
+schema, with the suite's equal-definitions check, until Stage 2). It has a `Template Manifest`,
 `templates/<t>/template.json`, with at least one `Template Variation` and a
 default, and an entry that renders a `Coverage Fixture` (`coverage` in the
 manifest). A one-off in an `Envelope` has none of this.
@@ -41,11 +42,17 @@ and its `designBar` is set when the owner approves the design.
   group rendered but not claimed warns.
 - **Before a client's render** (`cv_workflow/contracts.py`): a missing required
   group stops the render, as does an `envelope.json` that disagrees with
-  `typst/cv.typ` or a version nobody supports. An optional group the record holds
+  `typst/cv.typ`, an unknown `Template Variation`, or a version it does not
+  support. An optional group the record holds
   and the `Template Variation` does not claim gives a warning, and the `Meta File`
   lists it under `dropped`.
 - A custom composition is checked against the `Domain Contract` alone, and a
   `Domain` with no contract yet is not checked.
 
-Stage 2 of ADR 0016, comparing versions group by group, is built when a contract
-first reaches version 2 (TASK-68).
+Nothing reads `pages`, `designBar`, `layouts`, `themes` or `artwork` from a
+manifest yet: they describe the design for people and reviewers, and `--pages`
+still sets a render's page check.
+
+Stage 2 of ADR 0016 is built when a contract first reaches version 2 (TASK-68):
+the group-by-group comparison, `oldestSupported`, and dropping the closed input
+schema.

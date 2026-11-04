@@ -1,6 +1,6 @@
 # Domains and roles
 
-Read this before adding a domain, a role or a template, or when a template
+Read this, and `template-contract.md`, before adding a domain, a role or a template, or when a template
 needs a word or a rule that seems to belong to the domain rather than to the
 design. Decided in [ADR 0011](../decisions/0011-domains-roles-templates.md);
 the Framework and the domains became separate folders in
@@ -81,8 +81,10 @@ packages/domains/travel-and-tourism/
   domain.typ            id, meta, copy, experience (its own row model)
   data.typ              normalize-candidate = normalize-common + the domain's sections; validate-candidate
   schema/               the domain's candidate-facts contract
+  contracts/v1.json     its Domain Contract, extending the Base Contract
+  fixtures/             its Coverage Fixture and markers
   assets/               its SVG files
-  templates/<design>/   a first template with its adapter, components, themes, artwork, layouts, tests/approved
+  templates/<design>/   a first template with its template.json, adapter, components, themes, artwork, layouts, tests/approved
 examples/travel-and-tourism/<design>/*.typ
 ```
 

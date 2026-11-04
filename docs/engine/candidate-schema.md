@@ -30,6 +30,7 @@ Top-level shape. Required keys are `identity` and `companies`.
                            "institution": "Merchant Marine Academy", "note": "optional" } ],
   "language_entries":  [ { "name": "Greek", "level": "Native" } ],
   "skill_groups":      [ ["Passage planning", "Cargo watch"], ["ECDIS"] ],
+  "domainContract":    1,
   "disclosure":        "footer text; defaults to the fictional-example line, so a real CV sets it"
 }
 ```
@@ -78,6 +79,8 @@ adapter produces it (see "Flagship wording" below).
   renders as before. A name plus particulars too wide for the row fails the
   render: leave out one particular for that vessel. A vessel that appears
   twice (same `id`) must state the same values or omit them.
+- **domainContract** is the `Domain Contract` version the record follows;
+  without it, version 1 (`template-contract.md`).
 - **skill_groups** is one list of skills per column, text only. Flagship places
   them on the page whose plan has `skills: true`
   (`layout-and-pagination.md`).

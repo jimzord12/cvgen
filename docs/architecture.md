@@ -44,6 +44,9 @@ artwork pack.
 | Layout | `domains/marine/templates/flagship/layouts/*.typ` | Margins, the page shell's `shell` slice (opening margin, hero band), hero geometry, column widths, gaps, spacing scale, page plan, `anchor-education`, `spread`, `stack-gap` |
 | Display switch | `show-vessel-durations` on `flagship` | Show or hide every vessel duration at once without moving columns; a record of contract periods refuses it; `scripts/build.ps1 -HideVesselDurations` builds every example with it off (refused with `-Release`) |
 
+An optional `variation` on `flagship` names a `Template Variation`
+(`docs/engine/template-contract.md`); none means the manifest's default.
+
 A seventh, optional input is `copy` on `flagship`: overrides for the
 wording. The adapter composes the marine domain's words, then the role's,
 then Flagship's, then a `copy` key inside the record, then the argument
@@ -114,6 +117,7 @@ in versioned files the suite and the render check: `docs/engine/template-contrac
 
 ```text
 cv-framework/                           the Framework (ADR 0012); imports no domain
+  contracts/base-v1.json                the Base Contract: the Fact Groups every domain has
   lib.typ                               core exports only, no side effects
   typst.toml                            package manifest
   fonts/  licenses/                     bundled OFL fonts and their notices
@@ -131,6 +135,8 @@ domains/marine/                         the marine domain (ADR 0011)
   domain.typ                            id, meta, copy, experience, art-palette
   data.typ                              company-months, experience-totals, normalize-candidate, validate-candidate, experience-model
   schema/candidate.schema.json          marine candidate-facts contract
+  contracts/v<N>.json                   the Domain Contract, each version kept
+  fixtures/coverage-v<N>.json           the Coverage Fixture and its markers
   assets/                               the SVG files, shared by the domain's templates
   roles/deck/role.typ  roles/engine/role.typ   role markers
   templates/flagship/
@@ -138,6 +144,8 @@ domains/marine/                         the marine domain (ADR 0011)
     adapter/adapter.typ                   flagship-copy defaults, to-flagship-input
     components.typ                        Flagship's ctx-first components as one module; marine's lib.typ exports it as flagship-components
     schema/flagship-input.schema.json     Flagship input contract (facts + copy)
+    template.json                         the Template Manifest: Template Variations and their claims
+    tests/coverage.typ                    a Coverage Fixture through Flagship
     components/hero.typ                   portrait, frame, backdrop, contact groups, identity plate, hero
     components/experience.typ             company-period, vessel-row, vessel-type-group, company-experience, experience-section
     components/sections.typ               section-heading, profile-summary, synopsis
@@ -154,6 +162,7 @@ cv-workflow/cv_workflow/                Python; owns everything around a candida
   checks.py                             page count, empty page, fonts, bounds; bound to the PDF hash; certificate expiry warnings
   approve.py                            explicit approval receipt, bound to revision id and hash
   export.py                             verify, copy into a .partial- folder, verify, rename into place
+  contracts.py                          Domain Contracts and manifests: the checks before a render, coverage judging
   outputs.py, output.schema.json        the Output Contract: each PDF's home, stamp and check its Meta File
 scripts/cv.py                           the four local commands calling that package
 scripts/outputs.py                      stamp and check, calling outputs.py

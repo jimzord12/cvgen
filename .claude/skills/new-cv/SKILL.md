@@ -39,8 +39,8 @@ command from the repository root.
   `docs/tech-stack.md`, "Codex CLI", says (never a portrait, nothing about
   the `Client` in the prompt).
 - A `Template`: `design.flagship-fit` (`gate.template-fits`), then
-  `design.entry-point` (BC section 1; it records `template` and `variation`
-  in `envelope.json`) or `design.custom-composition` (BC section 5).
+  `design.entry-point` (BC sections 1 and 2; it records `template` and
+  `variation` in `envelope.json`) or `design.custom-composition` (BC section 5).
 - `design.framework-gap` after a custom composition or a one-off;
   `design.engine-change` and `design.engine-review` (a fresh
   `code-reviewer`) only when the design needs what only the engine holds.

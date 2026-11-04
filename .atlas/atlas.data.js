@@ -384,7 +384,7 @@ window.ATLAS = {
     ],
     "sources": [
      "scripts/cv.py:1-12",
-     "docs/guides/build-a-cv.md:108-188"
+     "docs/guides/build-a-cv.md:108-189"
     ]
    },
    "outputs-py": {
@@ -394,7 +394,7 @@ window.ATLAS = {
     "role": "The `Output Contract` tool: `stamp` writes a PDF's `Meta File`; `check` lists every PDF without a valid one.",
     "sources": [
      "scripts/outputs.py",
-     "docs/pdf-workflow.md:125-170"
+     "docs/pdf-workflow.md:125-172"
     ]
    },
    "suite": {
@@ -429,7 +429,7 @@ window.ATLAS = {
     "sources": [
      "scripts/build.ps1",
      "examples/release.json",
-     "docs/pdf-workflow.md:220-228"
+     "docs/pdf-workflow.md:222-230"
     ]
    },
    "intake-form": {
@@ -439,7 +439,7 @@ window.ATLAS = {
     "role": "Google Apps Script you run once per form: builds the optional `Intake Form` and its answers Sheet in your Google account.",
     "sources": [
      "scripts/intake-form.gs:1-21",
-     "docs/guides/client-workflow.md:139-185"
+     "docs/guides/client-workflow.md:140-186"
     ]
    },
    "board": {
@@ -3887,7 +3887,7 @@ window.ATLAS = {
        "blurb": "Who the client is: `Alias`, `Domain`, `Rank`; dates and links.",
        "detail": "`cv.py render` refuses to run without `envelope.json`; every client `Meta File` copies it.",
        "sources": [
-        "docs/guides/client-workflow.md:17-102"
+        "docs/guides/client-workflow.md:17-103"
        ]
       },
       {
@@ -4270,7 +4270,7 @@ window.ATLAS = {
        "actor": "intake-form",
        "blurb": "Optional `Intake Forms` and their answer Sheets.",
        "sources": [
-        "docs/guides/client-workflow.md:139-185"
+        "docs/guides/client-workflow.md:140-186"
        ]
       },
       {
@@ -4483,30 +4483,30 @@ window.ATLAS = {
   }
  ],
  "build": {
-  "builtAt": "2026-11-04 21:46 UTC",
-  "commit": "0775dac",
+  "builtAt": "2026-11-04 21:53 UTC",
+  "commit": "f1dda8c",
   "kit": "1.1",
   "stale": {},
   "verified": {
    "client-journey": {
     "at": "2026-11-04",
-    "commit": "0775dac"
+    "commit": "f1dda8c"
    },
    "design-run": {
     "at": "2026-11-04",
-    "commit": "0775dac"
+    "commit": "f1dda8c"
    },
    "change-review": {
     "at": "2026-11-04",
-    "commit": "0775dac"
+    "commit": "f1dda8c"
    },
    "system-map": {
     "at": "2026-11-04",
-    "commit": "0775dac"
+    "commit": "f1dda8c"
    },
    "roster": {
     "at": "2026-11-04",
-    "commit": "0775dac"
+    "commit": "f1dda8c"
    }
   }
  }

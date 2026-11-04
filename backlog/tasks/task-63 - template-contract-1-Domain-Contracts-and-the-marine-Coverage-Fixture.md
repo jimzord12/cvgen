@@ -1,9 +1,10 @@
 ---
 id: TASK-63
 title: 'template-contract-1: Domain Contracts and the marine Coverage Fixture'
-status: Queued
+status: Active
 assignee: []
 created_date: '2026-11-04 21:41'
+updated_date: '2026-11-04 21:52'
 labels: []
 dependencies: []
 ordinal: 63000

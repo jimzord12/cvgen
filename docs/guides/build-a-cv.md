@@ -77,8 +77,8 @@ then check totals. A one-off `Template` that imports only the `Framework`
 gets no schema check: keep `identity.name` and `identity.portrait`, and run
 `normalize-common` and `validate-common` in its `cv.typ`.
 
-**Record the choice.** Add `"template": "flagship"` and `"variation": "showcase"`
-to `envelope.json`. The render checks them against `cv.typ` and the record
+**Record the choice.** For a Flagship entry point, add `"template": "flagship"`
+and `"variation": "showcase"` to `envelope.json`. The render checks them against `cv.typ` and the record
 (`docs/engine/template-contract.md`): a missing required `Fact Group` stops it,
 and one the `Template Variation` does not show gives a warning.
 
@@ -130,7 +130,8 @@ a check failed; the revision stays, with the error in its `render.log` or
 `envelope.json`, `candidate.json` or `typst/cv.typ`, one that still keeps
 `cv.typ` at its root, invalid
 JSON, a record that breaks its schema - the offending fields are listed
-with their paths, the first ten and then a count - a missing portrait file, no Typst on PATH), and the reason
+with their paths, the first ten and then a count - a record missing a required
+`Fact Group`, an `envelope.json` that disagrees with `cv.typ`, a missing portrait file, no Typst on PATH), and the reason
 names the fix. Nothing is written on a refusal. Its options: `--pages N`
 (the page count the checks expect, default 2), `--input key=value`
 (passed to `typst --input`; `lang=<xx>` also goes into the `Meta File`),

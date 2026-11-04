@@ -90,7 +90,7 @@ the shared core, then freezes an approved render.
   `scan-first` page is calm, and still unmistakably crafted.
 - Not a generic resume builder with one shape for everyone. Each domain
   keeps the facts and wording its career area actually uses. Each `Template
-  Variation` sets its own page count in its `Template Manifest`.
+  Variation` states its own page count in its `Template Manifest`.
 - The engine remains locally usable with one compiler. The approved future web
   application adds hosted intake, review, and delivery, with real candidate
   data in private storage outside the public source repository.

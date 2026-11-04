@@ -111,7 +111,7 @@ actions:
   - id: lead.write-form-script
     kind: lead
     name: Write the Intake Form script
-    sources: ["docs/guides/client-workflow.md:144-149", ".claude/skills/new-client/SKILL.md:45-48", "scripts/intake-form.gs:20-21"]
+    sources: ["docs/guides/client-workflow.md:145-150", ".claude/skills/new-client/SKILL.md:45-48", "scripts/intake-form.gs:20-21"]
     does: >-
       Writes intake/form-NN.gs, a copy of scripts/intake-form.gs with only its
       FORM block changed: title, intro, consent, questions; pages by topic and
@@ -139,9 +139,9 @@ artifacts:
 
   - id: art.envelope-json
     name: envelope.json
-    sources: ["docs/guides/client-workflow.md:34-35", "docs/guides/client-workflow.md:88-102", "packages/cv-workflow/cv_workflow/outputs.py:61-78", "docs/proposals/workflow-gaps.md:36"]
+    sources: ["docs/guides/client-workflow.md:34-35", "docs/guides/client-workflow.md:88-103", "packages/cv-workflow/cv_workflow/outputs.py:61-78", "docs/proposals/workflow-gaps.md:36"]
     path: private/<envelope>/envelope.json
-    format: "JSON: alias, domain, candidate, rank (each checked against output.schema.json's property of that name); keep_requested (YYYY-MM-DD) once the client asks to keep his data"
+    format: "JSON: alias, domain, candidate, rank (each checked against output.schema.json's property of that name); template and variation (ADR 0016); keep_requested (YYYY-MM-DD) once the client asks to keep his data"
     visibility: private
 
   - id: art.envelope-readme
@@ -153,7 +153,7 @@ artifacts:
 
   - id: art.readme-google-links
     name: README.md, section "Google"
-    sources: ["docs/guides/client-workflow.md:161-163", "scripts/intake-form.gs:11-15"]
+    sources: ["docs/guides/client-workflow.md:162-164", "scripts/intake-form.gs:11-15"]
     path: private/<envelope>/README.md
     format: Markdown lines with the form's answer and edit links, the Sheet and the script project
     visibility: private
@@ -190,7 +190,7 @@ artifacts:
 
   - id: art.documents
     name: The client's documents
-    sources: ["docs/guides/client-workflow.md:39", "docs/workflow/02-intake/README.md:33-35", "docs/guides/client-workflow.md:149-151"]
+    sources: ["docs/guides/client-workflow.md:39", "docs/workflow/02-intake/README.md:33-35", "docs/guides/client-workflow.md:150-152"]
     path: private/<envelope>/intake/documents/
     format: photos and files, any format
     visibility: private
@@ -206,7 +206,7 @@ artifacts:
 
   - id: art.decisions-md
     name: CV Decisions (decisions.md)
-    sources: ["docs/guides/client-workflow.md:45", "docs/guides/client-workflow.md:187-203", "docs/glossary.md:65"]
+    sources: ["docs/guides/client-workflow.md:45", "docs/guides/client-workflow.md:188-204", "docs/glossary.md:65"]
     path: private/<envelope>/research/decisions.md
     format: Markdown, one line per decision with its answer and source, "judgement" and the reason, or "open"
     visibility: private
@@ -270,7 +270,7 @@ artifacts:
 
   - id: art.output-schema
     name: The Meta File schema
-    sources: ["packages/cv-workflow/cv_workflow/output.schema.json:1-45", "docs/pdf-workflow.md:133-138"]
+    sources: ["packages/cv-workflow/cv_workflow/output.schema.json:1-45", "docs/pdf-workflow.md:133-140"]
     path: packages/cv-workflow/cv_workflow/output.schema.json
     format: JSON Schema 2020-12, $id cvgen.output/1
     visibility: public

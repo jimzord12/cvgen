@@ -31,7 +31,7 @@ private/eleni-example-tour-guide/
   README.md          alias, intake date, decisions, draft fingerprints, Export and delete-by dates,
                      Google links (Intake Form, Sheet, script project),
                      "Stopped <date>: <reason>" for a client who stopped
-  envelope.json      who the client is, once: alias, domain, candidate, rank;
+  envelope.json      who the client is, once: alias, domain, candidate, rank; its template and variation;
                      keep_requested once he asks to keep his data
   candidate.json     the candidate record (added by new-cv); the workflow reads it here
   intake/
@@ -85,7 +85,8 @@ portrait and the files `cv.typ` reads into a `Revision`, at the same
 places under its `inputs/`; `intake/`, `research/` and `draft/` enter one
 only if `cv.typ` reads from them, which it should not.
 
-**`envelope.json`** says who the client is, once. Every `Meta File` in the
+**`envelope.json`** says who the client is, once, and which `Template` and
+`Template Variation` they chose. Every `Meta File` in the
 `Envelope` copies it (the `Output Contract`, `../pdf-workflow.md`), and
 `scripts/cv.py render` refuses to run without it. `alias` is the client's
 `Alias`, `client-<yyyy>-<mm>-<nn>` (`output.schema.json` also accepts a `-<n>` suffix); `domain` is an id from the glossary's

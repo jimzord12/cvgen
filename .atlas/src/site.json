@@ -382,7 +382,7 @@
       ],
       "sources": [
         "scripts/cv.py:1-12",
-        "docs/guides/build-a-cv.md:108-188"
+        "docs/guides/build-a-cv.md:108-189"
       ]
     },
     "outputs-py": {
@@ -392,7 +392,7 @@
       "role": "The `Output Contract` tool: `stamp` writes a PDF's `Meta File`; `check` lists every PDF without a valid one.",
       "sources": [
         "scripts/outputs.py",
-        "docs/pdf-workflow.md:125-170"
+        "docs/pdf-workflow.md:125-172"
       ]
     },
     "suite": {
@@ -427,7 +427,7 @@
       "sources": [
         "scripts/build.ps1",
         "examples/release.json",
-        "docs/pdf-workflow.md:220-228"
+        "docs/pdf-workflow.md:222-230"
       ]
     },
     "intake-form": {
@@ -437,7 +437,7 @@
       "role": "Google Apps Script you run once per form: builds the optional `Intake Form` and its answers Sheet in your Google account.",
       "sources": [
         "scripts/intake-form.gs:1-21",
-        "docs/guides/client-workflow.md:139-185"
+        "docs/guides/client-workflow.md:140-186"
       ]
     },
     "board": {
