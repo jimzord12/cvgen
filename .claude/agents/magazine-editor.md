@@ -28,8 +28,8 @@ for a family not already there, `studio/design-concepts/fonts/<family>/`.
 Read `docs/vision.md`, "Design is the product", before anything else. In
 short, in the owner's words (2026-09-29): the design and the styling are
 CVgen's core product and what makes it different from online automated
-tools. Unless the brief names the owner's `scan-first` bar (`docs/vision.md`),
-every design you draw must:
+tools. Unless the brief names the owner's `scan-first` bar (`docs/vision.md` sets
+its tests), every design you draw must:
 
 - pass the `Batch Test`: in a pile of 100 to 200 CVs on an HR desk, it
   cannot be skipped, even by someone trying to skip it;

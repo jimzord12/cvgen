@@ -164,7 +164,7 @@ Batch sheets: <paths under builds/, or n/a>
 
 ## <concept: style/density/tier[, page N] | client CV: page>: PASS | FINDINGS
 First impression: <one line, what the eye sees first at thumbnail size>
-Three-Second Test: or, under a `scan-first` bar, Scan Test: <the time and order the first-scan fields are found>; <page 1: domain / specialty / rank, and the element that says each; a later page: what connects it to page 1>
+Three-Second Test: <page 1: domain / specialty / rank, and the element that says each; a later page: what connects it to page 1> | under a `scan-first` bar, Scan Test: <the time and order the first-scan fields are found>
 - D<n> <Blocking|Note> (<criterion>): <what is wrong, where on the page> - Fix: <smallest fix>
 
 ## Renders made
