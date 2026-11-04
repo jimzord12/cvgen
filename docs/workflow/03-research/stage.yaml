@@ -40,7 +40,7 @@ steps:
 
   - id: research.scout
     name: Scout the client's target
-    sources: ["docs/workflow/03-research/README.md:24-34", ".claude/skills/new-client/SKILL.md:57-59", "docs/glossary.md:63"]
+    sources: ["docs/workflow/03-research/README.md:24-34", ".claude/skills/new-client/SKILL.md:57-59", "docs/glossary.md:64"]
     actor: actor.lead
     action: lead.scout
     inputs: [art.facts-md, art.library-findings, art.envelope-json]
@@ -209,7 +209,7 @@ steps:
 
   - id: research.cap-reached
     name: At a loop's cap, the owner decides
-    sources: ["docs/review.md:203-207", "docs/workflow/03-research/README.md:70-73"]
+    sources: ["docs/review.md:204-208", "docs/workflow/03-research/README.md:70-73"]
     actor: actor.owner
     action: manual.decide-at-cap
 
@@ -223,7 +223,7 @@ gates:
 
   - id: gate.deep-dive-review
     name: Deep Dive review
-    sources: ["docs/review.md:203-207", "docs/workflow/03-research/README.md:70-73", ".claude/skills/new-client/SKILL.md:63-68"]
+    sources: ["docs/review.md:204-208", "docs/workflow/03-research/README.md:70-73", ".claude/skills/new-client/SKILL.md:63-68"]
     check: A fresh research-reviewer returns PASS on the Deep Dive's text and SHA-256.
     pass: research.decisions-update
     fail: research.dive-revise
@@ -247,7 +247,7 @@ gates:
 loops:
   - id: loop.deep-dive-review
     name: Deep Dive review rounds
-    sources: ["docs/review.md:203-207", "docs/workflow/03-research/README.md:70-73", ".claude/skills/new-client/SKILL.md:63-68"]
+    sources: ["docs/review.md:204-208", "docs/workflow/03-research/README.md:70-73", ".claude/skills/new-client/SKILL.md:63-68"]
     gate: gate.deep-dive-review
     cap: { attended: 5, unattended: 10 }
     escalate: research.cap-reached
@@ -276,7 +276,7 @@ artifacts:
 
   - id: art.research-library
     name: The Research Library
-    sources: ["docs/research/README.md:1-46", "docs/glossary.md:62"]
+    sources: ["docs/research/README.md:1-46", "docs/glossary.md:63"]
     path: docs/research/
     format: dated Markdown notes and the README index
     visibility: public

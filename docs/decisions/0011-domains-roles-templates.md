@@ -1,7 +1,7 @@
 # 0011. Domains, roles and templates: a CV library for any field
 
 Date: 2026-09-21
-Status: Accepted. Amends 0002 (a sixth entry-point input, `role`), 0007
+Status: Amended by 0016 (Template Variations and contracts). Accepted. Amends 0002 (a sixth entry-point input, `role`), 0007
 (deck and engine become roles of the marine domain; the core no longer owns a
 data model) and 0010 (templates and their schemas move under
 `domains/<domain>/`). The PDF workflow half of 0010 is untouched. Amended by

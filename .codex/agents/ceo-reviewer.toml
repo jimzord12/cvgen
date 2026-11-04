@@ -62,7 +62,8 @@ judge fit and duplication yourself.
 2. **Fit.** Serves the vision and the premium custom niche; nothing from
    "What it is not"; does not undo a decision without saying so. The
    design is the product (`docs/vision.md`, "Design is the product"): an
-   idea that would make CVs more uniform, safer or quieter fails fit.
+   idea that would make CVs more uniform, safer or quieter fails fit, unless it is
+   a `scan-first` `Template Variation` (`docs/vision.md`).
 3. **Honest smallest version.** Concrete enough to start tomorrow; cost and
    risk are plausible, not optimistic; new dependencies named.
 4. **Not a duplicate.** Not already on the roadmap, the task list, proposals or

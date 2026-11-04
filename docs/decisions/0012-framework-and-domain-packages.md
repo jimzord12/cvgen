@@ -1,7 +1,7 @@
 # 0012. The Framework and the domains are separate packages
 
 Date: 2026-09-25
-Status: Accepted. Amends 0011 (the domains leave the engine package; the
+Status: Amended by 0016 (Template Variations and contracts). Accepted. Amends 0011 (the domains leave the engine package; the
 single `lib.typ` becomes two) and the paths of 0001, 0008 and 0010.
 
 ## Context

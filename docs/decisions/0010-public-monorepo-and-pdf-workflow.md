@@ -1,7 +1,7 @@
 # 0010. Public monorepo, template ownership, and PDF workflow
 
 Date: 2026-09-15
-Status: Accepted. Amends 0005's target folder organization and 0007's ownership,
+Status: Amended by 0016 (Template Variations and contracts). Accepted. Amends 0005's target folder organization and 0007's ownership,
 schema, and folder-split decisions. Engine layout implemented 2026-09-16
 (`packages/cv-engine/`, `examples/`, `archive/`); local workflow implemented
 2026-09-16 (`packages/cv-workflow/`, `scripts/cv.py`); `apps/web/` pending.

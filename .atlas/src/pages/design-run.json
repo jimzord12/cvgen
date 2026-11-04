@@ -110,8 +110,8 @@
             "outputs-py"
           ],
           "sources": [
-            ".claude/agents/magazine-editor.md:52-85",
-            ".claude/agents/magazine-editor.md:91-224",
+            ".claude/agents/magazine-editor.md:53-86",
+            ".claude/agents/magazine-editor.md:92-225",
             "studio/design-concepts/README.md"
           ]
         }
@@ -214,7 +214,7 @@
           ],
           "sources": [
             ".claude/skills/idea-run/SKILL.md:58-76",
-            ".claude/agents/design-reviewer.md:47-148",
+            ".claude/agents/design-reviewer.md:47-155",
             ".claude/agents/codex-visual-reviewer.md",
             "docs/proposals/codex-visual-tools.md"
           ]
@@ -235,7 +235,7 @@
             "After a PASS: a new sourced claim goes back to the research gate; a change to the Style's idea or to what you decide on goes back to the design gate; layout, typos or sample data need only a lead check noted in `run.md`."
           ],
           "sources": [
-            ".claude/agents/magazine-editor.md:226-236",
+            ".claude/agents/magazine-editor.md:227-237",
             ".claude/skills/idea-run/SKILL.md:77-82"
           ]
         }
@@ -263,7 +263,7 @@
           ],
           "sources": [
             ".claude/skills/idea-run/SKILL.md:85-97",
-            "docs/review.md:51-65"
+            "docs/review.md:52-66"
           ]
         },
         {

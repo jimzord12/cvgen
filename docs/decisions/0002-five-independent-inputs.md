@@ -1,7 +1,7 @@
 # 0002. One template, five independent inputs
 
 Date: 2026-09-09
-Status: Amended by 0007 and 0011. The five inputs stand; "one template" does
+Status: Amended by 0007, 0011 and 0016 (`Template Variation`, a further input). The five inputs stand; "one template" does
 not; 0011 adds a sixth optional input, `role`, because a template now sits
 inside a domain and may be refined by one of its roles.
 
