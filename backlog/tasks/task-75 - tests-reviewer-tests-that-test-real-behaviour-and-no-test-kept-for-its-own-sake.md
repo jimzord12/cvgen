@@ -6,7 +6,7 @@ title: >-
 status: Active
 assignee: []
 created_date: '2026-11-08T09:50:00Z'
-updated_date: '2026-11-08T14:34:00Z'
+updated_date: '2026-11-08T14:41:00Z'
 labels: []
 milestone: m-8
 dependencies:
@@ -39,4 +39,6 @@ The tests-reviewer, the test-principles skill and the tests gate, as the plan's 
 
 <!-- SECTION:NOTES:BEGIN -->
 Probe copy for calibration run K: C:\Github\cvgen\.worktrees\probe-20261108-163112 (detached at 56bc339, locked: session f1e864b5, TASK-75 calibration K). Anchor base for this task: 8306aae.
+
+Probe copy K removed. Probe copy for calibration run R: C:\Github\cvgen\.worktrees\probe-20261108-164120 (detached at 0bdfc98, locked).
 <!-- SECTION:NOTES:END -->
