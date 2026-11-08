@@ -1,41 +1,55 @@
 # Guilloche
 
-**Idea:** the one-page CV opens as the data page of a travel document, engraved like security print: a woven rosette, a rainbow-tinted card, a ghost portrait, a globe and a machine-readable zone carrying her name; the engraved line stays as the body's section rule. Three words: **engraved security print**.
+**Idea:** the one-page CV opens under a band engraved like security print: a woven underprint on a rainbow tint, a two-ring rosette with a globe at its heart, and the cut-out portrait standing in an arch on the band's engraved foot. The engraved line carries on below as the section rules and as the rule between the columns. Three words: **engraved security print**.
 
 Run: idea run 2026-11-08 (editor), five one-page styles for a practical travel CV under the `scan-first` bar. `Domain` travel; specialty group and private travel; `Rank` Tour Leader / Travel Consultant. One design, `Condensed` density, `stylish` `Design Tier`, drawn twice: in its own palette and as a monochrome version.
 
+## Round 2: no longer a document
+
+Both judges found that round 1 read as an imitation ID (design D9, Codex D1 to D4, research R6). Round 2 keeps the engraving and drops the document apparatus:
+
+- **Card opened into a band.** The enclosing card is now a full-width header band. Its foot is an engraved border.
+- **Document marks removed.** The machine-readable zone is gone, and with it the nationality code and the birth date in YYMMDD form. The ghost portrait and the "Surname, given name" and "Position" labels are gone too.
+- **Name in reading order.** It is set as "Daphne Kontou".
+- **Globe in the rosette.** The rosette's centre now holds an engraved globe of meridians and parallels.
+- **Portrait on the band.** It stands in an arch drawn with one engraved line. The band's own tint and underprint show behind the cut-out; there is no backdrop rectangle (Codex D2/D4).
+- **Mono engraved darker.** The engraving is black at 0.25 pt instead of grey hairlines, so the band holds at thumbnail size (design D14).
+- **Engraving carried into the body.** A vertical engraved rule runs between the body's two columns, on top of the engraved section rules (Codex lineup D1).
+
 ## What the owner should notice first
 
-The card at the top: a rounded data page tinted mint to peach to lilac, an underprint of woven wave lines, a two-ring rosette at right with a faded second portrait in its centre, the photo at left with an engraved globe under it, the fields in a calm grid, and two lines of machine-readable characters across the foot: `CV<KONTOU<<DAPHNE<<<…` and `TOUR<LEADER<<TRAVEL<CONSULTANT<<GRC<970504<<`. It is the passport-validity line made into the page's whole idea.
+The band: a mint-to-peach-to-lilac tint, waves of fine woven lines across it, the double rosette at right with its globe, the portrait in an arch at left standing on the engraved border, and the name between them in reading order with the title in rose.
 
 ## The two versions
 
-- **Colour** (`condensed/stylish/condensed-stylish.pdf`): deep green-black ink, engraved green and rose lines, the rainbow-tint card.
-- **Monochrome** (`concept-mono.pdf`): a white card engraved in black and grey hairlines, as an intaglio proof; all accents black. The engraving carries it, so it does not need the tint.
+- **Colour** (`condensed/stylish/condensed-stylish.pdf`): deep green-black ink, engraved green and rose lines, the rainbow tint.
+- **Monochrome** (`concept-mono.pdf`): a white band engraved in black and dark grey at 0.25 pt, like an intaglio proof; all accents are black.
 
 Both are one A4 page.
 
 ## Scan Test
 
-- **Name:** "KONTOU, Daphne" in 27 pt bold on the card, under a field label, as a document would print it.
-- **Current title:** "Tour Leader / Travel Consultant" in 14 pt directly under it.
-- **Employers and dates:** main left column of the body; role bold, dates in monospace flush right, employer in green with place.
-- **Education:** main column under Experience, years flush right.
-- The card's fields carry specialty, base, phone, date of birth, email, nationality, passport validity and the availability month. Right column: Languages, Skills & travel experience, Availability, Recent journeys.
+- **Name:** "Daphne Kontou", 30 pt bold, top centre of the band.
+- **Current title:** "Tour Leader / Travel Consultant", 14 pt, directly under the name.
+- **Employers and dates:** main left column of the body. Each role is bold, with dates in monospace flush right, then the employer in green with the place.
+- **Education:** main column under Experience, with years flush right.
+- **Header fields:** specialty, base, phone, date of birth, email, nationality, passport validity and the availability month.
+- **Right column:** Languages, Skills & travel experience, Availability, Recent journeys.
 
 ## References and the principle taken from each
 
-1. Guilloche and rainbow printing, EUIPO anti-counterfeiting technology guide, https://euipo.europa.eu/anti-counterfeiting-and-anti-piracy-technology-guide/marking-technologies/guillocherainbow-printing: repeating patterns of engraved lines, and offset colours that "blend gradually". **Principle:** the rainbow tint across the card and the woven underprint.
-2. "Geometric and Floral Banknote Design", Stephen Gooden, 1954, Bank of England Museum, https://artsandculture.google.com/asset/geometric-and-floral-banknote-design/VgFBE3kAP4xNqQ. **Principle:** the rosette as a precise, engraved ornament whose intricacy is the point; drawn here from equations (phase-shifted lobed circles), not copied.
-3. Geometric lathe (Wikipedia), https://en.wikipedia.org/wiki/Geometric_lathe. **Principle:** the patterns are made by a machine from a few parameters; the Typst functions do the same (lobes, amplitude, phase count), so the ornament is generated, not traced.
-4. Machine-readable passport (Wikipedia), https://en.wikipedia.org/wiki/Machine-readable_passport: a TD3 data page's machine-readable zone has two lines of 44 characters, A–Z, 0–9 and the filler `<`, standardised by ICAO Doc 9303. **Principle:** the two 44-character lines as the card's foot, written honestly from her data (surname, given name, rank, nationality code, date of birth); it is a CV, so the document code is "CV", not a passport's.
+1. Guilloche and rainbow printing, EUIPO anti-counterfeiting technology guide, https://euipo.europa.eu/anti-counterfeiting-and-anti-piracy-technology-guide/marking-technologies/guillocherainbow-printing: repeating patterns of engraved lines, and offset colours that "blend gradually". **Principle:** the rainbow tint across the band and the woven underprint.
+2. "Geometric and Floral Banknote Design", Stephen Gooden, 1954, Bank of England Museum, https://artsandculture.google.com/asset/geometric-and-floral-banknote-design/VgFBE3kAP4xNqQ. **Principle:** the rosette as a precise engraved ornament whose intricacy is the point. It is drawn here from equations (phase-shifted lobed circles), not copied.
+3. Geometric lathe (Wikipedia), https://en.wikipedia.org/wiki/Geometric_lathe: the machine that cuts "intersecting and interlacing patterns of fine lines" for banknote plates. **Principle:** interlacing fine lines as the whole ornament. My own extension, not the article's: here they are generated by small Typst functions (lobes, amplitude, phase count) rather than traced.
+
+The round-1 reference to the machine-readable passport (Wikipedia) is withdrawn: this design no longer uses a machine-readable zone.
 
 ## Why it differs
 
-- **From the Flagship:** a light card instead of a dark band, an engraved document instead of tools, and the portrait in a rectangular ID frame.
-- **From the other four:** the only document card, the only engraved (generated line) ornament, the only humanist sans plus monospace voice.
-- **From earlier concepts:** Stamp Rally was "the escort's travel papers" through a boarding pass, rubber stamps and luggage tags; this takes one different object (the data page) and its craft (security engraving), with no stamps, tickets or tags, and no country emblem. Not near either `Anti-example`.
-- **From the market:** online builders never use engraving; the nearest they come is a hairline. The rosette and bands here are drawn line by line.
+- **From the Flagship:** a light engraved band instead of a dark one, and security engraving and a globe instead of engine-room tools.
+- **From the other four:** the only engraved, generated line ornament; the only humanist sans plus monospace voice; the only arch portrait.
+- **From earlier concepts:** Stamp Rally was "the escort's travel papers": a boarding pass, rubber stamps and luggage tags. This uses no paper, ticket, stamp or document form, only the engraving craft. Design D13 noted the card head was close to Stamp Rally's boarding-pass head; the open band removes that card structure. It is not near either `Anti-example`.
+- **From the market:** online builders do not use engraving; the nearest they come is a hairline.
 
 ## Fonts
 
@@ -49,30 +63,37 @@ Both are one A4 page.
 
 ## Generated images
 
-None. Rosettes, wave bands, globe and microprint are Typst drawing.
+None. The underprint, rosettes, globe, wave rules and microprint are all Typst drawing.
 
 ## Portrait
 
-`portrait.png` and `portrait-mono.png`, prepared with `scripts/portrait.py prepare` (branch `feat/portrait-prep`) from `examples/candidates/fictional-engineer.png`: background removed, square, face centre at (0.503, 0.446); downscaled to 640 px (colour SHA-256 `6ef637049d7f4b18f99f3edd8680a3e27462df54861f2c383395bd08ef67396f`, mono `3889d936d3cd481439e4795f6e1754f0924cdb5f975fa5433610b1e8c4014c3a`). The main photo is a 36 × 48 mm frame on a pale fill with `fit: "cover"`, centred, so the face is centred and slightly high; the ghost is the same image at 16 × 20 mm under a white veil.
+`portrait.png` and `portrait-mono.png` were prepared with `scripts/portrait.py prepare` (branch `feat/portrait-prep`) from `examples/candidates/fictional-engineer.png`:
+
+- background removed, square, face centre at (0.503, 0.446);
+- downscaled from 1200 to 640 px;
+- colour SHA-256 `6ef637049d7f4b18f99f3edd8680a3e27462df54861f2c383395bd08ef67396f`, mono `3889d936d3cd481439e4795f6e1754f0924cdb5f975fa5433610b1e8c4014c3a`.
+
+The portrait fills a 52 × 62 mm arch with `fit: "cover"`, centred and never shifted, so the face sits centred and a little high. The arch's foot sits on the band's engraved border, and the band shows through the transparent background.
 
 ## Data
 
-`sample.json` (the run's fictional record reshaped). The MRZ uses only record facts: surname, given name, the rank words, "GRC" for the Greek nationality and 970504 for 4 May 1997; no invented document number or check digits.
+`sample.json` is the run's fictional record, reshaped. No document codes are used.
 
 ## Files
 
 - `condensed/stylish/condensed-stylish.typ`, `.pdf`, `.png`: colour.
-- `concept-mono.typ`, `.pdf`, `.png`: monochrome, at the style folder's root because of the `Output Contract`'s homes (see Rhumb Lines' brief). Generated from the colour `.typ`.
+- `concept-mono.typ`, `.pdf`, `.png`: monochrome. It sits at the style folder's root because of the `Output Contract`'s homes (see Rhumb Lines' brief) and is generated from the colour `.typ`.
 
 ## What it would take to become a `Template`
 
-- Artwork pack: `rosette(r, amp, lobes, phases)`, `waveband(width, height, lines, periods)`, `globe(r)`, `mrz(lines)`, `microprint(text)`; all parametric.
-- A small function to build the MRZ from data (uppercase, A–Z only, `<` filler, 44 characters, length check for long names).
-- Theme: ink, two engraving colours, the card tint (or white for mono), Fira Sans and Plex Mono.
-- Performance: the rosettes are thousands of curve points; compile is still fast, and the PDF is about 0.65 MB with the portrait.
+- **Artwork pack:** `rosette(r, amp, lobes, phases)`, `waveband(width, height, lines, periods)`, `vwaveband`, `globe(r)`, `arch-portrait(w, h)`, `microprint(text)`; all parametric.
+- **Theme:** ink, two engraving colours, the band tint (or white for mono), Fira Sans and Plex Mono.
+- **Data:** all fields exist in the travel contract.
+- **Performance:** the rosettes and bands are thousands of curve points. The compile is still quick, and the colour PDF is about 0.68 MB with the portrait.
 
 ## Known weaknesses
 
-- The document conceit could read as imitating an official ID; it carries no emblem, no country name and the code "CV", but the owner should judge whether a client would be comfortable.
-- The card's travel signal is the document itself plus the globe; it is the least pictorial of the five apart from Timetable.
-- The microprint line at the foot is ornament (4.2 pt), not content.
+- **Small field labels:** the band still uses small monospace labels above the contact fields; they are lighter than before but keep a faint form-like note.
+- **Lower page:** below the band the page is calm; its identity there rests on the engraved rules alone.
+- **Microprint:** the microprint line at the foot (4.2 pt) is ornament, not content.
+- **Text breaks:** running text binds its last three or four words together (a non-breaking tie), and a school name breaks at its comma.

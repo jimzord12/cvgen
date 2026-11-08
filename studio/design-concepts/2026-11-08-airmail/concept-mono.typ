@@ -25,12 +25,12 @@
 #set par(leading: 0.5em, spacing: 0.6em)
 
 // ---------- the airmail border: diagonal bars all round the sheet ----------
-#let border-band = 6.2mm
+#let border-band = 4.4mm
 #let bars = {
-  let w = 6.5mm
+  let w = 4.6mm
   let H = 297mm
-  let cols = if mono { (rgb("#4A4A4A"), sheet, rgb("#B4B4B4"), sheet) } else { (red, sheet, blue, sheet) }
-  for i in range(-50, 40) {
+  let cols = if mono { (rgb("#3A3A3A"), sheet, rgb("#3A3A3A"), sheet) } else { (red, sheet, blue, sheet) }
+  for i in range(-50, 60) {
     let x = i * w
     place(top + left, polygon(fill: cols.at(calc.rem(i + 200, 4)), stroke: none,
       (x + H * 0.62, 0mm), (x + H * 0.62 + w, 0mm), (x + w, H), (x, H)))
@@ -42,6 +42,12 @@
 })
 
 // ---------- small parts ----------
+// no runts: the last three words of a running line are bound together
+#let tie(s) = {
+  let w = s.split(" ")
+  let k = if w.len() >= 10 { 4 } else { 3 }
+  if w.len() < 5 { s } else { w.slice(0, -k).join(" ") + " " + w.slice(-k).join(str(sym.space.nobreak)) }
+}
 #let lbl(t) = text(font: typed, weight: 700, size: 8.6pt, fill: if mono { ink } else { blue }, tracking: 0.3pt, upper(t))
 
 #let airmail-label = box(fill: blue, radius: 1.6pt, inset: (x: 2.6mm, y: 1.6mm),
@@ -130,7 +136,7 @@
 // ---------- body: hanging labels, like a typed letter ----------
 // each row opens with a short length of the border's bars, then a typed dashed rule
 #let bar-seg(w, h) = box(width: w, height: h, clip: true, {
-  let cols = if mono { (rgb("#4A4A4A"), paper, rgb("#B4B4B4"), paper) } else { (red, paper, blue, paper) }
+  let cols = if mono { (rgb("#3A3A3A"), paper, rgb("#3A3A3A"), paper) } else { (red, paper, blue, paper) }
   let s = 2.2mm
   for i in range(-2, int(w / s) + 3) {
     place(top + left, polygon(fill: cols.at(calc.rem(i + 200, 4)), stroke: none,
@@ -146,7 +152,7 @@
 }
 
 #v(1mm)
-#row("Profile", text(font: typed, size: 9.6pt, d.profile))
+#row("Profile", text(font: typed, size: 9.6pt, tie(d.profile)))
 
 #let job(j) = {
   grid(columns: (1fr, auto), align: (left + bottom, right + bottom),
@@ -158,9 +164,9 @@
     },
     text(font: typed, weight: 700, size: 9.6pt, fill: red, j.from + " – " + j.to),
   )
-  if "intro" in j { block(above: 1.4mm, below: 1.8mm, text(style: "italic", fill: soft, j.intro)) } else { v(1.6mm) }
+  if "intro" in j { block(above: 1.4mm, below: 1.8mm, text(style: "italic", fill: soft, tie(j.intro))) } else { v(1.6mm) }
   for b in j.bullets {
-    block(above: 0mm, below: 1.7mm, grid(columns: (4mm, 1fr), text(font: typed, weight: 700, fill: red, "–"), [*#b.lead:* #b.text]))
+    block(above: 0mm, below: 1.7mm, grid(columns: (4mm, 1fr), text(font: typed, weight: 700, fill: red, "–"), [*#b.lead:* #tie(b.text)]))
   }
 }
 
@@ -179,10 +185,10 @@
 })
 
 #row("Languages", grid(columns: (1fr, 1fr, 1.25fr), column-gutter: 4mm,
-  ..d.languages.map(l => [*#l.name* #h(1mm) #text(font: typed, weight: 700, fill: red, l.level) #if "note" in l [\ #text(size: 8.8pt, fill: soft, l.note)]])))
+  ..d.languages.map(l => [*#l.name* #h(1mm) #text(font: typed, weight: 700, fill: red, l.level) #if "note" in l [\ #text(size: 8.8pt, fill: soft, tie(l.note))]])))
 
 #row([Skills & travel\ experience], {
-  for s in d.skills.items { block(below: 1.5mm, [*#s.lead:* #s.text.]) }
+  grid(columns: (1.22fr, 0.78fr), column-gutter: 5mm, ..d.skills.items.map(s => [*#s.lead:* #tie(s.text + ".")]))
 })
 
 #row("Recent trips", grid(columns: (1fr, 1fr, 1fr), column-gutter: 4mm,
@@ -192,7 +198,7 @@
     #text(size: 8.8pt, fill: soft)[#t.days days, #t.role]
   ])))
 
-#row("Availability", [*#d.availability.headline.* #d.availability.text])
+#row("Availability", [*#d.availability.headline.* #tie(d.availability.text)])
 
 #v(1fr)
 #text(font: typed, size: 7pt, fill: soft, upper(d.disclosure))

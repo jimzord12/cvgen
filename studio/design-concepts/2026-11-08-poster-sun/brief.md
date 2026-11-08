@@ -6,12 +6,12 @@ Run: idea run 2026-11-08 (editor), five one-page styles for a practical travel C
 
 ## What the owner should notice first
 
-The sun: the cut-out portrait in a coral ring on a pale disc, with a burst of rays, sitting just above the horizon; its reflection breaks into glints on the sea. Around it a stepped sunrise sky, a headland and a distant coast, waves, a small ferry and a plane with a dashed trail. The name is the poster's headline in geometric capitals, the rank in a reversed ink label, and the poster ends in an ink band with the contacts.
+The sun: the cut-out portrait in a coral ring on a pale disc, with a burst of rays, sitting just above the horizon; its reflection breaks into glints on the sea. Around it a stepped sunrise sky, a headland and a distant coast, waves and a small ferry. Round 2 removed the plane with its dashed trail, the one stock travel-template motif in the scene (design D11). The name is the poster's headline in geometric capitals, the rank in a reversed ink label, and the poster ends in an ink band with the contacts.
 
 ## The two versions
 
 - **Colour** (`condensed/stylish/condensed-stylish.pdf`): sunrise bands (apricot to cream), coral sun, two teals for the coast, deep sea; ink text.
-- **Monochrome** (`concept-mono.pdf`): a one-ink linocut. White sky with black rays, the far coast in hairline tint, the headland and sea solid black with white waves and glints cut out of them, a black ring round the portrait on a light grey disc. It is drawn for one ink, not a greyscale of the colour page.
+- **Monochrome** (`concept-mono.pdf`): a one-ink linocut. White sky with black rays, the far coast in a hairline tint drawn as one set of horizontal lines cut to the hills' outline (no tiles, so no seams), the headland and sea solid black with white waves and glints cut out of them, a black ring round the portrait on a light grey disc. It is drawn for one ink, not a greyscale of the colour page.
 
 Both are one A4 page.
 
@@ -21,12 +21,13 @@ Both are one A4 page.
 - **Current title:** reversed ink label right under it, then the specialty.
 - **Employers and dates:** main right column; each role bold with dates flush right in coral (black in mono), employer in teal and place on the next line.
 - **Education:** main column under Experience, years flush right.
-- Left column: Profile, Personal (date of birth, nationality, passport validity), Languages, Skills & travel experience, Availability. Phone, email and base are in the poster's ink band.
+- **Skills & travel experience:** main column, after Education, its two items side by side, so the heading no longer wraps (round 2, design D12).
+- Left column: Profile, Personal (date of birth, nationality, passport validity), Languages, Availability, Recent journeys (one per block, so no route wraps). Phone, email and base are in the poster's ink band, separated by drawn dots (Jost has no U+25CF).
 
 ## References and the principle taken from each
 
 1. Federal Art Project, Poster Division (Wikipedia), https://en.wikipedia.org/wiki/Federal_Art_Project: production moved quickly from hand painting to "widespread adoption of the silkscreen process". **Principle:** a few flat inks, laid in bands; tone made by stepping colour, not gradients.
-2. Library of Congress, Work Projects Administration Poster Collection, https://www.loc.gov/pictures/collection/wpapos/ (found by search; loc.gov refuses automated fetching): over 900 posters, mostly silkscreens, including travel posters. **Principle:** the travel poster's grammar: headline type over a simplified landscape with one strong focal shape.
+2. Library of Congress, Work Projects Administration Poster Collection, https://www.loc.gov/pictures/collection/wpapos/ (found by search; loc.gov refuses automated fetching): over 900 posters, mostly silkscreens, including travel posters. **Principle (my interpretation of the collection, not a sourced statement):** the travel poster's grammar: headline type over a simplified landscape with one strong focal shape.
 3. Linocut (Wikipedia), https://en.wikipedia.org/wiki/Linocut: relief print, one ink on the raised surface. **Principle (mono version):** solid black masses with white lines cut out of them (waves, glints) instead of grey fills.
 4. Jost* by indestructible type, https://indestructibletype.com/Jost.html: a digital revival of the attitude of a 1927 geometric sans, larger x-height. **Principle:** the poster's geometric capitals for the headline and section heads, the same family for the text so the page has one voice.
 
@@ -72,4 +73,6 @@ None. The whole poster is Typst drawing: stepped bands, polygons, curves and lin
 
 - The most decorative of the five; a very conservative employer may read the poster as holiday-like rather than professional.
 - The coast is generic but sunny-southern in mood; for a client whose market is northern or city travel, the scene should change.
-- The left column is fuller than the right, leaving air at the foot of the right column.
+- The two columns end at slightly different heights.
+- This is Hanami's organising idea (an illustrated landscape header with the portrait in a circle as focal point) in a generic place; design D10 flags it for the owner as kin, not a new idea.
+- Running text binds its last three or four words together (a non-breaking tie); Experience bullets have a little more space between them (Codex D1).

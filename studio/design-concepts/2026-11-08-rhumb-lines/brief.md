@@ -6,7 +6,7 @@ Run: idea run 2026-11-08 (editor), five one-page styles for a practical travel C
 
 ## What the owner should notice first
 
-The wind rose at top right: the portrait sits in its centre like the hemisphere on an old compass card, with the 32 points (8 principal winds in ink, 8 half-winds in green, 16 quarter-winds in vermilion) and a 128-tick ring around it. Then the name, set large in a display Garamond on two lines, and the faint web of rhumb lines behind everything.
+The wind rose at top right: the portrait sits in its centre like the hemisphere on an old compass card, with the 32 points (8 principal winds in ink, 8 half-winds in green, 16 quarter-winds in vermilion) and a 128-tick ring around it. Then the name, set large in a display Garamond on two lines, and the web of rhumb lines across the chart. The text sits on paper panels laid over the chart (the name block and the whole body), so the lines show in the margins, around the rose and between the panels, and never cross a word (round 2, design D1/D4, Codex D1/D2).
 
 ## The two versions
 
@@ -23,11 +23,11 @@ Both are one A4 page. No Spacious density in this run (owner's steer).
 - **Education:** first column of the "Education, languages & skills" band, qualification bold, years in vermilion.
 - Passport line in the contact legend; availability in the framed cartouche at the foot.
 
-The domain is carried by imagery kept small and generic: the rose, the rhumb lines, the chart-maker's distance scale used as the section rule, and three recent journeys drawn as dashed sailing lines between stops. No country's iconography.
+The domain is carried by imagery kept small and generic: the rose, the rhumb lines, the chart-maker's distance scale used as the section rule, and a framed cartouche at the foot with the availability, three recent journeys drawn as dashed sailing lines between stops, and the places she knows well (round 2 filled the cartouche's dead space, design D3). No country's iconography.
 
 ## References and the principle taken from each
 
-1. Portolan chart (overview, Wikipedia), https://en.wikipedia.org/wiki/Portolan_chart. **Principle:** networks of rhumb lines radiating from wind roses across the whole chart, 32 directions; the web is the chart's texture, under everything.
+1. Portolan chart (overview, Wikipedia), https://en.wikipedia.org/wiki/Portolan_chart. **Principle:** networks of rhumb lines radiating from wind roses across the whole chart, in 16, later 32, directions (32 from about 1450); the web is the chart's texture. Here it stays in the open areas and the text panels are laid over it.
 2. Compass rose (Wikipedia), https://en.wikipedia.org/wiki/Compass_rose: the earliest portolan roses used "black for the eight main winds, green for the eight half-winds and red for the sixteen quarter-winds". **Principle:** the three-colour code of the rose and its lines, and (for the mono version) the idea that the hierarchy is in the line, not the hue.
 3. "Rose of the Winds", compass card, about 1650, National Maritime Museum, https://rmg.co.uk/collections/objects/rmgc-object-42455: 32 bulbous points radiating from a hemisphere at the centre. **Principle:** something precious sits at the centre of the rose; here the portrait takes the hemisphere's place.
 4. Compass in wooden case, G. Adams, Science Museum Group, https://collection.sciencemuseumgroup.org.uk/objects/co55550/compass-in-wooden-case-g-adams-fleet-street: a card ring divided into 128 parts with the 32 points named. **Principle:** the fine 128-tick ring that frames the rose.
@@ -75,7 +75,9 @@ None. The rose, rhumb lines, scale bars and routes are Typst drawing.
 
 ## Known weaknesses
 
-- The rhumb lines are deliberately faint; on a poor photocopier they may vanish, leaving only the rose (the page still reads).
+- The rhumb lines now live only in the margins and the header; the body is a plain paper panel, so the chart texture is lighter than in round 1.
+- A compass rose and a portolan chart lean nautical, next door to the marine `Domain` (design D2, for the owner).
 - Alegreya italics for dates are lively; a conservative reader may prefer upright dates.
 - Under the rose's lower points the contact legend and profile line run close to the medallion; a longer email address would need the legend narrowed.
+- Running text binds its last three or four words together (a non-breaking tie) so no line ends in a single word, and a school name breaks at its comma; a template would keep both rules.
 - The fictional portrait is a man and the record's name is a woman's; that is the run's shared fictional portrait, not a design choice.

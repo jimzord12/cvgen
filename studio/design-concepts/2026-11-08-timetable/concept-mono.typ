@@ -63,6 +63,13 @@
 #let services = (("plane", "flights"), ("ferry", "ferries"), ("coach", "coaches"), ("bed", "hotels"), ("guide", "guides"))
 
 // ---------- parts ----------
+// no runts: the last words of a running line are bound together (three, or four in a long line)
+#let tie(s) = {
+  let w = s.split(" ")
+  let k = if w.len() >= 10 { 4 } else { 3 }
+  if w.len() < 5 { s } else { w.slice(0, -k).join(" ") + " " + w.slice(-k).join(str(sym.space.nobreak)) }
+}
+#let cap(s) = upper(s.first()) + s.slice(1)
 #let colhead(t) = text(size: 7pt, weight: 600, fill: grey, tracking: 0.9pt, upper(t))
 #let big(t, size: 22pt) = text(font: tall, weight: 800, size: size, top-edge: "cap-height", t)
 #let band(title, note: none) = block(above: 4.4mm, below: 0mm, width: 100%, fill: signal, inset: (x: 2.4mm, y: 1.8mm),
@@ -89,7 +96,7 @@
 #v(11mm)
 
 // ---------- header ----------
-#let photo = box(width: 40mm, height: 48mm, fill: photo-bg, clip: true,
+#let photo = box(width: 40mm, height: 48mm, fill: photo-bg, clip: true, stroke: (bottom: 1.6pt + ink),
   image(portrait, width: 40mm, height: 48mm, fit: "cover"))
 
 #grid(columns: (1fr, 40mm), column-gutter: 6mm,
@@ -101,7 +108,7 @@
     v(1.4mm)
     text(size: 11pt, weight: 600, d.specialty + ", Europe and Asia")
     v(1.6mm)
-    block(width: 118mm, text(size: 9.8pt, fill: grey, d.profile))
+    block(width: 118mm, text(size: 9.8pt, fill: grey, tie(d.profile)))
   },
   pad(top: 4mm, photo),
 )
@@ -130,10 +137,10 @@
       linebreak()
       text(weight: 600, size: 10pt, j.employer)
       text(fill: grey, [ · #j.place])
-      if "intro" in j { linebreak(); text(style: "italic", fill: grey, size: 9.2pt, j.intro) }
+      if "intro" in j { linebreak(); text(style: "italic", fill: grey, size: 9.2pt, tie(j.intro)) }
     })
   for (i, b) in j.bullets.enumerate() {
-    trow(shade: calc.rem(i, 2) == 0, align(right, text(weight: 700, b.lead)), upper(b.text.first()) + b.text.slice(1))
+    trow(shade: calc.rem(i, 2) == 0, align(right, text(weight: 700, b.lead)), tie(cap(b.text)))
   }
 }
 #job(d.experience.at(0))
@@ -146,18 +153,18 @@
 }
 
 // ---------- languages and skills, side by side ----------
-#grid(columns: (0.9fr, 1.1fr), column-gutter: 5mm,
+#grid(columns: (0.8fr, 1.2fr), column-gutter: 5mm,
   {
     band("Languages")
     for (i, l) in d.languages.enumerate() {
       trow(lw: 17mm, shade: calc.rem(i, 2) == 1, text(weight: 700, l.name),
-        [#text(font: tall, weight: 800, size: 12pt, l.level) #if "note" in l [#h(1mm) #text(size: 8.8pt, fill: grey, l.note)]])
+        [#text(font: tall, weight: 800, size: 12pt, l.level) #if "note" in l [#h(1mm) #text(size: 8.8pt, fill: grey, tie(l.note))]])
     }
   },
   {
     band(d.skills.heading)
     for (i, s) in d.skills.items.enumerate() {
-      trow(lw: 27mm, shade: calc.rem(i, 2) == 1, align(right, text(weight: 700, s.lead)), upper(s.text.first()) + s.text.slice(1) + ".")
+      trow(lw: 27.5mm, shade: calc.rem(i, 2) == 1, align(right, text(weight: 700, s.lead)), tie(cap(s.text) + "."))
     }
   },
 )
@@ -178,7 +185,7 @@
 #v(1fr)
 #block(width: 100%, stroke: (top: 1.6pt + ink), inset: (x: 2.4mm, top: 2.2mm), {
   grid(columns: (1fr, 1fr), column-gutter: 7mm,
-    [#text(weight: 700)[#super[a] #d.availability.headline.] #d.availability.text],
+    [#text(weight: 700)[#super[a] #d.availability.headline.] #tie(d.availability.text)],
     {
       text(size: 7pt, weight: 600, fill: grey, tracking: 0.9pt)[KEY · SERVICES SHE BOOKS AND RECONFIRMS]
       linebreak()

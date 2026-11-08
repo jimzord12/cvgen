@@ -27,7 +27,7 @@
 
 // rhumb lines from a centre, 32 directions; principal winds ink, half winds green, quarter winds red
 // mono: principal solid, half dashed, quarter dotted
-#let rhumbs(cx, cy, alpha: if mono { 50% } else { 66% }, n: 32) = {
+#let rhumbs(cx, cy, alpha: if mono { 38% } else { 52% }, n: 32) = {
   for k in range(n) {
     let a = k * 360deg / n
     let kind = if calc.rem(k, 4) == 0 { 0 } else if calc.rem(k, 2) == 0 { 1 } else { 2 }
@@ -108,18 +108,26 @@
 
 #let label(t) = text(size: 7pt, fill: red, weight: 700, tracking: 1.1pt, upper(t))
 
+// no runts: the last three words of a running line are bound together
+#let tie(s) = {
+  let w = s.split(" ")
+  if w.len() < 5 { s } else { w.slice(0, -3).join(" ") + " " + w.slice(-3).join(str(sym.space.nobreak)) }
+}
+// an institution "Name, qualifier" breaks at its comma, never mid-phrase
+#let at-comma(s) = { let p = s.split(", "); if p.len() < 2 { s } else { [#p.at(0),#linebreak()#p.slice(1).join(", ")] } }
+
 #let lozenge = box(baseline: -0.5pt, polygon(fill: red, stroke: none, (2pt, 0pt), (4pt, 2.4pt), (2pt, 4.8pt), (0pt, 2.4pt)))
 
 // ---------- page art ----------
 #set page(background: {
   rhumbs(165mm, 54mm)
-  rhumbs(22mm, 262mm, alpha: if mono { 60% } else { 76% }, n: 16)
+  rhumbs(22mm, 262mm, alpha: if mono { 45% } else { 62% }, n: 16)
 })
 
 // ---------- header ----------
 #place(top + left, dx: 165mm - 16mm - 47mm, dy: 54mm - 13mm - 47mm, rose(47mm, 19.5mm))
 
-#block(width: 100mm, {
+#block(width: 100mm, fill: paper, outset: (x: 2.5mm, y: 2mm), {
   v(3mm)
   text(font: display, weight: 700, size: 50pt, fill: ink, tracking: -0.5pt, top-edge: "cap-height", bottom-edge: "baseline", d.given)
   v(-1mm)
@@ -139,10 +147,12 @@
   )
 })
 
-#block(width: 100%, above: 5mm, below: 0mm, inset: (left: 0mm), {
+// the body is a paper panel laid on the chart: rhumb lines show only in the margins and the header
+#block(width: 100%, height: 1fr, above: 5mm, below: 0mm, fill: paper, outset: (x: 3.5mm, top: 2.5mm, bottom: 1mm), [
+#{
   set par(leading: 0.45em)
-  text(font: display, style: "italic", weight: 500, size: 14pt, fill: ink, d.profile)
-})
+  text(font: display, style: "italic", weight: 500, size: 14pt, fill: ink, tie(d.profile))
+}
 
 // ---------- experience ----------
 #section("Experience")
@@ -162,10 +172,10 @@
     text(fill: soft, size: 9pt, [ · #j.place])
     if "intro" in j {
       v(0.4mm)
-      block(below: 1.4mm, text(style: "italic", fill: soft, size: 9pt, j.intro))
+      block(below: 1.4mm, text(style: "italic", fill: soft, size: 9pt, tie(j.intro)))
     } else { v(0.8mm) }
     for b in j.bullets {
-      block(below: 1.9mm, grid(columns: (3.4mm, 1fr), pad(top: 1.6pt, lozenge), [*#b.lead:* #b.text]))
+      block(below: 1.9mm, grid(columns: (3.4mm, 1fr), pad(top: 1.6pt, lozenge), [*#b.lead:* #tie(b.text)]))
     }
   },
 )
@@ -185,7 +195,7 @@
       block(below: 2.4mm, {
         text(weight: 700, size: 9.6pt, e.qualification)
         linebreak()
-        text(size: 8.8pt, e.institution)
+        text(size: 8.8pt, at-comma(e.institution))
         linebreak()
         text(style: "italic", size: 8.8pt, fill: red, weight: 700, e.years)
       })
@@ -199,7 +209,7 @@
         text(weight: 700, l.name)
         h(1.5mm)
         text(style: "italic", fill: red, weight: 700, l.level)
-        if "note" in l { linebreak(); text(size: 8.6pt, fill: soft, l.note) }
+        if "note" in l { linebreak(); text(size: 8.6pt, fill: soft, tie(l.note)) }
       })
     }
   },
@@ -207,7 +217,7 @@
     label(d.skills.heading)
     v(1mm)
     for s in d.skills.items {
-      block(below: 2.2mm, [*#s.lead:* #s.text.])
+      block(below: 2.2mm, [*#s.lead:* #tie(s.text + ".")])
     }
   },
 )
@@ -241,11 +251,20 @@
         v(0.6mm)
         text(font: display, weight: 700, size: 13.5pt, d.availability.headline)
         v(0.4mm)
-        text(size: 8.4pt, d.availability.text)
+        text(size: 8.4pt, tie(d.availability.text))
       },
-      ..d.journeys.trips.map(trip),
+      grid.cell(colspan: 3, {
+        label("Recent journeys, planned or travelled")
+        v(1.4mm)
+        grid(columns: (1fr, 1fr, 1fr), column-gutter: 5.5mm, ..d.journeys.trips.map(trip))
+        v(2.2mm)
+        line(length: 100%, stroke: (paint: soft, thickness: 0.4pt, dash: "dotted"))
+        v(1.2mm)
+        text(size: 8.6pt)[#text(weight: 700)[Knows well:] #d.journeys.knows_well. #text(fill: soft)[#d.journeys.region.]]
+      }),
     )
   })
 )
 #v(1.4mm)
-#text(size: 6.8pt, fill: soft, tracking: 0.8pt, upper(d.disclosure) + "  ·  Recent journeys, planned or travelled: " + d.journeys.region)
+#text(size: 6.8pt, fill: soft, tracking: 0.8pt, upper(d.disclosure))
+])

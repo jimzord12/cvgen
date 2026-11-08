@@ -29,6 +29,36 @@
 #let hatch(pitch, w: 0.5pt) = tiling(size: (pitch, pitch),
   place(top + left, line(start: (0pt, pitch), end: (pitch, 0pt), stroke: w + ink)))
 
+// mono hill tint: one set of horizontal hairlines cut to the hill's outline (no tiles, no seams)
+#let top-at(pts, x) = {
+  let r = pts.at(0).at(1)
+  for i in range(pts.len() - 1) {
+    let (x0, y0) = pts.at(i)
+    let (x1, y1) = pts.at(i + 1)
+    if x >= x0 and x <= x1 { r = y0 + (y1 - y0) * ((x - x0) / (x1 - x0)) }
+  }
+  r
+}
+#let hatch-shape(pts, y-bottom, pitch, w) = {
+  let x0 = pts.first().at(0)
+  let xs = range(0, int((pts.last().at(0) - x0) / 0.5mm) + 1).map(i => x0 + i * 0.5mm)
+  let ymin = calc.min(..pts.map(p => p.at(1)))
+  let n = int((y-bottom - ymin) / pitch)
+  for k in range(n) {
+    let y = ymin + (k + 0.5) * pitch
+    let start = none
+    for x in xs {
+      let inside = top-at(pts, x) <= y
+      if inside and start == none { start = x }
+      if not inside and start != none {
+        place(top + left, line(start: (start, y), end: (x, y), stroke: w + ink))
+        start = none
+      }
+    }
+    if start != none { place(top + left, line(start: (start, y), end: (xs.last(), y), stroke: w + ink)) }
+  }
+}
+
 #let sky-fills = if mono {
   (paper, paper, paper, paper, paper)
 } else {
@@ -72,20 +102,16 @@
       end: (sun.at(0) + r2 * calc.sin(a), sun.at(1) - r2 * calc.cos(a)),
       stroke: (paint: if mono { ink } else { rgb("#E9874F") }, thickness: if calc.rem(k, 2) == 0 { 1.1pt } else { 0.6pt }, cap: "round")))
   }
-  // the plane and its contrail
-  let trail = range(0, 21).map(i => {
-    let t = i / 20
-    (186mm + t * 30mm, 14mm - 6mm * calc.sin(t * 90deg))
-  })
-  place(top + left, rect(width: 210mm, height: 0mm, stroke: none))
-  place(top + left, curve(stroke: (paint: if mono { ink } else { cream }, thickness: 1.1pt, dash: (4pt, 3pt)),
-    curve.move(trail.at(0)), ..trail.slice(1).map(p => curve.line(p))))
-  place(top + left, dx: 177mm, dy: 10.5mm, rotate(-84deg, plane(8mm, ink)))
   // far coast and near headland
-  place(top + left, polygon(fill: far-hill, stroke: none,
-    (0mm, 62mm), (14mm, 58mm), (30mm, 61mm), (48mm, 67mm), (66mm, 74mm), (86mm, 80mm), (104mm, hz), (0mm, hz)))
-  place(top + left, polygon(fill: far-hill, stroke: none,
-    (168mm, hz), (176mm, 79mm), (186mm, 76.5mm), (196mm, 78mm), (210mm, 75mm), (210mm, hz)))
+  let far-left = ((0mm, 62mm), (14mm, 58mm), (30mm, 61mm), (48mm, 67mm), (66mm, 74mm), (86mm, 80mm), (104mm, hz))
+  let far-right = ((168mm, hz), (176mm, 79mm), (186mm, 76.5mm), (196mm, 78mm), (210mm, 75mm))
+  if mono {
+    hatch-shape(far-left, hz, 1.9pt, 0.6pt)
+    hatch-shape(far-right, hz, 1.9pt, 0.6pt)
+  } else {
+    place(top + left, polygon(fill: far-hill, stroke: none, ..far-left, (0mm, hz)))
+    place(top + left, polygon(fill: far-hill, stroke: none, ..far-right, (210mm, hz)))
+  }
   place(top + left, polygon(fill: near-hill, stroke: none,
     (0mm, 70mm), (10mm, 68mm), (22mm, 71mm), (34mm, 77mm), (44mm, hz), (0mm, hz)))
   // the sea
@@ -125,7 +151,7 @@
 
 #let contact-line = {
   set text(fill: cream, size: 9.8pt, weight: 500, tracking: 0.3pt)
-  let sep = h(3.2mm) + text(fill: if mono { white } else { coral }, "●") + h(3.2mm)
+  let sep = h(3.2mm) + box(baseline: -0.9pt, circle(radius: 1.9pt, fill: if mono { white } else { coral })) + h(3.2mm)
   [#d.contacts.based #sep #d.contacts.phone #sep #d.contacts.email]
 }
 
@@ -160,13 +186,19 @@
   v(-1.2mm)
   line(length: 100%, stroke: 0.7pt + ink)
 })
+// no runts: the last words of a running line are bound together (three, or four in a long line)
+#let tie(s) = {
+  let w = s.split(" ")
+  let k = if w.len() >= 10 { 4 } else { 3 }
+  if w.len() < 5 { s } else { w.slice(0, -k).join(" ") + " " + w.slice(-k).join(str(sym.space.nobreak)) }
+}
 #let dot = box(width: 4pt, baseline: -1.6pt, circle(radius: 1.7pt, fill: coral))
 
 #grid(columns: (56mm, 1fr), column-gutter: 8mm,
   // left: profile, languages, skills, availability
   {
     section("Profile", above: 0mm)
-    text(size: 10.5pt, weight: 500, d.profile)
+    text(size: 10.5pt, weight: 500, tie(d.profile))
     section("Personal")
     let pd(k, v) = block(below: 1.6mm, [#text(size: 8pt, weight: 600, fill: soft, tracking: 1pt, upper(k)) \ #text(weight: 500, v)])
     pd("Born", d.contacts.born)
@@ -176,15 +208,17 @@
     for l in d.languages {
       block(below: 2mm, {
         grid(columns: (1fr, auto), text(weight: 600, l.name), text(weight: 600, fill: hot, l.level))
-        if "note" in l { text(size: 8.6pt, fill: soft, l.note) }
+        if "note" in l { text(size: 8.6pt, fill: soft, tie(l.note)) }
       })
     }
-    section(d.skills.heading)
-    for s in d.skills.items { block(below: 2mm, [*#s.lead:* #s.text.]) }
     section("Availability")
     text(weight: 700, size: 10.5pt, d.availability.headline)
     linebreak()
-    text(size: 9pt, d.availability.text)
+    text(size: 9pt, tie(d.availability.text))
+    section("Recent journeys")
+    for t in d.journeys.trips {
+      block(below: 1.3mm, [#text(weight: 600, size: 8.8pt, fill: hot, tracking: 0.4pt, upper(t.period)) \ #text(weight: 600, t.stops.join(" – ")) \ #text(size: 8.8pt, fill: soft)[#t.days days, #t.role]])
+    }
   },
   // right: experience and education
   {
@@ -197,10 +231,10 @@
         v(0.6mm)
         text(weight: 600, fill: teal, j.employer)
         text(fill: soft, [, #j.place])
-        if "intro" in j { linebreak(); text(style: "italic", size: 9pt, fill: soft, j.intro) }
+        if "intro" in j { linebreak(); text(style: "italic", size: 9pt, fill: soft, tie(j.intro)) }
         v(1.2mm)
         for b in j.bullets {
-          block(below: 1.5mm, grid(columns: (4mm, 1fr), dot, [*#b.lead:* #b.text]))
+          block(below: 2.3mm, grid(columns: (4mm, 1fr), dot, [*#b.lead:* #tie(b.text)]))
         }
       })
     }
@@ -210,13 +244,8 @@
         [*#e.qualification* \ #text(fill: soft, e.institution)],
         text(weight: 600, fill: hot, tracking: 0.4pt, e.years)))
     }
-    section("Recent journeys")
-    grid(columns: (1fr, 1fr, 1fr), column-gutter: 4mm,
-      ..d.journeys.trips.map(t => [
-        #text(weight: 600, size: 8.8pt, fill: hot, upper(t.period)) \
-        #text(weight: 600, t.stops.join(" · ")) \
-        #text(size: 8.6pt, fill: soft)[#t.days days, #t.role]
-      ]))
+    section(d.skills.heading)
+    grid(columns: (1fr, 1fr), column-gutter: 5mm, ..d.skills.items.map(s => [*#s.lead:* #tie(s.text + ".")]))
   },
 )
 

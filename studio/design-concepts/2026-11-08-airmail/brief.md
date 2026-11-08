@@ -11,7 +11,9 @@ The border of slanted red and blue bars all round the page, known everywhere as 
 ## The two versions
 
 - **Colour** (`condensed/stylish/condensed-stylish.pdf`): airmail red and blue on pale blue letter paper; dates and levels in red, typed labels in blue.
-- **Monochrome** (`concept-mono.pdf`): the bars become dark and light grey on a pale grey sheet, so the white stamp still shows its perforations; labels in black, the stamp frame in grey. It reads as an airmail envelope run through one ink, not a filtered colour page.
+- **Monochrome** (`concept-mono.pdf`): the bars become one dark grey alternating with white, on a pale grey sheet, so the white stamp still shows its perforations; labels in black, the stamp frame in grey. Round 2 dropped the earlier mid-grey bar, which read as hazard tape (design D7).
+
+Round 2 also made the border about 30 % thinner in both versions (a 4.4 mm band of 4.6 mm bars), so the frame competes less with the text (Codex lineup D2).
 
 Both are one A4 page.
 
@@ -28,7 +30,7 @@ Every row opens with a short length of the border's bars, so the body belongs to
 ## References and the principle taken from each
 
 1. Airmail etiquette (Wikipedia), https://en.wikipedia.org/wiki/Airmail_etiquette: the usual label is "a plain blue oblong" with "AIR MAIL" and/or "PAR AVION" in white. **Principle:** the blue label at top left, the page's first signal.
-2. Airmail stamped envelopes, Smithsonian National Postal Museum, https://postalmuseum.si.edu/exhibition/fad-to-fundamental-airmail-in-america-airmail-object-showcase-stamps-and-covers/us-1 (found by search; the page refuses automated fetching, so its wording is from the search summary): the red-and-blue border marked airmail stationery for most of the twentieth century. **Principle:** a border of slanted bars as the whole identity of a sheet; no picture needed. Drawn here as generic bars, no national stationery copied.
+2. Airmail stamped envelopes, Smithsonian National Postal Museum, https://postalmuseum.si.edu/exhibition/fad-to-fundamental-airmail-in-america-airmail-object-showcase-stamps-and-covers/us-1 (found by search; the page refuses automated fetching, so its wording is from the search summary): the red-and-blue border marked U.S. airmail stationery for most of the twentieth century. **Principle:** a border of slanted bars as the whole identity of a sheet; no picture needed. Drawn here as generic bars, no national stationery copied.
 3. Postage stamp separation (Wikipedia), https://en.wikipedia.org/wiki/Postage_stamp_separation: rows of small holes, gauge about 11 to 14 per 2 cm. **Principle:** perforations at a believable gauge (one hole every 3.2 mm, about 12.5) make the portrait a stamp rather than a framed photo.
 4. Courier Prime at Fonts In Use, https://fontsinuse.com/typefaces/232472/courier-prime: a 2013 redrawing of Courier with crisper serifs and a darker bold, OFL. **Principle:** the typed voice for labels, dates, the name and the address block, with a humanist sans for the long text so the bullets stay readable.
 
@@ -76,5 +78,6 @@ None. Border, stamp, perforations, postmark and cancel lines are Typst drawing.
 ## Known weaknesses
 
 - The border reads instantly as "abroad", but a very conservative reader may find it playful; the body itself is plain.
-- In mono, dark and light grey slanted bars can recall hazard tape if the print is heavy; they were lightened for that reason.
+- In mono, slanted dark bars can still recall barrier tape on a heavy print; one grey on white and a thinner band keep it closer to airmail stationery.
+- The two Skills items sit side by side in unequal columns so neither ends in a lone word; running text also binds its last three or four words together (a non-breaking tie).
 - The postmark's small arc lettering (5.8 to 6.4 pt) is ornament; the same facts are set at body size in the Availability row.

@@ -6,7 +6,7 @@ Run: idea run 2026-11-08 (editor), five one-page styles for a practical travel C
 
 ## What the owner should notice first
 
-The order. A black head strip ("TABLE 1 · CURRICULUM VITAE", five service pictograms, "VALID FROM APRIL 2027ᵃ"), a very tall condensed name, and then everything below is ruled table: yellow section bands, big condensed date numerals, lead phrases right-aligned in a station column, alternating tinted rows, hairlines. The portrait is cut out on a block of signal yellow, like a cell of the table.
+The order. A black head strip ("TABLE 1 · CURRICULUM VITAE", five service pictograms, "VALID FROM APRIL 2027ᵃ"), a very tall condensed name, and then everything below is ruled table: yellow section bands, big condensed date numerals, lead phrases right-aligned in a station column, alternating tinted rows, hairlines. The portrait is cut out on a block of signal yellow, like a cell of the table, closed at its foot by the table's heavy rule so the white shirt never melts into the page (round 2, design D8).
 
 ## The two versions
 
@@ -31,7 +31,7 @@ Imagery stays small and functional: five pictograms (flights, ferries, coaches, 
 
 1. Bradshaw's Railway Companion, 1843, Science Museum Group, https://collection.sciencemuseumgroup.org.uk/objects/co8658721/bradshaws-railway-companion-timetable. **Principle:** the printed timetable as a reading machine: times in a fixed column, stations in another, everything ruled, nothing decorative.
 2. Bradshaw Companion Timetable, October 1844, Internet Archive scan, https://archive.org/details/1844Bradshawtt. **Principle:** footnote marks and a key of symbols carry the conditions ("valid from", "a"), so the table itself stays clean.
-3. Josef Müller-Brockmann, *Grid Systems in Graphic Design* (book; publisher's listing found by search, https://draw-down.com/products/grid-systems-in-graphic-design, not opened: the site rate-limited the fetcher). **Principle:** one grid of fields and rows for the whole page; bands and hairlines instead of boxes.
+3. Josef Müller-Brockmann, *Grid Systems in Graphic Design*, Niggli, ISBN 978-3-7212-0145-1. **Principle (my interpretation, not a claim the book makes in these words):** one grid of fields and rows for the whole page; bands and hairlines instead of boxes.
 4. IBM Plex (IBM, OFL), https://github.com/IBM/plex. **Principle:** a grotesque with a true condensed width for dense rows that stay readable at body size; Sofia Sans Extra Condensed (bundled) for the big numerals and the name, as timetable departures are set.
 
 ## Why it differs
@@ -82,3 +82,4 @@ None. Pictograms are Typst polygons drawn for this concept (no symbol set copied
 - Least "illustrated" of the five; it wins on order and type, which suits the `scan-first` bar but may read as austere next to Poster Sun.
 - The right-aligned lead phrases make a ragged left edge in the station column; that is the timetable convention, but some readers prefer left-aligned labels.
 - "TABLE 1" is a playful device; the owner may prefer a plainer head strip.
+- Running text binds its last three or four words together (a non-breaking tie) and the Skills column was widened, so no row ends in a lone "40." (round 2, Codex D1/D2).
