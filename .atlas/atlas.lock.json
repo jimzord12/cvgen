@@ -17,7 +17,7 @@
    "verifiedAt": "2026-11-04"
   },
   "client-journey": {
-   "commit": "5f38388",
+   "commit": "61efeb1",
    "sources": {
     ".claude/agents/design-reviewer.md": "9938a4b0c29a9fb5cf700f45377a3587f7eb21d0",
     ".claude/skills/idea-run/SKILL.md": "e1208b8d675ef749b06c25a95f2e1d59f4713984",
@@ -46,13 +46,13 @@
     "docs/workflow/README.md": "d1bdce91026f607e69f00a0de03adab9019060f0",
     "packages/cv-workflow/cv_workflow/__init__.py": "427c74cfeabc096417b81d7a5cbea539fbae99b2",
     "packages/cv-workflow/cv_workflow/outputs.py": "241dc75d76a1340d5a2303ab2fde0a7e29fcca3c",
-    "packages/cv-workflow/cv_workflow/render.py": "7f40ec9d2b952f82caecc8e6e95acafa05537a92",
+    "packages/cv-workflow/cv_workflow/render.py": "b3ea99bf67ce12f61077a486a23da572826c71bc",
     "scripts/cv.py": "42ea1ae22e92aede04283e3ad0af35b923a272c2",
     "scripts/intake-form.gs": "48f0db692a6c1d08644cf0452d04291ffbee9828",
     "scripts/text-draft.typ": "259ca8d667a30153ba389b1e9c798c8af0a78764",
     "studio/design-concepts/README.md": "6f9c35abb0affbc80fe19a474d22554a833d1338"
    },
-   "verifiedAt": "2026-11-04"
+   "verifiedAt": "2026-11-08"
   },
   "design-run": {
    "commit": "5f38388",
@@ -124,7 +124,7 @@
    "verifiedAt": "2026-11-04"
   },
   "system-map": {
-   "commit": "5f38388",
+   "commit": "61efeb1",
    "sources": {
     ".claude/agents": "dir1:d86ac8b44b9896473ff12ecdbc91538ae34a8852",
     ".claude/skills": "dir1:5eeafda0c9ef9a6037a3fcc2879f73f098fa3e55",
@@ -132,7 +132,7 @@
     "AGENTS.md": "f3c7f4e0e79409e466ad00985b54132b51428e3f",
     "apps/design-review/README.md": "5d14097c544910a9ba0d940e76863223ac1f62a3",
     "apps/design-review/server.py": "65b42af8bcf0a971e19ec97fa39b874cad91c3c1",
-    "archive/work-records": "dir1:90aed341a032a920886ce688031f3959208175c5",
+    "archive/work-records": "dir1:d9487296217058a7be47e8f8cdfcb94c64329fce",
     "docs": "dir1:139adff443cb7a07dd0d5fae04941c8c0785eb30",
     "docs/architecture.md": "cf894b1d97cd027fa2832c7b5e447b8936e1734a",
     "docs/engine/verification.md": "0d100f36d9333694b85a7f4e7ec5407c29bd9fd5",
@@ -159,7 +159,7 @@
     "studio/design-concepts/README.md": "6f9c35abb0affbc80fe19a474d22554a833d1338",
     "tests/run.py": "6d653e3ed07a94d276075adadfa537faf0672c13"
    },
-   "verifiedAt": "2026-11-04"
+   "verifiedAt": "2026-11-08"
   }
  }
 }
