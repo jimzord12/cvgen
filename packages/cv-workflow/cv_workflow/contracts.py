@@ -213,7 +213,8 @@ def choose(envelope_data, source, record, design=None, domains_root=DOMAINS, bas
 def shown_by(old, claimed):
     """What a Template Variation shows: its claims, plus every group required in the contract it last
     supports, which it renders whether or not that group is still required."""
-    return {**claimed, **{name: {group['schemaVersion']} for name, group in old['groups'].items() if group['required']}}
+    required = {name: {group['schemaVersion']} for name, group in old['groups'].items() if group['required']}
+    return {name: claimed.get(name, set()) | required.get(name, set()) for name in {*claimed, *required}}
 
 
 def behind(gap):
@@ -260,11 +261,7 @@ def compare(old, new, claimed):
             continue
         renders, rose = a['required'] or shown, b['schemaVersion'] > a['schemaVersion']
         texts, conditions = [], set()
-        # A Variation that already claims the new shape renders it (`places@1` and `places@2`).
-        if rose and b['schemaVersion'] in claimed.get(name, ()):
-            texts.append(f'{name} changed (schemaVersion {a["schemaVersion"]} to {b["schemaVersion"]}), a shape it claims')
-            conditions.add('never')
-        elif rose:
+        if rose:
             texts.append(f'{name} changed (schemaVersion {a["schemaVersion"]} to {b["schemaVersion"]})')
             conditions.add('always' if a['required'] and b['required'] else 'held' if renders else 'never')
         if a['required'] and not b['required']:

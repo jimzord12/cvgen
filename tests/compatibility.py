@@ -146,7 +146,8 @@ def run_compatibility(out):
         # A version an exactly list skips is refused, not compared.
         refused(lambda: pick('gap', shifted, 'shift'), 'card gap supports shift contract version 1, 3; this record follows '
                                                      'version 2, which it does not render.')
-        assert compatibility('shift', 'card', 'behind', card('shift')['variations']['behind'], **roots)['coverage'] ==             '4 of 4 optional groups'
+        shift_behind = compatibility('shift', 'card', 'behind', card('shift')['variations']['behind'], **roots)
+        assert shift_behind['coverage'] == '4 of 4 optional groups', shift_behind
         checks.append('a record on a newer version renders with warnings, or stops naming the group and the fix')
 
         # The report the suite keeps and `cv.py contracts` prints.
@@ -180,7 +181,9 @@ def run_compatibility(out):
         assert one(g(True), g(True, 2))['error'] == 'always'                      # ... changed
         assert one(g(True), None)['error'] == 'always'                            # ... removed
         assert one(g(True), g(False, 2))['error'] == 'always'                     # rendered, changed and now optional
-        assert one(g(False), g(False, 2), {'x': {1, 2}})['error'] == 'never'      # it already claims the new shape
+        # A claim of the new schemaVersion changes nothing: only a version it names and the suite renders proves it.
+        assert one(g(True), g(True, 2), {'x': {1, 2}})['error'] == 'always'
+        assert one(g(False), g(False, 2), {'x': {1, 2}})['error'] == 'held'
         finding = one(g(True), g(False))
         assert judge([finding], {'x': 1}) == ([], ['x became optional by version 2'], [])
         assert judge([finding], {}) == (['x became optional by version 2, and this record has none of it'], [], [])

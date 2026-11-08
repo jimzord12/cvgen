@@ -68,6 +68,11 @@ def run_coverage(out, typst, flags):
                 renders = supported(variation, owner)
                 elsewhere = {g for v in renders for g in contract(owner, v)['groups']}
                 reports.append(compatibility(owner, template, name, variation))
+                # Every claim is proved: each name@schemaVersion is in a version it names and the suite renders.
+                at = {(g, c['groups'][g]['schemaVersion']) for c in (contract(owner, v) for v in renders) for g in c['groups']}
+                unproved = [f'{g}@{v}' for g, versions_claimed in (claims(variation, owner)[0] or {}).items()
+                            for v in sorted(versions_claimed) if (g, v) not in at]
+                assert not unproved, f'{template} {name} claims {", ".join(unproved)}, which no version it renders has'
                 for version in renders:
                     fixtures = [p for p in sorted((DOMAINS / owner / 'fixtures').glob(f'coverage-v{version}*.json')) if re.fullmatch(rf'coverage-v{version}(-[a-z-]+)?\.json', p.name)]
                     assert fixtures, (owner, version)

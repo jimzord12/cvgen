@@ -43,7 +43,7 @@ Each `Template Variation` under `variations` states `pages`, its `designBar`, th
 `upTo` N (versions 1 to N) or `exactly` a rising list of the versions it
 handles, and `groups`, the optional `Fact Group`s it shows as
 `name@schemaVersion`. A group it renders in two shapes is claimed twice
-(`places@1`, `places@2`). Required groups follow from the version. A
+(`places@1`, `places@2`), and the suite proves each claim on a version it names. Required groups follow from the version. A
 `Template Variation` is never required to name the newest version.
 
 ```json
@@ -86,7 +86,7 @@ holds that group, or when it has none of it:
 |---|---|
 | A group it does not render changed, or was removed | Warning |
 | A new optional group; a new optional field in any group | Warning; the facts count as `dropped` |
-| An optional group it claims changed or was removed | Error when the record holds it; a warning when it already claims the new `schemaVersion` |
+| An optional group it claims changed or was removed | Error when the record holds it |
 | A required group became optional | Error when the record has none of it |
 | An optional group became required | Warning if it claims it; else error |
 | A required group is new, changed or removed | Error |
