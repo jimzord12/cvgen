@@ -42,6 +42,12 @@ def run_report(out):
     assert script.placement(mixed) == {'cards': [['2'], [], []], 'figures': ['4', '3', '1']}, script.placement(mixed)
     checks.append('figures placed: one in its card, one shared under Figures; uncited and decision-only figures stay under Figures')
     checks.append('sample builds into one page')
+    bare_number = json.loads(SAMPLE.read_text(encoding='utf-8'))
+    bare_number['evidence'][0]['id'] = 1  # a bare JSON number, cited elsewhere as "1"
+    (folder / 'number.json').write_text(json.dumps(bare_number), encoding='utf-8')
+    numbered = run(folder / 'number.json', '--output', folder / 'number')
+    assert numbered.returncode == 0, numbered.stderr
+    checks.append('a bare number id renders and matches its text citations')
 
     fragment = run(SAMPLE, '--fragment', '--output', folder / 'fragment')
     assert fragment.returncode == 0, fragment.stderr
@@ -99,6 +105,8 @@ def run_report(out):
             ('a figure without an id', {**bare, 'evidence': [{'kind': 'page', 'caption': 'A', 'src': 'x.png'}]}, 'evidence: an item needs id'),
             ('a figure id that is a sentence', {**bare, 'evidence': [{**figure, 'id': 'Figure 1'}]}, "evidence: id 'Figure 1' must be a number from 1 to 999, such as 1"),
             ('a letter for a figure id', {**bare, 'evidence': [{**figure, 'id': 'A'}]}, "evidence: id 'A' must be a number from 1 to 999, such as 1"),
+            ('a fraction for a figure id', {**bare, 'evidence': [{**figure, 'id': 1.0}]}, 'evidence: id 1.0 must be a number from 1 to 999, such as 1'),
+            ('a zero figure id', {**bare, 'evidence': [{**figure, 'id': 0}]}, "evidence: id '0' must be a number from 1 to 999, such as 1"),
             ('two figures with one id', {**bare, 'evidence': [figure, figure]}, "evidence: two figures share the id '1'"),
             ('a card citing a missing figure', {**bare, 'evidence': [figure], 'needs_you': [{**card, 'options': choices, 'figures': ['1', '9']}]}, "'A' cites Figure 9, which the evidence does not hold"),
             ('a decision citing a missing figure', {**bare, 'evidence': [figure], 'decisions': [{'grade': 'Major', 'title': 'D', 'why': 'B', 'figures': ['8']}]}, "'D' cites Figure 8, which the evidence does not hold"),
