@@ -6,7 +6,7 @@ title: >-
 status: Active
 assignee: []
 created_date: '2026-11-08T10:07:00Z'
-updated_date: '2026-11-08T10:52:00Z'
+updated_date: '2026-11-08T11:13:00Z'
 labels: []
 milestone: m-2
 dependencies: []
@@ -57,4 +57,10 @@ The first scan-first Template Variation (P-0019 section 9, owner 2026-11-04 and 
 - Docs: engine/template-contract.md, architecture.md, verification.md 6b, domains-and-roles.md, glossary, guides/build-a-cv.md (choose and record the Variation), Workflow Model lead.write-flagship-entry, anchors, Atlas.
 - Evidence: python tests/run.py PASS (builds/tests-20261108-125057-630396), ruff clean; review renders builds/hanami-essential-r1-20261108-125152/.
 - Open: design-reviewer and codex-visual-reviewer rounds; owner approval of the look, the scan-first bar and the Frozen Reference.
+
+## Rounds 2 and 3, and contract version 2 (2026-11-08)
+
+- Design round 1 (design-reviewer FINDINGS D1-D9, Codex PASS) fixed in b665f55; round 2 (D10-D12) fixed in the next commit. Review files in archive/work-records/hanami-essential/reviews/.
+- Merged feat/travel-contract-v2 (TASK-80). Essential supports travel exactly [2] (version 1's required destinations holds the route, stamps and story, which one page cannot show), claims destinations@2 and licences@1, leaves travel-story out; licences beside the lead, each trip's role after its period, the areas, the rank's seal words on the band.
+- Evidence: tests/run.py PASS (builds/tests-20261108-131156-155946), ruff clean, Workflow Model and Atlas checked.
 <!-- SECTION:NOTES:END -->

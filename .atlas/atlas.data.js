@@ -4497,42 +4497,18 @@ window.ATLAS = {
   }
  ],
  "build": {
-  "builtAt": "2026-11-08 11:09 UTC",
-  "commit": "0d2d049",
+  "builtAt": "2026-11-08 11:13 UTC",
+  "commit": "3400194",
   "kit": "1.1",
-  "stale": {
-   "client-journey": [
-    "docs/workflow/05-design/README.md",
-    "docs/guides/build-a-cv.md",
-    "docs/glossary.md"
-   ],
-   "design-run": [
-    "docs/glossary.md"
-   ],
-   "system-map": [
-    "docs/architecture.md",
-    "docs/guides/build-a-cv.md",
-    "docs/engine/domains-and-roles.md",
-    "docs/glossary.md",
-    "archive/work-records",
-    "tests/run.py",
-    "docs/engine/verification.md"
-   ],
-   "roster": [
-    "docs/guides/build-a-cv.md",
-    "tests/run.py",
-    "docs/engine/verification.md",
-    "examples/release.json"
-   ]
-  },
+  "stale": {},
   "verified": {
    "client-journey": {
     "at": "2026-11-08",
-    "commit": "8419eaf"
+    "commit": "3400194"
    },
    "design-run": {
     "at": "2026-11-08",
-    "commit": "8419eaf"
+    "commit": "3400194"
    },
    "change-review": {
     "at": "2026-11-08",
@@ -4540,11 +4516,11 @@ window.ATLAS = {
    },
    "system-map": {
     "at": "2026-11-08",
-    "commit": "8419eaf"
+    "commit": "3400194"
    },
    "roster": {
     "at": "2026-11-08",
-    "commit": "8419eaf"
+    "commit": "3400194"
    }
   }
  }

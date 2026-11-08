@@ -30,8 +30,10 @@ declares only what differs: its layout (`layouts/essential.typ`, named
 `essential`, which `hanami` checks against the manifest's `layouts`), its
 composition (`essential.typ`) and its parts (`components/essential.typ`).
 `hanami` reads the `variation` and calls the composition; `showcase` is
-unchanged. On one A4 page the name block sits in a shallow band, the profile
-row under it, then each role's title, employer and dates in a career column with
+unchanged. On one A4 page the name block sits in a shallow band (the rank on
+showcase's red tab, the specialty and the rank's seal words beside it), the
+profile row under it (the lead statement with any licence beside it, then the
+highlights), then each role's title, employer and dates in a career column with
 education at its foot, and availability, languages, destinations, practical
 know-how and references on a rail. The gaps between roles widen with spare
 height only up to a cap; the rest stays at the column's foot. When the roles do
@@ -40,12 +42,15 @@ full and the older ones become one summary whose count and span come from the
 domain (`experience-totals`); when even the newest role does not fit, the compile
 fails.
 
-It claims `profile`, `education`, `languages`, `portrait`, `availability`,
-`practical` and `references` at version 1. It shows a summary of `destinations`
-(the trips, their stops and the domain's totals) but not the stamps, the route or
-the trip told in detail, so it does not claim the group: a record that holds it
-renders with the warning and lists it under `dropped`. Contract version 2
-(TASK-80) is where that changes. Its `designBar` is `scan-first`, and its
+It supports the travel contract `exactly` at version 2: version 1's required
+`destinations` holds the route, the stamps and the trip story, which one page has
+no room for, so a version 1 record is refused before the render. It claims
+`destinations@2` (each trip's period, length, role, kind and stops, the areas,
+and the domain's totals), `licences@1`, and `profile`, `education`, `languages`,
+`portrait`, `availability`, `practical` and `references` at version 1. It does
+not claim `travel-story`, and prints none of it, not even the region's name in
+its own script: a record that holds it renders with the warning and lists it
+under `dropped`. Its `designBar` is `scan-first`, and its
 `Frozen Reference` is a candidate until the owner approves the design.
 
 ## Domain Contracts

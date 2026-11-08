@@ -86,10 +86,11 @@ Windows one also holds the PDFs that build wrote, one per example in
    `.../hanami/tests/approved/Travel-Tour-Leader-CV-Essential-v01.pdf` pixel for
    pixel on its one page (a `Frozen Reference` candidate), print the first-scan
    fields in reading order (name, each role before the next, education) as text
-   that copies whole words, and print no page number. The `travel-essential.typ`
+   that copies whole words, the licence, each trip's role and the areas, no part
+   of `travel-story`, and no page number. The `travel-essential.typ`
    fixture renders the record without a portrait (the same words, one image
-   fewer), the Indigo and Sky themes, Greek wording, a record without
-   destinations, and a fictional long career (`tour-leader-long-career.json`):
+   fewer), the Indigo and Sky themes, Greek wording, a record without a
+   licence, and a fictional long career (`tour-leader-long-career.json`, version 2):
    education moved to the rail, five roles in full and "Earlier roles · 3" with
    the span the domain computed. The Greek case translates the record's own
    labels, rank, availability and lead too, so Greek capitals are proved to fit. It fails on a newest role too long for the page, a long career not
