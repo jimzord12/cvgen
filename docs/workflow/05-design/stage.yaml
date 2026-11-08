@@ -1,7 +1,7 @@
 # yaml-language-server: $schema=../../../tools/workflow/schema/stage.schema.json
 id: design
 name: Design and build the CV
-sources: ["docs/workflow/05-design/README.md:15-71", ".claude/skills/new-cv/SKILL.md:22-68", "docs/guides/build-a-cv.md:1-111"]
+sources: ["docs/workflow/05-design/README.md:15-71", ".claude/skills/new-cv/SKILL.md:22-67", "docs/guides/build-a-cv.md:1-111"]
 purpose: >-
   Turn the signed-off facts into the client's CV design and its build files:
   the Flagship for a Domain that has it, a custom composition when the data
@@ -30,7 +30,7 @@ steps:
   # --- A Domain with no Template: an Idea Run on fictional data, then the owner picks.
   - id: design.run-brief
     name: Start an Idea Run for the client's Domain
-    sources: [".claude/skills/new-cv/SKILL.md:34-45", "docs/workflow/05-design/README.md:36-46", ".claude/skills/idea-run/SKILL.md:32-43", "docs/workflow/05-design/README.md:36-40"]
+    sources: [".claude/skills/new-cv/SKILL.md:33-44", "docs/workflow/05-design/README.md:36-46", ".claude/skills/idea-run/SKILL.md:32-43", "docs/workflow/05-design/README.md:36-40"]
     actor: actor.lead
     action: skill.idea-run
     inputs: [art.envelope-json, art.decisions-md]
@@ -137,7 +137,7 @@ steps:
   # the Idea Run, and design.port-concept reads its candidate.json.
   - id: design.fill-data
     name: Write candidate.json and prepare the portrait
-    sources: [".claude/skills/new-cv/SKILL.md:16-18", ".claude/skills/new-cv/SKILL.md:26-33", "docs/guides/build-a-cv.md:67-88", "docs/guides/build-a-cv.md:63-88", "docs/guides/client-workflow.md:69-94"]
+    sources: [".claude/skills/new-cv/SKILL.md:16-18", ".claude/skills/new-cv/SKILL.md:26-32", "docs/guides/build-a-cv.md:67-88", "docs/guides/build-a-cv.md:63-88", "docs/guides/client-workflow.md:69-94"]
     actor: actor.lead
     action: lead.write-candidate-json
     inputs: [art.facts-final, art.draft-pdf, art.sign-off-png, art.documents, art.example-records]
@@ -145,7 +145,7 @@ steps:
 
   - id: design.flagship-fit
     name: Check the data fits the Flagship
-    sources: [".claude/skills/new-cv/SKILL.md:46-51", "docs/guides/build-a-cv.md:213-217"]
+    sources: [".claude/skills/new-cv/SKILL.md:45-50", "docs/guides/build-a-cv.md:213-217"]
     actor: actor.lead
     action: lead.check-flagship-fit
     inputs: [art.candidate-json]
@@ -154,7 +154,7 @@ steps:
 
   - id: design.entry-point
     name: Write the Flagship entry point
-    sources: [".claude/skills/new-cv/SKILL.md:46-48", "docs/guides/build-a-cv.md:90-111", "docs/guides/build-a-cv.md:15-61"]
+    sources: [".claude/skills/new-cv/SKILL.md:45-47", "docs/guides/build-a-cv.md:90-111", "docs/guides/build-a-cv.md:15-61"]
     actor: actor.lead
     action: lead.write-flagship-entry
     inputs: [art.candidate-json, art.flagship-template]
@@ -163,7 +163,7 @@ steps:
 
   - id: design.custom-composition
     name: Compose the page by hand
-    sources: ["docs/guides/build-a-cv.md:209-273", ".claude/skills/new-cv/SKILL.md:46-51"]
+    sources: ["docs/guides/build-a-cv.md:209-273", ".claude/skills/new-cv/SKILL.md:45-50"]
     actor: actor.lead
     action: lead.compose-by-hand
     inputs: [art.candidate-json, art.flagship-template]
@@ -184,7 +184,7 @@ steps:
 
   - id: design.framework-gap
     name: Record the Framework Gap
-    sources: ["docs/guides/build-a-cv.md:267-273", ".claude/skills/new-cv/SKILL.md:46-51", "docs/workflow/05-design/README.md:77-81"]
+    sources: ["docs/guides/build-a-cv.md:267-273", ".claude/skills/new-cv/SKILL.md:45-50", "docs/workflow/05-design/README.md:77-81"]
     actor: actor.lead
     action: lead.record-framework-gap
     inputs: [art.cv-typ]
@@ -224,7 +224,7 @@ steps:
   # --- Decision #4 (2026-10-14): every client CV's design is reviewed.
   - id: design.preview
     name: Compile the previews for the reviewer
-    sources: [".claude/skills/new-cv/SKILL.md:52-60", "docs/workflow/05-design/README.md:52-54", "docs/proposals/workflow-model.md:57"]
+    sources: [".claude/skills/new-cv/SKILL.md:51-59", "docs/workflow/05-design/README.md:52-54", "docs/proposals/workflow-model.md:57"]
     actor: actor.lead
     action: lead.compile-previews
     inputs: [art.cv-typ, art.candidate-json, art.framework-fonts]
@@ -232,7 +232,7 @@ steps:
 
   - id: design.client-review
     name: A fresh design-reviewer and codex-visual-reviewer judge the client's pages
-    sources: ["docs/workflow/05-design/README.md:52-71", ".claude/skills/new-cv/SKILL.md:61-67", "docs/proposals/workflow-model.md:57", ".claude/agents/design-reviewer.md:37-45"]
+    sources: ["docs/workflow/05-design/README.md:52-71", ".claude/skills/new-cv/SKILL.md:60-66", "docs/proposals/workflow-model.md:57", ".claude/agents/design-reviewer.md:37-45"]
     actor: actor.design-reviewer
     action: agent.design-reviewer
     inputs: [art.design-review-input]
@@ -250,7 +250,7 @@ steps:
 
   - id: design.clear-review-input
     name: Clear the previews from builds/
-    sources: ["docs/workflow/05-design/README.md:64-65", ".claude/skills/new-cv/SKILL.md:68", "docs/preferences.md:78-80", ".claude/agents/design-reviewer.md:49-53"]
+    sources: ["docs/workflow/05-design/README.md:64-65", ".claude/skills/new-cv/SKILL.md:67", "docs/preferences.md:78-80", ".claude/agents/design-reviewer.md:49-53"]
     actor: actor.lead
     action: lead.clear-review-input
     inputs: [art.design-review-report]
@@ -268,14 +268,14 @@ gates:
     # on every path (new-cv: design.fill-data runs beside the Idea Run, and
     # render refuses an Envelope without candidate.json), so fill-data follows
     # the signed-off facts on both branches and port-concept reads what it wrote.
-    sources: ["docs/workflow/05-design/README.md:36-46", ".claude/skills/new-cv/SKILL.md:34-45", "docs/guides/build-a-cv.md:67-88", "docs/guides/client-workflow.md:37", "docs/guides/build-a-cv.md:133-142"]
+    sources: ["docs/workflow/05-design/README.md:36-46", ".claude/skills/new-cv/SKILL.md:33-44", "docs/guides/build-a-cv.md:67-88", "docs/guides/client-workflow.md:37", "docs/guides/build-a-cv.md:133-142"]
     check: The client's Domain already has a Template (today marine, the Flagship, and travel, Hanami).
     pass: design.flagship-fit
     fail: design.run-brief
 
   - id: gate.template-fits
     name: The data fits the Flagship
-    sources: [".claude/skills/new-cv/SKILL.md:46-51", "docs/guides/build-a-cv.md:213-217"]
+    sources: [".claude/skills/new-cv/SKILL.md:45-50", "docs/guides/build-a-cv.md:213-217"]
     check: >-
       The client's data fits flagship: service months (per row, or company
       totals with durations hidden) or a contract period on every row, and no
@@ -313,7 +313,7 @@ gates:
 
   - id: gate.client-design-review
     name: Client design review
-    sources: ["docs/workflow/05-design/README.md:52-71", ".claude/skills/new-cv/SKILL.md:61-67", "docs/proposals/workflow-model.md:57"]
+    sources: ["docs/workflow/05-design/README.md:52-71", ".claude/skills/new-cv/SKILL.md:60-66", "docs/proposals/workflow-model.md:57"]
     check: A fresh design-reviewer and a fresh codex-visual-reviewer both return PASS (the design-reviewer alone when Codex is UNAVAILABLE) on the client's preview pages, first on the Batch Test and the Three-Second Test.
     pass: design.clear-review-input
     fail: design.fix
@@ -493,7 +493,7 @@ artifacts:
   # no visibility for an ignored local file (GAPS.md).
   - id: art.design-review-input
     name: The client's preview pages for the reviewer
-    sources: [".claude/skills/new-cv/SKILL.md:52-57", "docs/workflow/05-design/README.md:64-65", ".claude/skills/new-cv/SKILL.md:68", ".claude/agents/design-reviewer.md:49-53", ".claude/agents/design-reviewer.md:64-65"]
+    sources: [".claude/skills/new-cv/SKILL.md:51-56", "docs/workflow/05-design/README.md:64-65", ".claude/skills/new-cv/SKILL.md:67", ".claude/agents/design-reviewer.md:49-53", ".claude/agents/design-reviewer.md:64-65"]
     path: builds/design-review-input-<timestamp>/
     format: PDF previews of the client's pages, and the page PNGs and batch sheets the reviewer makes there, outside private/
     visibility: ephemeral
@@ -533,7 +533,7 @@ actions:
   - id: agent.design-reviewer
     kind: agent
     name: A fresh design-reviewer round
-    sources: [".claude/agents/design-reviewer.md:1-6", ".claude/skills/idea-run/SKILL.md:59-63", ".claude/skills/new-cv/SKILL.md:61-67"]
+    sources: [".claude/agents/design-reviewer.md:1-6", ".claude/skills/idea-run/SKILL.md:59-63", ".claude/skills/new-cv/SKILL.md:60-66"]
     agent: design-reviewer
 
   - id: agent.code-reviewer
@@ -584,13 +584,13 @@ actions:
   - id: lead.check-flagship-fit
     kind: lead
     name: Check the Flagship fit
-    sources: [".claude/skills/new-cv/SKILL.md:46-51"]
+    sources: [".claude/skills/new-cv/SKILL.md:45-50"]
     does: Checks the data and the design against the two conditions of gate.template-fits.
 
   - id: lead.write-flagship-entry
     kind: lead
     name: Write the Flagship entry point
-    sources: [".claude/skills/new-cv/SKILL.md:46-48", "docs/guides/build-a-cv.md:15-61"]
+    sources: [".claude/skills/new-cv/SKILL.md:45-47", "docs/guides/build-a-cv.md:15-61"]
     does: >-
       Writes typst/cv.typ importing the engine by root-absolute path: role,
       theme, artwork, the durations switch and a pages override with this
@@ -620,7 +620,7 @@ actions:
   - id: lead.record-framework-gap
     kind: lead
     name: Record the Framework Gap
-    sources: ["docs/guides/build-a-cv.md:267-273", ".claude/skills/new-cv/SKILL.md:46-51"]
+    sources: ["docs/guides/build-a-cv.md:267-273", ".claude/skills/new-cv/SKILL.md:45-50"]
     does: >-
       Adds an entry to docs/framework-gaps.md (what was needed, what was gone
       around, what was built) and records the reason in the Envelope's
@@ -643,7 +643,7 @@ actions:
   - id: lead.compile-previews
     kind: lead
     name: Compile the previews
-    sources: [".claude/skills/new-cv/SKILL.md:52-57"]
+    sources: [".claude/skills/new-cv/SKILL.md:51-56"]
     does: >-
       Compiles typst/cv.typ into builds/design-review-input-<timestamp>/cv.pdf
       with the typst compile line in the new-cv skill, since the reviewer
@@ -652,13 +652,13 @@ actions:
   - id: lead.fix-design
     kind: lead
     name: Fix the design
-    sources: [".claude/skills/new-cv/SKILL.md:61-67", "docs/workflow/05-design/README.md:61-63"]
+    sources: [".claude/skills/new-cv/SKILL.md:60-66", "docs/workflow/05-design/README.md:61-63"]
     does: Fixes the design on the findings and stores both reports verbatim, as reviews/design-NN.md and reviews/design-NN-codex.md, before the next fresh round.
 
   - id: lead.clear-review-input
     kind: lead
     name: Clear the previews
-    sources: ["docs/workflow/05-design/README.md:64-65", ".claude/skills/new-cv/SKILL.md:68", "docs/preferences.md:78-80", ".claude/agents/design-reviewer.md:49-53"]
+    sources: ["docs/workflow/05-design/README.md:64-65", ".claude/skills/new-cv/SKILL.md:67", "docs/preferences.md:78-80", ".claude/agents/design-reviewer.md:49-53"]
     does: >-
       Deletes the builds/design-review-input-* folders by path, with the page
       PNGs and batch sheets both reviewers made inside them, since they hold a real

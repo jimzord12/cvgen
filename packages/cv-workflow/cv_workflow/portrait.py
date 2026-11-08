@@ -292,8 +292,19 @@ def prepare_portrait(source, output=None, *, remove=True, fill=None, model=MODEL
                    'face': {'file': YUNET.name, 'sha256': sha256_bytes(YUNET), 'score_threshold': SCORE}},
         'versions': versions(),
     }
-    partial_sidecar.write_text(json.dumps(record, indent=2) + '\n', encoding='utf-8')
-    os.replace(partial_png, output)
-    os.replace(partial_sidecar, sidecar_path)
+    replaced = False
+    try:
+        partial_sidecar.write_text(json.dumps(record, indent=2) + '\n', encoding='utf-8')
+        os.replace(partial_png, output)
+        replaced = True
+        os.replace(partial_sidecar, sidecar_path)
+    except OSError as error:
+        # A locked file or a disk error: leave no .partial behind, and say whether the portrait already changed.
+        for leftover in (partial_png, partial_sidecar):
+            leftover.unlink(missing_ok=True)
+        state = (f'{output.name} was already replaced but {sidecar_path.name} was not, so the pair no longer matches'
+                 if replaced else f'{output.name} and {sidecar_path.name} are unchanged')
+        raise WorkflowError(f'could not move the new portrait into place ({error}); {state}. Close any program '
+                            f'holding them; if the pair no longer matches, delete both files and run again') from error
     record['paths'] = {'portrait': str(output), 'sidecar': str(sidecar_path)}
     return record

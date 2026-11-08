@@ -80,10 +80,10 @@ the side: head and the top of the shoulders), removes the background and
 writes a transparent PNG, which the design's own colour shows through;
 `--fill '#1b2a4a'` paints one colour instead. `portrait.json` beside it
 records the colour profile, the face box, the crop, the check of the
-result, the models and the versions. It refuses a photograph with no face
-or several, a face too close to an edge, and one too small for a 600 px
-square, which it never enlarges; the source is never changed (exit 1,
-nothing written). Exit 3 means the portrait was written but the face found
+result, the models and the versions. It refuses (exit 1, nothing written)
+a photograph with no face or several, a face too close to an edge, and one
+too small for a 600 px square, which it never enlarges. The source is never
+changed. Exit 3 means the portrait was written but the face found
 in it is missing, doubled or off target: look at it before rendering.
 `--keep-background` is for checking a crop only, never for a CV. Point
 `identity.portrait` in `candidate.json` (and any `image(...)` in `cv.typ`)
