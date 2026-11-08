@@ -15,7 +15,8 @@ from design_review import run_design_review
 from repo_maintenance import run_repo_maintenance
 from release import examples, run_build_script, shells
 from coverage import run_coverage
-from travel import petal_collisions
+from cv_workflow.decoration import PETALS, decoration_errors, petal_collisions, petals  # on the path through workflow.py
+from compatibility import run_compatibility
 from proposals import run_proposals
 from report import run_report
 from cv_workflow.render import STRICT_FONTS, font_fallbacks  # on the path through workflow.py
@@ -134,10 +135,41 @@ def check_example_records():
     contract_record['skill_groups'] = [['ECDIS']]
     contract_record['copy'] = {'certificate-columns': ['Certificate', 'Provider', 'Issued']}
     validate_record(contract_record, ['/packages/domains/marine/lib.typ'])
-    # The facts contract and the Flagship input contract share their definitions, vessel particulars included.
-    facts_schema, input_schema = (json.loads((ROOT / 'packages/domains' / p).read_text(encoding='utf-8')) for p in
-                                  ['marine/schema/candidate.schema.json', FLAGSHIP_INPUT[len('/packages/domains/'):]])
-    assert facts_schema['$defs'] == input_schema['$defs'], 'the two marine schemas define different $defs'
+    # copy is open in the facts schema and closed by Flagship's: a misspelt or mistyped key is still refused.
+    for wrong, said in (({'brnad': 'X'}, "'brnad' was unexpected"), ({'brand': 5}, "copy/brand: 5 is not of type 'string'")):
+        try:
+            validate_record({**contract_record, 'copy': wrong}, ['/packages/domains/marine/lib.typ'])
+            raise AssertionError(f'copy {wrong} was accepted')
+        except WorkflowError as error:
+            assert said in str(error), str(error)
+    # A Template's input schema states the facts once, by $ref to its Domain's schema, and adds only what the
+    # Template renders beyond them (ADR 0016, Stage 2): never a fact of its own, never a copy of a definition.
+    for path in sorted((ROOT / 'packages/domains').glob('*/templates/*/schema/*-input.schema.json')):
+        domain = path.relative_to(ROOT / 'packages/domains').parts[0]
+        facts_path = ROOT / 'packages/domains' / domain / 'schema/candidate.schema.json'
+        facts_schema, input_schema = (json.loads(p.read_text(encoding='utf-8')) for p in (facts_path, path))
+        assert Path(path.parent, input_schema.get('$ref', '')).resolve() == facts_path.resolve(), (path, input_schema.get('$ref'))
+        assert '$defs' not in input_schema and set(input_schema['properties']) <= {'copy'}, \
+            f'{path.name} restates facts; they belong in {facts_path.name}'
+        assert 'copy' in facts_schema['properties'], f'{facts_path.name} must leave copy to the Template'
+    # The travel facts schema reads both contract versions (TASK-80): version 2 requires destinations and each
+    # trip's role and may hold licences; version 1 has neither, so the twin without them is a valid version 1 record.
+    travel_lib = ['/packages/domains/travel/lib.typ']
+    tour = json.loads((ROOT / 'examples/candidates/tour-leader-example.json').read_text(encoding='utf-8'))
+    older = {k: v for k, v in tour.items() if k not in ('domainContract', 'licences')}
+    older['destinations'] = {**tour['destinations'], 'trips': [{k: v for k, v in t.items() if k != 'role'} for t in tour['destinations']['trips']]}
+    validate_record(older, travel_lib)
+    first = tour['destinations']['trips'][0]
+    for wrong, said in (({**older, 'licences': tour['licences']}, 'licences: is not in the contract version this record follows; set domainContract'),
+                        ({**older, 'destinations': {**older['destinations'], 'trips': [first]}}, 'destinations/trips/0/role: is not in the contract version'),
+                        ({**tour, 'destinations': {**tour['destinations'], 'trips': [older['destinations']['trips'][0]]}}, "'role' is a required property"),
+                        ({**tour, 'licences': [{**tour['licences'][0], 'until': '03/2029'}]}, "licences/0/until: '03/2029' does not match"),
+                        ({k: v for k, v in tour.items() if k != 'destinations'}, "'destinations' is a required property")):
+        try:
+            validate_record(wrong, travel_lib)
+            raise AssertionError(f'{said} was accepted')
+        except WorkflowError as error:
+            assert said in str(error), str(error)
     record = json.loads((ROOT / 'examples/candidates/engineer-example.json').read_text(encoding='utf-8'))
     ship = record['companies'][0]['groups'][0]['ships'][0]
     ship.update(tonnage={'value': 49990, 'unit': 'GT'}, engine='MAN B&W', power={'value': 9480, 'unit': 'kW'})
@@ -180,8 +212,8 @@ def main():
     # One folder per case holds all its evidence (ADR 0013): <case>.pdf, compile.log, and for a
     # checked case check/result.json (plus diff-N.png on a mismatch) and page-N.png renders.
     def compile_case(name, source, inputs=None, error=None):
-        assert name not in ('workflow', 'design-review', 'build-script', 'proposals', 'report', 'coverage', 'workflow-model'), \
-            'the workflow, app, build script, proposal, report, coverage and Workflow Model checks own those folders'
+        assert name not in ('workflow', 'design-review', 'build-script', 'proposals', 'report', 'coverage', 'compatibility', 'workflow-model'), \
+            'the workflow, app, build script, proposal, report, coverage, compatibility and Workflow Model checks own those folders'
         folder = out / name
         folder.mkdir(exist_ok=False)
         pdf = folder / (name + '.pdf')
@@ -313,10 +345,20 @@ def main():
         assert (doc.metadata['title'], doc.metadata['author']) == ('Andreas Kalamaris | Tour Leader | CVgen', 'CVgen'), doc.metadata
         text = ' '.join(' '.join(p.get_text().split()) for p in doc)
         for phrase in ['ANDREAS KALAMARIS', 'Boutique travel agency', '03/2022', 'present', 'Japan, trip by trip',
-                       '12 days', '18 days', 'Planning the 18-day trip', 'Education and languages', 'FICTIONAL CANDIDATE']:
+                       '12 days', '18 days', 'Planning the 18-day trip', 'Education and languages', 'FICTIONAL CANDIDATE',
+                       'Tour Leader Licence', 'Valid until 31 Mar 2029']:
             assert phrase in text, phrase
-    collisions = petal_collisions(twin, ROOT / 'packages/domains/travel/assets/japan')
-    assert not collisions, collisions
+        # Travel contract version 2: both trips were organised by him, so neither reads as a led group.
+        squeezed = ''.join(text.split())
+        assert squeezed.count('ORGANISED') == 2 and 'LEDTHEGROUP' not in squeezed, text
+    collisions = petal_collisions(twin)
+    assert not collisions and not decoration_errors(twin, 'hanami') and decoration_errors(twin, 'flagship') == [], collisions
+    # And it fires: a word set on a known petal of each page is reported.
+    first = {n: petals((PETALS / f'petals-p{n}-field.svg').read_text(encoding='utf-8'))[0] for n in (1, 2)}
+    probe = compile_case('travel-petal-probe', 'tests/fixtures/petal-probe.typ',
+                         {f'{k}{n}': str(round(v, 2)) for n, box in first.items() for k, v in (('x', box[0]), ('y', box[1]))})
+    assert [page for page, _ in petal_collisions(probe)] == [1, 2], petal_collisions(probe)
+    assert len(decoration_errors(probe, 'hanami')) == 2
     for theme in ['indigo', 'sky', 'no-portrait']:
         pdf = compile_case('travel-' + theme, 'tests/fixtures/travel.typ', {'case': theme})
         assert check_case(pdf)['passed']
@@ -327,8 +369,27 @@ def main():
     # The blurred petals are small rasters too, so the portrait is the one image the record without one lacks.
     with fitz.open(twin) as a, fitz.open(out / 'travel-no-portrait' / 'travel-no-portrait.pdf') as b:
         assert len(a[0].get_images()) - len(b[0].get_images()) == 1 and 'AK' in b[0].get_text().split()
-    for mode, message in [('no-destinations', 'the record needs destinations'), ('bad-month', 'experience.from must be MM/YYYY'),
+    # The same twin as a version 1 record still renders: no role on a trip, no licence, nothing else moves.
+    older = compile_case('travel-v1', 'tests/fixtures/travel.typ', {'case': 'v1'})
+    assert check_case(older)['passed']
+    with fitz.open(twin) as a, fitz.open(older) as b:
+        assert a[0].get_text().split() == b[0].get_text().split()  # page 1 is the same
+        page = ''.join(b[1].get_text().split())
+        assert 'Licence' not in page and 'ORGANISED' not in page, page
+    for mode, message in [('v1-role', 'trip.role arrived in travel contract version 2: set domainContract to 2'),
+                          ('v1-licence', 'licences arrived in travel contract version 2: set domainContract to 2'),
+                          ('no-role', 'trip.role must be one of led, organised, travelled in travel contract version 2; got none'),
+                          ('bad-role', 'trip.role must be one of led, organised, travelled in travel contract version 2; got "guided"'),
+                          ('bad-licence-date', 'licences.until must be a day as 14 Jul 2029; got 03/2029'),
+                          ('unknown-version', 'domainContract must be one of 1, 2 (the travel contract versions kept); got 3'),
+                          # Every field Hanami places outside its two slots measures itself and fails loudly (constitution 4).
+                          ('no-destinations', 'Candidate requires destinations'), ('bad-month', 'experience.from must be MM/YYYY'),
                           ('overflow', 'Hanami: page 1 overflows'), ('long-name', 'the name is wider than the name plate'),
+                          ('long-rank', "is wider than the name plate's 38 mm tab"), ('long-contact', 'is wider than its 50 mm column'),
+                          ('long-city', 'runs under the name plate'), ('many-links', 'the linked contacts run into the travellers'),
+                          ('five-cells', 'the profile row holds four highlight cells'), ('two-stories', 'At most one trip may have a story'),
+                          ('long-native', "wider than the stamp's inner disc"), ('long-stamp-kanji', "wider than the stamp's inner disc"),
+                          ('long-region', 'the rank, region and its native name run into the travellers'),
                           ('bad-variation', 'Hanami has no Template Variation "calm"')]:
         compile_case('travel-' + mode, 'tests/fixtures/travel.typ', {'case': mode}, error=message)
     # Hanami essential (TASK-79), the first scan-first Template Variation: the twin on one page must match its
@@ -343,13 +404,17 @@ def main():
         text = ' '.join(doc[0].get_text().split())
         for phrase in ['ANDREAS KALAMARIS', 'Travel Consultant', 'MELTEMI BESPOKE JOURNEYS', '03/2022 – present', '06/2021 – 11/2021',
                        'Tour Leader Certificate', 'October 2023 – March 2024', 'AVAILABLE ALL YEAR ROUND', 'JLPT N3, July 2023',
-                       '2 trips · 30 days · 14 places', 'Confident with', 'FICTIONAL CANDIDATE']:
+                       '2 trips · 30 days · 14 places', 'Confident with', 'FICTIONAL CANDIDATE',
+                       # contract version 2: the licence beside the lead, each trip's role, the areas; the seal words of the rank
+                       'LICENCE · VALID UNTIL 31 MAR 2029', 'Tour Leader Licence', 'ORGANISED', 'Knows well', 'TOUR LEADER COURSE · TTI · 2024']:
             assert phrase in text, phrase
         # first-scan order: the name, then each role's title before its employer and dates, then education
         order = [text.index(p) for p in ['ANDREAS KALAMARIS', 'Travel Consultant', 'Intern, Airline Reservations Desk', 'Education']]
         assert order == sorted(order), order
         assert 'Earlier roles' not in text and '1 / 1' not in text and len(doc[0].get_images()) >= 1
-    for case in ['no-portrait', 'indigo', 'sky', 'greek', 'long-career', 'long-career-greek', 'no-destinations']:
+        # travel-story is left out: no route, no stamps, no story, not even the region's own script
+        assert '日本' not in text and 'Planning the' not in text and 'SKG' not in text
+    for case in ['no-portrait', 'indigo', 'sky', 'greek', 'long-career', 'long-career-greek', 'no-licence']:
         pdf = compile_case('travel-essential-' + case, 'tests/fixtures/travel-essential.typ', {'case': case})
         assert check_case(pdf, pages=1)['passed'], case
     with fitz.open(essential) as a, fitz.open(out / 'travel-essential-no-portrait' / 'travel-essential-no-portrait.pdf') as b:
@@ -572,6 +637,9 @@ def main():
     # The Template Contract: each Template Variation's claims on its Coverage Fixture (ADR 0016).
     for check in run_coverage(out, args.typst, [*STRICT_FONTS, '--font-path', str(ROOT / FONTS)]):
         results.append({'case': 'coverage: ' + check, 'passed': True, 'folder': 'coverage'})
+    # Stage 2: a record on another Domain Contract version than a Template Variation supports (P-0019 section 6).
+    for check in run_compatibility(out):
+        results.append({'case': 'compatibility: ' + check, 'passed': True, 'folder': 'compatibility'})
     # The Report Template's script on its sample, and each refusal.
     for check in run_report(out):
         results.append({'case': 'report: ' + check, 'passed': True, 'folder': 'report'})

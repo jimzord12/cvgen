@@ -12,7 +12,7 @@
 
 // The gaps between the career column's parts: at least these, and at most `most`; the column's spare
 // height above that stays at its foot, so no role floats away from the next.
-#let least = (role: 4.6mm, section: 6.4mm, rail: 7mm)
+#let least = (role: 4.6mm, section: 6.4mm, rail: 5mm)
 #let most = (role: 8mm, section: 10mm, rail: 9mm)
 
 // Experience, with `k` roles in full and the rest summarised, then education unless the rail holds it.
@@ -56,27 +56,30 @@
   let totals = if d.destinations == none { none } else { (domain.totals)(d.destinations) }
   parts.band(ctx, d)
 
-  // The profile row: the lead statement, then the highlights. The fields below start at a fixed place,
-  // so the row must end 5 mm above it.
-  let has-profile = d.profile != "" or d.highlights.len() > 0
+  // The profile row: the lead statement with the licences beside it over the rail (contract version 2,
+  // a credential read with the name), then the highlights. The fields below start at the layout's
+  // place, or lower when the licences make the row taller, but never below `latest`.
+  let has-profile = d.profile != "" or d.highlights.len() > 0 or d.licences.len() > 0
   let row = block(width: 178mm, {
-    if d.profile != "" { parts.lead(ctx, d.profile) }
-    if d.profile != "" and d.highlights.len() > 0 { v(3.4mm) }
+    let lead = if d.profile != "" { parts.lead(ctx, d.profile) }
+    if d.licences.len() > 0 {
+      grid(columns: (L.main.width, 1fr), column-gutter: L.rail.x - L.main.x - L.main.width, lead, parts.licences(ctx, d.licences))
+    } else { lead }
+    if (d.profile != "" or d.licences.len() > 0) and d.highlights.len() > 0 { v(3.4mm) }
     if d.highlights.len() > 0 { parts.highlights(ctx, d.highlights) }
   })
   if has-profile { at(L.main.x, L.profile.y, row) }
-  let top = if has-profile { L.main.y } else { L.profile.y }
-
-  // the rail's quiet panel, from the fields' top to the footer
-  at(L.rail.panel, top - 4mm, rect(width: 210mm - L.rail.panel, height: L.rail.bottom - top + 4mm, fill: P.wash))
 
   context {
-    assert(not has-profile or L.profile.y + measure(row).height + 5mm <= L.main.y, message: "Hanami essential: the profile row overflows ("
-      + repr(measure(row).height) + "); shorten the lead statement or a highlight")
+    let y0 = if has-profile { calc.max(L.main.y, L.profile.y + measure(row).height + 5mm) } else { L.profile.y }
+    assert(y0 <= L.main.latest, message: "Hanami essential: the profile row overflows ("
+      + repr(measure(row).height) + "); shorten the lead statement, a licence or a highlight")
+    // the rail's quiet panel, from the fields' top to the footer
+    place(top + left, dx: L.rail.panel, dy: y0 - 4mm, rect(width: 210mm - L.rail.panel, height: L.rail.bottom - y0 + 4mm, fill: P.wash))
 
-    let H = L.main.bottom - top
+    let H = L.main.bottom - y0
     // the rail's content ends 4 mm inside its panel, as the panel starts 4 mm above it
-    let R = L.rail.bottom - top - 4mm
+    let R = L.rail.bottom - y0 - 4mm
     let n = d.experience.len()
     let height(k, edu, gaps) = measure(block(width: L.main.width, career(ctx, d, k, edu, gaps))).height
     // the most roles in full that fit, with education in the column or not
@@ -104,10 +107,10 @@
     let slots = (k - 1) + (if k < n { 1 } else { 0 }) + (if edu and d.education.len() > 0 { 1 } else { 0 })
     let share = if slots > 0 { (H - height(k, edu, least)) / slots } else { 0pt }
     let gaps = (role: calc.min(most.role, least.role + share), section: calc.min(most.section, least.section + share))
-    at(L.main.x, top, block(width: L.main.width, height: H, career(ctx, d, k, edu, gaps)))
+    at(L.main.x, y0, block(width: L.main.width, height: H, career(ctx, d, k, edu, gaps)))
     let list = rail-parts(ctx, d, totals, not edu)
     let rail-share = if list.len() > 1 { (R - rail-height(not edu)) / (list.len() - 1) } else { 0pt }
-    at(L.rail.x, top, block(width: L.rail.width, height: R, rail(list, calc.min(most.rail, least.rail + rail-share))))
+    at(L.rail.x, y0, block(width: L.rail.width, height: R, rail(list, calc.min(most.rail, least.rail + rail-share))))
   }
   footer(ctx, d, 1, 1)
 }

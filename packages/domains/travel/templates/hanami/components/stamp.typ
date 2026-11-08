@@ -57,7 +57,12 @@
     place(center + horizon, dy: (if kanji == "" { 0mm } else { -size * 0.07 * 1mm }),
       art(ctx, "stamp-" + drawing, width: size * 0.46 * 1mm, swaps: ("#c23a2b": hex(fg), "#fefefe": hex(bg))))
     if kanji != "" {
-      place(center + horizon, dy: size * 0.23 * 1mm, text(font: kanji-font, size: (if kanji-size == auto { size * 0.24 * 1pt } else { kanji-size }), weight: 700, fill: fg, kanji))
+      let glyphs = text(font: kanji-font, size: (if kanji-size == auto { size * 0.24 * 1pt } else { kanji-size }), weight: 700, fill: fg, kanji)
+      // The kanji sit low in the inner disc, where its chord is about a third of the stamp wide: three
+      // characters at most, or the compile fails.
+      assert(measure(glyphs).width <= size * 0.33 * 1mm,
+        message: "stamp: the kanji " + repr(kanji) + " are wider than the stamp's inner disc; use one place name of up to three characters")
+      place(center + horizon, dy: size * 0.23 * 1mm, glyphs)
     }
   })
 }

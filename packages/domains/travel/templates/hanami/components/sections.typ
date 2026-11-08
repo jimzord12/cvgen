@@ -31,10 +31,11 @@
         set par(leading: 0.42em)
         label(ctx, availability.headline, fill: P.accent, size: 6.8pt, track: 1.1pt)
         linebreak()
-        text(size: 8.8pt, availability.text)
+        text(size: 8.8pt, keep-end(availability.text))
       })
     },
   )
+  assert(highlights.len() <= 4, message: "Hanami: the profile row holds four highlight cells; drop " + str(highlights.len() - 4) + " from highlights")
   if highlights.len() > 0 {
     v(3.2mm)
     line(length: 100%, stroke: 0.5pt + P.keyline.transparentize(30%))
@@ -115,8 +116,15 @@
 
 #let dot(P, known) = box(baseline: 0.05em, circle(radius: 1.05mm, fill: if known { P.accent } else { P.paper }, stroke: 0.8pt + P.accent))
 
-// One trip: its stamp, period and length, who travelled, the stops (known well or passed) and the
-// stops in the destination's own script.
+// A trip's role (travel contract version 2) as a label beside its period: a led group in the
+// accent, so it is never confused with a trip the person organised or only travelled on.
+#let role-label(ctx, role) = {
+  let P = tokens(ctx)
+  label(ctx, ctx.copy.at("role-" + role), fill: if role == "led" { P.accent } else { P.label }, size: 6.8pt, track: 1.1pt)
+}
+
+// One trip: its stamp, period and length with its role (version 2), who travelled, the stops
+// (known well or passed) and the stops in the destination's own script.
 #let trip-card(ctx, trip) = {
   let P = tokens(ctx)
   let fonts = ctx.theme.fonts
@@ -130,6 +138,7 @@
       text(font: fonts.figures, size: 15pt, fill: P.accent, str(trip.days))
       h(0.8mm)
       text(size: 9pt, weight: 600, fill: P.accent, ctx.copy.days)
+      if "role" in trip { h(2.4mm); role-label(ctx, trip.role) }
       linebreak()
       text(size: 9.2pt, fill: P.muted, trip.kind)
       v(1.6mm)
@@ -185,9 +194,23 @@
   }
 }
 
-// Education beside the languages and references.
-#let studies(ctx, education, languages, references) = {
+// A licence (travel contract version 2) on one line under the studies heading, on the accent rule:
+// its title, the issuer and region, and the day it is valid until.
+#let licence-line(ctx, l) = {
   let P = tokens(ctx)
+  block(width: 100%, above: 0mm, below: 1.6mm, stroke: (left: 1.6pt + P.accent), inset: (left: 3.4mm, y: 0.4mm), {
+    label(ctx, ctx.copy.licence, fill: P.accent, size: 6.8pt, track: 1.1pt)
+    h(2.4mm)
+    text(size: 10pt, weight: 700, l.title)
+    text(size: 9.2pt, fill: P.muted, (" · " + l.issuer, ..if "region" in l { (l.region,) }).join(" · "))
+    if "until" in l { h(2.4mm); text(size: 9.2pt, weight: 600, fill: P.date, ctx.copy.valid-until + " " + l.until) }
+  })
+}
+
+// Licences on their own lines, then education beside the languages and references.
+#let studies(ctx, education, languages, references, licences: ()) = {
+  let P = tokens(ctx)
+  for l in licences { licence-line(ctx, l) }
   grid(columns: (1fr, 61mm), column-gutter: 6mm,
     grid(columns: (1fr, 1fr), column-gutter: 5mm, row-gutter: 2.8mm,
       ..education.map(e => block(width: 100%, stroke: (left: 1.6pt + P.metal), inset: (left: 3.4mm, y: 0.4mm), {

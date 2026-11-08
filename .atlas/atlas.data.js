@@ -559,7 +559,7 @@ window.ATLAS = {
     "docs/workflow/05-design/README.md:15-64",
     ".claude/skills/new-cv/SKILL.md:22-63",
     "docs/guides/build-a-cv.md:1-119",
-    "docs/guides/build-a-cv.md:121-203",
+    "docs/guides/build-a-cv.md:121-204",
     "docs/pdf-workflow.md:176-198",
     ".claude/skills/new-cv/SKILL.md:65-87",
     "docs/workflow/07-after/README.md:15-56",
@@ -631,7 +631,7 @@ window.ATLAS = {
         "docs/workflow/01-open/README.md:23-26",
         "docs/guides/client-workflow.md:93-94",
         ".claude/skills/new-client/SKILL.md:33-35",
-        "docs/glossary.md:58"
+        "docs/glossary.md:60"
        ]
       },
       {
@@ -1100,7 +1100,7 @@ window.ATLAS = {
        "sources": [
         "docs/workflow/03-research/README.md:24-34",
         ".claude/skills/new-client/SKILL.md:57-59",
-        "docs/glossary.md:64"
+        "docs/glossary.md:66"
        ]
       },
       {
@@ -1768,8 +1768,8 @@ window.ATLAS = {
        "note": "Model step `text-draft.client-check`, action `manual.client-checks-draft`, in `docs/workflow/04-text-draft/stage.yaml`.",
        "sources": [
         "docs/workflow/04-text-draft/README.md:17-23",
-        "docs/glossary.md:70",
-        "docs/glossary.md:73"
+        "docs/glossary.md:72",
+        "docs/glossary.md:75"
        ]
       },
       {
@@ -1874,7 +1874,7 @@ window.ATLAS = {
        "note": "Model step `text-draft.sign-off-stamp`, action `cmd.stamp-draft-signed-off`, in `docs/workflow/04-text-draft/stage.yaml`.",
        "sources": [
         "docs/workflow/04-text-draft/README.md:36-37",
-        "docs/guides/build-a-cv.md:187-190",
+        "docs/guides/build-a-cv.md:188-191",
         ".claude/skills/new-client/SKILL.md:98-100",
         "packages/cv-workflow/cv_workflow/outputs.py:172-178"
        ]
@@ -2329,7 +2329,7 @@ window.ATLAS = {
        "note": "Model step `design.flagship-fit`, action `lead.check-flagship-fit`, in `docs/workflow/05-design/stage.yaml`.",
        "sources": [
         ".claude/skills/new-cv/SKILL.md:41-46",
-        "docs/guides/build-a-cv.md:220-224"
+        "docs/guides/build-a-cv.md:221-225"
        ]
       },
       {
@@ -2375,7 +2375,7 @@ window.ATLAS = {
        ],
        "note": "Model step `design.custom-composition`, action `lead.compose-by-hand`, in `docs/workflow/05-design/stage.yaml`.",
        "sources": [
-        "docs/guides/build-a-cv.md:216-280",
+        "docs/guides/build-a-cv.md:217-281",
         ".claude/skills/new-cv/SKILL.md:41-46"
        ]
       },
@@ -2421,7 +2421,7 @@ window.ATLAS = {
        ],
        "note": "Model step `design.framework-gap`, action `lead.record-framework-gap`, in `docs/workflow/05-design/stage.yaml`.",
        "sources": [
-        "docs/guides/build-a-cv.md:274-280",
+        "docs/guides/build-a-cv.md:275-281",
         ".claude/skills/new-cv/SKILL.md:41-46",
         "docs/workflow/05-design/README.md:70-74"
        ]
@@ -2691,9 +2691,9 @@ window.ATLAS = {
        ],
        "note": "Model step `deliver.render`, action `cmd.cv-render`, in `docs/workflow/06-deliver/stage.yaml`.",
        "sources": [
-        "docs/guides/build-a-cv.md:129-152",
+        "docs/guides/build-a-cv.md:129-153",
         ".claude/skills/new-cv/SKILL.md:67-70",
-        "packages/cv-workflow/cv_workflow/render.py:101-210"
+        "packages/cv-workflow/cv_workflow/render.py:102-213"
        ]
       },
       {
@@ -2720,8 +2720,8 @@ window.ATLAS = {
        ],
        "note": "Model step `deliver.fix`, action `lead.fix-inputs`, in `docs/workflow/06-deliver/stage.yaml`.",
        "sources": [
-        "docs/guides/build-a-cv.md:139-149",
-        "docs/guides/build-a-cv.md:205-214",
+        "docs/guides/build-a-cv.md:139-150",
+        "docs/guides/build-a-cv.md:206-215",
         ".claude/skills/new-cv/SKILL.md:67-70"
        ]
       },
@@ -2847,7 +2847,7 @@ window.ATLAS = {
        "sources": [
         "docs/workflow/06-deliver/README.md:35-39",
         "docs/workflow/06-deliver/README.md:22-25",
-        "docs/guides/build-a-cv.md:154-162"
+        "docs/guides/build-a-cv.md:155-163"
        ]
       },
       {
@@ -2883,7 +2883,7 @@ window.ATLAS = {
         "docs/guides/build-a-cv.md:174-179",
         "docs/pdf-workflow.md:184-186",
         "docs/proposals/workflow-model.md:58",
-        "docs/glossary.md:75"
+        "docs/glossary.md:77"
        ]
       },
       {
@@ -2913,7 +2913,7 @@ window.ATLAS = {
        "note": "Model step `deliver.export`, action `cmd.cv-export`, in `docs/workflow/06-deliver/stage.yaml`.",
        "sources": [
         "docs/proposals/workflow-model.md:58",
-        "docs/guides/build-a-cv.md:181-185",
+        "docs/guides/build-a-cv.md:182-186",
         "docs/pdf-workflow.md:187-191"
        ]
       },
@@ -2981,7 +2981,7 @@ window.ATLAS = {
        ],
        "note": "Model step `deliver.stamp-delivered`, action `cmd.stamp-delivered`, in `docs/workflow/06-deliver/stage.yaml`.",
        "sources": [
-        "docs/guides/build-a-cv.md:187-189",
+        "docs/guides/build-a-cv.md:188-190",
         "docs/workflow/06-deliver/README.md:50-51",
         ".claude/skills/new-cv/SKILL.md:85-86"
        ]
@@ -3028,7 +3028,7 @@ window.ATLAS = {
        "note": "Model step `deliver.status`, action `cmd.cv-status`, in `docs/workflow/06-deliver/stage.yaml`.",
        "sources": [
         ".claude/skills/new-cv/SKILL.md:87",
-        "scripts/cv.py:62-63",
+        "scripts/cv.py:66-67",
         "packages/cv-workflow/cv_workflow/__init__.py:14-31"
        ]
       },
@@ -4497,30 +4497,54 @@ window.ATLAS = {
   }
  ],
  "build": {
-  "builtAt": "2026-11-08 11:01 UTC",
-  "commit": "f1d0714",
+  "builtAt": "2026-11-08 11:09 UTC",
+  "commit": "0d2d049",
   "kit": "1.1",
-  "stale": {},
+  "stale": {
+   "client-journey": [
+    "docs/workflow/05-design/README.md",
+    "docs/guides/build-a-cv.md",
+    "docs/glossary.md"
+   ],
+   "design-run": [
+    "docs/glossary.md"
+   ],
+   "system-map": [
+    "docs/architecture.md",
+    "docs/guides/build-a-cv.md",
+    "docs/engine/domains-and-roles.md",
+    "docs/glossary.md",
+    "archive/work-records",
+    "tests/run.py",
+    "docs/engine/verification.md"
+   ],
+   "roster": [
+    "docs/guides/build-a-cv.md",
+    "tests/run.py",
+    "docs/engine/verification.md",
+    "examples/release.json"
+   ]
+  },
   "verified": {
    "client-journey": {
     "at": "2026-11-08",
-    "commit": "c32a1ea"
+    "commit": "8419eaf"
    },
    "design-run": {
     "at": "2026-11-08",
-    "commit": "c32a1ea"
+    "commit": "8419eaf"
    },
    "change-review": {
     "at": "2026-11-08",
-    "commit": "868a82c"
+    "commit": "6071592"
    },
    "system-map": {
     "at": "2026-11-08",
-    "commit": "f1d0714"
+    "commit": "8419eaf"
    },
    "roster": {
     "at": "2026-11-08",
-    "commit": "f1d0714"
+    "commit": "8419eaf"
    }
   }
  }

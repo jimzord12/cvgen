@@ -84,11 +84,23 @@ and never counts the cards it shows. `experience-totals` gives the count, the
 earliest start and the latest end of the roles Hanami `essential` summarises
 when a career runs longer than its page.
 
+The travel facts (`schema/candidate.schema.json`, `data.typ`) follow
+`Domain Contract` version 1 or 2, by the record's `domainContract`. Version 2
+requires `destinations`, with each trip's `Trip Role` (`role`: `led`,
+`organised` or `travelled`) and the optional `licences` (`title`, `issuer`,
+`region`, `until`); a version 1 record holds neither, and `data.typ` refuses
+either on it. The record's shape is the same in both versions otherwise; the
+version 2 contract only groups it differently, with the route, the region's
+script and seal words, the trip stamps and the story in the optional
+`travel-story` group. The words for a role and a licence are the domain's `copy`
+(`role-led`, `role-organised`, `role-travelled`, `licence`, `valid-until`).
+The rules are in `template-contract.md`, "Domain Contracts".
+
 ## Adding a domain without touching marine
 
 `travel` was added this way on 2026-11-08 (P-0013), from the first travel
 client's one-off: its facts shape, contract and fixture, and Hanami as its
-first template, with a fictional twin (`examples/travel/hanami/tour-leader.typ`)
+first template, with a `Fictional Twin` (`examples/travel/hanami/tour-leader.typ`)
 and a `Frozen Reference` candidate the owner approves before the merge. It
 reached the core through `cv-framework/core/` only and left the Framework and
 marine unchanged.
@@ -99,8 +111,8 @@ packages/domains/travel/
   domain.typ            id, meta, copy, experience (its own row model)
   data.typ              normalize-candidate = normalize-common + the domain's sections; validate-candidate
   schema/               the domain's candidate-facts contract
-  contracts/v1.json     its Domain Contract, extending the Base Contract
-  fixtures/             its Coverage Fixture and markers
+  contracts/v<N>.json   its Domain Contract versions, extending the Base Contract (travel: v1, v2)
+  fixtures/             its Coverage Fixtures and markers, one per version
   assets/               its SVG files
   templates/<design>/   a first template with its template.json, adapter, components, themes, artwork, layouts, tests/approved
 examples/travel/<design>/*.typ
@@ -127,7 +139,10 @@ A new domain is done when every line below is true:
    `validate-common`.
 2. `schema/candidate.schema.json` describes the facts; a fictional record
    under `examples/candidates/<who>-example.json` validates against
-   it. A template adds `schema/<template>-input.schema.json`.
+   it. A template adds `schema/<template>-input.schema.json`, which states only
+   what the template adds; both schemas carry an `$id`, and the facts schema
+   keeps `copy` open for the template to close (`docs/engine/template-contract.md`,
+   "What every Template provides"; the suite checks it).
    `packages/cv-workflow/cv_workflow/validate.py` picks the schema from the
    entry point's imports: a template's schema, else the domain's. Only
    marine's `lib.typ` stands for a template (Flagship); if the new domain's

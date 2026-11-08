@@ -42,7 +42,10 @@ Hanami has no adapter and no input schema: the record's own `copy` key is in the
 travel facts contract, and the template composes the domain's words, Hanami's
 (`copy.typ`), the record's and the call site's in the same order. It places
 everything absolutely on two fixed pages, as the approved Hanami Line 2 did, and
-each field is a slot that fails loudly when its content does not fit. Its
+the paper below each band is a slot that fails loudly when its content does not
+fit; each field placed outside the slots (the name, rank tab, contacts, route
+labels, the page-2 band block with its rank, region and native line, the kanji
+on every stamp and seal) measures itself and fails loudly too. Its
 `essential` `Template Variation` (`essential.typ`, the `essential` layout) sets
 the same facts on one page, scan-first, from the same theme, words and
 components (`docs/engine/template-contract.md`).
@@ -62,9 +65,9 @@ A seventh, optional input is `copy` on `flagship`: overrides for the
 wording. The adapter composes the marine domain's words, then the role's,
 then Flagship's, then a `copy` key inside the record, then the argument
 (later wins, `merge`/`compose` in `cv-framework/core/node.typ`), and the result is the Flagship input
-(contract: `domains/marine/templates/flagship/schema/flagship-input.schema.json`). The two
-contracts differ only by that key today; keeping them apart is what lets a
-second template read the same facts with its own wording.
+(contract: `domains/marine/templates/flagship/schema/flagship-input.schema.json`). That
+schema refers to the marine facts schema and adds only `copy` (ADR 0016), so
+the facts are stated once and a second template reads them with its own wording.
 
 An eighth, optional input is `variation` on `flagship`: the `Template
 Variation` it renders (`docs/engine/template-contract.md`); `none` means the
@@ -165,7 +168,7 @@ domains/marine/                         the marine domain (ADR 0011)
     flagship.typ                          the composition: closing-section rules (validate-plan), page loop, section order, overflow check
     adapter/adapter.typ                   flagship-copy defaults, to-flagship-input
     components.typ                        Flagship's ctx-first components as one module; marine's lib.typ exports it as flagship-components
-    schema/flagship-input.schema.json     Flagship input contract (facts + copy)
+    schema/flagship-input.schema.json     Flagship input contract: the facts by $ref, plus copy
     template.json                         the Template Manifest: Template Variations and their claims
     tests/coverage.typ                    a Coverage Fixture through Flagship
     components/hero.typ                   portrait, frame, backdrop, contact groups, identity plate, hero
@@ -204,9 +207,9 @@ cv-workflow/cv_workflow/                Python; owns everything around a candida
   checks.py                             page count, empty page, fonts, bounds; bound to the PDF hash; certificate expiry warnings
   approve.py                            explicit approval receipt, bound to revision id and hash
   export.py                             verify, copy into a .partial- folder, verify, rename into place
-  contracts.py                          Domain Contracts and manifests: the checks before a render, coverage judging
+  contracts.py                          Domain Contracts and manifests: checks before a render, version comparison, coverage, the compatibility report
   outputs.py, output.schema.json        the Output Contract: each PDF's home, stamp and check its Meta File
-scripts/cv.py                           the four local commands calling that package
+scripts/cv.py                           the five local commands calling that package (render, approve, export, status, contracts)
 scripts/outputs.py                      stamp and check, calling outputs.py
 ```
 

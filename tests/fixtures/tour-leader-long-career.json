@@ -1,4 +1,5 @@
 {
+  "domainContract": 2,
   "identity": {
     "name": "Irini Valtadorou",
     "rank": "Senior Tour Leader",
@@ -24,12 +25,12 @@
     ],
     "right": [
       {
-        "label": "Licence",
-        "value": "Tour leader, since 2009"
-      },
-      {
         "label": "Japanese",
         "value": "JLPT N2"
+      },
+      {
+        "label": "Nationality",
+        "value": "Greek"
       }
     ]
   },
@@ -210,7 +211,8 @@
             "name": "Takayama",
             "known": true
           }
-        ]
+        ],
+        "role": "led"
       },
       {
         "period": "October 2024",
@@ -232,10 +234,25 @@
             "name": "Osaka",
             "known": true
           }
-        ]
+        ],
+        "role": "led"
+      }
+    ],
+    "areas": [
+      {
+        "label": "Knows well",
+        "places": "Tokyo, Kyoto, Hiroshima, Takayama, Seoul, Fukuoka and Osaka"
       }
     ]
   },
   "references": "Available on request.",
-  "disclosure": "FICTIONAL CANDIDATE / LONG-CAREER FIXTURE"
+  "disclosure": "FICTIONAL CANDIDATE / LONG-CAREER FIXTURE",
+  "licences": [
+    {
+      "title": "Tour Leader Licence",
+      "issuer": "Example Tourism Board",
+      "region": "Greece",
+      "until": "30 Jun 2028"
+    }
+  ]
 }

@@ -4,7 +4,6 @@
 // recruiter checks for a tour leader on a rail beside them. Every text is real text; no ratings. Capitals
 // keep their tracking near 0.09 em: wider, and a PDF's text (and an ATS) splits the words into letters.
 #import "art.typ": art, at, caps, hex, items, keep-end, label, sakura, tokens
-#import "sections.typ": dot
 
 // A section title: Hanami's figure number in metal, the title, a hairline to the column's edge.
 #let section(ctx, number, title) = {
@@ -59,7 +58,14 @@
     })
     // the same inset, unpainted, so both sit on one baseline
     if specialty != none { h(0.2mm); box(inset: (x: 2.2mm, y: 1.5mm), label(ctx, specialty, fill: P.hero-text, size: 8.4pt, track: 0.09em)) }
+    // the credential behind the rank (its seal words), quieter, after a hairline
+    let seal = d.identity.at("seal", default: ())
+    if seal.len() > 0 {
+      box(height: 3.2mm, baseline: 0.4mm, line(angle: 90deg, length: 3.2mm, stroke: 0.5pt + P.hero-label))
+      box(inset: (x: 2.2mm, y: 1.5mm), label(ctx, seal.join(" · "), fill: P.hero-label, size: 7.6pt, track: 0.09em))
+    }
   }
+  context assert(measure(rank).width <= W, message: "Hanami essential: the rank, specialty and seal words are wider than the band; shorten identity.seal or the specialty")
   let entry(c) = stack(spacing: 1.5mm, label(ctx, c.label, fill: P.hero-label, size: 6.6pt, track: 0.09em),
     text(size: 9.8pt, fill: P.hero-text, top-edge: "cap-height", bottom-edge: "baseline", if "href" in c { link(c.href, c.value) } else { c.value }))
   let rows = (d.contacts.at("left", default: ()), d.contacts.at("right", default: ())).filter(r => r.len() > 0)
@@ -83,6 +89,24 @@
     label(ctx, a.headline, fill: P.accent, size: 7.2pt, track: 0.09em)
     linebreak()
     text(size: 9.4pt, a.text)
+  })
+}
+
+// The licences (travel contract version 2) beside the lead statement, over the rail: a headline with
+// the day each is valid until, its title, its issuer and region, behind the accent rule.
+#let licences(ctx, list) = {
+  let P = tokens(ctx)
+  block(width: 100%, stroke: (left: 1.6pt + P.accent), inset: (left: 3mm, y: 0.4mm), {
+    set par(leading: 0.44em)
+    for (i, l) in list.enumerate() {
+      if i > 0 { v(1.6mm) }
+      // the headline says what it is and how long it holds, as availability's does
+      label(ctx, (ctx.copy.licence, ..if "until" in l { (ctx.copy.valid-until + " " + l.until,) }).join(" · "), fill: P.accent, size: 7.2pt, track: 0.09em)
+      linebreak()
+      text(size: 10pt, weight: 700, l.title)
+      linebreak()
+      text(size: 9pt, fill: P.muted, (l.issuer, ..if "region" in l { (l.region,) }).join(" · "))
+    }
   })
 }
 
@@ -181,8 +205,9 @@
 }
 
 // The destinations a person knows: the region, the domain's totals over every trip, each trip's
-// period, length, kind and stops (known well filled, passed through open). The areas known well say
-// again what the filled dots say, so this page leaves them out.
+// period, length and role (contract version 2: a led group in the accent, never confused with a trip
+// the person organised or travelled on), its kind and stops, then the areas known. The region's own
+// script, the route, the stamps and the story are travel-story, which this page leaves out.
 #let destinations(ctx, places, totals) = {
   let P = tokens(ctx)
   let fonts = ctx.theme.fonts
@@ -190,7 +215,6 @@
   set par(leading: 0.44em)
   block(below: 2.2mm, {
     text(size: 10.5pt, weight: 700, places.region)
-    if "native" in places { h(1.4mm); text(font: fonts.japanese, size: 9pt, fill: P.muted, places.native) }
     linebreak()
     text(size: 9pt, fill: P.muted, (plural(totals.trips, ctx.copy.trip, ctx.copy.trips), str(totals.days) + " " + ctx.copy.days,
       plural(totals.stops, ctx.copy.place, ctx.copy.places)).join(" · "))
@@ -202,15 +226,20 @@
       text(font: fonts.figures, size: 11pt, fill: P.accent, str(trip.days))
       h(0.6mm)
       text(size: 8.6pt, weight: 600, fill: P.accent, ctx.copy.days)
+      if "role" in trip {
+        h(1.8mm)
+        label(ctx, ctx.copy.at("role-" + trip.role), fill: if trip.role == "led" { P.accent } else { P.label }, size: 7pt, track: 0.09em)
+      }
       linebreak()
       text(size: 9pt, fill: P.muted, trip.kind)
-      block(above: 1.2mm, below: 0mm, text(size: 9.2pt, trip.stops.map(stop => {
-        let known = stop.at("known", default: false)
-        box[#dot(P, known)#h(0.9mm)#text(weight: if known { 600 } else { 400 }, stop.name)]
-      }).join([#h(1.4mm) ])))
+      // the stops, those known well in bold, as the areas below name them
+      block(above: 1.2mm, below: 0mm, text(size: 9.2pt, trip.stops.map(stop =>
+        box(text(weight: if stop.at("known", default: false) { 700 } else { 400 }, stop.name))).join([ #text(fill: P.metal)[·] ])))
     })
   }
-  block(above: 0mm, below: 0mm, text(size: 8.4pt, fill: P.muted)[#dot(P, true)#h(1mm)#ctx.copy.known #h(2mm) #dot(P, false)#h(1mm)#ctx.copy.passed])
+  for (i, entry) in places.at("areas", default: ()).enumerate() {
+    block(above: if i == 0 { 0.4mm } else { 1.4mm }, below: 0mm, text(size: 9pt)[#text(weight: 700, entry.label): #entry.places.])
+  }
 }
 
 // Practical know-how run in: the lead, the items between dots, then the basics.

@@ -64,12 +64,23 @@ Windows one also holds the PDFs that build wrote, one per example in
    must equal `packages/domains/travel/templates/hanami/tests/approved/Travel-Tour-Leader-CV-v01.pdf`
    pixel for pixel with identical text on both pages (a `Frozen Reference`
    candidate until the owner approves it), carry its name, rank and the domain's
-   title as PDF metadata, and have no sakura petal on a word (`tests/travel.py`).
+   title as PDF metadata, and have no sakura petal on a word
+   (`cv_workflow/decoration.py`, which a client's render also runs for Hanami);
+   a probe page with a word set on a known petal of each page proves the check
+   fires (`petal-probe.typ`). The twin follows travel contract version 2: both
+   trips read "Organised", none "Led the group", and its licence is on page 2.
    The `travel.typ` fixture renders the Indigo and Sky themes and a record without
-   a portrait (initials in the ring) with the same words, asserts the totals
+   a portrait (initials in the ring) with the same words, the twin as a version 1
+   record (no role, no licence: page 1 the same words, page 2 without them), asserts the totals
    (2 trips, 30 days, 14 distinct stops), and fails on a record without
    destinations, a date that is not MM/YYYY, an overflowing page 1, a name wider
-   than the plate, and an unknown `Template Variation`.
+   than the plate, a rank wider than its tab, a contact wider than its column, a
+   route label under the plate, a page-2 contact line into the travellers, a
+   page-2 rank, region and native line into the travellers, kanji wider than a
+   seal's or a stamp's inner disc, a fifth highlight, a second trip story, an
+   unknown `Template Variation`, a trip role or a licence on a version 1 record,
+   a version 2 trip without a role or with an unknown one, a licence date that
+   is not "14 Jul 2029" and an unknown `domainContract`.
 6b. **Tour-leader on one page (travel, Hanami `essential`).**
    `examples/travel/hanami/tour-leader-essential.typ` must equal
    `.../hanami/tests/approved/Travel-Tour-Leader-CV-Essential-v01.pdf` pixel for
@@ -122,10 +133,14 @@ Windows one also holds the PDFs that build wrote, one per example in
    Framework's `lib.typ` (no schema), marine's `lib.typ` with a marine role,
    marine's `lib.typ` with a non-marine domain (no schema) and domains under
    a folder named `templates`; a record with 23 bad values is refused with
-   ten lines and a count. The two marine schemas share identical `$defs`;
+   ten lines and a count. Every `Template` input schema refers to its
+   `Domain`'s facts schema and adds only `copy`;
    a record with vessel particulars is accepted and a `hp` power unit refused.
    A contract record with three certificate headings and skills goes through
-   the same schema check.
+   the same schema check. The travel facts schema reads both contract versions:
+   the twin without its roles and licence passes as version 1; a licence or a
+   trip role on a version 1 record, a version 2 record without destinations, a
+   version 2 trip without a role and a licence date that is not "14 Jul 2029" are refused, each on its message.
 
 10. **Framework boundary.** Every `import`/`include` in `packages/cv-framework/core/*.typ` names a bare sibling file; `packages/cv-framework/lib.typ` imports only `core/` files; no Framework `.typ` file names a `domains/` path outside a comment; every domain file that imports a core file does so through `cv-framework/core/` (ADR 0011, 0012). Outside comments, Framework code also uses no marine, travel, Flagship or Hanami word (vessel, ship, marine, flagship, synopsis, rank, travel, tour, trip, destination, hanami, sakura, torii, ...) or Flagship layout key (`opening-margin`, `band-height`, ...), reads no layout key or artwork slot it does not own (an allowlist: `paper`, `width`, `height`, `shell`, `header`, `footer`; `background-first`, `background-continuation`) or theme colour it does not own (`ink`, `accent`, `metal`, `muted`, `paper`, and `hero` for the shell's optional band), names no Flagship colour (`hero`, `plate`, `on-hero`, `surface`, `rule`) as a string, so the core theme check cannot require one (TASK-59), and holds no colour literal: a hex string, a colour constructor (`rgb`, `cmyk`, `luma`, `oklab`, `oklch`, `hsl`, `hsv`, `linear-rgb`) or a named colour other than `white` and `black` (TASK-45). Comments are removed by a scan that also matches string literals, so `//` inside a string does not hide the rest of its line.
 
@@ -147,7 +162,7 @@ Windows one also holds the PDFs that build wrote, one per example in
    a workspace without `envelope.json` refused before anything is written,
    the `Envelope` layout (`typst/cv.typ` reading `../candidate.json`, the
    snapshot mirroring it under `inputs/`) and the old flat layout (a root
-   `cv.typ`) refused by all four commands with the move to make,
+   `cv.typ`) refused by all four workspace commands with the move to make,
    the revision's `Meta File` (`render`, then `approved`, filled from
    `envelope.json`),
    certificate dates (against a fixed reference date: expired and
@@ -233,10 +248,25 @@ Windows one also holds the PDFs that build wrote, one per example in
    `Template Manifest`, each `Template Variation` renders its `Domain`'s
    `Coverage Fixture` for each version it supports, and every required and
    claimed `Fact Group` must have its markers in the PDF; the count of optional
-   groups covered is in the case name, warnings in `coverage/`. Then the judging
-   itself and the checks before a render, each refusal on its message, on the
-   marine contract and on the travel one (Hanami chosen, certificates dropped,
-   a missing rank refused).
+   groups covered is in the case name, warnings in `coverage/`. A claim at a
+   `schemaVersion` no rendered version has fails (`unproved`), so every claim
+   is proved. Then the judging itself and the checks before a render, each
+   refusal on its message, on the marine contract and on the travel one (Hanami
+   chosen, certificates dropped, a missing rank or destinations refused). No
+   marker may sit inside another (markers match as substrings of the squeezed
+   text, because letter-spaced labels come out with spaces between their
+   letters). A fixture with a portrait proves it
+   by the images it has beyond the same fixture rendered without one, since a
+   template may draw small rasters of its own. Travel at version 2: a version 1
+   record renders on showcase; a version 2 record is refused on a `Template
+   Variation` up to version 1 (destinations is required and changed shape); a
+   version 2 Variation that does not claim travel-story or licences drops them
+   with a warning;
+   an expired or soon-expiring licence is a `Certificate Warning`. Each
+   Variation's place against its `Domain`'s newest contract (behind, never a
+   failure) is in `coverage/compatibility.txt`; every `Domain`'s kept contracts
+   must be whole and unbroken, and `oldestSupported` must not pass a version an
+   example record uses.
 19. **Report** (`report: <check>`, `tests/report.py`). The real
    `scripts/report.py` on the worked sample under `report/`: one page with
    its fonts and pictures embedded and no `src` or `href` pointing at the
@@ -246,6 +276,12 @@ Windows one also holds the PDFs that build wrote, one per example in
    wrong-typed field, a decision card without two to four options or one
    recommended, a `Critical` decision, a done report with open cards, a missing
    picture or page, a client's report in a fragment). The page's script is not run here; a design review clicks it.
+20. **Compatibility** (`compatibility: <check>`, `tests/compatibility.py`). Stage 2
+   on synthetic contracts in a temporary folder (a `Domain` at versions 1 and 2,
+   Variations up to 1, exactly 1 and 2, up to 2, exactly 2): every row of the
+   table in `docs/engine/template-contract.md`, a record ahead of, behind or
+   below what a Variation renders, a contract that breaks a group without
+   raising its `schemaVersion`, and `cv.py contracts`; report in `compatibility/`.
 
 Negative cases assert on the exact error text so a message change is a test
 change.

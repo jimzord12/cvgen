@@ -409,9 +409,9 @@ cite the new owners.
 TASK-2 (P-0013, approved by the owner on 2026-11-08) turned the first
 travel client's one-off, Hanami Line 2, into the second `Domain`:
 `packages/domains/travel/` with its facts schema, its `Domain Contract`
-(rank required; destinations, availability, practical know-how and
+(rank and destinations required; availability, practical know-how and
 references optional), its `Coverage Fixture`, and Hanami as its first
 `Template`, `showcase` its one `Template Variation`, in three themes. The
-public example is a fictional twin with the real CV's shape and none of its
+public example is a `Fictional Twin` with the real CV's shape and none of its
 facts; its `Frozen Reference` waits for the owner's approval. The Framework
 and marine are unchanged.

@@ -2,8 +2,12 @@
 // pick of 2026-10-02). Two Template Variations share its theme, type and artwork: `essential`, one
 // scan-first page (essential.typ), and `showcase` (P-0013), composed here. Showcase has two A4 pages: page 1 is the
 // band with the portrait, the name plate and the route, then the profile and experience; page 2 is
-// the destination page: one eki stamp per trip, the areas known, practical know-how, one trip told
-// in detail, studies and languages. Every field is a fixed slot that fails loudly when it overflows.
+// the destination page: one eki stamp per trip (with its role, contract version 2), the areas known,
+// practical know-how, one trip told in detail, licences (version 2), studies and languages.
+// The paper below each band is a fixed slot that fails loudly when it overflows; every field placed
+// outside the slots (the name, rank tab, contacts, route labels, the page-2 band block with its rank,
+// region and native line, the kanji on every stamp and seal) measures itself and fails loudly too
+// (constitution 4).
 #import "../../data.typ": normalize-candidate, validate-candidate
 #import "../../domain.typ": domain
 #import "../../../../cv-framework/core/node.typ": merge, compose
@@ -46,7 +50,6 @@
   let d = normalize-candidate(candidate)
   validate-hanami-theme(theme)
   validate-candidate(d)
-  assert(name != "showcase" or d.destinations != none, message: "Hanami's second page is the destination page: the record needs destinations (at least one trip)")
   let words = merge(merge(compose(domain, (copy: hanami-copy)).copy, d.copy), copy)
   let ctx = make-ctx(theme: theme, layout: layout, artwork: artwork, copy: words)
   let P = tokens(ctx)
@@ -85,7 +88,7 @@
   at(0mm, B, art(ctx, "petals-p2-field", width: 210mm, swaps: sakura(theme.sakura.paper, P.paper)))
   let f2 = layout.field-2
   let title = if words.destinations-title == auto { places.region + ", " + words.by-trip } else { words.destinations-title }
-  let has-studies = d.education.len() + d.languages.len() > 0 or d.references != none
+  let has-studies = d.licences.len() + d.education.len() + d.languages.len() > 0 or d.references != none
   at(f2.x, B + f2.gap, slot("page 2", f2.width, f2.bottom - B - f2.gap, {
     heading(ctx, "02", title, words.stamp-line + " · " + joined(places.trips.map(t => t.period), words.and-word))
     v(5.2mm)
@@ -107,8 +110,9 @@
       v(1fr)
       heading(ctx, if story != none { "04" } else { "03" }, words.education-languages, words.education-subtitle,
         art-piece: { paper-piece(ctx, "lanterns", 134mm, -2.6mm, width: 24mm); paper-piece(ctx, "pagoda", 162mm, -5.6mm, height: 20.4mm) })
-      v(4.4mm)
-      studies(ctx, d.education, d.languages, d.references)
+      // A licence line takes some of the gap under the heading, so it costs the page as little as it can.
+      v(if d.licences.len() > 0 { 2.6mm } else { 4.4mm })
+      studies(ctx, d.education, d.languages, d.references, licences: d.licences)
     }
     v(1fr)
   }))

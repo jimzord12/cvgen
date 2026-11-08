@@ -4,7 +4,7 @@ title: 'travel-domain: Travel & Tourism, the first non-marine domain (roadmap it
 status: Active
 assignee: []
 created_date: 2026-10-06 07:25
-updated_date: '2026-11-08T10:32:00Z'
+updated_date: '2026-11-08T11:03:00Z'
 labels: []
 milestone: m-3
 dependencies: []
@@ -51,4 +51,13 @@ P-0013 steps 3 and 4 approved: `packages/domains/travel/` with its facts model, 
 - No Release PDF written (owner's go). build.ps1 now stamps a list entry's style (Hanami) instead of always Flagship.
 - Gaps: docs/framework-gaps.md 2026-11-08 (absolute placement, pre-laid petal layer, no page shell).
 - Next: review (code-reviewer, design-reviewer), owner approval of the reference.
+
+## Twin check
+On 2026-11-08 the lead compared every field of the Fictional Twin (examples/candidates/tour-leader-example.json) with the real client's record, field by field, in private/ (no client value is written here). Five field groups were replaced with clearly different invented facts: (1) the first role's second bullet, reworded; (2) the English language credential, now a different test and score; (3) the international programme entry, now a different kind of programme; (4) the Japanese language note, reworded in another form; (5) the trip stops, stamps, areas, story and route destination, now other Japanese places with correct kanji (no stop shared with the real trips). The shape (counts) is unchanged. No history rewrite (lead's decision).
+
+## Round 1 fixes (2026-11-08)
+Code F1-F3, F5, F6, N1, N2 and design D1, D5, D6, D7, D9, D11, D13 plus the highlights assert applied; D4, D8, D10 left as the owner picked them; N3 stands (the reference is a candidate). Suite PASS 220 cases: builds/tests-20261108-124914-832476. Coverage: hanami showcase 7 of 8 optional groups (destinations now required; certificates not shown). Frozen Reference candidate regenerated, still NOT approved by the owner; renders in builds/travel-review2/.
+
+## Round 2 fixes (2026-11-08)
+Code R2-1 (stamp and seal kanji, the page-2 rank, region and native line measured and asserted; long-native, long-stamp-kanji, long-region cases), R2-2 (petal probe case), R2-3 (no marker inside another, asserted for every fixture; travel markers renamed), N-a, N-b, N-d (English C1 with IELTS 8.0, trip 2 runs eastwards, passed-through areas name the passed stops) applied; N-c left to the owner (the tab fails loudly). Two more petals that met the twin's words removed. Suite PASS 224 cases: builds/tests-20261108-130215-320010. Frozen Reference candidate regenerated, still NOT approved; renders in builds/travel-review4/.
 <!-- SECTION:NOTES:END -->

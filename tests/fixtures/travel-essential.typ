@@ -1,5 +1,5 @@
-// Hanami essential (TASK-79) on the tour-leader twin and a long career: the other two themes, a
-// record without a portrait, Greek wording, the earlier roles' summary with its totals, and each loud
+// Hanami essential (TASK-79) on the tour-leader twin and a long career, both travel contract version 2:
+// the other two themes, a record without a portrait or without a licence, Greek wording, the earlier roles' summary with its totals, and each loud
 // failure (no shrinking and no second page, constitution 4).
 #import "../../packages/domains/travel/lib.typ": hanami, hanami-themes, hanami-layouts, hanami-artwork, experience-totals
 #let raw = json("../../examples/candidates/tour-leader-example.json")
@@ -12,7 +12,8 @@
   lang: "el", experience: "Εμπειρία", education: "Σπουδές", languages: "Γλώσσες", destinations: "Προορισμοί",
   practical: "Πρακτικές γνώσεις", references: "Συστάσεις", present: "σήμερα", trip: "ταξίδι", trips: "ταξίδια",
   days: "ημέρες", place: "τόπος", places: "τόποι", known: "Γνωρίζει καλά", passed: "Στάση στη διαδρομή",
-  earlier: "Παλαιότερες θέσεις",
+  earlier: "Παλαιότερες θέσεις", licence: "Άδεια", valid-until: "Ισχύει έως",
+  role-led: "Οδήγησε την ομάδα", role-organised: "Οργάνωσε", role-travelled: "Ταξίδεψε",
 )
 #let job = raw.experience.at(0)
 // A Greek record proves Greek capitals (no accents, tracked) fit the band, the tab and the labels:
@@ -34,7 +35,7 @@
   else if case == "overflow" { (..raw, experience: ((..job, bullets: job.bullets * 5),) + raw.experience.slice(1)) }
   else if case == "unsorted" { (..long, experience: long.experience.rev()) }
   else if case == "long-name" { (..raw, identity: (..raw.identity, name: "Andreas Konstantinos Kalamaris-Papadopoulos")) }
-  else if case == "no-destinations" { let r = raw; let _ = r.remove("destinations"); r }
+  else if case == "no-licence" { let r = raw; let _ = r.remove("licences"); r }
   else { panic("unknown case: " + case) }
 }
 #let theme = if case == "sky" { hanami-themes.sky } else if case in ("indigo", "long-career") { hanami-themes.indigo } else { hanami-themes.sakura }
