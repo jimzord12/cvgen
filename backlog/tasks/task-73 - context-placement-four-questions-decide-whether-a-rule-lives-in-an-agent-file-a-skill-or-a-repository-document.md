@@ -3,10 +3,10 @@ id: TASK-73
 title: >-
   context-placement: four questions decide whether a rule lives in an agent
   file, a skill or a repository document
-status: Review
+status: Ready
 assignee: []
 created_date: '2026-11-08T09:50:00Z'
-updated_date: '2026-11-08T10:02:00Z'
+updated_date: '2026-11-08T10:03:00Z'
 labels: []
 milestone: m-8
 dependencies: []
@@ -91,4 +91,7 @@ Report: reviews/03-context-reviewer.md (verbatim).
 - Minor 2: fixed; the plan's D1 summary says 'working with the owner'.
 - Note 3: fixed; the description says 'working with the owner'.
 - Note 4: no change, as the reviewer advised (question 3 comes first in order).
+
+## Review round 4 (context-reviewer): PASS
+Report: reviews/04-context-reviewer.md (verbatim). Notes 1 and 2 (wording 'question 4' next to a list item 4; 'personal' vs 'private' in a hard rule about editable files) taken as Notes: no agent is misdirected, and a wording-only edit would reopen the loop. Apply them the next time either file is touched.
 <!-- SECTION:NOTES:END -->
