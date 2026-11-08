@@ -37,20 +37,13 @@ work already done.
 ## Decisions (Major; decided, listed for the owner)
 
 - **D1. Placement by four questions (owner, 2026-11-08).** Every rule has one
-  home; everything else points to it. In order:
-  1. Is it this agent's own job (what it receives, its steps, what it returns,
-     what it must not do)? → the agent file.
-  2. Is it specific to this project? → the repository document that owns it;
-     the agent file points to it.
-  3. Is it about the owner as a person (preferences, how he works)? →
-     `docs/preferences.md`, or `.local/preferences/` when personal (the
-     repository's standing home for them, found during TASK-73); never copied.
-  4. Generic knowledge or a convention of one activity (writing tests,
-     planning): does anyone besides this agent do or check that activity? →
-     the skill for that activity (a mechanical rule also gets a check in the
-     suite); otherwise → the agent file.
-  The questions go into `context-maintainer.md`, "Where things live", which
-  the `context-reviewer` already checks placement against (T0). For this work:
+  home; everything else points to it. The questions, in their reviewed
+  wording, live in `.claude/agents/context-maintainer.md`, "Where things live"
+  (TASK-73), and the `context-reviewer` checks placement against them; in
+  short: an agent's own job → its file; repository-specific → the owning
+  document or CVgen skill; the owner as a person → preferences; a generic
+  method or one activity's convention → that activity's skill when more than
+  one agent does or checks it, else the agent file. For this work:
   - **`plan` skill** (new, generic): the plan template, the plan checklist and
     the decomposition checklist; the planner and both plan reviewers load it.
   - **`test-principles` skill** (new, generic): what makes a test worth

@@ -3,10 +3,10 @@ id: TASK-73
 title: >-
   context-placement: four questions decide whether a rule lives in an agent
   file, a skill or a repository document
-status: Active
+status: Ready
 assignee: []
 created_date: '2026-11-08T09:50:00Z'
-updated_date: '2026-11-08T09:55:00Z'
+updated_date: '2026-11-08T09:57:00Z'
 labels: []
 milestone: m-8
 dependencies: []
@@ -31,7 +31,7 @@ context-maintainer.md, 'Where things live', gains the four placement questions (
 - [x] #1 The four questions, in order, are in context-maintainer.md with one home per rule and pointers elsewhere
 - [x] #2 context-reviewer's placement check names them
 - [x] #3 Every piece of the three new reviewers' content is placed by the questions with no case undecided (recorded in the task notes)
-- [ ] #4 context-reviewer PASS; reports verbatim under archive/work-records/review-agents/reviews/
+- [x] #4 context-reviewer PASS; reports verbatim under archive/work-records/review-agents/reviews/
 <!-- AC:END -->
 
 ## Implementation Notes
@@ -73,4 +73,12 @@ Report: archive/work-records/review-agents/reviews/01-context-reviewer.md (verba
 | 10 | Note | Recorded: "Opus at high" sits in each agent file only because model and effort are set in its header; the choice itself is the owner's standing preference (question 3), restated there as a setting |
 
 Found while fixing: docs/conventions.md "Tests" already holds test rules; added to the plan's Changed table for TASK-75.
+
+## Review round 2 (context-reviewer): PASS
+
+Report: archive/work-records/review-agents/reviews/02-context-reviewer.md (verbatim). Dispositions:
+- Minor 1 (line wrap): fixed, mechanical formatting.
+- Note 2 (where question 2 ends and question 4 begins, for a naming choice like `*.spec.*`): not decided by the lead. Whether the owner's own cross-project conventions are repository choices (question 2), owner preferences (question 3) or an activity's skill (question 4) is his call; raised with him, open.
+- Note 3: the plan's D1 now points to context-maintainer.md and summarises, no second copy of the questions.
+- Note 4: the round 1 fixes also moved D6 ("a test is removed only with a reason") from the tests-reviewer to the test-principles skill in the plan (plan.md D6).
 <!-- SECTION:NOTES:END -->
