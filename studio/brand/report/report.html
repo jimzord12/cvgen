@@ -148,6 +148,40 @@ details p{margin:6px 0 3px}
 .evidence{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(280px,100%),1fr));gap:18px}
 figure{margin:0;min-width:0}
 figcaption{color:var(--mute);font-size:14px;margin-top:7px}
+figcaption b{font:800 16px var(--num);letter-spacing:.04em;color:var(--thread)}
+figure:target{outline:3px solid var(--thread);outline-offset:6px;border-radius:2px}
+/* A card shows the pictures only it needs, beside its options; a picture several items cite is named and linked both ways */
+.ask-body{display:grid;gap:14px;min-width:0}
+.ask-main{display:grid;grid-template-columns:minmax(0,1fr);gap:12px;align-content:start;min-width:0}
+.shows{display:grid;grid-template-columns:repeat(var(--n),minmax(0,1fr));gap:12px}
+@media (min-width:761px){.ask-body.with{grid-template-columns:min(calc(var(--n) * 200px + (var(--n) - 1) * 12px),48%) minmax(0,1fr);align-items:start}}
+@media (max-width:760px){.shows{grid-template-columns:minmax(0,1fr)}}
+.thumb button{display:block;position:relative;width:100%;padding:0;border:0;background:none;cursor:zoom-in;line-height:0}
+.thumb img{display:block;width:100%;background:#fff;box-shadow:0 8px 24px #0005}
+.thumb button:hover img{outline:2px solid var(--thread)}
+.thumb button:focus-visible{outline:3px solid var(--fg);outline-offset:3px}
+.thumb .compare{display:block;box-shadow:0 8px 24px #0005}.thumb .compare img{box-shadow:none}
+.chip{position:absolute;right:8px;bottom:8px;font:800 15px/1.5 var(--num);letter-spacing:.04em;background:var(--thread);color:var(--on-thread);border-radius:999px;padding:2px 11px;box-shadow:0 2px 8px #0006}
+.refs{display:flex;flex-wrap:wrap;gap:6px 12px;align-items:center}
+.ref{display:inline-flex;align-items:center;gap:8px;max-width:100%;text-decoration:none;color:var(--fg);border:2px solid var(--thread);border-radius:999px;padding:2px 12px}
+.ref b,figcaption .ref b{font:800 16px var(--num);letter-spacing:.04em;flex:none;color:inherit}
+.ref span{font-size:14px;color:var(--mute);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;min-width:0}
+.ref:hover{background:var(--thread);color:var(--on-thread)}.ref:hover span{color:inherit}
+.ref:focus-visible{outline:3px solid var(--fg);outline-offset:2px}
+button.ref{font:inherit;background:var(--thread);color:var(--on-thread);cursor:zoom-in}
+.refs small{color:var(--mute);font-size:14px}
+.rows .refs{grid-column:2;margin-top:6px}
+figcaption.head{margin:0 0 10px;display:flex;flex-wrap:wrap;gap:6px 12px;align-items:center;color:var(--fg);font-size:15px}
+#lightbox{width:min(1000px,94vw);max-height:94vh;padding:0;border:0;border-radius:8px;background:var(--panel);color:var(--fg)}
+#lightbox::backdrop{background:#000c}
+.lb-frame{padding:0 14px 14px}
+.lb-bar{position:sticky;top:0;z-index:2;display:flex;align-items:center;gap:12px;justify-content:flex-end;padding:12px 0 10px;background:var(--panel)}
+.lb-bar span{margin-right:auto;min-width:0;overflow-wrap:anywhere;font:800 16px var(--num);letter-spacing:.04em;color:var(--fg)}
+@media (max-width:760px){#lightbox{width:100vw;max-width:100vw;max-height:100dvh;border-radius:0}.lb-frame{padding:0 4px 8px}
+  .lb-bar{padding-inline:8px}.lb-bar span{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+  #lb-body{overflow-x:auto}#lb-body .sheet{width:200%;max-width:none}}
+.lb-bar button{flex:none;white-space:nowrap;font:700 15px var(--ui);padding:7px 14px;border-radius:6px;border:0;background:var(--thread);color:var(--on-thread);cursor:pointer}
+.lb-bar button:focus-visible{outline:3px solid var(--fg);outline-offset:2px}
 .sheet{display:block;width:100%;background:#fff;box-shadow:0 8px 24px #0005}
 .compare{position:relative;--x:65%;overflow:hidden;line-height:0;box-shadow:0 8px 24px #0005}
 .compare img{display:block;width:100%}
@@ -165,6 +199,7 @@ footer{color:var(--mute);font-size:13px;overflow-wrap:anywhere}
 </style>
 <div class="band" id="band"></div>
 <main class="page" id="page"></main>
+<dialog id="lightbox" aria-label="Enlarged figure"><div class="lb-frame"><div class="lb-bar"><span id="lb-sides"></span><button type="button" id="lb-close">Close ✕</button></div><div id="lb-body"></div></div></dialog>
 <div hidden><img id="mark-reversed" src="{{MARK_REVERSED}}" alt=""><img id="mark-ink" src="{{MARK_INK}}" alt=""></div>
 <script type="application/json" id="report">{{DATA}}</script>
 <script>
@@ -202,21 +237,39 @@ function gate(g, top) {
   const ticks = Array.from({length: Math.max(g.cap, g.rounds.length)}, (_, i) => `<span>${i + 1}</span>`).join('');
   return `<div class="gate"><header>${e(g.name)}</header><div class="bars">${g.rounds.map(bar).join('')}${empty.join('')}</div><div class="ticks">${ticks}</div></div>`;
 }
+const name = x => `<b>Figure ${e(x.id)}</b> · `;
 function compare(x) {
-  return `<figure><div class="compare"><img src="${x.after}" alt="${e(x.after_label)}"><img class="top-image" src="${x.before}" alt="${e(x.before_label)}">
+  return `<div class="compare"><img src="${x.after}" alt="${e(x.after_label)}"><img class="top-image" src="${x.before}" alt="${e(x.before_label)}">
     <input type="range" min="0" max="100" value="65" aria-label="Compare ${e(x.before_label)} and ${e(x.after_label)}">
     <span class="grip"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 7l-5 5 5 5M15 7l5 5-5 5"/></svg></span>
-    <label class="l">${e(x.before_label)}</label><label class="r">${e(x.after_label)}</label></div><figcaption>${e(x.caption)}</figcaption></figure>`;
+    <label class="l">${e(x.before_label)}</label><label class="r">${e(x.after_label)}</label></div>`;
 }
 const fold = (name, text) => text ? `<details><summary>${name}</summary><p>${e(text)}</p></details>` : '';
 function ask(a, i) {
-  return `<article class="ask"><header><b>${i + 1}</b><strong>${e(a.title)}</strong></header>
+  const own = PLACE.cards[i] || [], mine = own.map(id => FIG[id]);
+  const linked = (a.figures || []).filter(id => !own.includes(id));
+  return `<article class="ask" id="ask-${i + 1}"><header><b>${i + 1}</b><strong>${e(a.title)}</strong></header>
+    <div class="ask-body${mine.length ? ' with' : ''}" style="--n:${mine.length || 1}">${mine.length ? `<div class="shows">${mine.map(thumb).join('')}</div>` : ''}
+    <div class="ask-main">${refs(linked, '↓', 'Look at')}
     <div class="choice">${a.options.map((o, n) => `<button type="button" data-ask="${i}" data-option="${n}" aria-pressed="false" class="${o.recommended ? 'best' : ''}"><b>${e(o.label)}</b>${o.detail ? `<small>${e(o.detail)}</small>` : ''}</button>`).join('')}</div>
-    <div class="folds">${fold('Refresher', a.context)}${fold('The decision', a.decision)}${fold('Example', a.example)}</div></article>`;
+    <div class="folds">${fold('Refresher', a.context)}${fold('The decision', a.decision)}${fold('Example', a.example)}</div></div></div></article>`;
 }
 const ANSWERS = `<div class="answers" id="answers"><header><span id="tally"></span><button type="button" data-best>Pick the rest ★</button><button type="button" class="copy" id="copy" disabled>Copy answers</button></header>
   <textarea id="answer-text" readonly rows="2" placeholder="Pick an option above and your answers appear here, ready to paste." aria-label="Your answers, ready to paste"></textarea></div>`;
-const sheet = x => `<figure><img class="sheet" src="${x.src}" alt="${e(x.caption)}"><figcaption>${e(x.caption)}</figcaption></figure>`;
+const visual = x => x.kind === 'compare' ? compare(x) : `<img class="sheet" src="${x.src}" alt="${e(x.caption)}">`;
+// report.py decides where each figure goes (R.placement): inside the one card that alone cites it, else under Figures.
+// Figures sits between the cards and the decisions, so a card's link points down and a decision's points up.
+const FIG = Object.fromEntries((R.evidence || []).map(x => [x.id, x]));
+const PLACE = R.placement || {cards: [], figures: []};
+const ref = (id, arrow) => `<a class="ref" href="#fig-${e(id)}"><b>Figure ${e(id)} ${arrow}</b><span>${e(FIG[id].caption)}</span></a>`;
+const refs = (ids, arrow, lead) => ids.length ? `<div class="refs">${lead ? `<small>${lead}</small>` : ''}${ids.map(id => ref(id, arrow)).join('')}</div>` : '';
+const thumb = x => `<figure class="thumb"><button type="button" data-enlarge="${e(x.id)}" aria-label="Enlarge Figure ${e(x.id)}: ${e(x.caption)}">${x.kind === 'compare' ? `<span class="compare" style="--x:50%"><img src="${x.after}" alt=""><img class="top-image" src="${x.before}" alt=""></span>` : `<img src="${x.src}" alt="">`}<span class="chip">⤢ ${x.kind === 'compare' ? 'Compare' : 'Enlarge'}</span></button><figcaption>${name(x)}${e(x.caption)}</figcaption></figure>`;
+const back = id => {
+  const cards = (R.needs_you || []).flatMap((a, i) => (a.figures || []).includes(id) ? [`<a class="ref" href="#ask-${i + 1}"><b>Card ${i + 1} ↑</b><span>${e(a.title)}</span></a>`] : []);
+  const rows = (R.decisions || []).flatMap((d, i) => (d.figures || []).includes(id) ? [`<a class="ref" href="#dec-${i + 1}"><b>Decision ↓</b><span>${e(d.title)}</span></a>`] : []);
+  return cards.length + rows.length ? `<span class="refs"><small>Asked or told about in</small>${[...cards, ...rows].join('')}</span>` : '';
+};
+const shared = x => `<figure id="fig-${e(x.id)}"><figcaption class="head"><span>${name(x)}${e(x.caption)}</span>${back(x.id)}<button type="button" class="ref" data-enlarge="${e(x.id)}" aria-label="Enlarge Figure ${e(x.id)}: ${e(x.caption)}"><b>⤢ ${x.kind === 'compare' ? 'Compare' : 'Enlarge'}</b></button></figcaption>${visual(x)}</figure>`;
 
 const [tone, word, glyph] = VERDICTS[R.verdict];
 document.getElementById('band').dataset.tone = tone;
@@ -229,8 +282,7 @@ if (R.meters?.length) parts.push(`<div class="meters">${R.meters.map(dial).join(
 if (R.stages?.length) parts.push(`<ol class="path" id="path">${R.stages.map(s =>
   `<li data-state="${e(s.state)}"><b>${s.state === 'done' ? CHECK : s.state === 'blocked' ? CROSS : ''}</b><span>${e(s.label)}</span></li>`).join('')}</ol>`);
 if (R.needs_you?.length) parts.push(section(`Needs you · ${R.needs_you.length}`, `<div class="asks">${R.needs_you.map(ask).join('')}</div>${ANSWERS}`, '★ recommended', '<button type="button" data-best>Pick the rest ★</button>'));
-if (R.evidence?.length) parts.push(section('Evidence', `<div class="evidence">${R.evidence.map(x =>
-  x.kind === 'compare' ? compare(x) : sheet(x)).join('')}</div>`));
+if (PLACE.figures.length) parts.push(section('Figures', `<div class="evidence">${PLACE.figures.map(id => shared(FIG[id])).join('')}</div>`));
 if (R.reviews?.length) {
   const top = Math.max(...R.reviews.flatMap(g => g.rounds.map(r => (r.hard || 0) + (r.soft || 0))), 1);
   parts.push(section('Reviews', `<div class="reviews">${R.reviews.map(g => gate(g, top)).join('')}</div>
@@ -242,7 +294,7 @@ if (R.decisions?.length) {
     const items = R.decisions.filter(d => d.grade === g);
     const kind = g.toLowerCase();
     return `<div class="grade"><header>${e(g)} · ${items.length}<span class="${kind}">${'<i></i>'.repeat(items.length)}</span></header><ul class="rows">${items.map(d =>
-      `<li><i class="mark ${kind}"></i><strong>${e(d.title)}</strong><span>${e(d.why)}</span></li>`).join('')}</ul></div>`;
+      `<li id="dec-${R.decisions.indexOf(d) + 1}"><i class="mark ${kind}"></i><strong>${e(d.title)}</strong><span>${e(d.why)}</span>${refs(d.figures || [], '↑')}</li>`).join('')}</ul></div>`;
   }).join('')}</div>`));
 }
 if (R.changes?.length) {
@@ -253,8 +305,19 @@ if (R.changes?.length) {
 }
 if (R.evidence_path) parts.push(`<footer>${e(R.evidence_path)}</footer>`);
 document.getElementById('page').innerHTML = parts.join('');
-document.querySelectorAll('.compare input').forEach(i =>
-  i.addEventListener('input', () => i.parentElement.style.setProperty('--x', i.value + '%')));
+// One listener serves every slider, including one opened in the lightbox.
+document.addEventListener('input', ev => {
+  if (ev.target.matches('.compare input')) ev.target.parentElement.style.setProperty('--x', ev.target.value + '%');
+});
+const box = document.getElementById('lightbox');
+document.querySelectorAll('[data-enlarge]').forEach(b => b.addEventListener('click', () => {
+  const x = FIG[b.dataset.enlarge];
+  document.getElementById('lb-sides').textContent = `Figure ${x.id}` + (x.kind === 'compare' ? ` · Left: ${x.before_label} · Right: ${x.after_label}` : ` · ${x.caption}`);
+  document.getElementById('lb-body').innerHTML = `<figure>${visual(x)}<figcaption>${name(x)}${e(x.caption)}</figcaption></figure>`;
+  box.showModal();
+}));
+document.getElementById('lb-close').addEventListener('click', () => box.close());
+box.addEventListener('click', ev => { if (ev.target === box) box.close(); });
 // Picks are positions, so the key holds the cards: a changed card never inherits an old answer.
 const store = 'report:' + JSON.stringify([R.title, R.date, R.needs_you]), picks = {};
 try {
