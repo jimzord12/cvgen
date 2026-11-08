@@ -51,4 +51,26 @@ Probe copy R removed.
 - Context review: round 1 FINDINGS (reviews/13), round 2 PASS (reviews/14).
 - Suite PASS (211 cases, builds/tests-20261108-165914-246054); ruff clean; anchors since 8306aae re-fixed by hand (0f85179) and clean since; atlas.py check: client-journey ok, four pages STALE until TASK-78 (recorded exception).
 - Both probe copies removed.
+
+## AC #3 deferred
+The audit task (D17) is drafted but not queued: on 2026-11-08 the Main Folder's main was 33 commits ahead of origin/main (another session's unpushed merge of feat/travel-contract-v2, 81c9529), so the backlog skill's route to main was closed. Queue it, title 'suite-audit: every test in today's suite tests real behaviour, and none is kept for its own sake', in m-7 with --dep TASK-75, once that session has pushed or at this branch's merge.
+
+### Draft description
+Owner: Claude Code session
+Branch/worktree: feat/suite-audit in .worktrees/suite-audit
+Integration target: main
+Depends on: TASK-75 (the tests-reviewer and the test-principles skill must be on main)
+Plan: none yet; the first step decides whether the findings need one (the plan skill, "When a plan is needed")
+
+## Outcome and boundaries
+One audit of today's suite (owner, 2026-11-08: "Queue one audit"): every check in `tests/` and every Bun test in `tools/workflow/test/` judged by a fresh tests-reviewer against the test-principles skill, with probes as docs/engine/verification.md "Probing a test" says, and each finding acted on: tests that cannot fail or only detect change are fixed through their entry point or removed with a stated reason, and missing tests for likely faults are added. No test is added to raise a count.
+
+Excludes: the frozen set (each template's tests/approved/ and tests/baseline.json's pins; judged only on whether they pin the right files); changing product behaviour; checks whose rule is about structure (check 10, check 13) are judged on whether they pin their rule, not refactor-probed.
+
+## Known items (from TASK-75's calibration runs)
+- tools/workflow anchors: a shift that ignores a hunk's removed lines passes every Bun test (calibration 05, P5, confirmed by the lead); several hunks above one anchor are also untested.
+- tests/proposals.py: a malformed id (P-00012) is accepted unnoticed (T1); a missing revision (T2); next_id when the highest id is a reference (T3); two bad files named (T4). calibration 06.
+
+## Shape
+The suite is large (20 checks, 211 cases, 8 Bun files): split the audit into rounds by area (Framework and fixtures; workflow and output contract; scripts' own tests; the Bun tests), one tests-reviewer per area, run one suite at a time.
 <!-- SECTION:NOTES:END -->
