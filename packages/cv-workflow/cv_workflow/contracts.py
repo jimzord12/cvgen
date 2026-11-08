@@ -321,6 +321,16 @@ def check_domain(domain, domains_root=DOMAINS, base_root=BASE):
     return problems
 
 
+def unproved(variation, domain, domains_root=DOMAINS, base_root=BASE):
+    """The claims (`name@schemaVersion`) no version the Variation renders has, so the suite cannot prove
+    them. Empty when it renders no version: that is reported as behind, never a failure."""
+    reads = supported(variation, domain, domains_root)
+    at = {(g, c['groups'][g]['schemaVersion']) for c in (contract(domain, v, domains_root, base_root) for v in reads)
+          for g in c['groups']}
+    return [f'{g}@{v}' for g, shapes in (claims(variation, domain)[0] or {}).items()
+            for v in sorted(shapes) if reads and (g, v) not in at]
+
+
 def compatibility(domain, template, name, variation, domains_root=DOMAINS, base_root=BASE):
     """One Template Variation against a Domain's newest kept contract, for the suite and `cv.py contracts`:
     the versions it renders, how many it is behind, what a record on the newest version meets there

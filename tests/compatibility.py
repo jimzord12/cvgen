@@ -13,7 +13,7 @@ sys.path.insert(0, str(ROOT / 'packages/cv-workflow'))
 
 from cv_workflow import WorkflowError  # noqa: E402
 from cv_workflow.contracts import (FIX, check_domain, choose, claims, compare, compatibility, describe, judge,  # noqa: E402
-                                  oldest_supported, readable, report, supported)
+                                  oldest_supported, readable, report, supported, unproved)
 
 BASE = {'id': 'base', 'version': 1, 'groups': {
     'identity': {'required': True, 'schemaVersion': 1, 'paths': ['identity.name']},
@@ -110,6 +110,11 @@ def run_compatibility(out):
         later = card('later')['variations']
         assert readable('later', domains) == [2] and supported(later['latest'], 'later', domains) == [2]
         assert supported(later['behind'], 'later', domains) == []
+        # Every claim must be provable on a version the Variation renders; none is owed when it renders none.
+        assert [unproved(v, 'demo', **roots) for v in variations.values()] == [[], [], [], [], []]
+        assert unproved({'supports': {'demo': {'upTo': 1, 'groups': ['skills@2', 'places@1']}}}, 'demo', **roots) == ['skills@2']
+        assert unproved({'supports': {'demo': {'upTo': 1, 'groups': ['places@2']}}}, 'demo', **roots) == ['places@2']
+        assert unproved(later['behind'], 'later', **roots) == []
         checks.append('a Variation declares upTo or exactly, and claims a group at one or more schema versions')
 
         # A supported version renders as in Stage 1.

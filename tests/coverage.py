@@ -13,7 +13,7 @@ sys.path.insert(0, str(ROOT / 'packages/cv-workflow'))
 
 from cv_workflow import WorkflowError  # noqa: E402
 from cv_workflow.contracts import (check_domain, check_groups, choose, claims, compatibility, contract, coverage, describe,  # noqa: E402
-                                  holds, manifests, oldest_supported, read, supported, template_in, versions)
+                                  holds, manifests, oldest_supported, read, supported, template_in, unproved, versions)
 from cv_workflow.render import without_comments  # noqa: E402
 
 DOMAINS = ROOT / 'packages/domains'
@@ -69,10 +69,8 @@ def run_coverage(out, typst, flags):
                 elsewhere = {g for v in renders for g in contract(owner, v)['groups']}
                 reports.append(compatibility(owner, template, name, variation))
                 # Every claim is proved: each name@schemaVersion is in a version it names and the suite renders.
-                at = {(g, c['groups'][g]['schemaVersion']) for c in (contract(owner, v) for v in renders) for g in c['groups']}
-                unproved = [f'{g}@{v}' for g, versions_claimed in (claims(variation, owner)[0] or {}).items()
-                            for v in sorted(versions_claimed) if (g, v) not in at]
-                assert not unproved, f'{template} {name} claims {", ".join(unproved)}, which no version it renders has'
+                missing = unproved(variation, owner)
+                assert not missing, f'{template} {name} claims {", ".join(missing)}, which no version it renders has'
                 for version in renders:
                     fixtures = [p for p in sorted((DOMAINS / owner / 'fixtures').glob(f'coverage-v{version}*.json')) if re.fullmatch(rf'coverage-v{version}(-[a-z-]+)?\.json', p.name)]
                     assert fixtures, (owner, version)
