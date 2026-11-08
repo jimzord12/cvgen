@@ -26,9 +26,14 @@ design and documentation work included:
 Kanban-style: work moves through explicit stages, one active implementation
 task, clear acceptance criteria, independent review. Fixed sprints are optional.
 
-Work is planned top down: a plan (a vision Direction item, an approved
-proposal or the owner's brief), then its `Milestone`s, then their tasks
-(owner, 2026-11-08). A `Milestone` is a shippable outcome with a one-line
+Work is planned top down: a plan, then its `Milestone`s, then their tasks
+(owner, 2026-11-08). A plan starts from a vision Direction item, an
+approved proposal or the owner's brief; work that needs one (more than one
+task, a contract or data migration, anything hard to undo) gets it written
+in the `plan` skill's template as `archive/work-records/<slug>/plan.md`,
+reviewed under [review.md](review.md), "Plan review", before its tasks are
+created or, when they exist already, before the first goes Active. A
+`Milestone` is a shippable outcome with a one-line
 done-condition in its description; it is never a label or a date. Every
 task belongs to exactly one, named when the task is created; a task that
 serves no outcome goes in a small Maintenance milestone, made the first time

@@ -125,14 +125,11 @@ plan must answer, not a heading it must have.
 11. **Proportion:** is there a simpler way to the same outcome? What does
     this make harder later? Does it work around a gap that should be fixed
     instead?
-12. **Procedures:** for every procedure, command or rule the plan asks
-    people or agents to follow afterwards, walk it step by step through
-    each situation it will meet: a fresh session, two sessions or branches
-    at once, a branch inside a feature branch, a checkout with someone's
-    uncommitted work, a detached or stale checkout, a rejected push, the
-    owner's permission settings, a tool's options used together. Check what
-    each command actually does in its help or by a harmless dry run, not by
-    its name. A procedure that fails or forks in one of these situations,
-    with no instruction for it, is a gap. This is where file-by-file maps
-    are blind: they show what a change touches, not how a new routine
-    behaves once someone runs it.
+12. **Procedures:** walk every routine the plan leaves for people or
+    agents, step by step, through each situation it will meet, such as a
+    first run on empty state, two sessions or branches at once, a branch
+    inside a feature branch, someone's uncommitted work, a stale or detached
+    checkout, a rejected push, a run cut off midway, another operating
+    system or shell, a missing tool, the owner's permission settings, a
+    tool's options used together. Check what each command does in its help,
+    not by its name. A situation with no instruction is a gap.

@@ -15,7 +15,8 @@ how agents behave is first integrated by the `context-maintainer`
 (`.claude/agents/context-maintainer.md`), which finds the file that owns
 the rule and consolidates rather than appends (owner, 2026-09-29, after the
 same pair in the sibling night-shift repository). A plan is reviewed before
-any of it is built, by a fresh `plan-reviewer`
+its tasks are created or, when they already exist, before the first goes
+Active, by a fresh `plan-reviewer`
 (`.claude/agents/plan-reviewer.md`; "Plan review" below). Codex may critique
 design proposals; that does not satisfy a code review gate.
 
@@ -38,8 +39,8 @@ not exempt: a wrong rule or a stale guide misleads every later session.
 Size is no exemption either: several changes made since the last handoff
 may go to one round together, but each is reviewed.
 
-Timing: review a plan before its tasks are created, a change before it is
-reported done, and a proposal or a rule change before it is put to the
+Timing: review a plan before its tasks are created (when they already
+exist, before the first goes Active), a change before it is reported done, and a proposal or a rule change before it is put to the
 owner for a decision. A documentation change
 may reach `main` before its round only when the round runs in the same
 session, before the report.
@@ -83,18 +84,21 @@ Work that needs a plan (the `plan` skill, "When a plan is needed": more
 than one task, a contract or data migration, anything hard to undo) or for
 which the owner asks for one is planned in that skill's template, stored as
 `archive/work-records/<slug>/plan.md` and committed before each round, and
-reviewed by a fresh `plan-reviewer` until PASS before its tasks are created
-(owner, 2026-11-08). Its rubric is the skill's plan checklist; the loop,
-severities, caps and storage are this file's (below), the report stored as
-`reviews/NN-plan-reviewer.md` beside the plan. A revision that changes a
-reviewed plan's outcome, scope or sequencing goes back for another round.
-A plan for work that is hard to undo (a migration, a published change, a
-contract other work depends on) gets two independent `plan-reviewer`s in
-each round, stored as `NN-plan-reviewer-a.md` and `-b.md`; the round passes
-when neither report holds an unresolved Blocking or Material finding. One
-reviewer's run is not deterministic: two runs on the same plan found
-different real gaps (calibration, 2026-11-08,
-`archive/work-records/review-agents/calibration/`).
+reviewed by a fresh `plan-reviewer` until PASS before its tasks are created,
+or, when they already exist, before the first goes Active (owner,
+2026-11-08). An approved proposal or the owner's brief is where a plan
+starts, not the plan itself. Its rubric is the skill's plan checklist and
+its severities are its own; the loop, caps and storage are this file's
+(below), the report stored as `reviews/NN-plan-reviewer.md` beside the
+plan. A revision that changes a reviewed plan's outcome, scope or
+sequencing goes back for another round. A plan for work that is hard to
+undo (a migration, a published change, or a contract other work depends
+on, which counts as hard to undo on purpose) gets two independent
+`plan-reviewer`s in each round, stored as `NN-plan-reviewer-a.md` and
+`-b.md`; the round passes when neither report holds an unresolved Blocking
+or Material finding (adopted by the lead on 2026-11-08: one reviewer's run
+is not deterministic, and two runs on the same plan found different real
+gaps; `archive/work-records/review-agents/calibration/`).
 
 The brief: the goal in the owner's words and its source (task, proposal or
 brief), the plan path at an exact commit, the round number and earlier
@@ -262,7 +266,8 @@ blocker.
 For an independently separable high-risk concern, a second focused reviewer
 may join a round, for example approval/access or a data migration. The lead
 agent owns consolidation and contradictions; every uncovered lens must still
-be reviewed. Prefer one reviewer unless the additional coverage is useful.
+be reviewed. Prefer one reviewer unless the additional coverage is useful;
+a plan for work that is hard to undo always gets two ("Plan review").
 
 Repeated review churn is evidence for an observation or proposal under
 [proposal tracking](proposals/README.md), not permission to weaken review
