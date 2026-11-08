@@ -485,12 +485,9 @@ def main():
         drawings = [d['rect'] for d in doc[0].get_drawings() if d['rect'].x0 > 370 and d['rect'].width > 150]
         assert drawings and max(r.y1 for r in drawings) / 72 * 25.4 < 200, drawings
     with fitz.open(essential) as doc:
-        # A lead-in: "Private trips: …" shows its lead in bold and the rest regular; a long sentence that only holds a
-        # colon stays plain, and practical know-how is one labelled item a line.
-        spans = [s for b in doc[0].get_text('dict')['blocks'] for line in b.get('lines', []) for s in line['spans']]
-        bold = {s['text'].strip() for s in spans if 'Bold' in s['font'] or s['flags'] & 16}
-        assert {'Private trips', 'End to end', 'Reservations', 'Rail', 'Transport cards', 'Basic knowledge'} <= bold, sorted(bold)
-        assert not any(s['text'].startswith('Boutique travel agency') for s in spans if s['text'] in bold)
+        # practical know-how is one labelled item a line (the lead-in rule itself is asserted in travel-essential.typ)
+        text = ' '.join(doc[0].get_text().split())
+        assert 'Confident with Rail: regional passes' in text and 'Basic knowledge: typhoon and snow seasons' in text, text
     with fitz.open(out / 'travel-essential-generic' / 'travel-essential-generic.pdf') as doc:
         # The generic page (monochrome, the plain pack): no Japanese word beside the rank, no sakura; the passport line
         # in the band, the skills as two labelled items under the record's own title, the languages as a table.

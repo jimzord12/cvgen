@@ -195,9 +195,9 @@ domains/travel/                         the travel domain (P-0013), built like m
     components/stamp.typ                  the eki stamp
     components/hero.typ                   page 1 band (portrait ring, seal, route, name plate), page 2 band, footer
     components/sections.typ               headings, profile, experience, trip cards, areas, practical, studies
-    components/essential.typ              essential's band, profile row, roles, earlier roles, education and rail parts
+    components/essential.typ              essential's band, profile row, roles (bullets with lead-ins), earlier roles, education and rail parts
     template.json  tests/coverage.typ     the Template Manifest and its coverage entry
-    themes/  artwork/  layouts/           sakura, indigo, sky; japan; showcase, essential
+    themes/  artwork/  layouts/           sakura, indigo, sky, monochrome; japan, plain (essential only); showcase, essential
     tests/approved/                       a Frozen Reference candidate per Template Variation (owner approval pending)
 
 cv-workflow/cv_workflow/                Python; owns everything around a candidate render

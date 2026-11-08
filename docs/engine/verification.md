@@ -89,13 +89,18 @@ Windows one also holds the PDFs that build wrote, one per example in
    word wider than the stamp column, a licence line wider than the education
    columns, and an unknown `domainContract`.
 6b. **Tour-leader on one page (travel, Hanami `essential`).**
-   `examples/travel/hanami/tour-leader-essential.typ` must equal
+   `examples/travel/hanami/tour-leader-essential.typ` (the essential twin,
+   `tour-leader-essential-example.json`, its bullets and know-how with
+   lead-ins) must equal
    `.../hanami/tests/approved/Travel-Tour-Leader-CV-Essential-v01.pdf` pixel for
    pixel on its one page (a `Frozen Reference` candidate), print the first-scan
    fields in reading order (name, each role before the next, education) as text
    that copies whole words, the licence, each trip's role and the areas, no part
    of `travel-story`, and no page number. The `travel-essential.typ`
-   fixture renders the record without a portrait (the same words, one image
+   fixture asserts the lead-in rule (`lead-of`, Greek included) and renders the
+   essential twin in `monochrome`, a generic client-shaped record
+   (`tour-leader-generic.json`: monochrome, the `plain` pack, the passport as a
+   contact, the skills under the record's own rail title), the record without a portrait (the same words, one image
    fewer), the Indigo and Sky themes, Greek wording, a record without a
    licence, a sparse record (`tour-leader-sparse.json`: one contact row, no
    highlights, licence, availability or references, whose fields start 8 mm

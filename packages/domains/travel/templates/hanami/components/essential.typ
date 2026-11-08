@@ -10,13 +10,17 @@
 // it is at most five words and 40 characters and something follows; anything else is plain text, so a
 // sentence that only happens to hold a colon ("Call centre for a regional airline: answering…") is not
 // cut in two.
-#let lead-in(s, weight: 700) = {
+#let lead-of(s) = {
   let i = s.position(": ")
-  if i == none { return keep-end(s) }
+  if i == none { return none }
   let head = s.slice(0, i)
   let rest = s.slice(i + 2).trim()
-  if rest == "" or head.split(" ").filter(w => w != "").len() > 5 or head.clusters().len() > 40 { return keep-end(s) }
-  [#text(weight: weight, head): #keep-end(rest)]
+  if rest == "" or head.split(" ").filter(w => w != "").len() > 5 or head.clusters().len() > 40 { return none }
+  (head, rest)
+}
+#let lead-in(s, weight: 700) = {
+  let parts = lead-of(s)
+  if parts == none { keep-end(s) } else [#text(weight: weight, parts.first()): #keep-end(parts.last())]
 }
 // Bullets with Hanami's metal diamond; each may carry a lead-in.
 #let bullets(ctx, list, size: 10pt, gap: 1.5mm) = {

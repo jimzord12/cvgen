@@ -47,6 +47,17 @@ full and the older ones become one summary whose count and span come from the
 domain (`experience-totals`); when even the newest role does not fit, the compile
 fails.
 
+Its display rules add nothing to the facts. A bullet or practical know-how
+item written "Lead phrase: the rest", the lead at most five words and 40
+characters with something after it, shows its lead in bold (`lead-of`,
+`lead-in` in `components/essential.typ`); anything else is plain text.
+Practical know-how is one item a line, the basics last. It allows the
+`monochrome` theme (shared with `showcase`) and the `plain` artwork pack,
+which swaps the sakura branch for a neutral route arc and drops the Japanese
+word beside the rank, for a client who wants a plain professional page; the
+essential example reads its own twin, `tour-leader-essential-example.json`,
+with lead-ins, while `showcase` keeps the approved twin.
+
 It supports the travel contract `exactly` at version 2: version 1's required
 `destinations` holds the route, the stamps and the trip story, which one page has
 no room for, so a version 1 record is refused before the render. It claims

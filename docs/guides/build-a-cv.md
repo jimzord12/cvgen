@@ -58,7 +58,14 @@ chooses a `scan-first` one instead (owner, 2026-11-08); today that is
 Hanami's `essential` (travel): pass `layout: hanami-layouts.essential,
 variation: "essential"` and render with `--pages 1`. Its portrait is
 optional for each `Client`; a career longer than the page keeps its newest
-roles in full and summarises the older ones.
+roles in full and summarises the older ones. For a plain professional page,
+not focused on Japan, pass `artwork: hanami-artwork.plain` (a neutral route
+arc, no sakura, no Japanese word beside the rank) and, for a page in greys,
+`theme: hanami-themes.monochrome`. Write each bullet "Lead phrase: the rest"
+(the lead at most five words) and the lead shows in bold; write practical
+know-how items the same way. A passport's validity is a contact ("Passport",
+"Valid, exp. October 2035"), and a record's `copy` may rename a rail title,
+e.g. `"practical": "Skills & travel experience"`.
 
 **Record the choice.** The entry point names its `Template` and
 `Template Variation` in `envelope.json`: `"template": "flagship"` and

@@ -1,12 +1,18 @@
-// Hanami essential (TASK-79) on the tour-leader twin and a long career, both travel contract version 2:
+// Hanami essential (TASK-79) on its own tour-leader twin (tour-leader-essential-example.json) and a long career, both travel contract version 2:
 // the other two themes, a record without a portrait or without a licence, Greek wording, the earlier roles' summary with its totals, and each loud
 // failure (no shrinking and no second page, constitution 4).
 #import "../../packages/domains/travel/lib.typ": hanami, hanami-themes, hanami-layouts, hanami-artwork, experience-totals
-#let raw = json("../../examples/candidates/tour-leader-example.json")
+// The lead-in rule: a short lead before the first ": " is bold; a long one, or nothing after it, stays plain.
+#import "../../packages/domains/travel/templates/hanami/components/essential.typ": lead-of
+#assert.eq(lead-of("Private trips: 25 a year"), ("Private trips", "25 a year"))
+#assert.eq(lead-of("Μεταφορές: εισιτήρια"), ("Μεταφορές", "εισιτήρια"))
+#assert.eq(lead-of("Call centre for a regional airline: answering passengers"), none)
+#assert.eq(lead-of("No colon at all"), none)
+#assert.eq(lead-of("Trailing: "), none)
+#let raw = json("../../examples/candidates/tour-leader-essential-example.json")
 #let long = json("tour-leader-long-career.json")
 #let sparse = json("tour-leader-sparse.json")
 #let generic = json("tour-leader-generic.json")
-#let one-page = json("../../examples/candidates/tour-leader-essential-example.json")
 #let case = sys.inputs.at("case", default: "indigo")
 // The totals rule (constitution 6): the older roles' count and span come from the record.
 #assert.eq(experience-totals(long.experience.slice(2)), (roles: 6, from: "06/2005", to: "02/2015"))
@@ -42,7 +48,7 @@
   else if case == "long-name" { (..raw, identity: (..raw.identity, name: "Andreas Konstantinos Kalamaris-Papadopoulos")) }
   else if case == "sparse" { sparse }
   else if case in ("generic", "generic-japan") { generic }
-  else if case == "monochrome" { one-page }
+  else if case == "monochrome" { raw }
   else if case == "rail-overflow" { (..raw, practical: (..raw.practical, items: raw.practical.items * 4)) }
   else if case == "profile-overflow" { (..raw, profile: (raw.profile + " ") * 8) }
   // a seasonal career: the newest role fits alone, the one-line summary of 39 older ones does not
