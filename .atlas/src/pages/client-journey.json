@@ -2498,7 +2498,7 @@
           "note": "Model step `deliver.status`, action `cmd.cv-status`, in `docs/workflow/06-deliver/stage.yaml`.",
           "sources": [
             ".claude/skills/new-cv/SKILL.md:87",
-            "scripts/cv.py:62-63",
+            "scripts/cv.py:66-67",
             "packages/cv-workflow/cv_workflow/__init__.py:14-31"
           ]
         },

@@ -8,8 +8,9 @@ reasoning and examples.
 
 A `Template` lives under one `Domain`, accepts the inputs in
 `docs/architecture.md`, follows the component contract (ADR 0008), fails loudly on
-overflow and defines no data model of its own (Flagship keeps its closed input
-schema, with the suite's equal-definitions check, until Stage 2). It has a `Template Manifest`,
+overflow and defines no data model of its own: its input schema refers to its
+`Domain`'s facts schema by `$ref` and adds only what it renders beyond the facts,
+today `copy`. It has a `Template Manifest`,
 `templates/<t>/template.json`, with at least one `Template Variation` and a
 default, and an entry that renders a `Coverage Fixture` (`coverage` in the
 manifest). A one-off in an `Envelope` has none of this.
@@ -22,7 +23,16 @@ names replaces the base's. A `Fact Group` lists the `paths` of the record that
 belong to it, with `*` for each item of a list. It is `required` or optional and
 has a `schemaVersion`, which rises on a breaking change: a renamed or removed
 field, a changed meaning, or a new required field. The contract's `version` rises
-on any change. Every past version stays.
+on any change. Every past version stays. A path may join a group without a
+`schemaVersion` rise (a new optional field); a path leaving it, or a
+`schemaVersion` falling, without a rise is a broken contract and is refused. A
+new required field or a changed meaning is not visible in the paths, so it rests
+on the author raising the `schemaVersion`.
+
+The newest contract may name `oldestSupported`, the oldest version the engine
+still reads (none means 1). A record below it stops and asks to be upgraded.
+It cannot pass a version an example record uses without the constitution's
+step: an ADR, a new `Frozen Reference` and a version bump on the PDF.
 
 A record says which version it follows in `domainContract`; none means 1.
 
@@ -30,21 +40,29 @@ A record says which version it follows in `domainContract`; none means 1.
 
 Each `Template Variation` under `variations` states `pages`, its `designBar`, the
 `layouts`, `themes` and `artwork` it allows, and `supports`: for a `Domain`, either
-`upTo` or `exactly` the versions it handles, and `groups`, the optional `Fact
-Group`s it shows as `name@schemaVersion`. Required groups follow from the version.
+`upTo` N (versions 1 to N) or `exactly` a rising list of the versions it
+handles, and `groups`, the optional `Fact Group`s it shows as
+`name@schemaVersion`. A group it renders in two shapes is claimed twice
+(`places@1`, `places@2`). Required groups follow from the version. A
+`Template Variation` is never required to name the newest version.
+
+```json
+"supports": { "travel": { "exactly": [1, 2], "groups": ["destinations@1", "destinations@2", "licences@1"] } }
+```
 A `Template Variation` inherits and never copies; it declares only what differs,
 and its `designBar` is set when the owner approves the design.
 
 ## What is checked
 
 - **In the suite** (`tests/coverage.py`): each claim is rendered on the `Domain`'s
-  `Coverage Fixture`, a marker in every printed field, with one fixture for each
+  `Coverage Fixture` of each version it names that the engine still reads, a marker in every printed field, with one fixture for each
   way a `Domain` records its experience. A missing marker fails; a
   group rendered but not claimed warns.
 - **Before a client's render** (`cv_workflow/contracts.py`): a missing required
   group stops the render, as does an `envelope.json` that disagrees with
-  `typst/cv.typ`, an unknown `Template Variation`, or a version it does not
-  support. An optional group the record holds
+  `typst/cv.typ`, an unknown `Template Variation`, a version below
+  `oldestSupported`, or one older than every version the `Template Variation`
+  names. An optional group the record holds
   and the `Template Variation` does not claim gives a warning, and the `Meta File`
   lists it under `dropped`.
 - A custom composition is checked against the `Domain Contract` alone, and a
@@ -54,6 +72,30 @@ Nothing reads `pages`, `designBar`, `layouts`, `themes` or `artwork` from a
 manifest yet: they describe the design for people and reviewers, and `--pages`
 still sets a render's page check.
 
-Stage 2 of ADR 0016 is built when a contract first reaches version 2 (TASK-68):
-the group-by-group comparison, `oldestSupported`, and dropping the closed input
-schema.
+## A record on a newer version (Stage 2)
+
+When the record's version is newer than the `Template Variation` names, its
+contract is compared group by group with the newest version below it that the
+`Template Variation` names (`compare` in `contracts.py`). Each difference is a
+warning, or an error always, when the record holds that group, or when it has
+none of it:
+
+| Difference | Result |
+|---|---|
+| A group it does not render changed, or was removed | Warning |
+| A new optional group; a new optional field in any group | Warning; the facts count as `dropped` |
+| An optional group it claims changed or was removed | Error when the record holds it |
+| A required group became optional | Error when the record has none of it |
+| An optional group became required | Warning if it claims it; else error |
+| A required group is new, changed or removed | Error |
+
+A warning names how many versions behind the `Template Variation` is. An error
+lists every difference that stops it and the fix: update the `Template`, keep
+the record on a version it renders, or pick another `Template Variation`. A new
+field shown nowhere goes into the `Meta File`'s `dropped` as `group: path`.
+
+`python scripts/cv.py contracts` (`--json` for the data) prints each `Template
+Variation` against its `Domain`s' newest contract: the versions it renders, how
+far behind it is, each difference with its result, and the coverage figure
+(`3 of 6 optional groups`). The suite keeps the same report and never fails on
+"behind".

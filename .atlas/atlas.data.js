@@ -3027,7 +3027,7 @@ window.ATLAS = {
        "note": "Model step `deliver.status`, action `cmd.cv-status`, in `docs/workflow/06-deliver/stage.yaml`.",
        "sources": [
         ".claude/skills/new-cv/SKILL.md:87",
-        "scripts/cv.py:62-63",
+        "scripts/cv.py:66-67",
         "packages/cv-workflow/cv_workflow/__init__.py:14-31"
        ]
       },
@@ -4484,14 +4484,14 @@ window.ATLAS = {
   }
  ],
  "build": {
-  "builtAt": "2026-11-08 10:07 UTC",
-  "commit": "235ddfa",
+  "builtAt": "2026-11-08 10:19 UTC",
+  "commit": "bcbf3e6",
   "kit": "1.1",
   "stale": {},
   "verified": {
    "client-journey": {
     "at": "2026-11-08",
-    "commit": "235ddfa"
+    "commit": "bcbf3e6"
    },
    "design-run": {
     "at": "2026-11-08",
@@ -4503,11 +4503,11 @@ window.ATLAS = {
    },
    "system-map": {
     "at": "2026-11-08",
-    "commit": "235ddfa"
+    "commit": "bcbf3e6"
    },
    "roster": {
     "at": "2026-11-08",
-    "commit": "235ddfa"
+    "commit": "bcbf3e6"
    }
   }
  }
