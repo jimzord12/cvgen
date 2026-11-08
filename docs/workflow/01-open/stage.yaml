@@ -31,7 +31,7 @@ steps:
 
   - id: open.alias
     name: Give the client an Alias
-    sources: ["docs/workflow/01-open/README.md:23-26", "docs/guides/client-workflow.md:93-94", ".claude/skills/new-client/SKILL.md:33-35", "docs/glossary.md:58"]
+    sources: ["docs/workflow/01-open/README.md:23-26", "docs/guides/client-workflow.md:93-94", ".claude/skills/new-client/SKILL.md:33-35", "docs/glossary.md:59"]
     actor: actor.lead
     action: lead.write-alias
     inputs: [art.envelope-drawers]
@@ -71,7 +71,7 @@ artifacts:
 
   - id: art.envelope-drawers
     name: The Envelope folder and its first Drawers
-    sources: ["docs/guides/client-workflow.md:21-27", ".claude/skills/new-client/SKILL.md:33-36", "docs/glossary.md:59"]
+    sources: ["docs/guides/client-workflow.md:21-27", ".claude/skills/new-client/SKILL.md:33-36", "docs/glossary.md:60"]
     path: private/<envelope>/
     format: "folders: intake/ (documents/), research/ (reviews/), draft/"
     visibility: private
