@@ -1,7 +1,7 @@
 {
   "domainContract": 2,
   "identity": {
-    "name": "Daphne Kontou",
+    "name": "Nikos Kontos",
     "rank": "Tour Leader",
     "specialty": "Group and private travel",
     "portrait": null
@@ -19,8 +19,8 @@
       },
       {
         "label": "Email",
-        "value": "daphne.kontou@example.com",
-        "href": "mailto:daphne.kontou@example.com"
+        "value": "nikos.kontos@example.com",
+        "href": "mailto:nikos.kontos@example.com"
       }
     ],
     "right": [
@@ -53,7 +53,7 @@
     {
       "icon": "torii",
       "title": "14 countries",
-      "text": "Europe and Asia, most planned herself"
+      "text": "Europe and Asia, most planned himself"
     },
     {
       "icon": "cap",
@@ -128,7 +128,7 @@
         "period": "September 2024",
         "days": 14,
         "role": "organised",
-        "kind": "Trip for six colleagues, which she planned",
+        "kind": "Trip for six colleagues, which he planned",
         "stops": [
           {
             "name": "Vienna",
@@ -166,7 +166,7 @@
         "period": "June 2022",
         "days": 9,
         "role": "organised",
-        "kind": "Trip for her family of five, which she planned",
+        "kind": "Trip for his family of five, which he planned",
         "stops": [
           {
             "name": "Lisbon",
@@ -193,7 +193,7 @@
     "lead": "Confident with",
     "items": [
       "Group travel: coaches, rooming lists, timed museum entries and meal plans for groups of up to 40, with a head count at every stop and a written plan B for each outdoor day",
-      "Travel experience: 14 countries in Europe and Asia, most of the trips planned and booked herself, including rail across Central Europe and two independent trips in Japan"
+      "Travel experience: 14 countries in Europe and Asia, most of the trips planned and booked himself, including rail across Central Europe and two independent trips in Japan"
     ]
   },
   "copy": {
