@@ -61,7 +61,7 @@
       // The kanji sit low in the inner disc, where its chord is about a third of the stamp wide: three
       // characters at most, or the compile fails.
       assert(measure(glyphs).width <= size * 0.33 * 1mm,
-        message: "stamp: the kanji " + repr(kanji) + " are wider than the stamp's inner disc; use one place name of up to three characters")
+        message: "stamp: the native script " + repr(kanji) + " is wider than the stamp's inner disc; use one place name of up to three characters")
       place(center + horizon, dy: size * 0.23 * 1mm, glyphs)
     }
   })
