@@ -16,14 +16,14 @@ calling the Codex CLI.
 | Agents | `AGENTS.md`, `CLAUDE.md`, `.claude/skills/` | | Entry map, invariants and repeatable checklists for coding agents |
 | Workflow model | TypeScript on [Bun](https://bun.sh), Zod types with an exported JSON Schema, YAML facts | Bun 1.4.2, pinned in `tools/workflow/.bun-version` for CI (locally any 1.4.x from 1.4.2); `zod` 4.6.5, `yaml` 2.9.1, pinned in `tools/workflow/package.json` with `bun.lock` (ADR 0015) | The workflow tool in `tools/workflow/` (its `README.md`): the types, the committed JSON Schema and a `check` command. The owner reads TypeScript, not Python; the workflow scripts it checks stay Python |
 | Visual review, generated images | [Codex CLI](https://github.com/openai/codex) on the owner's ChatGPT plan: GPT-6 Astra at high effort reviews, GPT-6 Sol at high effort draws | 0.161.0, not pinned; optional | A second, independent model judges each design round of a CV concept run or a client design beside the `design-reviewer`, and raster artwork goes beyond what an agent can draw in SVG ([P-0014](proposals/codex-visual-tools.md)). The commands are in "Codex CLI" below |
-| Task store | [Backlog.md](https://github.com/MrLesk/Backlog.md) (`backlog` CLI, on Node) | 1.52.0, pinned (1.53.0 has an open web-server memory leak, issue #1038) | Task files travel with Git, plain output for agents, local terminal and browser boards; no credentials or network (ADR 0014) |
+| Task store | [Backlog.md](https://github.com/MrLesk/Backlog.md) (`backlog` CLI, on Node) | 1.55.3, pinned (ADR 0017: the web-server leak that held the old pin is fixed from 1.54; known open issues in the `backlog` skill) | Task files travel with Git, plain output for agents, local terminal and browser boards; no credentials or network (ADR 0014) |
 
 ## Setup
 
 ```powershell
 winget install --id Typst.Typst --exact        # Windows
 pip install -r requirements.lock                # tests/run.py, scripts/cv.py render and ruff: exact versions, hash-checked (a venv keeps it separate)
-npm i -g backlog.md@1.52.0                       # the task store CLI (needs Node); expect `backlog --version` 1.52.0
+npm i -g backlog.md@1.55.3                       # the task store CLI (needs Node); expect `backlog --version` 1.55.3
 typst --version                                 # expect 0.15.1
 typst compile --root . --ignore-system-fonts --font-path packages/cv-framework/fonts examples/marine/flagship/engineer.typ builds/scratch.pdf   # compile one example; needs only Typst
 powershell -c "irm bun.sh/install.ps1 | iex"     # Bun for tools/workflow/; `bun upgrade` if older than 1.4.2

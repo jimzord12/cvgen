@@ -4,8 +4,9 @@ title: 'template-contract-3: coverage in the suite and checks before a render'
 status: Active
 assignee: []
 created_date: 2026-11-04 21:41
-updated_date: '2026-11-08T08:54:00Z'
+updated_date: '2026-11-08T10:07:00Z'
 labels: []
+milestone: m-2
 dependencies: []
 ordinal: 65000
 ---

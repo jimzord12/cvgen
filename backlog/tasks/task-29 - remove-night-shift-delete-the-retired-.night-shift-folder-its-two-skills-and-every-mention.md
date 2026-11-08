@@ -5,10 +5,11 @@ title: >-
   every mention
 status: Done
 assignee: []
-created_date: '2026-10-06 09:41'
-updated_date: '2026-10-14 05:35'
+created_date: 2026-10-06 09:41
+updated_date: '2026-11-08T09:09:00Z'
 labels:
   - docs cleanup
+milestone: m-8
 dependencies: []
 priority: low
 ordinal: 29000

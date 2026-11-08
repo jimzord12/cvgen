@@ -3,11 +3,13 @@ id: TASK-9
 title: 'test-evidence-folders: one evidence folder per test case (ADR 0013)'
 status: Done
 assignee: []
-created_date: '2026-10-06 07:25'
+created_date: 2026-10-06 07:25
+updated_date: '2026-11-08T09:09:00Z'
 labels: []
+milestone: m-7
 dependencies: []
 references:
-  - 'https://trello.com/c/ae8gPDr4'
+  - https://trello.com/c/ae8gPDr4
 ordinal: 9000
 ---
 

@@ -3,10 +3,11 @@ id: TASK-57
 title: 'github-metadata: the GitHub description matches the product'
 status: Done
 assignee: []
-created_date: '2026-10-14 04:48'
-updated_date: '2026-10-14 05:23'
+created_date: 2026-10-14 04:48
+updated_date: '2026-11-08T09:09:00Z'
 labels:
   - restructure
+milestone: m-8
 dependencies: []
 ordinal: 57000
 ---

@@ -72,10 +72,10 @@ should work" is not a state.
 
 ## 6. Totals come from data
 
-Totals are computed once from the full candidate by the domain's rules; for
-marine that is service months, vessel counts and company counts. Pages never
-recompute totals from what they display. Calendar periods are never
-converted into service time. (Generalised by ADR 0011; the rule is
+Totals are computed once from the full candidate by the domain's rules (for
+marine, `docs/engine/domains-and-roles.md` lists them; owner, 2026-11-08).
+Pages never recompute totals from what they display. Calendar periods are
+never converted into service time. (Generalised by ADR 0011; the rule is
 unchanged.)
 
 ## 7. Roles do not leak into components

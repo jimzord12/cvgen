@@ -75,7 +75,7 @@ def run_report(out):
             ('a passed round with blocking findings', {**data, 'reviews': [{**gate, 'rounds': [{'verdict': 'pass', 'hard': 3}]}]}, 'reviews: A has a passed round with blocking findings'),
             ('a cap past the limit', {**data, 'reviews': [{**gate, 'cap': 5000000000, 'rounds': []}]}, 'reviews: A needs a whole number cap up to 10 and a list of rounds'),
             ('done with cards open', {**data, 'verdict': 'done'}, 'a done report has nothing that needs the owner: use needs-you'),
-            ('not-a-number in the data', {**data, 'extra': float('nan')}, 'Out of range float values are not JSON compliant: nan'),
+            ('not-a-number in the data', {**data, 'extra': float('nan')}, 'the data holds a number that is not finite (NaN or infinity)'),
             ('a recommended that is not true', {**data, 'needs_you': [{**card, 'options': [{'label': 'B', 'recommended': 'false'}, choices[0]]}]}, "'A' has a recommended that is not true or false"),
             ('a findings round with no findings', {**data, 'reviews': [{**gate, 'rounds': [{'verdict': 'findings'}]}]}, 'reviews: A has a findings round with no findings'),
             ('lines that are not a number', {**data, 'changes': [{'area': 'A', 'lines': 'many'}]}, 'changes: A needs a whole number of lines'),

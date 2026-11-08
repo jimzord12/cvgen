@@ -3,10 +3,11 @@ id: TASK-48
 title: 'ci-hardening: CI pinned, checksummed, and covering Windows'
 status: Done
 assignee: []
-created_date: '2026-10-14 04:48'
-updated_date: '2026-10-14 06:32'
+created_date: 2026-10-14 04:48
+updated_date: '2026-11-08T09:09:00Z'
 labels:
   - restructure
+milestone: m-7
 dependencies: []
 ordinal: 48000
 ---

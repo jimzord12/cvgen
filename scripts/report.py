@@ -159,7 +159,10 @@ def build(data, fragment, root=ROOT):
             if key in item:
                 item[key] = picture(item[key], root)
     # Inside a <script> block a raw "<" could close it; the JSON escape reads back as the same text.
-    embedded = json.dumps(data, ensure_ascii=False, allow_nan=False).replace('<', '\\u003c')
+    try:
+        embedded = json.dumps(data, ensure_ascii=False, allow_nan=False).replace('<', '\\u003c')
+    except ValueError:  # Python words this differently from version to version
+        raise ValueError('the data holds a number that is not finite (NaN or infinity)') from None
     logo = lambda name: data_uri('image/svg+xml', (LOGOS / name).read_bytes())  # noqa: E731
     values = {'FONTS': font_faces(), 'TITLE': escape(data['title']), 'MARK_REVERSED': logo('cvgen-mark-c-eye-reversed.svg'),
               'MARK_INK': logo('cvgen-mark-c-eye.svg'), 'DATA': embedded}

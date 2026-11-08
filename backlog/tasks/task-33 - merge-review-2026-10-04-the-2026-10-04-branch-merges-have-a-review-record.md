@@ -3,10 +3,11 @@ id: TASK-33
 title: 'merge-review-2026-10-04: the 2026-10-04 branch merges have a review record'
 status: Done
 assignee: []
-created_date: '2026-10-14 04:47'
-updated_date: '2026-10-14 06:26'
+created_date: 2026-10-14 04:47
+updated_date: '2026-11-08T09:09:00Z'
 labels:
   - workflow-model
+milestone: m-8
 dependencies: []
 ordinal: 33000
 ---

@@ -3,11 +3,13 @@ id: TASK-6
 title: 'domains-adr: governance for domains, roles and templates (ADR 0011)'
 status: Done
 assignee: []
-created_date: '2026-10-06 07:25'
+created_date: 2026-10-06 07:25
+updated_date: '2026-11-08T09:09:00Z'
 labels: []
+milestone: m-0
 dependencies: []
 references:
-  - 'https://trello.com/c/kU9Ql6rm'
+  - https://trello.com/c/kU9Ql6rm
 ordinal: 6000
 ---
 

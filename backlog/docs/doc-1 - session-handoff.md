@@ -9,23 +9,24 @@ created_date: '2026-10-06 07:25'
 
 Rewritten in place at the end of every session; the first thing a fresh session reads after AGENTS.md. Holds only what no task owns: what is next, parked owner decisions, machine facts, pitfalls. Task state stays in the tasks in `backlog/tasks/`.
 
-**Written:** 2026-10-14, the unattended run of TASK-28 to TASK-59 (Claude Code). **Updated** 2026-10-22: owner decisions closed (Next, item 1).
-**Main at:** the merge of TASK-51 (`5501c38`); everything older is on `main`. Suite PASS at that head (`builds/tests-20261014-161315-649567`, 147 cases).
+**Written:** 2026-11-08, owner answers, Stage 1 review, milestones (Claude Code).
+**Main at:** `c088700`.
 
 ## Where things stand
-- Task store: Backlog.md in `backlog/` (ADR 0014). Read and write tasks only through `.claude/skills/backlog/SKILL.md`; read this doc with `git show origin/main:"backlog/docs/doc-1 - session-handoff.md"`.
-- Every task from TASK-28 to TASK-59 is Done. Queued: TASK-2 travel-domain, TASK-3 deck-data, TASK-4 codex-visual-tools (untouched), and three follow-ups filed on 2026-10-14: TASK-60 (PDF font-subset check), TASK-61 (integration fallback when the `Main Folder` is not on a clean `main`), TASK-62 (the Atlas check covers `site.json` citations).
-- The client workflow has one source: the `Workflow Model` in `docs/workflow/` (YAML facts, generated tables and diagrams, hand prose). `tools/workflow/` checks it (`bun run check`, levels 1 and 2), runs a fictional client through the real scripts (`bun run reality`, level 3), renders the READMEs (`bun run render`) and the Atlas client-journey page (`bun run atlas`). The guides and the `new-client`/`new-cv` skills point to step IDs.
-- Layout: `studio/` holds brand, design concepts and the frozen design records; `archive/work-records/` holds review reports; the Design Review app is `apps/design-review/`. `AGENTS.md` is a map of about 780 words; rules live in the files that own them.
-- Hanami Line 2 is the owner's chosen Travel & Tourism design (`studio/design-concepts/2026-10-02-hanami-line-2/`), built as a one-off `Template` for `client-2026-09-01`; TASK-2 should start from it and from the Framework Gap entries of 2026-09-29 and 2026-10-02.
+- Task store: Backlog.md 1.55.3 (ADR 0017). Every task belongs to one of nine milestones; progress: `backlog milestone list --plain --show-completed`. Plan, then milestones, then tasks (`docs/development.md`, "The flow").
+- TASK-69 (backlog-milestones) is merged and Done. The plan-reviewer agent and its gate in `docs/review.md` were left to another agent at the owner's word.
+- `main`'s CI was red from the Report Template merge (2026-11-04) until `2d23778`: Linux Python worded a NaN error differently. Fixed; GitHub also gave 504s on the Typst download on 2026-11-08 (rerun clears them).
+- `docs/owner-answers-1108` (pushed, not merged): the owner's 2026-11-08 answers in preferences (deletion grades), vision (Essential by need, not `Rank`), git-workflow, P-0019 Decisions and TASK-67. Context rounds 1 and 2 FINDINGS, fixes applied in `e5d0f28`; a round 3 is owed. It also holds a stale copy of this handoff: drop that file's change when merging.
+- `feat/template-contract` (worktree `.worktrees/template-contract`, head `235ddfa`): Stage 1 code round 2 PASS, fixes in, suite PASS. Owed before merge: a context review of its doc changes, the EDITED anchors `bun run anchors main` lists, and `backlog task edit N -m m-2` for TASK-63 to 66 (its TASK-63 Handoff note says so).
+- Merged branches and worktrees from 2026-11-04 are deleted; their evidence is in `builds/from-worktree-*`.
+- `scripts/board.py` is untracked in the `Main Folder` and not from this session.
 
 ## Next
-1. Owner decisions waiting: TASK-2 (the travel-domain proposal is deferred; go or wait).
-   - Closed 2026-10-22: P-0018 answered and applied (`docs/proposals/workflow-gaps.md`, Decisions; item 3 uncapped). TASK-4 merged. The `Three-Second Test` is page 1's job only (`docs/vision.md`). P-0011 and P-0017 marked applied.
-   - Closed 2026-10-22: the two scratch copies of client files and their worktrees and branches are gone, and the `client-2026-09-01` delivery is committed in `private/` (`129214c`). The owner's `/atlas refresh` now regenerates a page whose JSON carries `"generated"` with the command it names, never hand-edits it (owner: "regenerate"); `atlas.py check` repeats that note under a stale or unverified generated page.
-2. Ready for agents, no owner input needed: TASK-3 (deck data), TASK-60, TASK-61, TASK-62.
-3. Owner's own checks, closed 2026-10-22: the VS Code YAML hints (TASK-36) show on hover; the Atlas client-journey page opens in the walk-through view by default (owner's choice; `defaultView` in `tools/workflow/src/atlas.ts`).
-4. Client `client-2026-09-01`: if the client holds an early Stamp Rally edition (white strip under the boarding-pass portrait, fixed 2026-10-02), the owner may send the fixed one. Owner-only clean-up at the delete-by date (2027-10-02): delete the Intake Form, answers Sheet and script project, empty the Drive Trash, delete `private/<envelope>/`.
+1. Context round 3 on `docs/owner-answers-1108`, merge it (without its handoff change).
+2. Context review on `feat/template-contract`, read its EDITED anchors, assign m-2, merge, close TASK-63, 64, 65.
+3. `builds/deep-research/reports/marine-crewing-cv-expectations.md` needs a `research-reviewer` PASS before it enters `docs/research/`.
+4. TASK-67, Essential's design, with TASK-66's choice step.
+5. TASK-60, 61, 62 ready; TASK-2 waits on P-0013. Constitution section 6's totals wording is the owner's.
 
 ## Owner decisions parked
 - Parked reference concepts (`keep` / `maybe` in the gallery): Woodblock Road (condensed safe and stylish, spacious stylish), Stamp Rally (condensed safe, creative, stylish, spacious safe), Concourse (spacious stylish), Hanami Line v1. Stamp Rally spacious/stylish is `chosen` (built for the client).
@@ -38,11 +39,11 @@ Rewritten in place at the end of every session; the first thing a fresh session 
 - `bun run atlas` stamps the generated page itself, but refuses (exit 1) when a cited source is already stale: re-check those sources, then `python .atlas/_kit/atlas.py stamp client-journey`.
 - A hung background `git status` (not this session's; likely a status-line poll) once held `.git/index.lock` and blocked a merge: check `Get-CimInstance Win32_Process -Filter "Name='git.exe'"` before removing a lock.
 - The machine runs out of memory ("paging file too small", "memory allocation failed") with more than three agents or two suite runs at once; one such suite failure passed on re-run.
-- `scripts/cv.py render` and Typst refuse an `Envelope` reached through a junction: render from a checkout where `private/` is a real folder. `approve` and `export` only verify files and hashes.
+- `private/` is the real repository moved inside this checkout (2026-11-03), not a sibling. `scripts/cv.py render` and Typst refuse an `Envelope` reached through a junction. `approve` and `export` only verify files and hashes.
 - In PowerShell, `-s Active,Review` is split into separate arguments; repeat `-s` instead. `[IO.File]` paths resolve against the process directory, not `Push-Location`: pass absolute paths. The Bash tool can swallow `python` output; `bun run` checks exit 1 silently under Git Bash: use PowerShell.
-- Backlog.md 1.52.0 is pinned (1.53.0 has an open web-server memory leak, #1038). `backlog browser --no-open` serves the board on http://127.0.0.1:6420.
+- Backlog.md 1.55.3 is pinned (ADR 0017). `backlog browser --no-open` serves the board on http://127.0.0.1:6420. Known CLI issues are in the backlog skill; close `backlog board` before a rebase or checkout (PR #1173).
 - Codex `exec` with `--ignore-user-config` refuses any shell command; Codex reads tasks as files.
 - Windows cp1252 printing can fail after a successful write with Greek text; run checks with PYTHONIOENCODING=utf-8 and read the file before any retry.
 
 ## Constraints in force
-- Live owner checkpoints override older broad cleanup permissions: explicit confirmation before deletions, overwrites, directory removals, generated/cache cleanup or discarding work; destructive Git also requires it. Routine reads, targeted edits, new outputs, verification and non-destructive Git remain authorized.
+- Deletions follow the Decision Grades in `docs/preferences.md` (owner, 2026-11-08, on `docs/owner-answers-1108` until it merges). The auto-mode safety check may still block a deletion the rules allow: report it, never work around it.

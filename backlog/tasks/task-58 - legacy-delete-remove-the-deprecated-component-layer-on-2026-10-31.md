@@ -3,11 +3,12 @@ id: TASK-58
 title: 'legacy-delete: remove the deprecated component layer'
 status: Done
 assignee: []
-created_date: '2026-10-14 05:31'
-updated_date: '2026-10-14 08:38'
+created_date: 2026-10-14 05:31
+updated_date: '2026-11-08T09:09:00Z'
 due_date: '2026-10-31'
 labels:
   - restructure
+milestone: m-0
 dependencies:
   - TASK-56
   - TASK-32
