@@ -14,7 +14,7 @@ sys.path.insert(0, str(ROOT / 'packages/cv-workflow'))
 
 from cv_workflow import WorkflowError  # noqa: E402
 from cv_workflow.contracts import (FIX, check_domain, check_groups, choose, claims, compatibility, contract, coverage, describe,  # noqa: E402
-                                  holds, manifests, oldest_supported, read, supported, template_in, unproved, versions)
+                                  holds, manifests, oldest_supported, read, squeeze, supported, template_in, unproved, versions)
 from cv_workflow.checks import check_certificates  # noqa: E402
 from cv_workflow.render import without_comments  # noqa: E402
 
@@ -69,6 +69,11 @@ def prove(out, typst, flags, domain, template, design, name, version, fixture, e
     groups = contract(domain, version)['groups']
     claimed, _ = claims(design['variations'][name], domain)
     markers = read(fixture.with_suffix('.markers.json'))
+    # Markers are matched as substrings of the squeezed text (letter-spaced labels come out with spaces
+    # between the letters), so no marker may sit inside another: each field is proved by its own text.
+    tokens = [squeeze(token) for tokens in markers.values() for token in tokens if token != 'image']
+    nested = sorted({(a, b) for a in tokens for b in tokens if a != b and a in b})
+    assert not nested, f'{fixture.name}: a marker sits inside another, so it proves nothing: {nested}'
     failures, warnings = coverage(text, images, groups, claimed, markers, elsewhere)
     assert not failures, (template, name, failures)
     covered = sum(1 for key, group in groups.items() if not group['required'] and group['schemaVersion'] in claimed.get(key, ()))

@@ -59,8 +59,17 @@ def petal_collisions(pdf, art=PETALS):
 
 
 def decoration_errors(pdf, template):
-    """The check errors for a rendered PDF of `template`: one per word a petal lies on."""
+    """The check errors for a rendered PDF of `template`: one per word a petal lies on.
+
+    Only a named Template is checked. A custom composition (no template in the choice) may draw no petals,
+    so checking it against Hanami's layer would report words that nothing covers.
+    """
     if template not in PETAL_TEMPLATES:
         return []
+    try:
+        found = petal_collisions(pdf)
+    except (OSError, AssertionError) as error:
+        return [f'The petal check could not run ({error}); the petal layer has one SVG pair per page, '
+                'petals-p<page>-hero.svg and -field.svg, in ' + PETALS.as_posix()]
     return [f'A sakura petal lies on the words "{text}" on page {page}: shorten or reword that line, '
-            'or move the petal in the template\'s petal layer' for page, text in petal_collisions(pdf)]
+            'or move the petal in the template\'s petal layer' for page, text in found]

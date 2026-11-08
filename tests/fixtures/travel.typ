@@ -36,6 +36,12 @@
     let (first, second) = places.trips
     (..raw, destinations: (..places, trips: ((..first, story: second.story), second)))
   }
+  else if case == "long-native" { (..raw, destinations: (..places, native: "日本・韓国・台湾")) }
+  else if case == "long-stamp-kanji" {
+    let (first, second) = places.trips
+    (..raw, destinations: (..places, trips: ((..first, stamp: (..first.stamp, kanji: "福岡・長崎・熊本")), second)))
+  }
+  else if case == "long-region" { (..raw, destinations: (..places, region: "Japan and the Korean Peninsula")) }
   else if case == "bad-variation" { raw }
   else if case == "v1" { v1 }
   else if case == "v1-role" { with-trip(v1, first-trip) }

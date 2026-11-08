@@ -194,11 +194,11 @@
   }
 }
 
-// A licence (travel contract version 2) on one line above the studies, on the accent rule: its
-// title, the issuer and region, and the day it is valid until.
+// A licence (travel contract version 2) on one line under the studies heading, on the accent rule:
+// its title, the issuer and region, and the day it is valid until.
 #let licence-line(ctx, l) = {
   let P = tokens(ctx)
-  block(width: 100%, above: 0mm, below: 2.8mm, stroke: (left: 1.6pt + P.accent), inset: (left: 3.4mm, y: 0.4mm), {
+  block(width: 100%, above: 0mm, below: 1.6mm, stroke: (left: 1.6pt + P.accent), inset: (left: 3.4mm, y: 0.4mm), {
     label(ctx, ctx.copy.licence, fill: P.accent, size: 6.8pt, track: 1.1pt)
     h(2.4mm)
     text(size: 10pt, weight: 700, l.title)

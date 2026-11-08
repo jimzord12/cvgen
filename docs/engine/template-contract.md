@@ -108,9 +108,9 @@ and its `designBar` is set when the owner approves the design.
 
 - **In the suite** (`tests/coverage.py`): each claim is rendered on the
   `Domain`'s `Coverage Fixture` of each version it names that the engine still
-  reads, a marker in every printed field, with one fixture for each way a
-  `Domain` records its experience. A missing marker fails; a group rendered but
-  not claimed warns.
+  reads, a marker in every printed field, none inside another, with one fixture
+  for each way a `Domain` records its experience. A missing marker fails; a
+  group rendered but not claimed warns.
 - **Before a client's render** (`cv_workflow/contracts.py`): a missing required
   group stops the render, as does an `envelope.json` that disagrees with
   `typst/cv.typ`, an unknown `Template Variation`, a version below

@@ -31,7 +31,7 @@
     {
       "icon": "torii",
       "title": "Qxcell",
-      "text": "Qxcelltext"
+      "text": "Qxhighlightnote"
     }
   ],
   "experience": [
@@ -78,7 +78,7 @@
     {
       "title": "Qxlicence",
       "issuer": "Qxissuer",
-      "region": "Qxlregion",
+      "region": "Qxvalidzone",
       "until": "30 Jun 2029"
     }
   ],
@@ -101,11 +101,11 @@
     "native": "日本",
     "route": {
       "from": {
-        "code": "QXA",
+        "code": "ZQA",
         "city": "Qxorigin"
       },
       "to": {
-        "code": "QXB",
+        "code": "ZQB",
         "city": "Qxarrival"
       }
     },
@@ -140,39 +140,39 @@
         },
         "story": {
           "title": "Qxstory",
-          "subtitle": "Qxstorysub",
+          "subtitle": "Qxtripsubtitle",
           "items": [
             "Qxstep"
           ]
         }
       },
       {
-        "period": "Qxorganisedtrip",
+        "period": "Qxspringtrip",
         "days": 5,
         "role": "organised",
-        "kind": "Qxkindtwo",
+        "kind": "Qxsolojourney",
         "stops": [
           {
-            "name": "Qxstoptwo"
+            "name": "Qxhillstop"
           }
         ]
       },
       {
-        "period": "Qxtravelledtrip",
+        "period": "Qxwintertrip",
         "days": 4,
         "role": "travelled",
-        "kind": "Qxkindthree",
+        "kind": "Qxfamilyjourney",
         "stops": [
           {
-            "name": "Qxstopthree"
+            "name": "Qxlakestop"
           }
         ]
       }
     ],
     "areas": [
       {
-        "label": "Qxarealabel",
-        "places": "Qxarea"
+        "label": "Qxzonelabel",
+        "places": "Qxareanames"
       }
     ]
   },

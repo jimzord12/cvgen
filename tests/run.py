@@ -15,7 +15,7 @@ from design_review import run_design_review
 from repo_maintenance import run_repo_maintenance
 from release import examples, run_build_script, shells
 from coverage import run_coverage
-from cv_workflow.decoration import decoration_errors, petal_collisions  # on the path through workflow.py
+from cv_workflow.decoration import PETALS, decoration_errors, petal_collisions, petals  # on the path through workflow.py
 from compatibility import run_compatibility
 from proposals import run_proposals
 from report import run_report
@@ -353,6 +353,12 @@ def main():
         assert squeezed.count('ORGANISED') == 2 and 'LEDTHEGROUP' not in squeezed, text
     collisions = petal_collisions(twin)
     assert not collisions and not decoration_errors(twin, 'hanami') and decoration_errors(twin, 'flagship') == [], collisions
+    # And it fires: a word set on a known petal of each page is reported.
+    first = {n: petals((PETALS / f'petals-p{n}-field.svg').read_text(encoding='utf-8'))[0] for n in (1, 2)}
+    probe = compile_case('travel-petal-probe', 'tests/fixtures/petal-probe.typ',
+                         {f'{k}{n}': str(round(v, 2)) for n, box in first.items() for k, v in (('x', box[0]), ('y', box[1]))})
+    assert [page for page, _ in petal_collisions(probe)] == [1, 2], petal_collisions(probe)
+    assert len(decoration_errors(probe, 'hanami')) == 2
     for theme in ['indigo', 'sky', 'no-portrait']:
         pdf = compile_case('travel-' + theme, 'tests/fixtures/travel.typ', {'case': theme})
         assert check_case(pdf)['passed']
@@ -380,8 +386,10 @@ def main():
                           ('no-destinations', 'Candidate requires destinations'), ('bad-month', 'experience.from must be MM/YYYY'),
                           ('overflow', 'Hanami: page 1 overflows'), ('long-name', 'the name is wider than the name plate'),
                           ('long-rank', "is wider than the name plate's 38 mm tab"), ('long-contact', 'is wider than its 50 mm column'),
-                          ('long-city', 'runs under the name plate'), ('many-links', 'the contact line runs into the travellers'),
+                          ('long-city', 'runs under the name plate'), ('many-links', 'the linked contacts run into the travellers'),
                           ('five-cells', 'the profile row holds four highlight cells'), ('two-stories', 'At most one trip may have a story'),
+                          ('long-native', "wider than the stamp's inner disc"), ('long-stamp-kanji', "wider than the stamp's inner disc"),
+                          ('long-region', 'the rank, region and its native name run into the travellers'),
                           ('bad-variation', 'Hanami has no Template Variation "essential"')]:
         compile_case('travel-' + mode, 'tests/fixtures/travel.typ', {'case': mode}, error=message)
     # Third dataset: deck officer without a portrait, on the same page plan.

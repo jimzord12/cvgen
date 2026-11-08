@@ -30,7 +30,7 @@
     {
       "icon": "torii",
       "title": "Qxcell",
-      "text": "Qxcelltext"
+      "text": "Qxhighlightnote"
     }
   ],
   "experience": [
@@ -92,11 +92,11 @@
     "native": "日本",
     "route": {
       "from": {
-        "code": "QXA",
+        "code": "ZQA",
         "city": "Qxorigin"
       },
       "to": {
-        "code": "QXB",
+        "code": "ZQB",
         "city": "Qxarrival"
       }
     },
@@ -130,7 +130,7 @@
         },
         "story": {
           "title": "Qxstory",
-          "subtitle": "Qxstorysub",
+          "subtitle": "Qxtripsubtitle",
           "items": [
             "Qxstep"
           ]
@@ -139,8 +139,8 @@
     ],
     "areas": [
       {
-        "label": "Qxarealabel",
-        "places": "Qxarea"
+        "label": "Qxzonelabel",
+        "places": "Qxareanames"
       }
     ]
   },

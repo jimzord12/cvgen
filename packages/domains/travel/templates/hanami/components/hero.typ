@@ -146,34 +146,37 @@
   // The travellers start here, 3 mm left of the concept, so the leader's flag clears the torii.
   let GX = 100mm
   let links-line = text(size: 9pt, linked.join([#h(1.6mm) · #h(1.6mm)]))
-  // The block left of the travellers: each line ends 3 mm before them.
-  context assert(measure(links-line).width <= GX - 16mm - 3mm and measure(text(size: 9pt, plain.join(" · "))).width <= GX - 16mm - 3mm,
-    message: "Hanami page 2: the contact line runs into the travellers; give fewer contacts a link (href) or shorten them")
-  at(16mm, 8.4mm, block(width: 100mm, {
-    set par(leading: 0.5em)
-    name
-    v(1.4mm)
+  let plain-line = text(size: 9pt, plain.join(" · "))
+  let rank-line = box({
     label(ctx, d.identity.rank, fill: P.hero-label, size: 7.8pt, track: 1.5pt)
     h(1.2mm)
     text(size: 7.8pt, weight: 700, fill: P.accent)[·]
     h(1.2mm)
     label(ctx, places.region, fill: P.accent-soft, size: 7.8pt, track: 1.5pt)
     if "native" in places { h(1.8mm); text(font: fonts.japanese, size: 7.8pt, weight: 400, fill: P.accent-soft, places.native) }
+  })
+  let block-body = {
+    set par(leading: 0.5em)
+    name
+    v(1.4mm)
+    rank-line
     v(1.2mm)
-    text(size: 9pt, fill: P.hero-text)[#links-line #if plain.len() > 0 [\ #plain.join(" · ")]]
-  }))
-  // The block ends 1 mm above the band's edge.
-  context {
-    let height = measure(block(width: 100mm, {
-      set par(leading: 0.5em)
-      name
-      v(1.4mm)
-      label(ctx, d.identity.rank, size: 7.8pt, track: 1.5pt)
-      v(1.2mm)
-      text(size: 9pt)[#links-line #if plain.len() > 0 [\ #plain.join(" · ")]]
-    })).height
-    assert(8.4mm + height <= B - 1mm, message: "Hanami page 2: the name, rank and contacts run past the band; drop a contact without a link")
+    text(size: 9pt, fill: P.hero-text)[#links-line #if plain.len() > 0 [\ #plain-line]]
   }
+  // The block left of the travellers: each line ends 3 mm before them, and the block ends 1 mm above
+  // the band's edge.
+  context {
+    let room = GX - 16mm - 3mm
+    assert(measure(rank-line).width <= room,
+      message: "Hanami page 2: the rank, region and its native name run into the travellers; shorten identity.rank, destinations.region or destinations.native")
+    assert(measure(links-line).width <= room,
+      message: "Hanami page 2: the linked contacts run into the travellers; give fewer contacts a link (href) or shorten them")
+    assert(measure(plain-line).width <= room,
+      message: "Hanami page 2: the contacts without a link run into the travellers; shorten them or move one to the right-hand side")
+    assert(8.4mm + measure(block(width: 100mm, block-body)).height <= B - 1mm,
+      message: "Hanami page 2: the name, rank and contacts run past the band; drop a left-hand contact without a link")
+  }
+  at(16mm, 8.4mm, block(width: 100mm, block-body))
   if "seal" in d.identity {
     context {
       // The seal follows the name. Over the travellers it must stay above their heads (8 mm under the

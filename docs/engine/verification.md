@@ -65,20 +65,22 @@ Windows one also holds the PDFs that build wrote, one per example in
    pixel for pixel with identical text on both pages (a `Frozen Reference`
    candidate until the owner approves it), carry its name, rank and the domain's
    title as PDF metadata, and have no sakura petal on a word
-   (`cv_workflow/decoration.py`, which a client's render also runs for Hanami).
-   The twin follows travel contract version 2: both trips read "Organised", none
-   "Led the group", and its licence is on page 2.
+   (`cv_workflow/decoration.py`, which a client's render also runs for Hanami);
+   a probe page with a word set on a known petal of each page proves the check
+   fires (`petal-probe.typ`). The twin follows travel contract version 2: both
+   trips read "Organised", none "Led the group", and its licence is on page 2.
    The `travel.typ` fixture renders the Indigo and Sky themes and a record without
    a portrait (initials in the ring) with the same words, the twin as a version 1
    record (no role, no licence: page 1 the same words, page 2 without them), asserts the totals
    (2 trips, 30 days, 14 distinct stops), and fails on a record without
    destinations, a date that is not MM/YYYY, an overflowing page 1, a name wider
    than the plate, a rank wider than its tab, a contact wider than its column, a
-   route label under the plate, a page-2 contact line into the travellers, a fifth
-   highlight, a second trip story, an unknown `Template Variation`, a trip role or
-   a licence on a version 1 record, a version 2 trip without a role or with an
-   unknown one, a licence date that is not "14 Jul 2029" and an unknown
-   `domainContract`.
+   route label under the plate, a page-2 contact line into the travellers, a
+   page-2 rank, region and native line into the travellers, kanji wider than a
+   seal's or a stamp's inner disc, a fifth highlight, a second trip story, an
+   unknown `Template Variation`, a trip role or a licence on a version 1 record,
+   a version 2 trip without a role or with an unknown one, a licence date that
+   is not "14 Jul 2029" and an unknown `domainContract`.
 7. **Every PDF.** Expected page count, no empty page, all fonts embedded, no
    text outside the page. Every compile reads only the bundled fonts
    (`--ignore-system-fonts --font-path packages/cv-framework/fonts`, plus
@@ -236,8 +238,11 @@ Windows one also holds the PDFs that build wrote, one per example in
    groups covered is in the case name, warnings in `coverage/`. A claim at a
    `schemaVersion` no rendered version has fails (`unproved`), so every claim
    is proved. Then the judging itself and the checks before a render, each
-   refusal on its message, on the marine contract and on the travel one (Hanami chosen, certificates dropped,
-   a missing rank or destinations refused). A fixture with a portrait proves it
+   refusal on its message, on the marine contract and on the travel one (Hanami
+   chosen, certificates dropped, a missing rank or destinations refused). No
+   marker may sit inside another (markers match as substrings of the squeezed
+   text, because letter-spaced labels come out with spaces between their
+   letters). A fixture with a portrait proves it
    by the images it has beyond the same fixture rendered without one, since a
    template may draw small rasters of its own. Travel at version 2: a version 1
    record renders on showcase; a version 2 record is refused on a `Template
