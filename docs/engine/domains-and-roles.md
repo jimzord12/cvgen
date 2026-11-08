@@ -72,6 +72,10 @@ The domain owns everything that knows its career area: for marine,
 `experience-totals`, the `experience-model` the core paginates with (its
 `row` is "vessel"), and `art-palette`, the colours baked into its SVGs and
 the theme colours that replace them, which Flagship's themes carry.
+Marine's totals (constitution section 6) come from `experience-totals` over
+the full record: service months for a record kept in months, or the contract
+count for one kept in `Contract Period`s (never both), then the vessel count
+and the company count.
 
 ## Adding a domain without touching marine
 
