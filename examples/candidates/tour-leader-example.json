@@ -49,8 +49,8 @@
         "text": "On call during every trip as the clients’ single contact with local suppliers.",
         "lead": "For example",
         "cases": [
-          { "place": "Milos", "text": "a gale kept the clients’ catamaran in port. He moved them to the next morning’s ferry, extended their room by one night and shifted their Athens dinner booking." },
-          { "place": "Kefalonia", "text": "a client lost her passport two days before departure. He booked a consulate appointment in Athens, changed her flight and kept the rest of the party on their original plan." }
+          { "place": "Milos", "text": "a gale kept the clients’ catamaran in port. He moved them to the next morning’s ferry, extended their room by one night and moved their farewell dinner booking." },
+          { "place": "Kefalonia", "text": "a client lost her passport two days before departure. He booked an emergency passport appointment, changed her flight and kept the rest of the party on their original plan." }
         ]
       }
     },
