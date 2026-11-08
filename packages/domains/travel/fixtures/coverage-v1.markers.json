@@ -1,0 +1,15 @@
+{
+  "identity": ["Qxname"],
+  "rank": ["Qxrank", "Qxspecialty"],
+  "contacts": ["Qxlabel", "Qxcity", "Qxmailing", "qxmail@example.com"],
+  "experience": ["Qxrole", "Qxsecond", "Qxemployer", "Qxplace", "03/2020", "09/2021", "01/2022", "Qxintro", "Qxbullet", "Qxsupport", "Qxlead", "Qxwhere", "Qxcase"],
+  "profile": ["Qxprofile", "Qxcell", "Qxcelltext"],
+  "education": ["Qxdiploma", "Qxschool", "Qxnote"],
+  "languages": ["Qxlanguage", "Qxlevel", "Qxlangnote"],
+  "certificates": ["Qxcert", "Qxscope", "Qxissued"],
+  "portrait": ["image"],
+  "destinations": ["Qxregion", "Qxperiod", "9 days", "Qxkind", "Qxstop", "Qxpassed", "札幌", "Qxstory", "Qxstorysub", "Qxstep", "Qxarealabel", "Qxarea", "QXA", "QXB", "Qxfrom", "Qxto"],
+  "availability": ["Qxavailable", "Qxfrom when"],
+  "practical": ["Qxconfident", "Qxknowhow", "Qxbasic", "Qxseason"],
+  "references": ["Qxreferences"]
+}

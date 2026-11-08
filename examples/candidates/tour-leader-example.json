@@ -1,0 +1,141 @@
+{
+  "identity": {
+    "name": "Andreas Kalamaris",
+    "rank": "Tour Leader",
+    "specialty": "Japan Specialist",
+    "seal": ["Tour Leader course", "TTI", "2024"],
+    "portrait": "/examples/candidates/fictional-engineer.png",
+    "portrait-alt": "Fictional portrait"
+  },
+  "contacts": {
+    "left": [
+      { "label": "Based in", "value": "Thessaloniki, Greece" },
+      { "label": "Phone", "value": "+30 699 000 0471", "href": "tel:+306990000471" },
+      { "label": "Email", "value": "andreas.kalamaris@example.com", "href": "mailto:andreas.kalamaris@example.com" }
+    ],
+    "right": [
+      { "label": "Date of birth", "value": "18 August 1999" },
+      { "label": "Nationality", "value": "Greek" },
+      { "label": "Japanese", "value": "JLPT N3" }
+    ]
+  },
+  "profile": "Has studied Japanese for eight years and holds the JLPT N3.",
+  "availability": {
+    "headline": "Available all year round",
+    "text": "From March 2027. Travels in every season at two weeks’ notice. Prefers seasonal contracts. Passport valid until 2 May 2033."
+  },
+  "highlights": [
+    { "icon": "torii", "title": "Two trips", "text": "To Japan, both planned by himself" },
+    { "icon": "check", "title": "Travel consultant", "text": "Plans and books private trips" },
+    { "icon": "support", "title": "24/7 support", "text": "On call through every trip" },
+    { "icon": "cap", "title": "Studies", "text": "Tourism degree (NASH), Tour Leader course (TTI)" }
+  ],
+  "experience": [
+    {
+      "role": "Travel Consultant",
+      "employer": "Meltemi Bespoke Journeys",
+      "place": "Thessaloniki",
+      "from": "03/2022",
+      "intro": "Boutique travel agency designing private trips for clients from Canada and Australia.",
+      "bullets": [
+        "Private itineraries across Greece, Cyprus and Malta: 25 to 40 a year, usually 7 to 12 days long.",
+        "Takes each client from the first call to the flight home: needs interview, written proposal, day-by-day itinerary, bookings.",
+        "Books hotels, licensed guides, private drivers, yacht days, ferries and domestic flights for programmes with several stops.",
+        "Writes the final trip book (contacts, transfer times, confirmations) and reconfirms every service a week before arrival.",
+        "Records dietary needs and mobility limits, checks visa rules, and adds a café and taverna list for each stop."
+      ],
+      "support": {
+        "figure": "24/7",
+        "text": "On call during every trip as the clients’ single contact with local suppliers.",
+        "lead": "For example",
+        "cases": [
+          { "place": "Milos", "text": "a gale kept the clients’ catamaran in port. He moved them to the next morning’s ferry, extended their room by one night and shifted their Athens dinner booking." },
+          { "place": "Kefalonia", "text": "a client lost her passport two days before departure. He booked a consulate appointment in Athens, changed her flight and kept the rest of the party on their original plan." }
+        ]
+      }
+    },
+    {
+      "role": "Intern, Airline Reservations Desk",
+      "employer": "Axios Air Services",
+      "place": "Kavala",
+      "from": "06/2021",
+      "to": "11/2021",
+      "bullets": [
+        "Call centre for a regional airline: answering passengers, bookings, seat and baggage changes on the Amadeus and Sabre systems."
+      ]
+    }
+  ],
+  "education_entries": [
+    { "qualification": "Tour Leader Certificate", "institution": "Thermaic Tourism Institute, Continuing Education", "note": "October 2023 – March 2024" },
+    { "qualification": "Bachelor’s degree in Tourism Management", "institution": "Northern Aegean School of Hospitality", "note": "2017 – 2021" },
+    { "qualification": "Certificate of Proficiency in English (C2)", "institution": "Example Language Board", "note": "2016" },
+    { "qualification": "Erasmus+ “Slow Tourism Lab”", "institution": "Ljubljana", "note": "2022" }
+  ],
+  "language_entries": [
+    { "name": "Greek", "level": "Native" },
+    { "name": "English", "level": "C2" },
+    { "name": "Japanese", "level": "JLPT N3, July 2023", "note": "Self-assessment: understanding B2, speaking B1; working towards N2" }
+  ],
+  "destinations": {
+    "region": "Japan",
+    "native": "日本",
+    "route": { "from": { "code": "SKG", "city": "Thessaloniki" }, "to": { "code": "OSA", "city": "Osaka" } },
+    "seal": ["JLPT N3"],
+    "trips": [
+      {
+        "period": "April 2023",
+        "days": 12,
+        "kind": "Private trip for three (himself and two cousins), which he planned himself",
+        "stops": [
+          { "name": "Fukuoka", "known": true }, { "name": "Nagasaki", "known": true },
+          { "name": "Kumamoto", "known": true }, { "name": "Osaka", "known": true }
+        ],
+        "stamp": { "art": "torii-blossom", "kanji": "長崎", "rim": ["Fukuoka", "Nagasaki", "Kumamoto", "Osaka", "2023"], "script": ["福岡", "長崎", "熊本", "大阪"] }
+      },
+      {
+        "period": "October 2024",
+        "days": 18,
+        "kind": "Private trip for five (himself and four colleagues), which he planned himself",
+        "stops": [
+          { "name": "Osaka", "known": true }, { "name": "Himeji" }, { "name": "Okayama" },
+          { "name": "Naoshima", "known": true }, { "name": "Kanazawa", "known": true }, { "name": "Shirakawa-go", "known": true },
+          { "name": "Nagoya" }, { "name": "Nikko", "known": true }, { "name": "Sendai" }, { "name": "Hakodate" },
+          { "name": "Sapporo", "known": true }
+        ],
+        "stamp": { "art": "alps-maple", "kanji": "金沢", "rim": ["Naoshima", "Kanazawa", "Nikko", "Sapporo", "2024"],
+          "script": ["大阪", "姫路", "岡山", "直島", "金沢", "白川郷", "名古屋", "日光", "仙台", "函館", "札幌"] },
+        "story": {
+          "title": "Planning the 18-day trip",
+          "subtitle": "October 2024 · himself and four colleagues",
+          "items": [
+            "The whole route from scratch: rail passes, hotels, a day plan for each city.",
+            "Travel insurance and passport checks for the group; mobile data for every phone.",
+            "Luggage sent ahead from Kanazawa to Nikko (takkyubin), booked in Japanese.",
+            "Every hotel booked with free cancellation until three days before arrival.",
+            "When a typhoon cancelled the trains north of Sendai, he moved the group to the next morning’s service and one hotel night with it, and no stop was dropped.",
+            "In Shirakawa-go the last bus back was full. He booked a farmhouse stay in the village by phone, in Japanese, and moved the Nagoya visit to the next afternoon."
+          ]
+        }
+      }
+    ],
+    "areas": [
+      { "label": "Knows well", "places": "Osaka, Fukuoka, Nagasaki, Kumamoto, Naoshima, Kanazawa and Shirakawa-go, Nikko, Sapporo" },
+      { "label": "Has passed through", "places": "the Seto Inland Sea coast" }
+    ]
+  },
+  "practical": {
+    "lead": "Confident with",
+    "items": [
+      "regional rail passes and shinkansen seat reservations",
+      "PASMO and Kitaca IC cards",
+      "luggage forwarding (takkyubin)",
+      "temple stays (shukubo) and onsen etiquette",
+      "restaurant reservations by phone, in Japanese",
+      "early starts to beat the crowds at major sights",
+      "emergencies: clinics, pharmacies, lost and found"
+    ],
+    "basics": { "label": "Basic knowledge", "text": "typhoon and snow seasons" }
+  },
+  "references": "Available on request.",
+  "copy": { "experience-kind": "Travel services", "education-subtitle": "Tourism, Tour Leader course, English and Japanese" }
+}
