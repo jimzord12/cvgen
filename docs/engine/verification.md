@@ -211,7 +211,8 @@ Windows one also holds the PDFs that build wrote, one per example in
    `Coverage Fixture` for each version it supports, and every required and
    claimed `Fact Group` must have its markers in the PDF; the count of optional
    groups covered is in the case name, warnings in `coverage/`. A claim at a
-   `schemaVersion` no rendered version has fails (`unproved`), so every claim is proved. Then the judging
+   `schemaVersion` no rendered version has fails (`unproved`), so every claim
+   is proved. Then the judging
    itself and the checks before a render, each refusal on its message. Each
    Variation's place against its `Domain`'s newest contract (behind, never a
    failure) is in `coverage/compatibility.txt`; every `Domain`'s kept contracts
@@ -229,7 +230,7 @@ Windows one also holds the PDFs that build wrote, one per example in
 20. **Compatibility** (`compatibility: <check>`, `tests/compatibility.py`). Stage 2
    on synthetic contracts in a temporary folder (a `Domain` at versions 1 and 2,
    Variations up to 1, exactly 1 and 2, up to 2, exactly 2): every row of the
-   P-0019 section 6 table, a record ahead of, behind or below what a Variation
+   table in `docs/engine/template-contract.md`, a record ahead of, behind or below what a Variation
    renders, a contract that breaks a group without raising its `schemaVersion`,
    and `cv.py contracts`; report in `compatibility/`.
 

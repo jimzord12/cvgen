@@ -8,9 +8,10 @@ reasoning and examples.
 
 A `Template` lives under one `Domain`, accepts the inputs in
 `docs/architecture.md`, follows the component contract (ADR 0008), fails loudly on
-overflow and defines no data model of its own: its input schema refers to its
-`Domain`'s facts schema by `$ref` and adds only what it renders beyond the facts,
-today `copy`. It has a `Template Manifest`,
+overflow and defines no data model of its own: its input schema, with an `$id`,
+refers to its `Domain`'s facts schema by `$ref` and declares only `copy`, with
+no `$defs`. The facts schema, also with an `$id`, keeps `copy` an open object, and
+the `Template`'s schema closes its keys. It has a `Template Manifest`,
 `templates/<t>/template.json`, with at least one `Template Variation` and a
 default, and an entry that renders a `Coverage Fixture` (`coverage` in the
 manifest). A one-off in an `Envelope` has none of this.
@@ -24,8 +25,8 @@ belong to it, with `*` for each item of a list. It is `required` or optional and
 has a `schemaVersion`, which rises on a breaking change: a renamed or removed
 field, a changed meaning, or a new required field. The contract's `version` rises
 on any change. Every past version stays. A path may join a group without a
-`schemaVersion` rise (a new optional field); a path leaving it, or a
-`schemaVersion` falling, without a rise is a broken contract and is refused. A
+`schemaVersion` rise (a new optional field). A path that leaves a group without
+a rise, or a `schemaVersion` that falls, is a broken contract and is refused. A
 new required field or a changed meaning is not visible in the paths, so it rests
 on the author raising the `schemaVersion`.
 
@@ -51,20 +52,23 @@ required to name the newest version.
 ```json
 "supports": { "travel": { "exactly": [1, 2], "groups": ["destinations@1", "destinations@2", "licences@1"] } }
 ```
+
 A `Template Variation` inherits and never copies; it declares only what differs,
 and its `designBar` is set when the owner approves the design.
 
 ## What is checked
 
-- **In the suite** (`tests/coverage.py`): each claim is rendered on the `Domain`'s
-  `Coverage Fixture` of each version it names that the engine still reads, a marker in every printed field, with one fixture for each
-  way a `Domain` records its experience. A missing marker fails; a
-  group rendered but not claimed warns.
+- **In the suite** (`tests/coverage.py`): each claim is rendered on the
+  `Domain`'s `Coverage Fixture` of each version it names that the engine still
+  reads, a marker in every printed field, with one fixture for each way a
+  `Domain` records its experience. A missing marker fails; a group rendered but
+  not claimed warns.
 - **Before a client's render** (`cv_workflow/contracts.py`): a missing required
   group stops the render, as does an `envelope.json` that disagrees with
   `typst/cv.typ`, an unknown `Template Variation`, a version below
-  `oldestSupported`, or one below the newest version the `Template Variation`
-  names that it skips. An optional group the record holds
+  `oldestSupported`, one below the newest version the `Template Variation`
+  names that it skips, and any version when the `Template Variation` names no
+  version the engine still reads. An optional group the record holds
   and the `Template Variation` does not claim gives a warning, and the `Meta File`
   lists it under `dropped`. In `envelope.json`, `template` and `variation` are
   names in quotes: no `template` only warns, and no `variation` means the
@@ -85,8 +89,11 @@ Variation` names, its contract is compared group by group with the newest one
 it names (`compare` in `contracts.py`); a version below that which an `exactly`
 list skips is refused, since it was left out on purpose. A group required at
 that last version is shown even after it turns optional, so it is never
-dropped. Each difference is a warning, or an error always, when the record
-holds that group, or when it has none of it:
+dropped. Each difference gives one of four results: a warning; an error; an
+error only when the record holds that group; or an error only when the record
+has none of it. A group that differs in two ways takes the stricter result, so a
+group it renders whose `schemaVersion` rose is an error whenever the record
+holds it, whatever else moved:
 
 | Difference | Result |
 |---|---|

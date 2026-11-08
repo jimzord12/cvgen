@@ -134,7 +134,8 @@ a check failed; the revision stays, with the error in its `render.log` or
 `cv.typ` at its root, invalid
 JSON, a record that breaks its schema - the offending fields are listed
 with their paths, the first ten and then a count - a record missing a required
-`Fact Group`, an `envelope.json` that disagrees with `cv.typ`, a missing
+`Fact Group`, an `envelope.json` that disagrees with `cv.typ`, a `Domain Contract`
+version the `Template Variation` does not render, a missing
 portrait file, no Typst on PATH), and the reason
 names the fix. Nothing is written on a refusal. Its options: `--pages N`
 (the page count the checks expect, default 2), `--input key=value`
