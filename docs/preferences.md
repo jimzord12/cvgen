@@ -74,8 +74,8 @@ unattended up to Major:
   (`--force-with-lease`), branch and tag creation, deleting branches locally
   and on GitHub once checked that they are merged or hold no unmerged work
   that matters (owner, 2026-11-08), deleting tags other than `archive/*`,
-  `git worktree` add, and remove and prune once its branch is merged and it
-  holds no uncommitted work, clearing `builds/` by
+  `git worktree` add and prune, and remove once its branch may be deleted as
+  above and it holds no uncommitted work, clearing `builds/` by
   path (never `git clean -x` or `-X`, which would also wipe the ignored
   `private/` and `.local/`), removing what the same run made and dropped on its branch, editing a candidate workspace's `envelope.json`, `candidate.json`,
   `README.md`, the `typst/` sources, the portrait in `images/portrait/` and the client workflow's

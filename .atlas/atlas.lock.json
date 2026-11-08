@@ -1,7 +1,7 @@
 {
  "pages": {
   "change-review": {
-   "commit": "0ea5f6f",
+   "commit": "27dd4a8",
    "sources": {
     ".claude/skills/verify-cv/SKILL.md": "0a507b4d2616e8623eeb53af7bb860aed3dfdcf5",
     ".github/workflows/verify.yml": "1863e738e0ff361cd4add4977517cbb333043871",
@@ -9,15 +9,15 @@
     "docs/conventions.md": "7fd0c1d187b7c09fa91f0c5a42cc953a681419b7",
     "docs/development.md": "916f6f8ca003fedcedfcad9d9077628397ad6119",
     "docs/framework-gaps.md": "51006c1fd6a8acef7afd334a07b608d278dc71aa",
-    "docs/git-workflow.md": "15f3d147de1bb50ca64c298e54360e8ff108b2f8",
-    "docs/preferences.md": "c5d6b4a399c1a5b7bfbe97884669eac47e371f92",
+    "docs/git-workflow.md": "2d04e1f6ddcbe614e335f23569d051408bec7e67",
+    "docs/preferences.md": "22d0f1d39f1f10c202474c7ba0c98b6043f252ec",
     "docs/proposals/README.md": "1510574614d3a04fca59d903a6502dda90f96018",
     "docs/review.md": "879111622d23168d0bad13c5d6f4ed18fa4210aa"
    },
    "verifiedAt": "2026-11-08"
   },
   "client-journey": {
-   "commit": "0ea5f6f",
+   "commit": "27dd4a8",
    "sources": {
     ".claude/agents/design-reviewer.md": "9938a4b0c29a9fb5cf700f45377a3587f7eb21d0",
     ".claude/skills/idea-run/SKILL.md": "e1208b8d675ef749b06c25a95f2e1d59f4713984",
@@ -30,7 +30,7 @@
     "docs/guides/build-a-cv.md": "99da693b349121c67344591ff4bd77107cfb3b93",
     "docs/guides/client-workflow.md": "da905ddba34cedb4b1367467fbf980f9bb261c17",
     "docs/pdf-workflow.md": "bb9e20abbe0be5706a25c9a27cc085acecf98205",
-    "docs/preferences.md": "c5d6b4a399c1a5b7bfbe97884669eac47e371f92",
+    "docs/preferences.md": "22d0f1d39f1f10c202474c7ba0c98b6043f252ec",
     "docs/proposals/workflow-gaps.md": "ed45ad272f79d933c9958e9d86bed79f9458c93a",
     "docs/proposals/workflow-model.md": "a4157a6d03f5ef9a6765fb289a3b3d78fa5547cf",
     "docs/research/README.md": "07e6579724b4758236ed37ab48b95e5e7cded544",
@@ -74,7 +74,7 @@
    "verifiedAt": "2026-11-04"
   },
   "roster": {
-   "commit": "0ea5f6f",
+   "commit": "27dd4a8",
    "sources": {
     ".claude/agents/ceo-reviewer.md": "8b0ce89d0cf745923ec296c9034c1f8e5958d42b",
     ".claude/agents/ceo.md": "e6291c8d2282c325db11302b1be9ee8364edd3aa",
@@ -103,11 +103,11 @@
     "docs/decisions/0014-backlog-md-task-store.md": "429c351d5a2d313fb6945f26e646028d3d43c72b",
     "docs/development.md": "916f6f8ca003fedcedfcad9d9077628397ad6119",
     "docs/engine/verification.md": "4f977fcc580172ec64a6a0952497275ad7771748",
-    "docs/git-workflow.md": "15f3d147de1bb50ca64c298e54360e8ff108b2f8",
+    "docs/git-workflow.md": "2d04e1f6ddcbe614e335f23569d051408bec7e67",
     "docs/guides/build-a-cv.md": "99da693b349121c67344591ff4bd77107cfb3b93",
     "docs/guides/client-workflow.md": "da905ddba34cedb4b1367467fbf980f9bb261c17",
     "docs/pdf-workflow.md": "bb9e20abbe0be5706a25c9a27cc085acecf98205",
-    "docs/preferences.md": "c5d6b4a399c1a5b7bfbe97884669eac47e371f92",
+    "docs/preferences.md": "22d0f1d39f1f10c202474c7ba0c98b6043f252ec",
     "docs/proposals/codex-visual-tools.md": "3ab6ae0bbd4326611a6cde986ac6ee8cd2db94fd",
     "docs/review.md": "879111622d23168d0bad13c5d6f4ed18fa4210aa",
     "docs/tech-stack.md": "74c23aa5d8a29c6f5c40d99705999144ccfee7b8",
@@ -124,7 +124,7 @@
    "verifiedAt": "2026-11-08"
   },
   "system-map": {
-   "commit": "0ea5f6f",
+   "commit": "27dd4a8",
    "sources": {
     ".claude/agents": "dir1:d86ac8b44b9896473ff12ecdbc91538ae34a8852",
     ".claude/skills": "dir1:5eeafda0c9ef9a6037a3fcc2879f73f098fa3e55",
@@ -132,11 +132,11 @@
     "AGENTS.md": "f3c7f4e0e79409e466ad00985b54132b51428e3f",
     "apps/design-review/README.md": "5d14097c544910a9ba0d940e76863223ac1f62a3",
     "apps/design-review/server.py": "65b42af8bcf0a971e19ec97fa39b874cad91c3c1",
-    "archive/work-records": "dir1:90aed341a032a920886ce688031f3959208175c5",
+    "archive/work-records": "dir1:7a6a1a0d089bd53f9208620181b116aa920cdc3b",
     "docs": "dir1:139adff443cb7a07dd0d5fae04941c8c0785eb30",
     "docs/architecture.md": "16e7af24b558eceb222e78bc56c91666c35974f9",
     "docs/engine/verification.md": "4f977fcc580172ec64a6a0952497275ad7771748",
-    "docs/git-workflow.md": "15f3d147de1bb50ca64c298e54360e8ff108b2f8",
+    "docs/git-workflow.md": "2d04e1f6ddcbe614e335f23569d051408bec7e67",
     "docs/glossary.md": "e96f727f700d6ead0b15d86f3a349d1cdf514620",
     "docs/guides/build-a-cv.md": "99da693b349121c67344591ff4bd77107cfb3b93",
     "docs/guides/client-workflow.md": "da905ddba34cedb4b1367467fbf980f9bb261c17",
