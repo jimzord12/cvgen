@@ -4,7 +4,7 @@ title: 'travel-contract-v2: the travel Domain Contract version 2'
 status: Active
 assignee: []
 created_date: '2026-11-08T10:07:00Z'
-updated_date: '2026-11-08T11:09:00Z'
+updated_date: '2026-11-08T11:19:00Z'
 labels: []
 milestone: m-3
 dependencies: []
@@ -69,4 +69,12 @@ Agents' choice (Major, owner 2026-11-08: "think of something the domain might ne
 - Glossary citations in the Workflow Model checked by hand against their terms; anchors main still reports false MOVED lines for rows both branches shifted; never --fix them.
 - First suite run failed on a transient jsonschema/attrs import error in the shared .venv (outputs.py stamp); the rerun passed.
 - Suite builds/tests-20261108-130825-559180 (25 passed, 242 compilations); ruff clean; build builds/library-20261108-130917-160.
+
+## Round 4 (2026-11-08): design round 2 (D14-D16) and code review round 1 (m1, m2, n1, n2)
+- D14: the licence replaces the studies subtitle inside heading(), no rule, 4.4 mm gap restored, measured against the 104 mm before the languages column (second line when needed; fails loudly beyond).
+- D15: the trip role is its own small tracked line centred under the stamp (led in the accent), measured against the 26 mm stamp column. Above the period it cost a line in the binding left column and pushed page 2 into overflow and a petal; under the stamp it fits. Tested: led-long-period ('September 2024', 'Led the group' in full), long-role refusal.
+- D16: twin kinds drop 'which he planned himself'; twin licence is now title 'Tour Leader', issuer 'Thermaic Tour Board', no region, so it stays on one line clear of a petal.
+- m1: deliver.approve cites build-a-cv.md:165-170. n1: both versions require destinations (docs). n2: a licence day its month lacks ('31 Feb 2029') is refused; a leap day passes.
+- m2 (correction to the round 2 note): a one-page Variation that does not render the v1 route, stamps and story declares 'exactly: [2]' with destinations@2 (and licences@1 if shown), no travel-story@1, and refuses v1 records. A Variation that renders version 1 must show those fields (they are part of v1's required destinations) and then claims travel-story@1 too.
+- Suite builds/tests-20261108-131841-005884 (247 compilations); design renders builds/design-renders-20261108-r3.
 <!-- SECTION:NOTES:END -->
