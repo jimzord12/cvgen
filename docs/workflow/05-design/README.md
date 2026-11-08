@@ -231,7 +231,7 @@ flowchart TD
 | `design.record-other-answer` | Record a parked or rejected answer; a new Idea Run follows | `actor.lead` | `cmd.stamp-concept-status` | `art.owner-pick` | `art.concept-decision` |  | The owner parked or rejected the concepts. |
 | `design.fill-data` | Write candidate.json and place the portrait | `actor.lead` | `lead.write-candidate-json` | `art.facts-final`, `art.draft-pdf`, `art.sign-off-png`, `art.documents`, `art.example-records` | `art.candidate-json`, `art.portrait` |  |  |
 | `design.flagship-fit` | Check the data fits the Flagship | `actor.lead` | `lead.check-flagship-fit` | `art.candidate-json` |  | `gate.template-fits` | The client's Domain has a Template (today marine, the Flagship, and travel, Hanami). |
-| `design.entry-point` | Write the Flagship entry point | `actor.lead` | `lead.write-flagship-entry` | `art.candidate-json`, `art.flagship-template` | `art.cv-typ` |  | The data fits the Flagship. |
+| `design.entry-point` | Write the Flagship entry point | `actor.lead` | `lead.write-flagship-entry` | `art.candidate-json`, `art.flagship-template` | `art.cv-typ`, `art.envelope-choice` |  | The data fits the Flagship. |
 | `design.custom-composition` | Compose the page by hand | `actor.lead` | `lead.compose-by-hand` | `art.candidate-json`, `art.flagship-template` | `art.cv-typ`, `art.typst-sources` |  | The data does not fit the Flagship (a design the template cannot draw, or a career that mixes months and contract periods). |
 | `design.port-concept` | Port the chosen concept into the Envelope | `actor.lead` | `lead.port-concept` | `art.chosen-concept`, `art.candidate-json` | `art.cv-typ`, `art.typst-sources` |  | The client's Domain has no Template and the owner chose a concept. |
 | `design.framework-gap` | Record the Framework Gap | `actor.lead` | `lead.record-framework-gap` | `art.cv-typ` | `art.framework-gap-entry`, `art.readme-cv-record` |  | A custom composition or a one-off Template was built. |
@@ -297,6 +297,7 @@ flowchart TD
 | `art.draft-pdf` | Text Draft PDF | `private/<envelope>/draft/draft-NN.pdf` | private | `text-draft.draft-compile` |
 | `art.engine-change` | A change to the public engine | `packages/` | public | `design.engine-change`, `design.engine-revise` |
 | `art.engine-review-report` | The engine change's review report | `archive/work-records/<task-slug>/reviews/NN-<reviewer>.md` | public | `design.engine-review` |
+| `art.envelope-choice` | envelope.json, the Template and Template Variation | `private/<envelope>/envelope.json` | private | `design.entry-point` |
 | `art.envelope-json` | envelope.json | `private/<envelope>/envelope.json` | private | `open.envelope-json` |
 | `art.example-records` | The fictional example records | `examples/candidates/` | public | given |
 | `art.facts-final` | facts.md, final | `private/<envelope>/intake/facts.md` | private | `research.facts-update`, `text-draft.corrections` |
@@ -339,7 +340,7 @@ flowchart TD
 | `lead.report-run` | lead | Report the run to the owner | Sends the short message with each Style's six PDFs and lists the concepts still waiting in the session-handoff doc. |
 | `lead.revise-engine-change` | lead | Fix the engine change | Fixes the Blocking and Material findings and reruns the affected checks before the next fresh round. |
 | `lead.write-candidate-json` | lead | Write candidate.json | Copies the closest example record and replaces every value from the facts and the signed-off wording (whole months, never months invented from calendar periods), replaces the fictional disclosure, and places the portrait in images/portrait/. |
-| `lead.write-flagship-entry` | lead | Write the Flagship entry point | Writes typst/cv.typ importing the engine by root-absolute path: role, theme, artwork, the durations switch and a pages override with this client's company indices (or the one-page profile), and the client's copy in place of the example wording. It records template and variation in envelope.json (ADR 0016). |
+| `lead.write-flagship-entry` | lead | Write the Flagship entry point | Writes typst/cv.typ importing the engine by root-absolute path: role, theme, artwork, the durations switch and a pages override with this client's company indices (or the one-page profile), and the client's copy in place of the example wording; records the template and its Template Variation in envelope.json (ADR 0016). |
 | `manual.decide-at-cap` | manual | The owner decides at the cap | At a loop's cap (a review loop, the client's draft corrections, the owner's own changes or a render that keeps failing) the lead stops and brings the owner the open item with its last reason; another round needs his decision. |
 | `manual.pick-design` | manual | Pick the design | The owner answers Build it (with a Style, Design Tier and Density), Later, or Reject. |
 | `skill.idea-run` | skill | Run the idea-run skill (design concepts) | skill `idea-run` |

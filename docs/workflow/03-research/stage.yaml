@@ -48,7 +48,7 @@ steps:
 
   - id: research.decisions
     name: Write the CV Decisions
-    sources: ["docs/guides/client-workflow.md:188-204", ".claude/skills/new-client/SKILL.md:60-62"]
+    sources: ["docs/guides/client-workflow.md:190-206", ".claude/skills/new-client/SKILL.md:60-62"]
     actor: actor.lead
     action: lead.write-decisions
     inputs: [art.facts-md, art.scout-md]
@@ -168,7 +168,7 @@ steps:
 
   - id: research.follow-up-form-script
     name: Write the follow-up Intake Form script
-    sources: ["docs/guides/client-workflow.md:152-155", ".claude/skills/new-client/SKILL.md:74-76"]
+    sources: ["docs/guides/client-workflow.md:154-157", ".claude/skills/new-client/SKILL.md:74-76"]
     actor: actor.lead
     action: lead.write-form-script
     inputs: [art.follow-up-questions, art.intake-form-lib]
@@ -269,7 +269,7 @@ loops:
 artifacts:
   - id: art.facts-md
     name: facts.md with the gap list
-    sources: ["docs/guides/client-workflow.md:40", "docs/workflow/03-research/README.md:17-23", ".claude/skills/new-client/SKILL.md:56"]
+    sources: ["docs/guides/client-workflow.md:41", "docs/workflow/03-research/README.md:17-23", ".claude/skills/new-client/SKILL.md:56"]
     path: private/<envelope>/intake/facts.md
     format: Markdown, identity, target, jobs, certificates, education, languages, what may be shown; every fact with its source; the gap list at the end
     visibility: private
@@ -304,7 +304,7 @@ artifacts:
 
   - id: art.scout-md
     name: The Scout's findings
-    sources: ["docs/guides/client-workflow.md:44", "docs/workflow/03-research/README.md:29-30"]
+    sources: ["docs/guides/client-workflow.md:45", "docs/workflow/03-research/README.md:29-30"]
     path: private/<envelope>/research/scout.md
     format: Markdown, numbered findings each with a source and its date, then the open questions
     visibility: private
@@ -335,27 +335,27 @@ artifacts:
 
   - id: art.deep-dive-md
     name: The saved Deep Dive
-    sources: ["docs/guides/client-workflow.md:46", "docs/workflow/03-research/README.md:45-47"]
+    sources: ["docs/guides/client-workflow.md:47", "docs/workflow/03-research/README.md:45-47"]
     path: private/<envelope>/research/deep-dive-<topic>.md
     format: Markdown
     visibility: private
 
   - id: art.deep-dive-review
     name: A Deep Dive's review report
-    sources: ["docs/guides/client-workflow.md:47", "docs/workflow/03-research/README.md:47-49"]
+    sources: ["docs/guides/client-workflow.md:48", "docs/workflow/03-research/README.md:47-49"]
     path: private/<envelope>/research/reviews/<topic>-NN.md
     format: research-reviewer report, PASS or FINDINGS
     visibility: private
 
   - id: art.follow-up-questions
     name: The follow-up batch, ready to send
-    sources: ["docs/workflow/03-research/README.md:57-62", "docs/guides/client-workflow.md:152-155"]
+    sources: ["docs/workflow/03-research/README.md:57-62", "docs/guides/client-workflow.md:154-157"]
     format: "simple Greek: as a chat message aim for 5, never more than 10; as a form, at most about 15 minutes and 5 typed answers"
     visibility: ephemeral
 
   - id: art.follow-up-form-gs
     name: The follow-up Intake Form script copy
-    sources: ["docs/guides/client-workflow.md:41", "docs/guides/client-workflow.md:152-155"]
+    sources: ["docs/guides/client-workflow.md:42", "docs/guides/client-workflow.md:154-157"]
     path: private/<envelope>/intake/form-NN.gs
     format: Google Apps Script, only FORM changed
     visibility: private
@@ -374,7 +374,7 @@ artifacts:
 
   - id: art.messages-follow-up
     name: messages.md (follow-up answers)
-    sources: ["docs/guides/client-workflow.md:38", "docs/workflow/README.md:22-24", "docs/workflow/02-intake/README.md:33-35"]
+    sources: ["docs/guides/client-workflow.md:39", "docs/workflow/README.md:22-24", "docs/workflow/02-intake/README.md:33-35"]
     path: private/<envelope>/intake/messages.md
     format: Markdown, the follow-up answers added as received, dated
     visibility: private
@@ -415,7 +415,7 @@ actions:
   - id: lead.write-decisions
     kind: lead
     name: Write the CV Decisions
-    sources: ["docs/guides/client-workflow.md:188-204", ".claude/skills/new-client/SKILL.md:60-62"]
+    sources: ["docs/guides/client-workflow.md:190-206", ".claude/skills/new-client/SKILL.md:60-62"]
     does: >-
       Writes research/decisions.md, one line per decision, and shows the
       owner the open ones with a recommendation for each.
