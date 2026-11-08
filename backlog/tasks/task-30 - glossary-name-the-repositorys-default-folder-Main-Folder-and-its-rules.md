@@ -5,10 +5,11 @@ title: >-
   rules
 status: Done
 assignee: []
-created_date: '2026-10-06 09:41'
-updated_date: '2026-10-14 06:08'
+created_date: 2026-10-06 09:41
+updated_date: '2026-11-08T09:09:00Z'
 labels:
   - docs
+milestone: m-8
 dependencies: []
 priority: low
 ordinal: 30000

@@ -3,10 +3,11 @@ id: TASK-54
 title: 'retire-now-md: remove `docs/now.md`'
 status: Done
 assignee: []
-created_date: '2026-10-14 04:48'
-updated_date: '2026-10-14 05:41'
+created_date: 2026-10-14 04:48
+updated_date: '2026-11-08T09:09:00Z'
 labels:
   - restructure
+milestone: m-8
 dependencies: []
 ordinal: 54000
 ---

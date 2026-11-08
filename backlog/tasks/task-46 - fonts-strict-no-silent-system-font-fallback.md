@@ -3,10 +3,11 @@ id: TASK-46
 title: 'fonts-strict: no silent system-font fallback'
 status: Done
 assignee: []
-created_date: '2026-10-14 04:47'
-updated_date: '2026-10-14 06:03'
+created_date: 2026-10-14 04:47
+updated_date: '2026-11-08T09:09:00Z'
 labels:
   - restructure
+milestone: m-7
 dependencies: []
 ordinal: 46000
 ---

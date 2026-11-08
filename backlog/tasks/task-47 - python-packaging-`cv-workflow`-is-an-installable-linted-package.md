@@ -3,10 +3,11 @@ id: TASK-47
 title: 'python-packaging: `cv-workflow` is an installable, linted package'
 status: Done
 assignee: []
-created_date: '2026-10-14 04:48'
-updated_date: '2026-10-14 08:58'
+created_date: 2026-10-14 04:48
+updated_date: '2026-11-08T09:09:00Z'
 labels:
   - restructure
+milestone: m-8
 dependencies: []
 ordinal: 47000
 ---

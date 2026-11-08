@@ -3,10 +3,11 @@ id: TASK-42
 title: 'workflow-reality-check: level 3, the model checked against a real run'
 status: Done
 assignee: []
-created_date: '2026-10-14 04:47'
-updated_date: '2026-10-14 11:04'
+created_date: 2026-10-14 04:47
+updated_date: '2026-11-08T09:09:00Z'
 labels:
   - workflow-model
+milestone: m-5
 dependencies:
   - TASK-38
 ordinal: 42000

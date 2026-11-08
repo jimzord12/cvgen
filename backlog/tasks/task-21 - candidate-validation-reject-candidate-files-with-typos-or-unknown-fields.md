@@ -3,11 +3,13 @@ id: TASK-21
 title: 'candidate-validation: reject candidate files with typos or unknown fields'
 status: Done
 assignee: []
-created_date: '2026-10-06 07:25'
+created_date: 2026-10-06 07:25
+updated_date: '2026-11-08T09:09:00Z'
 labels: []
+milestone: m-4
 dependencies: []
 references:
-  - 'https://trello.com/c/h4PRTww0'
+  - https://trello.com/c/h4PRTww0
 ordinal: 21000
 ---
 

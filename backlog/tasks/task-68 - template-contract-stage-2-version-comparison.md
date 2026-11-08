@@ -3,8 +3,10 @@ id: TASK-68
 title: 'template-contract-stage-2: version comparison'
 status: Queued
 assignee: []
-created_date: '2026-11-04 21:41'
+created_date: 2026-11-04 21:41
+updated_date: '2026-11-08T09:09:00Z'
 labels: []
+milestone: m-2
 dependencies: []
 ordinal: 68000
 ---

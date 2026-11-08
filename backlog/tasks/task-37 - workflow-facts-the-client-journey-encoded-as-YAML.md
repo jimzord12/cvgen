@@ -3,10 +3,11 @@ id: TASK-37
 title: 'workflow-facts: the client journey encoded as YAML'
 status: Done
 assignee: []
-created_date: '2026-10-14 04:47'
-updated_date: '2026-10-14 09:07'
+created_date: 2026-10-14 04:47
+updated_date: '2026-11-08T09:09:00Z'
 labels:
   - workflow-model
+milestone: m-5
 dependencies:
   - TASK-34
   - TASK-36

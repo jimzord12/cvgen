@@ -3,12 +3,13 @@ id: TASK-5
 title: 'travel-recalibration: one premium Spacious Japan tour-escort concept'
 status: Done
 assignee: []
-created_date: '2026-10-06 07:25'
-updated_date: '2026-10-06 08:20'
+created_date: 2026-10-06 07:25
+updated_date: '2026-11-08T09:09:00Z'
 labels: []
+milestone: m-3
 dependencies: []
 references:
-  - 'https://trello.com/c/tbvLsYim'
+  - https://trello.com/c/tbvLsYim
 ordinal: 5000
 ---
 

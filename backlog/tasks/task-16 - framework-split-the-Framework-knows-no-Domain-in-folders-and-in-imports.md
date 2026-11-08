@@ -3,11 +3,13 @@ id: TASK-16
 title: 'framework-split: the Framework knows no Domain, in folders and in imports'
 status: Done
 assignee: []
-created_date: '2026-10-06 07:25'
+created_date: 2026-10-06 07:25
+updated_date: '2026-11-08T09:09:00Z'
 labels: []
+milestone: m-0
 dependencies: []
 references:
-  - 'https://trello.com/c/oSLK5U4I'
+  - https://trello.com/c/oSLK5U4I
 ordinal: 16000
 ---
 

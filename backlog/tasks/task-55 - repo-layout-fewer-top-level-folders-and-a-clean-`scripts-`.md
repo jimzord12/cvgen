@@ -3,10 +3,11 @@ id: TASK-55
 title: 'repo-layout: fewer top-level folders and a clean `scripts/`'
 status: Done
 assignee: []
-created_date: '2026-10-14 04:48'
-updated_date: '2026-10-14 10:17'
+created_date: 2026-10-14 04:48
+updated_date: '2026-11-08T09:09:00Z'
 labels:
   - restructure
+milestone: m-8
 dependencies:
   - TASK-52
   - TASK-31

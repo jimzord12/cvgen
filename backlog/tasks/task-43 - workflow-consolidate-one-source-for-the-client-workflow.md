@@ -3,10 +3,11 @@ id: TASK-43
 title: 'workflow-consolidate: one source for the client workflow'
 status: Done
 assignee: []
-created_date: '2026-10-14 04:47'
-updated_date: '2026-10-14 12:36'
+created_date: 2026-10-14 04:47
+updated_date: '2026-11-08T09:09:00Z'
 labels:
   - workflow-model
+milestone: m-5
 dependencies:
   - TASK-40
   - TASK-41

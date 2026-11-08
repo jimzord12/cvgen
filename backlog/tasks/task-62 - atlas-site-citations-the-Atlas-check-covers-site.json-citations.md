@@ -3,9 +3,11 @@ id: TASK-62
 title: 'atlas-site-citations: the Atlas check covers site.json citations'
 status: Queued
 assignee: []
-created_date: '2026-10-14 08:53'
+created_date: 2026-10-14 08:53
+updated_date: '2026-11-08T09:09:00Z'
 labels:
   - atlas
+milestone: m-5
 dependencies: []
 ordinal: 62000
 ---
