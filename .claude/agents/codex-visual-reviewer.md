@@ -25,7 +25,9 @@ count for a concept run, which rubric variant applies (one the
 design-reviewer's "Rubric for a CV page" defines, as the lead briefs the
 design-reviewer), the round number, the earlier Codex
 reports with the author's replies, any batch sheets of this snapshot
-the lead holds, and any extra regions to crop (page and region).
+the lead holds, any extra regions to crop (page and region), and at a
+re-review from deliver, the owner's change, named so it is not proposed
+away.
 
 ## Steps
 
@@ -76,7 +78,9 @@ the lead holds, and any extra regions to crop (page and region).
    its row from that folder's `README.md`, or the batch sheet for which
    page, with the page's place on it); the round number, and whether it is
    a `Polish Round`; the earlier Codex reports and replies, when there are
-   any. End with:
+   any; at a re-review from deliver, the owner's change, with: "The owner
+   asked for this change; do not propose reversing or diluting it, and
+   name any finding against it as such." End with:
    "Use the 'What you return' shape, one section per page, headed
    `# Codex visual review round <N>`. Where the rubric asks you to compare
    with files that are not attached (earlier concepts, the Anti-examples),

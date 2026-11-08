@@ -35,7 +35,13 @@ It goes once those are settled.
   `design.preview` reads, so in the model a fix after a failed render,
   example wording or the owner's change feeds the design preview again;
   no source says whether such a fix needs another `design-reviewer`
-  round. Added by TASK-43, from TASK-40's review.
+  round. Added by TASK-43, from TASK-40's review. Settled for the owner's
+  changes on 2026-11-08 (`06-deliver/README.md`, "Branches"): one to the
+  design goes through the design review again, one to the words or facts
+  alone does not; still open for a failed render or example wording. The
+  model still sends every `deliver.fix` to `design.preview`; the
+  words-only exemption is prose, in `lead.fix-inputs` and that README,
+  not an edge.
 
 ## What the YAML leaves out
 
@@ -55,7 +61,7 @@ It goes once those are settled.
   `render`'s outcome is, as `gate.render-ok`. They are reference detail in
   `docs/guides/build-a-cv.md` section 3 (TASK-43).
 - **The folder the page images go into** (`deliver.page-png`): its command
-  (`docs/workflow/06-deliver/stage.yaml:309-315`, from
+  (`docs/workflow/06-deliver/stage.yaml:311-317`, from
   `.claude/skills/verify-cv/SKILL.md:72-76`) saves into
   `builds/<new-folder>/` but nothing makes that folder; level 3 makes it
   first, as the lead does. Added by TASK-42.
@@ -65,7 +71,7 @@ It goes once those are settled.
   which runs a step once what it reads exists, renders beside
   `design.preview`, before the review returns. Added by TASK-42.
 - **What the preview folder holds** (`art.design-review-input`,
-  `docs/workflow/05-design/stage.yaml:485-490`): the artifact gives a folder
+  `docs/workflow/05-design/stage.yaml:494-499`): the artifact gives a folder
   and "PDF previews" (since TASK-43 its action names `cv.pdf`, from the
   `new-cv` skill's command), so level 3's stand-in for `design.preview`
   makes an empty folder and the stand-in review accepts it. Added by TASK-42.

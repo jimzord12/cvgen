@@ -87,9 +87,14 @@ command from the repository root.
   `python -c "import pymupdf,sys; t=''.join(p.get_text() for p in pymupdf.open(sys.argv[1])).lower(); print([w for w in ('fictional','illustrative','flagship') if w in t])" private/<envelope>/revisions/<revision>/cv.pdf`
 - `deliver.report`: the revision folder, the PDF hash, the page count,
   what was checked on each page, any override, and every `WARNING:` and
-  `NOTE:` line word for word. Clear the page PNGs by path. **Stop here.**
+  `NOTE:` line word for word. Clear the page PNGs and crops by path. **Stop here.**
 - The owner: `deliver.owner-review`, `deliver.approve`. Never approve a
   real client's PDF yourself.
+- His change (`loop.owner-changes`): `deliver.fix`. A change to the design
+  first goes back through `design.preview` to `design.clear-review-input`
+  above, the two `Polish Round`s included; one to the words or facts alone
+  goes to `deliver.render`, then the 300 dpi check on the changed area; a
+  failure goes back to the design review (the deliver README, "Branches").
 - After his `Approval`: `deliver.export`
   (`python scripts/cv.py export private/<envelope> <revision>`), then
   `deliver.record-delete-by` ("Exported <date>, delete by <date + 12

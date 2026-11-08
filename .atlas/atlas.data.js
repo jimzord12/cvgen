@@ -112,7 +112,7 @@ window.ATLAS = {
     ],
     "sources": [
      ".claude/agents/design-reviewer.md:1-17",
-     ".claude/agents/design-reviewer.md:73-155"
+     ".claude/agents/design-reviewer.md:84-151"
     ],
     "short": "Design rev."
    },
@@ -556,12 +556,12 @@ window.ATLAS = {
     ".claude/skills/new-client/SKILL.md:54-76",
     "docs/workflow/04-text-draft/README.md:15-44",
     ".claude/skills/new-client/SKILL.md:78-101",
-    "docs/workflow/05-design/README.md:15-77",
+    "docs/workflow/05-design/README.md:15-78",
     ".claude/skills/new-cv/SKILL.md:25-75",
     "docs/guides/build-a-cv.md:1-111",
     "docs/guides/build-a-cv.md:113-196",
     "docs/pdf-workflow.md:176-198",
-    ".claude/skills/new-cv/SKILL.md:77-99",
+    ".claude/skills/new-cv/SKILL.md:77-104",
     "docs/workflow/07-after/README.md:15-56",
     ".claude/skills/new-client/SKILL.md:16-29",
     "docs/proposals/workflow-model.md:54-60"
@@ -2425,7 +2425,7 @@ window.ATLAS = {
        "sources": [
         "docs/guides/build-a-cv.md:267-273",
         ".claude/skills/new-cv/SKILL.md:48-53",
-        "docs/workflow/05-design/README.md:83-87"
+        "docs/workflow/05-design/README.md:84-88"
        ]
       },
       {
@@ -2536,7 +2536,8 @@ window.ATLAS = {
        "sources": [
         ".claude/skills/new-cv/SKILL.md:54-62",
         "docs/workflow/05-design/README.md:55-57",
-        "docs/proposals/workflow-model.md:57"
+        "docs/proposals/workflow-model.md:57",
+        "docs/workflow/05-design/README.md:108-112"
        ]
       },
       {
@@ -2572,10 +2573,10 @@ window.ATLAS = {
        ],
        "note": "Model step `design.client-review`, action `agent.design-reviewer`, in `docs/workflow/05-design/stage.yaml`.",
        "sources": [
-        "docs/workflow/05-design/README.md:55-77",
+        "docs/workflow/05-design/README.md:55-78",
         ".claude/skills/new-cv/SKILL.md:63-74",
         "docs/proposals/workflow-model.md:57",
-        ".claude/agents/design-reviewer.md:37-48"
+        ".claude/agents/design-reviewer.md:37-50"
        ]
       },
       {
@@ -2601,7 +2602,7 @@ window.ATLAS = {
        ],
        "note": "Model step `design.fix`, action `lead.fix-design`, in `docs/workflow/05-design/stage.yaml`.",
        "sources": [
-        "docs/workflow/05-design/README.md:69-77",
+        "docs/workflow/05-design/README.md:70-78",
         ".claude/skills/idea-run/SKILL.md:78-102"
        ]
       },
@@ -2616,10 +2617,10 @@ window.ATLAS = {
        ],
        "note": "Model step `design.clear-review-input`, action `lead.clear-review-input`, in `docs/workflow/05-design/stage.yaml`.",
        "sources": [
-        "docs/workflow/05-design/README.md:67-68",
+        "docs/workflow/05-design/README.md:68-69",
         ".claude/skills/new-cv/SKILL.md:75",
-        "docs/preferences.md:81-83",
-        ".claude/agents/design-reviewer.md:52-56"
+        "docs/preferences.md:80-82",
+        ".claude/agents/design-reviewer.md:54-58"
        ]
       },
       {
@@ -2633,7 +2634,7 @@ window.ATLAS = {
        ],
        "note": "Model step `design.cap-reached`, action `manual.decide-at-cap`, in `docs/workflow/05-design/stage.yaml`.",
        "sources": [
-        "docs/workflow/05-design/README.md:69-77",
+        "docs/workflow/05-design/README.md:70-78",
         ".claude/skills/idea-run/SKILL.md:74-77",
         "docs/review.md:205-209"
        ]
@@ -2704,7 +2705,7 @@ window.ATLAS = {
        "title": "Fix the inputs; the fix is a new Revision",
        "actor": "lead",
        "optional": true,
-       "summary": "Applies the fix the message names, in candidate.json, envelope.json or the entry point's layout override; never shrinks the body font; the Revision it looked at is never modified.",
+       "summary": "Applies the fix the message names, in candidate.json, envelope.json or the entry point's layout override; never shrinks the body font; the Revision it looked at is never modified. An owner's change to the design goes through the design review and its two Polish Rounds again before the next render; what counts as one: docs/workflow/06-deliver/README.md, \"Branches\".",
        "loop": {
         "to": "deliver.render",
         "label": "Fix and render again after a failed render",
@@ -2725,7 +2726,9 @@ window.ATLAS = {
        "sources": [
         "docs/guides/build-a-cv.md:131-142",
         "docs/guides/build-a-cv.md:198-207",
-        ".claude/skills/new-cv/SKILL.md:79-82"
+        ".claude/skills/new-cv/SKILL.md:79-82",
+        "docs/workflow/06-deliver/README.md:74-100",
+        ".claude/skills/new-cv/SKILL.md:93-97"
        ]
       },
       {
@@ -2939,7 +2942,7 @@ window.ATLAS = {
         "docs/proposals/workflow-model.md:54",
         "docs/proposals/workflow-model.md:56",
         "docs/workflow/06-deliver/README.md:44-46",
-        ".claude/skills/new-cv/SKILL.md:93-96"
+        ".claude/skills/new-cv/SKILL.md:98-101"
        ]
       },
       {
@@ -2986,7 +2989,7 @@ window.ATLAS = {
        "sources": [
         "docs/guides/build-a-cv.md:180-182",
         "docs/workflow/06-deliver/README.md:50-51",
-        ".claude/skills/new-cv/SKILL.md:97-98"
+        ".claude/skills/new-cv/SKILL.md:102-103"
        ]
       },
       {
@@ -3030,7 +3033,7 @@ window.ATLAS = {
        ],
        "note": "Model step `deliver.status`, action `cmd.cv-status`, in `docs/workflow/06-deliver/stage.yaml`.",
        "sources": [
-        ".claude/skills/new-cv/SKILL.md:99",
+        ".claude/skills/new-cv/SKILL.md:104",
         "scripts/cv.py:66-67",
         "packages/cv-workflow/cv_workflow/__init__.py:14-31"
        ]
@@ -3212,7 +3215,7 @@ window.ATLAS = {
        "sources": [
         "docs/workflow/07-after/README.md:27-34",
         "docs/guides/client-workflow.md:236-261",
-        "docs/preferences.md:89-97",
+        "docs/preferences.md:88-96",
         "docs/proposals/workflow-gaps.md:37",
         "docs/proposals/workflow-gaps.md:71"
        ]
@@ -3250,7 +3253,7 @@ window.ATLAS = {
        "note": "Model step `after.revision-cleanup`, action `manual.go-remove-revisions`, in `docs/workflow/07-after/stage.yaml`.",
        "sources": [
         "docs/pdf-workflow.md:219-222",
-        "docs/preferences.md:95-97",
+        "docs/preferences.md:94-96",
         "docs/workflow/GAPS.md:29-32"
        ]
       }
@@ -3475,7 +3478,7 @@ window.ATLAS = {
        "sources": [
         ".claude/skills/idea-run/SKILL.md:59-77",
         ".claude/skills/idea-run/SKILL.md:144-153",
-        ".claude/agents/design-reviewer.md:50-181",
+        ".claude/agents/design-reviewer.md:52-183",
         ".claude/agents/codex-visual-reviewer.md",
         "docs/proposals/codex-visual-tools.md"
        ]
@@ -3795,7 +3798,7 @@ window.ATLAS = {
        "note": "Yours only, with the exact command shown first, including: deleting or force-pushing `main`, rewriting its published history, rewriting the private repo's history (the delete-by erase, which you run), `archive/*` tags, repo settings (public and private repo), deleting under `private/` or `.local/` or outside the repo, removing revisions, approvals, exports or portraits, replacing the `Release`.",
        "sources": [
         "docs/git-workflow.md:92-105",
-        "docs/preferences.md:69-101",
+        "docs/preferences.md:68-100",
         ".github/workflows/verify.yml"
        ]
       }
@@ -3850,8 +3853,8 @@ window.ATLAS = {
         "label": "Product decisions and real-client approvals stay yours."
        },
        "sources": [
-        "docs/preferences.md:63-65",
-        "docs/preferences.md:107"
+        "docs/preferences.md:62-64",
+        "docs/preferences.md:106"
        ]
       }
      ]
@@ -4520,30 +4523,30 @@ window.ATLAS = {
   }
  ],
  "build": {
-  "builtAt": "2026-11-08 21:00 UTC",
-  "commit": "1e4592f",
+  "builtAt": "2026-11-08 21:23 UTC",
+  "commit": "fea02a9",
   "kit": "1.1",
   "stale": {},
   "verified": {
    "client-journey": {
     "at": "2026-11-08",
-    "commit": "1e4592f"
+    "commit": "fea02a9"
    },
    "design-run": {
     "at": "2026-11-08",
-    "commit": "1e4592f"
+    "commit": "760fb01"
    },
    "change-review": {
     "at": "2026-11-08",
-    "commit": "09aa035"
+    "commit": "b0f8ebf"
    },
    "system-map": {
     "at": "2026-11-08",
-    "commit": "1e4592f"
+    "commit": "fea02a9"
    },
    "roster": {
     "at": "2026-11-08",
-    "commit": "1e4592f"
+    "commit": "fea02a9"
    }
   }
  }
