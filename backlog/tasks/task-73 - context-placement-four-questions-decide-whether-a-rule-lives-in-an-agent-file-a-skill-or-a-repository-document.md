@@ -3,10 +3,10 @@ id: TASK-73
 title: >-
   context-placement: four questions decide whether a rule lives in an agent
   file, a skill or a repository document
-status: Ready
+status: Review
 assignee: []
 created_date: '2026-11-08T09:50:00Z'
-updated_date: '2026-11-08T09:57:00Z'
+updated_date: '2026-11-08T10:00:00Z'
 labels: []
 milestone: m-8
 dependencies: []
@@ -81,4 +81,7 @@ Report: archive/work-records/review-agents/reviews/02-context-reviewer.md (verba
 - Note 2 (where question 2 ends and question 4 begins, for a naming choice like `*.spec.*`): not decided by the lead. Whether the owner's own cross-project conventions are repository choices (question 2), owner preferences (question 3) or an activity's skill (question 4) is his call; raised with him, open.
 - Note 3: the plan's D1 now points to context-maintainer.md and summarises, no second copy of the questions.
 - Note 4: the round 1 fixes also moved D6 ("a test is removed only with a reason") from the tests-reviewer to the test-principles skill in the plan (plan.md D6).
+
+## Owner decision, 2026-11-08 (round 2, Note 2)
+The owner's own conventions that he holds across projects go in the activity's skill (question 4), not in preferences or a repository document: 'The skill'. The `*.spec.*` example was fictional; it is not his convention and is not a rule. Questions 2 and 3 narrowed so such a convention reaches question 4. Back to Review for round 3.
 <!-- SECTION:NOTES:END -->

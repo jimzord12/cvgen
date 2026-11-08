@@ -55,23 +55,27 @@ repository document, ask in order and stop at the first yes (owner,
 1. **Is it one agent's own job,** and nothing another agent that does or
    checks the same work also needs: what it receives, its own steps, what
    it returns, what it must not do? The agent file.
-2. **Is it specific to this repository** (a CVgen path, contract, term,
-   rule or workflow)? The repository document or CVgen skill that owns it,
-   from the table above; others point to it.
-3. **Is it about the owner as a person:** how he works, what he prefers?
-   `docs/preferences.md`, or `.local/preferences/` when personal; never
-   copied into an agent file or skill.
-4. **Otherwise it is generic: a method, a best practice, a convention of
-   one activity.** Does more than one agent do or check that activity, the
-   lead included? The skill for that activity, which each of them loads; a
-   rule with an exact answer (a file name, a field) also needs a check in
-   the suite, which you name in your report for the lead to add. Otherwise
-   the agent file.
+2. **Is it specific to this repository:** a CVgen path, contract, term or
+   workflow, or a choice only this repository made? The repository document
+   or CVgen skill that owns it, from the table above; others point to it.
+3. **Is it about working with the owner:** how he communicates, what he
+   decides, how he likes to be reported to? `docs/preferences.md`, or
+   `.local/preferences/` when personal; never copied into an agent file or
+   skill. His conventions for an activity are question 4.
+4. **Otherwise it is generic: a method, a best practice, or a convention of
+   one activity, the owner's own conventions that he holds across projects
+   included** (owner, 2026-11-08). Does more than one agent do or check
+   that activity, the lead included? The skill for that activity, which
+   each of them loads; a rule with an exact answer (a file name, a field)
+   also needs a check in the suite, which you name in your report for the
+   lead to add. Otherwise the agent file.
 
 For example, the agent that writes a test needs the test principles before
 the reviewer does, so they live in a skill, not in the tests reviewer's
-file. The more of an agent file or skill comes from question 4, the more
-of it can be reused in another repository.
+file; a test-file naming the owner uses in every project would join them
+there, while one only CVgen uses stays in `docs/conventions.md`. The more of
+an agent file or skill comes from question 4, the more of it can be reused
+in another repository.
 
 Dated records are never edited to carry a rule: ADRs in `docs/decisions/`,
 `docs/history.md`, the entries of `docs/framework-gaps.md` (a later fact is
