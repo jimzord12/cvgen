@@ -48,7 +48,12 @@ None of this approves a pending product design.
   `main` that the backlog skill makes in the session's scratchpad to write
   records (`.claude/skills/backlog/SKILL.md`). Worktrees created before this
   rule stay where they are until their work is merged and they are removed.
-  Never edit another session's worktree.
+  Never edit another session's worktree. A `.worktrees/probe-<timestamp>`
+  folder is not a branch's: it is a detached, locked copy the lead makes for
+  one `tests-reviewer` round and removes after it
+  (`docs/engine/verification.md`, "Probing a test"). Once that round has
+  ended (its session is gone, or the task's notes say so), any session may
+  unlock and remove it.
 - The `Main Folder` is the default checkout, the folder the repository was
   cloned into; every worktree under `.worktrees/` is an extra checkout of
   it. Keep the `Main Folder` on `main`, clean and synced with `origin/main`

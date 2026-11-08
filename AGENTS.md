@@ -47,7 +47,7 @@ starts and ends as `docs/development.md` says.
 | `docs/` | Governance and reference, below |
 | `.claude/`, `.codex/` | Skills and agents, below |
 | `builds/` | Ignored; every build and test run writes a new folder |
-| `.worktrees/` | Ignored; one checkout per parallel branch, never another session's (`docs/git-workflow.md`) |
+| `.worktrees/` | Ignored; one checkout per branch, never another session's; `probe-*` for tests reviews (`docs/git-workflow.md`) |
 | `private/` | Ignored; one `Envelope` per real client (`docs/guides/client-workflow.md`, section 1) |
 
 ## Commands

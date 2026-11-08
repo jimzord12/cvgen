@@ -1,7 +1,7 @@
 # Verification
 
-Read this to know what `python tests/run.py` proves and how to read its
-output.
+Read this to know what `python tests/run.py` proves, how to read its
+output and how a test in it is probed.
 
 ## Run
 
@@ -285,10 +285,74 @@ change.
   example was added without its line in `examples/release.json` (or a
   line was removed); add the line with its `title` and `variant`.
 
+## Probing a test
+
+How a `tests-reviewer` (`docs/review.md`, "Tests review") tests a test in
+this suite. The method, the fault and refactor probes and their outcomes
+are the `test-principles` skill's ("Testing a test: probes"); this section
+is how they run here.
+
+- **The copy.** The lead makes it before the round, with absolute paths:
+  `git -C <Main Folder> worktree add --detach --lock --reason "<session>,
+  <task> round <N>" <Main Folder>/.worktrees/probe-<yyyymmdd-hhmmss>
+  <reviewed commit>`, and records its path in the task's notes. Uncommitted
+  work is committed first (a WIP commit), so the reviewed commit holds it.
+  For a Bun probe the lead also runs `bun install --frozen-lockfile` in
+  `<copy>/tools/workflow`. After the round the lead runs `git worktree
+  unlock`, `git worktree remove` (the ignored `builds/` and `node_modules/`
+  do not block it; `--force` only for a probe the same round left
+  uncommitted) and `git worktree prune`. The lock tells other sessions the
+  copy is in use; a `probe-*` copy whose round has ended may be removed by
+  any session (`docs/git-workflow.md`).
+- **The Python run:** the copy's own runner by absolute path, with the
+  repository's interpreter that has `requirements.lock` installed
+  (`<Main Folder>/.venv/Scripts/python.exe` on Windows,
+  `<Main Folder>/.venv/bin/python` elsewhere): `<interpreter>
+  <copy>/tests/run.py --output <copy>/builds/tests-<probe id>`. It stops at
+  its first failure; a compile case is identified by file, line and the
+  case name in the assertion message.
+- **The Bun run:** from PowerShell (Git Bash can lose `bun`'s exit code), in
+  `<copy>/tools/workflow`: `$env:PYTHON = '<interpreter>'; bun test
+  <file>`. `tests/run.py` never runs `bun test`. The tool calls Python
+  through `PYTHON`, and the `python` on `PATH` may lack the suite's
+  packages. Bun reports every failure, so a fault counts as caught when the
+  probed test fails by name.
+- **Before any outcome:** a full pass of the copy at the reviewed commit, in
+  that environment; one suite run at a time (two at once can run out of
+  memory).
+- **The moves a round makes,** and the only ones (`docs/review.md`,
+  "Reviewer boundaries"): write files in the copy; commit each probe there
+  (`git -C <copy> commit -am "probe <id>: <what it breaks or reshapes>"`);
+  `git -C <copy> checkout --detach <reviewed commit>` before each new
+  probe; the masked path's second commit (below); the runs above; `git -C
+  <copy> show` to record a probe's diff. Committed probes keep the engine
+  clean, which `tests/workflow.py` asserts.
+- **The by-design detectors** fail on any change: check 1's pins in
+  `tests/baseline.json` (through `check_frozen()`, also inside every
+  `verify()` call), check 2's exact match with the frozen engineer PDF
+  (`run.py`, before most other checks), the same match in check 11, and
+  check 11's clean-engine assertion. A fault that changes the engineer
+  example's output is therefore masked by check 2. The masked path: after
+  the first run, a second commit copies that run's engineer PDF over
+  `tests/approved/Marine-Engineer-CV-v11.pdf` and sets its pin in
+  `baseline.json` to the new SHA-256, then the suite runs again. That
+  commit lives only in a detached copy that is removed after the round, so
+  it changes neither the frozen set nor anything the constitution protects;
+  nowhere else is a frozen reference changed this way. These detectors are
+  judged on whether they pin the right files, never by a refactor probe.
+  Masking by any other check shows that the two overlap for that one fault.
+- **Decides nothing:** a `SKIPPED` case (`fonts-system` without a system
+  font, `build-script` without PowerShell, `workflow-model` without Bun), a
+  crash, a missing module. A refactor that fails at a check other than the
+  probed one first changed behaviour: it is redone.
+
 ## Adding a check
 
 Add a fixture with `sys.inputs` cases, then a few lines in `run.py` that
 compile it and assert on the PDF. Keep the runner linear and readable; it is
 the specification of what "passing" means. Checks are bare `assert`s, so
 `run.py` refuses to start under `python -O` or `PYTHONOPTIMIZE`, which would
-strip them.
+strip them. What a new check must prove before it is kept (it can fail, it
+survives a refactor, it duplicates no other) is the `test-principles`
+skill's; a change to the suite gets a `tests-reviewer` (`docs/review.md`,
+"Tests review").

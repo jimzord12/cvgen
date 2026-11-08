@@ -123,9 +123,13 @@ audit (check N1) flags mixed cases inside one folder.
 - A test exercises the real compiler and the real PDF. No mocks.
 - A fixture under `tests/fixtures/` is a Typst file with `sys.inputs` cases.
   The Python runner selects cases and asserts on the output PDF.
-- A test that would pass with the feature deleted is not written.
 - Negative cases assert on the error message text.
 - Prefer one compile case that covers a path over several that cover a mock.
+- What makes any test worth keeping (it fails for a real fault, survives a
+  refactor, duplicates no other) and when one may go: the `test-principles`
+  skill. How this suite runs and how a test in it is probed:
+  `docs/engine/verification.md`. Which change gets a `tests-reviewer`:
+  `docs/review.md`, "Tests review".
 
 ## Documents
 

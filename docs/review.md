@@ -17,8 +17,10 @@ the rule and consolidates rather than appends (owner, 2026-09-29, after the
 same pair in the sibling night-shift repository). A plan is reviewed before
 its tasks are created or, when they already exist, before the first goes
 Active, by a fresh `plan-reviewer`
-(`.claude/agents/plan-reviewer.md`; "Plan review" below). Codex may critique
-design proposals; that does not satisfy a code review gate.
+(`.claude/agents/plan-reviewer.md`; "Plan review" below). A change to the
+tests also gets a fresh `tests-reviewer` (`.claude/agents/tests-reviewer.md`;
+"Tests review" below). Codex may critique design proposals; that does not
+satisfy a code review gate.
 
 ## When a review is required
 
@@ -123,6 +125,34 @@ reviewer's blind map, beyond the skill's generic rings:
 - CI on Linux and Windows, `docs/framework-gaps.md` for any bypass, and
   the branches in `.worktrees/` and tasks already in flight.
 
+## Tests review
+
+A change that adds, edits or deletes any of these gets a fresh
+`tests-reviewer` until PASS, beside the gate its other files need (owner,
+2026-11-08: "Test changes only"): `tests/**`, `tools/workflow/test/**`,
+`tools/workflow/sample/**`, `packages/domains/*/fixtures/**`,
+`packages/**/templates/*/tests/**` other than frozen references,
+`examples/release.json`'s list, and `studio/brand/report/sample.json` (read
+by `tests/report.py`). Its rubric is the `test-principles` skill, how it
+probes a test here is `docs/engine/verification.md`, "Probing a test", and
+its severities and report shape are its own; the loop, caps and storage are
+this file's, the report stored as `reviews/NN-tests-reviewer.md`.
+
+- The frozen set (each template's `tests/approved/` and the pins in
+  `tests/baseline.json`) is the owner's (`docs/constitution.md`): a change
+  to it is reviewed only for whether it pins the right file.
+- A change that alters behaviour and touches none of these paths is not in
+  this gate; the `code-reviewer` flags its missing test (lens 5). When a
+  `tests-reviewer` has passed the same snapshot, the `code-reviewer` may rely
+  on that report for lens 5 and says so.
+- The brief: the change at exact base and head commits, the behaviour it is
+  for (the task's outcome and acceptance criteria, or the bug), the author's
+  suite run for the head, the round number and earlier reports with
+  dispositions, and the probe copy, its path and reviewed commit, made by
+  the lead as `docs/engine/verification.md` says. "No copy" is given only
+  when no probe can run on the machine; the report then says what it judged
+  by reading.
+
 ## Give the reviewer a precise brief
 
 - Task outcome, acceptance criteria, scope exclusions and settled decisions.
@@ -134,7 +164,8 @@ reviewer's blind map, beyond the skill's generic rings:
 
 Invoke the reviewer fresh for every round (the Agent tool with
 `subagent_type: code-reviewer`, `context-reviewer` for the agent context,
-or `plan-reviewer` for a plan), never a fork of the implementation
+`plan-reviewer` for a plan or `tests-reviewer` for a change to the tests),
+never a fork of the implementation
 conversation and never an author self-review. It reads surrounding code
 independently and gets facts and evidence rather than the author's account
 of correctness.
@@ -172,7 +203,8 @@ from being met is still relevant to the current verdict.
 For each changed test, identify the behaviour it protects and whether it would
 fail for the relevant broken behaviour. Prefer a recorded pre-fix failure or a
 safe isolated regression case where appropriate. Do not delete or neuter
-source in the working checkout to demonstrate this. Avoid tests that only
+source in the working checkout to demonstrate this; a `tests-reviewer`
+probes in its own copy ("Tests review"). Avoid tests that only
 restate the implementation. Existing real-compiler/PDF checks remain required;
 `conventions.md` continues to apply. See also
 [Google's review guidance](https://google.github.io/eng-practices/review/reviewer/looking-for.html).
@@ -192,12 +224,19 @@ installs, cleanup, live delivery or delegation. It may inspect files and rerun
 vetted local checks that create fresh disposable outputs under `builds/`. This
 is an explicit exception for test artifacts, not permission to overwrite
 existing outputs, modify candidate workspaces or touch external systems.
+The `tests-reviewer` has one more: inside the probe copy the lead made for
+its round, and nowhere else, it makes the moves `docs/engine/verification.md`,
+"Probing a test", lists (write files, commit probes, return the copy to the
+reviewed commit, the masked path's second commit, the runs). It never
+pushes, creates a branch, stashes, installs or removes the copy. The
+owner's settings hold no permission rules for these today; an unattended
+round that meets a permission prompt stops and reports INCOMPLETE.
 
 The subagent definition exposes `Read`, `Grep`, `Glob`, `Bash` and
 `PowerShell` only: no editing tools and no `Agent` tool, so it cannot spawn
 nested agents. It pins Opus at high effort, the owner's standing
 preference for reviewers since 2026-09-26, as do the `design-reviewer`,
-`research-reviewer`, `ceo-reviewer` and `plan-reviewer`; the
+`research-reviewer`, `ceo-reviewer`, `plan-reviewer` and `tests-reviewer`; the
 `codex-visual-reviewer` is the exception, on Sonnet, since Codex, not the
 wrapper, gives its verdict
 (TASK-4). For an extremely complex change a
@@ -242,9 +281,10 @@ Architecture tastes do not override settled decisions. No finding quota.
 ## The loop and its stopping rule
 
 1. Claude finishes author checks and requests one fresh reviewer: the
-   `code-reviewer`, the `context-reviewer` for the agent context, or the
-   `plan-reviewer` for a plan; the last two follow this loop with their own
-   checks, severities and report shape.
+   `code-reviewer`, the `context-reviewer` for the agent context, the
+   `plan-reviewer` for a plan, or the `tests-reviewer` for a change to the
+   tests (beside the `code-reviewer` when code changes too); the last three
+   follow this loop with their own checks, severities and report shape.
 2. The author records the returned report unchanged and dispositions
    separately. It fixes Blocking/Material findings and reruns checks affected
    by the fixes. Disagreements need evidence and adjudication by the next
@@ -278,7 +318,8 @@ gates or reset the round count by renaming the same task.
 Each report is under about 600 words unless findings need more and includes
 the reviewed snapshot, lead lenses, eight-lens coverage, findings, checks
 actually rerun, evidence inspected, limitations and verdict; a reviewer with
-its own report shape (`context-reviewer`, `plan-reviewer`) follows that
+its own report shape (`context-reviewer`, `plan-reviewer`,
+`tests-reviewer`) follows that
 instead. Never report an
 author-run check as personally rerun. The lead agent stores the report
 unchanged as `archive/work-records/<task-slug>/reviews/NN-<reviewer>.md`,
