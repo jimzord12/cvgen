@@ -1,0 +1,17 @@
+{
+  "variant": "mono",
+  "domain": "travel",
+  "candidate": "Nikos Kontos",
+  "rank": "Tour Leader / Travel Consultant",
+  "style": "Timetable",
+  "idea": "printed timetable table",
+  "status": "proposed",
+  "producedBy": "magazine-editor",
+  "kind": "concept",
+  "density": "condensed",
+  "tier": "stylish",
+  "date": "2026-11-08",
+  "contract": "cvgen.output/1",
+  "pages": 1,
+  "sha256": "5f609e08c9b70106a93aea5ab67264e6008da2a9029ea3d1df1ee0f566bce9ad"
+}

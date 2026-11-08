@@ -21,7 +21,12 @@ Each `.typ` reads the shared files as `../../sample.json` and
 `../../portrait.png`, prepared by `scripts/portrait.py`; PNGs are 96 dpi,
 one per page. Folders before 2026-11-08 keep the unprepared `portrait.jpg`;
 folders before 2026-09-29 hold one `concept.typ`, `concept.pdf` and
-`page-1.png` instead. Each font family is stored once: families the
+`page-1.png` instead. The 2026-11-08 run (five one-page styles under the
+`scan-first` bar) drew only `condensed/stylish/` per style, plus a
+monochrome version as `concept-mono.typ`, `.pdf`, `.png` at the style
+folder's root, the `Output Contract`'s home for a variant; its `.typ` is
+generated from the colour one and reads `sample.json` and
+`portrait-mono.png` beside it. Each font family is stored once: families the
 Framework bundles (`packages/cv-framework/fonts/`, licences in
 `packages/cv-framework/licenses/`) are not copied here, and the others live
 in `fonts/<family>/` with their licence, shared between concepts. Compile
@@ -52,6 +57,11 @@ he picked, `idea-run`, "What the owner gets, and what his answer does") as well 
 
 | Concept | Idea | Date | Status | PDF |
 |---|---|---|---|---|
+| Rhumb Lines | Travel, group and private, Tour Leader / Travel Consultant, one page under the `scan-first` bar: portolan chart page; a 32-point wind rose holds the portrait, faint rhumb lines cross the sheet, the chart scale as section rule, journeys as sailing lines. Mono: the wind colours become solid, dashed and dotted lines | 2026-11-08 | proposed | condensed: [stylish](2026-11-08-rhumb-lines/condensed/stylish/condensed-stylish.pdf) · [monochrome](2026-11-08-rhumb-lines/concept-mono.pdf) |
+| Airmail | Same brief: airmail letter border; striped airmail bars frame the page, the portrait is a perforated stamp, the postmark carries the availability date, typed hanging labels. Mono: one dark grey and white bars on a pale grey sheet | 2026-11-08 | proposed | condensed: [stylish](2026-11-08-airmail/condensed/stylish/condensed-stylish.pdf) · [monochrome](2026-11-08-airmail/concept-mono.pdf) |
+| Timetable | Same brief: printed timetable table; a black head strip "valid from April 2027", big condensed date numerals, one ruled row per bullet with the lead phrase as station column, a key of service pictograms. Mono: reversed black bands | 2026-11-08 | proposed | condensed: [stylish](2026-11-08-timetable/condensed/stylish/condensed-stylish.pdf) · [monochrome](2026-11-08-timetable/concept-mono.pdf) |
+| Poster Sun | Same brief: sunrise travel poster; a flat-colour coast scene with the portrait as the rising sun, headline name, contacts in the poster's ink band, two calm columns below in Jost. Mono: a one-ink linocut with cut white waves | 2026-11-08 | proposed | condensed: [stylish](2026-11-08-poster-sun/condensed/stylish/condensed-stylish.pdf) · [monochrome](2026-11-08-poster-sun/concept-mono.pdf) |
+| Guilloche | Same brief: engraved security print; a full-width band with a rainbow tint, woven underprint and a rosette holding a globe, the cut-out portrait in an engraved arch; engraved bands as section rules and as the rule between the columns. Mono: black 0.25 pt engraving on white | 2026-11-08 | proposed | condensed: [stylish](2026-11-08-guilloche/condensed/stylish/condensed-stylish.pdf) · [monochrome](2026-11-08-guilloche/concept-mono.pdf) |
 | Hanami Line 2 | Travel & Tourism, Japan, tour escort: Flagship's skeleton with Stamp Rally's identity (torii-framed portrait in a gold glow ring, one cinnabar seal, ATH to TYO through the name plate, one upright eki stamp per Japan trip), flying crisp and blurred sakura petals, faint Japan background pieces (waves, Shinkansen, lanterns, fan, pagoda), a structured profile block. Version 2 of Hanami Line from the owner's notes; three palettes | 2026-10-02 | chosen (owner, 2026-10-02): `Spacious`, `stylish`, all three palettes; first client build is the real `Travel & Tourism` client's CV in all three | spacious: [stylish, soft pink](2026-10-02-hanami-line-2/spacious/stylish/spacious-stylish.pdf) · [indigo](2026-10-02-hanami-line-2/concept-indigo.pdf) · [light blue](2026-10-02-hanami-line-2/concept-blue.pdf) |
 | Hanami Line | Travel & Tourism, Japan, tour escort: the first take of the same idea (dark indigo, one branch in the margin, no background pieces); the owner's base for version 2 | 2026-10-02 | parked (superseded by Hanami Line 2) | spacious: [stylish, 2 pages](2026-10-02-hanami-line/spacious/stylish/spacious-stylish.pdf) |
 | Japan Passage | Travel & Tourism, Japan, tour escort: crafted Japanese journeys; Flagship discipline, selective travel identity and pale cherry margin artwork. One scoped Spacious Stylish concept per the owner's recalibration brief | 2026-10-02 | rejected (owner, 2026-10-02: far weaker than Stamp Rally); removed in f78a181 | in Git history |

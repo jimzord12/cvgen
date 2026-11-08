@@ -1,0 +1,180 @@
+{
+  "domainContract": 2,
+  "identity": {
+    "name": "Nikos Kontos",
+    "rank": "Tour Leader",
+    "specialty": "Group and private travel",
+    "portrait": null
+  },
+  "contacts": {
+    "left": [
+      {
+        "label": "Based in",
+        "value": "Patras, Greece"
+      },
+      {
+        "label": "Phone",
+        "value": "+30 699 000 0644",
+        "href": "tel:+306990000644"
+      },
+      {
+        "label": "Email",
+        "value": "nikos.kontos@example.com",
+        "href": "mailto:nikos.kontos@example.com"
+      }
+    ],
+    "right": [
+      {
+        "label": "Date of birth",
+        "value": "4 May 1997"
+      },
+      {
+        "label": "Nationality",
+        "value": "Greek"
+      },
+      {
+        "label": "Passport",
+        "value": "Valid, exp. October 2035"
+      }
+    ]
+  },
+  "profile": "Travel professional who plans, books and runs group and private trips, and stays the one calm contact while they run.",
+  "experience": [
+    {
+      "role": "Travel Consultant",
+      "employer": "Example Voyages",
+      "place": "Patras",
+      "from": "04/2022",
+      "bullets": [
+        "Itineraries: about 30 private and small-group trips a year, from three-day city breaks to two-week tours with several stops.",
+        "Bookings: hotels, ferries, coaches, licensed guides and domestic flights, each confirmed in writing and reconfirmed before arrival.",
+        "On the road: the single contact for clients and suppliers throughout each trip, by phone and messaging, seven days a week.",
+        "Changes: rebooks ferries, rooms and transfers the same day when weather, strikes or delays cancel a leg of the route.",
+        "Trip packs: a day-by-day plan with addresses, contacts, transfer times and confirmations, sent a week before departure."
+      ],
+      "intro": "Independent agency for private and small-group travel in Greece and abroad."
+    },
+    {
+      "role": "Reservations Agent",
+      "employer": "Example Air Services",
+      "place": "Athens",
+      "from": "05/2020",
+      "to": "03/2022",
+      "bullets": [
+        "Passenger desk: bookings, seat changes and baggage claims by phone and at the counter, on two reservation systems.",
+        "Disruptions: rerouted passengers onto partner flights during cancellations, and arranged hotels for missed connections."
+      ]
+    }
+  ],
+  "education_entries": [
+    {
+      "qualification": "Tour Leader Certificate",
+      "institution": "Example School of Tourism Professions, continuing education",
+      "note": "2023 – 2024"
+    },
+    {
+      "qualification": "Bachelor’s degree in Tourism Management",
+      "institution": "Example University of Western Greece",
+      "note": "2016 – 2020"
+    }
+  ],
+  "language_entries": [
+    {
+      "name": "Greek",
+      "level": "Native"
+    },
+    {
+      "name": "English",
+      "level": "C2",
+      "note": "Certificate of Proficiency"
+    },
+    {
+      "name": "Japanese",
+      "level": "JLPT N3",
+      "note": "Everyday conversation, signs and timetables"
+    }
+  ],
+  "availability": {
+    "headline": "Available from April 2027",
+    "text": "Seasonal or year-round contracts, at two weeks’ notice; happy to travel with groups for up to three weeks."
+  },
+  "destinations": {
+    "region": "Europe and East Asia",
+    "trips": [
+      {
+        "period": "September 2024",
+        "days": 14,
+        "role": "organised",
+        "kind": "Trip for six colleagues, which he planned",
+        "stops": [
+          {
+            "name": "Vienna",
+            "known": true
+          },
+          {
+            "name": "Salzburg"
+          },
+          {
+            "name": "Munich",
+            "known": true
+          }
+        ]
+      },
+      {
+        "period": "April 2023",
+        "days": 12,
+        "role": "travelled",
+        "kind": "Private trip",
+        "stops": [
+          {
+            "name": "Tokyo",
+            "known": true
+          },
+          {
+            "name": "Kyoto",
+            "known": true
+          },
+          {
+            "name": "Osaka"
+          }
+        ]
+      },
+      {
+        "period": "June 2022",
+        "days": 9,
+        "role": "organised",
+        "kind": "Trip for his family of five, which he planned",
+        "stops": [
+          {
+            "name": "Lisbon",
+            "known": true
+          },
+          {
+            "name": "Sintra"
+          },
+          {
+            "name": "Porto",
+            "known": true
+          }
+        ]
+      }
+    ],
+    "areas": [
+      {
+        "label": "Knows well",
+        "places": "Vienna, Munich, Tokyo, Kyoto, Lisbon and Porto"
+      }
+    ]
+  },
+  "practical": {
+    "lead": "In short",
+    "items": [
+      "Group travel: coaches, rooming lists, timed museum entries and meal plans for groups of up to 40",
+      "Travel experience: 14 countries in Europe and Asia, most of the trips planned and booked himself"
+    ]
+  },
+  "copy": {
+    "practical": "Skills & travel experience"
+  },
+  "disclosure": "FICTIONAL CANDIDATE / GENERIC-PAGE FIXTURE"
+}

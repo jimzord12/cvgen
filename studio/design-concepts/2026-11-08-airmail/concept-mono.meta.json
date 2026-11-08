@@ -1,0 +1,17 @@
+{
+  "variant": "mono",
+  "domain": "travel",
+  "candidate": "Nikos Kontos",
+  "rank": "Tour Leader / Travel Consultant",
+  "style": "Airmail",
+  "idea": "airmail letter border",
+  "status": "proposed",
+  "producedBy": "magazine-editor",
+  "kind": "concept",
+  "density": "condensed",
+  "tier": "stylish",
+  "date": "2026-11-08",
+  "contract": "cvgen.output/1",
+  "pages": 1,
+  "sha256": "c0525a164da5eac3e625bff7cd8a9206d969d4a8c0b92db63b01cbe420f134cc"
+}

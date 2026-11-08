@@ -1,0 +1,16 @@
+{
+  "kind": "concept",
+  "density": "condensed",
+  "tier": "stylish",
+  "domain": "travel",
+  "candidate": "Nikos Kontos",
+  "rank": "Tour Leader / Travel Consultant",
+  "style": "Rhumb Lines",
+  "idea": "portolan chart page",
+  "status": "proposed",
+  "producedBy": "magazine-editor",
+  "date": "2026-11-08",
+  "contract": "cvgen.output/1",
+  "pages": 1,
+  "sha256": "486c79088a6416217d5ac3de63303fbd9d020afd05f26201ff2eb6b308fc71ba"
+}

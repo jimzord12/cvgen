@@ -1,0 +1,16 @@
+{
+  "kind": "concept",
+  "density": "condensed",
+  "tier": "stylish",
+  "domain": "travel",
+  "candidate": "Nikos Kontos",
+  "rank": "Tour Leader / Travel Consultant",
+  "style": "Poster Sun",
+  "idea": "sunrise travel poster",
+  "status": "proposed",
+  "producedBy": "magazine-editor",
+  "date": "2026-11-08",
+  "contract": "cvgen.output/1",
+  "pages": 1,
+  "sha256": "4e4909943dd582d3f8ef4ccdaba1421e32320ccd19057530f334a0c701665539"
+}
