@@ -36,7 +36,7 @@ say which file owns which kind of guidance. In short:
 |---|---|
 | The map: where things are, the essential commands, the hard rules and the working agreement as pointers to their owners | `AGENTS.md` (`CLAUDE.md` only adds what is specific to Claude Code); each rule there points at the file that owns it |
 | Who the owner is, how to talk to him, who decides what | `docs/preferences.md` |
-| The owner's personal preferences | `.local/preferences/` (git-ignored; never copied into the repository) |
+| The owner's private preferences and personal detail (his conventions for an activity are placed by question 4 below) | `.local/preferences/` (git-ignored; never copied into the repository) |
 | What CVgen is, "Design is the product", the direction | `docs/vision.md` |
 | Rules that never change | `docs/constitution.md` (changing one is the owner's decision) |
 | How work is done | `docs/development.md` (roles, orientation, stages, task records, author checks), `docs/review.md` (reviews), `docs/git-workflow.md`, `docs/conventions.md` |

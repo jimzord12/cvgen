@@ -41,9 +41,10 @@ work already done.
   wording, live in `.claude/agents/context-maintainer.md`, "Where things live"
   (TASK-73), and the `context-reviewer` checks placement against them; in
   short: an agent's own job → its file; repository-specific → the owning
-  document or CVgen skill; the owner as a person → preferences; a generic
-  method or one activity's convention → that activity's skill when more than
-  one agent does or checks it, else the agent file. For this work:
+  document or CVgen skill; working with the owner → preferences; a generic
+  method or one activity's convention, his own cross-project ones included →
+  that activity's skill when more than one agent does or checks it, else the
+  agent file. For this work:
   - **`plan` skill** (new, generic): the plan template, the plan checklist and
     the decomposition checklist; the planner and both plan reviewers load it.
   - **`test-principles` skill** (new, generic): what makes a test worth

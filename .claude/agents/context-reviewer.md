@@ -42,8 +42,9 @@ what is missing.
    places with different words? Did a pointer that should have changed stay
    the same? A fresh-context agent profile may restate the essentials of a
    rule it applies, briefly, with a pointer to the owner; a full second copy
-   is a finding. Personal preferences belong in `.local/preferences/`, never
-   in the repository.
+   is a finding. The owner's private preferences and personal detail belong
+   in `.local/preferences/`, never in the repository; his conventions for an
+   activity are placed by question 4.
 4. **Semantics.** Is the principle captured, or only the example? Would the
    text fire on the triggering case, and wrongly fire on cases it should
    not (a rule written for CVs that would also fail a logo, a rule for one

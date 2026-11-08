@@ -6,7 +6,7 @@ title: >-
 status: Review
 assignee: []
 created_date: '2026-11-08T09:50:00Z'
-updated_date: '2026-11-08T10:00:00Z'
+updated_date: '2026-11-08T10:02:00Z'
 labels: []
 milestone: m-8
 dependencies: []
@@ -84,4 +84,11 @@ Report: archive/work-records/review-agents/reviews/02-context-reviewer.md (verba
 
 ## Owner decision, 2026-11-08 (round 2, Note 2)
 The owner's own conventions that he holds across projects go in the activity's skill (question 4), not in preferences or a repository document: 'The skill'. The `*.spec.*` example was fictional; it is not his convention and is not a rule. Questions 2 and 3 narrowed so such a convention reaches question 4. Back to Review for round 3.
+
+## Review round 3 (context-reviewer): FINDINGS, dispositions
+Report: reviews/03-context-reviewer.md (verbatim).
+- Material 1: fixed; context-maintainer.md's table row and context-reviewer.md's placement check now say private preferences and personal detail, and that his conventions for an activity are placed by question 4. The hard rule ('Personal detail about the owner belongs in .local/') left as is: it means private detail.
+- Minor 2: fixed; the plan's D1 summary says 'working with the owner'.
+- Note 3: fixed; the description says 'working with the owner'.
+- Note 4: no change, as the reviewer advised (question 3 comes first in order).
 <!-- SECTION:NOTES:END -->
