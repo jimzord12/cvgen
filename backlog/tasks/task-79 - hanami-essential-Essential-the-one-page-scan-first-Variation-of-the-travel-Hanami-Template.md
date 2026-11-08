@@ -6,7 +6,7 @@ title: >-
 status: Active
 assignee: []
 created_date: '2026-11-08T10:07:00Z'
-updated_date: '2026-11-08T10:35:00Z'
+updated_date: '2026-11-08T10:52:00Z'
 labels: []
 milestone: m-2
 dependencies: []
@@ -43,3 +43,18 @@ The first scan-first Template Variation (P-0019 section 9, owner 2026-11-04 and 
 7. Docs: template-contract.md, Hanami docs, build-a-cv guide; Workflow anchors and Atlas.
 8. tests/run.py and ruff pass; marine and showcase pixel-identical.
 <!-- SECTION:PLAN:END -->
+
+## Implementation Notes
+
+<!-- SECTION:NOTES:BEGIN -->
+## Result and evidence (round 1, before design review)
+
+- Built: layouts/essential.typ, essential.typ (composition), components/essential.typ; hanami.typ dispatches on the variation and checks the layout against the manifest; template.json essential (pages 1, designBar scan-first, travel upTo 1: profile, education, languages, portrait, availability, practical, references). Showcase unchanged (pixel check passes).
+- Long careers: the newest roles in full, the older in one summary with experience-totals (data.typ, domain.typ); fails loudly when the newest role alone overflows or a summarised career is not newest first.
+- destinations is shown as a summary (trips, stops, totals) but not claimed in v1 (no stamps, route or story): dropped with the warning by design; TASK-80 should split it.
+- Entry point examples/travel/hanami/tour-leader-essential.typ (release.json); Frozen Reference candidate tests/approved/Travel-Tour-Leader-CV-Essential-v01.pdf, not pinned in baseline.json (owner approval pending).
+- Fixtures: tests/fixtures/travel-essential.typ (no portrait, indigo, sky, greek, long career, long career Greek, no destinations; failures overflow, unsorted, long name, showcase layout), tests/fixtures/tour-leader-long-career.json.
+- Docs: engine/template-contract.md, architecture.md, verification.md 6b, domains-and-roles.md, glossary, guides/build-a-cv.md (choose and record the Variation), Workflow Model lead.write-flagship-entry, anchors, Atlas.
+- Evidence: python tests/run.py PASS (builds/tests-20261108-125057-630396), ruff clean; review renders builds/hanami-essential-r1-20261108-125152/.
+- Open: design-reviewer and codex-visual-reviewer rounds; owner approval of the look, the scan-first bar and the Frozen Reference.
+<!-- SECTION:NOTES:END -->
