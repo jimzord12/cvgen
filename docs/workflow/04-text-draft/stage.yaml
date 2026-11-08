@@ -59,7 +59,7 @@ steps:
 
   - id: text-draft.client-check
     name: The client checks the underlined facts
-    sources: ["docs/workflow/04-text-draft/README.md:17-23", "docs/glossary.md:71", "docs/glossary.md:74"]
+    sources: ["docs/workflow/04-text-draft/README.md:17-23", "docs/glossary.md:72", "docs/glossary.md:75"]
     actor: actor.client
     action: manual.client-checks-draft
     inputs: [art.draft-message]
@@ -109,7 +109,7 @@ steps:
 gates:
   - id: gate.sign-off
     name: Sign-off
-    sources: ["docs/workflow/04-text-draft/README.md:41-44", "docs/workflow/04-text-draft/README.md:48-52", "docs/glossary.md:74"]
+    sources: ["docs/workflow/04-text-draft/README.md:41-44", "docs/workflow/04-text-draft/README.md:48-52", "docs/glossary.md:75"]
     check: The client replied OK to the underlined facts.
     pass: text-draft.sign-off-save
     fail: text-draft.corrections
@@ -125,7 +125,7 @@ loops:
 artifacts:
   - id: art.text-draft-lib
     name: The Text Draft library
-    sources: ["scripts/text-draft.typ:1-28", "docs/glossary.md:68"]
+    sources: ["scripts/text-draft.typ:1-28", "docs/glossary.md:69"]
     path: scripts/text-draft.typ
     format: Typst library (text-draft, fact)
     visibility: public
