@@ -164,7 +164,7 @@ cv-workflow/cv_workflow/                Python; owns everything around a candida
   checks.py                             page count, empty page, fonts, bounds; bound to the PDF hash; certificate expiry warnings
   approve.py                            explicit approval receipt, bound to revision id and hash
   export.py                             verify, copy into a .partial- folder, verify, rename into place
-  contracts.py                          Domain Contracts and manifests: the checks before a render, the version comparison, coverage judging, the compatibility report
+  contracts.py                          Domain Contracts and manifests: checks before a render, version comparison, coverage, the compatibility report
   outputs.py, output.schema.json        the Output Contract: each PDF's home, stamp and check its Meta File
 scripts/cv.py                           the five local commands calling that package (render, approve, export, status, contracts)
 scripts/outputs.py                      stamp and check, calling outputs.py

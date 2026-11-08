@@ -74,7 +74,7 @@
    "verifiedAt": "2026-11-08"
   },
   "roster": {
-   "commit": "5f78f06",
+   "commit": "6be2cb2",
    "sources": {
     ".claude/agents/ceo-reviewer.md": "8b0ce89d0cf745923ec296c9034c1f8e5958d42b",
     ".claude/agents/ceo.md": "4fec7c781ea76a4faba820f013880f62f0799168",
@@ -103,7 +103,7 @@
     "docs/decisions/0014-backlog-md-task-store.md": "cdd5f82fdbb21c38e5ed6c06c07082136e822221",
     "docs/decisions/0017-backlog-md-1-55-3.md": "5ab727aa0ee8dba26cfff8bf06615f2173dc1621",
     "docs/development.md": "0e4faad2fea188680eb98bc3ae92613f683266ad",
-    "docs/engine/verification.md": "fa2946ede120b7d365854c44bb1505eb7ecf4ec6",
+    "docs/engine/verification.md": "a7ce5d7f96d22c9222b8ad4fcd0e8bf9bcb10ad2",
     "docs/git-workflow.md": "9e8272c67b377419c7fdb333a4572e447a0428c0",
     "docs/guides/build-a-cv.md": "c8829aefab540b0181e71b0a7e7869321b1d71a9",
     "docs/guides/client-workflow.md": "221675bd00c8fcd72c6bf922968a96860d7f59c0",
@@ -125,7 +125,7 @@
    "verifiedAt": "2026-11-08"
   },
   "system-map": {
-   "commit": "5f78f06",
+   "commit": "6be2cb2",
    "sources": {
     ".claude/agents": "dir1:d86ac8b44b9896473ff12ecdbc91538ae34a8852",
     ".claude/skills": "dir1:5eeafda0c9ef9a6037a3fcc2879f73f098fa3e55",
@@ -135,8 +135,8 @@
     "apps/design-review/server.py": "65b42af8bcf0a971e19ec97fa39b874cad91c3c1",
     "archive/work-records": "dir1:ae606aae0f8ca63a314f04dc5359028814c4efc2",
     "docs": "dir1:139adff443cb7a07dd0d5fae04941c8c0785eb30",
-    "docs/architecture.md": "4d106ec3806c20021188edbbedd42b68bc5a1da4",
-    "docs/engine/verification.md": "fa2946ede120b7d365854c44bb1505eb7ecf4ec6",
+    "docs/architecture.md": "98d5ea75e6794d7e5736dcc899036a4906d888bb",
+    "docs/engine/verification.md": "a7ce5d7f96d22c9222b8ad4fcd0e8bf9bcb10ad2",
     "docs/git-workflow.md": "9e8272c67b377419c7fdb333a4572e447a0428c0",
     "docs/glossary.md": "0d2fc36ee85dc0986450e0d8b9236c571a486bb5",
     "docs/guides/build-a-cv.md": "c8829aefab540b0181e71b0a7e7869321b1d71a9",

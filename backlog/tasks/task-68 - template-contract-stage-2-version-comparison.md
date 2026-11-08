@@ -4,7 +4,7 @@ title: 'template-contract-stage-2: version comparison'
 status: Active
 assignee: []
 created_date: 2026-11-04 21:41
-updated_date: '2026-11-08T10:38:00Z'
+updated_date: '2026-11-08T10:43:00Z'
 labels: []
 milestone: m-2
 dependencies: []
@@ -47,4 +47,8 @@ Evidence: suite PASS on f1b6b39 (merge of main), builds/tests-20261108-123228-32
 6. The facts schema keeps copy an open object; only the Template's input schema closes its keys. An entry point with no Template no longer checks copy keys.
 7. The coverage figure is in cv.py contracts and the suite's evidence, not the Meta File.
 8. Stage 2 was built before any Domain Contract reached version 2, so the travel v2 contract can use it; ADR 0016's Status line records it.
+
+## Review (2026-11-08)
+
+Code review rounds 1-3 (PASS) and context review rounds 1 (FINDINGS) and 2 (PASS), verbatim in archive/work-records/template-contract-stage2/reviews/. Evidence for the head: builds/tests-20261108-123928-837247 (6be2cb2), then the merged head below.
 <!-- SECTION:NOTES:END -->
