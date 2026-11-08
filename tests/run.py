@@ -337,7 +337,7 @@ def main():
     for mode, message in [('no-destinations', 'Candidate requires destinations'), ('bad-month', 'experience.from must be MM/YYYY'),
                           ('overflow', 'Hanami: page 1 overflows'), ('long-name', 'the name is wider than the name plate'),
                           ('long-rank', "is wider than the name plate's 38 mm tab"), ('long-contact', 'is wider than its 50 mm column'),
-                          ('long-city', 'runs under the name plate'), ('many-links', 'the contact line runs into the travellers'),
+                          ('long-city', 'runs under the name plate'), ('many-links', 'the linked contacts run into the travellers'),
                           ('five-cells', 'the profile row holds four highlight cells'), ('two-stories', 'At most one trip may have a story'),
                           ('long-native', "wider than the stamp's inner disc"), ('long-stamp-kanji', "wider than the stamp's inner disc"),
                           ('long-region', 'the rank, region and its native name run into the travellers'),
