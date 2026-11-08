@@ -3,10 +3,10 @@ id: TASK-69
 title: >-
   backlog-milestones: Backlog.md 1.55.3, every task in a milestone, milestones
   in the workflow
-status: Ready
+status: Done
 assignee: []
 created_date: '2026-11-08T09:06:00Z'
-updated_date: '2026-11-08T09:23:00Z'
+updated_date: '2026-11-08T09:35:00Z'
 labels: []
 milestone: m-8
 dependencies: []
@@ -59,4 +59,14 @@ Pin 1.55.3 in tech-stack, the backlog skill and ADR 0017 (0014 Status and index 
 ## Review
 
 context-reviewer round 1 FINDINGS (4 Material, 7 Minor), round 2 PASS (4 Minor, applied): archive/work-records/backlog-milestones/reviews/. The plan-reviewer and its gate are another agent's work and were not run here.
+
+## Done (2026-11-08)
+
+Merged in 0562605. CI: main's run 42467493384 on 2d23778 fails only at the Typst download (GitHub 504, Linux; Windows passed on rerun); the identical tree (828cb4b, `git diff` empty) passed run 42467279648 on Linux and Windows. That run also proves the fix for the red main since 2026-11-04 (scripts/report.py NaN message).
 <!-- SECTION:NOTES:END -->
+
+## Final Summary
+
+<!-- SECTION:FINAL_SUMMARY:BEGIN -->
+Backlog.md pinned to 1.55.3 (ADR 0017 amends 0014); every task in one of nine milestones made through the CLI; milestones built into development.md, the backlog skill, the glossary, review.md's record-keeping, idea-run, the ceo and .codex. context-reviewer: FINDINGS then PASS. The plan-reviewer is another agent's work.
+<!-- SECTION:FINAL_SUMMARY:END -->
