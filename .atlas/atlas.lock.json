@@ -17,7 +17,7 @@
    "verifiedAt": "2026-11-08"
   },
   "client-journey": {
-   "commit": "1050b75",
+   "commit": "fef9100",
    "sources": {
     ".claude/agents/design-reviewer.md": "9938a4b0c29a9fb5cf700f45377a3587f7eb21d0",
     ".claude/skills/idea-run/SKILL.md": "a7819ea4833bf71da6a663016e0b69ceba0e3a25",
@@ -34,7 +34,7 @@
     "docs/proposals/workflow-gaps.md": "ed45ad272f79d933c9958e9d86bed79f9458c93a",
     "docs/proposals/workflow-model.md": "a4157a6d03f5ef9a6765fb289a3b3d78fa5547cf",
     "docs/research/README.md": "07e6579724b4758236ed37ab48b95e5e7cded544",
-    "docs/review.md": "f385f36f6c38ff5217cd65afddafab956c3f2995",
+    "docs/review.md": "a1cd8ecf989001d4471f7e2862691167bdc4c7ca",
     "docs/workflow/01-open/README.md": "dd68671aa917911353229223d0846fbc412dc66c",
     "docs/workflow/02-intake/README.md": "99a579dfa0367c911aa7f62780d92afc2a45f136",
     "docs/workflow/03-research/README.md": "0dbf0603ecdd195487d4b9d3e990dda390ae1bdd",
