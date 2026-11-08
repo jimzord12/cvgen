@@ -497,7 +497,7 @@ def main():
         # in the band, the skills as two labelled items under the record's own title, the languages as a table.
         text = ' '.join(doc[0].get_text().split())
         assert '添乗員' not in text and 'PASSPORT Valid, exp. October 2035' in text and 'SKILLS & TRAVEL EXPERIENCE' in text, text
-        assert 'Group travel: coaches' in text and 'Greek Native English C2' in text
+        assert 'Group travel: coaches' in text and 'Greek Native Written and spoken' in text and 'Japanese JLPT N3' in text
     # The plain pack's route arc is placed from the measured name and rank row: it never lies on a word, it steps
     # aside when the row leaves it under 30 mm, and it replaces the sakura branch (far fewer drawings in the band).
     def band_drawings(pdf):
