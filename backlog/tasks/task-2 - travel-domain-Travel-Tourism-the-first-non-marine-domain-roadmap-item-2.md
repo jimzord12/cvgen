@@ -1,10 +1,10 @@
 ---
 id: TASK-2
 title: 'travel-domain: Travel & Tourism, the first non-marine domain (roadmap item 2)'
-status: Queued
+status: Active
 assignee: []
 created_date: 2026-10-06 07:25
-updated_date: '2026-11-08T09:09:00Z'
+updated_date: '2026-11-08T10:12:00Z'
 labels: []
 milestone: m-3
 dependencies: []
@@ -24,3 +24,15 @@ ordinal: 2000
 
 **Done when.** The Domain, Template, fictional example and frozen reference land with the suite passing and the engineer example still pixel-identical to v11.
 <!-- SECTION:DESCRIPTION:END -->
+
+## Implementation Plan
+
+<!-- SECTION:PLAN:BEGIN -->
+1. packages/domains/travel: domain.typ, data.typ (normalise, validate, destination totals), schema, contracts/v1.json, lib.typ.
+2. Coverage Fixture coverage-v1.json + markers.
+3. templates/hanami: port of Hanami Line 2 (client one-off) as the showcase Template Variation; themes pink/indigo/blue, Japan artwork pack, template.json, tests/coverage.typ.
+4. Fictional twin examples/candidates/travel-tour-leader-example.json + examples/travel/hanami/<twin>.typ; render to builds/.
+5. Frozen Reference candidate in tests/approved (owner approval pending) + pixel check in the suite; travel checks in tests/run.py and coverage.py.
+6. Docs: architecture, domains-and-roles, template-contract, glossary, workflow YAML facts; anchors, render, atlas.
+7. Suite + ruff; notes with evidence.
+<!-- SECTION:PLAN:END -->

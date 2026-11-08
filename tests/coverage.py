@@ -91,17 +91,18 @@ def run_coverage(out, typst, flags):
     assert check_groups({}, GROUPS, {})[0] == ['identity']
     checks.append('a group is found through a path, and dropped groups are named')
 
-    # Every path of the real contract resolves on the fixture, so no drop can pass unseen through a typo.
-    fixture = read(DOMAINS / 'marine/fixtures/coverage-v1.json')
-    for name, group in contract('marine', 1)['groups'].items():
-        assert holds(fixture, group), name
+    # Every path of each real contract resolves on its fixture, so no drop can pass unseen through a typo.
+    for domain in ('marine', 'travel'):
+        fixture = read(DOMAINS / domain / 'fixtures/coverage-v1.json')
+        for name, group in contract(domain, 1)['groups'].items():
+            assert holds(fixture, group), (domain, name)
 
     # The checks before a render, on the real marine contract.
     facts = json.loads((ROOT / 'examples/candidates/engineer-example.json').read_text(encoding='utf-8'))
     imports = '#import "/packages/domains/marine/lib.typ": flagship\n'
     source = imports + '#show: flagship.with(candidate: record)'
     envelope = {'domain': 'marine', 'template': 'flagship', 'variation': 'showcase'}
-    assert versions('marine') == [1] and versions('travel') == [] and template_in('marine', source) == 'flagship'
+    assert versions('marine') == [1] and versions('travel') == [1] and versions('software') == [] and template_in('marine', source) == 'flagship'
     assert template_in('marine', '#fc.hero(ctx, d) // flagship-components') is None
     assert template_in('marine', without_comments(imports + '#fc.hero(ctx, d) // not flagship(): it does not fit')) is None
     assert choose({'domain': 'travel'}, source, facts) is None
@@ -128,4 +129,17 @@ def run_coverage(out, typst, flags):
     refused(lambda: choose(envelope, imports + '#show: flagship.with(variation: "other")', facts), "envelope.json says variation 'showcase' but typst/cv.typ renders 'other'")
     refused(lambda: choose(envelope, source, {**facts, 'domainContract': 9}), 'marine contract version 9, which is not kept')
     checks.append('a render stops on a missing group and on a choice that disagrees')
+
+    # The same checks on the travel contract (P-0013): Hanami, its default, and a record without its optional groups.
+    tour = json.loads((ROOT / 'examples/candidates/tour-leader-example.json').read_text(encoding='utf-8'))
+    hanami = '#import "/packages/domains/travel/lib.typ": hanami\n#show: hanami.with(candidate: record, variation: "showcase")'
+    trip = {'domain': 'travel', 'template': 'hanami', 'variation': 'showcase'}
+    assert template_in('travel', hanami) == 'hanami' and template_in('travel', source) is None
+    assert choose(trip, hanami, tour) == ({'template': 'hanami', 'variation': 'showcase', 'domain_contract': 1, 'dropped': []}, [])
+    bare = {k: v for k, v in tour.items() if k in ('identity', 'contacts', 'experience')}
+    assert choose(trip, hanami, bare)[0]['dropped'] == []
+    assert choose(trip, hanami, {**tour, 'certificates': [{'title': 'A', 'scope': 'B', 'issued': 'C'}]})[0]['dropped'] == ['certificates']
+    refused(lambda: choose(trip, hanami, {**tour, 'identity': {'name': 'A'}}), 'candidate.json has no rank, required by the travel contract')
+    refused(lambda: choose({**trip, 'template': 'flagship'}, hanami, tour), "envelope.json says template 'flagship' but typst/cv.typ renders 'hanami'")
+    checks.append('the travel contract: Hanami chosen, certificates dropped, a missing rank refused')
     return checks

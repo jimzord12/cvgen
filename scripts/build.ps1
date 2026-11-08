@@ -61,7 +61,9 @@ try {
             $target = Join-Path $projectRoot ([IO.Path]::ChangeExtension($example.source, '.pdf'))
             # File.Copy with overwrite false throws on an existing file: only -ReplaceRelease overwrites.
             [IO.File]::Copy((Join-Path (Resolve-Path -LiteralPath $OutputDirectory).Path $name), $target, [bool]$ReplaceRelease)
-            & $PythonExecutable scripts/outputs.py stamp $target status=release style=Flagship "title=$($example.title)" "variant=$($example.variant)" producedBy=scripts/build.ps1 | Out-Null
+            # The Template's name for the Meta File's style; an entry without one is Flagship (the marine examples).
+            $style = if ($example.PSObject.Properties['style'] -and $example.style) { $example.style } else { 'Flagship' }
+            & $PythonExecutable scripts/outputs.py stamp $target status=release "style=$style" "title=$($example.title)" "variant=$($example.variant)" producedBy=scripts/build.ps1 | Out-Null
             if ($LASTEXITCODE -ne 0) { throw "Stamping failed: $target" }
         }
         Write-Host 'Release written beside the entry points in examples/ and stamped; commit it as a deliberate release.'
