@@ -35,7 +35,10 @@ It goes once those are settled.
   `design.preview` reads, so in the model a fix after a failed render,
   example wording or the owner's change feeds the design preview again;
   no source says whether such a fix needs another `design-reviewer`
-  round. Added by TASK-43, from TASK-40's review.
+  round. Added by TASK-43, from TASK-40's review. Settled for the owner's
+  changes on 2026-11-08 (`06-deliver/README.md`, "Branches"): one to the
+  design goes through the design review again, one to the words or facts
+  alone does not; still open for a failed render or example wording.
 
 ## What the YAML leaves out
 

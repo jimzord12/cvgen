@@ -90,6 +90,11 @@ command from the repository root.
   `NOTE:` line word for word. Clear the page PNGs by path. **Stop here.**
 - The owner: `deliver.owner-review`, `deliver.approve`. Never approve a
   real client's PDF yourself.
+- His change (`loop.owner-changes`): `deliver.fix`. A change to the design
+  first goes back through `design.preview` to `design.clear-review-input`
+  above, the two `Polish Round`s included; one to the words or facts alone
+  goes straight to `deliver.render`. Where the line is: the deliver README,
+  "Branches".
 - After his `Approval`: `deliver.export`
   (`python scripts/cv.py export private/<envelope> <revision>`), then
   `deliver.record-delete-by` ("Exported <date>, delete by <date + 12

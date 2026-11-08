@@ -73,14 +73,35 @@ own loop:
 
 `deliver.fix` rewrites the same `typst/cv.typ` and `candidate.json` that
 design wrote, which is why the journey shows a dotted arrow back to
-`design`: in the model, the changed files feed `design.preview` again. No
-source says whether a fix needs another design review.
+`design`: in the model, the changed files feed `design.preview` again.
+Whether the owner's change goes that way depends on what it changes
+(owner, 2026-11-08):
+
+- **A change to the design goes back through the design review.** One that
+  changes how a page looks: the layout or page plan, the header, a
+  section's place, the type, colour or artwork, the portrait; or new words
+  or facts that change the page count, the split between pages, or where
+  the header or a section sits. It runs `design.preview` and
+  `gate.client-design-review` again (both judges, fresh, its round cap
+  counted afresh, reports numbered on in `reviews/`), then the two `Polish Round`s and
+  `design.clear-review-input`; only then does a new `deliver.render` reach
+  the owner.
+- **A change to the words or facts alone does not.** A date, a typo, a
+  word, a certificate, a contact detail, when the page count, the split
+  between pages and the place of the header and every section stay as
+  they were: render again, and `deliver.page-png` confirms that nothing
+  moved. Anything that did is a design change; when in doubt, it is one.
+
+No source yet says whether a fix after a failed render or example wording
+needs another design review.
 
 ## Common mistakes
 
 - Approving a real `Client`'s PDF as an agent, or approving a hash that
   was not the one the owner looked at.
 - Sending, or showing the owner, a preview instead of the `Revision`.
+- Showing the owner a `Revision` whose design he asked to change before
+  it passed the design review and its two `Polish Round`s again.
 - Exporting before `Approval`; stamping delivered before the owner sent it.
 - Forgetting the delete-by line at `Export`: `after` reads it.
 - Changing a file inside `revisions/` or `exports/`; both are only ever
@@ -235,7 +256,7 @@ flowchart TD
 | `cmd.page-png` | cmd | Render a page to PNG | `python -c "import pymupdf; doc = pymupdf.open('private/<envelope>/revisions/<revision>/cv.pdf'); doc[<N>].get_pixmap(dpi=96).save('builds/<new-folder>/cv-p<N>.png')"` |
 | `cmd.stamp-delivered` | cmd | Stamp the Revision delivered | `python scripts/outputs.py stamp private/<envelope>/revisions/<revision>/cv.pdf status=delivered` |
 | `cmd.wording-check` | cmd | Check for example wording | `python -c "import pymupdf,sys; t=''.join(p.get_text() for p in pymupdf.open(sys.argv[1])).lower(); print([w for w in ('fictional','illustrative','flagship') if w in t])" private/<envelope>/revisions/<revision>/cv.pdf` |
-| `lead.fix-inputs` | lead | Fix the inputs | Applies the fix the message names, in candidate.json, envelope.json or the entry point's layout override; never shrinks the body font; the Revision it looked at is never modified. |
+| `lead.fix-inputs` | lead | Fix the inputs | Applies the fix the message names, in candidate.json, envelope.json or the entry point's layout override; never shrinks the body font; the Revision it looked at is never modified. An owner's change to the design (layout, page plan, header, a section's place, type, colour, artwork, portrait, or new words that change the page count, the split between pages or where a section sits) goes through design.preview, gate.client-design-review and its two Polish Rounds before the next render; one to the words or facts alone does not. |
 | `lead.report-delete-by` | lead | Name the delete-by date | Names the delete-by date in its report to the owner, with any Intake Form, Sheet and script project listed in README.md for deletion with it. |
 | `lead.report-render` | lead | Report the render | Stops at the render and reports the revision folder, the PDF hash, the page count, what was checked on each page, any override, and every WARNING and NOTE word for word. |
 | `lead.write-delete-by` | lead | Write the delete-by date | Writes "Exported <date>, delete by <date + 12 months>" in the Envelope's README.md, together with the Export. |

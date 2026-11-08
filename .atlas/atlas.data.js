@@ -561,7 +561,7 @@ window.ATLAS = {
     "docs/guides/build-a-cv.md:1-111",
     "docs/guides/build-a-cv.md:113-196",
     "docs/pdf-workflow.md:176-198",
-    ".claude/skills/new-cv/SKILL.md:77-99",
+    ".claude/skills/new-cv/SKILL.md:77-104",
     "docs/workflow/07-after/README.md:15-56",
     ".claude/skills/new-client/SKILL.md:16-29",
     "docs/proposals/workflow-model.md:54-60"
@@ -2536,7 +2536,8 @@ window.ATLAS = {
        "sources": [
         ".claude/skills/new-cv/SKILL.md:54-62",
         "docs/workflow/05-design/README.md:55-57",
-        "docs/proposals/workflow-model.md:57"
+        "docs/proposals/workflow-model.md:57",
+        "docs/workflow/05-design/README.md:107-111"
        ]
       },
       {
@@ -2704,7 +2705,7 @@ window.ATLAS = {
        "title": "Fix the inputs; the fix is a new Revision",
        "actor": "lead",
        "optional": true,
-       "summary": "Applies the fix the message names, in candidate.json, envelope.json or the entry point's layout override; never shrinks the body font; the Revision it looked at is never modified.",
+       "summary": "Applies the fix the message names, in candidate.json, envelope.json or the entry point's layout override; never shrinks the body font; the Revision it looked at is never modified. An owner's change to the design (layout, page plan, header, a section's place, type, colour, artwork, portrait, or new words that change the page count, the split between pages or where a section sits) goes through design.preview, gate.client-design-review and its two Polish Rounds before the next render; one to the words or facts alone does not.",
        "loop": {
         "to": "deliver.render",
         "label": "Fix and render again after a failed render",
@@ -2725,7 +2726,9 @@ window.ATLAS = {
        "sources": [
         "docs/guides/build-a-cv.md:131-142",
         "docs/guides/build-a-cv.md:198-207",
-        ".claude/skills/new-cv/SKILL.md:79-82"
+        ".claude/skills/new-cv/SKILL.md:79-82",
+        "docs/workflow/06-deliver/README.md:74-93",
+        ".claude/skills/new-cv/SKILL.md:93-97"
        ]
       },
       {
@@ -2939,7 +2942,7 @@ window.ATLAS = {
         "docs/proposals/workflow-model.md:54",
         "docs/proposals/workflow-model.md:56",
         "docs/workflow/06-deliver/README.md:44-46",
-        ".claude/skills/new-cv/SKILL.md:93-96"
+        ".claude/skills/new-cv/SKILL.md:98-101"
        ]
       },
       {
@@ -2986,7 +2989,7 @@ window.ATLAS = {
        "sources": [
         "docs/guides/build-a-cv.md:180-182",
         "docs/workflow/06-deliver/README.md:50-51",
-        ".claude/skills/new-cv/SKILL.md:97-98"
+        ".claude/skills/new-cv/SKILL.md:102-103"
        ]
       },
       {
@@ -3030,7 +3033,7 @@ window.ATLAS = {
        ],
        "note": "Model step `deliver.status`, action `cmd.cv-status`, in `docs/workflow/06-deliver/stage.yaml`.",
        "sources": [
-        ".claude/skills/new-cv/SKILL.md:99",
+        ".claude/skills/new-cv/SKILL.md:104",
         "scripts/cv.py:66-67",
         "packages/cv-workflow/cv_workflow/__init__.py:14-31"
        ]
@@ -4520,14 +4523,14 @@ window.ATLAS = {
   }
  ],
  "build": {
-  "builtAt": "2026-11-08 21:00 UTC",
-  "commit": "1e4592f",
+  "builtAt": "2026-11-08 21:07 UTC",
+  "commit": "57fed39",
   "kit": "1.1",
   "stale": {},
   "verified": {
    "client-journey": {
     "at": "2026-11-08",
-    "commit": "1e4592f"
+    "commit": "57fed39"
    },
    "design-run": {
     "at": "2026-11-08",
@@ -4543,7 +4546,7 @@ window.ATLAS = {
    },
    "roster": {
     "at": "2026-11-08",
-    "commit": "1e4592f"
+    "commit": "57fed39"
    }
   }
  }

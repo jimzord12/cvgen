@@ -224,7 +224,7 @@ steps:
   # --- Decision #4 (2026-10-14): every client CV's design is reviewed.
   - id: design.preview
     name: Compile the previews for the reviewer
-    sources: [".claude/skills/new-cv/SKILL.md:54-62", "docs/workflow/05-design/README.md:55-57", "docs/proposals/workflow-model.md:57"]
+    sources: [".claude/skills/new-cv/SKILL.md:54-62", "docs/workflow/05-design/README.md:55-57", "docs/proposals/workflow-model.md:57", "docs/workflow/05-design/README.md:107-111"]
     actor: actor.lead
     action: lead.compile-previews
     inputs: [art.cv-typ, art.candidate-json, art.framework-fonts]

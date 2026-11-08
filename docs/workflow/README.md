@@ -99,8 +99,11 @@ flowchart LR
 The dotted arrow back from `deliver` to `design` is `deliver.fix`: after a
 failed render, example wording or the owner's change, it rewrites the same
 `typst/cv.typ` and `candidate.json` that design wrote. In the model those
-files feed `design.preview` again; whether a fix needs another design
-review is not settled by any source.
+files feed `design.preview` again. An owner's change to the design goes
+back through the design review and its two `Polish Round`s; one to the
+words or facts alone does not (owner, 2026-11-08; `deliver`'s README,
+"Branches"). Whether a fix after a failed render or example wording needs
+another design review is not settled by any source.
 
 ## The stages in short
 

@@ -61,6 +61,10 @@ Every agent that designs, reviews or proposes works from this section.
 - **`Flagship Parity`.** The bar is the Marine Flagship: beautiful, elegant, confident, unique,
   premium, and unmistakably marine (a portrait framed by engine-room tools,
   a ship and a propeller drawn into the page).
+- **Finished, unasked (owner, 2026-11-08).** "The idea is to for you to
+  deliver them without me needing to ask": a seamless join between header
+  and body, and premium SVGs and images. The bar is the `design-reviewer`'s
+  criterion 6; two `Polish Round`s follow every pass.
 - **The `Scan Test` and the `scan-first` bar (owner, 2026-11-04).** When a
   `Client` needs a practical one-page CV, the operator may choose one clear
   page over a showpiece, whatever the `Rank` (owner, 2026-11-08). A `Template

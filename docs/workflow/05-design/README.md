@@ -104,6 +104,11 @@ Two gates in a chain choose one of three build paths:
   gates loop the same way (`loop.idea-research`, `loop.idea-design`). A
   `Polish Round` goes through `design.fix` too, on the "Even better"
   proposals of a review that passed.
+- **The owner changes the design at deliver** (`loop.owner-changes`): the
+  changed files come back to `design.preview` and pass this review and its
+  two `Polish Round`s again before a new `deliver.render`; a change to the
+  words or facts alone does not ([deliver](../06-deliver/README.md),
+  "Branches").
 
 ## Common mistakes
 
