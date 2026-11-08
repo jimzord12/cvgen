@@ -32,3 +32,6 @@ Worktree `.worktrees/idea-run-2026-11-08-editor`, branch
 ## Rounds
 
 (appended as the run goes)
+- Round 1 author: magazine-editor drew five styles (rhumb-lines, airmail, timetable, poster-sun, guilloche), each in colour and monochrome; snapshot e3be504. The editor may not run Git, so the lead committed. Monochrome files sit at `<style>/concept-mono.*` (the Output Contract accepts one PDF per tier folder; Hanami Line 2 palette precedent).
+- Portrait: prepared with `scripts/portrait.py` (branch feat/portrait-prep) from the fictional pinned image, after the owner's portrait rule reached the run mid-draw.
+- Round 1 gates: research-reviewer on the five briefs, and design-reviewer with codex-visual-reviewer on e3be504, started together (the lead's choice, to save the owner's wait: a research fix changes brief text, not the pages; any change to a page goes back through both design gates).
