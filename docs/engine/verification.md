@@ -225,13 +225,13 @@ Windows one also holds the PDFs that build wrote, one per example in
    cites it and one under Figures; on a direct call, a figure no one cites and
    one only a decision cites under Figures too), the fragment without its
    skeleton, refusal of an existing folder, text that cannot break out of the
-   page, then one refusal per rule, each on
-   its exact message and none leaving a folder (among them a missing or
-   wrong-typed field, a decision card without two to four options or one
-   recommended, a `Critical` decision, a done report with open cards, a missing
-   picture or page, a figure id missing or malformed, two figures with one id,
-   one item citing an id twice or citing one that is absent, a client's report
-   in a fragment). The page's script is not run here; a design review clicks it.
+   page, then one refusal per rule, each on its exact message and none leaving
+   a folder (among them a missing or wrong-typed field, a decision card
+   without two to four options or one recommended, a `Critical` decision, a
+   done report with open cards, a missing picture or page, a figure id missing
+   or malformed, two figures with one id, one item citing an id twice or citing
+   one that is absent, a client's report in a fragment). The page's script is
+   not run here; a design review clicks it.
 20. **Compatibility** (`compatibility: <check>`, `tests/compatibility.py`). Stage 2
    on synthetic contracts in a temporary folder (a `Domain` at versions 1 and 2,
    Variations up to 1, exactly 1 and 2, up to 2, exactly 2): every row of the

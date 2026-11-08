@@ -168,6 +168,7 @@ figure:target{outline:3px solid var(--thread);outline-offset:6px;border-radius:2
 .ref span{font-size:14px;color:var(--mute);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;min-width:0}
 .ref:hover{background:var(--thread);color:var(--on-thread)}.ref:hover span{color:inherit}
 .ref:focus-visible{outline:3px solid var(--fg);outline-offset:2px}
+button.ref{font:inherit;background:none;cursor:zoom-in}
 .refs small{color:var(--mute);font-size:14px}
 .rows .refs{grid-column:2;margin-top:6px}
 figcaption.head{margin:0 0 10px;display:flex;flex-wrap:wrap;gap:6px 12px;align-items:center;color:var(--fg);font-size:15px}
@@ -178,7 +179,7 @@ figcaption.head{margin:0 0 10px;display:flex;flex-wrap:wrap;gap:6px 12px;align-i
 .lb-bar span{margin-right:auto;font:800 16px var(--num);letter-spacing:.04em;color:var(--fg)}
 @media (max-width:760px){#lightbox{width:100vw;max-width:100vw;max-height:100dvh;border-radius:0}.lb-frame{padding:0 4px 8px}
   #lb-body{overflow-x:auto}#lb-body .sheet{width:200%;max-width:none}}
-.lb-bar button{font:700 15px var(--ui);padding:7px 14px;border-radius:6px;border:0;background:var(--thread);color:var(--on-thread);cursor:pointer}
+.lb-bar button{flex:none;white-space:nowrap;font:700 15px var(--ui);padding:7px 14px;border-radius:6px;border:0;background:var(--thread);color:var(--on-thread);cursor:pointer}
 .lb-bar button:focus-visible{outline:3px solid var(--fg);outline-offset:2px}
 .sheet{display:block;width:100%;background:#fff;box-shadow:0 8px 24px #0005}
 .compare{position:relative;--x:65%;overflow:hidden;line-height:0;box-shadow:0 8px 24px #0005}
@@ -267,7 +268,7 @@ const back = id => {
   const rows = (R.decisions || []).flatMap((d, i) => (d.figures || []).includes(id) ? [`<a class="ref" href="#dec-${i + 1}"><b>Decision ↓</b><span>${e(d.title)}</span></a>`] : []);
   return cards.length + rows.length ? `<span class="refs"><small>Asked or told about in</small>${[...cards, ...rows].join('')}</span>` : '';
 };
-const shared = x => `<figure id="fig-${e(x.id)}"><figcaption class="head"><span>${name(x)}${e(x.caption)}</span>${back(x.id)}</figcaption>${visual(x)}</figure>`;
+const shared = x => `<figure id="fig-${e(x.id)}"><figcaption class="head"><span>${name(x)}${e(x.caption)}</span>${back(x.id)}<button type="button" class="ref" data-enlarge="${e(x.id)}"><b>⤢ ${x.kind === 'compare' ? 'Compare' : 'Enlarge'}</b></button></figcaption>${visual(x)}</figure>`;
 
 const [tone, word, glyph] = VERDICTS[R.verdict];
 document.getElementById('band').dataset.tone = tone;
@@ -310,7 +311,7 @@ document.addEventListener('input', ev => {
 const box = document.getElementById('lightbox');
 document.querySelectorAll('[data-enlarge]').forEach(b => b.addEventListener('click', () => {
   const x = FIG[b.dataset.enlarge];
-  document.getElementById('lb-sides').textContent = x.kind === 'compare' ? `Left: ${x.before_label} · Right: ${x.after_label}` : '';
+  document.getElementById('lb-sides').textContent = `Figure ${x.id}` + (x.kind === 'compare' ? ` · Left: ${x.before_label} · Right: ${x.after_label}` : ` · ${x.caption}`);
   document.getElementById('lb-body').innerHTML = `<figure>${visual(x)}<figcaption>${name(x)}${e(x.caption)}</figcaption></figure>`;
   box.showModal();
 }));
