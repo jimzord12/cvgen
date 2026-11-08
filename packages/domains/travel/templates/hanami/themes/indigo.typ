@@ -10,7 +10,7 @@
     tone: rgb("9aa4cf"), ring: rgb("d9b46a"), ring-glow: rgb("f1d79c"), sun: rgb("e8cf98")),
   glow: none,
   fonts: fonts,
-  levels: (seigaiha: 0.1, art-fill: 0.07, glow-alpha: 96.4%, paper-art: 0.07),
+  levels: (seigaiha: 0.1, art-fill: 0.07, glow-alpha: 96.4%, paper-art: 0.07, soft-petals: false),
   sakura: (
     hero: (bark: rgb("eadad8"), petal: rgb("ffe4e0"), deep: rgb("ffbcb8"), edge: rgb("f3a3ae"), heart: rgb("e98a8f"), anther: rgb("f0c66a"), lent: rgb("ffffff"), kb: 0.3, kp: 0.82),
     paper: paper-sakura,

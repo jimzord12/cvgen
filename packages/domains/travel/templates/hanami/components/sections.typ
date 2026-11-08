@@ -31,10 +31,11 @@
         set par(leading: 0.42em)
         label(ctx, availability.headline, fill: P.accent, size: 6.8pt, track: 1.1pt)
         linebreak()
-        text(size: 8.8pt, availability.text)
+        text(size: 8.8pt, keep-end(availability.text))
       })
     },
   )
+  assert(highlights.len() <= 4, message: "Hanami: the profile row holds four highlight cells; drop " + str(highlights.len() - 4) + " from highlights")
   if highlights.len() > 0 {
     v(3.2mm)
     line(length: 100%, stroke: 0.5pt + P.keyline.transparentize(30%))

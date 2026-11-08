@@ -2,18 +2,38 @@
   "domainContract": 2,
   "identity": {
     "name": "Ada Qxname",
-    "rank": "Tour Leader Qxrank",
+    "rank": "Qxrank",
     "specialty": "Qxspecialty",
-    "seal": ["Qxseal", "2020"],
+    "seal": [
+      "Qxsealword",
+      "2020"
+    ],
     "portrait": "/examples/candidates/fictional-engineer.png",
     "portrait-alt": "Fictional portrait"
   },
   "contacts": {
-    "left": [{ "label": "Qxlabel", "value": "Qxcity" }],
-    "right": [{ "label": "Qxmailing", "value": "qxmail@example.com", "href": "mailto:qxmail@example.com" }]
+    "left": [
+      {
+        "label": "Qxlabel",
+        "value": "Qxcity"
+      }
+    ],
+    "right": [
+      {
+        "label": "Qxmailing",
+        "value": "qxmail@example.com",
+        "href": "mailto:qxmail@example.com"
+      }
+    ]
   },
   "profile": "Qxprofile. A fictional record for the coverage check.",
-  "highlights": [{ "icon": "torii", "title": "Qxcell", "text": "Qxcelltext" }],
+  "highlights": [
+    {
+      "icon": "torii",
+      "title": "Qxcell",
+      "text": "Qxcelltext"
+    }
+  ],
   "experience": [
     {
       "role": "Qxrole",
@@ -22,37 +42,154 @@
       "from": "03/2020",
       "to": "09/2021",
       "intro": "Qxintro",
-      "bullets": ["Qxbullet"],
-      "support": { "figure": "24/7", "text": "Qxsupport", "lead": "Qxlead", "cases": [{ "place": "Qxwhere", "text": "Qxcase" }] }
+      "bullets": [
+        "Qxbullet"
+      ],
+      "support": {
+        "figure": "24/7",
+        "text": "Qxsupport",
+        "lead": "Qxlead",
+        "cases": [
+          {
+            "place": "Qxwhere",
+            "text": "Qxcase"
+          }
+        ]
+      }
     },
-    { "role": "Qxsecond", "employer": "Qxemployer", "place": "Qxplace", "from": "01/2022", "bullets": ["Qxbullet"] }
+    {
+      "role": "Qxsecond",
+      "employer": "Qxemployer",
+      "place": "Qxplace",
+      "from": "01/2022",
+      "bullets": [
+        "Qxbullet"
+      ]
+    }
   ],
-  "certificates": [{ "title": "Qxcert", "scope": "Qxscope", "issued": "Qxissued" }],
-  "licences": [{ "title": "Qxlicence", "issuer": "Qxissuer", "region": "Qxlregion", "until": "30 Jun 2029" }],
-  "education_entries": [{ "qualification": "Qxdiploma", "institution": "Qxschool", "note": "Qxnote" }],
-  "language_entries": [{ "name": "Qxlanguage", "level": "Qxlevel", "note": "Qxlangnote" }],
+  "certificates": [
+    {
+      "title": "Qxcert",
+      "scope": "Qxscope",
+      "issued": "Qxissued"
+    }
+  ],
+  "licences": [
+    {
+      "title": "Qxlicence",
+      "issuer": "Qxissuer",
+      "region": "Qxlregion",
+      "until": "30 Jun 2029"
+    }
+  ],
+  "education_entries": [
+    {
+      "qualification": "Qxdiploma",
+      "institution": "Qxschool",
+      "note": "Qxnote"
+    }
+  ],
+  "language_entries": [
+    {
+      "name": "Qxlanguage",
+      "level": "Qxlevel",
+      "note": "Qxlangnote"
+    }
+  ],
   "destinations": {
     "region": "Qxregion",
     "native": "日本",
-    "route": { "from": { "code": "QXA", "city": "Qxfrom" }, "to": { "code": "QXB", "city": "Qxto" } },
-    "seal": ["Qxbadge"],
+    "route": {
+      "from": {
+        "code": "QXA",
+        "city": "Qxorigin"
+      },
+      "to": {
+        "code": "QXB",
+        "city": "Qxarrival"
+      }
+    },
+    "seal": [
+      "Qxbadge"
+    ],
     "trips": [
       {
         "period": "Qxperiod",
         "days": 9,
         "role": "led",
         "kind": "Qxkind",
-        "stops": [{ "name": "Qxstop", "known": true }, { "name": "Qxpassed" }],
-        "stamp": { "art": "snow", "kanji": "雪", "rim": ["Qxrim", "Qxstop", "2020"], "script": ["札幌"] },
-        "story": { "title": "Qxstory", "subtitle": "Qxstorysub", "items": ["Qxstep"] }
+        "stops": [
+          {
+            "name": "Qxknownstop",
+            "known": true
+          },
+          {
+            "name": "Qxpassedstop"
+          }
+        ],
+        "stamp": {
+          "art": "snow",
+          "kanji": "雪",
+          "rim": [
+            "Qxrimword",
+            "2020"
+          ],
+          "script": [
+            "札幌"
+          ]
+        },
+        "story": {
+          "title": "Qxstory",
+          "subtitle": "Qxstorysub",
+          "items": [
+            "Qxstep"
+          ]
+        }
       },
-      { "period": "Qxorganised", "days": 5, "role": "organised", "kind": "Qxkind", "stops": [{ "name": "Qxstop" }] },
-      { "period": "Qxtravelled", "days": 4, "role": "travelled", "kind": "Qxkind", "stops": [{ "name": "Qxstop" }] }
+      {
+        "period": "Qxorganisedtrip",
+        "days": 5,
+        "role": "organised",
+        "kind": "Qxkindtwo",
+        "stops": [
+          {
+            "name": "Qxstoptwo"
+          }
+        ]
+      },
+      {
+        "period": "Qxtravelledtrip",
+        "days": 4,
+        "role": "travelled",
+        "kind": "Qxkindthree",
+        "stops": [
+          {
+            "name": "Qxstopthree"
+          }
+        ]
+      }
     ],
-    "areas": [{ "label": "Qxarealabel", "places": "Qxarea" }]
+    "areas": [
+      {
+        "label": "Qxarealabel",
+        "places": "Qxarea"
+      }
+    ]
   },
-  "availability": { "headline": "Qxavailable", "text": "Qxfrom when" },
-  "practical": { "lead": "Qxconfident", "items": ["Qxknowhow"], "basics": { "label": "Qxbasic", "text": "Qxseason" } },
+  "availability": {
+    "headline": "Qxavailable",
+    "text": "Qxnotice"
+  },
+  "practical": {
+    "lead": "Qxconfident",
+    "items": [
+      "Qxknowhow"
+    ],
+    "basics": {
+      "label": "Qxbasic",
+      "text": "Qxseason"
+    }
+  },
   "references": "Qxreferences",
   "disclosure": "FICTIONAL COVERAGE FIXTURE"
 }

@@ -1,15 +1,19 @@
-"""Hanami's petal layer against a PDF's words. Run by tests/run.py on the tour-leader example.
+"""Decoration over words: Hanami's sakura petals in flight must never lie on a word.
 
-The sakura petals in flight are laid out in page millimetres once (assets/japan/petals-p<page>-<hero|field>.svg)
-and drawn on every Hanami page. A petal over a word would blur the CV, so the suite takes each petal's outline
-(rotated, skewed, squashed, plus three standard deviations of its blur) and fails when it meets a text span.
+The petals are laid out once in page millimetres (packages/domains/travel/assets/japan/petals-p<page>-<hero|field>.svg)
+and drawn on every Hanami page, whatever the record holds. A petal over a word blurs the CV, so the render
+(render.py) and the suite take each petal's outline (rotated, skewed, squashed, plus three standard deviations of
+its blur) and name every text span it meets. docs/framework-gaps.md, 2026-11-08, has the gap this guards.
 """
 import math
 import re
 
-import pymupdf as fitz
+from .workspace import DOMAINS
 
 MM = 25.4 / 72
+PETALS = DOMAINS / 'travel/assets/japan'
+# The Templates that draw the petal layer.
+PETAL_TEMPLATES = {'hanami'}
 PETAL = re.compile(r"<g transform='translate\(([-\d.]+),([-\d.]+)\) rotate\(([-\d.]+)\) skewX\(([-\d.]+)\) scale\(1,([-\d.]+)\)' "
                    r"opacity='[\d.]+'(?: filter='url\(#blur(\d)\)')?><path d='([^']+)' transform='translate\(0,([-\d.]+)\)'")
 
@@ -34,8 +38,9 @@ def petals(svg):
     return boxes
 
 
-def petal_collisions(pdf, art):
+def petal_collisions(pdf, art=PETALS):
     """(page, text) for every petal that lies on a word; empty when none does."""
+    import pymupdf as fitz  # Only the render path and the suite need it.
     found = []
     with fitz.open(pdf) as doc:
         for number, page in enumerate(doc, start=1):
@@ -51,3 +56,11 @@ def petal_collisions(pdf, art):
                         if any(a < x1 and c > x0 and b < y1 and d > y0 for a, b, c, d in layer):
                             found.append((number, span['text'].strip()[:30]))
     return found
+
+
+def decoration_errors(pdf, template):
+    """The check errors for a rendered PDF of `template`: one per word a petal lies on."""
+    if template not in PETAL_TEMPLATES:
+        return []
+    return [f'A sakura petal lies on the words "{text}" on page {page}: shorten or reword that line, '
+            'or move the petal in the template\'s petal layer' for page, text in petal_collisions(pdf)]

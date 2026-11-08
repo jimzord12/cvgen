@@ -48,13 +48,24 @@ def prove(out, typst, flags, domain, template, design, name, version, fixture, e
     stem = f'{template}-{name}-{fixture.stem}'
     pdf = out / f'{stem}.pdf'
     entry = DOMAINS / domain / 'templates' / template / design['coverage']
-    root_path = '/' + fixture.relative_to(ROOT).as_posix()
-    run = subprocess.run([typst, 'compile', '--root', str(ROOT), *flags, '--input', f'fixture={root_path}', '--input', f'variation={name}', str(entry), str(pdf)],
-                         capture_output=True, text=True, encoding='utf-8')
-    assert run.returncode == 0, run.stderr
-    with fitz.open(pdf) as doc:
-        text = ' '.join(page.get_text() for page in doc)
-        images = sum(len(page.get_images()) for page in doc)
+
+    def render(record, target):
+        root_path = '/' + record.relative_to(ROOT).as_posix()
+        run = subprocess.run([typst, 'compile', '--root', str(ROOT), *flags, '--input', f'fixture={root_path}', '--input', f'variation={name}', str(entry), str(target)],
+                             capture_output=True, text=True, encoding='utf-8')
+        assert run.returncode == 0, run.stderr
+        with fitz.open(target) as doc:
+            return ' '.join(page.get_text() for page in doc), sum(len(page.get_images()) for page in doc)
+
+    text, images = render(fixture, pdf)
+    # A template may draw small rasters of its own (Hanami's blurred petals), so the portrait is proved by the
+    # images the same fixture without one lacks, never by "any image".
+    plain = read(fixture)
+    if (plain.get('identity') or {}).get('portrait'):
+        plain['identity'] = {k: v for k, v in plain['identity'].items() if k != 'portrait'}
+        bare = out / f'{stem}-no-portrait.json'
+        bare.write_text(json.dumps(plain, ensure_ascii=False), encoding='utf-8')
+        images -= render(bare, out / f'{stem}-no-portrait.pdf')[1]
     groups = contract(domain, version)['groups']
     claimed, _ = claims(design['variations'][name], domain)
     markers = read(fixture.with_suffix('.markers.json'))
@@ -176,33 +187,35 @@ def run_coverage(out, typst, flags):
     trip = {'domain': 'travel', 'template': 'hanami', 'variation': 'showcase'}
     assert template_in('travel', hanami) == 'hanami' and template_in('travel', source) is None
     assert choose(trip, hanami, tour) == ({'template': 'hanami', 'variation': 'showcase', 'domain_contract': 2, 'dropped': []}, [])
-    bare = {k: v for k, v in tour.items() if k in ('identity', 'contacts', 'experience')}
+    bare = {k: v for k, v in tour.items() if k in ('identity', 'contacts', 'experience', 'destinations')}
     assert choose(trip, hanami, bare)[0]['dropped'] == []
+    refused(lambda: choose(trip, hanami, {k: v for k, v in bare.items() if k != 'destinations'}),
+            'candidate.json has no destinations, required by the travel contract')
     assert choose(trip, hanami, {**tour, 'certificates': [{'title': 'A', 'scope': 'B', 'issued': 'C'}]})[0]['dropped'] == ['certificates']
     refused(lambda: choose(trip, hanami, {**tour, 'identity': {'name': 'A'}}), 'candidate.json has no rank, required by the travel contract')
     refused(lambda: choose({**trip, 'template': 'flagship'}, hanami, tour), "envelope.json says template 'flagship' but typst/cv.typ renders 'hanami'")
-    checks.append('the travel contract: Hanami chosen, certificates dropped, a missing rank refused')
+    checks.append('the travel contract: Hanami chosen, certificates dropped, a missing rank or destinations refused')
 
     # Travel contract version 2 (TASK-80): destinations@2 states each trip's role, licences is new and optional.
     # The twin follows version 2; without its roles and licence it is a version 1 record, which still renders.
     older = {k: v for k, v in tour.items() if k not in ('domainContract', 'licences')}
     older['destinations'] = {**tour['destinations'], 'trips': [{k: v for k, v in t.items() if k != 'role'} for t in tour['destinations']['trips']]}
     assert choose(trip, hanami, older) == ({'template': 'hanami', 'variation': 'showcase', 'domain_contract': 1, 'dropped': []}, [])
-    # A Template Variation that stops at version 1 (as `essential` may) and one at version 2 without licences.
+    # A Template Variation that stops at version 1 and one at version 2 without licences. destinations is required,
+    # so neither claims it: a Variation renders the required groups of each version it declares.
     shapes = ['profile@1', 'education@1', 'languages@1', 'portrait@1', 'availability@1', 'practical@1', 'references@1']
     travel_design = {'default': 'calm', 'variations': {
-        'calm': {'supports': {'travel': {'upTo': 1, 'groups': [*shapes, 'destinations@1']}}},
-        'plain': {'supports': {'travel': {'upTo': 2, 'groups': [*shapes, 'destinations@2']}}}}}
+        'calm': {'supports': {'travel': {'upTo': 1, 'groups': shapes}}},
+        'plain': {'supports': {'travel': {'upTo': 2, 'groups': shapes}}}}}
 
     def on(name, record):
         source = f'#import "/packages/domains/travel/lib.typ": hanami\n#show: hanami.with(candidate: record, variation: "{name}")'
         return choose({**trip, 'variation': name}, source, record, design=travel_design)
     assert on('calm', older) == ({'template': 'hanami', 'variation': 'calm', 'domain_contract': 1, 'dropped': []}, [])
     refusal = refused_text(lambda: on('calm', tour), 'hanami calm supports travel contract up to version 1; this record follows version 2:')
-    assert refusal.splitlines()[1:] == ['  destinations changed (schemaVersion 1 to 2); destinations became required by version 2, '
-                                        'and this record holds it', FIX], refusal
-    # destinations is required at version 2, so a version 2 record without it is refused on every Variation:
-    # a Template Variation that stops at version 1 renders no version 2 record at all.
+    assert refusal.splitlines()[1:] == ['  destinations changed (schemaVersion 1 to 2)', FIX], refusal
+    # destinations is required and changed shape, so a Template Variation that stops at version 1 renders no
+    # version 2 record at all, and a version 2 record without destinations is refused everywhere.
     nowhere = {k: v for k, v in tour.items() if k != 'destinations'}
     for name in ('calm', 'plain'):
         refused(lambda name=name: on(name, nowhere), 'candidate.json has no destinations, required by the travel contract')
@@ -213,7 +226,7 @@ def run_coverage(out, typst, flags):
     assert describe(compatibility('travel', 'hanami', 'calm', travel_design['variations']['calm'])) == [
         'hanami calm on travel: renders version 1, newest 2; 7 of 9 optional groups at version 2',
         '  1 version behind: a version 2 record can stop the render',
-        '  - destinations changed (schemaVersion 1 to 2); destinations became required by version 2: error when the record holds it',
+        '  - destinations changed (schemaVersion 1 to 2): error',
         '  - licences is a new optional group by version 2: warning']
     # An expired licence is a loud Certificate Warning at render, never a failure (owner, 2026-09-25).
     expiry = check_certificates({**tour, 'licences': [{'title': 'A', 'issuer': 'B', 'until': '1 Jan 2026'},

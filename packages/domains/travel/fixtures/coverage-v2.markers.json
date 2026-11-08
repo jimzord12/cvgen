@@ -1,16 +1,102 @@
 {
-  "identity": ["Qxname"],
-  "rank": ["Qxrank", "Qxspecialty"],
-  "contacts": ["Qxlabel", "Qxcity", "Qxmailing", "qxmail@example.com"],
-  "experience": ["Qxrole", "Qxsecond", "Qxemployer", "Qxplace", "03/2020", "09/2021", "01/2022", "Qxintro", "Qxbullet", "Qxsupport", "Qxlead", "Qxwhere", "Qxcase"],
-  "profile": ["Qxprofile", "Qxcell", "Qxcelltext"],
-  "education": ["Qxdiploma", "Qxschool", "Qxnote"],
-  "languages": ["Qxlanguage", "Qxlevel", "Qxlangnote"],
-  "certificates": ["Qxcert", "Qxscope", "Qxissued"],
-  "licences": ["Licence", "Qxlicence", "Qxissuer", "Qxlregion", "Valid until 30 Jun 2029"],
-  "portrait": ["image"],
-  "destinations": ["Qxregion", "Qxperiod", "9 days", "Qxkind", "Qxstop", "Qxpassed", "札幌", "Qxstory", "Qxstorysub", "Qxstep", "Qxarealabel", "Qxarea", "QXA", "QXB", "Qxfrom", "Qxto", "Led the group", "Qxorganised", "Organised", "Qxtravelled", "Travelled"],
-  "availability": ["Qxavailable", "Qxfrom when"],
-  "practical": ["Qxconfident", "Qxknowhow", "Qxbasic", "Qxseason"],
-  "references": ["Qxreferences"]
+  "identity": [
+    "Qxname"
+  ],
+  "rank": [
+    "Qxrank",
+    "Qxspecialty",
+    "Qxsealword"
+  ],
+  "contacts": [
+    "Qxlabel",
+    "Qxcity",
+    "Qxmailing",
+    "qxmail@example.com"
+  ],
+  "experience": [
+    "Qxrole",
+    "Qxsecond",
+    "Qxemployer",
+    "Qxplace",
+    "03/2020",
+    "09/2021",
+    "01/2022",
+    "Qxintro",
+    "Qxbullet",
+    "Qxsupport",
+    "Qxlead",
+    "Qxwhere",
+    "Qxcase"
+  ],
+  "profile": [
+    "Qxprofile",
+    "Qxcell",
+    "Qxcelltext"
+  ],
+  "education": [
+    "Qxdiploma",
+    "Qxschool",
+    "Qxnote"
+  ],
+  "languages": [
+    "Qxlanguage",
+    "Qxlevel",
+    "Qxlangnote"
+  ],
+  "certificates": [
+    "Qxcert",
+    "Qxscope",
+    "Qxissued"
+  ],
+  "licences": [
+    "Qxlicence",
+    "Qxissuer",
+    "Qxlregion",
+    "Valid until 30 Jun 2029"
+  ],
+  "portrait": [
+    "image"
+  ],
+  "destinations": [
+    "Qxregion",
+    "Qxbadge",
+    "Qxperiod",
+    "9 days",
+    "Qxkind",
+    "Qxknownstop",
+    "Qxpassedstop",
+    "Qxrimword",
+    "札幌",
+    "Qxstory",
+    "Qxstorysub",
+    "Qxstep",
+    "Qxarealabel",
+    "Qxarea",
+    "QXA",
+    "QXB",
+    "Qxorigin",
+    "Qxarrival",
+    "Led the group",
+    "Qxorganisedtrip",
+    "Organised",
+    "Qxkindtwo",
+    "Qxstoptwo",
+    "Qxtravelledtrip",
+    "Travelled",
+    "Qxkindthree",
+    "Qxstopthree"
+  ],
+  "availability": [
+    "Qxavailable",
+    "Qxnotice"
+  ],
+  "practical": [
+    "Qxconfident",
+    "Qxknowhow",
+    "Qxbasic",
+    "Qxseason"
+  ],
+  "references": [
+    "Qxreferences"
+  ]
 }

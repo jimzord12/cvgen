@@ -15,7 +15,7 @@ from design_review import run_design_review
 from repo_maintenance import run_repo_maintenance
 from release import examples, run_build_script, shells
 from coverage import run_coverage
-from travel import petal_collisions
+from cv_workflow.decoration import decoration_errors, petal_collisions  # on the path through workflow.py
 from compatibility import run_compatibility
 from proposals import run_proposals
 from report import run_report
@@ -351,8 +351,8 @@ def main():
         # Travel contract version 2: both trips were organised by him, so neither reads as a led group.
         squeezed = ''.join(text.split())
         assert squeezed.count('ORGANISED') == 2 and 'LEDTHEGROUP' not in squeezed, text
-    collisions = petal_collisions(twin, ROOT / 'packages/domains/travel/assets/japan')
-    assert not collisions, collisions
+    collisions = petal_collisions(twin)
+    assert not collisions and not decoration_errors(twin, 'hanami') and decoration_errors(twin, 'flagship') == [], collisions
     for theme in ['indigo', 'sky', 'no-portrait']:
         pdf = compile_case('travel-' + theme, 'tests/fixtures/travel.typ', {'case': theme})
         assert check_case(pdf)['passed']
@@ -376,8 +376,12 @@ def main():
                           ('bad-role', 'trip.role must be one of led, organised, travelled in travel contract version 2; got "guided"'),
                           ('bad-licence-date', 'licences.until must be a day as 14 Jul 2029; got 03/2029'),
                           ('unknown-version', 'domainContract must be one of 1, 2 (the travel contract versions kept); got 3'),
-                          ('no-destinations', 'travel contract version 2 requires destinations'), ('bad-month', 'experience.from must be MM/YYYY'),
+                          # Every field Hanami places outside its two slots measures itself and fails loudly (constitution 4).
+                          ('no-destinations', 'Candidate requires destinations'), ('bad-month', 'experience.from must be MM/YYYY'),
                           ('overflow', 'Hanami: page 1 overflows'), ('long-name', 'the name is wider than the name plate'),
+                          ('long-rank', "is wider than the name plate's 38 mm tab"), ('long-contact', 'is wider than its 50 mm column'),
+                          ('long-city', 'runs under the name plate'), ('many-links', 'the contact line runs into the travellers'),
+                          ('five-cells', 'the profile row holds four highlight cells'), ('two-stories', 'At most one trip may have a story'),
                           ('bad-variation', 'Hanami has no Template Variation "essential"')]:
         compile_case('travel-' + mode, 'tests/fixtures/travel.typ', {'case': mode}, error=message)
     # Third dataset: deck officer without a portrait, on the same page plan.

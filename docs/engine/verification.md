@@ -64,17 +64,21 @@ Windows one also holds the PDFs that build wrote, one per example in
    must equal `packages/domains/travel/templates/hanami/tests/approved/Travel-Tour-Leader-CV-v01.pdf`
    pixel for pixel with identical text on both pages (a `Frozen Reference`
    candidate until the owner approves it), carry its name, rank and the domain's
-   title as PDF metadata, and have no sakura petal on a word (`tests/travel.py`).
+   title as PDF metadata, and have no sakura petal on a word
+   (`cv_workflow/decoration.py`, which a client's render also runs for Hanami).
    The twin follows travel contract version 2: both trips read "Organised", none
    "Led the group", and its licence is on page 2.
    The `travel.typ` fixture renders the Indigo and Sky themes and a record without
    a portrait (initials in the ring) with the same words, the twin as a version 1
    record (no role, no licence: page 1 the same words, page 2 without them), asserts the totals
    (2 trips, 30 days, 14 distinct stops), and fails on a record without
-   destinations (version 2 requires them), a date that is not MM/YYYY, an overflowing page 1, a name wider
-   than the plate, an unknown `Template Variation`, a trip role or a licence on a
-   version 1 record, a version 2 trip without a role or with an unknown one, a
-   licence date that is not "14 Jul 2029" and an unknown `domainContract`.
+   destinations, a date that is not MM/YYYY, an overflowing page 1, a name wider
+   than the plate, a rank wider than its tab, a contact wider than its column, a
+   route label under the plate, a page-2 contact line into the travellers, a fifth
+   highlight, a second trip story, an unknown `Template Variation`, a trip role or
+   a licence on a version 1 record, a version 2 trip without a role or with an
+   unknown one, a licence date that is not "14 Jul 2029" and an unknown
+   `domainContract`.
 7. **Every PDF.** Expected page count, no empty page, all fonts embedded, no
    text outside the page. Every compile reads only the bundled fonts
    (`--ignore-system-fonts --font-path packages/cv-framework/fonts`, plus
@@ -231,14 +235,15 @@ Windows one also holds the PDFs that build wrote, one per example in
    claimed `Fact Group` must have its markers in the PDF; the count of optional
    groups covered is in the case name, warnings in `coverage/`. A claim at a
    `schemaVersion` no rendered version has fails (`unproved`), so every claim
-   is proved. Then the judging itself and the checks before a render, each refusal on its message, on the
-   marine contract and on the travel one (Hanami chosen, certificates dropped,
-   a missing rank refused). Travel at version 2: a version 1 record renders on
-   showcase; a version 2 record is refused on a `Template Variation` up to
-   version 1 (destinations changed shape) and, without destinations, on every
-   Variation; a version 2 Variation that does not claim licences drops them
-   with a warning; an expired or soon-expiring licence is a
-   `Certificate Warning`. Each
+   is proved. Then the judging itself and the checks before a render, each
+   refusal on its message, on the marine contract and on the travel one (Hanami chosen, certificates dropped,
+   a missing rank or destinations refused). A fixture with a portrait proves it
+   by the images it has beyond the same fixture rendered without one, since a
+   template may draw small rasters of its own. Travel at version 2: a version 1
+   record renders on showcase; a version 2 record is refused on a `Template
+   Variation` up to version 1 (destinations is required and changed shape); a
+   version 2 Variation that does not claim licences drops them with a warning;
+   an expired or soon-expiring licence is a `Certificate Warning`. Each
    Variation's place against its `Domain`'s newest contract (behind, never a
    failure) is in `coverage/compatibility.txt`; every `Domain`'s kept contracts
    must be whole and unbroken, and `oldestSupported` must not pass a version an

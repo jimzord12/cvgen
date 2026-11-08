@@ -16,7 +16,7 @@
       "supports": {
         "travel": {
           "upTo": 2,
-          "groups": ["profile@1", "education@1", "languages@1", "portrait@1", "destinations@1", "destinations@2", "licences@1", "availability@1", "practical@1", "references@1"]
+          "groups": ["profile@1", "education@1", "languages@1", "portrait@1", "availability@1", "practical@1", "references@1", "licences@1"]
         }
       }
     }

@@ -43,9 +43,10 @@ step: an ADR, a new `Frozen Reference` and a version bump on the PDF.
 
 A record says which version it follows in `domainContract`; none means 1.
 
-The travel contract (`domains/travel/contracts/v1.json`) makes `rank` required
-(`identity.rank`, `specialty` and the credential `seal`) and adds the optional
-`destinations`, `availability`, `practical` and `references`; it replaces the
+The travel contract (`domains/travel/contracts/v1.json`) makes `rank`
+(`identity.rank`, `specialty` and the credential `seal`) and `destinations` (the
+region, its trips and areas: a travel CV shows where the person has been)
+required, and adds the optional `availability`, `practical` and `references`; it replaces the
 base's `profile` with the lead statement and its highlight cells, and keeps
 `portrait` optional, as marine does.
 

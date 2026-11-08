@@ -67,7 +67,7 @@ steps:
 
   - id: deliver.approve
     name: The owner approves the reviewed bytes
-    sources: ["docs/guides/build-a-cv.md:165-170", "docs/pdf-workflow.md:184-186", "docs/proposals/workflow-model.md:58", "docs/glossary.md:76"]
+    sources: ["docs/guides/build-a-cv.md:164-169", "docs/pdf-workflow.md:184-186", "docs/proposals/workflow-model.md:58", "docs/glossary.md:76"]
     actor: actor.owner
     action: cmd.cv-approve
     inputs: [art.cv-pdf, art.render-json, art.checks-json, art.reviewed-hash, art.envelope-json]
@@ -191,21 +191,21 @@ artifacts:
 
   - id: art.revision-inputs
     name: The Revision's input snapshot
-    sources: ["docs/pdf-workflow.md:86-89", "docs/pdf-workflow.md:101-109", "packages/cv-workflow/cv_workflow/render.py:135-157"]
+    sources: ["docs/pdf-workflow.md:86-89", "docs/pdf-workflow.md:101-109", "packages/cv-workflow/cv_workflow/render.py:136-158"]
     path: private/<envelope>/revisions/<revision>/inputs/
     format: typst/cv.typ verbatim, candidate.json, assets/ and every file cv.typ reads
     visibility: private
 
   - id: art.render-log
     name: render.log
-    sources: ["docs/pdf-workflow.md:91", "packages/cv-workflow/cv_workflow/render.py:167"]
+    sources: ["docs/pdf-workflow.md:91", "packages/cv-workflow/cv_workflow/render.py:168"]
     path: private/<envelope>/revisions/<revision>/render.log
     format: compiler output, also of a failed run
     visibility: private
 
   - id: art.render-json
     name: render.json
-    sources: ["docs/pdf-workflow.md:90", "packages/cv-workflow/cv_workflow/render.py:170-190"]
+    sources: ["docs/pdf-workflow.md:90", "packages/cv-workflow/cv_workflow/render.py:171-191"]
     path: private/<envelope>/revisions/<revision>/render.json
     format: "JSON: revision, status, engine commit, compiler, inputs with hashes, expected pages, the PDF's hash"
     visibility: private
@@ -226,7 +226,7 @@ artifacts:
 
   - id: art.cv-meta
     name: The Revision's Meta File
-    sources: ["docs/pdf-workflow.md:94", "docs/pdf-workflow.md:132", "packages/cv-workflow/cv_workflow/render.py:207-210"]
+    sources: ["docs/pdf-workflow.md:94", "docs/pdf-workflow.md:132", "packages/cv-workflow/cv_workflow/render.py:210-213"]
     path: private/<envelope>/revisions/<revision>/cv.meta.json
     format: "JSON, kind client-cv, status render, approved, then delivered"
     schema: art.output-schema
