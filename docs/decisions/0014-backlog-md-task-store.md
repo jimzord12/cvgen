@@ -1,7 +1,7 @@
 # 0014. Backlog.md is the task store
 
 Date: 2026-10-06
-Status: Accepted (owner, 2026-10-06: "I want to migrate from Trello -> Backlog.md"; plan approved the same day)
+Status: Amended by 0017 (the pin moves to 1.55.3, with milestones). Accepted (owner, 2026-10-06: "I want to migrate from Trello -> Backlog.md"; plan approved the same day)
 
 ## Context
 
