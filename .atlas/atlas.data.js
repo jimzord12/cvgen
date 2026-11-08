@@ -4486,8 +4486,8 @@ window.ATLAS = {
   }
  ],
  "build": {
-  "builtAt": "2026-11-08 14:56 UTC",
-  "commit": "fef9100",
+  "builtAt": "2026-11-08 14:59 UTC",
+  "commit": "0b9daa0",
   "kit": "1.1",
   "stale": {
    "design-run": [
@@ -4521,7 +4521,7 @@ window.ATLAS = {
   "verified": {
    "client-journey": {
     "at": "2026-11-08",
-    "commit": "fef9100"
+    "commit": "0b9daa0"
    },
    "design-run": {
     "at": "2026-11-08",

@@ -302,9 +302,9 @@ is how they run here.
   unlock`, `git worktree remove` (the ignored `builds/` and `node_modules/`
   do not block it; `--force` only for a probe the same round left
   uncommitted) and `git worktree prune`, from outside the copy: on Windows a
-  shell still inside it keeps its empty folder behind. The lock tells other sessions the
-  copy is in use; a `probe-*` copy whose round has ended may be removed by
-  any session (`docs/git-workflow.md`).
+  shell still inside it keeps its empty folder behind. The lock tells other
+  sessions the copy is in use; a `probe-*` copy whose round has ended may
+  be removed by any session (`docs/git-workflow.md`).
 - **The Python run:** the copy's own runner by absolute path, with the
   repository's interpreter that has `requirements.lock` installed
   (`<Main Folder>/.venv/Scripts/python.exe` on Windows,
@@ -338,10 +338,10 @@ is how they run here.
   the first run, a second commit copies that run's engineer PDF over
   `packages/domains/marine/templates/flagship/tests/approved/Marine-Engineer-CV-v11.pdf`
   and sets its pin in `baseline.json` to the new SHA-256, then the suite
-  runs again. That
-  commit lives only in a detached copy that is removed after the round, so
-  it changes neither the frozen set nor anything the constitution protects;
-  nowhere else is a frozen reference changed this way. These detectors are
+  runs again. That commit lives only in a detached copy that is removed
+  after the round, so it changes neither the frozen set nor anything the
+  constitution protects; nowhere else is a frozen reference changed this
+  way. These detectors are
   judged on whether they pin the right files, never by a refactor probe.
   Masking by any other check shows that the two overlap for that one fault,
   which alone is no reason to remove either (the skill, "Removing a test").
