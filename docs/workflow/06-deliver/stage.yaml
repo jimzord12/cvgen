@@ -118,7 +118,7 @@ steps:
 
   - id: deliver.status
     name: List the Revisions and their states
-    sources: [".claude/skills/new-cv/SKILL.md:87", "scripts/cv.py:66-67", "packages/cv-workflow/cv_workflow/__init__.py:14-31"]
+    sources: [".claude/skills/new-cv/SKILL.md:87", "scripts/cv.py:67-68", "packages/cv-workflow/cv_workflow/__init__.py:14-31"]
     actor: actor.lead
     action: cmd.cv-status
     inputs: [art.render-json]
@@ -134,7 +134,7 @@ steps:
 gates:
   - id: gate.render-ok
     name: Render done
-    sources: ["scripts/cv.py:12-13", "scripts/cv.py:88", "docs/guides/build-a-cv.md:139-150"]
+    sources: ["scripts/cv.py:12-13", "scripts/cv.py:89", "docs/guides/build-a-cv.md:139-150"]
     check: >-
       scripts/cv.py render exits 0: not refused (exit 2, nothing written), the
       compile succeeded and every check passed (exit 1 keeps the Revision).
@@ -212,9 +212,9 @@ artifacts:
 
   - id: art.checks-json
     name: checks.json
-    sources: ["docs/pdf-workflow.md:92", "packages/cv-workflow/cv_workflow/render.py:192-209"]
+    sources: ["docs/pdf-workflow.md:92", "packages/cv-workflow/cv_workflow/render.py:192-211"]
     path: private/<envelope>/revisions/<revision>/checks.json
-    format: "JSON: the PDF's hash, pages, errors, passed, certificates; written only when the compile succeeded"
+    format: "JSON: the PDF's hash, pages, errors, passed, certificates, template warnings; written only when the compile succeeded"
     visibility: private
 
   - id: art.cv-pdf
@@ -226,7 +226,7 @@ artifacts:
 
   - id: art.cv-meta
     name: The Revision's Meta File
-    sources: ["docs/pdf-workflow.md:94", "docs/pdf-workflow.md:132", "packages/cv-workflow/cv_workflow/render.py:210-213"]
+    sources: ["docs/pdf-workflow.md:94", "docs/pdf-workflow.md:132", "packages/cv-workflow/cv_workflow/render.py:212-215"]
     path: private/<envelope>/revisions/<revision>/cv.meta.json
     format: "JSON, kind client-cv, status render, approved, then delivered"
     schema: art.output-schema
@@ -234,7 +234,7 @@ artifacts:
 
   - id: art.render-summary
     name: What render prints
-    sources: ["docs/guides/build-a-cv.md:134-153", "scripts/cv.py:30-40", "scripts/cv.py:102-105"]
+    sources: ["docs/guides/build-a-cv.md:134-153", "scripts/cv.py:30-41", "scripts/cv.py:103-106"]
     format: the summary JSON on stdout; REFUSED, WARNING and NOTE lines on stderr
     visibility: ephemeral
 
@@ -294,7 +294,7 @@ actions:
   - id: cmd.cv-render
     kind: cmd
     name: Render a Revision
-    sources: ["scripts/cv.py:3", "scripts/cv.py:47-53", "docs/guides/build-a-cv.md:150-153"]
+    sources: ["scripts/cv.py:3", "scripts/cv.py:48-54", "docs/guides/build-a-cv.md:150-153"]
     run: python scripts/cv.py render private/<envelope> [--pages <N>] [--input <key>=<value> ...]
 
   - id: lead.fix-inputs
