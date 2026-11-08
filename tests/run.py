@@ -366,6 +366,9 @@ def main():
             # The same words in every theme; without a portrait, the initials take its place.
             initials = ['AK'] if theme == 'no-portrait' else []
             assert [p.get_text().split() for p in a] == [[w for w in p.get_text().split() if w not in initials] for p in b], theme
+    # Monochrome leaves out the blurred petals (small rasters) on the band and the paper; sakura keeps them all.
+    with fitz.open(twin) as a, fitz.open(out / 'travel-monochrome' / 'travel-monochrome.pdf') as b:
+        assert len(b[0].get_images()) < len(a[0].get_images()) and len(b[1].get_images()) < len(a[1].get_images())
     # The blurred petals are small rasters too, so the portrait is the one image the record without one lacks.
     with fitz.open(twin) as a, fitz.open(out / 'travel-no-portrait' / 'travel-no-portrait.pdf') as b:
         assert len(a[0].get_images()) - len(b[0].get_images()) == 1 and 'AK' in b[0].get_text().split()
@@ -435,7 +438,8 @@ def main():
         assert 'Earlier roles' not in text and '1 / 1' not in text and len(doc[0].get_images()) >= 1
         # travel-story is left out: no route, no stamps, no story, not even the region's own script
         assert '日本' not in text and 'Planning the' not in text and 'SKG' not in text
-    for case in ['no-portrait', 'indigo', 'sky', 'greek', 'long-career', 'long-career-greek', 'no-licence', 'sparse', 'monochrome', 'generic']:
+    for case in ['no-portrait', 'indigo', 'sky', 'greek', 'long-career', 'long-career-greek', 'no-licence', 'sparse', 'monochrome', 'generic',
+                 'generic-japan', 'generic-portrait', 'generic-portrait-grey', 'plain-long-rank', 'plain-long-name']:
         pdf = compile_case('travel-essential-' + case, 'tests/fixtures/travel-essential.typ', {'case': case})
         assert check_case(pdf, pages=1)['passed'], case
     with fitz.open(essential) as a, fitz.open(out / 'travel-essential-no-portrait' / 'travel-essential-no-portrait.pdf') as b:
@@ -494,7 +498,24 @@ def main():
         text = ' '.join(doc[0].get_text().split())
         assert '添乗員' not in text and 'PASSPORT Valid, exp. October 2035' in text and 'SKILLS & TRAVEL EXPERIENCE' in text, text
         assert 'Group travel: coaches' in text and 'Greek Native English C2' in text
+    # The plain pack's route arc is placed from the measured name and rank row: it never lies on a word, it steps
+    # aside when the row leaves it under 30 mm, and it replaces the sakura branch (far fewer drawings in the band).
+    def band_drawings(pdf):
+        with fitz.open(pdf) as doc:
+            page = doc[0]
+            drawn = [d['rect'] for d in page.get_drawings() if d['rect'].y1 < 50 / 25.4 * 72 and d['rect'].x0 > 90 / 25.4 * 72
+                     and d['rect'].x1 < 150 / 25.4 * 72 + (60 / 25.4 * 72 if not page.get_images() else 0)]
+            words = [fitz.Rect(w[:4]) for w in page.get_text('words') if w[1] < 50 / 25.4 * 72]
+            return drawn, words
+    for case in ['generic', 'generic-portrait', 'plain-long-name']:
+        drawn, words = band_drawings(out / f'travel-essential-{case}' / f'travel-essential-{case}.pdf')
+        assert drawn and not [(d, w) for d in drawn for w in words if d.intersects(w)], case
+    assert not band_drawings(out / 'travel-essential-plain-long-rank' / 'travel-essential-plain-long-rank.pdf')[0]
+    with fitz.open(out / 'travel-essential-generic' / 'travel-essential-generic.pdf') as a, \
+            fitz.open(out / 'travel-essential-generic-japan' / 'travel-essential-generic-japan.pdf') as b:
+        assert len(b[0].get_drawings()) > 3 * len(a[0].get_drawings()) and '添乗員' in b[0].get_text()
     for mode, message in [('overflow', 'Hanami essential: even the newest role alone overflows the career column'),
+                          ('showcase-plain', 'Hanami showcase allows the artwork packs japan; pass hanami-artwork.japan'),
                           ('unsorted', 'the experience must be listed newest first'),
                           ('long-name', 'Hanami essential: the name is wider than the band'),
                           ('rail-overflow', 'Hanami essential: the rail overflows'),

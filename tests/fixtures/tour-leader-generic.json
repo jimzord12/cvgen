@@ -46,11 +46,11 @@
       "place": "Patras",
       "from": "04/2022",
       "bullets": [
-        "Itineraries: about 30 private and small-group trips a year, from three-day city breaks to two-week tours with several stops.",
-        "Bookings: hotels, ferries, coaches, licensed guides and domestic flights, each confirmed in writing and reconfirmed before arrival.",
-        "On the road: the single contact for clients and suppliers throughout each trip, by phone and messaging, seven days a week.",
-        "Changes: rebooks ferries, rooms and transfers the same day when weather, strikes or delays cancel a leg of the route.",
-        "Trip packs: a day-by-day plan with addresses, contacts, transfer times and confirmations, sent a week before departure."
+        "Itineraries: about 30 private and small-group trips a year, from three-day city breaks to two-week tours with several stops, each built around the travellers’ pace, budget and interests.",
+        "Bookings: hotels, ferries, coaches, licensed guides and domestic flights, each confirmed in writing, entered in one shared trip file and reconfirmed with every supplier a week before arrival.",
+        "On the road: the single contact for clients and suppliers throughout each trip, by phone and messaging, seven days a week, with a written handover whenever a colleague covers a day off.",
+        "Changes: rebooks ferries, rooms and transfers the same day when weather, strikes or delays cancel a leg of the route, and tells every traveller of the new plan before they reach the next stop.",
+        "Trip packs: a day-by-day plan with addresses, contacts, transfer times and confirmations, sent a week before departure and printed for travellers who prefer paper."
       ],
       "intro": "Independent agency for private and small-group travel in Greece and abroad."
     },
@@ -61,8 +61,8 @@
       "from": "05/2020",
       "to": "03/2022",
       "bullets": [
-        "Passenger desk: bookings, seat changes and baggage claims by phone and at the counter, on two reservation systems.",
-        "Disruptions: rerouted passengers onto partner flights during cancellations, and arranged hotels for missed connections."
+        "Passenger desk: bookings, seat changes and baggage claims by phone and at the counter, on two reservation systems, for a regional airline’s domestic and summer charter routes.",
+        "Disruptions: rerouted passengers onto partner flights during cancellations, arranged hotels and meal vouchers for missed connections, and kept the queue informed at the gate."
       ]
     }
   ],
@@ -81,12 +81,13 @@
   "language_entries": [
     {
       "name": "Greek",
-      "level": "Native"
+      "level": "Native",
+      "note": "Written and spoken, including guiding"
     },
     {
       "name": "English",
       "level": "C2",
-      "note": "Certificate of Proficiency"
+      "note": "Certificate of Proficiency; works daily in English"
     },
     {
       "name": "Japanese",
@@ -167,10 +168,10 @@
     ]
   },
   "practical": {
-    "lead": "In short",
+    "lead": "Confident with",
     "items": [
-      "Group travel: coaches, rooming lists, timed museum entries and meal plans for groups of up to 40",
-      "Travel experience: 14 countries in Europe and Asia, most of the trips planned and booked herself"
+      "Group travel: coaches, rooming lists, timed museum entries and meal plans for groups of up to 40, with a head count at every stop and a written plan B for each outdoor day",
+      "Travel experience: 14 countries in Europe and Asia, most of the trips planned and booked herself, including rail across Central Europe and two independent trips in Japan"
     ]
   },
   "copy": {

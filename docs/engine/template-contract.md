@@ -37,7 +37,7 @@ education at its foot, and availability, languages, destinations, practical
 know-how and references on a rail. The fields start 8 mm under the profile row,
 so a short record leaves no empty paper above them; a licence heads the rail when
 it has room, and sits beside the lead when it has not. When both columns end
-short, the rail's wash ends 8 mm under the longer one, and a page under 60%
+short, the rail's wash ends 8 mm under the longer one, and a page under 80%
 filled carries a `<cvgen-warning>` that `scripts/cv.py render` prints and
 `checks.json` keeps under `template_warnings`, so a thin record is filled out
 before the owner sees it. The gaps between roles widen with spare

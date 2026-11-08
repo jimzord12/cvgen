@@ -44,6 +44,9 @@
   assert(name in design.variations, message: "Hanami has no Template Variation " + repr(variation))
   assert(candidate != none and theme != none and artwork != none and layout != none,
     message: "hanami requires candidate, theme, artwork and layout")
+  let packs = design.variations.at(name).artwork
+  assert(artwork == none or artwork.at("name", default: "japan") in packs,
+    message: "Hanami " + name + " allows the artwork packs " + packs.join(", ") + "; pass hanami-artwork." + packs.first())
   let allowed = design.variations.at(name).layouts
   assert(layout.at("name", default: "showcase") in allowed,
     message: "Hanami " + name + " allows the layouts " + allowed.join(", ") + "; pass hanami-layouts." + allowed.first())
@@ -67,7 +70,10 @@
   if name == "essential" { essential(ctx, d) } else {
   // ---- page 1 ----
   hero(ctx, d, totals)
-  at(0mm, layout.band, art(ctx, "petals-p1-field", width: 210mm, swaps: sakura(theme.sakura.paper, P.paper)))
+  // a theme with `soft-field-petals: false` keeps only the crisp petals on the paper (Monochrome: the
+  // blurred ones print as toner spots)
+  let field-strip = if theme.levels.at("soft-field-petals", default: true) { none } else { regex("<g [^>]*filter='url\\(#blur\\d\\)'[^>]*>.*?</g>") }
+  at(0mm, layout.band, art(ctx, "petals-p1-field", width: 210mm, swaps: sakura(theme.sakura.paper, P.paper), strip: field-strip))
   let f1 = layout.field-1
   at(f1.x, f1.y, slot("page 1", f1.width, f1.height, {
     if d.profile != "" or d.highlights.len() > 0 { profile(ctx, d.profile, d.availability, d.highlights) }
@@ -86,7 +92,7 @@
   band(ctx, d)
   let B = layout.band-2
   at(120mm, B + 2mm, art(ctx, "branch", width: 90mm, swaps: sakura(theme.sakura.paper, P.paper)))
-  at(0mm, B, art(ctx, "petals-p2-field", width: 210mm, swaps: sakura(theme.sakura.paper, P.paper)))
+  at(0mm, B, art(ctx, "petals-p2-field", width: 210mm, swaps: sakura(theme.sakura.paper, P.paper), strip: field-strip))
   let f2 = layout.field-2
   let title = if words.destinations-title == auto { places.region + ", " + words.by-trip } else { words.destinations-title }
   let has-studies = d.licences.len() + d.education.len() + d.languages.len() > 0 or d.references != none

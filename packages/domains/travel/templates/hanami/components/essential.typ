@@ -91,13 +91,13 @@
     assert(measure(rank).width <= W, message: "Hanami essential: the rank, specialty and seal words are wider than the band; shorten identity.seal or the specialty")
     assert(contacts == none or measure(contacts).width <= W, message: "Hanami essential: the contacts are wider than the band; shorten one or move it to the other row")
   }
-  (block(width: W, { checks; stack(spacing: 4.4mm, name, rank, v(2.6mm), contacts) }), W)
+  (block(width: W, { checks; stack(spacing: 4.4mm, name, rank, v(2.6mm), contacts) }), W, name, rank)
 }
 
 // The band's height (call in context): the name block 10 mm from the top and 8.5 mm of band under
 // it, room for the portrait's ring, at most the layout's band. One contact row makes a shallower band.
 #let band-height(ctx, d) = {
-  let (content, _) = name-block(ctx, d)
+  let (content, ..) = name-block(ctx, d)
   let fit = 10mm + measure(content).height + 8.5mm
   let ring = if d.identity.at("portrait", default: none) != none { ctx.layout.portrait + 12mm } else { 0mm }
   calc.min(ctx.layout.band, calc.max(fit, ring))
@@ -115,17 +115,27 @@
     // without a portrait the branch grows, so its blossoms reach down into the corner the portrait leaves
     place(top + right, art(ctx, "canopy", width: if portrait != none { 104mm } else { ctx.layout.canopy }, swaps: sakura(ctx.theme.sakura.hero, P.hero)))
   } else {
-    // a route arc in the band's line colour, right of the name and above the contacts, ending at the
-    // portrait's ring or at the margin
-    let w = if portrait != none { 58mm } else { 74mm }
-    place(top + right, dx: if portrait != none { -(ctx.layout.portrait + 20mm) } else { -16mm }, dy: 6mm,
-      art(ctx, motif, width: w, swaps: line-art(P)))
+    // A route arc above the contacts, from 10 mm after the measured name and rank row to 6 mm before
+    // the portrait's ring (or the margin), at most 74 mm wide; with less than 30 mm of room it is left
+    // out, so the motif never lies on a word. Without a portrait it is heavier (label grey, ink end), so
+    // it still reads at arm's length.
+    let (_, _, name, rank) = name-block(ctx, d)
+    let left = 16mm + calc.max(measure(name).width, measure(rank).width) + 10mm
+    let right = if portrait != none { 194mm - ctx.layout.portrait - 1.6mm - 6mm } else { 194mm }
+    let w = calc.min(74mm, right - left)
+    let swaps = if portrait != none { line-art(P) } else {
+      (..line-art(P), "#c9a86a": hex(P.hero-label), "#d2462f": hex(P.hero-text),
+        "stroke-width='0.55'": "stroke-width='0.85'", "stroke-dasharray='0.4 1.6'": "stroke-dasharray='0.7 1.5'")
+    }
+    if w >= 30mm { at(right - w, 6mm, art(ctx, motif, width: w, swaps: swaps)) }
   }
   let PD = ctx.layout.portrait
   let PX = 194mm - PD
   let PY = (B - PD) / 2 + 1.5mm
   if portrait != none {
-    at(PX - 1.6mm, PY - 1.6mm, circle(radius: PD / 2 + 1.6mm, fill: P.plate, stroke: 1.4pt + P.ring))
+    // the plate behind a cut-out portrait: the theme's own (Monochrome's pale grey holds a light shirt's
+    // edge), else the plate colour
+    at(PX - 1.6mm, PY - 1.6mm, circle(radius: PD / 2 + 1.6mm, fill: P.at("portrait-plate", default: P.plate), stroke: 1.4pt + P.ring))
     at(PX, PY, box(width: PD, height: PD, radius: 50%, clip: true, stroke: 0.6pt + P.ring,
       image(portrait, width: PD, height: PD, fit: "cover", alt: d.identity.at("portrait-alt", default: d.identity.name))))
   }
@@ -310,14 +320,17 @@
 }
 
 // Practical know-how as a short list: the lead, then one item a line, each with its bold label when it
-// is written "Label: what" (the lead-in rule), and the basics last with theirs; the eye runs down the
-// labels as it runs down the roles' titles.
+// is written "Label: what" (the lead-in rule), and the basics on their own line under it; the eye runs
+// down the labels as it runs down the roles' titles.
 #let practical(ctx, know-how) = {
   let P = tokens(ctx)
   set par(leading: 0.44em)
   block(below: 1.6mm, text(size: 9pt, fill: P.muted, know-how.lead))
-  let list = know-how.items + if "basics" in know-how { (know-how.basics.label + ": " + know-how.basics.text,) } else { () }
-  for (i, item) in list.enumerate() {
+  for (i, item) in know-how.items.enumerate() {
     block(above: if i == 0 { 0mm } else { 1.3mm }, below: 0mm, grid(columns: (3.2mm, 1fr), diamond(P), text(size: 9.2pt, lead-in(item))))
+  }
+  // the basics are not something the person is confident with: their own line under the list, label bold
+  if "basics" in know-how {
+    block(above: 2mm, below: 0mm, text(size: 9.2pt)[#text(weight: 700, know-how.basics.label): #know-how.basics.text])
   }
 }

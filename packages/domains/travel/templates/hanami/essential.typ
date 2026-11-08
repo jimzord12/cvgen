@@ -135,11 +135,11 @@
     place(top + left, dx: L.rail.panel, dy: y0 - 4mm, rect(width: 210mm - L.rail.panel, height: foot - y0 + 4mm, fill: P.wash))
     at(L.main.x, y0, block(width: L.main.width, height: H, career(ctx, d, k, edu, gaps)))
     at(L.rail.x, y0, block(width: L.rail.width, height: R, rail(list, rail-gap)))
-    // A thin page fails a reader as surely as a crowded one (research, claim 1): under 60% filled, the
+    // A thin page fails a reader as surely as a crowded one (research, claim 1): under 80% filled, the
     // render warns the operator (scripts/cv.py render reads <cvgen-warning>), so the record is filled
     // out before the owner sees it. It never stops the compile.
     let fill = (career-used / H + rail-used / R) / 2
-    if fill < 0.6 {
+    if fill < 0.8 {
       [#metadata("Hanami essential: the page is " + str(calc.round(fill * 100)) + "% filled; fill out the record "
         + "(more bullets, a highlight, availability) before the owner sees it") <cvgen-warning>]
     }

@@ -9,6 +9,10 @@
 #assert.eq(lead-of("Call centre for a regional airline: answering passengers"), none)
 #assert.eq(lead-of("No colon at all"), none)
 #assert.eq(lead-of("Trailing: "), none)
+// a time or a URL before the first ": " is part of a short lead, and the sentence keeps every character
+#assert.eq(lead-of("Departure at 10:30: meet in the lobby"), ("Departure at 10:30", "meet in the lobby"))
+#assert.eq(lead-of("See https://example.com: the brochure"), ("See https://example.com", "the brochure"))
+#assert.eq(lead-of("Ώρα: 10:30 στο λιμάνι"), ("Ώρα", "10:30 στο λιμάνι"))
 #let raw = json("../../examples/candidates/tour-leader-essential-example.json")
 #let long = json("tour-leader-long-career.json")
 #let sparse = json("tour-leader-sparse.json")
@@ -47,7 +51,14 @@
   else if case == "unsorted" { (..long, experience: long.experience.rev()) }
   else if case == "long-name" { (..raw, identity: (..raw.identity, name: "Andreas Konstantinos Kalamaris-Papadopoulos")) }
   else if case == "sparse" { sparse }
-  else if case in ("generic", "generic-japan") { generic }
+  else if case in ("generic", "generic-japan", "showcase-plain") { generic }
+  // the prepared cut-out portrait (scripts/portrait.py prepare on the fictional portrait), in colour and grey
+  else if case == "generic-portrait" { (..generic, identity: (..generic.identity, portrait: "/tests/fixtures/portraits/fictional-cutout.png")) }
+  else if case == "generic-portrait-grey" { (..generic, identity: (..generic.identity, portrait: "/tests/fixtures/portraits/fictional-cutout-grey.png")) }
+  // the longest likely rank line and a long name, so the plain pack's arc must make room or step aside
+  else if case == "plain-long-rank" { (..generic, identity: (..generic.identity, rank: "Senior Tour Leader", specialty: "Group travel",
+    seal: ("Tour Leader course", "TTI", "2024"), portrait: "/tests/fixtures/portraits/fictional-cutout.png")) }
+  else if case == "plain-long-name" { (..generic, identity: (..generic.identity, name: "Alexandra Papadopoulou-Kontou")) }
   else if case == "monochrome" { raw }
   else if case == "rail-overflow" { (..raw, practical: (..raw.practical, items: raw.practical.items * 4)) }
   else if case == "profile-overflow" { (..raw, profile: (raw.profile + " ") * 8) }
@@ -61,9 +72,12 @@
 }
 #let theme = {
   if case == "sky" { hanami-themes.sky } else if case in ("indigo", "long-career") { hanami-themes.indigo }
-  else if case in ("monochrome", "generic") { hanami-themes.monochrome } else { hanami-themes.sakura }
+  else if case in ("monochrome", "generic", "generic-portrait", "generic-portrait-grey", "plain-long-rank", "plain-long-name") { hanami-themes.monochrome }
+  else { hanami-themes.sakura }
 }
 // the plain pack (no Japan) is the generic client's choice
-#show: hanami.with(candidate: candidate, theme: theme, artwork: if case == "generic" { hanami-artwork.plain } else { hanami-artwork.japan }, variation: "essential",
-  layout: if case == "showcase-layout" { hanami-layouts.showcase } else { hanami-layouts.essential },
+#let plain = case in ("generic", "generic-portrait", "generic-portrait-grey", "plain-long-rank", "plain-long-name", "showcase-plain")
+#show: hanami.with(candidate: candidate, theme: theme, artwork: if plain { hanami-artwork.plain } else { hanami-artwork.japan },
+  variation: if case == "showcase-plain" { "showcase" } else { "essential" },
+  layout: if case == "showcase-layout" { hanami-layouts.showcase } else if case == "showcase-plain" { hanami-layouts.showcase } else { hanami-layouts.essential },
   copy: if case in ("greek", "long-career-greek") { greek } else { (:) })

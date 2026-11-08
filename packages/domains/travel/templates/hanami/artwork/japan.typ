@@ -1,6 +1,7 @@
 // The Japan pack: every picture Hanami draws, as paths from the project root. The component reads
 // and recolours each SVG by the theme (components/art.typ); a stamp is "stamp-<art>", an icon "icon-<icon>".
 #let artwork = (
+  name: "japan",
   canopy: "/packages/domains/travel/assets/japan/sakura-canopy.svg", branch: "/packages/domains/travel/assets/japan/sakura-branch.svg",
   petals-p1-hero: "/packages/domains/travel/assets/japan/petals-p1-hero.svg", petals-p1-field: "/packages/domains/travel/assets/japan/petals-p1-field.svg",
   petals-p2-hero: "/packages/domains/travel/assets/japan/petals-p2-hero.svg", petals-p2-field: "/packages/domains/travel/assets/japan/petals-p2-field.svg",
