@@ -1,8 +1,9 @@
 # Domains and roles
 
-Read this before adding a domain, a role or a template, or when a template
-needs a word or a rule that seems to belong to the domain rather than to the
-design. Decided in [ADR 0011](../decisions/0011-domains-roles-templates.md);
+Read this, and `template-contract.md`, before adding a domain, a role or a
+template, or when a template needs a word or a rule that seems to belong to
+the domain rather than to the design.
+Decided in [ADR 0011](../decisions/0011-domains-roles-templates.md);
 the Framework and the domains became separate folders in
 [ADR 0012](../decisions/0012-framework-and-domain-packages.md).
 
@@ -21,8 +22,8 @@ packages/domains/<domain>/                    lib.typ (its public surface), doma
   what its area needs and nothing is mandatory: a facts shape (`schema/`),
   the SVG files (`assets/`), wording (`domain.copy`), metadata
   (`domain.meta`) and rules. For marine the rules are the experience model in
-  `data.typ`: companies, vessel-type groups, ships with rank and months, and
-  totals.
+  `data.typ`: companies, vessel-type groups, ships with rank and months or a
+  `Contract Period`, and totals.
 - A **role** is one level of specialisation: `deck`, `engine`. It may refine
   anything the domain offers. Today both marine roles are three-line markers,
   and Flagship composes only the role's `copy`; it reads `meta` and
@@ -72,18 +73,24 @@ The domain owns everything that knows its career area: for marine,
 `experience-totals`, the `experience-model` the core paginates with (its
 `row` is "vessel"), and `art-palette`, the colours baked into its SVGs and
 the theme colours that replace them, which Flagship's themes carry.
+Marine's totals (constitution section 6) come from `experience-totals` over
+the full record: service months for a record kept in months, or the contract
+count for one kept in `Contract Period`s (never both), then the number of
+distinct vessels (a vessel served on twice counts once) and of companies.
 
 ## Adding a domain without touching marine
 
 ```text
-packages/domains/travel-and-tourism/
+packages/domains/travel/
   lib.typ               its public surface: the Framework's names it needs, its own names
   domain.typ            id, meta, copy, experience (its own row model)
   data.typ              normalize-candidate = normalize-common + the domain's sections; validate-candidate
   schema/               the domain's candidate-facts contract
+  contracts/v1.json     its Domain Contract, extending the Base Contract
+  fixtures/             its Coverage Fixture and markers
   assets/               its SVG files
-  templates/<design>/   a first template with its adapter, components, themes, artwork, layouts, tests/approved
-examples/travel-and-tourism/<design>/*.typ
+  templates/<design>/   a first template with its template.json, adapter, components, themes, artwork, layouts, tests/approved
+examples/travel/<design>/*.typ
 ```
 
 A domain file reaches the core by a relative path through the Framework,
@@ -107,7 +114,10 @@ A new domain is done when every line below is true:
    `validate-common`.
 2. `schema/candidate.schema.json` describes the facts; a fictional record
    under `examples/candidates/<domain>-<who>-example.json` validates against
-   it. A template adds `schema/<template>-input.schema.json`.
+   it. A template adds `schema/<template>-input.schema.json`, which states only
+   what the template adds; both schemas carry an `$id`, and the facts schema
+   keeps `copy` open for the template to close (`docs/engine/template-contract.md`,
+   "What every Template provides"; the suite checks it).
    `packages/cv-workflow/cv_workflow/validate.py` picks the schema from the
    entry point's imports: a template's schema, else the domain's. Only
    marine's `lib.typ` stands for a template (Flagship); if the new domain's

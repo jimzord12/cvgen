@@ -3,7 +3,7 @@
 Read this when editing a marine candidate JSON. This is the marine domain's
 facts contract (ADR 0011); another domain defines its own. Machine-checkable
 version: `packages/domains/marine/schema/candidate.schema.json`
-(candidate facts; the Flagship input adds `copy`, see
+(candidate facts; the Flagship input refers to it and closes `copy`, see
 `packages/domains/marine/templates/flagship/schema/flagship-input.schema.json`).
 Runtime checks: `validate-candidate` in `packages/domains/marine/data.typ`,
 which runs the domain-neutral `validate-common` from `packages/cv-framework/core/data.typ`
@@ -30,14 +30,16 @@ Top-level shape. Required keys are `identity` and `companies`.
                            "institution": "Merchant Marine Academy", "note": "optional" } ],
   "language_entries":  [ { "name": "Greek", "level": "Native" } ],
   "skill_groups":      [ ["Passage planning", "Cargo watch"], ["ECDIS"] ],
+  "domainContract":    1,
   "disclosure":        "footer text; defaults to the fictional-example line, so a real CV sets it"
 }
 ```
 
 This is the candidate-facts record: what is true about the person, with no
-template wording. The Flagship template reads a slightly wider shape, the
-Flagship input, which is the same record plus an optional `copy` key; its
-adapter produces it (see "Flagship wording" below).
+template wording. The facts schema accepts an optional `copy` object without
+checking its keys; the Flagship input schema is the same record with those keys
+checked, and its adapter produces the Flagship input (see "Flagship wording"
+below).
 
 ## Field notes
 
@@ -78,6 +80,8 @@ adapter produces it (see "Flagship wording" below).
   renders as before. A name plus particulars too wide for the row fails the
   render: leave out one particular for that vessel. A vessel that appears
   twice (same `id`) must state the same values or omit them.
+- **domainContract** is the `Domain Contract` version the record follows;
+  without it, version 1 (`template-contract.md`).
 - **skill_groups** is one list of skills per column, text only. Flagship places
   them on the page whose plan has `skills: true`
   (`layout-and-pagination.md`).
@@ -130,8 +134,8 @@ brand                 "FLAGSHIP"
 To change any of them, pass only the keys you change; the adapter merges
 them over the defaults. Preferred: the `copy` argument of `flagship`, for
 example `flagship.with(..., copy: (brand: "GOLDEN BLUE"))`. Legacy: a `copy`
-key inside the record, which the adapter also merges, but such a record only
-validates against `flagship-input.schema.json`, not the facts contract.
+key inside the record, which the adapter also merges. The facts contract
+accepts any `copy` object; `flagship-input.schema.json` checks its keys.
 Merge order is domain, then role, then Flagship, then the record's `copy`,
 then the argument; later wins (see `docs/engine/domains-and-roles.md`).
 A role can only override the domain's words.

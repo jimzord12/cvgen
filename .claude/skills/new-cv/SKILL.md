@@ -38,9 +38,9 @@ command from the repository root.
   made, placed and recorded in the `Envelope`'s `README.md` as
   `docs/tech-stack.md`, "Codex CLI", says (never a portrait, nothing about
   the `Client` in the prompt).
-- A `Template`: `design.flagship-fit` (`gate.template-fits`, the known
-  gaps in `docs/framework-gaps.md`), then `design.entry-point` (BC
-  section 1) or `design.custom-composition` (BC section 5).
+- A `Template`: `design.flagship-fit` (`gate.template-fits`), then
+  `design.entry-point` (BC sections 1 and 2; it records `template` and
+  `variation` in `envelope.json`) or `design.custom-composition` (BC section 5).
 - `design.framework-gap` after a custom composition or a one-off;
   `design.engine-change` and `design.engine-review` (a fresh
   `code-reviewer`) only when the design needs what only the engine holds.

@@ -73,7 +73,11 @@
 
 // `candidate` is a candidate-facts record; the adapter turns it into Flagship input.
 // `role` is a marine role marker (roles/<role>/role.typ) or none; Flagship serves every role of the domain.
-#let flagship(body, candidate: none, role: none, theme: none, artwork: none, layout: none, show-vessel-durations: true, copy: (:)) = {
+// `variation` is a Template Variation named in template.json (ADR 0016); none is its default.
+#let flagship(body, candidate: none, role: none, theme: none, artwork: none, layout: none, show-vessel-durations: true, copy: (:), variation: none) = {
+  let design = json("template.json")
+  assert((if variation == none {design.default} else {variation}) in design.variations,
+    message: "Flagship has no Template Variation " + repr(variation))
   assert(candidate != none and theme != none and artwork != none and layout != none,
     message: "flagship requires candidate, theme, artwork and layout")
   let d = normalize-candidate(to-flagship-input(candidate, role: role, copy: copy))

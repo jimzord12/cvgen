@@ -1,0 +1,52 @@
+{
+  "identity": [
+    "Qxname"
+  ],
+  "rank": [
+    "Qxrank"
+  ],
+  "contacts": [
+    "Qxlabel",
+    "Qxcity",
+    "Qxmailing",
+    "qxmail@example.com"
+  ],
+  "experience": [
+    "Qxcompany",
+    "Qxspan",
+    "Qxtype",
+    "Qxvessel",
+    "Qxrow",
+    "Qxperiod",
+    "1 contract"
+  ],
+  "profile": [
+    "Qxprofile"
+  ],
+  "education": [
+    "Qxdiploma",
+    "Qxschool",
+    "Qxnote"
+  ],
+  "languages": [
+    "Qxlanguage",
+    "Qxlevel"
+  ],
+  "certificates": [
+    "Qxcert",
+    "Qxscope",
+    "Qxissued",
+    "Qxreview"
+  ],
+  "portrait": [
+    "image"
+  ],
+  "vessel-particulars": [
+    "12,345 GT",
+    "Qxengine",
+    "6,789 kW"
+  ],
+  "skills": [
+    "Qxskill"
+  ]
+}

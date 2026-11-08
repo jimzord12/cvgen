@@ -4,6 +4,10 @@
     python scripts/cv.py approve private/<envelope> <revision> --approver "<name>" --sha256 <reviewed hash>
     python scripts/cv.py export  private/<envelope> <revision>
     python scripts/cv.py status  private/<envelope>
+    python scripts/cv.py contracts [--json]
+
+`contracts` prints each Template Variation against its Domains' newest Domain Contract: the
+versions it renders, how far behind it is, what a newer record meets there, and its coverage.
 
 Exit codes: 0 done, 1 the render or its checks failed (the revision is kept),
 2 the operation was refused or the arguments were wrong (the message says why).
@@ -62,8 +66,16 @@ def main(argv=None):
     status = commands.add_parser('status', help='list revisions and their state')
     status.add_argument('workspace')
 
+    contracts = commands.add_parser('contracts', help="each Template Variation against its Domains' newest contract")
+    contracts.add_argument('--json', action='store_true', help='the report as JSON instead of lines')
+
     args = parser.parse_args(argv)
     try:
+        if args.command == 'contracts':
+            from cv_workflow.contracts import describe, report
+            found = report()
+            print(json.dumps(found, indent=2) if args.json else '\n'.join(line for item in found for line in describe(item)))
+            return 0
         if args.command == 'render':
             inputs = {}
             for item in args.input:

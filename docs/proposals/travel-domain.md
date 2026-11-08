@@ -1,7 +1,7 @@
 ---
 id: P-0013
 kind: proposal
-status: deferred
+status: approved
 revision: 2
 created: 2026-09-28
 ---
@@ -86,3 +86,11 @@ one-off, with the one-off CV and its `Envelope` notes as the evidence.
   one-off CV reaching `Export` (not its `Sign-off`), the proposal then
   returns to `pending` for the owner's approval, and the fictional twin is
   described as invented facts in the real CV's shape.
+- 2026-11-08, owner, in session: steps 3 and 4 **approved** before the
+  revisit condition was met (the one-off has revisions but no `Export`):
+  "Yes, approve P-0013 now". The `Template` grows from Hanami Line 2, the
+  owner's pick of 2026-10-02, as its `showcase` `Template Variation`, with
+  Essential as its one-page `Template Variation`, tested on the first travel
+  client. The travel `Domain Contract` goes to version 2 in the same run, on a
+  need the agents choose, to exercise the version comparison (P-0019 Stage 2).
+  Flagship's own Essential follows in a later run.

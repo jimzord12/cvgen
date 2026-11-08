@@ -17,12 +17,12 @@ hold.
 
 ## 1. Frozen references are contracts
 
-- Every approved `Template Variation` (owner, 2026-11-04; until ADR 0016 is
-  built, Flagship's one design) has a frozen reference render under its
-  `Template`'s `tests/approved/` folder (ADR 0010; before 2026-09-16 that was root `reference/`)
-  and a public example that must render pixel-identical to it at 144 dpi
-  with identical normalised text on every page. `tests/run.py` enforces
-  this. Today that is Flagship:
+- Every approved `Template Variation` (owner, 2026-11-04) has a frozen
+  reference render under its `Template`'s `tests/approved/` folder (ADR
+  0010; before 2026-09-16 that was root `reference/`) and a public example
+  that must render pixel-identical to it at 144 dpi with identical
+  normalised text on every page. `tests/run.py` enforces this. Today that
+  is Flagship's `showcase`:
   `packages/domains/marine/templates/flagship/tests/approved/Marine-Engineer-CV-v11.pdf`
   and `examples/marine/flagship/engineer.typ`.
 - `tests/baseline.json` pins the SHA-256 of the frozen set: every marine SVG
@@ -73,10 +73,10 @@ should work" is not a state.
 
 ## 6. Totals come from data
 
-Totals are computed once from the full candidate by the domain's rules; for
-marine that is service months, vessel counts and company counts. Pages never
-recompute totals from what they display. Calendar periods are never
-converted into service time. (Generalised by ADR 0011; the rule is
+Totals are computed once from the full candidate by the domain's rules (for
+marine, `docs/engine/domains-and-roles.md` lists them; owner, 2026-11-08).
+Pages never recompute totals from what they display. Calendar periods are
+never converted into service time. (Generalised by ADR 0011; the rule is
 unchanged.)
 
 ## 7. Roles do not leak into components

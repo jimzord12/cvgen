@@ -98,7 +98,8 @@ Windows one also holds the PDFs that build wrote, one per example in
    Framework's `lib.typ` (no schema), marine's `lib.typ` with a marine role,
    marine's `lib.typ` with a non-marine domain (no schema) and domains under
    a folder named `templates`; a record with 23 bad values is refused with
-   ten lines and a count. The two marine schemas share identical `$defs`;
+   ten lines and a count. Every `Template` input schema refers to its
+   `Domain`'s facts schema and adds only `copy`;
    a record with vessel particulars is accepted and a `hp` power unit refused.
    A contract record with three certificate headings and skills goes through
    the same schema check.
@@ -123,7 +124,7 @@ Windows one also holds the PDFs that build wrote, one per example in
    a workspace without `envelope.json` refused before anything is written,
    the `Envelope` layout (`typst/cv.typ` reading `../candidate.json`, the
    snapshot mirroring it under `inputs/`) and the old flat layout (a root
-   `cv.typ`) refused by all four commands with the move to make,
+   `cv.typ`) refused by all four workspace commands with the move to make,
    the revision's `Meta File` (`render`, then `approved`, filled from
    `envelope.json`),
    certificate dates (against a fixed reference date: expired and
@@ -205,7 +206,19 @@ Windows one also holds the PDFs that build wrote, one per example in
    `FAIL text-draft.draft-sent`).
    Output in `workflow-model/reality*.log`, each run's `reality.log` and
    `report.json` in its folder. Skipped with case 16.
-18. **Report** (`report: <check>`, `tests/report.py`). The real
+18. **Coverage** (`coverage: <check>`, `tests/coverage.py`). For every
+   `Template Manifest`, each `Template Variation` renders its `Domain`'s
+   `Coverage Fixture` for each version it supports, and every required and
+   claimed `Fact Group` must have its markers in the PDF; the count of optional
+   groups covered is in the case name, warnings in `coverage/`. A claim at a
+   `schemaVersion` no rendered version has fails (`unproved`), so every claim
+   is proved. Then the judging itself and the checks before a render, each
+   refusal on its message. Each
+   Variation's place against its `Domain`'s newest contract (behind, never a
+   failure) is in `coverage/compatibility.txt`; every `Domain`'s kept contracts
+   must be whole and unbroken, and `oldestSupported` must not pass a version an
+   example record uses.
+19. **Report** (`report: <check>`, `tests/report.py`). The real
    `scripts/report.py` on the worked sample under `report/`: one page with
    its fonts and pictures embedded and no `src` or `href` pointing at the
    network, the fragment without its skeleton, refusal of an existing folder,
@@ -214,6 +227,12 @@ Windows one also holds the PDFs that build wrote, one per example in
    wrong-typed field, a decision card without two to four options or one
    recommended, a `Critical` decision, a done report with open cards, a missing
    picture or page, a client's report in a fragment). The page's script is not run here; a design review clicks it.
+20. **Compatibility** (`compatibility: <check>`, `tests/compatibility.py`). Stage 2
+   on synthetic contracts in a temporary folder (a `Domain` at versions 1 and 2,
+   Variations up to 1, exactly 1 and 2, up to 2, exactly 2): every row of the
+   table in `docs/engine/template-contract.md`, a record ahead of, behind or
+   below what a Variation renders, a contract that breaks a group without
+   raising its `schemaVersion`, and `cv.py contracts`; report in `compatibility/`.
 
 Negative cases assert on the exact error text so a message change is a test
 change.

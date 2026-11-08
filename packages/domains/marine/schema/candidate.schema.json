@@ -2,7 +2,7 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://github.com/jimzord12/cvgen/packages/domains/marine/schema/candidate.schema.json",
   "title": "CVgen marine candidate facts",
-  "description": "Portable facts about one candidate: identity, contacts, profile, service history, certificates, education and languages. Carries no template wording; a template adapter (for example domains/marine/templates/flagship/adapter) turns this record into that template input.",
+  "description": "Portable facts about one candidate: identity, contacts, profile, service history, certificates, education and languages. The shape of the facts, stated once (ADR 0016): a Template's input schema refers to this one and adds only what it renders beyond the facts, today copy. A template adapter (for example domains/marine/templates/flagship/adapter) turns this record into that template input.",
   "type": "object",
   "required": ["identity", "companies"],
   "additionalProperties": false,
@@ -82,12 +82,14 @@
         }
       }
     },
+    "domainContract": { "type": "integer", "minimum": 1, "description": "The Domain Contract version this record follows. Without it, version 1 (ADR 0016)." },
     "skill_groups": {
       "type": "array",
       "description": "One list of skills per column, in order. A template places them; Flagship needs one page with skills: true in its plan.",
       "items": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/text" } }
     },
-    "disclosure": { "type": "string", "description": "Footer text. Defaults to the fictional-candidate notice." }
+    "disclosure": { "type": "string", "description": "Footer text. Defaults to the fictional-candidate notice." },
+    "copy": { "type": "object", "description": "Wording overrides. Their keys belong to the Template, whose input schema closes them." }
   },
   "$defs": {
     "text": { "type": "string", "minLength": 1, "pattern": "\\S" },

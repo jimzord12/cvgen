@@ -235,7 +235,7 @@ flowchart TD
 | `cmd.page-png` | cmd | Render a page to PNG | `python -c "import pymupdf; doc = pymupdf.open('private/<envelope>/revisions/<revision>/cv.pdf'); doc[<N>].get_pixmap(dpi=96).save('builds/<new-folder>/cv-p<N>.png')"` |
 | `cmd.stamp-delivered` | cmd | Stamp the Revision delivered | `python scripts/outputs.py stamp private/<envelope>/revisions/<revision>/cv.pdf status=delivered` |
 | `cmd.wording-check` | cmd | Check for example wording | `python -c "import pymupdf,sys; t=''.join(p.get_text() for p in pymupdf.open(sys.argv[1])).lower(); print([w for w in ('fictional','illustrative','flagship') if w in t])" private/<envelope>/revisions/<revision>/cv.pdf` |
-| `lead.fix-inputs` | lead | Fix the inputs | Applies the fix the message names, in candidate.json or the entry point's layout override; never shrinks the body font; the Revision it looked at is never modified. |
+| `lead.fix-inputs` | lead | Fix the inputs | Applies the fix the message names, in candidate.json, envelope.json or the entry point's layout override; never shrinks the body font; the Revision it looked at is never modified. |
 | `lead.report-delete-by` | lead | Name the delete-by date | Names the delete-by date in its report to the owner, with any Intake Form, Sheet and script project listed in README.md for deletion with it. |
 | `lead.report-render` | lead | Report the render | Stops at the render and reports the revision folder, the PDF hash, the page count, what was checked on each page, any override, and every WARNING and NOTE word for word. |
 | `lead.write-delete-by` | lead | Write the delete-by date | Writes "Exported <date>, delete by <date + 12 months>" in the Envelope's README.md, together with the Export. |

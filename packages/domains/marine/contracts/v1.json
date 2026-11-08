@@ -1,0 +1,17 @@
+{
+  "domain": "marine",
+  "version": 1,
+  "extends": "base@1",
+  "description": "The marine Domain Contract (ADR 0016). The record's shape is packages/domains/marine/schema/candidate.schema.json; a group names the parts of it that belong together.",
+  "groups": {
+    "experience": { "required": true, "schemaVersion": 1, "paths": ["companies"] },
+    "rank": { "required": true, "schemaVersion": 1, "paths": ["identity.rank"] },
+    "portrait": { "required": false, "schemaVersion": 1, "paths": ["identity.portrait"] },
+    "vessel-particulars": {
+      "required": false,
+      "schemaVersion": 1,
+      "paths": ["companies.*.groups.*.ships.*.tonnage", "companies.*.groups.*.ships.*.engine", "companies.*.groups.*.ships.*.power"]
+    },
+    "skills": { "required": false, "schemaVersion": 1, "paths": ["skill_groups"] }
+  }
+}

@@ -33,7 +33,7 @@ and back-end in software) and may refine what the domain offers. A
 domain, and it may override anything. Each template comes in two to four
 themes. Cadets and short careers have a one-page layout. Decided 2026-09-20,
 [ADR 0011](decisions/0011-domains-roles-templates.md); ADR 0016 adds named
-`Template Variation`s, not built yet.
+`Template Variation`s.
 
 ## Design is the product
 
@@ -61,8 +61,9 @@ Every agent that designs, reviews or proposes works from this section.
 - **`Flagship Parity`.** The bar is the Marine Flagship: beautiful, elegant, confident, unique,
   premium, and unmistakably marine (a portrait framed by engine-room tools,
   a ship and a propeller drawn into the page).
-- **The `Scan Test` and the `scan-first` bar (owner, 2026-11-04).** For ordinary
-  jobs, a `Client` may choose one clear page over a showpiece. A `Template
+- **The `Scan Test` and the `scan-first` bar (owner, 2026-11-04).** When a
+  `Client` needs a practical one-page CV, the operator may choose one clear
+  page over a showpiece, whatever the `Rank` (owner, 2026-11-08). A `Template
   Variation` is held to the `scan-first` bar only when the owner set it on approving
   that design, and then passes the `Scan Test` instead of the
   `Three-Second Test`: a reader finds the name, each job's title, employer and
@@ -90,8 +91,7 @@ the shared core, then freezes an approved render.
   `scan-first` page is calm, and still unmistakably crafted.
 - Not a generic resume builder with one shape for everyone. Each domain
   keeps the facts and wording its career area actually uses. Each `Template
-  Variation` is to set its own page count (ADR 0016); today Flagship is two
-  pages, or one for short careers.
+  Variation` states its own page count in its `Template Manifest`.
 - The engine remains locally usable with one compiler. The approved future web
   application adds hosted intake, review, and delivery, with real candidate
   data in private storage outside the public source repository.
@@ -111,10 +111,9 @@ the shared core, then freezes an approved render.
    template. A role-level template is the exception and needs a reason. In
    the marine tree today the deck variation is the captain artwork pack and
    example; the engine variation is the engineer pack and example.
-3. **Approved looks are frozen.** Every approved `Template Variation` (until ADR
-   0016 is built, Flagship's one design) has a locked
-   reference render, and the suite proves the library reproduces it on
-   every run.
+3. **Approved looks are frozen.** Every approved `Template Variation` has a
+   locked reference render, and the suite proves the library reproduces it
+   on every run.
 4. **Loud failure over silent drift.** Overflow, missing months, a name that
    does not fit the plate: each fails with a message naming the fix.
 5. **Evidence, not assurance.** A change is done when the suite passes and a

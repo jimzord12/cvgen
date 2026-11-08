@@ -83,7 +83,7 @@
           "sources": [
             "docs/git-workflow.md:21-33",
             "docs/git-workflow.md:40-67",
-            "docs/git-workflow.md:86-90"
+            "docs/git-workflow.md:87-91"
           ]
         },
         {
@@ -197,8 +197,8 @@
           ],
           "note": "Yours only, with the exact command shown first, including: deleting or force-pushing `main`, rewriting its published history, rewriting the private repo's history (the delete-by erase, which you run), `archive/*` tags, repo settings (public and private repo), deleting under `private/` or `.local/` or outside the repo, removing revisions, approvals, exports or portraits, replacing the `Release`.",
           "sources": [
-            "docs/git-workflow.md:91-104",
-            "docs/preferences.md:66-96",
+            "docs/git-workflow.md:92-105",
+            "docs/preferences.md:66-98",
             ".github/workflows/verify.yml"
           ]
         }
@@ -254,7 +254,7 @@
           },
           "sources": [
             "docs/preferences.md:60-62",
-            "docs/preferences.md:102"
+            "docs/preferences.md:104"
           ]
         }
       ]

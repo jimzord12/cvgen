@@ -31,10 +31,11 @@
           "id": "n-envelope",
           "title": "envelope.json + README",
           "path": "private/<envelope>/",
-          "blurb": "Who the client is: `Alias`, `Domain`, `Rank`; dates and links.",
-          "detail": "`cv.py render` refuses to run without `envelope.json`; every client `Meta File` copies it.",
+          "blurb": "Who the client is: `Alias`, `Domain`, `Rank`; the `Template` and `Template Variation` when a `Template` renders the CV; dates and links.",
+          "detail": "`cv.py render` refuses to run without `envelope.json`, or when its `template` or `variation` disagrees with `cv.typ`; every client `Meta File` copies who the client is.",
           "sources": [
-            "docs/guides/client-workflow.md:17-102"
+            "docs/guides/client-workflow.md:17-105",
+            "docs/guides/build-a-cv.md:55-61"
           ]
         },
         {
@@ -43,7 +44,7 @@
           "path": "private/<envelope>/intake/",
           "blurb": "Messages, documents, `facts.md`, the `Scout`, `CV Decisions`, `Deep Dives`.",
           "sources": [
-            "docs/guides/client-workflow.md:29-65"
+            "docs/guides/client-workflow.md:29-66"
           ]
         },
         {
@@ -61,8 +62,8 @@
           "path": "private/<envelope>/typst/cv.typ",
           "blurb": "The client's facts and the entry point that composes their CV, with its designs, wording and art beside it in typst/.",
           "sources": [
-            "docs/guides/build-a-cv.md:15-53",
-            "docs/guides/client-workflow.md:29-65"
+            "docs/guides/build-a-cv.md:15-61",
+            "docs/guides/client-workflow.md:29-66"
           ]
         },
         {
@@ -71,12 +72,12 @@
           "path": "private/<envelope>/revisions/<id>/",
           "blurb": "Every render in its own folder; approved copies in `exports/`.",
           "sources": [
-            "docs/pdf-workflow.md:73-98"
+            "docs/pdf-workflow.md:73-99"
           ]
         }
       ],
       "sources": [
-        "docs/git-workflow.md:140-149"
+        "docs/git-workflow.md:141-150"
       ]
     },
     {
@@ -417,7 +418,7 @@
           "actor": "intake-form",
           "blurb": "Optional `Intake Forms` and their answer Sheets.",
           "sources": [
-            "docs/guides/client-workflow.md:139-185"
+            "docs/guides/client-workflow.md:142-188"
           ]
         },
         {

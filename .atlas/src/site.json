@@ -38,7 +38,7 @@
         "Everything routine (commits, merges to `main`, task-store updates) is the agents' job."
       ],
       "sources": [
-        "docs/preferences.md:60-96",
+        "docs/preferences.md:60-98",
         "docs/workflow/README.md:22-24"
       ],
       "short": "You"
@@ -382,7 +382,7 @@
       ],
       "sources": [
         "scripts/cv.py:1-12",
-        "docs/guides/build-a-cv.md:103-183"
+        "docs/guides/build-a-cv.md:111-193"
       ]
     },
     "outputs-py": {
@@ -392,7 +392,7 @@
       "role": "The `Output Contract` tool: `stamp` writes a PDF's `Meta File`; `check` lists every PDF without a valid one.",
       "sources": [
         "scripts/outputs.py",
-        "docs/pdf-workflow.md:125-170"
+        "docs/pdf-workflow.md:126-174"
       ]
     },
     "suite": {
@@ -427,7 +427,7 @@
       "sources": [
         "scripts/build.ps1",
         "examples/release.json",
-        "docs/pdf-workflow.md:220-228"
+        "docs/pdf-workflow.md:224-232"
       ]
     },
     "intake-form": {
@@ -437,7 +437,7 @@
       "role": "Google Apps Script you run once per form: builds the optional `Intake Form` and its answers Sheet in your Google account.",
       "sources": [
         "scripts/intake-form.gs:1-21",
-        "docs/guides/client-workflow.md:139-185"
+        "docs/guides/client-workflow.md:142-188"
       ]
     },
     "board": {
@@ -467,7 +467,7 @@
       "role": "Lints the Python with ruff, runs the workflow tool's tests and type check, the `Workflow Model` check (`bun run check`, Bun pinned in `tools/workflow/.bun-version`) and that its generated READMEs and the `Atlas` client-journey page match it (`bun run render --check`, `bun run atlas --check`), then runs the suite once per push (its head commit) on any branch, on Linux and Windows (Typst 0.15.1 and the Python packages in `requirements.lock`, checksummed; the suite drives `scripts/build.ps1` in a throwaway copy on both, and Windows also builds the examples with it); a newer push to a feature branch cancels the older run. The lead watches it on `main` before calling work Done.",
       "sources": [
         ".github/workflows/verify.yml",
-        "docs/git-workflow.md:91-104"
+        "docs/git-workflow.md:92-105"
       ],
       "short": "CI"
     }
