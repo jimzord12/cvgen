@@ -461,11 +461,11 @@ def main():
         assert 'Earlier roles · 4 06/2005 – 10/2009' in text, text
         assert 'Resort Representative · Ionian Sun Resorts, Kefalonia 2008–2009' in text and 'Summer Guide · Achaia Walks, Patras 2005' in text
         assert 'Head counts: counted the group' in text and 'Guests: welcomed' not in text
+        page = doc[0]
+        rail_x = min(b[0] for b in page.search_for('LANGUAGES'))
         # one trip's tag would wrap, so both tags take their own line under their dates
         for period, tag in zip(['April 2024', 'October 2024'], page.search_for('LED THE GROUP')):
             assert tag.y0 >= page.search_for(period)[0].y1 - 1, (period, tag)
-        page = doc[0]
-        rail_x = min(b[0] for b in page.search_for('LANGUAGES'))
         assert min(b[0] for b in page.search_for('EDUCATION')) >= rail_x - 1 and '02 Education' not in text
         # the rail has room for the licence, so it heads the rail above availability (the twin's sits beside the lead)
         licence = page.search_for('LICENCE · VALID UNTIL 30 JUN 2028')[0]
