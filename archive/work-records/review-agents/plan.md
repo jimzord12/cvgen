@@ -2,6 +2,8 @@
 
 Status: agreed with the owner 2026-11-08 in direction; revised in place on
 `feat/review-agents` until its plan review passes (D2), then kept unchanged.
+Revision 2 answers plan review round 1 (`reviews/07-plan-reviewer.md`); the
+finding each change answers is named in brackets, P1 to P11.
 
 ## Outcome
 
@@ -9,158 +11,193 @@ Three fresh-context review gates join the four everyday ones:
 
 | Agent | Reviews | Runs when |
 |---|---|---|
-| `plan-reviewer` | A plan, before any task exists: gaps, blast radius, future problems | Work of more than one task, a contract or migration, anything irreversible, or the owner asks for a plan |
-| `decomposition-reviewer` | The plan's split into `Milestone`s and tasks | Every reviewed plan that becomes tasks (after the plan's PASS) |
-| `tests-reviewer` | Whether tests test real behaviour, and which are missing or should go | A change that adds, edits or deletes a test, fixture or baseline, **or** changes behaviour without touching a test |
+| `plan-reviewer` | A plan, before its tasks are created: gaps, blast radius, procedures, model fit, future problems | Work of more than one task, a contract or migration, anything hard to undo, or the owner asks for a plan |
+| `decomposition-reviewer` | The plan's split into `Milestone`s and tasks, created as Queued | Every reviewed plan that becomes tasks, after `plan_check.py` passes and before the first of them goes Active |
+| `tests-reviewer` | Whether tests test real behaviour, and which are missing or should go | A change that adds, edits or deletes a test, fixture or baseline, including tests written because a `code-reviewer` found a behaviour change with no test (D12) |
 
 All three: Opus at high (the owner's standing choice for reviewers, 2026-09-26),
-read-only, fresh every round, never a fork, verdict PASS / FINDINGS / INCOMPLETE,
-severities Blocking / Material / Minor / Note, round caps 5 attended / 10
-unattended, reports stored verbatim as
-`archive/work-records/<slug>/reviews/NN-<reviewer>.md`, exactly as `docs/review.md`
-already runs the loop.
+read-only apart from what D5 allows the tests-reviewer under `builds/`, fresh
+every round, never a fork, verdict PASS / FINDINGS / INCOMPLETE, round caps 5
+attended / 10 unattended, reports stored verbatim as
+`archive/work-records/<slug>/reviews/NN-<reviewer>.md`.
 
 **Not in scope:** the work-board mod; the owner decision queue (P-0020); a
-separate decomposer agent (a skill instead, see D8); running the new gates on
-work already done.
+separate decomposer agent (D8); running the new gates on work already done
+(the transition rule, D13, says what "done" means).
 
-## Sequencing
+## Sequencing [P5]
 
-- **TASK-69 merged** (`0562605`, 2026-11-08): this work builds on its planning
-  paragraph in `docs/development.md` and the milestone-aware backlog skill.
-- **Mind `feat/template-contract`** (in flight): it changes
-  `docs/engine/verification.md`, `docs/glossary.md` and `.atlas/src/site.json`.
-  Whichever merges second rebases; T2 waits for it if it is close to merging.
-- Branch `feat/review-agents` in `.worktrees/review-agents`, one milestone
-  ("Review gates for plans and tests"), five tasks below.
+- **Built:** TASK-73 (Ready) and TASK-74 (in review). TASK-74's edits moved
+  `docs/review.md` lines the `Workflow Model` cites; re-anchored on this branch
+  (6452dec) with `bun run anchors 9b06670 --fix` and the edited span by hand.
+- **In flight on other branches, all touching files this plan touches:**
+  `feat/template-contract` (14 ahead of `main`), `feat/contract-stage-2`
+  (stacked on it, 17 ahead) and `feat/travel-domain` (14 ahead). All three
+  change `docs/workflow/*/stage.yaml`, `catalog.yaml`, the generated `Atlas`
+  pages, `docs/engine/verification.md`, `docs/glossary.md`,
+  `.claude/skills/new-cv/SKILL.md` and `tests/run.py`.
+- **`main` has moved** since this branch's base (9b06670): the owner's answers
+  of 2026-11-08 and TASK-79 to TASK-81, Queued.
+- **Order.** T2 to T4 touch only agent files, skills, `docs/review.md`,
+  `docs/conventions.md`, `docs/engine/verification.md` and new scripts; they go
+  ahead. T5's `Workflow Model` and `Atlas` part waits until those three
+  branches have merged into `main`. Before T5 and before this branch merges:
+  merge `main` into it, then **regenerate, never hand-merge**, the generated
+  files (`bun run anchors <base> --fix`, the edited spans by hand, `bun run
+  render`, `bun run atlas`, then the stamps), because `atlas.data.js`,
+  `atlas.lock.json`, `client-journey.json` and the README blocks are outputs.
 
 ## Decisions (Major; decided, listed for the owner)
 
-- **D1. Placement by four questions (owner, 2026-11-08).** Every rule has one
-  home; everything else points to it. The questions, in their reviewed
-  wording, live in `.claude/agents/context-maintainer.md`, "Where things live"
-  (TASK-73), and the `context-reviewer` checks placement against them; in
-  short: an agent's own job → its file; repository-specific → the owning
-  document or CVgen skill; working with the owner → preferences; a generic
-  method or one activity's convention, his own cross-project ones included →
-  that activity's skill when more than one agent does or checks it, else the
-  agent file. For this work:
-  - **`plan` skill** (new, generic): the plan template, the plan checklist and
-    the decomposition checklist; the planner and both plan reviewers load it.
-  - **`test-principles` skill** (new, generic): what makes a test worth
-    keeping; whoever writes a test and the tests-reviewer load it.
-  - **CVgen-specific:** the gates, triggers, briefs, round caps and report
-    storage in `docs/review.md`; the impact items peculiar to this repository
-    (frozen references, `baseline.json`, `Release` PDFs, real records) in
-    `docs/review.md`; the task template in `docs/development.md` (exists); what
-    this suite's checks must do in `docs/engine/verification.md`.
-  - **Agent files:** each reviewer's own procedure only (the blind pass, the
-    deliberate fault, the report shape, its limits). Generic and self-contained,
-    so an agent file and its skill can be copied to another repository.
-  - **Codex counterparts** point to the Claude agent file and the skills; they
-    copy nothing.
+- **D1. Placement by four questions (owner, 2026-11-08).** The questions, in
+  their reviewed wording, live in `.claude/agents/context-maintainer.md`,
+  "Where things live" (TASK-73); in short: an agent's own job → its file;
+  repository-specific → the owning document or CVgen skill; working with the
+  owner → preferences; a generic method or one activity's convention, his own
+  cross-project ones included → that activity's skill when more than one agent
+  does or checks it, else the agent file. For this work:
+  - **`plan` skill** (built in T1, extended in T4, generic): the plan template,
+    the impact map, the plan checklist (thirteen questions), the decomposition
+    checklist and the loop.
+  - **`test-principles` skill** (T2, generic): what makes a test worth keeping,
+    including D6.
+  - **CVgen-specific:** gates, triggers, briefs, caps and storage in
+    `docs/review.md`; the impact items peculiar to this repository in
+    `docs/review.md`, "Plan review"; the task template in `docs/development.md`;
+    what this suite's checks must do, and that frozen-reference checks are
+    never removed through D6, in `docs/engine/verification.md` [P8].
+  - **Agent files:** each reviewer's own procedure only.
+  - **Codex counterparts** point to the Claude agent file and the skills
+    instead of copying them, a new pattern `.codex/README.md` must describe
+    (D9) [P7].
 - **D2. A plan is a file with an identity.** `archive/work-records/<slug>/plan.md`,
-  committed on the work's branch before each round, so the reviewer gets an exact
-  snapshot (commit), like code. Revised in place until PASS; Git keeps the rounds.
-- **D3. Tools:** Read, Grep, Glob, Bash, PowerShell for all three. The shell is
-  for reading (`git log/diff/grep`, `git worktree list`, `backlog ... --plain`)
-  and for checks that write only under `builds/`. Nothing else.
-- **D4. Blind first pass (plan-reviewer).** Before reading the plan, it reads
-  only the goal and builds its own **impact map** from the code. Then it reads
-  the plan and diffs the two; every gap is a finding. The same discipline
-  `context-reviewer` already uses ("before opening the diff, write down...").
-- **D5. Deliberate faults (tests-reviewer).** For a test whose value is in
-  doubt, it copies the repository into `builds/tests-review-<ts>/`, breaks the
-  behaviour the test claims to guard, runs that one test, and records whether it
-  failed. A test that survives the fault it exists to catch is a finding. No
-  mutation tool is installed; this is targeted, by hand.
+  committed before each round; revised in place until PASS.
+- **D3. Tools:** Read, Grep, Glob, Bash, PowerShell for all three; the shell
+  for reading and for checks that write only under `builds/`.
+- **D4. Blind first pass (plan-reviewer).** Built in T1.
+- **D5. Deliberate faults (tests-reviewer)** [P4]. For a test whose value is in
+  doubt:
+  - **The copy:** `git archive <snapshot> | tar -x` into a new
+    `builds/tests-review-<timestamp>/`. It holds tracked files only: no
+    `private/`, no `builds/`, no `.worktrees/`, and no change to Git's state.
+  - **The fault:** the reviewer edits the behaviour the test claims to guard,
+    in that copy only, and records the edit as a diff in its report.
+  - **The run:** one case, not the suite. T2 reads `tests/run.py` and either
+    adds a way to select a case, or the reviewer calls the check's function
+    from a scratch script in the copy; T2 records which, and it is reviewed as
+    code. A Bun test needs `node_modules`: the reviewer may run `bun install
+    --frozen-lockfile` inside the copy only; if that fails, the fault is
+    reported INCOMPLETE, never guessed.
+  - **The boundary:** `docs/review.md`, "Reviewer boundaries", gains this as
+    the one exception to source-read-only. The copy stays in `builds/` as
+    evidence; clearing `builds/` remains the lead's decision.
 - **D6. Removal needs a reason.** A test is removed only by naming what it
-  fails to catch (with a deliberate fault as evidence) or the test that
-  already catches the same faults. "Useless" alone is not a finding. Guards
-  against over-correcting to "fewer tests". Whoever removes a test follows
-  it, the lead included, so it lives in the `test-principles` skill, not in
-  the tests-reviewer's file (D1, question 4; moved during TASK-73).
-- **D7. A script checks what has an exact answer.** `scripts/plan_check.py
-  <milestone>` checks, before the decomposition-reviewer runs: the milestone
-  exists (Backlog.md #919 makes virtual ones silently); every task has the
-  `<slug>: <outcome>` title, the description header (Owner, Branch/worktree,
-  Integration target, Depends on), an Outcome and boundaries section and at
-  least one acceptance criterion; every dependency exists; the dependency graph
-  has no cycle. The reviewer spends its judgement on what a script cannot judge.
+  fails to catch (with a deliberate fault as evidence) or the test that already
+  catches the same faults. In the `test-principles` skill. A check of a frozen
+  reference is never removed this way [P8].
+- **D7. A script checks what has an exact answer** [P1, P2]. `scripts/plan_check.py
+  TASK-N [TASK-M ...]` takes the plan's task ids, not a milestone, so a
+  milestone's Done and Trello-era tasks never block it. For each listed task:
+  - it exists and is not Done; it names a milestone id that `backlog
+    milestone list` knows (Backlog.md #919 makes virtual ones silently);
+  - the title is `<slug>: <outcome>`; the description has the header (Owner,
+    Branch/worktree, Integration target, Depends on) and an "Outcome and
+    boundaries" section; at least one acceptance criterion;
+  - **dependencies:** the frontmatter `dependencies:` list is the source; every
+    id in it exists; the header's "Depends on" names the same task ids (other
+    text there, such as a decision, is allowed); the graph over the listed
+    tasks and their dependencies has no cycle; a dependency outside the plan
+    or in another milestone is allowed and reported.
+  - **Parsing:** standard library only, a frontmatter reader for the shapes
+    Backlog.md writes (scalars, `>-` folded text, `- ` lists), as
+    `scripts/board.py` does; no YAML package, so `pyproject.toml` and
+    `requirements.lock` do not change.
+  - **Tests:** fixtures only, wired into `tests/run.py`; the suite never checks
+    the live backlog, so a later malformed task cannot break CI.
 - **D8. A `plan` skill, not a decomposer agent** (owner agreed, 2026-11-08).
-  The planner holds the context; a fresh agent would get a summary, and the
-  detail lost there is what the reviewer would then catch. The skill gives the
-  plan template, the decomposition steps and the loop: plan → plan-reviewer →
-  decompose → `plan_check.py` → decomposition-reviewer → create the tasks
-  (backlog skill). A decomposer agent can be added later if planners run out of
-  context.
-- **D11. Milestone m-8, "Agent-ready repository".** Its done-condition is that
-  any agent can orient, plan, work, review and integrate from the repository
-  alone; review gates for plans and tests are part of that outcome, so no new
-  milestone.
-- **D9. Codex counterparts for all three** (`.codex/agents/*.toml`): Codex's
-  role here includes reviewing designs, and a plan is one.
-- **D10. `code-reviewer` keeps lens 5** ("Tests and visible evidence"). When a
-  tests-reviewer ran on the same snapshot, the code-reviewer may rely on its
-  report for test quality and says so in its coverage line.
+  **The loop, in an order that can run** [P1]: write the plan → plan-reviewer
+  until PASS → decompose → create the milestone if new and the tasks as Queued
+  on `main` (record-keeping, the backlog skill) → `plan_check.py` on their ids →
+  decomposition-reviewer until PASS → the first task may go Active. Fixes to
+  tasks between rounds are task-store edits on `main`.
+- **D9. Codex counterparts for all three, as pointers** [P7]. Each TOML tells
+  Codex to read the Claude agent file and the skills, and copies none of
+  their rules. `.codex/README.md` changes accordingly: its claim that every
+  counterpart preserves the source's brief and rubrics becomes "existing
+  counterparts copy; reviewers added from 2026-11-08 point". Its counts are
+  corrected. **A Codex verdict is advisory and never satisfies one of these
+  gates**, as for `code-reviewer`.
+- **D10. `code-reviewer` keeps lens 5.** When a tests-reviewer ran on the same
+  snapshot, the code-reviewer may rely on its report for test quality and says
+  so. `.codex/agents/code-reviewer.toml`, which copies lens 5, gets the same
+  sentence [P8].
+- **D11. Milestone m-8, "Agent-ready repository".**
+- **D12. The tests-reviewer's trigger is narrower than first planned** [P11].
+  It runs when a change adds, edits or deletes a test, fixture or baseline.
+  Spotting a behaviour change with no test stays with the `code-reviewer`
+  (lens 5, which already asks whether "tests can detect the relevant
+  defect"); the tests written in answer go to the tests-reviewer. A second
+  reviewer on every code change was the first plan; this keeps the new gate
+  where it adds judgement. **Listed for the owner:** he may widen it.
+- **D13. Transition** [P5]. The gates apply to plans whose tasks go Active,
+  and to changes reviewed, after this branch merges into `main`. Work Active,
+  in Review or Ready at the merge finishes under the rules it started with.
+  Named: TASK-79, TASK-80 and TASK-81 (Queued, more than one task between them)
+  will need a plan and its plan review before the first goes Active;
+  `feat/contract-stage-2`'s new tests are reviewed by the tests-reviewer only if
+  the branch is still before its code review when this merges. The session
+  handoff says so.
+- **D14. Bars for the known-answer runs** [P6]. Before each run its answer key
+  is committed, as ddebe24 did. The lead records the score and decides with a
+  reason; a score under half of the key needs either a named change to the
+  skill or agent, or a stated limitation in the task. A run that uses tasks
+  from before the template (TASK-63 to TASK-68) skips `plan_check.py` and says
+  so.
+- **D15. An ADR and a history entry** [P11]. ADR 0018 records the three gates,
+  the two skills, the placement questions and D12, with ADR 0017 as the
+  precedent for a workflow change; `docs/history.md` gets its entry. Both in T5.
+- **D16. Two plan-reviewers for this plan's next round** [P9]. The gates are a
+  contract all later work depends on, which `docs/review.md` counts as hard to
+  undo.
 
-## The three rubrics (generic parts in the skills, CVgen parts in the docs, D1)
+## The rubrics
 
-### plan-reviewer
-1. **Impact map, blind first** (D4): code and callers; the Framework vs a
-   `Domain`; templates and `Template Variation`s; fixtures, `tests/baseline.json`,
-   frozen references; examples, `Release` PDFs and `Meta File`s; real client
-   records (named as affected or not; no client data copied into a report);
-   docs, glossary, skills, agents, `.codex/`, the Atlas and the `Workflow
-   Model`; CI.
-2. **Fit:** outcome and non-goals against `docs/vision.md`; the constitution's
-   rules (frozen references, a new folder per output, no font shrinking, public
-   content fictional, the totals rule).
-3. **Compatibility and migration:** existing examples and records keep working,
-   or the plan says how they move.
-4. **Reversibility:** what cannot be undone, and the rollback.
-5. **Verification:** how we will know it works; the evidence each step leaves.
-6. **Failure modes** the plan did not consider.
-7. **Sequencing:** collisions with branches and worktrees in flight; order of
-   steps; what must land first.
-8. **Unknowns:** what should be a small experiment before committing.
-9. **Owner decisions:** Critical choices raised, not assumed.
-10. **Proportion:** a simpler alternative; what the plan makes harder later;
-    any bypass that belongs in `docs/framework-gaps.md`.
+The plan-reviewer's rubric is the `plan` skill's checklist (thirteen questions)
+and the repository's impact items in `docs/review.md`, "Plan review"; it is not
+restated here [P10].
 
-### decomposition-reviewer (after `plan_check.py` passes)
+### decomposition-reviewer (after `plan_check.py` passes; generic parts to the `plan` skill)
 1. **Traceability both ways:** every part of the plan has a task; every task
    traces to the plan.
-2. **One outcome per task,** with its boundaries (what it excludes).
-3. **Acceptance criteria** are observable and name their evidence.
+2. **One outcome per task,** with its boundaries.
+3. **Acceptance criteria** are observable and name their evidence; none needs
+   an act an agent cannot perform without saying who performs it.
 4. **Size:** each task fits one branch and one review loop.
-5. **Dependencies make sense:** every real ordering is a dependency (for example
-   a glossary term before the docs that use it); no dependency is invented.
-6. **Parallel safety:** tasks meant to run together touch no shared file.
+5. **Dependencies make sense:** every real ordering is a dependency, including
+   a review gate built by another task; no dependency is invented.
+6. **Parallel safety:** tasks meant to run together touch no shared file,
+   generated outputs included.
 7. **Milestone:** its done-condition is reached by its tasks.
-8. **Gates and tests named:** each task names its review gate(s) and the tests
-   it needs.
-9. **Owner-blocked tasks** carry the `blocked` label and the unblock condition.
-10. **Project rules:** task template, where task changes go (main vs branch),
-    integration targets.
+8. **Gates and tests named** for each task.
+9. **Owner-blocked tasks** carry `blocked` and the unblock condition.
+10. **Project rules:** the task template, where task changes go, integration
+    targets (CVgen's, in `docs/development.md`).
 
-### tests-reviewer
-Sources: Kent Beck's Test Desiderata; Software Engineering at Google, ch. 12
-(test via public APIs, test state not interactions); Google's
-"Change-Detector Tests Considered Harmful"; agent-specific failure reports
-(assertions weakened, fixtures edited to pass, coverage gamed).
-1. **Behavioural:** it checks behaviour through a real entry point (a render, a
-   CLI, a public function), not internal calls or structure.
-2. **Can fail:** it fails when the behaviour breaks (deliberate fault, D5); no
-   tautology, no comparison against output the test itself regenerates.
+### tests-reviewer (generic parts to the `test-principles` skill)
+Sources: Kent Beck's Test Desiderata; Software Engineering at Google, ch. 12;
+Google's "Change-Detector Tests Considered Harmful"; reports of agents
+weakening assertions, editing fixtures to pass and gaming coverage.
+1. **Behavioural:** through a real entry point, not internal calls.
+2. **Can fail:** it fails when the behaviour breaks (D5); no tautology, no
+   comparison with output the test itself regenerates.
 3. **Structure-insensitive:** it survives a refactor that keeps the behaviour.
 4. **Specific:** its failure message points at the cause.
-5. **Deterministic and isolated:** same result every run and in any order.
+5. **Deterministic and isolated.**
 6. **Honest changes:** no deleted or weakened assertion, no skip, no fixture or
-   `baseline.json` hash changed without a reason the change itself requires.
-7. **Not duplicated:** no second test catching the same faults as another.
-8. **Missing tests:** every changed behaviour has a test for its likely faults;
-   the report lists each missing one with the fault it should catch.
+   baseline changed without a reason the change requires.
+7. **Not duplicated.**
+8. **Missing tests:** each behaviour the change touches has a test for its
+   likely faults.
 9. **Removal with a reason** (D6).
 10. **Cost:** a slow test earns its time.
 Applies to the Python suite (`tests/`) and the Bun tests in `tools/workflow/`.
@@ -168,67 +205,66 @@ Applies to the Python suite (`tests/`) and the Bun tests in `tools/workflow/`.
 ## Files
 
 ### New
-| File | What |
-|---|---|
-| `.claude/agents/plan-reviewer.md` | Procedure, brief, report shape, limits |
-| `.claude/agents/decomposition-reviewer.md` | Same |
-| `.claude/agents/tests-reviewer.md` | Same, with the deliberate-fault procedure |
-| `.codex/agents/{plan,decomposition,tests}-reviewer.toml` | Codex counterparts |
-| `.claude/skills/plan/SKILL.md` | Plan template, plan and decomposition checklists, the loop (D1, D8) |
-| `.claude/skills/test-principles/SKILL.md` | What makes a test worth keeping (D1) |
-| `scripts/plan_check.py` | The exact checks (D7) |
-| `tests/plan_check.py` | Its tests, wired into `tests/run.py` like `proposals` |
+| File | What | Task |
+|---|---|---|
+| `.claude/agents/plan-reviewer.md`, `.claude/skills/plan/SKILL.md` | Built | T1 |
+| `.claude/skills/test-principles/SKILL.md` | Generic test principles, D6 | T2 |
+| `.claude/agents/tests-reviewer.md` | Its procedure, D5 | T2 |
+| `scripts/plan_check.py`, `tests/plan_check.py`, fixtures under `tests/fixtures/plan_check/` | D7 | T3 |
+| `.claude/agents/decomposition-reviewer.md` | Its procedure | T4 |
+| `.codex/agents/{plan,decomposition,tests}-reviewer.toml` | Pointers, D9 | T5 |
+| `docs/decisions/0018-review-gates-for-plans-and-tests.md` | D15 | T5 |
 
 ### Changed
-| File | Change |
-|---|---|
-| `docs/review.md` | Plans are reviewed before implementation; a "Plan, decomposition and tests gates" section with the trigger table, each gate's brief and rubric; the loop and report persistence name the new reviewers; D10 under lens 5 |
-| `docs/development.md` | Roles list; the planning paragraph (after TASK-69's) points to the `plan` skill; a plan's PASS and its decomposition's PASS before the first task of planned work goes Active; the file map |
-| `.claude/agents/context-maintainer.md` | "Where things live" gains the four placement questions (D1) |
-| `.claude/agents/context-reviewer.md` | Its placement check names the four questions |
-| `docs/engine/verification.md` | New section: what this suite's tests must do, beyond the `test-principles` skill it points to |
-| `docs/conventions.md` | Its "Tests" section already holds test rules (real compiler, no mocks, "a test that would pass with the feature deleted is not written"): T2 keeps the CVgen-specific ones there, moves the generic ones to the skill, and points to it (found during TASK-73). "Documents" gains the pointer to the four placement questions (TASK-73) |
-| `docs/glossary.md` | Candidate terms: `Plan`, `Impact Map`, `Deliberate Fault` (only those the text keeps using) |
-| `.claude/skills/backlog/SKILL.md` | Tasks from a reviewed decomposition: pointer to the `plan` skill |
-| `.codex/README.md` | Roles table and agent count |
-| `.atlas/src/site.json` | Roster entries for the three agents and the skill |
-| `.atlas/src/pages/change-review.json` | The flow gains the plan and decomposition steps and the tests gate; rebuild and stamp |
-| `docs/workflow/05-design/stage.yaml` (+ generated README/Atlas) | `design.engine-review` adds a tests-reviewer when the engine change touches tests; `bun run render` and `bun run atlas` |
-| `AGENTS.md` | Probably nothing ("Which reviewer gates which change: docs/review.md" already points there); checked against its word limit |
-| `backlog/docs/doc-1 - session-handoff.md` | New gates in force; drop the "more than three agents" pitfall (owner, 2026-11-08) |
+| File | Change | Task |
+|---|---|---|
+| `docs/review.md` | "Plan review" (built); the tests gate and its trigger (D12); "Reviewer boundaries" gains D5's exception; the decomposition gate and the loop (D8); D10 under lens 5 | T1, T2, T4 |
+| `docs/development.md` | The planning paragraph points to the gate (built in T1); the loop's order (D8); roles list and file map; the transition (D13) | T1, T4, T5 |
+| `docs/engine/verification.md` | This suite's test rules, frozen references never removed through D6, how one case runs (D5) | T2 |
+| `docs/conventions.md` | "Tests": the CVgen-specific rules stay, the generic ones move to the skill, a pointer | T2 |
+| `tests/run.py` | Case selection, if T2 chooses it (D5) | T2 |
+| `docs/glossary.md` | `Plan` (the plan file, as distinct from its source and from a task's Implementation Plan field) and `Impact Map` now, because T1's text already uses them (glossary Rule 4) [P10]; `Deliberate Fault` with T2 if its text keeps the term | T1, T2 |
+| `.claude/skills/backlog/SKILL.md` | Tasks from a plan: created Queued on `main`, none Active before the decomposition review (D8) | T4 |
+| `.claude/skills/new-cv/SKILL.md`, `.claude/skills/new-theme/SKILL.md` | Their gate lines name the tests-reviewer where a test, fixture or `baseline.json` changes [P8] | T5 |
+| `.codex/README.md`, `.codex/agents/code-reviewer.toml` | D9, D10 | T5 |
+| `.claude/repo-maintenance.md` | Line 150's stale note on the agent-context owners [P11] | T5 |
+| `docs/workflow/catalog.yaml`, `docs/workflow/05-design/stage.yaml` | [P3] A tests-reviewer in `design.engine-review` needs a new actor, a step with an agent action, its report artifact, a gate and a revise loop, since a step is one actor doing one action (`tools/workflow/src/model.ts`); plus the anchors every move needs; then render and atlas. Under D12 the step fires only when the engine change touches tests | T5 |
+| `docs/workflow/05-design/README.md` (generated blocks), `.atlas/src/pages/client-journey.json`, `.atlas/atlas.data.js`, `.atlas/atlas.lock.json` | Regenerated, never edited | T5 |
+| `.atlas/src/site.json`, `.atlas/src/pages/{change-review,roster,design-run,system-map}.json` | Roster entries; the change-review flow gains plan, decomposition and tests gates; every cited line in `docs/review.md` and `docs/development.md` re-checked; stamped | T5 |
+| `docs/history.md` | D15 | T5 |
+| `backlog/docs/doc-1 - session-handoff.md` | New gates and the transition (D13); drop the "more than three agents" pitfall (owner, 2026-11-08) | T5 |
+| `AGENTS.md` | Nothing: "Which reviewer gates which change: `docs/review.md`" already points there; it is at 797 of 800 words | — |
 
-## Tasks (milestone m-8, Agent-ready repository)
+## Tasks (milestone m-8)
 
 ```
-T0 TASK-73 placement ─► T1 TASK-74 plan-reviewer ─► T2 TASK-75 tests-reviewer ─► T3 TASK-76 plan_check.py
-                                                                                       │
-                              T5 TASK-78 the welcome ◄─ T4 TASK-77 decomposition-reviewer ◄┘
+T0 TASK-73 ─► T1 TASK-74 ─► T2 TASK-75 tests-reviewer ─► T3 TASK-76 plan_check.py ─► T4 TASK-77 decomposition-reviewer
+                                                                                              │
+           (template-contract, contract-stage-2, travel-domain merged into main) ──► T5 TASK-78 the welcome
 ```
 
-T3's script can be written beside T2, but its gate is the tests-reviewer, so
-it closes after T2 (found while creating the tasks: the kind of ordering the
-decomposition-reviewer exists to catch).
+| Task | Gate | Evidence |
+|---|---|---|
+| **T0** TASK-73 | context-reviewer | Ready, round 4 PASS |
+| **T1** TASK-74 | context-reviewer | Three calibration runs (`calibration/`); this plan reviewed; the glossary terms |
+| **T2** TASK-75 | context-reviewer; code-reviewer if `tests/run.py` changes | Known-answer runs, key committed first (D14): a seeded tautological test and a seeded change-detector test in a `builds/` copy are flagged, each by a deliberate fault; `tests/proposals.py` reviewed for real |
+| **T3** TASK-76 | code-reviewer and tests-reviewer | Suite and ruff pass; fixtures with a cycle, a missing dependency, a header that disagrees with the frontmatter and a virtual milestone each refused; the script on TASK-75 to TASK-78 |
+| **T4** TASK-77 | context-reviewer | Known-answer run on the P-0019 split (TASK-63 to 68), key committed first, `plan_check.py` skipped there (D14) |
+| **T5** TASK-78 | context-reviewer; code-reviewer for the `Workflow Model` | `bun run anchors <base>`, `check`, `render`, `atlas`, `bun test`, `python .atlas/_kit/atlas.py check` clean, suite, ruff |
 
-| Task | Delivers | Gate | Evidence |
-|---|---|---|---|
-| **T0** context-placement | The four questions in `context-maintainer.md`; `context-reviewer` checks them | context-reviewer | The three agents' content sorted by the questions with no case left undecided |
-| **T1** plan-reviewer | `plan` skill (template + plan checklist), the agent, its `docs/review.md` gate with the CVgen impact items | context-reviewer | Known-answer run: on `archive/work-records/backlog-migration/plan.md`, does it find what that work later found the hard way? Then **run it on this plan** before T2-T5 start |
-| **T2** tests-reviewer | `test-principles` skill, the agent, verification.md's suite specifics, review.md trigger | context-reviewer | Known-answer runs: a seeded tautological test and a seeded change-detector test in a `builds/` copy must be flagged; `tests/proposals.py` reviewed for real |
-| **T3** plan_check.py | Script and its tests | code-reviewer + **tests-reviewer** (its first real use) | Suite PASS; the script on the current milestones; a fixture with a cycle, a missing dep and a virtual milestone each refused |
-| **T4** decomposition-reviewer | The agent, the `plan` skill's decomposition checklist and loop, review.md | context-reviewer | Known-answer run on the P-0019 split (TASK-63 to 68) |
-| **T5** the welcome | development.md, glossary, backlog skill, `.codex/` ×3 + README, Atlas, Workflow Model, handoff | context-reviewer; code-reviewer for the model change | `atlas.py check`, `bun run check`, `bun test`, suite, ruff |
-
-**Bootstrap, honestly:** this plan is reviewed by the plan-reviewer only after
-T1 exists, and its split by the decomposition-reviewer only after T4. T1 is
-small enough that its own context review is enough.
+**Bootstrap, honestly:** this plan's tasks existed before the plan review; its
+split is reviewed by the decomposition-reviewer only once T4 has built it, and
+the tasks TASK-75 to 78 are revised then if it finds gaps.
 
 ## Risks
 
-- **Review churn:** three more gates can mean more rounds. Mitigation: exact
-  triggers; the script takes the mechanical checks; the round caps hold.
-- **Rubric drift:** rules restated in agent files go stale. Mitigation: D1;
-  the context-reviewer checks that agents restate only essentials.
-- **The deliberate-fault copy** must never touch the source tree: copy to
-  `builds/`, run there, and the report names the copy.
-- **`ruff` is not installed on this machine** (found 2026-11-08): install it
-  before T3, or the author checks are incomplete.
+- **Review churn:** narrower triggers (D12), the script for exact checks, the
+  round caps.
+- **Rubric drift:** D1; the context-reviewer checks restatement.
+- **The reviewer is not deterministic** (calibration 01 against 02): two
+  plan-reviewers for plans that are hard to undo.
+- **Questions 12 and 13 were added after seeing their answer keys** and are
+  unproven until a later plan exercises them.
+- **The in-flight branches** (Sequencing) merge before T5; their order is
+  theirs, not this plan's.
+- **`ruff` is not installed on this machine:** install it before T3.

@@ -6,7 +6,7 @@ title: >-
 status: Active
 assignee: []
 created_date: '2026-11-08T09:50:00Z'
-updated_date: '2026-11-08T10:29:00Z'
+updated_date: '2026-11-08T10:31:00Z'
 labels: []
 milestone: m-8
 dependencies:
@@ -71,4 +71,7 @@ Report: reviews/06-context-reviewer.md (verbatim).
 
 ## Anchors broken by this task, found by the plan review of the review-agents plan (P3)
 TASK-74's edits to docs/review.md moved lines the Workflow Model cites: 4 citations moved (12 references, chiefly the round caps at 205-209, now 256-260) and one cited span edited (the loop, 192-209, now 242-260; re-read by hand: the facts it supports, a fresh code-reviewer round until PASS, still hold). `bun run anchors 9b06670 --fix`, the edited span by hand, then check (OK, levels 1 and 2), render (0 changed), atlas; client-journey re-verified and stamped. The four hand-written Atlas pages whose sources this branch changes (design-run, change-review, system-map, roster) stay STALE until T5 (TASK-78), which re-checks and stamps them once the sources settle.
+
+## Plan review round 1 of the review-agents plan (07-plan-reviewer.md): dispositions
+All 11 findings answered in plan revision 2 (each change names its finding P1-P11). In TASK-74's own scope: the anchors it broke (P3) fixed in 6452dec; the glossary terms Plan and Impact Map added now, since T1's text uses them (P10, glossary Rule 4). Tasks TASK-75 to 78 aligned with the revision. Round 2 of the plan review uses two independent plan-reviewers (D16).
 <!-- SECTION:NOTES:END -->

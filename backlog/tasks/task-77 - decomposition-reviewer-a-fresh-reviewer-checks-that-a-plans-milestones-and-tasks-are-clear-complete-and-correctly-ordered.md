@@ -6,6 +6,7 @@ title: >-
 status: Queued
 assignee: []
 created_date: '2026-11-08T09:51:00Z'
+updated_date: '2026-11-08T10:31:00Z'
 labels: []
 milestone: m-8
 dependencies:
@@ -30,6 +31,7 @@ The plan skill gains the decomposition checklist and the full loop (plan, plan-r
 <!-- AC:BEGIN -->
 - [ ] #1 plan skill holds the decomposition checklist and loop; decomposition-reviewer.md holds only its own procedure
 - [ ] #2 docs/review.md names the gate, its brief and that plan_check.py runs first
-- [ ] #3 Known-answer run on the P-0019 split (TASK-63 to TASK-68) recorded
-- [ ] #4 context-reviewer PASS
+- [ ] #3 context-reviewer PASS
+- [ ] #4 Known-answer run on the P-0019 split (TASK-63 to TASK-68) with its key committed first; plan_check.py skipped there and said so; the score decided with a reason, under half of the key needs a named change or a stated limitation (D14)
+- [ ] #5 plan skill and backlog skill give the loop's order: tasks created Queued on main, plan_check.py on their ids, the decomposition-reviewer, then the first task goes Active (D8)
 <!-- AC:END -->

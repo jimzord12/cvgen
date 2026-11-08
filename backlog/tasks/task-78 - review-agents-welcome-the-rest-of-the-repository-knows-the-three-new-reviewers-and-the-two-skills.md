@@ -6,6 +6,7 @@ title: >-
 status: Queued
 assignee: []
 created_date: '2026-11-08T09:51:00Z'
+updated_date: '2026-11-08T10:31:00Z'
 labels: []
 milestone: m-8
 dependencies:
@@ -32,3 +33,10 @@ development.md (roles, planning paragraph, file map, plan and decomposition PASS
 - [ ] #2 atlas.py check, bun run check, bun test, suite and ruff pass
 - [ ] #3 context-reviewer PASS; code-reviewer PASS for the Workflow Model change
 <!-- AC:END -->
+
+## Implementation Notes
+
+<!-- SECTION:NOTES:BEGIN -->
+## Scope after plan revision 2
+Starts after feat/template-contract, feat/contract-stage-2 and feat/travel-domain have merged into main: merge main, then regenerate the generated files, never hand-merge them. Adds ADR 0018 and the history entry (D15), the transition rule (D13) in development.md and the handoff, the Workflow Model change sized by P3 (actor, step, agent action, report artifact, gate, loop), the four stale Atlas pages re-checked and stamped, new-cv and new-theme gate lines, .codex README and code-reviewer.toml (D9, D10), repo-maintenance.md:150.
+<!-- SECTION:NOTES:END -->
