@@ -7,7 +7,7 @@
   },
   "tool": {
     "command": "python scripts/portrait.py prepare examples/candidates/fictional-engineer.png --output <builds folder>/fictional-cutout.png",
-    "branch": "feat/portrait-prep (TASK-83), not yet on main",
+    "branch": "feat/portrait-prep (TASK-83), since merged into main",
     "commit": "715e39c",
     "model": "birefnet-portrait (rembg 2.0.87); face: face_detection_yunet_2023mar.onnx",
     "crop": { "box": [0, 0, 1228, 1228], "limited_by": "top", "face_centre": [0.503, 0.446] },

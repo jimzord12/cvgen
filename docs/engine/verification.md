@@ -110,7 +110,7 @@ Windows one also holds the PDFs that build wrote, one per example in
    record whose career column (60% to 80% filled) must warn while the generic
    client-length record must not (its role gap grown past the 8 mm cap to the roomy 11 mm), and
    the plain pack's `plain-long-rank` and `plain-long-name`, whose arc is left
-   out with a warning saying what to change, and a fictional long career (`tour-leader-long-career.json`, version 2):
+   out with a warning naming what binds (the rank row, with what to cut, or a long name, which needs nothing), and a fictional long career (`tour-leader-long-career.json`, version 2):
    education moved to the rail, four roles in full and "Earlier roles · 4" with
    the span the domain computed. The Greek case translates the record's own
    labels, rank, availability and lead too, so Greek capitals are proved to fit. It fails on a newest role too long for the page, a long career not

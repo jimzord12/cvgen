@@ -85,7 +85,16 @@ R4-1 the plain arc measured from the name and rank row, left out under 30 mm; D2
 
 D30 the generic record gains a highlight row from its own facts, gaps may grow to 14/16 mm when the column still ends over 25 mm short, the thin-page warning judges each column (the smaller fill), a three-quarters case (64%) must warn; D31/R5-1 the route arc is left out under 45 mm with a <cvgen-warning>; Codex D1 a 2.4 mm gap between a trip's date and day count; long-career destinations headed Japan and Korea; R5-2 tests/fixtures/portraits/provenance.json; R5-4 the glossary's 40-character limit, every artwork pack needs a name, the arc weight's SVG strings asserted.
 
-Depends on TASK-83 (feat/portrait-prep) merging into main first: docs/guides/build-a-cv.md names scripts/portrait.py prepare, which that branch adds.
+Depended on TASK-83 (feat/portrait-prep) merging into main first, for scripts/portrait.py prepare: satisfied, main merged in at 78b498e.
 
-Round 9 (polish): roomy role gap capped at 11 mm (section stays 16 mm); fill judged at the ordinary caps before roomy growth, and a page under 80% is not stretched; the warning names the thinner column (career column or rail) with its own remedies; the arc warning says what to change; when any trip tag would wrap, every tag takes its own line. New loud failures: unnamed artwork pack, route-arc SVG without the weight strings. Fixture data: generic availability reads first; twin consultant cell leads with '25 to 40 trips a year'. Essential reference candidate regenerated; showcase reference untouched.
+Round 9 (polish): roomy role gap capped at 11 mm (section stays 16 mm); fill judged at the ordinary caps before roomy growth, and a page under 80% is not stretched; the warning names the thinner column (career column or rail) with its own remedies; the arc warning names what binds (the rank row, with what to cut, or a long name, which needs nothing); when any trip tag would wrap, every tag takes its own line. New loud failures: unnamed artwork pack, route-arc SVG without the weight strings. Fixture data: generic availability reads first; twin consultant cell leads with '25 to 40 trips a year'. Essential reference candidate regenerated; showcase reference untouched.
+
+## Code rounds 4 to 8 and the main merge (2026-11-08)
+
+Reports: archive/work-records/hanami-essential/reviews/code-round-04.md to code-round-08.md.
+- Code rounds 4 to 6 PASS; their Minors (R4-1 to R4-5, R5-1 to R5-4, R6-1 to R6-4) are fixed in the round 7 to 9 notes above.
+- Code round 7 PASS: R7-1 (the arc remedy names what binds) and R7-2 (trip-tag count asserted) fixed in 78425ed; R7-3 (merge conflicts) handled in the merge.
+- Merge of main (TASK-83, the portrait tool) at 78b498e: anchors regenerated against the merged tree, main's portrait wording kept, Atlas restamped.
+- The generic fixture's fictional person is Nikos Kontos, to match the male fictional portrait (9306fa2, 330f0f5, b436a2d).
+- Code round 8 PASS: R8-1 (two Atlas pages stale after 330f0f5) restamped; R8-2 (arc warning described as 'what to change') reworded here and in verification.md; R8-3 this entry. N-3 provenance.json now says the tool is on main. N-1, N-2, N-4 and N-5 stay Notes.
 <!-- SECTION:NOTES:END -->
