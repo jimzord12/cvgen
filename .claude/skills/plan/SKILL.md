@@ -133,3 +133,9 @@ plan must answer, not a heading it must have.
     system or shell, a missing tool, the owner's permission settings, a
     tool's options used together. Check what each command does in its help,
     not by its name. A situation with no instruction is a gap.
+13. **Model fit:** when the plan introduces a model, schema, format or
+    vocabulary, encode its hardest real cases in it by hand before building:
+    a choice with more than two outcomes, a loop or an edit in place, an
+    item with no inputs or no outputs, one word used two ways in the
+    sources. Does every field it requires exist in the sources it will be
+    filled from? A real case it cannot hold is a gap.
