@@ -30,8 +30,8 @@ def run_report(out):
     assert not re.search(r'(src|href)="https?:', page), 'the page loads nothing from the network'
     embedded = json.loads(re.search(r'<script type="application/json" id="report">(.*?)</script>', page, re.S)[1])
     place = embedded['placement']
-    card = next(i for i, a in enumerate(data['needs_you']) if a.get('figures') == ['2'])
-    assert place['cards'][card] == ['2'] and place['figures'] == ['1'] and sum(map(len, place['cards'])) == 1, place
+    card = next(i for i, a in enumerate(data['needs_you']) if a.get('figures') == ['1'])
+    assert place['cards'][card] == ['1'] and place['figures'] == ['2'] and sum(map(len, place['cards'])) == 1, place
     spec = importlib.util.spec_from_file_location('report_script', SCRIPT)
     script = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(script)
@@ -105,6 +105,7 @@ def run_report(out):
             ('a figure without an id', {**bare, 'evidence': [{'kind': 'page', 'caption': 'A', 'src': 'x.png'}]}, 'evidence: an item needs id'),
             ('a figure id that is a sentence', {**bare, 'evidence': [{**figure, 'id': 'Figure 1'}]}, "evidence: id 'Figure 1' must be a number from 1 to 999, such as 1"),
             ('a letter for a figure id', {**bare, 'evidence': [{**figure, 'id': 'A'}]}, "evidence: id 'A' must be a number from 1 to 999, such as 1"),
+            ('a list for the whole file', [], 'the JSON file must hold one object'),
             ('a fraction for a figure id', {**bare, 'evidence': [{**figure, 'id': 1.0}]}, 'evidence: id 1.0 must be a number from 1 to 999, such as 1'),
             ('a zero figure id', {**bare, 'evidence': [{**figure, 'id': 0}]}, "evidence: id '0' must be a number from 1 to 999, such as 1"),
             ('two figures with one id', {**bare, 'evidence': [figure, figure]}, "evidence: two figures share the id '1'"),

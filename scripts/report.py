@@ -95,6 +95,8 @@ def picture_paths(data):
 def normalise(data):
     """Figure ids and citations as text: a bare JSON whole number reads as its digits (1 is "1"); anything
     else is left for `refusal` to judge. Changes `data` in place and returns it; running it twice is harmless."""
+    if not isinstance(data, dict):
+        return data
     number = lambda x: str(x) if isinstance(x, int) and not isinstance(x, bool) else x  # noqa: E731
     for item in data.get('evidence', []) if isinstance(data.get('evidence'), list) else []:
         if isinstance(item, dict) and 'id' in item:
