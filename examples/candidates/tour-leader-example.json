@@ -140,7 +140,7 @@
     },
     {
       "name": "English",
-      "level": "C2"
+      "level": "C1 (IELTS 8.0)"
     },
     {
       "name": "Japanese",
@@ -215,14 +215,14 @@
             "known": true
           },
           {
-            "name": "Himeji"
-          },
-          {
             "name": "Okayama"
           },
           {
             "name": "Naoshima",
             "known": true
+          },
+          {
+            "name": "Himeji"
           },
           {
             "name": "Kanazawa",
@@ -262,9 +262,9 @@
           ],
           "script": [
             "福岡",
-            "姫路",
             "岡山",
             "直島",
+            "姫路",
             "金沢",
             "富山",
             "長野",
@@ -295,7 +295,7 @@
       },
       {
         "label": "Has passed through",
-        "places": "the Seto Inland Sea coast"
+        "places": "Okayama, Himeji, Toyama, Sendai and Hakodate"
       }
     ]
   },

@@ -44,7 +44,8 @@ travel facts contract, and the template composes the domain's words, Hanami's
 everything absolutely on two fixed pages, as the approved Hanami Line 2 did, and
 the paper below each band is a slot that fails loudly when its content does not
 fit; each field placed outside the slots (the name, rank tab, contacts, route
-labels, the page-2 band block) measures itself and fails loudly too.
+labels, the page-2 band block with its rank, region and native line, the kanji
+on every stamp and seal) measures itself and fails loudly too.
 
 ## The six inputs
 

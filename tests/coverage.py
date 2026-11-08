@@ -12,7 +12,7 @@ from verify import ROOT
 sys.path.insert(0, str(ROOT / 'packages/cv-workflow'))
 
 from cv_workflow import WorkflowError  # noqa: E402
-from cv_workflow.contracts import check_groups, choose, claims, contract, coverage, holds, manifests, read, template_in, versions  # noqa: E402
+from cv_workflow.contracts import check_groups, choose, claims, contract, coverage, holds, manifests, read, squeeze, template_in, versions  # noqa: E402
 from cv_workflow.render import without_comments  # noqa: E402
 
 DOMAINS = ROOT / 'packages/domains'
@@ -56,6 +56,11 @@ def prove(out, typst, flags, domain, template, design, name, version, fixture):
     groups = contract(domain, version)['groups']
     claimed, _ = claims(design['variations'][name], domain)
     markers = read(fixture.with_suffix('.markers.json'))
+    # Markers are matched as substrings of the squeezed text (letter-spaced labels come out with spaces
+    # between the letters), so no marker may sit inside another: each field is proved by its own text.
+    tokens = [squeeze(token) for tokens in markers.values() for token in tokens if token != 'image']
+    nested = sorted({(a, b) for a in tokens for b in tokens if a != b and a in b})
+    assert not nested, f'{fixture.name}: a marker sits inside another, so it proves nothing: {nested}'
     failures, warnings = coverage(text, images, groups, claimed, markers)
     assert not failures, (template, name, failures)
     covered = sum(1 for key, group in groups.items() if not group['required'] and key in claimed)

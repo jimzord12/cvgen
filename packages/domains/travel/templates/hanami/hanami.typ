@@ -3,8 +3,9 @@
 // band with the portrait, the name plate and the route, then the profile and experience; page 2 is
 // the destination page: one eki stamp per trip, the areas known, practical know-how, one trip told
 // in detail, studies and languages. The paper below each band is a fixed slot that fails loudly when
-// it overflows; every field placed outside the slots (rank tab, contacts, route labels, the page-2 band
-// block, the name) measures itself and fails loudly too (constitution 4).
+// it overflows; every field placed outside the slots (the name, rank tab, contacts, route labels, the
+// page-2 band block with its rank, region and native line, the kanji on every stamp and seal) measures
+// itself and fails loudly too (constitution 4).
 #import "../../data.typ": normalize-candidate, validate-candidate
 #import "../../domain.typ": domain
 #import "../../../../cv-framework/core/node.typ": merge, compose

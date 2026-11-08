@@ -31,7 +31,7 @@
   "profile": [
     "Qxprofile",
     "Qxcell",
-    "Qxcelltext"
+    "Qxhighlightnote"
   ],
   "education": [
     "Qxdiploma",
@@ -62,12 +62,12 @@
     "Qxrimword",
     "札幌",
     "Qxstory",
-    "Qxstorysub",
+    "Qxtripsubtitle",
     "Qxstep",
-    "Qxarealabel",
-    "Qxarea",
-    "QXA",
-    "QXB",
+    "Qxzonelabel",
+    "Qxareanames",
+    "ZQA",
+    "ZQB",
     "Qxorigin",
     "Qxarrival"
   ],
