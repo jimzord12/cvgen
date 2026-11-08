@@ -86,7 +86,7 @@ and never counts the cards it shows.
 
 `travel` was added this way on 2026-11-08 (P-0013), from the first travel
 client's one-off: its facts shape, contract and fixture, and Hanami as its
-first template, with a fictional twin (`examples/travel/hanami/tour-leader.typ`)
+first template, with a `Fictional Twin` (`examples/travel/hanami/tour-leader.typ`)
 and a `Frozen Reference` candidate the owner approves before the merge. It
 reached the core through `cv-framework/core/` only and left the Framework and
 marine unchanged.

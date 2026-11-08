@@ -4,7 +4,7 @@
   "title": "CVgen travel candidate facts",
   "description": "Portable facts about one Travel & Tourism candidate: identity with rank and specialty, contacts, profile and highlights, experience at travel employers, education, languages, the destinations the person knows (trips with stops, the areas known well), availability, practical know-how and references. `copy` overrides a template's wording; it holds no facts.",
   "type": "object",
-  "required": ["identity", "experience"],
+  "required": ["identity", "experience", "destinations"],
   "additionalProperties": false,
   "properties": {
     "domainContract": { "type": "integer", "minimum": 1, "description": "The Domain Contract version this record follows. Without it, version 1 (ADR 0016)." },
@@ -90,7 +90,7 @@
       "type": "object",
       "required": ["region", "trips"],
       "additionalProperties": false,
-      "description": "The destination the person specialises in and the trips that prove it.",
+      "description": "The destination the person specialises in and the trips that prove it. Required: a travel CV shows where the person has been.",
       "properties": {
         "region": { "$ref": "#/$defs/text", "description": "e.g. Japan." },
         "native": { "$ref": "#/$defs/text", "description": "The region's name in its own script, e.g. 日本." },
@@ -232,7 +232,7 @@
           "type": "object",
           "required": ["title", "items"],
           "additionalProperties": false,
-          "description": "This trip told in detail: how it was organised and what was solved on the way.",
+          "description": "This trip told in detail: how it was organised and what was solved on the way. At most one trip of a record has a story.",
           "properties": {
             "title": { "$ref": "#/$defs/text" },
             "subtitle": { "$ref": "#/$defs/text" },

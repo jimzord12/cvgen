@@ -27,9 +27,10 @@
 
 #let normalize-candidate(raw) = {
   assert("experience" in raw, message: "Candidate requires experience: a list of roles")
+  assert("destinations" in raw, message: "Candidate requires destinations: the region and at least one trip")
   let common = normalize-common(raw)
   (..common, highlights: raw.at("highlights", default: ()), experience: raw.experience,
-    destinations: raw.at("destinations", default: none), availability: raw.at("availability", default: none),
+    destinations: raw.destinations, availability: raw.at("availability", default: none),
     practical: raw.at("practical", default: none), references: raw.at("references", default: none))
 }
 
@@ -58,6 +59,8 @@
   let places = candidate.destinations
   if places != none {
     required-text(places.region, "destinations.region")
+    assert(places.trips.filter(t => "story" in t).len() <= 1,
+      message: "At most one trip may have a story: keep the one the CV tells in detail and drop the others' story")
     assert(places.trips.len() > 0, message: "destinations needs at least one trip")
     for trip in places.trips {
       required-text(trip.period, "trip.period")

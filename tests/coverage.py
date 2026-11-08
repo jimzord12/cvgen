@@ -35,13 +35,24 @@ def prove(out, typst, flags, domain, template, design, name, version, fixture):
     stem = f'{template}-{name}-{fixture.stem}'
     pdf = out / f'{stem}.pdf'
     entry = DOMAINS / domain / 'templates' / template / design['coverage']
-    root_path = '/' + fixture.relative_to(ROOT).as_posix()
-    run = subprocess.run([typst, 'compile', '--root', str(ROOT), *flags, '--input', f'fixture={root_path}', '--input', f'variation={name}', str(entry), str(pdf)],
-                         capture_output=True, text=True, encoding='utf-8')
-    assert run.returncode == 0, run.stderr
-    with fitz.open(pdf) as doc:
-        text = ' '.join(page.get_text() for page in doc)
-        images = sum(len(page.get_images()) for page in doc)
+
+    def render(record, target):
+        root_path = '/' + record.relative_to(ROOT).as_posix()
+        run = subprocess.run([typst, 'compile', '--root', str(ROOT), *flags, '--input', f'fixture={root_path}', '--input', f'variation={name}', str(entry), str(target)],
+                             capture_output=True, text=True, encoding='utf-8')
+        assert run.returncode == 0, run.stderr
+        with fitz.open(target) as doc:
+            return ' '.join(page.get_text() for page in doc), sum(len(page.get_images()) for page in doc)
+
+    text, images = render(fixture, pdf)
+    # A template may draw small rasters of its own (Hanami's blurred petals), so the portrait is proved by the
+    # images the same fixture without one lacks, never by "any image".
+    plain = read(fixture)
+    if (plain.get('identity') or {}).get('portrait'):
+        plain['identity'] = {k: v for k, v in plain['identity'].items() if k != 'portrait'}
+        bare = out / f'{stem}-no-portrait.json'
+        bare.write_text(json.dumps(plain, ensure_ascii=False), encoding='utf-8')
+        images -= render(bare, out / f'{stem}-no-portrait.pdf')[1]
     groups = contract(domain, version)['groups']
     claimed, _ = claims(design['variations'][name], domain)
     markers = read(fixture.with_suffix('.markers.json'))
@@ -136,10 +147,12 @@ def run_coverage(out, typst, flags):
     trip = {'domain': 'travel', 'template': 'hanami', 'variation': 'showcase'}
     assert template_in('travel', hanami) == 'hanami' and template_in('travel', source) is None
     assert choose(trip, hanami, tour) == ({'template': 'hanami', 'variation': 'showcase', 'domain_contract': 1, 'dropped': []}, [])
-    bare = {k: v for k, v in tour.items() if k in ('identity', 'contacts', 'experience')}
+    bare = {k: v for k, v in tour.items() if k in ('identity', 'contacts', 'experience', 'destinations')}
     assert choose(trip, hanami, bare)[0]['dropped'] == []
+    refused(lambda: choose(trip, hanami, {k: v for k, v in bare.items() if k != 'destinations'}),
+            'candidate.json has no destinations, required by the travel contract')
     assert choose(trip, hanami, {**tour, 'certificates': [{'title': 'A', 'scope': 'B', 'issued': 'C'}]})[0]['dropped'] == ['certificates']
     refused(lambda: choose(trip, hanami, {**tour, 'identity': {'name': 'A'}}), 'candidate.json has no rank, required by the travel contract')
     refused(lambda: choose({**trip, 'template': 'flagship'}, hanami, tour), "envelope.json says template 'flagship' but typst/cv.typ renders 'hanami'")
-    checks.append('the travel contract: Hanami chosen, certificates dropped, a missing rank refused')
+    checks.append('the travel contract: Hanami chosen, certificates dropped, a missing rank or destinations refused')
     return checks

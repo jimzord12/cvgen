@@ -64,12 +64,15 @@ Windows one also holds the PDFs that build wrote, one per example in
    must equal `packages/domains/travel/templates/hanami/tests/approved/Travel-Tour-Leader-CV-v01.pdf`
    pixel for pixel with identical text on both pages (a `Frozen Reference`
    candidate until the owner approves it), carry its name, rank and the domain's
-   title as PDF metadata, and have no sakura petal on a word (`tests/travel.py`).
+   title as PDF metadata, and have no sakura petal on a word
+   (`cv_workflow/decoration.py`, which a client's render also runs for Hanami).
    The `travel.typ` fixture renders the Indigo and Sky themes and a record without
    a portrait (initials in the ring) with the same words, asserts the totals
    (2 trips, 30 days, 14 distinct stops), and fails on a record without
    destinations, a date that is not MM/YYYY, an overflowing page 1, a name wider
-   than the plate, and an unknown `Template Variation`.
+   than the plate, a rank wider than its tab, a contact wider than its column, a
+   route label under the plate, a page-2 contact line into the travellers, a fifth
+   highlight, a second trip story, and an unknown `Template Variation`.
 7. **Every PDF.** Expected page count, no empty page, all fonts embedded, no
    text outside the page. Every compile reads only the bundled fonts
    (`--ignore-system-fonts --font-path packages/cv-framework/fonts`, plus
@@ -223,7 +226,9 @@ Windows one also holds the PDFs that build wrote, one per example in
    groups covered is in the case name, warnings in `coverage/`. Then the judging
    itself and the checks before a render, each refusal on its message, on the
    marine contract and on the travel one (Hanami chosen, certificates dropped,
-   a missing rank refused).
+   a missing rank or destinations refused). A fixture with a portrait proves it
+   by the images it has beyond the same fixture rendered without one, since a
+   template may draw small rasters of its own.
 19. **Report** (`report: <check>`, `tests/report.py`). The real
    `scripts/report.py` on the worked sample under `report/`: one page with
    its fonts and pictures embedded and no `src` or `href` pointing at the

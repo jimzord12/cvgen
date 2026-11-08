@@ -42,7 +42,9 @@ Hanami has no adapter and no input schema: the record's own `copy` key is in the
 travel facts contract, and the template composes the domain's words, Hanami's
 (`copy.typ`), the record's and the call site's in the same order. It places
 everything absolutely on two fixed pages, as the approved Hanami Line 2 did, and
-each field is a slot that fails loudly when its content does not fit.
+the paper below each band is a slot that fails loudly when its content does not
+fit; each field placed outside the slots (the name, rank tab, contacts, route
+labels, the page-2 band block) measures itself and fails loudly too.
 
 ## The six inputs
 

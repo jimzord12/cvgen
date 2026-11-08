@@ -2,7 +2,9 @@
 // pick of 2026-10-02) as its `showcase` Template Variation (P-0013). Two A4 pages: page 1 is the
 // band with the portrait, the name plate and the route, then the profile and experience; page 2 is
 // the destination page: one eki stamp per trip, the areas known, practical know-how, one trip told
-// in detail, studies and languages. Every field is a fixed slot that fails loudly when it overflows.
+// in detail, studies and languages. The paper below each band is a fixed slot that fails loudly when
+// it overflows; every field placed outside the slots (rank tab, contacts, route labels, the page-2 band
+// block, the name) measures itself and fails loudly too (constitution 4).
 #import "../../data.typ": normalize-candidate, validate-candidate
 #import "../../domain.typ": domain
 #import "../../../../cv-framework/core/node.typ": merge, compose
@@ -41,7 +43,6 @@
   let d = normalize-candidate(candidate)
   validate-hanami-theme(theme)
   validate-candidate(d)
-  assert(d.destinations != none, message: "Hanami's second page is the destination page: the record needs destinations (at least one trip)")
   let words = merge(merge(compose(domain, (copy: hanami-copy)).copy, d.copy), copy)
   let ctx = make-ctx(theme: theme, layout: layout, artwork: artwork, copy: words)
   let P = tokens(ctx)

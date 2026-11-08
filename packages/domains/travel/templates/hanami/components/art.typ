@@ -14,9 +14,10 @@
 
 // One picture of the pack, its source colours swapped for the theme's (each SVG is drawn in fixed
 // token colours, so a swap is a plain text replacement).
-#let art(ctx, key, width: auto, height: auto, swaps: (:)) = {
+#let art(ctx, key, width: auto, height: auto, swaps: (:), strip: none) = {
   assert(key in ctx.artwork, message: "The artwork pack has no " + key + "; add it to the pack (templates/hanami/artwork/)")
   let s = read(ctx.artwork.at(key))
+  if strip != none { s = s.replace(strip, "") }
   for (from, to) in swaps { s = s.replace(from, to) }
   image(bytes(s), format: "svg", width: width, height: height)
 }

@@ -15,7 +15,7 @@ from design_review import run_design_review
 from repo_maintenance import run_repo_maintenance
 from release import examples, run_build_script, shells
 from coverage import run_coverage
-from travel import petal_collisions
+from cv_workflow.decoration import decoration_errors, petal_collisions  # on the path through workflow.py
 from proposals import run_proposals
 from report import run_report
 from cv_workflow.render import STRICT_FONTS, font_fallbacks  # on the path through workflow.py
@@ -315,8 +315,8 @@ def main():
         for phrase in ['ANDREAS KALAMARIS', 'Boutique travel agency', '03/2022', 'present', 'Japan, trip by trip',
                        '12 days', '18 days', 'Planning the 18-day trip', 'Education and languages', 'FICTIONAL CANDIDATE']:
             assert phrase in text, phrase
-    collisions = petal_collisions(twin, ROOT / 'packages/domains/travel/assets/japan')
-    assert not collisions, collisions
+    collisions = petal_collisions(twin)
+    assert not collisions and not decoration_errors(twin, 'hanami') and decoration_errors(twin, 'flagship') == [], collisions
     for theme in ['indigo', 'sky', 'no-portrait']:
         pdf = compile_case('travel-' + theme, 'tests/fixtures/travel.typ', {'case': theme})
         assert check_case(pdf)['passed']
@@ -327,8 +327,12 @@ def main():
     # The blurred petals are small rasters too, so the portrait is the one image the record without one lacks.
     with fitz.open(twin) as a, fitz.open(out / 'travel-no-portrait' / 'travel-no-portrait.pdf') as b:
         assert len(a[0].get_images()) - len(b[0].get_images()) == 1 and 'AK' in b[0].get_text().split()
-    for mode, message in [('no-destinations', 'the record needs destinations'), ('bad-month', 'experience.from must be MM/YYYY'),
+    # Every field Hanami places outside its two slots measures itself and fails loudly (constitution 4).
+    for mode, message in [('no-destinations', 'Candidate requires destinations'), ('bad-month', 'experience.from must be MM/YYYY'),
                           ('overflow', 'Hanami: page 1 overflows'), ('long-name', 'the name is wider than the name plate'),
+                          ('long-rank', "is wider than the name plate's 38 mm tab"), ('long-contact', 'is wider than its 50 mm column'),
+                          ('long-city', 'runs under the name plate'), ('many-links', 'the contact line runs into the travellers'),
+                          ('five-cells', 'the profile row holds four highlight cells'), ('two-stories', 'At most one trip may have a story'),
                           ('bad-variation', 'Hanami has no Template Variation "essential"')]:
         compile_case('travel-' + mode, 'tests/fixtures/travel.typ', {'case': mode}, error=message)
     # Third dataset: deck officer without a portrait, on the same page plan.
