@@ -34,11 +34,14 @@ MAX_ROUNDS = 10
 SECTIONS = (('meters', ('label', 'value'), {'tone': ('ok', 'wait', 'stop', 'thread')}),
             ('stages', ('label', 'state'), {'state': ('done', 'active', 'waiting', 'blocked')}),
             ('needs_you', ('title', 'options', 'context', 'decision'), {}),
-            ('evidence', ('kind', 'caption'), {'kind': ('page', 'compare')}),
+            ('evidence', ('id', 'kind', 'caption'), {'kind': ('page', 'compare')}),
             ('reviews', ('name', 'cap', 'rounds'), {}),
             ('decisions', ('grade', 'title', 'why'), {'grade': ('Minor', 'Major')}),
             ('changes', ('area', 'lines'), {}))
 NOT_TEXT = ('value', 'options', 'cap', 'rounds', 'lines')
+# A figure's id is its short name on the page ("Figure A"); cards and decisions cite it in `figures`.
+FIGURE_ID = re.compile(r'[A-Za-z0-9]{1,4}')
+CITERS = ('needs_you', 'decisions')
 EVIDENCE = {'page': ('src',), 'compare': ('before', 'after', 'before_label', 'after_label')}
 MEDIA = {'.png': 'image/png', '.jpg': 'image/jpeg', '.jpeg': 'image/jpeg', '.svg': 'image/svg+xml', '.webp': 'image/webp'}
 
@@ -117,10 +120,24 @@ def refusal(data, fragment=False, source=''):
         whole = is_count(meter['value']) and ('of' not in meter or (is_count(meter['of']) and meter['value'] <= meter['of'] and meter['of']))
         if not whole:
             return f'meters: {meter["label"]} needs whole numbers, with value no higher than of'
+    figures = []
     for item in data.get('evidence', []):
         for key in EVIDENCE[item['kind']]:
             if not item.get(key):
                 return f'evidence: a {item["kind"]} needs {key}'
+        if not FIGURE_ID.fullmatch(item['id']):
+            return f'evidence: id {item["id"]!r} must be one to four letters or digits, such as A'
+        if item['id'] in figures:
+            return f'evidence: two figures share the id {item["id"]!r}'
+        figures.append(item['id'])
+    for field in CITERS:
+        for item in data.get(field, []):
+            cited = item.get('figures', [])
+            if not isinstance(cited, list) or not cited and 'figures' in item:
+                return f'{item["title"]!r} has figures that are not a list of figure ids: leave it out or name one'
+            unknown = [str(name) for name in cited if name not in figures]
+            if unknown:
+                return f'{item["title"]!r} cites Figure {", ".join(unknown)}, which the evidence does not hold'
     for gate in data.get('reviews', []):
         if not is_count(gate['cap']) or gate['cap'] > MAX_ROUNDS or not isinstance(gate['rounds'], list):
             return f'reviews: {gate["name"]} needs a whole number cap up to {MAX_ROUNDS} and a list of rounds'

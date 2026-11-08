@@ -1,9 +1,12 @@
 # Report Template
 
-The page for the final report of an unattended run. The owner's two rules
-(2026-11-04): easy to scan, the easier the better; and highly visual, with
-shapes and evidence in place of text. The chat summary and Recap stay
-(`docs/preferences.md`, "Reports").
+The page for the final report of an unattended run. The owner's rules: easy
+to scan, the easier the better; highly visual, with shapes and evidence in
+place of text (2026-11-04); and every picture where it is needed (2026-11-08).
+A card that asks him to approve something shows it, or names it, so an owner
+coming back after hours elsewhere never meets a decision about a picture he
+cannot see. The chat summary and Recap stay (`docs/preferences.md`,
+"Reports").
 
 ```powershell
 python scripts/report.py studio/brand/report/sample.json   # builds/report-<timestamp>/report.html
@@ -33,9 +36,15 @@ are labels: a headline of about six words, a card title of about five.
 | `headline`, `next_move` | The biggest line, and exactly one action for the owner |
 | `meters` | Rings: `label`, `value`, optional `of`, optional `tone` (`ok`, `wait`, `stop`, `thread`). A ring closes and stays green only at the full count |
 | `stages` | The stitch path: `label`, `state` (`done`, `active`, `waiting`, `blocked`) |
-| `needs_you` | Decision cards the owner clicks: `title`; `options`, two to four, each `label`, optional `detail`, and `recommended: true` on exactly one (it gets the star); and the fold-outs, one to six sentences each: `context` (the refresher), `decision` (what is being decided), optional `example`. His picks fill a box with a copy button, ready to paste to an agent; a second click clears a pick, and Pick the rest never overwrites one |
-| `evidence` | Rendered pages: `kind` `page` with `src`, `caption`; or `compare` with `before`, `after`, `before_label`, `after_label`, `caption`. A picture is an image path from the repository root, or `{"pdf": path, "page": n}` (`page` counts from 1, default 1) |
+| `needs_you` | Decision cards the owner clicks: `title`; optional `figures`, the ids of the pictures the card is about; `options`, two to four, each `label`, optional `detail`, and `recommended: true` on exactly one (it gets the star); and the fold-outs, one to six sentences each: `context` (the refresher), `decision` (what is being decided), optional `example`. His picks fill a box with a copy button, ready to paste to an agent; a second click clears a pick, and Pick the rest never overwrites one |
+| `evidence` | Rendered pages, each with an `id` of one to four letters or digits (`A`), shown as "Figure A": `kind` `page` with `src`, `caption`; or `compare` with `before`, `after`, `before_label`, `after_label`, `caption`. A picture is an image path from the repository root, or `{"pdf": path, "page": n}` (`page` counts from 1, default 1) |
 | `reviews` | Bars per gate: `name`, `cap`, `rounds`, each with `verdict` (`findings`, `pass`, `running`), `hard` (blocking findings) and `soft` (all others) |
-| `decisions` | What the agent decided alone, grouped by `Decision Grade`: `grade` (`Minor`, `Major`), `title`, `why` (one or two sentences) |
+| `decisions` | What the agent decided alone, grouped by `Decision Grade`: `grade` (`Minor`, `Major`), `title`, `why` (one or two sentences), optional `figures` |
+
+Where a picture goes follows from `figures`. A picture cited by one card only
+sits inside that card, small, and a click enlarges it. A picture cited by more
+than one card or decision, or by none, stays under Figures at the foot, and
+each item that cites it carries a "Figure A" link to it. Cite every picture a
+card asks about; the script refuses an id that no picture holds.
 | `changes` | Stitched bars, longest first: `area`, optional `what` (what that area is), `lines` |
 | `evidence_path` | The suite's evidence folder, in the footer |
