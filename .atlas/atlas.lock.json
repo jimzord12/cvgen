@@ -74,7 +74,7 @@
    "verifiedAt": "2026-11-08"
   },
   "roster": {
-   "commit": "bcbf3e6",
+   "commit": "5ee2afb",
    "sources": {
     ".claude/agents/ceo-reviewer.md": "8b0ce89d0cf745923ec296c9034c1f8e5958d42b",
     ".claude/agents/ceo.md": "4fec7c781ea76a4faba820f013880f62f0799168",
@@ -120,12 +120,12 @@
     "scripts/cv.py": "e0d7f96de4cc36295bb543aab2e1402c7932394d",
     "scripts/intake-form.gs": "48f0db692a6c1d08644cf0452d04291ffbee9828",
     "scripts/outputs.py": "23a4edfb8730fe24462bd0507f37da64673e801c",
-    "tests/run.py": "d001d0ea8980c83f756a5492a44804273e4d0727"
+    "tests/run.py": "451e5ee922ae0bb44b8ab7d0150aef971788b09f"
    },
    "verifiedAt": "2026-11-08"
   },
   "system-map": {
-   "commit": "bcbf3e6",
+   "commit": "5ee2afb",
    "sources": {
     ".claude/agents": "dir1:d86ac8b44b9896473ff12ecdbc91538ae34a8852",
     ".claude/skills": "dir1:5eeafda0c9ef9a6037a3fcc2879f73f098fa3e55",
@@ -158,7 +158,7 @@
     "studio/archive/design-studies/README.md": "8ff17720c063fe67cae653d40c4d2973f4742117",
     "studio/brand/README.md": "ed93bfbff30149cefea7b8b6a62431d179450f7d",
     "studio/design-concepts/README.md": "6f9c35abb0affbc80fe19a474d22554a833d1338",
-    "tests/run.py": "d001d0ea8980c83f756a5492a44804273e4d0727"
+    "tests/run.py": "451e5ee922ae0bb44b8ab7d0150aef971788b09f"
    },
    "verifiedAt": "2026-11-08"
   }
