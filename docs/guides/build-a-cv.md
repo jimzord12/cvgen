@@ -61,9 +61,12 @@ optional for each `Client`; a career longer than the page keeps its newest
 roles in full and summarises the older ones. For a plain professional page,
 not focused on Japan, pass `artwork: hanami-artwork.plain` (a neutral route
 arc, no sakura, no Japanese word beside the rank) and, for a page in greys,
-`theme: hanami-themes.monochrome`. Write each bullet "Lead phrase: the rest"
-(the lead at most five words) and the lead shows in bold; write practical
-know-how items the same way. A passport's validity is a contact ("Passport",
+`theme: hanami-themes.monochrome`. Write each bullet with a `Lead-in`,
+"Lead phrase: the rest" (the lead at most five words and 40 characters), and
+the lead shows in bold; give all of a role's bullets a lead-in or none of
+them, and write practical know-how items the same way. A portrait prepared
+by `scripts/portrait.py prepare` (a transparent cut-out) sits on the theme's
+plate; Monochrome's is pale grey. A passport's validity is a contact ("Passport",
 "Valid, exp. October 2035"), and a record's `copy` may rename a rail title,
 e.g. `"practical": "Skills & travel experience"`.
 

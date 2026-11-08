@@ -54,7 +54,13 @@ characters with something after it, shows its lead in bold (`lead-of`,
 Practical know-how is one item a line, the basics last. It allows the
 `monochrome` theme (shared with `showcase`) and the `plain` artwork pack,
 which swaps the sakura branch for a neutral route arc and drops the Japanese
-word beside the rank, for a client who wants a plain professional page; the
+word beside the rank, for a client who wants a plain professional page. The
+arc starts 10 mm after the measured name and rank row and ends 6 mm before
+the portrait's ring or at the margin; under 30 mm of room it is left out, so
+it never lies on a word. `hanami` checks the artwork pack against the
+manifest's `artwork` list, as it does the layout. A theme may leave out the
+blurred petals on the band and the paper (`soft-petals`, `soft-field-petals`:
+Monochrome does) and set a `portrait-plate` colour behind a cut-out portrait; the
 essential example reads its own twin, `tour-leader-essential-example.json`,
 with lead-ins, while `showcase` keeps the approved twin.
 

@@ -35,7 +35,7 @@
           "detail": "`cv.py render` refuses to run without `envelope.json`, or when its `template` or `variation` disagrees with `cv.typ`; every client `Meta File` copies who the client is.",
           "sources": [
             "docs/guides/client-workflow.md:17-105",
-            "docs/guides/build-a-cv.md:55-78"
+            "docs/guides/build-a-cv.md:55-82"
           ]
         },
         {
@@ -62,7 +62,7 @@
           "path": "private/<envelope>/typst/cv.typ",
           "blurb": "The client's facts and the entry point that composes their CV, with its designs, wording and art beside it in typst/.",
           "sources": [
-            "docs/guides/build-a-cv.md:15-78",
+            "docs/guides/build-a-cv.md:15-82",
             "docs/guides/client-workflow.md:29-66"
           ]
         },

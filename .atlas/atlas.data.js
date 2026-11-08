@@ -558,8 +558,8 @@ window.ATLAS = {
     ".claude/skills/new-client/SKILL.md:78-101",
     "docs/workflow/05-design/README.md:15-64",
     ".claude/skills/new-cv/SKILL.md:22-63",
-    "docs/guides/build-a-cv.md:1-126",
-    "docs/guides/build-a-cv.md:128-211",
+    "docs/guides/build-a-cv.md:1-130",
+    "docs/guides/build-a-cv.md:131-214",
     "docs/pdf-workflow.md:176-198",
     ".claude/skills/new-cv/SKILL.md:65-87",
     "docs/workflow/07-after/README.md:15-56",
@@ -1874,7 +1874,7 @@ window.ATLAS = {
        "note": "Model step `text-draft.sign-off-stamp`, action `cmd.stamp-draft-signed-off`, in `docs/workflow/04-text-draft/stage.yaml`.",
        "sources": [
         "docs/workflow/04-text-draft/README.md:36-37",
-        "docs/guides/build-a-cv.md:195-198",
+        "docs/guides/build-a-cv.md:198-201",
         ".claude/skills/new-client/SKILL.md:98-100",
         "packages/cv-workflow/cv_workflow/outputs.py:172-178"
        ]
@@ -2292,8 +2292,8 @@ window.ATLAS = {
        "sources": [
         ".claude/skills/new-cv/SKILL.md:16-18",
         ".claude/skills/new-cv/SKILL.md:26-28",
-        "docs/guides/build-a-cv.md:84-103",
-        "docs/guides/build-a-cv.md:80-103"
+        "docs/guides/build-a-cv.md:87-106",
+        "docs/guides/build-a-cv.md:83-106"
        ]
       },
       {
@@ -2329,7 +2329,7 @@ window.ATLAS = {
        "note": "Model step `design.flagship-fit`, action `lead.check-flagship-fit`, in `docs/workflow/05-design/stage.yaml`.",
        "sources": [
         ".claude/skills/new-cv/SKILL.md:41-46",
-        "docs/guides/build-a-cv.md:228-232"
+        "docs/guides/build-a-cv.md:231-235"
        ]
       },
       {
@@ -2352,8 +2352,8 @@ window.ATLAS = {
        "note": "Model step `design.entry-point`, action `lead.write-flagship-entry`, in `docs/workflow/05-design/stage.yaml`.",
        "sources": [
         ".claude/skills/new-cv/SKILL.md:41-43",
-        "docs/guides/build-a-cv.md:105-126",
-        "docs/guides/build-a-cv.md:15-78"
+        "docs/guides/build-a-cv.md:108-129",
+        "docs/guides/build-a-cv.md:15-82"
        ]
       },
       {
@@ -2375,7 +2375,7 @@ window.ATLAS = {
        ],
        "note": "Model step `design.custom-composition`, action `lead.compose-by-hand`, in `docs/workflow/05-design/stage.yaml`.",
        "sources": [
-        "docs/guides/build-a-cv.md:224-288",
+        "docs/guides/build-a-cv.md:227-291",
         ".claude/skills/new-cv/SKILL.md:41-46"
        ]
       },
@@ -2421,7 +2421,7 @@ window.ATLAS = {
        ],
        "note": "Model step `design.framework-gap`, action `lead.record-framework-gap`, in `docs/workflow/05-design/stage.yaml`.",
        "sources": [
-        "docs/guides/build-a-cv.md:282-288",
+        "docs/guides/build-a-cv.md:285-291",
         ".claude/skills/new-cv/SKILL.md:41-46",
         "docs/workflow/05-design/README.md:70-74"
        ]
@@ -2691,7 +2691,7 @@ window.ATLAS = {
        ],
        "note": "Model step `deliver.render`, action `cmd.cv-render`, in `docs/workflow/06-deliver/stage.yaml`.",
        "sources": [
-        "docs/guides/build-a-cv.md:136-160",
+        "docs/guides/build-a-cv.md:139-163",
         ".claude/skills/new-cv/SKILL.md:67-70",
         "packages/cv-workflow/cv_workflow/render.py:102-228"
        ]
@@ -2720,8 +2720,8 @@ window.ATLAS = {
        ],
        "note": "Model step `deliver.fix`, action `lead.fix-inputs`, in `docs/workflow/06-deliver/stage.yaml`.",
        "sources": [
-        "docs/guides/build-a-cv.md:146-157",
-        "docs/guides/build-a-cv.md:213-222",
+        "docs/guides/build-a-cv.md:149-160",
+        "docs/guides/build-a-cv.md:216-225",
         ".claude/skills/new-cv/SKILL.md:67-70"
        ]
       },
@@ -2786,7 +2786,7 @@ window.ATLAS = {
        "note": "Model step `deliver.wording-check`, action `cmd.wording-check`, in `docs/workflow/06-deliver/stage.yaml`.",
        "sources": [
         ".claude/skills/new-cv/SKILL.md:74-75",
-        "docs/guides/build-a-cv.md:124-126",
+        "docs/guides/build-a-cv.md:127-129",
         "docs/workflow/06-deliver/README.md:66-68"
        ]
       },
@@ -2847,7 +2847,7 @@ window.ATLAS = {
        "sources": [
         "docs/workflow/06-deliver/README.md:35-39",
         "docs/workflow/06-deliver/README.md:22-25",
-        "docs/guides/build-a-cv.md:162-170"
+        "docs/guides/build-a-cv.md:165-173"
        ]
       },
       {
@@ -2880,7 +2880,7 @@ window.ATLAS = {
        ],
        "note": "Model step `deliver.approve`, action `cmd.cv-approve`, in `docs/workflow/06-deliver/stage.yaml`.",
        "sources": [
-        "docs/guides/build-a-cv.md:181-186",
+        "docs/guides/build-a-cv.md:184-189",
         "docs/pdf-workflow.md:184-186",
         "docs/proposals/workflow-model.md:58",
         "docs/glossary.md:77"
@@ -2913,7 +2913,7 @@ window.ATLAS = {
        "note": "Model step `deliver.export`, action `cmd.cv-export`, in `docs/workflow/06-deliver/stage.yaml`.",
        "sources": [
         "docs/proposals/workflow-model.md:58",
-        "docs/guides/build-a-cv.md:189-193",
+        "docs/guides/build-a-cv.md:192-196",
         "docs/pdf-workflow.md:187-191"
        ]
       },
@@ -2981,7 +2981,7 @@ window.ATLAS = {
        ],
        "note": "Model step `deliver.stamp-delivered`, action `cmd.stamp-delivered`, in `docs/workflow/06-deliver/stage.yaml`.",
        "sources": [
-        "docs/guides/build-a-cv.md:195-197",
+        "docs/guides/build-a-cv.md:198-200",
         "docs/workflow/06-deliver/README.md:50-51",
         ".claude/skills/new-cv/SKILL.md:85-86"
        ]
@@ -3890,7 +3890,7 @@ window.ATLAS = {
        "detail": "`cv.py render` refuses to run without `envelope.json`, or when its `template` or `variation` disagrees with `cv.typ`; every client `Meta File` copies who the client is.",
        "sources": [
         "docs/guides/client-workflow.md:17-105",
-        "docs/guides/build-a-cv.md:55-78"
+        "docs/guides/build-a-cv.md:55-82"
        ]
       },
       {
@@ -3917,7 +3917,7 @@ window.ATLAS = {
        "path": "private/<envelope>/typst/cv.typ",
        "blurb": "The client's facts and the entry point that composes their CV, with its designs, wording and art beside it in typst/.",
        "sources": [
-        "docs/guides/build-a-cv.md:15-78",
+        "docs/guides/build-a-cv.md:15-82",
         "docs/guides/client-workflow.md:29-66"
        ]
       },
@@ -4497,18 +4497,18 @@ window.ATLAS = {
   }
  ],
  "build": {
-  "builtAt": "2026-11-08 15:17 UTC",
-  "commit": "54292f7",
+  "builtAt": "2026-11-08 15:25 UTC",
+  "commit": "946e7f1",
   "kit": "1.1",
   "stale": {},
   "verified": {
    "client-journey": {
     "at": "2026-11-08",
-    "commit": "81c9529"
+    "commit": "946e7f1"
    },
    "design-run": {
     "at": "2026-11-08",
-    "commit": "0b66471"
+    "commit": "946e7f1"
    },
    "change-review": {
     "at": "2026-11-08",
@@ -4516,11 +4516,11 @@ window.ATLAS = {
    },
    "system-map": {
     "at": "2026-11-08",
-    "commit": "54292f7"
+    "commit": "946e7f1"
    },
    "roster": {
     "at": "2026-11-08",
-    "commit": "54292f7"
+    "commit": "946e7f1"
    }
   }
  }
