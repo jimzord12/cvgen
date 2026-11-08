@@ -3,10 +3,10 @@ id: TASK-83
 title: >-
   portrait-prep: prepare client portraits - background removed, face centred or
   a little high
-status: Ready
+status: Done
 assignee: []
 created_date: '2026-11-08T15:36:00Z'
-updated_date: '2026-11-08T15:51:00Z'
+updated_date: '2026-11-08T15:53:00Z'
 labels: []
 milestone: m-8
 dependencies: []
@@ -50,3 +50,9 @@ Owner, 2026-11-08: "remove the background from the profile image ... make sure w
 
 - Round 3 (2a8300b): code PASS, R3-1 Minor (a failed rename left .partial files and a raw traceback), N3-1 Note (no fsync, accepted); context PASS, 1 Minor, 3 Notes. Fixed by the lead in the next commit: the write wraps the renames, removes any .partial file and raises a WorkflowError saying whether the portrait was already replaced (lead-checked, no automated test for a locked file); the guide's exit-1 bracket sits on the refusal; the new-cv skill rewrapped and now names travel's Hanami beside the Flagship. Suite PASS after it: builds/tests-20261108-175034-198447 (265 cases), ruff clean, Workflow Model and Atlas checks clean.
 <!-- SECTION:NOTES:END -->
+
+## Final Summary
+
+<!-- SECTION:FINAL_SUMMARY:BEGIN -->
+scripts/portrait.py prepares any client portrait: one face found, a square crop with the face centred and a little high (--face-y), the background removed with rembg, colours converted to sRGB, a sidecar as evidence; refusals exit 1 with nothing written, a failed result check exits 3. The owner's rule reaches the design reviewer, the magazine-editor and the component contract. Reviewed over three code and three context rounds; merged to main.
+<!-- SECTION:FINAL_SUMMARY:END -->
