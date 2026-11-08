@@ -82,8 +82,8 @@ def run_report(out):
             ('rounds that are not a list', {**bare, 'reviews': [{**gate, 'rounds': {}}]}, 'reviews: A needs a whole number cap up to 10 and a list of rounds'),
             ('an unknown round verdict', {**bare, 'reviews': [{**gate, 'rounds': [{'verdict': 'x'}]}]}, 'reviews: A has a round whose verdict is not one of findings, pass, running'),
             ('text as a finding count', {**bare, 'reviews': [{**gate, 'rounds': [{'verdict': 'pass', 'hard': '<img>'}]}]}, 'reviews: A has a round whose hard or soft is not a whole number'),
-            ('evidence without a picture', {**bare, 'evidence': [{'id': 'A', 'kind': 'page', 'caption': 'A'}]}, 'evidence: a page needs src'),
-            ('a page that does not exist', {**bare, 'evidence': [{'id': 'A', 'kind': 'page', 'caption': 'A', 'src': {'pdf': 'examples/marine/flagship/captain.pdf', 'page': 0}}]}, 'examples/marine/flagship/captain.pdf has no page 0'),
+            ('evidence without a picture', {**bare, 'evidence': [{'id': '1', 'kind': 'page', 'caption': 'A'}]}, 'evidence: a page needs src'),
+            ('a page that does not exist', {**bare, 'evidence': [{'id': '1', 'kind': 'page', 'caption': 'A', 'src': {'pdf': 'examples/marine/flagship/captain.pdf', 'page': 0}}]}, 'examples/marine/flagship/captain.pdf has no page 0'),
             ('a blank headline', {**bare, 'headline': '   '}, 'the report needs headline: add them to the JSON file'),
             ('a label that is not text', {**bare, 'stages': [{'label': [], 'state': 'done'}]}, 'stages: an item needs label'),
             ('a meter that is not a count', {**bare, 'meters': [{'label': 'A', 'value': '7/9', 'of': 9}]}, 'meters: A needs whole numbers, with value no higher than of'),
@@ -105,7 +105,7 @@ def run_report(out):
             ('figures that are not a list', {**bare, 'evidence': [figure], 'needs_you': [{**card, 'options': choices, 'figures': 'A'}]}, "'A' has figures that are not a list of figure ids: leave it out or name one"),
             ('a figure cited twice by one card', {**bare, 'evidence': [figure], 'needs_you': [{**card, 'options': choices, 'figures': ['1', 1]}]}, "'A' cites Figure 1 twice"),
             ('an empty figures list', {**bare, 'evidence': [figure], 'needs_you': [{**card, 'options': choices, 'figures': []}]}, "'A' has figures that are not a list of figure ids: leave it out or name one"),
-            ('a PDF given as an image', {**bare, 'evidence': [{'id': 'A', 'kind': 'page', 'caption': 'A', 'src': 'examples/marine/flagship/captain.pdf'}]}, 'examples/marine/flagship/captain.pdf is not an image: a PDF page is {"pdf": path, "page": n}')):
+            ('a PDF given as an image', {**bare, 'evidence': [{'id': '1', 'kind': 'page', 'caption': 'A', 'src': 'examples/marine/flagship/captain.pdf'}]}, 'examples/marine/flagship/captain.pdf is not an image: a PDF page is {"pdf": path, "page": n}')):
         path = folder / 'broken.json'
         path.write_text(json.dumps(broken), encoding='utf-8')
         target = folder / 'broken'
@@ -116,7 +116,7 @@ def run_report(out):
 
     for name, source in (('plain', 'private/a/portrait.png'), ('absolute', str(ROOT / 'private/a/portrait.png')), ('climbing', 'tests/../private/a/portrait.png'), ('capitals', 'PRIVATE/a/portrait.png')):
         path = folder / 'broken.json'
-        path.write_text(json.dumps({**bare, 'evidence': [{'id': 'A', 'kind': 'page', 'caption': 'A', 'src': source}]}), encoding='utf-8')
+        path.write_text(json.dumps({**bare, 'evidence': [{'id': '1', 'kind': 'page', 'caption': 'A', 'src': source}]}), encoding='utf-8')
         refused = run(path, '--fragment', '--output', folder / 'broken')
         assert refused.stderr.strip() == "report: a client's pages stay out of a hosted page: leave out --fragment", refused.stderr
         assert not (folder / 'broken').exists(), 'a refused report left a folder'
