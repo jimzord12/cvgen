@@ -116,12 +116,13 @@
 
 #let dot(P, known) = box(baseline: 0.05em, circle(radius: 1.05mm, fill: if known { P.accent } else { P.paper }, stroke: 0.8pt + P.accent))
 
-// A trip's role (travel contract version 2) on its own small line, centred under the trip's stamp: a
-// led group in the accent, so it is never confused with a trip the person organised or only
-// travelled on. It measures itself against the stamp column and fails loudly rather than wrap
-// (constitution 4). Under the stamp its place never depends on the period's length, and it costs
-// the page less than a line of its own beside the stamp would.
-#let role-label(ctx, role) = {
+// A trip's role (travel contract version 2) on its own small line: a led group in the accent, so it
+// is never confused with a trip the person organised or only travelled on. With a stamp it is
+// centred under it as a caption, so its place never depends on the period's length; a trip without
+// a stamp has it left-aligned above the period,
+// so it never floats alone in an empty stamp column. It measures itself against its column and
+// fails loudly rather than wrap (constitution 4).
+#let role-label(ctx, role, centred: true) = {
   let P = tokens(ctx)
   let word = ctx.copy.at("role-" + role)
   // Cap height to baseline: the label adds only its letters' height under the stamp.
@@ -130,8 +131,8 @@
   layout(size => {
     let width = measure(set-label).width
     assert(width <= size.width, message: "Hanami: the trip role " + repr(word) + " is wider than the trip card's "
-      + str(calc.round(size.width / 1mm, digits: 1)) + " mm stamp column; shorten copy.role-" + role)
-    block(width: 100%, align(center, set-label))
+      + str(calc.round(size.width / 1mm, digits: 1)) + " mm " + (if centred { "stamp" } else { "text" }) + " column; shorten copy.role-" + role)
+    block(width: 100%, align(if centred { center } else { left }, set-label))
   })
 }
 
@@ -144,10 +145,14 @@
   grid(columns: (26mm, 1fr), column-gutter: 4.4mm,
     {
       if s != none { stamp(ctx, s.rim, s.art, kanji: s.at("kanji", default: ""), size: 26, ink: P.accent, ground: P.paper) }
-      if "role" in trip { block(above: 0mm, below: 0mm, role-label(ctx, trip.role)) }
+      // Under a stamp the caption hangs below the card (a zero-height block), so it costs page 2 no
+      // height: 1.3 mm of air above it, and at most 1.3 mm plus its 1.7 mm cap height past the stamp,
+      // less than the 3.6 mm between cards and before the areas (`trips`).
+      if s != none and "role" in trip { block(height: 0mm, above: 1.3mm, below: 0mm, role-label(ctx, trip.role)) }
     },
     {
       set par(leading: 0.46em)
+      if s == none and "role" in trip { block(above: 0mm, below: 1.6mm, role-label(ctx, trip.role, centred: false)) }
       text(size: 11pt, weight: 700, trip.period)
       h(2.4mm)
       text(font: fonts.figures, size: 15pt, fill: P.accent, str(trip.days))
@@ -223,7 +228,7 @@
   }
   for line in lines {
     assert(measure(line).width <= width, message: "Hanami: a licence line is wider than its "
-      + str(calc.round(width / 1mm, digits: 1)) + " mm and would run over the languages column; shorten licences.title, issuer or region")
+      + str(calc.round(width / 1mm, digits: 1)) + " mm and would run past the education columns; shorten licences.title, issuer or region")
   }
   stack(spacing: 1.2mm, ..lines)
 }

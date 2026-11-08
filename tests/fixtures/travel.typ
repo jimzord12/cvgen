@@ -54,6 +54,13 @@
   // A led trip with a long period: the role sits under the stamp, so it never wraps under the period.
   else if case == "led-long-period" { with-trip(raw, (..first-trip, role: "led", period: "September 2024")) }
   else if case == "long-role" { raw }
+  // A licence too long for one line, so the issuer, region and date take a second line (the story makes room).
+  else if case == "two-line-licence" {
+    let (first, second) = places.trips
+    let _ = second.remove("story")
+    (..raw, destinations: (..places, trips: (first, second)),
+      licences: ((title: "Tour Leader Licence", issuer: "Regional Tourism Directorate", region: "Greece and the EU", until: "31 Mar 2029"),))
+  }
   else if case == "long-licence" { (..raw, licences: ((..raw.licences.at(0), title: "Licensed Tour Leader and Escort for Group Travel in Greece, Cyprus and the European Union"),)) }
   else if case == "unknown-version" { (..raw, domainContract: 3) }
   else { panic("unknown case: " + case) }

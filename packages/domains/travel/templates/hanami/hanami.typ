@@ -103,9 +103,10 @@
     if has-studies {
       v(5mm)
       v(1fr)
-      // A licence (contract version 2) takes the subtitle's place and ends before the languages column
-      // starts (the field less that 61 mm column, less the heading's 13 mm number), well before the lanterns.
-      let subtitle = if d.licences.len() > 0 { licence-subtitle(ctx, d.licences, f2.width - 61mm - 13mm) } else { words.education-subtitle }
+      // A licence (contract version 2) takes the subtitle's place and ends at the education columns'
+      // right edge (the field less the 61 mm languages column and its 6 mm gutter, less the heading's
+      // 13 mm number), well before the lanterns.
+      let subtitle = if d.licences.len() > 0 { licence-subtitle(ctx, d.licences, f2.width - 61mm - 6mm - 13mm) } else { words.education-subtitle }
       heading(ctx, if story != none { "04" } else { "03" }, words.education-languages, subtitle,
         art-piece: { paper-piece(ctx, "lanterns", 134mm, -2.6mm, width: 24mm); paper-piece(ctx, "pagoda", 162mm, -5.6mm, height: 20.4mm) })
       v(4.4mm)

@@ -71,7 +71,9 @@ Windows one also holds the PDFs that build wrote, one per example in
    trips read "Organised", none "Led the group", and its licence takes the
    studies subtitle on page 2. A led trip with a long period ("September 2024")
    shows "Led the group" in full under its stamp, and a leap day is a valid
-   licence date.
+   licence date. A licence too long for one line puts its issuer, region and
+   date on a second line under the title. A trip without a stamp has its role
+   above the period, never alone in the empty stamp column.
    The `travel.typ` fixture renders the Indigo and Sky themes and a record without
    a portrait (initials in the ring) with the same words, the twin as a version 1
    record (no role, no licence: page 1 the same words, page 2 without them), asserts the totals
@@ -84,8 +86,8 @@ Windows one also holds the PDFs that build wrote, one per example in
    unknown `Template Variation`, a trip role or a licence on a version 1 record,
    a version 2 trip without a role or with an unknown one, a licence date that
    is not "14 Jul 2029" or names a day its month lacks ("31 Feb 2029"), a role
-   word wider than the stamp column, a licence line wider than the space before
-   the languages column, and an unknown `domainContract`.
+   word wider than the stamp column, a licence line wider than the education
+   columns, and an unknown `domainContract`.
 7. **Every PDF.** Expected page count, no empty page, all fonts embedded, no
    text outside the page. Every compile reads only the bundled fonts
    (`--ignore-system-fonts --font-path packages/cv-framework/fonts`, plus

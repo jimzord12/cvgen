@@ -381,6 +381,15 @@ def main():
         assert check_case(compile_case('travel-' + case, 'tests/fixtures/travel.typ', {'case': case}))['passed'], case
     with fitz.open(out / 'travel-led-long-period' / 'travel-led-long-period.pdf') as doc:
         assert 'LEDTHEGROUP' in ''.join(doc[1].get_text().split())
+    # A licence too long for one line puts the issuer, region and date on a second line under the title.
+    two = compile_case('travel-two-line-licence', 'tests/fixtures/travel.typ', {'case': 'two-line-licence'})
+    assert check_case(two)['passed']
+    with fitz.open(two) as doc:
+        lines = [''.join(span['text'] for span in line['spans']) for block in doc[1].get_text('dict')['blocks']
+                 for line in block.get('lines', [])]
+    title = [i for i, line in enumerate(lines) if 'Tour Leader Licence' in line]
+    issuer = [i for i, line in enumerate(lines) if 'Regional Tourism Directorate' in line and 'Valid until 31 Mar 2029' in line]
+    assert len(title) == 1 and len(issuer) == 1 and title != issuer, (title, issuer)
     for mode, message in [('v1-role', 'trip.role arrived in travel contract version 2: set domainContract to 2'),
                           ('v1-licence', 'licences arrived in travel contract version 2: set domainContract to 2'),
                           ('no-role', 'trip.role must be one of led, organised, travelled in travel contract version 2; got none'),
@@ -388,7 +397,7 @@ def main():
                           ('bad-licence-date', 'licences.until must be a day as 14 Jul 2029; got 03/2029'),
                           ('no-such-day', 'licences.until names a day its month does not have; got 31 Feb 2029'),
                           ('long-role', "is wider than the trip card's 26 mm stamp column; shorten copy.role-organised"),
-                          ('long-licence', 'a licence line is wider than its 104 mm and would run over the languages column'),
+                          ('long-licence', 'a licence line is wider than its 98 mm and would run past the education columns'),
                           ('unknown-version', 'domainContract must be one of 1, 2 (the travel contract versions kept); got 3'),
                           # Every field Hanami places outside its two slots measures itself and fails loudly (constitution 4).
                           ('no-destinations', 'Candidate requires destinations'), ('bad-month', 'experience.from must be MM/YYYY'),
