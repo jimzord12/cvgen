@@ -2,3 +2,4 @@
 #import "themes/sakura.typ": theme as sakura
 #import "themes/indigo.typ": theme as indigo
 #import "themes/sky.typ": theme as sky
+#import "themes/monochrome.typ": theme as monochrome

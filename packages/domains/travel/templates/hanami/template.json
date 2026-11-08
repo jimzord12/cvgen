@@ -11,7 +11,7 @@
       "pages": "2",
       "designBar": "showcase",
       "layouts": ["showcase"],
-      "themes": ["sakura", "indigo", "sky"],
+      "themes": ["sakura", "indigo", "sky", "monochrome"],
       "artwork": ["japan"],
       "supports": {
         "travel": {
@@ -24,8 +24,8 @@
       "pages": "1",
       "designBar": "scan-first",
       "layouts": ["essential"],
-      "themes": ["sakura", "indigo", "sky"],
-      "artwork": ["japan"],
+      "themes": ["sakura", "indigo", "sky", "monochrome"],
+      "artwork": ["japan", "plain"],
       "supports": {
         "travel": {
           "exactly": [2],

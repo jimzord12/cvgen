@@ -5,6 +5,8 @@
 #let raw = json("../../examples/candidates/tour-leader-example.json")
 #let long = json("tour-leader-long-career.json")
 #let sparse = json("tour-leader-sparse.json")
+#let generic = json("tour-leader-generic.json")
+#let one-page = json("../../examples/candidates/tour-leader-essential-example.json")
 #let case = sys.inputs.at("case", default: "indigo")
 // The totals rule (constitution 6): the older roles' count and span come from the record.
 #assert.eq(experience-totals(long.experience.slice(2)), (roles: 6, from: "06/2005", to: "02/2015"))
@@ -39,6 +41,8 @@
   else if case == "unsorted" { (..long, experience: long.experience.rev()) }
   else if case == "long-name" { (..raw, identity: (..raw.identity, name: "Andreas Konstantinos Kalamaris-Papadopoulos")) }
   else if case == "sparse" { sparse }
+  else if case in ("generic", "generic-japan") { generic }
+  else if case == "monochrome" { one-page }
   else if case == "rail-overflow" { (..raw, practical: (..raw.practical, items: raw.practical.items * 4)) }
   else if case == "profile-overflow" { (..raw, profile: (raw.profile + " ") * 8) }
   // a seasonal career: the newest role fits alone, the one-line summary of 39 older ones does not
@@ -49,7 +53,11 @@
   else if case == "no-licence" { let r = raw; let _ = r.remove("licences"); r }
   else { panic("unknown case: " + case) }
 }
-#let theme = if case == "sky" { hanami-themes.sky } else if case in ("indigo", "long-career") { hanami-themes.indigo } else { hanami-themes.sakura }
-#show: hanami.with(candidate: candidate, theme: theme, artwork: hanami-artwork.japan, variation: "essential",
+#let theme = {
+  if case == "sky" { hanami-themes.sky } else if case in ("indigo", "long-career") { hanami-themes.indigo }
+  else if case in ("monochrome", "generic") { hanami-themes.monochrome } else { hanami-themes.sakura }
+}
+// the plain pack (no Japan) is the generic client's choice
+#show: hanami.with(candidate: candidate, theme: theme, artwork: if case == "generic" { hanami-artwork.plain } else { hanami-artwork.japan }, variation: "essential",
   layout: if case == "showcase-layout" { hanami-layouts.showcase } else { hanami-layouts.essential },
   copy: if case in ("greek", "long-career-greek") { greek } else { (:) })

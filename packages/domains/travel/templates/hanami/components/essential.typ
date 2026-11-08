@@ -3,7 +3,28 @@
 // the profile row, then each role's title, employer and dates where the eye lands, and the facts a
 // recruiter checks for a tour leader on a rail beside them. Every text is real text; no ratings. Capitals
 // keep their tracking near 0.09 em: wider, and a PDF's text (and an ATS) splits the words into letters.
-#import "art.typ": art, at, caps, hex, items, keep-end, label, sakura, tokens
+#import "art.typ": art, at, caps, diamond, hex, keep-end, label, line-art, sakura, tokens
+
+// A lead-in (essential's display rule, no new field): a bullet written "Lead phrase: the rest" shows its
+// lead in bold, so a role's bullets scan at a glance. The lead is what comes before the first ": ", when
+// it is at most five words and 40 characters and something follows; anything else is plain text, so a
+// sentence that only happens to hold a colon ("Call centre for a regional airline: answering…") is not
+// cut in two.
+#let lead-in(s, weight: 700) = {
+  let i = s.position(": ")
+  if i == none { return keep-end(s) }
+  let head = s.slice(0, i)
+  let rest = s.slice(i + 2).trim()
+  if rest == "" or head.split(" ").filter(w => w != "").len() > 5 or head.clusters().len() > 40 { return keep-end(s) }
+  [#text(weight: weight, head): #keep-end(rest)]
+}
+// Bullets with Hanami's metal diamond; each may carry a lead-in.
+#let bullets(ctx, list, size: 10pt, gap: 1.5mm) = {
+  let P = tokens(ctx)
+  for (i, b) in list.enumerate() {
+    block(above: if i == 0 { 0mm } else { gap }, below: 0mm, grid(columns: (4mm, 1fr), diamond(P), text(size: size, lead-in(b))))
+  }
+}
 
 // A section title: Hanami's figure number in metal, the title, a hairline to the column's edge.
 #let section(ctx, number, title) = {
@@ -41,7 +62,8 @@
   let rank = {
     box(fill: P.accent, inset: (x: 2.2mm, y: 1.5mm), {
       label(ctx, d.identity.rank, fill: P.plate, size: 8.4pt, track: 0.09em)
-      if ctx.copy.tab-native != "" { h(1.4mm); text(font: fonts.japanese, size: 8pt, fill: P.plate, ctx.copy.tab-native) }
+      // the rank's word in Japanese, only with an artwork pack that speaks it (the plain pack does not)
+      if ctx.copy.tab-native != "" and ctx.artwork.at("native-words", default: true) { h(1.4mm); text(font: fonts.japanese, size: 8pt, fill: P.plate, ctx.copy.tab-native) }
     })
     // the same inset, unpainted, so both sit on one baseline
     if specialty != none { h(0.2mm); box(inset: (x: 2.2mm, y: 1.5mm), label(ctx, specialty, fill: P.hero-text, size: 8.4pt, track: 0.09em)) }
@@ -78,13 +100,23 @@
 }
 
 // The band, `B` high: the name block; the portrait, when the record has one, in a metal ring on the
-// right; one sakura branch across the top right corner.
+// right; the artwork pack's one motif: the Japan pack's sakura branch across the top right corner, or
+// the plain pack's route arc above the contacts (`band-motif`).
 #let band(ctx, d, B) = {
   let P = tokens(ctx)
   at(0mm, 0mm, rect(width: 210mm, height: B, fill: P.hero))
   let portrait = d.identity.at("portrait", default: none)
-  // without a portrait the branch grows, so its blossoms reach down into the corner the portrait leaves
-  place(top + right, art(ctx, "canopy", width: if portrait != none { 104mm } else { ctx.layout.canopy }, swaps: sakura(ctx.theme.sakura.hero, P.hero)))
+  let motif = ctx.artwork.at("band-motif", default: "canopy")
+  if motif == "canopy" {
+    // without a portrait the branch grows, so its blossoms reach down into the corner the portrait leaves
+    place(top + right, art(ctx, "canopy", width: if portrait != none { 104mm } else { ctx.layout.canopy }, swaps: sakura(ctx.theme.sakura.hero, P.hero)))
+  } else {
+    // a route arc in the band's line colour, right of the name and above the contacts, ending at the
+    // portrait's ring or at the margin
+    let w = if portrait != none { 58mm } else { 74mm }
+    place(top + right, dx: if portrait != none { -(ctx.layout.portrait + 20mm) } else { -16mm }, dy: 6mm,
+      art(ctx, motif, width: w, swaps: line-art(P)))
+  }
   let PD = ctx.layout.portrait
   let PX = 194mm - PD
   let PY = (B - PD) / 2 + 1.5mm
@@ -161,7 +193,7 @@
       text(size: 12.5pt, weight: 700, j.role), dates(ctx, j.from, j.at("to", default: none)))
     block(above: 1.4mm, below: 0mm, label(ctx, j.employer + " · " + j.place, fill: P.label, size: 8pt, track: 0.09em))
     if "intro" in j { block(above: 1.8mm, below: 0mm, text(size: 9.6pt, fill: P.muted, j.intro)) }
-    block(above: 2.4mm, below: 0mm, items(ctx, j.bullets, size: 10pt, gap: 1.5mm))
+    block(above: 2.4mm, below: 0mm, bullets(ctx, j.bullets, size: 10pt, gap: 1.5mm))
     let support = j.at("support", default: none)
     if support != none {
       block(above: 2.8mm, below: 0mm, width: 100%, fill: P.wash, inset: (x: 3mm, top: 2.6mm, bottom: 2.8mm), {
@@ -273,12 +305,15 @@
   }
 }
 
-// Practical know-how run in: the lead, the items between dots, then the basics.
+// Practical know-how as a short list: the lead, then one item a line, each with its bold label when it
+// is written "Label: what" (the lead-in rule), and the basics last with theirs; the eye runs down the
+// labels as it runs down the roles' titles.
 #let practical(ctx, know-how) = {
   let P = tokens(ctx)
-  set par(leading: 0.46em)
-  text(size: 9.2pt)[#text(weight: 700, know-how.lead): #know-how.items.join([ #text(fill: P.metal, weight: 700)[·] ]).]
-  if "basics" in know-how {
-    block(above: 1.8mm, below: 0mm, text(size: 9.2pt)[#text(weight: 700, know-how.basics.label): #know-how.basics.text.])
+  set par(leading: 0.44em)
+  block(below: 1.6mm, text(size: 9pt, fill: P.muted, know-how.lead))
+  let list = know-how.items + if "basics" in know-how { (know-how.basics.label + ": " + know-how.basics.text,) } else { () }
+  for (i, item) in list.enumerate() {
+    block(above: if i == 0 { 0mm } else { 1.3mm }, below: 0mm, grid(columns: (3.2mm, 1fr), diamond(P), text(size: 9.2pt, lead-in(item))))
   }
 }

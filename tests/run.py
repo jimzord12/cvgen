@@ -359,7 +359,7 @@ def main():
                          {f'{k}{n}': str(round(v, 2)) for n, box in first.items() for k, v in (('x', box[0]), ('y', box[1]))})
     assert [page for page, _ in petal_collisions(probe)] == [1, 2], petal_collisions(probe)
     assert len(decoration_errors(probe, 'hanami')) == 2 and len(decoration_errors(probe, 'hanami', 'showcase')) == 2
-    for theme in ['indigo', 'sky', 'no-portrait']:
+    for theme in ['indigo', 'sky', 'monochrome', 'no-portrait']:
         pdf = compile_case('travel-' + theme, 'tests/fixtures/travel.typ', {'case': theme})
         assert check_case(pdf)['passed']
         with fitz.open(twin) as a, fitz.open(pdf) as b:
@@ -435,7 +435,7 @@ def main():
         assert 'Earlier roles' not in text and '1 / 1' not in text and len(doc[0].get_images()) >= 1
         # travel-story is left out: no route, no stamps, no story, not even the region's own script
         assert '日本' not in text and 'Planning the' not in text and 'SKG' not in text
-    for case in ['no-portrait', 'indigo', 'sky', 'greek', 'long-career', 'long-career-greek', 'no-licence', 'sparse']:
+    for case in ['no-portrait', 'indigo', 'sky', 'greek', 'long-career', 'long-career-greek', 'no-licence', 'sparse', 'monochrome', 'generic']:
         pdf = compile_case('travel-essential-' + case, 'tests/fixtures/travel-essential.typ', {'case': case})
         assert check_case(pdf, pages=1)['passed'], case
     with fitz.open(essential) as a, fitz.open(out / 'travel-essential-no-portrait' / 'travel-essential-no-portrait.pdf') as b:
@@ -484,6 +484,19 @@ def main():
         # the rail's wash ends 8 mm under the longer column, not at the footer
         drawings = [d['rect'] for d in doc[0].get_drawings() if d['rect'].x0 > 370 and d['rect'].width > 150]
         assert drawings and max(r.y1 for r in drawings) / 72 * 25.4 < 200, drawings
+    with fitz.open(essential) as doc:
+        # A lead-in: "Private trips: …" shows its lead in bold and the rest regular; a long sentence that only holds a
+        # colon stays plain, and practical know-how is one labelled item a line.
+        spans = [s for b in doc[0].get_text('dict')['blocks'] for line in b.get('lines', []) for s in line['spans']]
+        bold = {s['text'].strip() for s in spans if 'Bold' in s['font'] or s['flags'] & 16}
+        assert {'Private trips', 'End to end', 'Reservations', 'Rail', 'Transport cards', 'Basic knowledge'} <= bold, sorted(bold)
+        assert not any(s['text'].startswith('Boutique travel agency') for s in spans if s['text'] in bold)
+    with fitz.open(out / 'travel-essential-generic' / 'travel-essential-generic.pdf') as doc:
+        # The generic page (monochrome, the plain pack): no Japanese word beside the rank, no sakura; the passport line
+        # in the band, the skills as two labelled items under the record's own title, the languages as a table.
+        text = ' '.join(doc[0].get_text().split())
+        assert '添乗員' not in text and 'PASSPORT Valid, exp. October 2035' in text and 'SKILLS & TRAVEL EXPERIENCE' in text, text
+        assert 'Group travel: coaches' in text and 'Greek Native English C2' in text
     for mode, message in [('overflow', 'Hanami essential: even the newest role alone overflows the career column'),
                           ('unsorted', 'the experience must be listed newest first'),
                           ('long-name', 'Hanami essential: the name is wider than the band'),

@@ -17,7 +17,7 @@
 #let left = raw.contacts.left
 #let places = raw.destinations
 #let candidate = {
-  if case in ("indigo", "sky") { raw }
+  if case in ("indigo", "sky", "monochrome") { raw }
   else if case == "no-portrait" { (..raw, identity: (..raw.identity, portrait: none)) }
   else if case == "no-destinations" { let r = raw; let _ = r.remove("destinations"); r }
   else if case == "bad-month" { (..raw, experience: ((..job, from: "2022-03"),) + raw.experience.slice(1)) }
@@ -65,7 +65,7 @@
   else if case == "unknown-version" { (..raw, domainContract: 3) }
   else { panic("unknown case: " + case) }
 }
-#let theme = if case == "sky" { hanami-themes.sky } else if case == "indigo" { hanami-themes.indigo } else { hanami-themes.sakura }
+#let theme = if case == "sky" { hanami-themes.sky } else if case == "indigo" { hanami-themes.indigo } else if case == "monochrome" { hanami-themes.monochrome } else { hanami-themes.sakura }
 #show: hanami.with(candidate: candidate, theme: theme, artwork: hanami-artwork.japan, layout: hanami-layouts.showcase,
   copy: if case == "long-role" { (role-organised: "Organised it for the whole group") } else { (:) },
   variation: if case == "bad-variation" { "calm" } else { "showcase" })
