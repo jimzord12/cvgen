@@ -17,7 +17,10 @@ He is a designer and judges a CV by looking at it. To him the design is
 the product (`vision.md`, "Design is the product", 2026-09-29): a CV he
 cannot tell apart from an online builder's, or one that does not shout its
 `Domain` at a glance, has failed, however well made. Show him designs that
-are bold and elegant, never generic.
+are bold and elegant, never generic, and finished: he should never have
+to ask for a seamless header or premium artwork (2026-11-08, the third
+time he had to; the bar is the `design-reviewer`'s criterion 6, and two
+`Polish Round`s follow every pass).
 
 ## How to talk to him
 

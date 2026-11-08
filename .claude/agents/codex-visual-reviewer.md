@@ -24,8 +24,8 @@ the `Domain`, specialty and `Rank` page 1 must shout, the Spacious page
 count for a concept run, which rubric variant applies (one the
 design-reviewer's "Rubric for a CV page" defines, as the lead briefs the
 design-reviewer), the round number, the earlier Codex
-reports with the author's replies, and any batch sheets of this snapshot
-the lead holds.
+reports with the author's replies, any batch sheets of this snapshot
+the lead holds, and any extra regions to crop (page and region).
 
 ## Steps
 
@@ -36,7 +36,13 @@ the lead holds.
 2. **Pages.** Render every page of every PDF to PNG with pymupdf (`import
    pymupdf`) at 200 dpi into the work folder, unless the lead gave current
    PNGs. Look at each with Read, only to check that it is the right,
-   complete page.
+   complete page. Then, by yourself, the detail crops criterion 6 is
+   judged on, from a 300 dpi render of every page: its header region
+   wherever it sits (a top band, a sidebar) with its join to the body,
+   every section transition and every artwork you can see (SVG,
+   illustration, icon, photo cut-out), plus any region the lead names;
+   finding them is not judging them. Name each
+   `codex-<design>-p<N>-<region>.png`.
 3. **Batch sheets (CV pages only).** Use the sheets the lead gave you.
    With none, make them exactly as `.claude/agents/design-reviewer.md`,
    "Batch sheets", says, into the work folder, the page under review
@@ -46,7 +52,10 @@ the lead holds.
 4. **Comparison (CV pages only).** Codex can open nothing but what you
    attach, so attach the Flagship's matching page for `Flagship Parity`:
    `studio/archive/design-studies/review/Marine-Engineer-CV-v11-page-<N>.png`,
-   page 1 for a first page, page 2 otherwise.
+   page 1 for a first page, page 2 otherwise; and, for criterion 6, the
+   `before.png` and `after.png` of the `Reference Pair`s in
+   `studio/archive/reference-pairs/` the lead names as relevant to the
+   design, by default the latest three in that folder's table.
 5. **Prompt.** Write `codex-prompt-NN.md` (NN is the round) in the work
    folder, UTF-8 without a byte-order mark (you have no Write tool: use
    `[IO.File]::WriteAllText` with an absolute path).
@@ -62,9 +71,12 @@ the lead holds.
    Read the profile each time: never paraphrase or keep an old copy. Then
    add the brief: the `Domain`, specialty and `Rank`; the rubric variant
    and the criteria it leaves out; for each attached image, its file name and
-   what it is (page N of which design, the Flagship's page N, or the batch
-   sheet for which page, with the page's place on it); the round number;
-   the earlier Codex reports and replies, when there are any. End with:
+   what it is (page N of which design, a 300 dpi detail crop of which
+   region, the Flagship's page N, a `Reference Pair`'s before or after with
+   its row from that folder's `README.md`, or the batch sheet for which
+   page, with the page's place on it); the round number, and whether it is
+   a `Polish Round`; the earlier Codex reports and replies, when there are
+   any. End with:
    "Use the 'What you return' shape, one section per page, headed
    `# Codex visual review round <N>`. Where the rubric asks you to compare
    with files that are not attached (earlier concepts, the Anti-examples),
@@ -82,7 +94,7 @@ the lead holds.
    drop or change one. `--ephemeral` matters most for a client: the pages
    carry the whole CV, name and portrait included. A call takes about a
    minute; allow up to 15. Send the pages of one design together, with
-   their sheets: a later page is judged on its connection to page 1, so
+   their crops and sheets: a later page is judged on its connection to page 1, so
    page 1 goes with it, marked "for reference only", when only the later page is under review;
    for a full concept run, one call per `Style` (its six
    designs) keeps each call small.

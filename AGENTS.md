@@ -40,7 +40,7 @@ starts and ends as `docs/development.md` says.
 | `tests/` | The suite (`docs/engine/verification.md`) |
 | `tools/workflow/` | The workflow tool for the `Workflow Model` in `docs/workflow/` (its `README.md`) |
 | `apps/design-review/` | The owner's `Design Review` app (its `README.md`); `apps/web/` is not built |
-| `studio/` | Design work: `brand/`, `design-concepts/`, frozen `archive/` (never repeat an `Anti-example`); `brand/`, `design-concepts/` and each `archive/` folder have a `README.md` |
+| `studio/` | Design work: `brand/`, `design-concepts/`, frozen `archive/` (never repeat an `Anti-example`; a `Reference Pair`'s after is the finish bar); `brand/`, `design-concepts/` and each `archive/` folder have a `README.md` |
 | `archive/work-records/` | Review reports and dated task records, kept unchanged |
 | `.atlas/` | The `Atlas`: open `index.html` (its `README.md`) |
 | `backlog/` | Tasks, their `Milestone`s and the `session-handoff` doc, through the backlog skill |

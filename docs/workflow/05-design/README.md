@@ -21,7 +21,10 @@
   `codex-visual-reviewer` beside it on the same pages
   ([P-0014](../../proposals/codex-visual-tools.md)). Every client CV goes
   through that review, Flagship CVs included (owner's decision #4 in
-  [P-0017](../../proposals/workflow-model.md)).
+  [P-0017](../../proposals/workflow-model.md)). The owner never has to
+  ask for the finish: a seamless header and premium artwork are the
+  reviewer's criterion 6, and the bar is the `Reference Pair`s in
+  `studio/archive/reference-pairs/`.
 - **The record comes from what the `Client` signed.** `design.fill-data`
   takes the facts from `intake/facts.md` and the wording from the
   signed-off draft; no new question to the `Client`, and no rewording
@@ -65,8 +68,11 @@
   page PNGs and sheets inside, by path when the loop ends.
 - **When to stop:** a fresh `design-reviewer` and a fresh
   `codex-visual-reviewer` both return PASS (Codex `UNAVAILABLE`: the
-  `design-reviewer` alone, noted in the `Envelope`'s `README.md`), or
-  the cap of `loop.client-design-review` (5 rounds while the owner attends,
+  `design-reviewer` alone, noted in the `Envelope`'s `README.md`), and
+  then both still pass the two `Polish Round`s that follow, which carry
+  out their "Even better" proposals (owner, 2026-11-08; the `idea-run`
+  skill, step 6, on top of the cap); or the cap of
+  `loop.client-design-review` (5 rounds while the owner attends,
   10 unattended, unless he sets another) is reached and the design goes to
   the owner marked unresolved with the last reason (`design.cap-reached`).
 
@@ -95,7 +101,9 @@ Two gates in a chain choose one of three build paths:
   delay ([P-0018](../../proposals/workflow-gaps.md) item 7).
 - **The review finds problems** (`gate.client-design-review` fails):
   `design.fix`, a fresh reviewer, up to the cap. The `Idea Run`'s own two
-  gates loop the same way (`loop.idea-research`, `loop.idea-design`).
+  gates loop the same way (`loop.idea-research`, `loop.idea-design`). A
+  `Polish Round` goes through `design.fix` too, on the "Even better"
+  proposals of a review that passed.
 
 ## Common mistakes
 
@@ -230,7 +238,7 @@ flowchart TD
 | `design.run-research-gate` | A fresh research-reviewer checks the references | `actor.research-reviewer` | `agent.research-reviewer` | `art.concept-brief` | `art.idea-research-review` | `gate.idea-research` | The client's Domain has no Template. |
 | `design.run-revise-sources` | The editor revises the references | `actor.magazine-editor` | `agent.magazine-editor-revise` | `art.idea-research-review` | `art.concept-brief` |  | The research gate returned FINDINGS. |
 | `design.run-design-gate` | A fresh design-reviewer and codex-visual-reviewer judge every page | `actor.design-reviewer` | `agent.design-reviewer` | `art.concept-pdf`, `art.idea-research-review` | `art.idea-design-review` | `gate.idea-design` | The client's Domain has no Template. |
-| `design.run-revise-design` | The editor revises the designs | `actor.magazine-editor` | `agent.magazine-editor-revise` | `art.idea-design-review` | `art.concept-pdf`, `art.concept-meta` |  | The quality gate returned FINDINGS. |
+| `design.run-revise-design` | The editor revises the designs | `actor.magazine-editor` | `agent.magazine-editor-revise` | `art.idea-design-review` | `art.concept-pdf`, `art.concept-meta` |  | The quality gate returned FINDINGS, or a Polish Round carries out the Even better proposals of a pass. |
 | `design.run-integrate` | Check the Meta Files, commit and merge the run | `actor.lead` | `lead.integrate-run` | `art.concept-pdf`, `art.concept-meta`, `art.idea-design-review` | `art.concepts-readme` |  | The client's Domain has no Template. |
 | `design.run-report` | Tell the owner what the run drew | `actor.lead` | `lead.report-run` | `art.concepts-readme` | `art.run-message` |  | The client's Domain has no Template. |
 | `design.pick` | The owner picks a Style, Design Tier and Density | `actor.owner` | `manual.pick-design` | `art.run-message`, `art.concept-pdf` | `art.owner-pick` | `gate.owner-pick` | The client's Domain has no Template. |
@@ -247,7 +255,7 @@ flowchart TD
 | `design.engine-revise` | Fix the engine change | `actor.lead` | `lead.revise-engine-change` | `art.engine-review-report` | `art.engine-change` |  | The code review returned FINDINGS. |
 | `design.preview` | Compile the previews for the reviewer | `actor.lead` | `lead.compile-previews` | `art.cv-typ`, `art.candidate-json`, `art.framework-fonts` | `art.design-review-input` |  |  |
 | `design.client-review` | A fresh design-reviewer and codex-visual-reviewer judge the client's pages | `actor.design-reviewer` | `agent.design-reviewer` | `art.design-review-input` | `art.design-review-report` | `gate.client-design-review` |  |
-| `design.fix` | Fix the design on the findings | `actor.lead` | `lead.fix-design` | `art.design-review-report` | `art.cv-typ` |  | The design review returned FINDINGS. |
+| `design.fix` | Fix the design on the findings | `actor.lead` | `lead.fix-design` | `art.design-review-report` | `art.cv-typ` |  | The design review returned FINDINGS, or a Polish Round carries out the Even better proposals of a pass. |
 | `design.clear-review-input` | Clear the previews from builds/ | `actor.lead` | `lead.clear-review-input` | `art.design-review-report` |  |  |  |
 | `design.cap-reached` | At a loop's cap, the owner decides | `actor.owner` | `manual.decide-at-cap` |  |  |  |  |
 
@@ -262,10 +270,10 @@ flowchart TD
 | `gate.template-exists` | The Domain has a Template | `design.handover` | The client's Domain already has a Template (today marine, the Flagship, and travel, Hanami). | `design.flagship-fit` | `design.run-brief` |
 | `gate.template-fits` | The data fits the Flagship | `design.flagship-fit` | The client's data fits flagship: service months (per row, or company totals with durations hidden) or a contract period on every row, and no design the template cannot draw. | `design.entry-point` | `design.custom-composition` |
 | `gate.idea-research` | Idea Run research gate | `design.run-research-gate` | A fresh research-reviewer returns PASS on the references in each brief.md. | `design.run-design-gate` | `design.run-revise-sources` |
-| `gate.idea-design` | Idea Run quality gate | `design.run-design-gate` | A fresh design-reviewer and a fresh codex-visual-reviewer both return PASS (the design-reviewer alone when Codex is UNAVAILABLE); failing the Batch Test, the Three-Second Test or Flagship Parity is Blocking. | `design.run-integrate` | `design.run-revise-design` |
+| `gate.idea-design` | Idea Run quality gate | `design.run-design-gate` | A fresh design-reviewer and a fresh codex-visual-reviewer both return PASS (the design-reviewer alone when Codex is UNAVAILABLE), then still pass the two Polish Rounds that follow; failing the Batch Test, the Three-Second Test, Flagship Parity or the finish of seams and artwork is Blocking. | `design.run-integrate` | `design.run-revise-design` |
 | `gate.owner-pick` | The owner builds a concept | `design.pick` | The owner answered "Build it" with a Style, Design Tier and Density. | `design.record-choice` | `design.record-other-answer` |
 | `gate.engine-review` | Engine change review | `design.engine-review` | A fresh code-reviewer returns PASS (no Blocking or Material finding) on the engine change. | `design.preview` | `design.engine-revise` |
-| `gate.client-design-review` | Client design review | `design.client-review` | A fresh design-reviewer and a fresh codex-visual-reviewer both return PASS (the design-reviewer alone when Codex is UNAVAILABLE) on the client's preview pages, first on the Batch Test and the Three-Second Test. | `design.clear-review-input` | `design.fix` |
+| `gate.client-design-review` | Client design review | `design.client-review` | A fresh design-reviewer and a fresh codex-visual-reviewer both return PASS (the design-reviewer alone when Codex is UNAVAILABLE) on the client's preview pages, first on the Batch Test and the Three-Second Test, then still pass the two Polish Rounds that follow. | `design.clear-review-input` | `design.fix` |
 
 <!-- generated:end gates -->
 
@@ -340,7 +348,7 @@ flowchart TD
 | `lead.clear-review-input` | lead | Clear the previews | Deletes the builds/design-review-input-* folders by path, with the page PNGs and batch sheets both reviewers made inside them, since they hold a real client's pages outside private/ (never git clean -x or -X). |
 | `lead.compile-previews` | lead | Compile the previews | Compiles typst/cv.typ into builds/design-review-input-<timestamp>/cv.pdf with the typst compile line in the new-cv skill, since the reviewer never reads private/. |
 | `lead.compose-by-hand` | lead | Compose by hand | Writes typst/cv.typ from the lib.typ components (core-components, flagship-components), with data the schema cannot hold in typst/presentation.json, every file read by a literal relative path. |
-| `lead.fix-design` | lead | Fix the design | Fixes the design on the findings and stores both reports verbatim, as reviews/design-NN.md and reviews/design-NN-codex.md, before the next fresh round. |
+| `lead.fix-design` | lead | Fix the design | Fixes the design on the findings, or in a Polish Round carries out the Even better proposals, and stores both reports verbatim, as reviews/design-NN.md and reviews/design-NN-codex.md, before the next fresh round. |
 | `lead.integrate-run` | lead | Integrate the Idea Run | Runs python scripts/outputs.py check (every design carries its Meta File), then commits, merges to main and pushes; concepts stay proposed. |
 | `lead.port-concept` | lead | Port the chosen concept | Builds the one-off Template in the Envelope from the chosen concept's Typst: typst/cv.typ importing /packages/cv-framework/lib.typ only, the design code in typst/designs/, the wording in typst/text/, the SVGs in typst/art/. |
 | `lead.record-framework-gap` | lead | Record the Framework Gap | Adds an entry to docs/framework-gaps.md (what was needed, what was gone around, what was built) and records the reason in the Envelope's README.md. |
