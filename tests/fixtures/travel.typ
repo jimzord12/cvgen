@@ -18,4 +18,4 @@
 }
 #let theme = if case == "sky" { hanami-themes.sky } else if case == "indigo" { hanami-themes.indigo } else { hanami-themes.sakura }
 #show: hanami.with(candidate: candidate, theme: theme, artwork: hanami-artwork.japan, layout: hanami-layouts.showcase,
-  variation: if case == "bad-variation" { "essential" } else { "showcase" })
+  variation: if case == "bad-variation" { "calm" } else { "showcase" })

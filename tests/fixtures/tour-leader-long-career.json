@@ -1,0 +1,241 @@
+{
+  "identity": {
+    "name": "Irini Valtadorou",
+    "rank": "Senior Tour Leader",
+    "specialty": "Japan and Korea",
+    "portrait": null
+  },
+  "contacts": {
+    "left": [
+      {
+        "label": "Based in",
+        "value": "Patras, Greece"
+      },
+      {
+        "label": "Phone",
+        "value": "+30 699 000 0388",
+        "href": "tel:+306990000388"
+      },
+      {
+        "label": "Email",
+        "value": "irini.valtadorou@example.com",
+        "href": "mailto:irini.valtadorou@example.com"
+      }
+    ],
+    "right": [
+      {
+        "label": "Licence",
+        "value": "Tour leader, since 2009"
+      },
+      {
+        "label": "Japanese",
+        "value": "JLPT N2"
+      }
+    ]
+  },
+  "profile": "Has led groups to Japan and Korea for fifteen years, in four languages.",
+  "availability": {
+    "headline": "Available from April 2027",
+    "text": "Spring and autumn seasons; groups of up to 40. Passport valid until 2031."
+  },
+  "highlights": [
+    {
+      "icon": "torii",
+      "title": "Japan and Korea",
+      "text": "Spring and autumn departures every year"
+    },
+    {
+      "icon": "support",
+      "title": "Groups up to 40",
+      "text": "Coaches, rail and domestic flights"
+    },
+    {
+      "icon": "check",
+      "title": "Four languages",
+      "text": "Greek, English, Japanese, Italian"
+    },
+    {
+      "icon": "cap",
+      "title": "Licensed",
+      "text": "Tour leader licence since 2009"
+    }
+  ],
+  "experience": [
+    {
+      "role": "Senior Tour Leader, Japan and Korea",
+      "employer": "Kyma Cultural Journeys",
+      "place": "Athens",
+      "from": "02/2019",
+      "intro": "Small-group cultural tours to East Asia for Greek and Cypriot travellers.",
+      "bullets": [
+        "Leads eight to ten departures a year of 14 to 18 days, groups of 20 to 40.",
+        "Briefs the group before departure and runs the daily programme with local guides.",
+        "Handles rail passes, seat reservations and luggage forwarding for the whole group.",
+        "Trains two new tour leaders each season on the Japan programme."
+      ]
+    },
+    {
+      "role": "Tour Leader, Japan",
+      "employer": "Orizontes Travel",
+      "place": "Thessaloniki",
+      "from": "03/2015",
+      "to": "12/2018",
+      "bullets": [
+        "Led spring and autumn departures to Tokyo, Kyoto, Hiroshima and the Japanese Alps.",
+        "Kept the group on schedule through two typhoon seasons without losing a sight.",
+        "Wrote the group's day-by-day trip book and the after-tour report for each departure.",
+        "Booked restaurants and temple visits by phone, in Japanese."
+      ]
+    },
+    {
+      "role": "Tour Leader, Central Europe",
+      "employer": "Orizontes Travel",
+      "place": "Thessaloniki",
+      "from": "04/2012",
+      "to": "02/2015",
+      "bullets": [
+        "Coach tours of Vienna, Prague and Budapest, six to eight departures a season.",
+        "Ran the coach schedule with the driver and the local guides in each city.",
+        "Collected guest feedback and kept the departure notes for the next tour leader."
+      ]
+    },
+    {
+      "role": "Assistant Tour Leader",
+      "employer": "Delfini Holidays",
+      "place": "Patras",
+      "from": "05/2010",
+      "to": "03/2012",
+      "bullets": [
+        "Supported the tour leader on Italian and Spanish coach tours.",
+        "Counted the group at every stop and kept the rooming lists up to date."
+      ]
+    },
+    {
+      "role": "Resort Representative",
+      "employer": "Ionian Sun Resorts",
+      "place": "Kefalonia",
+      "from": "05/2008",
+      "to": "10/2009",
+      "bullets": [
+        "Welcomed guests, sold excursions and handled complaints in three languages.",
+        "Ran the welcome meeting for each arrival, twice a week."
+      ]
+    },
+    {
+      "role": "Front Office Assistant",
+      "employer": "Hotel Rio Ambassador",
+      "place": "Patras",
+      "from": "05/2007",
+      "to": "10/2007",
+      "bullets": [
+        "Check-in, check-out and guest requests on the evening shift."
+      ]
+    },
+    {
+      "role": "Reservations Agent",
+      "employer": "Delfini Holidays",
+      "place": "Patras",
+      "from": "09/2006",
+      "to": "04/2007",
+      "bullets": [
+        "Package holiday bookings by phone and email."
+      ]
+    },
+    {
+      "role": "Summer Guide",
+      "employer": "Achaia Walks",
+      "place": "Patras",
+      "from": "06/2005",
+      "to": "09/2005",
+      "bullets": [
+        "Walking tours of the old town for cruise passengers."
+      ]
+    }
+  ],
+  "education_entries": [
+    {
+      "qualification": "Tour Leader Certificate",
+      "institution": "Patras School of Tourism Professions",
+      "note": "2009"
+    },
+    {
+      "qualification": "Bachelor’s degree in Japanese Studies",
+      "institution": "Example University, Athens",
+      "note": "2002 – 2006"
+    }
+  ],
+  "language_entries": [
+    {
+      "name": "Greek",
+      "level": "Native"
+    },
+    {
+      "name": "English",
+      "level": "C2"
+    },
+    {
+      "name": "Japanese",
+      "level": "JLPT N2"
+    },
+    {
+      "name": "Italian",
+      "level": "B2"
+    }
+  ],
+  "destinations": {
+    "region": "Japan",
+    "native": "日本",
+    "trips": [
+      {
+        "period": "April 2024",
+        "days": 16,
+        "kind": "Group of 32, as tour leader",
+        "stops": [
+          {
+            "name": "Tokyo",
+            "known": true
+          },
+          {
+            "name": "Kyoto",
+            "known": true
+          },
+          {
+            "name": "Nara"
+          },
+          {
+            "name": "Hiroshima",
+            "known": true
+          },
+          {
+            "name": "Takayama",
+            "known": true
+          }
+        ]
+      },
+      {
+        "period": "October 2024",
+        "days": 14,
+        "kind": "Japan and Korea, group of 24, as tour leader",
+        "stops": [
+          {
+            "name": "Seoul",
+            "known": true
+          },
+          {
+            "name": "Busan"
+          },
+          {
+            "name": "Fukuoka",
+            "known": true
+          },
+          {
+            "name": "Osaka",
+            "known": true
+          }
+        ]
+      }
+    ]
+  },
+  "references": "Available on request.",
+  "disclosure": "FICTIONAL CANDIDATE / LONG-CAREER FIXTURE"
+}

@@ -5,7 +5,7 @@
 #import "../../cv-framework/lib.typ": merge, compose, normalize-common, validate-common, make-ctx, core-components
 // Travel: facts model, totals and the domain node.
 #import "domain.typ": domain as travel
-#import "data.typ": normalize-candidate, validate-candidate, destination-totals
+#import "data.typ": normalize-candidate, validate-candidate, destination-totals, experience-totals
 // Hanami: the travel domain's first template.
 #import "templates/hanami/hanami.typ": hanami
 #import "templates/hanami/copy.typ": hanami-copy

@@ -25,6 +25,16 @@
     stops: trips.map(t => t.stops.map(s => s.name)).flatten().dedup().len())
 }
 
+// The totals of a run of roles, listed newest first: how many, the earliest start and the latest end
+// (none while one is still held). A page that summarises roles prints these and never counts them.
+#let experience-totals(jobs) = {
+  let key(v) = int(v.slice(3)) * 12 + int(v.slice(0, 2))
+  let starts = jobs.map(j => j.from)
+  let ends = jobs.filter(j => "to" in j).map(j => j.to)
+  (roles: jobs.len(), from: starts.sorted(key: key).first(),
+    to: if ends.len() < jobs.len() { none } else { ends.sorted(key: key).last() })
+}
+
 #let normalize-candidate(raw) = {
   assert("experience" in raw, message: "Candidate requires experience: a list of roles")
   let common = normalize-common(raw)

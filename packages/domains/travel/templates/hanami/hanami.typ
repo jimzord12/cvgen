@@ -1,5 +1,6 @@
 // The Hanami composition: the travel Domain's first Template, grown from Hanami Line 2 (the owner's
-// pick of 2026-10-02) as its `showcase` Template Variation (P-0013). Two A4 pages: page 1 is the
+// pick of 2026-10-02). Two Template Variations share its theme, type and artwork: `essential`, one
+// scan-first page (essential.typ), and `showcase` (P-0013), composed here. Showcase has two A4 pages: page 1 is the
 // band with the portrait, the name plate and the route, then the profile and experience; page 2 is
 // the destination page: one eki stamp per trip, the areas known, practical know-how, one trip told
 // in detail, studies and languages. Every field is a fixed slot that fails loudly when it overflows.
@@ -9,6 +10,7 @@
 #import "../../../../cv-framework/core/component.typ": make-ctx
 #import "../../../../cv-framework/core/theme.typ": require-colors, validate-theme
 #import "copy.typ": hanami-copy
+#import "essential.typ": essential
 #import "components/art.typ": art, at, paper-art, sakura, slot, tokens, two-columns
 #import "components/hero.typ": hero, band, footer
 #import "components/sections.typ": heading, paper-piece, profile, experience, experience-subtitle, trips, practical, studies
@@ -33,21 +35,24 @@
 // Variation named in template.json (ADR 0016), none for its default.
 #let hanami(body, candidate: none, theme: none, artwork: none, layout: none, copy: (:), variation: none) = {
   let design = json("template.json")
-  assert((if variation == none {design.default} else {variation}) in design.variations,
-    message: "Hanami has no Template Variation " + repr(variation))
+  let name = if variation == none {design.default} else {variation}
+  assert(name in design.variations, message: "Hanami has no Template Variation " + repr(variation))
   assert(candidate != none and theme != none and artwork != none and layout != none,
     message: "hanami requires candidate, theme, artwork and layout")
+  let allowed = design.variations.at(name).layouts
+  assert(layout.at("name", default: "showcase") in allowed,
+    message: "Hanami " + name + " allows the layouts " + allowed.join(", ") + "; pass hanami-layouts." + allowed.first())
   assert(type(candidate) == dictionary, message: "Candidate facts must be a dictionary; load the JSON record first")
   let d = normalize-candidate(candidate)
   validate-hanami-theme(theme)
   validate-candidate(d)
-  assert(d.destinations != none, message: "Hanami's second page is the destination page: the record needs destinations (at least one trip)")
+  assert(name != "showcase" or d.destinations != none, message: "Hanami's second page is the destination page: the record needs destinations (at least one trip)")
   let words = merge(merge(compose(domain, (copy: hanami-copy)).copy, d.copy), copy)
   let ctx = make-ctx(theme: theme, layout: layout, artwork: artwork, copy: words)
   let P = tokens(ctx)
   let totals = (domain.totals)(d.destinations)
   let places = d.destinations
-  let story = places.trips.find(t => "story" in t)
+  let story = if places == none { none } else { places.trips.find(t => "story" in t) }
 
   set document(title: d.identity.name + " | " + d.identity.rank + " | " + domain.meta.title, author: domain.meta.author)
   set page(paper: layout.paper, margin: 0mm, fill: P.paper)
@@ -55,6 +60,7 @@
   set par(leading: 0.6em, spacing: 0.6em, justify: false)
   show link: it => it
 
+  if name == "essential" { essential(ctx, d) } else {
   // ---- page 1 ----
   hero(ctx, d, totals)
   at(0mm, layout.band, art(ctx, "petals-p1-field", width: 210mm, swaps: sakura(theme.sakura.paper, P.paper)))
@@ -107,6 +113,7 @@
     v(1fr)
   }))
   footer(ctx, d, 2, layout.pages)
+  }
 
   // No shrinking (constitution 4): the planned pages, or the compile fails.
   context assert(counter(page).final().first() == layout.pages,

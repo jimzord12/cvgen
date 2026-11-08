@@ -8,4 +8,7 @@
   experience-kind: "", and-word: "and",
   destinations-title: auto, by-trip: "trip by trip", stamp-line: "One stamp for each trip",
   education-subtitle: "Studies, training and languages",
+  // essential (one page): its section titles, the words of its totals and the earlier roles' summary
+  education: "Education", languages: "Languages", destinations: "Destinations", contacts: "Contacts",
+  role: "role", roles: "roles", place: "place", places: "places", earlier: "Earlier roles",
 )

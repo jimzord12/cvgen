@@ -1,5 +1,5 @@
 // The travel domain (Travel & Tourism, P-0013): what every travel template can rely on.
-#import "data.typ": destination-totals
+#import "data.typ": destination-totals, experience-totals
 
 #let domain = (
   id: "travel",
@@ -12,4 +12,6 @@
   ),
   // The totals rule (constitution 6): computed once from the full record.
   totals: destination-totals,
+  // The totals of the roles a page summarises (Hanami essential's earlier roles).
+  experience-totals: experience-totals,
 )

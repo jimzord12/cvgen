@@ -329,8 +329,48 @@ def main():
         assert len(a[0].get_images()) - len(b[0].get_images()) == 1 and 'AK' in b[0].get_text().split()
     for mode, message in [('no-destinations', 'the record needs destinations'), ('bad-month', 'experience.from must be MM/YYYY'),
                           ('overflow', 'Hanami: page 1 overflows'), ('long-name', 'the name is wider than the name plate'),
-                          ('bad-variation', 'Hanami has no Template Variation "essential"')]:
+                          ('bad-variation', 'Hanami has no Template Variation "calm"')]:
         compile_case('travel-' + mode, 'tests/fixtures/travel.typ', {'case': mode}, error=message)
+    # Hanami essential (TASK-79), the first scan-first Template Variation: the twin on one page must match its
+    # Frozen Reference candidate (not yet approved by the owner); the same facts without a portrait, in the other
+    # themes and in Greek wording; a long career keeps its newest roles in full and summarises the rest with the
+    # domain's totals; and every way it cannot fit fails loudly instead of shrinking or running to a second page.
+    essential = listed['tour-leader-essential']
+    essential_result = check_case(essential, ROOT / HANAMI / 'tests/approved/Travel-Tour-Leader-CV-Essential-v01.pdf', pages=1)
+    assert essential_result['passed'], essential_result
+    with fitz.open(essential) as doc:
+        assert (doc.metadata['title'], doc.metadata['author']) == ('Andreas Kalamaris | Tour Leader | CVgen', 'CVgen'), doc.metadata
+        text = ' '.join(doc[0].get_text().split())
+        for phrase in ['ANDREAS KALAMARIS', 'Travel Consultant', 'MELTEMI BESPOKE JOURNEYS', '03/2022 – present', '06/2021 – 11/2021',
+                       'Tour Leader Certificate', 'October 2023 – March 2024', 'AVAILABLE ALL YEAR ROUND', 'JLPT N3, July 2023',
+                       '2 trips · 30 days · 14 places', 'Confident with', 'FICTIONAL CANDIDATE']:
+            assert phrase in text, phrase
+        # first-scan order: the name, then each role's title before its employer and dates, then education
+        order = [text.index(p) for p in ['ANDREAS KALAMARIS', 'Travel Consultant', 'Intern, Airline Reservations Desk', 'Education']]
+        assert order == sorted(order), order
+        assert 'Earlier roles' not in text and '1 / 1' not in text and len(doc[0].get_images()) >= 1
+    for case in ['no-portrait', 'indigo', 'sky', 'greek', 'long-career', 'long-career-greek', 'no-destinations']:
+        pdf = compile_case('travel-essential-' + case, 'tests/fixtures/travel-essential.typ', {'case': case})
+        assert check_case(pdf, pages=1)['passed'], case
+    with fitz.open(essential) as a, fitz.open(out / 'travel-essential-no-portrait' / 'travel-essential-no-portrait.pdf') as b:
+        # without a portrait the page loses the picture and nothing else: no initials, no hole to fill
+        assert a[0].get_text().split() == b[0].get_text().split()
+        assert len(a[0].get_images()) - len(b[0].get_images()) == 1
+    with fitz.open(out / 'travel-essential-greek' / 'travel-essential-greek.pdf') as doc:
+        text = ' '.join(doc[0].get_text().split())
+        assert all(w in text for w in ['Εμπειρία', 'Σπουδές', 'ΓΛΩΣΣΕΣ', '03/2022 – σήμερα', '2 ταξίδια · 30 ημέρες · 14 τόποι']), text
+    with fitz.open(out / 'travel-essential-long-career' / 'travel-essential-long-career.pdf') as doc:
+        text = ' '.join(doc[0].get_text().split())
+        # the four newest roles in full, the four older in one summary whose count and span the domain computed
+        assert 'Earlier roles · 4 roles 06/2005 – 10/2009' in text, text
+        assert 'Resort Representative · Ionian Sun Resorts, Kefalonia 2008–2009' in text and 'Summer Guide · Achaia Walks, Patras 2005' in text
+        assert text.index('Assistant Tour Leader') < text.index('Earlier roles') < text.index('Education')
+        assert 'Welcomed guests' not in text
+    for mode, message in [('overflow', 'Hanami essential: even the newest role alone overflows the career column'),
+                          ('unsorted', 'the experience must be listed newest first'),
+                          ('long-name', 'Hanami essential: the name is wider than the band'),
+                          ('showcase-layout', 'Hanami essential allows the layouts essential')]:
+        compile_case('travel-essential-' + mode, 'tests/fixtures/travel-essential.typ', {'case': mode}, error=message)
     # Third dataset: deck officer without a portrait, on the same page plan.
     officer = listed['chief-officer']
     assert check_case(officer)['passed']
@@ -562,7 +602,7 @@ def main():
         skip('workflow-model', reason='no Bun on this machine, so the Workflow Model (docs/workflow) is not checked here')
     check_frozen()
     check_core_boundary()
-    report = {'passed': True, 'cases': results, 'exact_reference': result, 'hanami_reference': hanami_result, 'output': str(out)}
+    report = {'passed': True, 'cases': results, 'exact_reference': result, 'hanami_reference': hanami_result, 'hanami_essential_reference': essential_result, 'output': str(out)}
     (out / 'report.json').write_text(json.dumps(report, indent=2), encoding='utf-8')
     skipped = [r['case'] for r in results if r.get('skipped')]
     print(f'PASS: {len(results) - len(skipped)} compilation cases plus PDF/data/layout assertions. Evidence: {out}')

@@ -19,6 +19,19 @@
           "groups": ["profile@1", "education@1", "languages@1", "portrait@1", "destinations@1", "availability@1", "practical@1", "references@1"]
         }
       }
+    },
+    "essential": {
+      "pages": "1",
+      "designBar": "scan-first",
+      "layouts": ["essential"],
+      "themes": ["sakura", "indigo", "sky"],
+      "artwork": ["japan"],
+      "supports": {
+        "travel": {
+          "upTo": 1,
+          "groups": ["profile@1", "education@1", "languages@1", "portrait@1", "availability@1", "practical@1", "references@1"]
+        }
+      }
     }
   }
 }

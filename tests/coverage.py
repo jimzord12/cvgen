@@ -141,5 +141,13 @@ def run_coverage(out, typst, flags):
     assert choose(trip, hanami, {**tour, 'certificates': [{'title': 'A', 'scope': 'B', 'issued': 'C'}]})[0]['dropped'] == ['certificates']
     refused(lambda: choose(trip, hanami, {**tour, 'identity': {'name': 'A'}}), 'candidate.json has no rank, required by the travel contract')
     refused(lambda: choose({**trip, 'template': 'flagship'}, hanami, tour), "envelope.json says template 'flagship' but typst/cv.typ renders 'hanami'")
-    checks.append('the travel contract: Hanami chosen, certificates dropped, a missing rank refused')
+    # Hanami essential (TASK-79): the operator's choice of the one-page Variation, recorded and checked; the
+    # twin's destinations (stamps, route and the trip in detail) are left out of one page, by design.
+    calm = '#import "/packages/domains/travel/lib.typ": hanami\n#show: hanami.with(candidate: record, variation: "essential")'
+    one_page = {**trip, 'variation': 'essential'}
+    chosen, warnings = choose(one_page, calm, tour)
+    assert chosen == {'template': 'hanami', 'variation': 'essential', 'domain_contract': 1, 'dropped': ['destinations']}, chosen
+    assert warnings == ['hanami essential does not show destinations: this CV leaves those facts out'], warnings
+    refused(lambda: choose(trip, calm, tour), "envelope.json says variation 'showcase' but typst/cv.typ renders 'essential'")
+    checks.append('the travel contract: Hanami chosen, certificates dropped, a missing rank refused, essential chosen')
     return checks

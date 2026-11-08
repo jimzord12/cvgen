@@ -174,5 +174,6 @@
   let notice = d.at("disclosure", default: "")
   at(16mm, 286mm, text(size: 6.6pt, tracking: 0.8pt, fill: P.muted, caps(d.identity.name) + (if notice != "" { "  ·  " + notice } else { "" })))
   place(top + right, dx: -16mm, dy: 285.25mm, box(art(ctx, "logo", width: 10.4mm, swaps: ("#131210": hex(P.muted), "#B7713D": hex(P.label)))))
-  place(top + right, dx: -29.4mm, dy: 286mm, text(size: 6.6pt, tracking: 0.8pt, fill: P.muted)[#n / #total])
+  // a one-page CV prints no page number
+  if total > 1 { place(top + right, dx: -29.4mm, dy: 286mm, text(size: 6.6pt, tracking: 0.8pt, fill: P.muted)[#n / #total]) }
 }
