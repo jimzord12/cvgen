@@ -34,7 +34,7 @@
           "blurb": "Who the client is: `Alias`, `Domain`, `Rank`; the `Template` and `Template Variation` when a `Template` renders the CV; dates and links.",
           "detail": "`cv.py render` refuses to run without `envelope.json`, or when its `template` or `variation` disagrees with `cv.typ`; every client `Meta File` copies who the client is.",
           "sources": [
-            "docs/guides/client-workflow.md:17-105",
+            "docs/guides/client-workflow.md:17-127",
             "docs/guides/build-a-cv.md:55-61"
           ]
         },
@@ -44,7 +44,7 @@
           "path": "private/<envelope>/intake/",
           "blurb": "Messages, documents, `facts.md`, the `Scout`, `CV Decisions`, `Deep Dives`.",
           "sources": [
-            "docs/guides/client-workflow.md:29-66"
+            "docs/guides/client-workflow.md:29-67"
           ]
         },
         {
@@ -63,7 +63,7 @@
           "blurb": "The client's facts and the entry point that composes their CV, with its designs, wording and art beside it in typst/.",
           "sources": [
             "docs/guides/build-a-cv.md:15-61",
-            "docs/guides/client-workflow.md:29-66"
+            "docs/guides/client-workflow.md:29-67"
           ]
         },
         {
@@ -418,7 +418,7 @@
           "actor": "intake-form",
           "blurb": "Optional `Intake Forms` and their answer Sheets.",
           "sources": [
-            "docs/guides/client-workflow.md:142-188"
+            "docs/guides/client-workflow.md:164-210"
           ]
         },
         {

@@ -25,7 +25,11 @@ command from the repository root.
   have a `Template` (today only marine, the Flagship)?
 - `design.fill-data`, on every path: `candidate.json` at the `Envelope`'s
   root from the closest example record with every value replaced, the
-  portrait in `images/portrait/`, the example wording gone (BC section 2).
+  client's photograph in `images/portrait/`, prepared there with
+  `python scripts/portrait.py prepare <photo> --output .../portrait.png`
+  and `identity.portrait` pointed at `portrait.png`
+  (`docs/guides/client-workflow.md`, section 1, "The portrait"), the
+  example wording gone (BC section 2).
 - No `Template`: `design.run-brief` to `design.pick` through the
   `idea-run` skill (fictional data for the client's `Domain`, specialty
   and `Rank`; the `Alias` only); then `design.record-choice`
