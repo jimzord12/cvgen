@@ -6,7 +6,7 @@ title: >-
 status: Active
 assignee: []
 created_date: '2026-11-08T10:07:00Z'
-updated_date: '2026-11-08T12:20:00Z'
+updated_date: '2026-11-08T15:07:00Z'
 labels: []
 milestone: m-2
 dependencies: []
@@ -72,4 +72,8 @@ The first scan-first Template Variation (P-0019 section 9, owner 2026-11-04 and 
 - Reviews verbatim in archive/work-records/hanami-essential/reviews/.
 
 - Code round 3 PASS (no findings above a Note). Travel-domain code round 3 N-1, N-2 applied in 39f096a.
+
+## Owner review of the look (2026-11-08)
+
+Owner: more bold in the bullets; practical know-how hard to scan; for the client a generic, not Japan-focused page; a monochrome that looks good; the portrait tool is another branch. Built: the lead-in display rule (no contract change), know-how as a labelled list, themes/monochrome.typ, artwork/plain.typ (route arc, no kanji), the essential twin tour-leader-essential-example.json (showcase twin untouched, its reference approved), a generic client-shaped fixture. The essential Frozen Reference candidate is re-rendered.
 <!-- SECTION:NOTES:END -->
