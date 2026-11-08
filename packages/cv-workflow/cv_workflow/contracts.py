@@ -101,6 +101,9 @@ def choose(envelope_data, source, record, design=None):
     groups = contract(domain, version)['groups']
     template = template_in(domain, source)
     stated = envelope_data.get('template')
+    for key in ('template', 'variation'):
+        if envelope_data.get(key) is not None and not isinstance(envelope_data[key], str):
+            raise WorkflowError(f'envelope.json {key} must be a name in quotes')
     warnings = []
     if template is None and stated:
         raise WorkflowError(f'envelope.json says template {stated!r} but typst/cv.typ does not render it; make them agree')
@@ -117,12 +120,13 @@ def choose(envelope_data, source, record, design=None):
     variation = envelope_data.get('variation') or design['default']
     if variation not in design['variations']:
         raise WorkflowError(f'{template!r} has no Template Variation {variation!r}: {", ".join(design["variations"])}')
-    written = re.search(r'\bvariation:\s*("([\w-]+)")?', source)
+    written = re.search(r'(?<![-\w])variation\s*:\s*("([\w-]+)"|none\b)?', source)
     if written and not written[1]:
         raise WorkflowError('typst/cv.typ must name its variation as plain text, so the check can read it')
-    if (written[2] if written else design['default']) != variation:
+    rendered = written[2] if written and written[2] else design['default']
+    if rendered != variation:
         raise WorkflowError(f'envelope.json says variation {variation!r} but typst/cv.typ renders '
-                            f'{written[2] if written else design["default"]!r}; make them agree')
+                            f'{rendered!r}; make them agree')
     claimed, supported = claims(design['variations'][variation], domain)
     if claimed is None or version not in supported:
         raise WorkflowError(f'{template} {variation} does not support {domain} contract version {version}; '

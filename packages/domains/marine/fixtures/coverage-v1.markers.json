@@ -17,7 +17,9 @@
     "Qxtype",
     "Qxvessel",
     "Qxrow",
-    "6 months"
+    "Qxsecond",
+    "4 months",
+    "7 months"
   ],
   "profile": [
     "Qxprofile"

@@ -1,6 +1,7 @@
 """The Template Contract in the suite (ADR 0016): each Template Variation's claims proved on its Domain's
 Coverage Fixture, then the judging itself and the checks before a client's render. Run by tests/run.py."""
 import json
+import re
 import subprocess
 import sys
 
@@ -63,7 +64,7 @@ def run_coverage(out, typst, flags):
             for owner, _support in variation['supports'].items():
                 _, supported = claims(variation, owner)
                 for version in supported:
-                    fixtures = [p for p in sorted((DOMAINS / owner / 'fixtures').glob(f'coverage-v{version}*.json')) if not p.name.endswith('.markers.json')]
+                    fixtures = [p for p in sorted((DOMAINS / owner / 'fixtures').glob(f'coverage-v{version}*.json')) if re.fullmatch(rf'coverage-v{version}(-[a-z-]+)?\.json', p.name)]
                     assert fixtures, (owner, version)
                     for fixture in fixtures:
                         checks.append(prove(folder, typst, flags, owner, template, design, name, version, fixture))
@@ -118,6 +119,9 @@ def run_coverage(out, typst, flags):
     refused(lambda: choose({'domain': 'marine'}, custom, {}), 'candidate.json has no identity, contacts, experience, rank')
     refused(lambda: choose(envelope, custom, facts), "envelope.json says template 'flagship' but typst/cv.typ does not render it")
     refused(lambda: choose(envelope, source + '\n// x\n#let a = (variation: sys.inputs.v)', facts), 'must name its variation as plain text')
+    refused(lambda: choose(envelope, imports + '#show: flagship.with(variation : "other")', facts), "typst/cv.typ renders 'other'")
+    assert choose(envelope, imports + '#show: flagship.with(variation: none, layout-variation: auto)', facts)[0]['variation'] == 'showcase'
+    refused(lambda: choose({**envelope, 'variation': ['x']}, source, facts), 'envelope.json variation must be a name in quotes')
     refused(lambda: choose(envelope, source, {**facts, 'domainContract': 1.0}), 'marine contract version 1.0, which is not kept')
     refused(lambda: choose({**envelope, 'template': 'other'}, source, facts), "envelope.json says template 'other' but typst/cv.typ renders 'flagship'")
     refused(lambda: choose({**envelope, 'variation': 'other'}, source, facts), "'flagship' has no Template Variation 'other'")

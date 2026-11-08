@@ -32,7 +32,22 @@
               "id": "mv-qxvessel",
               "name": "MV Qxvessel",
               "rank": "Qxrow",
-              "months": 6,
+              "months": 4,
+              "tonnage": {
+                "value": 12345,
+                "unit": "GT"
+              },
+              "engine": "Qxengine",
+              "power": {
+                "value": 6789,
+                "unit": "kW"
+              }
+            },
+            {
+              "id": "mv-qxsecond",
+              "name": "MV Qxsecond",
+              "rank": "Qxrow",
+              "months": 7,
               "tonnage": {
                 "value": 12345,
                 "unit": "GT"
