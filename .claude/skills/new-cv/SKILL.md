@@ -87,7 +87,7 @@ command from the repository root.
   `python -c "import pymupdf,sys; t=''.join(p.get_text() for p in pymupdf.open(sys.argv[1])).lower(); print([w for w in ('fictional','illustrative','flagship') if w in t])" private/<envelope>/revisions/<revision>/cv.pdf`
 - `deliver.report`: the revision folder, the PDF hash, the page count,
   what was checked on each page, any override, and every `WARNING:` and
-  `NOTE:` line word for word. Clear the page PNGs by path. **Stop here.**
+  `NOTE:` line word for word. Clear the page PNGs and crops by path. **Stop here.**
 - The owner: `deliver.owner-review`, `deliver.approve`. Never approve a
   real client's PDF yourself.
 - His change (`loop.owner-changes`): `deliver.fix`. A change to the design

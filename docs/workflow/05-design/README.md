@@ -58,8 +58,8 @@
   the `Domain`, specialty and `Rank`, the chosen concept folder, `Design
   Tier` and `Density` when there is one, that the text is the signed-off
   text, and, back from deliver, the owner's change in design terms, named
-  so it is not proposed away. The `codex-visual-reviewer` sends those pages to
-  OpenAI: they carry the whole CV, name and portrait included, which the
+  so it is not proposed away. The `codex-visual-reviewer` sends these pages
+  to OpenAI: they carry the whole CV, name and portrait included, which the
   consent to AI tools covers (question 1, stage
   [intake](../02-intake/README.md)); its `--ephemeral` call keeps
   no copy in Codex's local sessions. Every report is stored verbatim in
@@ -116,8 +116,8 @@ Two gates in a chain choose one of three build paths:
 - Starting a no-`Template` CV in Typst before the owner has picked a
   design.
 - Giving the `magazine-editor` or a reviewer anything from `private/`:
-  of the `Client`, briefs carry the `Alias`, the `Domain`, specialty and
-  `Rank` only.
+  briefs carry, of the `Client`, only the `Alias`, the `Domain`, specialty
+  and `Rank`.
 - Leaving `builds/design-review-input-*` behind: they hold a real
   `Client`'s pages outside `private/`.
 - Copying library code into the `Envelope`, or changing the engine for

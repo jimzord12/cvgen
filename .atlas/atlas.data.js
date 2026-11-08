@@ -112,7 +112,7 @@ window.ATLAS = {
     ],
     "sources": [
      ".claude/agents/design-reviewer.md:1-17",
-     ".claude/agents/design-reviewer.md:73-155"
+     ".claude/agents/design-reviewer.md:84-151"
     ],
     "short": "Design rev."
    },
@@ -4523,14 +4523,14 @@ window.ATLAS = {
   }
  ],
  "build": {
-  "builtAt": "2026-11-08 21:19 UTC",
-  "commit": "760fb01",
+  "builtAt": "2026-11-08 21:23 UTC",
+  "commit": "fea02a9",
   "kit": "1.1",
   "stale": {},
   "verified": {
    "client-journey": {
     "at": "2026-11-08",
-    "commit": "760fb01"
+    "commit": "fea02a9"
    },
    "design-run": {
     "at": "2026-11-08",
@@ -4542,11 +4542,11 @@ window.ATLAS = {
    },
    "system-map": {
     "at": "2026-11-08",
-    "commit": "760fb01"
+    "commit": "fea02a9"
    },
    "roster": {
     "at": "2026-11-08",
-    "commit": "760fb01"
+    "commit": "fea02a9"
    }
   }
  }
