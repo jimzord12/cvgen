@@ -4,7 +4,7 @@ title: 'travel-domain: Travel & Tourism, the first non-marine domain (roadmap it
 status: Active
 assignee: []
 created_date: 2026-10-06 07:25
-updated_date: '2026-11-08T10:12:00Z'
+updated_date: '2026-11-08T10:32:00Z'
 labels: []
 milestone: m-3
 dependencies: []
@@ -43,4 +43,12 @@ ordinal: 2000
 ## Approved scope (owner, 2026-11-08)
 
 P-0013 steps 3 and 4 approved: `packages/domains/travel/` with its facts model, schema, wording and `contracts/v1.json` (extends base@1: `rank` required; `destinations`, `availability`, `practical` optional), a Coverage Fixture, and the Hanami Template grown from Hanami Line 2 (the owner's pick of 2026-10-02) as its `showcase` Template Variation, with a Template Manifest. Its public example and Frozen Reference use a fictional twin (invented guide, the real CV's shape). The owner approves the Frozen Reference. Next: TASK-79 (Essential), TASK-80 (contract v2), TASK-81 (the client's CV).
+
+## Result and evidence (2026-11-08, branch feat/travel-domain, not merged)
+- Built: packages/domains/travel/ (domain, data with destination-totals, schema, contracts/v1.json, Coverage Fixture), templates/hanami/ (showcase; themes sakura, indigo, sky; Japan artwork pack; layout showcase), twin examples/candidates/tour-leader-example.json + examples/travel/hanami/tour-leader.typ, tests/travel.py and tests/fixtures/travel.typ.
+- Suite PASS (214 cases), ruff clean: builds/tests-20261108-123156-201976. Coverage: hanami showcase on coverage-v1, 8 of 9 optional groups (certificates not shown). Engineer still pixel-identical to v11; git diff main...HEAD on packages/cv-framework and packages/domains/marine is empty.
+- FROZEN REFERENCE NOT APPROVED: packages/domains/travel/templates/hanami/tests/approved/Travel-Tour-Leader-CV-v01.pdf is a candidate; the suite compares the twin with it, but the owner must approve it before merge. Not pinned in tests/baseline.json until he does. Page PNGs: builds/travel-3/reference-page-1.png, -2.png.
+- No Release PDF written (owner's go). build.ps1 now stamps a list entry's style (Hanami) instead of always Flagship.
+- Gaps: docs/framework-gaps.md 2026-11-08 (absolute placement, pre-laid petal layer, no page shell).
+- Next: review (code-reviewer, design-reviewer), owner approval of the reference.
 <!-- SECTION:NOTES:END -->
