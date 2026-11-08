@@ -6,7 +6,7 @@ title: >-
 status: Active
 assignee: []
 created_date: '2026-11-08T09:50:00Z'
-updated_date: '2026-11-08T09:52:00Z'
+updated_date: '2026-11-08T09:55:00Z'
 labels: []
 milestone: m-8
 dependencies: []
@@ -54,4 +54,23 @@ context-maintainer.md, 'Where things live', gains the four placement questions (
 | Opus at high for reviewers | 1 (frontmatter), owner's standing choice | each agent file |
 
 No case undecided. One moved from the plan: "removal needs a reason" was the tests-reviewer's (D6); question 4 puts it in the test-principles skill, because the lead removes tests too.
+
+## Review round 1 (context-reviewer): FINDINGS, dispositions
+
+Report: archive/work-records/review-agents/reviews/01-context-reviewer.md (verbatim).
+
+| # | Severity | Disposition |
+|---|---|---|
+| 1 | Material | Fixed: question 1 now excludes anything another agent that does or checks the same work also needs; the trailing paragraph shrank to the example |
+| 2 | Material | Fixed: docs/conventions.md, "Documents", points to the four questions (AGENTS.md is at 797 of 800 words, so not there) |
+| 3 | Minor | Fixed: "points to it, restating at most its essentials" |
+| 4 | Minor | Fixed: the skills row keeps CVgen workflows; question 2 names "the repository document or CVgen skill" |
+| 5 | Minor | Fixed: "Does more than one agent do or check that activity, the lead included?" |
+| 6 | Minor | Fixed: re-wrapped |
+| 7 | Note | Taken: "the more of an agent file or skill comes from question 4, the more of it can be reused" |
+| 8 | Note | The plan is revised in place until its plan review (D2), so its question 3 now says .local/preferences/ |
+| 9 | Note | Fixed: the plan's status line |
+| 10 | Note | Recorded: "Opus at high" sits in each agent file only because model and effort are set in its header; the choice itself is the owner's standing preference (question 3), restated there as a setting |
+
+Found while fixing: docs/conventions.md "Tests" already holds test rules; added to the plan's Changed table for TASK-75.
 <!-- SECTION:NOTES:END -->

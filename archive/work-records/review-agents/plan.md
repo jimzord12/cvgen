@@ -1,7 +1,7 @@
 # Plan: review-agents — a plan-reviewer, a decomposition-reviewer and a tests-reviewer
 
-Status: draft for the owner, 2026-11-08. On approval it moves to
-`archive/work-records/review-agents/plan.md` on the work's branch.
+Status: agreed with the owner 2026-11-08 in direction; revised in place on
+`feat/review-agents` until its plan review passes (D2), then kept unchanged.
 
 ## Outcome
 
@@ -43,8 +43,8 @@ work already done.
   2. Is it specific to this project? → the repository document that owns it;
      the agent file points to it.
   3. Is it about the owner as a person (preferences, how he works)? →
-     `docs/preferences.md`, or his user-level `CLAUDE.md` for every project;
-     never copied.
+     `docs/preferences.md`, or `.local/preferences/` when personal (the
+     repository's standing home for them, found during TASK-73); never copied.
   4. Generic knowledge or a convention of one activity (writing tests,
      planning): does anyone besides this agent do or check that activity? →
      the skill for that activity (a mechanical rule also gets a check in the
@@ -80,10 +80,12 @@ work already done.
   behaviour the test claims to guard, runs that one test, and records whether it
   failed. A test that survives the fault it exists to catch is a finding. No
   mutation tool is installed; this is targeted, by hand.
-- **D6. Removal needs a reason.** The tests-reviewer may call for a test's
-  removal only by naming what it fails to catch (with a deliberate fault as
-  evidence) or the test that already catches the same faults. "Useless" alone
-  is not a finding. Guards against over-correcting to "fewer tests".
+- **D6. Removal needs a reason.** A test is removed only by naming what it
+  fails to catch (with a deliberate fault as evidence) or the test that
+  already catches the same faults. "Useless" alone is not a finding. Guards
+  against over-correcting to "fewer tests". Whoever removes a test follows
+  it, the lead included, so it lives in the `test-principles` skill, not in
+  the tests-reviewer's file (D1, question 4; moved during TASK-73).
 - **D7. A script checks what has an exact answer.** `scripts/plan_check.py
   <milestone>` checks, before the decomposition-reviewer runs: the milestone
   exists (Backlog.md #919 makes virtual ones silently); every task has the
@@ -191,6 +193,7 @@ Applies to the Python suite (`tests/`) and the Bun tests in `tools/workflow/`.
 | `.claude/agents/context-maintainer.md` | "Where things live" gains the four placement questions (D1) |
 | `.claude/agents/context-reviewer.md` | Its placement check names the four questions |
 | `docs/engine/verification.md` | New section: what this suite's tests must do, beyond the `test-principles` skill it points to |
+| `docs/conventions.md` | Its "Tests" section already holds test rules (real compiler, no mocks, "a test that would pass with the feature deleted is not written"): T2 keeps the CVgen-specific ones there, moves the generic ones to the skill, and points to it (found during TASK-73). "Documents" gains the pointer to the four placement questions (TASK-73) |
 | `docs/glossary.md` | Candidate terms: `Plan`, `Impact Map`, `Deliberate Fault` (only those the text keeps using) |
 | `.claude/skills/backlog/SKILL.md` | Tasks from a reviewed decomposition: pointer to the `plan` skill |
 | `.codex/README.md` | Roles table and agent count |

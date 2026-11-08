@@ -137,6 +137,10 @@ audit (check N1) flags mixed cases inside one folder.
   it. Under about 100 lines.
 - Anything with a shape (JSON, dictionary, command) is a code block with a
   one-line brief above it.
+- A rule for agents has one home: an agent file, a skill or a repository
+  document, chosen by the four questions in
+  `.claude/agents/context-maintainer.md`, "Where things live". Read them
+  before writing an agent file or a skill.
 - Decisions go in `docs/decisions/NNNN-title.md` using the template in
   `docs/decisions/README.md`. History goes in `docs/history.md`. Neither is
   rewritten later beyond an ADR's Status line; add a new entry.
