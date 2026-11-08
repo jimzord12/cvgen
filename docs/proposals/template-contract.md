@@ -383,3 +383,5 @@ Approve, defer or reject revision 1, and answer:
   portrait is an optional choice for each `Client`. A career too long for one
   page shows its recent contracts in full and summarises the older ones with
   totals; Essential never runs to a second page.
+- 2026-11-08, owner, in session: the `docs/vision.md` wording of the
+  `scan-first` bar ("When a `Client` needs a practical one-page CV…") confirmed.
