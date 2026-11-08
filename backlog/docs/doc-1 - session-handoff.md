@@ -9,23 +9,24 @@ created_date: '2026-10-06 07:25'
 
 Rewritten in place at the end of every session; the first thing a fresh session reads after AGENTS.md. Holds only what no task owns: what is next, parked owner decisions, machine facts, pitfalls. Task state stays in the tasks in `backlog/tasks/`.
 
-**Written:** 2026-11-04, P-0019 session (Claude Code).
-**Main at:** the merge of feat/deck-data plus `0775dac`. Suite PASS on `feat/template-contract`, 203 cases.
+**Written:** 2026-11-08, owner-answers session (Claude Code). Stopped by the owner: next he refactors the backlog tasks into milestones.
+**Main at:** `656f336`. Two branches wait to merge, both pushed.
 
 ## Where things stand
-- Task store: Backlog.md in `backlog/` (ADR 0014). The CLI is installed on this machine now.
-- P-0019 is approved. Merged: the Report Template (`scripts/report.py`, `studio/brand/report/`), Decision Grades, the vision and constitution changes, ADR 0016, TASK-3.
-- `feat/template-contract` (worktree `.worktrees/template-contract`, pushed, not merged) holds TASK-63, 64, 65 and part of 66. Code round 1 and context round 1 are answered; both need a round 2 before merge. The context round's point on ADR 0016's Consequences line stays as it is: an accepted ADR's text is not edited, and P-0019's Decisions records the move to Stage 2.
-- Real marine records pass the new checks (both are custom compositions); the travel client has no contract.
+- Task store: Backlog.md in `backlog/` (ADR 0014). The CLI is installed on this machine.
+- P-0019 is approved. Merged: the Report Template, Decision Grades, the vision and constitution changes, ADR 0016, TASK-3.
+- The owner answered the 2026-11-04 report (2026-11-08): Essential is not tied to a `Rank`, the operator chooses it when a `Client` needs a practical one-page CV; the portrait is optional per `Client`; long careers show recent contracts plus totals, never a second page; deleting files Git holds during approved work is Major, files Git does not hold are listed for him; merged branches and worktrees go once checked. Recorded on `docs/owner-answers-1108` (preferences, vision, git-workflow, P-0019 Decisions, TASK-67, Atlas). Context review: round 1 and 2 FINDINGS, round 2 fixes applied in `e5d0f28`; a round 3 confirmation is owed before merge. Reports verbatim in `archive/work-records/owner-answers-1108/reviews/`.
+- `feat/template-contract` (worktree `.worktrees/template-contract`, head `a35c291`): code review round 2 PASS, its Minor findings fixed, suite PASS 203 cases (`builds/tests-20261108-105311-691907` there). Still owed before merge: a `context-reviewer` round 2 on Stage 1's doc changes, and the EDITED anchors `bun run anchors main` lists (new-cv skill, client-workflow guide). Deferred notes in TASK-65.
+- Merged branches `feat/deck-data`, `feat/report-template`, `docs/p0019-*` and their worktrees are deleted; the worktrees' evidence is in `builds/from-worktree-*`.
+- `scripts/board.py` is untracked and not from this session; left alone.
 
 ## Next
-1. Round 2 reviews on `feat/template-contract`, then merge and close TASK-63, 64, 65.
-2. `builds/deep-research/reports/marine-crewing-cv-expectations.md` needs a `research-reviewer` PASS before it enters `docs/research/`. Its evidence is employer forms; nearly all other advice is vendors'.
-3. TASK-67, Essential's design, after the owner answers the report's cards: who it is for, the photo, long careers. It must say what authorises a brief to name the `scan-first` bar before he approves, and update idea-run and `docs/workflow/05-design`. TASK-66's choice step comes with it.
-4. Owner decides: whether refactors may delete files (the Critical row), and cleanup of merged branches and worktrees, which the auto-mode check blocked.
-5. TASK-60, 61, 62 are still ready; TASK-2 waits on P-0013.
-6. Review reports for the Report Template, P-0019, TASK-3 and Stage 1 are summaries, not verbatim as `docs/review.md` asks. The owner knows. Store verbatim from now on.
-7. Constitution section 6 names marine totals as months, vessels and companies; contracts are now one too. The rule holds; the wording is the owner's.
+1. Wait for the owner's milestone refactor of the backlog.
+2. Context round 3 on `docs/owner-answers-1108`, then merge.
+3. Context round 2 on `feat/template-contract`, read the EDITED anchors, merge, close TASK-63, 64, 65.
+4. `builds/deep-research/reports/marine-crewing-cv-expectations.md` needs a `research-reviewer` PASS before it enters `docs/research/`.
+5. TASK-67, Essential's design, with TASK-66's choice step.
+6. TASK-60, 61, 62 ready; TASK-2 waits on P-0013. Constitution section 6's totals wording is the owner's.
 
 ## Owner decisions parked
 - Parked reference concepts (`keep` / `maybe` in the gallery): Woodblock Road (condensed safe and stylish, spacious stylish), Stamp Rally (condensed safe, creative, stylish, spacious safe), Concourse (spacious stylish), Hanami Line v1. Stamp Rally spacious/stylish is `chosen` (built for the client).
@@ -45,4 +46,4 @@ Rewritten in place at the end of every session; the first thing a fresh session 
 - Windows cp1252 printing can fail after a successful write with Greek text; run checks with PYTHONIOENCODING=utf-8 and read the file before any retry.
 
 ## Constraints in force
-- Live owner checkpoints override older broad cleanup permissions: explicit confirmation before deletions, overwrites, directory removals, generated/cache cleanup or discarding work; destructive Git also requires it. Routine reads, targeted edits, new outputs, verification and non-destructive Git remain authorized.
+- Deletions follow the Decision Grades in `docs/preferences.md` (owner, 2026-11-08). The auto-mode safety check may still block a deletion the rules allow: report it, never work around it.
