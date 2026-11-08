@@ -4,7 +4,7 @@ title: 'travel-contract-v2: the travel Domain Contract version 2'
 status: Active
 assignee: []
 created_date: '2026-11-08T10:07:00Z'
-updated_date: '2026-11-08T11:00:00Z'
+updated_date: '2026-11-08T11:09:00Z'
 labels: []
 milestone: m-3
 dependencies: []
@@ -62,4 +62,11 @@ Agents' choice (Major, owner 2026-11-08: "think of something the domain might ne
 - essential should claim (upTo 2): its v1 optional groups, destinations@1, destinations@2, licences@1 if it shows a licence; not travel-story@1 (dropped with a warning).
 - Anchors: glossary citations checked by hand against their terms after the two merges (the anchors tool double-counts a row both branches added); render.py spans updated to 102-213 and 192-209.
 - Suite builds/tests-20261108-125912-962608 (25 passed, 238 compilations); ruff clean; build builds/library-20261108-130031-831.
+
+## Round 3 (2026-11-08): merged feat/travel-domain 54cbd2c (TASK-2 round 2)
+- v2 Coverage Fixture rebuilt from the new v1 fixture; markers follow the no-marker-inside-another rule (new trips Qxspringtrip/Qxwintertrip, kinds Qxsolojourney/Qxfamilyjourney, stops Qxhillstop/Qxlakestop, licence region Qxvalidzone; route markers ZQA/ZQB under travel-story).
+- Twin: TASK-2's new facts plus domainContract 2, both trips organised, the fictional licence. Page 2 had no slack left, so with a licence the gap under the studies heading shrinks from 4.4 to 2.6 mm and the licence line's gap below from 2.8 to 1.6 mm (a licence beside availability on page 1 was tried and ran into the fixed petal layer). Frozen Reference candidate regenerated, not yet approved.
+- Glossary citations in the Workflow Model checked by hand against their terms; anchors main still reports false MOVED lines for rows both branches shifted; never --fix them.
+- First suite run failed on a transient jsonschema/attrs import error in the shared .venv (outputs.py stamp); the rerun passed.
+- Suite builds/tests-20261108-130825-559180 (25 passed, 242 compilations); ruff clean; build builds/library-20261108-130917-160.
 <!-- SECTION:NOTES:END -->
