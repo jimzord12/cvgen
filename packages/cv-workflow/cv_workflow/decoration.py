@@ -14,6 +14,8 @@ MM = 25.4 / 72
 PETALS = DOMAINS / 'travel/assets/japan'
 # The Templates that draw the petal layer.
 PETAL_TEMPLATES = {'hanami'}
+# The Template Variations of those Templates that draw it: Hanami essential has no petals in flight (TASK-79).
+PETAL_VARIATIONS = {'hanami': {'showcase'}}
 PETAL = re.compile(r"<g transform='translate\(([-\d.]+),([-\d.]+)\) rotate\(([-\d.]+)\) skewX\(([-\d.]+)\) scale\(1,([-\d.]+)\)' "
                    r"opacity='[\d.]+'(?: filter='url\(#blur(\d)\)')?><path d='([^']+)' transform='translate\(0,([-\d.]+)\)'")
 
@@ -58,13 +60,14 @@ def petal_collisions(pdf, art=PETALS):
     return found
 
 
-def decoration_errors(pdf, template):
-    """The check errors for a rendered PDF of `template`: one per word a petal lies on.
+def decoration_errors(pdf, template, variation=None):
+    """The check errors for a rendered PDF of `template` and `variation`: one per word a petal lies on.
 
-    Only a named Template is checked. A custom composition (no template in the choice) may draw no petals,
-    so checking it against Hanami's layer would report words that nothing covers.
+    Only a named Template is checked, and only a Template Variation that draws the petal layer (None is
+    checked, as the Template's default). A custom composition (no template in the choice) or Hanami
+    essential draws no petals, so checking it against Hanami's layer would report words nothing covers.
     """
-    if template not in PETAL_TEMPLATES:
+    if template not in PETAL_TEMPLATES or (variation is not None and variation not in PETAL_VARIATIONS[template]):
         return []
     try:
         found = petal_collisions(pdf)

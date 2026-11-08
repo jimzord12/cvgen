@@ -415,6 +415,8 @@ def main():
     # domain's totals; and every way it cannot fit fails loudly instead of shrinking or running to a second page.
     essential = listed['tour-leader-essential']
     essential_result = check_case(essential, ROOT / HANAMI / 'tests/approved/Travel-Tour-Leader-CV-Essential-v01.pdf', pages=1)
+    # essential draws no petals in flight, so the render's petal check leaves it alone
+    assert decoration_errors(essential, 'hanami', 'essential') == [] and decoration_errors(twin, 'hanami', 'showcase') == []
     assert essential_result['passed'], essential_result
     with fitz.open(essential) as doc:
         assert (doc.metadata['title'], doc.metadata['author']) == ('Andreas Kalamaris | Tour Leader | CVgen', 'CVgen'), doc.metadata
