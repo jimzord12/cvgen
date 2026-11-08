@@ -35,7 +35,7 @@ are labels: a headline of about six words, a card title of about five.
 | `meters` | Rings: `label`, `value`, optional `of`, optional `tone` (`ok`, `wait`, `stop`, `thread`). A ring closes and stays green only at the full count |
 | `stages` | The stitch path: `label`, `state` (`done`, `active`, `waiting`, `blocked`) |
 | `needs_you` | Decision cards the owner clicks: `title`; optional `figures`, the ids of the pictures the card is about; `options`, two to four, each `label`, optional `detail`, and `recommended: true` on exactly one (it gets the star); and the fold-outs, one to six sentences each: `context` (the refresher), `decision` (what is being decided), optional `example`. His picks fill a box with a copy button, ready to paste to an agent; a second click clears a pick, and Pick the rest never overwrites one |
-| `evidence` | Rendered pages, each with an `id` of one to four letters or digits (`A`), shown as "Figure A": `kind` `page` with `src`, `caption`; or `compare` with `before`, `after`, `before_label`, `after_label`, `caption`. A picture is an image path from the repository root, or `{"pdf": path, "page": n}` (`page` counts from 1, default 1) |
+| `evidence` | Rendered pages, each with an `id` that is a number from 1 to 999 (`"1"`, or `1`), shown as "Figure 1"; number them in the order the page first cites them: `kind` `page` with `src`, `caption`; or `compare` with `before`, `after`, `before_label`, `after_label`, `caption`. A picture is an image path from the repository root, or `{"pdf": path, "page": n}` (`page` counts from 1, default 1) |
 | `reviews` | Bars per gate: `name`, `cap`, `rounds`, each with `verdict` (`findings`, `pass`, `running`), `hard` (blocking findings) and `soft` (all others) |
 | `decisions` | What the agent decided alone, grouped by `Decision Grade`: `grade` (`Minor`, `Major`), `title`, `why` (one or two sentences), optional `figures` |
 | `changes` | Stitched bars, longest first: `area`, optional `what` (what that area is), `lines` |
@@ -45,8 +45,11 @@ Where a picture goes follows from `figures`, and the script decides it. A
 picture that one `needs_you` card alone cites sits inside that card, beside its
 options. Any other picture stays under Figures, below the cards, named above
 it with links back to each item that cites it; each of those items carries a
-"Figure A" link with the start of the caption, its arrow pointing the way to
+"Figure 1" link with the start of the caption, its arrow pointing the way to
 scroll. Every picture, in a card or under Figures, has an Enlarge button that
-opens it full size (a comparison opens with its slider). Cite every picture a
+opens it full size (a comparison opens with its slider). A comparison always
+opens on the new version (the thumbnail shows only the new one; the slider
+shows the old one as a sliver at the left edge), because a slider opening on
+the old page hides the very change it asks about. Cite every picture a
 card asks about or a decision shows; the script refuses an id that no picture
 holds, or one item citing an id twice.

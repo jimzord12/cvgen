@@ -38,9 +38,10 @@ SECTIONS = (('meters', ('label', 'value'), {'tone': ('ok', 'wait', 'stop', 'thre
             ('reviews', ('name', 'cap', 'rounds'), {}),
             ('decisions', ('grade', 'title', 'why'), {'grade': ('Minor', 'Major')}),
             ('changes', ('area', 'lines'), {}))
-NOT_TEXT = ('value', 'options', 'cap', 'rounds', 'lines')
-# A figure's id is its short name on the page ("Figure A"); cards and decisions cite it in `figures`.
-FIGURE_ID = re.compile(r'[A-Za-z0-9]{1,4}')
+NOT_TEXT = ('value', 'options', 'cap', 'rounds', 'lines', 'id')
+# A figure's id is its short name on the page ("Figure 1"): a number, because the owner finds numbers
+# easier than letters (2026-11-08). Cards and decisions cite it in `figures`; 1 and "1" are the same.
+FIGURE_ID = re.compile(r'[1-9][0-9]{0,2}')
 CITERS = ('needs_you', 'decisions')
 EVIDENCE = {'page': ('src',), 'compare': ('before', 'after', 'before_label', 'after_label')}
 MEDIA = {'.png': 'image/png', '.jpg': 'image/jpeg', '.jpeg': 'image/jpeg', '.svg': 'image/svg+xml', '.webp': 'image/webp'}
@@ -91,6 +92,22 @@ def picture_paths(data):
                 yield item[key].get('pdf', '') if isinstance(item[key], dict) else item[key]
 
 
+def normalise(data):
+    """Figure ids and citations as text: a bare JSON whole number reads as its digits (1 is "1"); anything
+    else is left for `refusal` to judge. Changes `data` in place and returns it; running it twice is harmless."""
+    if not isinstance(data, dict):
+        return data
+    number = lambda x: str(x) if isinstance(x, int) and not isinstance(x, bool) else x  # noqa: E731
+    for item in data.get('evidence', []) if isinstance(data.get('evidence'), list) else []:
+        if isinstance(item, dict) and 'id' in item:
+            item['id'] = number(item['id'])
+    for field in CITERS:
+        for item in data.get(field, []) if isinstance(data.get(field), list) else []:
+            if isinstance(item, dict) and isinstance(item.get('figures'), list):
+                item['figures'] = [number(name) for name in item['figures']]
+    return data
+
+
 def refusal(data, fragment=False, source=''):
     """What is wrong with the report's data, or None. A section that passes here renders; the page has no error state."""
     if not isinstance(data, dict):
@@ -125,8 +142,8 @@ def refusal(data, fragment=False, source=''):
         for key in EVIDENCE[item['kind']]:
             if not item.get(key):
                 return f'evidence: a {item["kind"]} needs {key}'
-        if not FIGURE_ID.fullmatch(item['id']):
-            return f'evidence: id {item["id"]!r} must be one to four letters or digits, such as A'
+        if not isinstance(item['id'], str) or not FIGURE_ID.fullmatch(item['id']):
+            return f'evidence: id {item["id"]!r} must be a number from 1 to 999, such as 1'
         if item['id'] in figures:
             return f'evidence: two figures share the id {item["id"]!r}'
         figures.append(item['id'])
@@ -183,7 +200,7 @@ def placement(data):
 
 
 def build(data, fragment, root=ROOT):
-    data['placement'] = placement(data)
+    data['placement'] = placement(normalise(data))
     for item in data.get('evidence', []):
         for key in ('src', 'before', 'after'):
             if key in item:
@@ -211,7 +228,7 @@ def main():
     out = folder / 'report.html'
     try:
         data = json.loads(args.data.read_text(encoding='utf-8'))
-        problem = refusal(data, args.fragment, args.data.resolve())
+        problem = refusal(normalise(data), args.fragment, args.data.resolve())
         if problem:
             sys.exit(f'report: {problem}')
         page = build(data, args.fragment).encode('utf-8')
