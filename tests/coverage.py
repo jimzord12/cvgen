@@ -206,7 +206,9 @@ def run_coverage(out, typst, flags):
     shapes = ['profile@1', 'education@1', 'languages@1', 'portrait@1', 'availability@1', 'practical@1', 'references@1']
     travel_design = {'default': 'calm', 'variations': {
         'calm': {'supports': {'travel': {'upTo': 1, 'groups': shapes}}},
-        'plain': {'supports': {'travel': {'upTo': 2, 'groups': shapes}}}}}
+        'plain': {'supports': {'travel': {'upTo': 2, 'groups': shapes}}},
+        # What a one-page Variation such as `essential` claims: the trips and their roles, licences, no travel-story.
+        'brief': {'supports': {'travel': {'upTo': 2, 'groups': [*shapes, 'destinations@1', 'destinations@2', 'licences@1']}}}}}
 
     def on(name, record):
         source = f'#import "/packages/domains/travel/lib.typ": hanami\n#show: hanami.with(candidate: record, variation: "{name}")'
@@ -219,15 +221,22 @@ def run_coverage(out, typst, flags):
     nowhere = {k: v for k, v in tour.items() if k != 'destinations'}
     for name in ('calm', 'plain'):
         refused(lambda name=name: on(name, nowhere), 'candidate.json has no destinations, required by the travel contract')
-    assert on('plain', tour) == ({'template': 'hanami', 'variation': 'plain', 'domain_contract': 2, 'dropped': ['licences']},
-                                 ['hanami plain does not show licences: this CV leaves those facts out'])
+    assert on('plain', tour) == ({'template': 'hanami', 'variation': 'plain', 'domain_contract': 2, 'dropped': ['travel-story', 'licences']},
+                                 [f'hanami plain does not show {name}: this CV leaves those facts out' for name in ('travel-story', 'licences')])
+    # travel-story (route, seals, stamps, the story) is optional at version 2, so a Variation without room for it drops it.
+    assert on('brief', tour) == ({'template': 'hanami', 'variation': 'brief', 'domain_contract': 2, 'dropped': ['travel-story']},
+                                 ['hanami brief does not show travel-story: this CV leaves those facts out'])
+    assert on('brief', older) == ({'template': 'hanami', 'variation': 'brief', 'domain_contract': 1, 'dropped': []}, [])
     assert on('plain', older)[0]['dropped'] == [] and not on('plain', older)[1]
     # What `cv.py contracts` says of each: showcase renders both versions; calm is one behind.
     assert describe(compatibility('travel', 'hanami', 'calm', travel_design['variations']['calm'])) == [
-        'hanami calm on travel: renders version 1, newest 2; 7 of 9 optional groups at version 2',
+        'hanami calm on travel: renders version 1, newest 2; 7 of 10 optional groups at version 2',
         '  1 version behind: a version 2 record can stop the render',
         '  - destinations changed (schemaVersion 1 to 2): error',
-        '  - licences is a new optional group by version 2: warning']
+        '  - licences is a new optional group by version 2: warning',
+        '  - travel-story is a new optional group by version 2: warning']
+    assert describe(compatibility('travel', 'hanami', 'brief', travel_design['variations']['brief'])) == [
+        'hanami brief on travel: renders version 1 to 2, newest 2; 8 of 10 optional groups at version 2']
     # An expired licence is a loud Certificate Warning at render, never a failure (owner, 2026-09-25).
     expiry = check_certificates({**tour, 'licences': [{'title': 'A', 'issuer': 'B', 'until': '1 Jan 2026'},
                                                        {'title': 'C', 'issuer': 'D', 'until': '30 Jan 2027'}, {'title': 'E', 'issuer': 'F'}]},
@@ -237,5 +246,5 @@ def run_coverage(out, typst, flags):
         'Licence "C" expires on 30 Jan 2027, in 83 days (within 180). Check the candidate has booked the renewal.'] and expiry['date_checked'] == 2, expiry
     assert check_certificates(tour, today=date(2026, 11, 8))['warnings'] == []
     checks.append('travel version 2: a version 1 record renders, a version 2 record is refused below version 2 and without '
-                  'destinations, licences dropped where not claimed')
+                  'destinations, travel-story and licences dropped where not claimed')
     return checks

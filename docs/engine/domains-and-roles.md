@@ -87,7 +87,10 @@ The travel facts (`schema/candidate.schema.json`, `data.typ`) follow
 requires `destinations`, with each trip's `Trip Role` (`role`: `led`,
 `organised` or `travelled`) and the optional `licences` (`title`, `issuer`,
 `region`, `until`); a version 1 record holds neither, and `data.typ` refuses
-either on it. The words for a role and a licence are the domain's `copy`
+either on it. The record's shape is the same in both versions otherwise; the
+version 2 contract only groups it differently, with the route, the region's
+script and seal words, the trip stamps and the story in the optional
+`travel-story` group. The words for a role and a licence are the domain's `copy`
 (`role-led`, `role-organised`, `role-travelled`, `licence`, `valid-until`).
 The rules are in `template-contract.md`, "Domain Contracts".
 

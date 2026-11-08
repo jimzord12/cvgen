@@ -59,7 +59,15 @@ the worked example of the rules above:
   field is required within the group, a new required field, so the
   `schemaVersion` rises; the path `destinations.trips.*.role` names it.
   Recruiters weigh a led group, and a self-organised trip must never read as
-  one.
+  one. At version 2 the group holds only what every travel CV must show: the
+  region, each trip's period, length, kind, role and stops, and the areas known
+  (the totals come from them).
+- `travel-story` is a new optional group at `schemaVersion` 1 with the telling
+  of the trips: the route (`destinations.route`), the region's name in its own
+  script and its seal words (`native`, `seal`), each trip's `stamp` and the trip
+  `story`. In version 1 these were part of `destinations`; split out, a one-page
+  `Template Variation` with no room for them still renders the required group,
+  and drops them with a warning.
 - `licences` is a new optional group at `schemaVersion` 1: official
   tour-leader or guide licences, each with a `title` and `issuer`, and an
   optional `region` and `until` ("14 Jul 2029"). A date in `until` is read at
@@ -83,12 +91,15 @@ names. Required groups follow from the version. A `Template Variation` is never
 required to name the newest version.
 
 ```json
-"supports": { "travel": { "exactly": [1, 2], "groups": ["destinations@1", "destinations@2", "licences@1"] } }
+"supports": { "travel": { "exactly": [1, 2], "groups": ["destinations@1", "destinations@2", "travel-story@1", "licences@1"] } }
 ```
-Hanami `showcase` declares exactly that line, as `upTo: 2`: it renders both
-shapes of `destinations` (no role on a version 1 trip, a role label beside a
-version 2 trip's length) and shows a licence above the studies. A Variation
-that stays at version 1 renders no version 2 record (next section).
+Hanami `showcase` declares that line, as `upTo: 2`, beside its other groups: it
+renders both shapes of `destinations` (no role on a version 1 trip, a role label
+beside a version 2 trip's length), the route, stamps and story, and a licence
+above the studies. A required group may be claimed too, to say which shapes the
+Variation renders. A one-page Variation would claim the same without
+`travel-story@1`. A Variation that stays at version 1 renders no version 2
+record (next section).
 
 A `Template Variation` inherits and never copies; it declares only what differs,
 and its `designBar` is set when the owner approves the design.
@@ -150,8 +161,8 @@ On travel, a version 2 record on a `Template Variation` up to version 1 is
 always refused: `destinations` is required there and changed shape, so a
 record with destinations meets `destinations changed (schemaVersion 1 to 2)`
 and one without them misses a required group. A Variation that renders
-version 2 and does not claim `licences@1` drops a record's licences with a
-warning.
+version 2 and does not claim `travel-story@1` or `licences@1` drops those facts
+with a warning.
 
 `python scripts/cv.py contracts` (`--json` for the data) prints each `Template
 Variation` against its `Domain`s' newest contract: the versions it renders, how

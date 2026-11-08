@@ -242,7 +242,8 @@ Windows one also holds the PDFs that build wrote, one per example in
    template may draw small rasters of its own. Travel at version 2: a version 1
    record renders on showcase; a version 2 record is refused on a `Template
    Variation` up to version 1 (destinations is required and changed shape); a
-   version 2 Variation that does not claim licences drops them with a warning;
+   version 2 Variation that does not claim travel-story or licences drops them
+   with a warning;
    an expired or soon-expiring licence is a `Certificate Warning`. Each
    Variation's place against its `Domain`'s newest contract (behind, never a
    failure) is in `coverage/compatibility.txt`; every `Domain`'s kept contracts
