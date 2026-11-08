@@ -47,6 +47,9 @@ options. Any other picture stays under Figures, below the cards, named above
 it with links back to each item that cites it; each of those items carries a
 "Figure 1" link with the start of the caption, its arrow pointing the way to
 scroll. Every picture, in a card or under Figures, has an Enlarge button that
-opens it full size (a comparison opens with its slider). Cite every picture a
+opens it full size (a comparison opens with its slider). A comparison always
+opens on the new version (the thumbnail shows only the new one; the slider
+shows the old one as a sliver at the left edge), because a slider opening on
+the old page hides the very change it asks about. Cite every picture a
 card asks about or a decision shows; the script refuses an id that no picture
 holds, or one item citing an id twice.
