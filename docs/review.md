@@ -88,6 +88,13 @@ reviewed by a fresh `plan-reviewer` until PASS before its tasks are created
 severities, caps and storage are this file's (below), the report stored as
 `reviews/NN-plan-reviewer.md` beside the plan. A revision that changes a
 reviewed plan's outcome, scope or sequencing goes back for another round.
+A plan for work that is hard to undo (a migration, a published change, a
+contract other work depends on) gets two independent `plan-reviewer`s in
+each round, stored as `NN-plan-reviewer-a.md` and `-b.md`; the round passes
+when neither report holds an unresolved Blocking or Material finding. One
+reviewer's run is not deterministic: two runs on the same plan found
+different real gaps (calibration, 2026-11-08,
+`archive/work-records/review-agents/calibration/`).
 
 The brief: the goal in the owner's words and its source (task, proposal or
 brief), the plan path at an exact commit, the round number and earlier

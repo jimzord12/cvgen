@@ -6,7 +6,7 @@ title: >-
 status: Active
 assignee: []
 created_date: '2026-11-08T09:50:00Z'
-updated_date: '2026-11-08T09:57:00Z'
+updated_date: '2026-11-08T10:12:00Z'
 labels: []
 milestone: m-8
 dependencies:
@@ -34,3 +34,14 @@ A plan skill (generic plan template and plan checklist), the plan-reviewer agent
 - [ ] #3 Known-answer run on archive/work-records/backlog-migration/plan.md recorded, then a run on the review-agents plan before TASK-75 starts
 - [ ] #4 context-reviewer PASS
 <!-- AC:END -->
+
+## Implementation Notes
+
+<!-- SECTION:NOTES:BEGIN -->
+## Calibration (AC 3, first half)
+
+- 01 (archive/work-records/review-agents/calibration/01-...): the backlog-migration plan against the repository at 1e684eb, answer key of four procedure gaps found later. 0 of 4; three other real gaps found that five rounds of the earlier plan review missed (two confirmed by later events). Diagnosis: the map traces files, never walks a new routine.
+- Change: plan skill question 12 "Procedures" and a plan-reviewer step to walk each routine (e321f3c).
+- 02: about 2 of 4 (child-task Done found; stale main and live sessions partly; combined filters missed). Weak evidence: question 12 was written knowing the key. One confirmed gap from run 01 (the wrong review gate) was lost in run 02, so a single run varies: docs/review.md now asks for two independent plan-reviewers for a plan that is hard to undo.
+- Still open: a held-out calibration on a plan whose later gaps the lead has not read, before AC 3 is checked; then the review of the review-agents plan itself.
+<!-- SECTION:NOTES:END -->
