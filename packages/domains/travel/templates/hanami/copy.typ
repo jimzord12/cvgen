@@ -11,4 +11,6 @@
   // essential (one page): its section titles, the words of its totals and the earlier roles' summary
   education: "Education", languages: "Languages", destinations: "Destinations", contacts: "Contacts",
   place: "place", places: "places", earlier: "Earlier roles",
+  // a licence's month, in the page's words (the record stores "31 Mar 2029")
+  months: ("Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"),
 )

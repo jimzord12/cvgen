@@ -14,12 +14,14 @@
   days: "ημέρες", place: "τόπος", places: "τόποι", known: "Γνωρίζει καλά", passed: "Στάση στη διαδρομή",
   earlier: "Παλαιότερες θέσεις", licence: "Άδεια", valid-until: "Ισχύει έως",
   role-led: "Οδήγησε την ομάδα", role-organised: "Οργάνωσε", role-travelled: "Ταξίδεψε",
+  months: ("Ιαν", "Φεβ", "Μαρ", "Απρ", "Μαΐ", "Ιουν", "Ιουλ", "Αυγ", "Σεπ", "Οκτ", "Νοε", "Δεκ"),
 )
 #let job = raw.experience.at(0)
 // A Greek record proves Greek capitals (no accents, tracked) fit the band, the tab and the labels:
 // the record's own words are data, so the fixture translates them.
 #let greek-record = (..raw,
-  identity: (..raw.identity, name: "Ανδρέας Καλαμάρης", rank: "Αρχηγός ομάδας", specialty: "Ειδικός στην Ιαπωνία"),
+  identity: (..raw.identity, name: "Ανδρέας Καλαμάρης", rank: "Αρχηγός ομάδας", specialty: "Ειδικός στην Ιαπωνία",
+    seal: ("Σεμινάριο αρχηγών", "TTI", "2024")),
   contacts: (
     left: (("Έδρα", "Θεσσαλονίκη"), ("Τηλέφωνο", "+30 699 000 0471"), ("Email", "andreas.kalamaris@example.com")).map(((l, v)) => (label: l, value: v)),
     right: (("Ημερομηνία γέννησης", "18 Αυγούστου 1999"), ("Υπηκοότητα", "Ελληνική"), ("Ιαπωνικά", "JLPT N3")).map(((l, v)) => (label: l, value: v)),

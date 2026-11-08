@@ -12,7 +12,7 @@
   // page's left edge, y from its top.
   profile: (y: 58mm),
   // the fields start at y, or lower when the profile row needs it, never below latest
-  main: (x: 16mm, y: 85mm, latest: 96mm, width: 113mm, bottom: 279mm),
+  main: (x: 16mm, y: 85mm, latest: 98mm, width: 113mm, bottom: 279mm),
   rail: (x: 141mm, y: 85mm, width: 53mm, bottom: 281mm, panel: 135mm),
   pages: 1,
 )

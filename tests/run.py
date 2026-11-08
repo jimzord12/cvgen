@@ -408,6 +408,8 @@ def main():
                        # contract version 2: the licence beside the lead, each trip's role, the areas; the seal words of the rank
                        'LICENCE · VALID UNTIL 31 MAR 2029', 'Tour Leader Licence', 'ORGANISED', 'Knows well', 'TOUR LEADER COURSE · TTI · 2024']:
             assert phrase in text, phrase
+        # the rail is full, so the licence sits beside the lead, above the highlights
+        assert doc[0].search_for('LICENCE · VALID UNTIL')[0].y1 < doc[0].search_for('Two trips')[0].y0
         # first-scan order: the name, then each role's title before its employer and dates, then education
         order = [text.index(p) for p in ['ANDREAS KALAMARIS', 'Travel Consultant', 'Intern, Airline Reservations Desk', 'Education']]
         assert order == sorted(order), order
@@ -426,7 +428,9 @@ def main():
         # the record's own words in Greek too: capitals without accents fit the band, the tab and the labels
         assert all(w in text for w in ['ΑΝΔΡΕΑΣ ΚΑΛΑΜΑΡΗΣ', 'ΑΡΧΗΓΟΣ ΟΜΑΔΑΣ', 'ΗΜΕΡΟΜΗΝΙΑ ΓΕΝΝΗΣΗΣ', 'ΔΙΑΘΕΣΙΜΟΣ ΟΛΟ ΤΟΝ ΧΡΟΝΟ',
                                        'ΓΙΑ ΠΑΡΑΔΕΙΓΜΑ', 'Εμπειρία', 'Σπουδές', 'ΓΛΩΣΣΕΣ', '03/2022 – σήμερα',
-                                       '2 ταξίδια · 30 ημέρες · 14 τόποι']), text
+                                       '2 ταξίδια · 30 ημέρες · 14 τόποι', 'ΣΕΜΙΝΑΡΙΟ ΑΡΧΗΓΩΝ · TTI · 2024',
+                                       # the licence's month in the page's words, and each trip's role label whole
+                                       'ΑΔΕΙΑ · ΙΣΧΥΕΙ ΕΩΣ 31 ΜΑΡ 2029', 'ΟΡΓΑΝΩΣΕ']), text
     with fitz.open(out / 'travel-essential-long-career' / 'travel-essential-long-career.pdf') as doc:
         text = ' '.join(doc[0].get_text().split())
         # education moves to the rail, so five roles stay in full; the three older ones are one summary whose
@@ -437,6 +441,10 @@ def main():
         page = doc[0]
         rail_x = min(b[0] for b in page.search_for('LANGUAGES'))
         assert min(b[0] for b in page.search_for('EDUCATION')) >= rail_x - 1 and '02 Education' not in text
+        # the rail has room for the licence, so it heads the rail above availability (the twin's sits beside the lead)
+        licence = page.search_for('LICENCE · VALID UNTIL 30 JUN 2028')[0]
+        assert licence.x0 >= rail_x - 4 and licence.y0 < page.search_for('AVAILABLE FROM APRIL 2027')[0].y0, licence
+        assert 'LED THE GROUP' in text
     for mode, message in [('overflow', 'Hanami essential: even the newest role alone overflows the career column'),
                           ('unsorted', 'the experience must be listed newest first'),
                           ('long-name', 'Hanami essential: the name is wider than the band'),

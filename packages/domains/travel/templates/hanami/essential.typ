@@ -37,8 +37,10 @@
 
 // The rail's parts in order; education joins them, before the references, when the career needs
 // the whole column.
-#let rail-parts(ctx, d, totals, with-education) = {
+#let rail-parts(ctx, d, totals, with-education, with-licences) = {
   let list = ()
+  // the licences head the rail, above availability: the two red-ruled callouts as one group
+  if with-licences and d.licences.len() > 0 { list.push(parts.licences(ctx, d.licences)) }
   if d.availability != none { list.push(parts.availability(ctx, d.availability)) }
   if d.languages.len() > 0 { list.push({ parts.rail-title(ctx, ctx.copy.languages); parts.languages(ctx, d.languages) }) }
   if d.destinations != none { list.push({ parts.rail-title(ctx, ctx.copy.destinations); parts.destinations(ctx, d.destinations, totals) }) }
@@ -56,24 +58,30 @@
   let totals = if d.destinations == none { none } else { (domain.totals)(d.destinations) }
   parts.band(ctx, d)
 
-  // The profile row: the lead statement with the licences beside it over the rail (contract version 2,
-  // a credential read with the name), then the highlights. The fields below start at the layout's
-  // place, or lower when the licences make the row taller, but never below `latest`.
+  // The profile row: the lead statement, then the highlights. The licences head the rail; only when
+  // the rail cannot hold them do they sit beside the lead, and then the fields start 8 mm under the
+  // row, so 4 mm of paper stays above the panel's 4 mm bleed, but never below `latest`.
   let has-profile = d.profile != "" or d.highlights.len() > 0 or d.licences.len() > 0
-  let row = block(width: 178mm, {
+  let row(with-licences) = block(width: 178mm, {
     let lead = if d.profile != "" { parts.lead(ctx, d.profile) }
-    if d.licences.len() > 0 {
+    if with-licences and d.licences.len() > 0 {
       grid(columns: (L.main.width, 1fr), column-gutter: L.rail.x - L.main.x - L.main.width, lead, parts.licences(ctx, d.licences))
     } else { lead }
-    if (d.profile != "" or d.licences.len() > 0) and d.highlights.len() > 0 { v(3.4mm) }
+    if (d.profile != "" or (with-licences and d.licences.len() > 0)) and d.highlights.len() > 0 { v(3.4mm) }
     if d.highlights.len() > 0 { parts.highlights(ctx, d.highlights) }
   })
-  if has-profile { at(L.main.x, L.profile.y, row) }
 
   context {
-    let y0 = if has-profile { calc.max(L.main.y, L.profile.y + measure(row).height + 5mm) } else { L.profile.y }
+    let start(r, clear) = if has-profile { calc.max(L.main.y, L.profile.y + measure(r).height + clear) } else { L.profile.y }
+    let rail-room(y) = L.rail.bottom - y - 4mm
+    let rail-height(with-education, with-licences) = measure(block(width: L.rail.width,
+      rail(rail-parts(ctx, d, totals, with-education, with-licences), least.rail))).height
+    // the licences on the rail when it holds them, else beside the lead
+    let on-rail = d.licences.len() == 0 or rail-height(false, true) <= rail-room(start(row(false), 5mm))
+    let y0 = if on-rail { start(row(false), 5mm) } else { start(row(true), 8mm) }
+    if has-profile { place(top + left, dx: L.main.x, dy: L.profile.y, row(not on-rail)) }
     assert(y0 <= L.main.latest, message: "Hanami essential: the profile row overflows ("
-      + repr(measure(row).height) + "); shorten the lead statement, a licence or a highlight")
+      + repr(measure(row(not on-rail)).height) + "); shorten the lead statement, a licence or a highlight")
     // the rail's quiet panel, from the fields' top to the footer
     place(top + left, dx: L.rail.panel, dy: y0 - 4mm, rect(width: 210mm - L.rail.panel, height: L.rail.bottom - y0 + 4mm, fill: P.wash))
 
@@ -84,8 +92,7 @@
     let height(k, edu, gaps) = measure(block(width: L.main.width, career(ctx, d, k, edu, gaps))).height
     // the most roles in full that fit, with education in the column or not
     let most-roles(edu) = range(n, 0, step: -1).find(k => height(k, edu, least) <= H)
-    let rail-height(with-education) = measure(block(width: L.rail.width, rail(rail-parts(ctx, d, totals, with-education), least.rail))).height
-    let used = rail-height(false)
+    let used = rail-height(false, on-rail)
     assert(used <= R, message: "Hanami essential: the rail overflows (" + repr(used) + " > " + repr(R)
       + "); shorten the availability, a language note, a trip's stops or the practical know-how")
     // Education moves to the rail, before the references, only when the roles do not all fit beside it
@@ -94,7 +101,7 @@
     let edu = true
     if d.education.len() > 0 and (k == none or k < n) {
       let k2 = most-roles(false)
-      if rail-height(true) <= R and k2 != none and (k == none or k2 > k) { k = k2; edu = false }
+      if rail-height(true, on-rail) <= R and k2 != none and (k == none or k2 > k) { k = k2; edu = false }
     }
     assert(k != none, message: "Hanami essential: even the newest role alone overflows the career column; shorten its bullets or its support cases")
     if k < n {
@@ -108,8 +115,8 @@
     let share = if slots > 0 { (H - height(k, edu, least)) / slots } else { 0pt }
     let gaps = (role: calc.min(most.role, least.role + share), section: calc.min(most.section, least.section + share))
     at(L.main.x, y0, block(width: L.main.width, height: H, career(ctx, d, k, edu, gaps)))
-    let list = rail-parts(ctx, d, totals, not edu)
-    let rail-share = if list.len() > 1 { (R - rail-height(not edu)) / (list.len() - 1) } else { 0pt }
+    let list = rail-parts(ctx, d, totals, not edu, on-rail)
+    let rail-share = if list.len() > 1 { (R - rail-height(not edu, on-rail)) / (list.len() - 1) } else { 0pt }
     at(L.rail.x, y0, block(width: L.rail.width, height: R, rail(list, calc.min(most.rail, least.rail + rail-share))))
   }
   footer(ctx, d, 1, 1)
