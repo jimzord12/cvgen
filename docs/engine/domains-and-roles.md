@@ -84,8 +84,8 @@ and never counts the cards it shows.
 
 The travel facts (`schema/candidate.schema.json`, `data.typ`) follow
 `Domain Contract` version 1 or 2, by the record's `domainContract`. Version 2
-adds each trip's `Trip Role` (`role`: `led`, `organised` or `travelled`;
-required on every trip there) and the optional `licences` (`title`, `issuer`,
+requires `destinations`, with each trip's `Trip Role` (`role`: `led`,
+`organised` or `travelled`) and the optional `licences` (`title`, `issuer`,
 `region`, `until`); a version 1 record holds neither, and `data.typ` refuses
 either on it. The words for a role and a licence are the domain's `copy`
 (`role-led`, `role-organised`, `role-travelled`, `licence`, `valid-until`).

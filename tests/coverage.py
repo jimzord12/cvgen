@@ -199,20 +199,21 @@ def run_coverage(out, typst, flags):
         return choose({**trip, 'variation': name}, source, record, design=travel_design)
     assert on('calm', older) == ({'template': 'hanami', 'variation': 'calm', 'domain_contract': 1, 'dropped': []}, [])
     refusal = refused_text(lambda: on('calm', tour), 'hanami calm supports travel contract up to version 1; this record follows version 2:')
-    assert refusal.splitlines()[1:] == ['  destinations changed (schemaVersion 1 to 2), and this record holds it', FIX], refusal
+    assert refusal.splitlines()[1:] == ['  destinations changed (schemaVersion 1 to 2); destinations became required by version 2, '
+                                        'and this record holds it', FIX], refusal
+    # destinations is required at version 2, so a version 2 record without it is refused on every Variation:
+    # a Template Variation that stops at version 1 renders no version 2 record at all.
     nowhere = {k: v for k, v in tour.items() if k != 'destinations'}
-    assert on('calm', nowhere) == ({'template': 'hanami', 'variation': 'calm', 'domain_contract': 2, 'dropped': ['licences']}, [
-        'hanami calm does not show licences: this CV leaves those facts out',
-        'hanami calm supports travel contract up to version 1; this record follows version 2 (1 version behind); it renders: '
-        'destinations changed (schemaVersion 1 to 2); licences is a new optional group by version 2'])
+    for name in ('calm', 'plain'):
+        refused(lambda name=name: on(name, nowhere), 'candidate.json has no destinations, required by the travel contract')
     assert on('plain', tour) == ({'template': 'hanami', 'variation': 'plain', 'domain_contract': 2, 'dropped': ['licences']},
                                  ['hanami plain does not show licences: this CV leaves those facts out'])
     assert on('plain', older)[0]['dropped'] == [] and not on('plain', older)[1]
     # What `cv.py contracts` says of each: showcase renders both versions; calm is one behind.
     assert describe(compatibility('travel', 'hanami', 'calm', travel_design['variations']['calm'])) == [
-        'hanami calm on travel: renders version 1, newest 2; 7 of 10 optional groups at version 2',
+        'hanami calm on travel: renders version 1, newest 2; 7 of 9 optional groups at version 2',
         '  1 version behind: a version 2 record can stop the render',
-        '  - destinations changed (schemaVersion 1 to 2): error when the record holds it',
+        '  - destinations changed (schemaVersion 1 to 2); destinations became required by version 2: error when the record holds it',
         '  - licences is a new optional group by version 2: warning']
     # An expired licence is a loud Certificate Warning at render, never a failure (owner, 2026-09-25).
     expiry = check_certificates({**tour, 'licences': [{'title': 'A', 'issuer': 'B', 'until': '1 Jan 2026'},
@@ -222,6 +223,6 @@ def run_coverage(out, typst, flags):
         'Licence "A" EXPIRED on 1 Jan 2026 (311 days before the render date). Renew and update the date, or remove the licence.',
         'Licence "C" expires on 30 Jan 2027, in 83 days (within 180). Check the candidate has booked the renewal.'] and expiry['date_checked'] == 2, expiry
     assert check_certificates(tour, today=date(2026, 11, 8))['warnings'] == []
-    checks.append('travel version 2: a version 1 record renders, a version 2 record with destinations is refused '
-                  'below version 2, licences dropped where not claimed')
+    checks.append('travel version 2: a version 1 record renders, a version 2 record is refused below version 2 and without '
+                  'destinations, licences dropped where not claimed')
     return checks

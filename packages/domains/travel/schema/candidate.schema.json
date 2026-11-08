@@ -160,9 +160,9 @@
   },
   "allOf": [
     {
-      "description": "Version 2 requires each trip's role; version 1 has neither a role nor licences.",
+      "description": "Version 2 requires destinations and each trip's role; version 1 has neither a role nor licences.",
       "if": { "required": ["domainContract"], "properties": { "domainContract": { "minimum": 2 } } },
-      "then": { "properties": { "destinations": { "properties": { "trips": { "items": { "required": ["role"] } } } } } },
+      "then": { "required": ["destinations"], "properties": { "destinations": { "properties": { "trips": { "items": { "required": ["role"] } } } } } },
       "else": { "properties": { "licences": { "not": {} }, "destinations": { "properties": { "trips": { "items": { "properties": { "role": { "not": {} } } } } } } } }
     }
   ],

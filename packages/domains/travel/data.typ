@@ -57,6 +57,8 @@
     + contract-versions.map(str).join(", ") + " (the travel contract versions kept); got " + repr(version))
   if version < 2 {
     assert(candidate.licences.len() == 0, message: "licences arrived in travel contract version 2: set domainContract to 2")
+  } else {
+    assert(candidate.destinations != none, message: "travel contract version 2 requires destinations: at least one trip, each with its role")
   }
   for licence in candidate.licences {
     required-text(licence.title, "licences.title")

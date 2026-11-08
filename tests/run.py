@@ -152,8 +152,8 @@ def check_example_records():
         assert '$defs' not in input_schema and set(input_schema['properties']) <= {'copy'}, \
             f'{path.name} restates facts; they belong in {facts_path.name}'
         assert 'copy' in facts_schema['properties'], f'{facts_path.name} must leave copy to the Template'
-    # The travel facts schema reads both contract versions (TASK-80): version 2 requires each trip's role and
-    # may hold licences; version 1 has neither, so the twin without them is a valid version 1 record.
+    # The travel facts schema reads both contract versions (TASK-80): version 2 requires destinations and each
+    # trip's role and may hold licences; version 1 has neither, so the twin without them is a valid version 1 record.
     travel_lib = ['/packages/domains/travel/lib.typ']
     tour = json.loads((ROOT / 'examples/candidates/tour-leader-example.json').read_text(encoding='utf-8'))
     older = {k: v for k, v in tour.items() if k not in ('domainContract', 'licences')}
@@ -163,7 +163,8 @@ def check_example_records():
     for wrong, said in (({**older, 'licences': tour['licences']}, 'licences: is not in the contract version this record follows; set domainContract'),
                         ({**older, 'destinations': {**older['destinations'], 'trips': [first]}}, 'destinations/trips/0/role: is not in the contract version'),
                         ({**tour, 'destinations': {**tour['destinations'], 'trips': [older['destinations']['trips'][0]]}}, "'role' is a required property"),
-                        ({**tour, 'licences': [{**tour['licences'][0], 'until': '03/2029'}]}, "licences/0/until: '03/2029' does not match")):
+                        ({**tour, 'licences': [{**tour['licences'][0], 'until': '03/2029'}]}, "licences/0/until: '03/2029' does not match"),
+                        ({k: v for k, v in tour.items() if k != 'destinations'}, "'destinations' is a required property")):
         try:
             validate_record(wrong, travel_lib)
             raise AssertionError(f'{said} was accepted')
@@ -375,7 +376,7 @@ def main():
                           ('bad-role', 'trip.role must be one of led, organised, travelled in travel contract version 2; got "guided"'),
                           ('bad-licence-date', 'licences.until must be a day as 14 Jul 2029; got 03/2029'),
                           ('unknown-version', 'domainContract must be one of 1, 2 (the travel contract versions kept); got 3'),
-                          ('no-destinations', 'the record needs destinations'), ('bad-month', 'experience.from must be MM/YYYY'),
+                          ('no-destinations', 'travel contract version 2 requires destinations'), ('bad-month', 'experience.from must be MM/YYYY'),
                           ('overflow', 'Hanami: page 1 overflows'), ('long-name', 'the name is wider than the name plate'),
                           ('bad-variation', 'Hanami has no Template Variation "essential"')]:
         compile_case('travel-' + mode, 'tests/fixtures/travel.typ', {'case': mode}, error=message)
