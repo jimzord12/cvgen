@@ -38,8 +38,10 @@ know-how and references on a rail. The fields start 8 mm under the profile row,
 so a short record leaves no empty paper above them; a licence heads the rail when
 it has room, and sits beside the lead when it has not. When both columns end
 short, the rail's wash ends 8 mm under the longer one; when the column would
-still end more than 25 mm short, the gaps may grow to 14 mm between roles and
-16 mm before a section; and a page with either column under 80%
+still end more than 25 mm short, and both columns are at least 80% filled, the
+gaps may grow to 11 mm between roles and 16 mm before a section; and a page
+with either column under 80% (judged before that growth; the warning names
+the thinner column)
 filled carries a `<cvgen-warning>` that `scripts/cv.py render` prints and
 `checks.json` keeps under `template_warnings`, so a thin record is filled out
 before the owner sees it. The gaps between roles widen with spare

@@ -15,8 +15,10 @@
 #let least = (role: 4.6mm, section: 6.4mm, rail: 5mm)
 #let most = (role: 8mm, section: 10mm, rail: 9mm)
 // When the column would still end more than 25 mm short of its foot, the gaps may grow to these, so a
-// record at a client's real length does not stop two thirds down the page.
-#let roomy = (role: 14mm, section: 16mm)
+// record at a client's real length does not stop two thirds down the page. The role gap stays 5 mm
+// under the section gap, so a role never reads as a new section; a page already under the warning's
+// fill is not stretched at all (the stretch would only look padded there).
+#let roomy = (role: 11mm, section: 16mm)
 
 // Experience, with `k` roles in full and the rest summarised, then education unless the rail holds it.
 #let career(ctx, d, k, edu, gaps) = {
@@ -127,12 +129,16 @@
     let slots = (k - 1) + (if k < n { 1 } else { 0 }) + (if edu and d.education.len() > 0 { 1 } else { 0 })
     let share = if slots > 0 { (H - height(k, edu, least)) / slots } else { 0pt }
     let gaps = (role: calc.min(most.role, least.role + share), section: calc.min(most.section, least.section + share))
-    if slots > 0 and H - height(k, edu, gaps) > 25mm {
-      gaps = (role: calc.min(roomy.role, least.role + share), section: calc.min(roomy.section, least.section + share))
-    }
     let list = rail-parts(ctx, d, totals, not edu, on-rail)
     let rail-share = if list.len() > 1 { (R - rail-height(not edu, on-rail)) / (list.len() - 1) } else { 0pt }
     let rail-gap = calc.min(most.rail, least.rail + rail-share)
+    // How full each column is at the ordinary caps, before any roomy growth: the warning judges the
+    // record, never the stretch.
+    let career-fill = height(k, edu, gaps) / H
+    let rail-fill = measure(block(width: L.rail.width, rail(list, rail-gap))).height / R
+    if slots > 0 and calc.min(career-fill, rail-fill) >= 0.8 and H - height(k, edu, gaps) > 25mm {
+      gaps = (role: calc.min(roomy.role, least.role + share), section: calc.min(roomy.section, least.section + share))
+    }
     // The rail's quiet panel starts 4 mm above the fields and runs to the footer, or, when both columns
     // end short, 8 mm below the longer one, so a short record shows no empty tinted column.
     let career-used = height(k, edu, gaps)
@@ -145,10 +151,14 @@
     // under 80% filled, the render warns the operator (scripts/cv.py render reads <cvgen-warning>), so
     // the record is filled out before the owner sees it; a long rail never hides a short column. It
     // never stops the compile.
-    let fill = calc.min(career-used / H, rail-used / R)
-    if fill < 0.8 {
-      [#metadata("Hanami essential: the page is " + str(calc.round(fill * 100)) + "% filled; fill out the record "
-        + "(more bullets, a highlight, availability) before the owner sees it") <cvgen-warning>]
+    // the thinner column is named, with what fills it
+    if calc.min(career-fill, rail-fill) < 0.8 {
+      let message = if career-fill <= rail-fill {
+        "the career column is " + str(calc.round(career-fill * 100)) + "% filled; add bullets, a role or an education entry"
+      } else {
+        "the rail is " + str(calc.round(rail-fill * 100)) + "% filled; add availability, languages, destinations or practical know-how"
+      }
+      [#metadata("Hanami essential: " + message + " before the owner sees it") <cvgen-warning>]
     }
   }
   footer(ctx, d, 1, 1)

@@ -461,6 +461,9 @@ def main():
         assert 'Earlier roles · 4 06/2005 – 10/2009' in text, text
         assert 'Resort Representative · Ionian Sun Resorts, Kefalonia 2008–2009' in text and 'Summer Guide · Achaia Walks, Patras 2005' in text
         assert 'Head counts: counted the group' in text and 'Guests: welcomed' not in text
+        # one trip's tag would wrap, so both tags take their own line under their dates
+        for period, tag in zip(['April 2024', 'October 2024'], page.search_for('LED THE GROUP')):
+            assert tag.y0 >= page.search_for(period)[0].y1 - 1, (period, tag)
         page = doc[0]
         rail_x = min(b[0] for b in page.search_for('LANGUAGES'))
         assert min(b[0] for b in page.search_for('EDUCATION')) >= rail_x - 1 and '02 Education' not in text
@@ -479,7 +482,7 @@ def main():
     # A thin page warns the operator at render (cv_workflow.render.template_warnings reads <cvgen-warning>); a full one does not.
     from cv_workflow.render import template_warnings
     thin = template_warnings(args.typst, ROOT / 'tests/fixtures/travel-essential.typ', {'case': 'sparse'})
-    assert len(thin) == 1 and thin[0].startswith('Hanami essential: the page is ') and '% filled; fill out the record' in thin[0], thin
+    assert len(thin) == 1 and thin[0].startswith('Hanami essential: the rail is ') and '% filled; add availability' in thin[0], thin
     assert template_warnings(args.typst, ROOT / 'examples/travel/hanami/tour-leader-essential.typ') == []
     # an entry that cannot be read is a warning too, never an error
     unread = template_warnings(args.typst, ROOT / 'tests/fixtures/no-such-entry.typ')
@@ -499,8 +502,16 @@ def main():
         assert '添乗員' not in text and 'PASSPORT Valid, exp. October 2035' in text and 'SKILLS & TRAVEL EXPERIENCE' in text, text
         assert 'Group travel: coaches' in text and 'Greek Native Written and spoken' in text and 'Japanese JLPT N3' in text
         assert '14 countries Europe and Asia, most planned herself' in text and 'September 2024 14 days' in text
+        page = doc[0]
+        mm = 72 / 25.4
+        # a clear 2.4 mm between a trip's date and its day count (1.4 mm fails)
+        date, days = page.search_for('September 2024')[0], page.search_for('14 days')[0]
+        assert (days.x0 - date.x1) / mm >= 2.0, (date, days)
+        # the client-length page grows its gaps past the ordinary caps: at least 12 mm between the two roles
+        last_line, next_role = page.search_for('who prefer paper.')[0], page.search_for('Reservations Agent')[0]
+        assert (next_role.y0 - last_line.y1) / mm >= 12, (last_line, next_role)
     # The plain pack's route arc is placed from the measured name and rank row: it never lies on a word, it steps
-    # aside when the row leaves it under 30 mm, and it replaces the sakura branch (far fewer drawings in the band).
+    # aside when the row leaves it under 45 mm, and it replaces the sakura branch (far fewer drawings in the band).
     def band_drawings(pdf):
         with fitz.open(pdf) as doc:
             page = doc[0]
@@ -519,13 +530,16 @@ def main():
         assert len(said) == 1 and said[0].startswith('Hanami essential: the route arc is left out;'), (case, said)
     # The thin-page warning judges each column: a page 60% to 80% filled warns; the client-length page does not.
     quarter = template_warnings(args.typst, essential_fixture, {'case': 'three-quarters'})
-    assert len(quarter) == 1 and 60 <= int(quarter[0].split('the page is ')[1].split('%')[0]) < 80, quarter
+    assert len(quarter) == 1 and quarter[0].startswith('Hanami essential: the career column is '), quarter
+    assert 60 <= int(quarter[0].split('column is ')[1].split('%')[0]) < 80 and 'add bullets, a role' in quarter[0], quarter
     assert template_warnings(args.typst, essential_fixture, {'case': 'generic'}) == []
     with fitz.open(out / 'travel-essential-generic' / 'travel-essential-generic.pdf') as a, \
             fitz.open(out / 'travel-essential-generic-japan' / 'travel-essential-generic-japan.pdf') as b:
         assert len(b[0].get_drawings()) > 3 * len(a[0].get_drawings()) and '添乗員' in b[0].get_text()
     for mode, message in [('overflow', 'Hanami essential: even the newest role alone overflows the career column'),
                           ('showcase-plain', 'Hanami showcase allows the artwork packs japan; pass hanami-artwork.japan'),
+                          ('unnamed-pack', 'Hanami: an artwork pack needs a name'),
+                          ('svg-weight', "the route arc's SVG no longer holds"),
                           ('unsorted', 'the experience must be listed newest first'),
                           ('long-name', 'Hanami essential: the name is wider than the band'),
                           ('rail-overflow', 'Hanami essential: the rail overflows'),

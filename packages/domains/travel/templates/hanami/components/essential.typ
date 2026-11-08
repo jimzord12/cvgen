@@ -134,7 +134,8 @@
     // under 45 mm the arc shrinks into a stray mark: it is left out, and the render says so
     if w >= 45mm { at(right - w, 6mm, art(ctx, motif, width: w, swaps: swaps)) } else {
       [#metadata("Hanami essential: the route arc is left out; the name or the rank row leaves "
-        + str(calc.round(calc.max(w, 0mm) / 1mm)) + " mm of the 45 mm it needs") <cvgen-warning>]
+        + str(calc.round(calc.max(w, 0mm) / 1mm)) + " mm of the 45 mm it needs; shorten the seal words or the specialty, "
+        + "or let the portrait carry the band") <cvgen-warning>]
     }
   }
   let PD = ctx.layout.portrait
@@ -289,7 +290,7 @@
 // period, length and role (contract version 2: a led group in the accent, never confused with a trip
 // the person organised or travelled on), its kind and stops, then the areas known. The region's own
 // script, the route, the stamps and the story are travel-story, which this page leaves out.
-#let destinations(ctx, places, totals) = {
+#let destinations(ctx, places, totals) = context {
   let P = tokens(ctx)
   let fonts = ctx.theme.fonts
   let plural(n, one, many) = str(n) + " " + if n == 1 { one } else { many }
@@ -300,17 +301,17 @@
     text(size: 9pt, fill: P.muted, (plural(totals.trips, ctx.copy.trip, ctx.copy.trips), str(totals.days) + " " + ctx.copy.days,
       plural(totals.stops, ctx.copy.place, ctx.copy.places)).join(" · "))
   })
+  let date(trip) = box[#text(size: 9.6pt, weight: 700, trip.period)#h(2.4mm)#text(font: fonts.figures, size: 11pt, fill: P.accent, str(trip.days))#h(0.6mm)#text(size: 8.6pt, weight: 600, fill: P.accent, ctx.copy.days)]
+  let tag(trip) = box(label(ctx, ctx.copy.at("role-" + trip.role), fill: if trip.role == "led" { P.accent } else { P.label }, size: 7pt, track: 0.09em))
+  // When any trip's role tag would not fit on its date line, every trip's tag takes its own line, so
+  // the trips in one list keep one shape.
+  let own-line = places.trips.any(t => "role" in t and measure(date(t)).width + 1.8mm + measure(tag(t)).width > ctx.layout.rail.width)
   for trip in places.trips {
     block(above: 0mm, below: 2.4mm, {
-      text(size: 9.6pt, weight: 700, trip.period)
-      h(2.4mm)
-      text(font: fonts.figures, size: 11pt, fill: P.accent, str(trip.days))
-      h(0.6mm)
-      text(size: 8.6pt, weight: 600, fill: P.accent, ctx.copy.days)
+      date(trip)
       if "role" in trip {
-        h(1.8mm)
-        // one box, so the label moves to the next line whole
-        box(label(ctx, ctx.copy.at("role-" + trip.role), fill: if trip.role == "led" { P.accent } else { P.label }, size: 7pt, track: 0.09em))
+        if own-line { linebreak() } else { h(1.8mm) }
+        tag(trip)
       }
       linebreak()
       text(size: 9pt, fill: P.muted, trip.kind)

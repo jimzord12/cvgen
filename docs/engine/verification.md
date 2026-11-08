@@ -106,11 +106,17 @@ Windows one also holds the PDFs that build wrote, one per example in
    licence, a sparse record (`tour-leader-sparse.json`: one contact row, no
    highlights, licence, availability or references, whose fields start 8 mm
    under its one-line lead, whose wash ends under its columns, and which carries
-   the thin-page warning the twin does not), and a fictional long career (`tour-leader-long-career.json`, version 2):
+   the thin-page warning naming its thinner column, the rail), a `three-quarters`
+   record whose career column (60% to 80% filled) must warn while the generic
+   client-length record must not (its role gap grown to 12 mm or more), and
+   the plain pack's `plain-long-rank` and `plain-long-name`, whose arc is left
+   out with a warning saying what to change, and a fictional long career (`tour-leader-long-career.json`, version 2):
    education moved to the rail, four roles in full and "Earlier roles · 4" with
    the span the domain computed. The Greek case translates the record's own
    labels, rank, availability and lead too, so Greek capitals are proved to fit. It fails on a newest role too long for the page, a long career not
-   listed newest first, a name wider than the band, and the showcase layout.
+   listed newest first, a name wider than the band, the showcase layout, an
+   artwork pack without a name, and a route arc whose SVG lacks the heavier
+   weight's strings.
 7. **Every PDF.** Expected page count, no empty page, all fonts embedded, no
    text outside the page. Every compile reads only the bundled fonts
    (`--ignore-system-fonts --font-path packages/cv-framework/fonts`, plus

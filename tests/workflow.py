@@ -522,8 +522,8 @@ def run_workflow(out, typst, system_family=None):
                                                       'rank': 'Tour Leader', 'template': 'hanami', 'variation': 'essential'}), encoding='utf-8')
     thin = cv('render', sparse, '--typst', typst, '--pages', '1')
     assert thin['status'] == 'success' and thin['checks_passed'], thin
-    note = [w for w in thin['warnings'] if w.startswith('Hanami essential: the page is ')]
-    assert len(note) == 1 and '% filled; fill out the record' in note[0], thin['warnings']
+    note = [w for w in thin['warnings'] if w.startswith('Hanami essential: the rail is ')]
+    assert len(note) == 1 and '% filled; add availability' in note[0], thin['warnings']
     assert f'WARNING: {note[0]}' in cv.stderr, cv.stderr
     recorded = json.loads((sparse / 'revisions' / thin['revision'] / 'checks.json').read_text(encoding='utf-8'))
     assert recorded['passed'] and recorded['template_warnings'] == note, recorded

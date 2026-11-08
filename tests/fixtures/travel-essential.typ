@@ -51,7 +51,7 @@
   else if case == "unsorted" { (..long, experience: long.experience.rev()) }
   else if case == "long-name" { (..raw, identity: (..raw.identity, name: "Andreas Konstantinos Kalamaris-Papadopoulos")) }
   else if case == "sparse" { sparse }
-  else if case in ("generic", "generic-japan", "showcase-plain") { generic }
+  else if case in ("generic", "generic-japan", "showcase-plain", "unnamed-pack", "svg-weight") { generic }
   // the prepared cut-out portrait (scripts/portrait.py prepare on the fictional portrait), in colour and grey
   // one role fewer than the client: a page between 60% and 80% filled, which must still warn
   else if case == "three-quarters" { (..generic, experience: generic.experience.slice(0, 1)) }
@@ -79,7 +79,11 @@
 }
 // the plain pack (no Japan) is the generic client's choice
 #let plain = case in ("generic", "three-quarters", "generic-portrait", "generic-portrait-grey", "plain-long-rank", "plain-long-name", "showcase-plain")
-#show: hanami.with(candidate: candidate, theme: theme, artwork: if plain { hanami-artwork.plain } else { hanami-artwork.japan },
+// two broken packs: one without a name, one whose route arc lacks the strings the heavier weight swaps
+#let pack = { if case == "unnamed-pack" { let a = hanami-artwork.plain; let _ = a.remove("name"); a }
+  else if case == "svg-weight" { (..hanami-artwork.plain, route-arc: "/packages/domains/travel/assets/japan/plane.svg") }
+  else if plain { hanami-artwork.plain } else { hanami-artwork.japan } }
+#show: hanami.with(candidate: candidate, theme: theme, artwork: pack,
   variation: if case == "showcase-plain" { "showcase" } else { "essential" },
   layout: if case == "showcase-layout" { hanami-layouts.showcase } else if case == "showcase-plain" { hanami-layouts.showcase } else { hanami-layouts.essential },
   copy: if case in ("greek", "long-career-greek") { greek } else { (:) })
