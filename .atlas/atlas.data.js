@@ -2693,7 +2693,7 @@ window.ATLAS = {
        "sources": [
         "docs/guides/build-a-cv.md:129-153",
         ".claude/skills/new-cv/SKILL.md:67-70",
-        "packages/cv-workflow/cv_workflow/render.py:102-213"
+        "packages/cv-workflow/cv_workflow/render.py:102-228"
        ]
       },
       {
@@ -3029,7 +3029,7 @@ window.ATLAS = {
        "sources": [
         ".claude/skills/new-cv/SKILL.md:87",
         "scripts/cv.py:67-68",
-        "packages/cv-workflow/cv_workflow/__init__.py:14-31"
+        "packages/cv-workflow/cv_workflow/__init__.py:14-35"
        ]
       },
       {
@@ -4497,14 +4497,14 @@ window.ATLAS = {
   }
  ],
  "build": {
-  "builtAt": "2026-11-08 12:00 UTC",
-  "commit": "0b66471",
+  "builtAt": "2026-11-08 12:10 UTC",
+  "commit": "c80f149",
   "kit": "1.1",
   "stale": {},
   "verified": {
    "client-journey": {
     "at": "2026-11-08",
-    "commit": "0b66471"
+    "commit": "c80f149"
    },
    "design-run": {
     "at": "2026-11-08",
@@ -4516,11 +4516,11 @@ window.ATLAS = {
    },
    "system-map": {
     "at": "2026-11-08",
-    "commit": "0b66471"
+    "commit": "c80f149"
    },
    "roster": {
     "at": "2026-11-08",
-    "commit": "0b66471"
+    "commit": "c80f149"
    }
   }
  }

@@ -17,7 +17,7 @@
    "verifiedAt": "2026-11-08"
   },
   "client-journey": {
-   "commit": "0b66471",
+   "commit": "c80f149",
    "sources": {
     ".claude/agents/design-reviewer.md": "9938a4b0c29a9fb5cf700f45377a3587f7eb21d0",
     ".claude/skills/idea-run/SKILL.md": "a7819ea4833bf71da6a663016e0b69ceba0e3a25",
@@ -44,9 +44,9 @@
     "docs/workflow/07-after/README.md": "0aeb933cfd1fb4d684e1873f308b40b1d9149e04",
     "docs/workflow/GAPS.md": "2e66edcb9903ff8a9a1a711f324b4441135b2209",
     "docs/workflow/README.md": "d1bdce91026f607e69f00a0de03adab9019060f0",
-    "packages/cv-workflow/cv_workflow/__init__.py": "427c74cfeabc096417b81d7a5cbea539fbae99b2",
+    "packages/cv-workflow/cv_workflow/__init__.py": "1912e227747bbcbdfcc7c4d3f66705bed37600cd",
     "packages/cv-workflow/cv_workflow/outputs.py": "241dc75d76a1340d5a2303ab2fde0a7e29fcca3c",
-    "packages/cv-workflow/cv_workflow/render.py": "7a84c200750ad081d4a399d24445cab089d37271",
+    "packages/cv-workflow/cv_workflow/render.py": "ef0a9266976712f84e9407a6a7ef4a3def08c94b",
     "scripts/cv.py": "41205edd42d98081e89ce18ae82a232c489270db",
     "scripts/intake-form.gs": "48f0db692a6c1d08644cf0452d04291ffbee9828",
     "scripts/text-draft.typ": "259ca8d667a30153ba389b1e9c798c8af0a78764",
@@ -74,7 +74,7 @@
    "verifiedAt": "2026-11-08"
   },
   "roster": {
-   "commit": "0b66471",
+   "commit": "c80f149",
    "sources": {
     ".claude/agents/ceo-reviewer.md": "8b0ce89d0cf745923ec296c9034c1f8e5958d42b",
     ".claude/agents/ceo.md": "4fec7c781ea76a4faba820f013880f62f0799168",
@@ -120,12 +120,12 @@
     "scripts/cv.py": "41205edd42d98081e89ce18ae82a232c489270db",
     "scripts/intake-form.gs": "48f0db692a6c1d08644cf0452d04291ffbee9828",
     "scripts/outputs.py": "23a4edfb8730fe24462bd0507f37da64673e801c",
-    "tests/run.py": "836149b9b235b9e8f92eedaa05e9d7e45565e72a"
+    "tests/run.py": "35ab1829af32e80ff722a3b1191dbe3127da673e"
    },
    "verifiedAt": "2026-11-08"
   },
   "system-map": {
-   "commit": "0b66471",
+   "commit": "c80f149",
    "sources": {
     ".claude/agents": "dir1:d86ac8b44b9896473ff12ecdbc91538ae34a8852",
     ".claude/skills": "dir1:5eeafda0c9ef9a6037a3fcc2879f73f098fa3e55",
@@ -159,7 +159,7 @@
     "studio/archive/design-studies/README.md": "8ff17720c063fe67cae653d40c4d2973f4742117",
     "studio/brand/README.md": "ed93bfbff30149cefea7b8b6a62431d179450f7d",
     "studio/design-concepts/README.md": "6f9c35abb0affbc80fe19a474d22554a833d1338",
-    "tests/run.py": "836149b9b235b9e8f92eedaa05e9d7e45565e72a"
+    "tests/run.py": "35ab1829af32e80ff722a3b1191dbe3127da673e"
    },
    "verifiedAt": "2026-11-08"
   }

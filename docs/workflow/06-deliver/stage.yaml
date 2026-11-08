@@ -15,7 +15,7 @@ exit: >-
 steps:
   - id: deliver.render
     name: Render a Revision
-    sources: ["docs/guides/build-a-cv.md:129-153", ".claude/skills/new-cv/SKILL.md:67-70", "packages/cv-workflow/cv_workflow/render.py:102-213"]
+    sources: ["docs/guides/build-a-cv.md:129-153", ".claude/skills/new-cv/SKILL.md:67-70", "packages/cv-workflow/cv_workflow/render.py:102-228"]
     actor: actor.lead
     action: cmd.cv-render
     inputs: [art.envelope-json, art.candidate-json, art.cv-typ, art.engine]
@@ -118,7 +118,7 @@ steps:
 
   - id: deliver.status
     name: List the Revisions and their states
-    sources: [".claude/skills/new-cv/SKILL.md:87", "scripts/cv.py:67-68", "packages/cv-workflow/cv_workflow/__init__.py:14-31"]
+    sources: [".claude/skills/new-cv/SKILL.md:87", "scripts/cv.py:67-68", "packages/cv-workflow/cv_workflow/__init__.py:14-35"]
     actor: actor.lead
     action: cmd.cv-status
     inputs: [art.render-json]

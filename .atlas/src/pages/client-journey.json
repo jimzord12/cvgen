@@ -2164,7 +2164,7 @@
           "sources": [
             "docs/guides/build-a-cv.md:129-153",
             ".claude/skills/new-cv/SKILL.md:67-70",
-            "packages/cv-workflow/cv_workflow/render.py:102-213"
+            "packages/cv-workflow/cv_workflow/render.py:102-228"
           ]
         },
         {
@@ -2500,7 +2500,7 @@
           "sources": [
             ".claude/skills/new-cv/SKILL.md:87",
             "scripts/cv.py:67-68",
-            "packages/cv-workflow/cv_workflow/__init__.py:14-31"
+            "packages/cv-workflow/cv_workflow/__init__.py:14-35"
           ]
         },
         {
