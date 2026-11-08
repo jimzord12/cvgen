@@ -3979,7 +3979,7 @@ window.ATLAS = {
        "title": "Travel Domain and Hanami",
        "path": "packages/domains/travel/",
        "blurb": "Travel facts (trips, destinations, know-how) and Hanami, its first Template, from Hanami Line 2.",
-       "touch": "Changing what the travel `Domain` means or what Hanami renders; its Frozen Reference waits for your approval.",
+       "touch": "Changing what the travel `Domain` means or what Hanami renders; its Frozen Reference is approved (2026-11-08) and pinned.",
        "sources": [
         "docs/architecture.md",
         "docs/engine/domains-and-roles.md"
@@ -4497,14 +4497,14 @@ window.ATLAS = {
   }
  ],
  "build": {
-  "builtAt": "2026-11-08 11:53 UTC",
-  "commit": "4d322c4",
+  "builtAt": "2026-11-08 15:01 UTC",
+  "commit": "81c9529",
   "kit": "1.1",
   "stale": {},
   "verified": {
    "client-journey": {
     "at": "2026-11-08",
-    "commit": "96e9a98"
+    "commit": "81c9529"
    },
    "design-run": {
     "at": "2026-11-08",
@@ -4512,15 +4512,15 @@ window.ATLAS = {
    },
    "change-review": {
     "at": "2026-11-08",
-    "commit": "6071592"
+    "commit": "81c9529"
    },
    "system-map": {
     "at": "2026-11-08",
-    "commit": "4d322c4"
+    "commit": "81c9529"
    },
    "roster": {
     "at": "2026-11-08",
-    "commit": "4d322c4"
+    "commit": "81c9529"
    }
   }
  }
