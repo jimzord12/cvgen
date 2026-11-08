@@ -104,8 +104,9 @@
       col: line-a.transparentize(if mono { 80% } else { 80% }), col2: line-b.transparentize(if mono { 78% } else { 82% }), wt: if mono { 0.25pt } else { 0.3pt }))
   }
   // the rosette with a globe at its heart
-  let rc = (184mm, 52mm)
-  rosette(rc, 23mm, 2.7mm, 14, 18, line-a.transparentize(if mono { 10% } else { 30% }), w: if mono { 0.25pt } else { 0.35pt })
+  // the outer ring stays about 4 mm inside the page edge (round 4, D21)
+  let rc = (181mm, 52mm)
+  rosette(rc, 22.5mm, 2.7mm, 14, 18, line-a.transparentize(if mono { 10% } else { 30% }), w: if mono { 0.25pt } else { 0.35pt })
   rosette(rc, 14.5mm, 2.2mm, 10, 14, line-b.transparentize(if mono { 10% } else { 25% }), w: if mono { 0.25pt } else { 0.35pt })
   place(top + left, dx: rc.at(0) - 10.5mm, dy: rc.at(1) - 10.5mm, circle(radius: 10.5mm, fill: if mono { white } else { rgb("#F3ECE4") }, stroke: none))
   globe(rc, 9mm, line-a)
@@ -127,16 +128,16 @@
     text(weight: 700, size: 32pt, tracking: 0.2pt, top-edge: "cap-height", bottom-edge: "baseline", d.name)
     v(3.6mm)
     text(weight: 600, size: 14.5pt, fill: rose, d.title)
-    v(5mm)
+    v(1.4mm)
+    text(weight: 500, size: 11pt, d.specialty + ", Europe and Asia")
+    v(4.6mm)
     grid(columns: (1.25fr, 1fr), column-gutter: 4mm, row-gutter: 3mm,
-      field("Specialty", d.specialty),
-      field("Based in", d.contacts.based),
       field("Phone", d.contacts.phone),
-      field("Date of birth", d.contacts.born),
+      field("Based in", d.contacts.based),
       field("Email", d.contacts.email, size: 9.2pt),
-      field("Nationality", d.contacts.nationality),
+      field("Date of birth", d.contacts.born),
       field("Passport", d.contacts.passport),
-      field("Available from", d.availability.headline.replace("Available from ", "")),
+      field("Nationality", d.contacts.nationality),
     )
   }))
 })

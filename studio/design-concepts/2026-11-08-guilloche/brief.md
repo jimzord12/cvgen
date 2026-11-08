@@ -24,8 +24,13 @@ Design D19 (Blocking) found about 43 mm of empty paper at the foot and a centre 
 - **Deeper band:** the header band is 15 mm deeper (97 mm). The portrait arch grew from 52 × 62 to 60 × 76 mm, and the name went from 30 to 32 pt with more air around the fields.
 - **Opened body:** body text 9.9 pt (was 9.6), section heads 7.6 mm apart (was 5.6), more space between bullets and between education rows.
 - **Stronger rules:** the engraved section rules are a little taller and heavier (Codex lineup D1).
-- **Closed foot:** the page now ends on the same engraved border as the band's foot. The repeated microprint line is gone (Codex: it read as a banknote flourish).
+- **Closed foot:** the page now ends on the same engraved border as the band's foot. The repeated microprint line is cut (Codex: it read as a banknote flourish); the "FICTIONAL CANDIDATE · DESIGN CONCEPT" disclosure line stays, as on every concept.
 - **Field labels:** left as they are (D20).
+
+## Round 4: two Nits (D21 and a duplicate)
+
+- **Rosette (D21):** the outer ring was about 0.4 mm from the right page edge. The rosette now sits about 4 mm inside it (centre moved from 184 to 181 mm, outer radius 22.5 mm), clear of printer clipping.
+- **No duplicate availability:** the header grid no longer has an "Available from" field; the Availability section carries it. The specialty moved out of the grid to a line under the title ("Group and private travel, Europe and Asia"), so the grid is a balanced 3 × 2: phone, email, passport on the left; base, date of birth, nationality on the right.
 
 ## What the owner should notice first
 
@@ -44,7 +49,7 @@ Both are one A4 page.
 - **Current title:** "Tour Leader / Travel Consultant", 14 pt, directly under the name.
 - **Employers and dates:** main left column of the body. Each role is bold, with dates in monospace flush right, then the employer in green with the place.
 - **Education:** main column under Experience, with years flush right.
-- **Header fields:** specialty, base, phone, date of birth, email, nationality, passport validity and the availability month.
+- **Header:** the specialty line under the title, then a 3 × 2 grid: phone, email, passport validity; base, date of birth, nationality.
 - **Right column:** Languages, Skills & travel experience, Availability, Recent journeys.
 
 ## References and the principle taken from each
