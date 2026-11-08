@@ -27,7 +27,8 @@ command from the repository root.
   root from the closest example record with every value replaced, the
   client's photograph in `images/portrait/`, prepared there with
   `python scripts/portrait.py prepare <photo> --output .../portrait.png`
-  and `identity.portrait` pointed at `portrait.png`
+  (exit 3: look at it before rendering) and `identity.portrait` pointed at
+  `portrait.png`
   (`docs/guides/client-workflow.md`, section 1, "The portrait"), the
   example wording gone (BC section 2).
 - No `Template`: `design.run-brief` to `design.pick` through the

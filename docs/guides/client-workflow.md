@@ -82,15 +82,16 @@ writes a transparent PNG, which the design's own colour shows through;
 records the colour profile, the face box, the crop, the check of the
 result, the models and the versions. It refuses a photograph with no face
 or several, a face too close to an edge, and one too small for a 600 px
-square, which it never enlarges; the source is never changed. Exit 2 means
-the portrait was written but the face found in it is missing, doubled or
-off target: look at it before using it. Point `identity.portrait` in
-`candidate.json` (and any `image(...)` in `cv.typ`) at `portrait.png`.
-When the face looks too low or too high in the shape the design renders,
-prepare it again with `--face-y` between 0.40 and 0.50 and `--replace`;
-the design never moves it (`../conventions.md`, "Typst code"). The first
-run downloads rembg's `birefnet-portrait` model (about 930 MB) into
-`~/.rembg/models/`, outside the repository.
+square, which it never enlarges; the source is never changed (exit 1,
+nothing written). Exit 3 means the portrait was written but the face found
+in it is missing, doubled or off target: look at it before rendering.
+`--keep-background` is for checking a crop only, never for a CV. Point
+`identity.portrait` in `candidate.json` (and any `image(...)` in `cv.typ`)
+at `portrait.png`. When the face looks too low or too high in the shape
+the design renders, prepare it again with `--face-y` between 0.40 and 0.50
+and `--replace`; the design never moves it (`../conventions.md`, "Typst
+code"). The first run downloads rembg's `birefnet-portrait` model (about
+930 MB) into `~/.rembg/models/`, outside the repository.
 
 `typst/cv.typ` reads every file by a path relative to itself:
 `json("../candidate.json")`, `image("../images/portrait/portrait.png")`,

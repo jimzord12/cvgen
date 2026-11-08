@@ -34,7 +34,7 @@
           "blurb": "Who the client is: `Alias`, `Domain`, `Rank`; the `Template` and `Template Variation` when a `Template` renders the CV; dates and links.",
           "detail": "`cv.py render` refuses to run without `envelope.json`, or when its `template` or `variation` disagrees with `cv.typ`; every client `Meta File` copies who the client is.",
           "sources": [
-            "docs/guides/client-workflow.md:17-132",
+            "docs/guides/client-workflow.md:17-133",
             "docs/guides/build-a-cv.md:55-61"
           ]
         },
@@ -427,7 +427,7 @@
           "actor": "intake-form",
           "blurb": "Optional `Intake Forms` and their answer Sheets.",
           "sources": [
-            "docs/guides/client-workflow.md:169-215"
+            "docs/guides/client-workflow.md:170-216"
           ]
         },
         {

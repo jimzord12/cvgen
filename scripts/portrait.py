@@ -8,8 +8,10 @@ and 45% down, or --face-y between 0.40 and 0.50; the face box about 45% of the s
 background (transparent; --fill paints it one colour; --keep-background leaves the photograph's own) and
 writes <photo>-prepared.png and <photo>-prepared.json (colour, face box, crop, check, models, versions) next
 to the photograph, which it never changes. It refuses a photograph with no face or several, a face too close
-to an edge, and a photograph too small for a 600 px square. Exit 0: written and checked; 1: refused, nothing
-written; 2: written, but the face found again in the result is missing, doubled or off target (look at it).
+to an edge, and a photograph too small for a 600 px square. Exit 0: written and checked; 1: refused or a
+usage error, nothing written; 3: written, but the face found again in the result is missing, doubled or off
+target (look at it before rendering). --keep-background is for checking a crop only, never for a CV: the
+owner's rule is no background.
 `detect` prints the faces it finds, as shares of the image too.
 See packages/cv-workflow/cv_workflow/portrait.py and docs/guides/client-workflow.md, section 1.
 """
@@ -25,14 +27,24 @@ from cv_workflow import WorkflowError  # noqa: E402
 from cv_workflow import portrait  # noqa: E402
 
 
+class Parser(argparse.ArgumentParser):
+    """argparse with usage errors on exit 1, "refused, nothing written", so exit 3 alone means "written, look"."""
+
+    def error(self, message):
+        self.print_usage(sys.stderr)
+        self.exit(1, f'refused: {message}\n')
+
+
 def main(argv=None):
-    parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
+    parser = Parser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     sub = parser.add_subparsers(dest='command', required=True)
     p = sub.add_parser('prepare', help='crop around the face, remove the background, optionally fill it')
     p.add_argument('photo', type=Path)
     p.add_argument('--output', type=Path, help='the prepared PNG (default: <photo>-prepared.png beside the photo)')
     p.add_argument('--fill', help="paint the removed background one colour, such as '#1b2a4a' (default: transparent)")
-    p.add_argument('--keep-background', action='store_true', help='crop only; keep the photograph\'s own background')
+    p.add_argument('--keep-background', action='store_true',
+                   help='crop only, keeping the photograph\'s own background: for checking a crop, never for a CV '
+                        '(the owner\'s rule is no background)')
     p.add_argument('--face-y', type=float, default=portrait.FACE_Y,
                    help=f'where the face centre sits, as a share of the side from the top, {portrait.FACE_Y_RANGE[0]} to '
                         f'{portrait.FACE_Y_RANGE[1]} (default: {portrait.FACE_Y})')
@@ -56,7 +68,7 @@ def main(argv=None):
                 print(f"CHECK FAILED: the result shows {out['faces_found']} face(s), centre {out['face_centre']}, not one face within "
                       f"{record['check']['tolerance']:.0%} of the target. Both files were written and kept: look at the portrait, "
                       'and use it only if it is right; otherwise use another photograph.', file=sys.stderr)
-                return 2
+                return 3
         else:
             image, _ = portrait.load_photo(args.image, keep_alpha=True)
             faces = portrait.detect_faces(image)

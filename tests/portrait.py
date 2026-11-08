@@ -41,28 +41,30 @@ def refuses(folder, arguments, message):
     assert snapshot(folder) == before, (arguments, 'a refusal wrote or changed a file')
 
 
-def linear_srgb_profile():
-    """A small ICC v2 profile: sRGB primaries with linear (gamma 1.0) curves, so its numbers differ from sRGB's.
-    Stands in for a phone's Display P3 tag, which Pillow cannot make."""
+def icc_profile(description, space, curves, primaries=True):
+    """A small ICC v2 display profile, enough for LittleCMS: a description, a white point, one gamma curve per
+    channel (u8Fixed8, so 0x0100 is gamma 1.0) and, for RGB, sRGB's primaries. Pillow can make no profile but
+    sRGB, so the suite builds the ones it needs: a linear RGB (standing in for a phone's Display P3), a grey one
+    as photo editors write, and a broken one."""
     def s15(value):
         return struct.pack('>i', round(value * 65536))
 
     def xyz(x, y, z):
         return b'XYZ ' + b'\0' * 4 + s15(x) + s15(y) + s15(z)
 
-    curve = b'curv' + b'\0' * 4 + struct.pack('>IH', 1, 0x0100) + b'\0\0'
-    text = b'Linear sRGB (test)\0'
-    desc = b'desc' + b'\0' * 4 + struct.pack('>I', len(text)) + text + struct.pack('>IIHB', 0, 0, 0, 0) + b'\0' * 67
-    tags = [(b'desc', desc), (b'wtpt', xyz(0.9642, 1.0, 0.8249)), (b'rXYZ', xyz(0.4361, 0.2225, 0.0139)),
-            (b'gXYZ', xyz(0.3851, 0.7169, 0.0971)), (b'bXYZ', xyz(0.1431, 0.0606, 0.7141)),
-            (b'rTRC', curve), (b'gTRC', curve), (b'bTRC', curve), (b'cprt', b'text' + b'\0' * 4 + b'none\0')]
+    text = description.encode('ascii') + b'\0'
+    tags = [(b'desc', b'desc' + b'\0' * 4 + struct.pack('>I', len(text)) + text + struct.pack('>IIHB', 0, 0, 0, 0) + b'\0' * 67),
+            (b'wtpt', xyz(0.9642, 1.0, 0.8249)), (b'cprt', b'text' + b'\0' * 4 + b'none\0')]
+    if primaries:
+        tags += [(b'rXYZ', xyz(0.4361, 0.2225, 0.0139)), (b'gXYZ', xyz(0.3851, 0.7169, 0.0971)), (b'bXYZ', xyz(0.1431, 0.0606, 0.7141))]
+    tags += [(name, b'curv' + b'\0' * 4 + struct.pack('>IH', 1, gamma) + b'\0\0') for name, gamma in curves]
     offset, table, data = 128 + 4 + 12 * len(tags), b'', b''
     for signature, body in tags:
         body += b'\0' * (-len(body) % 4)
         table += signature + struct.pack('>II', offset + len(data), len(body))
         data += body
-    header = (struct.pack('>I', offset + len(data)) + b'\0' * 4 + bytes([2, 0x10, 0, 0]) + b'mntrRGB XYZ ' + b'\0' * 12
-              + b'acsp' + b'\0' * 28 + s15(0.9642) + s15(1.0) + s15(0.8249) + b'\0' * 48)
+    header = (struct.pack('>I', offset + len(data)) + b'\0' * 4 + bytes([2, 0x10, 0, 0]) + b'mntr' + space.ljust(4).encode()
+              + b'XYZ ' + b'\0' * 12 + b'acsp' + b'\0' * 28 + s15(0.9642) + s15(1.0) + s15(0.8249) + b'\0' * 48)
     return header + struct.pack('>I', len(tags)) + table + data
 
 
@@ -118,7 +120,7 @@ def run_portrait(out):
     checks.append('--face-y 0.41 puts the face there; 0.6, outside 0.40-0.50, is refused')
 
     # A photo tagged with another colour profile is converted to sRGB, recorded, and the result is tagged sRGB.
-    linear = linear_srgb_profile()
+    linear = icc_profile('Linear sRGB (test)', 'RGB', [(b'rTRC', 0x0100), (b'gTRC', 0x0100), (b'bTRC', 0x0100)])
     engineer.save(folder / 'tagged.jpg', quality=95, icc_profile=linear)
     done = run('prepare', folder / 'tagged.jpg', '--keep-background')
     assert done.returncode == 0, done.stderr
@@ -133,7 +135,15 @@ def run_portrait(out):
         got = result.getpixel((round(20 * scale), round(20 * scale)))
         assert all(abs(a - b) <= 3 for a, b in zip(got, wanted)) and abs(got[0] - raw[0]) > 30, (raw, wanted, got)
         assert ImageCms.getProfileDescription(ImageCms.ImageCmsProfile(io.BytesIO(result.info['icc_profile']))).strip() == 'sRGB built-in'
-    checks.append('a photo tagged with another colour profile is converted to sRGB, and the result is tagged sRGB')
+    # A black-and-white photo tagged with a grey profile is converted too; a profile that cannot be converted is
+    # refused by name.
+    engineer.convert('L').save(folder / 'grey.jpg', quality=95, icc_profile=icc_profile('Gray 2.2 (test)', 'GRAY', [(b'kTRC', 0x0233)], primaries=False))
+    done = run('prepare', folder / 'grey.jpg', '--keep-background')
+    assert done.returncode == 0, done.stderr
+    assert prepared('grey-prepared')['source']['colour'] == {'source_profile': 'Gray 2.2 (test)', 'converted_to': 'sRGB'}
+    engineer.save(folder / 'broken.jpg', quality=95, icc_profile=icc_profile('No curves (test)', 'RGB', []))
+    refuses(folder, ['prepare', folder / 'broken.jpg', '--keep-background'], "carries the colour profile 'No curves (test)'")
+    checks.append('photos tagged with an RGB or a grey profile are converted to sRGB and tagged sRGB; a broken profile is refused by name')
 
     # Too small for the templates: refused, never enlarged; accepted with an explicit --min-size, at its own size.
     small = folder / 'small.jpg'
@@ -174,17 +184,29 @@ def run_portrait(out):
                   '--replace over a file the tool did not write are refused, writing nothing; --replace over its own output works')
 
     # The face found again in the result decides the exit: a face too small to find in the whole photo shows up
-    # in the crop, so the result has two; the files are written and kept, and the run exits 2.
+    # in the crop, so the result has two; the files are written and kept, and the run exits 3.
     canvas = Image.new('RGB', (3000, 3000), (150, 160, 175))
     canvas.paste(engineer, (900, 900))
     canvas.paste(engineer.crop((380, 200, 860, 860)).resize((50, 69)), (980, 960))
     canvas.save(folder / 'tiny-second-face.jpg', quality=92)
     done = run('prepare', folder / 'tiny-second-face.jpg', '--keep-background')
-    assert done.returncode == 2 and 'CHECK FAILED' in done.stderr and 'kept' in done.stderr, (done.returncode, done.stderr)
+    assert done.returncode == 3 and 'CHECK FAILED' in done.stderr and 'kept' in done.stderr, (done.returncode, done.stderr)
     record = prepared('tiny-second-face-prepared')
     assert (folder / 'tiny-second-face-prepared.png').is_file() and record['check']['passed'] is False, record['check']
     assert record['output']['faces_found'] == 2 and record['output']['face_centre'] is None, record['output']
-    checks.append('a result whose face check fails is kept and the run exits 2, saying so')
+    # The same check on real detections: on target, off target (the unprepared photo), no face.
+    with Image.open(folder / 'high-left-prepared.png') as good, Image.open(folder / 'high-left.jpg') as raw, \
+            Image.open(folder / 'no-face.png') as empty:
+        assert portrait.check_result(portrait.detect_faces(good), good.size, 0.43)[1] is True
+        placed, passed = portrait.check_result(portrait.detect_faces(raw), raw.size)
+        assert placed is not None and passed is False, placed
+        assert portrait.check_result(portrait.detect_faces(empty), empty.size) == (None, False)
+    # A usage error is a refusal: exit 1, nothing written, never the exit 3 that means "written, look at it".
+    refuses(folder, ['prepare', folder / 'high-left.jpg', '--keep-background', '--repalce'], 'unrecognized arguments: --repalce')
+    refuses(folder, ['prepare', folder / 'high-left.jpg', '--face-y', 'abc'], "invalid float value: 'abc'")
+    assert not list(folder.glob('.*.partial')), 'a temporary file was left behind'
+    checks.append('a result whose face check fails (two faces, off target or none) is kept and the run exits 3, '
+                  'saying so; a usage error exits 1 and writes nothing')
 
     # Background removal, through rembg. The model is downloaded on first use; without it the case is skipped.
     # Loaded in a fresh interpreter: numba (under rembg) imports `coverage`, which tests/coverage.py shadows here.

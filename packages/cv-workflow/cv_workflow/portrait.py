@@ -13,6 +13,7 @@ import hashlib
 import importlib.metadata
 import io
 import json
+import os
 from pathlib import Path
 import platform
 
@@ -79,20 +80,30 @@ def load_photo(path, keep_alpha=False):
         with Image.open(path) as image:
             icc = image.info.get('icc_profile')
             upright = ImageOps.exif_transpose(image)
+            upright.load()  # used after the file is closed
             transparent = upright.mode in ('RGBA', 'LA', 'PA') or 'transparency' in upright.info
             mode = 'RGBA' if keep_alpha and transparent else 'RGB'
             if not icc:
                 return upright.convert(mode), {'source_profile': None, 'converted_to': None}
-            source_profile = ImageCms.ImageCmsProfile(io.BytesIO(icc))
-            name = ImageCms.getProfileDescription(source_profile).strip()
-            alpha = upright.convert('RGBA').getchannel('A') if mode == 'RGBA' else None
-            base = upright if upright.mode in ('RGB', 'CMYK') else upright.convert('RGB')
-            converted = ImageCms.profileToProfile(base, source_profile, ImageCms.createProfile('sRGB'), outputMode='RGB')
-            if alpha is not None:
-                converted.putalpha(alpha)
-            return converted, {'source_profile': name, 'converted_to': 'sRGB'}
+    except OSError as error:
+        raise WorkflowError(f'{path.name} is not an image Pillow can read: {error}') from error
+    name = 'unreadable'
+    try:
+        source_profile = ImageCms.ImageCmsProfile(io.BytesIO(icc))
+        name = ImageCms.getProfileDescription(source_profile).strip() or 'unnamed'
+        alpha = upright.convert('RGBA').getchannel('A') if mode == 'RGBA' else None
+        # The pixels must be in the profile's own colour space: grey for a grey profile (a black-and-white photo
+        # from an editor), CMYK for a press profile, RGB otherwise.
+        space = source_profile.profile.xcolor_space.strip()
+        wanted = {'GRAY': 'L', 'CMYK': 'CMYK'}.get(space, 'RGB')
+        base = upright if upright.mode == wanted else upright.convert(wanted)
+        converted = ImageCms.profileToProfile(base, source_profile, ImageCms.createProfile('sRGB'), outputMode='RGB')
+        if alpha is not None:
+            converted.putalpha(alpha)
+        return converted, {'source_profile': name, 'converted_to': 'sRGB'}
     except (OSError, ImageCms.PyCMSError) as error:
-        raise WorkflowError(f'{path.name} is not an image Pillow can read in colour: {error}') from error
+        raise WorkflowError(f'{path.name} carries the colour profile {name!r}, which cannot be converted to sRGB ({error}): '
+                            'export the photograph as sRGB, then run again') from error
 
 
 def detect_faces(image):
@@ -190,6 +201,15 @@ def versions():
     return found
 
 
+def check_result(faces, size, face_y=FACE_Y):
+    """Where the one face found in the result sits, as shares of the square, and whether that is on target:
+    exactly one face, within CHECK_TOLERANCE of (FACE_X, face_y). No face or several: (None, False)."""
+    if len(faces) != 1:
+        return None, False
+    placed = [round(faces[0]['centre'][0] / size[0], 3), round(faces[0]['centre'][1] / size[1], 3)]
+    return placed, abs(placed[0] - FACE_X) <= CHECK_TOLERANCE and abs(placed[1] - face_y) <= CHECK_TOLERANCE
+
+
 def written_by_tool(output, sidecar_path):
     """True when both files are absent, or are a PNG and sidecar this tool wrote (the sidecar names this tool and
     the PNG's hash): --replace may write over those and nothing else."""
@@ -207,7 +227,8 @@ def prepare_portrait(source, output=None, *, remove=True, fill=None, model=MODEL
                      replace=False):
     """Prepare one portrait: crop around the face, remove the background, fill it if asked; write the PNG and
     its sidecar next to the source (or at `output`). Returns the sidecar dictionary; its `check.passed` is
-    False when the face found again in the result is missing, doubled or off target (the files are kept)."""
+    False when the face found again in the result is missing, doubled or off target (the files are kept, and
+    scripts/portrait.py exits 3)."""
     _, _, Image, _ = _modules()
     from PIL import ImageCms
     source = Path(source).resolve()
@@ -223,7 +244,8 @@ def prepare_portrait(source, output=None, *, remove=True, fill=None, model=MODEL
                 raise WorkflowError(f'{path.name} already exists: pass --replace to write it again, or choose another --output')
     elif not written_by_tool(output, sidecar_path):
         raise WorkflowError(f'{output.name} or {sidecar_path.name} exists and was not written by this tool (or was changed '
-                            'since): --replace writes only over its own output; choose another --output')
+                            'since): --replace writes only over its own output; choose another --output. If an earlier run '
+                            'of this tool stopped half-way, delete both files and run again')
     if not FACE_Y_RANGE[0] <= face_y <= FACE_Y_RANGE[1]:
         raise WorkflowError(f'--face-y {face_y} is outside {FACE_Y_RANGE[0]}-{FACE_Y_RANGE[1]}: the face sits in the centre '
                             f'of the shape or a little higher ({FACE_Y} by default)')
@@ -245,21 +267,24 @@ def prepare_portrait(source, output=None, *, remove=True, fill=None, model=MODEL
         flat.paste(portrait, mask=portrait.getchannel('A'))
         portrait = flat
     output.parent.mkdir(parents=True, exist_ok=True)
+    # Both files are written beside their targets first and renamed into place, the sidecar last, so a run that
+    # stops early leaves the earlier pair as it was (and --replace still recognises it).
+    partial_png = output.with_name(f'.{output.name}.partial')
+    partial_sidecar = sidecar_path.with_name(f'.{sidecar_path.name}.partial')
     # Tagged sRGB, so no reader has to guess (the pixels are sRGB since load_photo).
     srgb = ImageCms.ImageCmsProfile(ImageCms.createProfile('sRGB')).tobytes()
-    portrait.save(output, optimize=True, icc_profile=srgb)
+    portrait.save(partial_png, format='PNG', optimize=True, icc_profile=srgb)
 
     # Evidence: the face found again in what was written, as a share of the square.
     after = detect_faces(portrait)
-    placed = [round(after[0]['centre'][0] / portrait.width, 3), round(after[0]['centre'][1] / portrait.height, 3)] if len(after) == 1 else None
-    on_target = placed is not None and abs(placed[0] - FACE_X) <= CHECK_TOLERANCE and abs(placed[1] - face_y) <= CHECK_TOLERANCE
+    placed, on_target = check_result(after, portrait.size, face_y)
     record = {
         'tool': TOOL,
         'written': datetime.now(timezone.utc).strftime('%Y-%m-%dT%H:%M:%SZ'),
         'source': {'file': source.name, 'sha256': sha256_bytes(source), 'size': list(photo.size), 'colour': colour_note},
         'face': face,
         'crop': {**crop, 'target': {'x': FACE_X, 'y': face_y}, 'wanted_face_share': FACE_SHARE},
-        'output': {'file': output.name, 'sha256': sha256_bytes(output), 'size': list(portrait.size), 'profile': 'sRGB',
+        'output': {'file': output.name, 'sha256': sha256_bytes(partial_png), 'size': list(portrait.size), 'profile': 'sRGB',
                    'background': ('#%02x%02x%02x' % colour) if colour else 'transparent' if remove else 'original',
                    'face_centre': placed, 'faces_found': len(after)},
         'check': {'passed': on_target, 'tolerance': CHECK_TOLERANCE},
@@ -267,6 +292,8 @@ def prepare_portrait(source, output=None, *, remove=True, fill=None, model=MODEL
                    'face': {'file': YUNET.name, 'sha256': sha256_bytes(YUNET), 'score_threshold': SCORE}},
         'versions': versions(),
     }
-    sidecar_path.write_text(json.dumps(record, indent=2) + '\n', encoding='utf-8')
+    partial_sidecar.write_text(json.dumps(record, indent=2) + '\n', encoding='utf-8')
+    os.replace(partial_png, output)
+    os.replace(partial_sidecar, sidecar_path)
     record['paths'] = {'portrait': str(output), 'sidecar': str(sidecar_path)}
     return record
