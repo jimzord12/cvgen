@@ -1,7 +1,8 @@
 // Guilloche: the CV opens under a band engraved like security print: a woven
-// underprint, a rosette with a globe at its heart and a rainbow tint, the cut-out
-// portrait standing on the band's engraved foot. The engraved line carries on as
-// the body's section rules and the rule between its columns. Condensed density, stylish tier. The monochrome file is
+// underprint on a rainbow tint that fades into the page, an engraved travel globe
+// with great-circle routes and an airliner, the cut-out portrait in an arch behind
+// a tapering guilloche "helix". The engraved line carries on as the body's section
+// rules and the rule between its columns. Condensed density, stylish tier. The monochrome file is
 // generated from this one (mono flag and root path switched); see ../../brief.md.
 #let mono = false
 #let root = "../../"
@@ -69,67 +70,133 @@
 // an institution "Name, qualifier" breaks at its comma, never mid-phrase
 #let at-comma(s) = { let p = s.split(", "); if p.len() < 2 { s } else { [#p.at(0),#linebreak()#p.slice(1).join(", ")] } }
 
-// an engraved globe: meridians and parallels on a pale sphere, a double rim
-#let globe(c, gr, col, fill: none) = {
-  place(top + left, dx: c.at(0) - gr, dy: c.at(1) - gr, circle(radius: gr, fill: fill, stroke: 1pt + col))
-  place(top + left, dx: c.at(0) - gr - 1.4mm, dy: c.at(1) - gr - 1.4mm, circle(radius: gr + 1.4mm, stroke: 0.4pt + col))
-  for lon in (18deg, 38deg, 56deg, 72deg, 84deg) {
-    let rx = gr * calc.cos(lon)
-    place(top + left, dx: c.at(0) - rx, dy: c.at(1) - gr, ellipse(width: 2 * rx, height: 2 * gr, stroke: 0.35pt + col))
-  }
-  place(top + left, dx: c.at(0), dy: c.at(1) - gr, line(length: 2 * gr, angle: 90deg, stroke: 0.35pt + col))
-  for lat in (-60deg, -40deg, -20deg, 0deg, 20deg, 40deg, 60deg) {
-    let y = c.at(1) + gr * calc.sin(lat)
-    let hw = gr * calc.cos(lat)
-    place(top + left, line(start: (c.at(0) - hw, y), end: (c.at(0) + hw, y), stroke: (if lat == 0deg { 0.6pt } else { 0.35pt }) + col))
-  }
+// ---------- the travel globe, engraved (round 6, owner) ----------
+// orthographic view with the axis tilted; (lon, lat) on the sphere -> a point on the page.
+// `lift` raises a point above the surface, so a flight path arcs off the globe.
+#let tilt = -18deg
+#let on-globe(c, r, lon, lat, lift: 1) = {
+  let x = r * lift * calc.cos(lat) * calc.sin(lon)
+  let y = -r * lift * calc.sin(lat)
+  (c.at(0) + x * calc.cos(tilt) - y * calc.sin(tilt), c.at(1) + x * calc.sin(tilt) + y * calc.cos(tilt))
 }
 
-// an airliner seen from above, drawn as an engraved outline (nose towards -y before rotation)
-#let airliner(s, col, fill) = box(width: s, height: s, {
+#let globe(c, r, col, fill: none) = {
+  // the sphere and its engraved shading: horizontal lines whose weight follows the shadow side,
+  // as a banknote engraver models a sphere, light from the upper left
+  place(top + left, dx: c.at(0) - r, dy: c.at(1) - r, circle(radius: r, fill: fill, stroke: none))
+  let (lx, ly, lz) = (-0.52, -0.56, 0.645)
+  let pitch = 0.82mm
+  let n = int(2 * r / pitch)
+  for k in range(1, n) {
+    let yy = -r + k * pitch
+    let hw = calc.sqrt(calc.pow(r / 1mm, 2) - calc.pow(yy / 1mm, 2)) * 1mm
+    let seg = 0.5mm
+    let m = calc.max(1, int(2 * hw / seg))
+    for i in range(m) {
+      let x0 = -hw + i * 2 * hw / m
+      let x1 = -hw + (i + 1) * 2 * hw / m
+      let nx = (x0 + x1) / 2 / r
+      let ny = yy / r
+      let nz = calc.sqrt(calc.max(0, 1 - nx * nx - ny * ny))
+      let lit = nx * lx + ny * ly + nz * lz
+      let t = calc.min(1, calc.max(0, 1 - lit))
+      if t > 0.42 {
+        let w = 0.1pt + 0.9pt * calc.pow((t - 0.42) / 0.58, 1.3)
+        place(top + left, line(start: (c.at(0) + x0, c.at(1) + yy), end: (c.at(0) + x1, c.at(1) + yy),
+          stroke: (paint: col.transparentize(25%), thickness: w)))
+      }
+    }
+  }
+  // the graticule, every 15 degrees, front hemisphere only
+  for lon in range(-75, 76, step: 15) {
+    let pts = range(-90, 91, step: 3).map(lat => on-globe(c, r, lon * 1deg, lat * 1deg))
+    place(top + left, poly(pts, 0.3pt + col))
+  }
+  for lat in range(-75, 76, step: 15) {
+    let pts = range(-90, 91, step: 3).map(lon => on-globe(c, r, lon * 1deg, lat * 1deg))
+    place(top + left, poly(pts, (if lat == 0 { 0.6pt } else { 0.3pt }) + col))
+  }
+  // the axis, faint, beyond the poles
+  place(top + left, line(start: on-globe(c, r, 0deg, 90deg, lift: 1.08), end: on-globe(c, r, 0deg, 90deg, lift: 1.0), stroke: 0.4pt + col))
+  // the engraved bezel: a fine guilloche ring between two rims
+  place(top + left, dx: c.at(0) - r, dy: c.at(1) - r, circle(radius: r, stroke: 0.8pt + col))
+  rosette(c, r + 1.75mm, 0.85mm, 72, 5, col.transparentize(10%), w: 0.22pt)
+  place(top + left, dx: c.at(0) - r - 3mm, dy: c.at(1) - r - 3mm, circle(radius: r + 3mm, stroke: 0.4pt + col))
+}
+
+// an airliner seen from above: long fuselage, swept wings and tailplane, engines under the wings;
+// filled with an engraved hatch and set on a white knockout. Nose towards -y before rotation.
+#let airliner(s, col) = box(width: s, height: s, {
   let u = s / 10
-  place(top + left, polygon(fill: fill, stroke: (paint: col, thickness: 0.6pt, join: "round"),
-    (5*u, 0*u), (5.6*u, 0.7*u), (5.75*u, 3.4*u), (9.8*u, 5.9*u), (9.8*u, 6.8*u), (5.75*u, 5.7*u), (5.55*u, 8.3*u),
-    (6.9*u, 9.3*u), (6.9*u, 9.9*u), (5*u, 9.5*u), (3.1*u, 9.9*u), (3.1*u, 9.3*u), (4.45*u, 8.3*u), (4.25*u, 5.7*u),
-    (0.2*u, 6.8*u), (0.2*u, 5.9*u), (4.25*u, 3.4*u), (4.4*u, 0.7*u)))
-  // engraved detail: the fuselage line and the engine pods
-  place(top + left, line(start: (5*u, 1.2*u), end: (5*u, 8.6*u), stroke: 0.35pt + col))
-  for x in (2.7, 7.3) { place(top + left, dx: (x - 0.35)*u, dy: 4.5*u, rect(width: 0.7*u, height: 1.4*u, fill: col, stroke: none)) }
+  let rhs = ((5.0, 0.0), (5.3, 0.45), (5.45, 1.3), (5.45, 3.5), (9.7, 6.15), (9.75, 6.75), (5.45, 5.55),
+               (5.4, 8.25), (7.1, 9.35), (7.1, 9.8), (5.25, 9.55), (5.0, 10.0))
+  let lhs = rhs.rev().slice(1, -1).map(p => (10 - p.at(0), p.at(1)))
+  let pts = (rhs + lhs).map(p => (p.at(0) * u, p.at(1) * u))
+  let hatch = tiling(size: (1.1pt, 1.1pt), place(top + left, line(start: (0pt, 0.55pt), end: (1.1pt, 0.55pt), stroke: 0.32pt + col)))
+  place(top + left, polygon(fill: white, stroke: (paint: white, thickness: 2.6pt, join: "round"), ..pts))
+  place(top + left, polygon(fill: hatch, stroke: (paint: col, thickness: 0.6pt, join: "round"), ..pts))
+  // engine pods ahead of the wing's trailing edge, and the cockpit glazing
+  for x in (2.55, 7.45) {
+    place(top + left, dx: (x - 0.3) * u, dy: 4.4 * u, rect(width: 0.6 * u, height: 1.5 * u, radius: 0.3 * u, fill: col, stroke: 0.4pt + white))
+  }
+  place(top + left, dx: 4.72 * u, dy: 0.9 * u, rect(width: 0.56 * u, height: 0.35 * u, radius: 0.15 * u, fill: white, stroke: none))
 })
 
-// dotted routes from home to destinations over the globe; a plane flies one of them
-#let routes(c, home, stops, plane-on, col, dot-fill) = {
-  let at(p) = (c.at(0) + p.at(0), c.at(1) + p.at(1))
-  let curve-pts(a, b) = {
-    let (ax, ay) = at(a)
-    let (bx, by) = at(b)
-    let mx = (ax + bx) / 2
-    let my = (ay + by) / 2
-    // control point lifted away from the chord, as a great-circle arc reads on a globe
-    let lift = calc.sqrt(calc.pow((bx - ax) / 1mm, 2) + calc.pow((by - ay) / 1mm, 2)) * 0.32mm
-    let ctl = (mx, my - lift)
-    range(0, 41).map(i => {
-      let t = i / 40
-      ((1 - t) * (1 - t) * ax + 2 * (1 - t) * t * ctl.at(0) + t * t * bx,
-       (1 - t) * (1 - t) * ay + 2 * (1 - t) * t * ctl.at(1) + t * t * by)
+// flight paths: great-circle arcs from home to each destination, lifted off the surface,
+// dotted, ending in small destination dots; the airliner flies one of them
+#let routes(c, r, home, stops, plane-on, col, dot-fill) = {
+  let vec(lon, lat) = (calc.cos(lat) * calc.sin(lon), calc.sin(lat), calc.cos(lat) * calc.cos(lon))
+  let arc(a, b) = {
+    let va = vec(a.at(0), a.at(1))
+    let vb = vec(b.at(0), b.at(1))
+    let dot = va.at(0) * vb.at(0) + va.at(1) * vb.at(1) + va.at(2) * vb.at(2)
+    let om = calc.acos(calc.min(1, dot))
+    range(0, 49).map(i => {
+      let t = i / 48
+      let ka = calc.sin((1 - t) * om) / calc.sin(om)
+      let kb = calc.sin(t * om) / calc.sin(om)
+      let (px, py, pz) = (ka * va.at(0) + kb * vb.at(0), ka * va.at(1) + kb * vb.at(1), ka * va.at(2) + kb * vb.at(2))
+      let lon = calc.atan2(pz, px)
+      let lat = calc.asin(calc.min(1, calc.max(-1, py)))
+      on-globe(c, r, lon, lat, lift: 1 + 0.17 * calc.sin(t * 180deg))
     })
   }
   for (k, b) in stops.enumerate() {
-    let pts = curve-pts(home, b)
-    place(top + left, poly(pts, (paint: col, thickness: 0.9pt, dash: "densely-dotted", cap: "round")))
-    place(top + left, dx: at(b).at(0) - 1.5mm, dy: at(b).at(1) - 1.5mm, circle(radius: 1.5mm, fill: dot-fill, stroke: 0.8pt + white))
+    let pts = arc(home, b)
+    place(top + left, poly(pts, (paint: col, thickness: 0.95pt, dash: (0pt, 2.1pt), cap: "round")))
+    let (bx, by) = on-globe(c, r, b.at(0), b.at(1))
+    place(top + left, dx: bx - 1.55mm, dy: by - 1.55mm, circle(radius: 1.55mm, fill: dot-fill, stroke: 0.9pt + white))
+    place(top + left, dx: bx - 2.3mm, dy: by - 2.3mm, circle(radius: 2.3mm, stroke: 0.3pt + col))
     if k == plane-on {
-      let i = 26
-      let (x0, y0) = pts.at(i - 1)
-      let (x1, y1) = pts.at(i + 1)
+      let i = 20
+      let (x0, y0) = pts.at(i - 2)
+      let (x1, y1) = pts.at(i + 2)
       let ang = calc.atan2((x1 - x0) / 1mm, (y1 - y0) / 1mm) + 90deg
       let (px, py) = pts.at(i)
-      place(top + left, dx: px - 5mm, dy: py - 5mm, rotate(ang, airliner(10mm, col, white)))
+      place(top + left, dx: px - 7mm, dy: py - 7mm, rotate(ang, airliner(14mm, col)))
     }
   }
-  place(top + left, dx: at(home).at(0) - 2.2mm, dy: at(home).at(1) - 2.2mm, circle(radius: 2.2mm, fill: white, stroke: 1pt + col))
-  place(top + left, dx: at(home).at(0) - 0.9mm, dy: at(home).at(1) - 0.9mm, circle(radius: 0.9mm, fill: col, stroke: none))
+  let (hx, hy) = on-globe(c, r, home.at(0), home.at(1))
+  place(top + left, dx: hx - 2.3mm, dy: hy - 2.3mm, circle(radius: 2.3mm, fill: white, stroke: 1pt + col))
+  place(top + left, dx: hx - 0.95mm, dy: hy - 0.95mm, circle(radius: 0.95mm, fill: col, stroke: none))
 }
+
+// the signature divider (round 6, owner): a twisted guilloche that tapers to nothing at both
+// ends, so it emerges from the fading header and the white body instead of sitting as a strip.
+// `bulge` is where along the width the band is fullest (over the shirt, D23).
+#let helix(w, h, n: 9, periods: 34, wt: 0.4pt, bulge: 0.2) = box(width: w, height: h, {
+  for j in range(n) {
+    let pts = range(0, 601).map(i => {
+      let x = i / 600
+      // full strength in the middle, tapering smoothly to nothing over the last 9 % at each end
+      let e = calc.min(1, calc.min(x, 1 - x) / 0.09)
+      let win = e * e * (3 - 2 * e)
+      let env = win * (0.62 + 0.38 * calc.cos((x - bulge) * 3 * 360deg))
+      (x * w, h / 2 + (h / 2) * calc.sin(x * periods * 360deg + j * 360deg / n) * env)
+    })
+    place(top + left, poly(pts, wt + (if calc.rem(j, 2) == 0 { line-a } else { line-b }).transparentize(if mono { 0% } else { 10% })))
+  }
+})
 
 // a vertical engraved rule (the waveband turned on end)
 #let vwaveband(h, w, n: 4, col: line-a, col2: line-b, wt: 0.4pt) = box(width: w, height: h, {
@@ -152,34 +219,37 @@
     place(top + left, dy: 2mm + k * 10mm, waveband(210mm, 9mm, n: 5, periods: 10 + calc.rem(k, 2),
       col: line-a.transparentize(if mono { 80% } else { 80% }), col2: line-b.transparentize(if mono { 78% } else { 82% }), wt: if mono { 0.25pt } else { 0.3pt }))
   }
-  // the travel globe (round 5, owner): bigger, with dotted routes from home to destinations
-  // in Europe and Asia, and a drawn airliner on one of them. Its rim stays 4 mm inside the page edge (D21).
-  let gc = (181.5mm, 50mm)
-  let gr = 22.5mm
-  globe(gc, gr, line-a, fill: if mono { white } else { rgb("#F7F1E8") })
-  routes(gc, (-5mm, 0mm),
-    ((-15mm, -9mm), (-4mm, -15mm), (15mm, -7mm), (12mm, 8mm)),
+  // the header's tint fades into the white page, so there is no edge where it stops (round 6)
+  place(top + left, dy: Hb - 18mm, rect(width: 210mm, height: 18mm, stroke: none,
+    fill: gradient.linear(white.transparentize(100%), white, angle: 90deg)))
+  // the engraved travel globe (round 6, owner): its outer rim stays about 5 mm inside the page edge (D21)
+  let gc = (180mm, 50mm)
+  let gr = 21.5mm
+  globe(gc, gr, line-a, fill: if mono { white } else { rgb("#F8F3EA") })
+  routes(gc, gr, (-12deg, 14deg),
+    ((-54deg, 34deg), (-24deg, 56deg), (40deg, 40deg), (62deg, 6deg)),
     2, if mono { ink } else { rose }, if mono { ink } else { rose })
 })
 
 #set page(background: {
   place(top + left, band)
-  // the portrait arch (round 5, owner): its own mid-tone ground with a fine engraved halo, so the
-  // dark hair and the white shirt both separate from it; it runs down behind the band's foot
+  // the portrait arch: a plain mid-tone ground (round 6: no halo behind the head), so the dark
+  // hair and the white shirt both separate from it. Its foot fades into the page under the helix.
   let aw = 60mm
-  let ah = 79mm
+  let ah = 80mm
   let ay = Hb - 76mm
+  let fade = 15mm
   place(top + left, dx: 12mm, dy: ay, box(width: aw, height: ah, clip: true, radius: (top-left: aw / 2, top-right: aw / 2), {
     place(top + left, rect(width: aw, height: ah, fill: arch-fill, stroke: none))
-    rosette((aw / 2, 30mm), 26mm, 2.4mm, 16, 16, white.transparentize(if mono { 45% } else { 50% }), w: 0.3pt)
-    rosette((aw / 2, 30mm), 17mm, 2mm, 12, 12, white.transparentize(if mono { 45% } else { 50% }), w: 0.3pt)
     image(portrait, width: aw, height: ah, fit: "cover")
+    place(top + left, dy: ah - fade, rect(width: aw, height: fade, stroke: none,
+      fill: gradient.linear(white.transparentize(100%), white.transparentize(15%), white, angle: 90deg)))
   }))
+  // the arch's engraved outline fades out with it
   place(top + left, dx: 12mm, dy: ay, box(width: aw, height: ah, radius: (top-left: aw / 2, top-right: aw / 2),
-    stroke: (top: 0.8pt + line-a, left: 0.8pt + line-a, right: 0.8pt + line-a)))
-  // the band's foot, the engraved "helix", runs in front of the arch across the shirt
-  place(top + left, dy: Hb - 3.4mm, rect(width: 210mm, height: 6.8mm, fill: white.transparentize(if mono { 30% } else { 45% }), stroke: none))
-  place(top + left, dy: Hb - 3.4mm, waveband(210mm, 6.8mm, n: 9, periods: 34, wt: if mono { 0.35pt } else { 0.45pt }))
+    stroke: (paint: gradient.linear((line-a, 0%), (line-a, 76%), (line-a.transparentize(100%), 94%), (line-a.transparentize(100%), 100%), angle: 90deg), thickness: 0.8pt)))
+  // the helix: the single signature divider, crossing in front of the shirt, tapering into the page at both ends
+  place(top + left, dx: 3mm, dy: Hb - 4.2mm, helix(204mm, 8.4mm, n: 9, periods: 36, wt: if mono { 0.35pt } else { 0.42pt }, bulge: (42mm - 3mm) / 204mm))
   // header strip and identity, set on the band
   place(top + left, dx: 15mm, dy: 9mm, text(font: mono-font, weight: 600, size: 8pt, tracking: 2pt, fill: ink)[CURRICULUM VITAE])
   place(top + right, dx: -15mm, dy: 9mm, text(font: mono-font, weight: 600, size: 8pt, tracking: 2pt, fill: ink)[TRAVEL · GROUP & PRIVATE])
