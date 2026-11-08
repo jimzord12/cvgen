@@ -19,6 +19,7 @@ from cv_workflow.decoration import PETALS, decoration_errors, petal_collisions, 
 from compatibility import run_compatibility
 from proposals import run_proposals
 from report import run_report
+from portrait import run_portrait
 from cv_workflow.render import STRICT_FONTS, font_fallbacks  # on the path through workflow.py
 
 
@@ -610,6 +611,13 @@ def main():
     # The Report Template's script on its sample, and each refusal.
     for check in run_report(out):
         results.append({'case': 'report: ' + check, 'passed': True, 'folder': 'report'})
+    # scripts/portrait.py on fictional portraits: the face-centred crop, the refusals, background removal.
+    for check, reason in run_portrait(out):
+        if reason:
+            assert not os.environ.get('CI'), f'portrait: {check} cannot run on CI: {reason}'
+            skip('portrait: ' + check, reason=reason)
+        else:
+            results.append({'case': 'portrait: ' + check, 'passed': True, 'folder': 'portrait'})
     # The owner's Design Review app, through its real server, on a fictional tree.
     for check in run_design_review(out):
         results.append({'case': 'design-review-' + check, 'passed': True, 'folder': 'design-review'})

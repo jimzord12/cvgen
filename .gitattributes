@@ -16,3 +16,4 @@
 *.jpg binary
 *.ttf binary
 packages/cv-framework/licenses/* -whitespace
+*.onnx binary

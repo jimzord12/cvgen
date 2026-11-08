@@ -34,7 +34,7 @@
           "blurb": "Who the client is: `Alias`, `Domain`, `Rank`; the `Template` and `Template Variation` when a `Template` renders the CV; dates and links.",
           "detail": "`cv.py render` refuses to run without `envelope.json`, or when its `template` or `variation` disagrees with `cv.typ`; every client `Meta File` copies who the client is.",
           "sources": [
-            "docs/guides/client-workflow.md:17-105",
+            "docs/guides/client-workflow.md:17-133",
             "docs/guides/build-a-cv.md:55-61"
           ]
         },
@@ -44,7 +44,7 @@
           "path": "private/<envelope>/intake/",
           "blurb": "Messages, documents, `facts.md`, the `Scout`, `CV Decisions`, `Deep Dives`.",
           "sources": [
-            "docs/guides/client-workflow.md:29-66"
+            "docs/guides/client-workflow.md:29-67"
           ]
         },
         {
@@ -63,7 +63,7 @@
           "blurb": "The client's facts and the entry point that composes their CV, with its designs, wording and art beside it in typst/.",
           "sources": [
             "docs/guides/build-a-cv.md:15-61",
-            "docs/guides/client-workflow.md:29-66"
+            "docs/guides/client-workflow.md:29-67"
           ]
         },
         {
@@ -140,7 +140,7 @@
       "col": 9,
       "w": 4,
       "row": 1,
-      "blurb": "The scripts that render, approve, export and stamp.",
+      "blurb": "The scripts that prepare portraits, render, approve, export and stamp.",
       "nodes": [
         {
           "id": "n-cvpy",
@@ -166,6 +166,15 @@
           "blurb": "Stamps a PDF's `Meta File`; `check` lists every PDF without a valid one.",
           "cmd": [
             "python scripts/outputs.py check"
+          ]
+        },
+        {
+          "id": "n-portrait",
+          "title": "portrait.py",
+          "path": "scripts/portrait.py",
+          "blurb": "Prepares a portrait: no background, the face centred in a square, a little high; writes a PNG and its evidence.",
+          "cmd": [
+            "python scripts/portrait.py prepare <photo> --output <folder>/portrait.png"
           ]
         },
         {
@@ -228,7 +237,7 @@
           "actor": "magazine-editor",
           "blurb": "Every design `Idea Run`'s Styles and Tiers, with a README row each (two Densities since the 2026-09-29 run).",
           "sources": [
-            "studio/design-concepts/README.md:1-22"
+            "studio/design-concepts/README.md:1-24"
           ]
         },
         {
@@ -429,7 +438,7 @@
           "actor": "intake-form",
           "blurb": "Optional `Intake Forms` and their answer Sheets.",
           "sources": [
-            "docs/guides/client-workflow.md:142-188"
+            "docs/guides/client-workflow.md:170-216"
           ]
         },
         {

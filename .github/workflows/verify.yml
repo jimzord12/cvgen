@@ -105,6 +105,14 @@ jobs:
           bun run render --check
           bun run atlas --check
 
+      # rembg's small model for the suite's portrait cases (tests/portrait.py, u2netp, about 5 MB), kept between
+      # runs so a run does not fetch it from GitHub's releases each time; rembg reads ~/.rembg on both runners.
+      - name: Cache the rembg test model
+        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        with:
+          path: ~/.rembg/models/u2netp
+          key: rembg-u2netp-${{ runner.os }}
+
       - name: Run the regression suite
         run: python tests/run.py --output builds/ci
 

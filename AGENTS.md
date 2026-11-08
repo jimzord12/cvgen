@@ -34,9 +34,9 @@ starts and ends as `docs/development.md` says.
 |---|---|
 | `packages/cv-framework/` | The Framework: domain-neutral core, `lib.typ`, fonts, licences; imports no domain (`docs/architecture.md`) |
 | `packages/domains/marine/` | The marine `Domain`: `lib.typ` (every marine entry point imports it), facts, schema, assets, roles, `templates/flagship/` with its frozen `tests/approved/` (`docs/architecture.md`, `docs/engine/`) |
-| `packages/cv-workflow/` | Python package behind `scripts/cv.py`: revisions, approval, export, the `Output Contract` (its `README.md`) |
+| `packages/cv-workflow/` | Python package behind `scripts/cv.py` and `scripts/portrait.py`: revisions, approval, export, the `Output Contract`, portrait preparation (its `README.md`) |
 | `examples/` | Fictional candidate records; entry points with their `Release` PDFs and `Meta File`s |
-| `scripts/` | `build.ps1`, `cv.py`, `outputs.py`, `proposals.py`, `report.py`, the `Intake Form` script, the `Text Draft` |
+| `scripts/` | `build.ps1`, `cv.py`, `outputs.py`, `portrait.py`, `proposals.py`, `report.py`, the `Intake Form` script, the `Text Draft` |
 | `tests/` | The suite (`docs/engine/verification.md`) |
 | `tools/workflow/` | The workflow tool for the `Workflow Model` in `docs/workflow/` (its `README.md`) |
 | `apps/design-review/` | The owner's `Design Review` app (its `README.md`); `apps/web/` is not built |

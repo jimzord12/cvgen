@@ -1,7 +1,7 @@
 # yaml-language-server: $schema=../../../tools/workflow/schema/stage.schema.json
 id: deliver
 name: Render, Approval, Export and delivery
-sources: ["docs/guides/build-a-cv.md:111-194", "docs/pdf-workflow.md:176-198", ".claude/skills/new-cv/SKILL.md:65-87"]
+sources: ["docs/guides/build-a-cv.md:113-196", "docs/pdf-workflow.md:176-198", ".claude/skills/new-cv/SKILL.md:69-91"]
 purpose: >-
   Render the CV as a Revision, check it, let the owner approve its exact
   bytes, export a verified copy, write the delete-by date, and record the
@@ -15,7 +15,7 @@ exit: >-
 steps:
   - id: deliver.render
     name: Render a Revision
-    sources: ["docs/guides/build-a-cv.md:119-143", ".claude/skills/new-cv/SKILL.md:67-70", "packages/cv-workflow/cv_workflow/render.py:102-213"]
+    sources: ["docs/guides/build-a-cv.md:121-145", ".claude/skills/new-cv/SKILL.md:71-74", "packages/cv-workflow/cv_workflow/render.py:102-213"]
     actor: actor.lead
     action: cmd.cv-render
     inputs: [art.envelope-json, art.candidate-json, art.cv-typ, art.engine]
@@ -24,7 +24,7 @@ steps:
 
   - id: deliver.fix
     name: Fix the inputs; the fix is a new Revision
-    sources: ["docs/guides/build-a-cv.md:129-140", "docs/guides/build-a-cv.md:196-205", ".claude/skills/new-cv/SKILL.md:67-70"]
+    sources: ["docs/guides/build-a-cv.md:131-142", "docs/guides/build-a-cv.md:198-207", ".claude/skills/new-cv/SKILL.md:71-74"]
     actor: actor.lead
     action: lead.fix-inputs
     inputs: [art.render-summary]
@@ -33,7 +33,7 @@ steps:
 
   - id: deliver.page-png
     name: Render every page to PNG and look at it
-    sources: [".claude/skills/new-cv/SKILL.md:71-73", "docs/workflow/06-deliver/README.md:22-25", ".claude/skills/verify-cv/SKILL.md:65-76"]
+    sources: [".claude/skills/new-cv/SKILL.md:75-77", "docs/workflow/06-deliver/README.md:22-25", ".claude/skills/verify-cv/SKILL.md:65-76"]
     actor: actor.lead
     action: cmd.page-png
     inputs: [art.cv-pdf]
@@ -41,7 +41,7 @@ steps:
 
   - id: deliver.wording-check
     name: Check for the fictional example wording
-    sources: [".claude/skills/new-cv/SKILL.md:74-75", "docs/guides/build-a-cv.md:107-109", "docs/workflow/06-deliver/README.md:66-68"]
+    sources: [".claude/skills/new-cv/SKILL.md:78-79", "docs/guides/build-a-cv.md:109-111", "docs/workflow/06-deliver/README.md:66-68"]
     actor: actor.lead
     action: cmd.wording-check
     inputs: [art.cv-pdf]
@@ -50,7 +50,7 @@ steps:
 
   - id: deliver.report
     name: Report the Revision to the owner
-    sources: [".claude/skills/new-cv/SKILL.md:76-78"]
+    sources: [".claude/skills/new-cv/SKILL.md:80-82"]
     actor: actor.lead
     action: lead.report-render
     inputs: [art.render-summary, art.page-png, art.wording-hits]
@@ -58,7 +58,7 @@ steps:
 
   - id: deliver.owner-review
     name: The owner reviews the exact cv.pdf
-    sources: ["docs/workflow/06-deliver/README.md:35-39", "docs/workflow/06-deliver/README.md:22-25", "docs/guides/build-a-cv.md:145-153"]
+    sources: ["docs/workflow/06-deliver/README.md:35-39", "docs/workflow/06-deliver/README.md:22-25", "docs/guides/build-a-cv.md:147-155"]
     actor: actor.owner
     action: manual.review-pdf
     inputs: [art.render-report, art.cv-pdf]
@@ -67,7 +67,7 @@ steps:
 
   - id: deliver.approve
     name: The owner approves the reviewed bytes
-    sources: ["docs/guides/build-a-cv.md:165-170", "docs/pdf-workflow.md:184-186", "docs/proposals/workflow-model.md:58", "docs/glossary.md:77"]
+    sources: ["docs/guides/build-a-cv.md:167-172", "docs/pdf-workflow.md:184-186", "docs/proposals/workflow-model.md:58", "docs/glossary.md:77"]
     actor: actor.owner
     action: cmd.cv-approve
     inputs: [art.cv-pdf, art.render-json, art.checks-json, art.reviewed-hash, art.envelope-json]
@@ -76,7 +76,7 @@ steps:
   # Decision #5 (2026-10-14): Claude runs Export after the owner approves.
   - id: deliver.export
     name: Export the approved Revision
-    sources: ["docs/proposals/workflow-model.md:58", "docs/guides/build-a-cv.md:172-176", "docs/pdf-workflow.md:187-191"]
+    sources: ["docs/proposals/workflow-model.md:58", "docs/guides/build-a-cv.md:174-178", "docs/pdf-workflow.md:187-191"]
     actor: actor.lead
     action: cmd.cv-export
     inputs: [art.approval-json, art.cv-pdf, art.render-json, art.checks-json]
@@ -86,7 +86,7 @@ steps:
   # 12 months after it.
   - id: deliver.record-delete-by
     name: Write the Export and delete-by dates in README.md
-    sources: ["docs/proposals/workflow-model.md:54", "docs/proposals/workflow-model.md:56", "docs/workflow/06-deliver/README.md:44-46", ".claude/skills/new-cv/SKILL.md:81-84"]
+    sources: ["docs/proposals/workflow-model.md:54", "docs/proposals/workflow-model.md:56", "docs/workflow/06-deliver/README.md:44-46", ".claude/skills/new-cv/SKILL.md:85-88"]
     actor: actor.lead
     action: lead.write-delete-by
     inputs: [art.export-bundle]
@@ -102,7 +102,7 @@ steps:
 
   - id: deliver.stamp-delivered
     name: Stamp the Revision delivered
-    sources: ["docs/guides/build-a-cv.md:178-180", "docs/workflow/06-deliver/README.md:50-51", ".claude/skills/new-cv/SKILL.md:85-86"]
+    sources: ["docs/guides/build-a-cv.md:180-182", "docs/workflow/06-deliver/README.md:50-51", ".claude/skills/new-cv/SKILL.md:89-90"]
     actor: actor.lead
     action: cmd.stamp-delivered
     inputs: [art.delivery-message, art.export-bundle, art.approval-json]
@@ -118,7 +118,7 @@ steps:
 
   - id: deliver.status
     name: List the Revisions and their states
-    sources: [".claude/skills/new-cv/SKILL.md:87", "scripts/cv.py:66-67", "packages/cv-workflow/cv_workflow/__init__.py:14-31"]
+    sources: [".claude/skills/new-cv/SKILL.md:91", "scripts/cv.py:66-67", "packages/cv-workflow/cv_workflow/__init__.py:14-31"]
     actor: actor.lead
     action: cmd.cv-status
     inputs: [art.render-json]
@@ -134,7 +134,7 @@ steps:
 gates:
   - id: gate.render-ok
     name: Render done
-    sources: ["scripts/cv.py:12-13", "scripts/cv.py:88", "docs/guides/build-a-cv.md:129-140"]
+    sources: ["scripts/cv.py:12-13", "scripts/cv.py:88", "docs/guides/build-a-cv.md:131-142"]
     check: >-
       scripts/cv.py render exits 0: not refused (exit 2, nothing written), the
       compile succeeded and every check passed (exit 1 keeps the Revision).
@@ -143,7 +143,7 @@ gates:
 
   - id: gate.example-wording
     name: No example wording
-    sources: ["docs/guides/build-a-cv.md:107-109", "docs/workflow/06-deliver/README.md:66-68", ".claude/skills/new-cv/SKILL.md:74-75"]
+    sources: ["docs/guides/build-a-cv.md:109-111", "docs/workflow/06-deliver/README.md:66-68", ".claude/skills/new-cv/SKILL.md:78-79"]
     check: >-
       The rendered text contains none of "fictional", "illustrative" and
       "flagship" (the one exception: "flagship" in the client's own words,
@@ -161,7 +161,7 @@ gates:
 loops:
   - id: loop.revision-fix
     name: Fix and render again after a failed render
-    sources: ["docs/guides/build-a-cv.md:129-131", "docs/proposals/workflow-gaps.md:30", "docs/proposals/workflow-gaps.md:60-64"]
+    sources: ["docs/guides/build-a-cv.md:131-133", "docs/proposals/workflow-gaps.md:30", "docs/proposals/workflow-gaps.md:60-64"]
     gate: gate.render-ok
     cap: { attended: 5, unattended: 10 }
     escalate: deliver.cap-reached
@@ -234,39 +234,39 @@ artifacts:
 
   - id: art.render-summary
     name: What render prints
-    sources: ["docs/guides/build-a-cv.md:124-143", "scripts/cv.py:30-40", "scripts/cv.py:102-105"]
+    sources: ["docs/guides/build-a-cv.md:126-145", "scripts/cv.py:30-40", "scripts/cv.py:102-105"]
     format: the summary JSON on stdout; REFUSED, WARNING and NOTE lines on stderr
     visibility: ephemeral
 
   # builds/ is ignored: neither tracked nor under private/ (GAPS.md).
   - id: art.page-png
     name: The page PNGs
-    sources: [".claude/skills/verify-cv/SKILL.md:65-76", ".claude/skills/new-cv/SKILL.md:71-73", "docs/workflow/06-deliver/README.md:31-34"]
+    sources: [".claude/skills/verify-cv/SKILL.md:65-76", ".claude/skills/new-cv/SKILL.md:75-77", "docs/workflow/06-deliver/README.md:31-34"]
     path: builds/<new-folder>/cv-p<N>.png
     format: PNG at 96 dpi
     visibility: ephemeral
 
   - id: art.wording-hits
     name: The wording check's result
-    sources: [".claude/skills/new-cv/SKILL.md:74-75"]
+    sources: [".claude/skills/new-cv/SKILL.md:78-79"]
     format: a printed list; [] when the PDF is clean
     visibility: ephemeral
 
   - id: art.render-report
     name: The render report to the owner
-    sources: [".claude/skills/new-cv/SKILL.md:76-78"]
+    sources: [".claude/skills/new-cv/SKILL.md:80-82"]
     format: "the lead's message: revision folder, hash, page count, what was checked, every WARNING and NOTE word for word"
     visibility: ephemeral
 
   - id: art.reviewed-hash
     name: The hash the owner reviewed
-    sources: ["docs/guides/build-a-cv.md:168-170", "packages/cv-workflow/cv_workflow/workspace.py:59-64"]
+    sources: ["docs/guides/build-a-cv.md:170-172", "packages/cv-workflow/cv_workflow/workspace.py:59-64"]
     format: the first 12 or more hex characters of cv.pdf's SHA-256
     visibility: ephemeral
 
   - id: art.approval-json
     name: The approval receipt
-    sources: ["docs/pdf-workflow.md:95", "docs/guides/build-a-cv.md:165-167", "packages/cv-workflow/cv_workflow/approve.py:34-44"]
+    sources: ["docs/pdf-workflow.md:95", "docs/guides/build-a-cv.md:167-169", "packages/cv-workflow/cv_workflow/approve.py:34-44"]
     path: private/<envelope>/revisions/<revision>/cv.approval.json
     format: "JSON: revision, sha256, bytes, approver, approved_at, scope"
     visibility: private
@@ -294,13 +294,13 @@ actions:
   - id: cmd.cv-render
     kind: cmd
     name: Render a Revision
-    sources: ["scripts/cv.py:3", "scripts/cv.py:47-53", "docs/guides/build-a-cv.md:140-143"]
+    sources: ["scripts/cv.py:3", "scripts/cv.py:47-53", "docs/guides/build-a-cv.md:142-145"]
     run: python scripts/cv.py render private/<envelope> [--pages <N>] [--input <key>=<value> ...]
 
   - id: lead.fix-inputs
     kind: lead
     name: Fix the inputs
-    sources: ["docs/guides/build-a-cv.md:196-205", ".claude/skills/new-cv/SKILL.md:67-70"]
+    sources: ["docs/guides/build-a-cv.md:198-207", ".claude/skills/new-cv/SKILL.md:71-74"]
     does: >-
       Applies the fix the message names, in candidate.json, envelope.json or
       the entry point's layout override; never shrinks the body font; the Revision it
@@ -309,7 +309,7 @@ actions:
   - id: cmd.page-png
     kind: cmd
     name: Render a page to PNG
-    sources: [".claude/skills/verify-cv/SKILL.md:72-76", ".claude/skills/new-cv/SKILL.md:71-73"]
+    sources: [".claude/skills/verify-cv/SKILL.md:72-76", ".claude/skills/new-cv/SKILL.md:75-77"]
     run: >-
       python -c "import pymupdf; doc = pymupdf.open('private/<envelope>/revisions/<revision>/cv.pdf');
       doc[<N>].get_pixmap(dpi=96).save('builds/<new-folder>/cv-p<N>.png')"
@@ -317,7 +317,7 @@ actions:
   - id: cmd.wording-check
     kind: cmd
     name: Check for example wording
-    sources: [".claude/skills/new-cv/SKILL.md:74-75"]
+    sources: [".claude/skills/new-cv/SKILL.md:78-79"]
     run: >-
       python -c "import pymupdf,sys; t=''.join(p.get_text() for p in pymupdf.open(sys.argv[1])).lower();
       print([w for w in ('fictional','illustrative','flagship') if w in t])"
@@ -326,7 +326,7 @@ actions:
   - id: lead.report-render
     kind: lead
     name: Report the render
-    sources: [".claude/skills/new-cv/SKILL.md:76-78"]
+    sources: [".claude/skills/new-cv/SKILL.md:80-82"]
     does: >-
       Stops at the render and reports the revision folder, the PDF hash, the
       page count, what was checked on each page, any override, and every
@@ -335,7 +335,7 @@ actions:
   - id: manual.review-pdf
     kind: manual
     name: Review the PDF
-    sources: ["docs/workflow/06-deliver/README.md:35-39", "docs/guides/build-a-cv.md:145-153"]
+    sources: ["docs/workflow/06-deliver/README.md:35-39", "docs/guides/build-a-cv.md:147-155"]
     does: >-
       The owner opens revisions/<revision>/cv.pdf (or finds it in the Design
       Review app), weighs the certificate warnings, and approves it or asks
@@ -344,13 +344,13 @@ actions:
   - id: cmd.cv-approve
     kind: cmd
     name: Approve a Revision
-    sources: ["scripts/cv.py:4", "docs/guides/build-a-cv.md:168-170", "packages/cv-workflow/cv_workflow/approve.py:13-44"]
+    sources: ["scripts/cv.py:4", "docs/guides/build-a-cv.md:170-172", "packages/cv-workflow/cv_workflow/approve.py:13-44"]
     run: python scripts/cv.py approve private/<envelope> <revision> --approver "<name>" --sha256 <reviewed hash>
 
   - id: cmd.cv-export
     kind: cmd
     name: Export a Revision
-    sources: ["scripts/cv.py:5", ".claude/skills/new-cv/SKILL.md:81-82"]
+    sources: ["scripts/cv.py:5", ".claude/skills/new-cv/SKILL.md:85-86"]
     run: python scripts/cv.py export private/<envelope> <revision>
 
   - id: lead.write-delete-by
@@ -370,7 +370,7 @@ actions:
   - id: cmd.stamp-delivered
     kind: cmd
     name: Stamp the Revision delivered
-    sources: ["docs/guides/build-a-cv.md:178-180", "docs/workflow/06-deliver/README.md:50-51", "docs/pdf-workflow.md:152-157"]
+    sources: ["docs/guides/build-a-cv.md:180-182", "docs/workflow/06-deliver/README.md:50-51", "docs/pdf-workflow.md:152-157"]
     run: python scripts/outputs.py stamp private/<envelope>/revisions/<revision>/cv.pdf status=delivered
 
   - id: lead.report-delete-by
@@ -384,5 +384,5 @@ actions:
   - id: cmd.cv-status
     kind: cmd
     name: List the Revisions
-    sources: ["scripts/cv.py:6", ".claude/skills/new-cv/SKILL.md:87"]
+    sources: ["scripts/cv.py:6", ".claude/skills/new-cv/SKILL.md:91"]
     run: python scripts/cv.py status private/<envelope>

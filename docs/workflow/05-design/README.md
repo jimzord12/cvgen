@@ -26,6 +26,13 @@
   takes the facts from `intake/facts.md` and the wording from the
   signed-off draft; no new question to the `Client`, and no rewording
   beyond fitting the page.
+- **The portrait is prepared, then looked at.** `design.fill-data`
+  prepares the photograph with `scripts/portrait.py` (owner, 2026-11-08:
+  no background, the face in the centre of the shape or a little higher;
+  `docs/guides/client-workflow.md`, section 1, "The portrait"). Before the
+  first design round, look at it in the shape the design renders; a face
+  that sits too low or too high is prepared again with `--face-y`, never
+  moved in the design.
 - **No `Template` means a design first, not code first.** The `Idea Run`
   draws on fictional data for the `Client`'s `Domain`, specialty and
   `Rank`; the owner picks a `Style`, `Design Tier` and `Density`
@@ -229,7 +236,7 @@ flowchart TD
 | `design.pick` | The owner picks a Style, Design Tier and Density | `actor.owner` | `manual.pick-design` | `art.run-message`, `art.concept-pdf` | `art.owner-pick` | `gate.owner-pick` | The client's Domain has no Template. |
 | `design.record-choice` | Record the choice and stamp the picked design chosen | `actor.lead` | `cmd.stamp-concept-status` | `art.owner-pick`, `art.concept-pdf` | `art.chosen-concept`, `art.concept-decision` |  |  |
 | `design.record-other-answer` | Record a parked or rejected answer; a new Idea Run follows | `actor.lead` | `cmd.stamp-concept-status` | `art.owner-pick` | `art.concept-decision` |  | The owner parked or rejected the concepts. |
-| `design.fill-data` | Write candidate.json and place the portrait | `actor.lead` | `lead.write-candidate-json` | `art.facts-final`, `art.draft-pdf`, `art.sign-off-png`, `art.documents`, `art.example-records` | `art.candidate-json`, `art.portrait` |  |  |
+| `design.fill-data` | Write candidate.json and prepare the portrait | `actor.lead` | `lead.write-candidate-json` | `art.facts-final`, `art.draft-pdf`, `art.sign-off-png`, `art.documents`, `art.example-records` | `art.candidate-json`, `art.portrait` |  |  |
 | `design.flagship-fit` | Check the data fits the Flagship | `actor.lead` | `lead.check-flagship-fit` | `art.candidate-json` |  | `gate.template-fits` | The client's Domain has a Template (today marine, the Flagship, and travel, Hanami). |
 | `design.entry-point` | Write the Flagship entry point | `actor.lead` | `lead.write-flagship-entry` | `art.candidate-json`, `art.flagship-template` | `art.cv-typ`, `art.envelope-choice` |  | The data fits the Flagship. |
 | `design.custom-composition` | Compose the page by hand | `actor.lead` | `lead.compose-by-hand` | `art.candidate-json`, `art.flagship-template` | `art.cv-typ`, `art.typst-sources` |  | The data does not fit the Flagship (a design the template cannot draw, or a career that mixes months and contract periods). |
@@ -339,7 +346,7 @@ flowchart TD
 | `lead.record-framework-gap` | lead | Record the Framework Gap | Adds an entry to docs/framework-gaps.md (what was needed, what was gone around, what was built) and records the reason in the Envelope's README.md. |
 | `lead.report-run` | lead | Report the run to the owner | Sends the short message with each Style's six PDFs and lists the concepts still waiting in the session-handoff doc. |
 | `lead.revise-engine-change` | lead | Fix the engine change | Fixes the Blocking and Material findings and reruns the affected checks before the next fresh round. |
-| `lead.write-candidate-json` | lead | Write candidate.json | Copies the closest example record and replaces every value from the facts and the signed-off wording (whole months, never months invented from calendar periods), replaces the fictional disclosure, and places the portrait in images/portrait/. |
+| `lead.write-candidate-json` | lead | Write candidate.json | Copies the closest example record and replaces every value from the facts and the signed-off wording (whole months, never months invented from calendar periods), replaces the fictional disclosure, keeps the client's photograph in images/portrait/, prepares it there with scripts/portrait.py prepare (background removed, the face centred, a little high; exit 3: look at it before rendering) and points identity.portrait at the prepared portrait.png. |
 | `lead.write-flagship-entry` | lead | Write the Flagship entry point | Writes typst/cv.typ importing the engine by root-absolute path: role, theme, artwork, the durations switch and a pages override with this client's company indices (or the one-page profile), and the client's copy in place of the example wording; records the template and its Template Variation in envelope.json (ADR 0016). |
 | `manual.decide-at-cap` | manual | The owner decides at the cap | At a loop's cap (a review loop, the client's draft corrections, the owner's own changes or a render that keeps failing) the lead stops and brings the owner the open item with its last reason; another round needs his decision. |
 | `manual.pick-design` | manual | Pick the design | The owner answers Build it (with a Style, Design Tier and Density), Later, or Reject. |
