@@ -27,8 +27,11 @@ def run_report(out):
     assert '{{' not in page, 'a placeholder was left in the page'
     assert page.count('data:font/ttf') == 3 and 'data:image/jpeg' in page, 'fonts and pages are embedded'
     assert not re.search(r'(src|href)="https?:', page), 'the page loads nothing from the network'
-    cited = [name for card in data['needs_you'] + data['decisions'] for name in card.get('figures', [])]
-    assert len(set(cited)) >= 2 and len(cited) > len(set(cited)), 'the sample shows a figure in its card and a figure cited twice'
+    embedded = json.loads(re.search(r'<script type="application/json" id="report">(.*?)</script>', page, re.S)[1])
+    place = embedded['placement']
+    card = next(i for i, a in enumerate(data['needs_you']) if a.get('figures') == ['B'])
+    assert place['cards'][card] == ['B'] and place['figures'] == ['A'] and sum(map(len, place['cards'])) == 1, place
+    checks.append('figures placed: one in its card, one shared under Figures')
     checks.append('sample builds into one page')
 
     fragment = run(SAMPLE, '--fragment', '--output', folder / 'fragment')
@@ -90,6 +93,7 @@ def run_report(out):
             ('a card citing a missing figure', {**bare, 'evidence': [figure], 'needs_you': [{**card, 'options': choices, 'figures': ['A', 'Z']}]}, "'A' cites Figure Z, which the evidence does not hold"),
             ('a decision citing a missing figure', {**bare, 'evidence': [figure], 'decisions': [{'grade': 'Major', 'title': 'D', 'why': 'B', 'figures': ['Q']}]}, "'D' cites Figure Q, which the evidence does not hold"),
             ('figures that are not a list', {**bare, 'evidence': [figure], 'needs_you': [{**card, 'options': choices, 'figures': 'A'}]}, "'A' has figures that are not a list of figure ids: leave it out or name one"),
+            ('a figure cited twice by one card', {**bare, 'evidence': [figure], 'needs_you': [{**card, 'options': choices, 'figures': ['A', 'A']}]}, "'A' cites Figure A twice"),
             ('an empty figures list', {**bare, 'evidence': [figure], 'needs_you': [{**card, 'options': choices, 'figures': []}]}, "'A' has figures that are not a list of figure ids: leave it out or name one"),
             ('a PDF given as an image', {**bare, 'evidence': [{'id': 'A', 'kind': 'page', 'caption': 'A', 'src': 'examples/marine/flagship/captain.pdf'}]}, 'examples/marine/flagship/captain.pdf is not an image: a PDF page is {"pdf": path, "page": n}')):
         path = folder / 'broken.json'

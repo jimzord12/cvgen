@@ -138,6 +138,9 @@ def refusal(data, fragment=False, source=''):
             unknown = [str(name) for name in cited if name not in figures]
             if unknown:
                 return f'{item["title"]!r} cites Figure {", ".join(unknown)}, which the evidence does not hold'
+            twice = sorted({name for name in cited if cited.count(name) > 1})
+            if twice:
+                return f'{item["title"]!r} cites Figure {", ".join(twice)} twice'
     for gate in data.get('reviews', []):
         if not is_count(gate['cap']) or gate['cap'] > MAX_ROUNDS or not isinstance(gate['rounds'], list):
             return f'reviews: {gate["name"]} needs a whole number cap up to {MAX_ROUNDS} and a list of rounds'
@@ -170,7 +173,17 @@ def refusal(data, fragment=False, source=''):
     return None
 
 
+def placement(data):
+    """Where each picture goes: inside the one card that alone cites it, else under Figures, linked from each citer."""
+    citers = [*data.get('needs_you', []), *data.get('decisions', [])]
+    count = {item['id']: sum(item['id'] in citer.get('figures', []) for citer in citers) for item in data.get('evidence', [])}
+    cards = [[name for name in card.get('figures', []) if count[name] == 1] for card in data.get('needs_you', [])]
+    held = {name for names in cards for name in names}
+    return {'cards': cards, 'figures': [item['id'] for item in data.get('evidence', []) if item['id'] not in held]}
+
+
 def build(data, fragment, root=ROOT):
+    data['placement'] = placement(data)
     for item in data.get('evidence', []):
         for key in ('src', 'before', 'after'):
             if key in item:

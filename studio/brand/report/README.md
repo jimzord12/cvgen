@@ -2,10 +2,8 @@
 
 The page for the final report of an unattended run. The owner's rules: easy
 to scan, the easier the better; highly visual, with shapes and evidence in
-place of text (2026-11-04); and every picture where it is needed (2026-11-08).
-A card that asks him to approve something shows it, or names it, so an owner
-coming back after hours elsewhere never meets a decision about a picture he
-cannot see. The chat summary and Recap stay (`docs/preferences.md`,
+place of text (2026-11-04); and every picture where it is needed
+(2026-11-08). The chat summary and Recap stay (`docs/preferences.md`,
 "Reports").
 
 ```powershell
@@ -40,11 +38,15 @@ are labels: a headline of about six words, a card title of about five.
 | `evidence` | Rendered pages, each with an `id` of one to four letters or digits (`A`), shown as "Figure A": `kind` `page` with `src`, `caption`; or `compare` with `before`, `after`, `before_label`, `after_label`, `caption`. A picture is an image path from the repository root, or `{"pdf": path, "page": n}` (`page` counts from 1, default 1) |
 | `reviews` | Bars per gate: `name`, `cap`, `rounds`, each with `verdict` (`findings`, `pass`, `running`), `hard` (blocking findings) and `soft` (all others) |
 | `decisions` | What the agent decided alone, grouped by `Decision Grade`: `grade` (`Minor`, `Major`), `title`, `why` (one or two sentences), optional `figures` |
-
-Where a picture goes follows from `figures`. A picture cited by one card only
-sits inside that card, small, and a click enlarges it. A picture cited by more
-than one card or decision, or by none, stays under Figures at the foot, and
-each item that cites it carries a "Figure A" link to it. Cite every picture a
-card asks about; the script refuses an id that no picture holds.
 | `changes` | Stitched bars, longest first: `area`, optional `what` (what that area is), `lines` |
 | `evidence_path` | The suite's evidence folder, in the footer |
+
+Where a picture goes follows from `figures`, and the script decides it. A
+picture that one `needs_you` card alone cites sits inside that card, beside its
+options, with an Enlarge button that opens it full size (a comparison opens with
+its slider). Any other picture stays under Figures, below the cards, named
+above it with links back to each item that cites it; each of those items
+carries a "Figure A" link with the start of the caption, its arrow pointing
+the way to scroll. Cite every picture a card asks about or a decision shows;
+the script refuses an id that no picture holds, or one item citing an id
+twice.

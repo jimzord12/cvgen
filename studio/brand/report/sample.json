@@ -247,7 +247,7 @@
       },
       "before_label": "Classic",
       "after_label": "Silver",
-      "caption": "Demo of the compare slider: one record, two Themes"
+      "caption": "One record in two Themes: with a reference per Variation, each look is frozen"
     },
     {
       "id": "B",

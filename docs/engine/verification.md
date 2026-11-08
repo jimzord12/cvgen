@@ -221,12 +221,14 @@ Windows one also holds the PDFs that build wrote, one per example in
 19. **Report** (`report: <check>`, `tests/report.py`). The real
    `scripts/report.py` on the worked sample under `report/`: one page with
    its fonts and pictures embedded and no `src` or `href` pointing at the
-   network, the fragment without its skeleton, refusal of an existing folder,
+   network, the sample's figures placed (one inside the card that alone cites
+   it, one shared under Figures), the fragment without its skeleton, refusal of an existing folder,
    text that cannot break out of the page, then one refusal per rule, each on
    its exact message and none leaving a folder (among them a missing or
    wrong-typed field, a decision card without two to four options or one
    recommended, a `Critical` decision, a done report with open cards, a missing
-   picture or page, a client's report in a fragment). The page's script is not run here; a design review clicks it.
+   picture or page, a figure id missing, malformed, shared, cited twice or
+   cited but absent, a client's report in a fragment). The page's script is not run here; a design review clicks it.
 20. **Compatibility** (`compatibility: <check>`, `tests/compatibility.py`). Stage 2
    on synthetic contracts in a temporary folder (a `Domain` at versions 1 and 2,
    Variations up to 1, exactly 1 and 2, up to 2, exactly 2): every row of the
