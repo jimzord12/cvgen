@@ -504,7 +504,7 @@ def main():
         text = ' '.join(doc[0].get_text().split())
         assert '添乗員' not in text and 'PASSPORT Valid, exp. October 2035' in text and 'SKILLS & TRAVEL EXPERIENCE' in text, text
         assert 'Group travel: coaches' in text and 'Greek Native Written and spoken' in text and 'Japanese JLPT N3' in text
-        assert '14 countries Europe and Asia, most planned herself' in text and 'September 2024 14 days' in text
+        assert '14 countries Europe and Asia, most planned himself' in text and 'September 2024 14 days' in text
         page = doc[0]
         mm = 72 / 25.4
         # a clear 2.4 mm between a trip's date and its day count (1.4 mm fails)
