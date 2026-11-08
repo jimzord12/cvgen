@@ -6,7 +6,7 @@ title: >-
 status: Active
 assignee: []
 created_date: '2026-11-08T09:50:00Z'
-updated_date: '2026-11-08T14:24:00Z'
+updated_date: '2026-11-08T14:34:00Z'
 labels: []
 milestone: m-8
 dependencies:
@@ -34,3 +34,9 @@ The tests-reviewer, the test-principles skill and the tests gate, as the plan's 
 - [ ] #3 The audit task (D17) queued in m-7 on main
 - [ ] #4 context-reviewer PASS
 <!-- AC:END -->
+
+## Implementation Notes
+
+<!-- SECTION:NOTES:BEGIN -->
+Probe copy for calibration run K: C:\Github\cvgen\.worktrees\probe-20261108-163112 (detached at 56bc339, locked: session f1e864b5, TASK-75 calibration K). Anchor base for this task: 8306aae.
+<!-- SECTION:NOTES:END -->
