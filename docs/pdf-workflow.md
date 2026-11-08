@@ -56,7 +56,7 @@ builds/                         # Disposable public example/test output
 docs/
 studio/                         # Design work beside the engine (TASK-55): brand/ (our logo),
   design-concepts/              #   proposed concepts (idea-run skill), each PDF with its Meta
-                                #   File; archive/: design-studies/, anti-examples/ (frozen)
+                                #   File; archive/: design-studies/, anti-examples/, reference-pairs/ (frozen)
 archive/work-records/           # Review reports and dated task records, kept unchanged
 private/                        # Local candidate workspaces; Git-ignored
 ```

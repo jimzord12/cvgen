@@ -12,7 +12,7 @@
 actors:
   - id: actor.owner
     name: The owner
-    sources: ["docs/workflow/README.md:22-24", "docs/preferences.md:60-62", "docs/preferences.md:86-98"]
+    sources: ["docs/workflow/README.md:22-24", "docs/preferences.md:63-65", "docs/preferences.md:89-101"]
     kind: human
     does: >-
       The only one who talks to the client: names a new client, relays every
@@ -59,7 +59,7 @@ actors:
 
   - id: actor.design-reviewer
     name: design-reviewer
-    sources: [".claude/agents/design-reviewer.md:1-6", ".claude/agents/design-reviewer.md:39-45", "docs/proposals/workflow-model.md:57"]
+    sources: [".claude/agents/design-reviewer.md:1-6", ".claude/agents/design-reviewer.md:39-48", "docs/proposals/workflow-model.md:57"]
     kind: agent
     does: >-
       Fresh per round: judges the concept pages of an Idea Run and every

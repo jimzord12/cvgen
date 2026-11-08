@@ -75,15 +75,37 @@ design-reviewer's "Other assets".
    10 unattended.** At the cap, the item is not dropped silently: it reaches
    the owner marked `unresolved` with the reviewer's last reason. An author
    may drop an item instead of fixing it; say so in the run record.
-6. Edits after a PASS, three kinds: a change that adds or alters a sourced
+6. **Two `Polish Round`s after the pass** (owner, 2026-11-08: "once the
+   reviewer pass -> do another 2 rounds that you ask to make it even
+   better"), so the owner never has to ask for the finish himself. For CV
+   designs, here and in a client design (the `new-cv` skill); a non-CV
+   run, brand assets and Flagship changes have none. When both judges
+   pass, send the author both reports' "Even better" proposals; it carries
+   out each or declines one with a reason, and fresh judges review the new
+   snapshot as polish round 1 of 2, with every earlier report and reply.
+   Then the same again as polish round 2 of 2; only then does the design
+   reach the owner. Every pass of the quality gate gets them, the pass
+   after an owner-requested revision (step 7) included.
+   - Each must still pass. One that returns FINDINGS goes back to the
+     author (fix it, or take the change back) and is judged again; after
+     two such repeats the design reaches the owner `unresolved` with the
+     last reason, as at the cap.
+   - They come on top of step 5's cap, which counts the rounds up to the
+     first pass.
+   - Round 2's own "Even better" proposals are applied only as step 7
+     allows (layout, with a lead check against the render) or listed in
+     `run.md`.
+   - Their reports are numbered on like any round (step 8); `run.md` marks
+     them polish round 1 and 2.
+7. Edits after a PASS, three kinds: a change that adds or alters a sourced
    claim goes back through the research gate; a change to what the owner
    decides on (an idea's scope, cost or risk; a concept's idea or data
    needs) goes back through the quality gate; layout, typos and fictional
    sample data get a lead check against the render, noted in `run.md`.
    Every report names the snapshot it saw.
-7. Store every report as `archive/work-records/idea-runs/<run>/reviews/NN-<reviewer>.md`
+8. Store every report as `archive/work-records/idea-runs/<run>/reviews/NN-<reviewer>.md`
    (`NN-design-reviewer.md` and `NN-codex-visual-reviewer.md` side by side).
-8. Integrate. Output confined to new files in `studio/design-concepts/`, the run's
+9. Integrate. Output confined to new files in `studio/design-concepts/`, the run's
    rows in `studio/design-concepts/README.md`, the run folder and passed proposals
    in `docs/proposals/` is covered by the idea gates (`docs/review.md`: idea runs use their own gates); say so in `run.md`. An item
    left `unresolved` at the cap is not covered: its README row or proposal
@@ -119,10 +141,13 @@ for the named `magazine-editor` and `design-reviewer`, which have a shell.
 ## Bar (give it to every reviewer as is)
 
 Decently strict, not perfectionist. The niche is custom, unique, premium
-work: fail generic, copied, broken or unsupported work; taste and polish
-are Notes, never blocking. For design, a quiet page is generic: failing the
+work: fail generic, copied, broken or unsupported work; taste is a Note,
+never blocking. For design, a quiet page is generic: failing the
 `Batch Test`, the `Three-Second Test` or `Flagship Parity` is Blocking,
-however well made (`docs/vision.md`, "Design is the product").
+however well made (`docs/vision.md`, "Design is the product"). Finish is
+not taste: a hard seam between header and body, or artwork below premium
+craft at zoom, is Blocking (the design-reviewer's criterion 6), and the
+polish beyond that bar is carried out in the two `Polish Round`s.
 
 ## What the owner gets, and what his answer does
 
@@ -132,7 +157,8 @@ otherwise).
 
 A short message: each style's three-word idea and its six PDFs (Safe,
 Stylish, Creative in each `Density`), or each proposal's one-line pitch and link; which items were dropped or are
-`unresolved`; the rounds each gate took. His answer maps to states
+`unresolved`; the rounds each gate took, the two `Polish Round`s named as
+such with one line on what they improved. His answer maps to states
 (`docs/proposals/README.md`), with a dated decision entry appended to the
 proposal or the concept's README row. A concept's new state also goes into
 its designs' `Meta File`s (`python scripts/outputs.py stamp <pdf>

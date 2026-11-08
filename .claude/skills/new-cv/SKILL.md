@@ -8,7 +8,10 @@ description: Produce a CV for a real or new fictional candidate with the CVgen l
 The design is the product (`docs/vision.md`, "Design is the product"): unless
 the owner set a `scan-first` bar on that design, a client's CV must pass the
 `Batch Test` and the `Three-Second Test` at the level of the Marine Flagship,
-and tidy but quiet is a failure.
+and tidy but quiet is a failure. It reaches the owner finished, without
+his asking: a header that flows into the body and premium artwork,
+checked on 300 dpi crops against the `Reference Pair`s in
+`studio/archive/reference-pairs/` (the design-reviewer's criterion 6).
 
 For a real client this skill is the checklist of the `Workflow Model`'s
 `design` and `deliver` stages: read `docs/workflow/05-design/README.md` and
@@ -62,8 +65,10 @@ command from the repository root.
   as the design README says (Codex makes its sheets in the same input
   folder); each report verbatim as `reviews/design-NN.md` and
   `reviews/design-NN-codex.md`; `design.fix` until both pass, or
-  `design.cap-reached`. Codex `UNAVAILABLE`: the design-reviewer alone,
-  noted in `README.md`.
+  `design.cap-reached`; then the two `Polish Round`s, `design.fix`
+  carrying out both reports' "Even better" proposals, as the `idea-run`
+  skill's step 6 says (reports numbered on, `README.md` marking them).
+  Codex `UNAVAILABLE`: the design-reviewer alone, noted in `README.md`.
 - `design.clear-review-input`: `Remove-Item -Recurse <that folder>`, by path.
 
 ## A real client: 06 deliver

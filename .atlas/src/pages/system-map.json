@@ -259,6 +259,15 @@
           ]
         },
         {
+          "id": "n-pairs",
+          "title": "Reference Pairs",
+          "path": "studio/archive/reference-pairs/",
+          "blurb": "Before and after of a finish you had to ask for: the bar every design now reaches unasked.",
+          "sources": [
+            "studio/archive/reference-pairs/README.md"
+          ]
+        },
+        {
           "id": "n-textdraft",
           "title": "First Fitting",
           "path": "scripts/text-draft.typ",
