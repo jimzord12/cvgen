@@ -36,9 +36,10 @@ Top-level shape. Required keys are `identity` and `companies`.
 ```
 
 This is the candidate-facts record: what is true about the person, with no
-template wording. The Flagship template reads a slightly wider shape, the
-Flagship input, which is the same record plus an optional `copy` key; its
-adapter produces it (see "Flagship wording" below).
+template wording. The facts schema accepts an optional `copy` object without
+checking its keys; the Flagship input schema is the same record with those keys
+checked, and its adapter produces the Flagship input (see "Flagship wording"
+below).
 
 ## Field notes
 

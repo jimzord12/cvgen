@@ -143,7 +143,7 @@ Windows one also holds the PDFs that build wrote, one per example in
    a workspace without `envelope.json` refused before anything is written,
    the `Envelope` layout (`typst/cv.typ` reading `../candidate.json`, the
    snapshot mirroring it under `inputs/`) and the old flat layout (a root
-   `cv.typ`) refused by all four commands with the move to make,
+   `cv.typ`) refused by all four workspace commands with the move to make,
    the revision's `Meta File` (`render`, then `approved`, filled from
    `envelope.json`),
    certificate dates (against a fixed reference date: expired and
@@ -230,8 +230,8 @@ Windows one also holds the PDFs that build wrote, one per example in
    `Coverage Fixture` for each version it supports, and every required and
    claimed `Fact Group` must have its markers in the PDF; the count of optional
    groups covered is in the case name, warnings in `coverage/`. A claim at a
-   `schemaVersion` no rendered version has fails (`unproved`), so every claim is proved. Then the judging
-   itself and the checks before a render, each refusal on its message, on the
+   `schemaVersion` no rendered version has fails (`unproved`), so every claim
+   is proved. Then the judging itself and the checks before a render, each refusal on its message, on the
    marine contract and on the travel one (Hanami chosen, certificates dropped,
    a missing rank refused). Travel at version 2: a version 1 record renders on
    showcase; on a `Template Variation` up to version 1 a version 2 record holding
@@ -255,9 +255,9 @@ Windows one also holds the PDFs that build wrote, one per example in
 20. **Compatibility** (`compatibility: <check>`, `tests/compatibility.py`). Stage 2
    on synthetic contracts in a temporary folder (a `Domain` at versions 1 and 2,
    Variations up to 1, exactly 1 and 2, up to 2, exactly 2): every row of the
-   P-0019 section 6 table, a record ahead of, behind or below what a Variation
-   renders, a contract that breaks a group without raising its `schemaVersion`,
-   and `cv.py contracts`; report in `compatibility/`.
+   table in `docs/engine/template-contract.md`, a record ahead of, behind or
+   below what a Variation renders, a contract that breaks a group without
+   raising its `schemaVersion`, and `cv.py contracts`; report in `compatibility/`.
 
 Negative cases assert on the exact error text so a message change is a test
 change.

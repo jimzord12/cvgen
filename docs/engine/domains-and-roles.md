@@ -134,7 +134,10 @@ A new domain is done when every line below is true:
    `validate-common`.
 2. `schema/candidate.schema.json` describes the facts; a fictional record
    under `examples/candidates/<who>-example.json` validates against
-   it. A template adds `schema/<template>-input.schema.json`.
+   it. A template adds `schema/<template>-input.schema.json`, which states only
+   what the template adds; both schemas carry an `$id`, and the facts schema
+   keeps `copy` open for the template to close (`docs/engine/template-contract.md`,
+   "What every Template provides"; the suite checks it).
    `packages/cv-workflow/cv_workflow/validate.py` picks the schema from the
    entry point's imports: a template's schema, else the domain's. Only
    marine's `lib.typ` stands for a template (Flagship); if the new domain's

@@ -1,10 +1,10 @@
 ---
 id: TASK-68
 title: 'template-contract-stage-2: version comparison'
-status: Active
+status: Done
 assignee: []
 created_date: 2026-11-04 21:41
-updated_date: '2026-11-08T10:33:00Z'
+updated_date: '2026-11-08T10:44:00Z'
 labels: []
 milestone: m-2
 dependencies: []
@@ -37,4 +37,22 @@ Stage 2 built in packages/cv-workflow/cv_workflow/contracts.py: claims() (group 
 Timing (review m4): built before any Domain Contract reached version 2, so the travel contract v2 can use it; ADR 0016's body says 'when a contract first reaches version 2' and stays as accepted text, its Status line records the build.
 Tests: tests/compatibility.py (synthetic v1/v2/v3 contracts in a temp folder), tests/coverage.py (claims proved, kept contracts whole, oldestSupported vs example records), tests/run.py (copy refusals). code-reviewer: round 1 FINDINGS (M1 required-turned-optional reported as dropped, m2, m3, N1, N3, fixed), round 2 FINDINGS (R2-M1: claimed-shape shortcut reverted), round 3 PASS (R3-m1 fixed after).
 Evidence: suite PASS on f1b6b39 (merge of main), builds/tests-20261108-123228-323975 in the worktree; ruff clean; workflow anchors, check, render and atlas OK; Atlas pages stamped.
+
+## Major decisions (docs/preferences.md grades)
+1. Structure is judged by a group's paths: a path may join without a schemaVersion rise; a path leaving, or a falling schemaVersion, without a rise is refused. A new required field or changed meaning rests on the author.
+2. A record newer than every version a Variation names is compared with its newest named version; a version an exactly list skips, or one older than all it names, is refused.
+3. A group required at the Variation's last version stays shown after it turns optional, so it is never dropped. When a group differs in two ways, the stricter result wins.
+4. A group may be claimed at several schema versions (places@1, places@2); the suite refuses a claim no rendered version has, and a claim never relaxes the changed-group error.
+5. oldestSupported lives in the newest contract file (default 1); the suite refuses it above any example record's version.
+6. The facts schema keeps copy an open object; only the Template's input schema closes its keys. An entry point with no Template no longer checks copy keys.
+7. The coverage figure is in cv.py contracts and the suite's evidence, not the Meta File.
+8. Stage 2 was built before any Domain Contract reached version 2, so the travel v2 contract can use it; ADR 0016's Status line records it.
+
+## Review (2026-11-08)
+
+Code review rounds 1-3 (PASS) and context review rounds 1 (FINDINGS) and 2 (PASS), verbatim in archive/work-records/template-contract-stage2/reviews/. Evidence for the head: builds/tests-20261108-123928-837247 (6be2cb2), then the merged head below.
+
+## Done (2026-11-08)
+
+Merged into main; suite PASS 211 cases at 35f218f (builds/tests-20261108-124347-900881 in the worktree).
 <!-- SECTION:NOTES:END -->

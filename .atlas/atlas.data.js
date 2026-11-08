@@ -559,7 +559,7 @@ window.ATLAS = {
     "docs/workflow/05-design/README.md:15-64",
     ".claude/skills/new-cv/SKILL.md:22-63",
     "docs/guides/build-a-cv.md:1-109",
-    "docs/guides/build-a-cv.md:111-193",
+    "docs/guides/build-a-cv.md:111-194",
     "docs/pdf-workflow.md:176-198",
     ".claude/skills/new-cv/SKILL.md:65-87",
     "docs/workflow/07-after/README.md:15-56",
@@ -1874,7 +1874,7 @@ window.ATLAS = {
        "note": "Model step `text-draft.sign-off-stamp`, action `cmd.stamp-draft-signed-off`, in `docs/workflow/04-text-draft/stage.yaml`.",
        "sources": [
         "docs/workflow/04-text-draft/README.md:36-37",
-        "docs/guides/build-a-cv.md:177-180",
+        "docs/guides/build-a-cv.md:178-181",
         ".claude/skills/new-client/SKILL.md:98-100",
         "packages/cv-workflow/cv_workflow/outputs.py:172-178"
        ]
@@ -1907,7 +1907,7 @@ window.ATLAS = {
        "summary": "Run the new-cv skill",
        "gate": {
         "type": "check",
-        "label": "The Domain has a Template: The client's Domain already has a Template (today marine, the Flagship, and travel, Hanami)."
+        "label": "The Domain has a Template: The client's Domain already has a Template (today only marine, the Flagship)."
        },
        "next": [],
        "branch": [
@@ -2321,7 +2321,7 @@ window.ATLAS = {
         }
        ],
        "does": [
-        "Only when: The client's Domain has a Template (today marine, the Flagship, and travel, Hanami)."
+        "Only when: The client's Domain has a Template (today marine, the Flagship)."
        ],
        "in": [
         "candidate.json: `private/<envelope>/candidate.json`"
@@ -2329,7 +2329,7 @@ window.ATLAS = {
        "note": "Model step `design.flagship-fit`, action `lead.check-flagship-fit`, in `docs/workflow/05-design/stage.yaml`.",
        "sources": [
         ".claude/skills/new-cv/SKILL.md:41-46",
-        "docs/guides/build-a-cv.md:210-214"
+        "docs/guides/build-a-cv.md:211-215"
        ]
       },
       {
@@ -2375,7 +2375,7 @@ window.ATLAS = {
        ],
        "note": "Model step `design.custom-composition`, action `lead.compose-by-hand`, in `docs/workflow/05-design/stage.yaml`.",
        "sources": [
-        "docs/guides/build-a-cv.md:206-270",
+        "docs/guides/build-a-cv.md:207-271",
         ".claude/skills/new-cv/SKILL.md:41-46"
        ]
       },
@@ -2421,7 +2421,7 @@ window.ATLAS = {
        ],
        "note": "Model step `design.framework-gap`, action `lead.record-framework-gap`, in `docs/workflow/05-design/stage.yaml`.",
        "sources": [
-        "docs/guides/build-a-cv.md:264-270",
+        "docs/guides/build-a-cv.md:265-271",
         ".claude/skills/new-cv/SKILL.md:41-46",
         "docs/workflow/05-design/README.md:70-74"
        ]
@@ -2691,7 +2691,7 @@ window.ATLAS = {
        ],
        "note": "Model step `deliver.render`, action `cmd.cv-render`, in `docs/workflow/06-deliver/stage.yaml`.",
        "sources": [
-        "docs/guides/build-a-cv.md:119-142",
+        "docs/guides/build-a-cv.md:119-143",
         ".claude/skills/new-cv/SKILL.md:67-70",
         "packages/cv-workflow/cv_workflow/render.py:101-210"
        ]
@@ -2720,8 +2720,8 @@ window.ATLAS = {
        ],
        "note": "Model step `deliver.fix`, action `lead.fix-inputs`, in `docs/workflow/06-deliver/stage.yaml`.",
        "sources": [
-        "docs/guides/build-a-cv.md:129-139",
-        "docs/guides/build-a-cv.md:195-204",
+        "docs/guides/build-a-cv.md:129-140",
+        "docs/guides/build-a-cv.md:196-205",
         ".claude/skills/new-cv/SKILL.md:67-70"
        ]
       },
@@ -2847,7 +2847,7 @@ window.ATLAS = {
        "sources": [
         "docs/workflow/06-deliver/README.md:35-39",
         "docs/workflow/06-deliver/README.md:22-25",
-        "docs/guides/build-a-cv.md:144-152"
+        "docs/guides/build-a-cv.md:145-153"
        ]
       },
       {
@@ -2880,7 +2880,7 @@ window.ATLAS = {
        ],
        "note": "Model step `deliver.approve`, action `cmd.cv-approve`, in `docs/workflow/06-deliver/stage.yaml`.",
        "sources": [
-        "docs/guides/build-a-cv.md:164-169",
+        "docs/guides/build-a-cv.md:165-170",
         "docs/pdf-workflow.md:184-186",
         "docs/proposals/workflow-model.md:58",
         "docs/glossary.md:75"
@@ -2913,7 +2913,7 @@ window.ATLAS = {
        "note": "Model step `deliver.export`, action `cmd.cv-export`, in `docs/workflow/06-deliver/stage.yaml`.",
        "sources": [
         "docs/proposals/workflow-model.md:58",
-        "docs/guides/build-a-cv.md:171-175",
+        "docs/guides/build-a-cv.md:172-176",
         "docs/pdf-workflow.md:187-191"
        ]
       },
@@ -2981,7 +2981,7 @@ window.ATLAS = {
        ],
        "note": "Model step `deliver.stamp-delivered`, action `cmd.stamp-delivered`, in `docs/workflow/06-deliver/stage.yaml`.",
        "sources": [
-        "docs/guides/build-a-cv.md:177-179",
+        "docs/guides/build-a-cv.md:178-180",
         "docs/workflow/06-deliver/README.md:50-51",
         ".claude/skills/new-cv/SKILL.md:85-86"
        ]
@@ -3973,17 +3973,6 @@ window.ATLAS = {
        "path": "packages/domains/marine/templates/flagship/tests/approved/",
        "blurb": "The v11 PDF the engineer example must match pixel for pixel.",
        "touch": "Never, without a new reference and an ADR."
-      },
-      {
-       "id": "n-travel",
-       "title": "Travel Domain and Hanami",
-       "path": "packages/domains/travel/",
-       "blurb": "Travel facts (trips, destinations, know-how) and Hanami, its first Template, from Hanami Line 2.",
-       "touch": "Changing what the travel `Domain` means or what Hanami renders; its Frozen Reference waits for your approval.",
-       "sources": [
-        "docs/architecture.md",
-        "docs/engine/domains-and-roles.md"
-       ]
       }
      ]
     },
@@ -4049,7 +4038,7 @@ window.ATLAS = {
        "id": "n-candidates",
        "title": "Example candidates",
        "path": "examples/candidates/",
-       "blurb": "Engineer, captain, chief officer, deck cadet, tour leader, one fictional portrait.",
+       "blurb": "Engineer, captain, chief officer, deck cadet, one fictional portrait.",
        "sources": [
         "examples/candidates"
        ]
@@ -4497,30 +4486,30 @@ window.ATLAS = {
   }
  ],
  "build": {
-  "builtAt": "2026-11-08 10:36 UTC",
-  "commit": "9298891",
+  "builtAt": "2026-11-08 10:43 UTC",
+  "commit": "6be2cb2",
   "kit": "1.1",
   "stale": {},
   "verified": {
    "client-journey": {
     "at": "2026-11-08",
-    "commit": "9298891"
+    "commit": "5f78f06"
    },
    "design-run": {
     "at": "2026-11-08",
-    "commit": "868a82c"
+    "commit": "62747af"
    },
    "change-review": {
     "at": "2026-11-08",
-    "commit": "868a82c"
+    "commit": "7391e71"
    },
    "system-map": {
     "at": "2026-11-08",
-    "commit": "9298891"
+    "commit": "6be2cb2"
    },
    "roster": {
     "at": "2026-11-08",
-    "commit": "9298891"
+    "commit": "6be2cb2"
    }
   }
  }
