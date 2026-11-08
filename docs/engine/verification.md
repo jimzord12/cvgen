@@ -62,8 +62,9 @@ Windows one also holds the PDFs that build wrote, one per example in
    The `one-page.typ` fixture repeats this for one and three companies.
 6a. **Tour-leader example (travel, Hanami).** `examples/travel/hanami/tour-leader.typ`
    must equal `packages/domains/travel/templates/hanami/tests/approved/Travel-Tour-Leader-CV-v01.pdf`
-   pixel for pixel with identical text on both pages (a `Frozen Reference`
-   candidate until the owner approves it), carry its name, rank and the domain's
+   pixel for pixel with identical text on both pages (a `Frozen Reference`,
+   owner approved 2026-11-08 and pinned in `baseline.json` with its record and
+   artwork), carry its name, rank and the domain's
    title as PDF metadata, and have no sakura petal on a word
    (`cv_workflow/decoration.py`, which a client's render also runs for Hanami);
    a probe page with a word set on a known petal of each page proves the check

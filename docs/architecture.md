@@ -193,7 +193,7 @@ domains/travel/                         the travel domain (P-0013), built like m
     components/sections.typ               headings, profile, experience, trip cards, areas, practical, studies
     template.json  tests/coverage.typ     the Template Manifest and its coverage entry
     themes/  artwork/  layouts/           sakura, indigo, sky; japan; showcase
-    tests/approved/                       the Frozen Reference candidate (owner approval pending)
+    tests/approved/                       the Frozen Reference (owner approved 2026-11-08)
 
 cv-workflow/cv_workflow/                Python; owns everything around a candidate render
   workspace.py                          workspace and revision paths, ids, hashes, records, the refusal rules
