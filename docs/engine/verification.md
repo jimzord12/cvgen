@@ -108,7 +108,7 @@ Windows one also holds the PDFs that build wrote, one per example in
    under its one-line lead, whose wash ends under its columns, and which carries
    the thin-page warning naming its thinner column, the rail), a `three-quarters`
    record whose career column (60% to 80% filled) must warn while the generic
-   client-length record must not (its role gap grown to 12 mm or more), and
+   client-length record must not (its role gap grown past the 8 mm cap to the roomy 11 mm), and
    the plain pack's `plain-long-rank` and `plain-long-name`, whose arc is left
    out with a warning saying what to change, and a fictional long career (`tour-leader-long-career.json`, version 2):
    education moved to the rail, four roles in full and "Earlier roles · 4" with

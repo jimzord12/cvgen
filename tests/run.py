@@ -507,9 +507,10 @@ def main():
         # a clear 2.4 mm between a trip's date and its day count (1.4 mm fails)
         date, days = page.search_for('September 2024')[0], page.search_for('14 days')[0]
         assert (days.x0 - date.x1) / mm >= 2.0, (date, days)
-        # the client-length page grows its gaps past the ordinary caps: at least 12 mm between the two roles
+        # the client-length page grows its role gap past the 8 mm cap to the roomy 11 mm: over 9.5 mm between
+        # the glyphs (the 8 mm cap leaves about 7.4 mm)
         last_line, next_role = page.search_for('who prefer paper.')[0], page.search_for('Reservations Agent')[0]
-        assert (next_role.y0 - last_line.y1) / mm >= 12, (last_line, next_role)
+        assert (next_role.y0 - last_line.y1) / mm >= 9.5, (last_line, next_role)
     # The plain pack's route arc is placed from the measured name and rank row: it never lies on a word, it steps
     # aside when the row leaves it under 45 mm, and it replaces the sakura branch (far fewer drawings in the band).
     def band_drawings(pdf):
