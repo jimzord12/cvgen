@@ -42,4 +42,4 @@ What becomes easier, what becomes harder, what the suite enforces.
 | [0014](0014-backlog-md-task-store.md) | Backlog.md files in `backlog/` are the task store; the Trello board was migrated, exported and closed. Amended by 0017 |
 | [0015](0015-workflow-model-toolchain.md) | The client workflow is one `Workflow Model`: YAML facts typed with Zod and checked by a TypeScript tool on Bun 1.4.2 in `tools/workflow/`, which generates the workflow docs and the facts of the `Atlas` client-journey page. A second toolchain beside Python. |
 | [0016](0016-template-contract.md) | A `Template` is a design language with `Template Variation`s; `Domain`s and `Template`s declare what they support through versioned contracts. Not built yet; amends 0002, 0007, 0010, 0011 and 0012 |
-| [0017](0017-backlog-md-1-55-3.md) | Backlog.md is pinned to 1.55.3 (the leak that held 1.52.0 is fixed), and every task belongs to one milestone, made through the CLI. Amends 0014 |
+| [0017](0017-backlog-md-1-55-3.md) | Backlog.md is pinned to 1.55.3 (the web-server leak that held the old pin is fixed), and every task belongs to one milestone, made through the CLI. Amends 0014 |

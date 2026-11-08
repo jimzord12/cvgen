@@ -3,10 +3,12 @@ id: TASK-69
 title: >-
   backlog-milestones: Backlog.md 1.55.3, every task in a milestone, milestones
   in the workflow
-status: Queued
+status: Active
 assignee: []
 created_date: '2026-11-08T09:06:00Z'
+updated_date: '2026-11-08T09:09:00Z'
 labels: []
+milestone: m-8
 dependencies: []
 ordinal: 69000
 ---

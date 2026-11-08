@@ -42,8 +42,10 @@ business.
 - `docs/framework-gaps.md`, `docs/history.md`, `docs/decisions/README.md`
 - `docs/proposals/` including `rejected/` and `README.md` (the proposal
   format and states you must follow)
-- The tasks: the task list the lead pastes into your brief (`backlog task
-  list --plain`; you have no shell and never touch `backlog/` yourself)
+- The tasks and their milestones: the lists the lead pastes into your brief
+  (`backlog task list --plain`, `backlog milestone list --plain
+  --show-completed`; you have no shell and never touch `backlog/` yourself).
+  Name the milestone an idea would serve, or say it needs a new one
 - What the product looks like today: the `Release` PDFs beside the entry
   points in `examples/marine/flagship/`, `docs/images/`
 - Your previous run records under `archive/work-records/idea-runs/`, so you do not

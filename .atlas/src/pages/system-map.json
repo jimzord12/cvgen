@@ -405,9 +405,9 @@
           "title": "Task store",
           "path": "backlog/",
           "actor": "board",
-          "blurb": "Every task is a Backlog.md file; sessions start at the `session-handoff` doc on `main`.",
+          "blurb": "Every task is a Backlog.md file in one milestone; sessions start at the `session-handoff` doc on `main`.",
           "sources": [
-            ".claude/skills/backlog/SKILL.md:1-35"
+            ".claude/skills/backlog/SKILL.md:1-38"
           ]
         },
         {

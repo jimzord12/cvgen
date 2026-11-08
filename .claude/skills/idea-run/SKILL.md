@@ -41,7 +41,8 @@ design-reviewer's "Other assets".
    count (1 to 3) that fits the size of the fictional record. Give the same three, and the page count, to every
    `design-reviewer`. Client data never goes into a brief: a run for a
    client's design gets the steer and fictional data only. For the ceo, paste the task list
-   (`backlog task list --plain`) into the brief; it has no shell. The run
+   and the milestones (`backlog task list --plain`, `backlog milestone list
+   --plain --show-completed`) into the brief; it has no shell. The run
    uses a worktree: give every author and reviewer absolute paths into
    it and tell the editor to `cd` to the worktree root in the same command
    as each Typst call: a subagent's shell starts in the folder the

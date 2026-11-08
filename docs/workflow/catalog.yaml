@@ -50,7 +50,7 @@ actors:
 
   - id: actor.research-reviewer
     name: research-reviewer
-    sources: [".claude/agents/research-reviewer.md:1-6", ".claude/agents/research-reviewer.md:15-27", ".claude/skills/idea-run/SKILL.md:54-57"]
+    sources: [".claude/agents/research-reviewer.md:1-6", ".claude/agents/research-reviewer.md:15-27", ".claude/skills/idea-run/SKILL.md:55-58"]
     kind: agent
     does: >-
       Fresh per round: checks that a Deep Dive's, a Research Library note's or
@@ -120,14 +120,14 @@ actions:
   - id: agent.research-reviewer
     kind: agent
     name: A fresh research-reviewer round
-    sources: [".claude/agents/research-reviewer.md:1-6", "docs/workflow/03-research/README.md:43-51", ".claude/skills/idea-run/SKILL.md:54-57"]
+    sources: [".claude/agents/research-reviewer.md:1-6", "docs/workflow/03-research/README.md:43-51", ".claude/skills/idea-run/SKILL.md:55-58"]
     agent: research-reviewer
 
   # The escalation at every loop's cap.
   - id: manual.decide-at-cap
     kind: manual
     name: The owner decides at the cap
-    sources: ["docs/review.md:204-208", ".claude/skills/idea-run/SKILL.md:73-76", "docs/proposals/workflow-gaps.md:60-64"]
+    sources: ["docs/review.md:204-208", ".claude/skills/idea-run/SKILL.md:74-77", "docs/proposals/workflow-gaps.md:60-64"]
     does: >-
       At a loop's cap (a review loop, the client's draft corrections, the
       owner's own changes or a render that keeps failing) the lead stops and
