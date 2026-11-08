@@ -15,7 +15,9 @@ whoever designs a CV reads them first (`.claude/agents/magazine-editor.md`,
   or of the `Release`, never a real `Client`'s page.
 - Each pair is a folder `<date>-<subject>/` with `before.png` and
   `after.png`, the same crop of the same page at the same resolution,
-  rendered from the two commits its row names.
+  rendered from the two commits its row names. The first pair shows the
+  bar at 150 dpi; every later pair is rendered at 300 dpi, the resolution
+  reviewers judge criterion 6 at.
 - PNGs only, so not part of the `Output Contract`: no PDF, no `Meta File`.
 - Learn the principle, not the device: a pair teaches what finished looks
   like, never a motif to copy.

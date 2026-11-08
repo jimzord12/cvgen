@@ -64,11 +64,14 @@ command from the repository root.
   same previews, a fresh `codex-visual-reviewer` per round, both briefed
   as the design README says (Codex makes its sheets in the same input
   folder); each report verbatim as `reviews/design-NN.md` and
-  `reviews/design-NN-codex.md`; `design.fix` until both pass, or
-  `design.cap-reached`; then the two `Polish Round`s, `design.fix`
-  carrying out both reports' "Even better" proposals, as the `idea-run`
-  skill's step 6 says (reports numbered on, `README.md` marking them).
-  Codex `UNAVAILABLE`: the design-reviewer alone, noted in `README.md`.
+  `reviews/design-NN-codex.md`; `design.fix` until both pass, then the
+  two `Polish Round`s, `design.fix` carrying out both reports' "Even
+  better" proposals, as the `idea-run` skill's step 6 says (reports
+  numbered on, `README.md` in place of `run.md`); or `design.cap-reached`
+  before any pass. On a `Template` (the Flagship path), carry out only
+  what the entry point and the data can change, and list the rest in
+  `README.md`. Codex `UNAVAILABLE`: the design-reviewer alone, noted in
+  `README.md`.
 - `design.clear-review-input`: `Remove-Item -Recurse <that folder>`, by path.
 
 ## A real client: 06 deliver

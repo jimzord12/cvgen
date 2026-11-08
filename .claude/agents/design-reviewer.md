@@ -66,10 +66,11 @@ anything else you need.
   plain continuation sheet.
   Keep the sheets in `builds/` (a client's: in the input folder you were
   given) and name them in your report.
-- **Zoom (every page).** Render it at 300 dpi beside your other renders, then
-  crop and open every section transition (header to body first) and every
-  drawn or embedded artwork (SVG, illustration, icon, photo cut-out):
-  criterion 6's finish is judged on those crops, never on the whole page.
+- **Zoom (CV pages).** Render each page at 300 dpi beside your other
+  renders, then crop and open every section transition (header to body
+  first) and every drawn or embedded artwork (SVG, illustration, icon,
+  photo cut-out): criterion 6's finish is judged on those crops, never on
+  the whole page. Other assets: zoom the same way on their artwork.
 - Compare with the Flagship
   (`studio/archive/design-studies/review/Marine-Engineer-CV-v11-page-*.png`), the
   design studies and earlier concepts in `studio/design-concepts/`, with the

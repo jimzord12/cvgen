@@ -25,8 +25,7 @@ count for a concept run, which rubric variant applies (one the
 design-reviewer's "Rubric for a CV page" defines, as the lead briefs the
 design-reviewer), the round number, the earlier Codex
 reports with the author's replies, any batch sheets of this snapshot
-the lead holds, and the seams and artwork beyond page 1's header to crop
-(page and region).
+the lead holds, and any extra regions to crop (page and region).
 
 ## Steps
 
@@ -37,10 +36,13 @@ the lead holds, and the seams and artwork beyond page 1's header to crop
 2. **Pages.** Render every page of every PDF to PNG with pymupdf (`import
    pymupdf`) at 200 dpi into the work folder, unless the lead gave current
    PNGs. Look at each with Read, only to check that it is the right,
-   complete page. Then the detail crops criterion 6 is judged on, from a
-   300 dpi render: page 1's top 40% (the header and its join to the
-   body) for every design, and each further seam or artwork the lead's
-   brief names, as `codex-<design>-p<N>-<region>.png`.
+   complete page. Then, by yourself, the detail crops criterion 6 is
+   judged on, from a 300 dpi render of every page: its header region
+   wherever it sits (a top band, a sidebar) with its join to the body,
+   every section transition and every artwork you can see (SVG,
+   illustration, icon, photo cut-out), plus any region the lead names;
+   finding them is not judging them. Name each
+   `codex-<design>-p<N>-<region>.png`.
 3. **Batch sheets (CV pages only).** Use the sheets the lead gave you.
    With none, make them exactly as `.claude/agents/design-reviewer.md`,
    "Batch sheets", says, into the work folder, the page under review
@@ -51,8 +53,9 @@ the lead holds, and the seams and artwork beyond page 1's header to crop
    attach, so attach the Flagship's matching page for `Flagship Parity`:
    `studio/archive/design-studies/review/Marine-Engineer-CV-v11-page-<N>.png`,
    page 1 for a first page, page 2 otherwise; and, for criterion 6, the
-   `before.png` and `after.png` of every `Reference Pair` in
-   `studio/archive/reference-pairs/`.
+   `before.png` and `after.png` of the `Reference Pair`s in
+   `studio/archive/reference-pairs/` the lead names as relevant to the
+   design, by default the latest three in that folder's table.
 5. **Prompt.** Write `codex-prompt-NN.md` (NN is the round) in the work
    folder, UTF-8 without a byte-order mark (you have no Write tool: use
    `[IO.File]::WriteAllText` with an absolute path).

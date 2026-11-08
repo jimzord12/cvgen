@@ -85,11 +85,14 @@ design-reviewer's "Other assets".
    snapshot as polish round 1 of 2, with every earlier report and reply.
    Then the same again as polish round 2 of 2; only then does the design
    reach the owner. Every pass of the quality gate gets them, the pass
-   after an owner-requested revision (step 7) included.
+   after an owner-requested change that goes back through the quality
+   gate (step 7) included.
    - Each must still pass. One that returns FINDINGS goes back to the
-     author (fix it, or take the change back) and is judged again; after
-     two such repeats the design reaches the owner `unresolved` with the
-     last reason, as at the cap.
+     author (fix it, or take the change back) and is judged again, at
+     most twice per `Polish Round`; then the design returns to its last
+     passing snapshot and `run.md` lists the change it declined. A design
+     that passed never reaches the owner `unresolved` because of a
+     `Polish Round`.
    - They come on top of step 5's cap, which counts the rounds up to the
      first pass.
    - Round 2's own "Even better" proposals are applied only as step 7
