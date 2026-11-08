@@ -120,6 +120,7 @@
     // out (with a warning), so the motif never lies on a word nor shrinks into a stray mark. Without a portrait it is heavier (label grey, ink end), so
     // it still reads at arm's length.
     let (_, _, name, rank) = name-block(ctx, d)
+    let name-binds = measure(name).width >= measure(rank).width
     let left = 16mm + calc.max(measure(name).width, measure(rank).width) + 10mm
     let right = if portrait != none { 194mm - ctx.layout.portrait - 1.6mm - 6mm } else { 194mm }
     let w = calc.min(74mm, right - left)
@@ -133,9 +134,13 @@
     }
     // under 45 mm the arc shrinks into a stray mark: it is left out, and the render says so
     if w >= 45mm { at(right - w, 6mm, art(ctx, motif, width: w, swaps: swaps)) } else {
-      [#metadata("Hanami essential: the route arc is left out; the name or the rank row leaves "
-        + str(calc.round(calc.max(w, 0mm) / 1mm)) + " mm of the 45 mm it needs; shorten the seal words or the specialty, "
-        + "or let the portrait carry the band") <cvgen-warning>]
+      // the remedy names what binds: a long name is expected and needs nothing; a long rank row can be cut
+      let room = str(calc.round(calc.max(w, 0mm) / 1mm)) + " mm of the 45 mm it needs"
+      [#metadata("Hanami essential: the route arc is left out; " + if name-binds {
+        "the name leaves " + room + "; this is expected for a name this long, and nothing needs changing"
+      } else {
+        "the rank row leaves " + room + "; shorten the seal words or the specialty"
+      }) <cvgen-warning>]
     }
   }
   let PD = ctx.layout.portrait

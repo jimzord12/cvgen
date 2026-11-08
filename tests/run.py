@@ -464,7 +464,9 @@ def main():
         page = doc[0]
         rail_x = min(b[0] for b in page.search_for('LANGUAGES'))
         # one trip's tag would wrap, so both tags take their own line under their dates
-        for period, tag in zip(['April 2024', 'October 2024'], page.search_for('LED THE GROUP')):
+        tags = page.search_for('LED THE GROUP')
+        assert len(tags) == 2, ('trip tags found', len(tags))
+        for period, tag in zip(['April 2024', 'October 2024'], tags):
             assert tag.y0 >= page.search_for(period)[0].y1 - 1, (period, tag)
         assert min(b[0] for b in page.search_for('EDUCATION')) >= rail_x - 1 and '02 Education' not in text
         # the rail has room for the licence, so it heads the rail above availability (the twin's sits beside the lead)
@@ -525,10 +527,11 @@ def main():
         assert drawn and not [(d, w) for d in drawn for w in words if d.intersects(w)], case
     # under 45 mm of room the arc is left out, and the render says why
     essential_fixture = ROOT / 'tests/fixtures/travel-essential.typ'
-    for case in ['plain-long-rank', 'plain-long-name']:
+    # the remedy names what binds: the rank row can be cut, a long name needs nothing
+    for case, cause in [('plain-long-rank', 'the rank row leaves'), ('plain-long-name', 'the name leaves')]:
         assert not band_drawings(out / f'travel-essential-{case}' / f'travel-essential-{case}.pdf')[0], case
         said = template_warnings(args.typst, essential_fixture, {'case': case})
-        assert len(said) == 1 and said[0].startswith('Hanami essential: the route arc is left out;'), (case, said)
+        assert len(said) == 1 and said[0].startswith('Hanami essential: the route arc is left out; ' + cause), (case, said)
     # The thin-page warning judges each column: a page 60% to 80% filled warns; the client-length page does not.
     quarter = template_warnings(args.typst, essential_fixture, {'case': 'three-quarters'})
     assert len(quarter) == 1 and quarter[0].startswith('Hanami essential: the career column is '), quarter
