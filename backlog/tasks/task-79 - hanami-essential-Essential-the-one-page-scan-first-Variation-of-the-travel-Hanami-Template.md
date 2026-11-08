@@ -6,7 +6,7 @@ title: >-
 status: Active
 assignee: []
 created_date: '2026-11-08T10:07:00Z'
-updated_date: '2026-11-08T12:15:00Z'
+updated_date: '2026-11-08T12:20:00Z'
 labels: []
 milestone: m-2
 dependencies: []
@@ -70,4 +70,6 @@ The first scan-first Template Variation (P-0019 section 9, owner 2026-11-04 and 
 - Code round 1 PASS with F1-F3 Minor, N1, N2: all fixed in 5eb12b7 (overflow names its cause, cv.py status lists template warnings, warning path and overflow asserts tested, explicit eval flags). The new workspace test found a real bug, fixed in c80f149: the petal check ran on essential and failed every essential client revision.
 - Code round 2 PASS with F1, F2 Minor, N1-N3: F1 (petal check proved on 'showcase'), F2 (gap entry and docstring say showcase only) and N1 (PETAL_EXEMPT lists the exempt Variations, so a new one is checked) fixed; N3 left as a Note (both paths read correctly).
 - Reviews verbatim in archive/work-records/hanami-essential/reviews/.
+
+- Code round 3 PASS (no findings above a Note). Travel-domain code round 3 N-1, N-2 applied in 39f096a.
 <!-- SECTION:NOTES:END -->
