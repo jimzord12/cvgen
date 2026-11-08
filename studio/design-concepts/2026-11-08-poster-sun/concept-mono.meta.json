@@ -1,0 +1,17 @@
+{
+  "variant": "mono",
+  "domain": "travel",
+  "candidate": "Daphne Kontou",
+  "rank": "Tour Leader / Travel Consultant",
+  "style": "Poster Sun",
+  "idea": "sunrise travel poster",
+  "status": "proposed",
+  "producedBy": "magazine-editor",
+  "kind": "concept",
+  "density": "condensed",
+  "tier": "stylish",
+  "date": "2026-11-08",
+  "contract": "cvgen.output/1",
+  "pages": 1,
+  "sha256": "fb07c284d4659abe7492188de2bafe3c8f101161ef6ba27c7f0ce2c6b23707d8"
+}

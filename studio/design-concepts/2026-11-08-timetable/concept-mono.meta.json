@@ -1,0 +1,17 @@
+{
+  "variant": "mono",
+  "domain": "travel",
+  "candidate": "Daphne Kontou",
+  "rank": "Tour Leader / Travel Consultant",
+  "style": "Timetable",
+  "idea": "printed timetable table",
+  "status": "proposed",
+  "producedBy": "magazine-editor",
+  "kind": "concept",
+  "density": "condensed",
+  "tier": "stylish",
+  "date": "2026-11-08",
+  "contract": "cvgen.output/1",
+  "pages": 1,
+  "sha256": "88cedbc95084a1ea8b0d6d4b0995bf03cbe875eae69d176d2bdfc2aa383e67ce"
+}

@@ -1,0 +1,75 @@
+{
+  "source": "archive/work-records/idea-runs/2026-11-08-editor/fictional-record.json, reshaped for the mock-up; substance unchanged",
+  "name": "Daphne Kontou",
+  "given": "Daphne",
+  "family": "Kontou",
+  "title": "Tour Leader / Travel Consultant",
+  "specialty": "Group and private travel",
+  "contacts": {
+    "based": "Patras, Greece",
+    "phone": "+30 699 000 0644",
+    "email": "daphne.kontou@example.com",
+    "born": "4 May 1997",
+    "nationality": "Greek",
+    "passport": "Valid, exp. October 2035"
+  },
+  "profile": "Travel professional who plans, books and runs group and private trips, and stays the one calm contact while they run.",
+  "experience": [
+    {
+      "role": "Travel Consultant",
+      "employer": "Example Voyages",
+      "place": "Patras",
+      "from": "04/2022",
+      "to": "present",
+      "intro": "Independent agency for private and small-group travel in Greece and abroad.",
+      "bullets": [
+        { "lead": "Itineraries", "text": "about 30 private and small-group trips a year, from three-day city breaks to two-week tours with several stops." },
+        { "lead": "Bookings", "text": "hotels, ferries, coaches, licensed guides and domestic flights, each confirmed in writing and reconfirmed before arrival." },
+        { "lead": "On the road", "text": "the single contact for clients and suppliers throughout each trip, by phone and messaging, seven days a week." },
+        { "lead": "Changes", "text": "rebooks ferries, rooms and transfers the same day when weather, strikes or delays cancel a leg of the route." },
+        { "lead": "Trip packs", "text": "a day-by-day plan with addresses, contacts, transfer times and confirmations, sent a week before departure." }
+      ]
+    },
+    {
+      "role": "Reservations Agent",
+      "employer": "Example Air Services",
+      "place": "Athens",
+      "from": "05/2020",
+      "to": "03/2022",
+      "bullets": [
+        { "lead": "Passenger desk", "text": "bookings, seat changes and baggage claims by phone and at the counter, on two reservation systems." },
+        { "lead": "Disruptions", "text": "rerouted passengers onto partner flights during cancellations, and arranged hotels for missed connections." }
+      ]
+    }
+  ],
+  "education": [
+    { "qualification": "Tour Leader Certificate", "institution": "Example School of Tourism Professions, continuing education", "years": "2023 – 2024" },
+    { "qualification": "Bachelor’s degree in Tourism Management", "institution": "Example University of Western Greece", "years": "2016 – 2020" }
+  ],
+  "languages": [
+    { "name": "Greek", "level": "Native" },
+    { "name": "English", "level": "C2", "note": "Certificate of Proficiency" },
+    { "name": "Japanese", "level": "JLPT N3", "note": "Everyday conversation, signs and timetables" }
+  ],
+  "skills": {
+    "heading": "Skills & travel experience",
+    "items": [
+      { "lead": "Group travel", "text": "coaches, rooming lists, timed museum entries and meal plans for groups of up to 40" },
+      { "lead": "Travel experience", "text": "14 countries in Europe and Asia, most of the trips planned and booked herself" }
+    ]
+  },
+  "availability": {
+    "headline": "Available from April 2027",
+    "text": "Seasonal or year-round contracts, at two weeks’ notice; happy to travel with groups for up to three weeks."
+  },
+  "journeys": {
+    "region": "Europe and East Asia",
+    "trips": [
+      { "period": "September 2024", "days": 14, "role": "organised", "kind": "Trip for six colleagues, which she planned", "stops": ["Vienna", "Salzburg", "Munich"] },
+      { "period": "April 2023", "days": 12, "role": "travelled", "kind": "Private trip", "stops": ["Tokyo", "Kyoto", "Osaka"] },
+      { "period": "June 2022", "days": 9, "role": "organised", "kind": "Trip for her family of five, which she planned", "stops": ["Lisbon", "Sintra", "Porto"] }
+    ],
+    "knows_well": "Vienna, Munich, Tokyo, Kyoto, Lisbon and Porto"
+  },
+  "disclosure": "Fictional candidate · design concept"
+}

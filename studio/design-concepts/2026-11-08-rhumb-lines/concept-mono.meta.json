@@ -1,0 +1,17 @@
+{
+  "variant": "mono",
+  "domain": "travel",
+  "candidate": "Daphne Kontou",
+  "rank": "Tour Leader / Travel Consultant",
+  "style": "Rhumb Lines",
+  "idea": "portolan chart page",
+  "status": "proposed",
+  "producedBy": "magazine-editor",
+  "kind": "concept",
+  "density": "condensed",
+  "tier": "stylish",
+  "date": "2026-11-08",
+  "contract": "cvgen.output/1",
+  "pages": 1,
+  "sha256": "68f00cdca4f8ad3f547f7c78fd4568bef194b13bce2b132c783c1150e673392d"
+}
