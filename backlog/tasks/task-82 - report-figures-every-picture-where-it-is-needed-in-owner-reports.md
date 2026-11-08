@@ -1,10 +1,10 @@
 ---
 id: TASK-82
 title: 'report-figures: every picture where it is needed in owner reports'
-status: Ready
+status: Done
 assignee: []
 created_date: '2026-11-08T14:35:00Z'
-updated_date: '2026-11-08T14:49:00Z'
+updated_date: '2026-11-08T14:50:00Z'
 labels: []
 milestone: m-8
 dependencies: []
@@ -46,3 +46,9 @@ Reports verbatim in `archive/work-records/report-figures/reviews/`.
 - Round 4 (d9d7fd3): code PASS, M2 (long unbroken caption spilled off the lightbox bar), N2, N3; design PASS, D1 Note (the shared Enlarge looked like a link) and Nits; context FINDINGS, 2 Minor (README covered Enlarge only in cards; AC #2 cited a review older than eea6751). Fixed in 6e007aa: Enlarge as a filled chip, long captions wrap, buttons name their figure, two-line bar on phones, README covers Enlarge everywhere; AC #2 now cites round 4. Suite PASS at 6e007aa (builds/tests-20261108-164821-432238), ruff clean.
 - Created on the branch, not on main first (docs/development.md): checked before merging that main holds no task-82.
 <!-- SECTION:NOTES:END -->
+
+## Final Summary
+
+<!-- SECTION:FINAL_SUMMARY:BEGIN -->
+Owner reports now put every picture where it is needed: a picture one decision card alone asks about sits in that card with an Enlarge view; any other is named (Figure A) under Figures with links both ways; bad figure ids are refused. Rule in docs/preferences.md, Reports. Reviewed by code, context and design reviewers over four rounds; merged as 2e433f9.
+<!-- SECTION:FINAL_SUMMARY:END -->
