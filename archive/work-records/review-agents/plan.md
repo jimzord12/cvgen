@@ -1,7 +1,9 @@
 # Plan: review-agents — a plan-reviewer, a decomposition-reviewer and a tests-reviewer
 
-Status: agreed with the owner 2026-11-08 in direction; revised in place on
-`feat/review-agents` until its plan review passes (D2), then kept unchanged.
+Status: **plan review PASS, round 5** (2026-11-08; two reviewers,
+`reviews/12-plan-reviewer-a.md` and `-b.md`). Kept unchanged from here (D2),
+apart from the "Carried into the tasks" section at the end, which records the
+round's Minor findings for the tasks that apply them.
 Revision 5 answers round 4 (`reviews/11-plan-reviewer-a.md`, `-b.md`;
 [A4-..], [B4-..]); revision 4 (b16bb4b) answered round 3 with the probe spike
 (`calibration/04-probe-spike.md`). Earlier rounds: `reviews/07` (round 1),
@@ -249,3 +251,44 @@ when TASK-75 is Ready.
   judged by reading.
 - **Branches in flight** change shared files: merge `main`, regenerate.
 - **Review churn:** narrow triggers, the script for exact checks, the caps.
+
+## Carried into the tasks (round 5 Minor findings)
+
+Both round 5 reviewers passed the plan; their Minor findings are applied by
+the task named, whose own review checks them. [A5-..] is
+`reviews/12-plan-reviewer-a.md`, [B5-..] `-b.md`.
+
+- **TASK-75 (D5, in `docs/engine/verification.md` and `docs/review.md`):**
+  - the anchor base for T2 is the commit that merged `main` in, not 6452dec
+    [A5-P1, B5-m1];
+  - no fault outcome is read until the copy passes in full in that
+    environment; one suite at a time; Bun run from PowerShell with `PYTHON`
+    set to the virtual environment's interpreter, and a Bun fault counts when
+    the probed test fails by name [A5-P2, B5-m4];
+  - the copy is added with `--lock --reason "<session, round>"`, so a live
+    copy is never taken for an orphan, and its path is recorded in the task
+    notes [B5-m2, A5-Note];
+  - the boundary names every move a round makes: writing files in the copy,
+    `git -C <copy> checkout --detach <reviewed commit>` before each probe,
+    the probe commits, the masked path's second commit after its first run
+    [A5-P3, B5-m3];
+  - a refactor that fails at another check first is invalid and redone, not
+    evidence against the test [B5-m5];
+  - a re-baseline commit inside a probe copy is never on a branch and the copy
+    is removed, so it is no change to the frozen set; it is allowed nowhere
+    else [A5-P3, B5-m6];
+  - masking by an ordinary check shows overlap for that fault only and is not
+    by itself a reason to remove a check under D6 [B5-Note 5];
+  - `AGENTS.md`'s `.worktrees/` row names the `probe-*` copies (797 to about
+    800 words; T3's `plan_check.py` word counted with it) [A5-P4].
+- **TASK-76 (D7):** a milestone matched by its `id:`, not a file-name prefix
+  (`m-1` against `m-10`) [B5-Note 2]; every problem listed, not the first only
+  [B5-Note 4]; "Depends on: none; drives TASK-N" with an empty list is not
+  refused [A4-Note, B5-Note 3]; the run on TASK-79 to 81 from `main` is
+  expected to refuse all three (no `Plan:` line; TASK-81's header names
+  dependencies its frontmatter lacks) and records that as the evidence that
+  older tasks predate the template [A5-Note].
+- **TASK-78 (D13):** the reason for reading task states from each branch is
+  that the work must be classified from every branch's copy, not that the CLI
+  reads only the local checkout (it lists branches touched in the last 30
+  days) [B5-Note 1].
