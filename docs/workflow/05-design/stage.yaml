@@ -1,7 +1,7 @@
 # yaml-language-server: $schema=../../../tools/workflow/schema/stage.schema.json
 id: design
 name: Design and build the CV
-sources: ["docs/workflow/05-design/README.md:15-77", ".claude/skills/new-cv/SKILL.md:25-75", "docs/guides/build-a-cv.md:1-111"]
+sources: ["docs/workflow/05-design/README.md:15-78", ".claude/skills/new-cv/SKILL.md:25-75", "docs/guides/build-a-cv.md:1-111"]
 purpose: >-
   Turn the signed-off facts into the client's CV design and its build files:
   the Flagship for a Domain that has it, a custom composition when the data
@@ -184,7 +184,7 @@ steps:
 
   - id: design.framework-gap
     name: Record the Framework Gap
-    sources: ["docs/guides/build-a-cv.md:267-273", ".claude/skills/new-cv/SKILL.md:48-53", "docs/workflow/05-design/README.md:83-87"]
+    sources: ["docs/guides/build-a-cv.md:267-273", ".claude/skills/new-cv/SKILL.md:48-53", "docs/workflow/05-design/README.md:84-88"]
     actor: actor.lead
     action: lead.record-framework-gap
     inputs: [art.cv-typ]
@@ -224,7 +224,7 @@ steps:
   # --- Decision #4 (2026-10-14): every client CV's design is reviewed.
   - id: design.preview
     name: Compile the previews for the reviewer
-    sources: [".claude/skills/new-cv/SKILL.md:54-62", "docs/workflow/05-design/README.md:55-57", "docs/proposals/workflow-model.md:57", "docs/workflow/05-design/README.md:107-111"]
+    sources: [".claude/skills/new-cv/SKILL.md:54-62", "docs/workflow/05-design/README.md:55-57", "docs/proposals/workflow-model.md:57", "docs/workflow/05-design/README.md:108-112"]
     actor: actor.lead
     action: lead.compile-previews
     inputs: [art.cv-typ, art.candidate-json, art.framework-fonts]
@@ -232,7 +232,7 @@ steps:
 
   - id: design.client-review
     name: A fresh design-reviewer and codex-visual-reviewer judge the client's pages
-    sources: ["docs/workflow/05-design/README.md:55-77", ".claude/skills/new-cv/SKILL.md:63-74", "docs/proposals/workflow-model.md:57", ".claude/agents/design-reviewer.md:37-48"]
+    sources: ["docs/workflow/05-design/README.md:55-78", ".claude/skills/new-cv/SKILL.md:63-74", "docs/proposals/workflow-model.md:57", ".claude/agents/design-reviewer.md:37-50"]
     actor: actor.design-reviewer
     action: agent.design-reviewer
     inputs: [art.design-review-input]
@@ -241,7 +241,7 @@ steps:
 
   - id: design.fix
     name: Fix the design on the findings
-    sources: ["docs/workflow/05-design/README.md:69-77", ".claude/skills/idea-run/SKILL.md:78-102"]
+    sources: ["docs/workflow/05-design/README.md:70-78", ".claude/skills/idea-run/SKILL.md:78-102"]
     actor: actor.lead
     action: lead.fix-design
     inputs: [art.design-review-report]
@@ -250,14 +250,14 @@ steps:
 
   - id: design.clear-review-input
     name: Clear the previews from builds/
-    sources: ["docs/workflow/05-design/README.md:67-68", ".claude/skills/new-cv/SKILL.md:75", "docs/preferences.md:80-82", ".claude/agents/design-reviewer.md:52-56"]
+    sources: ["docs/workflow/05-design/README.md:68-69", ".claude/skills/new-cv/SKILL.md:75", "docs/preferences.md:80-82", ".claude/agents/design-reviewer.md:54-58"]
     actor: actor.lead
     action: lead.clear-review-input
     inputs: [art.design-review-report]
 
   - id: design.cap-reached
     name: At a loop's cap, the owner decides
-    sources: ["docs/workflow/05-design/README.md:69-77", ".claude/skills/idea-run/SKILL.md:74-77", "docs/review.md:205-209"]
+    sources: ["docs/workflow/05-design/README.md:70-78", ".claude/skills/idea-run/SKILL.md:74-77", "docs/review.md:205-209"]
     actor: actor.owner
     action: manual.decide-at-cap
 
@@ -313,7 +313,7 @@ gates:
 
   - id: gate.client-design-review
     name: Client design review
-    sources: ["docs/workflow/05-design/README.md:55-77", ".claude/skills/new-cv/SKILL.md:63-74", "docs/proposals/workflow-model.md:57", ".claude/skills/idea-run/SKILL.md:78-102"]
+    sources: ["docs/workflow/05-design/README.md:55-78", ".claude/skills/new-cv/SKILL.md:63-74", "docs/proposals/workflow-model.md:57", ".claude/skills/idea-run/SKILL.md:78-102"]
     check: A fresh design-reviewer and a fresh codex-visual-reviewer both return PASS (the design-reviewer alone when Codex is UNAVAILABLE) on the client's preview pages, first on the Batch Test and the Three-Second Test, then still pass the two Polish Rounds that follow.
     pass: design.clear-review-input
     fail: design.fix
@@ -342,7 +342,7 @@ loops:
 
   - id: loop.client-design-review
     name: Client design review rounds
-    sources: ["docs/workflow/05-design/README.md:69-77"]
+    sources: ["docs/workflow/05-design/README.md:70-78"]
     gate: gate.client-design-review
     cap: { attended: 5, unattended: 10 }
     escalate: design.cap-reached
@@ -493,14 +493,14 @@ artifacts:
   # no visibility for an ignored local file (GAPS.md).
   - id: art.design-review-input
     name: The client's preview pages for the reviewer
-    sources: [".claude/skills/new-cv/SKILL.md:54-59", "docs/workflow/05-design/README.md:67-68", ".claude/skills/new-cv/SKILL.md:75", ".claude/agents/design-reviewer.md:52-56", ".claude/agents/design-reviewer.md:67-68"]
+    sources: [".claude/skills/new-cv/SKILL.md:54-59", "docs/workflow/05-design/README.md:68-69", ".claude/skills/new-cv/SKILL.md:75", ".claude/agents/design-reviewer.md:54-58", ".claude/agents/design-reviewer.md:69-70"]
     path: builds/design-review-input-<timestamp>/
     format: PDF previews of the client's pages, and the page PNGs and batch sheets the reviewer makes there, outside private/
     visibility: ephemeral
 
   - id: art.design-review-report
     name: A client design review report
-    sources: ["docs/guides/client-workflow.md:62-64", "docs/workflow/05-design/README.md:64-66"]
+    sources: ["docs/guides/client-workflow.md:62-64", "docs/workflow/05-design/README.md:65-67"]
     path: private/<envelope>/reviews/design-NN.md
     format: design-reviewer report, verbatim, with the codex-visual-reviewer's beside it as reviews/design-NN-codex.md
     visibility: private
@@ -652,13 +652,13 @@ actions:
   - id: lead.fix-design
     kind: lead
     name: Fix the design
-    sources: [".claude/skills/new-cv/SKILL.md:63-74", "docs/workflow/05-design/README.md:64-66", ".claude/skills/idea-run/SKILL.md:78-102"]
+    sources: [".claude/skills/new-cv/SKILL.md:63-74", "docs/workflow/05-design/README.md:65-67", ".claude/skills/idea-run/SKILL.md:78-102"]
     does: Fixes the design on the findings, or in a Polish Round carries out the Even better proposals, and stores both reports verbatim, as reviews/design-NN.md and reviews/design-NN-codex.md, before the next fresh round.
 
   - id: lead.clear-review-input
     kind: lead
     name: Clear the previews
-    sources: ["docs/workflow/05-design/README.md:67-68", ".claude/skills/new-cv/SKILL.md:75", "docs/preferences.md:80-82", ".claude/agents/design-reviewer.md:52-56"]
+    sources: ["docs/workflow/05-design/README.md:68-69", ".claude/skills/new-cv/SKILL.md:75", "docs/preferences.md:80-82", ".claude/agents/design-reviewer.md:54-58"]
     does: >-
       Deletes the builds/design-review-input-* folders by path, with the page
       PNGs and batch sheets both reviewers made inside them, since they hold a real

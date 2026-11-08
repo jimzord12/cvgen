@@ -59,7 +59,7 @@ actors:
 
   - id: actor.design-reviewer
     name: design-reviewer
-    sources: [".claude/agents/design-reviewer.md:1-6", ".claude/agents/design-reviewer.md:39-48", "docs/proposals/workflow-model.md:57"]
+    sources: [".claude/agents/design-reviewer.md:1-6", ".claude/agents/design-reviewer.md:39-50", "docs/proposals/workflow-model.md:57"]
     kind: agent
     does: >-
       Fresh per round: judges the concept pages of an Idea Run and every

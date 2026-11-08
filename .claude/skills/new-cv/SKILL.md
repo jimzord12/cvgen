@@ -93,8 +93,8 @@ command from the repository root.
 - His change (`loop.owner-changes`): `deliver.fix`. A change to the design
   first goes back through `design.preview` to `design.clear-review-input`
   above, the two `Polish Round`s included; one to the words or facts alone
-  goes straight to `deliver.render`. Where the line is: the deliver README,
-  "Branches".
+  goes to `deliver.render`, then the 300 dpi check on the changed area; a
+  failure goes back to the design review (the deliver README, "Branches").
 - After his `Approval`: `deliver.export`
   (`python scripts/cv.py export private/<envelope> <revision>`), then
   `deliver.record-delete-by` ("Exported <date>, delete by <date + 12

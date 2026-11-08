@@ -556,7 +556,7 @@ window.ATLAS = {
     ".claude/skills/new-client/SKILL.md:54-76",
     "docs/workflow/04-text-draft/README.md:15-44",
     ".claude/skills/new-client/SKILL.md:78-101",
-    "docs/workflow/05-design/README.md:15-77",
+    "docs/workflow/05-design/README.md:15-78",
     ".claude/skills/new-cv/SKILL.md:25-75",
     "docs/guides/build-a-cv.md:1-111",
     "docs/guides/build-a-cv.md:113-196",
@@ -2425,7 +2425,7 @@ window.ATLAS = {
        "sources": [
         "docs/guides/build-a-cv.md:267-273",
         ".claude/skills/new-cv/SKILL.md:48-53",
-        "docs/workflow/05-design/README.md:83-87"
+        "docs/workflow/05-design/README.md:84-88"
        ]
       },
       {
@@ -2537,7 +2537,7 @@ window.ATLAS = {
         ".claude/skills/new-cv/SKILL.md:54-62",
         "docs/workflow/05-design/README.md:55-57",
         "docs/proposals/workflow-model.md:57",
-        "docs/workflow/05-design/README.md:107-111"
+        "docs/workflow/05-design/README.md:108-112"
        ]
       },
       {
@@ -2573,10 +2573,10 @@ window.ATLAS = {
        ],
        "note": "Model step `design.client-review`, action `agent.design-reviewer`, in `docs/workflow/05-design/stage.yaml`.",
        "sources": [
-        "docs/workflow/05-design/README.md:55-77",
+        "docs/workflow/05-design/README.md:55-78",
         ".claude/skills/new-cv/SKILL.md:63-74",
         "docs/proposals/workflow-model.md:57",
-        ".claude/agents/design-reviewer.md:37-48"
+        ".claude/agents/design-reviewer.md:37-50"
        ]
       },
       {
@@ -2602,7 +2602,7 @@ window.ATLAS = {
        ],
        "note": "Model step `design.fix`, action `lead.fix-design`, in `docs/workflow/05-design/stage.yaml`.",
        "sources": [
-        "docs/workflow/05-design/README.md:69-77",
+        "docs/workflow/05-design/README.md:70-78",
         ".claude/skills/idea-run/SKILL.md:78-102"
        ]
       },
@@ -2617,10 +2617,10 @@ window.ATLAS = {
        ],
        "note": "Model step `design.clear-review-input`, action `lead.clear-review-input`, in `docs/workflow/05-design/stage.yaml`.",
        "sources": [
-        "docs/workflow/05-design/README.md:67-68",
+        "docs/workflow/05-design/README.md:68-69",
         ".claude/skills/new-cv/SKILL.md:75",
         "docs/preferences.md:80-82",
-        ".claude/agents/design-reviewer.md:52-56"
+        ".claude/agents/design-reviewer.md:54-58"
        ]
       },
       {
@@ -2634,7 +2634,7 @@ window.ATLAS = {
        ],
        "note": "Model step `design.cap-reached`, action `manual.decide-at-cap`, in `docs/workflow/05-design/stage.yaml`.",
        "sources": [
-        "docs/workflow/05-design/README.md:69-77",
+        "docs/workflow/05-design/README.md:70-78",
         ".claude/skills/idea-run/SKILL.md:74-77",
         "docs/review.md:205-209"
        ]
@@ -3478,7 +3478,7 @@ window.ATLAS = {
        "sources": [
         ".claude/skills/idea-run/SKILL.md:59-77",
         ".claude/skills/idea-run/SKILL.md:144-153",
-        ".claude/agents/design-reviewer.md:50-181",
+        ".claude/agents/design-reviewer.md:52-183",
         ".claude/agents/codex-visual-reviewer.md",
         "docs/proposals/codex-visual-tools.md"
        ]
@@ -4523,18 +4523,18 @@ window.ATLAS = {
   }
  ],
  "build": {
-  "builtAt": "2026-11-08 21:14 UTC",
-  "commit": "b0f8ebf",
+  "builtAt": "2026-11-08 21:19 UTC",
+  "commit": "760fb01",
   "kit": "1.1",
   "stale": {},
   "verified": {
    "client-journey": {
     "at": "2026-11-08",
-    "commit": "b0f8ebf"
+    "commit": "760fb01"
    },
    "design-run": {
     "at": "2026-11-08",
-    "commit": "1e4592f"
+    "commit": "760fb01"
    },
    "change-review": {
     "at": "2026-11-08",
@@ -4542,11 +4542,11 @@ window.ATLAS = {
    },
    "system-map": {
     "at": "2026-11-08",
-    "commit": "1e4592f"
+    "commit": "760fb01"
    },
    "roster": {
     "at": "2026-11-08",
-    "commit": "b0f8ebf"
+    "commit": "760fb01"
    }
   }
  }

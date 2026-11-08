@@ -29,9 +29,9 @@
   but the owner weighs it before he approves. What `render` prints, its
   checks and its refusals are in `docs/guides/build-a-cv.md` section 3.
 - **A `Client`'s pages in `builds/` do not stay there.** The page PNGs
-  (`deliver.page-png`) and any preview are cleared by path once the report
-  is given, like the design previews: they are a real `Client`'s pages
-  outside `private/`.
+  (`deliver.page-png`), crops and any preview are cleared by path once the
+  report is given, like the design previews: they are a real `Client`'s
+  pages outside `private/`.
 - **`Approval` is the owner's act alone.** He opens the `Revision`'s
   `cv.pdf` (or finds it in the `Design Review` app), weighs the
   certificate warnings and either asks for a change or approves the exact

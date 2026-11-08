@@ -27,7 +27,7 @@
     ".claude/skills/new-client/SKILL.md:54-76",
     "docs/workflow/04-text-draft/README.md:15-44",
     ".claude/skills/new-client/SKILL.md:78-101",
-    "docs/workflow/05-design/README.md:15-77",
+    "docs/workflow/05-design/README.md:15-78",
     ".claude/skills/new-cv/SKILL.md:25-75",
     "docs/guides/build-a-cv.md:1-111",
     "docs/guides/build-a-cv.md:113-196",
@@ -1896,7 +1896,7 @@
           "sources": [
             "docs/guides/build-a-cv.md:267-273",
             ".claude/skills/new-cv/SKILL.md:48-53",
-            "docs/workflow/05-design/README.md:83-87"
+            "docs/workflow/05-design/README.md:84-88"
           ]
         },
         {
@@ -2008,7 +2008,7 @@
             ".claude/skills/new-cv/SKILL.md:54-62",
             "docs/workflow/05-design/README.md:55-57",
             "docs/proposals/workflow-model.md:57",
-            "docs/workflow/05-design/README.md:107-111"
+            "docs/workflow/05-design/README.md:108-112"
           ]
         },
         {
@@ -2044,10 +2044,10 @@
           ],
           "note": "Model step `design.client-review`, action `agent.design-reviewer`, in `docs/workflow/05-design/stage.yaml`.",
           "sources": [
-            "docs/workflow/05-design/README.md:55-77",
+            "docs/workflow/05-design/README.md:55-78",
             ".claude/skills/new-cv/SKILL.md:63-74",
             "docs/proposals/workflow-model.md:57",
-            ".claude/agents/design-reviewer.md:37-48"
+            ".claude/agents/design-reviewer.md:37-50"
           ]
         },
         {
@@ -2073,7 +2073,7 @@
           ],
           "note": "Model step `design.fix`, action `lead.fix-design`, in `docs/workflow/05-design/stage.yaml`.",
           "sources": [
-            "docs/workflow/05-design/README.md:69-77",
+            "docs/workflow/05-design/README.md:70-78",
             ".claude/skills/idea-run/SKILL.md:78-102"
           ]
         },
@@ -2088,10 +2088,10 @@
           ],
           "note": "Model step `design.clear-review-input`, action `lead.clear-review-input`, in `docs/workflow/05-design/stage.yaml`.",
           "sources": [
-            "docs/workflow/05-design/README.md:67-68",
+            "docs/workflow/05-design/README.md:68-69",
             ".claude/skills/new-cv/SKILL.md:75",
             "docs/preferences.md:80-82",
-            ".claude/agents/design-reviewer.md:52-56"
+            ".claude/agents/design-reviewer.md:54-58"
           ]
         },
         {
@@ -2105,7 +2105,7 @@
           ],
           "note": "Model step `design.cap-reached`, action `manual.decide-at-cap`, in `docs/workflow/05-design/stage.yaml`.",
           "sources": [
-            "docs/workflow/05-design/README.md:69-77",
+            "docs/workflow/05-design/README.md:70-78",
             ".claude/skills/idea-run/SKILL.md:74-77",
             "docs/review.md:205-209"
           ]
