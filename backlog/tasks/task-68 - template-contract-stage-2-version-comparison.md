@@ -1,10 +1,10 @@
 ---
 id: TASK-68
 title: 'template-contract-stage-2: version comparison'
-status: Active
+status: Done
 assignee: []
 created_date: 2026-11-04 21:41
-updated_date: '2026-11-08T10:43:00Z'
+updated_date: '2026-11-08T10:44:00Z'
 labels: []
 milestone: m-2
 dependencies: []
@@ -51,4 +51,8 @@ Evidence: suite PASS on f1b6b39 (merge of main), builds/tests-20261108-123228-32
 ## Review (2026-11-08)
 
 Code review rounds 1-3 (PASS) and context review rounds 1 (FINDINGS) and 2 (PASS), verbatim in archive/work-records/template-contract-stage2/reviews/. Evidence for the head: builds/tests-20261108-123928-837247 (6be2cb2), then the merged head below.
+
+## Done (2026-11-08)
+
+Merged into main; suite PASS 211 cases at 35f218f (builds/tests-20261108-124347-900881 in the worktree).
 <!-- SECTION:NOTES:END -->
