@@ -239,7 +239,7 @@ function gate(g, top) {
 }
 const name = x => `<b>Figure ${e(x.id)}</b> · `;
 // A comparison opens on the new version: the old one is a sliver at the left edge, dragged in on purpose
-// (owner, 2026-11-08: a slider opening on the old page hid his requested change and read as "no change").
+// (owner, 2026-11-08: a slider opening on the old page hid his requested change: "it seems the same as before").
 function compare(x) {
   return `<div class="compare"><img src="${x.after}" alt="${e(x.after_label)}"><img class="top-image" src="${x.before}" alt="${e(x.before_label)}">
     <input type="range" min="0" max="100" value="8" aria-label="Compare ${e(x.before_label)} and ${e(x.after_label)}">
