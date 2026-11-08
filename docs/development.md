@@ -164,8 +164,8 @@ docs/proposals/                   # Proposals with status; rejected/ keeps decli
 ```
 
 The task store is [Backlog.md](https://github.com/MrLesk/Backlog.md)
-(ADR 0014, 2026-10-06, amended by ADR 0017; it replaced the Trello board adopted under
-[trello-free-trial](proposals/trello-free-trial.md)). Each task is a file in
+(ADR 0014, 2026-10-06, amended by ADR 0017; it replaced the Trello board
+adopted under [trello-free-trial](proposals/trello-free-trial.md)). Each task is a file in
 `backlog/tasks/` with a number Backlog.md gives it (`TASK-27`); its title
 starts with the task id, a short kebab-case slug (`dev-setup`,
 `monorepo-migration`), which also names its `archive/work-records/<id>/` folder. Its
@@ -185,8 +185,8 @@ route in the backlog skill: the handoff doc, edits to tasks no branch is
 working on (a new Queued task, a cancellation, the move to Done after a
 merge into `main`; a child task's Done goes on its parent branch), and the
 milestone files. All three are record-keeping under `docs/review.md`.
-Create a `Milestone` on `main`, and a task on `main` first, as
-Queued (so two branches never take the same number); it moves to Active on
+Create a `Milestone`, and a task as Queued, on `main` first (so two
+branches never take the same number); it moves to Active on
 the branch that picks it up. When a branch is abandoned, cancel its task on
 `main` once the branch is gone, copying any notes worth keeping.
 

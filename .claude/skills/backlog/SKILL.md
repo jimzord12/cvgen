@@ -38,10 +38,13 @@ show work in progress before it merges. Remote branches are only as fresh
 as your last `git fetch` (the CLI never fetches: `remote_operations` is off),
 so fetch first. A branch untouched for longer drops out of that view.
 
-In orientation, also check that every task has a real milestone:
-`grep -L "^milestone:" backlog/tasks/*.md` names only tasks a branch is
-working on, and every `milestone:` id in the tasks is in `milestone list`
-(a name instead of an id is #919's virtual milestone, below).
+In orientation, also check that every task has a real milestone. In Bash,
+`grep -L "^milestone:" backlog/tasks/*.md` lists tasks with none; only tasks
+created before the milestones rule (2026-11-08) and still worked on by a
+branch may be there. Every `milestone:` id in the tasks must appear in
+`milestone list --plain --show-completed` (a name instead of an id is #919's
+virtual milestone, below). Assign any other with `task edit TASK-N -m m-N`
+on `main`, as record-keeping.
 
 ## Writing
 

@@ -73,7 +73,7 @@ None of this approves a pending product design.
 - Stage the intended changes explicitly and inspect the staged diff. Do not sweep
   unrelated local work, real candidate data, secrets, or local preferences into a
   commit. Check the current branch, remote and upstream before publication.
-- Commit at coherent checkpoints and push at useful checkpoints or handoffs.
+- Commit at coherent checkpoints and push at useful points or handoffs.
   Branch checkpoints can be unfinished overall if their limitations are clear;
   unfinished or unverified work does not belong on `main`.
 - Amend, rebase, reset, force-push of a feature branch (`--force-with-lease`),

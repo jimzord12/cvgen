@@ -360,7 +360,7 @@ window.ATLAS = {
     "role": "Reads and updates the tasks in `backlog/` through the `backlog` CLI, and reads and rewrites the `session-handoff` doc on `main`. Every task's record is a task file.",
     "when": "Orientation, and every task state change.",
     "sources": [
-     ".claude/skills/backlog/SKILL.md:1-155"
+     ".claude/skills/backlog/SKILL.md:1-158"
     ]
    },
    "repo-maintenance": {
@@ -4484,8 +4484,8 @@ window.ATLAS = {
   }
  ],
  "build": {
-  "builtAt": "2026-11-08 09:19 UTC",
-  "commit": "d9d99bb",
+  "builtAt": "2026-11-08 09:22 UTC",
+  "commit": "bf9ef1e",
   "kit": "1.1",
   "stale": {},
   "verified": {
@@ -4499,15 +4499,15 @@ window.ATLAS = {
    },
    "change-review": {
     "at": "2026-11-08",
-    "commit": "d9d99bb"
+    "commit": "bf9ef1e"
    },
    "system-map": {
     "at": "2026-11-08",
-    "commit": "d9d99bb"
+    "commit": "bf9ef1e"
    },
    "roster": {
     "at": "2026-11-08",
-    "commit": "d9d99bb"
+    "commit": "bf9ef1e"
    }
   }
  }
