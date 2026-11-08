@@ -116,8 +116,6 @@
     let pts = range(-90, 91, step: 3).map(lon => on-globe(c, r, lon * 1deg, lat * 1deg))
     place(top + left, poly(pts, (if lat == 0 { 0.6pt } else { 0.3pt }) + col))
   }
-  // the axis, faint, beyond the poles
-  place(top + left, line(start: on-globe(c, r, 0deg, 90deg, lift: 1.08), end: on-globe(c, r, 0deg, 90deg, lift: 1.0), stroke: 0.4pt + col))
   // the engraved bezel: a fine guilloche ring between two rims
   place(top + left, dx: c.at(0) - r, dy: c.at(1) - r, circle(radius: r, stroke: 0.8pt + col))
   rosette(c, r + 1.75mm, 0.85mm, 72, 5, col.transparentize(10%), w: 0.22pt)
@@ -165,15 +163,16 @@
     let pts = arc(home, b)
     place(top + left, poly(pts, (paint: col, thickness: 0.95pt, dash: (0pt, 2.1pt), cap: "round")))
     let (bx, by) = on-globe(c, r, b.at(0), b.at(1))
-    place(top + left, dx: bx - 1.55mm, dy: by - 1.55mm, circle(radius: 1.55mm, fill: dot-fill, stroke: 0.9pt + white))
-    place(top + left, dx: bx - 2.3mm, dy: by - 2.3mm, circle(radius: 2.3mm, stroke: 0.3pt + col))
+    place(top + left, dx: bx - 1.1mm, dy: by - 1.1mm, circle(radius: 1.1mm, fill: dot-fill, stroke: 0.8pt + white))
+    place(top + left, dx: bx - 1.85mm, dy: by - 1.85mm, circle(radius: 1.85mm, stroke: 0.3pt + col))
     if k == plane-on {
-      let i = 20
+      // mid-route, so dotted trail shows behind the tail and ahead of the nose (D25, Codex D1)
+      let i = 24
       let (x0, y0) = pts.at(i - 2)
       let (x1, y1) = pts.at(i + 2)
       let ang = calc.atan2((x1 - x0) / 1mm, (y1 - y0) / 1mm) + 90deg
       let (px, py) = pts.at(i)
-      place(top + left, dx: px - 7mm, dy: py - 7mm, rotate(ang, airliner(14mm, col)))
+      place(top + left, dx: px - 5.25mm, dy: py - 5.25mm, rotate(ang, airliner(10.5mm, col)))
     }
   }
   let (hx, hy) = on-globe(c, r, home.at(0), home.at(1))
@@ -228,7 +227,7 @@
   globe(gc, gr, line-a, fill: if mono { white } else { rgb("#F8F3EA") })
   routes(gc, gr, (-12deg, 14deg),
     ((-54deg, 34deg), (-24deg, 56deg), (40deg, 40deg), (62deg, 6deg)),
-    2, if mono { ink } else { rose }, if mono { ink } else { rose })
+    3, if mono { ink } else { rose }, if mono { ink } else { rose })
 })
 
 #set page(background: {

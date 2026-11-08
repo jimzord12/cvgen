@@ -61,6 +61,10 @@ The owner's second set of notes on the header (2026-11-08): "make the image back
 - **A refined airliner.** A new silhouette with the proportions of a twin-engine airliner: long fuselage, swept wings and swept tailplane, two engine pods and a cockpit glazing mark.
   - Its fill is an engraved hatch (fine lines that turn with the plane), outlined at 0.6 pt and set on a white knockout. That also fixes the round-5 mono Nit: the plane no longer sinks into the shading.
   - It flies the route to the Central Asian dot and is turned along the arc's tangent.
+- **Polish after the round-6 review (D25, D26, Codex D1).**
+  - The airliner is now 10.5 mm (was 14 mm) and flies the longer eastern route at its midpoint. Its heading is tangent to the arc, and dotted trail shows both behind its tail and ahead of its nose.
+  - The axis stub at the north pole, which poked through the rim into the bezel, is removed.
+  - The destination dots are smaller (1.1 mm radius), so the engraving leads.
 - **Cut-out fringe.** The portrait's matte was eroded by one pixel, which removes the faint grey fringe along the shoulders at high resolution (round-5 Nit).
 
 ## What the owner should notice first
