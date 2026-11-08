@@ -2880,7 +2880,7 @@ window.ATLAS = {
        ],
        "note": "Model step `deliver.approve`, action `cmd.cv-approve`, in `docs/workflow/06-deliver/stage.yaml`.",
        "sources": [
-        "docs/guides/build-a-cv.md:164-169",
+        "docs/guides/build-a-cv.md:165-170",
         "docs/pdf-workflow.md:184-186",
         "docs/proposals/workflow-model.md:58",
         "docs/glossary.md:77"
@@ -4497,14 +4497,14 @@ window.ATLAS = {
   }
  ],
  "build": {
-  "builtAt": "2026-11-08 11:07 UTC",
-  "commit": "8419eaf",
+  "builtAt": "2026-11-08 11:18 UTC",
+  "commit": "96e9a98",
   "kit": "1.1",
   "stale": {},
   "verified": {
    "client-journey": {
     "at": "2026-11-08",
-    "commit": "8419eaf"
+    "commit": "96e9a98"
    },
    "design-run": {
     "at": "2026-11-08",
@@ -4516,11 +4516,11 @@ window.ATLAS = {
    },
    "system-map": {
     "at": "2026-11-08",
-    "commit": "8419eaf"
+    "commit": "96e9a98"
    },
    "roster": {
     "at": "2026-11-08",
-    "commit": "8419eaf"
+    "commit": "96e9a98"
    }
   }
  }

@@ -49,9 +49,16 @@
   else if case == "no-role" { let t = first-trip; let _ = t.remove("role"); with-trip(raw, t) }
   else if case == "bad-role" { with-trip(raw, (..first-trip, role: "guided")) }
   else if case == "bad-licence-date" { (..raw, licences: ((..raw.licences.at(0), until: "03/2029"),)) }
+  else if case == "no-such-day" { (..raw, licences: ((..raw.licences.at(0), until: "31 Feb 2029"),)) }
+  else if case == "leap-day" { (..raw, licences: ((..raw.licences.at(0), until: "29 Feb 2028"),)) }
+  // A led trip with a long period: the role sits under the stamp, so it never wraps under the period.
+  else if case == "led-long-period" { with-trip(raw, (..first-trip, role: "led", period: "September 2024")) }
+  else if case == "long-role" { raw }
+  else if case == "long-licence" { (..raw, licences: ((..raw.licences.at(0), title: "Licensed Tour Leader and Escort for Group Travel in Greece, Cyprus and the European Union"),)) }
   else if case == "unknown-version" { (..raw, domainContract: 3) }
   else { panic("unknown case: " + case) }
 }
 #let theme = if case == "sky" { hanami-themes.sky } else if case == "indigo" { hanami-themes.indigo } else { hanami-themes.sakura }
 #show: hanami.with(candidate: candidate, theme: theme, artwork: hanami-artwork.japan, layout: hanami-layouts.showcase,
+  copy: if case == "long-role" { (role-organised: "Organised it for the whole group") } else { (:) },
   variation: if case == "bad-variation" { "essential" } else { "showcase" })

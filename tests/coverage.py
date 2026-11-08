@@ -212,8 +212,9 @@ def run_coverage(out, typst, flags):
     travel_design = {'default': 'calm', 'variations': {
         'calm': {'supports': {'travel': {'upTo': 1, 'groups': shapes}}},
         'plain': {'supports': {'travel': {'upTo': 2, 'groups': shapes}}},
-        # What a one-page Variation such as `essential` claims: the trips and their roles, licences, no travel-story.
-        'brief': {'supports': {'travel': {'upTo': 2, 'groups': [*shapes, 'destinations@1', 'destinations@2', 'licences@1']}}}}}
+        # A one-page Variation with no room for the route, stamps and story: at version 1 they are part of the
+        # required destinations, so it renders version 2 only and leaves travel-story unclaimed.
+        'brief': {'supports': {'travel': {'exactly': [2], 'groups': [*shapes, 'destinations@2', 'licences@1']}}}}}
 
     def on(name, record):
         source = f'#import "/packages/domains/travel/lib.typ": hanami\n#show: hanami.with(candidate: record, variation: "{name}")'
@@ -231,7 +232,7 @@ def run_coverage(out, typst, flags):
     # travel-story (route, seals, stamps, the story) is optional at version 2, so a Variation without room for it drops it.
     assert on('brief', tour) == ({'template': 'hanami', 'variation': 'brief', 'domain_contract': 2, 'dropped': ['travel-story']},
                                  ['hanami brief does not show travel-story: this CV leaves those facts out'])
-    assert on('brief', older) == ({'template': 'hanami', 'variation': 'brief', 'domain_contract': 1, 'dropped': []}, [])
+    refused(lambda: on('brief', older), 'hanami brief supports travel contract version 2; this record follows version 1, which it does not render')
     assert on('plain', older)[0]['dropped'] == [] and not on('plain', older)[1]
     # What `cv.py contracts` says of each: showcase renders both versions; calm is one behind.
     assert describe(compatibility('travel', 'hanami', 'calm', travel_design['variations']['calm'])) == [
@@ -241,7 +242,7 @@ def run_coverage(out, typst, flags):
         '  - licences is a new optional group by version 2: warning',
         '  - travel-story is a new optional group by version 2: warning']
     assert describe(compatibility('travel', 'hanami', 'brief', travel_design['variations']['brief'])) == [
-        'hanami brief on travel: renders version 1 to 2, newest 2; 8 of 10 optional groups at version 2']
+        'hanami brief on travel: renders version 2, newest 2; 8 of 10 optional groups at version 2']
     # An expired licence is a loud Certificate Warning at render, never a failure (owner, 2026-09-25).
     expiry = check_certificates({**tour, 'licences': [{'title': 'A', 'issuer': 'B', 'until': '1 Jan 2026'},
                                                        {'title': 'C', 'issuer': 'D', 'until': '30 Jan 2027'}, {'title': 'E', 'issuer': 'F'}]},

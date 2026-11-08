@@ -346,7 +346,7 @@ def main():
         text = ' '.join(' '.join(p.get_text().split()) for p in doc)
         for phrase in ['ANDREAS KALAMARIS', 'Boutique travel agency', '03/2022', 'present', 'Japan, trip by trip',
                        '12 days', '18 days', 'Planning the 18-day trip', 'Education and languages', 'FICTIONAL CANDIDATE',
-                       'Tour Leader Licence', 'Valid until 31 Mar 2029']:
+                       'Thermaic Tour Board', 'Valid until 31 Mar 2029']:
             assert phrase in text, phrase
         # Travel contract version 2: both trips were organised by him, so neither reads as a led group.
         squeezed = ''.join(text.split())
@@ -375,12 +375,20 @@ def main():
     with fitz.open(twin) as a, fitz.open(older) as b:
         assert a[0].get_text().split() == b[0].get_text().split()  # page 1 is the same
         page = ''.join(b[1].get_text().split())
-        assert 'Licence' not in page and 'ORGANISED' not in page, page
+        assert 'LICENCE' not in page and 'ORGANISED' not in page, page
+    # A led trip with a long period: the role sits on its own line under the stamp, in full; a leap day is a day.
+    for case in ('led-long-period', 'leap-day'):
+        assert check_case(compile_case('travel-' + case, 'tests/fixtures/travel.typ', {'case': case}))['passed'], case
+    with fitz.open(out / 'travel-led-long-period' / 'travel-led-long-period.pdf') as doc:
+        assert 'LEDTHEGROUP' in ''.join(doc[1].get_text().split())
     for mode, message in [('v1-role', 'trip.role arrived in travel contract version 2: set domainContract to 2'),
                           ('v1-licence', 'licences arrived in travel contract version 2: set domainContract to 2'),
                           ('no-role', 'trip.role must be one of led, organised, travelled in travel contract version 2; got none'),
                           ('bad-role', 'trip.role must be one of led, organised, travelled in travel contract version 2; got "guided"'),
                           ('bad-licence-date', 'licences.until must be a day as 14 Jul 2029; got 03/2029'),
+                          ('no-such-day', 'licences.until names a day its month does not have; got 31 Feb 2029'),
+                          ('long-role', "is wider than the trip card's 26 mm stamp column; shorten copy.role-organised"),
+                          ('long-licence', 'a licence line is wider than its 104 mm and would run over the languages column'),
                           ('unknown-version', 'domainContract must be one of 1, 2 (the travel contract versions kept); got 3'),
                           # Every field Hanami places outside its two slots measures itself and fails loudly (constitution 4).
                           ('no-destinations', 'Candidate requires destinations'), ('bad-month', 'experience.from must be MM/YYYY'),

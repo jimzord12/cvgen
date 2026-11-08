@@ -67,7 +67,7 @@ steps:
 
   - id: deliver.approve
     name: The owner approves the reviewed bytes
-    sources: ["docs/guides/build-a-cv.md:164-169", "docs/pdf-workflow.md:184-186", "docs/proposals/workflow-model.md:58", "docs/glossary.md:77"]
+    sources: ["docs/guides/build-a-cv.md:165-170", "docs/pdf-workflow.md:184-186", "docs/proposals/workflow-model.md:58", "docs/glossary.md:77"]
     actor: actor.owner
     action: cmd.cv-approve
     inputs: [art.cv-pdf, art.render-json, art.checks-json, art.reviewed-hash, art.envelope-json]

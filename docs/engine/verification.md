@@ -68,7 +68,10 @@ Windows one also holds the PDFs that build wrote, one per example in
    (`cv_workflow/decoration.py`, which a client's render also runs for Hanami);
    a probe page with a word set on a known petal of each page proves the check
    fires (`petal-probe.typ`). The twin follows travel contract version 2: both
-   trips read "Organised", none "Led the group", and its licence is on page 2.
+   trips read "Organised", none "Led the group", and its licence takes the
+   studies subtitle on page 2. A led trip with a long period ("September 2024")
+   shows "Led the group" in full under its stamp, and a leap day is a valid
+   licence date.
    The `travel.typ` fixture renders the Indigo and Sky themes and a record without
    a portrait (initials in the ring) with the same words, the twin as a version 1
    record (no role, no licence: page 1 the same words, page 2 without them), asserts the totals
@@ -80,7 +83,9 @@ Windows one also holds the PDFs that build wrote, one per example in
    seal's or a stamp's inner disc, a fifth highlight, a second trip story, an
    unknown `Template Variation`, a trip role or a licence on a version 1 record,
    a version 2 trip without a role or with an unknown one, a licence date that
-   is not "14 Jul 2029" and an unknown `domainContract`.
+   is not "14 Jul 2029" or names a day its month lacks ("31 Feb 2029"), a role
+   word wider than the stamp column, a licence line wider than the space before
+   the languages column, and an unknown `domainContract`.
 7. **Every PDF.** Expected page count, no empty page, all fonts embedded, no
    text outside the page. Every compile reads only the bundled fonts
    (`--ignore-system-fonts --font-path packages/cv-framework/fonts`, plus

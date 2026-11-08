@@ -83,8 +83,8 @@ on two trips counts once). Hanami prints the trip count on the region's seal
 and never counts the cards it shows.
 
 The travel facts (`schema/candidate.schema.json`, `data.typ`) follow
-`Domain Contract` version 1 or 2, by the record's `domainContract`. Version 2
-requires `destinations`, with each trip's `Trip Role` (`role`: `led`,
+`Domain Contract` version 1 or 2, by the record's `domainContract`. Both
+require `destinations`; version 2 adds each trip's `Trip Role` (`role`: `led`,
 `organised` or `travelled`) and the optional `licences` (`title`, `issuer`,
 `region`, `until`); a version 1 record holds neither, and `data.typ` refuses
 either on it. The record's shape is the same in both versions otherwise; the
