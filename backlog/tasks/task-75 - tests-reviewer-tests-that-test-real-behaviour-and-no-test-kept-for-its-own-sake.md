@@ -6,7 +6,7 @@ title: >-
 status: Queued
 assignee: []
 created_date: '2026-11-08T09:50:00Z'
-updated_date: '2026-11-08T10:31:00Z'
+updated_date: '2026-11-08T10:54:00Z'
 labels: []
 milestone: m-8
 dependencies:
@@ -30,8 +30,8 @@ A test-principles skill (generic, including 'a test is removed only with a reaso
 ## Acceptance Criteria
 <!-- AC:BEGIN -->
 - [ ] #1 test-principles skill and tests-reviewer.md placed by the four questions; verification.md points to the skill
-- [ ] #2 docs/review.md triggers: a change to tests, fixtures or baselines, or a behaviour change with no test change
-- [ ] #3 Known-answer runs: a seeded tautological test and a seeded change-detector test in a builds/ copy are flagged; tests/proposals.py reviewed for real
-- [ ] #4 context-reviewer PASS
-- [ ] #5 Answer keys for the known-answer runs committed before the runs (D14); docs/review.md 'Reviewer boundaries' carries D5's exception
+- [ ] #2 context-reviewer PASS
+- [ ] #3 docs/review.md's trigger lists the D12 paths (test changes only, owner 2026-11-08); a behaviour change with no test stays with the code-reviewer's lens 5
+- [ ] #4 Known-answer runs, keys committed first (D14), in a copy the lead prepares (D5): a seeded tautological test is flagged by the fault probe, a seeded change-detector test by the refactor probe; tests/proposals.py reviewed for real
+- [ ] #5 docs/review.md 'Reviewer boundaries' carries D5's exception; the permission rules it needs are named for the owner
 <!-- AC:END -->

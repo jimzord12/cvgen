@@ -6,7 +6,7 @@ title: >-
 status: Queued
 assignee: []
 created_date: '2026-11-08T09:51:00Z'
-updated_date: '2026-11-08T10:31:00Z'
+updated_date: '2026-11-08T10:54:00Z'
 labels: []
 milestone: m-8
 dependencies:
@@ -29,9 +29,10 @@ development.md (roles, planning paragraph, file map, plan and decomposition PASS
 
 ## Acceptance Criteria
 <!-- AC:BEGIN -->
-- [ ] #1 Every file in the plan's 'Changed' table updated or recorded as needing no change
-- [ ] #2 atlas.py check, bun run check, bun test, suite and ruff pass
-- [ ] #3 context-reviewer PASS; code-reviewer PASS for the Workflow Model change
+- [ ] #1 atlas.py check, bun run check, bun test, suite and ruff pass
+- [ ] #2 context-reviewer PASS; code-reviewer PASS for the Workflow Model change
+- [ ] #3 Every file in the plan's 'New' and 'Changed' tables (revision 3) made, updated or recorded as needing no change
+- [ ] #4 Started only when no other branch in flight changes the Workflow Model or the Atlas (checked with git diff over git branch), after merging main and regenerating, never hand-merging, the generated files
 <!-- AC:END -->
 
 ## Implementation Notes

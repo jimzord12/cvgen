@@ -6,7 +6,7 @@ title: >-
 status: Queued
 assignee: []
 created_date: '2026-11-08T09:51:00Z'
-updated_date: '2026-11-08T10:31:00Z'
+updated_date: '2026-11-08T10:54:00Z'
 labels: []
 milestone: m-8
 dependencies:
@@ -21,10 +21,10 @@ Owner: Claude Code session
 Branch/worktree: feat/review-agents in .worktrees/review-agents
 Integration target: main
 Depends on: TASK-76
-Plan: archive/work-records/review-agents/plan.md
+Plan: archive/work-records/review-agents/plan.md (revision 3)
 
 ## Outcome and boundaries
-The plan skill gains the decomposition checklist and the full loop (plan, plan-reviewer, decompose, plan_check.py, decomposition-reviewer, create tasks); the decomposition-reviewer agent (Opus high, read-only, runs after plan_check.py passes); its gate in docs/review.md. Excludes a decomposer agent.
+The plan skill gains the decomposition checklist (with a files column for parallel safety) and the loop with its locations (D8): the Plan on its branch and reviewed; tasks created Queued on main with a Plan: header line; plan_check.py from a checkout of main on their ids; the decomposition-reviewer with three pins (Plan at its branch commit, tasks at the main commit, the ids), fixes as record edits on main and plan_check.py rerun each round; then the first task goes Active; later changes re-run both on the changed ids. The decomposition-reviewer agent (Opus high, read-only) and its gate in docs/review.md; the backlog skill. Excludes a decomposer agent.
 <!-- SECTION:DESCRIPTION:END -->
 
 ## Acceptance Criteria
