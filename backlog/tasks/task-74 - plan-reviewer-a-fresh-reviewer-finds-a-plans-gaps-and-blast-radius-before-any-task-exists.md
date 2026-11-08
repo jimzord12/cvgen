@@ -3,10 +3,10 @@ id: TASK-74
 title: >-
   plan-reviewer: a fresh reviewer finds a plan's gaps and blast radius before
   any task exists
-status: Active
+status: Ready
 assignee: []
 created_date: '2026-11-08T09:50:00Z'
-updated_date: '2026-11-08T10:31:00Z'
+updated_date: '2026-11-08T10:33:00Z'
 labels: []
 milestone: m-8
 dependencies:
@@ -29,10 +29,10 @@ A plan skill (generic plan template and plan checklist), the plan-reviewer agent
 
 ## Acceptance Criteria
 <!-- AC:BEGIN -->
-- [ ] #1 plan skill holds the plan template and checklist; plan-reviewer.md holds only its own procedure
-- [ ] #2 docs/review.md names when a plan is reviewed, the brief, and the CVgen impact items
-- [ ] #3 Known-answer run on archive/work-records/backlog-migration/plan.md recorded, then a run on the review-agents plan before TASK-75 starts
-- [ ] #4 context-reviewer PASS
+- [x] #1 plan skill holds the plan template and checklist; plan-reviewer.md holds only its own procedure
+- [x] #2 docs/review.md names when a plan is reviewed, the brief, and the CVgen impact items
+- [x] #3 Known-answer run on archive/work-records/backlog-migration/plan.md recorded, then a run on the review-agents plan before TASK-75 starts
+- [x] #4 context-reviewer PASS
 <!-- AC:END -->
 
 ## Implementation Notes
@@ -74,4 +74,7 @@ TASK-74's edits to docs/review.md moved lines the Workflow Model cites: 4 citati
 
 ## Plan review round 1 of the review-agents plan (07-plan-reviewer.md): dispositions
 All 11 findings answered in plan revision 2 (each change names its finding P1-P11). In TASK-74's own scope: the anchors it broke (P3) fixed in 6452dec; the glossary terms Plan and Impact Map added now, since T1's text uses them (P10, glossary Rule 4). Tasks TASK-75 to 78 aligned with the revision. Round 2 of the plan review uses two independent plan-reviewers (D16).
+
+## Review round 3 (context-reviewer): PASS
+Report: reviews/08-context-reviewer.md (verbatim). m1 fixed: client-journey regenerated and stamped again after the glossary edit. The pages still STALE until T5: design-run, change-review, system-map, roster (their citations into review.md, development.md and glossary.md are re-checked there, N3). N1, N2: no change. AC 3: three calibration runs recorded, and this plan reviewed (round 1, 07-plan-reviewer.md; round 2 with two reviewers in progress, outside TASK-74's own gate).
 <!-- SECTION:NOTES:END -->

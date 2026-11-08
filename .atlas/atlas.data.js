@@ -4484,11 +4484,12 @@ window.ATLAS = {
   }
  ],
  "build": {
-  "builtAt": "2026-11-08 10:29 UTC",
-  "commit": "9cf54e3",
+  "builtAt": "2026-11-08 10:33 UTC",
+  "commit": "9929b69",
   "kit": "1.1",
   "stale": {
    "design-run": [
+    "docs/glossary.md",
     "docs/review.md"
    ],
    "change-review": [
@@ -4497,6 +4498,7 @@ window.ATLAS = {
     "docs/conventions.md"
    ],
    "system-map": [
+    "docs/glossary.md",
     ".claude/agents",
     ".claude/skills",
     "archive/work-records"
@@ -4511,7 +4513,7 @@ window.ATLAS = {
   "verified": {
    "client-journey": {
     "at": "2026-11-08",
-    "commit": "9cf54e3"
+    "commit": "9929b69"
    },
    "design-run": {
     "at": "2026-11-08",

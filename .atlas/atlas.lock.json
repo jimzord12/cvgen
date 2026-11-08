@@ -17,7 +17,7 @@
    "verifiedAt": "2026-11-08"
   },
   "client-journey": {
-   "commit": "9cf54e3",
+   "commit": "9929b69",
    "sources": {
     ".claude/agents/design-reviewer.md": "9938a4b0c29a9fb5cf700f45377a3587f7eb21d0",
     ".claude/skills/idea-run/SKILL.md": "a7819ea4833bf71da6a663016e0b69ceba0e3a25",
@@ -26,7 +26,7 @@
     ".claude/skills/verify-cv/SKILL.md": "0a507b4d2616e8623eeb53af7bb860aed3dfdcf5",
     "archive/work-records/workflow-model/handoff.md": "521822f241bc9400adb13f1c9a54a8299c144907",
     "docs/framework-gaps.md": "51006c1fd6a8acef7afd334a07b608d278dc71aa",
-    "docs/glossary.md": "6997007ad18585dcb0c924c0f87e213a8c5cc1fb",
+    "docs/glossary.md": "090c8b7463da277ae3abec4a4271f09ce4f6d6b8",
     "docs/guides/build-a-cv.md": "99da693b349121c67344591ff4bd77107cfb3b93",
     "docs/guides/client-workflow.md": "da905ddba34cedb4b1367467fbf980f9bb261c17",
     "docs/pdf-workflow.md": "bb9e20abbe0be5706a25c9a27cc085acecf98205",
