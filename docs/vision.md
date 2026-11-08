@@ -110,9 +110,9 @@ the shared core, then freezes an approved render.
    template. A role-level template is the exception and needs a reason. In
    the marine tree today the deck variation is the captain artwork pack and
    example; the engine variation is the engineer pack and example.
-3. **Approved looks are frozen.** Every approved `Template Variation` has a locked
-   reference render, and the suite proves the library reproduces it on
-   every run.
+3. **Approved looks are frozen.** Every approved `Template Variation` has a
+   locked reference render, and the suite proves the library reproduces it
+   on every run.
 4. **Loud failure over silent drift.** Overflow, missing months, a name that
    does not fit the plate: each fails with a message naming the fix.
 5. **Evidence, not assurance.** A change is done when the suite passes and a

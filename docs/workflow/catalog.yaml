@@ -111,7 +111,7 @@ actions:
   - id: lead.write-form-script
     kind: lead
     name: Write the Intake Form script
-    sources: ["docs/guides/client-workflow.md:145-150", ".claude/skills/new-client/SKILL.md:45-48", "scripts/intake-form.gs:20-21"]
+    sources: ["docs/guides/client-workflow.md:147-152", ".claude/skills/new-client/SKILL.md:45-48", "scripts/intake-form.gs:20-21"]
     does: >-
       Writes intake/form-NN.gs, a copy of scripts/intake-form.gs with only its
       FORM block changed: title, intro, consent, questions; pages by topic and
@@ -139,9 +139,9 @@ artifacts:
 
   - id: art.envelope-json
     name: envelope.json
-    sources: ["docs/guides/client-workflow.md:34-35", "docs/guides/client-workflow.md:88-103", "packages/cv-workflow/cv_workflow/outputs.py:61-78", "docs/proposals/workflow-gaps.md:36"]
+    sources: ["docs/guides/client-workflow.md:34-36", "docs/guides/client-workflow.md:89-105", "packages/cv-workflow/cv_workflow/outputs.py:61-78", "docs/proposals/workflow-gaps.md:36"]
     path: private/<envelope>/envelope.json
-    format: "JSON: alias, domain, candidate, rank (each checked against output.schema.json's property of that name); template and variation (ADR 0016); keep_requested (YYYY-MM-DD) once the client asks to keep his data"
+    format: "JSON: alias, domain, candidate, rank (each checked against output.schema.json's property of that name); template and variation when a Template renders the CV (ADR 0016); keep_requested (YYYY-MM-DD) once the client asks to keep his data"
     visibility: private
 
   - id: art.envelope-readme
@@ -153,7 +153,7 @@ artifacts:
 
   - id: art.readme-google-links
     name: README.md, section "Google"
-    sources: ["docs/guides/client-workflow.md:162-164", "scripts/intake-form.gs:11-15"]
+    sources: ["docs/guides/client-workflow.md:164-166", "scripts/intake-form.gs:11-15"]
     path: private/<envelope>/README.md
     format: Markdown lines with the form's answer and edit links, the Sheet and the script project
     visibility: private
@@ -183,14 +183,14 @@ artifacts:
 
   - id: art.messages-md
     name: messages.md (intake answers)
-    sources: ["docs/guides/client-workflow.md:38", "docs/workflow/02-intake/README.md:33-35", ".claude/skills/new-client/SKILL.md:45-48", "docs/workflow/02-intake/README.md:66-67"]
+    sources: ["docs/guides/client-workflow.md:39", "docs/workflow/02-intake/README.md:33-35", ".claude/skills/new-client/SKILL.md:45-48", "docs/workflow/02-intake/README.md:66-67"]
     path: private/<envelope>/intake/messages.md
     format: Markdown, every answer as received, dated, in the client's words
     visibility: private
 
   - id: art.documents
     name: The client's documents
-    sources: ["docs/guides/client-workflow.md:39", "docs/workflow/02-intake/README.md:33-35", "docs/guides/client-workflow.md:150-152"]
+    sources: ["docs/guides/client-workflow.md:40", "docs/workflow/02-intake/README.md:33-35", "docs/guides/client-workflow.md:152-154"]
     path: private/<envelope>/intake/documents/
     format: photos and files, any format
     visibility: private
@@ -199,14 +199,14 @@ artifacts:
 
   - id: art.facts-final
     name: facts.md, final
-    sources: ["docs/guides/client-workflow.md:40", "docs/workflow/03-research/README.md:62-64", ".claude/skills/new-client/SKILL.md:74-76"]
+    sources: ["docs/guides/client-workflow.md:41", "docs/workflow/03-research/README.md:62-64", ".claude/skills/new-client/SKILL.md:74-76"]
     path: private/<envelope>/intake/facts.md
     format: Markdown, every fact with its source; what is still missing is left out or marked not supplied
     visibility: private
 
   - id: art.decisions-md
     name: CV Decisions (decisions.md)
-    sources: ["docs/guides/client-workflow.md:45", "docs/guides/client-workflow.md:188-204", "docs/glossary.md:65"]
+    sources: ["docs/guides/client-workflow.md:46", "docs/guides/client-workflow.md:190-206", "docs/glossary.md:65"]
     path: private/<envelope>/research/decisions.md
     format: Markdown, one line per decision with its answer and source, "judgement" and the reason, or "open"
     visibility: private
@@ -215,14 +215,14 @@ artifacts:
 
   - id: art.draft-pdf
     name: Text Draft PDF
-    sources: ["docs/guides/client-workflow.md:49", "docs/workflow/04-text-draft/README.md:17-32", "packages/cv-workflow/cv_workflow/outputs.py:52-53"]
+    sources: ["docs/guides/client-workflow.md:50", "docs/workflow/04-text-draft/README.md:17-32", "packages/cv-workflow/cv_workflow/outputs.py:52-53"]
     path: private/<envelope>/draft/draft-NN.pdf
     format: PDF, page 1 the Check Page, then the CV's content
     visibility: private
 
   - id: art.draft-meta
     name: The Text Draft's Meta File
-    sources: ["docs/guides/client-workflow.md:50", "docs/pdf-workflow.md:130", "docs/workflow/04-text-draft/README.md:33-37"]
+    sources: ["docs/guides/client-workflow.md:51", "docs/pdf-workflow.md:131", "docs/workflow/04-text-draft/README.md:33-37"]
     path: private/<envelope>/draft/draft-NN.meta.json
     format: "JSON, kind client-draft, status ready, sent, signed-off or superseded"
     schema: art.output-schema
@@ -230,7 +230,7 @@ artifacts:
 
   - id: art.sign-off-png
     name: The Sign-off screenshot
-    sources: ["docs/guides/client-workflow.md:51", "docs/workflow/04-text-draft/README.md:41-43", "docs/glossary.md:73"]
+    sources: ["docs/guides/client-workflow.md:52", "docs/workflow/04-text-draft/README.md:41-43", "docs/glossary.md:73"]
     path: private/<envelope>/draft/sign-off-NN.png
     format: PNG screenshot of the client's OK
     visibility: private
@@ -239,14 +239,14 @@ artifacts:
 
   - id: art.candidate-json
     name: candidate.json
-    sources: ["docs/guides/client-workflow.md:36", "docs/guides/build-a-cv.md:55-78", "packages/cv-workflow/cv_workflow/workspace.py:93-95"]
+    sources: ["docs/guides/client-workflow.md:37", "docs/guides/build-a-cv.md:63-86", "packages/cv-workflow/cv_workflow/workspace.py:93-95"]
     path: private/<envelope>/candidate.json
     format: JSON, checked against the schema cv.typ's imports name (Flagship input for marine; none for a one-off)
     visibility: private
 
   - id: art.cv-typ
     name: The CV's entry point
-    sources: ["docs/guides/client-workflow.md:52-53", "docs/guides/build-a-cv.md:19-39", "packages/cv-workflow/cv_workflow/workspace.py:72-73"]
+    sources: ["docs/guides/client-workflow.md:53-54", "docs/guides/build-a-cv.md:19-39", "packages/cv-workflow/cv_workflow/workspace.py:72-73"]
     path: private/<envelope>/typst/cv.typ
     format: Typst; reads every file by a path relative to itself
     visibility: private
@@ -270,7 +270,7 @@ artifacts:
 
   - id: art.output-schema
     name: The Meta File schema
-    sources: ["packages/cv-workflow/cv_workflow/output.schema.json:1-45", "docs/pdf-workflow.md:133-140"]
+    sources: ["packages/cv-workflow/cv_workflow/output.schema.json:1-45", "docs/pdf-workflow.md:134-142"]
     path: packages/cv-workflow/cv_workflow/output.schema.json
     format: JSON Schema 2020-12, $id cvgen.output/1
     visibility: public

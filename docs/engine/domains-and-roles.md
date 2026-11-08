@@ -1,8 +1,9 @@
 # Domains and roles
 
-Read this, and `template-contract.md`, before adding a domain, a role or a template, or when a template
-needs a word or a rule that seems to belong to the domain rather than to the
-design. Decided in [ADR 0011](../decisions/0011-domains-roles-templates.md);
+Read this, and `template-contract.md`, before adding a domain, a role or a
+template, or when a template needs a word or a rule that seems to belong to
+the domain rather than to the design.
+Decided in [ADR 0011](../decisions/0011-domains-roles-templates.md);
 the Framework and the domains became separate folders in
 [ADR 0012](../decisions/0012-framework-and-domain-packages.md).
 
