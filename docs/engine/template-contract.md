@@ -37,7 +37,9 @@ education at its foot, and availability, languages, destinations, practical
 know-how and references on a rail. The fields start 8 mm under the profile row,
 so a short record leaves no empty paper above them; a licence heads the rail when
 it has room, and sits beside the lead when it has not. When both columns end
-short, the rail's wash ends 8 mm under the longer one, and a page under 80%
+short, the rail's wash ends 8 mm under the longer one; when the column would
+still end more than 25 mm short, the gaps may grow to 14 mm between roles and
+16 mm before a section; and a page with either column under 80%
 filled carries a `<cvgen-warning>` that `scripts/cv.py render` prints and
 `checks.json` keeps under `template_warnings`, so a thin record is filled out
 before the owner sees it. The gaps between roles widen with spare
@@ -56,8 +58,8 @@ Practical know-how is one item a line, the basics last. It allows the
 which swaps the sakura branch for a neutral route arc and drops the Japanese
 word beside the rank, for a client who wants a plain professional page. The
 arc starts 10 mm after the measured name and rank row and ends 6 mm before
-the portrait's ring or at the margin; under 30 mm of room it is left out, so
-it never lies on a word. `hanami` checks the artwork pack against the
+the portrait's ring or at the margin; under 45 mm of room it is left out,
+with a `<cvgen-warning>` that says why, so it never lies on a word. `hanami` checks the artwork pack against the
 manifest's `artwork` list, as it does the layout. A theme may leave out the
 blurred petals on the band and the paper (`soft-petals`, `soft-field-petals`:
 Monochrome does) and set a `portrait-plate` colour behind a cut-out portrait; the

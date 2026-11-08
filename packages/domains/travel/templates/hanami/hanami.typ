@@ -45,7 +45,8 @@
   assert(candidate != none and theme != none and artwork != none and layout != none,
     message: "hanami requires candidate, theme, artwork and layout")
   let packs = design.variations.at(name).artwork
-  assert(artwork == none or artwork.at("name", default: "japan") in packs,
+  assert(artwork == none or "name" in artwork, message: "Hanami: an artwork pack needs a name (japan, plain), as its manifest lists it")
+  assert(artwork == none or artwork.name in packs,
     message: "Hanami " + name + " allows the artwork packs " + packs.join(", ") + "; pass hanami-artwork." + packs.first())
   let allowed = design.variations.at(name).layouts
   assert(layout.at("name", default: "showcase") in allowed,

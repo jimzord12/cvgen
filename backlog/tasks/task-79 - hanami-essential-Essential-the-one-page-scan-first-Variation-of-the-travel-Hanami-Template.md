@@ -6,7 +6,7 @@ title: >-
 status: Active
 assignee: []
 created_date: '2026-11-08T10:07:00Z'
-updated_date: '2026-11-08T15:25:00Z'
+updated_date: '2026-11-08T15:38:00Z'
 labels: []
 milestone: m-2
 dependencies: []
@@ -80,4 +80,10 @@ Owner: more bold in the bullets; practical know-how hard to scan; for the client
 ## Round 7 fixes (2026-11-08)
 
 R4-1 the plain arc measured from the name and rank row, left out under 30 mm; D23 the generic fixture at the client's real length, thin-page warning raised to 80%; D24 basics on their own line; D25 long-career lead-ins and the guide's all-or-none rule; Monochrome portrait plate d9d9d6; a prepared cut-out portrait (feat/portrait-prep's tool) as a fictional fixture, colour and grey; R4-2 artwork packs checked against the manifest; R4-3 generic-japan run, motif swap asserted; R4-4 time and URL lead-ins; R4-5 glossary Lead-in; D29 Monochrome drops the blurred petals; D28 heavier arc without a portrait. D26 (ink band) not built.
+
+## Round 8 fixes (2026-11-08)
+
+D30 the generic record gains a highlight row from its own facts, gaps may grow to 14/16 mm when the column still ends over 25 mm short, the thin-page warning judges each column (the smaller fill), a three-quarters case (64%) must warn; D31/R5-1 the route arc is left out under 45 mm with a <cvgen-warning>; Codex D1 a 2.4 mm gap between a trip's date and day count; long-career destinations headed Japan and Korea; R5-2 tests/fixtures/portraits/provenance.json; R5-4 the glossary's 40-character limit, every artwork pack needs a name, the arc weight's SVG strings asserted.
+
+Depends on TASK-83 (feat/portrait-prep) merging into main first: docs/guides/build-a-cv.md names scripts/portrait.py prepare, which that branch adds.
 <!-- SECTION:NOTES:END -->

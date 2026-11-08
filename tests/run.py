@@ -439,7 +439,7 @@ def main():
         # travel-story is left out: no route, no stamps, no story, not even the region's own script
         assert '日本' not in text and 'Planning the' not in text and 'SKG' not in text
     for case in ['no-portrait', 'indigo', 'sky', 'greek', 'long-career', 'long-career-greek', 'no-licence', 'sparse', 'monochrome', 'generic',
-                 'generic-japan', 'generic-portrait', 'generic-portrait-grey', 'plain-long-rank', 'plain-long-name']:
+                 'generic-japan', 'generic-portrait', 'generic-portrait-grey', 'plain-long-rank', 'plain-long-name', 'three-quarters']:
         pdf = compile_case('travel-essential-' + case, 'tests/fixtures/travel-essential.typ', {'case': case})
         assert check_case(pdf, pages=1)['passed'], case
     with fitz.open(essential) as a, fitz.open(out / 'travel-essential-no-portrait' / 'travel-essential-no-portrait.pdf') as b:
@@ -498,6 +498,7 @@ def main():
         text = ' '.join(doc[0].get_text().split())
         assert '添乗員' not in text and 'PASSPORT Valid, exp. October 2035' in text and 'SKILLS & TRAVEL EXPERIENCE' in text, text
         assert 'Group travel: coaches' in text and 'Greek Native Written and spoken' in text and 'Japanese JLPT N3' in text
+        assert '14 countries Europe and Asia, most planned herself' in text and 'September 2024 14 days' in text
     # The plain pack's route arc is placed from the measured name and rank row: it never lies on a word, it steps
     # aside when the row leaves it under 30 mm, and it replaces the sakura branch (far fewer drawings in the band).
     def band_drawings(pdf):
@@ -507,10 +508,19 @@ def main():
                      and d['rect'].x1 < 150 / 25.4 * 72 + (60 / 25.4 * 72 if not page.get_images() else 0)]
             words = [fitz.Rect(w[:4]) for w in page.get_text('words') if w[1] < 50 / 25.4 * 72]
             return drawn, words
-    for case in ['generic', 'generic-portrait', 'plain-long-name']:
+    for case in ['generic', 'generic-portrait']:
         drawn, words = band_drawings(out / f'travel-essential-{case}' / f'travel-essential-{case}.pdf')
         assert drawn and not [(d, w) for d in drawn for w in words if d.intersects(w)], case
-    assert not band_drawings(out / 'travel-essential-plain-long-rank' / 'travel-essential-plain-long-rank.pdf')[0]
+    # under 45 mm of room the arc is left out, and the render says why
+    essential_fixture = ROOT / 'tests/fixtures/travel-essential.typ'
+    for case in ['plain-long-rank', 'plain-long-name']:
+        assert not band_drawings(out / f'travel-essential-{case}' / f'travel-essential-{case}.pdf')[0], case
+        said = template_warnings(args.typst, essential_fixture, {'case': case})
+        assert len(said) == 1 and said[0].startswith('Hanami essential: the route arc is left out;'), (case, said)
+    # The thin-page warning judges each column: a page 60% to 80% filled warns; the client-length page does not.
+    quarter = template_warnings(args.typst, essential_fixture, {'case': 'three-quarters'})
+    assert len(quarter) == 1 and 60 <= int(quarter[0].split('the page is ')[1].split('%')[0]) < 80, quarter
+    assert template_warnings(args.typst, essential_fixture, {'case': 'generic'}) == []
     with fitz.open(out / 'travel-essential-generic' / 'travel-essential-generic.pdf') as a, \
             fitz.open(out / 'travel-essential-generic-japan' / 'travel-essential-generic-japan.pdf') as b:
         assert len(b[0].get_drawings()) > 3 * len(a[0].get_drawings()) and '添乗員' in b[0].get_text()

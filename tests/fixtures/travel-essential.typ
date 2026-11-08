@@ -53,6 +53,8 @@
   else if case == "sparse" { sparse }
   else if case in ("generic", "generic-japan", "showcase-plain") { generic }
   // the prepared cut-out portrait (scripts/portrait.py prepare on the fictional portrait), in colour and grey
+  // one role fewer than the client: a page between 60% and 80% filled, which must still warn
+  else if case == "three-quarters" { (..generic, experience: generic.experience.slice(0, 1)) }
   else if case == "generic-portrait" { (..generic, identity: (..generic.identity, portrait: "/tests/fixtures/portraits/fictional-cutout.png")) }
   else if case == "generic-portrait-grey" { (..generic, identity: (..generic.identity, portrait: "/tests/fixtures/portraits/fictional-cutout-grey.png")) }
   // the longest likely rank line and a long name, so the plain pack's arc must make room or step aside
@@ -72,11 +74,11 @@
 }
 #let theme = {
   if case == "sky" { hanami-themes.sky } else if case in ("indigo", "long-career") { hanami-themes.indigo }
-  else if case in ("monochrome", "generic", "generic-portrait", "generic-portrait-grey", "plain-long-rank", "plain-long-name") { hanami-themes.monochrome }
+  else if case in ("monochrome", "generic", "three-quarters", "generic-portrait", "generic-portrait-grey", "plain-long-rank", "plain-long-name") { hanami-themes.monochrome }
   else { hanami-themes.sakura }
 }
 // the plain pack (no Japan) is the generic client's choice
-#let plain = case in ("generic", "generic-portrait", "generic-portrait-grey", "plain-long-rank", "plain-long-name", "showcase-plain")
+#let plain = case in ("generic", "three-quarters", "generic-portrait", "generic-portrait-grey", "plain-long-rank", "plain-long-name", "showcase-plain")
 #show: hanami.with(candidate: candidate, theme: theme, artwork: if plain { hanami-artwork.plain } else { hanami-artwork.japan },
   variation: if case == "showcase-plain" { "showcase" } else { "essential" },
   layout: if case == "showcase-layout" { hanami-layouts.showcase } else if case == "showcase-plain" { hanami-layouts.showcase } else { hanami-layouts.essential },

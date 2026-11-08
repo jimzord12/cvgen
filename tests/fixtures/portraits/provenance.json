@@ -1,0 +1,20 @@
+{
+  "about": "Where the fixture cut-out portraits come from (TASK-79, R5-2). Both are fictional: the AI portrait examples/candidates/fictional-engineer.png with its background removed. The original is pinned in tests/baseline.json and was not changed.",
+  "source": {
+    "path": "examples/candidates/fictional-engineer.png",
+    "sha256": "262b1055967ece92f08ad0ada714e3e2b2f392f1816f433d6c8bc816ba1ee06a",
+    "size": [1254, 1254]
+  },
+  "tool": {
+    "command": "python scripts/portrait.py prepare examples/candidates/fictional-engineer.png --output <builds folder>/fictional-cutout.png",
+    "branch": "feat/portrait-prep (TASK-83), not yet on main",
+    "commit": "715e39c",
+    "model": "birefnet-portrait (rembg 2.0.87); face: face_detection_yunet_2023mar.onnx",
+    "crop": { "box": [0, 0, 1228, 1228], "limited_by": "top", "face_centre": [0.503, 0.446] },
+    "output": { "size": [1200, 1200], "background": "transparent", "sha256": "6b70c61aa5a852e688ae721b36f9ce6206ef2d04effd978a7576d68576bbed9c" }
+  },
+  "files": {
+    "fictional-cutout.png": "the tool's output, resized from 1200 to 640 px square (Pillow LANCZOS), RGBA kept",
+    "fictional-cutout-grey.png": "fictional-cutout.png with its colour channels set to its luminance (Pillow convert('L')), alpha unchanged; the tool has no grey option"
+  }
+}

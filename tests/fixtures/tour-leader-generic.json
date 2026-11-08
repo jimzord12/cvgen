@@ -39,6 +39,28 @@
     ]
   },
   "profile": "Travel professional who plans, books and runs group and private trips, and stays the one calm contact while they run.",
+  "highlights": [
+    {
+      "icon": "check",
+      "title": "Travel consultant",
+      "text": "About 30 private and group trips a year"
+    },
+    {
+      "icon": "support",
+      "title": "On the road",
+      "text": "The single contact, seven days a week"
+    },
+    {
+      "icon": "torii",
+      "title": "14 countries",
+      "text": "Europe and Asia, most planned herself"
+    },
+    {
+      "icon": "cap",
+      "title": "Tour Leader Certificate",
+      "text": "Tourism degree; English C2"
+    }
+  ],
   "experience": [
     {
       "role": "Travel Consultant",

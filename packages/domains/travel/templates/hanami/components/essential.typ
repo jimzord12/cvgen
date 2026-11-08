@@ -116,18 +116,26 @@
     place(top + right, art(ctx, "canopy", width: if portrait != none { 104mm } else { ctx.layout.canopy }, swaps: sakura(ctx.theme.sakura.hero, P.hero)))
   } else {
     // A route arc above the contacts, from 10 mm after the measured name and rank row to 6 mm before
-    // the portrait's ring (or the margin), at most 74 mm wide; with less than 30 mm of room it is left
-    // out, so the motif never lies on a word. Without a portrait it is heavier (label grey, ink end), so
+    // the portrait's ring (or the margin), at most 74 mm wide; with less than 45 mm of room it is left
+    // out (with a warning), so the motif never lies on a word nor shrinks into a stray mark. Without a portrait it is heavier (label grey, ink end), so
     // it still reads at arm's length.
     let (_, _, name, rank) = name-block(ctx, d)
     let left = 16mm + calc.max(measure(name).width, measure(rank).width) + 10mm
     let right = if portrait != none { 194mm - ctx.layout.portrait - 1.6mm - 6mm } else { 194mm }
     let w = calc.min(74mm, right - left)
-    let swaps = if portrait != none { line-art(P) } else {
-      (..line-art(P), "#c9a86a": hex(P.hero-label), "#d2462f": hex(P.hero-text),
-        "stroke-width='0.55'": "stroke-width='0.85'", "stroke-dasharray='0.4 1.6'": "stroke-dasharray='0.7 1.5'")
+    let heavy = ("stroke-width='0.55'": "stroke-width='0.85'", "stroke-dasharray='0.4 1.6'": "stroke-dasharray='0.7 1.5'")
+    let source = read(ctx.artwork.at(motif))
+    for key in heavy.keys() {
+      assert(source.contains(key), message: "Hanami essential: the route arc's SVG no longer holds " + key + "; update the heavier no-portrait weight in components/essential.typ")
     }
-    if w >= 30mm { at(right - w, 6mm, art(ctx, motif, width: w, swaps: swaps)) }
+    let swaps = if portrait != none { line-art(P) } else {
+      (..line-art(P), "#c9a86a": hex(P.hero-label), "#d2462f": hex(P.hero-text), ..heavy)
+    }
+    // under 45 mm the arc shrinks into a stray mark: it is left out, and the render says so
+    if w >= 45mm { at(right - w, 6mm, art(ctx, motif, width: w, swaps: swaps)) } else {
+      [#metadata("Hanami essential: the route arc is left out; the name or the rank row leaves "
+        + str(calc.round(calc.max(w, 0mm) / 1mm)) + " mm of the 45 mm it needs") <cvgen-warning>]
+    }
   }
   let PD = ctx.layout.portrait
   let PX = 194mm - PD
@@ -295,7 +303,7 @@
   for trip in places.trips {
     block(above: 0mm, below: 2.4mm, {
       text(size: 9.6pt, weight: 700, trip.period)
-      h(1.4mm)
+      h(2.4mm)
       text(font: fonts.figures, size: 11pt, fill: P.accent, str(trip.days))
       h(0.6mm)
       text(size: 8.6pt, weight: 600, fill: P.accent, ctx.copy.days)
