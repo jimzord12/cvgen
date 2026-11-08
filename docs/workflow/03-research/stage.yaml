@@ -40,7 +40,7 @@ steps:
 
   - id: research.scout
     name: Scout the client's target
-    sources: ["docs/workflow/03-research/README.md:24-34", ".claude/skills/new-client/SKILL.md:57-59", "docs/glossary.md:64"]
+    sources: ["docs/workflow/03-research/README.md:24-34", ".claude/skills/new-client/SKILL.md:57-59", "docs/glossary.md:66"]
     actor: actor.lead
     action: lead.scout
     inputs: [art.facts-md, art.library-findings, art.envelope-json]
@@ -276,7 +276,7 @@ artifacts:
 
   - id: art.research-library
     name: The Research Library
-    sources: ["docs/research/README.md:1-46", "docs/glossary.md:63"]
+    sources: ["docs/research/README.md:1-46", "docs/glossary.md:65"]
     path: docs/research/
     format: dated Markdown notes and the README index
     visibility: public

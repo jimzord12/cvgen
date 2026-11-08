@@ -105,7 +105,7 @@ Update:   2026-10-14 (TASK-43): `docs/guides/build-a-cv.md` section 8, named
           in this entry and in two earlier entries, is now section 5; the old
           mapping table is in Git history (`git show 70631ed:docs/guides/build-a-cv.md`).
 
-### 2026-09-29  A bilingual one-off CV with no domain components   Status: open until the Travel & Tourism domain exists (task travel-domain)
+### 2026-09-29  A bilingual one-off CV with no domain components   Status: closed by TASK-2 (the travel `Domain`, 2026-11-08)
 Needed:   A two-page tour-leader CV for client-2026-09-01 in Greek and
           English from one design, with a page about the client's trips
           drawn as rail line diagrams.
@@ -125,8 +125,15 @@ Lesson:   The Travel & Tourism domain should start from this design: a
           component, and a Greek-capitals helper in the Framework (where
           `label` in `core/primitives.typ` already upper-cases).
 
-### 2026-10-02  A second one-off travel CV, in a chosen concept (Hanami Line 2)   Status: open until the Travel & Tourism domain exists (task travel-domain)
+### 2026-10-02  A second one-off travel CV, in a chosen concept (Hanami Line 2)   Status: closed by TASK-2 (the travel `Domain`, 2026-11-08)
 Needed:   The owner's chosen travel design (`studio/design-concepts/2026-10-02-hanami-line-2/`, three palettes) built for client-2026-09-01 in Greek and English, with the client's portrait and a footer logo.
 Bypassed: Every template and domain component again (no Travel & Tourism `Domain`): a one-off Template in the client's Envelope (`design-hanami.typ`, text slots in `text-hanami-*.typ`, generated SVG art in `assets/`), chosen by `--input design=hanami --input palette=pink|indigo|blue --input lang=el|en`.
 Built:    Three font families the design needs (Sofia Sans Extra Condensed, M PLUS 1p, Kaisei Tokumin) moved into `packages/cv-framework/fonts/` because `scripts/cv.py` only searches that folder; a petal-layer script that lays out decoration against the text boxes of the compiled PDF and checks for collisions.
 Lesson:   (1) A render needs `private/` to be a real folder in the checkout that runs it: both Python (`Path.resolve()`) and Typst (project-root check) refuse an Envelope reached through a junction, so a worktree cannot borrow another checkout's `private/`. (2) `typst query` is deprecated in 0.15.1 (`typst eval` replaces it). (3) A requested italic is silently drawn upright because the bundled Source Sans 3 has no italic file. (4) A language input with one text file per language, a route-diagram component and a Greek-capitals helper (the 2026-09-29 lesson) are still the first things the Travel & Tourism domain needs; the petal-layer script could become a Framework decoration tool.
+Update:   2026-11-08 (TASK-2): Hanami Line 2 is now the travel `Domain`'s first `Template`, Hanami (`showcase`). The language comes through `copy` (`lang` and every word; Greek capitals lose their accents in Hanami's own `caps`); English is the only copy shipped. The petal layer is the next entry.
+
+### 2026-11-08  Hanami: absolute placement, a pre-laid petal layer, no page shell   Status: open
+Needed:   The owner's approved Hanami Line 2 as the travel `Domain`'s first `Template`, faithful to the look.
+Bypassed: (1) The component contract's "geometry in layouts": Hanami places its bands, plate, seals and art at fixed millimetres inside its components, as the one-off did; only the band heights, portrait, plate and the two page fields are in `layouts/showcase.typ`. (2) The Framework's `document-shell` and pagination: two fixed pages, set by `hanami.typ` itself. (3) A petal layer laid out against keep-outs: the petals are SVGs laid out once (from the client build) and six that met the twin's words were removed; a record whose words fall under a petal is caught, not avoided.
+Built:    `packages/domains/travel/templates/hanami/` with a fixed slot per page that fails loudly on overflow and a measured assert on every field placed outside the slots; the petal check (`cv_workflow/decoration.py`) runs in the suite on the tour-leader example and in every Hanami render through `scripts/cv.py`, where a petal on a word fails the revision's checks.
+Lesson:   A petal (decoration) layer that reads the page's text boxes and skips a petal over a word would let Hanami serve any record safely; a second fixed-page template would make the absolute-placement pattern a layout kind of its own.

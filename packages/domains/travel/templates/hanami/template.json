@@ -1,0 +1,24 @@
+{
+  "id": "hanami",
+  "name": "Hanami",
+  "version": 1,
+  "domains": ["travel"],
+  "tags": ["premium", "portrait", "illustrated", "japan"],
+  "default": "showcase",
+  "coverage": "tests/coverage.typ",
+  "variations": {
+    "showcase": {
+      "pages": "2",
+      "designBar": "showcase",
+      "layouts": ["showcase"],
+      "themes": ["sakura", "indigo", "sky"],
+      "artwork": ["japan"],
+      "supports": {
+        "travel": {
+          "upTo": 2,
+          "groups": ["profile@1", "education@1", "languages@1", "portrait@1", "destinations@1", "destinations@2", "travel-story@1", "availability@1", "practical@1", "references@1", "licences@1"]
+        }
+      }
+    }
+  }
+}

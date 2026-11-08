@@ -8,10 +8,12 @@ import pymupdf as fitz
 from PIL import Image, ImageChops
 
 ROOT = Path(__file__).resolve().parents[1]
-# The Framework (fonts) and the Flagship template in the marine domain beside it (ADR 0012 layout).
+# The Framework (fonts) and each domain's template beside it (ADR 0012 layout).
 FRAMEWORK = Path('packages/cv-framework')
 FONTS = FRAMEWORK / 'fonts'
 FLAGSHIP = Path('packages/domains/marine/templates/flagship')
+# Hanami, the travel domain's first template (P-0013).
+HANAMI = Path('packages/domains/travel/templates/hanami')
 
 
 def check_frozen():

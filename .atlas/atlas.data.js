@@ -631,7 +631,7 @@ window.ATLAS = {
         "docs/workflow/01-open/README.md:23-26",
         "docs/guides/client-workflow.md:93-94",
         ".claude/skills/new-client/SKILL.md:33-35",
-        "docs/glossary.md:58"
+        "docs/glossary.md:60"
        ]
       },
       {
@@ -1100,7 +1100,7 @@ window.ATLAS = {
        "sources": [
         "docs/workflow/03-research/README.md:24-34",
         ".claude/skills/new-client/SKILL.md:57-59",
-        "docs/glossary.md:64"
+        "docs/glossary.md:66"
        ]
       },
       {
@@ -1768,8 +1768,8 @@ window.ATLAS = {
        "note": "Model step `text-draft.client-check`, action `manual.client-checks-draft`, in `docs/workflow/04-text-draft/stage.yaml`.",
        "sources": [
         "docs/workflow/04-text-draft/README.md:17-23",
-        "docs/glossary.md:70",
-        "docs/glossary.md:73"
+        "docs/glossary.md:72",
+        "docs/glossary.md:75"
        ]
       },
       {
@@ -1907,7 +1907,7 @@ window.ATLAS = {
        "summary": "Run the new-cv skill",
        "gate": {
         "type": "check",
-        "label": "The Domain has a Template: The client's Domain already has a Template (today only marine, the Flagship)."
+        "label": "The Domain has a Template: The client's Domain already has a Template (today marine, the Flagship, and travel, Hanami)."
        },
        "next": [],
        "branch": [
@@ -2321,7 +2321,7 @@ window.ATLAS = {
         }
        ],
        "does": [
-        "Only when: The client's Domain has a Template (today marine, the Flagship)."
+        "Only when: The client's Domain has a Template (today marine, the Flagship, and travel, Hanami)."
        ],
        "in": [
         "candidate.json: `private/<envelope>/candidate.json`"
@@ -2693,7 +2693,7 @@ window.ATLAS = {
        "sources": [
         "docs/guides/build-a-cv.md:119-143",
         ".claude/skills/new-cv/SKILL.md:67-70",
-        "packages/cv-workflow/cv_workflow/render.py:101-210"
+        "packages/cv-workflow/cv_workflow/render.py:102-213"
        ]
       },
       {
@@ -2883,7 +2883,7 @@ window.ATLAS = {
         "docs/guides/build-a-cv.md:165-170",
         "docs/pdf-workflow.md:184-186",
         "docs/proposals/workflow-model.md:58",
-        "docs/glossary.md:75"
+        "docs/glossary.md:77"
        ]
       },
       {
@@ -3973,6 +3973,17 @@ window.ATLAS = {
        "path": "packages/domains/marine/templates/flagship/tests/approved/",
        "blurb": "The v11 PDF the engineer example must match pixel for pixel.",
        "touch": "Never, without a new reference and an ADR."
+      },
+      {
+       "id": "n-travel",
+       "title": "Travel Domain and Hanami",
+       "path": "packages/domains/travel/",
+       "blurb": "Travel facts (trips, destinations, know-how) and Hanami, its first Template, from Hanami Line 2.",
+       "touch": "Changing what the travel `Domain` means or what Hanami renders; its Frozen Reference waits for your approval.",
+       "sources": [
+        "docs/architecture.md",
+        "docs/engine/domains-and-roles.md"
+       ]
       }
      ]
     },
@@ -4038,7 +4049,7 @@ window.ATLAS = {
        "id": "n-candidates",
        "title": "Example candidates",
        "path": "examples/candidates/",
-       "blurb": "Engineer, captain, chief officer, deck cadet, one fictional portrait.",
+       "blurb": "Engineer, captain, chief officer, deck cadet, tour leader, one fictional portrait.",
        "sources": [
         "examples/candidates"
        ]
@@ -4486,30 +4497,30 @@ window.ATLAS = {
   }
  ],
  "build": {
-  "builtAt": "2026-11-08 10:43 UTC",
-  "commit": "6be2cb2",
+  "builtAt": "2026-11-08 11:53 UTC",
+  "commit": "4d322c4",
   "kit": "1.1",
   "stale": {},
   "verified": {
    "client-journey": {
     "at": "2026-11-08",
-    "commit": "5f78f06"
+    "commit": "96e9a98"
    },
    "design-run": {
     "at": "2026-11-08",
-    "commit": "62747af"
+    "commit": "8419eaf"
    },
    "change-review": {
     "at": "2026-11-08",
-    "commit": "7391e71"
+    "commit": "6071592"
    },
    "system-map": {
     "at": "2026-11-08",
-    "commit": "6be2cb2"
+    "commit": "4d322c4"
    },
    "roster": {
     "at": "2026-11-08",
-    "commit": "6be2cb2"
+    "commit": "4d322c4"
    }
   }
  }

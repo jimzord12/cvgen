@@ -18,7 +18,7 @@ packages/domains/<domain>/                    lib.typ (its public surface), doma
   templates/<template>/                       a template that serves every role of the domain
 ```
 
-- A **domain** is a career area: `marine`, `travel-and-tourism`. It offers
+- A **domain** is a career area: `marine`, `travel`. It offers
   what its area needs and nothing is mandatory: a facts shape (`schema/`),
   the SVG files (`assets/`), wording (`domain.copy`), metadata
   (`domain.meta`) and rules. For marine the rules are the experience model in
@@ -77,8 +77,31 @@ Marine's totals (constitution section 6) come from `experience-totals` over
 the full record: service months for a record kept in months, or the contract
 count for one kept in `Contract Period`s (never both), then the number of
 distinct vessels (a vessel served on twice counts once) and of companies.
+Travel's totals come from `destination-totals` over the full record: the
+number of trips, their days added up, and the distinct stops by name (a stop
+on two trips counts once). Hanami prints the trip count on the region's seal
+and never counts the cards it shows.
+
+The travel facts (`schema/candidate.schema.json`, `data.typ`) follow
+`Domain Contract` version 1 or 2, by the record's `domainContract`. Both
+require `destinations`; version 2 adds each trip's `Trip Role` (`role`: `led`,
+`organised` or `travelled`) and the optional `licences` (`title`, `issuer`,
+`region`, `until`); a version 1 record holds neither, and `data.typ` refuses
+either on it. The record's shape is the same in both versions otherwise; the
+version 2 contract only groups it differently, with the route, the region's
+script and seal words, the trip stamps and the story in the optional
+`travel-story` group. The words for a role and a licence are the domain's `copy`
+(`role-led`, `role-organised`, `role-travelled`, `licence`, `valid-until`).
+The rules are in `template-contract.md`, "Domain Contracts".
 
 ## Adding a domain without touching marine
+
+`travel` was added this way on 2026-11-08 (P-0013), from the first travel
+client's one-off: its facts shape, contract and fixture, and Hanami as its
+first template, with a `Fictional Twin` (`examples/travel/hanami/tour-leader.typ`)
+and a `Frozen Reference` candidate the owner approves before the merge. It
+reached the core through `cv-framework/core/` only and left the Framework and
+marine unchanged.
 
 ```text
 packages/domains/travel/
@@ -86,8 +109,8 @@ packages/domains/travel/
   domain.typ            id, meta, copy, experience (its own row model)
   data.typ              normalize-candidate = normalize-common + the domain's sections; validate-candidate
   schema/               the domain's candidate-facts contract
-  contracts/v1.json     its Domain Contract, extending the Base Contract
-  fixtures/             its Coverage Fixture and markers
+  contracts/v<N>.json   its Domain Contract versions, extending the Base Contract (travel: v1, v2)
+  fixtures/             its Coverage Fixtures and markers, one per version
   assets/               its SVG files
   templates/<design>/   a first template with its template.json, adapter, components, themes, artwork, layouts, tests/approved
 examples/travel/<design>/*.typ
@@ -113,7 +136,7 @@ A new domain is done when every line below is true:
    normalise and validate functions built on `normalize-common` and
    `validate-common`.
 2. `schema/candidate.schema.json` describes the facts; a fictional record
-   under `examples/candidates/<domain>-<who>-example.json` validates against
+   under `examples/candidates/<who>-example.json` validates against
    it. A template adds `schema/<template>-input.schema.json`, which states only
    what the template adds; both schemas carry an `$id`, and the facts schema
    keeps `copy` open for the template to close (`docs/engine/template-contract.md`,

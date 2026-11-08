@@ -150,7 +150,7 @@ steps:
     action: lead.check-flagship-fit
     inputs: [art.candidate-json]
     gate: gate.template-fits
-    when: The client's Domain has a Template (today marine, the Flagship).
+    when: The client's Domain has a Template (today marine, the Flagship, and travel, Hanami).
 
   - id: design.entry-point
     name: Write the Flagship entry point
@@ -269,7 +269,7 @@ gates:
     # render refuses an Envelope without candidate.json), so fill-data follows
     # the signed-off facts on both branches and port-concept reads what it wrote.
     sources: ["docs/workflow/05-design/README.md:29-39", ".claude/skills/new-cv/SKILL.md:29-40", "docs/guides/build-a-cv.md:67-86", "docs/guides/client-workflow.md:37", "docs/guides/build-a-cv.md:131-140"]
-    check: The client's Domain already has a Template (today only marine, the Flagship).
+    check: The client's Domain already has a Template (today marine, the Flagship, and travel, Hanami).
     pass: design.flagship-fit
     fail: design.run-brief
 
@@ -470,7 +470,7 @@ artifacts:
 
   - id: art.framework-gap-entry
     name: A Framework Gap entry
-    sources: ["docs/framework-gaps.md:8-16", "docs/glossary.md:81"]
+    sources: ["docs/framework-gaps.md:8-16", "docs/glossary.md:83"]
     path: docs/framework-gaps.md
     format: Markdown entry (Needed, Bypassed, Built, Lesson), the client named by Alias only
     visibility: public

@@ -29,7 +29,7 @@ kind: a real name that leaks into a public file stays in Git history.
   `Text Draft` stamp in `text-draft.draft-compile`, every `Revision`).
 - **The `Domain` id comes from the glossary.** `envelope.json` takes an id
   from the glossary's `Domain` row (`art.glossary`), even for a `Domain`
-  with no package yet (a tour guide is `travel`). A `Domain` the glossary
+  with no package yet (a tour guide is `travel`, which has one). A `Domain` the glossary
   lacks gets its id there first, as the glossary's `Domain` row says; never
   invent one in the `Envelope`.
 - **Done looks like this:** the `Drawer`s exist, `README.md` starts with
