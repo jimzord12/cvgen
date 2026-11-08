@@ -11,6 +11,7 @@ of cv_workflow runs without them.
 from datetime import datetime, timezone
 import hashlib
 import importlib.metadata
+import io
 import json
 from pathlib import Path
 import platform
@@ -29,6 +30,13 @@ FACE_X = 0.50
 FACE_Y = 0.45
 FACE_SHARE = 0.45
 MAX_FACE_SHARE = 0.60
+# The owner leaves the last word to the eye ("or just a tiny bit higher if that way it looks better"): --face-y
+# moves the face centre within this band, and nothing else may move it (docs/conventions.md, "Typst code").
+FACE_Y_RANGE = (0.40, 0.50)
+# After writing, the face is found again in the result: exactly one, within this share of the side from the
+# target, or the run fails loudly (the files are kept for a look).
+CHECK_TOLERANCE = 0.02
+TOOL = 'scripts/portrait.py prepare'
 # The Flagship circle is 46 mm (flagship-v11, hero.portrait-size): 543 px at 300 dpi. 600 px leaves room
 # for a slightly larger shape; a larger crop is scaled down to MAX_SIDE, never up.
 MIN_SIDE = 600
@@ -57,19 +65,34 @@ def _modules():
 
 
 def load_photo(path, keep_alpha=False):
-    """The photograph upright (EXIF orientation applied) as RGB (RGBA with keep_alpha, when it has
-    transparency), or a refusal."""
+    """The photograph upright (EXIF orientation applied) and in sRGB, as RGB (RGBA with keep_alpha, when it
+    has transparency), with a note of its colour handling; or a refusal.
+
+    A photo tagged with another profile (a phone's Display P3, say) is converted to sRGB here, because Typst
+    and PDF viewers read an untagged image as sRGB: kept as numbers, its skin tones would shift."""
     _, _, Image, ImageOps = _modules()
+    from PIL import ImageCms
     path = Path(path)
     if not path.is_file():
         raise WorkflowError(f'no photograph at {path}')
     try:
         with Image.open(path) as image:
+            icc = image.info.get('icc_profile')
             upright = ImageOps.exif_transpose(image)
             transparent = upright.mode in ('RGBA', 'LA', 'PA') or 'transparency' in upright.info
-            return upright.convert('RGBA' if keep_alpha and transparent else 'RGB')
-    except OSError as error:
-        raise WorkflowError(f'{path.name} is not an image Pillow can read: {error}') from error
+            mode = 'RGBA' if keep_alpha and transparent else 'RGB'
+            if not icc:
+                return upright.convert(mode), {'source_profile': None, 'converted_to': None}
+            source_profile = ImageCms.ImageCmsProfile(io.BytesIO(icc))
+            name = ImageCms.getProfileDescription(source_profile).strip()
+            alpha = upright.convert('RGBA').getchannel('A') if mode == 'RGBA' else None
+            base = upright if upright.mode in ('RGB', 'CMYK') else upright.convert('RGB')
+            converted = ImageCms.profileToProfile(base, source_profile, ImageCms.createProfile('sRGB'), outputMode='RGB')
+            if alpha is not None:
+                converted.putalpha(alpha)
+            return converted, {'source_profile': name, 'converted_to': 'sRGB'}
+    except (OSError, ImageCms.PyCMSError) as error:
+        raise WorkflowError(f'{path.name} is not an image Pillow can read in colour: {error}') from error
 
 
 def detect_faces(image):
@@ -108,8 +131,8 @@ def find_face(image, name='the photograph'):
     return faces[0]
 
 
-def crop_square(size, face, min_side=MIN_SIDE):
-    """The square (left, top, side) that puts the face centre at FACE_X, FACE_Y, with the face at FACE_SHARE.
+def crop_square(size, face, min_side=MIN_SIDE, face_y=FACE_Y):
+    """The square (left, top, side) that puts the face centre at FACE_X, face_y, with the face at FACE_SHARE.
 
     The square shrinks to stay inside the photograph (no padding, so no straight edge cuts the shoulders);
     which edge stopped it is returned as `limited_by`. Refused when the face would fill more than
@@ -118,7 +141,7 @@ def crop_square(size, face, min_side=MIN_SIDE):
     cx, cy = face['centre']
     face_height = face['box'][3]
     limits = {'wanted': face_height / FACE_SHARE, 'left': cx / FACE_X, 'right': (width - cx) / (1 - FACE_X),
-              'top': cy / FACE_Y, 'bottom': (height - cy) / (1 - FACE_Y)}
+              'top': cy / face_y, 'bottom': (height - cy) / (1 - face_y)}
     limited_by = min(limits, key=limits.get)
     side = int(limits[limited_by])
     if side <= 0 or face_height / side > MAX_FACE_SHARE:
@@ -131,7 +154,7 @@ def crop_square(size, face, min_side=MIN_SIDE):
                             f'photograph, or pass --min-size {side} to accept a softer print')
     # Rounding can push the square one pixel out; the limit above already keeps it inside up to that.
     left = min(max(0, round(cx - FACE_X * side)), width - side)
-    top = min(max(0, round(cy - FACE_Y * side)), height - side)
+    top = min(max(0, round(cy - face_y * side)), height - side)
     return {'box': [left, top, side, side], 'limited_by': None if limited_by == 'wanted' else limited_by,
             'face_share': round(face_height / side, 3)}
 
@@ -167,10 +190,26 @@ def versions():
     return found
 
 
-def prepare_portrait(source, output=None, *, remove=True, fill=None, model=MODEL, min_side=MIN_SIDE, replace=False):
+def written_by_tool(output, sidecar_path):
+    """True when both files are absent, or are a PNG and sidecar this tool wrote (the sidecar names this tool and
+    the PNG's hash): --replace may write over those and nothing else."""
+    if not output.exists() and not sidecar_path.exists():
+        return True
+    try:
+        record = json.loads(sidecar_path.read_text(encoding='utf-8'))
+        written = record.get('tool') == TOOL and record['output']['file'] == output.name
+        return written and (not output.exists() or record['output']['sha256'] == sha256_bytes(output))
+    except (OSError, ValueError, KeyError, TypeError, AttributeError):
+        return False
+
+
+def prepare_portrait(source, output=None, *, remove=True, fill=None, model=MODEL, min_side=MIN_SIDE, face_y=FACE_Y,
+                     replace=False):
     """Prepare one portrait: crop around the face, remove the background, fill it if asked; write the PNG and
-    its sidecar next to the source (or at `output`). Returns the sidecar dictionary."""
+    its sidecar next to the source (or at `output`). Returns the sidecar dictionary; its `check.passed` is
+    False when the face found again in the result is missing, doubled or off target (the files are kept)."""
     _, _, Image, _ = _modules()
+    from PIL import ImageCms
     source = Path(source).resolve()
     output = Path(output).resolve() if output else source.with_name(f'{source.stem}-prepared.png')
     sidecar_path = output.with_suffix('.json')
@@ -178,16 +217,23 @@ def prepare_portrait(source, output=None, *, remove=True, fill=None, model=MODEL
         raise WorkflowError(f'the prepared portrait is a PNG (it may be transparent): name it {output.stem}.png')
     if output == source or sidecar_path == source:
         raise WorkflowError('the output would overwrite the source photograph: choose another --output')
-    for path in (output, sidecar_path):
-        if path.exists() and not replace:
-            raise WorkflowError(f'{path.name} already exists: pass --replace to write it again, or choose another --output')
+    if not replace:
+        for path in (output, sidecar_path):
+            if path.exists():
+                raise WorkflowError(f'{path.name} already exists: pass --replace to write it again, or choose another --output')
+    elif not written_by_tool(output, sidecar_path):
+        raise WorkflowError(f'{output.name} or {sidecar_path.name} exists and was not written by this tool (or was changed '
+                            'since): --replace writes only over its own output; choose another --output')
+    if not FACE_Y_RANGE[0] <= face_y <= FACE_Y_RANGE[1]:
+        raise WorkflowError(f'--face-y {face_y} is outside {FACE_Y_RANGE[0]}-{FACE_Y_RANGE[1]}: the face sits in the centre '
+                            f'of the shape or a little higher ({FACE_Y} by default)')
     colour = parse_colour(fill) if fill else None
     if colour and not remove:
         raise WorkflowError('--fill colours the removed background, so it cannot go with --keep-background')
 
-    photo = load_photo(source)
+    photo, colour_note = load_photo(source)
     face = find_face(photo, source.name)
-    crop = crop_square(photo.size, face, min_side)
+    crop = crop_square(photo.size, face, min_side, face_y)
     left, top, side, _ = crop['box']
     portrait = photo.crop((left, top, left + side, top + side))
     if side > MAX_SIDE:
@@ -199,20 +245,24 @@ def prepare_portrait(source, output=None, *, remove=True, fill=None, model=MODEL
         flat.paste(portrait, mask=portrait.getchannel('A'))
         portrait = flat
     output.parent.mkdir(parents=True, exist_ok=True)
-    portrait.save(output, optimize=True)
+    # Tagged sRGB, so no reader has to guess (the pixels are sRGB since load_photo).
+    srgb = ImageCms.ImageCmsProfile(ImageCms.createProfile('sRGB')).tobytes()
+    portrait.save(output, optimize=True, icc_profile=srgb)
 
     # Evidence: the face found again in what was written, as a share of the square.
     after = detect_faces(portrait)
     placed = [round(after[0]['centre'][0] / portrait.width, 3), round(after[0]['centre'][1] / portrait.height, 3)] if len(after) == 1 else None
+    on_target = placed is not None and abs(placed[0] - FACE_X) <= CHECK_TOLERANCE and abs(placed[1] - face_y) <= CHECK_TOLERANCE
     record = {
-        'tool': 'scripts/portrait.py prepare',
+        'tool': TOOL,
         'written': datetime.now(timezone.utc).strftime('%Y-%m-%dT%H:%M:%SZ'),
-        'source': {'file': source.name, 'sha256': sha256_bytes(source), 'size': list(photo.size)},
+        'source': {'file': source.name, 'sha256': sha256_bytes(source), 'size': list(photo.size), 'colour': colour_note},
         'face': face,
-        'crop': {**crop, 'target': {'x': FACE_X, 'y': FACE_Y}, 'wanted_face_share': FACE_SHARE},
-        'output': {'file': output.name, 'sha256': sha256_bytes(output), 'size': list(portrait.size),
+        'crop': {**crop, 'target': {'x': FACE_X, 'y': face_y}, 'wanted_face_share': FACE_SHARE},
+        'output': {'file': output.name, 'sha256': sha256_bytes(output), 'size': list(portrait.size), 'profile': 'sRGB',
                    'background': ('#%02x%02x%02x' % colour) if colour else 'transparent' if remove else 'original',
                    'face_centre': placed, 'faces_found': len(after)},
+        'check': {'passed': on_target, 'tolerance': CHECK_TOLERANCE},
         'models': {'background': model if remove else None,
                    'face': {'file': YUNET.name, 'sha256': sha256_bytes(YUNET), 'score_threshold': SCORE}},
         'versions': versions(),

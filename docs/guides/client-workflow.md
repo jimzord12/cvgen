@@ -74,21 +74,26 @@ in `images/portrait/`, then prepare it once:
 python scripts/portrait.py prepare private/<envelope>/images/portrait/<photo>.jpg --output private/<envelope>/images/portrait/portrait.png
 ```
 
-It finds the one face, crops a square with the face's centre at 50% across
-and 45% down (the face about 45% of the side: head and the top of the
-shoulders), removes the background and writes a transparent PNG, which the
-design's own colour shows through; `--fill '#1b2a4a'` paints one colour
-instead. `portrait.json` beside it records the face box, the crop, the
-models and the versions. It refuses a photograph with no face or several,
-and one too small for a 600 px square, which it never enlarges; the source
-is never changed. Point `identity.portrait` in `candidate.json` (and any
-`image(...)` in `cv.typ`) at `portrait.png`, and look at it in the
-rendered circle before the design round. The first run downloads rembg's
-`birefnet-portrait` model (about 930 MB) into `~/.rembg/models/`, outside
-the repository.
+It converts the photograph to sRGB, finds the one face, crops a square
+with the face's centre at 50% across and 45% down (the face about 45% of
+the side: head and the top of the shoulders), removes the background and
+writes a transparent PNG, which the design's own colour shows through;
+`--fill '#1b2a4a'` paints one colour instead. `portrait.json` beside it
+records the colour profile, the face box, the crop, the check of the
+result, the models and the versions. It refuses a photograph with no face
+or several, a face too close to an edge, and one too small for a 600 px
+square, which it never enlarges; the source is never changed. Exit 2 means
+the portrait was written but the face found in it is missing, doubled or
+off target: look at it before using it. Point `identity.portrait` in
+`candidate.json` (and any `image(...)` in `cv.typ`) at `portrait.png`.
+When the face looks too low or too high in the shape the design renders,
+prepare it again with `--face-y` between 0.40 and 0.50 and `--replace`;
+the design never moves it (`../conventions.md`, "Typst code"). The first
+run downloads rembg's `birefnet-portrait` model (about 930 MB) into
+`~/.rembg/models/`, outside the repository.
 
 `typst/cv.typ` reads every file by a path relative to itself:
-`json("../candidate.json")`, `image("../images/portrait/portrait.jpg")`,
+`json("../candidate.json")`, `image("../images/portrait/portrait.png")`,
 `#import "designs/hanami.typ"`, `image("art/fuji.svg")`. `scripts/cv.py`
 (which calls the `Envelope` a workspace)
 refuses a workspace whose `cv.typ` still sits at the root (the layout

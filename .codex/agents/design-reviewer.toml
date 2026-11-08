@@ -139,7 +139,9 @@ do not apply.
 6. **Craft.** A real grid, clear hierarchy, consistent spacing and rhythm;
    no overflow, clipping, collisions, widows or orphans; readable sizes and
    contrast; correct typography for the page's language (Greek: no accented
-   capitals, «» quotes).
+   capitals, «» quotes). A portrait has no background, and its face sits
+   in the centre of its shape or a little higher (owner, 2026-11-08;
+   `docs/guides/client-workflow.md`, section 1, "The portrait").
 7. **Provenance.** Concepts: at least three unrelated references with the
    principle taken from each; nothing traced or copied, no brand look;
    fonts OFL or Apache with the licence beside them, or bundled; artwork

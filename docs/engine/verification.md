@@ -243,14 +243,22 @@ Windows one also holds the PDFs that build wrote, one per example in
    fictional portrait (`examples/candidates/fictional-engineer.png`) and a
    concept's copy of it: with the face high and left, then low and right,
    the face found again in each prepared square sits within 2% of the target
-   (50% across, 45% down) and the square is never enlarged; a photograph too
-   small for a 600 px square is refused, and accepted at its own size with
-   `--min-size`; no face, two faces, the source as the output, an existing
-   output and `--fill` with `--keep-background` are refused on their
-   messages and write nothing. Then background removal with rembg's small
-   `u2netp` model (about 5 MB, downloaded on first use; the default model is
-   not loaded here): the top corners are transparent and the face opaque, and
-   `--fill` paints the corners its colour. The fictional sources must be
+   (50% across, 45% down), the sidecar's check passed and the square is never
+   enlarged; `--face-y 0.41` moves the face there and 0.6 is refused; a photo
+   tagged with another colour profile comes out converted to sRGB, recorded
+   and tagged sRGB; a photograph too small for a 600 px square is refused,
+   and accepted at its own size with `--min-size`. No face, two faces, a
+   forehead-to-chin close-up, the source as the output, an existing output,
+   `--fill` with `--keep-background`, and `--replace` over a file the tool
+   did not write (a `candidate.json` beside a `candidate.png`, an edited
+   prepared PNG) are refused on their messages, each leaving the folder byte
+   for byte as it was; `--replace` over the tool's own output works. A face
+   too small to find in the whole photo but found in the crop makes the
+   result show two faces: the files are kept and the run exits 2 with
+   `CHECK FAILED`. Then background removal with rembg's small `u2netp` model
+   (about 5 MB, downloaded on first use and cached on CI; the default model
+   is not loaded here): the top corners are transparent and the face opaque,
+   and `--fill` paints the corners its colour. The fictional sources must be
    unchanged. Without rembg's packages or model the case is `SKIPPED`; on CI
    that fails the suite.
 

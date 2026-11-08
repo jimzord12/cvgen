@@ -48,7 +48,7 @@ steps:
 
   - id: research.decisions
     name: Write the CV Decisions
-    sources: ["docs/guides/client-workflow.md:212-228", ".claude/skills/new-client/SKILL.md:60-62"]
+    sources: ["docs/guides/client-workflow.md:217-233", ".claude/skills/new-client/SKILL.md:60-62"]
     actor: actor.lead
     action: lead.write-decisions
     inputs: [art.facts-md, art.scout-md]
@@ -168,7 +168,7 @@ steps:
 
   - id: research.follow-up-form-script
     name: Write the follow-up Intake Form script
-    sources: ["docs/guides/client-workflow.md:176-179", ".claude/skills/new-client/SKILL.md:74-76"]
+    sources: ["docs/guides/client-workflow.md:181-184", ".claude/skills/new-client/SKILL.md:74-76"]
     actor: actor.lead
     action: lead.write-form-script
     inputs: [art.follow-up-questions, art.intake-form-lib]
@@ -349,13 +349,13 @@ artifacts:
 
   - id: art.follow-up-questions
     name: The follow-up batch, ready to send
-    sources: ["docs/workflow/03-research/README.md:57-62", "docs/guides/client-workflow.md:176-179"]
+    sources: ["docs/workflow/03-research/README.md:57-62", "docs/guides/client-workflow.md:181-184"]
     format: "simple Greek: as a chat message aim for 5, never more than 10; as a form, at most about 15 minutes and 5 typed answers"
     visibility: ephemeral
 
   - id: art.follow-up-form-gs
     name: The follow-up Intake Form script copy
-    sources: ["docs/guides/client-workflow.md:42", "docs/guides/client-workflow.md:176-179"]
+    sources: ["docs/guides/client-workflow.md:42", "docs/guides/client-workflow.md:181-184"]
     path: private/<envelope>/intake/form-NN.gs
     format: Google Apps Script, only FORM changed
     visibility: private
@@ -415,7 +415,7 @@ actions:
   - id: lead.write-decisions
     kind: lead
     name: Write the CV Decisions
-    sources: ["docs/guides/client-workflow.md:212-228", ".claude/skills/new-client/SKILL.md:60-62"]
+    sources: ["docs/guides/client-workflow.md:217-233", ".claude/skills/new-client/SKILL.md:60-62"]
     does: >-
       Writes research/decisions.md, one line per decision, and shows the
       owner the open ones with a recommendation for each.

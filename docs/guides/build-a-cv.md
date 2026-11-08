@@ -68,13 +68,13 @@ Copy `examples/candidates/engineer-example.json`, `captain-example.json` or
 `chief-officer-example.json` and replace every value; keep stable ids.
 Field meanings and error messages are in
 `../engine/candidate-schema.md`. Set `identity.portrait` to
-`/private/<envelope>/images/portrait/portrait.<ext>` (a path from the
-repository root, which both a direct compile and the workflow
-accept) or to `null`. A path relative to the `Envelope`,
-`images/portrait/portrait.<ext>`, works only through `scripts/cv.py render`, which copies
-the file into the revision; the direct compiler cannot find it. Point it
-at the portrait `scripts/portrait.py prepare` wrote, never at the raw
-photograph (`client-workflow.md`, section 1, "The portrait").
+`/private/<envelope>/images/portrait/portrait.png`, the portrait
+`scripts/portrait.py prepare` wrote, never the raw photograph
+(`client-workflow.md`, section 1, "The portrait"): a path from the
+repository root, which both a direct compile and the workflow accept; or
+set it to `null`. A path relative to the `Envelope`,
+`images/portrait/portrait.png`, works only through `scripts/cv.py render`,
+which copies the file into the revision; the direct compiler cannot find it.
 
 If you do not know months per vessel, set `show-vessel-durations: false` and
 give each company a `service-months` total instead. A career recorded as
@@ -256,7 +256,7 @@ Rules for this path:
   beside `cv.typ`. Never invent months from calendar periods.
 - Read every `Envelope` file by a literal path relative to `cv.typ`
   (`json("presentation.json")`, `#import "designs/table.typ"`, `image("art/map.svg")`,
-  `image("../images/portrait/portrait.jpg")`).
+  `image("../images/portrait/portrait.png")`).
   `render` finds these reads, follows local `.typ` helpers, copies each file
   into the `Revision` and records its hash in `render.json`. It refuses a
   root-absolute path into `private/` (the revision would read the live

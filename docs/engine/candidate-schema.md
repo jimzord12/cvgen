@@ -44,8 +44,10 @@ below).
 ## Field notes
 
 - **identity.portrait** is a path from the project root, or `null` for no
-  photo. For a real person use the path inside the candidate's folder,
-  `/private/<candidate-folder>/images/portrait/portrait.<ext>`, jpg or png; the workflow
+  photo. For a real person use the prepared portrait inside the candidate's
+  folder, `/private/<candidate-folder>/images/portrait/portrait.png`, which
+  `scripts/portrait.py prepare` writes from the photograph
+  (`docs/guides/client-workflow.md`, section 1, "The portrait"); the workflow
   (`scripts/cv.py render`) also accepts a path relative to that folder and
   repoints the revision's snapshot at its own copy of the file.
 - **contacts** are ordered. Remove an entry to hide it. `href` is optional

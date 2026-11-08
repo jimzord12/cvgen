@@ -175,13 +175,13 @@ required, and your job is to draw it better than anyone else.
   `creative`):
   ```
   studio/design-concepts/<yyyy-mm-dd>-<slug>/
-    brief.md  sample.json  portrait.jpg      shared by both densities (portrait only if the idea needs one)
+    brief.md  sample.json  portrait.png      shared by both densities (portrait only if the idea needs one)
     art/<name>.png                           generated images, if any, shared by both densities
     condensed/<tier>/condensed-<tier>.typ, .pdf, .png
     spacious/<tier>/spacious-<tier>.typ, .pdf, spacious-<tier>-<page>.png
   ```
   Each `.typ` is self-contained and reads the shared files by relative path:
-  `json("../../sample.json")`, `image("../../portrait.jpg")`. PNGs are
+  `json("../../sample.json")`, `image("../../portrait.png")`. PNGs are
   96 dpi, one per page.
 - Compile reproducibly, per density and tier:
   `typst compile --root . --ignore-system-fonts --font-path packages/cv-framework/fonts --font-path studio/design-concepts/fonts studio/design-concepts/<folder>/<density>/<tier>/<density>-<tier>.typ studio/design-concepts/<folder>/<density>/<tier>/<density>-<tier>.pdf`
@@ -206,10 +206,12 @@ required, and your job is to draw it better than anyone else.
   placed and recorded in `brief.md` as `docs/tech-stack.md`, "Codex CLI",
   says. Draw the
   domain generously: this is where the `Three-Second Test` is won. No
-  portrait unless the idea needs one; then copy a fictional one (such as
-  `examples/candidates/fictional-engineer.png`) once into the style folder
-  as `portrait.jpg` (converted to JPEG) and keep each PDF under 1 MB if you can (a Spacious PDF
-  of several pages too).
+  portrait unless the idea needs one; then prepare a fictional one (such as
+  `examples/candidates/fictional-engineer.png`) once into the style folder with
+  `python scripts/portrait.py prepare <photo> --output <style folder>/portrait.png`: no background,
+  the face in the centre of the shape or a little higher (owner, 2026-11-08;
+  `docs/guides/client-workflow.md`, section 1, "The portrait"). Keep each PDF under 1 MB if you can
+  (a Spacious PDF of several pages too).
 - Render every page's PNG with pymupdf and look at it yourself before
   handing over: overflow, clipping, collisions, widows, contrast. Then put
   the thumbnails side by side (a contact sheet under `builds/`: every
