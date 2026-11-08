@@ -5,6 +5,7 @@
     { "source": "examples/marine/flagship/captain.typ", "title": "Marine Captain CV Classic v01", "variant": "Golden Blue" },
     { "source": "examples/marine/flagship/captain-silver.typ", "title": "Marine Captain CV Silver v01", "variant": "Silver Bridge" },
     { "source": "examples/marine/flagship/chief-officer.typ", "title": "Marine Chief Officer CV Silver v01", "variant": "Silver Bridge" },
-    { "source": "examples/marine/flagship/deck-cadet.typ", "title": "Marine Deck Cadet CV One-page v01", "variant": "Golden Blue, one page" }
+    { "source": "examples/marine/flagship/deck-cadet.typ", "title": "Marine Deck Cadet CV One-page v01", "variant": "Golden Blue, one page" },
+    { "source": "examples/travel/hanami/tour-leader.typ", "title": "Travel Tour Leader CV v01", "variant": "Sakura", "style": "Hanami" }
   ]
 }

@@ -1,0 +1,195 @@
+{
+  "domainContract": 2,
+  "identity": {
+    "name": "Ada Qxname",
+    "rank": "Qxrank",
+    "specialty": "Qxspecialty",
+    "seal": [
+      "Qxsealword",
+      "2020"
+    ],
+    "portrait": "/examples/candidates/fictional-engineer.png",
+    "portrait-alt": "Fictional portrait"
+  },
+  "contacts": {
+    "left": [
+      {
+        "label": "Qxlabel",
+        "value": "Qxcity"
+      }
+    ],
+    "right": [
+      {
+        "label": "Qxmailing",
+        "value": "qxmail@example.com",
+        "href": "mailto:qxmail@example.com"
+      }
+    ]
+  },
+  "profile": "Qxprofile. A fictional record for the coverage check.",
+  "highlights": [
+    {
+      "icon": "torii",
+      "title": "Qxcell",
+      "text": "Qxhighlightnote"
+    }
+  ],
+  "experience": [
+    {
+      "role": "Qxrole",
+      "employer": "Qxemployer",
+      "place": "Qxplace",
+      "from": "03/2020",
+      "to": "09/2021",
+      "intro": "Qxintro",
+      "bullets": [
+        "Qxbullet"
+      ],
+      "support": {
+        "figure": "24/7",
+        "text": "Qxsupport",
+        "lead": "Qxlead",
+        "cases": [
+          {
+            "place": "Qxwhere",
+            "text": "Qxcase"
+          }
+        ]
+      }
+    },
+    {
+      "role": "Qxsecond",
+      "employer": "Qxemployer",
+      "place": "Qxplace",
+      "from": "01/2022",
+      "bullets": [
+        "Qxbullet"
+      ]
+    }
+  ],
+  "certificates": [
+    {
+      "title": "Qxcert",
+      "scope": "Qxscope",
+      "issued": "Qxissued"
+    }
+  ],
+  "licences": [
+    {
+      "title": "Qxlicence",
+      "issuer": "Qxissuer",
+      "region": "Qxvalidzone",
+      "until": "30 Jun 2029"
+    }
+  ],
+  "education_entries": [
+    {
+      "qualification": "Qxdiploma",
+      "institution": "Qxschool",
+      "note": "Qxnote"
+    }
+  ],
+  "language_entries": [
+    {
+      "name": "Qxlanguage",
+      "level": "Qxlevel",
+      "note": "Qxlangnote"
+    }
+  ],
+  "destinations": {
+    "region": "Qxregion",
+    "native": "日本",
+    "route": {
+      "from": {
+        "code": "ZQA",
+        "city": "Qxorigin"
+      },
+      "to": {
+        "code": "ZQB",
+        "city": "Qxarrival"
+      }
+    },
+    "seal": [
+      "Qxbadge"
+    ],
+    "trips": [
+      {
+        "period": "Qxperiod",
+        "days": 9,
+        "role": "led",
+        "kind": "Qxkind",
+        "stops": [
+          {
+            "name": "Qxknownstop",
+            "known": true
+          },
+          {
+            "name": "Qxpassedstop"
+          }
+        ],
+        "stamp": {
+          "art": "snow",
+          "kanji": "雪",
+          "rim": [
+            "Qxrimword",
+            "2020"
+          ],
+          "script": [
+            "札幌"
+          ]
+        },
+        "story": {
+          "title": "Qxstory",
+          "subtitle": "Qxtripsubtitle",
+          "items": [
+            "Qxstep"
+          ]
+        }
+      },
+      {
+        "period": "Qxspringtrip",
+        "days": 5,
+        "role": "organised",
+        "kind": "Qxsolojourney",
+        "stops": [
+          {
+            "name": "Qxhillstop"
+          }
+        ]
+      },
+      {
+        "period": "Qxwintertrip",
+        "days": 4,
+        "role": "travelled",
+        "kind": "Qxfamilyjourney",
+        "stops": [
+          {
+            "name": "Qxlakestop"
+          }
+        ]
+      }
+    ],
+    "areas": [
+      {
+        "label": "Qxzonelabel",
+        "places": "Qxareanames"
+      }
+    ]
+  },
+  "availability": {
+    "headline": "Qxavailable",
+    "text": "Qxnotice"
+  },
+  "practical": {
+    "lead": "Qxconfident",
+    "items": [
+      "Qxknowhow"
+    ],
+    "basics": {
+      "label": "Qxbasic",
+      "text": "Qxseason"
+    }
+  },
+  "references": "Qxreferences",
+  "disclosure": "FICTIONAL COVERAGE FIXTURE"
+}

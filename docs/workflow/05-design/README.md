@@ -237,7 +237,7 @@ flowchart TD
 | `design.record-choice` | Record the choice and stamp the picked design chosen | `actor.lead` | `cmd.stamp-concept-status` | `art.owner-pick`, `art.concept-pdf` | `art.chosen-concept`, `art.concept-decision` |  |  |
 | `design.record-other-answer` | Record a parked or rejected answer; a new Idea Run follows | `actor.lead` | `cmd.stamp-concept-status` | `art.owner-pick` | `art.concept-decision` |  | The owner parked or rejected the concepts. |
 | `design.fill-data` | Write candidate.json and prepare the portrait | `actor.lead` | `lead.write-candidate-json` | `art.facts-final`, `art.draft-pdf`, `art.sign-off-png`, `art.documents`, `art.example-records` | `art.candidate-json`, `art.portrait` |  |  |
-| `design.flagship-fit` | Check the data fits the Flagship | `actor.lead` | `lead.check-flagship-fit` | `art.candidate-json` |  | `gate.template-fits` | The client's Domain has a Template (today marine, the Flagship). |
+| `design.flagship-fit` | Check the data fits the Flagship | `actor.lead` | `lead.check-flagship-fit` | `art.candidate-json` |  | `gate.template-fits` | The client's Domain has a Template (today marine, the Flagship, and travel, Hanami). |
 | `design.entry-point` | Write the Flagship entry point | `actor.lead` | `lead.write-flagship-entry` | `art.candidate-json`, `art.flagship-template` | `art.cv-typ`, `art.envelope-choice` |  | The data fits the Flagship. |
 | `design.custom-composition` | Compose the page by hand | `actor.lead` | `lead.compose-by-hand` | `art.candidate-json`, `art.flagship-template` | `art.cv-typ`, `art.typst-sources` |  | The data does not fit the Flagship (a design the template cannot draw, or a career that mixes months and contract periods). |
 | `design.port-concept` | Port the chosen concept into the Envelope | `actor.lead` | `lead.port-concept` | `art.chosen-concept`, `art.candidate-json` | `art.cv-typ`, `art.typst-sources` |  | The client's Domain has no Template and the owner chose a concept. |
@@ -259,7 +259,7 @@ flowchart TD
 
 | ID | Name | Checked by | Check | Pass | Fail |
 |---|---|---|---|---|---|
-| `gate.template-exists` | The Domain has a Template | `design.handover` | The client's Domain already has a Template (today only marine, the Flagship). | `design.flagship-fit` | `design.run-brief` |
+| `gate.template-exists` | The Domain has a Template | `design.handover` | The client's Domain already has a Template (today marine, the Flagship, and travel, Hanami). | `design.flagship-fit` | `design.run-brief` |
 | `gate.template-fits` | The data fits the Flagship | `design.flagship-fit` | The client's data fits flagship: service months (per row, or company totals with durations hidden) or a contract period on every row, and no design the template cannot draw. | `design.entry-point` | `design.custom-composition` |
 | `gate.idea-research` | Idea Run research gate | `design.run-research-gate` | A fresh research-reviewer returns PASS on the references in each brief.md. | `design.run-design-gate` | `design.run-revise-sources` |
 | `gate.idea-design` | Idea Run quality gate | `design.run-design-gate` | A fresh design-reviewer and a fresh codex-visual-reviewer both return PASS (the design-reviewer alone when Codex is UNAVAILABLE); failing the Batch Test, the Three-Second Test or Flagship Parity is Blocking. | `design.run-integrate` | `design.run-revise-design` |

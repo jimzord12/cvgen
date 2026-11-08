@@ -1,14 +1,14 @@
 {
  "pages": {
   "change-review": {
-   "commit": "b50bce7",
+   "commit": "b9e1812",
    "sources": {
     ".claude/skills/verify-cv/SKILL.md": "0a507b4d2616e8623eeb53af7bb860aed3dfdcf5",
     ".github/workflows/verify.yml": "1911cd7d53be7e7fadb952f35c79d1c899a379ae",
     "archive/work-records/anti-examples/reviews/01-context.md": "29eb150ea6949a2020956433f29947eac7d31c5d",
     "docs/conventions.md": "1cb9bdc8a3c9f5e44ef5cd1bad05591a302cbad7",
     "docs/development.md": "0e4faad2fea188680eb98bc3ae92613f683266ad",
-    "docs/framework-gaps.md": "51006c1fd6a8acef7afd334a07b608d278dc71aa",
+    "docs/framework-gaps.md": "1be4bb6d3e9831eb33c42eaa77049f0ae60eb61c",
     "docs/git-workflow.md": "9e8272c67b377419c7fdb333a4572e447a0428c0",
     "docs/preferences.md": "7e7f78e72b78e9d177a5d3e9a05438c76b468239",
     "docs/proposals/README.md": "1510574614d3a04fca59d903a6502dda90f96018",
@@ -17,7 +17,7 @@
    "verifiedAt": "2026-11-08"
   },
   "client-journey": {
-   "commit": "0c23428",
+   "commit": "b9e1812",
    "sources": {
     ".claude/agents/design-reviewer.md": "ebae707e2085f4db00aa8b4681c78a5f99c80126",
     ".claude/skills/idea-run/SKILL.md": "a7819ea4833bf71da6a663016e0b69ceba0e3a25",
@@ -25,8 +25,8 @@
     ".claude/skills/new-cv/SKILL.md": "a6038901cd20cfd02b6867458c448f0a8057425a",
     ".claude/skills/verify-cv/SKILL.md": "0a507b4d2616e8623eeb53af7bb860aed3dfdcf5",
     "archive/work-records/workflow-model/handoff.md": "521822f241bc9400adb13f1c9a54a8299c144907",
-    "docs/framework-gaps.md": "51006c1fd6a8acef7afd334a07b608d278dc71aa",
-    "docs/glossary.md": "0d2fc36ee85dc0986450e0d8b9236c571a486bb5",
+    "docs/framework-gaps.md": "1be4bb6d3e9831eb33c42eaa77049f0ae60eb61c",
+    "docs/glossary.md": "00bf1a51416c44665f5ac3f29696e6e1c1e223a6",
     "docs/guides/build-a-cv.md": "0207208532241cac3ecab522aaaf65c2c1c9b806",
     "docs/guides/client-workflow.md": "9e91d25b7b61abd425b2623c9c4524252c47d7e5",
     "docs/pdf-workflow.md": "ed9af8098347eed964a84f3cde4c7a2181f3df17",
@@ -35,18 +35,18 @@
     "docs/proposals/workflow-model.md": "a4157a6d03f5ef9a6765fb289a3b3d78fa5547cf",
     "docs/research/README.md": "07e6579724b4758236ed37ab48b95e5e7cded544",
     "docs/review.md": "f1e8c8aa2be5286349b6d3ffeeb5ebe8f1c88e83",
-    "docs/workflow/01-open/README.md": "dd68671aa917911353229223d0846fbc412dc66c",
+    "docs/workflow/01-open/README.md": "e125b2d26cc47a00c861d4db7e15683d8ad11949",
     "docs/workflow/02-intake/README.md": "99a579dfa0367c911aa7f62780d92afc2a45f136",
     "docs/workflow/03-research/README.md": "0dbf0603ecdd195487d4b9d3e990dda390ae1bdd",
     "docs/workflow/04-text-draft/README.md": "943b3a829afd913e5855646513ad9e638b2591ff",
-    "docs/workflow/05-design/README.md": "ac6b9d8efd0ccbd92c0168d9c3f7e08040bacf90",
+    "docs/workflow/05-design/README.md": "cc3fcef399aafd560b47d8d0c0afe77505a5bd22",
     "docs/workflow/06-deliver/README.md": "fcfd48a6ec548dc8d50601ba63f3d59069cc1d4c",
     "docs/workflow/07-after/README.md": "0aeb933cfd1fb4d684e1873f308b40b1d9149e04",
     "docs/workflow/GAPS.md": "2e66edcb9903ff8a9a1a711f324b4441135b2209",
     "docs/workflow/README.md": "d1bdce91026f607e69f00a0de03adab9019060f0",
     "packages/cv-workflow/cv_workflow/__init__.py": "427c74cfeabc096417b81d7a5cbea539fbae99b2",
     "packages/cv-workflow/cv_workflow/outputs.py": "241dc75d76a1340d5a2303ab2fde0a7e29fcca3c",
-    "packages/cv-workflow/cv_workflow/render.py": "b3ea99bf67ce12f61077a486a23da572826c71bc",
+    "packages/cv-workflow/cv_workflow/render.py": "24c544f42603673ad4b35c10d50e9345f90abb4e",
     "scripts/cv.py": "e0d7f96de4cc36295bb543aab2e1402c7932394d",
     "scripts/intake-form.gs": "48f0db692a6c1d08644cf0452d04291ffbee9828",
     "scripts/text-draft.typ": "259ca8d667a30153ba389b1e9c798c8af0a78764",
@@ -55,7 +55,7 @@
    "verifiedAt": "2026-11-08"
   },
   "design-run": {
-   "commit": "0c23428",
+   "commit": "b9e1812",
    "sources": {
     ".claude/agents/codex-visual-reviewer.md": "0bf2ea9e6a44f711cc56bf1be63d874f6fe0503e",
     ".claude/agents/design-reviewer.md": "ebae707e2085f4db00aa8b4681c78a5f99c80126",
@@ -64,7 +64,7 @@
     ".claude/skills/idea-run/SKILL.md": "a7819ea4833bf71da6a663016e0b69ceba0e3a25",
     "apps/design-review/README.md": "5d14097c544910a9ba0d940e76863223ac1f62a3",
     "apps/design-review/server.py": "65b42af8bcf0a971e19ec97fa39b874cad91c3c1",
-    "docs/glossary.md": "0d2fc36ee85dc0986450e0d8b9236c571a486bb5",
+    "docs/glossary.md": "00bf1a51416c44665f5ac3f29696e6e1c1e223a6",
     "docs/pdf-workflow.md": "ed9af8098347eed964a84f3cde4c7a2181f3df17",
     "docs/proposals/codex-visual-tools.md": "3ab6ae0bbd4326611a6cde986ac6ee8cd2db94fd",
     "docs/review.md": "f1e8c8aa2be5286349b6d3ffeeb5ebe8f1c88e83",
@@ -74,7 +74,7 @@
    "verifiedAt": "2026-11-08"
   },
   "roster": {
-   "commit": "0c23428",
+   "commit": "b9e1812",
    "sources": {
     ".claude/agents/ceo-reviewer.md": "8b0ce89d0cf745923ec296c9034c1f8e5958d42b",
     ".claude/agents/ceo.md": "4fec7c781ea76a4faba820f013880f62f0799168",
@@ -103,7 +103,7 @@
     "docs/decisions/0014-backlog-md-task-store.md": "cdd5f82fdbb21c38e5ed6c06c07082136e822221",
     "docs/decisions/0017-backlog-md-1-55-3.md": "5ab727aa0ee8dba26cfff8bf06615f2173dc1621",
     "docs/development.md": "0e4faad2fea188680eb98bc3ae92613f683266ad",
-    "docs/engine/verification.md": "2b5b0921f1df73f0d2a4950d421861554ac848fe",
+    "docs/engine/verification.md": "a897d67cdfd6ec336272476a3f550b05d1095465",
     "docs/git-workflow.md": "9e8272c67b377419c7fdb333a4572e447a0428c0",
     "docs/guides/build-a-cv.md": "0207208532241cac3ecab522aaaf65c2c1c9b806",
     "docs/guides/client-workflow.md": "9e91d25b7b61abd425b2623c9c4524252c47d7e5",
@@ -112,46 +112,47 @@
     "docs/proposals/codex-visual-tools.md": "3ab6ae0bbd4326611a6cde986ac6ee8cd2db94fd",
     "docs/review.md": "f1e8c8aa2be5286349b6d3ffeeb5ebe8f1c88e83",
     "docs/tech-stack.md": "01bb82cc96ff5321e7c379704e6b2a92c6421070",
-    "docs/workflow/01-open/README.md": "dd68671aa917911353229223d0846fbc412dc66c",
+    "docs/workflow/01-open/README.md": "e125b2d26cc47a00c861d4db7e15683d8ad11949",
     "docs/workflow/02-intake/README.md": "99a579dfa0367c911aa7f62780d92afc2a45f136",
     "docs/workflow/README.md": "d1bdce91026f607e69f00a0de03adab9019060f0",
-    "examples/release.json": "6cb354dc3ac6c4bcc4d8a6c4ad5ec146d027126e",
-    "scripts/build.ps1": "cc1eed5fa9bb4acf4b8955ae94eb6768f3e1de5e",
+    "examples/release.json": "d05477e397c932024820d8832821e0796d17e545",
+    "scripts/build.ps1": "dcefe8bd778fa931271e8187fd8d819b3bde12ad",
     "scripts/cv.py": "e0d7f96de4cc36295bb543aab2e1402c7932394d",
     "scripts/intake-form.gs": "48f0db692a6c1d08644cf0452d04291ffbee9828",
     "scripts/outputs.py": "23a4edfb8730fe24462bd0507f37da64673e801c",
-    "tests/run.py": "41d53c6f3d6e023e4f71a51a3b72afa933786517"
+    "tests/run.py": "290dc0846a0559fce47ea78f12d831ee83b20b75"
    },
    "verifiedAt": "2026-11-08"
   },
   "system-map": {
-   "commit": "0c23428",
+   "commit": "b9e1812",
    "sources": {
     ".claude/agents": "dir1:d86ac8b44b9896473ff12ecdbc91538ae34a8852",
     ".claude/skills": "dir1:5eeafda0c9ef9a6037a3fcc2879f73f098fa3e55",
     ".claude/skills/backlog/SKILL.md": "76f51a4021ad9ddd8259799a6bc96c4d7ed48e07",
-    "AGENTS.md": "ef4490a7333b8ac7312e410313658a4ba8793b62",
+    "AGENTS.md": "cc80983eb97480195a9c7b5d27fec0d85e74799a",
     "apps/design-review/README.md": "5d14097c544910a9ba0d940e76863223ac1f62a3",
     "apps/design-review/server.py": "65b42af8bcf0a971e19ec97fa39b874cad91c3c1",
-    "archive/work-records": "dir1:5ca9d23a361f4055c015d1f21b4e891bbf4b9171",
+    "archive/work-records": "dir1:edc838c62e100ee48ab195c7ef74fe7f55b52de8",
     "docs": "dir1:139adff443cb7a07dd0d5fae04941c8c0785eb30",
-    "docs/architecture.md": "e509e8ac66895783bd62e791d5d5c520a37a5db0",
-    "docs/engine/verification.md": "2b5b0921f1df73f0d2a4950d421861554ac848fe",
+    "docs/architecture.md": "01e52f06b8822a44a49bbba6dd5ec4d92bc4100e",
+    "docs/engine/domains-and-roles.md": "e86e41f69878a9cdee80c8a6f60ea7e04b321f11",
+    "docs/engine/verification.md": "a897d67cdfd6ec336272476a3f550b05d1095465",
     "docs/git-workflow.md": "9e8272c67b377419c7fdb333a4572e447a0428c0",
-    "docs/glossary.md": "0d2fc36ee85dc0986450e0d8b9236c571a486bb5",
+    "docs/glossary.md": "00bf1a51416c44665f5ac3f29696e6e1c1e223a6",
     "docs/guides/build-a-cv.md": "0207208532241cac3ecab522aaaf65c2c1c9b806",
     "docs/guides/client-workflow.md": "9e91d25b7b61abd425b2623c9c4524252c47d7e5",
     "docs/pdf-workflow.md": "ed9af8098347eed964a84f3cde4c7a2181f3df17",
     "docs/workflow/02-intake/README.md": "99a579dfa0367c911aa7f62780d92afc2a45f136",
     "docs/workflow/04-text-draft/README.md": "943b3a829afd913e5855646513ad9e638b2591ff",
-    "examples/candidates": "dir1:69fb38eee30dc425761a0cb80a577613cf3bdab4",
+    "examples/candidates": "dir1:c4a63c1f666ed0a7c9da4e5428c81e57ca3e2e38",
     "examples/marine/flagship": "dir1:2badfd3042bcd2c5ef709a6596945aefe8848eb1",
     "packages/cv-framework": "dir1:d78ffd11afeac17ee4ba8a597bb207f6801c8859",
     "packages/cv-workflow": "dir1:bbc692ac413f8d712f43ee578f2756df4b64503a",
     "packages/domains/marine": "dir1:b8c72952f1f485a4c85ae6d08a1defa8ff51fcf1",
     "packages/domains/marine/templates/flagship": "dir1:010b03bccc9d1afaebca497509596b95a41879d1",
     "packages/domains/marine/templates/flagship/tests/approved": "dir1:937263ba14b899950b2c4f58a1ff6c6fd2275f3a",
-    "scripts/build.ps1": "cc1eed5fa9bb4acf4b8955ae94eb6768f3e1de5e",
+    "scripts/build.ps1": "dcefe8bd778fa931271e8187fd8d819b3bde12ad",
     "scripts/cv.py": "e0d7f96de4cc36295bb543aab2e1402c7932394d",
     "scripts/outputs.py": "23a4edfb8730fe24462bd0507f37da64673e801c",
     "scripts/portrait.py": "04ea9a013a67c60560b10d2ecc1a17fd1d8174e8",
@@ -159,7 +160,7 @@
     "studio/archive/design-studies/README.md": "8ff17720c063fe67cae653d40c4d2973f4742117",
     "studio/brand/README.md": "ed93bfbff30149cefea7b8b6a62431d179450f7d",
     "studio/design-concepts/README.md": "c0302f27c374b053e83a4a6569b0643c1b388623",
-    "tests/run.py": "41d53c6f3d6e023e4f71a51a3b72afa933786517"
+    "tests/run.py": "290dc0846a0559fce47ea78f12d831ee83b20b75"
    },
    "verifiedAt": "2026-11-08"
   }

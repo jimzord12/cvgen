@@ -1,0 +1,16 @@
+{
+  "domain": "travel",
+  "version": 1,
+  "extends": "base@1",
+  "description": "The travel Domain Contract (ADR 0016, P-0013). The record's shape is packages/domains/travel/schema/candidate.schema.json; a group names the parts of it that belong together.",
+  "groups": {
+    "experience": { "required": true, "schemaVersion": 1, "paths": ["experience"] },
+    "rank": { "required": true, "schemaVersion": 1, "paths": ["identity.rank", "identity.specialty", "identity.seal"] },
+    "profile": { "required": false, "schemaVersion": 1, "paths": ["profile", "highlights"] },
+    "portrait": { "required": false, "schemaVersion": 1, "paths": ["identity.portrait"] },
+    "destinations": { "required": true, "schemaVersion": 1, "paths": ["destinations"] },
+    "availability": { "required": false, "schemaVersion": 1, "paths": ["availability"] },
+    "practical": { "required": false, "schemaVersion": 1, "paths": ["practical"] },
+    "references": { "required": false, "schemaVersion": 1, "paths": ["references"] }
+  }
+}

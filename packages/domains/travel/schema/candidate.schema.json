@@ -1,0 +1,270 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/jimzord12/cvgen/packages/domains/travel/schema/candidate.schema.json",
+  "title": "CVgen travel candidate facts",
+  "description": "Portable facts about one Travel & Tourism candidate: identity with rank and specialty, contacts, profile and highlights, experience at travel employers, education, languages, the destinations the person knows (trips with stops, the areas known well), availability, practical know-how, references and, from version 2, each trip's role and the person's licences. `copy` overrides a template's wording; it holds no facts.",
+  "type": "object",
+  "required": ["identity", "experience", "destinations"],
+  "additionalProperties": false,
+  "properties": {
+    "domainContract": { "type": "integer", "minimum": 1, "description": "The Domain Contract version this record follows: 1 or 2; without it, 1 (ADR 0016). Version 2 states each trip's role and may hold licences." },
+    "identity": {
+      "type": "object",
+      "required": ["name", "rank"],
+      "additionalProperties": false,
+      "properties": {
+        "name": { "$ref": "#/$defs/text" },
+        "rank": { "$ref": "#/$defs/text", "description": "The job title the CV aims at, e.g. Tour Leader." },
+        "specialty": { "$ref": "#/$defs/text", "description": "The focus beside the rank, e.g. Japan Specialist." },
+        "seal": { "type": "array", "minItems": 2, "maxItems": 4, "items": { "$ref": "#/$defs/text" }, "description": "Two to four short words for the credential behind the rank, e.g. a course, its school and year; a template may set them round a seal." },
+        "portrait": { "type": ["string", "null"], "description": "Path from the project root, or null for no photo." },
+        "portrait-alt": { "type": "string" }
+      }
+    },
+    "contacts": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "left": { "$ref": "#/$defs/contactList" },
+        "right": { "$ref": "#/$defs/contactList" }
+      }
+    },
+    "profile": { "type": "string", "description": "The lead statement: one or two sentences." },
+    "highlights": {
+      "type": "array",
+      "maxItems": 4,
+      "description": "Short cells drawn from the profile, each with a drawn icon; nothing new is claimed in them.",
+      "items": {
+        "type": "object",
+        "required": ["icon", "title", "text"],
+        "additionalProperties": false,
+        "properties": {
+          "icon": { "enum": ["torii", "check", "support", "cap"] },
+          "title": { "$ref": "#/$defs/text" },
+          "text": { "$ref": "#/$defs/text" }
+        }
+      }
+    },
+    "experience": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/role" } },
+    "certificates": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["title", "scope", "issued"],
+        "additionalProperties": false,
+        "properties": {
+          "title": { "$ref": "#/$defs/text" },
+          "scope": { "$ref": "#/$defs/text" },
+          "issued": { "$ref": "#/$defs/text" },
+          "review": { "$ref": "#/$defs/text" }
+        }
+      }
+    },
+    "licences": {
+      "type": "array",
+      "minItems": 1,
+      "description": "Version 2: official tour-leader or guide licences. A date in until is read at render: an expired or soon-expiring licence gives a Certificate Warning.",
+      "items": {
+        "type": "object",
+        "required": ["title", "issuer"],
+        "additionalProperties": false,
+        "properties": {
+          "title": { "$ref": "#/$defs/text", "description": "e.g. Tour Leader Licence." },
+          "issuer": { "$ref": "#/$defs/text", "description": "The authority that issued it." },
+          "region": { "$ref": "#/$defs/text", "description": "Where it is valid, e.g. Greece and the EU." },
+          "until": { "type": "string", "pattern": "^(0?[1-9]|[12][0-9]|3[01]) (Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec) [0-9]{4}$", "description": "The day it is valid until, as 14 Jul 2029; leave out for a licence that does not expire." }
+        }
+      }
+    },
+    "education_entries": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["qualification", "institution"],
+        "additionalProperties": false,
+        "properties": {
+          "qualification": { "$ref": "#/$defs/text" },
+          "institution": { "$ref": "#/$defs/text" },
+          "note": { "type": "string", "description": "Dates or a short detail, e.g. 2019 - 2023." }
+        }
+      }
+    },
+    "language_entries": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["name", "level"],
+        "additionalProperties": false,
+        "properties": {
+          "name": { "$ref": "#/$defs/text" },
+          "level": { "$ref": "#/$defs/text" },
+          "note": { "$ref": "#/$defs/text" }
+        }
+      }
+    },
+    "destinations": {
+      "type": "object",
+      "required": ["region", "trips"],
+      "additionalProperties": false,
+      "description": "The destination the person specialises in and the trips that prove it. Required: a travel CV shows where the person has been.",
+      "properties": {
+        "region": { "$ref": "#/$defs/text", "description": "e.g. Japan." },
+        "native": { "$ref": "#/$defs/text", "description": "The region's name in its own script, e.g. 日本." },
+        "route": {
+          "type": "object",
+          "required": ["from", "to"],
+          "additionalProperties": false,
+          "description": "Home to the destination, as airport or city codes.",
+          "properties": { "from": { "$ref": "#/$defs/place" }, "to": { "$ref": "#/$defs/place" } }
+        },
+        "seal": { "type": "array", "maxItems": 2, "items": { "$ref": "#/$defs/text" }, "description": "Extra short words for the region's seal after the region and the trip count, e.g. a language level." },
+        "trips": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/trip" } },
+        "areas": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["label", "places"],
+            "additionalProperties": false,
+            "properties": { "label": { "$ref": "#/$defs/text" }, "places": { "$ref": "#/$defs/text" } }
+          }
+        }
+      }
+    },
+    "availability": {
+      "type": "object",
+      "required": ["headline", "text"],
+      "additionalProperties": false,
+      "properties": {
+        "headline": { "$ref": "#/$defs/text", "description": "e.g. Available all year round." },
+        "text": { "$ref": "#/$defs/text", "description": "From when, notice, seasons, passport validity." }
+      }
+    },
+    "practical": {
+      "type": "object",
+      "required": ["lead", "items"],
+      "additionalProperties": false,
+      "properties": {
+        "lead": { "$ref": "#/$defs/text", "description": "e.g. Confident with." },
+        "items": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/text" } },
+        "basics": {
+          "type": "object",
+          "required": ["label", "text"],
+          "additionalProperties": false,
+          "properties": { "label": { "$ref": "#/$defs/text" }, "text": { "$ref": "#/$defs/text" } }
+        }
+      }
+    },
+    "references": { "$ref": "#/$defs/text" },
+    "copy": { "type": "object", "description": "Template wording overrides, by key (the template's copy); never facts." },
+    "disclosure": { "type": "string", "description": "Footer notice; a fictional record says so, a client's record sets an empty string." }
+  },
+  "allOf": [
+    {
+      "description": "Version 2 requires each trip's role; version 1 has neither a role nor licences.",
+      "if": { "required": ["domainContract"], "properties": { "domainContract": { "minimum": 2 } } },
+      "then": { "properties": { "destinations": { "properties": { "trips": { "items": { "required": ["role"] } } } } } },
+      "else": { "properties": { "licences": { "not": {} }, "destinations": { "properties": { "trips": { "items": { "properties": { "role": { "not": {} } } } } } } } }
+    }
+  ],
+  "$defs": {
+    "text": { "type": "string", "minLength": 1, "pattern": "\\S" },
+    "monthYear": { "type": "string", "pattern": "^(0[1-9]|1[0-2])/[0-9]{4}$", "description": "MM/YYYY." },
+    "place": {
+      "type": "object",
+      "required": ["code", "city"],
+      "additionalProperties": false,
+      "properties": { "code": { "type": "string", "pattern": "^[A-Z]{3}$" }, "city": { "$ref": "#/$defs/text" } }
+    },
+    "contactList": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["label", "value"],
+        "additionalProperties": false,
+        "properties": {
+          "label": { "$ref": "#/$defs/text" },
+          "value": { "$ref": "#/$defs/text" },
+          "href": { "$ref": "#/$defs/text" }
+        }
+      }
+    },
+    "role": {
+      "type": "object",
+      "required": ["role", "employer", "place", "from", "bullets"],
+      "additionalProperties": false,
+      "properties": {
+        "role": { "$ref": "#/$defs/text" },
+        "employer": { "$ref": "#/$defs/text" },
+        "place": { "$ref": "#/$defs/text" },
+        "from": { "$ref": "#/$defs/monthYear" },
+        "to": { "$ref": "#/$defs/monthYear", "description": "Leave out for a current role." },
+        "intro": { "$ref": "#/$defs/text", "description": "One line about the employer." },
+        "bullets": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/text" } },
+        "support": {
+          "type": "object",
+          "required": ["figure", "text", "lead", "cases"],
+          "additionalProperties": false,
+          "description": "Support given during trips, with real cases: a figure such as 24/7, a sentence, a lead-in and the cases.",
+          "properties": {
+            "figure": { "$ref": "#/$defs/text" },
+            "text": { "$ref": "#/$defs/text" },
+            "lead": { "$ref": "#/$defs/text", "description": "e.g. For example." },
+            "cases": {
+              "type": "array",
+              "minItems": 1,
+              "items": {
+                "type": "object",
+                "required": ["place", "text"],
+                "additionalProperties": false,
+                "properties": { "place": { "$ref": "#/$defs/text" }, "text": { "$ref": "#/$defs/text" } }
+              }
+            }
+          }
+        }
+      }
+    },
+    "trip": {
+      "type": "object",
+      "required": ["period", "days", "kind", "stops"],
+      "additionalProperties": false,
+      "properties": {
+        "period": { "$ref": "#/$defs/text", "description": "e.g. April 2023." },
+        "days": { "type": "integer", "minimum": 1 },
+        "role": { "enum": ["led", "organised", "travelled"], "description": "Version 2, where it is required: the person's role on the trip. led: led a group; organised: planned it, for others or for themselves; travelled: went as a traveller. A self-organised trip is organised, never led." },
+        "kind": { "$ref": "#/$defs/text", "description": "Who travelled and who organised it." },
+        "stops": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "required": ["name"],
+            "additionalProperties": false,
+            "properties": { "name": { "$ref": "#/$defs/text" }, "known": { "type": "boolean", "description": "Known well, not only a stop on the route." } }
+          }
+        },
+        "stamp": {
+          "type": "object",
+          "required": ["art", "rim"],
+          "additionalProperties": false,
+          "properties": {
+            "art": { "enum": ["fuji", "flag", "torii-maple", "alps-maple", "torii-blossom", "snow", "book"] },
+            "kanji": { "type": "string" },
+            "rim": { "type": "array", "minItems": 2, "items": { "$ref": "#/$defs/text" } },
+            "script": { "type": "array", "items": { "$ref": "#/$defs/text" }, "description": "The stops in the destination's own script, in route order." }
+          }
+        },
+        "story": {
+          "type": "object",
+          "required": ["title", "items"],
+          "additionalProperties": false,
+          "description": "This trip told in detail: how it was organised and what was solved on the way. At most one trip of a record has a story.",
+          "properties": {
+            "title": { "$ref": "#/$defs/text" },
+            "subtitle": { "$ref": "#/$defs/text" },
+            "items": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/text" } }
+          }
+        }
+      }
+    }
+  }
+}

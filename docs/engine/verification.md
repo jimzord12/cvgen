@@ -60,6 +60,35 @@ Windows one also holds the PDFs that build wrote, one per example in
    (`flagship-one-page.typ`) compiles to exactly one page with the name,
    both companies, the total, and the certificate and education headings.
    The `one-page.typ` fixture repeats this for one and three companies.
+6a. **Tour-leader example (travel, Hanami).** `examples/travel/hanami/tour-leader.typ`
+   must equal `packages/domains/travel/templates/hanami/tests/approved/Travel-Tour-Leader-CV-v01.pdf`
+   pixel for pixel with identical text on both pages (a `Frozen Reference`,
+   owner approved 2026-11-08 and pinned in `baseline.json` with its record and
+   artwork), carry its name, rank and the domain's
+   title as PDF metadata, and have no sakura petal on a word
+   (`cv_workflow/decoration.py`, which a client's render also runs for Hanami);
+   a probe page with a word set on a known petal of each page proves the check
+   fires (`petal-probe.typ`). The twin follows travel contract version 2: both
+   trips read "Organised", none "Led the group", and its licence takes the
+   studies subtitle on page 2. A led trip with a long period ("September 2024")
+   shows "Led the group" in full under its stamp, and a leap day is a valid
+   licence date. A licence too long for one line puts its issuer, region and
+   date on a second line under the title. A trip without a stamp has its role
+   above the period, never alone in the empty stamp column.
+   The `travel.typ` fixture renders the Indigo and Sky themes and a record without
+   a portrait (initials in the ring) with the same words, the twin as a version 1
+   record (no role, no licence: page 1 the same words, page 2 without them), asserts the totals
+   (2 trips, 30 days, 14 distinct stops), and fails on a record without
+   destinations, a date that is not MM/YYYY, an overflowing page 1, a name wider
+   than the plate, a rank wider than its tab, a contact wider than its column, a
+   route label under the plate, a page-2 contact line into the travellers, a
+   page-2 rank, region and native line into the travellers, kanji wider than a
+   seal's or a stamp's inner disc, a fifth highlight, a second trip story, an
+   unknown `Template Variation`, a trip role or a licence on a version 1 record,
+   a version 2 trip without a role or with an unknown one, a licence date that
+   is not "14 Jul 2029" or names a day its month lacks ("31 Feb 2029"), a role
+   word wider than the stamp column, a licence line wider than the education
+   columns, and an unknown `domainContract`.
 7. **Every PDF.** Expected page count, no empty page, all fonts embedded, no
    text outside the page. Every compile reads only the bundled fonts
    (`--ignore-system-fonts --font-path packages/cv-framework/fonts`, plus
@@ -91,7 +120,8 @@ Windows one also holds the PDFs that build wrote, one per example in
 
 9. **Example records.** Before any compile, every record an example entry
    point reads validates against the schema its imports select (the Flagship
-   input schema for every listed example), with the same code `scripts/cv.py render`
+   input schema for every marine example, the travel facts schema for every
+   travel one), with the same code `scripts/cv.py render`
    uses, and every entry point must contribute a record; the
    template-over-domain choice is also pinned for role-first imports, an
    entry importing only marine's `lib.typ` (Flagship's schema), only the
@@ -102,9 +132,12 @@ Windows one also holds the PDFs that build wrote, one per example in
    `Domain`'s facts schema and adds only `copy`;
    a record with vessel particulars is accepted and a `hp` power unit refused.
    A contract record with three certificate headings and skills goes through
-   the same schema check.
+   the same schema check. The travel facts schema reads both contract versions:
+   the twin without its roles and licence passes as version 1; a licence or a
+   trip role on a version 1 record, a version 2 record without destinations, a
+   version 2 trip without a role and a licence date that is not "14 Jul 2029" are refused, each on its message.
 
-10. **Framework boundary.** Every `import`/`include` in `packages/cv-framework/core/*.typ` names a bare sibling file; `packages/cv-framework/lib.typ` imports only `core/` files; no Framework `.typ` file names a `domains/` path outside a comment; every domain file that imports a core file does so through `cv-framework/core/` (ADR 0011, 0012). Outside comments, Framework code also uses no marine or Flagship word (vessel, ship, marine, flagship, synopsis, rank, ...) or Flagship layout key (`opening-margin`, `band-height`, ...), reads no layout key or artwork slot it does not own (an allowlist: `paper`, `width`, `height`, `shell`, `header`, `footer`; `background-first`, `background-continuation`) or theme colour it does not own (`ink`, `accent`, `metal`, `muted`, `paper`, and `hero` for the shell's optional band), names no Flagship colour (`hero`, `plate`, `on-hero`, `surface`, `rule`) as a string, so the core theme check cannot require one (TASK-59), and holds no colour literal: a hex string, a colour constructor (`rgb`, `cmyk`, `luma`, `oklab`, `oklch`, `hsl`, `hsv`, `linear-rgb`) or a named colour other than `white` and `black` (TASK-45). Comments are removed by a scan that also matches string literals, so `//` inside a string does not hide the rest of its line.
+10. **Framework boundary.** Every `import`/`include` in `packages/cv-framework/core/*.typ` names a bare sibling file; `packages/cv-framework/lib.typ` imports only `core/` files; no Framework `.typ` file names a `domains/` path outside a comment; every domain file that imports a core file does so through `cv-framework/core/` (ADR 0011, 0012). Outside comments, Framework code also uses no marine, travel, Flagship or Hanami word (vessel, ship, marine, flagship, synopsis, rank, travel, tour, trip, destination, hanami, sakura, torii, ...) or Flagship layout key (`opening-margin`, `band-height`, ...), reads no layout key or artwork slot it does not own (an allowlist: `paper`, `width`, `height`, `shell`, `header`, `footer`; `background-first`, `background-continuation`) or theme colour it does not own (`ink`, `accent`, `metal`, `muted`, `paper`, and `hero` for the shell's optional band), names no Flagship colour (`hero`, `plate`, `on-hero`, `surface`, `rule`) as a string, so the core theme check cannot require one (TASK-59), and holds no colour literal: a hex string, a colour constructor (`rgb`, `cmyk`, `luma`, `oklab`, `oklch`, `hsl`, `hsv`, `linear-rgb`) or a named colour other than `white` and `black` (TASK-45). Comments are removed by a scan that also matches string literals, so `//` inside a string does not hide the rest of its line.
 
 11. **Candidate workflow** (`tests/workflow.py`). A fresh fictional workspace
    under the run's `workflow/` folder is driven through the real
@@ -213,7 +246,18 @@ Windows one also holds the PDFs that build wrote, one per example in
    groups covered is in the case name, warnings in `coverage/`. A claim at a
    `schemaVersion` no rendered version has fails (`unproved`), so every claim
    is proved. Then the judging itself and the checks before a render, each
-   refusal on its message. Each
+   refusal on its message, on the marine contract and on the travel one (Hanami
+   chosen, certificates dropped, a missing rank or destinations refused). No
+   marker may sit inside another (markers match as substrings of the squeezed
+   text, because letter-spaced labels come out with spaces between their
+   letters). A fixture with a portrait proves it
+   by the images it has beyond the same fixture rendered without one, since a
+   template may draw small rasters of its own. Travel at version 2: a version 1
+   record renders on showcase; a version 2 record is refused on a `Template
+   Variation` up to version 1 (destinations is required and changed shape); a
+   version 2 Variation that does not claim travel-story or licences drops them
+   with a warning;
+   an expired or soon-expiring licence is a `Certificate Warning`. Each
    Variation's place against its `Domain`'s newest contract (behind, never a
    failure) is in `coverage/compatibility.txt`; every `Domain`'s kept contracts
    must be whole and unbroken, and `oldestSupported` must not pass a version an

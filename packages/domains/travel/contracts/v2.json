@@ -1,0 +1,27 @@
+{
+  "domain": "travel",
+  "version": 2,
+  "extends": "base@1",
+  "description": "The travel Domain Contract, version 2 (ADR 0016, TASK-80). destinations rises to schemaVersion 2: every trip states the person's role on it (led, organised or travelled), so a self-organised trip never reads as leading a group; it keeps the region, each trip's period, length, kind, role and stops, and the areas known (the totals come from them). travel-story is a new optional group with the telling of the trips: the route, the region's name in its own script and its seal words, each trip's stamp and the trip story, so a Template Variation with no room for them still renders the required destinations. licences is a new optional group: official tour-leader or guide licences, each with an issuer, a region and a date it is valid until. The record's shape is packages/domains/travel/schema/candidate.schema.json.",
+  "groups": {
+    "experience": { "required": true, "schemaVersion": 1, "paths": ["experience"] },
+    "rank": { "required": true, "schemaVersion": 1, "paths": ["identity.rank", "identity.specialty", "identity.seal"] },
+    "profile": { "required": false, "schemaVersion": 1, "paths": ["profile", "highlights"] },
+    "portrait": { "required": false, "schemaVersion": 1, "paths": ["identity.portrait"] },
+    "destinations": {
+      "required": true,
+      "schemaVersion": 2,
+      "paths": ["destinations.region", "destinations.trips.*.period", "destinations.trips.*.days", "destinations.trips.*.kind",
+        "destinations.trips.*.role", "destinations.trips.*.stops", "destinations.areas"]
+    },
+    "travel-story": {
+      "required": false,
+      "schemaVersion": 1,
+      "paths": ["destinations.native", "destinations.route", "destinations.seal", "destinations.trips.*.stamp", "destinations.trips.*.story"]
+    },
+    "licences": { "required": false, "schemaVersion": 1, "paths": ["licences"] },
+    "availability": { "required": false, "schemaVersion": 1, "paths": ["availability"] },
+    "practical": { "required": false, "schemaVersion": 1, "paths": ["practical"] },
+    "references": { "required": false, "schemaVersion": 1, "paths": ["references"] }
+  }
+}

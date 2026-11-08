@@ -9,12 +9,13 @@ import subprocess
 import sys
 
 import pymupdf as fitz
-from verify import ROOT, FONTS, FLAGSHIP, verify, check_frozen
+from verify import ROOT, FONTS, FLAGSHIP, HANAMI, verify, check_frozen
 from workflow import run_reality, run_workflow, system_font_family
 from design_review import run_design_review
 from repo_maintenance import run_repo_maintenance
 from release import examples, run_build_script, shells
 from coverage import run_coverage
+from cv_workflow.decoration import PETALS, decoration_errors, petal_collisions, petals  # on the path through workflow.py
 from compatibility import run_compatibility
 from proposals import run_proposals
 from report import run_report
@@ -38,7 +39,7 @@ def check_core_boundary():
     # Nor may any Framework code read a file by a domain path (read, image, json); comments may name one.
     # Beyond imports, the Framework holds no marine or Flagship rule (TASK-45). Three checks on the same
     # comment-free code, each chosen so that it cannot fire on neutral code by accident:
-    # 1. Vocabulary: no word that only a marine fact or a Flagship part uses, and no Flagship layout key
+    # 1. Vocabulary: no word that only a marine or travel fact or a Flagship or Hanami part uses, and no Flagship layout key
     #    (whole words, so `relationship` or `ranking` pass). Common facts (certificates, education) are the
     #    core's own words.
     # 2. What it reads: the core reads only the layout keys, artwork slots and theme colours it owns. An
@@ -50,7 +51,8 @@ def check_core_boundary():
     #    theme's `art-palette`, which the domain supplies. A hard-coded palette is exactly what this catches.
     # Comments are removed by one scan that also matches string literals, so `//` inside a string is kept.
     vocabulary = re.compile(r'(?<![a-z])(vessels?|ships?|marine|maritime|seafar\w*|flagship|synopsis|tonnage|voyages?'
-                            r'|crew|rank|opening-margin|continuation-margin|band-height|anchor-education|stack-gap)(?![a-z])', re.I)
+                            r'|crew|rank|opening-margin|continuation-margin|band-height|anchor-education|stack-gap'
+                            r'|travel|tour|trips?|destinations?|hanami|sakura|torii)(?![a-z])', re.I)
     owned = {'layout': {'paper', 'width', 'height', 'shell', 'header', 'footer'},
              'artwork': {'background-first', 'background-continuation'},
              'colors': {'ink', 'accent', 'metal', 'muted', 'paper', 'hero'}}
@@ -64,7 +66,7 @@ def check_core_boundary():
         code = re.sub(rf'({string})|/\*.*?\*/|//[^\n]*', lambda m: m.group(1) or '', source.read_text(encoding='utf-8'), flags=re.S)
         assert 'domains/' not in code, f'{name} names a domain path'
         words = sorted({m.group(0) for m in vocabulary.finditer(code)})
-        assert not words, f'{name} speaks marine or Flagship: {words}'
+        assert not words, f'{name} speaks a domain or template: {words}'
         for owner, keys in owned.items():
             # A method call (`colors.keys()`, `layout.at(...)`) is not a key read.
             read = set(re.findall(rf'(?<![\w-]){owner}\.([\w-]+)(?![\w(-])', code)) | set(re.findall(rf'(?<![\w-]){owner}\.at\("([^"]+)"', code))
@@ -87,6 +89,9 @@ def check_example_records():
     from cv_workflow import WorkflowError
     from cv_workflow.validate import MAX_REPORTED, schema_for, validate_record
     FLAGSHIP_INPUT = '/packages/domains/marine/templates/flagship/schema/flagship-input.schema.json'
+    TRAVEL_FACTS = '/packages/domains/travel/schema/candidate.schema.json'
+    # Marine examples use Flagship's input contract; travel examples their domain's facts contract (Hanami has no input schema).
+    expected = {'marine': FLAGSHIP_INPUT, 'travel': TRAVEL_FACTS}
     entries = sorted((ROOT / 'examples').rglob('*.typ'))
     assert entries, 'no example entry points found'
     checked = set()
@@ -99,7 +104,7 @@ def check_example_records():
                 schema = validate_record(record, IMPORT.findall(source))
             except WorkflowError as error:
                 raise AssertionError(f'example record {path} (read by {entry.name}) breaks its schema: {error}') from error
-            assert schema == FLAGSHIP_INPUT, (entry.name, schema)
+            assert schema == expected[entry.relative_to(ROOT / 'examples').parts[0]], (entry.name, schema)
     # Every entry must read its record with a literal json("...") path, or it was not checked at all.
     assert checked == set(entries), f'no record found in: {sorted(e.name for e in set(entries) - checked)}'
     # Template beats domain whatever the import order; marine's lib.typ alone means Flagship; the Framework's
@@ -108,6 +113,7 @@ def check_example_records():
                        '/packages/domains/marine/templates/flagship/themes/golden-blue.typ']) == ROOT / FLAGSHIP_INPUT[1:]
     assert schema_for(['/packages/domains/marine/lib.typ']) == ROOT / FLAGSHIP_INPUT[1:]
     assert schema_for(['/packages/cv-framework/lib.typ']) is None
+    assert schema_for(['/packages/domains/travel/lib.typ']) == ROOT / TRAVEL_FACTS[1:]
     assert schema_for(['/private/helpers.typ']) is None
     # lib.typ with a non-marine domain never falls back to Flagship's contract.
     assert schema_for(['/packages/domains/marine/lib.typ', '/packages/domains/travel-and-tourism/domain.typ']) is None
@@ -147,6 +153,24 @@ def check_example_records():
         assert '$defs' not in input_schema and set(input_schema['properties']) <= {'copy'}, \
             f'{path.name} restates facts; they belong in {facts_path.name}'
         assert 'copy' in facts_schema['properties'], f'{facts_path.name} must leave copy to the Template'
+    # The travel facts schema reads both contract versions (TASK-80): version 2 requires destinations and each
+    # trip's role and may hold licences; version 1 has neither, so the twin without them is a valid version 1 record.
+    travel_lib = ['/packages/domains/travel/lib.typ']
+    tour = json.loads((ROOT / 'examples/candidates/tour-leader-example.json').read_text(encoding='utf-8'))
+    older = {k: v for k, v in tour.items() if k not in ('domainContract', 'licences')}
+    older['destinations'] = {**tour['destinations'], 'trips': [{k: v for k, v in t.items() if k != 'role'} for t in tour['destinations']['trips']]}
+    validate_record(older, travel_lib)
+    first = tour['destinations']['trips'][0]
+    for wrong, said in (({**older, 'licences': tour['licences']}, 'licences: is not in the contract version this record follows; set domainContract'),
+                        ({**older, 'destinations': {**older['destinations'], 'trips': [first]}}, 'destinations/trips/0/role: is not in the contract version'),
+                        ({**tour, 'destinations': {**tour['destinations'], 'trips': [older['destinations']['trips'][0]]}}, "'role' is a required property"),
+                        ({**tour, 'licences': [{**tour['licences'][0], 'until': '03/2029'}]}, "licences/0/until: '03/2029' does not match"),
+                        ({k: v for k, v in tour.items() if k != 'destinations'}, "'destinations' is a required property")):
+        try:
+            validate_record(wrong, travel_lib)
+            raise AssertionError(f'{said} was accepted')
+        except WorkflowError as error:
+            assert said in str(error), str(error)
     record = json.loads((ROOT / 'examples/candidates/engineer-example.json').read_text(encoding='utf-8'))
     ship = record['companies'][0]['groups'][0]['ships'][0]
     ship.update(tonnage={'value': 49990, 'unit': 'GT'}, engine='MAN B&W', power={'value': 9480, 'unit': 'kW'})
@@ -313,6 +337,79 @@ def main():
     with fitz.open(classic) as a, fitz.open(silver) as b:
         assert [' '.join(p.get_text().split()) for p in a] == [' '.join(p.get_text().split()) for p in b]
         assert 'Engineer' not in ''.join(p.get_text() for p in a)
+    # The travel domain (P-0013): the tour-leader twin on Hanami showcase must match its Frozen Reference candidate
+    # (not yet approved by the owner), its metadata, and no sakura petal may lie on a word.
+    twin = listed['tour-leader']
+    hanami_result = check_case(twin, ROOT / HANAMI / 'tests/approved/Travel-Tour-Leader-CV-v01.pdf')
+    assert hanami_result['passed'], hanami_result
+    with fitz.open(twin) as doc:
+        assert (doc.metadata['title'], doc.metadata['author']) == ('Andreas Kalamaris | Tour Leader | CVgen', 'CVgen'), doc.metadata
+        text = ' '.join(' '.join(p.get_text().split()) for p in doc)
+        for phrase in ['ANDREAS KALAMARIS', 'Boutique travel agency', '03/2022', 'present', 'Japan, trip by trip',
+                       '12 days', '18 days', 'Planning the 18-day trip', 'Education and languages', 'FICTIONAL CANDIDATE',
+                       'Thermaic Tour Board', 'Valid until 31 Mar 2029']:
+            assert phrase in text, phrase
+        # Travel contract version 2: both trips were organised by him, so neither reads as a led group.
+        squeezed = ''.join(text.split())
+        assert squeezed.count('ORGANISED') == 2 and 'LEDTHEGROUP' not in squeezed, text
+    collisions = petal_collisions(twin)
+    assert not collisions and not decoration_errors(twin, 'hanami') and decoration_errors(twin, 'flagship') == [], collisions
+    # And it fires: a word set on a known petal of each page is reported.
+    first = {n: petals((PETALS / f'petals-p{n}-field.svg').read_text(encoding='utf-8'))[0] for n in (1, 2)}
+    probe = compile_case('travel-petal-probe', 'tests/fixtures/petal-probe.typ',
+                         {f'{k}{n}': str(round(v, 2)) for n, box in first.items() for k, v in (('x', box[0]), ('y', box[1]))})
+    assert [page for page, _ in petal_collisions(probe)] == [1, 2], petal_collisions(probe)
+    assert len(decoration_errors(probe, 'hanami')) == 2
+    for theme in ['indigo', 'sky', 'no-portrait']:
+        pdf = compile_case('travel-' + theme, 'tests/fixtures/travel.typ', {'case': theme})
+        assert check_case(pdf)['passed']
+        with fitz.open(twin) as a, fitz.open(pdf) as b:
+            # The same words in every theme; without a portrait, the initials take its place.
+            initials = ['AK'] if theme == 'no-portrait' else []
+            assert [p.get_text().split() for p in a] == [[w for w in p.get_text().split() if w not in initials] for p in b], theme
+    # The blurred petals are small rasters too, so the portrait is the one image the record without one lacks.
+    with fitz.open(twin) as a, fitz.open(out / 'travel-no-portrait' / 'travel-no-portrait.pdf') as b:
+        assert len(a[0].get_images()) - len(b[0].get_images()) == 1 and 'AK' in b[0].get_text().split()
+    # The same twin as a version 1 record still renders: no role on a trip, no licence, nothing else moves.
+    older = compile_case('travel-v1', 'tests/fixtures/travel.typ', {'case': 'v1'})
+    assert check_case(older)['passed']
+    with fitz.open(twin) as a, fitz.open(older) as b:
+        assert a[0].get_text().split() == b[0].get_text().split()  # page 1 is the same
+        page = ''.join(b[1].get_text().split())
+        assert 'LICENCE' not in page and 'ORGANISED' not in page, page
+    # A led trip with a long period: the role sits on its own line under the stamp, in full; a leap day is a day.
+    for case in ('led-long-period', 'leap-day'):
+        assert check_case(compile_case('travel-' + case, 'tests/fixtures/travel.typ', {'case': case}))['passed'], case
+    with fitz.open(out / 'travel-led-long-period' / 'travel-led-long-period.pdf') as doc:
+        assert 'LEDTHEGROUP' in ''.join(doc[1].get_text().split())
+    # A licence too long for one line puts the issuer, region and date on a second line under the title.
+    two = compile_case('travel-two-line-licence', 'tests/fixtures/travel.typ', {'case': 'two-line-licence'})
+    assert check_case(two)['passed']
+    with fitz.open(two) as doc:
+        lines = [''.join(span['text'] for span in line['spans']) for block in doc[1].get_text('dict')['blocks']
+                 for line in block.get('lines', [])]
+    title = [i for i, line in enumerate(lines) if 'Tour Leader Licence' in line]
+    issuer = [i for i, line in enumerate(lines) if 'Regional Tourism Directorate' in line and 'Valid until 31 Mar 2029' in line]
+    assert len(title) == 1 and len(issuer) == 1 and title != issuer, (title, issuer)
+    for mode, message in [('v1-role', 'trip.role arrived in travel contract version 2: set domainContract to 2'),
+                          ('v1-licence', 'licences arrived in travel contract version 2: set domainContract to 2'),
+                          ('no-role', 'trip.role must be one of led, organised, travelled in travel contract version 2; got none'),
+                          ('bad-role', 'trip.role must be one of led, organised, travelled in travel contract version 2; got "guided"'),
+                          ('bad-licence-date', 'licences.until must be a day as 14 Jul 2029; got 03/2029'),
+                          ('no-such-day', 'licences.until names a day its month does not have; got 31 Feb 2029'),
+                          ('long-role', "is wider than the trip card's 26 mm stamp column; shorten copy.role-organised"),
+                          ('long-licence', 'a licence line is wider than its 98 mm and would run past the education columns'),
+                          ('unknown-version', 'domainContract must be one of 1, 2 (the travel contract versions kept); got 3'),
+                          # Every field Hanami places outside its two slots measures itself and fails loudly (constitution 4).
+                          ('no-destinations', 'Candidate requires destinations'), ('bad-month', 'experience.from must be MM/YYYY'),
+                          ('overflow', 'Hanami: page 1 overflows'), ('long-name', 'the name is wider than the name plate'),
+                          ('long-rank', "is wider than the name plate's 38 mm tab"), ('long-contact', 'is wider than its 50 mm column'),
+                          ('long-city', 'runs under the name plate'), ('many-links', 'the linked contacts run into the travellers'),
+                          ('five-cells', 'the profile row holds four highlight cells'), ('two-stories', 'At most one trip may have a story'),
+                          ('long-native', "wider than the stamp's inner disc"), ('long-stamp-kanji', "wider than the stamp's inner disc"),
+                          ('long-region', 'the rank, region and its native name run into the travellers'),
+                          ('bad-variation', 'Hanami has no Template Variation "essential"')]:
+        compile_case('travel-' + mode, 'tests/fixtures/travel.typ', {'case': mode}, error=message)
     # Third dataset: deck officer without a portrait, on the same page plan.
     officer = listed['chief-officer']
     assert check_case(officer)['passed']
@@ -554,7 +651,7 @@ def main():
         skip('workflow-model', reason='no Bun on this machine, so the Workflow Model (docs/workflow) is not checked here')
     check_frozen()
     check_core_boundary()
-    report = {'passed': True, 'cases': results, 'exact_reference': result, 'output': str(out)}
+    report = {'passed': True, 'cases': results, 'exact_reference': result, 'hanami_reference': hanami_result, 'output': str(out)}
     (out / 'report.json').write_text(json.dumps(report, indent=2), encoding='utf-8')
     skipped = [r['case'] for r in results if r.get('skipped')]
     print(f'PASS: {len(results) - len(skipped)} compilation cases plus PDF/data/layout assertions. Evidence: {out}')

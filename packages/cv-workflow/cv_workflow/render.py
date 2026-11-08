@@ -8,6 +8,7 @@ import tempfile
 
 from .checks import certificate_summary, check_certificates, check_pdf
 from .contracts import choose
+from .decoration import decoration_errors
 from .outputs import envelope, stamp
 from .validate import validate_record
 from .workspace import (ENGINE, ENTRY, FONTS, ROOT, Workspace, WorkflowError, new_revision_id, read_json,
@@ -191,6 +192,8 @@ def render_revision(workspace, typst='typst', pages=2, inputs=None, reference_da
     checks = None
     if succeeded:
         checks = check_pdf(revision.pdf, pages)
+        # A template's decoration over a word (Hanami's petals) makes the revision unapprovable.
+        checks['errors'] += decoration_errors(revision.pdf, choice.get('template'))
         # A live read makes the revision unapprovable: what was rendered is not what the snapshot holds.
         for path in live:
             checks['errors'].append(f'The compile read {path}, a live file outside the revision snapshot; '

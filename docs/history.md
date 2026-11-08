@@ -403,3 +403,15 @@ rule went to `docs/development.md`; the private repository to
 the Design Review app's detail to a new `apps/design-review/README.md`.
 The workflow anchors and the `Atlas` pages that cited the old lines now
 cite the new owners.
+
+## 2026-11-08 — the travel Domain and Hanami
+
+TASK-2 (P-0013, approved by the owner on 2026-11-08) turned the first
+travel client's one-off, Hanami Line 2, into the second `Domain`:
+`packages/domains/travel/` with its facts schema, its `Domain Contract`
+(rank and destinations required; availability, practical know-how and
+references optional), its `Coverage Fixture`, and Hanami as its first
+`Template`, `showcase` its one `Template Variation`, in three themes. The
+public example is a `Fictional Twin` with the real CV's shape and none of its
+facts; its `Frozen Reference` waits for the owner's approval. The Framework
+and marine are unchanged.
