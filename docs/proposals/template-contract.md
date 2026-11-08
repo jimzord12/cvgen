@@ -377,3 +377,11 @@ Approve, defer or reject revision 1, and answer:
   `Batch Test` judging craft for a `scan-first` bar. Decision 2: the scan-first
   exception in the vision. Decision 3: one `Frozen Reference` per
   `Template Variation`. Decision 4: TASK-3 first, then Flagship on marine.
+- 2026-11-08, owner, in session, on the report's Essential cards: Essential is
+  not tied to a `Rank` or seniority; it exists to express that a `Client`
+  needs a practical one-page CV, and the human operator chooses it. The
+  portrait is an optional choice for each `Client`. A career too long for one
+  page shows its recent contracts in full and summarises the older ones with
+  totals; Essential never runs to a second page.
+- 2026-11-08, owner, in session: the `docs/vision.md` wording of the
+  `scan-first` bar ("When a `Client` needs a practical one-page CV…") confirmed.

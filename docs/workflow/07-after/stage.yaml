@@ -73,7 +73,7 @@ steps:
 
   - id: after.erase-envelope
     name: Delete the Envelope and erase it from the private history
-    sources: ["docs/workflow/07-after/README.md:27-34", "docs/guides/client-workflow.md:205-230", "docs/preferences.md:84-92", "docs/proposals/workflow-gaps.md:37", "docs/proposals/workflow-gaps.md:71"]
+    sources: ["docs/workflow/07-after/README.md:27-34", "docs/guides/client-workflow.md:205-230", "docs/preferences.md:86-94", "docs/proposals/workflow-gaps.md:37", "docs/proposals/workflow-gaps.md:71"]
     actor: actor.owner
     action: manual.erase-envelope
     inputs: [art.erase-commands]
@@ -92,7 +92,7 @@ steps:
   # The candidates come from cv.py status (GAPS.md, "Inferences").
   - id: after.revision-cleanup
     name: Remove failed or unapproved Revisions
-    sources: ["docs/pdf-workflow.md:215-218", "docs/preferences.md:90-92", "docs/workflow/GAPS.md:29-32"]
+    sources: ["docs/pdf-workflow.md:215-218", "docs/preferences.md:92-94", "docs/workflow/GAPS.md:29-32"]
     actor: actor.owner
     action: manual.go-remove-revisions
     inputs: [art.status-listing]
@@ -182,5 +182,5 @@ actions:
   - id: manual.go-remove-revisions
     kind: manual
     name: Give the go to remove Revisions
-    sources: ["docs/pdf-workflow.md:215-218", "docs/preferences.md:84-92"]
+    sources: ["docs/pdf-workflow.md:215-218", "docs/preferences.md:86-94"]
     does: The owner gives his explicit go, on the exact command shown first, to remove failed or unapproved Revisions.

@@ -12,7 +12,7 @@
 actors:
   - id: actor.owner
     name: The owner
-    sources: ["docs/workflow/README.md:22-24", "docs/preferences.md:60-62", "docs/preferences.md:84-96"]
+    sources: ["docs/workflow/README.md:22-24", "docs/preferences.md:60-62", "docs/preferences.md:86-98"]
     kind: human
     does: >-
       The only one who talks to the client: names a new client, relays every

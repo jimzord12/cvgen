@@ -40,7 +40,7 @@ window.ATLAS = {
      "Everything routine (commits, merges to `main`, task-store updates) is the agents' job."
     ],
     "sources": [
-     "docs/preferences.md:60-96",
+     "docs/preferences.md:60-98",
      "docs/workflow/README.md:22-24"
     ],
     "short": "You"
@@ -469,7 +469,7 @@ window.ATLAS = {
     "role": "Lints the Python with ruff, runs the workflow tool's tests and type check, the `Workflow Model` check (`bun run check`, Bun pinned in `tools/workflow/.bun-version`) and that its generated READMEs and the `Atlas` client-journey page match it (`bun run render --check`, `bun run atlas --check`), then runs the suite once per push (its head commit) on any branch, on Linux and Windows (Typst 0.15.1 and the Python packages in `requirements.lock`, checksummed; the suite drives `scripts/build.ps1` in a throwaway copy on both, and Windows also builds the examples with it); a newer push to a feature branch cancels the older run. The lead watches it on `main` before calling work Done.",
     "sources": [
      ".github/workflows/verify.yml",
-     "docs/git-workflow.md:91-104"
+     "docs/git-workflow.md:92-105"
     ],
     "short": "CI"
    }
@@ -2614,7 +2614,7 @@ window.ATLAS = {
        "sources": [
         "docs/workflow/05-design/README.md:57-58",
         ".claude/skills/new-cv/SKILL.md:63",
-        "docs/preferences.md:76-78",
+        "docs/preferences.md:78-80",
         ".claude/agents/design-reviewer.md:49-53"
        ]
       },
@@ -3208,7 +3208,7 @@ window.ATLAS = {
        "sources": [
         "docs/workflow/07-after/README.md:27-34",
         "docs/guides/client-workflow.md:205-230",
-        "docs/preferences.md:84-92",
+        "docs/preferences.md:86-94",
         "docs/proposals/workflow-gaps.md:37",
         "docs/proposals/workflow-gaps.md:71"
        ]
@@ -3246,7 +3246,7 @@ window.ATLAS = {
        "note": "Model step `after.revision-cleanup`, action `manual.go-remove-revisions`, in `docs/workflow/07-after/stage.yaml`.",
        "sources": [
         "docs/pdf-workflow.md:215-218",
-        "docs/preferences.md:90-92",
+        "docs/preferences.md:92-94",
         "docs/workflow/GAPS.md:29-32"
        ]
       }
@@ -3674,7 +3674,7 @@ window.ATLAS = {
        "sources": [
         "docs/git-workflow.md:21-33",
         "docs/git-workflow.md:40-67",
-        "docs/git-workflow.md:86-90"
+        "docs/git-workflow.md:87-91"
        ]
       },
       {
@@ -3788,8 +3788,8 @@ window.ATLAS = {
        ],
        "note": "Yours only, with the exact command shown first, including: deleting or force-pushing `main`, rewriting its published history, rewriting the private repo's history (the delete-by erase, which you run), `archive/*` tags, repo settings (public and private repo), deleting under `private/` or `.local/` or outside the repo, removing revisions, approvals, exports or portraits, replacing the `Release`.",
        "sources": [
-        "docs/git-workflow.md:91-104",
-        "docs/preferences.md:66-96",
+        "docs/git-workflow.md:92-105",
+        "docs/preferences.md:66-98",
         ".github/workflows/verify.yml"
        ]
       }
@@ -3845,7 +3845,7 @@ window.ATLAS = {
        },
        "sources": [
         "docs/preferences.md:60-62",
-        "docs/preferences.md:102"
+        "docs/preferences.md:104"
        ]
       }
      ]
@@ -3930,7 +3930,7 @@ window.ATLAS = {
       }
      ],
      "sources": [
-      "docs/git-workflow.md:140-149"
+      "docs/git-workflow.md:141-150"
      ]
     },
     {
@@ -4484,14 +4484,14 @@ window.ATLAS = {
   }
  ],
  "build": {
-  "builtAt": "2026-11-08 09:22 UTC",
-  "commit": "bf9ef1e",
+  "builtAt": "2026-11-08 10:10 UTC",
+  "commit": "7391e71",
   "kit": "1.1",
   "stale": {},
   "verified": {
    "client-journey": {
     "at": "2026-11-08",
-    "commit": "d9d99bb"
+    "commit": "7391e71"
    },
    "design-run": {
     "at": "2026-11-08",
@@ -4499,15 +4499,15 @@ window.ATLAS = {
    },
    "change-review": {
     "at": "2026-11-08",
-    "commit": "bf9ef1e"
+    "commit": "7391e71"
    },
    "system-map": {
     "at": "2026-11-08",
-    "commit": "bf9ef1e"
+    "commit": "7391e71"
    },
    "roster": {
     "at": "2026-11-08",
-    "commit": "bf9ef1e"
+    "commit": "7391e71"
    }
   }
  }
