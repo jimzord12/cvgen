@@ -3,10 +3,11 @@ id: TASK-36
 title: 'workflow-schema: typed entity definitions for the workflow model'
 status: Done
 assignee: []
-created_date: '2026-10-14 04:47'
-updated_date: '2026-10-14 08:18'
+created_date: 2026-10-14 04:47
+updated_date: '2026-11-08T09:09:00Z'
 labels:
   - workflow-model
+milestone: m-5
 dependencies:
   - TASK-35
 ordinal: 36000

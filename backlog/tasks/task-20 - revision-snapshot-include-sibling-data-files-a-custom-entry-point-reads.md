@@ -3,11 +3,13 @@ id: TASK-20
 title: 'revision-snapshot: include sibling data files a custom entry point reads'
 status: Done
 assignee: []
-created_date: '2026-10-06 07:25'
+created_date: 2026-10-06 07:25
+updated_date: '2026-11-08T09:09:00Z'
 labels: []
+milestone: m-4
 dependencies: []
 references:
-  - 'https://trello.com/c/oUrlmz8I'
+  - https://trello.com/c/oUrlmz8I
 ordinal: 20000
 ---
 

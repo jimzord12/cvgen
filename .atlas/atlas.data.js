@@ -70,8 +70,8 @@ window.ATLAS = {
     ],
     "sources": [
      "docs/development.md:10-22",
-     "docs/development.md:46-62",
-     "docs/development.md:113-125"
+     "docs/development.md:61-79",
+     "docs/development.md:130-142"
     ],
     "short": "Claude"
    },
@@ -183,7 +183,7 @@ window.ATLAS = {
     ],
     "sources": [
      ".claude/agents/code-reviewer.md:1-7",
-     "docs/review.md:129-147"
+     "docs/review.md:130-148"
     ],
     "short": "Code rev."
    },
@@ -259,7 +259,7 @@ window.ATLAS = {
     ],
     "sources": [
      ".claude/skills/new-client/SKILL.md:57-68",
-     ".claude/skills/idea-run/SKILL.md:99-116"
+     ".claude/skills/idea-run/SKILL.md:100-117"
     ],
     "short": "General"
    },
@@ -360,7 +360,7 @@ window.ATLAS = {
     "role": "Reads and updates the tasks in `backlog/` through the `backlog` CLI, and reads and rewrites the `session-handoff` doc on `main`. Every task's record is a task file.",
     "when": "Orientation, and every task state change.",
     "sources": [
-     ".claude/skills/backlog/SKILL.md:1-118"
+     ".claude/skills/backlog/SKILL.md:1-158"
     ]
    },
    "repo-maintenance": {
@@ -445,11 +445,12 @@ window.ATLAS = {
    "board": {
     "label": "Task store `backlog/`",
     "kind": "service",
-    "role": "The task store (Backlog.md, ADR 0014): one file per task, statuses Queued, Active, Review, Ready, Done, label `blocked`. The `session-handoff` doc is where every session starts. Boards: `backlog board`, `backlog browser`.",
+    "role": "The task store (Backlog.md 1.55.3, ADR 0014 amended by 0017): one file per task, each in one milestone with a done-condition, statuses Queued, Active, Review, Ready, Done, label `blocked`; progress is read by milestone. The `session-handoff` doc is where every session starts. Boards: `backlog board`, `backlog browser`.",
     "sources": [
-     ".claude/skills/backlog/SKILL.md:1-35",
-     "docs/development.md:29-44",
-     "docs/decisions/0014-backlog-md-task-store.md"
+     ".claude/skills/backlog/SKILL.md:1-39",
+     "docs/development.md:24-59",
+     "docs/decisions/0014-backlog-md-task-store.md",
+     "docs/decisions/0017-backlog-md-1-55-3.md"
     ],
     "short": "Backlog"
    },
@@ -1578,7 +1579,7 @@ window.ATLAS = {
        ],
        "note": "Model step `research.cap-reached`, action `manual.decide-at-cap`, in `docs/workflow/03-research/stage.yaml`.",
        "sources": [
-        "docs/review.md:204-208",
+        "docs/review.md:205-209",
         "docs/workflow/03-research/README.md:70-73"
        ]
       }
@@ -1890,7 +1891,7 @@ window.ATLAS = {
        "note": "Model step `text-draft.cap-reached`, action `manual.decide-at-cap`, in `docs/workflow/04-text-draft/stage.yaml`.",
        "sources": [
         "docs/workflow/README.md:28-32",
-        "docs/review.md:204-208"
+        "docs/review.md:205-209"
        ]
       }
      ]
@@ -2030,7 +2031,7 @@ window.ATLAS = {
        ],
        "note": "Model step `design.run-research-gate`, action `agent.research-reviewer`, in `docs/workflow/05-design/stage.yaml`.",
        "sources": [
-        ".claude/skills/idea-run/SKILL.md:51-57"
+        ".claude/skills/idea-run/SKILL.md:52-58"
        ]
       },
       {
@@ -2056,8 +2057,8 @@ window.ATLAS = {
        ],
        "note": "Model step `design.run-revise-sources`, action `agent.magazine-editor-revise`, in `docs/workflow/05-design/stage.yaml`.",
        "sources": [
-        ".claude/skills/idea-run/SKILL.md:54-57",
-        ".claude/skills/idea-run/SKILL.md:77-79"
+        ".claude/skills/idea-run/SKILL.md:55-58",
+        ".claude/skills/idea-run/SKILL.md:78-80"
        ]
       },
       {
@@ -2097,8 +2098,8 @@ window.ATLAS = {
        ],
        "note": "Model step `design.run-design-gate`, action `agent.design-reviewer`, in `docs/workflow/05-design/stage.yaml`.",
        "sources": [
-        ".claude/skills/idea-run/SKILL.md:58-62",
-        ".claude/skills/idea-run/SKILL.md:118-124"
+        ".claude/skills/idea-run/SKILL.md:59-63",
+        ".claude/skills/idea-run/SKILL.md:119-125"
        ]
       },
       {
@@ -2125,8 +2126,8 @@ window.ATLAS = {
        ],
        "note": "Model step `design.run-revise-design`, action `agent.magazine-editor-revise`, in `docs/workflow/05-design/stage.yaml`.",
        "sources": [
-        ".claude/skills/idea-run/SKILL.md:58-62",
-        ".claude/skills/idea-run/SKILL.md:77-81"
+        ".claude/skills/idea-run/SKILL.md:59-63",
+        ".claude/skills/idea-run/SKILL.md:78-82"
        ]
       },
       {
@@ -2148,7 +2149,7 @@ window.ATLAS = {
        ],
        "note": "Model step `design.run-integrate`, action `lead.integrate-run`, in `docs/workflow/05-design/stage.yaml`.",
        "sources": [
-        ".claude/skills/idea-run/SKILL.md:83-97"
+        ".claude/skills/idea-run/SKILL.md:84-98"
        ]
       },
       {
@@ -2168,7 +2169,7 @@ window.ATLAS = {
        ],
        "note": "Model step `design.run-report`, action `lead.report-run`, in `docs/workflow/05-design/stage.yaml`.",
        "sources": [
-        ".claude/skills/idea-run/SKILL.md:128-134"
+        ".claude/skills/idea-run/SKILL.md:129-135"
        ]
       },
       {
@@ -2208,7 +2209,7 @@ window.ATLAS = {
        "note": "Model step `design.pick`, action `manual.pick-design`, in `docs/workflow/05-design/stage.yaml`.",
        "sources": [
         "docs/workflow/05-design/README.md:29-33",
-        ".claude/skills/idea-run/SKILL.md:141-146"
+        ".claude/skills/idea-run/SKILL.md:142-147"
        ]
       },
       {
@@ -2233,8 +2234,8 @@ window.ATLAS = {
        ],
        "note": "Model step `design.record-choice`, action `cmd.stamp-concept-status`, in `docs/workflow/05-design/stage.yaml`.",
        "sources": [
-        ".claude/skills/idea-run/SKILL.md:134-139",
-        ".claude/skills/idea-run/SKILL.md:143",
+        ".claude/skills/idea-run/SKILL.md:135-140",
+        ".claude/skills/idea-run/SKILL.md:144",
         "studio/design-concepts/README.md:46-49"
        ]
       },
@@ -2261,7 +2262,7 @@ window.ATLAS = {
        ],
        "note": "Model step `design.record-other-answer`, action `cmd.stamp-concept-status`, in `docs/workflow/05-design/stage.yaml`.",
        "sources": [
-        ".claude/skills/idea-run/SKILL.md:144-146",
+        ".claude/skills/idea-run/SKILL.md:145-147",
         "studio/design-concepts/README.md:46-49",
         "docs/proposals/workflow-gaps.md:38",
         "docs/proposals/workflow-gaps.md:71"
@@ -2509,7 +2510,7 @@ window.ATLAS = {
        ],
        "note": "Model step `design.engine-revise`, action `lead.revise-engine-change`, in `docs/workflow/05-design/stage.yaml`.",
        "sources": [
-        "docs/review.md:196-203"
+        "docs/review.md:197-204"
        ]
       },
       {
@@ -2629,8 +2630,8 @@ window.ATLAS = {
        "note": "Model step `design.cap-reached`, action `manual.decide-at-cap`, in `docs/workflow/05-design/stage.yaml`.",
        "sources": [
         "docs/workflow/05-design/README.md:59-64",
-        ".claude/skills/idea-run/SKILL.md:73-76",
-        "docs/review.md:204-208"
+        ".claude/skills/idea-run/SKILL.md:74-77",
+        "docs/review.md:205-209"
        ]
       }
      ]
@@ -3041,7 +3042,7 @@ window.ATLAS = {
        ],
        "note": "Model step `deliver.cap-reached`, action `manual.decide-at-cap`, in `docs/workflow/06-deliver/stage.yaml`.",
        "sources": [
-        "docs/review.md:204-208"
+        "docs/review.md:205-209"
        ]
       }
      ]
@@ -3330,7 +3331,7 @@ window.ATLAS = {
         "The lead keeps the author's agent id, so revisions go back to the same author with its memory."
        ],
        "sources": [
-        ".claude/skills/idea-run/SKILL.md:37-50"
+        ".claude/skills/idea-run/SKILL.md:37-51"
        ]
       }
      ]
@@ -3435,7 +3436,7 @@ window.ATLAS = {
         "research-reviewer"
        ],
        "sources": [
-        ".claude/skills/idea-run/SKILL.md:51-57",
+        ".claude/skills/idea-run/SKILL.md:52-58",
         ".claude/agents/research-reviewer.md:31-59"
        ]
       },
@@ -3468,7 +3469,7 @@ window.ATLAS = {
         "codex-reviewer"
        ],
        "sources": [
-        ".claude/skills/idea-run/SKILL.md:58-76",
+        ".claude/skills/idea-run/SKILL.md:59-77",
         ".claude/agents/design-reviewer.md:47-155",
         ".claude/agents/codex-visual-reviewer.md",
         "docs/proposals/codex-visual-tools.md"
@@ -3491,7 +3492,7 @@ window.ATLAS = {
        ],
        "sources": [
         ".claude/agents/magazine-editor.md:227-237",
-        ".claude/skills/idea-run/SKILL.md:77-82"
+        ".claude/skills/idea-run/SKILL.md:78-83"
        ]
       }
      ]
@@ -3517,8 +3518,8 @@ window.ATLAS = {
         "outputs-py"
        ],
        "sources": [
-        ".claude/skills/idea-run/SKILL.md:85-97",
-        "docs/review.md:52-66"
+        ".claude/skills/idea-run/SKILL.md:86-98",
+        "docs/review.md:52-67"
        ]
       },
       {
@@ -3533,7 +3534,7 @@ window.ATLAS = {
         "Styles still waiting for your answer are listed in the `session-handoff` doc."
        ],
        "sources": [
-        ".claude/skills/idea-run/SKILL.md:126-134"
+        ".claude/skills/idea-run/SKILL.md:127-135"
        ]
       },
       {
@@ -3547,7 +3548,7 @@ window.ATLAS = {
         "label": "Build it → `chosen` · Later → `parked` · Reject → `rejected` · Not my style, keep it → `Anti-example`. No answer: stays `proposed`."
        },
        "sources": [
-        ".claude/skills/idea-run/SKILL.md:134-146",
+        ".claude/skills/idea-run/SKILL.md:135-147",
         "docs/pdf-workflow.md:127"
        ]
       },
@@ -3565,7 +3566,7 @@ window.ATLAS = {
         "python scripts/outputs.py stamp <pdf> status=chosen"
        ],
        "sources": [
-        ".claude/skills/idea-run/SKILL.md:134-146",
+        ".claude/skills/idea-run/SKILL.md:135-147",
         "studio/design-concepts/README.md:45-48",
         "studio/archive/anti-examples/README.md"
        ]
@@ -3580,7 +3581,7 @@ window.ATLAS = {
         "A concept becomes a `Template` only after you keep it and a build task is agreed."
        ],
        "sources": [
-        ".claude/skills/idea-run/SKILL.md:141-146",
+        ".claude/skills/idea-run/SKILL.md:142-147",
         "studio/design-concepts/README.md:3-6"
        ]
       }
@@ -3634,7 +3635,7 @@ window.ATLAS = {
         "backlog"
        ],
        "sources": [
-        "docs/development.md:46-62",
+        "docs/development.md:61-79",
         "docs/proposals/README.md:46-51",
         "docs/proposals/README.md:89-97"
        ]
@@ -3655,8 +3656,8 @@ window.ATLAS = {
         "backlog"
        ],
        "sources": [
-        "docs/development.md:29-44",
-        "docs/development.md:125-216"
+        "docs/development.md:44-59",
+        "docs/development.md:142-236"
        ]
       }
      ]
@@ -3695,7 +3696,7 @@ window.ATLAS = {
        ],
        "sources": [
         "docs/conventions.md:6-11",
-        "docs/development.md:218-225",
+        "docs/development.md:238-245",
         "docs/framework-gaps.md:3-6",
         ".claude/skills/verify-cv/SKILL.md:10-19"
        ]
@@ -3737,9 +3738,9 @@ window.ATLAS = {
        ],
        "note": "Only spelling, comments, formatting or a glossary row skip the round, and record-keeping commits (storing reports, merging reviewed work).",
        "sources": [
-        "docs/review.md:7-66",
-        "docs/review.md:83-103",
-        "docs/review.md:161-180",
+        "docs/review.md:7-67",
+        "docs/review.md:84-104",
+        "docs/review.md:162-181",
         "docs/review.md",
         "archive/work-records/anti-examples/reviews/01-context.md"
        ]
@@ -3760,7 +3761,7 @@ window.ATLAS = {
         "Renaming the task never resets the round count."
        ],
        "sources": [
-        "docs/review.md:184-221"
+        "docs/review.md:185-222"
        ]
       }
      ]
@@ -3814,7 +3815,7 @@ window.ATLAS = {
         "repo-maintenance"
        ],
        "sources": [
-        "docs/development.md:76-107"
+        "docs/development.md:93-124"
        ]
       },
       {
@@ -3829,7 +3830,7 @@ window.ATLAS = {
         "backlog"
        ],
        "sources": [
-        "docs/development.md:109-123"
+        "docs/development.md:130-142"
        ]
       },
       {
@@ -4258,9 +4259,9 @@ window.ATLAS = {
        "title": "Task store",
        "path": "backlog/",
        "actor": "board",
-       "blurb": "Every task is a Backlog.md file; sessions start at the `session-handoff` doc on `main`.",
+       "blurb": "Every task is a Backlog.md file in one milestone; sessions start at the `session-handoff` doc on `main`.",
        "sources": [
-        ".claude/skills/backlog/SKILL.md:1-35"
+        ".claude/skills/backlog/SKILL.md:1-39"
        ]
       },
       {
@@ -4478,35 +4479,35 @@ window.ATLAS = {
     "Two steps run on Codex (your ChatGPT plan), not Claude: the `codex-visual-reviewer` (GPT-6 Astra, through a Sonnet wrapper) and the image step (GPT-6 Sol), built 2026-10-22."
    ],
    "sources": [
-    "docs/review.md:137-152"
+    "docs/review.md:138-153"
    ]
   }
  ],
  "build": {
-  "builtAt": "2026-11-08 08:51 UTC",
-  "commit": "27dd4a8",
+  "builtAt": "2026-11-08 10:10 UTC",
+  "commit": "7391e71",
   "kit": "1.1",
   "stale": {},
   "verified": {
    "client-journey": {
     "at": "2026-11-08",
-    "commit": "27dd4a8"
+    "commit": "7391e71"
    },
    "design-run": {
-    "at": "2026-11-04",
-    "commit": "b87fba0"
+    "at": "2026-11-08",
+    "commit": "d9d99bb"
    },
    "change-review": {
     "at": "2026-11-08",
-    "commit": "27dd4a8"
+    "commit": "7391e71"
    },
    "system-map": {
     "at": "2026-11-08",
-    "commit": "27dd4a8"
+    "commit": "7391e71"
    },
    "roster": {
     "at": "2026-11-08",
-    "commit": "27dd4a8"
+    "commit": "7391e71"
    }
   }
  }

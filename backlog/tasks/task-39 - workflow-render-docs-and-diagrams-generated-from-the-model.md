@@ -3,10 +3,11 @@ id: TASK-39
 title: 'workflow-render: docs and diagrams generated from the model'
 status: Done
 assignee: []
-created_date: '2026-10-14 04:47'
-updated_date: '2026-10-14 10:44'
+created_date: 2026-10-14 04:47
+updated_date: '2026-11-08T09:09:00Z'
 labels:
   - workflow-model
+milestone: m-5
 dependencies:
   - TASK-38
 ordinal: 39000

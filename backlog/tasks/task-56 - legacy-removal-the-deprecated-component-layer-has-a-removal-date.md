@@ -3,10 +3,11 @@ id: TASK-56
 title: 'legacy-removal: the deprecated component layer has a removal date'
 status: Done
 assignee: []
-created_date: '2026-10-14 04:48'
-updated_date: '2026-10-14 05:52'
+created_date: 2026-10-14 04:48
+updated_date: '2026-11-08T09:09:00Z'
 labels:
   - restructure
+milestone: m-0
 dependencies: []
 ordinal: 56000
 ---

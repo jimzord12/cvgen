@@ -26,6 +26,21 @@ design and documentation work included:
 Kanban-style: work moves through explicit stages, one active implementation
 task, clear acceptance criteria, independent review. Fixed sprints are optional.
 
+Work is planned top down: a plan (a vision Direction item, an approved
+proposal or the owner's brief), then its `Milestone`s, then their tasks
+(owner, 2026-11-08). A `Milestone` is a shippable outcome with a one-line
+done-condition in its description; it is never a label or a date. Every
+task belongs to exactly one, named when the task is created; a task that
+serves no outcome goes in a small Maintenance milestone, made the first time
+one is needed. A `Milestone` is complete when every task in it is Done and its
+done-condition is met with evidence, recorded in the notes of the task that
+met it. `backlog milestone list` counts tasks only: it shows a milestone as
+completed once its tasks are Done, whatever its done-condition says. So when
+a move to Done leaves a milestone at n/n, the agent records the evidence that
+meets its done-condition, or queues the task that will. Archive one only
+when nothing more is planned for it, since archiving hides it from the
+progress view. A new outcome gets its `Milestone` before its first task.
+
 | Stage | Required outcome |
 |---|---|
 | Queued | A useful outcome, scope and observable acceptance criteria. |
@@ -52,7 +67,9 @@ Cancelled work never counts as delivered.
    the vision, relevant decisions, the proposals (`python scripts/proposals.py`
    prints their line; pending decisions and approved work awaiting
    application are reported as [proposal tracking](proposals/README.md#what-the-owner-hears)
-   says), the tasks in `backlog/`, Git state and evidence for the examined revision. The handoff doc orients;
+   says), the `Milestone`s and tasks in `backlog/` (`backlog milestone list
+   --plain --show-completed` gives progress by outcome), Git state and evidence
+   for the examined revision. The handoff doc orients;
    the tasks, Git and evidence are the authority when they disagree. Flag missing or
    conflicting evidence rather than inventing certainty; if the tasks cannot
    be read, say so rather than guessing. Distinguish an approved design from
@@ -64,7 +81,7 @@ Cancelled work never counts as delivered.
 
 ```text
 Goal: <Purpose from the vision.>
-Now: <Implemented behaviour and active work, based on current evidence.>
+Now: <Implemented behaviour and active work by Milestone (done/total), based on current evidence.>
 Next: <One recommended step within the agreed priorities.>
 You: <A ready decision and recommendation, or nothing needed.>
 ```
@@ -136,6 +153,7 @@ CLAUDE.md, AGENTS.md              # Entry and map: where things are, hard rules,
 docs/development.md               # This protocol
 docs/review.md                    # Review protocol
 backlog/tasks/                    # One authoritative brief and status per task (Backlog.md)
+backlog/milestones/               # One file per Milestone: its outcome and done-condition
 backlog/docs/doc-1 - session-handoff.md  # Cross-session resume point, rewritten on main at the end of each session
 archive/work-records/<id>/reviews/  # Review reports (docs/review.md), created only when review runs
 docs/decisions/                   # Accepted architecture decisions
@@ -146,8 +164,8 @@ docs/proposals/                   # Proposals with status; rejected/ keeps decli
 ```
 
 The task store is [Backlog.md](https://github.com/MrLesk/Backlog.md)
-(ADR 0014, 2026-10-06; it replaced the Trello board adopted under
-[trello-free-trial](proposals/trello-free-trial.md)). Each task is a file in
+(ADR 0014, 2026-10-06, amended by ADR 0017; it replaced the Trello board
+adopted under [trello-free-trial](proposals/trello-free-trial.md)). Each task is a file in
 `backlog/tasks/` with a number Backlog.md gives it (`TASK-27`); its title
 starts with the task id, a short kebab-case slug (`dev-setup`,
 `monorepo-migration`), which also names its `archive/work-records/<id>/` folder. Its
@@ -162,12 +180,13 @@ itself.
 
 Where a task file changes (so two branches never edit the same one): a
 task a branch is working on changes only on that branch, in the same commits
-as its work. Two kinds of record commit go straight to `main`, by the route
-in the backlog skill: the handoff doc, and edits to tasks no branch is
+as its work. Three kinds of record commit go straight to `main`, by the
+route in the backlog skill: the handoff doc, edits to tasks no branch is
 working on (a new Queued task, a cancellation, the move to Done after a
-merge into `main`; a child task's Done goes on its parent branch). Both are
-record-keeping under `docs/review.md`. Create a task on `main` first, as
-Queued (so two branches never take the same number); it moves to Active on
+merge into `main`; a child task's Done goes on its parent branch), and the
+milestone files. All three are record-keeping under `docs/review.md`.
+Create a `Milestone`, and a task as Queued, on `main` first (so two
+branches never take the same number); it moves to Active on
 the branch that picks it up. When a branch is abandoned, cancel its task on
 `main` once the branch is gone, copying any notes worth keeping.
 
@@ -180,13 +199,14 @@ The sections map onto Backlog.md's own sections:
 | Section | Where in the task | How to write it |
 |---|---|---|
 | Header (Owner, Branch/worktree, Integration target, Depends on) and **Outcome and boundaries** | Description | `-d` on create |
+| `Milestone` | The `milestone` field | `-m <milestone id>` on create |
 | **Acceptance** | Acceptance Criteria | `--ac`, then `--check-ac N` |
 | **Plan** | Implementation Plan | `--plan` |
 | **Result and evidence**, **Review**, **Handoff** (each a `##` heading) | Implementation Notes | `--append-notes` |
 | One-paragraph result at Done | Final Summary | `--final-summary` |
 
 ```powershell
-backlog task create "<id>: <Outcome>" -s Queued --no-dod-defaults --plain `
+backlog task create "<id>: <Outcome>" -s Queued -m <milestone id> --no-dod-defaults --plain `
   -d "Owner: <Claude session or agent>`nBranch/worktree: <location>`nIntegration target: <main or parent feature branch>`nDepends on: <task/decision links, or none>`n`n## Outcome and boundaries`n<What becomes possible. What this task changes and excludes.>" `
   --ac "<Observable behaviour and the evidence that will establish it>"
 backlog task edit TASK-N -s Active --plan "<a few steps; omit for a small obvious change>" --plain
@@ -207,8 +227,8 @@ the record with a link back. Process authorization records stay separate
 from task progress. A saved status report, when explicitly useful, is a dated
 snapshot, never an authority. Build artifacts under `builds/` are local and
 ignored: name them honestly, and treat a missing old artifact as no proof.
-Cleanup preserves the evidence still needed by active work or deliberate
-milestones; clearing `builds/` by path is an agent decision.
+Cleanup preserves the evidence still needed by active work or an open
+`Milestone`; clearing `builds/` by path is an agent decision.
 
 Ready is not Done. Ready means implementation, verification and review are
 complete. Done means the change reached its integration branch, the push and

@@ -3,10 +3,11 @@ id: TASK-44
 title: 'workflow-guards: scripts enforce the workflow''s state order'
 status: Done
 assignee: []
-created_date: '2026-10-14 04:47'
-updated_date: '2026-10-14 06:57'
+created_date: 2026-10-14 04:47
+updated_date: '2026-11-08T09:09:00Z'
 labels:
   - workflow-model
+milestone: m-4
 dependencies:
   - TASK-34
 ordinal: 44000

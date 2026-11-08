@@ -3,11 +3,13 @@ id: TASK-12
 title: 'docs-audit: apply the 2026-09-25 documentation audit'
 status: Done
 assignee: []
-created_date: '2026-10-06 07:25'
+created_date: 2026-10-06 07:25
+updated_date: '2026-11-08T09:09:00Z'
 labels: []
+milestone: m-8
 dependencies: []
 references:
-  - 'https://trello.com/c/4YdYGADH'
+  - https://trello.com/c/4YdYGADH
 ordinal: 12000
 ---
 

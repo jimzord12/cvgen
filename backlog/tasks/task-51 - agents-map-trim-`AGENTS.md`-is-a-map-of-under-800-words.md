@@ -3,10 +3,11 @@ id: TASK-51
 title: 'agents-map-trim: `AGENTS.md` is a map of under 800 words'
 status: Done
 assignee: []
-created_date: '2026-10-14 04:48'
-updated_date: '2026-10-14 13:12'
+created_date: 2026-10-14 04:48
+updated_date: '2026-11-08T09:09:00Z'
 labels:
   - restructure
+milestone: m-8
 dependencies: []
 ordinal: 51000
 ---

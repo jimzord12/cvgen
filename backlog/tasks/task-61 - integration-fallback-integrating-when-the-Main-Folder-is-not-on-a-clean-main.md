@@ -3,9 +3,11 @@ id: TASK-61
 title: 'integration-fallback: integrating when the Main Folder is not on a clean main'
 status: Queued
 assignee: []
-created_date: '2026-10-14 08:53'
+created_date: 2026-10-14 08:53
+updated_date: '2026-11-08T09:09:00Z'
 labels:
   - process
+milestone: m-8
 dependencies: []
 ordinal: 61000
 ---

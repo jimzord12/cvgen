@@ -3,9 +3,10 @@ id: TASK-27
 title: 'backlog-migration: move the task store from Trello to Backlog.md files'
 status: Done
 assignee: []
-created_date: '2026-10-06 07:26'
-updated_date: '2026-10-06 08:00'
+created_date: 2026-10-06 07:26
+updated_date: '2026-11-08T09:09:00Z'
 labels: []
+milestone: m-8
 dependencies: []
 ordinal: 27000
 ---

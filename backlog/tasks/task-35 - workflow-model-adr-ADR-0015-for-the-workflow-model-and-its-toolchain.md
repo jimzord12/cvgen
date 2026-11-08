@@ -3,10 +3,11 @@ id: TASK-35
 title: 'workflow-model-adr: ADR 0015 for the workflow model and its toolchain'
 status: Done
 assignee: []
-created_date: '2026-10-14 04:47'
-updated_date: '2026-10-14 08:53'
+created_date: 2026-10-14 04:47
+updated_date: '2026-11-08T09:09:00Z'
 labels:
   - workflow-model
+milestone: m-5
 dependencies:
   - TASK-34
 ordinal: 35000
