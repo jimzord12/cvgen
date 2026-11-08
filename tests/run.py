@@ -370,7 +370,7 @@ def main():
         assert 'Front Office Assistant · Hotel Rio Ambassador, Patras 2007' in text and 'Summer Guide · Achaia Walks, Patras 2005' in text
         assert 'Welcomed guests' in text and 'Check-in, check-out' not in text
         page = doc[0]
-        rail_x = min(b[0] for b in page.search_for('AVAILABLE FROM APRIL 2027'))
+        rail_x = min(b[0] for b in page.search_for('LANGUAGES'))
         assert min(b[0] for b in page.search_for('EDUCATION')) >= rail_x - 1 and '02 Education' not in text
     for mode, message in [('overflow', 'Hanami essential: even the newest role alone overflows the career column'),
                           ('unsorted', 'the experience must be listed newest first'),
