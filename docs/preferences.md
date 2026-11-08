@@ -112,6 +112,7 @@ unattended up to Major:
   test run, a rendered page, a diff image. Not a code listing.
 - **Every picture where it is needed:** he often comes back after hours on
   other work, so whatever he is asked or told about a look shows that look
-  beside it, and a picture several sections share has a short name
-  ("Figure A") that each one cites. Never ask him to judge something he has
-  to hunt for (owner, 2026-11-08).
+  beside it, and a picture several sections share has a short name that
+  each one cites: a number ("Figure 1"), never a letter, because numbers are
+  easier for him. Never ask him to judge something he has to hunt for
+  (owner, 2026-11-08).

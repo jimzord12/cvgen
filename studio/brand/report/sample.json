@@ -92,7 +92,7 @@
       "decision": "Which test a scan-first design has to pass. With the Scan Test, Flagship Parity and the Batch Test would judge craft, not loudness.",
       "example": "A reader gets the page for ten seconds. Can they say the name, the current job, the employer, the dates and the education? If yes, it passes.",
       "figures": [
-        "B"
+        "2"
       ]
     },
     {
@@ -129,7 +129,7 @@
       "decision": "Whether the constitution moves to one Frozen Reference per Variation, so that Showcase and Essential each have their own.",
       "example": "Change Showcase's margins and only Showcase's reference fails. Change Essential and only its reference fails. Each look can then move on its own.",
       "figures": [
-        "A"
+        "1"
       ]
     },
     {
@@ -229,13 +229,13 @@
       "title": "Report lives in the brand folder",
       "why": "It is CVgen's own house asset, not a CV. An agent fills in a JSON file and never touches the page.",
       "figures": [
-        "A"
+        "1"
       ]
     }
   ],
   "evidence": [
     {
-      "id": "A",
+      "id": "1",
       "kind": "compare",
       "before": {
         "pdf": "examples/marine/flagship/captain.pdf",
@@ -250,7 +250,7 @@
       "caption": "One record in two Themes: with a reference per Variation, each look is frozen"
     },
     {
-      "id": "B",
+      "id": "2",
       "kind": "page",
       "src": {
         "pdf": "examples/marine/flagship/deck-cadet.pdf",

@@ -39,8 +39,9 @@ SECTIONS = (('meters', ('label', 'value'), {'tone': ('ok', 'wait', 'stop', 'thre
             ('decisions', ('grade', 'title', 'why'), {'grade': ('Minor', 'Major')}),
             ('changes', ('area', 'lines'), {}))
 NOT_TEXT = ('value', 'options', 'cap', 'rounds', 'lines')
-# A figure's id is its short name on the page ("Figure A"); cards and decisions cite it in `figures`.
-FIGURE_ID = re.compile(r'[A-Za-z0-9]{1,4}')
+# A figure's id is its short name on the page ("Figure 1"): a number, because the owner finds numbers
+# easier than letters (2026-11-08). Cards and decisions cite it in `figures`; 1 and "1" are the same.
+FIGURE_ID = re.compile(r'[1-9][0-9]{0,2}')
 CITERS = ('needs_you', 'decisions')
 EVIDENCE = {'page': ('src',), 'compare': ('before', 'after', 'before_label', 'after_label')}
 MEDIA = {'.png': 'image/png', '.jpg': 'image/jpeg', '.jpeg': 'image/jpeg', '.svg': 'image/svg+xml', '.webp': 'image/webp'}
@@ -121,12 +122,20 @@ def refusal(data, fragment=False, source=''):
         if not whole:
             return f'meters: {meter["label"]} needs whole numbers, with value no higher than of'
     figures = []
+    number = lambda x: str(x) if isinstance(x, int) and not isinstance(x, bool) else x  # noqa: E731
+    for item in data.get('evidence', []):
+        if 'id' in item:
+            item['id'] = number(item['id'])
+    for field in CITERS:
+        for item in data.get(field, []):
+            if isinstance(item.get('figures'), list):
+                item['figures'] = [number(name) for name in item['figures']]
     for item in data.get('evidence', []):
         for key in EVIDENCE[item['kind']]:
             if not item.get(key):
                 return f'evidence: a {item["kind"]} needs {key}'
-        if not FIGURE_ID.fullmatch(item['id']):
-            return f'evidence: id {item["id"]!r} must be one to four letters or digits, such as A'
+        if not isinstance(item['id'], str) or not FIGURE_ID.fullmatch(item['id']):
+            return f'evidence: id {item["id"]!r} must be a number from 1 to 999, such as 1'
         if item['id'] in figures:
             return f'evidence: two figures share the id {item["id"]!r}'
         figures.append(item['id'])

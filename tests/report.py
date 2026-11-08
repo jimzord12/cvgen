@@ -30,16 +30,16 @@ def run_report(out):
     assert not re.search(r'(src|href)="https?:', page), 'the page loads nothing from the network'
     embedded = json.loads(re.search(r'<script type="application/json" id="report">(.*?)</script>', page, re.S)[1])
     place = embedded['placement']
-    card = next(i for i, a in enumerate(data['needs_you']) if a.get('figures') == ['B'])
-    assert place['cards'][card] == ['B'] and place['figures'] == ['A'] and sum(map(len, place['cards'])) == 1, place
+    card = next(i for i, a in enumerate(data['needs_you']) if a.get('figures') == ['2'])
+    assert place['cards'][card] == ['2'] and place['figures'] == ['1'] and sum(map(len, place['cards'])) == 1, place
     spec = importlib.util.spec_from_file_location('report_script', SCRIPT)
     script = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(script)
     page_of = lambda name: {'id': name, 'kind': 'page', 'caption': name}  # noqa: E731
-    mixed = {'evidence': [page_of(name) for name in ('U', 'D', 'C', 'S')],
-             'needs_you': [{'figures': ['C', 'S']}, {'figures': ['S']}, {}],
-             'decisions': [{'figures': ['D']}]}
-    assert script.placement(mixed) == {'cards': [['C'], [], []], 'figures': ['U', 'D', 'S']}, script.placement(mixed)
+    mixed = {'evidence': [page_of(name) for name in ('4', '3', '2', '1')],
+             'needs_you': [{'figures': ['2', '1']}, {'figures': ['1']}, {}],
+             'decisions': [{'figures': ['3']}]}
+    assert script.placement(mixed) == {'cards': [['2'], [], []], 'figures': ['4', '3', '1']}, script.placement(mixed)
     checks.append('figures placed: one in its card, one shared under Figures; uncited and decision-only figures stay under Figures')
     checks.append('sample builds into one page')
 
@@ -65,7 +65,7 @@ def run_report(out):
     card = {'title': 'A', 'context': 'B', 'decision': 'C'}
     choices = [{'label': 'B', 'recommended': True}, {'label': 'C'}]
     gate = {'name': 'A', 'cap': 5}
-    figure = {'id': 'A', 'kind': 'page', 'caption': 'A', 'src': 'studio/brand/logos/cvgen-mark-c-eye.svg'}
+    figure = {'id': '1', 'kind': 'page', 'caption': 'A', 'src': 'studio/brand/logos/cvgen-mark-c-eye.svg'}
     for name, broken, message in (
             ('no headline', {k: v for k, v in bare.items() if k != 'headline'}, 'the report needs headline: add them to the JSON file'),
             ('unknown verdict', {**bare, 'verdict': 'fine'}, "verdict 'fine' is not one of done, needs-you, running, blocked"),
@@ -97,12 +97,13 @@ def run_report(out):
             ('a findings round with no findings', {**bare, 'reviews': [{**gate, 'rounds': [{'verdict': 'findings'}]}]}, 'reviews: A has a findings round with no findings'),
             ('lines that are not a number', {**bare, 'changes': [{'area': 'A', 'lines': 'many'}]}, 'changes: A needs a whole number of lines'),
             ('a figure without an id', {**bare, 'evidence': [{'kind': 'page', 'caption': 'A', 'src': 'x.png'}]}, 'evidence: an item needs id'),
-            ('a figure id that is a sentence', {**bare, 'evidence': [{**figure, 'id': 'Figure A'}]}, "evidence: id 'Figure A' must be one to four letters or digits, such as A"),
-            ('two figures with one id', {**bare, 'evidence': [figure, figure]}, "evidence: two figures share the id 'A'"),
-            ('a card citing a missing figure', {**bare, 'evidence': [figure], 'needs_you': [{**card, 'options': choices, 'figures': ['A', 'Z']}]}, "'A' cites Figure Z, which the evidence does not hold"),
-            ('a decision citing a missing figure', {**bare, 'evidence': [figure], 'decisions': [{'grade': 'Major', 'title': 'D', 'why': 'B', 'figures': ['Q']}]}, "'D' cites Figure Q, which the evidence does not hold"),
+            ('a figure id that is a sentence', {**bare, 'evidence': [{**figure, 'id': 'Figure 1'}]}, "evidence: id 'Figure 1' must be a number from 1 to 999, such as 1"),
+            ('a letter for a figure id', {**bare, 'evidence': [{**figure, 'id': 'A'}]}, "evidence: id 'A' must be a number from 1 to 999, such as 1"),
+            ('two figures with one id', {**bare, 'evidence': [figure, figure]}, "evidence: two figures share the id '1'"),
+            ('a card citing a missing figure', {**bare, 'evidence': [figure], 'needs_you': [{**card, 'options': choices, 'figures': ['1', '9']}]}, "'A' cites Figure 9, which the evidence does not hold"),
+            ('a decision citing a missing figure', {**bare, 'evidence': [figure], 'decisions': [{'grade': 'Major', 'title': 'D', 'why': 'B', 'figures': ['8']}]}, "'D' cites Figure 8, which the evidence does not hold"),
             ('figures that are not a list', {**bare, 'evidence': [figure], 'needs_you': [{**card, 'options': choices, 'figures': 'A'}]}, "'A' has figures that are not a list of figure ids: leave it out or name one"),
-            ('a figure cited twice by one card', {**bare, 'evidence': [figure], 'needs_you': [{**card, 'options': choices, 'figures': ['A', 'A']}]}, "'A' cites Figure A twice"),
+            ('a figure cited twice by one card', {**bare, 'evidence': [figure], 'needs_you': [{**card, 'options': choices, 'figures': ['1', 1]}]}, "'A' cites Figure 1 twice"),
             ('an empty figures list', {**bare, 'evidence': [figure], 'needs_you': [{**card, 'options': choices, 'figures': []}]}, "'A' has figures that are not a list of figure ids: leave it out or name one"),
             ('a PDF given as an image', {**bare, 'evidence': [{'id': 'A', 'kind': 'page', 'caption': 'A', 'src': 'examples/marine/flagship/captain.pdf'}]}, 'examples/marine/flagship/captain.pdf is not an image: a PDF page is {"pdf": path, "page": n}')):
         path = folder / 'broken.json'
