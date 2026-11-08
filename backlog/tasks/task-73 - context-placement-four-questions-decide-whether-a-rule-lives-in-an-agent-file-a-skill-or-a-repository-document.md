@@ -23,7 +23,7 @@ Depends on: none
 Plan: archive/work-records/review-agents/plan.md
 
 ## Outcome and boundaries
-context-maintainer.md, 'Where things live', gains the four placement questions (own job -> agent file; project-specific -> owning document; the owner as a person -> preferences; generic or one activity's convention -> that activity's skill if anyone else does or checks it, else the agent file). context-reviewer checks placement against them. Excludes moving existing rules.
+context-maintainer.md, 'Where things live', gains the four placement questions (own job -> agent file; project-specific -> owning document; working with the owner -> preferences; generic or one activity's convention -> that activity's skill if anyone else does or checks it, else the agent file). context-reviewer checks placement against them. Excludes moving existing rules.
 <!-- SECTION:DESCRIPTION:END -->
 
 ## Acceptance Criteria
