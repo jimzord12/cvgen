@@ -1,4 +1,5 @@
 """scripts/report.py through its real command line: the worked sample, then each refusal. Run by tests/run.py."""
+import importlib.util
 import json
 import re
 import subprocess
@@ -31,7 +32,15 @@ def run_report(out):
     place = embedded['placement']
     card = next(i for i, a in enumerate(data['needs_you']) if a.get('figures') == ['B'])
     assert place['cards'][card] == ['B'] and place['figures'] == ['A'] and sum(map(len, place['cards'])) == 1, place
-    checks.append('figures placed: one in its card, one shared under Figures')
+    spec = importlib.util.spec_from_file_location('report_script', SCRIPT)
+    script = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(script)
+    page_of = lambda name: {'id': name, 'kind': 'page', 'caption': name}  # noqa: E731
+    mixed = {'evidence': [page_of(name) for name in ('U', 'D', 'C', 'S')],
+             'needs_you': [{'figures': ['C', 'S']}, {'figures': ['S']}, {}],
+             'decisions': [{'figures': ['D']}]}
+    assert script.placement(mixed) == {'cards': [['C'], [], []], 'figures': ['U', 'D', 'S']}, script.placement(mixed)
+    checks.append('figures placed: one in its card, one shared under Figures; uncited and decision-only figures stay under Figures')
     checks.append('sample builds into one page')
 
     fragment = run(SAMPLE, '--fragment', '--output', folder / 'fragment')
