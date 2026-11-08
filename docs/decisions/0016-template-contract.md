@@ -2,9 +2,9 @@
 
 Date: 2026-11-04
 Status: Accepted. Stage 1 (contracts, manifest, suite and render checks) built
-2026-11-04, review fixes 2026-11-08; Essential (TASK-79 on Hanami, then TASK-67 on Flagship), the choice step
-(TASK-66) and Stage 2 with the input schemas (TASK-68) are not. Amends 0002,
-0007, 0010, 0011 and 0012.
+2026-11-04, review fixes 2026-11-08; Stage 2 with the input schemas (TASK-68)
+built 2026-11-08; Essential (TASK-79 on Hanami, then TASK-67 on Flagship) and
+the choice step (TASK-66) are not. Amends 0002, 0007, 0010, 0011 and 0012.
 
 ## Context
 

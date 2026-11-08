@@ -39,6 +39,14 @@ def schema_for(imports, domains_root=DOMAINS):
     return found[0] if found else None
 
 
+def registry(domains_root=DOMAINS):
+    """Every Domain's and Template's schema by its $id, so a Template's input schema can $ref its Domain's
+    facts and state only what it adds (ADR 0016). Nothing is fetched over the network."""
+    from referencing import Registry, Resource
+    schemas = (json.loads(p.read_text(encoding='utf-8')) for p in sorted(domains_root.rglob('*.schema.json')))
+    return Registry().with_resources((s['$id'], Resource.from_contents(s)) for s in schemas if '$id' in s)
+
+
 def describe(error):
     """One line per problem: the field path and what to change. A oneOf failure is unpacked into the
     reasons of its alternatives: a field's own error is kept, only the "not this alternative at all"
@@ -68,7 +76,7 @@ def validate_record(record, imports):
     except ImportError as error:
         raise WorkflowError('the candidate check needs jsonschema: pip install -r requirements.lock (docs/tech-stack.md)') from error
     schema = json.loads(schema_path.read_text(encoding='utf-8'))
-    errors = sorted(Draft202012Validator(schema).iter_errors(record), key=lambda e: [str(p) for p in e.absolute_path])
+    errors = sorted(Draft202012Validator(schema, registry=registry()).iter_errors(record), key=lambda e: [str(p) for p in e.absolute_path])
     if errors:
         lines = [line for e in errors for line in describe(e)]
         extra = len(lines) - MAX_REPORTED
