@@ -456,11 +456,11 @@ def main():
                                        'ΑΔΕΙΑ · ΙΣΧΥΕΙ ΕΩΣ 31 ΜΑΡ 2029', 'ΟΡΓΑΝΩΣΕ']), text
     with fitz.open(out / 'travel-essential-long-career' / 'travel-essential-long-career.pdf') as doc:
         text = ' '.join(doc[0].get_text().split())
-        # education moves to the rail, so five roles stay in full; the three older ones are one summary whose
+        # education moves to the rail, so four roles stay in full; the four older ones are one summary whose
         # count and span the domain computed
-        assert 'Earlier roles · 3 06/2005 – 10/2007' in text, text
-        assert 'Front Office Assistant · Hotel Rio Ambassador, Patras 2007' in text and 'Summer Guide · Achaia Walks, Patras 2005' in text
-        assert 'Welcomed guests' in text and 'Check-in, check-out' not in text
+        assert 'Earlier roles · 4 06/2005 – 10/2009' in text, text
+        assert 'Resort Representative · Ionian Sun Resorts, Kefalonia 2008–2009' in text and 'Summer Guide · Achaia Walks, Patras 2005' in text
+        assert 'Head counts: counted the group' in text and 'Guests: welcomed' not in text
         page = doc[0]
         rail_x = min(b[0] for b in page.search_for('LANGUAGES'))
         assert min(b[0] for b in page.search_for('EDUCATION')) >= rail_x - 1 and '02 Education' not in text
