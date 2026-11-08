@@ -127,7 +127,7 @@ actions:
   - id: manual.decide-at-cap
     kind: manual
     name: The owner decides at the cap
-    sources: ["docs/review.md:204-208", ".claude/skills/idea-run/SKILL.md:74-77", "docs/proposals/workflow-gaps.md:60-64"]
+    sources: ["docs/review.md:205-209", ".claude/skills/idea-run/SKILL.md:74-77", "docs/proposals/workflow-gaps.md:60-64"]
     does: >-
       At a loop's cap (a review loop, the client's draft corrections, the
       owner's own changes or a render that keeps failing) the lead stops and

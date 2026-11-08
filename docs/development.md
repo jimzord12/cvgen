@@ -26,15 +26,19 @@ design and documentation work included:
 Kanban-style: work moves through explicit stages, one active implementation
 task, clear acceptance criteria, independent review. Fixed sprints are optional.
 
-Work is planned top down: a plan, then its `Milestone`s, then their tasks
+Work is planned top down: a plan (a vision Direction item, an approved
+proposal or the owner's brief), then its `Milestone`s, then their tasks
 (owner, 2026-11-08). A `Milestone` is a shippable outcome with a one-line
 done-condition in its description; it is never a label or a date. Every
 task belongs to exactly one, named when the task is created; a task that
 serves no outcome goes in a small Maintenance milestone, made the first time
 one is needed. A `Milestone` is complete when every task in it is Done and its
 done-condition is met with evidence, recorded in the notes of the task that
-met it; `backlog milestone list` then shows it as completed. Archive one only
-when nothing more is planned for it, since archiving hides it from that
+met it. `backlog milestone list` counts tasks only: it shows a milestone as
+completed once its tasks are Done, whatever its done-condition says. So when
+a move to Done leaves a milestone at n/n, the agent records the evidence that
+meets its done-condition, or queues the task that will. Archive one only
+when nothing more is planned for it, since archiving hides it from the
 progress view. A new outcome gets its `Milestone` before its first task.
 
 | Stage | Required outcome |
@@ -149,6 +153,7 @@ CLAUDE.md, AGENTS.md              # Entry and map: where things are, hard rules,
 docs/development.md               # This protocol
 docs/review.md                    # Review protocol
 backlog/tasks/                    # One authoritative brief and status per task (Backlog.md)
+backlog/milestones/               # One file per Milestone: its outcome and done-condition
 backlog/docs/doc-1 - session-handoff.md  # Cross-session resume point, rewritten on main at the end of each session
 archive/work-records/<id>/reviews/  # Review reports (docs/review.md), created only when review runs
 docs/decisions/                   # Accepted architecture decisions
@@ -159,7 +164,7 @@ docs/proposals/                   # Proposals with status; rejected/ keeps decli
 ```
 
 The task store is [Backlog.md](https://github.com/MrLesk/Backlog.md)
-(ADR 0014, 2026-10-06; it replaced the Trello board adopted under
+(ADR 0014, 2026-10-06, amended by ADR 0017; it replaced the Trello board adopted under
 [trello-free-trial](proposals/trello-free-trial.md)). Each task is a file in
 `backlog/tasks/` with a number Backlog.md gives it (`TASK-27`); its title
 starts with the task id, a short kebab-case slug (`dev-setup`,
@@ -175,11 +180,12 @@ itself.
 
 Where a task file changes (so two branches never edit the same one): a
 task a branch is working on changes only on that branch, in the same commits
-as its work. Two kinds of record commit go straight to `main`, by the route
-in the backlog skill: the handoff doc, and edits to tasks no branch is
+as its work. Three kinds of record commit go straight to `main`, by the
+route in the backlog skill: the handoff doc, edits to tasks no branch is
 working on (a new Queued task, a cancellation, the move to Done after a
-merge into `main`; a child task's Done goes on its parent branch). Both are
-record-keeping under `docs/review.md`. Create a task on `main` first, as
+merge into `main`; a child task's Done goes on its parent branch), and the
+milestone files. All three are record-keeping under `docs/review.md`.
+Create a `Milestone` on `main`, and a task on `main` first, as
 Queued (so two branches never take the same number); it moves to Active on
 the branch that picks it up. When a branch is abandoned, cancel its task on
 `main` once the branch is gone, copying any notes worth keeping.

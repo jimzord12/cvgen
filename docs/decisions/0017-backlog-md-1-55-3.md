@@ -27,7 +27,7 @@ and assigned only through the CLI. Everything else in ADR 0014 stands.
     task files change at once (a rebase, a checkout). Close `board` first.
   - #919: `task create --milestone <name>` with a name that matches no
     milestone silently makes a "virtual" one. Create the milestone first,
-    pass its exact name or id, and check with `milestone list`.
+    pass its id, and check with `milestone list`.
   - #1186: `task edit --title` leaves the file name with the old slug.
   - #1181: `task list --status <unknown>` exits 0 with an empty list, so a
     misspelt status looks like no tasks.

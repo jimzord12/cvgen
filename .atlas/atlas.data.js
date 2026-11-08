@@ -70,8 +70,8 @@ window.ATLAS = {
     ],
     "sources": [
      "docs/development.md:10-22",
-     "docs/development.md:57-75",
-     "docs/development.md:126-138"
+     "docs/development.md:61-79",
+     "docs/development.md:130-142"
     ],
     "short": "Claude"
    },
@@ -183,7 +183,7 @@ window.ATLAS = {
     ],
     "sources": [
      ".claude/agents/code-reviewer.md:1-7",
-     "docs/review.md:129-147"
+     "docs/review.md:130-148"
     ],
     "short": "Code rev."
    },
@@ -360,7 +360,7 @@ window.ATLAS = {
     "role": "Reads and updates the tasks in `backlog/` through the `backlog` CLI, and reads and rewrites the `session-handoff` doc on `main`. Every task's record is a task file.",
     "when": "Orientation, and every task state change.",
     "sources": [
-     ".claude/skills/backlog/SKILL.md:1-150"
+     ".claude/skills/backlog/SKILL.md:1-155"
     ]
    },
    "repo-maintenance": {
@@ -447,8 +447,8 @@ window.ATLAS = {
     "kind": "service",
     "role": "The task store (Backlog.md 1.55.3, ADR 0014 amended by 0017): one file per task, each in one milestone with a done-condition, statuses Queued, Active, Review, Ready, Done, label `blocked`; progress is read by milestone. The `session-handoff` doc is where every session starts. Boards: `backlog board`, `backlog browser`.",
     "sources": [
-     ".claude/skills/backlog/SKILL.md:1-38",
-     "docs/development.md:24-55",
+     ".claude/skills/backlog/SKILL.md:1-39",
+     "docs/development.md:24-59",
      "docs/decisions/0014-backlog-md-task-store.md",
      "docs/decisions/0017-backlog-md-1-55-3.md"
     ],
@@ -1579,7 +1579,7 @@ window.ATLAS = {
        ],
        "note": "Model step `research.cap-reached`, action `manual.decide-at-cap`, in `docs/workflow/03-research/stage.yaml`.",
        "sources": [
-        "docs/review.md:204-208",
+        "docs/review.md:205-209",
         "docs/workflow/03-research/README.md:70-73"
        ]
       }
@@ -1891,7 +1891,7 @@ window.ATLAS = {
        "note": "Model step `text-draft.cap-reached`, action `manual.decide-at-cap`, in `docs/workflow/04-text-draft/stage.yaml`.",
        "sources": [
         "docs/workflow/README.md:28-32",
-        "docs/review.md:204-208"
+        "docs/review.md:205-209"
        ]
       }
      ]
@@ -2510,7 +2510,7 @@ window.ATLAS = {
        ],
        "note": "Model step `design.engine-revise`, action `lead.revise-engine-change`, in `docs/workflow/05-design/stage.yaml`.",
        "sources": [
-        "docs/review.md:196-203"
+        "docs/review.md:197-204"
        ]
       },
       {
@@ -2631,7 +2631,7 @@ window.ATLAS = {
        "sources": [
         "docs/workflow/05-design/README.md:59-64",
         ".claude/skills/idea-run/SKILL.md:74-77",
-        "docs/review.md:204-208"
+        "docs/review.md:205-209"
        ]
       }
      ]
@@ -3042,7 +3042,7 @@ window.ATLAS = {
        ],
        "note": "Model step `deliver.cap-reached`, action `manual.decide-at-cap`, in `docs/workflow/06-deliver/stage.yaml`.",
        "sources": [
-        "docs/review.md:204-208"
+        "docs/review.md:205-209"
        ]
       }
      ]
@@ -3519,7 +3519,7 @@ window.ATLAS = {
        ],
        "sources": [
         ".claude/skills/idea-run/SKILL.md:86-98",
-        "docs/review.md:52-66"
+        "docs/review.md:52-67"
        ]
       },
       {
@@ -3635,7 +3635,7 @@ window.ATLAS = {
         "backlog"
        ],
        "sources": [
-        "docs/development.md:57-75",
+        "docs/development.md:61-79",
         "docs/proposals/README.md:46-51",
         "docs/proposals/README.md:89-97"
        ]
@@ -3656,8 +3656,8 @@ window.ATLAS = {
         "backlog"
        ],
        "sources": [
-        "docs/development.md:40-55",
-        "docs/development.md:138-230"
+        "docs/development.md:44-59",
+        "docs/development.md:142-236"
        ]
       }
      ]
@@ -3696,7 +3696,7 @@ window.ATLAS = {
        ],
        "sources": [
         "docs/conventions.md:6-11",
-        "docs/development.md:232-239",
+        "docs/development.md:238-245",
         "docs/framework-gaps.md:3-6",
         ".claude/skills/verify-cv/SKILL.md:10-19"
        ]
@@ -3738,9 +3738,9 @@ window.ATLAS = {
        ],
        "note": "Only spelling, comments, formatting or a glossary row skip the round, and record-keeping commits (storing reports, merging reviewed work).",
        "sources": [
-        "docs/review.md:7-66",
-        "docs/review.md:83-103",
-        "docs/review.md:161-180",
+        "docs/review.md:7-67",
+        "docs/review.md:84-104",
+        "docs/review.md:162-181",
         "docs/review.md",
         "archive/work-records/anti-examples/reviews/01-context.md"
        ]
@@ -3761,7 +3761,7 @@ window.ATLAS = {
         "Renaming the task never resets the round count."
        ],
        "sources": [
-        "docs/review.md:184-221"
+        "docs/review.md:185-222"
        ]
       }
      ]
@@ -3815,7 +3815,7 @@ window.ATLAS = {
         "repo-maintenance"
        ],
        "sources": [
-        "docs/development.md:89-120"
+        "docs/development.md:93-124"
        ]
       },
       {
@@ -3830,7 +3830,7 @@ window.ATLAS = {
         "backlog"
        ],
        "sources": [
-        "docs/development.md:122-136"
+        "docs/development.md:130-142"
        ]
       },
       {
@@ -4261,7 +4261,7 @@ window.ATLAS = {
        "actor": "board",
        "blurb": "Every task is a Backlog.md file in one milestone; sessions start at the `session-handoff` doc on `main`.",
        "sources": [
-        ".claude/skills/backlog/SKILL.md:1-38"
+        ".claude/skills/backlog/SKILL.md:1-39"
        ]
       },
       {
@@ -4479,35 +4479,35 @@ window.ATLAS = {
     "Two steps run on Codex (your ChatGPT plan), not Claude: the `codex-visual-reviewer` (GPT-6 Astra, through a Sonnet wrapper) and the image step (GPT-6 Sol), built 2026-10-22."
    ],
    "sources": [
-    "docs/review.md:137-152"
+    "docs/review.md:138-153"
    ]
   }
  ],
  "build": {
-  "builtAt": "2026-11-08 09:12 UTC",
-  "commit": "ac27171",
+  "builtAt": "2026-11-08 09:19 UTC",
+  "commit": "d9d99bb",
   "kit": "1.1",
   "stale": {},
   "verified": {
    "client-journey": {
     "at": "2026-11-08",
-    "commit": "ac27171"
+    "commit": "d9d99bb"
    },
    "design-run": {
     "at": "2026-11-08",
-    "commit": "ac27171"
+    "commit": "d9d99bb"
    },
    "change-review": {
     "at": "2026-11-08",
-    "commit": "ac27171"
+    "commit": "d9d99bb"
    },
    "system-map": {
     "at": "2026-11-08",
-    "commit": "ac27171"
+    "commit": "d9d99bb"
    },
    "roster": {
     "at": "2026-11-08",
-    "commit": "ac27171"
+    "commit": "d9d99bb"
    }
   }
  }

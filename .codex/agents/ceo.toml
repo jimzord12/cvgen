@@ -71,7 +71,7 @@ business.
 - The tasks and their milestones: the lists the lead pastes into your brief
   (`backlog task list --plain`, `backlog milestone list --plain
   --show-completed`; you never run the `backlog` CLI or touch `backlog/`
-  yourself). Name the milestone an idea would serve, or say it needs a new one
+  yourself)
 - What the product looks like today: the `Release` PDFs beside the entry
   points in `examples/marine/flagship/`, `docs/images/`
 - Your previous run records under `archive/work-records/idea-runs/`, so you do not
@@ -93,7 +93,8 @@ research-reviewer will check it.
 - Fits the vision and the premium niche; nothing from "What it is not".
 - The smallest version that could ship in days, not the grand version.
 - Honest cost (days of agent work, new dependencies, owner time) and risk.
-- A roadmap slot: before, after or replacing a Direction item, with why.
+- A roadmap slot: before, after or replacing a Direction item, with why,
+  and the `Milestone` it would serve, or that it needs a new one.
 - Not a duplicate. If it extends an existing item or a rejected proposal,
   say what is new.
 

@@ -11,9 +11,10 @@ backlog.md@1.55.3`). Tasks are Markdown files in `backlog/tasks/`,
 milestones in `backlog/milestones/`, the session handoff is
 `backlog/docs/doc-1 - session-handoff.md`, and the config is
 `backlog/config.yml`. Workflow rules (stages, the task record, what a task
-may and may not prove) are in `docs/development.md`; this skill only covers
-mechanics, and `docs/development.md` also says what a milestone is. No MCP server and no network: the CLI reads and writes files, and
-`auto_commit` is off, so every change is committed by you.
+may and may not prove, what a milestone is) are in `docs/development.md`;
+this skill only covers mechanics. No MCP server and no network: the CLI
+reads and writes files, and `auto_commit` is off, so every change is
+committed by you.
 
 ## Reading
 
@@ -36,6 +37,11 @@ branches touched in the last 30 days (`check_active_branches`), so they
 show work in progress before it merges. Remote branches are only as fresh
 as your last `git fetch` (the CLI never fetches: `remote_operations` is off),
 so fetch first. A branch untouched for longer drops out of that view.
+
+In orientation, also check that every task has a real milestone:
+`grep -L "^milestone:" backlog/tasks/*.md` names only tasks a branch is
+working on, and every `milestone:` id in the tasks is in `milestone list`
+(a name instead of an id is #919's virtual milestone, below).
 
 ## Writing
 
@@ -75,16 +81,14 @@ backlog task edit TASK-N --add-label blocked --plain        # and --remove-label
 
 ```powershell
 backlog milestone add "<Outcome>" -d "Done when <one-line done-condition>."
-backlog milestone rename m-N "<New name>"        # updates the tasks in this checkout only
+backlog milestone rename m-N "<New name>"
 backlog milestone archive m-N                    # only when nothing more is planned for it
 ```
 
 A milestone file is never written by hand. Its name uses the glossary's
-words and its description holds the done-condition. Tasks store the id, so
-a rename leaves them pointing at the right milestone, but the CLI updates
-only the tasks it can see in this checkout: a task on another branch keeps
-its old value until that branch changes it. Milestone files are
-record-keeping and go to `main` like a new Queued task.
+words and its description holds the done-condition. Tasks store the id,
+which a rename keeps, so a rename changes nothing in them. Milestone files
+are record-keeping and go to `main` (below).
 
 ## Known CLI issues (1.55.3)
 
@@ -98,12 +102,13 @@ record-keeping and go to `main` like a new Queued task.
 ## Which branch a task change goes on
 
 A task a branch is working on changes only on that branch, committed with
-its work. Two kinds of record commit go straight to `main`, by the route
-below: the session-handoff doc, and edits to tasks no branch is working on
-(a new Queued task, a cancellation, the move to Done after a merge into
-`main`; a child task's Done goes on its parent branch). Both are
-record-keeping (`docs/review.md`). Create new tasks and milestones on `main`; an abandoned
-branch's task is cancelled on `main` (`docs/development.md`).
+its work. Three kinds of record commit go straight to `main`, by the route
+below: the session-handoff doc, edits to tasks no branch is working on (a
+new Queued task, a cancellation, the move to Done after a merge into
+`main`; a child task's Done goes on its parent branch), and the milestone
+files. All three are record-keeping (`docs/review.md`). Create new tasks
+and milestones on `main`; an abandoned branch's task is cancelled on `main`
+(`docs/development.md`).
 
 **Route to `main`.** Always from a checkout that has `main` itself checked
 out, pushed with plain `git push origin main`: the owner's local settings

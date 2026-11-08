@@ -68,8 +68,8 @@
       ],
       "sources": [
         "docs/development.md:10-22",
-        "docs/development.md:57-75",
-        "docs/development.md:126-138"
+        "docs/development.md:61-79",
+        "docs/development.md:130-142"
       ],
       "short": "Claude"
     },
@@ -181,7 +181,7 @@
       ],
       "sources": [
         ".claude/agents/code-reviewer.md:1-7",
-        "docs/review.md:129-147"
+        "docs/review.md:130-148"
       ],
       "short": "Code rev."
     },
@@ -358,7 +358,7 @@
       "role": "Reads and updates the tasks in `backlog/` through the `backlog` CLI, and reads and rewrites the `session-handoff` doc on `main`. Every task's record is a task file.",
       "when": "Orientation, and every task state change.",
       "sources": [
-        ".claude/skills/backlog/SKILL.md:1-150"
+        ".claude/skills/backlog/SKILL.md:1-155"
       ]
     },
     "repo-maintenance": {
@@ -445,8 +445,8 @@
       "kind": "service",
       "role": "The task store (Backlog.md 1.55.3, ADR 0014 amended by 0017): one file per task, each in one milestone with a done-condition, statuses Queued, Active, Review, Ready, Done, label `blocked`; progress is read by milestone. The `session-handoff` doc is where every session starts. Boards: `backlog board`, `backlog browser`.",
       "sources": [
-        ".claude/skills/backlog/SKILL.md:1-38",
-        "docs/development.md:24-55",
+        ".claude/skills/backlog/SKILL.md:1-39",
+        "docs/development.md:24-59",
         "docs/decisions/0014-backlog-md-task-store.md",
         "docs/decisions/0017-backlog-md-1-55-3.md"
       ],

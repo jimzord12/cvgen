@@ -36,7 +36,7 @@ specialty, tour escort Rank. Use fictional facts. Follow the repo's idea-run
 skill, including fresh research-reviewer and design-reviewer agents per round.
 ```
 
-The lead owns delegation, Git, the task store (`backlog/`), report persistence and round limits. A Codex session reads tasks as the Markdown files in `backlog/tasks/`, each naming its milestone from `backlog/milestones/`, (or `backlog task list --plain` where its sandbox allows the command; the hardened `codex exec` flags refuse it, checked 2026-10-06).
+The lead owns delegation, Git, the task store (`backlog/`), report persistence and round limits. A Codex session reads tasks as the Markdown files in `backlog/tasks/`, each naming its milestone from `backlog/milestones/` (or `backlog task list --plain` where its sandbox allows the command; the hardened `codex exec` flags refuse it, checked 2026-10-06).
 Reviewers return reports; the lead saves them unchanged. Give each agent the
 exact snapshot and the minimum context its role requires. No role delegates.
 

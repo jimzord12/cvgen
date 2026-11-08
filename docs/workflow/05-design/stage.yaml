@@ -214,7 +214,7 @@ steps:
 
   - id: design.engine-revise
     name: Fix the engine change
-    sources: ["docs/review.md:196-203"]
+    sources: ["docs/review.md:197-204"]
     actor: actor.lead
     action: lead.revise-engine-change
     inputs: [art.engine-review-report]
@@ -257,7 +257,7 @@ steps:
 
   - id: design.cap-reached
     name: At a loop's cap, the owner decides
-    sources: ["docs/workflow/05-design/README.md:59-64", ".claude/skills/idea-run/SKILL.md:74-77", "docs/review.md:204-208"]
+    sources: ["docs/workflow/05-design/README.md:59-64", ".claude/skills/idea-run/SKILL.md:74-77", "docs/review.md:205-209"]
     actor: actor.owner
     action: manual.decide-at-cap
 
@@ -306,7 +306,7 @@ gates:
 
   - id: gate.engine-review
     name: Engine change review
-    sources: ["docs/review.md:191-208", "docs/proposals/workflow-model.md:59"]
+    sources: ["docs/review.md:192-209", "docs/proposals/workflow-model.md:59"]
     check: A fresh code-reviewer returns PASS (no Blocking or Material finding) on the engine change.
     pass: design.preview
     fail: design.engine-revise
@@ -335,7 +335,7 @@ loops:
 
   - id: loop.engine-review
     name: Engine change review rounds
-    sources: ["docs/review.md:204-208"]
+    sources: ["docs/review.md:205-209"]
     gate: gate.engine-review
     cap: { attended: 5, unattended: 10 }
     escalate: design.cap-reached
@@ -477,7 +477,7 @@ artifacts:
 
   - id: art.engine-review-report
     name: The engine change's review report
-    sources: ["docs/review.md:228-231"]
+    sources: ["docs/review.md:229-232"]
     path: archive/work-records/<task-slug>/reviews/NN-<reviewer>.md
     format: code-reviewer report, PASS or FINDINGS
     visibility: public
@@ -532,7 +532,7 @@ actions:
   - id: agent.code-reviewer
     kind: agent
     name: A fresh code-reviewer round
-    sources: [".claude/agents/code-reviewer.md:1-6", "docs/review.md:191-208"]
+    sources: [".claude/agents/code-reviewer.md:1-6", "docs/review.md:192-209"]
     agent: code-reviewer
 
   - id: lead.integrate-run
@@ -626,7 +626,7 @@ actions:
   - id: lead.revise-engine-change
     kind: lead
     name: Fix the engine change
-    sources: ["docs/review.md:196-203"]
+    sources: ["docs/review.md:197-204"]
     does: Fixes the Blocking and Material findings and reruns the affected checks before the next fresh round.
 
   - id: lead.compile-previews
