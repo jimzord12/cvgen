@@ -54,8 +54,8 @@ unattended up to Major:
 | Grade | What | Who |
 |---|---|---|
 | Minor | Everything under "Agents decide and do" below that Major does not name | The agent decides, and reports as that bullet says |
-| Major | Architecture inside an approved proposal or item, a contract's details, splitting tasks, deleting a file or folder Git holds during approved work (owner, 2026-11-08) | The agent decides and lists it in the final report |
-| Critical | Everything under "He decides" and "Still needs his explicit go" below, and any deletion of a file or folder Git does not hold, which the agent lists for him to approve | He decides, even when a run is unattended |
+| Major | Architecture inside an approved proposal or item, a contract's details, splitting tasks, deleting a file or folder committed to this repository's Git during approved work, except what Critical names (owner, 2026-11-08) | The agent decides and lists it in the final report |
+| Critical | Everything under "He decides" and "Still needs his explicit go" below, and any other deletion of a file, folder or ref that neither Major nor the agents' bullet names; files Git does not hold go on a list for him to approve | He decides, even when a run is unattended |
 
 - **He decides:** what the product is, what gets built next, what an approved
   look is, approval of a real client's PDF, changes to the rules in
@@ -71,9 +71,11 @@ unattended up to Major:
   design choices, the order of work,
   and all routine Git and task-store work: commits, pushes, merges into `main`,
   amend, rebase, reset, force-push of a feature branch
-  (`--force-with-lease`), branch and tag creation, deleting merged or
-  abandoned branches locally and on GitHub once checked that they hold no unmerged work, deleting tags other than
-  `archive/*`, `git worktree` add, remove and prune (a worktree's ignored evidence moved to the main `builds/` first), clearing `builds/` by
+  (`--force-with-lease`), branch and tag creation, deleting branches locally
+  and on GitHub once checked that they are merged or hold no unmerged work
+  that matters (owner, 2026-11-08), deleting tags other than `archive/*`,
+  `git worktree` add, and remove and prune once its branch is merged and it
+  holds no uncommitted work, clearing `builds/` by
   path (never `git clean -x` or `-X`, which would also wipe the ignored
   `private/` and `.local/`), removing what the same run made and dropped on its branch, editing a candidate workspace's `envelope.json`, `candidate.json`,
   `README.md`, the `typst/` sources, the portrait in `images/portrait/` and the client workflow's

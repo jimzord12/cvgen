@@ -61,8 +61,9 @@ Every agent that designs, reviews or proposes works from this section.
 - **`Flagship Parity`.** The bar is the Marine Flagship: beautiful, elegant, confident, unique,
   premium, and unmistakably marine (a portrait framed by engine-room tools,
   a ship and a propeller drawn into the page).
-- **The `Scan Test` and the `scan-first` bar (owner, 2026-11-04).** For ordinary
-  jobs, a `Client` may choose one clear page over a showpiece. A `Template
+- **The `Scan Test` and the `scan-first` bar (owner, 2026-11-04).** When a
+  `Client` needs a practical one-page CV, the operator may choose one clear
+  page over a showpiece, whatever the `Rank` (owner, 2026-11-08). A `Template
   Variation` is held to the `scan-first` bar only when the owner set it on approving
   that design, and then passes the `Scan Test` instead of the
   `Three-Second Test`: a reader finds the name, each job's title, employer and

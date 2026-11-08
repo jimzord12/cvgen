@@ -2613,7 +2613,7 @@ window.ATLAS = {
        "sources": [
         "docs/workflow/05-design/README.md:57-58",
         ".claude/skills/new-cv/SKILL.md:63",
-        "docs/preferences.md:76-78",
+        "docs/preferences.md:78-80",
         ".claude/agents/design-reviewer.md:49-53"
        ]
       },
@@ -3207,7 +3207,7 @@ window.ATLAS = {
        "sources": [
         "docs/workflow/07-after/README.md:27-34",
         "docs/guides/client-workflow.md:205-230",
-        "docs/preferences.md:84-92",
+        "docs/preferences.md:86-94",
         "docs/proposals/workflow-gaps.md:37",
         "docs/proposals/workflow-gaps.md:71"
        ]
@@ -3245,7 +3245,7 @@ window.ATLAS = {
        "note": "Model step `after.revision-cleanup`, action `manual.go-remove-revisions`, in `docs/workflow/07-after/stage.yaml`.",
        "sources": [
         "docs/pdf-workflow.md:215-218",
-        "docs/preferences.md:90-92",
+        "docs/preferences.md:92-94",
         "docs/workflow/GAPS.md:29-32"
        ]
       }
@@ -3788,7 +3788,7 @@ window.ATLAS = {
        "note": "Yours only, with the exact command shown first, including: deleting or force-pushing `main`, rewriting its published history, rewriting the private repo's history (the delete-by erase, which you run), `archive/*` tags, repo settings (public and private repo), deleting under `private/` or `.local/` or outside the repo, removing revisions, approvals, exports or portraits, replacing the `Release`.",
        "sources": [
         "docs/git-workflow.md:91-104",
-        "docs/preferences.md:66-96",
+        "docs/preferences.md:66-98",
         ".github/workflows/verify.yml"
        ]
       }
@@ -3844,7 +3844,7 @@ window.ATLAS = {
        },
        "sources": [
         "docs/preferences.md:60-62",
-        "docs/preferences.md:102"
+        "docs/preferences.md:104"
        ]
       }
      ]
@@ -4483,30 +4483,30 @@ window.ATLAS = {
   }
  ],
  "build": {
-  "builtAt": "2026-11-04 21:40 UTC",
-  "commit": "b87fba0",
+  "builtAt": "2026-11-08 08:49 UTC",
+  "commit": "0ea5f6f",
   "kit": "1.1",
   "stale": {},
   "verified": {
    "client-journey": {
-    "at": "2026-11-04",
-    "commit": "b87fba0"
+    "at": "2026-11-08",
+    "commit": "0ea5f6f"
    },
    "design-run": {
     "at": "2026-11-04",
     "commit": "b87fba0"
    },
    "change-review": {
-    "at": "2026-11-04",
-    "commit": "b87fba0"
+    "at": "2026-11-08",
+    "commit": "0ea5f6f"
    },
    "system-map": {
-    "at": "2026-11-04",
-    "commit": "b87fba0"
+    "at": "2026-11-08",
+    "commit": "0ea5f6f"
    },
    "roster": {
-    "at": "2026-11-04",
-    "commit": "b87fba0"
+    "at": "2026-11-08",
+    "commit": "0ea5f6f"
    }
   }
  }

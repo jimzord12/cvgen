@@ -77,8 +77,8 @@ None of this approves a pending product design.
   Branch checkpoints can be unfinished overall if their limitations are clear;
   unfinished or unverified work does not belong on `main`.
 - Amend, rebase, reset, force-push of a feature branch (`--force-with-lease`),
-  branch deletion and deleting tags other than `archive/*` are agent
-  decisions. Never rewrite or force-push published `main`, and never delete
+  branch deletion (once checked as `preferences.md` says) and deleting tags
+  other than `archive/*` are agent decisions. Never rewrite or force-push published `main`, and never delete
   or move an `archive/*` tag; those stay with the owner.
 - Clear `builds/` by path. Never run `git clean -x` or `-X`: they also wipe
   the ignored `private/` and `.local/` folders.
