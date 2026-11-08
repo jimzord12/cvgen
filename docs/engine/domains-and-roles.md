@@ -82,6 +82,15 @@ number of trips, their days added up, and the distinct stops by name (a stop
 on two trips counts once). Hanami prints the trip count on the region's seal
 and never counts the cards it shows.
 
+The travel facts (`schema/candidate.schema.json`, `data.typ`) follow
+`Domain Contract` version 1 or 2, by the record's `domainContract`. Version 2
+adds each trip's `Trip Role` (`role`: `led`, `organised` or `travelled`;
+required on every trip there) and the optional `licences` (`title`, `issuer`,
+`region`, `until`); a version 1 record holds neither, and `data.typ` refuses
+either on it. The words for a role and a licence are the domain's `copy`
+(`role-led`, `role-organised`, `role-travelled`, `licence`, `valid-until`).
+The rules are in `template-contract.md`, "Domain Contracts".
+
 ## Adding a domain without touching marine
 
 `travel` was added this way on 2026-11-08 (P-0013), from the first travel
@@ -97,8 +106,8 @@ packages/domains/travel/
   domain.typ            id, meta, copy, experience (its own row model)
   data.typ              normalize-candidate = normalize-common + the domain's sections; validate-candidate
   schema/               the domain's candidate-facts contract
-  contracts/v1.json     its Domain Contract, extending the Base Contract
-  fixtures/             its Coverage Fixture and markers
+  contracts/v<N>.json   its Domain Contract versions, extending the Base Contract (travel: v1, v2)
+  fixtures/             its Coverage Fixtures and markers, one per version
   assets/               its SVG files
   templates/<design>/   a first template with its template.json, adapter, components, themes, artwork, layouts, tests/approved
 examples/travel/<design>/*.typ

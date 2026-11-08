@@ -65,11 +65,16 @@ Windows one also holds the PDFs that build wrote, one per example in
    pixel for pixel with identical text on both pages (a `Frozen Reference`
    candidate until the owner approves it), carry its name, rank and the domain's
    title as PDF metadata, and have no sakura petal on a word (`tests/travel.py`).
+   The twin follows travel contract version 2: both trips read "Organised", none
+   "Led the group", and its licence is on page 2.
    The `travel.typ` fixture renders the Indigo and Sky themes and a record without
-   a portrait (initials in the ring) with the same words, asserts the totals
+   a portrait (initials in the ring) with the same words, the twin as a version 1
+   record (no role, no licence: page 1 the same words, page 2 without them), asserts the totals
    (2 trips, 30 days, 14 distinct stops), and fails on a record without
    destinations, a date that is not MM/YYYY, an overflowing page 1, a name wider
-   than the plate, and an unknown `Template Variation`.
+   than the plate, an unknown `Template Variation`, a trip role or a licence on a
+   version 1 record, a version 2 trip without a role or with an unknown one, a
+   licence date that is not "14 Jul 2029" and an unknown `domainContract`.
 7. **Every PDF.** Expected page count, no empty page, all fonts embedded, no
    text outside the page. Every compile reads only the bundled fonts
    (`--ignore-system-fonts --font-path packages/cv-framework/fonts`, plus
@@ -113,7 +118,10 @@ Windows one also holds the PDFs that build wrote, one per example in
    `Domain`'s facts schema and adds only `copy`;
    a record with vessel particulars is accepted and a `hp` power unit refused.
    A contract record with three certificate headings and skills goes through
-   the same schema check.
+   the same schema check. The travel facts schema reads both contract versions:
+   the twin without its roles and licence passes as version 1; a licence or a
+   trip role on a version 1 record, a version 2 trip without a role and a
+   licence date that is not "14 Jul 2029" are refused, each on its message.
 
 10. **Framework boundary.** Every `import`/`include` in `packages/cv-framework/core/*.typ` names a bare sibling file; `packages/cv-framework/lib.typ` imports only `core/` files; no Framework `.typ` file names a `domains/` path outside a comment; every domain file that imports a core file does so through `cv-framework/core/` (ADR 0011, 0012). Outside comments, Framework code also uses no marine, travel, Flagship or Hanami word (vessel, ship, marine, flagship, synopsis, rank, travel, tour, trip, destination, hanami, sakura, torii, ...) or Flagship layout key (`opening-margin`, `band-height`, ...), reads no layout key or artwork slot it does not own (an allowlist: `paper`, `width`, `height`, `shell`, `header`, `footer`; `background-first`, `background-continuation`) or theme colour it does not own (`ink`, `accent`, `metal`, `muted`, `paper`, and `hero` for the shell's optional band), names no Flagship colour (`hero`, `plate`, `on-hero`, `surface`, `rule`) as a string, so the core theme check cannot require one (TASK-59), and holds no colour literal: a hex string, a colour constructor (`rgb`, `cmyk`, `luma`, `oklab`, `oklch`, `hsl`, `hsv`, `linear-rgb`) or a named colour other than `white` and `black` (TASK-45). Comments are removed by a scan that also matches string literals, so `//` inside a string does not hide the rest of its line.
 
@@ -225,7 +233,12 @@ Windows one also holds the PDFs that build wrote, one per example in
    `schemaVersion` no rendered version has fails (`unproved`), so every claim is proved. Then the judging
    itself and the checks before a render, each refusal on its message, on the
    marine contract and on the travel one (Hanami chosen, certificates dropped,
-   a missing rank refused). Each
+   a missing rank refused). Travel at version 2: a version 1 record renders on
+   showcase; on a `Template Variation` up to version 1 a version 2 record holding
+   destinations is refused and one without them renders with the behind
+   warning and licences dropped; a version 2 Variation that does not claim
+   licences drops them with a warning; an expired or soon-expiring licence is a
+   `Certificate Warning`. Each
    Variation's place against its `Domain`'s newest contract (behind, never a
    failure) is in `coverage/compatibility.txt`; every `Domain`'s kept contracts
    must be whole and unbroken, and `oldestSupported` must not pass a version an

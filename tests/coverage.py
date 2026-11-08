@@ -210,7 +210,7 @@ def run_coverage(out, typst, flags):
     assert on('plain', older)[0]['dropped'] == [] and not on('plain', older)[1]
     # What `cv.py contracts` says of each: showcase renders both versions; calm is one behind.
     assert describe(compatibility('travel', 'hanami', 'calm', travel_design['variations']['calm'])) == [
-        'hanami calm on travel: renders version 1, newest 2; 6 of 10 optional groups at version 2',
+        'hanami calm on travel: renders version 1, newest 2; 7 of 10 optional groups at version 2',
         '  1 version behind: a version 2 record can stop the render',
         '  - destinations changed (schemaVersion 1 to 2): error when the record holds it',
         '  - licences is a new optional group by version 2: warning']

@@ -18,7 +18,8 @@ manifest). A one-off in an `Envelope` has none of this.
 Today two `Template`s have one: Flagship (marine) and Hanami (travel, P-0013),
 each with the single `Template Variation` `showcase`. Hanami reads the travel
 facts record itself; the travel facts contract carries the record's `copy`, so it
-needs no input schema of its own.
+needs no input schema of its own. Hanami `showcase` renders travel versions 1
+and 2.
 
 ## Domain Contracts
 
@@ -47,6 +48,25 @@ The travel contract (`domains/travel/contracts/v1.json`) makes `rank` required
 base's `profile` with the lead statement and its highlight cells, and keeps
 `portrait` optional, as marine does.
 
+Travel is the first `Domain` at version 2 (`contracts/v2.json`, TASK-80), and
+the worked example of the rules above:
+
+- `destinations` rises to `schemaVersion` 2. Every trip states its `Trip Role`
+  in `role`: `led` (led a group), `organised` (planned it, for others or for
+  themselves) or `travelled` (went as a traveller). The field is required
+  within the group, a new required field, so the `schemaVersion` rises; the
+  path `destinations.trips.*.role` names it. Recruiters weigh a led group, and
+  a self-organised trip must never read as one.
+- `licences` is a new optional group at `schemaVersion` 1: official
+  tour-leader or guide licences, each with a `title` and `issuer`, and an
+  optional `region` and `until` ("14 Jul 2029"). A date in `until` is read at
+  render: an expired or soon-expiring licence is a `Certificate Warning`.
+- Version 1 is kept and `oldestSupported` is not set, so a version 1 record
+  renders as before. The facts schema and `data.typ` read both shapes by
+  `domainContract`: a version 1 record holding a role or a licence is refused
+  and told to set `domainContract` to 2; a version 2 trip without a role is
+  refused.
+
 ## Template Manifests
 
 Each `Template Variation` under `variations` states `pages`, its `designBar`
@@ -62,6 +82,12 @@ required to name the newest version.
 ```json
 "supports": { "travel": { "exactly": [1, 2], "groups": ["destinations@1", "destinations@2", "licences@1"] } }
 ```
+Hanami `showcase` declares exactly that line, as `upTo: 2`: it renders both
+shapes of `destinations` (no role on a version 1 trip, a role label beside a
+version 2 trip's length) and shows a licence above the studies. A Variation
+that stays at version 1 claims `destinations@1` only; see the next section for
+what a version 2 record meets there.
+
 A `Template Variation` inherits and never copies; it declares only what differs,
 and its `designBar` is set when the owner approves the design.
 
@@ -112,6 +138,12 @@ A warning names how many versions behind the `Template Variation` is. An error
 lists every difference that stops it and the fix: update the `Template`, keep
 the record on a version it renders, or pick another `Template Variation`. A new
 field shown nowhere goes into the `Meta File`'s `dropped` as `group: path`.
+
+On travel, a version 2 record on a `Template Variation` up to version 1 that
+claims `destinations@1` is refused when it holds destinations
+(`destinations changed (schemaVersion 1 to 2), and this record holds it`);
+without destinations it renders one version behind, and its licences, a new
+group the Variation does not show, are `dropped`.
 
 `python scripts/cv.py contracts` (`--json` for the data) prints each `Template
 Variation` against its `Domain`s' newest contract: the versions it renders, how
