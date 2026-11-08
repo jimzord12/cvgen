@@ -74,7 +74,7 @@
    "verifiedAt": "2026-11-08"
   },
   "roster": {
-   "commit": "3400194",
+   "commit": "bd4a4ab",
    "sources": {
     ".claude/agents/ceo-reviewer.md": "8b0ce89d0cf745923ec296c9034c1f8e5958d42b",
     ".claude/agents/ceo.md": "4fec7c781ea76a4faba820f013880f62f0799168",
@@ -103,7 +103,7 @@
     "docs/decisions/0014-backlog-md-task-store.md": "cdd5f82fdbb21c38e5ed6c06c07082136e822221",
     "docs/decisions/0017-backlog-md-1-55-3.md": "5ab727aa0ee8dba26cfff8bf06615f2173dc1621",
     "docs/development.md": "0e4faad2fea188680eb98bc3ae92613f683266ad",
-    "docs/engine/verification.md": "3d487e471880f57a867b2c63d283a7be33ecea0c",
+    "docs/engine/verification.md": "658d47cd90395ed8d27b0acc31f5185923b97ee3",
     "docs/git-workflow.md": "9e8272c67b377419c7fdb333a4572e447a0428c0",
     "docs/guides/build-a-cv.md": "457942e92920215c3a3fd7115e197d41b4ea588d",
     "docs/guides/client-workflow.md": "221675bd00c8fcd72c6bf922968a96860d7f59c0",
@@ -120,12 +120,12 @@
     "scripts/cv.py": "e0d7f96de4cc36295bb543aab2e1402c7932394d",
     "scripts/intake-form.gs": "48f0db692a6c1d08644cf0452d04291ffbee9828",
     "scripts/outputs.py": "23a4edfb8730fe24462bd0507f37da64673e801c",
-    "tests/run.py": "d672359e6bb37346518817fd1eec2aa04860f166"
+    "tests/run.py": "2f77145a86a605794137e7b9a4a5ec1b898f54a6"
    },
    "verifiedAt": "2026-11-08"
   },
   "system-map": {
-   "commit": "3400194",
+   "commit": "bd4a4ab",
    "sources": {
     ".claude/agents": "dir1:d86ac8b44b9896473ff12ecdbc91538ae34a8852",
     ".claude/skills": "dir1:5eeafda0c9ef9a6037a3fcc2879f73f098fa3e55",
@@ -137,7 +137,7 @@
     "docs": "dir1:139adff443cb7a07dd0d5fae04941c8c0785eb30",
     "docs/architecture.md": "41c400d2063c7d6e3b42de99e53afabec98a84e5",
     "docs/engine/domains-and-roles.md": "bdcf43604f7a01d7fa8e8e84423458fc67f2fd36",
-    "docs/engine/verification.md": "3d487e471880f57a867b2c63d283a7be33ecea0c",
+    "docs/engine/verification.md": "658d47cd90395ed8d27b0acc31f5185923b97ee3",
     "docs/git-workflow.md": "9e8272c67b377419c7fdb333a4572e447a0428c0",
     "docs/glossary.md": "986932503dd1d8956559b4265db3ef0d06b095b3",
     "docs/guides/build-a-cv.md": "457942e92920215c3a3fd7115e197d41b4ea588d",
@@ -159,7 +159,7 @@
     "studio/archive/design-studies/README.md": "8ff17720c063fe67cae653d40c4d2973f4742117",
     "studio/brand/README.md": "ed93bfbff30149cefea7b8b6a62431d179450f7d",
     "studio/design-concepts/README.md": "6f9c35abb0affbc80fe19a474d22554a833d1338",
-    "tests/run.py": "d672359e6bb37346518817fd1eec2aa04860f166"
+    "tests/run.py": "2f77145a86a605794137e7b9a4a5ec1b898f54a6"
    },
    "verifiedAt": "2026-11-08"
   }
