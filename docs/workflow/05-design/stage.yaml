@@ -250,7 +250,7 @@ steps:
 
   - id: design.clear-review-input
     name: Clear the previews from builds/
-    sources: ["docs/workflow/05-design/README.md:67-68", ".claude/skills/new-cv/SKILL.md:75", "docs/preferences.md:81-83", ".claude/agents/design-reviewer.md:52-56"]
+    sources: ["docs/workflow/05-design/README.md:67-68", ".claude/skills/new-cv/SKILL.md:75", "docs/preferences.md:80-82", ".claude/agents/design-reviewer.md:52-56"]
     actor: actor.lead
     action: lead.clear-review-input
     inputs: [art.design-review-report]
@@ -658,7 +658,7 @@ actions:
   - id: lead.clear-review-input
     kind: lead
     name: Clear the previews
-    sources: ["docs/workflow/05-design/README.md:67-68", ".claude/skills/new-cv/SKILL.md:75", "docs/preferences.md:81-83", ".claude/agents/design-reviewer.md:52-56"]
+    sources: ["docs/workflow/05-design/README.md:67-68", ".claude/skills/new-cv/SKILL.md:75", "docs/preferences.md:80-82", ".claude/agents/design-reviewer.md:52-56"]
     does: >-
       Deletes the builds/design-review-input-* folders by path, with the page
       PNGs and batch sheets both reviewers made inside them, since they hold a real

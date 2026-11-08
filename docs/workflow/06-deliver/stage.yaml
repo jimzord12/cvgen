@@ -24,7 +24,7 @@ steps:
 
   - id: deliver.fix
     name: Fix the inputs; the fix is a new Revision
-    sources: ["docs/guides/build-a-cv.md:131-142", "docs/guides/build-a-cv.md:198-207", ".claude/skills/new-cv/SKILL.md:79-82", "docs/workflow/06-deliver/README.md:74-93", ".claude/skills/new-cv/SKILL.md:93-97"]
+    sources: ["docs/guides/build-a-cv.md:131-142", "docs/guides/build-a-cv.md:198-207", ".claude/skills/new-cv/SKILL.md:79-82", "docs/workflow/06-deliver/README.md:74-100", ".claude/skills/new-cv/SKILL.md:93-97"]
     actor: actor.lead
     action: lead.fix-inputs
     inputs: [art.render-summary]
@@ -175,7 +175,7 @@ loops:
 
   - id: loop.owner-changes
     name: The owner's changes, as new Revisions
-    sources: ["docs/workflow/06-deliver/README.md:17-21", "docs/proposals/workflow-gaps.md:32", "docs/proposals/workflow-gaps.md:60-64", "docs/workflow/06-deliver/README.md:74-93"]
+    sources: ["docs/workflow/06-deliver/README.md:17-21", "docs/proposals/workflow-gaps.md:32", "docs/proposals/workflow-gaps.md:60-64", "docs/workflow/06-deliver/README.md:74-100"]
     gate: gate.owner-review
     cap: { attended: 5 }
     escalate: deliver.cap-reached
@@ -300,16 +300,13 @@ actions:
   - id: lead.fix-inputs
     kind: lead
     name: Fix the inputs
-    sources: ["docs/guides/build-a-cv.md:198-207", ".claude/skills/new-cv/SKILL.md:79-82", "docs/workflow/06-deliver/README.md:74-93"]
+    sources: ["docs/guides/build-a-cv.md:198-207", ".claude/skills/new-cv/SKILL.md:79-82", "docs/workflow/06-deliver/README.md:74-100"]
     does: >-
       Applies the fix the message names, in candidate.json, envelope.json or
       the entry point's layout override; never shrinks the body font; the Revision it
-      looked at is never modified. An owner's change to the design (layout, page
-      plan, header, a section's place, type, colour, artwork, portrait, or new
-      words that change the page count, the split between pages or where a
-      section sits) goes through design.preview, gate.client-design-review and
-      its two Polish Rounds before the next render; one to the words or facts
-      alone does not.
+      looked at is never modified. An owner's change to the design goes through
+      the design review and its two Polish Rounds again before the next render;
+      what counts as one: docs/workflow/06-deliver/README.md, "Branches".
 
   - id: cmd.page-png
     kind: cmd

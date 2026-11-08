@@ -106,9 +106,9 @@ Two gates in a chain choose one of three build paths:
   proposals of a review that passed.
 - **The owner changes the design at deliver** (`loop.owner-changes`): the
   changed files come back to `design.preview` and pass this review and its
-  two `Polish Round`s again before a new `deliver.render`; a change to the
-  words or facts alone does not ([deliver](../06-deliver/README.md),
-  "Branches").
+  two `Polish Round`s again before a new `deliver.render`, with his change
+  named in the brief and never reversed; a change to the words or facts
+  alone does not ([deliver](../06-deliver/README.md), "Branches").
 
 ## Common mistakes
 

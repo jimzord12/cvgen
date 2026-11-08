@@ -2619,7 +2619,7 @@ window.ATLAS = {
        "sources": [
         "docs/workflow/05-design/README.md:67-68",
         ".claude/skills/new-cv/SKILL.md:75",
-        "docs/preferences.md:81-83",
+        "docs/preferences.md:80-82",
         ".claude/agents/design-reviewer.md:52-56"
        ]
       },
@@ -2705,7 +2705,7 @@ window.ATLAS = {
        "title": "Fix the inputs; the fix is a new Revision",
        "actor": "lead",
        "optional": true,
-       "summary": "Applies the fix the message names, in candidate.json, envelope.json or the entry point's layout override; never shrinks the body font; the Revision it looked at is never modified. An owner's change to the design (layout, page plan, header, a section's place, type, colour, artwork, portrait, or new words that change the page count, the split between pages or where a section sits) goes through design.preview, gate.client-design-review and its two Polish Rounds before the next render; one to the words or facts alone does not.",
+       "summary": "Applies the fix the message names, in candidate.json, envelope.json or the entry point's layout override; never shrinks the body font; the Revision it looked at is never modified. An owner's change to the design goes through the design review and its two Polish Rounds again before the next render; what counts as one: docs/workflow/06-deliver/README.md, \"Branches\".",
        "loop": {
         "to": "deliver.render",
         "label": "Fix and render again after a failed render",
@@ -2727,7 +2727,7 @@ window.ATLAS = {
         "docs/guides/build-a-cv.md:131-142",
         "docs/guides/build-a-cv.md:198-207",
         ".claude/skills/new-cv/SKILL.md:79-82",
-        "docs/workflow/06-deliver/README.md:74-93",
+        "docs/workflow/06-deliver/README.md:74-100",
         ".claude/skills/new-cv/SKILL.md:93-97"
        ]
       },
@@ -3215,7 +3215,7 @@ window.ATLAS = {
        "sources": [
         "docs/workflow/07-after/README.md:27-34",
         "docs/guides/client-workflow.md:236-261",
-        "docs/preferences.md:89-97",
+        "docs/preferences.md:88-96",
         "docs/proposals/workflow-gaps.md:37",
         "docs/proposals/workflow-gaps.md:71"
        ]
@@ -3253,7 +3253,7 @@ window.ATLAS = {
        "note": "Model step `after.revision-cleanup`, action `manual.go-remove-revisions`, in `docs/workflow/07-after/stage.yaml`.",
        "sources": [
         "docs/pdf-workflow.md:219-222",
-        "docs/preferences.md:95-97",
+        "docs/preferences.md:94-96",
         "docs/workflow/GAPS.md:29-32"
        ]
       }
@@ -3798,7 +3798,7 @@ window.ATLAS = {
        "note": "Yours only, with the exact command shown first, including: deleting or force-pushing `main`, rewriting its published history, rewriting the private repo's history (the delete-by erase, which you run), `archive/*` tags, repo settings (public and private repo), deleting under `private/` or `.local/` or outside the repo, removing revisions, approvals, exports or portraits, replacing the `Release`.",
        "sources": [
         "docs/git-workflow.md:92-105",
-        "docs/preferences.md:69-101",
+        "docs/preferences.md:68-100",
         ".github/workflows/verify.yml"
        ]
       }
@@ -3853,8 +3853,8 @@ window.ATLAS = {
         "label": "Product decisions and real-client approvals stay yours."
        },
        "sources": [
-        "docs/preferences.md:63-65",
-        "docs/preferences.md:107"
+        "docs/preferences.md:62-64",
+        "docs/preferences.md:106"
        ]
       }
      ]
@@ -4523,14 +4523,14 @@ window.ATLAS = {
   }
  ],
  "build": {
-  "builtAt": "2026-11-08 21:07 UTC",
-  "commit": "57fed39",
+  "builtAt": "2026-11-08 21:14 UTC",
+  "commit": "b0f8ebf",
   "kit": "1.1",
   "stale": {},
   "verified": {
    "client-journey": {
     "at": "2026-11-08",
-    "commit": "57fed39"
+    "commit": "b0f8ebf"
    },
    "design-run": {
     "at": "2026-11-08",
@@ -4538,7 +4538,7 @@ window.ATLAS = {
    },
    "change-review": {
     "at": "2026-11-08",
-    "commit": "09aa035"
+    "commit": "b0f8ebf"
    },
    "system-map": {
     "at": "2026-11-08",
@@ -4546,7 +4546,7 @@ window.ATLAS = {
    },
    "roster": {
     "at": "2026-11-08",
-    "commit": "57fed39"
+    "commit": "b0f8ebf"
    }
   }
  }
