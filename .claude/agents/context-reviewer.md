@@ -34,9 +34,12 @@ what is missing.
    point at it or restate it: the rows in `AGENTS.md`, `CLAUDE.md`, the
    skills in `.claude/skills/` and the agents in `.claude/agents/`.
 3. **Placement.** Did the rule land in the file that owns it (the table in
-   `.claude/agents/context-maintainer.md`, "Where things live", and the
-   `AGENTS.md` tables decide)? Does the same rule now live in two places
-   with different words? Did a pointer that should have changed stay the
+   `.claude/agents/context-maintainer.md`, "Where things live", its four
+   placement questions for an agent file, a skill or a repository document,
+   and the `AGENTS.md` tables decide)? An agent file holding a rule the
+   author of the work also needs, or a repository-specific rule that is not
+   the agent's own job, is a finding. Does the same rule now live in two
+   places with different words? Did a pointer that should have changed stay the
    same? A fresh-context agent profile may restate the essentials of a rule
    it applies, briefly, with a pointer to the owner; a full second copy is a
    finding. Personal preferences belong in `.local/preferences/`, never in

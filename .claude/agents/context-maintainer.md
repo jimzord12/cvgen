@@ -44,8 +44,33 @@ say which file owns which kind of guidance. In short:
 | Clients and real CVs | `docs/guides/client-workflow.md`, `docs/guides/build-a-cv.md` |
 | How the engine is shaped | `docs/architecture.md`, `docs/engine/` |
 | Proposal states | `docs/proposals/README.md` |
-| Checklists | `.claude/skills/<skill>/SKILL.md` |
-| Subagents | `.claude/agents/*.md` |
+| The method and conventions of one activity (planning, writing tests), and checklists | `.claude/skills/<skill>/SKILL.md` |
+| One subagent's own job | `.claude/agents/*.md` |
+
+Every rule has one home; every other file points to it. When a rule could
+go in an agent file, a skill or a repository document, ask in order and
+stop at the first yes (owner, 2026-11-08):
+
+1. **Is it one agent's own job:** what it receives, its steps, what it
+   returns, what it must not do? The agent file.
+2. **Is it specific to this repository** (a CVgen path, contract, term or
+   rule)? The repository document that owns it, from the table above; the
+   agent file or skill points to it.
+3. **Is it about the owner as a person:** how he works, what he prefers?
+   `docs/preferences.md`, or `.local/preferences/` when personal; never
+   copied into an agent file or skill.
+4. **Otherwise it is generic: a method, a best practice, a convention of
+   one activity.** Does any agent other than this one do or check that
+   activity? The skill for that activity, which each of them loads; a rule
+   with an exact answer (a file name, a field) also needs a check in the
+   suite, which you name in your report for the lead to add. Otherwise the
+   agent file.
+
+So a reviewer's file holds its own procedure, and what the author of the
+work must also know lives where the author reads it first: the agent that
+writes a test needs the test principles before the reviewer does. Agent
+files and skills that hold only questions 1 and 4 stay self-contained, so
+they can be reused in another repository.
 
 Dated records are never edited to carry a rule: ADRs in `docs/decisions/`,
 `docs/history.md`, the entries of `docs/framework-gaps.md` (a later fact is
