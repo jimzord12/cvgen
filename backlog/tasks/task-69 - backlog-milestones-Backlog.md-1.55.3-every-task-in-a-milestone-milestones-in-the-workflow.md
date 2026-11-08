@@ -3,10 +3,10 @@ id: TASK-69
 title: >-
   backlog-milestones: Backlog.md 1.55.3, every task in a milestone, milestones
   in the workflow
-status: Active
+status: Ready
 assignee: []
 created_date: '2026-11-08T09:06:00Z'
-updated_date: '2026-11-08T09:13:00Z'
+updated_date: '2026-11-08T09:23:00Z'
 labels: []
 milestone: m-8
 dependencies: []
@@ -21,10 +21,10 @@ Move the Backlog.md pin from 1.52.0 to 1.55.3 (#1038 closed) with an amending AD
 
 ## Acceptance Criteria
 <!-- AC:BEGIN -->
-- [ ] #1 Every live mention of the pin says 1.55.3 with the reason; only archive/work-records/ holds 1.52 or #1038
-- [ ] #2 Every task has exactly one milestone with a done-condition; verified with milestone list and task list
-- [ ] #3 development.md, the backlog skill, the glossary and .codex/ carry milestones as principles
-- [ ] #4 Suite and ruff pass; context-reviewer PASS; reports verbatim under archive/work-records/backlog-milestones/reviews/
+- [x] #1 Every live mention of the pin says 1.55.3 with the reason; only archive/work-records/ holds 1.52 or #1038
+- [x] #2 Every task has exactly one milestone with a done-condition; verified with milestone list and task list
+- [x] #3 development.md, the backlog skill, the glossary and .codex/ carry milestones as principles
+- [x] #4 Suite and ruff pass; context-reviewer PASS; reports verbatim under archive/work-records/backlog-milestones/reviews/
 <!-- AC:END -->
 
 ## Implementation Plan
@@ -51,4 +51,12 @@ Move the Backlog.md pin from 1.52.0 to 1.55.3 (#1038 closed) with an amending AD
 | m-8 Agent-ready repository | any agent orients, plans, works, reviews and integrates from the repo alone | 1, 7, 12, 27-31, 33, 47, 51-55, 57, 61, 69 | governance, task store, Git and review rules |
 
 No Maintenance milestone was needed. Completed milestones (m-0, m-1, m-4, m-6) are not archived, so `milestone list --show-completed` keeps the full progress. TASK-63 to 66 are m-2 but change only on feat/template-contract (a handoff note there says so). Milestones thought missing (not created, no task exists): A second marine template (item 5), More themes (item 7), The hosted workflow (item 8).
+
+## Result and evidence
+
+Pin 1.55.3 in tech-stack, the backlog skill and ADR 0017 (0014 Status and index row amended); the handoff line is rewritten on main at session end. `git grep "1.52.0\|#1038"` outside archive/work-records/ finds only ADR 0014 (unedited by the brief), ADR 0017 (the reason), this task, and the handoff until its rewrite. Nine milestones on main (1d3bec7); `backlog milestone list --plain --show-completed`: 5 active, 4 completed, every task but 63-66 (on feat/template-contract) assigned. Suite PASS 198 cases, builds/tests-20261108-112253-985346 in the worktree; ruff clean; workflow anchors and Atlas check clean.
+
+## Review
+
+context-reviewer round 1 FINDINGS (4 Material, 7 Minor), round 2 PASS (4 Minor, applied): archive/work-records/backlog-milestones/reviews/. The plan-reviewer and its gate are another agent's work and were not run here.
 <!-- SECTION:NOTES:END -->
