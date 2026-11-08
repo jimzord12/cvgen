@@ -2,10 +2,11 @@
 
 Status: agreed with the owner 2026-11-08 in direction; revised in place on
 `feat/review-agents` until its plan review passes (D2), then kept unchanged.
-Revision 4 answers round 3 (`reviews/10-plan-reviewer-a.md`, `-b.md`;
-findings [A3-P1]..[A3-P9], [B3-P1]..[B3-m5]) with the probe spike
+Revision 5 answers round 4 (`reviews/11-plan-reviewer-a.md`, `-b.md`;
+[A4-..], [B4-..]); revision 4 (b16bb4b) answered round 3 with the probe spike
 (`calibration/04-probe-spike.md`). Earlier rounds: `reviews/07` (round 1),
-`reviews/09-*` (round 2). Revision 2 is commit 9929b69, revision 3 4187667.
+`reviews/09-*` (round 2), `reviews/10-*` (round 3). Revision 2 is commit
+9929b69, revision 3 4187667. T2 to T5 are TASK-75 to TASK-78 [B4-Note].
 
 **The tasks point here** [A3-P3, B3-P6]. Rounds 2 and 3 both found TASK-75 to
 78 restating decisions they had not caught up with. From revision 4 each task's
@@ -32,15 +33,26 @@ decomposer agent (D8); the audit of today's suite (D17, its own task).
 
 - **Built:** TASK-73 and TASK-74 (Ready); the `Workflow Model` re-anchored
   after TASK-74 (6452dec).
-- **Merging `main` in:** before T3's edit to `tests/run.py`, before T5, and
-  before this branch merges. Hand-written files are merged by hand. Generated
+- **Each task leaves the branch anchor-good** [A4-P3, B4-P3]. A task that
+  edits a file the `Workflow Model` or the `Atlas` cites (`docs/review.md`,
+  `docs/development.md`, `docs/engine/verification.md`, `docs/glossary.md`,
+  and others `bun run check` lists) ends with `bun run anchors <the last
+  anchor-good commit> --fix` (6452dec for T2), every EDITED span reread by
+  hand, `bun run render`, `bun run atlas` and the client-journey stamp, as
+  6452dec did; its record names the new anchor-good commit. `bun run check`
+  alone proves only that a cited line exists.
+- **Merging `main` in:** before TASK-75 starts (`main` has since changed
+  `verification.md`, `git-workflow.md`, the glossary and the owner's rule on
+  removing worktrees) [B4-m1], before T3's edit to `tests/run.py`, before T5,
+  and before this branch merges. Hand-written files are merged by hand. Generated
   files are regenerated, never hand-merged: `bun run anchors` once against
   each parent's head (the handoff's rule), every EDITED span reread by hand,
   then `bun run render`, `bun run atlas`, the stamps.
 - **No quiet window.** T5 starts when T4 is Ready. A branch that lands on
   `main` after this one merges `main` and regenerates, as every branch does.
 - **Stale Atlas pages until T5** (design-run, change-review, system-map,
-  roster): recorded as an exception in the session handoff.
+  roster; client-journey is regenerated and stamped by each task above):
+  recorded as an exception in the session handoff.
 
 ## Decisions (Major; decided, listed for the owner)
 
@@ -52,45 +64,62 @@ decomposer agent (D8); the audit of today's suite (D17, its own task).
 - **D3. Tools:** Read, Grep, Glob, Bash, PowerShell; the shell reads, and
   runs checks that write only inside D5's copy or `builds/`.
 - **D4. Blind first pass (plan-reviewer).** Built.
-- **D5. Two probes in a copy the lead prepares, as the spike ran them**
-  [A3-P1, A3-P2, B3-P1].
-  - **The copy:** `git worktree add --detach .worktrees/probe-<timestamp>
-    <reviewed commit>`, under `.worktrees/` like every checkout
-    (`docs/git-workflow.md` gains the `probe-*` name: detached, owned by one
-    review round, removed after it). An uncommitted snapshot is committed
-    first as a WIP commit. For Bun tests the lead runs `bun install
-    --frozen-lockfile` in the copy. The lead removes it after recording the
-    round: `git worktree remove --force`, then `git worktree prune`; never
-    `git stash` in it (the stack is shared).
-  - **A probe is a commit in the copy**, so the engine stays clean for
-    `tests/workflow.py`'s assertion and the copy stays removable. The fault
-    probe breaks the behaviour a test claims to guard; the refactor probe
-    keeps the behaviour and changes its shape. Each is recorded as its diff.
-  - **The run:** `<repository>/.venv/Scripts/python.exe <copy>/tests/run.py
-    --output <copy>/builds/<probe>` (the copy's own suite, by absolute path;
-    the suite needs the repository's virtual environment). The suite stops at
-    its first failure, so: **a fault counts only when the first failing
-    assertion is the probed one, by file and line**; any other first failure,
-    a crash or a missing module is inconclusive and is rerun or reported. A
-    **refactor counts only on a full PASS**.
-  - **Checks that fail on any change by design** (the hash pins of
-    `tests/baseline.json`, which are the constitution's frozen set, the frozen
-    references, `tests/workflow.py`'s clean-engine assertion) are judged only
-    on whether they pin the right things, never by the refactor probe
-    [A3-P7, B3-P2]. `docs/engine/verification.md` says so.
+- **D5. Two probes in a copy the lead prepares; reading where a probe cannot
+  decide** [A3-P1, A3-P2, B3-P1, A4-P1, A4-P2, B4-P1, B4-P2, m1-m3].
+  - **The copy:** `git -C <Main Folder> worktree add --detach <Main
+    Folder>/.worktrees/probe-<timestamp> <reviewed commit>` (absolute paths),
+    under `.worktrees/` like every checkout; `docs/git-workflow.md` gains the
+    `probe-*` name: detached, owned by one review round. An uncommitted
+    snapshot is committed first as a WIP commit; for Bun tests the lead runs
+    `bun install --frozen-lockfile` in the copy. Removed after the round with
+    `git worktree remove` (it ignores the ignored `builds/`; `--force` only
+    for a probe the same round left uncommitted, under the owner's rule on
+    removing worktrees), then `git worktree prune`. Any session may remove a
+    clean `probe-*` copy no running round owns. Never `git stash` in it.
+  - **A probe is a commit in the copy** (engine clean, copy removable): the
+    fault probe breaks the behaviour a test claims to guard; the refactor
+    probe keeps the behaviour and changes its shape. Each recorded as its
+    diff.
+  - **The runs:** the Python suite as the copy's own `tests/run.py` by
+    absolute path, with the repository's interpreter that has
+    `requirements.lock` installed (`.venv/Scripts/python.exe` on Windows,
+    `.venv/bin/python` elsewhere) and `--output` inside the copy; a Bun test
+    as `bun test <file>` in `<copy>/tools/workflow`, which `tests/run.py`
+    never runs.
+  - **Three outcomes for a fault** (the suite stops at its first failure; a
+    compile case is identified by file, line *and* the case name in the
+    message): **caught**, the first failure is the probed check; **survived**,
+    the suite passes or first fails *after* the probed check, so the check ran
+    and missed the fault; **masked by X**, an earlier check fails first. When
+    X is a by-design detector (the frozen-reference comparison, a hash pin),
+    the probe commit also re-baselines X in the copy (the probe's render as
+    the reference, its pin updated) and reruns; otherwise masking is itself
+    evidence that the two checks overlap (D6). A skipped case, a crash or a
+    missing module decides nothing. A **refactor counts only on a full PASS**.
+  - **Reading where a probe cannot decide.** A check no probe reaches is
+    judged by reading, and the report says which and why. Calibration 04
+    proved one case (a check reached, output unchanged); TASK-75's evidence
+    adds a fault that changes the engineer example's output and one Bun probe.
+  - **Checks that fail on any change by design** (the frozen set: the
+    frozen references and `tests/baseline.json`'s pins; `tests/workflow.py`'s
+    clean-engine assertion) are judged on whether they pin the right things,
+    never by the refactor probe. `docs/engine/verification.md` says so.
   - **The boundary:** `docs/review.md`, "Reviewer boundaries": the
     tests-reviewer may commit probes inside its prepared copy and run its
-    suite; nothing else. Evidence: calibration 04.
+    tests there; nothing else. The owner's settings hold no permission rules
+    today, so nothing is added; an unattended round that meets a prompt
+    stops and reports INCOMPLETE.
 - **D6. Removal needs a reason** (the `test-principles` skill). A check of the
   frozen set is never removed this way.
 - **D7. `plan_check.py`** [A3-P4, B3-P3, B3-m2, B3-m3].
-  `scripts/plan_check.py [--root DIR] TASK-N [TASK-M ...]`, standard library
-  only. For each listed task: exists and is not Done; its `milestone` id is a
+  `scripts/plan_check.py [--root DIR] --plan PATH TASK-N [TASK-M ...]`,
+  standard library only; every listed task's `Plan:` line must equal PATH
+  (refused otherwise) [B4-m3]. For each listed task: exists and is not Done; its `milestone` id is a
   file in `backlog/milestones/`; the title is `<slug>: <outcome>`; the
   description has the header (Owner, Branch/worktree, Integration target,
   Depends on, `Plan:`) and "Outcome and boundaries"; at least one acceptance
-  criterion; the `Plan:` path exists under the root (reported, not refused,
-  when the root is `main` and the `Plan` is still on its branch).
+  criterion; whether PATH exists under the root is reported, not refused
+  (on `main` the `Plan` is usually still on its branch).
   **Dependencies:** when the header's "Depends on" names a task id and the
   frontmatter list is empty, refused (the template now writes `--dep`); every
   frontmatter id exists and appears in the header; header ids that are not in
@@ -106,7 +135,8 @@ decomposer agent (D8); the audit of today's suite (D17, its own task).
      the template in `docs/development.md` and the backlog skill).
   3. `plan_check.py` runs **where the tasks' current copies are**: for Queued
      tasks, a checkout of `main` pulled to the record commit; for tasks a
-     branch already works, that branch's checkout after merging `main`.
+     branch already works, that branch's checkout after merging `main` into
+     the `Plan`'s branch and that branch into the child, if any [B4-m4].
   4. The `decomposition-reviewer` gets the `Plan` at its branch commit, the
      tasks at the commit `plan_check.py` read, and the ids. Fixes are record
      edits where the tasks live; `plan_check.py` reruns every round.
@@ -121,8 +151,10 @@ decomposer agent (D8); the audit of today's suite (D17, its own task).
      task's own reviews follow `docs/development.md`.
 - **D9. Codex counterparts as pointers.** Read-only sandbox for the plan and
   decomposition reviewers, workspace-write for the tests-reviewer (it commits
-  probes in its copy). `.codex/README.md` describes both patterns. A Codex
-  verdict is advisory and never satisfies one of these gates.
+  probes in its copy; whether Codex's sandbox lets it commit into the shared
+  `.git` is checked once in T5, else its counterpart reads only) [B4-m6].
+  `.codex/README.md` describes both patterns. A Codex verdict is advisory and
+  never satisfies one of these gates.
 - **D10. `code-reviewer` keeps lens 5**; one sentence in `docs/review.md`
   lets it rely on a tests-reviewer's report for the same snapshot.
 - **D11. Milestone m-8.**
@@ -130,12 +162,14 @@ decomposer agent (D8); the audit of today's suite (D17, its own task).
   [B3-m4]. A change that adds, edits or deletes: `tests/**`,
   `tools/workflow/test/**`, `tools/workflow/sample/**`,
   `packages/domains/*/fixtures/**`, `packages/**/templates/*/tests/**` other
-  than frozen references, and `examples/release.json`'s list. The frozen set
+  than frozen references, `examples/release.json`'s list, and
+  `studio/brand/report/sample.json` (read by `tests/report.py`) [A4-Note]. The frozen set
   (frozen references and `tests/baseline.json`'s pins) is the owner's: adding
   a pin is reviewed only for pinning the right file (D5). A behaviour change
   with no test is the `code-reviewer`'s to flag.
-- **D13. Transition, by work** [B3-P5]. At this branch's merge, each piece of
-  work is classified by its tasks' states, read from the branch that works
+- **D13. Transition, by work** [B3-P5]. A piece of work is a `Plan`'s tasks,
+  or, without a `Plan`, a task and the tasks its header's "Depends on" names
+  [B4-Note]. At this branch's merge, each piece of work is classified by its tasks' states, read from the branch that works
   each task (the CLI reads only the local checkout, so `git show
   <branch>:<task file>` for each branch in `git branch`): if any of its tasks
   is Active, in Review or Ready on any branch, the whole work finishes under
@@ -176,7 +210,7 @@ skill (T4, with a files column for parallel safety) and the
 ### Changed
 | File | Change | Task |
 |---|---|---|
-| `docs/review.md` | The tests gate (D12) and brief; "Reviewer boundaries" (D5); reviewer lists at the intro, the brief, the Opus list and the loop's step 1; D10 | T2 |
+| `docs/review.md` | The tests gate (D12) and brief; "Reviewer boundaries" (D5); reviewer lists at the intro, the brief, the Opus list, the loop's step 1 and "Report and persistence"'s own-shape list [B4-Note]; D10 | T2 |
 | `docs/review.md` | The decomposition gate and the loop (D8); the same lists | T4 |
 | `docs/engine/verification.md` | The suite's rules; the frozen set and change-detecting checks (D5); how a probe runs | T2 |
 | `docs/conventions.md` | "Tests": CVgen rules stay; generic ones move to the skill; a pointer | T2 |
@@ -201,8 +235,8 @@ when TASK-75 is Ready.
 
 | Task | Applies | Gate | Evidence |
 |---|---|---|---|
-| TASK-75 tests-reviewer | D5, D6, D12, D17 (queue), D19 | context-reviewer | Keys first (D14); a seeded tautological test flagged by a fault probe, a seeded change-detector test by a refactor probe, each run as calibration 04 did; `tests/proposals.py` reviewed for real |
-| TASK-76 plan_check.py | D7 | code-reviewer and tests-reviewer | Suite and ruff (the `.venv`); fixtures for every D7 refusal, every reported case and every reader shape; the script on TASK-75 to 78 from this branch, and on TASK-79 to 81 from `main` |
+| TASK-75 tests-reviewer | D5, D6, D12, D17 (queue), D19 | context-reviewer | Keys first (D14); a seeded tautological test flagged by a fault probe, a seeded change-detector test by a refactor probe; a fault that changes the engineer example's output, run through the masked-and-re-baselined path; one Bun probe; `tests/proposals.py` reviewed for real |
+| TASK-76 plan_check.py | D7 | code-reviewer and tests-reviewer; context-reviewer for `AGENTS.md` [B4-m5] | Suite and ruff (the `.venv`); fixtures for every D7 refusal, every reported case and every reader shape; the script on TASK-75 to 78 from this branch, and on TASK-79 to 81 from `main` |
 | TASK-77 decomposition-reviewer | D8, D19 | context-reviewer | Known-answer run on the P-0019 split (TASK-63 to 68), key first, `plan_check.py` skipped there |
 | TASK-78 the welcome | D9, D10, D13, D15, D18 | context-reviewer; code-reviewer for the `Workflow Model` | `bun run anchors` per parent, `check`, `render`, `atlas`, `bun test`, `atlas.py check` clean, suite, ruff |
 
@@ -210,7 +244,8 @@ when TASK-75 is Ready.
 
 - **One reviewer's run varies:** two `plan-reviewer`s for hard-to-undo work.
 - **Questions 12 and 13** were added after seeing their answer keys; D5's
-  probes are proven on one Framework check (calibration 04), not yet on a
-  pinned file's check or a Bun test.
+  probes are proven on one Framework check (calibration 04). The masked path
+  and the Bun run are TASK-75's evidence; until proven there, such checks are
+  judged by reading.
 - **Branches in flight** change shared files: merge `main`, regenerate.
 - **Review churn:** narrow triggers, the script for exact checks, the caps.
