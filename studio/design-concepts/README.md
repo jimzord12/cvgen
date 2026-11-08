@@ -12,18 +12,20 @@ Spacious: 1 to 3 roomier pages) and three `Design Tier`s (`safe`,
 
 ```
 <date>-<slug>/
-  brief.md  sample.json  portrait.jpg      shared by both densities (idea, tiers, references, fonts with source and SHA-256, data, weaknesses)
+  brief.md  sample.json  portrait.png      shared by both densities (idea, tiers, references, fonts with source and SHA-256, data, weaknesses)
   condensed/<tier>/condensed-<tier>.typ, .pdf, .png
   spacious/<tier>/spacious-<tier>.typ, .pdf, spacious-<tier>-<page>.png
 ```
 
 Each `.typ` reads the shared files as `../../sample.json` and
-`../../portrait.jpg`; PNGs are 96 dpi, one per page. Earlier folders hold
-one `concept.typ`, `concept.pdf` and `page-1.png` instead. Each font family
-is stored once: families the Framework bundles (`packages/cv-framework/fonts/`,
-licences in `packages/cv-framework/licenses/`) are not copied here, and the
-others live in `fonts/<family>/` with their licence, shared between
-concepts. Compile from the repository root:
+`../../portrait.png`, prepared by `scripts/portrait.py`; PNGs are 96 dpi,
+one per page. Folders before 2026-11-08 keep the unprepared `portrait.jpg`;
+folders before 2026-09-29 hold one `concept.typ`, `concept.pdf` and
+`page-1.png` instead. Each font family is stored once: families the
+Framework bundles (`packages/cv-framework/fonts/`, licences in
+`packages/cv-framework/licenses/`) are not copied here, and the others live
+in `fonts/<family>/` with their licence, shared between concepts. Compile
+from the repository root:
 
 ```powershell
 typst compile --root . --ignore-system-fonts --font-path packages/cv-framework/fonts --font-path studio/design-concepts/fonts studio/design-concepts/<folder>/<density>/<tier>/<density>-<tier>.typ studio/design-concepts/<folder>/<density>/<tier>/<density>-<tier>.pdf

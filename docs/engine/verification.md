@@ -310,6 +310,32 @@ Windows one also holds the PDFs that build wrote, one per example in
    table in `docs/engine/template-contract.md`, a record ahead of, behind or
    below what a Variation renders, a contract that breaks a group without
    raising its `schemaVersion`, and `cv.py contracts`; report in `compatibility/`.
+21. **Portrait** (`portrait: <check>`, `tests/portrait.py`). The real
+   `scripts/portrait.py` on photographs made under `portrait/` from the
+   fictional portrait (`examples/candidates/fictional-engineer.png`) and a
+   concept's copy of it: with the face high and left, then low and right,
+   the face found again in each prepared square sits within 2% of the target
+   (50% across, 45% down), the sidecar's check passed and the square is never
+   enlarged; `--face-y 0.41` moves the face there and 0.6 is refused. Photos
+   tagged with a linear RGB or a grey colour profile (built by the test) come
+   out converted to sRGB, recorded and tagged sRGB, and a broken profile is
+   refused by name; a photograph too small for a 600 px square is refused,
+   and accepted at its own size with `--min-size`. No face, two faces, a
+   forehead-to-chin close-up, the source as the output, an existing output,
+   `--fill` with `--keep-background`, `--replace` over a file the tool did
+   not write (a `candidate.json` beside a `candidate.png`, an edited prepared
+   PNG) and a usage error (a misspelt flag, a `--face-y` that is not a number)
+   exit 1 on their messages, each leaving the folder byte for byte as it was;
+   `--replace` over the tool's own output works. A face too small to find in
+   the whole photo but found in the crop makes the result show two faces:
+   the files are kept and the run exits 3 with `CHECK FAILED`; the same check
+   on real detections fails off target and with no face. Then background
+   removal with rembg's small `u2netp` model (about 5 MB, downloaded on first
+   use and cached on CI; the default model is not loaded here): the top
+   corners are transparent and the face opaque, and `--fill` paints the
+   corners its colour. No temporary file is left, and the fictional sources
+   must be unchanged. Without rembg's packages or model the case is
+   `SKIPPED`; on CI that fails the suite.
 
 Negative cases assert on the exact error text so a message change is a test
 change.

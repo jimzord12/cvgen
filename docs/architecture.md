@@ -209,8 +209,10 @@ cv-workflow/cv_workflow/                Python; owns everything around a candida
   export.py                             verify, copy into a .partial- folder, verify, rename into place
   contracts.py                          Domain Contracts and manifests: checks before a render, version comparison, coverage, the compatibility report
   outputs.py, output.schema.json        the Output Contract: each PDF's home, stamp and check its Meta File
+  portrait.py, models/                  portrait preparation: sRGB, the one face (YuNet, vendored), a face-centred square, background removal (rembg), sidecar; not imported by the package
 scripts/cv.py                           the five local commands calling that package (render, approve, export, status, contracts)
 scripts/outputs.py                      stamp and check, calling outputs.py
+scripts/portrait.py                     prepare and detect, calling portrait.py
 ```
 
 The engine renders from its inputs and knows nothing about revisions or

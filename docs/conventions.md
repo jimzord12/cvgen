@@ -56,6 +56,13 @@ them. These evolve; the rules that do not are in `constitution.md`.
   migration changed signatures only, and most components still style inline
   (`docs/framework-gaps.md`). A component touched for another reason moves
   its styling into the style block.
+- **A portrait component clips the prepared square, centred, and never
+  shifts it.** `scripts/portrait.py` has already put the face where the
+  owner wants it (no background, the face in the centre of the shape or a
+  little higher: `docs/guides/client-workflow.md`, section 1, "The
+  portrait"): the component fills its shape with `fit: "cover"`, centred,
+  as the Flagship's hero does, with no offset of its own. A face that sits
+  wrong is prepared again (`--face-y`), not moved in Typst.
 - **Parent owns outer spacing, child owns internal layout.** Never add an
   outer `v()` inside a component. A component reads its own slice,
   `ctx.layout.hero`, never a sibling's.

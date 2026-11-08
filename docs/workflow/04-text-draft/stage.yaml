@@ -94,7 +94,7 @@ steps:
 
   - id: text-draft.sign-off-stamp
     name: Stamp the draft signed-off
-    sources: ["docs/workflow/04-text-draft/README.md:36-37", "docs/guides/build-a-cv.md:198-201", ".claude/skills/new-client/SKILL.md:98-100", "packages/cv-workflow/cv_workflow/outputs.py:172-178"]
+    sources: ["docs/workflow/04-text-draft/README.md:36-37", "docs/guides/build-a-cv.md:200-203", ".claude/skills/new-client/SKILL.md:98-100", "packages/cv-workflow/cv_workflow/outputs.py:172-178"]
     actor: actor.lead
     action: cmd.stamp-draft-signed-off
     inputs: [art.sign-off-png, art.draft-pdf]
@@ -240,5 +240,5 @@ actions:
   - id: cmd.stamp-draft-signed-off
     kind: cmd
     name: Stamp the draft signed-off
-    sources: ["docs/workflow/04-text-draft/README.md:36-37", "docs/guides/build-a-cv.md:198-201", "docs/pdf-workflow.md:152-157"]
+    sources: ["docs/workflow/04-text-draft/README.md:36-37", "docs/guides/build-a-cv.md:200-203", "docs/pdf-workflow.md:152-157"]
     run: python scripts/outputs.py stamp private/<envelope>/draft/draft-NN.pdf status=signed-off

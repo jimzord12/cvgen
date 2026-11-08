@@ -111,7 +111,7 @@ actions:
   - id: lead.write-form-script
     kind: lead
     name: Write the Intake Form script
-    sources: ["docs/guides/client-workflow.md:147-152", ".claude/skills/new-client/SKILL.md:45-48", "scripts/intake-form.gs:20-21"]
+    sources: ["docs/guides/client-workflow.md:175-180", ".claude/skills/new-client/SKILL.md:45-48", "scripts/intake-form.gs:20-21"]
     does: >-
       Writes intake/form-NN.gs, a copy of scripts/intake-form.gs with only its
       FORM block changed: title, intro, consent, questions; pages by topic and
@@ -139,7 +139,7 @@ artifacts:
 
   - id: art.envelope-json
     name: envelope.json
-    sources: ["docs/guides/client-workflow.md:34-36", "docs/guides/client-workflow.md:89-105", "packages/cv-workflow/cv_workflow/outputs.py:61-78", "docs/proposals/workflow-gaps.md:36"]
+    sources: ["docs/guides/client-workflow.md:34-36", "docs/guides/client-workflow.md:117-133", "packages/cv-workflow/cv_workflow/outputs.py:61-78", "docs/proposals/workflow-gaps.md:36"]
     path: private/<envelope>/envelope.json
     format: "JSON: alias, domain, candidate, rank (each checked against output.schema.json's property of that name); template and variation when a Template renders the CV (ADR 0016); keep_requested (YYYY-MM-DD) once the client asks to keep his data"
     visibility: private
@@ -153,7 +153,7 @@ artifacts:
 
   - id: art.readme-google-links
     name: README.md, section "Google"
-    sources: ["docs/guides/client-workflow.md:164-166", "scripts/intake-form.gs:11-15"]
+    sources: ["docs/guides/client-workflow.md:192-194", "scripts/intake-form.gs:11-15"]
     path: private/<envelope>/README.md
     format: Markdown lines with the form's answer and edit links, the Sheet and the script project
     visibility: private
@@ -190,7 +190,7 @@ artifacts:
 
   - id: art.documents
     name: The client's documents
-    sources: ["docs/guides/client-workflow.md:40", "docs/workflow/02-intake/README.md:33-35", "docs/guides/client-workflow.md:152-154"]
+    sources: ["docs/guides/client-workflow.md:40", "docs/workflow/02-intake/README.md:33-35", "docs/guides/client-workflow.md:180-182"]
     path: private/<envelope>/intake/documents/
     format: photos and files, any format
     visibility: private
@@ -206,7 +206,7 @@ artifacts:
 
   - id: art.decisions-md
     name: CV Decisions (decisions.md)
-    sources: ["docs/guides/client-workflow.md:46", "docs/guides/client-workflow.md:190-206", "docs/glossary.md:67"]
+    sources: ["docs/guides/client-workflow.md:46", "docs/guides/client-workflow.md:218-234", "docs/glossary.md:67"]
     path: private/<envelope>/research/decisions.md
     format: Markdown, one line per decision with its answer and source, "judgement" and the reason, or "open"
     visibility: private
@@ -239,7 +239,7 @@ artifacts:
 
   - id: art.candidate-json
     name: candidate.json
-    sources: ["docs/guides/client-workflow.md:37", "docs/guides/build-a-cv.md:83-106", "packages/cv-workflow/cv_workflow/workspace.py:93-95"]
+    sources: ["docs/guides/client-workflow.md:37", "docs/guides/build-a-cv.md:83-108", "packages/cv-workflow/cv_workflow/workspace.py:93-95"]
     path: private/<envelope>/candidate.json
     format: JSON, checked against the schema cv.typ's imports name (Flagship input for marine; none for a one-off)
     visibility: private
