@@ -168,7 +168,7 @@ figure:target{outline:3px solid var(--thread);outline-offset:6px;border-radius:2
 .ref span{font-size:14px;color:var(--mute);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;min-width:0}
 .ref:hover{background:var(--thread);color:var(--on-thread)}.ref:hover span{color:inherit}
 .ref:focus-visible{outline:3px solid var(--fg);outline-offset:2px}
-button.ref{font:inherit;background:none;cursor:zoom-in}
+button.ref{font:inherit;background:var(--thread);color:var(--on-thread);cursor:zoom-in}
 .refs small{color:var(--mute);font-size:14px}
 .rows .refs{grid-column:2;margin-top:6px}
 figcaption.head{margin:0 0 10px;display:flex;flex-wrap:wrap;gap:6px 12px;align-items:center;color:var(--fg);font-size:15px}
@@ -176,8 +176,9 @@ figcaption.head{margin:0 0 10px;display:flex;flex-wrap:wrap;gap:6px 12px;align-i
 #lightbox::backdrop{background:#000c}
 .lb-frame{padding:0 14px 14px}
 .lb-bar{position:sticky;top:0;z-index:2;display:flex;align-items:center;gap:12px;justify-content:flex-end;padding:12px 0 10px;background:var(--panel)}
-.lb-bar span{margin-right:auto;font:800 16px var(--num);letter-spacing:.04em;color:var(--fg)}
+.lb-bar span{margin-right:auto;min-width:0;overflow-wrap:anywhere;font:800 16px var(--num);letter-spacing:.04em;color:var(--fg)}
 @media (max-width:760px){#lightbox{width:100vw;max-width:100vw;max-height:100dvh;border-radius:0}.lb-frame{padding:0 4px 8px}
+  .lb-bar{padding-inline:8px}.lb-bar span{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
   #lb-body{overflow-x:auto}#lb-body .sheet{width:200%;max-width:none}}
 .lb-bar button{flex:none;white-space:nowrap;font:700 15px var(--ui);padding:7px 14px;border-radius:6px;border:0;background:var(--thread);color:var(--on-thread);cursor:pointer}
 .lb-bar button:focus-visible{outline:3px solid var(--fg);outline-offset:2px}
@@ -268,7 +269,7 @@ const back = id => {
   const rows = (R.decisions || []).flatMap((d, i) => (d.figures || []).includes(id) ? [`<a class="ref" href="#dec-${i + 1}"><b>Decision ↓</b><span>${e(d.title)}</span></a>`] : []);
   return cards.length + rows.length ? `<span class="refs"><small>Asked or told about in</small>${[...cards, ...rows].join('')}</span>` : '';
 };
-const shared = x => `<figure id="fig-${e(x.id)}"><figcaption class="head"><span>${name(x)}${e(x.caption)}</span>${back(x.id)}<button type="button" class="ref" data-enlarge="${e(x.id)}"><b>⤢ ${x.kind === 'compare' ? 'Compare' : 'Enlarge'}</b></button></figcaption>${visual(x)}</figure>`;
+const shared = x => `<figure id="fig-${e(x.id)}"><figcaption class="head"><span>${name(x)}${e(x.caption)}</span>${back(x.id)}<button type="button" class="ref" data-enlarge="${e(x.id)}" aria-label="Enlarge Figure ${e(x.id)}: ${e(x.caption)}"><b>⤢ ${x.kind === 'compare' ? 'Compare' : 'Enlarge'}</b></button></figcaption>${visual(x)}</figure>`;
 
 const [tone, word, glyph] = VERDICTS[R.verdict];
 document.getElementById('band').dataset.tone = tone;
