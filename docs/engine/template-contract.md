@@ -74,17 +74,19 @@ still sets a render's page check.
 
 ## A record on a newer version (Stage 2)
 
-When the record's version is newer than the `Template Variation` names, its
-contract is compared group by group with the newest version below it that the
-`Template Variation` names (`compare` in `contracts.py`). Each difference is a
-warning, or an error always, when the record holds that group, or when it has
-none of it:
+When the record's version is newer than every version the `Template
+Variation` names, its contract is compared group by group with the newest one
+it names (`compare` in `contracts.py`); a version below that which an `exactly`
+list skips is refused, since it was left out on purpose. A group required at
+that last version is shown even after it turns optional, so it is never
+dropped. Each difference is a warning, or an error always, when the record
+holds that group, or when it has none of it:
 
 | Difference | Result |
 |---|---|
 | A group it does not render changed, or was removed | Warning |
 | A new optional group; a new optional field in any group | Warning; the facts count as `dropped` |
-| An optional group it claims changed or was removed | Error when the record holds it |
+| An optional group it claims changed or was removed | Error when the record holds it; a warning when it already claims the new `schemaVersion` |
 | A required group became optional | Error when the record has none of it |
 | An optional group became required | Warning if it claims it; else error |
 | A required group is new, changed or removed | Error |

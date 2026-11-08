@@ -32,7 +32,11 @@ CARD = {'id': 'card', 'default': 'behind', 'variations': {
     'behind': {'supports': {'demo': {'upTo': 1, 'groups': ['profile@1', 'places@1', 'skills@1']}}},
     'both': {'supports': {'demo': {'exactly': [1, 2], 'groups': ['profile@1', 'places@1', 'places@2', 'skills@1', 'licences@1']}}},
     'latest': {'supports': {'demo': {'upTo': 2, 'groups': ['places@2', 'licences@1']}}},
-    'only-two': {'supports': {'demo': {'exactly': [2], 'groups': ['places@2']}}}}}
+    'only-two': {'supports': {'demo': {'exactly': [2], 'groups': ['places@2']}}},
+    'gap': {'supports': {'demo': {'exactly': [1, 3], 'groups': ['profile@1', 'places@1', 'skills@1']}}}}}
+# A required group that becomes optional, over three versions: shift v1 requires rank, v2 and v3 do not.
+SHIFT = {'domain': 'shift', 'version': 1, 'extends': 'base@1',
+         'groups': {**V1['groups'], 'rank': {'required': True, 'schemaVersion': 1, 'paths': ['rank']}}}
 
 
 def card(domain):
@@ -66,8 +70,9 @@ def g(required, schema_version=1, paths=None):
 
 def one(old, new, claimed=()):
     """The single finding for group x between two one-group contracts."""
+    shapes = claimed if isinstance(claimed, dict) else {name: {1} for name in claimed}
     found = compare({'version': 1, 'groups': {'x': old} if old else {}},
-                    {'domain': 'd', 'version': 2, 'groups': {'x': new} if new else {}}, set(claimed))
+                    {'domain': 'd', 'version': 2, 'groups': {'x': new} if new else {}}, shapes)
     assert len(found) == 1, found
     return found[0]
 
@@ -83,6 +88,10 @@ def run_compatibility(out):
             write(domains / domain / 'contracts/v1.json', {**V1, 'domain': domain})
             write(domains / domain / 'contracts/v2.json', last)
             write(domains / domain / 'templates/card/template.json', card(domain))
+        loose = {**SHIFT['groups'], 'rank': {'required': False, 'schemaVersion': 1, 'paths': ['rank']}}
+        for version, groups in ((1, SHIFT['groups']), (2, loose), (3, loose)):
+            write(domains / f'shift/contracts/v{version}.json', {**SHIFT, 'version': version, 'groups': groups})
+        write(domains / 'shift/templates/card/template.json', card('shift'))
         roots = {'domains_root': domains, 'base_root': base}
 
         def pick(variation, record, domain='demo'):
@@ -118,14 +127,26 @@ def run_compatibility(out):
         assert warnings == [
             'card behind does not show licences: this CV leaves those facts out',
             'card behind supports demo contract up to version 1; this record follows version 2 (1 version behind); it renders: '
-            'licences is a new optional group in version 2; places changed (schemaVersion 1 to 2); '
-            'skills has new optional fields in version 2: skill_notes',
+            'licences is a new optional group by version 2; places changed (schemaVersion 1 to 2); '
+            'skills has new optional fields by version 2: skill_notes',
             'card behind does not show the new field skills: skill_notes: this CV leaves those facts out'], warnings
         # A record older than every version a Variation declares stops, as does one below oldestSupported.
         refused(lambda: pick('only-two', R1), f'card only-two supports demo contract version 2; this record follows version 1, '
                                               f'which it does not render. {FIX}')
         refused(lambda: pick('behind', R1, 'later'), 'later contract version 1, which the engine no longer reads (oldest 2); '
                                                      'upgrade the record to version 2 or later')
+        # A group required where the Variation stops is still shown when it turns optional: never dropped.
+        shifted = {**QUIET, 'domainContract': 2, 'rank': 'R'}
+        assert pick('behind', shifted, 'shift') == (
+            {'template': 'card', 'variation': 'behind', 'domain_contract': 2, 'dropped': []},
+            ['card behind supports shift contract up to version 1; this record follows version 2 (1 version behind); '
+             'it renders: rank became optional by version 2']), pick('behind', shifted, 'shift')
+        refused(lambda: pick('behind', {k: v for k, v in shifted.items() if k != 'rank'}, 'shift'),
+                'rank became optional by version 2, and this record has none of it')
+        # A version an exactly list skips is refused, not compared.
+        refused(lambda: pick('gap', shifted, 'shift'), 'card gap supports shift contract version 1, 3; this record follows '
+                                                     'version 2, which it does not render.')
+        assert compatibility('shift', 'card', 'behind', card('shift')['variations']['behind'], **roots)['coverage'] ==             '4 of 4 optional groups'
         checks.append('a record on a newer version renders with warnings, or stops naming the group and the fix')
 
         # The report the suite keeps and `cv.py contracts` prints.
@@ -135,9 +156,9 @@ def run_compatibility(out):
         assert describe(found['behind']) == [
             'card behind on demo: renders version 1, newest 2; 2 of 4 optional groups at version 2',
             '  1 version behind: a version 2 record can stop the render',
-            '  - licences is a new optional group in version 2: warning',
+            '  - licences is a new optional group by version 2: warning',
             '  - places changed (schemaVersion 1 to 2): error when the record holds it',
-            '  - skills has new optional fields in version 2: skill_notes: warning'], describe(found['behind'])
+            '  - skills has new optional fields by version 2: skill_notes: warning'], describe(found['behind'])
         assert describe(found['latest'])[0] == 'card latest on demo: renders version 1 to 2, newest 2; 2 of 4 optional groups at version 2'
         assert describe(compatibility('later', 'card', 'behind', later['behind'], **roots)) == [
             'card behind on later: renders no version the engine still reads (newest 2); update the Template']
@@ -159,11 +180,12 @@ def run_compatibility(out):
         assert one(g(True), g(True, 2))['error'] == 'always'                      # ... changed
         assert one(g(True), None)['error'] == 'always'                            # ... removed
         assert one(g(True), g(False, 2))['error'] == 'always'                     # rendered, changed and now optional
+        assert one(g(False), g(False, 2), {'x': {1, 2}})['error'] == 'never'      # it already claims the new shape
         finding = one(g(True), g(False))
-        assert judge([finding], {'x': 1}) == ([], ['x became optional in version 2'], [])
-        assert judge([finding], {}) == (['x became optional in version 2, and this record has none of it'], [], [])
-        assert judge([one(g(False), None, 'x')], {'x': 1})[0] == ['x was removed in version 2, and this record holds it']
-        assert judge([one(g(False), None, 'x')], {})[1] == ['x was removed in version 2']
+        assert judge([finding], {'x': 1}) == ([], ['x became optional by version 2'], [])
+        assert judge([finding], {}) == (['x became optional by version 2, and this record has none of it'], [], [])
+        assert judge([one(g(False), None, 'x')], {'x': 1})[0] == ['x was removed by version 2, and this record holds it']
+        assert judge([one(g(False), None, 'x')], {})[1] == ['x was removed by version 2']
         checks.append('every row of the compatibility table, one group at a time')
 
         # A structural break without a schemaVersion rise is refused, and so is a gap in the kept versions.

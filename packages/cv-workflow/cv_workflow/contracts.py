@@ -183,18 +183,22 @@ def choose(envelope_data, source, record, design=None, domains_root=DOMAINS, bas
     if claimed is None:
         raise WorkflowError(f'{template} {variation} does not support {domain} contract version {version}; '
                             'pick another Template Variation')
-    missing, dropped = check_groups(record, groups, claimed)
+    missing, _ = check_groups(record, groups, claimed)
     if missing:
         raise WorkflowError(f'candidate.json has no {", ".join(missing)}, required by the {domain} contract')
-    warnings += [f'{template} {variation} does not show {name}: this CV leaves those facts out' for name in dropped]
+    last = version
     if version not in declared:
-        below = [v for v in declared if v < version and v >= oldest]
-        if not below:
+        # Only a record newer than everything the Variation names is compared; a version an `exactly` list
+        # skips, or one older than it names, was left out on purpose.
+        if version < declared[-1] or not [v for v in declared if v >= oldest]:
             raise WorkflowError(f'{template} {variation} supports {domain} contract version {span(declared)}; this record '
                                 f'follows version {version}, which it does not render. {FIX}')
-        last = below[-1]
-        findings = compare(contract(domain, last, domains_root, base_root), contract(domain, version, domains_root, base_root),
-                           claimed)
+        last = declared[-1]
+    old = contract(domain, last, domains_root, base_root)
+    _, dropped = check_groups(record, groups, shown_by(old, claimed))
+    warnings += [f'{template} {variation} does not show {name}: this CV leaves those facts out' for name in dropped]
+    if last != version:
+        findings = compare(old, contract(domain, version, domains_root, base_root), claimed)
         errors, notes, new_facts = judge(findings, record)
         head = f'{template} {variation} supports {domain} contract up to version {last}; this record follows version {version}'
         if errors:
@@ -204,6 +208,12 @@ def choose(envelope_data, source, record, design=None, domains_root=DOMAINS, bas
                      for item in new_facts]
         dropped += new_facts
     return {'template': template, 'variation': variation, 'domain_contract': version, 'dropped': dropped}, warnings
+
+
+def shown_by(old, claimed):
+    """What a Template Variation shows: its claims, plus every group required in the contract it last
+    supports, which it renders whether or not that group is still required."""
+    return {**claimed, **{name: {group['schemaVersion']} for name, group in old['groups'].items() if group['required']}}
 
 
 def behind(gap):
@@ -239,29 +249,33 @@ def compare(old, new, claimed):
         a, b = old['groups'].get(name), new['groups'].get(name)
         if a is None:
             kind = 'required' if b['required'] else 'optional'
-            findings.append({'group': name, 'text': f'{name} is a new {kind} group in version {version}',
+            findings.append({'group': name, 'text': f'{name} is a new {kind} group by version {version}',
                              'error': 'always' if b['required'] else 'never', 'paths': b['paths'], 'new_paths': []})
             continue
         shown = name in claimed
         if b is None:
-            findings.append({'group': name, 'text': f'{name} was removed in version {version}',
+            findings.append({'group': name, 'text': f'{name} was removed by version {version}',
                              'error': 'always' if a['required'] else 'held' if shown else 'never',
                              'paths': a['paths'], 'new_paths': []})
             continue
         renders, rose = a['required'] or shown, b['schemaVersion'] > a['schemaVersion']
         texts, conditions = [], set()
-        if rose:
+        # A Variation that already claims the new shape renders it (`places@1` and `places@2`).
+        if rose and b['schemaVersion'] in claimed.get(name, ()):
+            texts.append(f'{name} changed (schemaVersion {a["schemaVersion"]} to {b["schemaVersion"]}), a shape it claims')
+            conditions.add('never')
+        elif rose:
             texts.append(f'{name} changed (schemaVersion {a["schemaVersion"]} to {b["schemaVersion"]})')
             conditions.add('always' if a['required'] and b['required'] else 'held' if renders else 'never')
         if a['required'] and not b['required']:
-            texts.append(f'{name} became optional in version {version}')
+            texts.append(f'{name} became optional by version {version}')
             conditions.add('lacking')
         if not a['required'] and b['required']:
-            texts.append(f'{name} became required in version {version}')
+            texts.append(f'{name} became required by version {version}')
             conditions.add('never' if shown else 'always')
         added = [] if rose else [p for p in b['paths'] if p not in a['paths']]
         if added:
-            texts.append(f'{name} has new optional fields in version {version}: {", ".join(added)}')
+            texts.append(f'{name} has new optional fields by version {version}: {", ".join(added)}')
             conditions.add('never')
         if texts:
             findings.append({'group': name, 'text': '; '.join(texts), 'error': worst(conditions), 'paths': b['paths'],
@@ -319,7 +333,8 @@ def compatibility(domain, template, name, variation, domains_root=DOMAINS, base_
     newest = versions(domain, domains_root)[-1]
     groups = contract(domain, newest, domains_root, base_root)['groups']
     optional = [g for g, group in groups.items() if not group['required']]
-    covered = [g for g in optional if groups[g]['schemaVersion'] in (claimed or {}).get(g, ())]
+    shows = shown_by(contract(domain, reads[-1], domains_root, base_root), claimed) if reads else {}
+    covered = [g for g in optional if groups[g]['schemaVersion'] in shows.get(g, ())]
     report = {'template': template, 'variation': name, 'domain': domain, 'renders': reads, 'newest': newest,
               'behind': newest - reads[-1] if reads else None, 'findings': [],
               'coverage': f'{len(covered)} of {len(optional)} optional groups'}

@@ -129,6 +129,13 @@ def check_example_records():
     contract_record['skill_groups'] = [['ECDIS']]
     contract_record['copy'] = {'certificate-columns': ['Certificate', 'Provider', 'Issued']}
     validate_record(contract_record, ['/packages/domains/marine/lib.typ'])
+    # copy is open in the facts schema and closed by Flagship's: a misspelt or mistyped key is still refused.
+    for wrong, said in (({'brnad': 'X'}, "'brnad' was unexpected"), ({'brand': 5}, "copy/brand: 5 is not of type 'string'")):
+        try:
+            validate_record({**contract_record, 'copy': wrong}, ['/packages/domains/marine/lib.typ'])
+            raise AssertionError(f'copy {wrong} was accepted')
+        except WorkflowError as error:
+            assert said in str(error), str(error)
     # A Template's input schema states the facts once, by $ref to its Domain's schema, and adds only what the
     # Template renders beyond them (ADR 0016, Stage 2): never a fact of its own, never a copy of a definition.
     for path in sorted((ROOT / 'packages/domains').glob('*/templates/*/schema/*-input.schema.json')):
