@@ -74,7 +74,7 @@
    "verifiedAt": "2026-11-08"
   },
   "roster": {
-   "commit": "527dd78",
+   "commit": "9eb39e5",
    "sources": {
     ".claude/agents/ceo-reviewer.md": "8b0ce89d0cf745923ec296c9034c1f8e5958d42b",
     ".claude/agents/ceo.md": "4fec7c781ea76a4faba820f013880f62f0799168",
@@ -103,7 +103,7 @@
     "docs/decisions/0014-backlog-md-task-store.md": "cdd5f82fdbb21c38e5ed6c06c07082136e822221",
     "docs/decisions/0017-backlog-md-1-55-3.md": "5ab727aa0ee8dba26cfff8bf06615f2173dc1621",
     "docs/development.md": "0e4faad2fea188680eb98bc3ae92613f683266ad",
-    "docs/engine/verification.md": "56a79571b3a4dd85236e499e0379dcd5c6beef99",
+    "docs/engine/verification.md": "d12acff187358ec2257d538a44cbe22c495aa47e",
     "docs/git-workflow.md": "9e8272c67b377419c7fdb333a4572e447a0428c0",
     "docs/guides/build-a-cv.md": "c8829aefab540b0181e71b0a7e7869321b1d71a9",
     "docs/guides/client-workflow.md": "221675bd00c8fcd72c6bf922968a96860d7f59c0",
@@ -125,7 +125,7 @@
    "verifiedAt": "2026-11-08"
   },
   "system-map": {
-   "commit": "527dd78",
+   "commit": "9eb39e5",
    "sources": {
     ".claude/agents": "dir1:d86ac8b44b9896473ff12ecdbc91538ae34a8852",
     ".claude/skills": "dir1:5eeafda0c9ef9a6037a3fcc2879f73f098fa3e55",
@@ -136,8 +136,8 @@
     "archive/work-records": "dir1:714e9e23e1008cf8206afd4c3da0749dab420267",
     "docs": "dir1:139adff443cb7a07dd0d5fae04941c8c0785eb30",
     "docs/architecture.md": "dcc30f76349cc85536f5cce685db68d8549bba10",
-    "docs/engine/domains-and-roles.md": "a6e633edf4f5f448e27277dc61b8de8635aac754",
-    "docs/engine/verification.md": "56a79571b3a4dd85236e499e0379dcd5c6beef99",
+    "docs/engine/domains-and-roles.md": "b94a5576cbb4cacde2ea2632d0fa7ac32b5c6639",
+    "docs/engine/verification.md": "d12acff187358ec2257d538a44cbe22c495aa47e",
     "docs/git-workflow.md": "9e8272c67b377419c7fdb333a4572e447a0428c0",
     "docs/glossary.md": "00bf1a51416c44665f5ac3f29696e6e1c1e223a6",
     "docs/guides/build-a-cv.md": "c8829aefab540b0181e71b0a7e7869321b1d71a9",

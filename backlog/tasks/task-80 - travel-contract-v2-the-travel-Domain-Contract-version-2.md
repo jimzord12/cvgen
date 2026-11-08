@@ -4,7 +4,7 @@ title: 'travel-contract-v2: the travel Domain Contract version 2'
 status: Active
 assignee: []
 created_date: '2026-11-08T10:07:00Z'
-updated_date: '2026-11-08T10:50:00Z'
+updated_date: '2026-11-08T11:00:00Z'
 labels: []
 milestone: m-3
 dependencies: []
@@ -53,4 +53,13 @@ Agents' choice (Major, owner 2026-11-08: "think of something the domain might ne
 - Suite: builds/tests-20261108-124856-609053 (25 passed, 232 compilations); ruff clean; build builds/library-20261108-124849-274.
 - essential, if it renders v2: claims destinations@2 (and destinations@1 to read v1 records); licences@1 optional (else dropped with a warning). Up to v1 only, every v2 record is refused.
 - To do when feat/travel-domain round 1 lands (v1 destinations required): merge; the calm refusal text becomes 'destinations changed (schemaVersion 1 to 2)' (no 'became required'), and the calm describe line changes the same way.
+
+## Round 2 (2026-11-08): merged feat/travel-domain (TASK-2 round 1) and split travel-story
+- destinations is required in v1 and stays required at schemaVersion 2; at v2 it holds region, trips (period, days, kind, role, stops) and areas. New optional travel-story@1: destinations.native, .route, .seal, trips.*.stamp, trips.*.story (lead's decision). v1.json unchanged.
+- Hanami showcase claims destinations@1, destinations@2, travel-story@1, licences@1 (+ its other optional groups); cv.py contracts: 9 of 10 optional groups at v2.
+- v2 Coverage Fixture rebuilt from TASK-2's unique-marker v1 fixture; markers split between destinations and travel-story.
+- Twin: TASK-2's new facts plus domainContract 2, both trips organised, the fictional licence; Frozen Reference candidate regenerated (not approved).
+- essential should claim (upTo 2): its v1 optional groups, destinations@1, destinations@2, licences@1 if it shows a licence; not travel-story@1 (dropped with a warning).
+- Anchors: glossary citations checked by hand against their terms after the two merges (the anchors tool double-counts a row both branches added); render.py spans updated to 102-213 and 192-209.
+- Suite builds/tests-20261108-125912-962608 (25 passed, 238 compilations); ruff clean; build builds/library-20261108-130031-831.
 <!-- SECTION:NOTES:END -->
