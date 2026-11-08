@@ -558,8 +558,8 @@ window.ATLAS = {
     ".claude/skills/new-client/SKILL.md:78-101",
     "docs/workflow/05-design/README.md:15-64",
     ".claude/skills/new-cv/SKILL.md:22-63",
-    "docs/guides/build-a-cv.md:1-109",
-    "docs/guides/build-a-cv.md:111-193",
+    "docs/guides/build-a-cv.md:1-119",
+    "docs/guides/build-a-cv.md:121-203",
     "docs/pdf-workflow.md:176-198",
     ".claude/skills/new-cv/SKILL.md:65-87",
     "docs/workflow/07-after/README.md:15-56",
@@ -1874,7 +1874,7 @@ window.ATLAS = {
        "note": "Model step `text-draft.sign-off-stamp`, action `cmd.stamp-draft-signed-off`, in `docs/workflow/04-text-draft/stage.yaml`.",
        "sources": [
         "docs/workflow/04-text-draft/README.md:36-37",
-        "docs/guides/build-a-cv.md:177-180",
+        "docs/guides/build-a-cv.md:187-190",
         ".claude/skills/new-client/SKILL.md:98-100",
         "packages/cv-workflow/cv_workflow/outputs.py:172-178"
        ]
@@ -2292,8 +2292,8 @@ window.ATLAS = {
        "sources": [
         ".claude/skills/new-cv/SKILL.md:16-18",
         ".claude/skills/new-cv/SKILL.md:26-28",
-        "docs/guides/build-a-cv.md:67-86",
-        "docs/guides/build-a-cv.md:63-86"
+        "docs/guides/build-a-cv.md:77-96",
+        "docs/guides/build-a-cv.md:73-96"
        ]
       },
       {
@@ -2329,7 +2329,7 @@ window.ATLAS = {
        "note": "Model step `design.flagship-fit`, action `lead.check-flagship-fit`, in `docs/workflow/05-design/stage.yaml`.",
        "sources": [
         ".claude/skills/new-cv/SKILL.md:41-46",
-        "docs/guides/build-a-cv.md:210-214"
+        "docs/guides/build-a-cv.md:220-224"
        ]
       },
       {
@@ -2337,7 +2337,7 @@ window.ATLAS = {
        "title": "Write the Flagship entry point",
        "actor": "lead",
        "optional": true,
-       "summary": "Writes typst/cv.typ importing the engine by root-absolute path: role, theme, artwork, the durations switch and a pages override with this client's company indices (or the one-page profile), and the client's copy in place of the example wording; records the template and its Template Variation in envelope.json (ADR 0016).",
+       "summary": "Writes typst/cv.typ importing the engine by root-absolute path: role, theme, artwork, the durations switch and a pages override with this client's company indices (or the one-page profile), and the client's copy in place of the example wording; chooses the Template Variation (showcase by default, or a scan-first one such as Hanami essential when the Client needs a practical one-page CV) and records the template and its Template Variation in envelope.json (ADR 0016).",
        "does": [
         "Only when: The data fits the Flagship."
        ],
@@ -2352,8 +2352,8 @@ window.ATLAS = {
        "note": "Model step `design.entry-point`, action `lead.write-flagship-entry`, in `docs/workflow/05-design/stage.yaml`.",
        "sources": [
         ".claude/skills/new-cv/SKILL.md:41-43",
-        "docs/guides/build-a-cv.md:88-109",
-        "docs/guides/build-a-cv.md:15-61"
+        "docs/guides/build-a-cv.md:98-119",
+        "docs/guides/build-a-cv.md:15-71"
        ]
       },
       {
@@ -2375,7 +2375,7 @@ window.ATLAS = {
        ],
        "note": "Model step `design.custom-composition`, action `lead.compose-by-hand`, in `docs/workflow/05-design/stage.yaml`.",
        "sources": [
-        "docs/guides/build-a-cv.md:206-270",
+        "docs/guides/build-a-cv.md:216-280",
         ".claude/skills/new-cv/SKILL.md:41-46"
        ]
       },
@@ -2421,7 +2421,7 @@ window.ATLAS = {
        ],
        "note": "Model step `design.framework-gap`, action `lead.record-framework-gap`, in `docs/workflow/05-design/stage.yaml`.",
        "sources": [
-        "docs/guides/build-a-cv.md:264-270",
+        "docs/guides/build-a-cv.md:274-280",
         ".claude/skills/new-cv/SKILL.md:41-46",
         "docs/workflow/05-design/README.md:70-74"
        ]
@@ -2691,7 +2691,7 @@ window.ATLAS = {
        ],
        "note": "Model step `deliver.render`, action `cmd.cv-render`, in `docs/workflow/06-deliver/stage.yaml`.",
        "sources": [
-        "docs/guides/build-a-cv.md:119-142",
+        "docs/guides/build-a-cv.md:129-152",
         ".claude/skills/new-cv/SKILL.md:67-70",
         "packages/cv-workflow/cv_workflow/render.py:101-210"
        ]
@@ -2720,8 +2720,8 @@ window.ATLAS = {
        ],
        "note": "Model step `deliver.fix`, action `lead.fix-inputs`, in `docs/workflow/06-deliver/stage.yaml`.",
        "sources": [
-        "docs/guides/build-a-cv.md:129-139",
-        "docs/guides/build-a-cv.md:195-204",
+        "docs/guides/build-a-cv.md:139-149",
+        "docs/guides/build-a-cv.md:205-214",
         ".claude/skills/new-cv/SKILL.md:67-70"
        ]
       },
@@ -2786,7 +2786,7 @@ window.ATLAS = {
        "note": "Model step `deliver.wording-check`, action `cmd.wording-check`, in `docs/workflow/06-deliver/stage.yaml`.",
        "sources": [
         ".claude/skills/new-cv/SKILL.md:74-75",
-        "docs/guides/build-a-cv.md:107-109",
+        "docs/guides/build-a-cv.md:117-119",
         "docs/workflow/06-deliver/README.md:66-68"
        ]
       },
@@ -2847,7 +2847,7 @@ window.ATLAS = {
        "sources": [
         "docs/workflow/06-deliver/README.md:35-39",
         "docs/workflow/06-deliver/README.md:22-25",
-        "docs/guides/build-a-cv.md:144-152"
+        "docs/guides/build-a-cv.md:154-162"
        ]
       },
       {
@@ -2880,7 +2880,7 @@ window.ATLAS = {
        ],
        "note": "Model step `deliver.approve`, action `cmd.cv-approve`, in `docs/workflow/06-deliver/stage.yaml`.",
        "sources": [
-        "docs/guides/build-a-cv.md:164-169",
+        "docs/guides/build-a-cv.md:174-179",
         "docs/pdf-workflow.md:184-186",
         "docs/proposals/workflow-model.md:58",
         "docs/glossary.md:75"
@@ -2913,7 +2913,7 @@ window.ATLAS = {
        "note": "Model step `deliver.export`, action `cmd.cv-export`, in `docs/workflow/06-deliver/stage.yaml`.",
        "sources": [
         "docs/proposals/workflow-model.md:58",
-        "docs/guides/build-a-cv.md:171-175",
+        "docs/guides/build-a-cv.md:181-185",
         "docs/pdf-workflow.md:187-191"
        ]
       },
@@ -2981,7 +2981,7 @@ window.ATLAS = {
        ],
        "note": "Model step `deliver.stamp-delivered`, action `cmd.stamp-delivered`, in `docs/workflow/06-deliver/stage.yaml`.",
        "sources": [
-        "docs/guides/build-a-cv.md:177-179",
+        "docs/guides/build-a-cv.md:187-189",
         "docs/workflow/06-deliver/README.md:50-51",
         ".claude/skills/new-cv/SKILL.md:85-86"
        ]
@@ -3890,7 +3890,7 @@ window.ATLAS = {
        "detail": "`cv.py render` refuses to run without `envelope.json`, or when its `template` or `variation` disagrees with `cv.typ`; every client `Meta File` copies who the client is.",
        "sources": [
         "docs/guides/client-workflow.md:17-105",
-        "docs/guides/build-a-cv.md:55-61"
+        "docs/guides/build-a-cv.md:55-71"
        ]
       },
       {
@@ -3917,7 +3917,7 @@ window.ATLAS = {
        "path": "private/<envelope>/typst/cv.typ",
        "blurb": "The client's facts and the entry point that composes their CV, with its designs, wording and art beside it in typst/.",
        "sources": [
-        "docs/guides/build-a-cv.md:15-61",
+        "docs/guides/build-a-cv.md:15-71",
         "docs/guides/client-workflow.md:29-66"
        ]
       },
@@ -3978,8 +3978,8 @@ window.ATLAS = {
        "id": "n-travel",
        "title": "Travel Domain and Hanami",
        "path": "packages/domains/travel/",
-       "blurb": "Travel facts (trips, destinations, know-how) and Hanami, its first Template, from Hanami Line 2.",
-       "touch": "Changing what the travel `Domain` means or what Hanami renders; its Frozen Reference waits for your approval.",
+       "blurb": "Travel facts (trips, destinations, know-how) and Hanami, its first Template, from Hanami Line 2, with two `Template Variation`s: `showcase` (two pages) and `essential` (one page, `scan-first`).",
+       "touch": "Changing what the travel `Domain` means or what Hanami renders; both Frozen References wait for your approval.",
        "sources": [
         "docs/architecture.md",
         "docs/engine/domains-and-roles.md"
@@ -4497,18 +4497,18 @@ window.ATLAS = {
   }
  ],
  "build": {
-  "builtAt": "2026-11-08 10:31 UTC",
-  "commit": "868a82c",
+  "builtAt": "2026-11-08 10:50 UTC",
+  "commit": "c32a1ea",
   "kit": "1.1",
   "stale": {},
   "verified": {
    "client-journey": {
     "at": "2026-11-08",
-    "commit": "868a82c"
+    "commit": "c32a1ea"
    },
    "design-run": {
     "at": "2026-11-08",
-    "commit": "868a82c"
+    "commit": "c32a1ea"
    },
    "change-review": {
     "at": "2026-11-08",
@@ -4516,11 +4516,11 @@ window.ATLAS = {
    },
    "system-map": {
     "at": "2026-11-08",
-    "commit": "868a82c"
+    "commit": "c32a1ea"
    },
    "roster": {
     "at": "2026-11-08",
-    "commit": "868a82c"
+    "commit": "c32a1ea"
    }
   }
  }

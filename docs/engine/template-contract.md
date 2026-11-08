@@ -15,10 +15,34 @@ schema, with the suite's equal-definitions check, until Stage 2). It has a
 Fixture` (`coverage` in the manifest). A one-off in an `Envelope` has none of
 this.
 
-Today two `Template`s have one: Flagship (marine) and Hanami (travel, P-0013),
-each with the single `Template Variation` `showcase`. Hanami reads the travel
+Today two `Template`s have one: Flagship (marine), with the single `Template
+Variation` `showcase`, and Hanami (travel, P-0013), with two: `showcase` (two
+pages) and `essential` (one page, `scan-first`, TASK-79). Hanami reads the travel
 facts record itself; the travel facts contract carries the record's `copy`, so it
 needs no input schema of its own.
+
+## Hanami's two Template Variations
+
+`essential` inherits Hanami's themes, type, artwork, words and components and
+declares only what differs: its layout (`layouts/essential.typ`, named
+`essential`, which `hanami` checks against the manifest's `layouts`), its
+composition (`essential.typ`) and its parts (`components/essential.typ`).
+`hanami` reads the `variation` and calls the composition; `showcase` is
+unchanged. On one A4 page the name block sits in a shallow band, the profile
+row under it, then each role's title, employer and dates in a career column with
+education at its foot, and availability, languages, destinations, practical
+know-how and references on a rail. When the roles do not fit, the newest stay in
+full and the older ones become one summary whose count and span come from the
+domain (`experience-totals`); when even the newest role does not fit, the compile
+fails.
+
+It claims `profile`, `education`, `languages`, `portrait`, `availability`,
+`practical` and `references` at version 1. It shows a summary of `destinations`
+(the trips, their stops and the domain's totals) but not the stamps, the route or
+the trip told in detail, so it does not claim the group: a record that holds it
+renders with the warning and lists it under `dropped`. Contract version 2
+(TASK-80) is where that changes. Its `designBar` is `scan-first`, and its
+`Frozen Reference` is a candidate until the owner approves the design.
 
 ## Domain Contracts
 

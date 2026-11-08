@@ -239,7 +239,7 @@ artifacts:
 
   - id: art.candidate-json
     name: candidate.json
-    sources: ["docs/guides/client-workflow.md:37", "docs/guides/build-a-cv.md:63-86", "packages/cv-workflow/cv_workflow/workspace.py:93-95"]
+    sources: ["docs/guides/client-workflow.md:37", "docs/guides/build-a-cv.md:73-96", "packages/cv-workflow/cv_workflow/workspace.py:93-95"]
     path: private/<envelope>/candidate.json
     format: JSON, checked against the schema cv.typ's imports name (Flagship input for marine; none for a one-off)
     visibility: private

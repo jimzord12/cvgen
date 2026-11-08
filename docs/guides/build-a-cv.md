@@ -52,13 +52,23 @@ no override is needed. Render with `python scripts/cv.py render private/<envelop
 --pages 1`. Whether a record fits is in
 `../engine/layout-and-pagination.md`, "Choosing a profile".
 
-**Record the choice.** A Flagship entry point names its `Template` and
+**Choose the `Template Variation`.** `showcase` is the default. When a
+`Client` needs a practical one-page CV, whatever the `Rank`, the operator
+chooses a `scan-first` one instead (owner, 2026-11-08); today that is
+Hanami's `essential` (travel): pass `layout: hanami-layouts.essential,
+variation: "essential"` and render with `--pages 1`. Its portrait is
+optional for each `Client`; a career longer than the page keeps its newest
+roles in full and summarises the older ones.
+
+**Record the choice.** The entry point names its `Template` and
 `Template Variation` in `envelope.json`: `"template": "flagship"` and
-`"variation": "showcase"`. If `cv.typ` passes `variation:` to `flagship`,
+`"variation": "showcase"`, or `"template": "hanami"` and
+`"variation": "essential"`. If `cv.typ` passes `variation:`,
 write the name in quotes, or `none` for the default: the render reads it
 from the text. The render checks both against `cv.typ` and the record
 (`../engine/template-contract.md`): a missing required `Fact Group` stops
-it, and one the `Template Variation` does not show gives a warning.
+it, and one the `Template Variation` does not show gives a warning, which
+the `Meta File` lists under `dropped`.
 
 ## 2. The record and the example wording
 

@@ -44,7 +44,7 @@ owner afterwards.
 | `Theme` | A `Template`'s colours, fonts and sizes only | `templates/<t>/themes/` | 2026-09-25 |
 | `Artwork Pack` | Which illustration goes in which slot of a `Template` | `templates/<t>/artwork/` | 2026-09-25 |
 | `Layout` | Margins, gaps and which content lands on which page | `templates/<t>/layouts/`; docs also say "layout profile" | 2026-09-25 |
-| `Template Variation` | A named version of a `Template`'s design language, chosen per `Client`; a property of the `Template`, not a copy of it. Always the two words: plain "variation" keeps its older meanings | `variations` in `templates/<t>/template.json`; Flagship and Hanami each have one, `showcase` | 2026-11-04, owner |
+| `Template Variation` | A named version of a `Template`'s design language, chosen per `Client`; a property of the `Template`, not a copy of it. Always the two words: plain "variation" keeps its older meanings | `variations` in `templates/<t>/template.json`; Flagship has `showcase`; Hanami has `showcase` and `essential`, the first `scan-first` one | 2026-11-04, owner |
 | `Template Contract` | What every `Template` must accept and provide | `docs/engine/template-contract.md`, ADR 0016 | 2026-11-04, owner |
 | `Template Manifest` | A `Template`'s description inside its package: identity, suggested `Domain`s, tags, `Template Variation`s and what each supports | `templates/<t>/template.json` | 2026-11-04, owner |
 | `Domain Contract` | The versioned list of a `Domain`'s `Fact Group`s, extending the `Base Contract` | `packages/domains/<id>/contracts/v<N>.json` | 2026-11-04, owner |

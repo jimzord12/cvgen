@@ -80,7 +80,9 @@ distinct vessels (a vessel served on twice counts once) and of companies.
 Travel's totals come from `destination-totals` over the full record: the
 number of trips, their days added up, and the distinct stops by name (a stop
 on two trips counts once). Hanami prints the trip count on the region's seal
-and never counts the cards it shows.
+and never counts the cards it shows. `experience-totals` gives the count, the
+earliest start and the latest end of the roles Hanami `essential` summarises
+when a career runs longer than its page.
 
 ## Adding a domain without touching marine
 

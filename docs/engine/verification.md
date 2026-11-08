@@ -70,6 +70,18 @@ Windows one also holds the PDFs that build wrote, one per example in
    (2 trips, 30 days, 14 distinct stops), and fails on a record without
    destinations, a date that is not MM/YYYY, an overflowing page 1, a name wider
    than the plate, and an unknown `Template Variation`.
+6b. **Tour-leader on one page (travel, Hanami `essential`).**
+   `examples/travel/hanami/tour-leader-essential.typ` must equal
+   `.../hanami/tests/approved/Travel-Tour-Leader-CV-Essential-v01.pdf` pixel for
+   pixel on its one page (a `Frozen Reference` candidate), print the first-scan
+   fields in reading order (name, each role before the next, education) as text
+   that copies whole words, and print no page number. The `travel-essential.typ`
+   fixture renders the record without a portrait (the same words, one image
+   fewer), the Indigo and Sky themes, Greek wording, a record without
+   destinations, and a fictional long career (`tour-leader-long-career.json`):
+   four roles in full and "Earlier roles · 4 roles" with the span the domain
+   computed. It fails on a newest role too long for the page, a long career not
+   listed newest first, a name wider than the band, and the showcase layout.
 7. **Every PDF.** Expected page count, no empty page, all fonts embedded, no
    text outside the page. Every compile reads only the bundled fonts
    (`--ignore-system-fonts --font-path packages/cv-framework/fonts`, plus

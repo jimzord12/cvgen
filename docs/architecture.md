@@ -42,7 +42,10 @@ Hanami has no adapter and no input schema: the record's own `copy` key is in the
 travel facts contract, and the template composes the domain's words, Hanami's
 (`copy.typ`), the record's and the call site's in the same order. It places
 everything absolutely on two fixed pages, as the approved Hanami Line 2 did, and
-each field is a slot that fails loudly when its content does not fit.
+each field is a slot that fails loudly when its content does not fit. Its
+`essential` `Template Variation` (`essential.typ`, the `essential` layout) sets
+the same facts on one page, scan-first, from the same theme, words and
+components (`docs/engine/template-contract.md`).
 
 ## The six inputs
 
@@ -176,21 +179,23 @@ domains/marine/                         the marine domain (ADR 0011)
 domains/travel/                         the travel domain (P-0013), built like marine
   lib.typ                               the travel surface: the Framework's names, travel, Hanami (components and inputs as modules)
   domain.typ                            id, meta, copy, totals
-  data.typ                              destination-totals, normalize-candidate, validate-candidate, the closed stamp and icon lists
+  data.typ                              destination-totals, experience-totals, normalize-candidate, validate-candidate, the closed stamp and icon lists
   schema/candidate.schema.json          travel candidate-facts contract (with the record's `copy`)
   contracts/v1.json  fixtures/          the Domain Contract and the Coverage Fixture
   assets/japan/                         the Japan SVGs (band line art, sakura, petals, stamps, icons, paper pieces)
   templates/hanami/
-    hanami.typ                            the composition: theme check, two fixed pages, section order, page-count check
+    hanami.typ                            the composition: theme and layout checks, showcase's two fixed pages, section order, page-count check
+    essential.typ                         the essential composition: one page, the career column's fit and the earlier roles' summary
     copy.typ                              hanami-copy: Hanami's words in English
     components.typ                        Hanami's ctx-first components as one module (hanami-components)
     components/art.typ                    artwork reader with theme swaps, labels, slots, bullets
     components/stamp.typ                  the eki stamp
     components/hero.typ                   page 1 band (portrait ring, seal, route, name plate), page 2 band, footer
     components/sections.typ               headings, profile, experience, trip cards, areas, practical, studies
+    components/essential.typ              essential's band, profile row, roles, earlier roles, education and rail parts
     template.json  tests/coverage.typ     the Template Manifest and its coverage entry
-    themes/  artwork/  layouts/           sakura, indigo, sky; japan; showcase
-    tests/approved/                       the Frozen Reference candidate (owner approval pending)
+    themes/  artwork/  layouts/           sakura, indigo, sky; japan; showcase, essential
+    tests/approved/                       a Frozen Reference candidate per Template Variation (owner approval pending)
 
 cv-workflow/cv_workflow/                Python; owns everything around a candidate render
   workspace.py                          workspace and revision paths, ids, hashes, records, the refusal rules
