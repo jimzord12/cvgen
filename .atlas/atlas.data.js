@@ -1579,7 +1579,7 @@ window.ATLAS = {
        ],
        "note": "Model step `research.cap-reached`, action `manual.decide-at-cap`, in `docs/workflow/03-research/stage.yaml`.",
        "sources": [
-        "docs/review.md:256-260",
+        "docs/review.md:296-300",
         "docs/workflow/03-research/README.md:70-73"
        ]
       }
@@ -1891,7 +1891,7 @@ window.ATLAS = {
        "note": "Model step `text-draft.cap-reached`, action `manual.decide-at-cap`, in `docs/workflow/04-text-draft/stage.yaml`.",
        "sources": [
         "docs/workflow/README.md:28-32",
-        "docs/review.md:256-260"
+        "docs/review.md:296-300"
        ]
       }
      ]
@@ -2485,7 +2485,7 @@ window.ATLAS = {
        "sources": [
         "docs/proposals/workflow-model.md:59",
         "docs/review.md:7-9",
-        "docs/review.md:23-30"
+        "docs/review.md:25-32"
        ]
       },
       {
@@ -2511,7 +2511,7 @@ window.ATLAS = {
        ],
        "note": "Model step `design.engine-revise`, action `lead.revise-engine-change`, in `docs/workflow/05-design/stage.yaml`.",
        "sources": [
-        "docs/review.md:248-255"
+        "docs/review.md:288-295"
        ]
       },
       {
@@ -2632,7 +2632,7 @@ window.ATLAS = {
        "sources": [
         "docs/workflow/05-design/README.md:59-64",
         ".claude/skills/idea-run/SKILL.md:74-77",
-        "docs/review.md:256-260"
+        "docs/review.md:296-300"
        ]
       }
      ]
@@ -3043,7 +3043,7 @@ window.ATLAS = {
        ],
        "note": "Model step `deliver.cap-reached`, action `manual.decide-at-cap`, in `docs/workflow/06-deliver/stage.yaml`.",
        "sources": [
-        "docs/review.md:256-260"
+        "docs/review.md:296-300"
        ]
       }
      ]
@@ -4486,8 +4486,8 @@ window.ATLAS = {
   }
  ],
  "build": {
-  "builtAt": "2026-11-08 14:24 UTC",
-  "commit": "da5fec0",
+  "builtAt": "2026-11-08 14:35 UTC",
+  "commit": "1050b75",
   "kit": "1.1",
   "stale": {
    "design-run": [
@@ -4497,25 +4497,31 @@ window.ATLAS = {
    "change-review": [
     "docs/development.md",
     "docs/review.md",
+    "docs/git-workflow.md",
     "docs/conventions.md"
    ],
    "system-map": [
+    "AGENTS.md",
+    "docs/git-workflow.md",
     "docs/glossary.md",
     ".claude/agents",
     ".claude/skills",
-    "archive/work-records"
+    "archive/work-records",
+    "docs/engine/verification.md"
    ],
    "roster": [
     "docs/review.md",
     "docs/development.md",
     ".claude/agents/context-reviewer.md",
-    ".claude/agents/context-maintainer.md"
+    ".claude/agents/context-maintainer.md",
+    "docs/engine/verification.md",
+    "docs/git-workflow.md"
    ]
   },
   "verified": {
    "client-journey": {
     "at": "2026-11-08",
-    "commit": "da5fec0"
+    "commit": "1050b75"
    },
    "design-run": {
     "at": "2026-11-08",
