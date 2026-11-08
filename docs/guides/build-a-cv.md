@@ -72,7 +72,9 @@ Field meanings and error messages are in
 repository root, which both a direct compile and the workflow
 accept) or to `null`. A path relative to the `Envelope`,
 `images/portrait/portrait.<ext>`, works only through `scripts/cv.py render`, which copies
-the file into the revision; the direct compiler cannot find it.
+the file into the revision; the direct compiler cannot find it. Point it
+at the portrait `scripts/portrait.py prepare` wrote, never at the raw
+photograph (`client-workflow.md`, section 1, "The portrait").
 
 If you do not know months per vessel, set `show-vessel-durations: false` and
 give each company a `service-months` total instead. A career recorded as

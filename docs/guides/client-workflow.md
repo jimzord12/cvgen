@@ -57,13 +57,35 @@ private/eleni-example-tour-guide/
     text/            the CV's wording as Typst, one file per language or variant
     art/             the design's own SVGs, the scripts that generate them, and generated images
   images/
-    portrait/        the authorised photograph(s), jpg or png
+    portrait/        the authorised photograph(s), jpg or png, and the prepared
+                     portrait.png with its portrait.json (scripts/portrait.py)
   reviews/           design-NN.md: design-reviewer reports on the CV's design, and
                      design-NN-codex.md: the codex-visual-reviewer's (an older
                      Envelope may also hold text-NN.md; it is kept as is)
   revisions/         one folder per render, written by scripts/cv.py
   exports/           one folder per exported revision, written by scripts/cv.py
 ```
+
+**The portrait** (owner, 2026-11-08: no background, the face in the centre
+of the shape or a tiny bit higher). Keep the client's photograph as it came
+in `images/portrait/`, then prepare it once:
+
+```powershell
+python scripts/portrait.py prepare private/<envelope>/images/portrait/<photo>.jpg --output private/<envelope>/images/portrait/portrait.png
+```
+
+It finds the one face, crops a square with the face's centre at 50% across
+and 45% down (the face about 45% of the side: head and the top of the
+shoulders), removes the background and writes a transparent PNG, which the
+design's own colour shows through; `--fill '#1b2a4a'` paints one colour
+instead. `portrait.json` beside it records the face box, the crop, the
+models and the versions. It refuses a photograph with no face or several,
+and one too small for a 600 px square, which it never enlarges; the source
+is never changed. Point `identity.portrait` in `candidate.json` (and any
+`image(...)` in `cv.typ`) at `portrait.png`, and look at it in the
+rendered circle before the design round. The first run downloads rembg's
+`birefnet-portrait` model (about 930 MB) into `~/.rembg/models/`, outside
+the repository.
 
 `typst/cv.typ` reads every file by a path relative to itself:
 `json("../candidate.json")`, `image("../images/portrait/portrait.jpg")`,

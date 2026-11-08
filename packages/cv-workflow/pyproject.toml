@@ -16,6 +16,8 @@ dependencies = [
 [project.optional-dependencies]
 test = ["pillow==12.3.0"] # tests/verify.py: pixel comparison
 lint = ["ruff==0.16.10"]  # ruff.toml at the repository root
+# scripts/portrait.py: background removal (rembg on onnxruntime) and face detection (OpenCV's YuNet)
+portrait = ["rembg==2.0.87", "onnxruntime==1.31.1", "opencv-python-headless==4.13.0.92"]
 
 [build-system]
 requires = ["setuptools>=77"]
@@ -25,4 +27,4 @@ build-backend = "setuptools.build_meta"
 packages = ["cv_workflow"]
 
 [tool.setuptools.package-data]
-cv_workflow = ["*.schema.json"]
+cv_workflow = ["*.schema.json", "models/*"]

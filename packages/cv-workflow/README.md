@@ -24,6 +24,12 @@ export_revision(workspace, revision_id)                            # -> export f
 workspace_status(workspace)                                        # -> state, hash prefix and certificate warnings per revision
 ```
 
+`cv_workflow.portrait` (not imported by the package, so the functions above
+need none of its packages) prepares a portrait for `scripts/portrait.py`:
+`prepare_portrait(source, output=None, remove=True, fill=None, ...)` crops a
+square around the one face, removes the background with `rembg` and writes the
+PNG with its JSON sidecar; `detect_faces(image)` is the YuNet detector it uses.
+
 A `workspace` is a folder inside the repository checkout (`private/<name>`,
 or under `builds/` for fixtures) holding `candidate.json` and `typst/cv.typ`
 (the `Envelope` layout, `docs/guides/client-workflow.md` section 1); a

@@ -238,6 +238,21 @@ Windows one also holds the PDFs that build wrote, one per example in
    table in `docs/engine/template-contract.md`, a record ahead of, behind or
    below what a Variation renders, a contract that breaks a group without
    raising its `schemaVersion`, and `cv.py contracts`; report in `compatibility/`.
+21. **Portrait** (`portrait: <check>`, `tests/portrait.py`). The real
+   `scripts/portrait.py` on photographs made under `portrait/` from the
+   fictional portrait (`examples/candidates/fictional-engineer.png`) and a
+   concept's copy of it: with the face high and left, then low and right,
+   the face found again in each prepared square sits within 2% of the target
+   (50% across, 45% down) and the square is never enlarged; a photograph too
+   small for a 600 px square is refused, and accepted at its own size with
+   `--min-size`; no face, two faces, the source as the output, an existing
+   output and `--fill` with `--keep-background` are refused on their
+   messages and write nothing. Then background removal with rembg's small
+   `u2netp` model (about 5 MB, downloaded on first use; the default model is
+   not loaded here): the top corners are transparent and the face opaque, and
+   `--fill` paints the corners its colour. The fictional sources must be
+   unchanged. Without rembg's packages or model the case is `SKIPPED`; on CI
+   that fails the suite.
 
 Negative cases assert on the exact error text so a message change is a test
 change.
