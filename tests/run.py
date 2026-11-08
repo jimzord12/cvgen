@@ -423,7 +423,7 @@ def main():
                        'Tour Leader Certificate', 'October 2023 – March 2024', 'AVAILABLE ALL YEAR ROUND', 'JLPT N3, July 2023',
                        '2 trips · 30 days · 14 places', 'Confident with', 'FICTIONAL CANDIDATE',
                        # contract version 2: the licence beside the lead, each trip's role, the areas; the seal words of the rank
-                       'LICENCE · VALID UNTIL 31 MAR 2029', 'Tour Leader Licence', 'ORGANISED', 'Knows well', 'TOUR LEADER COURSE · TTI · 2024']:
+                       'LICENCE · VALID UNTIL 31 MAR 2029', 'Thermaic Tour Board', 'ORGANISED', 'Knows well', 'TOUR LEADER COURSE · TTI · 2024']:
             assert phrase in text, phrase
         # the rail is full, so the licence sits beside the lead, above the highlights
         assert doc[0].search_for('LICENCE · VALID UNTIL')[0].y1 < doc[0].search_for('Two trips')[0].y0
