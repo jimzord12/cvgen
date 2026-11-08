@@ -102,7 +102,7 @@
             "docs/workflow/01-open/README.md:23-26",
             "docs/guides/client-workflow.md:93-94",
             ".claude/skills/new-client/SKILL.md:33-35",
-            "docs/glossary.md:59"
+            "docs/glossary.md:60"
           ]
         },
         {
@@ -571,7 +571,7 @@
           "sources": [
             "docs/workflow/03-research/README.md:24-34",
             ".claude/skills/new-client/SKILL.md:57-59",
-            "docs/glossary.md:65"
+            "docs/glossary.md:66"
           ]
         },
         {
@@ -1240,7 +1240,7 @@
           "sources": [
             "docs/workflow/04-text-draft/README.md:17-23",
             "docs/glossary.md:71",
-            "docs/glossary.md:74"
+            "docs/glossary.md:75"
           ]
         },
         {
@@ -2354,7 +2354,7 @@
             "docs/guides/build-a-cv.md:164-169",
             "docs/pdf-workflow.md:184-186",
             "docs/proposals/workflow-model.md:58",
-            "docs/glossary.md:76"
+            "docs/glossary.md:77"
           ]
         },
         {

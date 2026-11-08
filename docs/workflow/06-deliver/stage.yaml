@@ -67,7 +67,7 @@ steps:
 
   - id: deliver.approve
     name: The owner approves the reviewed bytes
-    sources: ["docs/guides/build-a-cv.md:164-169", "docs/pdf-workflow.md:184-186", "docs/proposals/workflow-model.md:58", "docs/glossary.md:76"]
+    sources: ["docs/guides/build-a-cv.md:164-169", "docs/pdf-workflow.md:184-186", "docs/proposals/workflow-model.md:58", "docs/glossary.md:77"]
     actor: actor.owner
     action: cmd.cv-approve
     inputs: [art.cv-pdf, art.render-json, art.checks-json, art.reviewed-hash, art.envelope-json]
@@ -219,7 +219,7 @@ artifacts:
 
   - id: art.cv-pdf
     name: The Revision's cv.pdf
-    sources: ["docs/pdf-workflow.md:93", "docs/glossary.md:75", "packages/cv-workflow/cv_workflow/outputs.py:54-55"]
+    sources: ["docs/pdf-workflow.md:93", "docs/glossary.md:76", "packages/cv-workflow/cv_workflow/outputs.py:54-55"]
     path: private/<envelope>/revisions/<revision>/cv.pdf
     format: PDF
     visibility: private

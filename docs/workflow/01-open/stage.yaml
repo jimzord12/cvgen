@@ -31,7 +31,7 @@ steps:
 
   - id: open.alias
     name: Give the client an Alias
-    sources: ["docs/workflow/01-open/README.md:23-26", "docs/guides/client-workflow.md:93-94", ".claude/skills/new-client/SKILL.md:33-35", "docs/glossary.md:59"]
+    sources: ["docs/workflow/01-open/README.md:23-26", "docs/guides/client-workflow.md:93-94", ".claude/skills/new-client/SKILL.md:33-35", "docs/glossary.md:60"]
     actor: actor.lead
     action: lead.write-alias
     inputs: [art.envelope-drawers]

@@ -631,7 +631,7 @@ window.ATLAS = {
         "docs/workflow/01-open/README.md:23-26",
         "docs/guides/client-workflow.md:93-94",
         ".claude/skills/new-client/SKILL.md:33-35",
-        "docs/glossary.md:59"
+        "docs/glossary.md:60"
        ]
       },
       {
@@ -1100,7 +1100,7 @@ window.ATLAS = {
        "sources": [
         "docs/workflow/03-research/README.md:24-34",
         ".claude/skills/new-client/SKILL.md:57-59",
-        "docs/glossary.md:65"
+        "docs/glossary.md:66"
        ]
       },
       {
@@ -1769,7 +1769,7 @@ window.ATLAS = {
        "sources": [
         "docs/workflow/04-text-draft/README.md:17-23",
         "docs/glossary.md:71",
-        "docs/glossary.md:74"
+        "docs/glossary.md:75"
        ]
       },
       {
@@ -2883,7 +2883,7 @@ window.ATLAS = {
         "docs/guides/build-a-cv.md:164-169",
         "docs/pdf-workflow.md:184-186",
         "docs/proposals/workflow-model.md:58",
-        "docs/glossary.md:76"
+        "docs/glossary.md:77"
        ]
       },
       {
@@ -4497,14 +4497,14 @@ window.ATLAS = {
   }
  ],
  "build": {
-  "builtAt": "2026-11-08 10:50 UTC",
-  "commit": "6071592",
+  "builtAt": "2026-11-08 11:03 UTC",
+  "commit": "f726e7a",
   "kit": "1.1",
   "stale": {},
   "verified": {
    "client-journey": {
     "at": "2026-11-08",
-    "commit": "6071592"
+    "commit": "f726e7a"
    },
    "design-run": {
     "at": "2026-11-08",
@@ -4516,11 +4516,11 @@ window.ATLAS = {
    },
    "system-map": {
     "at": "2026-11-08",
-    "commit": "6071592"
+    "commit": "f726e7a"
    },
    "roster": {
     "at": "2026-11-08",
-    "commit": "6071592"
+    "commit": "f726e7a"
    }
   }
  }
