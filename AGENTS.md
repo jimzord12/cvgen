@@ -43,7 +43,7 @@ starts and ends as `docs/development.md` says.
 | `studio/` | Design work: `brand/`, `design-concepts/`, frozen `archive/` (never repeat an `Anti-example`); `brand/`, `design-concepts/` and each `archive/` folder have a `README.md` |
 | `archive/work-records/` | Review reports and dated task records, kept unchanged |
 | `.atlas/` | The `Atlas`: open `index.html` (its `README.md`) |
-| `backlog/` | Tasks and the `session-handoff` doc, through the backlog skill |
+| `backlog/` | Tasks, their `Milestone`s and the `session-handoff` doc, through the backlog skill |
 | `docs/` | Governance and reference, below |
 | `.claude/`, `.codex/` | Skills and agents, below |
 | `builds/` | Ignored; every build and test run writes a new folder |

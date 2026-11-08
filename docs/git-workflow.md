@@ -35,7 +35,7 @@ None of this approves a pending product design.
   Do not move existing work merely to satisfy a new naming convention.
 - A larger feature may need a longer-lived integration branch. Record its parent
   and completion boundary in the owning task, integrate useful complete pieces
-  when possible, and bring in relevant `main` fixes at milestones.
+  when possible, and bring in relevant `main` fixes at checkpoints.
 - Child branches are useful for independent parallel tasks or isolated experiments.
   Use separate worktrees and one writer per checkout; routine fixes to the same
   feature can stay on its branch. Feature-specific fixes target the feature;
@@ -73,7 +73,7 @@ None of this approves a pending product design.
 - Stage the intended changes explicitly and inspect the staged diff. Do not sweep
   unrelated local work, real candidate data, secrets, or local preferences into a
   commit. Check the current branch, remote and upstream before publication.
-- Commit at coherent checkpoints and push at useful milestones or handoffs.
+- Commit at coherent checkpoints and push at useful points or handoffs.
   Branch checkpoints can be unfinished overall if their limitations are clear;
   unfinished or unverified work does not belong on `main`.
 - Amend, rebase, reset, force-push of a feature branch (`--force-with-lease`),
