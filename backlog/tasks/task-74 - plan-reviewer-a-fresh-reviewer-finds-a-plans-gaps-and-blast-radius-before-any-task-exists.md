@@ -6,7 +6,7 @@ title: >-
 status: Active
 assignee: []
 created_date: '2026-11-08T09:50:00Z'
-updated_date: '2026-11-08T10:20:00Z'
+updated_date: '2026-11-08T10:22:00Z'
 labels: []
 milestone: m-8
 dependencies:
@@ -61,4 +61,11 @@ The held-out calibration started on the definition at c7389f6, before these edit
 
 ## Calibration 03, held out (AC 3)
 Workflow Model plan at f4af2c1; answer key built separately and committed (ddebe24) before the result. Score: 3 found, 3 partly, 5 missed of 11 (~40%), plus real gaps outside the key (the text-draft rename's unnamed files, a suite with no rule for a missing Bun, ~30 inbound links). Missed class: the plan's new model never tested against the hardest real cases (items 1, 2, 3, 6). Question 13 "Model fit" added after seeing the key: unproven until a later plan exercises it. Record: calibration/03-plan-reviewer-workflow-model.md.
+
+## Review round 2 (context-reviewer): FINDINGS, dispositions
+Report: reviews/06-context-reviewer.md (verbatim).
+- M1 fixed: question 13's cases are examples ("such as ... and any other the sources hold"), with the reviewer's addition for data schemas (a value that is optional, repeated or missing).
+- m1 fixed: development.md points to the skill's "When a plan is needed" instead of a third copy of the list.
+- m2 fixed: the three passages re-wrapped.
+- N1 no change; N2 for T5's `Plan` glossary term (plan file, its source, and a task's Implementation Plan field); N3 agreed: question 13 does not count toward AC 3.
 <!-- SECTION:NOTES:END -->

@@ -40,10 +40,10 @@ Size is no exemption either: several changes made since the last handoff
 may go to one round together, but each is reviewed.
 
 Timing: review a plan before its tasks are created (when they already
-exist, before the first goes Active), a change before it is reported done, and a proposal or a rule change before it is put to the
-owner for a decision. A documentation change
-may reach `main` before its round only when the round runs in the same
-session, before the report.
+exist, before the first goes Active), a change before it is reported done,
+and a proposal or a rule change before it is put to the owner for a
+decision. A documentation change may reach `main` before its round only
+when the round runs in the same session, before the report.
 
 The trivial path, the only exemption for a change itself: pure spelling,
 comments, mechanical formatting, or a term row added, renamed or dropped in
