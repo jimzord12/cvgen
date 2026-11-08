@@ -59,9 +59,9 @@ A seventh, optional input is `copy` on `flagship`: overrides for the
 wording. The adapter composes the marine domain's words, then the role's,
 then Flagship's, then a `copy` key inside the record, then the argument
 (later wins, `merge`/`compose` in `cv-framework/core/node.typ`), and the result is the Flagship input
-(contract: `domains/marine/templates/flagship/schema/flagship-input.schema.json`). The two
-contracts differ only by that key today; keeping them apart is what lets a
-second template read the same facts with its own wording.
+(contract: `domains/marine/templates/flagship/schema/flagship-input.schema.json`). That
+schema refers to the marine facts schema and adds only `copy` (ADR 0016), so
+the facts are stated once and a second template reads them with its own wording.
 
 An eighth, optional input is `variation` on `flagship`: the `Template
 Variation` it renders (`docs/engine/template-contract.md`); `none` means the
@@ -162,7 +162,7 @@ domains/marine/                         the marine domain (ADR 0011)
     flagship.typ                          the composition: closing-section rules (validate-plan), page loop, section order, overflow check
     adapter/adapter.typ                   flagship-copy defaults, to-flagship-input
     components.typ                        Flagship's ctx-first components as one module; marine's lib.typ exports it as flagship-components
-    schema/flagship-input.schema.json     Flagship input contract (facts + copy)
+    schema/flagship-input.schema.json     Flagship input contract: the facts by $ref, plus copy
     template.json                         the Template Manifest: Template Variations and their claims
     tests/coverage.typ                    a Coverage Fixture through Flagship
     components/hero.typ                   portrait, frame, backdrop, contact groups, identity plate, hero

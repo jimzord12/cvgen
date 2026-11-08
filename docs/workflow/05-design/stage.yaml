@@ -456,7 +456,7 @@ artifacts:
 
   - id: art.envelope-choice
     name: envelope.json, the Template and Template Variation
-    sources: ["docs/guides/build-a-cv.md:55-61", "docs/guides/client-workflow.md:89-91", "packages/cv-workflow/cv_workflow/contracts.py:103-129"]
+    sources: ["docs/guides/build-a-cv.md:55-61", "docs/guides/client-workflow.md:89-91", "packages/cv-workflow/cv_workflow/contracts.py:155-181"]
     path: private/<envelope>/envelope.json
     format: 'the fields "template" and "variation" in envelope.json, names in quotes ("flagship", "showcase"); the render checks them against typst/cv.typ'
     visibility: private

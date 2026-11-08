@@ -118,7 +118,7 @@ steps:
 
   - id: deliver.status
     name: List the Revisions and their states
-    sources: [".claude/skills/new-cv/SKILL.md:87", "scripts/cv.py:62-63", "packages/cv-workflow/cv_workflow/__init__.py:14-31"]
+    sources: [".claude/skills/new-cv/SKILL.md:87", "scripts/cv.py:66-67", "packages/cv-workflow/cv_workflow/__init__.py:14-31"]
     actor: actor.lead
     action: cmd.cv-status
     inputs: [art.render-json]
@@ -134,7 +134,7 @@ steps:
 gates:
   - id: gate.render-ok
     name: Render done
-    sources: ["scripts/cv.py:8-9", "scripts/cv.py:76", "docs/guides/build-a-cv.md:129-139"]
+    sources: ["scripts/cv.py:12-13", "scripts/cv.py:88", "docs/guides/build-a-cv.md:129-139"]
     check: >-
       scripts/cv.py render exits 0: not refused (exit 2, nothing written), the
       compile succeeded and every check passed (exit 1 keeps the Revision).
@@ -234,7 +234,7 @@ artifacts:
 
   - id: art.render-summary
     name: What render prints
-    sources: ["docs/guides/build-a-cv.md:124-142", "scripts/cv.py:26-36", "scripts/cv.py:90-93"]
+    sources: ["docs/guides/build-a-cv.md:124-142", "scripts/cv.py:30-40", "scripts/cv.py:102-105"]
     format: the summary JSON on stdout; REFUSED, WARNING and NOTE lines on stderr
     visibility: ephemeral
 
@@ -294,7 +294,7 @@ actions:
   - id: cmd.cv-render
     kind: cmd
     name: Render a Revision
-    sources: ["scripts/cv.py:3", "scripts/cv.py:43-49", "docs/guides/build-a-cv.md:139-142"]
+    sources: ["scripts/cv.py:3", "scripts/cv.py:47-53", "docs/guides/build-a-cv.md:139-142"]
     run: python scripts/cv.py render private/<envelope> [--pages <N>] [--input <key>=<value> ...]
 
   - id: lead.fix-inputs

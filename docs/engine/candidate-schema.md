@@ -3,7 +3,7 @@
 Read this when editing a marine candidate JSON. This is the marine domain's
 facts contract (ADR 0011); another domain defines its own. Machine-checkable
 version: `packages/domains/marine/schema/candidate.schema.json`
-(candidate facts; the Flagship input adds `copy`, see
+(candidate facts; the Flagship input refers to it and closes `copy`, see
 `packages/domains/marine/templates/flagship/schema/flagship-input.schema.json`).
 Runtime checks: `validate-candidate` in `packages/domains/marine/data.typ`,
 which runs the domain-neutral `validate-common` from `packages/cv-framework/core/data.typ`
@@ -133,8 +133,8 @@ brand                 "FLAGSHIP"
 To change any of them, pass only the keys you change; the adapter merges
 them over the defaults. Preferred: the `copy` argument of `flagship`, for
 example `flagship.with(..., copy: (brand: "GOLDEN BLUE"))`. Legacy: a `copy`
-key inside the record, which the adapter also merges, but such a record only
-validates against `flagship-input.schema.json`, not the facts contract.
+key inside the record, which the adapter also merges. The facts contract
+accepts any `copy` object; `flagship-input.schema.json` checks its keys.
 Merge order is domain, then role, then Flagship, then the record's `copy`,
 then the argument; later wins (see `docs/engine/domains-and-roles.md`).
 A role can only override the domain's words.
