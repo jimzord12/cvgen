@@ -1,0 +1,59 @@
+{
+  "domainContract": 2,
+  "identity": {
+    "name": "Nefeli Sarantou",
+    "rank": "Tour Leader",
+    "specialty": "Northern Italy",
+    "portrait": null
+  },
+  "contacts": {
+    "left": [
+      { "label": "Based in", "value": "Larissa, Greece" },
+      { "label": "Phone", "value": "+30 699 000 0512", "href": "tel:+306990000512" },
+      { "label": "Email", "value": "nefeli.sarantou@example.com", "href": "mailto:nefeli.sarantou@example.com" }
+    ]
+  },
+  "profile": "Plans group trips in Italy and speaks Italian at B2.",
+  "experience": [
+    {
+      "role": "Travel Agent",
+      "employer": "Olympos Travel",
+      "place": "Larissa",
+      "from": "09/2022",
+      "bullets": [
+        "Sells package holidays and city breaks to Italy, Austria and Spain.",
+        "Books coach tours for school groups of 30 to 50, with hotels and museum slots.",
+        "Answers clients by phone and email in Greek, English and Italian."
+      ]
+    },
+    {
+      "role": "Seasonal Receptionist",
+      "employer": "Hotel Aiolos",
+      "place": "Volos",
+      "from": "05/2021",
+      "to": "10/2021",
+      "bullets": ["Check-in and check-out, excursion bookings and guest requests on the evening shift."]
+    }
+  ],
+  "education_entries": [
+    { "qualification": "Bachelor’s degree in Tourism Business Administration", "institution": "Example University of Thessaly", "note": "2017 – 2021" }
+  ],
+  "language_entries": [
+    { "name": "Greek", "level": "Native" },
+    { "name": "English", "level": "C1" },
+    { "name": "Italian", "level": "B2" }
+  ],
+  "destinations": {
+    "region": "Northern Italy",
+    "trips": [
+      { "period": "May 2023", "days": 8, "role": "organised", "kind": "Trip for four friends, which she planned herself",
+        "stops": [{ "name": "Milan", "known": true }, { "name": "Como" }, { "name": "Verona", "known": true }, { "name": "Venice", "known": true }] },
+      { "period": "October 2024", "days": 10, "role": "organised", "kind": "Trip for her family of five, which she planned herself",
+        "stops": [{ "name": "Turin", "known": true }, { "name": "Genoa" }, { "name": "Bologna", "known": true }, { "name": "Florence" }] }
+    ],
+    "areas": [
+      { "label": "Knows well", "places": "Milan, Verona, Venice, Turin and Bologna" }
+    ]
+  },
+  "disclosure": "FICTIONAL CANDIDATE / SPARSE-RECORD FIXTURE"
+}

@@ -416,7 +416,7 @@ def main():
         assert 'Earlier roles' not in text and '1 / 1' not in text and len(doc[0].get_images()) >= 1
         # travel-story is left out: no route, no stamps, no story, not even the region's own script
         assert '日本' not in text and 'Planning the' not in text and 'SKG' not in text
-    for case in ['no-portrait', 'indigo', 'sky', 'greek', 'long-career', 'long-career-greek', 'no-licence']:
+    for case in ['no-portrait', 'indigo', 'sky', 'greek', 'long-career', 'long-career-greek', 'no-licence', 'sparse']:
         pdf = compile_case('travel-essential-' + case, 'tests/fixtures/travel-essential.typ', {'case': case})
         assert check_case(pdf, pages=1)['passed'], case
     with fitz.open(essential) as a, fitz.open(out / 'travel-essential-no-portrait' / 'travel-essential-no-portrait.pdf') as b:
@@ -445,6 +445,14 @@ def main():
         licence = page.search_for('LICENCE · VALID UNTIL 30 JUN 2028')[0]
         assert licence.x0 >= rail_x - 4 and licence.y0 < page.search_for('AVAILABLE FROM APRIL 2027')[0].y0, licence
         assert 'LED THE GROUP' in text
+    with fitz.open(out / 'travel-essential-sparse' / 'travel-essential-sparse.pdf') as doc:
+        # a sparse record (one contact row, no highlights, licence, availability or references): the band fits its one
+        # row, and the fields start right under the one-line lead, with no empty paper between them
+        page = doc[0]
+        lead = page.search_for('Plans group trips in Italy')[0]
+        heading = page.search_for('Experience')[0]
+        assert 0 < (heading.y0 - lead.y1) / 72 * 25.4 < 9, (lead, heading)
+        assert 'ORGANISED' in page.get_text() and 'Earlier roles' not in page.get_text()
     for mode, message in [('overflow', 'Hanami essential: even the newest role alone overflows the career column'),
                           ('unsorted', 'the experience must be listed newest first'),
                           ('long-name', 'Hanami essential: the name is wider than the band'),

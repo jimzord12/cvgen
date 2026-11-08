@@ -27,28 +27,15 @@
   [#fig(from)#h(0.9mm)#text(size: size * 0.86, weight: 600, fill: P.date)[–]#h(0.9mm)#if to == none { text(size: size * 0.82, weight: 600, fill: P.date, ctx.copy.present) } else { fig(to) }]
 }
 
-// The band: name, rank and specialty, contacts in two rows; the portrait, when the record has one, in
-// a metal ring on the right; one sakura branch across the top right corner.
-#let band(ctx, d) = {
+// The name block: name, rank and specialty with the seal words, contacts in up to two rows; and the
+// width it may take (to the portrait's ring, or the margin without one).
+#let name-block(ctx, d) = {
   let P = tokens(ctx)
   let fonts = ctx.theme.fonts
-  let B = ctx.layout.band
-  at(0mm, 0mm, rect(width: 210mm, height: B, fill: P.hero))
-  let portrait = d.identity.at("portrait", default: none)
-  // without a portrait the branch grows, so its blossoms reach down into the corner the portrait leaves
-  place(top + right, art(ctx, "canopy", width: if portrait != none { 104mm } else { ctx.layout.canopy }, swaps: sakura(ctx.theme.sakura.hero, P.hero)))
   let PD = ctx.layout.portrait
-  let PX = 194mm - PD
-  let PY = (B - PD) / 2 + 1.5mm
-  if portrait != none {
-    at(PX - 1.6mm, PY - 1.6mm, circle(radius: PD / 2 + 1.6mm, fill: P.plate, stroke: 1.4pt + P.ring))
-    at(PX, PY, box(width: PD, height: PD, radius: 50%, clip: true, stroke: 0.6pt + P.ring,
-      image(portrait, width: PD, height: PD, fit: "cover", alt: d.identity.at("portrait-alt", default: d.identity.name))))
-  }
-  // the name block runs to the portrait's ring, or to the margin without one
-  let W = if portrait != none { PX - 1.6mm - 8mm - 16mm } else { 178mm }
+  let portrait = d.identity.at("portrait", default: none)
+  let W = if portrait != none { 194mm - PD - 1.6mm - 8mm - 16mm } else { 178mm }
   let name = text(font: fonts.display, size: 31pt, weight: 800, tracking: 0.6pt, fill: P.hero-text, top-edge: "cap-height", bottom-edge: "baseline", caps(d.identity.name))
-  context assert(measure(name).width <= W, message: "Hanami essential: the name is wider than the band; shorten it (a middle name can go)")
   let specialty = d.identity.at("specialty", default: none)
   // the rank on showcase's red tab, white on red; the specialty beside it in the band's own ink
   let rank = {
@@ -65,7 +52,6 @@
       box(inset: (x: 2.2mm, y: 1.5mm), label(ctx, seal.join(" · "), fill: P.hero-label, size: 7.6pt, track: 0.09em))
     }
   }
-  context assert(measure(rank).width <= W, message: "Hanami essential: the rank, specialty and seal words are wider than the band; shorten identity.seal or the specialty")
   let entry(c) = stack(spacing: 1.5mm, label(ctx, c.label, fill: P.hero-label, size: 6.6pt, track: 0.09em),
     text(size: 9.8pt, fill: P.hero-text, top-edge: "cap-height", bottom-edge: "baseline", if "href" in c { link(c.href, c.value) } else { c.value }))
   let rows = (d.contacts.at("left", default: ()), d.contacts.at("right", default: ())).filter(r => r.len() > 0)
@@ -74,8 +60,40 @@
   let contacts = if rows.len() > 0 {
     grid(columns: (auto,) * columns, column-gutter: 8mm, row-gutter: 3.4mm, ..rows.map(r => r + ([],) * (columns - r.len())).flatten().map(c => if c == [] { c } else { entry(c) }))
   }
-  context assert(contacts == none or measure(contacts).width <= W, message: "Hanami essential: the contacts are wider than the band; shorten one or move it to the other row")
-  at(16mm, 10mm, block(width: W, stack(spacing: 4.4mm, name, rank, v(2.6mm), contacts)))
+  let checks = context {
+    assert(measure(name).width <= W, message: "Hanami essential: the name is wider than the band; shorten it (a middle name can go)")
+    assert(measure(rank).width <= W, message: "Hanami essential: the rank, specialty and seal words are wider than the band; shorten identity.seal or the specialty")
+    assert(contacts == none or measure(contacts).width <= W, message: "Hanami essential: the contacts are wider than the band; shorten one or move it to the other row")
+  }
+  (block(width: W, { checks; stack(spacing: 4.4mm, name, rank, v(2.6mm), contacts) }), W)
+}
+
+// The band's height (call in context): the name block 10 mm from the top and 8.5 mm of band under
+// it, room for the portrait's ring, at most the layout's band. One contact row makes a shallower band.
+#let band-height(ctx, d) = {
+  let (content, _) = name-block(ctx, d)
+  let fit = 10mm + measure(content).height + 8.5mm
+  let ring = if d.identity.at("portrait", default: none) != none { ctx.layout.portrait + 12mm } else { 0mm }
+  calc.min(ctx.layout.band, calc.max(fit, ring))
+}
+
+// The band, `B` high: the name block; the portrait, when the record has one, in a metal ring on the
+// right; one sakura branch across the top right corner.
+#let band(ctx, d, B) = {
+  let P = tokens(ctx)
+  at(0mm, 0mm, rect(width: 210mm, height: B, fill: P.hero))
+  let portrait = d.identity.at("portrait", default: none)
+  // without a portrait the branch grows, so its blossoms reach down into the corner the portrait leaves
+  place(top + right, art(ctx, "canopy", width: if portrait != none { 104mm } else { ctx.layout.canopy }, swaps: sakura(ctx.theme.sakura.hero, P.hero)))
+  let PD = ctx.layout.portrait
+  let PX = 194mm - PD
+  let PY = (B - PD) / 2 + 1.5mm
+  if portrait != none {
+    at(PX - 1.6mm, PY - 1.6mm, circle(radius: PD / 2 + 1.6mm, fill: P.plate, stroke: 1.4pt + P.ring))
+    at(PX, PY, box(width: PD, height: PD, radius: 50%, clip: true, stroke: 0.6pt + P.ring,
+      image(portrait, width: PD, height: PD, fit: "cover", alt: d.identity.at("portrait-alt", default: d.identity.name))))
+  }
+  at(16mm, 10mm, name-block(ctx, d).first())
 }
 
 // The lead statement, one line across the page where it fits.

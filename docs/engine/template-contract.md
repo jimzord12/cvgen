@@ -30,12 +30,13 @@ declares only what differs: its layout (`layouts/essential.typ`, named
 `essential`, which `hanami` checks against the manifest's `layouts`), its
 composition (`essential.typ`) and its parts (`components/essential.typ`).
 `hanami` reads the `variation` and calls the composition; `showcase` is
-unchanged. On one A4 page the name block sits in a shallow band (the rank on
+unchanged. On one A4 page the name block sits in a shallow band that fits it (the rank on
 showcase's red tab, the specialty and the rank's seal words beside it), the
-profile row under it (the lead statement with any licence beside it, then the
-highlights), then each role's title, employer and dates in a career column with
+profile row under it (the lead statement, then the highlights), then each role's title, employer and dates in a career column with
 education at its foot, and availability, languages, destinations, practical
-know-how and references on a rail. The gaps between roles widen with spare
+know-how and references on a rail. The fields start right under the profile row,
+so a short record leaves no empty paper above them; a licence heads the rail when
+it has room, and sits beside the lead when it has not. The gaps between roles widen with spare
 height only up to a cap; the rest stays at the column's foot. When the roles do
 not fit, education moves to the rail if it has room, the newest roles stay in
 full and the older ones become one summary whose count and span come from the

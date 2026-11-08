@@ -56,11 +56,11 @@
   let P = tokens(ctx)
   let L = ctx.layout
   let totals = if d.destinations == none { none } else { (domain.totals)(d.destinations) }
-  parts.band(ctx, d)
 
-  // The profile row: the lead statement, then the highlights. The licences head the rail; only when
-  // the rail cannot hold them do they sit beside the lead, and then the fields start 8 mm under the
-  // row, so 4 mm of paper stays above the panel's 4 mm bleed, but never below `latest`.
+  // The profile row: the lead statement, then the highlights. The fields start right under it, 5 mm
+  // below, at most at the layout's `y`, so a short row leaves no empty paper. The licences head the
+  // rail; only when the rail cannot hold them do they sit beside the lead, and then the fields start
+  // 8 mm under the row, so 4 mm of paper stays above the panel's 4 mm bleed, at most at `latest`.
   let has-profile = d.profile != "" or d.highlights.len() > 0 or d.licences.len() > 0
   let row(with-licences) = block(width: 178mm, {
     let lead = if d.profile != "" { parts.lead(ctx, d.profile) }
@@ -72,15 +72,20 @@
   })
 
   context {
-    let start(r, clear) = if has-profile { calc.max(L.main.y, L.profile.y + measure(r).height + clear) } else { L.profile.y }
+    // the band fits its name block; the profile row follows it, and the fields follow the row
+    let B = parts.band-height(ctx, d)
+    parts.band(ctx, d, B)
+    let py = B + L.profile.gap
+    // the fields follow the row: right under it, never lower than the layout allows
+    let start(r, clear) = if has-profile { py + measure(r).height + clear } else { py }
     let rail-room(y) = L.rail.bottom - y - 4mm
     let rail-height(with-education, with-licences) = measure(block(width: L.rail.width,
       rail(rail-parts(ctx, d, totals, with-education, with-licences), least.rail))).height
     // the licences on the rail when it holds them, else beside the lead
     let on-rail = d.licences.len() == 0 or rail-height(false, true) <= rail-room(start(row(false), 5mm))
     let y0 = if on-rail { start(row(false), 5mm) } else { start(row(true), 8mm) }
-    if has-profile { place(top + left, dx: L.main.x, dy: L.profile.y, row(not on-rail)) }
-    assert(y0 <= L.main.latest, message: "Hanami essential: the profile row overflows ("
+    if has-profile { place(top + left, dx: L.main.x, dy: py, row(not on-rail)) }
+    assert(y0 <= (if on-rail { L.main.y } else { L.main.latest }), message: "Hanami essential: the profile row overflows ("
       + repr(measure(row(not on-rail)).height) + "); shorten the lead statement, a licence or a highlight")
     // the rail's quiet panel, from the fields' top to the footer
     place(top + left, dx: L.rail.panel, dy: y0 - 4mm, rect(width: 210mm - L.rail.panel, height: L.rail.bottom - y0 + 4mm, fill: P.wash))

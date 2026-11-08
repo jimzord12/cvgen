@@ -10,8 +10,9 @@
   canopy: 150mm,
   // The fixed fields every part must fit (no shrinking, constitution 4); x and width in mm from the
   // page's left edge, y from its top.
-  profile: (y: 58mm),
-  // the fields start at y, or lower when the profile row needs it, never below latest
+  // the profile row starts this far under the band, which fits its name block (at most `band`)
+  profile: (gap: 8mm),
+  // the fields start right under the profile row: at most at y, or at latest beside a licence
   main: (x: 16mm, y: 85mm, latest: 98mm, width: 113mm, bottom: 279mm),
   rail: (x: 141mm, y: 85mm, width: 53mm, bottom: 281mm, panel: 135mm),
   pages: 1,

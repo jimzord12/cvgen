@@ -90,7 +90,9 @@ Windows one also holds the PDFs that build wrote, one per example in
    of `travel-story`, and no page number. The `travel-essential.typ`
    fixture renders the record without a portrait (the same words, one image
    fewer), the Indigo and Sky themes, Greek wording, a record without a
-   licence, and a fictional long career (`tour-leader-long-career.json`, version 2):
+   licence, a sparse record (`tour-leader-sparse.json`: one contact row, no
+   highlights, licence, availability or references, whose fields start right
+   under its one-line lead), and a fictional long career (`tour-leader-long-career.json`, version 2):
    education moved to the rail, five roles in full and "Earlier roles · 3" with
    the span the domain computed. The Greek case translates the record's own
    labels, rank, availability and lead too, so Greek capitals are proved to fit. It fails on a newest role too long for the page, a long career not
