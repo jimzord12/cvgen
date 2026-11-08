@@ -181,8 +181,8 @@ def main():
     # One folder per case holds all its evidence (ADR 0013): <case>.pdf, compile.log, and for a
     # checked case check/result.json (plus diff-N.png on a mismatch) and page-N.png renders.
     def compile_case(name, source, inputs=None, error=None):
-        assert name not in ('workflow', 'design-review', 'build-script', 'proposals', 'report', 'coverage', 'workflow-model'), \
-            'the workflow, app, build script, proposal, report, coverage and Workflow Model checks own those folders'
+        assert name not in ('workflow', 'design-review', 'build-script', 'proposals', 'report', 'coverage', 'compatibility', 'workflow-model'), \
+            'the workflow, app, build script, proposal, report, coverage, compatibility and Workflow Model checks own those folders'
         folder = out / name
         folder.mkdir(exist_ok=False)
         pdf = folder / (name + '.pdf')
