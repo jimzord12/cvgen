@@ -6,7 +6,7 @@ title: >-
 status: Active
 assignee: []
 created_date: '2026-11-08T10:07:00Z'
-updated_date: '2026-11-08T15:38:00Z'
+updated_date: '2026-11-08T15:51:00Z'
 labels: []
 milestone: m-2
 dependencies: []
@@ -86,4 +86,6 @@ R4-1 the plain arc measured from the name and rank row, left out under 30 mm; D2
 D30 the generic record gains a highlight row from its own facts, gaps may grow to 14/16 mm when the column still ends over 25 mm short, the thin-page warning judges each column (the smaller fill), a three-quarters case (64%) must warn; D31/R5-1 the route arc is left out under 45 mm with a <cvgen-warning>; Codex D1 a 2.4 mm gap between a trip's date and day count; long-career destinations headed Japan and Korea; R5-2 tests/fixtures/portraits/provenance.json; R5-4 the glossary's 40-character limit, every artwork pack needs a name, the arc weight's SVG strings asserted.
 
 Depends on TASK-83 (feat/portrait-prep) merging into main first: docs/guides/build-a-cv.md names scripts/portrait.py prepare, which that branch adds.
+
+Round 9 (polish): roomy role gap capped at 11 mm (section stays 16 mm); fill judged at the ordinary caps before roomy growth, and a page under 80% is not stretched; the warning names the thinner column (career column or rail) with its own remedies; the arc warning says what to change; when any trip tag would wrap, every tag takes its own line. New loud failures: unnamed artwork pack, route-arc SVG without the weight strings. Fixture data: generic availability reads first; twin consultant cell leads with '25 to 40 trips a year'. Essential reference candidate regenerated; showcase reference untouched.
 <!-- SECTION:NOTES:END -->
