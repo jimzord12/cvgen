@@ -18,10 +18,10 @@
   ],
   "sources": [
     "docs/workflow/01-open/README.md:20-22",
-    "docs/guides/client-workflow.md:17-102",
+    "docs/guides/client-workflow.md:17-105",
     ".claude/skills/new-client/SKILL.md:31-38",
     "docs/workflow/02-intake/README.md:15-41",
-    "docs/guides/client-workflow.md:104-137",
+    "docs/guides/client-workflow.md:107-140",
     ".claude/skills/new-client/SKILL.md:40-52",
     "docs/workflow/03-research/README.md:15-64",
     ".claude/skills/new-client/SKILL.md:54-76",
@@ -29,9 +29,9 @@
     ".claude/skills/new-client/SKILL.md:78-101",
     "docs/workflow/05-design/README.md:15-64",
     ".claude/skills/new-cv/SKILL.md:22-63",
-    "docs/guides/build-a-cv.md:1-101",
-    "docs/guides/build-a-cv.md:103-183",
-    "docs/pdf-workflow.md:172-194",
+    "docs/guides/build-a-cv.md:1-109",
+    "docs/guides/build-a-cv.md:111-193",
+    "docs/pdf-workflow.md:176-198",
     ".claude/skills/new-cv/SKILL.md:65-87",
     "docs/workflow/07-after/README.md:15-56",
     ".claude/skills/new-client/SKILL.md:16-29",
@@ -100,7 +100,7 @@
           "note": "Model step `open.alias`, action `lead.write-alias`, in `docs/workflow/01-open/stage.yaml`.",
           "sources": [
             "docs/workflow/01-open/README.md:23-26",
-            "docs/guides/client-workflow.md:90-91",
+            "docs/guides/client-workflow.md:93-94",
             ".claude/skills/new-client/SKILL.md:33-35",
             "docs/glossary.md:58"
           ]
@@ -123,7 +123,7 @@
           ],
           "note": "Model step `open.envelope-json`, action `lead.write-envelope-json`, in `docs/workflow/01-open/stage.yaml`.",
           "sources": [
-            "docs/guides/client-workflow.md:88-97"
+            "docs/guides/client-workflow.md:89-100"
           ]
         },
         {
@@ -170,7 +170,7 @@
           "note": "Model step `intake.questions`, action `lead.write-question-list`, in `docs/workflow/02-intake/stage.yaml`.",
           "sources": [
             "docs/workflow/02-intake/README.md:17-20",
-            "docs/guides/client-workflow.md:108-134",
+            "docs/guides/client-workflow.md:111-137",
             ".claude/skills/new-client/SKILL.md:42-44"
           ]
         },
@@ -195,7 +195,7 @@
           ],
           "note": "Model step `intake.form-script`, action `lead.write-form-script`, in `docs/workflow/02-intake/stage.yaml`.",
           "sources": [
-            "docs/guides/client-workflow.md:144-149",
+            "docs/guides/client-workflow.md:147-152",
             ".claude/skills/new-client/SKILL.md:45-48"
           ]
         },
@@ -219,7 +219,7 @@
           ],
           "note": "Model step `intake.form-create`, action `manual.run-form-script`, in `docs/workflow/02-intake/stage.yaml`.",
           "sources": [
-            "docs/guides/client-workflow.md:156-159",
+            "docs/guides/client-workflow.md:159-162",
             "scripts/intake-form.gs:5-18",
             "scripts/intake-form.gs:78-114"
           ]
@@ -241,7 +241,7 @@
           ],
           "note": "Model step `intake.form-links`, action `lead.list-google-links`, in `docs/workflow/02-intake/stage.yaml`.",
           "sources": [
-            "docs/guides/client-workflow.md:161-163",
+            "docs/guides/client-workflow.md:164-166",
             ".claude/skills/new-client/SKILL.md:45-48",
             "scripts/intake-form.gs:11-15"
           ]
@@ -264,7 +264,7 @@
           ],
           "note": "Model step `intake.form-theme`, action `manual.apply-form-theme`, in `docs/workflow/02-intake/stage.yaml`.",
           "sources": [
-            "docs/guides/client-workflow.md:166-171",
+            "docs/guides/client-workflow.md:169-174",
             "scripts/intake-form.gs:16-17"
           ]
         },
@@ -283,7 +283,7 @@
           ],
           "note": "Model step `intake.form-test-cleanup`, action `manual.delete-test-answer`, in `docs/workflow/02-intake/stage.yaml`.",
           "sources": [
-            "docs/guides/client-workflow.md:173-176"
+            "docs/guides/client-workflow.md:176-179"
           ]
         },
         {
@@ -345,7 +345,7 @@
           "note": "Model step `intake.form-fill`, action `manual.client-answer`, in `docs/workflow/02-intake/stage.yaml`.",
           "sources": [
             "docs/workflow/02-intake/README.md:45-48",
-            "docs/guides/client-workflow.md:178-180"
+            "docs/guides/client-workflow.md:181-183"
           ]
         },
         {
@@ -405,7 +405,7 @@
           ],
           "note": "Model step `intake.form-download`, action `manual.download-answers-csv`, in `docs/workflow/02-intake/stage.yaml`.",
           "sources": [
-            "docs/guides/client-workflow.md:178-185"
+            "docs/guides/client-workflow.md:181-188"
           ]
         },
         {
@@ -592,7 +592,7 @@
           ],
           "note": "Model step `research.decisions`, action `lead.write-decisions`, in `docs/workflow/03-research/stage.yaml`.",
           "sources": [
-            "docs/guides/client-workflow.md:187-203",
+            "docs/guides/client-workflow.md:190-206",
             ".claude/skills/new-client/SKILL.md:60-62"
           ]
         },
@@ -956,7 +956,7 @@
           ],
           "note": "Model step `research.follow-up-form-script`, action `lead.write-form-script`, in `docs/workflow/03-research/stage.yaml`.",
           "sources": [
-            "docs/guides/client-workflow.md:151-154",
+            "docs/guides/client-workflow.md:154-157",
             ".claude/skills/new-client/SKILL.md:74-76"
           ]
         },
@@ -1345,7 +1345,7 @@
           "note": "Model step `text-draft.sign-off-stamp`, action `cmd.stamp-draft-signed-off`, in `docs/workflow/04-text-draft/stage.yaml`.",
           "sources": [
             "docs/workflow/04-text-draft/README.md:36-37",
-            "docs/guides/build-a-cv.md:167-170",
+            "docs/guides/build-a-cv.md:177-180",
             ".claude/skills/new-client/SKILL.md:98-100",
             "packages/cv-workflow/cv_workflow/outputs.py:172-178"
           ]
@@ -1763,8 +1763,8 @@
           "sources": [
             ".claude/skills/new-cv/SKILL.md:16-18",
             ".claude/skills/new-cv/SKILL.md:26-28",
-            "docs/guides/build-a-cv.md:59-78",
-            "docs/guides/build-a-cv.md:55-78"
+            "docs/guides/build-a-cv.md:67-86",
+            "docs/guides/build-a-cv.md:63-86"
           ]
         },
         {
@@ -1772,7 +1772,7 @@
           "title": "Check the data fits the Flagship",
           "actor": "lead",
           "optional": true,
-          "summary": "Checks the data against the known Flagship gaps listed in docs/framework-gaps.md.",
+          "summary": "Checks the data and the design against the two conditions of gate.template-fits.",
           "gate": {
             "type": "check",
             "label": "The data fits the Flagship: The client's data fits flagship: service months (per row, or company totals with durations hidden) or a contract period on every row, and no design the template cannot draw."
@@ -1800,7 +1800,7 @@
           "note": "Model step `design.flagship-fit`, action `lead.check-flagship-fit`, in `docs/workflow/05-design/stage.yaml`.",
           "sources": [
             ".claude/skills/new-cv/SKILL.md:41-46",
-            "docs/guides/build-a-cv.md:200-204"
+            "docs/guides/build-a-cv.md:210-214"
           ]
         },
         {
@@ -1808,7 +1808,7 @@
           "title": "Write the Flagship entry point",
           "actor": "lead",
           "optional": true,
-          "summary": "Writes typst/cv.typ importing the engine by root-absolute path: role, theme, artwork, the durations switch and a pages override with this client's company indices (or the one-page profile), and the client's copy in place of the example wording.",
+          "summary": "Writes typst/cv.typ importing the engine by root-absolute path: role, theme, artwork, the durations switch and a pages override with this client's company indices (or the one-page profile), and the client's copy in place of the example wording; records the template and its Template Variation in envelope.json (ADR 0016).",
           "does": [
             "Only when: The data fits the Flagship."
           ],
@@ -1817,13 +1817,14 @@
             "The Flagship Template: `packages/domains/marine/templates/flagship/`"
           ],
           "out": [
-            "The CV's entry point: `private/<envelope>/typst/cv.typ`"
+            "The CV's entry point: `private/<envelope>/typst/cv.typ`",
+            "envelope.json, the Template and Template Variation: `private/<envelope>/envelope.json`"
           ],
           "note": "Model step `design.entry-point`, action `lead.write-flagship-entry`, in `docs/workflow/05-design/stage.yaml`.",
           "sources": [
             ".claude/skills/new-cv/SKILL.md:41-43",
-            "docs/guides/build-a-cv.md:80-101",
-            "docs/guides/build-a-cv.md:15-53"
+            "docs/guides/build-a-cv.md:88-109",
+            "docs/guides/build-a-cv.md:15-61"
           ]
         },
         {
@@ -1845,7 +1846,7 @@
           ],
           "note": "Model step `design.custom-composition`, action `lead.compose-by-hand`, in `docs/workflow/05-design/stage.yaml`.",
           "sources": [
-            "docs/guides/build-a-cv.md:196-260",
+            "docs/guides/build-a-cv.md:206-270",
             ".claude/skills/new-cv/SKILL.md:41-46"
           ]
         },
@@ -1891,7 +1892,7 @@
           ],
           "note": "Model step `design.framework-gap`, action `lead.record-framework-gap`, in `docs/workflow/05-design/stage.yaml`.",
           "sources": [
-            "docs/guides/build-a-cv.md:254-260",
+            "docs/guides/build-a-cv.md:264-270",
             ".claude/skills/new-cv/SKILL.md:41-46",
             "docs/workflow/05-design/README.md:70-74"
           ]
@@ -2161,9 +2162,9 @@
           ],
           "note": "Model step `deliver.render`, action `cmd.cv-render`, in `docs/workflow/06-deliver/stage.yaml`.",
           "sources": [
-            "docs/guides/build-a-cv.md:111-132",
+            "docs/guides/build-a-cv.md:119-142",
             ".claude/skills/new-cv/SKILL.md:67-70",
-            "packages/cv-workflow/cv_workflow/render.py:100-207"
+            "packages/cv-workflow/cv_workflow/render.py:101-210"
           ]
         },
         {
@@ -2171,7 +2172,7 @@
           "title": "Fix the inputs; the fix is a new Revision",
           "actor": "lead",
           "optional": true,
-          "summary": "Applies the fix the message names, in candidate.json or the entry point's layout override; never shrinks the body font; the Revision it looked at is never modified.",
+          "summary": "Applies the fix the message names, in candidate.json, envelope.json or the entry point's layout override; never shrinks the body font; the Revision it looked at is never modified.",
           "loop": {
             "to": "deliver.render",
             "label": "Fix and render again after a failed render",
@@ -2190,8 +2191,8 @@
           ],
           "note": "Model step `deliver.fix`, action `lead.fix-inputs`, in `docs/workflow/06-deliver/stage.yaml`.",
           "sources": [
-            "docs/guides/build-a-cv.md:121-129",
-            "docs/guides/build-a-cv.md:185-194",
+            "docs/guides/build-a-cv.md:129-139",
+            "docs/guides/build-a-cv.md:195-204",
             ".claude/skills/new-cv/SKILL.md:67-70"
           ]
         },
@@ -2256,7 +2257,7 @@
           "note": "Model step `deliver.wording-check`, action `cmd.wording-check`, in `docs/workflow/06-deliver/stage.yaml`.",
           "sources": [
             ".claude/skills/new-cv/SKILL.md:74-75",
-            "docs/guides/build-a-cv.md:99-101",
+            "docs/guides/build-a-cv.md:107-109",
             "docs/workflow/06-deliver/README.md:66-68"
           ]
         },
@@ -2317,7 +2318,7 @@
           "sources": [
             "docs/workflow/06-deliver/README.md:35-39",
             "docs/workflow/06-deliver/README.md:22-25",
-            "docs/guides/build-a-cv.md:134-142"
+            "docs/guides/build-a-cv.md:144-152"
           ]
         },
         {
@@ -2350,8 +2351,8 @@
           ],
           "note": "Model step `deliver.approve`, action `cmd.cv-approve`, in `docs/workflow/06-deliver/stage.yaml`.",
           "sources": [
-            "docs/guides/build-a-cv.md:154-159",
-            "docs/pdf-workflow.md:180-182",
+            "docs/guides/build-a-cv.md:164-169",
+            "docs/pdf-workflow.md:184-186",
             "docs/proposals/workflow-model.md:58",
             "docs/glossary.md:75"
           ]
@@ -2383,8 +2384,8 @@
           "note": "Model step `deliver.export`, action `cmd.cv-export`, in `docs/workflow/06-deliver/stage.yaml`.",
           "sources": [
             "docs/proposals/workflow-model.md:58",
-            "docs/guides/build-a-cv.md:161-165",
-            "docs/pdf-workflow.md:183-187"
+            "docs/guides/build-a-cv.md:171-175",
+            "docs/pdf-workflow.md:187-191"
           ]
         },
         {
@@ -2426,7 +2427,7 @@
           "note": "Model step `deliver.send`, action `manual.send-pdf`, in `docs/workflow/06-deliver/stage.yaml`.",
           "sources": [
             "docs/workflow/06-deliver/README.md:48-50",
-            "docs/pdf-workflow.md:185-187"
+            "docs/pdf-workflow.md:189-191"
           ]
         },
         {
@@ -2451,7 +2452,7 @@
           ],
           "note": "Model step `deliver.stamp-delivered`, action `cmd.stamp-delivered`, in `docs/workflow/06-deliver/stage.yaml`.",
           "sources": [
-            "docs/guides/build-a-cv.md:167-169",
+            "docs/guides/build-a-cv.md:177-179",
             "docs/workflow/06-deliver/README.md:50-51",
             ".claude/skills/new-cv/SKILL.md:85-86"
           ]
@@ -2589,7 +2590,7 @@
           ],
           "note": "Model step `after.keep-request`, action `manual.ask-to-keep`, in `docs/workflow/07-after/stage.yaml`.",
           "sources": [
-            "docs/guides/client-workflow.md:111-114",
+            "docs/guides/client-workflow.md:114-117",
             "docs/proposals/workflow-model.md:56",
             "archive/work-records/workflow-model/handoff.md:290",
             "docs/workflow/GAPS.md:25-28"
@@ -2635,7 +2636,7 @@
           "note": "Model step `after.erase-commands`, action `lead.fill-erase-commands`, in `docs/workflow/07-after/stage.yaml`.",
           "sources": [
             ".claude/skills/new-client/SKILL.md:25-29",
-            "docs/guides/client-workflow.md:205-215",
+            "docs/guides/client-workflow.md:208-218",
             "docs/workflow/07-after/README.md:47-52",
             "docs/workflow/07-after/README.md:27-34"
           ]
@@ -2657,7 +2658,7 @@
           "sources": [
             "docs/workflow/07-after/README.md:47-52",
             "docs/workflow/07-after/README.md:27-34",
-            "docs/guides/client-workflow.md:163-164"
+            "docs/guides/client-workflow.md:166-167"
           ]
         },
         {
@@ -2678,7 +2679,7 @@
           "note": "Model step `after.erase-envelope`, action `manual.erase-envelope`, in `docs/workflow/07-after/stage.yaml`.",
           "sources": [
             "docs/workflow/07-after/README.md:27-34",
-            "docs/guides/client-workflow.md:205-230",
+            "docs/guides/client-workflow.md:208-233",
             "docs/preferences.md:86-94",
             "docs/proposals/workflow-gaps.md:37",
             "docs/proposals/workflow-gaps.md:71"
@@ -2716,7 +2717,7 @@
           ],
           "note": "Model step `after.revision-cleanup`, action `manual.go-remove-revisions`, in `docs/workflow/07-after/stage.yaml`.",
           "sources": [
-            "docs/pdf-workflow.md:215-218",
+            "docs/pdf-workflow.md:219-222",
             "docs/preferences.md:92-94",
             "docs/workflow/GAPS.md:29-32"
           ]

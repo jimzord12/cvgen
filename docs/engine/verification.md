@@ -205,7 +205,13 @@ Windows one also holds the PDFs that build wrote, one per example in
    `FAIL text-draft.draft-sent`).
    Output in `workflow-model/reality*.log`, each run's `reality.log` and
    `report.json` in its folder. Skipped with case 16.
-18. **Report** (`report: <check>`, `tests/report.py`). The real
+18. **Coverage** (`coverage: <check>`, `tests/coverage.py`). For every
+   `Template Manifest`, each `Template Variation` renders its `Domain`'s
+   `Coverage Fixture` for each version it supports, and every required and
+   claimed `Fact Group` must have its markers in the PDF; the count of optional
+   groups covered is in the case name, warnings in `coverage/`. Then the judging
+   itself and the checks before a render, each refusal on its message.
+19. **Report** (`report: <check>`, `tests/report.py`). The real
    `scripts/report.py` on the worked sample under `report/`: one page with
    its fonts and pictures embedded and no `src` or `href` pointing at the
    network, the fragment without its skeleton, refusal of an existing folder,

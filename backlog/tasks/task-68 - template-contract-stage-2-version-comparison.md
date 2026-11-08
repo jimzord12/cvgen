@@ -20,6 +20,8 @@ Compatibility script, oldestSupported, group-by-group comparison. Built when a D
 ## Implementation Notes
 
 <!-- SECTION:NOTES:BEGIN -->
+Also drop the closed Flagship input schema and the suite's equal-definitions check, moved here from Stage 1 (P-0019 Decisions, 2026-11-04).
+
 ## Trigger met (2026-11-08)
 
 The travel Domain Contract reaches version 2 in TASK-80, at the owner's request, so Stage 2 (version comparison, oldestSupported, the behind-by warning) is built now.

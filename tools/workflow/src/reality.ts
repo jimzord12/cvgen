@@ -316,6 +316,10 @@ export function reality(opts: { dir: string; out: string; scenario?: Scenario; p
         delete record.identity["portrait-alt"];
         record.disclosure = "CURRICULUM VITAE - JANUARY 2030";
         writeFileSync(target, `${JSON.stringify(record, null, 2)}\n`);
+      } else if (id === "art.envelope-choice") {
+        // The choice the entry point renders (ADR 0016), added to the envelope written above.
+        const envelope = JSON.parse(readFileSync(target, "utf8"));
+        writeFileSync(target, `${JSON.stringify({ ...envelope, template: "flagship", variation: "showcase" }, null, 2)}\n`);
       } else if (id === "art.cv-typ") writeFileSync(target, FLAGSHIP_ENTRY);
       else if (id === "art.draft-typ") copyFileSync(join(repoRoot, "tests/fixtures/text-draft.typ"), target);
       else if (id === "art.sign-off-png") copyFileSync(join(repoRoot, PORTRAIT), target);

@@ -1,0 +1,24 @@
+{
+  "id": "flagship",
+  "name": "Flagship",
+  "version": 1,
+  "domains": ["marine"],
+  "tags": ["premium", "portrait", "illustrated"],
+  "default": "showcase",
+  "coverage": "tests/coverage.typ",
+  "variations": {
+    "showcase": {
+      "pages": "1-2",
+      "designBar": "showcase",
+      "layouts": ["flagship-v11", "flagship-one-page"],
+      "themes": ["golden-blue", "silver-bridge"],
+      "artwork": ["engineer", "captain"],
+      "supports": {
+        "marine": {
+          "upTo": 1,
+          "groups": ["profile@1", "education@1", "languages@1", "certificates@1", "portrait@1", "vessel-particulars@1", "skills@1"]
+        }
+      }
+    }
+  }
+}

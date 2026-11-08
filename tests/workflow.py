@@ -74,7 +74,8 @@ def run_workflow(out, typst, system_family=None):
     record = json.loads((ROOT / 'examples/candidates/engineer-example.json').read_text(encoding='utf-8'))
     record['identity']['portrait'] = 'images/portrait/portrait.png'
     (workspace / 'candidate.json').write_text(json.dumps(record, indent=2), encoding='utf-8')
-    envelope = {'alias': 'client-2030-01-01', 'domain': 'marine', 'candidate': 'Alex Morgan', 'rank': 'Second Engineer'}
+    envelope = {'alias': 'client-2030-01-01', 'domain': 'marine', 'candidate': 'Alex Morgan', 'rank': 'Second Engineer',
+                'template': 'flagship', 'variation': 'showcase'}
     log = (base / 'commands.log').open('w', encoding='utf-8')
     passed = []
 
@@ -101,6 +102,8 @@ def run_workflow(out, typst, system_family=None):
     rid = first['revision']
     assert first['schema'] == '/packages/domains/marine/templates/flagship/schema/flagship-input.schema.json', first
     assert first['status'] == 'success' and first['checks_passed'] and first['engine_uncommitted_changes'] is False, first
+    meta = json.loads((Path(first['folder']) / 'cv.meta.json').read_text(encoding='utf-8'))
+    assert (meta['template'], meta['variation'], meta['domain_contract'], meta['dropped']) == ('flagship', 'showcase', 1, []), meta
     folder = revision(rid)
     for name in ['inputs/typst/cv.typ', 'inputs/candidate.json', 'inputs/assets/portrait.png', 'render.log', 'render.json', 'checks.json', 'cv.pdf']:
         assert (folder / name).is_file(), name
@@ -216,7 +219,7 @@ def run_workflow(out, typst, system_family=None):
     render_path.write_text('[]', encoding='utf-8')
     assert 'must hold a JSON object' in cv('approve', workspace, rid3, '--approver', 'suite', '--sha256', third['sha256'], '--test-only', expect=2)
     render_path.write_text(original_render, encoding='utf-8')
-    entry.write_text(ENTRY.replace('flagship.with', 'flagship.wit'), encoding='utf-8')
+    entry.write_text(ENTRY + '\n#this-name-does-not-exist\n', encoding='utf-8')
     broken = cv('render', workspace, '--typst', typst, expect=1)
     assert broken['status'] == 'failed' and 'error' in (revision(broken['revision']) / 'render.log').read_text(encoding='utf-8')
     assert json.loads((revision(broken['revision']) / 'render.json').read_text(encoding='utf-8'))['pdf'] is None

@@ -82,6 +82,7 @@
         }
       }
     },
+    "domainContract": { "type": "integer", "minimum": 1, "description": "The Domain Contract version this record follows. Without it, version 1 (ADR 0016)." },
     "skill_groups": {
       "type": "array",
       "description": "One list of skills per column, in order. A template places them; Flagship needs one page with skills: true in its plan.",

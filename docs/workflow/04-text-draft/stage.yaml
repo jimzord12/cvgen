@@ -94,7 +94,7 @@ steps:
 
   - id: text-draft.sign-off-stamp
     name: Stamp the draft signed-off
-    sources: ["docs/workflow/04-text-draft/README.md:36-37", "docs/guides/build-a-cv.md:167-170", ".claude/skills/new-client/SKILL.md:98-100", "packages/cv-workflow/cv_workflow/outputs.py:172-178"]
+    sources: ["docs/workflow/04-text-draft/README.md:36-37", "docs/guides/build-a-cv.md:177-180", ".claude/skills/new-client/SKILL.md:98-100", "packages/cv-workflow/cv_workflow/outputs.py:172-178"]
     actor: actor.lead
     action: cmd.stamp-draft-signed-off
     inputs: [art.sign-off-png, art.draft-pdf]
@@ -133,7 +133,7 @@ artifacts:
 
   - id: art.draft-typ
     name: Text Draft source
-    sources: ["docs/guides/client-workflow.md:49", "docs/workflow/04-text-draft/README.md:17-32"]
+    sources: ["docs/guides/client-workflow.md:50", "docs/workflow/04-text-draft/README.md:17-32"]
     path: private/<envelope>/draft/draft-NN.typ
     format: Typst, imports /scripts/text-draft.typ
     visibility: private
@@ -179,7 +179,7 @@ actions:
   - id: cmd.compile-and-stamp-draft-ready
     kind: cmd
     name: Compile the draft, then stamp it ready
-    sources: [".claude/skills/new-client/SKILL.md:84-89", "docs/pdf-workflow.md:130"]
+    sources: [".claude/skills/new-client/SKILL.md:84-89", "docs/pdf-workflow.md:131"]
     run: >-
       typst compile --root . --ignore-system-fonts --font-path packages/cv-framework/fonts
       private/<envelope>/draft/draft-NN.typ private/<envelope>/draft/draft-NN.pdf
@@ -202,7 +202,7 @@ actions:
   - id: cmd.stamp-draft-sent
     kind: cmd
     name: Stamp the draft sent
-    sources: ["docs/workflow/04-text-draft/README.md:33-37", "docs/pdf-workflow.md:139"]
+    sources: ["docs/workflow/04-text-draft/README.md:33-37", "docs/pdf-workflow.md:143"]
     run: python scripts/outputs.py stamp private/<envelope>/draft/draft-NN.pdf status=sent
 
   - id: lead.write-draft-fingerprint
@@ -222,7 +222,7 @@ actions:
   - id: cmd.stamp-draft-superseded
     kind: cmd
     name: Stamp the draft superseded
-    sources: ["docs/workflow/04-text-draft/README.md:48-52", "docs/pdf-workflow.md:139"]
+    sources: ["docs/workflow/04-text-draft/README.md:48-52", "docs/pdf-workflow.md:143"]
     run: python scripts/outputs.py stamp private/<envelope>/draft/draft-NN.pdf status=superseded
 
   - id: lead.take-corrections
@@ -240,5 +240,5 @@ actions:
   - id: cmd.stamp-draft-signed-off
     kind: cmd
     name: Stamp the draft signed-off
-    sources: ["docs/workflow/04-text-draft/README.md:36-37", "docs/guides/build-a-cv.md:167-170", "docs/pdf-workflow.md:148-153"]
+    sources: ["docs/workflow/04-text-draft/README.md:36-37", "docs/guides/build-a-cv.md:177-180", "docs/pdf-workflow.md:152-157"]
     run: python scripts/outputs.py stamp private/<envelope>/draft/draft-NN.pdf status=signed-off

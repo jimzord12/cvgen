@@ -1,7 +1,7 @@
 # yaml-language-server: $schema=../../../tools/workflow/schema/stage.schema.json
 id: design
 name: Design and build the CV
-sources: ["docs/workflow/05-design/README.md:15-64", ".claude/skills/new-cv/SKILL.md:22-63", "docs/guides/build-a-cv.md:1-101"]
+sources: ["docs/workflow/05-design/README.md:15-64", ".claude/skills/new-cv/SKILL.md:22-63", "docs/guides/build-a-cv.md:1-109"]
 purpose: >-
   Turn the signed-off facts into the client's CV design and its build files:
   the Flagship for a Domain that has it, a custom composition when the data
@@ -137,7 +137,7 @@ steps:
   # the Idea Run, and design.port-concept reads its candidate.json.
   - id: design.fill-data
     name: Write candidate.json and place the portrait
-    sources: [".claude/skills/new-cv/SKILL.md:16-18", ".claude/skills/new-cv/SKILL.md:26-28", "docs/guides/build-a-cv.md:59-78", "docs/guides/build-a-cv.md:55-78"]
+    sources: [".claude/skills/new-cv/SKILL.md:16-18", ".claude/skills/new-cv/SKILL.md:26-28", "docs/guides/build-a-cv.md:67-86", "docs/guides/build-a-cv.md:63-86"]
     actor: actor.lead
     action: lead.write-candidate-json
     inputs: [art.facts-final, art.draft-pdf, art.sign-off-png, art.documents, art.example-records]
@@ -145,7 +145,7 @@ steps:
 
   - id: design.flagship-fit
     name: Check the data fits the Flagship
-    sources: [".claude/skills/new-cv/SKILL.md:41-46", "docs/guides/build-a-cv.md:200-204"]
+    sources: [".claude/skills/new-cv/SKILL.md:41-46", "docs/guides/build-a-cv.md:210-214"]
     actor: actor.lead
     action: lead.check-flagship-fit
     inputs: [art.candidate-json]
@@ -154,16 +154,16 @@ steps:
 
   - id: design.entry-point
     name: Write the Flagship entry point
-    sources: [".claude/skills/new-cv/SKILL.md:41-43", "docs/guides/build-a-cv.md:80-101", "docs/guides/build-a-cv.md:15-53"]
+    sources: [".claude/skills/new-cv/SKILL.md:41-43", "docs/guides/build-a-cv.md:88-109", "docs/guides/build-a-cv.md:15-61"]
     actor: actor.lead
     action: lead.write-flagship-entry
     inputs: [art.candidate-json, art.flagship-template]
-    outputs: [art.cv-typ]
+    outputs: [art.cv-typ, art.envelope-choice]
     when: The data fits the Flagship.
 
   - id: design.custom-composition
     name: Compose the page by hand
-    sources: ["docs/guides/build-a-cv.md:196-260", ".claude/skills/new-cv/SKILL.md:41-46"]
+    sources: ["docs/guides/build-a-cv.md:206-270", ".claude/skills/new-cv/SKILL.md:41-46"]
     actor: actor.lead
     action: lead.compose-by-hand
     inputs: [art.candidate-json, art.flagship-template]
@@ -184,7 +184,7 @@ steps:
 
   - id: design.framework-gap
     name: Record the Framework Gap
-    sources: ["docs/guides/build-a-cv.md:254-260", ".claude/skills/new-cv/SKILL.md:41-46", "docs/workflow/05-design/README.md:70-74"]
+    sources: ["docs/guides/build-a-cv.md:264-270", ".claude/skills/new-cv/SKILL.md:41-46", "docs/workflow/05-design/README.md:70-74"]
     actor: actor.lead
     action: lead.record-framework-gap
     inputs: [art.cv-typ]
@@ -268,14 +268,14 @@ gates:
     # on every path (new-cv: design.fill-data runs beside the Idea Run, and
     # render refuses an Envelope without candidate.json), so fill-data follows
     # the signed-off facts on both branches and port-concept reads what it wrote.
-    sources: ["docs/workflow/05-design/README.md:29-39", ".claude/skills/new-cv/SKILL.md:29-40", "docs/guides/build-a-cv.md:59-78", "docs/guides/client-workflow.md:36", "docs/guides/build-a-cv.md:123-129"]
+    sources: ["docs/workflow/05-design/README.md:29-39", ".claude/skills/new-cv/SKILL.md:29-40", "docs/guides/build-a-cv.md:67-86", "docs/guides/client-workflow.md:37", "docs/guides/build-a-cv.md:131-139"]
     check: The client's Domain already has a Template (today only marine, the Flagship).
     pass: design.flagship-fit
     fail: design.run-brief
 
   - id: gate.template-fits
     name: The data fits the Flagship
-    sources: [".claude/skills/new-cv/SKILL.md:41-46", "docs/guides/build-a-cv.md:200-204"]
+    sources: [".claude/skills/new-cv/SKILL.md:41-46", "docs/guides/build-a-cv.md:210-214"]
     check: >-
       The client's data fits flagship: service months (per row, or company
       totals with durations hidden) or a contract period on every row, and no
@@ -350,7 +350,7 @@ loops:
 artifacts:
   - id: art.readme-cv-record
     name: README.md, what was decided and where the evidence is
-    sources: ["docs/guides/client-workflow.md:31-32", "docs/guides/build-a-cv.md:255-257"]
+    sources: ["docs/guides/client-workflow.md:31-32", "docs/guides/build-a-cv.md:265-267"]
     path: private/<envelope>/README.md
     format: Markdown lines; for a custom composition, why it exists and what it matched
     visibility: private
@@ -371,14 +371,14 @@ artifacts:
 
   - id: art.concept-pdf
     name: A concept design
-    sources: ["docs/pdf-workflow.md:127", ".claude/skills/idea-run/SKILL.md:17"]
+    sources: ["docs/pdf-workflow.md:128", ".claude/skills/idea-run/SKILL.md:17"]
     path: studio/design-concepts/<date>-<slug>/<density>/<tier>/<density>-<tier>.pdf
     format: PDF on fictional data, with its PNG per page
     visibility: public
 
   - id: art.concept-meta
     name: A concept's Meta File
-    sources: ["docs/pdf-workflow.md:127", "studio/design-concepts/README.md:38-44"]
+    sources: ["docs/pdf-workflow.md:128", "studio/design-concepts/README.md:38-44"]
     path: studio/design-concepts/<date>-<slug>/<density>/<tier>/<density>-<tier>.meta.json
     format: "JSON, kind concept, status proposed, chosen, parked, rejected or unresolved"
     schema: art.output-schema
@@ -433,7 +433,7 @@ artifacts:
 
   - id: art.example-records
     name: The fictional example records
-    sources: ["docs/guides/build-a-cv.md:59-60"]
+    sources: ["docs/guides/build-a-cv.md:67-68"]
     path: examples/candidates/
     format: JSON candidate records
     visibility: public
@@ -441,22 +441,29 @@ artifacts:
 
   - id: art.portrait
     name: The client's portrait
-    sources: ["docs/guides/client-workflow.md:58-59", "docs/guides/build-a-cv.md:62-67"]
+    sources: ["docs/guides/client-workflow.md:59-60", "docs/guides/build-a-cv.md:70-75"]
     path: private/<envelope>/images/portrait/
     format: the authorised photograph, jpg or png
     visibility: private
 
   - id: art.flagship-template
     name: The Flagship Template
-    sources: ["docs/guides/build-a-cv.md:26-39", "docs/guides/build-a-cv.md:206-227"]
+    sources: ["docs/guides/build-a-cv.md:26-39", "docs/guides/build-a-cv.md:216-237"]
     path: packages/domains/marine/templates/flagship/
     format: Typst Template (themes, artwork, layouts, components)
     visibility: public
     given: true
 
+  - id: art.envelope-choice
+    name: envelope.json, the Template and Template Variation
+    sources: ["docs/guides/build-a-cv.md:55-61", "docs/guides/client-workflow.md:89-91", "packages/cv-workflow/cv_workflow/contracts.py:103-129"]
+    path: private/<envelope>/envelope.json
+    format: 'the fields "template" and "variation" in envelope.json, names in quotes ("flagship", "showcase"); the render checks them against typst/cv.typ'
+    visibility: private
+
   - id: art.typst-sources
     name: The design's own files beside cv.typ
-    sources: ["docs/guides/client-workflow.md:52-57", "docs/workflow/05-design/README.md:34-39"]
+    sources: ["docs/guides/client-workflow.md:53-58", "docs/workflow/05-design/README.md:34-39"]
     path: private/<envelope>/typst/
     format: presentation.json, designs/*.typ, text/*.typ, art/*.svg and generated art/*.png
     visibility: private
@@ -493,7 +500,7 @@ artifacts:
 
   - id: art.design-review-report
     name: A client design review report
-    sources: ["docs/guides/client-workflow.md:60-62", "docs/workflow/05-design/README.md:54-56"]
+    sources: ["docs/guides/client-workflow.md:61-63", "docs/workflow/05-design/README.md:54-56"]
     path: private/<envelope>/reviews/design-NN.md
     format: design-reviewer report, verbatim, with the codex-visual-reviewer's beside it as reviews/design-NN-codex.md
     visibility: private
@@ -564,7 +571,7 @@ actions:
   - id: lead.write-candidate-json
     kind: lead
     name: Write candidate.json
-    sources: ["docs/guides/build-a-cv.md:59-78", "docs/guides/build-a-cv.md:80-101", "docs/guides/build-a-cv.md:55-97"]
+    sources: ["docs/guides/build-a-cv.md:67-86", "docs/guides/build-a-cv.md:88-109", "docs/guides/build-a-cv.md:63-105"]
     does: >-
       Copies the closest example record and replaces every value from the
       facts and the signed-off wording (whole months, never months invented
@@ -575,22 +582,23 @@ actions:
     kind: lead
     name: Check the Flagship fit
     sources: [".claude/skills/new-cv/SKILL.md:41-46"]
-    does: Checks the data against the known Flagship gaps listed in docs/framework-gaps.md.
+    does: Checks the data and the design against the two conditions of gate.template-fits.
 
   - id: lead.write-flagship-entry
     kind: lead
     name: Write the Flagship entry point
-    sources: [".claude/skills/new-cv/SKILL.md:41-43", "docs/guides/build-a-cv.md:15-53"]
+    sources: [".claude/skills/new-cv/SKILL.md:41-43", "docs/guides/build-a-cv.md:15-61"]
     does: >-
       Writes typst/cv.typ importing the engine by root-absolute path: role,
       theme, artwork, the durations switch and a pages override with this
       client's company indices (or the one-page profile), and the client's
-      copy in place of the example wording.
+      copy in place of the example wording; records the template and its
+      Template Variation in envelope.json (ADR 0016).
 
   - id: lead.compose-by-hand
     kind: lead
     name: Compose by hand
-    sources: ["docs/guides/build-a-cv.md:196-260"]
+    sources: ["docs/guides/build-a-cv.md:206-270"]
     does: >-
       Writes typst/cv.typ from the lib.typ components (core-components,
       flagship-components), with data the schema cannot hold in
@@ -609,7 +617,7 @@ actions:
   - id: lead.record-framework-gap
     kind: lead
     name: Record the Framework Gap
-    sources: ["docs/guides/build-a-cv.md:254-260", ".claude/skills/new-cv/SKILL.md:41-46"]
+    sources: ["docs/guides/build-a-cv.md:264-270", ".claude/skills/new-cv/SKILL.md:41-46"]
     does: >-
       Adds an entry to docs/framework-gaps.md (what was needed, what was gone
       around, what was built) and records the reason in the Envelope's

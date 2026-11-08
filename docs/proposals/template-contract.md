@@ -377,6 +377,10 @@ Approve, defer or reject revision 1, and answer:
   `Batch Test` judging craft for a `scan-first` bar. Decision 2: the scan-first
   exception in the vision. Decision 3: one `Frozen Reference` per
   `Template Variation`. Decision 4: TASK-3 first, then Flagship on marine.
+- 2026-11-04, agent, Major grade: the closed input schema and the suite's
+  equal-definitions check move from Stage 1 to Stage 2 (TASK-68), because they
+  cost nothing until a `Domain` first changes. The step offering the choice comes
+  with Essential, while there is only one `Template Variation` to offer.
 - 2026-11-08, owner, in session, on the report's Essential cards: Essential is
   not tied to a `Rank` or seniority; it exists to express that a `Client`
   needs a practical one-page CV, and the human operator chooses it. The
