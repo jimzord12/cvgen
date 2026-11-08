@@ -4,7 +4,7 @@ title: 'travel-contract-v2: the travel Domain Contract version 2'
 status: Active
 assignee: []
 created_date: '2026-11-08T10:07:00Z'
-updated_date: '2026-11-08T11:19:00Z'
+updated_date: '2026-11-08T11:54:00Z'
 labels: []
 milestone: m-3
 dependencies: []
@@ -77,4 +77,9 @@ Agents' choice (Major, owner 2026-11-08: "think of something the domain might ne
 - m1: deliver.approve cites build-a-cv.md:165-170. n1: both versions require destinations (docs). n2: a licence day its month lacks ('31 Feb 2029') is refused; a leap day passes.
 - m2 (correction to the round 2 note): a one-page Variation that does not render the v1 route, stamps and story declares 'exactly: [2]' with destinations@2 (and licences@1 if shown), no travel-story@1, and refuses v1 records. A Variation that renders version 1 must show those fields (they are part of v1's required destinations) and then claims travel-story@1 too.
 - Suite builds/tests-20261108-131841-005884 (247 compilations); design renders builds/design-renders-20261108-r3.
+
+## Round 5 (2026-11-08): design round 3 (D17, D18) and code round 2 (m3, n4)
+- D18: 1.3 mm above the role caption under a stamp. A real line there cost ~2.4 mm in the binding left column of page 2 (overflow and a petal on the practical line), so the caption hangs below the card as a zero-height block; its 3 mm reach is within the 3.6 mm gap that follows a card.
+- D17: licence line limit 98 mm (the education columns). m3: two-line-licence case (story removed to make room) checks title and issuer on different lines. n4: a stamp-less trip has its role above the period, left-aligned, in the text column.
+- Suite builds/tests-20261108-135332-211961 (248 compilations).
 <!-- SECTION:NOTES:END -->
