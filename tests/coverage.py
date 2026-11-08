@@ -12,7 +12,8 @@ from verify import ROOT
 sys.path.insert(0, str(ROOT / 'packages/cv-workflow'))
 
 from cv_workflow import WorkflowError  # noqa: E402
-from cv_workflow.contracts import check_groups, choose, claims, contract, coverage, holds, manifests, read, template_in, versions  # noqa: E402
+from cv_workflow.contracts import (check_domain, check_groups, choose, claims, compatibility, contract, coverage, describe,  # noqa: E402
+                                  holds, manifests, oldest_supported, read, supported, template_in, versions)
 from cv_workflow.render import without_comments  # noqa: E402
 
 DOMAINS = ROOT / 'packages/domains'
@@ -30,7 +31,7 @@ def refused(call, message):
         raise AssertionError('not refused: ' + message)
 
 
-def prove(out, typst, flags, domain, template, design, name, version, fixture):
+def prove(out, typst, flags, domain, template, design, name, version, fixture, elsewhere):
     """Render one Coverage Fixture through one Template Variation and judge the PDF."""
     stem = f'{template}-{name}-{fixture.stem}'
     pdf = out / f'{stem}.pdf'
@@ -45,9 +46,9 @@ def prove(out, typst, flags, domain, template, design, name, version, fixture):
     groups = contract(domain, version)['groups']
     claimed, _ = claims(design['variations'][name], domain)
     markers = read(fixture.with_suffix('.markers.json'))
-    failures, warnings = coverage(text, images, groups, claimed, markers)
+    failures, warnings = coverage(text, images, groups, claimed, markers, elsewhere)
     assert not failures, (template, name, failures)
-    covered = sum(1 for key, group in groups.items() if not group['required'] and key in claimed)
+    covered = sum(1 for key, group in groups.items() if not group['required'] and group['schemaVersion'] in claimed.get(key, ()))
     optional = sum(1 for group in groups.values() if not group['required'])
     (out / f'{stem}.json').write_text(json.dumps(
         {'covered': covered, 'optional': optional, 'warnings': warnings}, indent=2), encoding='utf-8')
@@ -58,25 +59,47 @@ def run_coverage(out, typst, flags):
     folder = out / 'coverage'
     folder.mkdir(exist_ok=False)
     checks = []
+    reports = []
     for _domain, template, design in manifests():
         assert design['default'] in design['variations'], template
         for name, variation in design['variations'].items():
             for owner, _support in variation['supports'].items():
-                _, supported = claims(variation, owner)
-                for version in supported:
+                # Each version it declares and the engine still reads; a claim another of them has may be absent here.
+                renders = supported(variation, owner)
+                elsewhere = {g for v in renders for g in contract(owner, v)['groups']}
+                reports.append(compatibility(owner, template, name, variation))
+                for version in renders:
                     fixtures = [p for p in sorted((DOMAINS / owner / 'fixtures').glob(f'coverage-v{version}*.json')) if re.fullmatch(rf'coverage-v{version}(-[a-z-]+)?\.json', p.name)]
                     assert fixtures, (owner, version)
                     for fixture in fixtures:
-                        checks.append(prove(folder, typst, flags, owner, template, design, name, version, fixture))
+                        checks.append(prove(folder, typst, flags, owner, template, design, name, version, fixture, elsewhere))
+    # Behind is reported, never a failure (P-0019 section 7); the lines are what `cv.py contracts` prints.
+    (folder / 'compatibility.json').write_text(json.dumps(reports, indent=2), encoding='utf-8')
+    lines = [line for r in reports for line in describe(r)]
+    (folder / 'compatibility.txt').write_text('\n'.join(lines) + '\n', encoding='utf-8')
+    checks += [describe(r)[0] for r in reports]
+
+    # Every Domain's kept contracts: none missing, none broken, and oldestSupported never past a version a frozen
+    # record uses (constitution step: ADR, new Frozen Reference, version bump).
+    for domain in sorted(p.name for p in DOMAINS.iterdir() if versions(p.name)):
+        assert not check_domain(domain), (domain, check_domain(domain))
+        for entry in sorted((ROOT / 'examples' / domain).rglob('*.typ')):
+            for path in re.findall(r'json\("([^"]+)"\)', entry.read_text(encoding='utf-8')):
+                used = read(entry.parent / path).get('domainContract', 1)
+                assert used >= oldest_supported(domain), f'{entry.name} uses {domain} version {used}, below oldestSupported'
+    checks.append('every kept Domain Contract is whole, unbroken and still reads the frozen records')
 
     # The judging itself, on a fixed text.
     markers = {'identity': ['QXNAME'], 'skills': ['QXSKILL'], 'ships': ['QXSHIP']}
-    assert coverage('QXNAME QXSKILL', 0, GROUPS, {'skills': 1}, markers) == ([], [])
-    assert coverage('QXNAME', 0, GROUPS, {'skills': 1}, markers)[0] == ['claims skills but a marker is not in the PDF']
+    assert coverage('QXNAME QXSKILL', 0, GROUPS, {'skills': {1}}, markers) == ([], [])
+    assert coverage('QXNAME', 0, GROUPS, {'skills': {1}}, markers)[0] == ['claims skills but a marker is not in the PDF']
     assert coverage('QXSKILL', 0, GROUPS, {}, markers)[0] == ['required identity but a marker is not in the PDF']
     assert coverage('QXNAME QXSKILL', 0, GROUPS, {}, markers)[1] == ['renders skills but does not claim it: update the manifest']
-    assert coverage('QXNAME', 0, GROUPS, {'skills': 2}, markers)[0] == ['claims skills@2, the contract has @1']
-    assert coverage('QXNAME', 0, GROUPS, {'nothing': 1}, markers)[0] == ['claims nothing, which the contract does not have']
+    assert coverage('QXNAME', 0, GROUPS, {'skills': {2}}, markers)[0] == ['claims skills@2, the contract has @1']
+    assert coverage('QXNAME QXSKILL', 0, GROUPS, {'skills': {1, 2}}, markers) == ([], [])
+    assert coverage('QXNAME', 0, GROUPS, {'skills': {2, 3}}, markers)[0] == ['claims skills@2/3, the contract has @1']
+    assert coverage('QXNAME', 0, GROUPS, {'nothing': {1}}, markers)[0] == ['claims nothing, which the contract does not have']
+    assert coverage('QXNAME', 0, GROUPS, {'nothing': {1}}, markers, elsewhere={'nothing'})[0] == []
     assert coverage('QXNAME', 0, GROUPS, {}, {'identity': ['QXNAME']})[0] == ['the fixture has no marker for skills', 'the fixture has no marker for ships']
     picture = {'p': {'required': True, 'schemaVersion': 1}}
     assert coverage('', 1, picture, {}, {'p': ['image']}) == ([], [])

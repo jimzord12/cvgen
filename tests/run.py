@@ -15,6 +15,7 @@ from design_review import run_design_review
 from repo_maintenance import run_repo_maintenance
 from release import examples, run_build_script, shells
 from coverage import run_coverage
+from compatibility import run_compatibility
 from proposals import run_proposals
 from report import run_report
 from cv_workflow.render import STRICT_FONTS, font_fallbacks  # on the path through workflow.py
@@ -128,10 +129,16 @@ def check_example_records():
     contract_record['skill_groups'] = [['ECDIS']]
     contract_record['copy'] = {'certificate-columns': ['Certificate', 'Provider', 'Issued']}
     validate_record(contract_record, ['/packages/domains/marine/lib.typ'])
-    # The facts contract and the Flagship input contract share their definitions, vessel particulars included.
-    facts_schema, input_schema = (json.loads((ROOT / 'packages/domains' / p).read_text(encoding='utf-8')) for p in
-                                  ['marine/schema/candidate.schema.json', FLAGSHIP_INPUT[len('/packages/domains/'):]])
-    assert facts_schema['$defs'] == input_schema['$defs'], 'the two marine schemas define different $defs'
+    # A Template's input schema states the facts once, by $ref to its Domain's schema, and adds only what the
+    # Template renders beyond them (ADR 0016, Stage 2): never a fact of its own, never a copy of a definition.
+    for path in sorted((ROOT / 'packages/domains').glob('*/templates/*/schema/*-input.schema.json')):
+        domain = path.relative_to(ROOT / 'packages/domains').parts[0]
+        facts_path = ROOT / 'packages/domains' / domain / 'schema/candidate.schema.json'
+        facts_schema, input_schema = (json.loads(p.read_text(encoding='utf-8')) for p in (facts_path, path))
+        assert Path(path.parent, input_schema.get('$ref', '')).resolve() == facts_path.resolve(), (path, input_schema.get('$ref'))
+        assert '$defs' not in input_schema and set(input_schema['properties']) <= {'copy'}, \
+            f'{path.name} restates facts; they belong in {facts_path.name}'
+        assert 'copy' in facts_schema['properties'], f'{facts_path.name} must leave copy to the Template'
     record = json.loads((ROOT / 'examples/candidates/engineer-example.json').read_text(encoding='utf-8'))
     ship = record['companies'][0]['groups'][0]['ships'][0]
     ship.update(tonnage={'value': 49990, 'unit': 'GT'}, engine='MAN B&W', power={'value': 9480, 'unit': 'kW'})
@@ -493,6 +500,9 @@ def main():
     # The Template Contract: each Template Variation's claims on its Coverage Fixture (ADR 0016).
     for check in run_coverage(out, args.typst, [*STRICT_FONTS, '--font-path', str(ROOT / FONTS)]):
         results.append({'case': 'coverage: ' + check, 'passed': True, 'folder': 'coverage'})
+    # Stage 2: a record on another Domain Contract version than a Template Variation supports (P-0019 section 6).
+    for check in run_compatibility(out):
+        results.append({'case': 'compatibility: ' + check, 'passed': True, 'folder': 'compatibility'})
     # The Report Template's script on its sample, and each refusal.
     for check in run_report(out):
         results.append({'case': 'report: ' + check, 'passed': True, 'folder': 'report'})
