@@ -124,7 +124,7 @@
           "title": "Travel Domain and Hanami",
           "path": "packages/domains/travel/",
           "blurb": "Travel facts (trips, destinations, know-how) and Hanami, its first Template, from Hanami Line 2, with two `Template Variation`s: `showcase` (two pages) and `essential` (one page, `scan-first`).",
-          "touch": "Changing what the travel `Domain` means or what Hanami renders; both Frozen References wait for your approval.",
+          "touch": "Changing what the travel `Domain` means or what Hanami renders; showcase's Frozen Reference is approved (2026-11-08) and pinned, essential's waits for your approval.",
           "sources": [
             "docs/architecture.md",
             "docs/engine/domains-and-roles.md"

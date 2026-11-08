@@ -62,8 +62,9 @@ Windows one also holds the PDFs that build wrote, one per example in
    The `one-page.typ` fixture repeats this for one and three companies.
 6a. **Tour-leader example (travel, Hanami).** `examples/travel/hanami/tour-leader.typ`
    must equal `packages/domains/travel/templates/hanami/tests/approved/Travel-Tour-Leader-CV-v01.pdf`
-   pixel for pixel with identical text on both pages (a `Frozen Reference`
-   candidate until the owner approves it), carry its name, rank and the domain's
+   pixel for pixel with identical text on both pages (a `Frozen Reference`,
+   owner approved 2026-11-08 and pinned in `baseline.json` with its record and
+   artwork), carry its name, rank and the domain's
    title as PDF metadata, and have no sakura petal on a word
    (`cv_workflow/decoration.py`, which a client's render also runs for Hanami);
    a probe page with a word set on a known petal of each page proves the check
@@ -286,12 +287,17 @@ Windows one also holds the PDFs that build wrote, one per example in
 19. **Report** (`report: <check>`, `tests/report.py`). The real
    `scripts/report.py` on the worked sample under `report/`: one page with
    its fonts and pictures embedded and no `src` or `href` pointing at the
-   network, the fragment without its skeleton, refusal of an existing folder,
-   text that cannot break out of the page, then one refusal per rule, each on
-   its exact message and none leaving a folder (among them a missing or
-   wrong-typed field, a decision card without two to four options or one
-   recommended, a `Critical` decision, a done report with open cards, a missing
-   picture or page, a client's report in a fragment). The page's script is not run here; a design review clicks it.
+   network, the figures placed (on the sample, one inside the card that alone
+   cites it and one under Figures; on a direct call, a figure no one cites and
+   one only a decision cites under Figures too), the fragment without its
+   skeleton, refusal of an existing folder, text that cannot break out of the
+   page, then one refusal per rule, each on its exact message and none leaving
+   a folder (among them a missing or wrong-typed field, a decision card
+   without two to four options or one recommended, a `Critical` decision, a
+   done report with open cards, a missing picture or page, a figure id missing
+   or malformed, two figures with one id, one item citing an id twice or citing
+   one that is absent, a client's report in a fragment). The page's script is
+   not run here; a design review clicks it.
 20. **Compatibility** (`compatibility: <check>`, `tests/compatibility.py`). Stage 2
    on synthetic contracts in a temporary folder (a `Domain` at versions 1 and 2,
    Variations up to 1, exactly 1 and 2, up to 2, exactly 2): every row of the

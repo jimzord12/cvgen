@@ -198,7 +198,7 @@ domains/travel/                         the travel domain (P-0013), built like m
     components/essential.typ              essential's band, profile row, roles (bullets with lead-ins), earlier roles, education and rail parts
     template.json  tests/coverage.typ     the Template Manifest and its coverage entry
     themes/  artwork/  layouts/           sakura, indigo, sky, monochrome; japan, plain (essential only); showcase, essential
-    tests/approved/                       a Frozen Reference candidate per Template Variation (owner approval pending)
+    tests/approved/                       a Frozen Reference per Template Variation: showcase owner approved 2026-11-08; essential a candidate
 
 cv-workflow/cv_workflow/                Python; owns everything around a candidate render
   workspace.py                          workspace and revision paths, ids, hashes, records, the refusal rules

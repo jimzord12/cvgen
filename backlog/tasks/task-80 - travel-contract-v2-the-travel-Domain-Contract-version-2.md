@@ -1,10 +1,10 @@
 ---
 id: TASK-80
 title: 'travel-contract-v2: the travel Domain Contract version 2'
-status: Active
+status: Done
 assignee: []
 created_date: '2026-11-08T10:07:00Z'
-updated_date: '2026-11-08T11:54:00Z'
+updated_date: '2026-11-08T15:02:00Z'
 labels: []
 milestone: m-3
 dependencies: []
@@ -82,4 +82,12 @@ Agents' choice (Major, owner 2026-11-08: "think of something the domain might ne
 - D18: 1.3 mm above the role caption under a stamp. A real line there cost ~2.4 mm in the binding left column of page 2 (overflow and a petal on the practical line), so the caption hangs below the card as a zero-height block; its 3 mm reach is within the 3.6 mm gap that follows a card.
 - D17: licence line limit 98 mm (the education columns). m3: two-line-licence case (story removed to make room) checks title and issuer on different lines. n4: a stamp-less trip has its role above the period, left-aligned, in the text column.
 - Suite builds/tests-20261108-135332-211961 (248 compilations).
+
+Merged to main with the approved showcase reference (2026-11-08).
 <!-- SECTION:NOTES:END -->
+
+## Final Summary
+
+<!-- SECTION:FINAL_SUMMARY:BEGIN -->
+Travel contract version 2 (trip roles, licences, the travel-story group) is on main; the showcase claims versions 1 and 2.
+<!-- SECTION:FINAL_SUMMARY:END -->

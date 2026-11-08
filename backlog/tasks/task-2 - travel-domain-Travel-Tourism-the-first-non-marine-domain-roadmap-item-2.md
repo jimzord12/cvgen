@@ -1,10 +1,10 @@
 ---
 id: TASK-2
 title: 'travel-domain: Travel & Tourism, the first non-marine domain (roadmap item 2)'
-status: Active
+status: Done
 assignee: []
 created_date: 2026-10-06 07:25
-updated_date: '2026-11-08T11:03:00Z'
+updated_date: '2026-11-08T15:02:00Z'
 labels: []
 milestone: m-3
 dependencies: []
@@ -60,4 +60,12 @@ Code F1-F3, F5, F6, N1, N2 and design D1, D5, D6, D7, D9, D11, D13 plus the high
 
 ## Round 2 fixes (2026-11-08)
 Code R2-1 (stamp and seal kanji, the page-2 rank, region and native line measured and asserted; long-native, long-stamp-kanji, long-region cases), R2-2 (petal probe case), R2-3 (no marker inside another, asserted for every fixture; travel markers renamed), N-a, N-b, N-d (English C1 with IELTS 8.0, trip 2 runs eastwards, passed-through areas name the passed stops) applied; N-c left to the owner (the tab fails loudly). Two more petals that met the twin's words removed. Suite PASS 224 cases: builds/tests-20261108-130215-320010. Frozen Reference candidate regenerated, still NOT approved; renders in builds/travel-review4/.
+
+Owner approved the Hanami showcase Frozen Reference on 2026-11-08; pinned in tests/baseline.json with the twin record and the japan artwork; merged to main with TASK-80.
 <!-- SECTION:NOTES:END -->
+
+## Final Summary
+
+<!-- SECTION:FINAL_SUMMARY:BEGIN -->
+The travel Domain (packages/domains/travel) and its first Template, Hanami, with the two-page showcase Variation and the fictional tour-leader twin, are on main. The showcase Frozen Reference is owner approved (2026-11-08) and pinned.
+<!-- SECTION:FINAL_SUMMARY:END -->
