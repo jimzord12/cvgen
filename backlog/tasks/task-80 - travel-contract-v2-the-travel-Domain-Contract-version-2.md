@@ -4,7 +4,7 @@ title: 'travel-contract-v2: the travel Domain Contract version 2'
 status: Active
 assignee: []
 created_date: '2026-11-08T10:07:00Z'
-updated_date: '2026-11-08T10:37:00Z'
+updated_date: '2026-11-08T10:50:00Z'
 labels: []
 milestone: m-3
 dependencies: []
@@ -25,8 +25,8 @@ Agents' choice (Major, owner 2026-11-08: "think of something the domain might ne
 
 ## Acceptance Criteria
 <!-- AC:BEGIN -->
-- [ ] #1 contracts/v2.json and its Coverage Fixture exist; v1 is still kept and its fixture still passes
-- [ ] #2 The Hanami showcase (up to v1) and essential (v2) Variations prove their claims on their fixtures
+- [x] #1 contracts/v2.json and its Coverage Fixture exist; v1 is still kept and its fixture still passes
+- [x] #2 Hanami showcase (up to v2: destinations@1, destinations@2, licences@1) proves its claims on the v1 and v2 fixtures; what essential must claim for v2 is recorded in the notes
 <!-- AC:END -->
 
 ## Implementation Plan
@@ -40,3 +40,17 @@ Agents' choice (Major, owner 2026-11-08: "think of something the domain might ne
 6. Suite cases: v1 record on v2, v2 record on an upTo-1 Variation with and without destinations, licences dropped with a warning.
 7. Docs, anchors, render, atlas, build; suite and ruff.
 <!-- SECTION:PLAN:END -->
+
+## Implementation Notes
+
+<!-- SECTION:NOTES:BEGIN -->
+## Result and evidence (2026-11-08)
+- Merged feat/contract-stage-2, then main (Stage 2, addc8dd/379e425); conflicts resolved by hand, Atlas regenerated and stamped.
+- contracts/v2.json: destinations required, schemaVersion 2, paths destinations + destinations.trips.*.role (Trip Role: led | organised | travelled, required on every trip); licences new optional @1 (title, issuer required; region, until '14 Jul 2029' optional). v1.json kept; no oldestSupported.
+- Schema and data.typ read both shapes by domainContract; a role or licence on v1 is refused; v2 without destinations or a role is refused. Licences feed the Certificate Warning (warning, never a failure).
+- Hanami showcase upTo 2, claims destinations@1, destinations@2, licences@1: role label beside a trip's length (led in the accent), licence on one line above the studies. The twin moved to v2 (both trips organised, a fictional licence); a v1 twin renders pixel-identical to the previous candidate. Frozen Reference candidate regenerated (not yet approved by the owner).
+- Fixture coverage-v2.json + markers; cv.py contracts: hanami showcase renders 1 to 2, 8 of 9 optional groups at v2.
+- Suite: builds/tests-20261108-124856-609053 (25 passed, 232 compilations); ruff clean; build builds/library-20261108-124849-274.
+- essential, if it renders v2: claims destinations@2 (and destinations@1 to read v1 records); licences@1 optional (else dropped with a warning). Up to v1 only, every v2 record is refused.
+- To do when feat/travel-domain round 1 lands (v1 destinations required): merge; the calm refusal text becomes 'destinations changed (schemaVersion 1 to 2)' (no 'became required'), and the calm describe line changes the same way.
+<!-- SECTION:NOTES:END -->
