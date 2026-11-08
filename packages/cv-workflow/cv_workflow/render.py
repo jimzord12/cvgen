@@ -206,6 +206,8 @@ def render_revision(workspace, typst='typst', pages=2, inputs=None, reference_da
         checks['passed'] = not checks['errors']
         # Read from the snapshot the PDF was compiled from; warnings never change `passed`.
         checks['certificates'] = check_certificates(read_json(revision.inputs / 'candidate.json'), reference_date)
+        # What the Template itself says of the page (a thin record, for one); a warning, never an error.
+        checks['template_warnings'] = template_warnings(command, entry)
         write_json(revision.checks_record, checks)
         lang = str((inputs or {}).get('lang') or '').lower()
         stamp(revision.pdf, {'kind': 'client-cv', 'status': 'render', 'variant': revision.id,
@@ -221,9 +223,25 @@ def render_revision(workspace, typst='typst', pages=2, inputs=None, reference_da
         'checks_passed': bool(checks and checks['passed']),
         'errors': (checks or {}).get('errors', []) if succeeded else [result.stderr.strip()],
         'certificate_dates': counts,
-        'warnings': choice_warnings + warnings,
+        'warnings': choice_warnings + warnings + (checks or {}).get('template_warnings', []),
         'engine_uncommitted_changes': render['engine']['uncommitted_changes'],
     }
+
+
+# The label a Template puts on a warning for the operator: `#metadata("…") <cvgen-warning>`.
+WARNING_LABEL = '<cvgen-warning>'
+
+
+def template_warnings(command, entry):
+    """The warnings the compiled document carries under WARNING_LABEL, as text: Hanami essential's
+    thin page, for one. `command` is the compile command (its root, fonts and inputs are reused)."""
+    flags = command[2:-2]
+    run = subprocess.run([command[0], 'eval', *flags, f'query({WARNING_LABEL}).map(it => it.value)', '--in', str(entry)],
+                         capture_output=True, cwd=ROOT, **TEXT)
+    if run.returncode != 0:
+        return [f'The template warnings could not be read: {run.stderr.strip()}']
+    found = json.loads(run.stdout or '[]')
+    return [str(item) for item in found]
 
 
 def engine_state():

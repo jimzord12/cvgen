@@ -68,7 +68,12 @@ Windows one also holds the PDFs that build wrote, one per example in
    (`cv_workflow/decoration.py`, which a client's render also runs for Hanami);
    a probe page with a word set on a known petal of each page proves the check
    fires (`petal-probe.typ`). The twin follows travel contract version 2: both
-   trips read "Organised", none "Led the group", and its licence is on page 2.
+   trips read "Organised", none "Led the group", and its licence takes the
+   studies subtitle on page 2. A led trip with a long period ("September 2024")
+   shows "Led the group" in full under its stamp, and a leap day is a valid
+   licence date. A licence too long for one line puts its issuer, region and
+   date on a second line under the title. A trip without a stamp has its role
+   above the period, never alone in the empty stamp column.
    The `travel.typ` fixture renders the Indigo and Sky themes and a record without
    a portrait (initials in the ring) with the same words, the twin as a version 1
    record (no role, no licence: page 1 the same words, page 2 without them), asserts the totals
@@ -80,7 +85,9 @@ Windows one also holds the PDFs that build wrote, one per example in
    seal's or a stamp's inner disc, a fifth highlight, a second trip story, an
    unknown `Template Variation`, a trip role or a licence on a version 1 record,
    a version 2 trip without a role or with an unknown one, a licence date that
-   is not "14 Jul 2029" and an unknown `domainContract`.
+   is not "14 Jul 2029" or names a day its month lacks ("31 Feb 2029"), a role
+   word wider than the stamp column, a licence line wider than the education
+   columns, and an unknown `domainContract`.
 6b. **Tour-leader on one page (travel, Hanami `essential`).**
    `examples/travel/hanami/tour-leader-essential.typ` must equal
    `.../hanami/tests/approved/Travel-Tour-Leader-CV-Essential-v01.pdf` pixel for
@@ -91,8 +98,9 @@ Windows one also holds the PDFs that build wrote, one per example in
    fixture renders the record without a portrait (the same words, one image
    fewer), the Indigo and Sky themes, Greek wording, a record without a
    licence, a sparse record (`tour-leader-sparse.json`: one contact row, no
-   highlights, licence, availability or references, whose fields start right
-   under its one-line lead), and a fictional long career (`tour-leader-long-career.json`, version 2):
+   highlights, licence, availability or references, whose fields start 8 mm
+   under its one-line lead, whose wash ends under its columns, and which carries
+   the thin-page warning the twin does not), and a fictional long career (`tour-leader-long-career.json`, version 2):
    education moved to the rail, five roles in full and "Earlier roles · 3" with
    the span the domain computed. The Greek case translates the record's own
    labels, rank, availability and lead too, so Greek capitals are proved to fit. It fails on a newest role too long for the page, a long career not

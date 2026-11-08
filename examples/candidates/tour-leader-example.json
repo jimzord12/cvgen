@@ -113,7 +113,7 @@
     }
   ],
   "licences": [
-    { "title": "Tour Leader Licence", "issuer": "Thermaic Tourism Office", "region": "Greece and the EU", "until": "31 Mar 2029" }
+    { "title": "Tour Leader", "issuer": "Thermaic Tour Board", "until": "31 Mar 2029" }
   ],
   "education_entries": [
     {
@@ -173,7 +173,7 @@
         "period": "April 2023",
         "days": 12,
         "role": "organised",
-        "kind": "Private trip for three (himself and two cousins), which he planned himself",
+        "kind": "Private trip for three (himself and two cousins)",
         "stops": [
           {
             "name": "Fukuoka",
@@ -214,7 +214,7 @@
         "period": "October 2024",
         "days": 18,
         "role": "organised",
-        "kind": "Private trip for five (himself and four colleagues), which he planned himself",
+        "kind": "Private trip for five (himself and four colleagues)",
         "stops": [
           {
             "name": "Fukuoka",

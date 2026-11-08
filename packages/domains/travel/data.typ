@@ -17,11 +17,18 @@
 #let contract-versions = (1, 2)
 #let trip-roles = ("led", "organised", "travelled")
 
-// "14 Jul 2029": the day a licence is valid until, the format the Certificate Warning reads.
+// "14 Jul 2029": the day a licence is valid until, the format the Certificate Warning reads. A day
+// the month does not have (31 Feb 2029) is refused, so the warning can always read the date.
+#let months = ("Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec")
 #let day-month-year(value, field) = {
   required-text(value, field)
   assert(value.match(regex("^(0?[1-9]|[12][0-9]|3[01]) (Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec) [0-9]{4}$")) != none,
     message: field + " must be a day as 14 Jul 2029; got " + value)
+  let (day, month, year) = value.split(" ")
+  let (day, month, year) = (int(day), months.position(m => m == month) + 1, int(year))
+  let leap = calc.rem(year, 4) == 0 and (calc.rem(year, 100) != 0 or calc.rem(year, 400) == 0)
+  let length = if month == 2 { if leap { 29 } else { 28 } } else if month in (4, 6, 9, 11) { 30 } else { 31 }
+  assert(day <= length, message: field + " names a day its month does not have; got " + value)
   value
 }
 

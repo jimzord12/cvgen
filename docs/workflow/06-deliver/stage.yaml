@@ -260,7 +260,7 @@ artifacts:
 
   - id: art.reviewed-hash
     name: The hash the owner reviewed
-    sources: ["docs/guides/build-a-cv.md:178-180", "packages/cv-workflow/cv_workflow/workspace.py:59-64"]
+    sources: ["docs/guides/build-a-cv.md:188-190", "packages/cv-workflow/cv_workflow/workspace.py:59-64"]
     format: the first 12 or more hex characters of cv.pdf's SHA-256
     visibility: ephemeral
 
@@ -344,7 +344,7 @@ actions:
   - id: cmd.cv-approve
     kind: cmd
     name: Approve a Revision
-    sources: ["scripts/cv.py:4", "docs/guides/build-a-cv.md:178-180", "packages/cv-workflow/cv_workflow/approve.py:13-44"]
+    sources: ["scripts/cv.py:4", "docs/guides/build-a-cv.md:188-190", "packages/cv-workflow/cv_workflow/approve.py:13-44"]
     run: python scripts/cv.py approve private/<envelope> <revision> --approver "<name>" --sha256 <reviewed hash>
 
   - id: cmd.cv-export

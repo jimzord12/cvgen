@@ -57,10 +57,10 @@
   let L = ctx.layout
   let totals = if d.destinations == none { none } else { (domain.totals)(d.destinations) }
 
-  // The profile row: the lead statement, then the highlights. The fields start right under it, 5 mm
-  // below, at most at the layout's `y`, so a short row leaves no empty paper. The licences head the
-  // rail; only when the rail cannot hold them do they sit beside the lead, and then the fields start
-  // 8 mm under the row, so 4 mm of paper stays above the panel's 4 mm bleed, at most at `latest`.
+  // The profile row: the lead statement, then the highlights. One rule for every row: the fields start
+  // 8 mm under it, so 4 mm of paper stays above the rail panel's 4 mm bleed and a short row leaves no
+  // empty paper; at most at `latest`. The licences head the rail; only when the rail cannot hold them
+  // do they sit beside the lead.
   let has-profile = d.profile != "" or d.highlights.len() > 0 or d.licences.len() > 0
   let row(with-licences) = block(width: 178mm, {
     let lead = if d.profile != "" { parts.lead(ctx, d.profile) }
@@ -82,14 +82,11 @@
     let rail-height(with-education, with-licences) = measure(block(width: L.rail.width,
       rail(rail-parts(ctx, d, totals, with-education, with-licences), least.rail))).height
     // the licences on the rail when it holds them, else beside the lead
-    let on-rail = d.licences.len() == 0 or rail-height(false, true) <= rail-room(start(row(false), 5mm))
-    let y0 = if on-rail { start(row(false), 5mm) } else { start(row(true), 8mm) }
+    let on-rail = d.licences.len() == 0 or rail-height(false, true) <= rail-room(start(row(false), 8mm))
+    let y0 = start(row(not on-rail), 8mm)
     if has-profile { place(top + left, dx: L.main.x, dy: py, row(not on-rail)) }
-    assert(y0 <= (if on-rail { L.main.y } else { L.main.latest }), message: "Hanami essential: the profile row overflows ("
+    assert(y0 <= L.main.latest, message: "Hanami essential: the profile row overflows ("
       + repr(measure(row(not on-rail)).height) + "); shorten the lead statement, a licence or a highlight")
-    // the rail's quiet panel, from the fields' top to the footer
-    place(top + left, dx: L.rail.panel, dy: y0 - 4mm, rect(width: 210mm - L.rail.panel, height: L.rail.bottom - y0 + 4mm, fill: P.wash))
-
     let H = L.main.bottom - y0
     // the rail's content ends 4 mm inside its panel, as the panel starts 4 mm above it
     let R = L.rail.bottom - y0 - 4mm
@@ -119,10 +116,25 @@
     let slots = (k - 1) + (if k < n { 1 } else { 0 }) + (if edu and d.education.len() > 0 { 1 } else { 0 })
     let share = if slots > 0 { (H - height(k, edu, least)) / slots } else { 0pt }
     let gaps = (role: calc.min(most.role, least.role + share), section: calc.min(most.section, least.section + share))
-    at(L.main.x, y0, block(width: L.main.width, height: H, career(ctx, d, k, edu, gaps)))
     let list = rail-parts(ctx, d, totals, not edu, on-rail)
     let rail-share = if list.len() > 1 { (R - rail-height(not edu, on-rail)) / (list.len() - 1) } else { 0pt }
-    at(L.rail.x, y0, block(width: L.rail.width, height: R, rail(list, calc.min(most.rail, least.rail + rail-share))))
+    let rail-gap = calc.min(most.rail, least.rail + rail-share)
+    // The rail's quiet panel starts 4 mm above the fields and runs to the footer, or, when both columns
+    // end short, 8 mm below the longer one, so a short record shows no empty tinted column.
+    let career-used = height(k, edu, gaps)
+    let rail-used = measure(block(width: L.rail.width, rail(list, rail-gap))).height
+    let foot = calc.min(L.rail.bottom, y0 + calc.max(career-used, rail-used) + 8mm)
+    place(top + left, dx: L.rail.panel, dy: y0 - 4mm, rect(width: 210mm - L.rail.panel, height: foot - y0 + 4mm, fill: P.wash))
+    at(L.main.x, y0, block(width: L.main.width, height: H, career(ctx, d, k, edu, gaps)))
+    at(L.rail.x, y0, block(width: L.rail.width, height: R, rail(list, rail-gap)))
+    // A thin page fails a reader as surely as a crowded one (research, claim 1): under 60% filled, the
+    // render warns the operator (scripts/cv.py render reads <cvgen-warning>), so the record is filled
+    // out before the owner sees it. It never stops the compile.
+    let fill = (career-used / H + rail-used / R) / 2
+    if fill < 0.6 {
+      [#metadata("Hanami essential: the page is " + str(calc.round(fill * 100)) + "% filled; fill out the record "
+        + "(more bullets, a highlight, availability) before the owner sees it") <cvgen-warning>]
+    }
   }
   footer(ctx, d, 1, 1)
 }

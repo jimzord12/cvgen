@@ -4,7 +4,7 @@ title: 'travel-contract-v2: the travel Domain Contract version 2'
 status: Active
 assignee: []
 created_date: '2026-11-08T10:07:00Z'
-updated_date: '2026-11-08T11:00:00Z'
+updated_date: '2026-11-08T11:54:00Z'
 labels: []
 milestone: m-3
 dependencies: []
@@ -62,4 +62,24 @@ Agents' choice (Major, owner 2026-11-08: "think of something the domain might ne
 - essential should claim (upTo 2): its v1 optional groups, destinations@1, destinations@2, licences@1 if it shows a licence; not travel-story@1 (dropped with a warning).
 - Anchors: glossary citations checked by hand against their terms after the two merges (the anchors tool double-counts a row both branches added); render.py spans updated to 102-213 and 192-209.
 - Suite builds/tests-20261108-125912-962608 (25 passed, 238 compilations); ruff clean; build builds/library-20261108-130031-831.
+
+## Round 3 (2026-11-08): merged feat/travel-domain 54cbd2c (TASK-2 round 2)
+- v2 Coverage Fixture rebuilt from the new v1 fixture; markers follow the no-marker-inside-another rule (new trips Qxspringtrip/Qxwintertrip, kinds Qxsolojourney/Qxfamilyjourney, stops Qxhillstop/Qxlakestop, licence region Qxvalidzone; route markers ZQA/ZQB under travel-story).
+- Twin: TASK-2's new facts plus domainContract 2, both trips organised, the fictional licence. Page 2 had no slack left, so with a licence the gap under the studies heading shrinks from 4.4 to 2.6 mm and the licence line's gap below from 2.8 to 1.6 mm (a licence beside availability on page 1 was tried and ran into the fixed petal layer). Frozen Reference candidate regenerated, not yet approved.
+- Glossary citations in the Workflow Model checked by hand against their terms; anchors main still reports false MOVED lines for rows both branches shifted; never --fix them.
+- First suite run failed on a transient jsonschema/attrs import error in the shared .venv (outputs.py stamp); the rerun passed.
+- Suite builds/tests-20261108-130825-559180 (25 passed, 242 compilations); ruff clean; build builds/library-20261108-130917-160.
+
+## Round 4 (2026-11-08): design round 2 (D14-D16) and code review round 1 (m1, m2, n1, n2)
+- D14: the licence replaces the studies subtitle inside heading(), no rule, 4.4 mm gap restored, measured against the 104 mm before the languages column (second line when needed; fails loudly beyond).
+- D15: the trip role is its own small tracked line centred under the stamp (led in the accent), measured against the 26 mm stamp column. Above the period it cost a line in the binding left column and pushed page 2 into overflow and a petal; under the stamp it fits. Tested: led-long-period ('September 2024', 'Led the group' in full), long-role refusal.
+- D16: twin kinds drop 'which he planned himself'; twin licence is now title 'Tour Leader', issuer 'Thermaic Tour Board', no region, so it stays on one line clear of a petal.
+- m1: deliver.approve cites build-a-cv.md:165-170. n1: both versions require destinations (docs). n2: a licence day its month lacks ('31 Feb 2029') is refused; a leap day passes.
+- m2 (correction to the round 2 note): a one-page Variation that does not render the v1 route, stamps and story declares 'exactly: [2]' with destinations@2 (and licences@1 if shown), no travel-story@1, and refuses v1 records. A Variation that renders version 1 must show those fields (they are part of v1's required destinations) and then claims travel-story@1 too.
+- Suite builds/tests-20261108-131841-005884 (247 compilations); design renders builds/design-renders-20261108-r3.
+
+## Round 5 (2026-11-08): design round 3 (D17, D18) and code round 2 (m3, n4)
+- D18: 1.3 mm above the role caption under a stamp. A real line there cost ~2.4 mm in the binding left column of page 2 (overflow and a petal on the practical line), so the caption hangs below the card as a zero-height block; its 3 mm reach is within the 3.6 mm gap that follows a card.
+- D17: licence line limit 98 mm (the education columns). m3: two-line-licence case (story removed to make room) checks title and issuer on different lines. n4: a stamp-less trip has its role above the period, left-aligned, in the text column.
+- Suite builds/tests-20261108-135332-211961 (248 compilations).
 <!-- SECTION:NOTES:END -->

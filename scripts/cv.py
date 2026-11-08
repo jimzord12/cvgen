@@ -28,7 +28,8 @@ from cv_workflow import WorkflowError, approve_revision, export_revision, render
 
 
 def warn(warnings, revision=None):
-    """Certificate warnings, loud on stderr; they never change the exit code (owner, 2026-09-25)."""
+    """Certificate and template warnings (a thin page, for one), loud on stderr; they never change the exit
+    code (owner, 2026-09-25)."""
     for text in warnings:
         print(f'WARNING{f" [{revision}]" if revision else ""}: {text}', file=sys.stderr)
 

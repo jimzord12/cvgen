@@ -116,29 +116,48 @@
 
 #let dot(P, known) = box(baseline: 0.05em, circle(radius: 1.05mm, fill: if known { P.accent } else { P.paper }, stroke: 0.8pt + P.accent))
 
-// A trip's role (travel contract version 2) as a label beside its period: a led group in the
-// accent, so it is never confused with a trip the person organised or only travelled on.
-#let role-label(ctx, role) = {
+// A trip's role (travel contract version 2) on its own small line: a led group in the accent, so it
+// is never confused with a trip the person organised or only travelled on. With a stamp it is
+// centred under it as a caption, so its place never depends on the period's length; a trip without
+// a stamp has it left-aligned above the period,
+// so it never floats alone in an empty stamp column. It measures itself against its column and
+// fails loudly rather than wrap (constitution 4).
+#let role-label(ctx, role, centred: true) = {
   let P = tokens(ctx)
-  label(ctx, ctx.copy.at("role-" + role), fill: if role == "led" { P.accent } else { P.label }, size: 6.8pt, track: 1.1pt)
+  let word = ctx.copy.at("role-" + role)
+  // Cap height to baseline: the label adds only its letters' height under the stamp.
+  set text(top-edge: "cap-height", bottom-edge: "baseline")
+  let set-label = label(ctx, word, fill: if role == "led" { P.accent } else { P.label }, size: 6.8pt, track: 1.1pt)
+  layout(size => {
+    let width = measure(set-label).width
+    assert(width <= size.width, message: "Hanami: the trip role " + repr(word) + " is wider than the trip card's "
+      + str(calc.round(size.width / 1mm, digits: 1)) + " mm " + (if centred { "stamp" } else { "text" }) + " column; shorten copy.role-" + role)
+    block(width: 100%, align(if centred { center } else { left }, set-label))
+  })
 }
 
-// One trip: its stamp, period and length with its role (version 2), who travelled, the stops
-// (known well or passed) and the stops in the destination's own script.
+// One trip: its role (version 2), stamp, period and length, who travelled, the stops (known well
+// or passed) and the stops in the destination's own script.
 #let trip-card(ctx, trip) = {
   let P = tokens(ctx)
   let fonts = ctx.theme.fonts
   let s = trip.at("stamp", default: none)
   grid(columns: (26mm, 1fr), column-gutter: 4.4mm,
-    if s != none { stamp(ctx, s.rim, s.art, kanji: s.at("kanji", default: ""), size: 26, ink: P.accent, ground: P.paper) },
+    {
+      if s != none { stamp(ctx, s.rim, s.art, kanji: s.at("kanji", default: ""), size: 26, ink: P.accent, ground: P.paper) }
+      // Under a stamp the caption hangs below the card (a zero-height block), so it costs page 2 no
+      // height: 1.3 mm of air above it, and at most 1.3 mm plus its 1.7 mm cap height past the stamp,
+      // less than the 3.6 mm between cards and before the areas (`trips`).
+      if s != none and "role" in trip { block(height: 0mm, above: 1.3mm, below: 0mm, role-label(ctx, trip.role)) }
+    },
     {
       set par(leading: 0.46em)
+      if s == none and "role" in trip { block(above: 0mm, below: 1.6mm, role-label(ctx, trip.role, centred: false)) }
       text(size: 11pt, weight: 700, trip.period)
       h(2.4mm)
       text(font: fonts.figures, size: 15pt, fill: P.accent, str(trip.days))
       h(0.8mm)
       text(size: 9pt, weight: 600, fill: P.accent, ctx.copy.days)
-      if "role" in trip { h(2.4mm); role-label(ctx, trip.role) }
       linebreak()
       text(size: 9.2pt, fill: P.muted, trip.kind)
       v(1.6mm)
@@ -194,23 +213,29 @@
   }
 }
 
-// A licence (travel contract version 2) on one line under the studies heading, on the accent rule:
-// its title, the issuer and region, and the day it is valid until.
-#let licence-line(ctx, l) = {
+// The licences (travel contract version 2) in place of a heading's subtitle: the red LICENCE label
+// and the title, then the issuer, region and the day it is valid until, on the same line when it
+// fits within `width`, else on a second line. Each line measures itself and
+// fails loudly rather than run under the heading's paper art (constitution 4).
+#let licence-subtitle(ctx, licences, width) = context {
   let P = tokens(ctx)
-  block(width: 100%, above: 0mm, below: 1.6mm, stroke: (left: 1.6pt + P.accent), inset: (left: 3.4mm, y: 0.4mm), {
-    label(ctx, ctx.copy.licence, fill: P.accent, size: 6.8pt, track: 1.1pt)
-    h(2.4mm)
-    text(size: 10pt, weight: 700, l.title)
-    text(size: 9.2pt, fill: P.muted, (" · " + l.issuer, ..if "region" in l { (l.region,) }).join(" · "))
-    if "until" in l { h(2.4mm); text(size: 9.2pt, weight: 600, fill: P.date, ctx.copy.valid-until + " " + l.until) }
-  })
+  let lines = ()
+  for l in licences {
+    let head = [#label(ctx, ctx.copy.licence, fill: P.accent, size: 6.8pt, track: 1.1pt)#h(2mm)#text(size: 9pt, weight: 700, fill: P.ink, l.title)]
+    let rest = (l.issuer, ..if "region" in l { (l.region,) }, ..if "until" in l { (ctx.copy.valid-until + " " + l.until,) }).join(" · ")
+    let one = [#head#text(fill: P.muted)[ · #rest]]
+    if measure(one).width <= width { lines.push(one) } else { lines += (head, text(fill: P.muted, rest)) }
+  }
+  for line in lines {
+    assert(measure(line).width <= width, message: "Hanami: a licence line is wider than its "
+      + str(calc.round(width / 1mm, digits: 1)) + " mm and would run past the education columns; shorten licences.title, issuer or region")
+  }
+  stack(spacing: 1.2mm, ..lines)
 }
 
-// Licences on their own lines, then education beside the languages and references.
-#let studies(ctx, education, languages, references, licences: ()) = {
+// Education beside the languages and references.
+#let studies(ctx, education, languages, references) = {
   let P = tokens(ctx)
-  for l in licences { licence-line(ctx, l) }
   grid(columns: (1fr, 61mm), column-gutter: 6mm,
     grid(columns: (1fr, 1fr), column-gutter: 5mm, row-gutter: 2.8mm,
       ..education.map(e => block(width: 100%, stroke: (left: 1.6pt + P.metal), inset: (left: 3.4mm, y: 0.4mm), {

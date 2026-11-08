@@ -12,7 +12,7 @@
   // page's left edge, y from its top.
   // the profile row starts this far under the band, which fits its name block (at most `band`)
   profile: (gap: 8mm),
-  // the fields start right under the profile row: at most at y, or at latest beside a licence
+  // the fields start 8 mm under the profile row, at most at `latest`; `y` is where they start on the twin
   main: (x: 16mm, y: 85mm, latest: 98mm, width: 113mm, bottom: 279mm),
   rail: (x: 141mm, y: 85mm, width: 53mm, bottom: 281mm, panel: 135mm),
   pages: 1,

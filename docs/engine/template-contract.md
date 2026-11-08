@@ -34,9 +34,13 @@ unchanged. On one A4 page the name block sits in a shallow band that fits it (th
 showcase's red tab, the specialty and the rank's seal words beside it), the
 profile row under it (the lead statement, then the highlights), then each role's title, employer and dates in a career column with
 education at its foot, and availability, languages, destinations, practical
-know-how and references on a rail. The fields start right under the profile row,
+know-how and references on a rail. The fields start 8 mm under the profile row,
 so a short record leaves no empty paper above them; a licence heads the rail when
-it has room, and sits beside the lead when it has not. The gaps between roles widen with spare
+it has room, and sits beside the lead when it has not. When both columns end
+short, the rail's wash ends 8 mm under the longer one, and a page under 60%
+filled carries a `<cvgen-warning>` that `scripts/cv.py render` prints and
+`checks.json` keeps under `template_warnings`, so a thin record is filled out
+before the owner sees it. The gaps between roles widen with spare
 height only up to a cap; the rest stays at the column's foot. When the roles do
 not fit, education moves to the rail if it has room, the newest roles stay in
 full and the older ones become one summary whose count and span come from the
@@ -102,13 +106,14 @@ the worked example of the rules above:
   and drops them with a warning.
 - `licences` is a new optional group at `schemaVersion` 1: official
   tour-leader or guide licences, each with a `title` and `issuer`, and an
-  optional `region` and `until` ("14 Jul 2029"). A date in `until` is read at
-  render: an expired or soon-expiring licence is a `Certificate Warning`.
+  optional `region` and `until` ("14 Jul 2029"; a day its month lacks is
+  refused). A date in `until` is read at render: an expired or soon-expiring
+  licence is a `Certificate Warning`.
 - Version 1 is kept and `oldestSupported` is not set, so a version 1 record
   renders as before. The facts schema and `data.typ` read both shapes by
   `domainContract`: a version 1 record holding a role or a licence is refused
-  and told to set `domainContract` to 2; a version 2 record without
-  destinations, or with a trip without a role, is refused.
+  and told to set `domainContract` to 2; a record of either version without
+  destinations, or a version 2 trip without a role, is refused.
 
 ## Template Manifests
 
@@ -127,11 +132,14 @@ required to name the newest version.
 ```
 Hanami `showcase` declares that line, as `upTo: 2`, beside its other groups: it
 renders both shapes of `destinations` (no role on a version 1 trip, a role label
-beside a version 2 trip's length), the route, stamps and story, and a licence
-above the studies. A required group may be claimed too, to say which shapes the
-Variation renders. A one-page Variation would claim the same without
-`travel-story@1`. A Variation that stays at version 1 renders no version 2
-record (next section).
+under a version 2 trip's stamp), the route, stamps and story, and a licence in
+place of the studies subtitle. A required group may be claimed too, to say
+which shapes the Variation renders. At version 1 the route, seal words, stamps
+and story belong to the required `destinations`, so a Variation that renders
+version 1 must show them, and then claims `travel-story@1` as well. A one-page
+Variation with no room for them declares `exactly: [2]` and claims
+`destinations@2` without `travel-story@1`; it refuses a version 1 record. A
+Variation that stays at version 1 renders no version 2 record (next section).
 
 A `Template Variation` inherits and never copies; it declares only what differs,
 and its `designBar` is set when the owner approves the design.

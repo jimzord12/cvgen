@@ -346,7 +346,7 @@ def main():
         text = ' '.join(' '.join(p.get_text().split()) for p in doc)
         for phrase in ['ANDREAS KALAMARIS', 'Boutique travel agency', '03/2022', 'present', 'Japan, trip by trip',
                        '12 days', '18 days', 'Planning the 18-day trip', 'Education and languages', 'FICTIONAL CANDIDATE',
-                       'Tour Leader Licence', 'Valid until 31 Mar 2029']:
+                       'Thermaic Tour Board', 'Valid until 31 Mar 2029']:
             assert phrase in text, phrase
         # Travel contract version 2: both trips were organised by him, so neither reads as a led group.
         squeezed = ''.join(text.split())
@@ -375,12 +375,29 @@ def main():
     with fitz.open(twin) as a, fitz.open(older) as b:
         assert a[0].get_text().split() == b[0].get_text().split()  # page 1 is the same
         page = ''.join(b[1].get_text().split())
-        assert 'Licence' not in page and 'ORGANISED' not in page, page
+        assert 'LICENCE' not in page and 'ORGANISED' not in page, page
+    # A led trip with a long period: the role sits on its own line under the stamp, in full; a leap day is a day.
+    for case in ('led-long-period', 'leap-day'):
+        assert check_case(compile_case('travel-' + case, 'tests/fixtures/travel.typ', {'case': case}))['passed'], case
+    with fitz.open(out / 'travel-led-long-period' / 'travel-led-long-period.pdf') as doc:
+        assert 'LEDTHEGROUP' in ''.join(doc[1].get_text().split())
+    # A licence too long for one line puts the issuer, region and date on a second line under the title.
+    two = compile_case('travel-two-line-licence', 'tests/fixtures/travel.typ', {'case': 'two-line-licence'})
+    assert check_case(two)['passed']
+    with fitz.open(two) as doc:
+        lines = [''.join(span['text'] for span in line['spans']) for block in doc[1].get_text('dict')['blocks']
+                 for line in block.get('lines', [])]
+    title = [i for i, line in enumerate(lines) if 'Tour Leader Licence' in line]
+    issuer = [i for i, line in enumerate(lines) if 'Regional Tourism Directorate' in line and 'Valid until 31 Mar 2029' in line]
+    assert len(title) == 1 and len(issuer) == 1 and title != issuer, (title, issuer)
     for mode, message in [('v1-role', 'trip.role arrived in travel contract version 2: set domainContract to 2'),
                           ('v1-licence', 'licences arrived in travel contract version 2: set domainContract to 2'),
                           ('no-role', 'trip.role must be one of led, organised, travelled in travel contract version 2; got none'),
                           ('bad-role', 'trip.role must be one of led, organised, travelled in travel contract version 2; got "guided"'),
                           ('bad-licence-date', 'licences.until must be a day as 14 Jul 2029; got 03/2029'),
+                          ('no-such-day', 'licences.until names a day its month does not have; got 31 Feb 2029'),
+                          ('long-role', "is wider than the trip card's 26 mm stamp column; shorten copy.role-organised"),
+                          ('long-licence', 'a licence line is wider than its 98 mm and would run past the education columns'),
                           ('unknown-version', 'domainContract must be one of 1, 2 (the travel contract versions kept); got 3'),
                           # Every field Hanami places outside its two slots measures itself and fails loudly (constitution 4).
                           ('no-destinations', 'Candidate requires destinations'), ('bad-month', 'experience.from must be MM/YYYY'),
@@ -451,8 +468,18 @@ def main():
         page = doc[0]
         lead = page.search_for('Plans group trips in Italy')[0]
         heading = page.search_for('Experience')[0]
-        assert 0 < (heading.y0 - lead.y1) / 72 * 25.4 < 9, (lead, heading)
+        assert 0 < (heading.y0 - lead.y1) / 72 * 25.4 < 12, (lead, heading)
         assert 'ORGANISED' in page.get_text() and 'Earlier roles' not in page.get_text()
+    # A thin page warns the operator at render (cv_workflow.render.template_warnings reads <cvgen-warning>); a full one does not.
+    from cv_workflow.render import template_warnings
+    flags = [args.typst, 'compile', '--root', str(ROOT), *STRICT_FONTS, '--font-path', str(ROOT / FONTS)]
+    thin = template_warnings(flags + ['--input', 'case=sparse', 'in.typ', 'out.pdf'], ROOT / 'tests/fixtures/travel-essential.typ')
+    assert len(thin) == 1 and thin[0].startswith('Hanami essential: the page is ') and '% filled; fill out the record' in thin[0], thin
+    assert template_warnings(flags + ['in.typ', 'out.pdf'], ROOT / 'examples/travel/hanami/tour-leader-essential.typ') == []
+    with fitz.open(out / 'travel-essential-sparse' / 'travel-essential-sparse.pdf') as doc:
+        # the rail's wash ends 8 mm under the longer column, not at the footer
+        drawings = [d['rect'] for d in doc[0].get_drawings() if d['rect'].x0 > 370 and d['rect'].width > 150]
+        assert drawings and max(r.y1 for r in drawings) / 72 * 25.4 < 200, drawings
     for mode, message in [('overflow', 'Hanami essential: even the newest role alone overflows the career column'),
                           ('unsorted', 'the experience must be listed newest first'),
                           ('long-name', 'Hanami essential: the name is wider than the band'),
