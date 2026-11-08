@@ -3,9 +3,10 @@ id: TASK-74
 title: >-
   plan-reviewer: a fresh reviewer finds a plan's gaps and blast radius before
   any task exists
-status: Queued
+status: Active
 assignee: []
 created_date: '2026-11-08T09:50:00Z'
+updated_date: '2026-11-08T09:57:00Z'
 labels: []
 milestone: m-8
 dependencies:

@@ -14,8 +14,10 @@ change that mixes code and context gets both. Owner feedback that changes
 how agents behave is first integrated by the `context-maintainer`
 (`.claude/agents/context-maintainer.md`), which finds the file that owns
 the rule and consolidates rather than appends (owner, 2026-09-29, after the
-same pair in the sibling night-shift repository). Codex may critique design
-proposals; that does not satisfy a code review gate.
+same pair in the sibling night-shift repository). A plan is reviewed before
+any of it is built, by a fresh `plan-reviewer`
+(`.claude/agents/plan-reviewer.md`; "Plan review" below). Codex may critique
+design proposals; that does not satisfy a code review gate.
 
 ## When a review is required
 
@@ -36,8 +38,9 @@ not exempt: a wrong rule or a stale guide misleads every later session.
 Size is no exemption either: several changes made since the last handoff
 may go to one round together, but each is reviewed.
 
-Timing: review before a change is reported done, and before a proposal or
-a rule change is put to the owner for a decision. A documentation change
+Timing: review a plan before its tasks are created, a change before it is
+reported done, and a proposal or a rule change before it is put to the
+owner for a decision. A documentation change
 may reach `main` before its round only when the round runs in the same
 session, before the report.
 
@@ -74,6 +77,41 @@ run's folder under
 idea run touches, and every change to the idea agents or the skill
 themselves, is reviewed here.
 
+## Plan review
+
+Work that needs a plan (the `plan` skill, "When a plan is needed": more
+than one task, a contract or data migration, anything hard to undo) or for
+which the owner asks for one is planned in that skill's template, stored as
+`archive/work-records/<slug>/plan.md` and committed before each round, and
+reviewed by a fresh `plan-reviewer` until PASS before its tasks are created
+(owner, 2026-11-08). Its rubric is the skill's plan checklist; the loop,
+severities, caps and storage are this file's (below), the report stored as
+`reviews/NN-plan-reviewer.md` beside the plan. A revision that changes a
+reviewed plan's outcome, scope or sequencing goes back for another round.
+
+The brief: the goal in the owner's words and its source (task, proposal or
+brief), the plan path at an exact commit, the round number and earlier
+reports with dispositions.
+
+What a change here typically reaches, for the plan's impact map and the
+reviewer's blind map, beyond the skill's generic rings:
+
+- the rules that never change (`docs/constitution.md`): frozen references
+  (each template's `tests/approved/`, `tests/baseline.json`), a new folder
+  per output, no font shrinking, public content fictional;
+- the Framework and `Domain` boundary (the Framework imports no `Domain`),
+  `Template`s and their `Template Variation`s, the `Domain Contract`s;
+- the examples, `examples/release.json`, their `Release` PDFs and `Meta
+  File`s, `scripts/build.ps1`;
+- real clients' `Envelope`s in `private/`: the plan says whether they are
+  affected and how they are checked; the reviewer never reads `private/`;
+- the `Workflow Model` (`docs/workflow/`) and what it generates, the
+  `Atlas` (`.atlas/`) and its citations;
+- the glossary, `AGENTS.md`, the skills, the agents and their `.codex/`
+  counterparts;
+- CI on Linux and Windows, `docs/framework-gaps.md` for any bypass, and
+  the branches in `.worktrees/` and tasks already in flight.
+
 ## Give the reviewer a precise brief
 
 - Task outcome, acceptance criteria, scope exclusions and settled decisions.
@@ -84,8 +122,8 @@ themselves, is reviewed here.
 - Round number, two lead lenses, and prior reports with finding dispositions.
 
 Invoke the reviewer fresh for every round (the Agent tool with
-`subagent_type: code-reviewer`, or `context-reviewer` for the agent
-context), never a fork of the implementation
+`subagent_type: code-reviewer`, `context-reviewer` for the agent context,
+or `plan-reviewer` for a plan), never a fork of the implementation
 conversation and never an author self-review. It reads surrounding code
 independently and gets facts and evidence rather than the author's account
 of correctness.
@@ -148,8 +186,9 @@ The subagent definition exposes `Read`, `Grep`, `Glob`, `Bash` and
 `PowerShell` only: no editing tools and no `Agent` tool, so it cannot spawn
 nested agents. It pins Opus at high effort, the owner's standing
 preference for reviewers since 2026-09-26, as do the `design-reviewer`,
-`research-reviewer` and `ceo-reviewer`; the `codex-visual-reviewer` is the
-exception, on Sonnet, since Codex, not the wrapper, gives its verdict
+`research-reviewer`, `ceo-reviewer` and `plan-reviewer`; the
+`codex-visual-reviewer` is the exception, on Sonnet, since Codex, not the
+wrapper, gives its verdict
 (TASK-4). For an extremely complex change a
 brief cannot raise the effort, and a subagent definition edited mid-session
 may not load until the next session. So the lead either runs that round in
@@ -192,8 +231,9 @@ Architecture tastes do not override settled decisions. No finding quota.
 ## The loop and its stopping rule
 
 1. Claude finishes author checks and requests one fresh reviewer: the
-   `code-reviewer`, or the `context-reviewer` for the agent context, which
-   follows this loop with its own checks, severities and report shape.
+   `code-reviewer`, the `context-reviewer` for the agent context, or the
+   `plan-reviewer` for a plan; the last two follow this loop with their own
+   checks, severities and report shape.
 2. The author records the returned report unchanged and dispositions
    separately. It fixes Blocking/Material findings and reruns checks affected
    by the fixes. Disagreements need evidence and adjudication by the next
@@ -225,7 +265,9 @@ gates or reset the round count by renaming the same task.
 
 Each report is under about 600 words unless findings need more and includes
 the reviewed snapshot, lead lenses, eight-lens coverage, findings, checks
-actually rerun, evidence inspected, limitations and verdict. Never report an
+actually rerun, evidence inspected, limitations and verdict; a reviewer with
+its own report shape (`context-reviewer`, `plan-reviewer`) follows that
+instead. Never report an
 author-run check as personally rerun. The lead agent stores the report
 unchanged as `archive/work-records/<task-slug>/reviews/NN-<reviewer>.md`,
 links it from the task record with its dispositions, and summarizes product
