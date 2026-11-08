@@ -6,7 +6,7 @@ title: >-
 status: Active
 assignee: []
 created_date: '2026-11-08T09:50:00Z'
-updated_date: '2026-11-08T10:22:00Z'
+updated_date: '2026-11-08T10:29:00Z'
 labels: []
 milestone: m-8
 dependencies:
@@ -68,4 +68,7 @@ Report: reviews/06-context-reviewer.md (verbatim).
 - m1 fixed: development.md points to the skill's "When a plan is needed" instead of a third copy of the list.
 - m2 fixed: the three passages re-wrapped.
 - N1 no change; N2 for T5's `Plan` glossary term (plan file, its source, and a task's Implementation Plan field); N3 agreed: question 13 does not count toward AC 3.
+
+## Anchors broken by this task, found by the plan review of the review-agents plan (P3)
+TASK-74's edits to docs/review.md moved lines the Workflow Model cites: 4 citations moved (12 references, chiefly the round caps at 205-209, now 256-260) and one cited span edited (the loop, 192-209, now 242-260; re-read by hand: the facts it supports, a fresh code-reviewer round until PASS, still hold). `bun run anchors 9b06670 --fix`, the edited span by hand, then check (OK, levels 1 and 2), render (0 changed), atlas; client-journey re-verified and stamped. The four hand-written Atlas pages whose sources this branch changes (design-run, change-review, system-map, roster) stay STALE until T5 (TASK-78), which re-checks and stamps them once the sources settle.
 <!-- SECTION:NOTES:END -->

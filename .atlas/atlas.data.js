@@ -1579,7 +1579,7 @@ window.ATLAS = {
        ],
        "note": "Model step `research.cap-reached`, action `manual.decide-at-cap`, in `docs/workflow/03-research/stage.yaml`.",
        "sources": [
-        "docs/review.md:205-209",
+        "docs/review.md:256-260",
         "docs/workflow/03-research/README.md:70-73"
        ]
       }
@@ -1891,7 +1891,7 @@ window.ATLAS = {
        "note": "Model step `text-draft.cap-reached`, action `manual.decide-at-cap`, in `docs/workflow/04-text-draft/stage.yaml`.",
        "sources": [
         "docs/workflow/README.md:28-32",
-        "docs/review.md:205-209"
+        "docs/review.md:256-260"
        ]
       }
      ]
@@ -2484,7 +2484,7 @@ window.ATLAS = {
        "sources": [
         "docs/proposals/workflow-model.md:59",
         "docs/review.md:7-9",
-        "docs/review.md:20-27"
+        "docs/review.md:23-30"
        ]
       },
       {
@@ -2510,7 +2510,7 @@ window.ATLAS = {
        ],
        "note": "Model step `design.engine-revise`, action `lead.revise-engine-change`, in `docs/workflow/05-design/stage.yaml`.",
        "sources": [
-        "docs/review.md:197-204"
+        "docs/review.md:248-255"
        ]
       },
       {
@@ -2631,7 +2631,7 @@ window.ATLAS = {
        "sources": [
         "docs/workflow/05-design/README.md:59-64",
         ".claude/skills/idea-run/SKILL.md:74-77",
-        "docs/review.md:205-209"
+        "docs/review.md:256-260"
        ]
       }
      ]
@@ -3042,7 +3042,7 @@ window.ATLAS = {
        ],
        "note": "Model step `deliver.cap-reached`, action `manual.decide-at-cap`, in `docs/workflow/06-deliver/stage.yaml`.",
        "sources": [
-        "docs/review.md:205-209"
+        "docs/review.md:256-260"
        ]
       }
      ]
@@ -4484,14 +4484,34 @@ window.ATLAS = {
   }
  ],
  "build": {
-  "builtAt": "2026-11-08 09:22 UTC",
-  "commit": "bf9ef1e",
+  "builtAt": "2026-11-08 10:29 UTC",
+  "commit": "9cf54e3",
   "kit": "1.1",
-  "stale": {},
+  "stale": {
+   "design-run": [
+    "docs/review.md"
+   ],
+   "change-review": [
+    "docs/development.md",
+    "docs/review.md",
+    "docs/conventions.md"
+   ],
+   "system-map": [
+    ".claude/agents",
+    ".claude/skills",
+    "archive/work-records"
+   ],
+   "roster": [
+    "docs/review.md",
+    "docs/development.md",
+    ".claude/agents/context-reviewer.md",
+    ".claude/agents/context-maintainer.md"
+   ]
+  },
   "verified": {
    "client-journey": {
     "at": "2026-11-08",
-    "commit": "d9d99bb"
+    "commit": "9cf54e3"
    },
    "design-run": {
     "at": "2026-11-08",
