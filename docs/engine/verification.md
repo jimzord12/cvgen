@@ -301,7 +301,8 @@ is how they run here.
   `<copy>/tools/workflow`. After the round the lead runs `git worktree
   unlock`, `git worktree remove` (the ignored `builds/` and `node_modules/`
   do not block it; `--force` only for a probe the same round left
-  uncommitted) and `git worktree prune`. The lock tells other sessions the
+  uncommitted) and `git worktree prune`, from outside the copy: on Windows a
+  shell still inside it keeps its empty folder behind. The lock tells other sessions the
   copy is in use; a `probe-*` copy whose round has ended may be removed by
   any session (`docs/git-workflow.md`).
 - **The Python run:** the copy's own runner by absolute path, with the
