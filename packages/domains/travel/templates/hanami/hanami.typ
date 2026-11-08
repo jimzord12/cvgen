@@ -1,8 +1,8 @@
 // The Hanami composition: the travel Domain's first Template, grown from Hanami Line 2 (the owner's
 // pick of 2026-10-02) as its `showcase` Template Variation (P-0013). Two A4 pages: page 1 is the
 // band with the portrait, the name plate and the route, then the profile and experience; page 2 is
-// the destination page: one eki stamp per trip, the areas known, practical know-how, one trip told
-// in detail, studies and languages. Every field is a fixed slot that fails loudly when it overflows.
+// the destination page: one eki stamp per trip (with its role from contract version 2), the areas
+// known, practical know-how, one trip told in detail, licences, studies and languages. Every field is a fixed slot that fails loudly when it overflows.
 #import "../../data.typ": normalize-candidate, validate-candidate
 #import "../../domain.typ": domain
 #import "../../../../cv-framework/core/node.typ": merge, compose
@@ -79,7 +79,7 @@
   at(0mm, B, art(ctx, "petals-p2-field", width: 210mm, swaps: sakura(theme.sakura.paper, P.paper)))
   let f2 = layout.field-2
   let title = if words.destinations-title == auto { places.region + ", " + words.by-trip } else { words.destinations-title }
-  let has-studies = d.education.len() + d.languages.len() > 0 or d.references != none
+  let has-studies = d.licences.len() + d.education.len() + d.languages.len() > 0 or d.references != none
   at(f2.x, B + f2.gap, slot("page 2", f2.width, f2.bottom - B - f2.gap, {
     heading(ctx, "02", title, words.stamp-line + " · " + joined(places.trips.map(t => t.period), words.and-word))
     v(5.2mm)
@@ -102,7 +102,7 @@
       heading(ctx, if story != none { "04" } else { "03" }, words.education-languages, words.education-subtitle,
         art-piece: { paper-piece(ctx, "lanterns", 134mm, -2.6mm, width: 24mm); paper-piece(ctx, "pagoda", 162mm, -5.6mm, height: 20.4mm) })
       v(4.4mm)
-      studies(ctx, d.education, d.languages, d.references)
+      studies(ctx, d.education, d.languages, d.references, licences: d.licences)
     }
     v(1fr)
   }))

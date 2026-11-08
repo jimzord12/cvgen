@@ -1,5 +1,6 @@
 """The Template Contract in the suite (ADR 0016): each Template Variation's claims proved on its Domain's
 Coverage Fixture, then the judging itself and the checks before a client's render. Run by tests/run.py."""
+from datetime import date
 import json
 import re
 import subprocess
@@ -12,8 +13,9 @@ from verify import ROOT
 sys.path.insert(0, str(ROOT / 'packages/cv-workflow'))
 
 from cv_workflow import WorkflowError  # noqa: E402
-from cv_workflow.contracts import (check_domain, check_groups, choose, claims, compatibility, contract, coverage, describe,  # noqa: E402
+from cv_workflow.contracts import (FIX, check_domain, check_groups, choose, claims, compatibility, contract, coverage, describe,  # noqa: E402
                                   holds, manifests, oldest_supported, read, supported, template_in, unproved, versions)
+from cv_workflow.checks import check_certificates  # noqa: E402
 from cv_workflow.render import without_comments  # noqa: E402
 
 DOMAINS = ROOT / 'packages/domains'
@@ -29,6 +31,16 @@ def refused(call, message):
         assert message in str(error), str(error)
     else:
         raise AssertionError('not refused: ' + message)
+
+
+def refused_text(call, message):
+    """The refusal's whole text, after checking it says `message`."""
+    try:
+        call()
+    except WorkflowError as error:
+        assert message in str(error), str(error)
+        return str(error)
+    raise AssertionError('not refused: ' + message)
 
 
 def prove(out, typst, flags, domain, template, design, name, version, fixture, elsewhere):
@@ -119,16 +131,18 @@ def run_coverage(out, typst, flags):
 
     # Every path of each real contract resolves on its fixture, so no drop can pass unseen through a typo.
     for domain in ('marine', 'travel'):
-        fixture = read(DOMAINS / domain / 'fixtures/coverage-v1.json')
-        for name, group in contract(domain, 1)['groups'].items():
-            assert holds(fixture, group), (domain, name)
+        for version in versions(domain):
+            fixture = read(DOMAINS / domain / f'fixtures/coverage-v{version}.json')
+            assert fixture.get('domainContract', 1) == version, (domain, version)
+            for name, group in contract(domain, version)['groups'].items():
+                assert holds(fixture, group), (domain, version, name)
 
     # The checks before a render, on the real marine contract.
     facts = json.loads((ROOT / 'examples/candidates/engineer-example.json').read_text(encoding='utf-8'))
     imports = '#import "/packages/domains/marine/lib.typ": flagship\n'
     source = imports + '#show: flagship.with(candidate: record)'
     envelope = {'domain': 'marine', 'template': 'flagship', 'variation': 'showcase'}
-    assert versions('marine') == [1] and versions('travel') == [1] and versions('software') == [] and template_in('marine', source) == 'flagship'
+    assert versions('marine') == [1] and versions('travel') == [1, 2] and versions('software') == [] and template_in('marine', source) == 'flagship'
     assert template_in('marine', '#fc.hero(ctx, d) // flagship-components') is None
     assert template_in('marine', without_comments(imports + '#fc.hero(ctx, d) // not flagship(): it does not fit')) is None
     assert choose({'domain': 'travel'}, source, facts) is None
@@ -161,11 +175,53 @@ def run_coverage(out, typst, flags):
     hanami = '#import "/packages/domains/travel/lib.typ": hanami\n#show: hanami.with(candidate: record, variation: "showcase")'
     trip = {'domain': 'travel', 'template': 'hanami', 'variation': 'showcase'}
     assert template_in('travel', hanami) == 'hanami' and template_in('travel', source) is None
-    assert choose(trip, hanami, tour) == ({'template': 'hanami', 'variation': 'showcase', 'domain_contract': 1, 'dropped': []}, [])
+    assert choose(trip, hanami, tour) == ({'template': 'hanami', 'variation': 'showcase', 'domain_contract': 2, 'dropped': []}, [])
     bare = {k: v for k, v in tour.items() if k in ('identity', 'contacts', 'experience')}
     assert choose(trip, hanami, bare)[0]['dropped'] == []
     assert choose(trip, hanami, {**tour, 'certificates': [{'title': 'A', 'scope': 'B', 'issued': 'C'}]})[0]['dropped'] == ['certificates']
     refused(lambda: choose(trip, hanami, {**tour, 'identity': {'name': 'A'}}), 'candidate.json has no rank, required by the travel contract')
     refused(lambda: choose({**trip, 'template': 'flagship'}, hanami, tour), "envelope.json says template 'flagship' but typst/cv.typ renders 'hanami'")
     checks.append('the travel contract: Hanami chosen, certificates dropped, a missing rank refused')
+
+    # Travel contract version 2 (TASK-80): destinations@2 states each trip's role, licences is new and optional.
+    # The twin follows version 2; without its roles and licence it is a version 1 record, which still renders.
+    older = {k: v for k, v in tour.items() if k not in ('domainContract', 'licences')}
+    older['destinations'] = {**tour['destinations'], 'trips': [{k: v for k, v in t.items() if k != 'role'} for t in tour['destinations']['trips']]}
+    assert choose(trip, hanami, older) == ({'template': 'hanami', 'variation': 'showcase', 'domain_contract': 1, 'dropped': []}, [])
+    # A Template Variation that stops at version 1 (as `essential` may) and one at version 2 without licences.
+    shapes = ['profile@1', 'education@1', 'languages@1', 'portrait@1', 'availability@1', 'practical@1', 'references@1']
+    travel_design = {'default': 'calm', 'variations': {
+        'calm': {'supports': {'travel': {'upTo': 1, 'groups': [*shapes, 'destinations@1']}}},
+        'plain': {'supports': {'travel': {'upTo': 2, 'groups': [*shapes, 'destinations@2']}}}}}
+
+    def on(name, record):
+        source = f'#import "/packages/domains/travel/lib.typ": hanami\n#show: hanami.with(candidate: record, variation: "{name}")'
+        return choose({**trip, 'variation': name}, source, record, design=travel_design)
+    assert on('calm', older) == ({'template': 'hanami', 'variation': 'calm', 'domain_contract': 1, 'dropped': []}, [])
+    refusal = refused_text(lambda: on('calm', tour), 'hanami calm supports travel contract up to version 1; this record follows version 2:')
+    assert refusal.splitlines()[1:] == ['  destinations changed (schemaVersion 1 to 2), and this record holds it', FIX], refusal
+    nowhere = {k: v for k, v in tour.items() if k != 'destinations'}
+    assert on('calm', nowhere) == ({'template': 'hanami', 'variation': 'calm', 'domain_contract': 2, 'dropped': ['licences']}, [
+        'hanami calm does not show licences: this CV leaves those facts out',
+        'hanami calm supports travel contract up to version 1; this record follows version 2 (1 version behind); it renders: '
+        'destinations changed (schemaVersion 1 to 2); licences is a new optional group by version 2'])
+    assert on('plain', tour) == ({'template': 'hanami', 'variation': 'plain', 'domain_contract': 2, 'dropped': ['licences']},
+                                 ['hanami plain does not show licences: this CV leaves those facts out'])
+    assert on('plain', older)[0]['dropped'] == [] and not on('plain', older)[1]
+    # What `cv.py contracts` says of each: showcase renders both versions; calm is one behind.
+    assert describe(compatibility('travel', 'hanami', 'calm', travel_design['variations']['calm'])) == [
+        'hanami calm on travel: renders version 1, newest 2; 6 of 10 optional groups at version 2',
+        '  1 version behind: a version 2 record can stop the render',
+        '  - destinations changed (schemaVersion 1 to 2): error when the record holds it',
+        '  - licences is a new optional group by version 2: warning']
+    # An expired licence is a loud Certificate Warning at render, never a failure (owner, 2026-09-25).
+    expiry = check_certificates({**tour, 'licences': [{'title': 'A', 'issuer': 'B', 'until': '1 Jan 2026'},
+                                                       {'title': 'C', 'issuer': 'D', 'until': '30 Jan 2027'}, {'title': 'E', 'issuer': 'F'}]},
+                                today=date(2026, 11, 8))
+    assert expiry['warnings'] == [
+        'Licence "A" EXPIRED on 1 Jan 2026 (311 days before the render date). Renew and update the date, or remove the licence.',
+        'Licence "C" expires on 30 Jan 2027, in 83 days (within 180). Check the candidate has booked the renewal.'] and expiry['date_checked'] == 2, expiry
+    assert check_certificates(tour, today=date(2026, 11, 8))['warnings'] == []
+    checks.append('travel version 2: a version 1 record renders, a version 2 record with destinations is refused '
+                  'below version 2, licences dropped where not claimed')
     return checks

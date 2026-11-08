@@ -1,4 +1,5 @@
 {
+  "domainContract": 2,
   "identity": {
     "name": "Andreas Kalamaris",
     "rank": "Tour Leader",
@@ -65,6 +66,9 @@
       ]
     }
   ],
+  "licences": [
+    { "title": "Tour Leader Licence", "issuer": "Thermaic Tourism Office", "region": "Greece and the EU", "until": "31 Mar 2029" }
+  ],
   "education_entries": [
     { "qualification": "Tour Leader Certificate", "institution": "Thermaic Tourism Institute, Continuing Education", "note": "October 2023 – March 2024" },
     { "qualification": "Bachelor’s degree in Tourism Management", "institution": "Northern Aegean School of Hospitality", "note": "2017 – 2021" },
@@ -85,6 +89,7 @@
       {
         "period": "April 2023",
         "days": 12,
+        "role": "organised",
         "kind": "Private trip for three (himself and two cousins), which he planned himself",
         "stops": [
           { "name": "Fukuoka", "known": true }, { "name": "Nagasaki", "known": true },
@@ -95,6 +100,7 @@
       {
         "period": "October 2024",
         "days": 18,
+        "role": "organised",
         "kind": "Private trip for five (himself and four colleagues), which he planned himself",
         "stops": [
           { "name": "Osaka", "known": true }, { "name": "Himeji" }, { "name": "Okayama" },

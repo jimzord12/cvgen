@@ -1,0 +1,17 @@
+{
+  "domain": "travel",
+  "version": 2,
+  "extends": "base@1",
+  "description": "The travel Domain Contract, version 2 (ADR 0016, TASK-80). destinations rises to schemaVersion 2: every trip states the person's role on it (led, organised or travelled), so a self-organised trip never reads as leading a group. licences is a new optional group: official tour-leader or guide licences, each with an issuer, a region and a date it is valid until. The record's shape is packages/domains/travel/schema/candidate.schema.json.",
+  "groups": {
+    "experience": { "required": true, "schemaVersion": 1, "paths": ["experience"] },
+    "rank": { "required": true, "schemaVersion": 1, "paths": ["identity.rank", "identity.specialty", "identity.seal"] },
+    "profile": { "required": false, "schemaVersion": 1, "paths": ["profile", "highlights"] },
+    "portrait": { "required": false, "schemaVersion": 1, "paths": ["identity.portrait"] },
+    "destinations": { "required": false, "schemaVersion": 2, "paths": ["destinations", "destinations.trips.*.role"] },
+    "licences": { "required": false, "schemaVersion": 1, "paths": ["licences"] },
+    "availability": { "required": false, "schemaVersion": 1, "paths": ["availability"] },
+    "practical": { "required": false, "schemaVersion": 1, "paths": ["practical"] },
+    "references": { "required": false, "schemaVersion": 1, "paths": ["references"] }
+  }
+}

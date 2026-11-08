@@ -1,5 +1,7 @@
 // The travel facts: roles at travel employers, the destinations a person knows (trips with
-// their stops, the areas known well), availability and practical know-how. Totals are computed
+// their stops, the areas known well), availability and practical know-how. A record follows
+// travel contract version 1 or 2 (`domainContract`, contracts/v<N>.json); version 2 adds each
+// trip's role and the person's licences. Totals are computed
 // once from the full record (constitution 6): the number of trips, their days and the distinct
 // stops; a page prints them and never counts what it shows.
 #import "../../cv-framework/core/data.typ": required-text, normalize-common, validate-common
@@ -8,6 +10,20 @@
 // assets/japan/ (stamp-<art>.svg, icon-<icon>.svg). A new drawing is added here and in the schema.
 #let stamp-arts = ("fuji", "flag", "torii-maple", "alps-maple", "torii-blossom", "snow", "book")
 #let highlight-icons = ("torii", "check", "support", "cap")
+
+// The contract versions these facts read, and the person's role on a trip from version 2: led a
+// group, organised it (for others or for themselves) or travelled. A self-organised trip is
+// `organised`, never `led`.
+#let contract-versions = (1, 2)
+#let trip-roles = ("led", "organised", "travelled")
+
+// "14 Jul 2029": the day a licence is valid until, the format the Certificate Warning reads.
+#let day-month-year(value, field) = {
+  required-text(value, field)
+  assert(value.match(regex("^(0?[1-9]|[12][0-9]|3[01]) (Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec) [0-9]{4}$")) != none,
+    message: field + " must be a day as 14 Jul 2029; got " + value)
+  value
+}
 
 // "MM/YYYY": the month and year a role starts or ends. Display text, checked so a typo fails here.
 #let month-year(value, field) = {
@@ -28,13 +44,26 @@
 #let normalize-candidate(raw) = {
   assert("experience" in raw, message: "Candidate requires experience: a list of roles")
   let common = normalize-common(raw)
-  (..common, highlights: raw.at("highlights", default: ()), experience: raw.experience,
+  (..common, contract: raw.at("domainContract", default: 1), licences: raw.at("licences", default: ()),
+    highlights: raw.at("highlights", default: ()), experience: raw.experience,
     destinations: raw.at("destinations", default: none), availability: raw.at("availability", default: none),
     practical: raw.at("practical", default: none), references: raw.at("references", default: none))
 }
 
 #let validate-candidate(candidate) = {
   validate-common(candidate)
+  let version = candidate.contract
+  assert(version in contract-versions, message: "domainContract must be one of "
+    + contract-versions.map(str).join(", ") + " (the travel contract versions kept); got " + repr(version))
+  if version < 2 {
+    assert(candidate.licences.len() == 0, message: "licences arrived in travel contract version 2: set domainContract to 2")
+  }
+  for licence in candidate.licences {
+    required-text(licence.title, "licences.title")
+    required-text(licence.issuer, "licences.issuer")
+    if "region" in licence { required-text(licence.region, "licences.region") }
+    if "until" in licence { let _ = day-month-year(licence.until, "licences.until") }
+  }
   required-text(candidate.identity.rank, "identity.rank")
   for word in candidate.identity.at("seal", default: ()) { required-text(word, "identity.seal") }
   for cell in candidate.highlights {
@@ -62,6 +91,12 @@
     for trip in places.trips {
       required-text(trip.period, "trip.period")
       required-text(trip.kind, "trip.kind")
+      if version < 2 {
+        assert("role" not in trip, message: "trip.role arrived in travel contract version 2: set domainContract to 2 (" + trip.period + ")")
+      } else {
+        assert(trip.at("role", default: none) in trip-roles,
+          message: "trip.role must be one of " + trip-roles.join(", ") + " in travel contract version 2; got " + repr(trip.at("role", default: none)) + " (" + trip.period + ")")
+      }
       assert(type(trip.days) == int and trip.days > 0, message: "trip.days must be a positive whole number: " + trip.period)
       assert(trip.stops.len() > 0, message: "A trip needs at least one stop: " + trip.period)
       for stop in trip.stops { required-text(stop.name, "trip.stops.name") }

@@ -55,7 +55,13 @@ def describe(error):
     lines = []
     for e in reasons:
         where = '/'.join(str(p) for p in e.absolute_path) or '(top level)'
-        message = 'is null; give a value, or leave the key out if it is optional' if e.validator == 'type' and e.instance is None else e.message
+        if e.validator == 'type' and e.instance is None:
+            message = 'is null; give a value, or leave the key out if it is optional'
+        elif e.validator == 'not' and e.validator_value == {}:
+            # `"not": {}` marks a field a newer Domain Contract version adds (the travel schema's allOf).
+            message = 'is not in the contract version this record follows; set domainContract to the version that has it'
+        else:
+            message = e.message
         line = f'  {where}: {message}'
         if line not in lines:
             lines.append(line)

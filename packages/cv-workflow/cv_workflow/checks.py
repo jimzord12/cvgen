@@ -13,21 +13,29 @@ EXPIRY = re.compile(r'^\s*(\d{1,2}) ([A-Z][a-z]{2}) (\d{4})\s*$')
 
 
 def check_certificates(record, today=None):
-    """Warn about certificates that have expired or expire soon, read from the record the revision rendered.
+    """Warn about certificates and licences that have expired or expire soon, read from the record the
+    revision rendered.
 
     Warnings only (owner's decision, 2026-09-25): they never fail the checks or block
     approval; the owner weighs them when he approves. Both certificate shapes the
-    schema allows are read: [title, scope, issued, expires] and {title, ..., review}.
+    schema allows are read: [title, scope, issued, expires] and {title, ..., review};
+    a travel licence (contract version 2) is {title, issuer, ..., until}.
     """
     today = today or date.today()
     warnings, checked, unchecked = [], 0, 0
-    certificates = record.get('certificates') if isinstance(record, dict) else None
-    # Without a schema (a Framework-only one-off) the key may hold anything; only a list is read.
-    for item in certificates if isinstance(certificates, list) else []:
+
+    def listed(key):
+        # Without a schema (a Framework-only one-off) the key may hold anything; only a list is read.
+        value = record.get(key) if isinstance(record, dict) else None
+        return value if isinstance(value, list) else []
+
+    rows = [('Certificate', 'review', item) for item in listed('certificates')]
+    rows += [('Licence', 'until', item) for item in listed('licences') if isinstance(item, dict) and 'until' in item]
+    for kind, key, item in rows:
         if isinstance(item, list) and len(item) == 4:
             title, expiry = item[0], item[3]
         elif isinstance(item, dict):
-            title, expiry = item.get('title'), item.get('review')
+            title, expiry = item.get('title'), item.get(key)
         else:
             unchecked += 1
             continue
@@ -44,10 +52,11 @@ def check_certificates(record, today=None):
         def count(n):
             return f'{n} day' if n == 1 else f'{n} days'
         if days < 0:
-            warnings.append(f'Certificate "{title}" EXPIRED on {expiry.strip()} ({count(-days)} before the render date). '
-                            'Renew and update the date, remove the row, or replace the date with text such as "Renewal booked".')
+            advice = ('Renew and update the date, or remove the licence.' if kind == 'Licence' else
+                      'Renew and update the date, remove the row, or replace the date with text such as "Renewal booked".')
+            warnings.append(f'{kind} "{title}" EXPIRED on {expiry.strip()} ({count(-days)} before the render date). {advice}')
         elif days <= EXPIRY_WARNING_DAYS:
-            warnings.append(f'Certificate "{title}" expires on {expiry.strip()}, in {count(days)} '
+            warnings.append(f'{kind} "{title}" expires on {expiry.strip()}, in {count(days)} '
                             f'(within {EXPIRY_WARNING_DAYS}). Check the candidate has booked the renewal.')
     return {'reference_date': today.isoformat(), 'window_days': EXPIRY_WARNING_DAYS,
             'date_checked': checked, 'not_date_checked': unchecked, 'warnings': warnings}

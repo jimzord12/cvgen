@@ -152,6 +152,23 @@ def check_example_records():
         assert '$defs' not in input_schema and set(input_schema['properties']) <= {'copy'}, \
             f'{path.name} restates facts; they belong in {facts_path.name}'
         assert 'copy' in facts_schema['properties'], f'{facts_path.name} must leave copy to the Template'
+    # The travel facts schema reads both contract versions (TASK-80): version 2 requires each trip's role and
+    # may hold licences; version 1 has neither, so the twin without them is a valid version 1 record.
+    travel_lib = ['/packages/domains/travel/lib.typ']
+    tour = json.loads((ROOT / 'examples/candidates/tour-leader-example.json').read_text(encoding='utf-8'))
+    older = {k: v for k, v in tour.items() if k not in ('domainContract', 'licences')}
+    older['destinations'] = {**tour['destinations'], 'trips': [{k: v for k, v in t.items() if k != 'role'} for t in tour['destinations']['trips']]}
+    validate_record(older, travel_lib)
+    first = tour['destinations']['trips'][0]
+    for wrong, said in (({**older, 'licences': tour['licences']}, 'licences: is not in the contract version this record follows; set domainContract'),
+                        ({**older, 'destinations': {**older['destinations'], 'trips': [first]}}, 'destinations/trips/0/role: is not in the contract version'),
+                        ({**tour, 'destinations': {**tour['destinations'], 'trips': [older['destinations']['trips'][0]]}}, "'role' is a required property"),
+                        ({**tour, 'licences': [{**tour['licences'][0], 'until': '03/2029'}]}, "licences/0/until: '03/2029' does not match")):
+        try:
+            validate_record(wrong, travel_lib)
+            raise AssertionError(f'{said} was accepted')
+        except WorkflowError as error:
+            assert said in str(error), str(error)
     record = json.loads((ROOT / 'examples/candidates/engineer-example.json').read_text(encoding='utf-8'))
     ship = record['companies'][0]['groups'][0]['ships'][0]
     ship.update(tonnage={'value': 49990, 'unit': 'GT'}, engine='MAN B&W', power={'value': 9480, 'unit': 'kW'})
@@ -327,8 +344,12 @@ def main():
         assert (doc.metadata['title'], doc.metadata['author']) == ('Andreas Kalamaris | Tour Leader | CVgen', 'CVgen'), doc.metadata
         text = ' '.join(' '.join(p.get_text().split()) for p in doc)
         for phrase in ['ANDREAS KALAMARIS', 'Boutique travel agency', '03/2022', 'present', 'Japan, trip by trip',
-                       '12 days', '18 days', 'Planning the 18-day trip', 'Education and languages', 'FICTIONAL CANDIDATE']:
+                       '12 days', '18 days', 'Planning the 18-day trip', 'Education and languages', 'FICTIONAL CANDIDATE',
+                       'Tour Leader Licence', 'Valid until 31 Mar 2029']:
             assert phrase in text, phrase
+        # Travel contract version 2: both trips were organised by him, so neither reads as a led group.
+        squeezed = ''.join(text.split())
+        assert squeezed.count('ORGANISED') == 2 and 'LEDTHEGROUP' not in squeezed, text
     collisions = petal_collisions(twin, ROOT / 'packages/domains/travel/assets/japan')
     assert not collisions, collisions
     for theme in ['indigo', 'sky', 'no-portrait']:
@@ -341,7 +362,20 @@ def main():
     # The blurred petals are small rasters too, so the portrait is the one image the record without one lacks.
     with fitz.open(twin) as a, fitz.open(out / 'travel-no-portrait' / 'travel-no-portrait.pdf') as b:
         assert len(a[0].get_images()) - len(b[0].get_images()) == 1 and 'AK' in b[0].get_text().split()
-    for mode, message in [('no-destinations', 'the record needs destinations'), ('bad-month', 'experience.from must be MM/YYYY'),
+    # The same twin as a version 1 record still renders: no role on a trip, no licence, nothing else moves.
+    older = compile_case('travel-v1', 'tests/fixtures/travel.typ', {'case': 'v1'})
+    assert check_case(older)['passed']
+    with fitz.open(twin) as a, fitz.open(older) as b:
+        assert a[0].get_text().split() == b[0].get_text().split()  # page 1 is the same
+        page = ''.join(b[1].get_text().split())
+        assert 'Licence' not in page and 'ORGANISED' not in page, page
+    for mode, message in [('v1-role', 'trip.role arrived in travel contract version 2: set domainContract to 2'),
+                          ('v1-licence', 'licences arrived in travel contract version 2: set domainContract to 2'),
+                          ('no-role', 'trip.role must be one of led, organised, travelled in travel contract version 2; got none'),
+                          ('bad-role', 'trip.role must be one of led, organised, travelled in travel contract version 2; got "guided"'),
+                          ('bad-licence-date', 'licences.until must be a day as 14 Jul 2029; got 03/2029'),
+                          ('unknown-version', 'domainContract must be one of 1, 2 (the travel contract versions kept); got 3'),
+                          ('no-destinations', 'the record needs destinations'), ('bad-month', 'experience.from must be MM/YYYY'),
                           ('overflow', 'Hanami: page 1 overflows'), ('long-name', 'the name is wider than the name plate'),
                           ('bad-variation', 'Hanami has no Template Variation "essential"')]:
         compile_case('travel-' + mode, 'tests/fixtures/travel.typ', {'case': mode}, error=message)
