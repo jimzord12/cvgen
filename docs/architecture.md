@@ -12,7 +12,8 @@ engine organised by domain, role and template since 2026-09-21
 Framework and the domains beside it since 2026-09-25
 ([ADR 0012](decisions/0012-framework-and-domain-packages.md)). The engine is
 two folders: `packages/cv-framework/` (the Framework: core, fonts, licences)
-and `packages/domains/` (one folder per domain). The workflow package exists;
+and `packages/domains/` (one folder per domain: `marine` with Flagship, and
+`travel` with Hanami since 2026-11-08, P-0013). The workflow package exists;
 the web app does not. Paths below are relative to `packages/` unless they
 start with `examples/`, `scripts/` or `tests/`.
 
@@ -32,6 +33,16 @@ section functions that return Typst content. Section functions never read
 files and never branch on the candidate's role. Everything visual comes from
 the theme, everything geometric from the layout, every picture from the
 artwork pack.
+
+The travel domain follows the same path with its own pieces:
+`examples/travel/hanami/tour-leader.typ` passes a travel facts record, a theme,
+the Japan artwork pack and the `showcase` layout to `hanami`
+(`domains/travel/templates/hanami/hanami.typ`) through `domains/travel/lib.typ`.
+Hanami has no adapter and no input schema: the record's own `copy` key is in the
+travel facts contract, and the template composes the domain's words, Hanami's
+(`copy.typ`), the record's and the call site's in the same order. It places
+everything absolutely on two fixed pages, as the approved Hanami Line 2 did, and
+each field is a slot that fails loudly when its content does not fit.
 
 ## The six inputs
 
@@ -104,8 +115,14 @@ key, artwork slot or theme colour it does not own, or hard-code a colour; the su
 on each (the word list and the owned keys: `docs/engine/verification.md`,
 item 10). A second
 marine template gets its own folder beside Flagship and its own adapter; a
-second domain gets its own folder beside `marine/`, with its own `lib.typ`,
-and touches neither `cv-framework/` nor `marine/`.
+domain gets its own folder beside `marine/`, with its own `lib.typ`, and
+touches neither `cv-framework/` nor `marine/`, as `travel/` did. The travel
+domain owns its facts (`identity.rank` and `specialty`, roles at travel
+employers, destinations with trips, stops and areas, availability, practical
+know-how, references), `destination-totals` (trips, days, distinct stops; the
+totals rule) and the Japan SVGs; Hanami owns its components, three themes, the
+Japan artwork pack and one layout. It uses no Framework pagination: its pages
+are fixed.
 
 ## The Template Contract
 
@@ -154,6 +171,24 @@ domains/marine/                         the marine domain (ADR 0011)
     components/skills.typ                 skills-section with themed bullets, placed through the page plan
     themes/  artwork/  layouts/           three of the four presentation inputs (assets live at domain level)
     tests/approved/                       the frozen v11 reference PDF
+domains/travel/                         the travel domain (P-0013), built like marine
+  lib.typ                               the travel surface: the Framework's names, travel, Hanami (components and inputs as modules)
+  domain.typ                            id, meta, copy, totals
+  data.typ                              destination-totals, normalize-candidate, validate-candidate, the closed stamp and icon lists
+  schema/candidate.schema.json          travel candidate-facts contract (with the record's `copy`)
+  contracts/v1.json  fixtures/          the Domain Contract and the Coverage Fixture
+  assets/japan/                         the Japan SVGs (band line art, sakura, petals, stamps, icons, paper pieces)
+  templates/hanami/
+    hanami.typ                            the composition: theme check, two fixed pages, section order, page-count check
+    copy.typ                              hanami-copy: Hanami's words in English
+    components.typ                        Hanami's ctx-first components as one module (hanami-components)
+    components/art.typ                    artwork reader with theme swaps, labels, slots, bullets
+    components/stamp.typ                  the eki stamp
+    components/hero.typ                   page 1 band (portrait ring, seal, route, name plate), page 2 band, footer
+    components/sections.typ               headings, profile, experience, trip cards, areas, practical, studies
+    template.json  tests/coverage.typ     the Template Manifest and its coverage entry
+    themes/  artwork/  layouts/           sakura, indigo, sky; japan; showcase
+    tests/approved/                       the Frozen Reference candidate (owner approval pending)
 
 cv-workflow/cv_workflow/                Python; owns everything around a candidate render
   workspace.py                          workspace and revision paths, ids, hashes, records, the refusal rules

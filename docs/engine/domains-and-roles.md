@@ -17,7 +17,7 @@ packages/domains/<domain>/                    lib.typ (its public surface), doma
   templates/<template>/                       a template that serves every role of the domain
 ```
 
-- A **domain** is a career area: `marine`, `travel-and-tourism`. It offers
+- A **domain** is a career area: `marine`, `travel`. It offers
   what its area needs and nothing is mandatory: a facts shape (`schema/`),
   the SVG files (`assets/`), wording (`domain.copy`), metadata
   (`domain.meta`) and rules. For marine the rules are the experience model in
@@ -76,8 +76,19 @@ Marine's totals (constitution section 6) come from `experience-totals` over
 the full record: service months for a record kept in months, or the contract
 count for one kept in `Contract Period`s (never both), then the number of
 distinct vessels (a vessel served on twice counts once) and of companies.
+Travel's totals come from `destination-totals` over the full record: the
+number of trips, their days added up, and the distinct stops by name (a stop
+on two trips counts once). Hanami prints the trip count on the region's seal
+and never counts the cards it shows.
 
 ## Adding a domain without touching marine
+
+`travel` was added this way on 2026-11-08 (P-0013), from the first travel
+client's one-off: its facts shape, contract and fixture, and Hanami as its
+first template, with a fictional twin (`examples/travel/hanami/tour-leader.typ`)
+and a `Frozen Reference` candidate the owner approves before the merge. It
+reached the core through `cv-framework/core/` only and left the Framework and
+marine unchanged.
 
 ```text
 packages/domains/travel/
@@ -112,7 +123,7 @@ A new domain is done when every line below is true:
    normalise and validate functions built on `normalize-common` and
    `validate-common`.
 2. `schema/candidate.schema.json` describes the facts; a fictional record
-   under `examples/candidates/<domain>-<who>-example.json` validates against
+   under `examples/candidates/<who>-example.json` validates against
    it. A template adds `schema/<template>-input.schema.json`.
    `packages/cv-workflow/cv_workflow/validate.py` picks the schema from the
    entry point's imports: a template's schema, else the domain's. Only

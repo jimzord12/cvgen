@@ -150,7 +150,7 @@ steps:
     action: lead.check-flagship-fit
     inputs: [art.candidate-json]
     gate: gate.template-fits
-    when: The client's Domain has a Template (today marine, the Flagship).
+    when: The client's Domain has a Template (today marine, the Flagship, and travel, Hanami).
 
   - id: design.entry-point
     name: Write the Flagship entry point
@@ -269,7 +269,7 @@ gates:
     # render refuses an Envelope without candidate.json), so fill-data follows
     # the signed-off facts on both branches and port-concept reads what it wrote.
     sources: ["docs/workflow/05-design/README.md:29-39", ".claude/skills/new-cv/SKILL.md:29-40", "docs/guides/build-a-cv.md:59-78", "docs/guides/client-workflow.md:36", "docs/guides/build-a-cv.md:128-135"]
-    check: The client's Domain already has a Template (today only marine, the Flagship).
+    check: The client's Domain already has a Template (today marine, the Flagship, and travel, Hanami).
     pass: design.flagship-fit
     fail: design.run-brief
 

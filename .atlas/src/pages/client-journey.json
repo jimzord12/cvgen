@@ -1378,7 +1378,7 @@
           "summary": "Run the new-cv skill",
           "gate": {
             "type": "check",
-            "label": "The Domain has a Template: The client's Domain already has a Template (today only marine, the Flagship)."
+            "label": "The Domain has a Template: The client's Domain already has a Template (today marine, the Flagship, and travel, Hanami)."
           },
           "next": [],
           "branch": [
@@ -1792,7 +1792,7 @@
             }
           ],
           "does": [
-            "Only when: The client's Domain has a Template (today marine, the Flagship)."
+            "Only when: The client's Domain has a Template (today marine, the Flagship, and travel, Hanami)."
           ],
           "in": [
             "candidate.json: `private/<envelope>/candidate.json`"

@@ -60,6 +60,16 @@ Windows one also holds the PDFs that build wrote, one per example in
    (`flagship-one-page.typ`) compiles to exactly one page with the name,
    both companies, the total, and the certificate and education headings.
    The `one-page.typ` fixture repeats this for one and three companies.
+6a. **Tour-leader example (travel, Hanami).** `examples/travel/hanami/tour-leader.typ`
+   must equal `packages/domains/travel/templates/hanami/tests/approved/Travel-Tour-Leader-CV-v01.pdf`
+   pixel for pixel with identical text on both pages (a `Frozen Reference`
+   candidate until the owner approves it), carry its name, rank and the domain's
+   title as PDF metadata, and have no sakura petal on a word (`tests/travel.py`).
+   The `travel.typ` fixture renders the Indigo and Sky themes and a record without
+   a portrait (initials in the ring) with the same words, asserts the totals
+   (2 trips, 30 days, 14 distinct stops), and fails on a record without
+   destinations, a date that is not MM/YYYY, an overflowing page 1, a name wider
+   than the plate, and an unknown `Template Variation`.
 7. **Every PDF.** Expected page count, no empty page, all fonts embedded, no
    text outside the page. Every compile reads only the bundled fonts
    (`--ignore-system-fonts --font-path packages/cv-framework/fonts`, plus
@@ -91,7 +101,8 @@ Windows one also holds the PDFs that build wrote, one per example in
 
 9. **Example records.** Before any compile, every record an example entry
    point reads validates against the schema its imports select (the Flagship
-   input schema for every listed example), with the same code `scripts/cv.py render`
+   input schema for every marine example, the travel facts schema for every
+   travel one), with the same code `scripts/cv.py render`
    uses, and every entry point must contribute a record; the
    template-over-domain choice is also pinned for role-first imports, an
    entry importing only marine's `lib.typ` (Flagship's schema), only the
@@ -103,7 +114,7 @@ Windows one also holds the PDFs that build wrote, one per example in
    A contract record with three certificate headings and skills goes through
    the same schema check.
 
-10. **Framework boundary.** Every `import`/`include` in `packages/cv-framework/core/*.typ` names a bare sibling file; `packages/cv-framework/lib.typ` imports only `core/` files; no Framework `.typ` file names a `domains/` path outside a comment; every domain file that imports a core file does so through `cv-framework/core/` (ADR 0011, 0012). Outside comments, Framework code also uses no marine or Flagship word (vessel, ship, marine, flagship, synopsis, rank, ...) or Flagship layout key (`opening-margin`, `band-height`, ...), reads no layout key or artwork slot it does not own (an allowlist: `paper`, `width`, `height`, `shell`, `header`, `footer`; `background-first`, `background-continuation`) or theme colour it does not own (`ink`, `accent`, `metal`, `muted`, `paper`, and `hero` for the shell's optional band), names no Flagship colour (`hero`, `plate`, `on-hero`, `surface`, `rule`) as a string, so the core theme check cannot require one (TASK-59), and holds no colour literal: a hex string, a colour constructor (`rgb`, `cmyk`, `luma`, `oklab`, `oklch`, `hsl`, `hsv`, `linear-rgb`) or a named colour other than `white` and `black` (TASK-45). Comments are removed by a scan that also matches string literals, so `//` inside a string does not hide the rest of its line.
+10. **Framework boundary.** Every `import`/`include` in `packages/cv-framework/core/*.typ` names a bare sibling file; `packages/cv-framework/lib.typ` imports only `core/` files; no Framework `.typ` file names a `domains/` path outside a comment; every domain file that imports a core file does so through `cv-framework/core/` (ADR 0011, 0012). Outside comments, Framework code also uses no marine, travel, Flagship or Hanami word (vessel, ship, marine, flagship, synopsis, rank, travel, tour, trip, destination, hanami, sakura, torii, ...) or Flagship layout key (`opening-margin`, `band-height`, ...), reads no layout key or artwork slot it does not own (an allowlist: `paper`, `width`, `height`, `shell`, `header`, `footer`; `background-first`, `background-continuation`) or theme colour it does not own (`ink`, `accent`, `metal`, `muted`, `paper`, and `hero` for the shell's optional band), names no Flagship colour (`hero`, `plate`, `on-hero`, `surface`, `rule`) as a string, so the core theme check cannot require one (TASK-59), and holds no colour literal: a hex string, a colour constructor (`rgb`, `cmyk`, `luma`, `oklab`, `oklch`, `hsl`, `hsv`, `linear-rgb`) or a named colour other than `white` and `black` (TASK-45). Comments are removed by a scan that also matches string literals, so `//` inside a string does not hide the rest of its line.
 
 11. **Candidate workflow** (`tests/workflow.py`). A fresh fictional workspace
    under the run's `workflow/` folder is driven through the real
@@ -210,7 +221,9 @@ Windows one also holds the PDFs that build wrote, one per example in
    `Coverage Fixture` for each version it supports, and every required and
    claimed `Fact Group` must have its markers in the PDF; the count of optional
    groups covered is in the case name, warnings in `coverage/`. Then the judging
-   itself and the checks before a render, each refusal on its message.
+   itself and the checks before a render, each refusal on its message, on the
+   marine contract and on the travel one (Hanami chosen, certificates dropped,
+   a missing rank refused).
 19. **Report** (`report: <check>`, `tests/report.py`). The real
    `scripts/report.py` on the worked sample under `report/`: one page with
    its fonts and pictures embedded and no `src` or `href` pointing at the

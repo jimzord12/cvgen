@@ -117,6 +117,17 @@
           "path": "packages/domains/marine/templates/flagship/tests/approved/",
           "blurb": "The v11 PDF the engineer example must match pixel for pixel.",
           "touch": "Never, without a new reference and an ADR."
+        },
+        {
+          "id": "n-travel",
+          "title": "Travel Domain and Hanami",
+          "path": "packages/domains/travel/",
+          "blurb": "Travel facts (trips, destinations, know-how) and Hanami, its first Template, from Hanami Line 2.",
+          "touch": "Changing what the travel `Domain` means or what Hanami renders; its Frozen Reference waits for your approval.",
+          "sources": [
+            "docs/architecture.md",
+            "docs/engine/domains-and-roles.md"
+          ]
         }
       ]
     },
@@ -182,7 +193,7 @@
           "id": "n-candidates",
           "title": "Example candidates",
           "path": "examples/candidates/",
-          "blurb": "Engineer, captain, chief officer, deck cadet, one fictional portrait.",
+          "blurb": "Engineer, captain, chief officer, deck cadet, tour leader, one fictional portrait.",
           "sources": [
             "examples/candidates"
           ]

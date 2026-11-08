@@ -2,8 +2,8 @@
 
 CVgen makes hand-crafted, premium CVs with AI on its own Typst framework,
 for any `Domain` (`docs/vision.md`). The engine is the domain-neutral
-Framework plus one package per `Domain`; `marine` is the first, with one
-template, `flagship` (`docs/architecture.md`). Read this file and
+Framework plus one package per `Domain`: `marine` (template `flagship`)
+and `travel` (`hanami`) (`docs/architecture.md`). Read this file and
 `docs/preferences.md`, then open only what your task needs. A session
 starts and ends as `docs/development.md` says.
 

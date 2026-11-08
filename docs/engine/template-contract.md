@@ -14,6 +14,11 @@ schema, with the suite's equal-definitions check, until Stage 2). It has a `Temp
 default, and an entry that renders a `Coverage Fixture` (`coverage` in the
 manifest). A one-off in an `Envelope` has none of this.
 
+Today two `Template`s have one: Flagship (marine) and Hanami (travel, P-0013),
+each with the single `Template Variation` `showcase`. Hanami reads the travel
+facts record itself; the travel facts contract carries the record's `copy`, so it
+needs no input schema of its own.
+
 ## Domain Contracts
 
 `packages/cv-framework/contracts/base-v1.json` is the `Base Contract`;
@@ -25,6 +30,12 @@ field, a changed meaning, or a new required field. The contract's `version` rise
 on any change. Every past version stays.
 
 A record says which version it follows in `domainContract`; none means 1.
+
+The travel contract (`domains/travel/contracts/v1.json`) makes `rank` required
+(`identity.rank`, `specialty` and the credential `seal`) and adds the optional
+`destinations`, `availability`, `practical` and `references`; it replaces the
+base's `profile` with the lead statement and its highlight cells, and keeps
+`portrait` optional, as marine does.
 
 ## Template Manifests
 

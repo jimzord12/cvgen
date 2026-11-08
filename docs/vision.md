@@ -139,7 +139,10 @@ started on an agent's initiative.
    four stages merged the same day, each pixel-identical to v11.
 2. **Travel and tourism.** The first non-marine domain: its facts shape,
    wording, assets and a first template, added without touching the marine
-   domain or the core. The proof that item 1 worked.
+   domain or the core. The proof that item 1 worked. Opened 2026-11-08
+   (P-0013); built on a branch (TASK-2): the `travel` package with Hanami,
+   marine and the Framework unchanged, waiting for the owner's `Frozen
+   Reference` approval and its review before it merges.
 3. **Deck data support** inside the marine domain. Real deck careers are
    recorded as contract periods, not service months. The marine schema must
    hold them, the synopsis must take its metrics from data, the certificate
