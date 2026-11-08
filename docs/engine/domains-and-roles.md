@@ -21,8 +21,8 @@ packages/domains/<domain>/                    lib.typ (its public surface), doma
   what its area needs and nothing is mandatory: a facts shape (`schema/`),
   the SVG files (`assets/`), wording (`domain.copy`), metadata
   (`domain.meta`) and rules. For marine the rules are the experience model in
-  `data.typ`: companies, vessel-type groups, ships with rank and months, and
-  totals.
+  `data.typ`: companies, vessel-type groups, ships with rank and months or a
+  `Contract Period`, and totals.
 - A **role** is one level of specialisation: `deck`, `engine`. It may refine
   anything the domain offers. Today both marine roles are three-line markers,
   and Flagship composes only the role's `copy`; it reads `meta` and
@@ -74,8 +74,8 @@ The domain owns everything that knows its career area: for marine,
 the theme colours that replace them, which Flagship's themes carry.
 Marine's totals (constitution section 6) come from `experience-totals` over
 the full record: service months for a record kept in months, or the contract
-count for one kept in `Contract Period`s (never both), then the vessel count
-and the company count.
+count for one kept in `Contract Period`s (never both), then the number of
+distinct vessels (a vessel served on twice counts once) and of companies.
 
 ## Adding a domain without touching marine
 
