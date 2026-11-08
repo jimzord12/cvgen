@@ -205,7 +205,7 @@ fail for the relevant broken behaviour. Prefer a recorded pre-fix failure or a
 safe isolated regression case where appropriate. Do not delete or neuter
 source in the working checkout to demonstrate this; a `tests-reviewer`
 probes in its own copy ("Tests review"). Avoid tests that only
-restate the implementation. Existing real-compiler/PDF checks remain required;
+restate the implementation (the `test-principles` skill). Existing real-compiler/PDF checks remain required;
 `conventions.md` continues to apply. See also
 [Google's review guidance](https://google.github.io/eng-practices/review/reviewer/looking-for.html).
 

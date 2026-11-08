@@ -323,7 +323,8 @@ is how they run here.
   memory).
 - **The moves a round makes,** and the only ones (`docs/review.md`,
   "Reviewer boundaries"): write files in the copy; commit each probe there
-  (`git -C <copy> commit -am "probe <id>: <what it breaks or reshapes>"`);
+  (`git -C <copy> add -A`, then `git -C <copy> commit -m "probe <id>: <what
+  it breaks or reshapes>"`, so a new file is committed too);
   `git -C <copy> checkout --detach <reviewed commit>` before each new
   probe; the masked path's second commit (below); the runs above; `git -C
   <copy> show` to record a probe's diff. Committed probes keep the engine
@@ -335,13 +336,15 @@ is how they run here.
   check 11's clean-engine assertion. A fault that changes the engineer
   example's output is therefore masked by check 2. The masked path: after
   the first run, a second commit copies that run's engineer PDF over
-  `tests/approved/Marine-Engineer-CV-v11.pdf` and sets its pin in
-  `baseline.json` to the new SHA-256, then the suite runs again. That
+  `packages/domains/marine/templates/flagship/tests/approved/Marine-Engineer-CV-v11.pdf`
+  and sets its pin in `baseline.json` to the new SHA-256, then the suite
+  runs again. That
   commit lives only in a detached copy that is removed after the round, so
   it changes neither the frozen set nor anything the constitution protects;
   nowhere else is a frozen reference changed this way. These detectors are
   judged on whether they pin the right files, never by a refactor probe.
-  Masking by any other check shows that the two overlap for that one fault.
+  Masking by any other check shows that the two overlap for that one fault,
+  which alone is no reason to remove either (the skill, "Removing a test").
 - **Decides nothing:** a `SKIPPED` case (`fonts-system` without a system
   font, `build-script` without PowerShell, `workflow-model` without Bun), a
   crash, a missing module. A refactor that fails at a check other than the

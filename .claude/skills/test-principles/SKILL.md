@@ -29,7 +29,9 @@ Ask each question of every test a change adds, edits or deletes.
 1. **Behavioural.** It goes through an entry point the code's users use (a
    command, a render, a public function, an API) and asserts on what they
    observe: output, saved state, an error and its message. Not on private
-   helpers, call counts or internal structure.
+   helpers, call counts or internal structure. When the rule under test is
+   itself about structure (an import boundary, a file's frontmatter, a
+   naming rule), that structure is what it observes.
 2. **Can fail.** A plausible fault in that behaviour makes it fail. Proven
    by a fault probe (below) where one can run.
 3. **Structure-insensitive.** It survives a refactor that keeps the
@@ -101,8 +103,9 @@ is one change aimed at what a test claims to guard.
   behaviour, so it is invalid and redone, not evidence against the test.
 - **Decides nothing:** a skipped case, a crash, a missing module or tool.
 - **Checks that fail on any change by design** (a pinned hash, a frozen
-  reference, an assertion that the tree is clean) are judged on whether they
-  pin the right things, never by a refactor probe.
+  reference, an assertion that the tree is clean), and checks whose rule is
+  about structure (question 1), are judged on whether they pin the right
+  things, never by a refactor probe.
 - **Where no probe reaches,** judge by reading and say which test and why.
 
 ## Finding missing tests
@@ -132,9 +135,12 @@ repository's rules say who changes it.
 
 ## The owner's conventions
 
-Conventions the owner sets for tests in every project go here. None are
-recorded yet; a repository's own testing conventions stay in that
-repository's documents.
+Conventions the owner sets for tests in every project go here; a
+repository's own testing conventions stay in that repository's documents.
+
+- Tests are judged by the behaviours they test, never by their number: "We
+  do not care about having many tests, we care that the written tests test
+  the actual behaviors" (owner, 2026-11-08). The rubric above applies it.
 
 ## Sources
 
