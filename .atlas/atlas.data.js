@@ -629,7 +629,7 @@ window.ATLAS = {
        "note": "Model step `open.alias`, action `lead.write-alias`, in `docs/workflow/01-open/stage.yaml`.",
        "sources": [
         "docs/workflow/01-open/README.md:23-26",
-        "docs/guides/client-workflow.md:94-95",
+        "docs/guides/client-workflow.md:93-94",
         ".claude/skills/new-client/SKILL.md:33-35",
         "docs/glossary.md:58"
        ]
@@ -4486,8 +4486,8 @@ window.ATLAS = {
   }
  ],
  "build": {
-  "builtAt": "2026-11-08 10:19 UTC",
-  "commit": "55811be",
+  "builtAt": "2026-11-08 10:28 UTC",
+  "commit": "88b0e8b",
   "kit": "1.1",
   "stale": {},
   "verified": {
@@ -4505,7 +4505,7 @@ window.ATLAS = {
    },
    "system-map": {
     "at": "2026-11-08",
-    "commit": "55811be"
+    "commit": "88b0e8b"
    },
    "roster": {
     "at": "2026-11-08",

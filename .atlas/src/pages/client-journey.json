@@ -100,7 +100,7 @@
           "note": "Model step `open.alias`, action `lead.write-alias`, in `docs/workflow/01-open/stage.yaml`.",
           "sources": [
             "docs/workflow/01-open/README.md:23-26",
-            "docs/guides/client-workflow.md:94-95",
+            "docs/guides/client-workflow.md:93-94",
             ".claude/skills/new-client/SKILL.md:33-35",
             "docs/glossary.md:58"
           ]

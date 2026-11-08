@@ -33,7 +33,8 @@ Each `Template Variation` under `variations` states `pages`, its `designBar`
 (`showcase` for the bar in `docs/vision.md`, "Design is the product", or
 `scan-first`), the `layouts`, `themes` and `artwork` it allows, and `supports`:
 for a `Domain`, either `upTo` or `exactly` the versions it handles, and
-`groups`, the optional `Fact Group`s it shows as `name@schemaVersion`. Required groups follow from the version.
+`groups`, the optional `Fact Group`s it shows as `name@schemaVersion`.
+Required groups follow from the version.
 A `Template Variation` inherits and never copies; it declares only what differs,
 and its `designBar` is set when the owner approves the design.
 

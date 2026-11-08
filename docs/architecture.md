@@ -111,7 +111,8 @@ and touches neither `cv-framework/` nor `marine/`.
 ## The Template Contract
 
 A `Template` declares what it supports, and a `Domain` declares what it holds,
-in versioned files the suite and the render check: `docs/engine/template-contract.md`
+in versioned files the suite and the render check:
+`docs/engine/template-contract.md`
 (ADR 0016).
 
 ## Module map

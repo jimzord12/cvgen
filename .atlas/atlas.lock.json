@@ -125,7 +125,7 @@
    "verifiedAt": "2026-11-08"
   },
   "system-map": {
-   "commit": "55811be",
+   "commit": "88b0e8b",
    "sources": {
     ".claude/agents": "dir1:d86ac8b44b9896473ff12ecdbc91538ae34a8852",
     ".claude/skills": "dir1:5eeafda0c9ef9a6037a3fcc2879f73f098fa3e55",
@@ -135,7 +135,7 @@
     "apps/design-review/server.py": "65b42af8bcf0a971e19ec97fa39b874cad91c3c1",
     "archive/work-records": "dir1:2bea1062a9d5c291d94f0d1e6679dd0939612f2e",
     "docs": "dir1:139adff443cb7a07dd0d5fae04941c8c0785eb30",
-    "docs/architecture.md": "8fcbc85f32a38fdf9aefd46a18163f74c6392980",
+    "docs/architecture.md": "9fd04fbe677ba7d2301edfef6fe9392102fd3f22",
     "docs/engine/verification.md": "0d100f36d9333694b85a7f4e7ec5407c29bd9fd5",
     "docs/git-workflow.md": "555dec505d0acb731dccb9710cfbb32cb1e398cb",
     "docs/glossary.md": "0d2fc36ee85dc0986450e0d8b9236c571a486bb5",
