@@ -1,6 +1,6 @@
 # Timetable
 
-**Idea:** the one-page CV set as one table of a printed travel timetable: dates are the departure times, every bullet is a row with its lead phrase as the station column, the availability is the table's "valid from" line, and a key of symbols names what she books. Three words: **printed timetable table**.
+**Idea:** the one-page CV set as one table of a printed travel timetable: dates are the departure times, every bullet is a row with its lead phrase as the station column, the availability is the table's "valid from" line, and a key of symbols names what he books. Three words: **printed timetable table**.
 
 Run: idea run 2026-11-08 (editor), five one-page styles for a practical travel CV under the `scan-first` bar. `Domain` travel; specialty group and private travel; `Rank` Tour Leader / Travel Consultant. One design, `Condensed` density, `stylish` `Design Tier`, drawn twice: in its own palette and as a monochrome version.
 
@@ -25,7 +25,7 @@ This is the most scan-first of the five.
 - **Education:** its own band; years in 17 pt numerals left, qualification and school right.
 - Contacts, including the passport line, are the table's column heads under the header.
 
-Imagery stays small and functional: five pictograms (flights, ferries, coaches, hotels, guides) drawn as a timetable's symbol key, repeated with labels in the foot ("services she books and reconfirms"), from her Bookings bullet. The footnote mark "a" ties "valid from April 2027" in the head to the availability note in the foot.
+Imagery stays small and functional: five pictograms (flights, ferries, coaches, hotels, guides) drawn as a timetable's symbol key, repeated with labels in the foot ("services he books and reconfirms"), from his Bookings bullet. The footnote mark "a" ties "valid from April 2027" in the head to the availability note in the foot.
 
 ## References and the principle taken from each
 
@@ -82,4 +82,4 @@ None. Pictograms are Typst polygons drawn for this concept (no symbol set copied
 - Least "illustrated" of the five; it wins on order and type, which suits the `scan-first` bar but may read as austere next to Poster Sun.
 - The right-aligned lead phrases make a ragged left edge in the station column; that is the timetable convention, but some readers prefer left-aligned labels.
 - "TABLE 1" is a playful device; the owner may prefer a plainer head strip.
-- Running text binds its last three or four words together (a non-breaking tie) and the Skills column was widened, so no row ends in a lone "40." (round 2, Codex D1/D2).
+- Running text binds its last three or four words together (a non-breaking tie) and the Skills column was widened, so no row ends in a lone "40." (round 2, Codex D1/D2). In round 3 the Languages and Skills bands got the same lead-in as every other band (D17).

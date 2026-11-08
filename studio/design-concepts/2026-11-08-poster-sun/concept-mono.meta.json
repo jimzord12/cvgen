@@ -1,7 +1,7 @@
 {
   "variant": "mono",
   "domain": "travel",
-  "candidate": "Daphne Kontou",
+  "candidate": "Nikos Kontos",
   "rank": "Tour Leader / Travel Consultant",
   "style": "Poster Sun",
   "idea": "sunrise travel poster",
@@ -13,5 +13,5 @@
   "date": "2026-11-08",
   "contract": "cvgen.output/1",
   "pages": 1,
-  "sha256": "06e98e641002ddd9dbe9fabcdc6242861dd4f08048a9714d6b79d64e574589a0"
+  "sha256": "6015a549ae9940bdd5ae0072f588d562f3ca104602979b74c4811d40222e2527"
 }

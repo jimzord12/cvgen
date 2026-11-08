@@ -211,13 +211,9 @@
         if "note" in l { text(size: 8.6pt, fill: soft, tie(l.note)) }
       })
     }
-    section("Availability")
-    text(weight: 700, size: 10.5pt, d.availability.headline)
-    linebreak()
-    text(size: 9pt, tie(d.availability.text))
     section("Recent journeys")
     for t in d.journeys.trips {
-      block(below: 1.3mm, [#text(weight: 600, size: 8.8pt, fill: hot, tracking: 0.4pt, upper(t.period)) \ #text(weight: 600, t.stops.join(" – ")) \ #text(size: 8.8pt, fill: soft)[#t.days days, #t.role]])
+      block(below: 2.8mm, [#text(weight: 600, size: 8.8pt, fill: hot, tracking: 0.4pt, upper(t.period)) \ #text(weight: 600, t.stops.join(" – ")) \ #text(size: 8.8pt, fill: soft)[#t.days days, #t.role]])
     }
   },
   // right: experience and education
@@ -246,6 +242,10 @@
     }
     section(d.skills.heading)
     grid(columns: (1fr, 1fr), column-gutter: 5mm, ..d.skills.items.map(s => [*#s.lead:* #tie(s.text + ".")]))
+    section("Availability")
+    text(weight: 700, size: 10.5pt, d.availability.headline)
+    h(2mm)
+    text(size: 9.4pt, tie(d.availability.text))
   },
 )
 

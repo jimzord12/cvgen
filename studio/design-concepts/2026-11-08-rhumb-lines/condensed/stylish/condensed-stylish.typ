@@ -127,7 +127,7 @@
 // ---------- header ----------
 #place(top + left, dx: 165mm - 16mm - 47mm, dy: 54mm - 13mm - 47mm, rose(47mm, 19.5mm))
 
-#block(width: 100mm, fill: paper, outset: (x: 2.5mm, y: 2mm), {
+#block(width: 100mm, fill: paper, outset: (x: 2.5mm, top: 2mm, bottom: 3.2mm), {
   v(3mm)
   text(font: display, weight: 700, size: 50pt, fill: ink, tracking: -0.5pt, top-edge: "cap-height", bottom-edge: "baseline", d.given)
   v(-1mm)

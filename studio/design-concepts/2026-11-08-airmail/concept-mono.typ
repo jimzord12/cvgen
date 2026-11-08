@@ -29,7 +29,7 @@
 #let bars = {
   let w = 4.6mm
   let H = 297mm
-  let cols = if mono { (rgb("#3A3A3A"), sheet, rgb("#3A3A3A"), sheet) } else { (red, sheet, blue, sheet) }
+  let cols = if mono { (rgb("#5A5A5A"), sheet, rgb("#5A5A5A"), sheet) } else { (red, sheet, blue, sheet) }
   for i in range(-50, 60) {
     let x = i * w
     place(top + left, polygon(fill: cols.at(calc.rem(i + 200, 4)), stroke: none,
@@ -136,11 +136,17 @@
 // ---------- body: hanging labels, like a typed letter ----------
 // each row opens with a short length of the border's bars, then a typed dashed rule
 #let bar-seg(w, h) = box(width: w, height: h, clip: true, {
-  let cols = if mono { (rgb("#3A3A3A"), paper, rgb("#3A3A3A"), paper) } else { (red, paper, blue, paper) }
+  let cols = if mono { (none, paper, none, paper) } else { (red, paper, blue, paper) }
   let s = 2.2mm
   for i in range(-2, int(w / s) + 3) {
-    place(top + left, polygon(fill: cols.at(calc.rem(i + 200, 4)), stroke: none,
-      (i * s + h, 0mm), (i * s + h + s, 0mm), (i * s + s, h), (i * s, h)))
+    let c = calc.rem(i + 200, 4)
+    if mono and calc.rem(c, 2) == 0 {
+      place(top + left, polygon(fill: none, stroke: 0.5pt + rgb("#3A3A3A"),
+        (i * s + h, 0mm), (i * s + h + s, 0mm), (i * s + s, h), (i * s, h)))
+    } else {
+      place(top + left, polygon(fill: cols.at(c), stroke: none,
+        (i * s + h, 0mm), (i * s + h + s, 0mm), (i * s + s, h), (i * s, h)))
+    }
   }
 })
 #let sep = grid(columns: (33mm, 1fr), column-gutter: 3mm, align: horizon,

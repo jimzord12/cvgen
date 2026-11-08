@@ -1,7 +1,7 @@
 {
   "variant": "mono",
   "domain": "travel",
-  "candidate": "Daphne Kontou",
+  "candidate": "Nikos Kontos",
   "rank": "Tour Leader / Travel Consultant",
   "style": "Timetable",
   "idea": "printed timetable table",
@@ -13,5 +13,5 @@
   "date": "2026-11-08",
   "contract": "cvgen.output/1",
   "pages": 1,
-  "sha256": "23386c5a978c0056097fd21b6741be22de24b9c5a660f48c26f4377d0935e29a"
+  "sha256": "5f609e08c9b70106a93aea5ab67264e6008da2a9029ea3d1df1ee0f566bce9ad"
 }

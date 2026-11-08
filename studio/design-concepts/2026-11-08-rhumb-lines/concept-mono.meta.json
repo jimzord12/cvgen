@@ -1,7 +1,7 @@
 {
   "variant": "mono",
   "domain": "travel",
-  "candidate": "Daphne Kontou",
+  "candidate": "Nikos Kontos",
   "rank": "Tour Leader / Travel Consultant",
   "style": "Rhumb Lines",
   "idea": "portolan chart page",
@@ -13,5 +13,5 @@
   "date": "2026-11-08",
   "contract": "cvgen.output/1",
   "pages": 1,
-  "sha256": "62f1fb61fc46fc5f6f3ee9933d316eff4f9f50eec743c8b4a74a4f6cdbab13fb"
+  "sha256": "2b8bc15638206ebf97b1fc213780392db116679b0d6b8f2388a289c4dedd7876"
 }

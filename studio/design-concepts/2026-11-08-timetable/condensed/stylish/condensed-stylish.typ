@@ -1,7 +1,7 @@
 // Timetable: the CV set as one table of a printed travel timetable.
 // Dates are the departure times, every bullet is a row with its lead phrase as
 // the station column, the availability is the table's "valid from" line, and a
-// key of symbols names what she books.
+// key of symbols names what he books.
 // Condensed density, stylish tier. The monochrome file is generated from this
 // one (mono flag and root path switched); see ../../brief.md.
 #let mono = false
@@ -153,7 +153,7 @@
 }
 
 // ---------- languages and skills, side by side ----------
-#grid(columns: (0.8fr, 1.2fr), column-gutter: 5mm,
+#block(above: 4.4mm, below: 0mm, grid(columns: (0.8fr, 1.2fr), column-gutter: 5mm,
   {
     band("Languages")
     for (i, l) in d.languages.enumerate() {
@@ -167,7 +167,7 @@
       trow(lw: 27.5mm, shade: calc.rem(i, 2) == 1, align(right, text(weight: 700, s.lead)), tie(cap(s.text) + "."))
     }
   },
-)
+))
 
 // ---------- recent journeys ----------
 #band("Recent journeys", note: d.journeys.region)
@@ -187,7 +187,7 @@
   grid(columns: (1fr, 1fr), column-gutter: 7mm,
     [#text(weight: 700)[#super[a] #d.availability.headline.] #tie(d.availability.text)],
     {
-      text(size: 7pt, weight: 600, fill: grey, tracking: 0.9pt)[KEY · SERVICES SHE BOOKS AND RECONFIRMS]
+      text(size: 7pt, weight: 600, fill: grey, tracking: 0.9pt)[KEY · SERVICES HE BOOKS AND RECONFIRMS]
       linebreak()
       v(0.6mm)
       for s in services { box[#pict(s.at(0), s: 3.6mm) #h(0.8mm) #text(size: 8.6pt, s.at(1))] + h(3mm) }

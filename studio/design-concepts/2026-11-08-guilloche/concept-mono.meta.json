@@ -1,7 +1,7 @@
 {
   "variant": "mono",
   "domain": "travel",
-  "candidate": "Daphne Kontou",
+  "candidate": "Nikos Kontos",
   "rank": "Tour Leader / Travel Consultant",
   "style": "Guilloche",
   "idea": "engraved security print",
@@ -13,5 +13,5 @@
   "date": "2026-11-08",
   "contract": "cvgen.output/1",
   "pages": 1,
-  "sha256": "8418e2c647b2f4e5bdfd86e54ddbd9bd7cb2fc2e4a8990d3facf621c152e3eda"
+  "sha256": "67bb05c48323a4249ab1394212248bd3fab49fff18605c1c8ded3aa31a219358"
 }

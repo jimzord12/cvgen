@@ -11,7 +11,7 @@ The border of slanted red and blue bars all round the page, known everywhere as 
 ## The two versions
 
 - **Colour** (`condensed/stylish/condensed-stylish.pdf`): airmail red and blue on pale blue letter paper; dates and levels in red, typed labels in blue.
-- **Monochrome** (`concept-mono.pdf`): the bars become one dark grey alternating with white, on a pale grey sheet, so the white stamp still shows its perforations; labels in black, the stamp frame in grey. Round 2 dropped the earlier mid-grey bar, which read as hazard tape (design D7).
+- **Monochrome** (`concept-mono.pdf`): the bars become one dark grey alternating with white, on a pale grey sheet, so the white stamp still shows its perforations; labels in black, the stamp frame in grey. Round 2 dropped the earlier mid-grey bar, which read as hazard tape (design D7). Round 3 lightened the border bars to a mid-dark grey and drew the short bar runs at each section head as hairline outlines, so neither reads as hazard tape (design D16, Codex lineup D2).
 
 Round 2 also made the border about 30 % thinner in both versions (a 4.4 mm band of 4.6 mm bars), so the frame competes less with the text (Codex lineup D2).
 

@@ -10,11 +10,22 @@ Both judges found that round 1 read as an imitation ID (design D9, Codex D1 to D
 
 - **Card opened into a band.** The enclosing card is now a full-width header band. Its foot is an engraved border.
 - **Document marks removed.** The machine-readable zone is gone, and with it the nationality code and the birth date in YYMMDD form. The ghost portrait and the "Surname, given name" and "Position" labels are gone too.
-- **Name in reading order.** It is set as "Daphne Kontou".
+- **Name in reading order.** It is set as "Nikos Kontos".
 - **Globe in the rosette.** The rosette's centre now holds an engraved globe of meridians and parallels.
 - **Portrait on the band.** It stands in an arch drawn with one engraved line. The band's own tint and underprint show behind the cut-out; there is no backdrop rectangle (Codex D2/D4).
 - **Mono engraved darker.** The engraving is black at 0.25 pt instead of grey hairlines, so the band holds at thumbnail size (design D14).
 - **Engraving carried into the body.** A vertical engraved rule runs between the body's two columns, on top of the engraved section rules (Codex lineup D1).
+
+## Round 3: a finished foot
+
+Design D19 (Blocking) found about 43 mm of empty paper at the foot and a centre rule running on past both columns; Codex D1/D2 flagged the same rule tail.
+
+- **Centre rule:** now measured against the two columns and ends with the longer one.
+- **Deeper band:** the header band is 15 mm deeper (97 mm). The portrait arch grew from 52 × 62 to 60 × 76 mm, and the name went from 30 to 32 pt with more air around the fields.
+- **Opened body:** body text 9.9 pt (was 9.6), section heads 7.6 mm apart (was 5.6), more space between bullets and between education rows.
+- **Stronger rules:** the engraved section rules are a little taller and heavier (Codex lineup D1).
+- **Closed foot:** the page now ends on the same engraved border as the band's foot. The repeated microprint line is gone (Codex: it read as a banknote flourish).
+- **Field labels:** left as they are (D20).
 
 ## What the owner should notice first
 
@@ -29,7 +40,7 @@ Both are one A4 page.
 
 ## Scan Test
 
-- **Name:** "Daphne Kontou", 30 pt bold, top centre of the band.
+- **Name:** "Nikos Kontos", 32 pt bold, top centre of the band.
 - **Current title:** "Tour Leader / Travel Consultant", 14 pt, directly under the name.
 - **Employers and dates:** main left column of the body. Each role is bold, with dates in monospace flush right, then the employer in green with the place.
 - **Education:** main column under Experience, with years flush right.
@@ -49,7 +60,7 @@ The round-1 reference to the machine-readable passport (Wikipedia) is withdrawn:
 - **From the Flagship:** a light engraved band instead of a dark one, and security engraving and a globe instead of engine-room tools.
 - **From the other four:** the only engraved, generated line ornament; the only humanist sans plus monospace voice; the only arch portrait.
 - **From earlier concepts:** Stamp Rally was "the escort's travel papers": a boarding pass, rubber stamps and luggage tags. This uses no paper, ticket, stamp or document form, only the engraving craft. Design D13 noted the card head was close to Stamp Rally's boarding-pass head; the open band removes that card structure. It is not near either `Anti-example`.
-- **From the market:** online builders do not use engraving; the nearest they come is a hairline.
+- **From the market:** in my own observation (not a sourced survey), online builders do not use engraving; the nearest they come is a hairline.
 
 ## Fonts
 
@@ -73,7 +84,7 @@ None. The underprint, rosettes, globe, wave rules and microprint are all Typst d
 - downscaled from 1200 to 640 px;
 - colour SHA-256 `6ef637049d7f4b18f99f3edd8680a3e27462df54861f2c383395bd08ef67396f`, mono `3889d936d3cd481439e4795f6e1754f0924cdb5f975fa5433610b1e8c4014c3a`.
 
-The portrait fills a 52 × 62 mm arch with `fit: "cover"`, centred and never shifted, so the face sits centred and a little high. The arch's foot sits on the band's engraved border, and the band shows through the transparent background.
+The portrait fills a 60 × 76 mm arch with `fit: "cover"`, centred and never shifted, so the face sits centred and a little high. The arch's foot sits on the band's engraved border, and the band shows through the transparent background.
 
 ## Data
 
@@ -86,7 +97,7 @@ The portrait fills a 52 × 62 mm arch with `fit: "cover"`, centred and never shi
 
 ## What it would take to become a `Template`
 
-- **Artwork pack:** `rosette(r, amp, lobes, phases)`, `waveband(width, height, lines, periods)`, `vwaveband`, `globe(r)`, `arch-portrait(w, h)`, `microprint(text)`; all parametric.
+- **Artwork pack:** `rosette(r, amp, lobes, phases)`, `waveband(width, height, lines, periods)`, `vwaveband`, `globe(r)`, `arch-portrait(w, h)`; all parametric. The centre rule needs the columns measured, as here.
 - **Theme:** ink, two engraving colours, the band tint (or white for mono), Fira Sans and Plex Mono.
 - **Data:** all fields exist in the travel contract.
 - **Performance:** the rosettes and bands are thousands of curve points. The compile is still quick, and the colour PDF is about 0.68 MB with the portrait.
@@ -95,5 +106,4 @@ The portrait fills a 52 × 62 mm arch with `fit: "cover"`, centred and never shi
 
 - **Small field labels:** the band still uses small monospace labels above the contact fields; they are lighter than before but keep a faint form-like note.
 - **Lower page:** below the band the page is calm; its identity there rests on the engraved rules alone.
-- **Microprint:** the microprint line at the foot (4.2 pt) is ornament, not content.
 - **Text breaks:** running text binds its last three or four words together (a non-breaking tie), and a school name breaks at its comma.

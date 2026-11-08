@@ -23,8 +23,8 @@
 #let sans = "Fira Sans"
 #let mono-font = "IBM Plex Mono"
 
-#set page(paper: "a4", margin: (left: 15mm, right: 15mm, top: 90mm, bottom: 10mm), fill: white)
-#set text(font: sans, size: 9.6pt, fill: ink, lang: "en")
+#set page(paper: "a4", margin: (left: 15mm, right: 15mm, top: 106mm, bottom: 10mm), fill: white)
+#set text(font: sans, size: 9.9pt, fill: ink, lang: "en")
 #set par(leading: 0.5em, spacing: 0.6em)
 
 // ---------- engraving ----------
@@ -95,16 +95,16 @@
 })
 
 // ---------- the engraved header band, full width ----------
-#let Hb = 82mm
+#let Hb = 97mm
 #let band = box(width: 210mm, height: Hb, clip: true, {
   place(top + left, rect(width: 210mm, height: Hb, fill: card-fill, stroke: none))
   // underprint of woven waves across the whole band
-  for k in range(8) {
+  for k in range(10) {
     place(top + left, dy: 2mm + k * 10mm, waveband(210mm, 9mm, n: 5, periods: 10 + calc.rem(k, 2),
       col: line-a.transparentize(if mono { 80% } else { 80% }), col2: line-b.transparentize(if mono { 78% } else { 82% }), wt: if mono { 0.25pt } else { 0.3pt }))
   }
   // the rosette with a globe at its heart
-  let rc = (182mm, 42mm)
+  let rc = (184mm, 52mm)
   rosette(rc, 23mm, 2.7mm, 14, 18, line-a.transparentize(if mono { 10% } else { 30% }), w: if mono { 0.25pt } else { 0.35pt })
   rosette(rc, 14.5mm, 2.2mm, 10, 14, line-b.transparentize(if mono { 10% } else { 25% }), w: if mono { 0.25pt } else { 0.35pt })
   place(top + left, dx: rc.at(0) - 10.5mm, dy: rc.at(1) - 10.5mm, circle(radius: 10.5mm, fill: if mono { white } else { rgb("#F3ECE4") }, stroke: none))
@@ -116,21 +116,19 @@
   // the band's foot: an engraved border
   place(top + left, dy: Hb - 2.6mm, waveband(210mm, 5.2mm, n: 9, periods: 34, wt: if mono { 0.3pt } else { 0.4pt }))
   // the portrait stands on the band's foot; the band itself shows behind the cut-out
-  place(top + left, dx: 13mm, dy: Hb - 62mm, box(width: 52mm, height: 62mm, clip: true, radius: (top-left: 26mm, top-right: 26mm),
-    image(portrait, width: 52mm, height: 62mm, fit: "cover")))
-  place(top + left, dx: 13mm, dy: Hb - 62mm, box(width: 52mm, height: 62mm, radius: (top-left: 26mm, top-right: 26mm),
+  place(top + left, dx: 12mm, dy: Hb - 76mm, box(width: 60mm, height: 76mm, clip: true, radius: (top-left: 30mm, top-right: 30mm),
+    image(portrait, width: 60mm, height: 76mm, fit: "cover")))
+  place(top + left, dx: 12mm, dy: Hb - 76mm, box(width: 60mm, height: 76mm, radius: (top-left: 30mm, top-right: 30mm),
     stroke: (top: 0.7pt + line-a, left: 0.7pt + line-a, right: 0.7pt + line-a)))
-  // the vertical engraved rule between the body's columns
-  place(top + left, dx: 210mm - 15mm - 60mm - 4mm - 1.6mm, dy: Hb + 10mm, vwaveband(297mm - Hb - 36mm, 2.4mm, n: 3, wt: 0.3pt))
   // header strip and identity, set on the band
-  place(top + left, dx: 15mm, dy: 8mm, text(font: mono-font, weight: 600, size: 8pt, tracking: 2pt, fill: ink)[CURRICULUM VITAE])
-  place(top + right, dx: -15mm, dy: 8mm, text(font: mono-font, weight: 600, size: 8pt, tracking: 2pt, fill: ink)[TRAVEL · GROUP & PRIVATE])
-  place(top + left, dx: 74mm, dy: 18mm, block(width: 86mm, {
-    text(weight: 700, size: 30pt, tracking: 0.2pt, top-edge: "cap-height", bottom-edge: "baseline", d.name)
-    v(3mm)
-    text(weight: 600, size: 14pt, fill: rose, d.title)
-    v(3.4mm)
-    grid(columns: (1.2fr, 1fr), column-gutter: 4mm, row-gutter: 2.4mm,
+  place(top + left, dx: 15mm, dy: 9mm, text(font: mono-font, weight: 600, size: 8pt, tracking: 2pt, fill: ink)[CURRICULUM VITAE])
+  place(top + right, dx: -15mm, dy: 9mm, text(font: mono-font, weight: 600, size: 8pt, tracking: 2pt, fill: ink)[TRAVEL · GROUP & PRIVATE])
+  place(top + left, dx: 79mm, dy: 25mm, block(width: 79mm, {
+    text(weight: 700, size: 32pt, tracking: 0.2pt, top-edge: "cap-height", bottom-edge: "baseline", d.name)
+    v(3.6mm)
+    text(weight: 600, size: 14.5pt, fill: rose, d.title)
+    v(5mm)
+    grid(columns: (1.25fr, 1fr), column-gutter: 4mm, row-gutter: 3mm,
       field("Specialty", d.specialty),
       field("Based in", d.contacts.based),
       field("Phone", d.contacts.phone),
@@ -144,15 +142,14 @@
 })
 
 // ---------- body ----------
-#let section(title, above: 5.6mm) = block(above: above, below: 2.8mm, width: 100%, {
+#let section(title, above: 7.6mm) = block(above: above, below: 3.4mm, width: 100%, {
   text(font: mono-font, weight: 600, size: 9pt, tracking: 0.9pt, fill: green, upper(title))
-  v(-0.6mm)
-  layout(s => waveband(s.width, 3.2mm, n: 4, periods: calc.floor(s.width / 6mm), wt: 0.45pt))
+  v(-0.4mm)
+  layout(s => waveband(s.width, 3.8mm, n: 5, periods: calc.floor(s.width / 6mm), wt: if mono { 0.5pt } else { 0.6pt }))
 })
 #let mono-date(t) = text(font: mono-font, weight: 600, size: 9pt, fill: rose, t)
 
-#grid(columns: (1fr, 60mm), column-gutter: 8mm,
-  {
+#let main-col = {
     section("Profile", above: 0mm)
     text(size: 10.4pt, weight: 500, tie(d.profile))
     section("Experience")
@@ -165,9 +162,9 @@
         text(weight: 600, fill: green, j.employer)
         text(fill: soft, [ · #j.place])
         if "intro" in j { linebreak(); text(style: "italic", size: 8.9pt, fill: soft, tie(j.intro)) }
-        v(1.2mm)
+        v(1.6mm)
         for b in j.bullets {
-          block(below: 1.4mm, grid(columns: (3.6mm, 1fr),
+          block(below: 1.9mm, grid(columns: (3.6mm, 1fr),
             pad(top: 2.6pt, box(width: 4pt, height: 4pt, stroke: 0.7pt + rose, radius: 2pt)),
             [*#b.lead:* #tie(b.text)]))
         }
@@ -175,12 +172,12 @@
     }
     section("Education")
     for e in d.education {
-      block(below: 2.2mm, grid(columns: (1fr, auto), align: (left, right),
+      block(below: 3mm, grid(columns: (1fr, auto), align: (left, right),
         [*#e.qualification* \ #text(fill: soft, at-comma(e.institution))],
         mono-date(e.years)))
     }
-  },
-  {
+}
+#let side-col = {
     section("Languages", above: 0mm)
     for l in d.languages {
       block(below: 2mm, {
@@ -196,13 +193,18 @@
     text(size: 8.9pt, tie(d.availability.text))
     section("Recent journeys")
     for t in d.journeys.trips {
-      block(below: 2mm, [#mono-date(upper(t.period)) \ *#t.stops.join(" – ")* \ #text(size: 8.5pt, fill: soft)[#t.days days, #t.role]])
+      block(below: 2.6mm, [#mono-date(upper(t.period)) \ *#t.stops.join(" – ")* \ #text(size: 8.5pt, fill: soft)[#t.days days, #t.role]])
     }
-  },
-)
+}
 
-// ---------- microprint foot ----------
+// the two columns with the vertical engraved rule between them, ending with the longer column
+#context {
+  let wl = 180mm - 60mm - 9mm
+  let h = calc.max(measure(block(width: wl, main-col)).height, measure(block(width: 60mm, side-col)).height)
+  grid(columns: (wl, 9mm, 60mm), main-col, align(center, vwaveband(h, 2.4mm, n: 3, wt: 0.35pt)), side-col)
+}
+
 #v(1fr)
-#block(width: 100%, clip: true, height: 2.2mm,
-  box(width: 400mm, text(font: mono-font, size: 4.2pt, fill: soft, tracking: 0.6pt, ("DAPHNE KONTOU · TOUR LEADER · TRAVEL CONSULTANT · " * 6))))
+// the page closes on the same engraved border as the band's foot
+#block(below: 2.4mm, waveband(180mm, 4.4mm, n: 7, periods: 30, wt: if mono { 0.3pt } else { 0.4pt }))
 #text(font: mono-font, size: 6.6pt, fill: soft, tracking: 1pt, upper(d.disclosure))

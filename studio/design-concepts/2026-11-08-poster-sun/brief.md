@@ -21,8 +21,8 @@ Both are one A4 page.
 - **Current title:** reversed ink label right under it, then the specialty.
 - **Employers and dates:** main right column; each role bold with dates flush right in coral (black in mono), employer in teal and place on the next line.
 - **Education:** main column under Experience, years flush right.
-- **Skills & travel experience:** main column, after Education, its two items side by side, so the heading no longer wraps (round 2, design D12).
-- Left column: Profile, Personal (date of birth, nationality, passport validity), Languages, Availability, Recent journeys (one per block, so no route wraps). Phone, email and base are in the poster's ink band, separated by drawn dots (Jost has no U+25CF).
+- **Skills & travel experience:** main column, after Education, its two items side by side, so the heading no longer wraps (round 2, design D12). Availability follows it in the main column (round 3, D18).
+- Left column: Profile, Personal (date of birth, nationality, passport validity), Languages, Recent journeys (one per block with a gap between them, so no route wraps; round 3, D18). Phone, email and base are in the poster's ink band, separated by drawn dots (Jost has no U+25CF).
 
 ## References and the principle taken from each
 
