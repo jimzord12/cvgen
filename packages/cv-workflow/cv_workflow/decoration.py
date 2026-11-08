@@ -1,7 +1,7 @@
 """Decoration over words: Hanami's sakura petals in flight must never lie on a word.
 
 The petals are laid out once in page millimetres (packages/domains/travel/assets/japan/petals-p<page>-<hero|field>.svg)
-and drawn on every Hanami page, whatever the record holds. A petal over a word blurs the CV, so the render
+and drawn on every page of Hanami showcase, whatever the record holds (Hanami essential draws none). A petal over a word blurs the CV, so the render
 (render.py) and the suite take each petal's outline (rotated, skewed, squashed, plus three standard deviations of
 its blur) and name every text span it meets. docs/framework-gaps.md, 2026-11-08, has the gap this guards.
 """
@@ -14,8 +14,9 @@ MM = 25.4 / 72
 PETALS = DOMAINS / 'travel/assets/japan'
 # The Templates that draw the petal layer.
 PETAL_TEMPLATES = {'hanami'}
-# The Template Variations of those Templates that draw it: Hanami essential has no petals in flight (TASK-79).
-PETAL_VARIATIONS = {'hanami': {'showcase'}}
+# The Template Variations of those Templates that draw no petal layer: Hanami essential has no petals in flight
+# (TASK-79). Every other Variation is checked, so a new one that draws petals cannot skip the check unnoticed.
+PETAL_EXEMPT = {'hanami': {'essential'}}
 PETAL = re.compile(r"<g transform='translate\(([-\d.]+),([-\d.]+)\) rotate\(([-\d.]+)\) skewX\(([-\d.]+)\) scale\(1,([-\d.]+)\)' "
                    r"opacity='[\d.]+'(?: filter='url\(#blur(\d)\)')?><path d='([^']+)' transform='translate\(0,([-\d.]+)\)'")
 
@@ -63,11 +64,11 @@ def petal_collisions(pdf, art=PETALS):
 def decoration_errors(pdf, template, variation=None):
     """The check errors for a rendered PDF of `template` and `variation`: one per word a petal lies on.
 
-    Only a named Template is checked, and only a Template Variation that draws the petal layer (None is
+    Only a named Template is checked, and every Template Variation of it except those in PETAL_EXEMPT (None is
     checked, as the Template's default). A custom composition (no template in the choice) or Hanami
     essential draws no petals, so checking it against Hanami's layer would report words nothing covers.
     """
-    if template not in PETAL_TEMPLATES or (variation is not None and variation not in PETAL_VARIATIONS[template]):
+    if template not in PETAL_TEMPLATES or variation in PETAL_EXEMPT.get(template, set()):
         return []
     try:
         found = petal_collisions(pdf)

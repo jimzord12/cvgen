@@ -6,7 +6,7 @@ title: >-
 status: Active
 assignee: []
 created_date: '2026-11-08T10:07:00Z'
-updated_date: '2026-11-08T11:13:00Z'
+updated_date: '2026-11-08T12:15:00Z'
 labels: []
 milestone: m-2
 dependencies: []
@@ -63,4 +63,11 @@ The first scan-first Template Variation (P-0019 section 9, owner 2026-11-04 and 
 - Design round 1 (design-reviewer FINDINGS D1-D9, Codex PASS) fixed in b665f55; round 2 (D10-D12) fixed in the next commit. Review files in archive/work-records/hanami-essential/reviews/.
 - Merged feat/travel-contract-v2 (TASK-80). Essential supports travel exactly [2] (version 1's required destinations holds the route, stamps and story, which one page cannot show), claims destinations@2 and licences@1, leaves travel-story out; licences beside the lead, each trip's role after its period, the areas, the rank's seal words on the band.
 - Evidence: tests/run.py PASS (builds/tests-20261108-131156-155946), ruff clean, Workflow Model and Atlas checked.
+
+## Rounds 3 to 5 and code review (2026-11-08)
+
+- Design rounds 3-5: D13-D22 fixed (licence on the rail when the lead is full, fields 8 mm under the profile row, Greek dates from copy.months, whole role labels, the wash ends at short content, thin-page operator warning via <cvgen-warning>). Round 5 PASS on nine renders; D16 (stops listed twice) open as a Note until a later destinations version. Codex rounds 1-5, round 5 PASS (A, B, C).
+- Code round 1 PASS with F1-F3 Minor, N1, N2: all fixed in 5eb12b7 (overflow names its cause, cv.py status lists template warnings, warning path and overflow asserts tested, explicit eval flags). The new workspace test found a real bug, fixed in c80f149: the petal check ran on essential and failed every essential client revision.
+- Code round 2 PASS with F1, F2 Minor, N1-N3: F1 (petal check proved on 'showcase'), F2 (gap entry and docstring say showcase only) and N1 (PETAL_EXEMPT lists the exempt Variations, so a new one is checked) fixed; N3 left as a Note (both paths read correctly).
+- Reviews verbatim in archive/work-records/hanami-essential/reviews/.
 <!-- SECTION:NOTES:END -->

@@ -358,7 +358,7 @@ def main():
     probe = compile_case('travel-petal-probe', 'tests/fixtures/petal-probe.typ',
                          {f'{k}{n}': str(round(v, 2)) for n, box in first.items() for k, v in (('x', box[0]), ('y', box[1]))})
     assert [page for page, _ in petal_collisions(probe)] == [1, 2], petal_collisions(probe)
-    assert len(decoration_errors(probe, 'hanami')) == 2
+    assert len(decoration_errors(probe, 'hanami')) == 2 and len(decoration_errors(probe, 'hanami', 'showcase')) == 2
     for theme in ['indigo', 'sky', 'no-portrait']:
         pdf = compile_case('travel-' + theme, 'tests/fixtures/travel.typ', {'case': theme})
         assert check_case(pdf)['passed']
