@@ -79,8 +79,9 @@ Windows one also holds the PDFs that build wrote, one per example in
    fixture renders the record without a portrait (the same words, one image
    fewer), the Indigo and Sky themes, Greek wording, a record without
    destinations, and a fictional long career (`tour-leader-long-career.json`):
-   four roles in full and "Earlier roles · 4 roles" with the span the domain
-   computed. It fails on a newest role too long for the page, a long career not
+   education moved to the rail, five roles in full and "Earlier roles · 3" with
+   the span the domain computed. The Greek case translates the record's own
+   labels, rank, availability and lead too, so Greek capitals are proved to fit. It fails on a newest role too long for the page, a long career not
    listed newest first, a name wider than the band, and the showcase layout.
 7. **Every PDF.** Expected page count, no empty page, all fonts embedded, no
    text outside the page. Every compile reads only the bundled fonts

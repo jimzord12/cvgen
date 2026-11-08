@@ -35,8 +35,9 @@
   let fonts = ctx.theme.fonts
   let B = ctx.layout.band
   at(0mm, 0mm, rect(width: 210mm, height: B, fill: P.hero))
-  place(top + right, art(ctx, "canopy", width: 104mm, swaps: sakura(ctx.theme.sakura.hero, P.hero)))
   let portrait = d.identity.at("portrait", default: none)
+  // without a portrait the branch grows, so its blossoms reach down into the corner the portrait leaves
+  place(top + right, art(ctx, "canopy", width: if portrait != none { 104mm } else { ctx.layout.canopy }, swaps: sakura(ctx.theme.sakura.hero, P.hero)))
   let PD = ctx.layout.portrait
   let PX = 194mm - PD
   let PY = (B - PD) / 2 + 1.5mm
@@ -50,10 +51,14 @@
   let name = text(font: fonts.display, size: 31pt, weight: 800, tracking: 0.6pt, fill: P.hero-text, top-edge: "cap-height", bottom-edge: "baseline", caps(d.identity.name))
   context assert(measure(name).width <= W, message: "Hanami essential: the name is wider than the band; shorten it (a middle name can go)")
   let specialty = d.identity.at("specialty", default: none)
+  // the rank on showcase's red tab, white on red; the specialty beside it in the band's own ink
   let rank = {
-    label(ctx, d.identity.rank, fill: P.hero-label, size: 8.4pt, track: 0.09em)
-    if ctx.copy.tab-native != "" { h(1.6mm); text(font: fonts.japanese, size: 8pt, fill: P.hero-label, ctx.copy.tab-native) }
-    if specialty != none { h(1.6mm); text(size: 8.4pt, weight: 700, fill: P.accent)[·]; h(1.6mm); label(ctx, specialty, fill: P.accent, size: 8.4pt, track: 0.09em) }
+    box(fill: P.accent, inset: (x: 2.2mm, y: 1.5mm), {
+      label(ctx, d.identity.rank, fill: P.plate, size: 8.4pt, track: 0.09em)
+      if ctx.copy.tab-native != "" { h(1.4mm); text(font: fonts.japanese, size: 8pt, fill: P.plate, ctx.copy.tab-native) }
+    })
+    // the same inset, unpainted, so both sit on one baseline
+    if specialty != none { h(0.2mm); box(inset: (x: 2.2mm, y: 1.5mm), label(ctx, specialty, fill: P.hero-text, size: 8.4pt, track: 0.09em)) }
   }
   let entry(c) = stack(spacing: 1.5mm, label(ctx, c.label, fill: P.hero-label, size: 6.6pt, track: 0.09em),
     text(size: 9.8pt, fill: P.hero-text, top-edge: "cap-height", bottom-edge: "baseline", if "href" in c { link(c.href, c.value) } else { c.value }))
@@ -64,7 +69,7 @@
     grid(columns: (auto,) * columns, column-gutter: 8mm, row-gutter: 3.4mm, ..rows.map(r => r + ([],) * (columns - r.len())).flatten().map(c => if c == [] { c } else { entry(c) }))
   }
   context assert(contacts == none or measure(contacts).width <= W, message: "Hanami essential: the contacts are wider than the band; shorten one or move it to the other row")
-  at(16mm, 11mm, block(width: W, stack(spacing: 3.8mm, name, rank, v(3mm), contacts)))
+  at(16mm, 10mm, block(width: W, stack(spacing: 4.4mm, name, rank, v(2.6mm), contacts)))
 }
 
 // The lead statement, one line across the page where it fits.
@@ -103,7 +108,7 @@
     set par(leading: 0.5em)
     grid(columns: (1fr, auto), column-gutter: 3mm, align: (left + bottom, right + bottom),
       text(size: 12.5pt, weight: 700, j.role), dates(ctx, j.from, j.at("to", default: none)))
-    block(above: 1.4mm, below: 0mm, label(ctx, j.employer + " · " + j.place, fill: P.label, size: 7.6pt, track: 0.09em))
+    block(above: 1.4mm, below: 0mm, label(ctx, j.employer + " · " + j.place, fill: P.label, size: 8pt, track: 0.09em))
     if "intro" in j { block(above: 1.8mm, below: 0mm, text(size: 9.6pt, fill: P.muted, j.intro)) }
     block(above: 2.4mm, below: 0mm, items(ctx, j.bullets, size: 10pt, gap: 1.5mm))
     let support = j.at("support", default: none)
@@ -123,40 +128,42 @@
 }
 
 // The older roles in one block: their count and span (the domain's totals over them), then each
-// as one line of title, employer and years.
+// as one line of title, employer and its years, quieter than the span.
 #let earlier(ctx, totals, jobs) = {
   let P = tokens(ctx)
   let n = totals.roles
   block(width: 100%, breakable: false, stroke: (top: 0.5pt + P.keyline.transparentize(30%)), inset: (top: 2.6mm), {
     set par(leading: 0.46em)
     grid(columns: (1fr, auto), column-gutter: 3mm, align: (left + bottom, right + bottom),
-      text(size: 11pt, weight: 700)[#ctx.copy.earlier #text(weight: 400, fill: P.muted)[· #n #if n == 1 { ctx.copy.role } else { ctx.copy.roles }]],
+      text(size: 11pt, weight: 700)[#ctx.copy.earlier #text(weight: 400, fill: P.muted)[· #n]],
       dates(ctx, totals.from, totals.to, size: 11pt))
     for j in jobs {
       block(above: 1.6mm, below: 0mm, grid(columns: (1fr, auto), column-gutter: 3mm,
         text(size: 9.6pt)[#text(weight: 600, j.role) #text(fill: P.muted)[· #j.employer, #j.place]],
         {
           let (a, b) = (j.from.slice(3), if "to" in j { j.to.slice(3) } else { ctx.copy.present })
-          text(font: ctx.theme.fonts.figures, size: 10.5pt, fill: P.date, if a == b { a } else { a + "–" + b })
+          text(font: ctx.theme.fonts.figures, size: 9.6pt, fill: P.muted, if a == b { a } else { a + "–" + b })
         }))
     }
   })
 }
 
-// Education in reading order, one entry a row: the qualification, its note (usually the dates) where
-// the roles keep theirs, the institution under it, behind showcase's metal rule.
-#let education(ctx, entries) = {
+// Education in reading order, one entry a row behind showcase's metal rule: the qualification, the
+// institution under it, and its note (usually the dates) in the roles' figures where the roles keep
+// their dates; on the rail (`narrow`) the note goes under the institution.
+#let education(ctx, entries, narrow: false) = {
   let P = tokens(ctx)
+  let note(e) = if e.at("note", default: "") != "" { text(font: ctx.theme.fonts.figures, size: 10.5pt, fill: P.date, e.note) }
   for (i, e) in entries.enumerate() {
     block(width: 100%, above: if i == 0 { 0mm } else { 2.6mm }, below: 0mm, stroke: (left: 1.6pt + P.metal), inset: (left: 3mm, y: 0.3mm), {
       set par(leading: 0.42em)
-      grid(columns: (1fr, auto), column-gutter: 4mm, align: (left + top, right + top),
-        {
-          text(size: 10.5pt, weight: 700, e.qualification)
-          linebreak()
-          text(size: 9.4pt, fill: P.muted, e.institution)
-        },
-        if e.at("note", default: "") != "" { text(size: 9.4pt, weight: 600, fill: P.date, e.note) })
+      let what = {
+        text(size: if narrow { 10pt } else { 10.5pt }, weight: 700, e.qualification)
+        linebreak()
+        text(size: if narrow { 9pt } else { 9.4pt }, fill: P.muted, e.institution)
+      }
+      if narrow { what; if note(e) != none { linebreak(); note(e) } }
+      else { grid(columns: (1fr, auto), column-gutter: 4mm, align: (left + top, right + top), what, note(e)) }
     })
   }
 }

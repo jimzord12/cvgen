@@ -10,5 +10,5 @@
   education-subtitle: "Studies, training and languages",
   // essential (one page): its section titles, the words of its totals and the earlier roles' summary
   education: "Education", languages: "Languages", destinations: "Destinations", contacts: "Contacts",
-  role: "role", roles: "roles", place: "place", places: "places", earlier: "Earlier roles",
+  place: "place", places: "places", earlier: "Earlier roles",
 )

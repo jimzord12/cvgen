@@ -358,14 +358,20 @@ def main():
         assert len(a[0].get_images()) - len(b[0].get_images()) == 1
     with fitz.open(out / 'travel-essential-greek' / 'travel-essential-greek.pdf') as doc:
         text = ' '.join(doc[0].get_text().split())
-        assert all(w in text for w in ['Εμπειρία', 'Σπουδές', 'ΓΛΩΣΣΕΣ', '03/2022 – σήμερα', '2 ταξίδια · 30 ημέρες · 14 τόποι']), text
+        # the record's own words in Greek too: capitals without accents fit the band, the tab and the labels
+        assert all(w in text for w in ['ΑΝΔΡΕΑΣ ΚΑΛΑΜΑΡΗΣ', 'ΑΡΧΗΓΟΣ ΟΜΑΔΑΣ', 'ΗΜΕΡΟΜΗΝΙΑ ΓΕΝΝΗΣΗΣ', 'ΔΙΑΘΕΣΙΜΟΣ ΟΛΟ ΤΟΝ ΧΡΟΝΟ',
+                                       'ΓΙΑ ΠΑΡΑΔΕΙΓΜΑ', 'Εμπειρία', 'Σπουδές', 'ΓΛΩΣΣΕΣ', '03/2022 – σήμερα',
+                                       '2 ταξίδια · 30 ημέρες · 14 τόποι']), text
     with fitz.open(out / 'travel-essential-long-career' / 'travel-essential-long-career.pdf') as doc:
         text = ' '.join(doc[0].get_text().split())
-        # the four newest roles in full, the four older in one summary whose count and span the domain computed
-        assert 'Earlier roles · 4 roles 06/2005 – 10/2009' in text, text
-        assert 'Resort Representative · Ionian Sun Resorts, Kefalonia 2008–2009' in text and 'Summer Guide · Achaia Walks, Patras 2005' in text
-        assert text.index('Assistant Tour Leader') < text.index('Earlier roles') < text.index('Education')
-        assert 'Welcomed guests' not in text
+        # education moves to the rail, so five roles stay in full; the three older ones are one summary whose
+        # count and span the domain computed
+        assert 'Earlier roles · 3 06/2005 – 10/2007' in text, text
+        assert 'Front Office Assistant · Hotel Rio Ambassador, Patras 2007' in text and 'Summer Guide · Achaia Walks, Patras 2005' in text
+        assert 'Welcomed guests' in text and 'Check-in, check-out' not in text
+        page = doc[0]
+        rail_x = min(b[0] for b in page.search_for('AVAILABLE FROM APRIL 2027'))
+        assert min(b[0] for b in page.search_for('EDUCATION')) >= rail_x - 1 and '02 Education' not in text
     for mode, message in [('overflow', 'Hanami essential: even the newest role alone overflows the career column'),
                           ('unsorted', 'the experience must be listed newest first'),
                           ('long-name', 'Hanami essential: the name is wider than the band'),

@@ -6,6 +6,8 @@
   paper: "a4",
   band: 50mm,
   portrait: 35mm,
+  // the sakura branch's width when the record has no portrait (104 mm beside one)
+  canopy: 150mm,
   // The fixed fields every part must fit (no shrinking, constitution 4); x and width in mm from the
   // page's left edge, y from its top.
   profile: (y: 58mm),

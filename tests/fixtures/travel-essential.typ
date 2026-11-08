@@ -12,11 +12,23 @@
   lang: "el", experience: "Εμπειρία", education: "Σπουδές", languages: "Γλώσσες", destinations: "Προορισμοί",
   practical: "Πρακτικές γνώσεις", references: "Συστάσεις", present: "σήμερα", trip: "ταξίδι", trips: "ταξίδια",
   days: "ημέρες", place: "τόπος", places: "τόποι", known: "Γνωρίζει καλά", passed: "Στάση στη διαδρομή",
-  role: "θέση", roles: "θέσεις", earlier: "Παλαιότερες θέσεις",
+  earlier: "Παλαιότερες θέσεις",
 )
 #let job = raw.experience.at(0)
+// A Greek record proves Greek capitals (no accents, tracked) fit the band, the tab and the labels:
+// the record's own words are data, so the fixture translates them.
+#let greek-record = (..raw,
+  identity: (..raw.identity, name: "Ανδρέας Καλαμάρης", rank: "Αρχηγός ομάδας", specialty: "Ειδικός στην Ιαπωνία"),
+  contacts: (
+    left: (("Έδρα", "Θεσσαλονίκη"), ("Τηλέφωνο", "+30 699 000 0471"), ("Email", "andreas.kalamaris@example.com")).map(((l, v)) => (label: l, value: v)),
+    right: (("Ημερομηνία γέννησης", "18 Αυγούστου 1999"), ("Υπηκοότητα", "Ελληνική"), ("Ιαπωνικά", "JLPT N3")).map(((l, v)) => (label: l, value: v)),
+  ),
+  availability: (headline: "Διαθέσιμος όλο τον χρόνο", text: "Από τον Μάρτιο του 2027, σε κάθε εποχή, με ειδοποίηση δύο εβδομάδων."),
+  experience: ((..job, support: (..job.support, lead: "Για παράδειγμα")),) + raw.experience.slice(1),
+)
 #let candidate = {
-  if case in ("indigo", "sky", "greek", "showcase-layout") { raw }
+  if case in ("indigo", "sky", "showcase-layout") { raw }
+  else if case == "greek" { greek-record }
   else if case == "no-portrait" { (..raw, identity: (..raw.identity, portrait: none)) }
   else if case in ("long-career", "long-career-greek") { long }
   else if case == "overflow" { (..raw, experience: ((..job, bullets: job.bullets * 5),) + raw.experience.slice(1)) }

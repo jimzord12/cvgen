@@ -31,7 +31,9 @@ composition (`essential.typ`) and its parts (`components/essential.typ`).
 unchanged. On one A4 page the name block sits in a shallow band, the profile
 row under it, then each role's title, employer and dates in a career column with
 education at its foot, and availability, languages, destinations, practical
-know-how and references on a rail. When the roles do not fit, the newest stay in
+know-how and references on a rail. The gaps between roles widen with spare
+height only up to a cap; the rest stays at the column's foot. When the roles do
+not fit, education moves to the rail if it has room, the newest roles stay in
 full and the older ones become one summary whose count and span come from the
 domain (`experience-totals`); when even the newest role does not fit, the compile
 fails.
