@@ -13,7 +13,7 @@
 // The gaps between the career column's parts: at least these, and at most `most`; the column's spare
 // height above that stays at its foot, so no role floats away from the next.
 #let least = (role: 4.6mm, section: 6.4mm, rail: 7mm)
-#let most = (role: 8mm, section: 10mm, rail: 11mm)
+#let most = (role: 8mm, section: 10mm, rail: 9mm)
 
 // Experience, with `k` roles in full and the rest summarised, then education unless the rail holds it.
 #let career(ctx, d, k, edu, gaps) = {
@@ -75,7 +75,8 @@
       + repr(measure(row).height) + "); shorten the lead statement or a highlight")
 
     let H = L.main.bottom - top
-    let R = L.rail.bottom - top
+    // the rail's content ends 4 mm inside its panel, as the panel starts 4 mm above it
+    let R = L.rail.bottom - top - 4mm
     let n = d.experience.len()
     let height(k, edu, gaps) = measure(block(width: L.main.width, career(ctx, d, k, edu, gaps))).height
     // the most roles in full that fit, with education in the column or not

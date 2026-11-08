@@ -11,7 +11,7 @@
   // The fixed fields every part must fit (no shrinking, constitution 4); x and width in mm from the
   // page's left edge, y from its top.
   profile: (y: 58mm),
-  main: (x: 16mm, y: 85mm, width: 113mm, bottom: 281mm),
+  main: (x: 16mm, y: 85mm, width: 113mm, bottom: 279mm),
   rail: (x: 141mm, y: 85mm, width: 53mm, bottom: 281mm, panel: 135mm),
   pages: 1,
 )
