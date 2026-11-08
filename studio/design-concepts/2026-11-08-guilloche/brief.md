@@ -1,6 +1,6 @@
 # Guilloche
 
-**Idea:** the one-page CV opens under a band engraved like security print: a woven underprint on a rainbow tint, a large engraved travel globe with dotted routes and a drawn airliner, and the cut-out portrait in an arch on its own engraved ground, running down behind the band's twisted engraved foot. The engraved line carries on below as the section rules and as the rule between the columns. Three words: **engraved security print**.
+**Idea:** the one-page CV opens under a band engraved like security print: a woven underprint on a rainbow tint that fades into the page, a large engraved travel globe with great-circle routes and a drawn airliner, and the cut-out portrait in an arch on a plain sage ground, passing behind a tapering guilloche "helix" that divides header from body. The engraved line carries on below as the section rules and as the rule between the columns. Three words: **engraved security print**.
 
 Run: idea run 2026-11-08 (editor), five one-page styles for a practical travel CV under the `scan-first` bar. `Domain` travel; specialty group and private travel; `Rank` Tour Leader / Travel Consultant. One design, `Condensed` density, `stylish` `Design Tier`, drawn twice: in its own palette and as a monochrome version.
 
@@ -40,9 +40,36 @@ The owner's notes on this design (2026-11-08): "the image should have a differen
 - **Behind the helix.** The arch now runs down behind the band's foot. The twisted engraved band (now 6.8 mm, on a light veil) crosses the arch's lower edge in front of the shirt, well below the face.
 - **Travel globe.** The rosette rings are gone and the globe is about two and a half times larger: 45 mm across, with a double rim, more meridians and parallels, and the equator heavier. Dotted routes curve from a home dot to four destination dots, two west and north in Europe and two east and south-east in Asia, with no labels and no country emphasis. An airliner flies the eastern route, drawn here as an engraved outline with a fuselage line and engine pods: no stock glyph (cf. Poster Sun, D11). Its outer rim stays about 4.6 mm inside the right page edge (D21), and the globe sits clear of the name, title and fields.
 
+## Round 6 (owner)
+
+The owner's second set of notes on the header (2026-11-08): "make the image background without the shape behind the head", "make the helix that separates the header section from the rest to feel more seamless", "Try to make the globe and airplane better". Colour and mono both follow:
+
+- **Plain ground behind the head.** The engraved halo is gone. The arch keeps the plain sage ground (mid grey in mono), and the face stays centred and a little high.
+- **A seamless helix.** Nothing about the divider reads as a separate strip now:
+  - The header's tint fades into the white page over its last 18 mm, so there is no edge where it stops.
+  - The arch's foot fades into the page over its last 15 mm, and its engraved outline fades with it.
+  - The full-width white veil is gone (D24).
+  - The helix is the same twisted guilloche, but its amplitude tapers smoothly to a single line at both page edges, so it emerges from the page and returns into it.
+  - It is fullest over the shirt (D23) and still crosses in front of it, well below the face. It remains the one signature divider.
+- **An engraved globe.** The globe is drawn the way a banknote engraver models a sphere:
+  - Horizontal shading lines whose weight follows the shadow side, with light from the upper left.
+  - A fine graticule every 15 degrees, front hemisphere only, with the axis tilted 18 degrees and the equator heavier.
+  - A delicate bezel: a fine guilloche ring between two rims.
+  - The routes are true great-circle arcs, computed on the sphere and lifted slightly off it, dotted, from a home dot to four destinations: two in Europe, two in Asia. They are unlabelled.
+  - I did not add continent shading: inventing coastlines would be inaccurate, and real ones would push towards one country.
+  - Its outer rim stays about 5 mm inside the page edge (D21).
+- **A refined airliner.** A new silhouette with the proportions of a twin-engine airliner: long fuselage, swept wings and swept tailplane, two engine pods and a cockpit glazing mark.
+  - Its fill is an engraved hatch (fine lines that turn with the plane), outlined at 0.6 pt and set on a white knockout. That also fixes the round-5 mono Nit: the plane no longer sinks into the shading.
+  - It flies the route to the Central Asian dot and is turned along the arc's tangent.
+- **Polish after the round-6 review (D25, D26, Codex D1).**
+  - The airliner is now 10.5 mm (was 14 mm) and flies the longer eastern route at its midpoint. Its heading is tangent to the arc, and dotted trail shows both behind its tail and ahead of its nose.
+  - The axis stub at the north pole, which poked through the rim into the bezel, is removed.
+  - The destination dots are smaller (1.1 mm radius), so the engraving leads.
+- **Cut-out fringe.** The portrait's matte was eroded by one pixel, which removes the faint grey fringe along the shoulders at high resolution (round-5 Nit).
+
 ## What the owner should notice first
 
-The band: a mint-to-peach-to-lilac tint and waves of fine woven lines across it. At right, the large engraved globe with its dotted routes and the airliner. At left, the portrait in an arch on its sage, engraved ground, passing behind the twisted engraved foot. Between them, the name in reading order with the title in rose.
+The band: a mint-to-peach-to-lilac tint and waves of fine woven lines, fading into the white page. At right, the engraved globe: shaded, tilted, with its bezel, the dotted great-circle routes and the hatched airliner. At left, the portrait in an arch on plain sage, dissolving into the page behind the tapering helix. Between them, the name with the title in rose.
 
 ## The two versions
 
@@ -87,7 +114,7 @@ The round-1 reference to the machine-readable passport (Wikipedia) is withdrawn:
 
 ## Generated images
 
-None. The underprint, the arch's engraved halo, the globe, its routes, the airliner and the wave rules are all Typst drawing.
+None. The underprint, the globe (shading, graticule, bezel), its great-circle routes, the airliner, the helix and the wave rules are all Typst drawing.
 
 ## Portrait
 
@@ -97,7 +124,7 @@ None. The underprint, the arch's engraved halo, the globe, its routes, the airli
 - downscaled from 1200 to 640 px;
 - colour SHA-256 `6ef637049d7f4b18f99f3edd8680a3e27462df54861f2c383395bd08ef67396f`, mono `3889d936d3cd481439e4795f6e1754f0924cdb5f975fa5433610b1e8c4014c3a`.
 
-The portrait fills a 60 × 79 mm arch (round 5: on a sage engraved ground, its foot behind the band's engraved border) with `fit: "cover"`, centred and never shifted, so the face sits centred and a little high. The arch's foot sits on the band's engraved border, and the band shows through the transparent background.
+The portrait fills a 60 × 80 mm arch (round 6: on a plain sage ground, its foot fading into the page behind the helix) with `fit: "cover"`, centred and never shifted, so the face sits centred and a little high. The arch's foot sits on the band's engraved border, and the band shows through the transparent background.
 
 ## Data
 
@@ -110,7 +137,7 @@ The portrait fills a 60 × 79 mm arch (round 5: on a sage engraved ground, its f
 
 ## What it would take to become a `Template`
 
-- **Artwork pack:** `rosette(r, amp, lobes, phases)`, `waveband(width, height, lines, periods)`, `vwaveband`, `globe(r)`, `routes(home, stops, plane-on)`, `airliner(size)`, `arch-portrait(w, h, ground)`; all parametric. The routes' destinations would come from data (offsets on the globe), never labelled. The centre rule needs the columns measured, as here.
+- **Artwork pack:** `rosette(r, amp, lobes, phases)`, `waveband(width, height, lines, periods)`, `vwaveband`, `globe(r, tilt, light)`, `routes(home, stops, plane-on)` (great circles on the sphere), `airliner(size)`, `helix(width, bulge)`, `arch-portrait(w, h, ground, fade)`; all parametric. The routes' destinations would come from data (offsets on the globe), never labelled. The centre rule needs the columns measured, as here.
 - **Theme:** ink, two engraving colours, the band tint (or white for mono), Fira Sans and Plex Mono.
 - **Data:** all fields exist in the travel contract.
 - **Performance:** the rosettes and bands are thousands of curve points. The compile is still quick, and the colour PDF is about 0.68 MB with the portrait.
@@ -120,3 +147,12 @@ The portrait fills a 60 × 79 mm arch (round 5: on a sage engraved ground, its f
 - **Small field labels:** the band still uses small monospace labels above the contact fields; they are lighter than before but keep a faint form-like note.
 - **Lower page:** below the band the page is calm; its identity there rests on the engraved rules alone.
 - **Text breaks:** running text binds its last three or four words together (a non-breaking tie), and a school name breaks at its comma.
+
+## Portrait files after round 6
+
+The guilloche folder's `portrait.png` and `portrait-mono.png` had their transparency eroded by one pixel (PIL `MinFilter(3)` on the alpha channel) to remove the cut-out fringe. New SHA-256:
+
+- `portrait.png`: `e8237bd1af498b1db3024a83dfec5d4f0e15b8e0c0feb13f9dc57f378244d02f`
+- `portrait-mono.png`: `568dc3e36e438da80971a8f2cf93efe38aeb4c74869f5604031dd1f40bac33d1`
+
+The other four styles keep the earlier files.
