@@ -38,13 +38,15 @@ A record says which version it follows in `domainContract`; none means 1.
 
 ## Template Manifests
 
-Each `Template Variation` under `variations` states `pages`, its `designBar`, the
-`layouts`, `themes` and `artwork` it allows, and `supports`: for a `Domain`, either
-`upTo` N (versions 1 to N) or `exactly` a rising list of the versions it
-handles, and `groups`, the optional `Fact Group`s it shows as
+Each `Template Variation` under `variations` states `pages`, its `designBar`
+(`showcase` for the bar in `docs/vision.md`, "Design is the product", or
+`scan-first`), the `layouts`, `themes` and `artwork` it allows, and `supports`:
+for a `Domain`, either `upTo` N (versions 1 to N) or `exactly` a rising list of
+the versions it handles, and `groups`, the optional `Fact Group`s it shows as
 `name@schemaVersion`. A group it renders in two shapes is claimed twice
-(`places@1`, `places@2`), and the suite proves each claim on a version it names. Required groups follow from the version. A
-`Template Variation` is never required to name the newest version.
+(`places@1`, `places@2`), and the suite proves each claim on a version it
+names. Required groups follow from the version. A `Template Variation` is never
+required to name the newest version.
 
 ```json
 "supports": { "travel": { "exactly": [1, 2], "groups": ["destinations@1", "destinations@2", "licences@1"] } }
@@ -61,10 +63,14 @@ and its `designBar` is set when the owner approves the design.
 - **Before a client's render** (`cv_workflow/contracts.py`): a missing required
   group stops the render, as does an `envelope.json` that disagrees with
   `typst/cv.typ`, an unknown `Template Variation`, a version below
-  `oldestSupported`, or one older than every version the `Template Variation`
-  names. An optional group the record holds
+  `oldestSupported`, or one below the newest version the `Template Variation`
+  names that it skips. An optional group the record holds
   and the `Template Variation` does not claim gives a warning, and the `Meta File`
-  lists it under `dropped`.
+  lists it under `dropped`. In `envelope.json`, `template` and `variation` are
+  names in quotes: no `template` only warns, and no `variation` means the
+  manifest's default. `typst/cv.typ` passes `variation:` as a name in quotes
+  or `none`, the default; anything else stops the render, which reads it from
+  the text.
 - A custom composition is checked against the `Domain Contract` alone, and a
   `Domain` with no contract yet is not checked.
 

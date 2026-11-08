@@ -52,6 +52,14 @@ no override is needed. Render with `python scripts/cv.py render private/<envelop
 --pages 1`. Whether a record fits is in
 `../engine/layout-and-pagination.md`, "Choosing a profile".
 
+**Record the choice.** A Flagship entry point names its `Template` and
+`Template Variation` in `envelope.json`: `"template": "flagship"` and
+`"variation": "showcase"`. If `cv.typ` passes `variation:` to `flagship`,
+write the name in quotes, or `none` for the default: the render reads it
+from the text. The render checks both against `cv.typ` and the record
+(`../engine/template-contract.md`): a missing required `Fact Group` stops
+it, and one the `Template Variation` does not show gives a warning.
+
 ## 2. The record and the example wording
 
 Used by `design.fill-data` and, for the wording, `deliver.wording-check`.
@@ -76,11 +84,6 @@ and lists the offending field paths; the engine's compile-time assertions
 then check totals. A one-off `Template` that imports only the `Framework`
 gets no schema check: keep `identity.name` and `identity.portrait`, and run
 `normalize-common` and `validate-common` in its `cv.typ`.
-
-**Record the choice.** For a Flagship entry point, add `"template": "flagship"`
-and `"variation": "showcase"` to `envelope.json`. The render checks them against `cv.typ` and the record
-(`docs/engine/template-contract.md`): a missing required `Fact Group` stops it,
-and one the `Template Variation` does not show gives a warning.
 
 **Replace the example wording.** Three defaults exist for the fictional
 examples and would otherwise print on a real CV:
@@ -131,7 +134,8 @@ a check failed; the revision stays, with the error in its `render.log` or
 `cv.typ` at its root, invalid
 JSON, a record that breaks its schema - the offending fields are listed
 with their paths, the first ten and then a count - a record missing a required
-`Fact Group`, an `envelope.json` that disagrees with `cv.typ`, a missing portrait file, no Typst on PATH), and the reason
+`Fact Group`, an `envelope.json` that disagrees with `cv.typ`, a missing
+portrait file, no Typst on PATH), and the reason
 names the fix. Nothing is written on a refusal. Its options: `--pages N`
 (the page count the checks expect, default 2), `--input key=value`
 (passed to `typst --input`; `lang=<xx>` also goes into the `Meta File`),

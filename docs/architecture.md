@@ -44,9 +44,6 @@ artwork pack.
 | Layout | `domains/marine/templates/flagship/layouts/*.typ` | Margins, the page shell's `shell` slice (opening margin, hero band), hero geometry, column widths, gaps, spacing scale, page plan, `anchor-education`, `spread`, `stack-gap` |
 | Display switch | `show-vessel-durations` on `flagship` | Show or hide every vessel duration at once without moving columns; a record of contract periods refuses it; `scripts/build.ps1 -HideVesselDurations` builds every example with it off (refused with `-Release`) |
 
-An optional `variation` on `flagship` names a `Template Variation`
-(`docs/engine/template-contract.md`); none means the manifest's default.
-
 A seventh, optional input is `copy` on `flagship`: overrides for the
 wording. The adapter composes the marine domain's words, then the role's,
 then Flagship's, then a `copy` key inside the record, then the argument
@@ -54,6 +51,10 @@ then Flagship's, then a `copy` key inside the record, then the argument
 (contract: `domains/marine/templates/flagship/schema/flagship-input.schema.json`). That
 schema refers to the marine facts schema and adds only `copy` (ADR 0016), so
 the facts are stated once and a second template reads them with its own wording.
+
+An eighth, optional input is `variation` on `flagship`: the `Template
+Variation` it renders (`docs/engine/template-contract.md`); `none` means the
+manifest's default.
 
 The template is the only place that sees all inputs. It builds one `ctx`
 dictionary (theme, layout, artwork, the composed copy, options such as
@@ -110,7 +111,8 @@ and touches neither `cv-framework/` nor `marine/`.
 ## The Template Contract
 
 A `Template` declares what it supports, and a `Domain` declares what it holds,
-in versioned files the suite and the render check: `docs/engine/template-contract.md`
+in versioned files the suite and the render check:
+`docs/engine/template-contract.md`
 (ADR 0016).
 
 ## Module map
@@ -136,7 +138,7 @@ domains/marine/                         the marine domain (ADR 0011)
   data.typ                              company-months, experience-totals, normalize-candidate, validate-candidate, experience-model
   schema/candidate.schema.json          marine candidate-facts contract
   contracts/v<N>.json                   the Domain Contract, each version kept
-  fixtures/coverage-v<N>.json           the Coverage Fixture and its markers
+  fixtures/coverage-v<N>[-<kind>].json  a Coverage Fixture per way of recording experience; its markers in coverage-v<N>[-<kind>].markers.json
   assets/                               the SVG files, shared by the domain's templates
   roles/deck/role.typ  roles/engine/role.typ   role markers
   templates/flagship/

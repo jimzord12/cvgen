@@ -72,7 +72,8 @@ This schematic candidate name does not identify a real person:
 
 ```text
 private/<envelope>/              # The full Envelope tree: docs/guides/client-workflow.md, section 1
-  envelope.json                 # Who the client is: alias, domain, candidate, rank; its template and variation;
+  envelope.json                 # Who the client is: alias, domain, candidate, rank;
+                                #   template and variation when a Template renders the CV;
                                 #   render refuses without it
   candidate.json                # Working candidate record
   typst/cv.typ                  # Entry point: template, theme, artwork, layout, page plan;
@@ -134,9 +135,10 @@ without a valid, current `Meta File` shows up as a problem, never silently.
   `packages/cv-workflow/cv_workflow/output.schema.json` (`contract:
   cvgen.output/1`). It always holds `kind`, `domain`, `candidate`, `pages`,
   `date`, `status` and the PDF's `sha256`; a concept also `style`, `density`
-  and `tier`, an example `style` and `source`, a client PDF `alias`, and a
-  client PDF from a `Template` its `template`, `variation`, `domain_contract`
-  and `dropped` (ADR 0016).
+  and `tier`, an example `style` and `source`, a client PDF `alias`; a
+  client CV rendered from a `Template` also its `template`, `variation`,
+  `domain_contract` and `dropped`, and a custom composition its
+  `domain_contract` (ADR 0016).
   `domain` is an id from the glossary's `Domain` row (`marine`, `travel`).
 - `python scripts/outputs.py stamp <pdf> status=<status> [key=value ...]`
   writes it. It computes `pages`, `sha256` and `date`, takes `kind` (and
