@@ -20,6 +20,8 @@
   gradient.linear(rgb("#CDEADB"), rgb("#F4E0CA"), rgb("#E0D8F0"), angle: 0deg)
 }
 
+#let arch-fill = if mono { rgb("#B9B9B9") } else { rgb("#8DBBA9") }
+
 #let sans = "Fira Sans"
 #let mono-font = "IBM Plex Mono"
 
@@ -67,19 +69,66 @@
 // an institution "Name, qualifier" breaks at its comma, never mid-phrase
 #let at-comma(s) = { let p = s.split(", "); if p.len() < 2 { s } else { [#p.at(0),#linebreak()#p.slice(1).join(", ")] } }
 
-// an engraved globe: meridians and parallels only
-#let globe(c, gr, col) = {
-  place(top + left, dx: c.at(0) - gr, dy: c.at(1) - gr, circle(radius: gr, stroke: 0.7pt + col))
-  for lon in (22deg, 48deg, 72deg) {
+// an engraved globe: meridians and parallels on a pale sphere, a double rim
+#let globe(c, gr, col, fill: none) = {
+  place(top + left, dx: c.at(0) - gr, dy: c.at(1) - gr, circle(radius: gr, fill: fill, stroke: 1pt + col))
+  place(top + left, dx: c.at(0) - gr - 1.4mm, dy: c.at(1) - gr - 1.4mm, circle(radius: gr + 1.4mm, stroke: 0.4pt + col))
+  for lon in (18deg, 38deg, 56deg, 72deg, 84deg) {
     let rx = gr * calc.cos(lon)
-    place(top + left, dx: c.at(0) - rx, dy: c.at(1) - gr, ellipse(width: 2 * rx, height: 2 * gr, stroke: 0.4pt + col))
+    place(top + left, dx: c.at(0) - rx, dy: c.at(1) - gr, ellipse(width: 2 * rx, height: 2 * gr, stroke: 0.35pt + col))
   }
-  place(top + left, dx: c.at(0), dy: c.at(1) - gr, line(length: 2 * gr, angle: 90deg, stroke: 0.4pt + col))
-  for lat in (-60deg, -30deg, 0deg, 30deg, 60deg) {
+  place(top + left, dx: c.at(0), dy: c.at(1) - gr, line(length: 2 * gr, angle: 90deg, stroke: 0.35pt + col))
+  for lat in (-60deg, -40deg, -20deg, 0deg, 20deg, 40deg, 60deg) {
     let y = c.at(1) + gr * calc.sin(lat)
     let hw = gr * calc.cos(lat)
-    place(top + left, line(start: (c.at(0) - hw, y), end: (c.at(0) + hw, y), stroke: 0.4pt + col))
+    place(top + left, line(start: (c.at(0) - hw, y), end: (c.at(0) + hw, y), stroke: (if lat == 0deg { 0.6pt } else { 0.35pt }) + col))
   }
+}
+
+// an airliner seen from above, drawn as an engraved outline (nose towards -y before rotation)
+#let airliner(s, col, fill) = box(width: s, height: s, {
+  let u = s / 10
+  place(top + left, polygon(fill: fill, stroke: (paint: col, thickness: 0.6pt, join: "round"),
+    (5*u, 0*u), (5.6*u, 0.7*u), (5.75*u, 3.4*u), (9.8*u, 5.9*u), (9.8*u, 6.8*u), (5.75*u, 5.7*u), (5.55*u, 8.3*u),
+    (6.9*u, 9.3*u), (6.9*u, 9.9*u), (5*u, 9.5*u), (3.1*u, 9.9*u), (3.1*u, 9.3*u), (4.45*u, 8.3*u), (4.25*u, 5.7*u),
+    (0.2*u, 6.8*u), (0.2*u, 5.9*u), (4.25*u, 3.4*u), (4.4*u, 0.7*u)))
+  // engraved detail: the fuselage line and the engine pods
+  place(top + left, line(start: (5*u, 1.2*u), end: (5*u, 8.6*u), stroke: 0.35pt + col))
+  for x in (2.7, 7.3) { place(top + left, dx: (x - 0.35)*u, dy: 4.5*u, rect(width: 0.7*u, height: 1.4*u, fill: col, stroke: none)) }
+})
+
+// dotted routes from home to destinations over the globe; a plane flies one of them
+#let routes(c, home, stops, plane-on, col, dot-fill) = {
+  let at(p) = (c.at(0) + p.at(0), c.at(1) + p.at(1))
+  let curve-pts(a, b) = {
+    let (ax, ay) = at(a)
+    let (bx, by) = at(b)
+    let mx = (ax + bx) / 2
+    let my = (ay + by) / 2
+    // control point lifted away from the chord, as a great-circle arc reads on a globe
+    let lift = calc.sqrt(calc.pow((bx - ax) / 1mm, 2) + calc.pow((by - ay) / 1mm, 2)) * 0.32mm
+    let ctl = (mx, my - lift)
+    range(0, 41).map(i => {
+      let t = i / 40
+      ((1 - t) * (1 - t) * ax + 2 * (1 - t) * t * ctl.at(0) + t * t * bx,
+       (1 - t) * (1 - t) * ay + 2 * (1 - t) * t * ctl.at(1) + t * t * by)
+    })
+  }
+  for (k, b) in stops.enumerate() {
+    let pts = curve-pts(home, b)
+    place(top + left, poly(pts, (paint: col, thickness: 0.9pt, dash: "densely-dotted", cap: "round")))
+    place(top + left, dx: at(b).at(0) - 1.5mm, dy: at(b).at(1) - 1.5mm, circle(radius: 1.5mm, fill: dot-fill, stroke: 0.8pt + white))
+    if k == plane-on {
+      let i = 26
+      let (x0, y0) = pts.at(i - 1)
+      let (x1, y1) = pts.at(i + 1)
+      let ang = calc.atan2((x1 - x0) / 1mm, (y1 - y0) / 1mm) + 90deg
+      let (px, py) = pts.at(i)
+      place(top + left, dx: px - 5mm, dy: py - 5mm, rotate(ang, airliner(10mm, col, white)))
+    }
+  }
+  place(top + left, dx: at(home).at(0) - 2.2mm, dy: at(home).at(1) - 2.2mm, circle(radius: 2.2mm, fill: white, stroke: 1pt + col))
+  place(top + left, dx: at(home).at(0) - 0.9mm, dy: at(home).at(1) - 0.9mm, circle(radius: 0.9mm, fill: col, stroke: none))
 }
 
 // a vertical engraved rule (the waveband turned on end)
@@ -103,24 +152,34 @@
     place(top + left, dy: 2mm + k * 10mm, waveband(210mm, 9mm, n: 5, periods: 10 + calc.rem(k, 2),
       col: line-a.transparentize(if mono { 80% } else { 80% }), col2: line-b.transparentize(if mono { 78% } else { 82% }), wt: if mono { 0.25pt } else { 0.3pt }))
   }
-  // the rosette with a globe at its heart
-  // the outer ring stays about 4 mm inside the page edge (round 4, D21)
-  let rc = (181mm, 52mm)
-  rosette(rc, 22.5mm, 2.7mm, 14, 18, line-a.transparentize(if mono { 10% } else { 30% }), w: if mono { 0.25pt } else { 0.35pt })
-  rosette(rc, 14.5mm, 2.2mm, 10, 14, line-b.transparentize(if mono { 10% } else { 25% }), w: if mono { 0.25pt } else { 0.35pt })
-  place(top + left, dx: rc.at(0) - 10.5mm, dy: rc.at(1) - 10.5mm, circle(radius: 10.5mm, fill: if mono { white } else { rgb("#F3ECE4") }, stroke: none))
-  globe(rc, 9mm, line-a)
+  // the travel globe (round 5, owner): bigger, with dotted routes from home to destinations
+  // in Europe and Asia, and a drawn airliner on one of them. Its rim stays 4 mm inside the page edge (D21).
+  let gc = (181.5mm, 50mm)
+  let gr = 22.5mm
+  globe(gc, gr, line-a, fill: if mono { white } else { rgb("#F7F1E8") })
+  routes(gc, (-5mm, 0mm),
+    ((-15mm, -9mm), (-4mm, -15mm), (15mm, -7mm), (12mm, 8mm)),
+    2, if mono { ink } else { rose }, if mono { ink } else { rose })
 })
 
 #set page(background: {
   place(top + left, band)
-  // the band's foot: an engraved border
-  place(top + left, dy: Hb - 2.6mm, waveband(210mm, 5.2mm, n: 9, periods: 34, wt: if mono { 0.3pt } else { 0.4pt }))
-  // the portrait stands on the band's foot; the band itself shows behind the cut-out
-  place(top + left, dx: 12mm, dy: Hb - 76mm, box(width: 60mm, height: 76mm, clip: true, radius: (top-left: 30mm, top-right: 30mm),
-    image(portrait, width: 60mm, height: 76mm, fit: "cover")))
-  place(top + left, dx: 12mm, dy: Hb - 76mm, box(width: 60mm, height: 76mm, radius: (top-left: 30mm, top-right: 30mm),
-    stroke: (top: 0.7pt + line-a, left: 0.7pt + line-a, right: 0.7pt + line-a)))
+  // the portrait arch (round 5, owner): its own mid-tone ground with a fine engraved halo, so the
+  // dark hair and the white shirt both separate from it; it runs down behind the band's foot
+  let aw = 60mm
+  let ah = 79mm
+  let ay = Hb - 76mm
+  place(top + left, dx: 12mm, dy: ay, box(width: aw, height: ah, clip: true, radius: (top-left: aw / 2, top-right: aw / 2), {
+    place(top + left, rect(width: aw, height: ah, fill: arch-fill, stroke: none))
+    rosette((aw / 2, 30mm), 26mm, 2.4mm, 16, 16, white.transparentize(if mono { 45% } else { 50% }), w: 0.3pt)
+    rosette((aw / 2, 30mm), 17mm, 2mm, 12, 12, white.transparentize(if mono { 45% } else { 50% }), w: 0.3pt)
+    image(portrait, width: aw, height: ah, fit: "cover")
+  }))
+  place(top + left, dx: 12mm, dy: ay, box(width: aw, height: ah, radius: (top-left: aw / 2, top-right: aw / 2),
+    stroke: (top: 0.8pt + line-a, left: 0.8pt + line-a, right: 0.8pt + line-a)))
+  // the band's foot, the engraved "helix", runs in front of the arch across the shirt
+  place(top + left, dy: Hb - 3.4mm, rect(width: 210mm, height: 6.8mm, fill: white.transparentize(if mono { 30% } else { 45% }), stroke: none))
+  place(top + left, dy: Hb - 3.4mm, waveband(210mm, 6.8mm, n: 9, periods: 34, wt: if mono { 0.35pt } else { 0.45pt }))
   // header strip and identity, set on the band
   place(top + left, dx: 15mm, dy: 9mm, text(font: mono-font, weight: 600, size: 8pt, tracking: 2pt, fill: ink)[CURRICULUM VITAE])
   place(top + right, dx: -15mm, dy: 9mm, text(font: mono-font, weight: 600, size: 8pt, tracking: 2pt, fill: ink)[TRAVEL · GROUP & PRIVATE])

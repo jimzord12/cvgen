@@ -1,6 +1,6 @@
 # Guilloche
 
-**Idea:** the one-page CV opens under a band engraved like security print: a woven underprint on a rainbow tint, a two-ring rosette with a globe at its heart, and the cut-out portrait standing in an arch on the band's engraved foot. The engraved line carries on below as the section rules and as the rule between the columns. Three words: **engraved security print**.
+**Idea:** the one-page CV opens under a band engraved like security print: a woven underprint on a rainbow tint, a large engraved travel globe with dotted routes and a drawn airliner, and the cut-out portrait in an arch on its own engraved ground, running down behind the band's twisted engraved foot. The engraved line carries on below as the section rules and as the rule between the columns. Three words: **engraved security print**.
 
 Run: idea run 2026-11-08 (editor), five one-page styles for a practical travel CV under the `scan-first` bar. `Domain` travel; specialty group and private travel; `Rank` Tour Leader / Travel Consultant. One design, `Condensed` density, `stylish` `Design Tier`, drawn twice: in its own palette and as a monochrome version.
 
@@ -32,9 +32,17 @@ Design D19 (Blocking) found about 43 mm of empty paper at the foot and a centre 
 - **Rosette (D21):** the outer ring was about 0.4 mm from the right page edge. The rosette now sits about 4 mm inside it (centre moved from 184 to 181 mm, outer radius 22.5 mm), clear of printer clipping.
 - **No duplicate availability:** the header grid no longer has an "Available from" field; the Availability section carries it. The specialty moved out of the grid to a line under the title ("Group and private travel, Europe and Asia"), so the grid is a balanced 3 × 2: phone, email, passport on the left; base, date of birth, nationality on the right.
 
+## Round 5 (owner)
+
+The owner's notes on this design (2026-11-08): "the image should have a different bg and it should placed behind that helix kind shape. Next the globe on the right, I think something more travel like would be better, like showing the globe bigger but with an airplane travel on it with dots lines showing its destination". Colour and mono both follow:
+
+- **Portrait ground.** The arch now has its own ground: a mid-tone sage green from the palette (mid grey in mono), with a fine white engraved halo of two lobed rings behind the head. Reason: a mid tone is the one value that separates both the dark hair and the white shirt from the ground, and the engraved halo keeps it in the security-print idea rather than a studio backdrop. The image is centred with `fit: "cover"`, so the face stays centred and a little high.
+- **Behind the helix.** The arch now runs down behind the band's foot. The twisted engraved band (now 6.8 mm, on a light veil) crosses the arch's lower edge in front of the shirt, well below the face.
+- **Travel globe.** The rosette rings are gone and the globe is about two and a half times larger: 45 mm across, with a double rim, more meridians and parallels, and the equator heavier. Dotted routes curve from a home dot to four destination dots, two west and north in Europe and two east and south-east in Asia, with no labels and no country emphasis. An airliner flies the eastern route, drawn here as an engraved outline with a fuselage line and engine pods: no stock glyph (cf. Poster Sun, D11). Its outer rim stays about 4.6 mm inside the right page edge (D21), and the globe sits clear of the name, title and fields.
+
 ## What the owner should notice first
 
-The band: a mint-to-peach-to-lilac tint, waves of fine woven lines across it, the double rosette at right with its globe, the portrait in an arch at left standing on the engraved border, and the name between them in reading order with the title in rose.
+The band: a mint-to-peach-to-lilac tint and waves of fine woven lines across it. At right, the large engraved globe with its dotted routes and the airliner. At left, the portrait in an arch on its sage, engraved ground, passing behind the twisted engraved foot. Between them, the name in reading order with the title in rose.
 
 ## The two versions
 
@@ -79,7 +87,7 @@ The round-1 reference to the machine-readable passport (Wikipedia) is withdrawn:
 
 ## Generated images
 
-None. The underprint, rosettes, globe, wave rules and microprint are all Typst drawing.
+None. The underprint, the arch's engraved halo, the globe, its routes, the airliner and the wave rules are all Typst drawing.
 
 ## Portrait
 
@@ -89,7 +97,7 @@ None. The underprint, rosettes, globe, wave rules and microprint are all Typst d
 - downscaled from 1200 to 640 px;
 - colour SHA-256 `6ef637049d7f4b18f99f3edd8680a3e27462df54861f2c383395bd08ef67396f`, mono `3889d936d3cd481439e4795f6e1754f0924cdb5f975fa5433610b1e8c4014c3a`.
 
-The portrait fills a 60 × 76 mm arch with `fit: "cover"`, centred and never shifted, so the face sits centred and a little high. The arch's foot sits on the band's engraved border, and the band shows through the transparent background.
+The portrait fills a 60 × 79 mm arch (round 5: on a sage engraved ground, its foot behind the band's engraved border) with `fit: "cover"`, centred and never shifted, so the face sits centred and a little high. The arch's foot sits on the band's engraved border, and the band shows through the transparent background.
 
 ## Data
 
@@ -102,7 +110,7 @@ The portrait fills a 60 × 76 mm arch with `fit: "cover"`, centred and never shi
 
 ## What it would take to become a `Template`
 
-- **Artwork pack:** `rosette(r, amp, lobes, phases)`, `waveband(width, height, lines, periods)`, `vwaveband`, `globe(r)`, `arch-portrait(w, h)`; all parametric. The centre rule needs the columns measured, as here.
+- **Artwork pack:** `rosette(r, amp, lobes, phases)`, `waveband(width, height, lines, periods)`, `vwaveband`, `globe(r)`, `routes(home, stops, plane-on)`, `airliner(size)`, `arch-portrait(w, h, ground)`; all parametric. The routes' destinations would come from data (offsets on the globe), never labelled. The centre rule needs the columns measured, as here.
 - **Theme:** ink, two engraving colours, the band tint (or white for mono), Fira Sans and Plex Mono.
 - **Data:** all fields exist in the travel contract.
 - **Performance:** the rosettes and bands are thousands of curve points. The compile is still quick, and the colour PDF is about 0.68 MB with the portrait.
