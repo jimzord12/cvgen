@@ -41,6 +41,9 @@ def run_report(out):
              'decisions': [{'figures': ['3']}]}
     assert script.placement(mixed) == {'cards': [['2'], [], []], 'figures': ['4', '3', '1']}, script.placement(mixed)
     checks.append('figures placed: one in its card, one shared under Figures; uncited and decision-only figures stay under Figures')
+    opens_new = ('.compare{position:relative;--x:8%;', '<input type="range" min="0" max="100" value="8"', '<span class="compare" style="--x:0%">')
+    assert all(text in page for text in opens_new), 'a comparison opens on the new version'
+    checks.append('a comparison opens on the new version: the thumbnail shows it alone, the slider leaves the old one a sliver')
     checks.append('sample builds into one page')
     bare_number = json.loads(SAMPLE.read_text(encoding='utf-8'))
     bare_number['evidence'][0]['id'] = 1  # a bare JSON number, cited elsewhere as "1"
