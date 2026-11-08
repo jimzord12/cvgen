@@ -90,9 +90,9 @@ design-reviewer's "Other assets".
    - Each must still pass. One that returns FINDINGS goes back to the
      author (fix it, or take the change back) and is judged again, at
      most twice per `Polish Round`; then the design returns to its last
-     passing snapshot and `run.md` lists the change it declined. A design
-     that passed never reaches the owner `unresolved` because of a
-     `Polish Round`.
+     passing snapshot, `run.md` lists the change taken back, and the next
+     `Polish Round`, if any, starts from there. A design that passed never
+     reaches the owner `unresolved` because of a `Polish Round`.
    - They come on top of step 5's cap, which counts the rounds up to the
      first pass.
    - Round 2's own "Even better" proposals are applied only as step 7

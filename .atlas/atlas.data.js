@@ -3493,7 +3493,7 @@ window.ATLAS = {
        },
        "does": [
         "Notes (taste) are optional; finish is not taste.",
-        "After both judges pass: two `Polish Round`s. The author carries out every \"Even better\" proposal of both judges or declines one with a reason; fresh judges must pass each round. Only then does the run reach you.",
+        "After both judges pass: two `Polish Round`s. The author carries out every \"Even better\" proposal of both judges or declines one with a reason; fresh judges must pass each round (after two failed retries the design returns to its last passing version; polish never holds it back). Only then does the run reach you.",
         "After a PASS: a new sourced claim goes back to the research gate; a change to the Style's idea or to what you decide on goes back to the design gate; layout, typos or sample data need only a lead check noted in `run.md`."
        ],
        "sources": [
@@ -4520,18 +4520,18 @@ window.ATLAS = {
   }
  ],
  "build": {
-  "builtAt": "2026-11-08 20:57 UTC",
-  "commit": "6d30ed4",
+  "builtAt": "2026-11-08 21:00 UTC",
+  "commit": "1e4592f",
   "kit": "1.1",
   "stale": {},
   "verified": {
    "client-journey": {
     "at": "2026-11-08",
-    "commit": "6d30ed4"
+    "commit": "1e4592f"
    },
    "design-run": {
     "at": "2026-11-08",
-    "commit": "6d30ed4"
+    "commit": "1e4592f"
    },
    "change-review": {
     "at": "2026-11-08",
@@ -4539,11 +4539,11 @@ window.ATLAS = {
    },
    "system-map": {
     "at": "2026-11-08",
-    "commit": "6d30ed4"
+    "commit": "1e4592f"
    },
    "roster": {
     "at": "2026-11-08",
-    "commit": "6d30ed4"
+    "commit": "1e4592f"
    }
   }
  }

@@ -68,7 +68,7 @@ command from the repository root.
   two `Polish Round`s, `design.fix` carrying out both reports' "Even
   better" proposals, as the `idea-run` skill's step 6 says (reports
   numbered on, `README.md` in place of `run.md`); or `design.cap-reached`
-  before any pass. On a `Template` (the Flagship path), carry out only
+  before any pass. On a `Template` (the Flagship or Hanami), carry out only
   what the entry point and the data can change, and list the rest in
   `README.md`. Codex `UNAVAILABLE`: the design-reviewer alone, noted in
   `README.md`.

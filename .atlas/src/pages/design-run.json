@@ -233,7 +233,7 @@
           },
           "does": [
             "Notes (taste) are optional; finish is not taste.",
-            "After both judges pass: two `Polish Round`s. The author carries out every \"Even better\" proposal of both judges or declines one with a reason; fresh judges must pass each round. Only then does the run reach you.",
+            "After both judges pass: two `Polish Round`s. The author carries out every \"Even better\" proposal of both judges or declines one with a reason; fresh judges must pass each round (after two failed retries the design returns to its last passing version; polish never holds it back). Only then does the run reach you.",
             "After a PASS: a new sourced claim goes back to the research gate; a change to the Style's idea or to what you decide on goes back to the design gate; layout, typos or sample data need only a lead check noted in `run.md`."
           ],
           "sources": [
