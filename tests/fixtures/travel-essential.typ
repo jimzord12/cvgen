@@ -39,6 +39,13 @@
   else if case == "unsorted" { (..long, experience: long.experience.rev()) }
   else if case == "long-name" { (..raw, identity: (..raw.identity, name: "Andreas Konstantinos Kalamaris-Papadopoulos")) }
   else if case == "sparse" { sparse }
+  else if case == "rail-overflow" { (..raw, practical: (..raw.practical, items: raw.practical.items * 4)) }
+  else if case == "profile-overflow" { (..raw, profile: (raw.profile + " ") * 8) }
+  // a seasonal career: the newest role fits alone, the one-line summary of 39 older ones does not
+  else if case == "summary-overflow" {
+    let season(i) = (role: "Seasonal Guide", employer: "Example Tours", place: "Rhodes", from: "05/" + str(2020 - i), to: "09/" + str(2020 - i), bullets: ("Walking tours.",))
+    (..raw, experience: (raw.experience.first(),) + range(39).map(season))
+  }
   else if case == "no-licence" { let r = raw; let _ = r.remove("licences"); r }
   else { panic("unknown case: " + case) }
 }

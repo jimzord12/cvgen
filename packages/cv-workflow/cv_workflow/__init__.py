@@ -19,13 +19,17 @@ def workspace_status(workspace):
         revision = ws.revision(rid)
         # The hash prefix is what the owner passes to approve after reviewing cv.pdf.
         sha256 = sha256_file(revision.pdf)[:12] if revision.pdf.is_file() else None
-        # Certificate warnings as recorded at render (against that day's date); a broken
+        # Certificate and template warnings as recorded at render (against that day's date); a broken
         # checks.json already shows in the state, so it adds no warning here.
         try:
             checks = read_json(revision.checks_record) if revision.checks_record.is_file() else {}
         except WorkflowError:
             checks = {}
         counts, warnings = certificate_summary(checks)
+        # The Template's own warnings as recorded at render (a thin page), when the record is well formed.
+        recorded = checks.get('template_warnings', []) if isinstance(checks, dict) else []
+        if isinstance(recorded, list) and all(isinstance(w, str) for w in recorded):
+            warnings = warnings + recorded
         revisions.append({'revision': rid, 'state': revision.state(), 'sha256': sha256,
                           'certificate_dates': counts, 'warnings': warnings})
     return {'workspace': str(ws.folder), 'revisions': revisions, 'partial_exports': ws.partial_exports()}

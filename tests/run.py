@@ -472,10 +472,12 @@ def main():
         assert 'ORGANISED' in page.get_text() and 'Earlier roles' not in page.get_text()
     # A thin page warns the operator at render (cv_workflow.render.template_warnings reads <cvgen-warning>); a full one does not.
     from cv_workflow.render import template_warnings
-    flags = [args.typst, 'compile', '--root', str(ROOT), *STRICT_FONTS, '--font-path', str(ROOT / FONTS)]
-    thin = template_warnings(flags + ['--input', 'case=sparse', 'in.typ', 'out.pdf'], ROOT / 'tests/fixtures/travel-essential.typ')
+    thin = template_warnings(args.typst, ROOT / 'tests/fixtures/travel-essential.typ', {'case': 'sparse'})
     assert len(thin) == 1 and thin[0].startswith('Hanami essential: the page is ') and '% filled; fill out the record' in thin[0], thin
-    assert template_warnings(flags + ['in.typ', 'out.pdf'], ROOT / 'examples/travel/hanami/tour-leader-essential.typ') == []
+    assert template_warnings(args.typst, ROOT / 'examples/travel/hanami/tour-leader-essential.typ') == []
+    # an entry that cannot be read is a warning too, never an error
+    unread = template_warnings(args.typst, ROOT / 'tests/fixtures/no-such-entry.typ')
+    assert len(unread) == 1 and unread[0].startswith('The template warnings could not be read: '), unread
     with fitz.open(out / 'travel-essential-sparse' / 'travel-essential-sparse.pdf') as doc:
         # the rail's wash ends 8 mm under the longer column, not at the footer
         drawings = [d['rect'] for d in doc[0].get_drawings() if d['rect'].x0 > 370 and d['rect'].width > 150]
@@ -483,6 +485,9 @@ def main():
     for mode, message in [('overflow', 'Hanami essential: even the newest role alone overflows the career column'),
                           ('unsorted', 'the experience must be listed newest first'),
                           ('long-name', 'Hanami essential: the name is wider than the band'),
+                          ('rail-overflow', 'Hanami essential: the rail overflows'),
+                          ('profile-overflow', 'Hanami essential: the profile row overflows'),
+                          ('summary-overflow', 'the summary of the 39 earlier roles overflows the career column'),
                           ('showcase-layout', 'Hanami essential allows the layouts essential')]:
         compile_case('travel-essential-' + mode, 'tests/fixtures/travel-essential.typ', {'case': mode}, error=message)
     # Third dataset: deck officer without a portrait, on the same page plan.

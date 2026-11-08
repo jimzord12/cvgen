@@ -59,6 +59,13 @@ Signature tours include "Athens by Night" and more.
 '''
 
 
+# Hanami essential on a travel record (TASK-79): the one-page Template Variation.
+ESSENTIAL = '''#import "/packages/domains/travel/lib.typ": hanami, hanami-themes, hanami-artwork, hanami-layouts
+#let candidate = json("../candidate.json")
+#show: hanami.with(candidate: candidate, theme: hanami-themes.sakura, artwork: hanami-artwork.japan,
+  layout: hanami-layouts.essential, variation: "essential")
+'''
+
 def run_workflow(out, typst, system_family=None):
     """A fresh fictional workspace under the suite output; returns the list of passed checks.
 
@@ -504,6 +511,25 @@ def run_workflow(out, typst, system_family=None):
     (draft.parent / 'sign-off-01.png').write_bytes(b'fictional screenshot')
     assert outputs.stamp(draft, {'status': 'signed-off'}, envelope_dir=workspace)['status'] == 'signed-off'
     passed.append('stamp-guards')
+
+    # 13. A thin page warns and never blocks: a sparse travel record on Hanami essential renders, passes its checks,
+    # records the Template's warning in checks.json, prints it, and status lists it again (TASK-79).
+    sparse = base / 'fictional-sparse'
+    (sparse / 'typst').mkdir(parents=True)
+    (sparse / 'typst/cv.typ').write_text(ESSENTIAL, encoding='utf-8')
+    shutil.copyfile(ROOT / 'tests/fixtures/tour-leader-sparse.json', sparse / 'candidate.json')
+    (sparse / 'envelope.json').write_text(json.dumps({'alias': 'client-2030-01-02', 'domain': 'travel', 'candidate': 'Nefeli Sarantou',
+                                                      'rank': 'Tour Leader', 'template': 'hanami', 'variation': 'essential'}), encoding='utf-8')
+    thin = cv('render', sparse, '--typst', typst, '--pages', '1')
+    assert thin['status'] == 'success' and thin['checks_passed'], thin
+    note = [w for w in thin['warnings'] if w.startswith('Hanami essential: the page is ')]
+    assert len(note) == 1 and '% filled; fill out the record' in note[0], thin['warnings']
+    assert f'WARNING: {note[0]}' in cv.stderr, cv.stderr
+    recorded = json.loads((sparse / 'revisions' / thin['revision'] / 'checks.json').read_text(encoding='utf-8'))
+    assert recorded['passed'] and recorded['template_warnings'] == note, recorded
+    assert {r['revision']: r['warnings'] for r in cv('status', sparse)['revisions']}[thin['revision']] == note
+    assert f'WARNING [{thin["revision"]}]: {note[0]}' in cv.stderr, cv.stderr
+    passed.append('thin-page-warns-only')
 
     log.close()
     (base / 'report.json').write_text(json.dumps({'passed': passed, 'workspace': str(workspace)}, indent=2), encoding='utf-8')

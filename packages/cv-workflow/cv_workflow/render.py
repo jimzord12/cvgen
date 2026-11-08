@@ -207,7 +207,7 @@ def render_revision(workspace, typst='typst', pages=2, inputs=None, reference_da
         # Read from the snapshot the PDF was compiled from; warnings never change `passed`.
         checks['certificates'] = check_certificates(read_json(revision.inputs / 'candidate.json'), reference_date)
         # What the Template itself says of the page (a thin record, for one); a warning, never an error.
-        checks['template_warnings'] = template_warnings(command, entry)
+        checks['template_warnings'] = template_warnings(compiler, entry, inputs)
         write_json(revision.checks_record, checks)
         lang = str((inputs or {}).get('lang') or '').lower()
         stamp(revision.pdf, {'kind': 'client-cv', 'status': 'render', 'variant': revision.id,
@@ -232,15 +232,23 @@ def render_revision(workspace, typst='typst', pages=2, inputs=None, reference_da
 WARNING_LABEL = '<cvgen-warning>'
 
 
-def template_warnings(command, entry):
+def template_warnings(compiler, entry, inputs=None):
     """The warnings the compiled document carries under WARNING_LABEL, as text: Hanami essential's
-    thin page, for one. `command` is the compile command (its root, fonts and inputs are reused)."""
-    flags = command[2:-2]
-    run = subprocess.run([command[0], 'eval', *flags, f'query({WARNING_LABEL}).map(it => it.value)', '--in', str(entry)],
-                         capture_output=True, cwd=ROOT, **TEXT)
+    thin page, for one. Read with the compile's root, fonts and inputs; a failure to read them is itself
+    a warning, never an error."""
+    command = [compiler, 'eval', '--root', str(ROOT), *STRICT_FONTS, '--font-path', str(FONTS)]
+    for key, value in (inputs or {}).items():
+        command += ['--input', f'{key}={value}']
+    command += [f'query({WARNING_LABEL}).map(it => it.value)', '--in', str(entry)]
+    run = subprocess.run(command, capture_output=True, cwd=ROOT, **TEXT)
     if run.returncode != 0:
         return [f'The template warnings could not be read: {run.stderr.strip()}']
-    found = json.loads(run.stdout or '[]')
+    try:
+        found = json.loads(run.stdout or '[]')
+    except ValueError as error:
+        return [f'The template warnings could not be read: {error}']
+    if not isinstance(found, list):
+        return [f'The template warnings could not be read: expected a list, got {found!r}']
     return [str(item) for item in found]
 
 

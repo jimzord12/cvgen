@@ -105,7 +105,15 @@
       let k2 = most-roles(false)
       if rail-height(true, on-rail) <= R and k2 != none and (k == none or k2 > k) { k = k2; edu = false }
     }
-    assert(k != none, message: "Hanami essential: even the newest role alone overflows the career column; shorten its bullets or its support cases")
+    if k == none {
+      // Name the part that does not fit: the newest role alone, the summary of the older roles under it,
+      // or Education kept in the column because the rail has no room for it.
+      let newest = measure(block(width: L.main.width, career(ctx, (..d, experience: d.experience.slice(0, 1)), 1, false, least))).height
+      assert(newest <= H, message: "Hanami essential: even the newest role alone overflows the career column; shorten its bullets or its support cases")
+      assert(height(1, false, least) <= H, message: "Hanami essential: the summary of the " + str(n - 1)
+        + " earlier roles overflows the career column under the newest role; leave the oldest roles out of the record")
+      panic("Hanami essential: Education does not fit in the career column beside the newest role, and the rail has no room for it; shorten Education, or the rail's availability, languages or practical know-how")
+    }
     if k < n {
       let key(v) = int(v.slice(3)) * 12 + int(v.slice(0, 2))
       let starts = d.experience.map(j => key(j.from))
